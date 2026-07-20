@@ -138,7 +138,8 @@
         "force",
         "tir",
         "vitesse"
-      ]
+      ],
+      "est_leader": true
     },
     {
       "id": "zombies",

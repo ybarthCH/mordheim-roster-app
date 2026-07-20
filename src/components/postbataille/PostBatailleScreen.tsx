@@ -9,7 +9,7 @@ import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member } from '../../types/roster';
 
-const ETAPES = ['Blessures graves', "Gain d'expérience", 'Bataille', 'Exploration', 'Résumé'];
+const ETAPES = ['Blessures graves', 'Bataille', "Gain d'expérience", 'Exploration', 'Résumé'];
 
 type BlessureDraft = {
   description: string;
@@ -22,6 +22,8 @@ type XpDraft = {
   survecu: 'oui' | 'non' | null;
 };
 
+type SlotDraft = 'oui' | 'non' | null;
+
 function nomAffiche(m: Member) {
   return `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
 }
@@ -29,19 +31,22 @@ function nomAffiche(m: Member) {
 // Mini grille XP utilisée dans l'assistant post-bataille : distingue l'XP de
 // départ (ne comptait pas), l'XP déjà acquise avant cette bataille, et l'XP
 // ajoutée pendant cette session (couleur dédiée), qu'elle vienne d'un clic
-// manuel ou de la case "A survécu".
+// manuel ou de la case "A survécu". Le bonus de chef de bande (victoire) est
+// affiché à part, en case non cliquable, dans une 3e couleur dédiée.
 function XpBarCompacte({
   type,
   xpDepart,
   xpInitial,
   xpActuel,
   onChange,
+  bonusLeader,
 }: {
   type: 'heros' | 'homme_de_main';
   xpDepart: number;
   xpInitial: number;
   xpActuel: number;
   onChange: (xp: number) => void;
+  bonusLeader?: boolean;
 }) {
   const max = type === 'heros' ? HERO_XP_MAX : HENCHMAN_XP_MAX;
   const isPalier = type === 'heros' ? isPalierHero : isPalierHenchman;
@@ -65,6 +70,14 @@ function XpBarCompacte({
           </button>
         );
       })}
+      {bonusLeader && (
+        <span
+          className="xp-box xp-box--compact xp-box--leader"
+          title="Bonus chef de bande : +1 XP automatique à la victoire"
+        >
+          +1
+        </span>
+      )}
     </div>
   );
 }
@@ -90,9 +103,11 @@ export function PostBatailleScreen() {
 
   const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
   const [xpDrafts, setXpDrafts] = useState<Record<string, XpDraft>>({});
+  const [groupeSlotDrafts, setGroupeSlotDrafts] = useState<Record<string, SlotDraft[]>>({});
 
   // Blessures graves : réservé aux héros Hors de Combat — seuls les héros
-  // roulent sur la table complète des blessures.
+  // roulent sur la table complète des blessures. Les hommes de main utilisent
+  // la table simple mort-ou-survivant à l'étape suivante.
   const horsDeCombatHeros = useMemo(
     () =>
       roster?.membres.filter(
@@ -101,10 +116,34 @@ export function PostBatailleScreen() {
     [roster]
   );
 
-  // Gain d'expérience : tous les héros et groupes vivants de la bande, sous
-  // forme simplifiée (nom + barre d'XP). Un groupe ne perd son XP que s'il
-  // est entièrement éliminé ; sinon il gagne son XP comme un héros.
-  const participants = useMemo(() => roster?.membres.filter((m) => m.statut !== 'mort') ?? [], [roster]);
+  // Gain d'expérience, section « à résoudre » : héros ET hommes de main seuls
+  // (taille_groupe = 1) au statut Hors de combat — résolution individuelle.
+  const horsDeCombatIndividuel = useMemo(
+    () => roster?.membres.filter((m) => m.statut === 'hors_de_combat') ?? [],
+    [roster]
+  );
+
+  // Gain d'expérience, section « à résoudre » : groupes d'hommes de main
+  // partiellement Hors de combat (compteur dédié) — résolution figurine par
+  // figurine. Un groupe ne perd son XP que s'il est entièrement éliminé.
+  const groupesHC = useMemo(
+    () =>
+      roster?.membres.filter(
+        (m) =>
+          resolveProfil(roster, m)?.type === 'homme_de_main' &&
+          m.taille_groupe > 1 &&
+          m.hors_combat > 0 &&
+          m.statut !== 'hors_de_combat'
+      ) ?? [],
+    [roster]
+  );
+
+  // Gain d'expérience, section « reste du roster » : tout le monde de vivant
+  // qui n'est pas à résoudre manuellement — gagne 1 XP automatiquement.
+  const participantsAuto = useMemo(() => {
+    const hcIds = new Set([...horsDeCombatIndividuel, ...groupesHC].map((m) => m.instance_id));
+    return roster?.membres.filter((m) => m.statut !== 'mort' && !hcIds.has(m.instance_id)) ?? [];
+  }, [roster, horsDeCombatIndividuel, groupesHC]);
 
   const francTireursActifs = useMemo(
     () => roster?.membres.filter((m) => m.profil_custom && m.statut !== 'mort') ?? [],
@@ -135,19 +174,34 @@ export function PostBatailleScreen() {
     majDraft(m, { stats: { ...d.stats, [k]: value } });
   };
 
-  const xpDraftDe = (m: Member): XpDraft => xpDrafts[m.instance_id] ?? { xp: m.xp, survecu: null };
+  const xpDraftDe = (m: Member, xpParDefaut: number): XpDraft =>
+    xpDrafts[m.instance_id] ?? { xp: xpParDefaut, survecu: null };
 
-  const changerXp = (m: Member, xp: number) => {
-    setXpDrafts((prev) => ({ ...prev, [m.instance_id]: { ...xpDraftDe(m), xp } }));
+  const changerXp = (m: Member, xp: number, xpParDefaut: number) => {
+    setXpDrafts((prev) => ({ ...prev, [m.instance_id]: { ...xpDraftDe(m, xpParDefaut), xp } }));
   };
 
+  // Survie individuelle (héros ou homme de main seul Hors de combat) : la
+  // référence de calcul est toujours l'XP avant bataille (m.xp).
   const definirSurvie = (m: Member, valeur: 'oui' | 'non') => {
-    const d = xpDraftDe(m);
+    const d = xpDraftDe(m, m.xp);
     let xp = d.xp;
     if (d.survecu === 'oui') xp -= 1; // annule le bonus précédent avant de recalculer
     const nouveauSurvecu = d.survecu === valeur ? null : valeur;
     if (nouveauSurvecu === 'oui') xp += 1;
     setXpDrafts((prev) => ({ ...prev, [m.instance_id]: { xp, survecu: nouveauSurvecu } }));
+  };
+
+  const slotsDe = (m: Member): SlotDraft[] => {
+    const existing = groupeSlotDrafts[m.instance_id];
+    if (existing && existing.length === m.hors_combat) return existing;
+    return Array.from({ length: m.hors_combat }, () => null);
+  };
+
+  const definirSlot = (m: Member, index: number, valeur: 'oui' | 'non') => {
+    const slots = slotsDe(m).slice();
+    slots[index] = slots[index] === valeur ? null : valeur;
+    setGroupeSlotDrafts((prev) => ({ ...prev, [m.instance_id]: slots }));
   };
 
   const ajouterAdversaire = () => {
@@ -157,14 +211,28 @@ export function PostBatailleScreen() {
     setNouvelAdversaire('');
   };
 
-  const suivant = () => setEtape((e) => Math.min(ETAPES.length - 1, e + 1));
+  // Étape Gain d'expérience : impossible de continuer tant que tous les
+  // Hors de combat (individuels ou en groupe) n'ont pas été résolus.
+  const hcIncomplete =
+    horsDeCombatIndividuel.some((m) => xpDraftDe(m, m.xp).survecu === null) ||
+    groupesHC.some((m) => slotsDe(m).some((s) => s === null));
+
+  const indexGainXp = 2;
+
+  const suivant = () => {
+    if (etape === indexGainXp && hcIncomplete) return;
+    setEtape((e) => Math.min(ETAPES.length - 1, e + 1));
+  };
   const precedent = () => setEtape((e) => Math.max(0, e - 1));
 
   const terminer = async () => {
     const tresorerieApres = roster.tresorerie + prixVente - soldeTotal;
+    const groupesHCIds = new Set(groupesHC.map((m) => m.instance_id));
 
     const membresMaj: Member[] = roster.membres.map((m) => {
       let membre = { ...m };
+      const profil = resolveProfil(roster, m);
+      const estLeaderVictoire = !!profil?.est_leader && resultat === 'victoire';
 
       const draft = blessureDrafts[m.instance_id];
       if (draft) {
@@ -188,18 +256,42 @@ export function PostBatailleScreen() {
         }
       }
 
-      const xpDraft = xpDrafts[m.instance_id];
-      if (xpDraft) {
-        if (xpDraft.survecu === 'non') {
-          membre = { ...membre, statut: 'mort', date_mort: date };
-        } else {
-          if (xpDraft.xp !== membre.xp) membre = { ...membre, xp: xpDraft.xp };
-          if (xpDraft.survecu === 'oui' && membre.statut === 'hors_de_combat') {
-            membre = { ...membre, statut: 'actif' };
-          }
-        }
+      if (m.statut === 'mort') {
+        return membre;
       }
 
+      if (m.statut === 'hors_de_combat') {
+        const d = xpDrafts[m.instance_id] ?? { xp: m.xp, survecu: null };
+        if (d.survecu === 'non') {
+          membre = { ...membre, statut: 'mort', date_mort: date };
+        } else {
+          let xp = d.xp;
+          if (estLeaderVictoire) xp += 1;
+          membre = { ...membre, statut: 'actif', xp };
+        }
+        return membre;
+      }
+
+      if (groupesHCIds.has(m.instance_id)) {
+        const slots = groupeSlotDrafts[m.instance_id] ?? [];
+        const morts = slots.filter((s) => s === 'non').length;
+        const survivants = m.taille_groupe - morts;
+        if (survivants <= 0) {
+          membre = { ...membre, statut: 'mort', date_mort: date, taille_groupe: 0, hors_combat: 0 };
+        } else {
+          let xp = m.xp + 1;
+          if (estLeaderVictoire) xp += 1;
+          membre = { ...membre, statut: 'actif', taille_groupe: survivants, hors_combat: 0, xp };
+        }
+        return membre;
+      }
+
+      // Reste du roster : XP de participation automatique (+1), ajustable
+      // via la barre pendant l'assistant.
+      const d = xpDrafts[m.instance_id];
+      let xp = d ? d.xp : m.xp + 1;
+      if (estLeaderVictoire) xp += 1;
+      membre = { ...membre, xp };
       return membre;
     });
 
@@ -216,12 +308,17 @@ export function PostBatailleScreen() {
           nom: roster.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?',
           description: d.description.trim(),
         })),
-      survie: Object.entries(xpDrafts)
-        .filter(([, d]) => d.survecu)
-        .map(([instanceId, d]) => ({
-          nom: roster.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?',
-          survecu: d.survecu === 'oui',
-        })),
+      survie: [
+        ...horsDeCombatIndividuel.map((m) => {
+          const d = xpDrafts[m.instance_id];
+          return { nom: nomAffiche(m), survecu: d?.survecu === 'oui' };
+        }),
+        ...groupesHC.map((m) => {
+          const slots = groupeSlotDrafts[m.instance_id] ?? [];
+          const morts = slots.filter((s) => s === 'non').length;
+          return { nom: nomAffiche(m), survecu: m.taille_groupe - morts > 0 };
+        }),
+      ],
     };
 
     const bataille: BattleRecord = {
@@ -311,55 +408,6 @@ export function PostBatailleScreen() {
 
       {etape === 1 && (
         <div className="card">
-          <h3>Gain d'expérience</h3>
-          <p className="text-sm text-muted">
-            Pour chaque héros et groupe encore vivant : coche « A survécu » pour ajouter 1 XP automatiquement
-            (couleur dédiée ci-dessous), ou « N'a pas survécu » pour passer directement au statut Mort (un groupe
-            ne perd son XP que s'il est entièrement éliminé). Tu peux aussi ajuster l'XP à la main directement sur
-            la barre. Si ça déclenche une avancée, pas besoin de la résoudre tout de suite : elle restera en
-            attente sur la fiche du personnage.
-          </p>
-          {participants.length === 0 && <p className="text-muted">Aucun membre vivant dans la bande.</p>}
-          {participants.map((m) => {
-            const profil = resolveProfil(roster, m);
-            const d = xpDraftDe(m);
-            return (
-              <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
-                <div className="flex justify-between items-center" style={{ marginBottom: '0.4rem' }}>
-                  <strong>{nomAffiche(m)}</strong>
-                  <span className="text-sm text-muted">
-                    {m.statut === 'hors_de_combat' ? 'Hors de combat' : m.statut === 'blesse' ? 'Blessé' : 'Actif'}
-                  </span>
-                </div>
-                <XpBarCompacte
-                  type={profil?.type === 'heros' ? 'heros' : 'homme_de_main'}
-                  xpDepart={m.xp_depart}
-                  xpInitial={m.xp}
-                  xpActuel={d.xp}
-                  onChange={(xp) => changerXp(m, xp)}
-                />
-                <div className="status-select" style={{ marginTop: '0.5rem' }}>
-                  <button
-                    className={`status-pill ${d.survecu === 'oui' ? 'status-pill--active' : ''}`}
-                    onClick={() => definirSurvie(m, 'oui')}
-                  >
-                    A survécu (+1 XP)
-                  </button>
-                  <button
-                    className={`status-pill ${d.survecu === 'non' ? 'status-pill--active' : ''}`}
-                    onClick={() => definirSurvie(m, 'non')}
-                  >
-                    N'a pas survécu
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
-      {etape === 2 && (
-        <div className="card">
           <h3>Résultat de la bataille</h3>
           <div className="field-row">
             <div className="field">
@@ -414,6 +462,143 @@ export function PostBatailleScreen() {
             <textarea value={notesBataille} onChange={(e) => setNotesBataille(e.target.value)} />
           </div>
         </div>
+      )}
+
+      {etape === indexGainXp && (
+        <>
+          <div className="card">
+            <h3>Hors de combat — à résoudre</h3>
+            <p className="text-sm text-muted">
+              Pour chaque héros ou homme de main seul Hors de combat, et pour chaque figurine d'un groupe
+              partiellement Hors de combat, indique si elle a survécu ou non. Un survivant gagne 1 XP
+              automatiquement (couleur dédiée). Un groupe ne perd son XP que s'il est entièrement éliminé.
+            </p>
+            {horsDeCombatIndividuel.length === 0 && groupesHC.length === 0 && (
+              <p className="text-muted">Personne à résoudre — aucun Hors de combat en attente.</p>
+            )}
+            {horsDeCombatIndividuel.map((m) => {
+              const profil = resolveProfil(roster, m);
+              const d = xpDraftDe(m, m.xp);
+              const bonusLeader = !!profil?.est_leader && resultat === 'victoire' && d.survecu !== 'non';
+              return (
+                <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
+                  <div className="flex justify-between items-center" style={{ marginBottom: '0.4rem' }}>
+                    <strong>
+                      {nomAffiche(m)}
+                      {profil?.est_leader && (
+                        <span className="badge badge--info" style={{ marginLeft: '0.4rem' }}>
+                          ★ Leader
+                        </span>
+                      )}
+                    </strong>
+                    <span className="text-sm text-muted">Hors de combat</span>
+                  </div>
+                  <XpBarCompacte
+                    type={profil?.type === 'heros' ? 'heros' : 'homme_de_main'}
+                    xpDepart={m.xp_depart}
+                    xpInitial={m.xp}
+                    xpActuel={d.xp}
+                    onChange={(xp) => changerXp(m, xp, m.xp)}
+                    bonusLeader={bonusLeader}
+                  />
+                  <div className="status-select" style={{ marginTop: '0.5rem' }}>
+                    <button
+                      className={`status-pill ${d.survecu === 'oui' ? 'status-pill--active' : ''}`}
+                      onClick={() => definirSurvie(m, 'oui')}
+                    >
+                      A survécu (+1 XP)
+                    </button>
+                    <button
+                      className={`status-pill ${d.survecu === 'non' ? 'status-pill--active' : ''}`}
+                      onClick={() => definirSurvie(m, 'non')}
+                    >
+                      N'a pas survécu
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+            {groupesHC.map((m) => {
+              const slots = slotsDe(m);
+              const morts = slots.filter((s) => s === 'non').length;
+              const enAttente = slots.filter((s) => s === null).length;
+              const survivants = m.taille_groupe - morts;
+              return (
+                <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
+                  <div className="flex justify-between items-center" style={{ marginBottom: '0.4rem' }}>
+                    <strong>{nomAffiche(m)}</strong>
+                    <span className="text-sm text-muted">
+                      {m.hors_combat} / {m.taille_groupe} hors de combat
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-sm">
+                    {slots.map((s, i) => (
+                      <div key={i} className="flex items-center gap-sm">
+                        <span className="text-sm text-muted">#{i + 1}</span>
+                        <button
+                          className={`btn btn--sm ${s === 'oui' ? 'btn--primary' : ''}`}
+                          onClick={() => definirSlot(m, i, 'oui')}
+                        >
+                          Survécu
+                        </button>
+                        <button
+                          className={`btn btn--sm ${s === 'non' ? 'btn--danger' : ''}`}
+                          onClick={() => definirSlot(m, i, 'non')}
+                        >
+                          Mort
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+                    {enAttente > 0
+                      ? `${enAttente} figurine(s) à résoudre.`
+                      : survivants > 0
+                        ? `Résolu — le groupe garde ${survivants} figurine(s) et gagne +1 XP.`
+                        : "Résolu — le groupe est entièrement éliminé (passera au statut Mort, pas d'XP)."}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="card">
+            <h3>Reste du roster</h3>
+            <p className="text-sm text-muted">
+              Chaque participant qui n'était pas Hors de combat gagne 1 XP automatiquement (couleur dédiée
+              ci-dessous). Ajuste la barre si besoin.
+            </p>
+            {participantsAuto.length === 0 && <p className="text-muted">Aucun autre membre dans la bande.</p>}
+            {participantsAuto.map((m) => {
+              const profil = resolveProfil(roster, m);
+              const d = xpDraftDe(m, m.xp + 1);
+              const bonusLeader = !!profil?.est_leader && resultat === 'victoire';
+              return (
+                <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
+                  <div className="flex justify-between items-center" style={{ marginBottom: '0.4rem' }}>
+                    <strong>
+                      {nomAffiche(m)}
+                      {profil?.est_leader && (
+                        <span className="badge badge--info" style={{ marginLeft: '0.4rem' }}>
+                          ★ Leader
+                        </span>
+                      )}
+                    </strong>
+                    <span className="text-sm text-muted">{m.statut === 'blesse' ? 'Blessé' : 'Actif'}</span>
+                  </div>
+                  <XpBarCompacte
+                    type={profil?.type === 'heros' ? 'heros' : 'homme_de_main'}
+                    xpDepart={m.xp_depart}
+                    xpInitial={m.xp}
+                    xpActuel={d.xp}
+                    onChange={(xp) => changerXp(m, xp, m.xp + 1)}
+                    bonusLeader={bonusLeader}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </>
       )}
 
       {etape === 3 && (
@@ -478,9 +663,17 @@ export function PostBatailleScreen() {
             enregistrée(s).
           </p>
           <p className="text-sm">
-            Survie : {Object.values(xpDrafts).filter((d) => d.survecu === 'oui').length} survivant(s),{' '}
-            {Object.values(xpDrafts).filter((d) => d.survecu === 'non').length} mort(s).
+            Hors de combat :{' '}
+            {horsDeCombatIndividuel.filter((m) => xpDraftDe(m, m.xp).survecu === 'oui').length} survivant(s),{' '}
+            {horsDeCombatIndividuel.filter((m) => xpDraftDe(m, m.xp).survecu === 'non').length} mort(s).
+            {groupesHC.length > 0 && ` ${groupesHC.length} groupe(s) partiellement hors de combat résolu(s).`}
           </p>
+          <p className="text-sm">
+            {participantsAuto.length} membre(s) du reste du roster gagnent leur XP de participation.
+          </p>
+          {resultat === 'victoire' && roster.membres.some((m) => resolveProfil(roster, m)?.est_leader) && (
+            <p className="text-sm">Le chef de bande gagne en plus son bonus de +1 XP pour la victoire.</p>
+          )}
         </div>
       )}
 
@@ -489,7 +682,7 @@ export function PostBatailleScreen() {
           Précédent
         </button>
         {etape < ETAPES.length - 1 && (
-          <button className="btn btn--primary" onClick={suivant}>
+          <button className="btn btn--primary" disabled={etape === indexGainXp && hcIncomplete} onClick={suivant}>
             Suivant
           </button>
         )}
@@ -499,6 +692,11 @@ export function PostBatailleScreen() {
           </button>
         )}
       </div>
+      {etape === indexGainXp && hcIncomplete && (
+        <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
+          Résous d'abord le statut (survécu / n'a pas survécu) de tous les Hors de combat avant de continuer.
+        </p>
+      )}
     </Screen>
   );
 }

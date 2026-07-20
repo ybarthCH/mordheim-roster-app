@@ -13,6 +13,7 @@ import { AjouterMembreModal } from './AjouterMembreModal';
 import { AjouterBatailleModal } from './AjouterBatailleModal';
 import { STATUTS } from '../../types/roster';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
+import { avancesDues } from '../../utils/xp';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
@@ -50,6 +51,12 @@ export function RosterScreen() {
 
   const nomAffiche = (m: Member) => `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
 
+  const avanceEnAttente = (m: Member) => {
+    const profil = resolveProfil(roster, m);
+    if (!profil) return false;
+    return avancesDues(profil.type, m.xp_depart, m.xp) > m.historique_avancees.length;
+  };
+
   const renderGroupe = (titre: string, membres: Member[]) => (
     <div className="card">
       <h3>{titre}</h3>
@@ -78,7 +85,19 @@ export function RosterScreen() {
               const profil = resolveProfil(roster, m);
               return (
                 <tr key={m.instance_id} onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}>
-                  <td>{nomAffiche(m)}</td>
+                  <td>
+                    {nomAffiche(m)}
+                    {profil?.est_leader && (
+                      <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title="Chef de bande">
+                        ★ Leader
+                      </span>
+                    )}
+                    {avanceEnAttente(m) && (
+                      <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title="Avancée en attente">
+                        Avancée en attente
+                      </span>
+                    )}
+                  </td>
                   <td>{profil?.nom ?? m.profil_id}</td>
                   <td>{m.stats_actuels.M}</td>
                   <td>{m.stats_actuels.CC}</td>
@@ -126,11 +145,23 @@ export function RosterScreen() {
               onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
             >
               <div className="list-item__main">
-                <div className="list-item__title">{nomAffiche(m)}</div>
+                <div className="list-item__title">
+                  {nomAffiche(m)}
+                  {profil?.est_leader && (
+                    <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title="Chef de bande">
+                      ★ Leader
+                    </span>
+                  )}
+                </div>
                 <div className="list-item__subtitle">
                   {profil?.nom} · XP {m.xp} · PV {m.stats_actuels.PV}
                 </div>
               </div>
+              {avanceEnAttente(m) && (
+                <span className="badge badge--warning" title="Avancée en attente">
+                  Avancée en attente
+                </span>
+              )}
               <span className={`badge ${STATUT_BADGE[m.statut]}`}>
                 {STATUTS.find((s) => s.id === m.statut)?.label}
               </span>

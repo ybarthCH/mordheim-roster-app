@@ -162,6 +162,30 @@ export function PersonnageScreen() {
             </span>
           </div>
         )}
+
+        {profil.type === 'homme_de_main' && !membre.promu_heros && membre.taille_groupe > 1 && (
+          <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
+            <span className="text-sm text-muted">Hors de combat :</span>
+            <button
+              className="btn btn--sm"
+              onClick={() => majMembre({ hors_combat: Math.max(0, membre.hors_combat - 1) })}
+            >
+              −
+            </button>
+            <strong>
+              {membre.hors_combat} / {membre.taille_groupe}
+            </strong>
+            <button
+              className="btn btn--sm"
+              onClick={() => majMembre({ hors_combat: Math.min(membre.taille_groupe, membre.hors_combat + 1) })}
+            >
+              +
+            </button>
+            {membre.hors_combat > 0 && (
+              <span className="text-sm text-muted">à résoudre au prochain post-bataille</span>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="card">

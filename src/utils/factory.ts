@@ -19,6 +19,7 @@ function membreDeBase(): Omit<Member, 'profil_id' | 'nom_perso' | 'xp' | 'xp_dep
     notes: '',
     grande_cible: false,
     taille_groupe: 1,
+    hors_combat: 0,
   };
 }
 
