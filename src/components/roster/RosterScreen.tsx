@@ -4,6 +4,7 @@ import { useRosters } from '../../state/RostersContext';
 import { Screen } from '../common/Screen';
 import { getCatalogue, getProfil } from '../../data/warbands';
 import { valeurBande, effectifTotal } from '../../utils/bandeValue';
+import { ratingTotal } from '../../utils/rating';
 import { validerComposition } from '../../utils/validation';
 import { exporterRoster } from '../../utils/importExport';
 import { AjouterMembreModal } from './AjouterMembreModal';
@@ -69,6 +70,10 @@ export function RosterScreen() {
           <div className="summary-tile">
             <div className="summary-tile__value">{valeurBande(roster)}</div>
             <div className="summary-tile__label">Valeur (po)</div>
+          </div>
+          <div className="summary-tile">
+            <div className="summary-tile__value">{ratingTotal(roster)}</div>
+            <div className="summary-tile__label">Rating</div>
           </div>
           <div className="summary-tile">
             <input
@@ -258,7 +263,7 @@ export function RosterScreen() {
                   </span>
                 </div>
                 <div className="list-item__subtitle">
-                  {b.adversaire && `vs ${b.adversaire}`} {b.notes}
+                  {b.adversaires.length > 0 && `vs ${b.adversaires.join(', ')}`} {b.notes}
                 </div>
               </div>
             </div>

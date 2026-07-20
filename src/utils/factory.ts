@@ -11,16 +11,17 @@ export function creerMembre(profil: Profile): Member {
     profil_id: profil.id,
     nom_perso: profil.nom,
     equipement: '',
-    equipement_valeur: 0,
     xp: profil.xp_depart ?? 0,
     pv_actuels: stats.PV,
     stats_actuels: stats,
+    stats_modifiees: [],
     competences_acquises: [],
     sorts_connus: [],
     statut: 'actif',
     blessures_graves: [],
     historique_avancees: [],
     notes: '',
+    grande_cible: false,
   };
 }
 

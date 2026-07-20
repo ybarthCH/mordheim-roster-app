@@ -30,6 +30,14 @@ export type SpecialRule = {
   texte: string;
 };
 
+// Forme minimale dupliquée de Skill (types/gameData.ts) pour éviter un
+// import circulaire catalog.ts <-> gameData.ts.
+export type CompetenceSpeciale = {
+  id: string;
+  nom: string;
+  texte: string;
+};
+
 export type Profile = {
   id: string;
   nom: string;
@@ -52,4 +60,8 @@ export type WarbandCatalog = {
   source: string;
   regles_speciales: SpecialRule[];
   profils: Profile[];
+  // Compétences "Spéciale" propres à cette bande (contenu différent par
+  // bande, accessible seulement à certains profils via acces_competences).
+  // Vide initialement, à remplir bande par bande.
+  competences_speciales: CompetenceSpeciale[];
 };

@@ -307,6 +307,49 @@ button {
 .stat-grid__cell--modified {
   color: var(--accent);
 }
+.stat-grid__input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 0;
+  -moz-appearance: textfield;
+}
+.stat-grid__input::-webkit-outer-spin-button,
+.stat-grid__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.stat-grid__pv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.stat-grid__input--pv {
+  width: 1.4em;
+}
+
+.input--heading {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed transparent;
+  padding: 0;
+  margin: 0 0 0.2em;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: inherit;
+}
+.input--heading:focus {
+  outline: none;
+  border-bottom-color: var(--border);
+}
 
 .empty-state {
   text-align: center;

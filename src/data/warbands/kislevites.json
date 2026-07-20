@@ -194,5 +194,6 @@
       "acces_competences": [],
       "acces_competences_a_verifier": true
     }
-  ]
+  ],
+  "competences_speciales": []
 }

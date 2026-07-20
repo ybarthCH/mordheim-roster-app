@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { Member, AdvanceRecord } from '../../types/roster';
-import type { Profile, SkillCategory } from '../../types/catalog';
+import type { Profile, SkillCategory, WarbandCatalog } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { SKILLS, TABLE_AVANCEMENT, CARACTERISTIQUES_ALEATOIRES } from '../../data/gameData';
 import { SKILL_CATEGORIES } from '../../types/catalog';
@@ -9,13 +9,14 @@ import { SKILL_CATEGORIES } from '../../types/catalog';
 type Props = {
   member: Member;
   profil: Profile;
+  catalogue: WarbandCatalog;
   onClose: () => void;
   onApply: (member: Member) => void;
 };
 
 type Etape = 'depart' | 'choix' | 'competence' | 'caracteristique' | 'resultat';
 
-export function AvanceeModal({ member, profil, onClose, onApply }: Props) {
+export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Props) {
   const [etape, setEtape] = useState<Etape>('depart');
   const [indexAvancement, setIndexAvancement] = useState('');
   const [texteResultat, setTexteResultat] = useState('');
@@ -58,10 +59,13 @@ export function AvanceeModal({ member, profil, onClose, onApply }: Props) {
     onApply(updated);
   };
 
+  const skillsDeLaCategorie = (cat: SkillCategory) =>
+    cat === 'special' ? catalogue.competences_speciales : SKILLS[cat];
+
   const choisirCompetence = (skillId: string) => {
-    const skill = Object.values(SKILLS)
-      .flat()
-      .find((s) => s.id === skillId);
+    const skill = [...Object.values(SKILLS).flat(), ...catalogue.competences_speciales].find(
+      (s) => s.id === skillId
+    );
     if (!skill) return;
     const record: AdvanceRecord = {
       id: uuidv4(),
@@ -159,7 +163,7 @@ export function AvanceeModal({ member, profil, onClose, onApply }: Props) {
           </div>
           {categorie && (
             <div className="skill-list">
-              {SKILLS[categorie]
+              {skillsDeLaCategorie(categorie)
                 .filter((s) => !member.competences_acquises.includes(s.id))
                 .map((s) => (
                   <label key={s.id} className="skill-check" style={{ cursor: 'pointer' }}>

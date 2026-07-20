@@ -1,22 +1,26 @@
 import { useState } from 'react';
 import type { Member } from '../../types/roster';
-import type { Profile, SkillCategory } from '../../types/catalog';
+import type { Profile, SkillCategory, WarbandCatalog } from '../../types/catalog';
 import { SKILL_CATEGORIES } from '../../types/catalog';
 import { SKILLS } from '../../data/gameData';
 
 type Props = {
   member: Member;
   profil: Profile;
+  catalogue: WarbandCatalog;
   onToggleSkill: (skillId: string) => void;
 };
 
-export function CompetencesPanel({ member, profil, onToggleSkill }: Props) {
+export function CompetencesPanel({ member, profil, catalogue, onToggleSkill }: Props) {
   const categories: SkillCategory[] =
     profil.acces_competences_a_verifier || profil.acces_competences.length === 0
       ? SKILL_CATEGORIES.map((c) => c.id)
       : profil.acces_competences;
 
   const [ongletActif, setOngletActif] = useState<SkillCategory>(categories[0]);
+
+  const skillsDeLaCategorie = (cat: SkillCategory) =>
+    cat === 'special' ? catalogue.competences_speciales : SKILLS[cat];
 
   return (
     <div>
@@ -38,7 +42,7 @@ export function CompetencesPanel({ member, profil, onToggleSkill }: Props) {
         ))}
       </div>
       <div className="skill-list">
-        {SKILLS[ongletActif].map((skill) => (
+        {skillsDeLaCategorie(ongletActif).map((skill) => (
           <label key={skill.id} className="skill-check" style={{ cursor: 'pointer' }}>
             <input
               type="checkbox"
@@ -52,6 +56,11 @@ export function CompetencesPanel({ member, profil, onToggleSkill }: Props) {
             </span>
           </label>
         ))}
+        {ongletActif === 'special' && catalogue.competences_speciales.length === 0 && (
+          <p className="text-muted text-sm">
+            Aucune compétence spéciale renseignée pour cette bande pour l'instant.
+          </p>
+        )}
       </div>
     </div>
   );

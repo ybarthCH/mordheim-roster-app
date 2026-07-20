@@ -13,9 +13,9 @@ export const STATUTS: { id: Statut; label: string }[] = [
 export type SeriousInjuryRecord = {
   id: string;
   date: string;
-  roll: number;
-  resultat: string;
-  effet: string;
+  // Résultat saisi librement par le joueur (table papier, règles complètes
+  // largement au-delà des 12 cas de la table de base 2D6).
+  description: string;
 };
 
 export type AdvanceRecord = {
@@ -32,23 +32,28 @@ export type Member = {
   profil_id: string;
   nom_perso: string;
   equipement: string;
-  equipement_valeur: number;
   xp: number;
   pv_actuels: number;
   stats_actuels: Stats;
+  // Caractéristiques modifiées à la main (édition directe, blessure grave...),
+  // par opposition à une augmentation obtenue via une avancée XP normale —
+  // sert uniquement à l'affichage distinct sur la fiche personnage.
+  stats_modifiees: (keyof Stats)[];
   competences_acquises: string[];
   sorts_connus: string[];
   statut: Statut;
   blessures_graves: SeriousInjuryRecord[];
   historique_avancees: AdvanceRecord[];
   notes: string;
+  // Case manuelle "Grande Cible" (+20 au rating), non liée au catalogue.
+  grande_cible: boolean;
 };
 
 export type BattleRecord = {
   id: string;
   date: string;
   resultat: 'victoire' | 'defaite' | 'nul';
-  adversaire: string;
+  adversaires: string[];
   notes: string;
 };
 
