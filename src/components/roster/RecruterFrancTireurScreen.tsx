@@ -24,6 +24,7 @@ export function RecruterFrancTireurScreen() {
   const [cout, setCout] = useState(0);
   const [solde, setSolde] = useState(0);
   const [xpDepart, setXpDepart] = useState(0);
+  const [grandeCible, setGrandeCible] = useState(false);
 
   if (!roster) {
     return (
@@ -52,6 +53,7 @@ export function RecruterFrancTireurScreen() {
     };
     const membre = creerMembreFrancTireur(profilCustom, xpDepart);
     membre.equipement = equipement;
+    membre.grande_cible = grandeCible;
     updateRoster({
       ...roster,
       tresorerie: roster.tresorerie - cout,
@@ -83,6 +85,16 @@ export function RecruterFrancTireurScreen() {
           <input type="number" value={xpDepart} onChange={(e) => setXpDepart(Number(e.target.value) || 0)} />
           <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
         </div>
+        <label className="flex items-center gap-sm" style={{ cursor: 'pointer' }}>
+          <input type="checkbox" checked={grandeCible} onChange={(e) => setGrandeCible(e.target.checked)} />
+          <span>
+            <strong>Grande Cible</strong>
+            <br />
+            <span className="text-sm text-muted">
+              Grosse figurine (troll, ogre…) — ajoute +20 au rating. Modifiable ensuite sur la fiche.
+            </span>
+          </span>
+        </label>
       </div>
 
       <div className="card">
