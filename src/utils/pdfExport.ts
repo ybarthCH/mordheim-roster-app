@@ -70,7 +70,12 @@ export function exporterRosterPDF(roster: RosterInstance) {
     autoTable(doc, {
       startY: finTableau2 + (membresMorts.length > 0 ? 12 : 4),
       head: [['Date', 'Résultat', 'Adversaire', 'Notes']],
-      body: roster.historique_batailles.map((b) => [b.date, b.resultat, b.adversaire || '—', b.notes || '—']),
+      body: roster.historique_batailles.map((b) => [
+        b.date,
+        b.resultat,
+        b.adversaires.join(', ') || '—',
+        b.notes || '—',
+      ]),
       styles: { fontSize: 7, cellPadding: 1.5 },
       headStyles: { fillColor: [122, 20, 20] },
     });

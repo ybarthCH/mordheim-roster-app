@@ -1,51 +1,26 @@
 // Grille de cases XP fidèle à la feuille de référence Mordheim.
-// Héros : grille continue, paliers marqués en puissances de 2 (1, 2, 4, 8, 16, 32...).
-// Hommes de main : 6 cases fixes, une par échelon (1 à 6 XP).
+// Héros : 90 cases (3 lignes de 30), paliers d'avancement aux seuils exacts
+// de la table de référence (espacement croissant, pas des puissances de 2).
+// Hommes de main : 14 cases, paliers aux positions 2, 5, 9, 14.
 
-export const HENCHMAN_XP_BOXES = [1, 2, 3, 4, 5, 6];
+export const HERO_XP_MAX = 90;
+export const HERO_XP_PALIERS = [
+  2, 4, 6, 8, 11, 14, 17, 20, 24, 28, 32, 36, 41, 46, 51, 57, 63, 69, 76, 83, 90,
+];
 
-const HERO_MIN_GRID = 32;
+export const HENCHMAN_XP_MAX = 14;
+export const HENCHMAN_XP_PALIERS = [2, 5, 9, 14];
 
-export function heroPaliers(upTo: number): number[] {
-  const paliers: number[] = [];
-  let v = 1;
-  while (v <= upTo) {
-    paliers.push(v);
-    v *= 2;
-  }
-  return paliers;
+export function isPalierHero(box: number): boolean {
+  return HERO_XP_PALIERS.includes(box);
 }
 
-/** Nombre total de cases à afficher pour un héros, incluant au moins un palier au-delà de l'XP actuelle. */
-export function heroGridSize(xp: number): number {
-  let size = HERO_MIN_GRID;
-  while (size <= xp) {
-    size *= 2;
-  }
-  return size;
-}
-
-export function isPalier(box: number): boolean {
-  return (box & (box - 1)) === 0; // puissance de 2
-}
-
-/** Les seuils de palier franchis strictement entre oldXp (exclu) et newXp (inclus). */
-export function paliersFranchis(oldXp: number, newXp: number): number[] {
-  const out: number[] = [];
-  let v = 1;
-  while (v <= newXp) {
-    if (v > oldXp) out.push(v);
-    v *= 2;
-  }
-  return out;
-}
-
-/** Cases d'homme de main franchies entre oldXp (exclu) et newXp (inclus), plafonné à 6. */
-export function casesHommeDeMainFranchies(oldXp: number, newXp: number): number[] {
-  return HENCHMAN_XP_BOXES.filter((b) => b > oldXp && b <= newXp);
+export function isPalierHenchman(box: number): boolean {
+  return HENCHMAN_XP_PALIERS.includes(box);
 }
 
 /** Nombre d'avancées dues au total pour un type de profil donné et une XP donnée. */
 export function avancesDues(type: 'heros' | 'homme_de_main', xp: number): number {
-  return type === 'heros' ? heroPaliers(xp).length : Math.min(xp, HENCHMAN_XP_BOXES.length);
+  const paliers = type === 'heros' ? HERO_XP_PALIERS : HENCHMAN_XP_PALIERS;
+  return paliers.filter((p) => p <= xp).length;
 }

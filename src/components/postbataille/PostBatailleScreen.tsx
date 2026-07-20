@@ -3,10 +3,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { useRosters } from '../../state/RostersContext';
-import { BLESSURES_GRAVES } from '../../data/gameData';
+import { STAT_KEYS } from '../../types/catalog';
+import type { Stats } from '../../types/catalog';
 import type { BattleRecord, Member } from '../../types/roster';
 
-const ETAPES = ['Bataille', 'Exploration', 'Blessures graves', 'Expérience', 'Résumé'];
+const ETAPES = ['Blessures graves', "Gain d'expérience", 'Bataille', 'Exploration', 'Résumé'];
+
+type BlessureDraft = {
+  description: string;
+  stats: Stats;
+  equipement: string;
+};
 
 export function PostBatailleScreen() {
   const { id } = useParams<{ id: string }>();
@@ -18,7 +25,8 @@ export function PostBatailleScreen() {
 
   const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [resultat, setResultat] = useState<BattleRecord['resultat']>('victoire');
-  const [adversaire, setAdversaire] = useState('');
+  const [adversaires, setAdversaires] = useState<string[]>([]);
+  const [nouvelAdversaire, setNouvelAdversaire] = useState('');
   const [notesBataille, setNotesBataille] = useState('');
 
   const [wyrdstoneTrouve, setWyrdstoneTrouve] = useState(0);
@@ -26,14 +34,13 @@ export function PostBatailleScreen() {
   const [quantiteVendue, setQuantiteVendue] = useState(0);
   const [prixVente, setPrixVente] = useState(0);
 
-  const [blessuresChoisies, setBlessuresChoisies] = useState<Record<string, number>>({});
-  const [xpGagne, setXpGagne] = useState<Record<string, number>>({});
+  const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
+  const [survieChoisies, setSurvieChoisies] = useState<Record<string, 'oui' | 'non'>>({});
 
   const horsDeCombat = useMemo(
     () => roster?.membres.filter((m) => m.statut === 'hors_de_combat') ?? [],
     [roster]
   );
-  const survivants = useMemo(() => roster?.membres.filter((m) => m.statut !== 'mort') ?? [], [roster]);
 
   if (!roster) {
     return (
@@ -43,42 +50,58 @@ export function PostBatailleScreen() {
     );
   }
 
+  const draftDe = (m: Member): BlessureDraft =>
+    blessureDrafts[m.instance_id] ?? { description: '', stats: m.stats_actuels, equipement: m.equipement };
+
+  const majDraft = (m: Member, partial: Partial<BlessureDraft>) => {
+    setBlessureDrafts((prev) => ({ ...prev, [m.instance_id]: { ...draftDe(m), ...partial } }));
+  };
+
+  const editerStatDraft = (m: Member, k: keyof Stats, value: number) => {
+    const d = draftDe(m);
+    majDraft(m, { stats: { ...d.stats, [k]: value } });
+  };
+
+  const ajouterAdversaire = () => {
+    const nom = nouvelAdversaire.trim();
+    if (!nom || adversaires.includes(nom)) return;
+    setAdversaires((prev) => [...prev, nom]);
+    setNouvelAdversaire('');
+  };
+
   const suivant = () => setEtape((e) => Math.min(ETAPES.length - 1, e + 1));
   const precedent = () => setEtape((e) => Math.max(0, e - 1));
 
   const terminer = async () => {
     const membresMaj: Member[] = roster.membres.map((m) => {
       let membre = { ...m };
-      const idxBlessure = blessuresChoisies[m.instance_id];
-      if (idxBlessure != null) {
-        const entry = BLESSURES_GRAVES[idxBlessure];
-        membre = {
-          ...membre,
-          blessures_graves: [
-            ...membre.blessures_graves,
-            {
-              id: uuidv4(),
-              date,
-              roll: entry.min,
-              resultat: entry.resultat,
-              effet: entry.effet,
-            },
-          ],
-        };
-        if (entry.mort) {
-          membre.statut = 'mort';
-        } else if (entry.modificateur) {
-          const { stat, delta } = entry.modificateur;
-          membre.stats_actuels = {
-            ...membre.stats_actuels,
-            [stat]: Math.max(0, membre.stats_actuels[stat] + delta),
+
+      const draft = blessureDrafts[m.instance_id];
+      if (draft) {
+        const statsModifiees = STAT_KEYS.filter((k) => draft.stats[k] !== m.stats_actuels[k]);
+        if (statsModifiees.length > 0 || draft.equipement !== m.equipement) {
+          membre = {
+            ...membre,
+            stats_actuels: draft.stats,
+            equipement: draft.equipement,
+            stats_modifiees: Array.from(new Set([...membre.stats_modifiees, ...statsModifiees])),
+          };
+        }
+        if (draft.description.trim()) {
+          membre = {
+            ...membre,
+            blessures_graves: [
+              ...membre.blessures_graves,
+              { id: uuidv4(), date, description: draft.description.trim() },
+            ],
           };
         }
       }
-      const gain = xpGagne[m.instance_id];
-      if (gain) {
-        membre.xp = membre.xp + gain;
-      }
+
+      const survie = survieChoisies[m.instance_id];
+      if (survie === 'oui') membre = { ...membre, statut: 'actif' };
+      else if (survie === 'non') membre = { ...membre, statut: 'mort' };
+
       return membre;
     });
 
@@ -86,7 +109,7 @@ export function PostBatailleScreen() {
       id: uuidv4(),
       date,
       resultat,
-      adversaire: adversaire.trim(),
+      adversaires,
       notes: notesBataille.trim(),
     };
 
@@ -116,6 +139,88 @@ export function PostBatailleScreen() {
 
       {etape === 0 && (
         <div className="card">
+          <h3>Blessures graves</h3>
+          <p className="text-sm text-muted">
+            Pour chaque personnage Hors de Combat, lance sur ta table papier (table complète des règles), note le
+            résultat obtenu, puis ajuste directement ses caractéristiques et/ou son équipement si la blessure les
+            affecte.
+          </p>
+          {horsDeCombat.length === 0 && <p className="text-muted">Aucun personnage Hors de Combat.</p>}
+          {horsDeCombat.map((m) => {
+            const d = draftDe(m);
+            return (
+              <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
+                <strong>{m.nom_perso}</strong>
+                <div className="field" style={{ marginTop: '0.5rem' }}>
+                  <label>Résultat obtenu</label>
+                  <textarea
+                    value={d.description}
+                    onChange={(e) => majDraft(m, { description: e.target.value })}
+                    placeholder="Ex : Jambe estropiée (-1 M définitif)"
+                  />
+                </div>
+                <div className="field">
+                  <label>Caractéristiques</label>
+                  <div className="stat-grid">
+                    {STAT_KEYS.map((k) => (
+                      <div key={k} className="stat-grid__cell stat-grid__cell--label">
+                        {k}
+                      </div>
+                    ))}
+                    {STAT_KEYS.map((k) => (
+                      <div key={k} className="stat-grid__cell stat-grid__cell--value">
+                        <input
+                          type="number"
+                          className="stat-grid__input"
+                          value={d.stats[k]}
+                          onChange={(e) => editerStatDraft(m, k, Number(e.target.value) || 0)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="field" style={{ marginBottom: 0 }}>
+                  <label>Équipement</label>
+                  <textarea value={d.equipement} onChange={(e) => majDraft(m, { equipement: e.target.value })} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {etape === 1 && (
+        <div className="card">
+          <h3>Gain d'expérience</h3>
+          <p className="text-sm text-muted">
+            Pour chaque personnage Hors de Combat, indique s'il a survécu. Les gains d'XP eux-mêmes se gèrent en
+            direct via les cases à cocher sur la fiche de chaque personnage.
+          </p>
+          {horsDeCombat.length === 0 && <p className="text-muted">Aucun personnage Hors de Combat.</p>}
+          {horsDeCombat.map((m) => (
+            <div key={m.instance_id} className="flex justify-between items-center" style={{ marginBottom: '0.6rem' }}>
+              <span>{m.nom_perso}</span>
+              <div className="status-select">
+                <button
+                  className={`status-pill ${survieChoisies[m.instance_id] === 'oui' ? 'status-pill--active' : ''}`}
+                  onClick={() => setSurvieChoisies((prev) => ({ ...prev, [m.instance_id]: 'oui' }))}
+                >
+                  A survécu
+                </button>
+                <button
+                  className={`status-pill ${survieChoisies[m.instance_id] === 'non' ? 'status-pill--active' : ''}`}
+                  onClick={() => setSurvieChoisies((prev) => ({ ...prev, [m.instance_id]: 'non' }))}
+                >
+                  N'a pas survécu
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {etape === 2 && (
+        <div className="card">
           <h3>Résultat de la bataille</h3>
           <div className="field-row">
             <div className="field">
@@ -132,8 +237,38 @@ export function PostBatailleScreen() {
             </div>
           </div>
           <div className="field">
-            <label>Adversaire</label>
-            <input value={adversaire} onChange={(e) => setAdversaire(e.target.value)} placeholder="Bande adverse" />
+            <label>Bande(s) adverse(s)</label>
+            <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
+              {adversaires.map((nom, i) => (
+                <span key={i} className="badge badge--info">
+                  {nom}
+                  <button
+                    className="btn--ghost"
+                    style={{ border: 'none', background: 'none', marginLeft: '0.3rem', padding: 0 }}
+                    onClick={() => setAdversaires((prev) => prev.filter((_, j) => j !== i))}
+                  >
+                    ✕
+                  </button>
+                </span>
+              ))}
+              {adversaires.length === 0 && <span className="text-muted text-sm">Aucune</span>}
+            </div>
+            <div className="flex gap-sm">
+              <input
+                value={nouvelAdversaire}
+                onChange={(e) => setNouvelAdversaire(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    ajouterAdversaire();
+                  }
+                }}
+                placeholder="Nom d'une bande adverse"
+              />
+              <button className="btn" onClick={ajouterAdversaire}>
+                Ajouter
+              </button>
+            </div>
           </div>
           <div className="field">
             <label>Notes</label>
@@ -142,7 +277,7 @@ export function PostBatailleScreen() {
         </div>
       )}
 
-      {etape === 1 && (
+      {etape === 3 && (
         <div className="card">
           <h3>Exploration &amp; wyrdstone</h3>
           <p className="text-sm text-muted">
@@ -183,70 +318,11 @@ export function PostBatailleScreen() {
         </div>
       )}
 
-      {etape === 2 && (
-        <div className="card">
-          <h3>Blessures graves</h3>
-          <p className="text-sm text-muted">
-            Pour chaque personnage Hors de Combat, lance 2D6 sur ta table papier et choisis le résultat obtenu.
-          </p>
-          {horsDeCombat.length === 0 && <p className="text-muted">Aucun personnage Hors de Combat.</p>}
-          {horsDeCombat.map((m) => (
-            <div key={m.instance_id} className="field">
-              <label>{m.nom_perso}</label>
-              <select
-                value={blessuresChoisies[m.instance_id] ?? ''}
-                onChange={(e) => {
-                  const valeur = e.target.value;
-                  setBlessuresChoisies((prev) => {
-                    if (valeur === '') {
-                      const reste = { ...prev };
-                      delete reste[m.instance_id];
-                      return reste;
-                    }
-                    return { ...prev, [m.instance_id]: Number(valeur) };
-                  });
-                }}
-              >
-                <option value="">— Choisir le résultat obtenu —</option>
-                {BLESSURES_GRAVES.map((entry, i) => (
-                  <option key={i} value={i}>
-                    {entry.min} — {entry.resultat}
-                  </option>
-                ))}
-              </select>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {etape === 3 && (
-        <div className="card">
-          <h3>Gains d'expérience</h3>
-          <p className="text-sm text-muted">
-            XP à ajouter pour chaque survivant (ex : +1 participation, +1 vainqueur, etc. selon tes règles de
-            campagne).
-          </p>
-          {survivants.map((m) => (
-            <div key={m.instance_id} className="field-row" style={{ alignItems: 'center' }}>
-              <span style={{ flex: 1 }}>{m.nom_perso}</span>
-              <input
-                type="number"
-                style={{ maxWidth: 90 }}
-                value={xpGagne[m.instance_id] ?? 0}
-                onChange={(e) =>
-                  setXpGagne((prev) => ({ ...prev, [m.instance_id]: Number(e.target.value) || 0 }))
-                }
-              />
-            </div>
-          ))}
-        </div>
-      )}
-
       {etape === 4 && (
         <div className="card">
           <h3>Résumé</h3>
           <p>
-            {date} — {resultat} {adversaire && `vs ${adversaire}`}
+            {date} — {resultat} {adversaires.length > 0 && `vs ${adversaires.join(', ')}`}
           </p>
           <p className="text-sm">
             Wyrdstone : {roster.wyrdstone} → {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue)}
@@ -254,11 +330,12 @@ export function PostBatailleScreen() {
             Trésorerie : {roster.tresorerie} → {roster.tresorerie + prixVente} po
           </p>
           <p className="text-sm">
-            {Object.keys(blessuresChoisies).filter((k) => blessuresChoisies[k] != null).length} blessure(s) grave(s)
-            à appliquer.
+            {Object.values(blessureDrafts).filter((d) => d.description.trim()).length} blessure(s) grave(s)
+            enregistrée(s).
           </p>
           <p className="text-sm">
-            {Object.values(xpGagne).filter((v) => v > 0).length} personnage(s) gagnent de l'XP.
+            Survie : {Object.values(survieChoisies).filter((v) => v === 'oui').length} survivant(s),{' '}
+            {Object.values(survieChoisies).filter((v) => v === 'non').length} mort(s).
           </p>
         </div>
       )}

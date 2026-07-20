@@ -2,16 +2,19 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/RostersContext';
 import { Screen } from '../common/Screen';
-import { getProfil } from '../../data/warbands';
+import { getCatalogue, getProfil } from '../../data/warbands';
 import { STAT_KEYS } from '../../types/catalog';
+import type { Stats } from '../../types/catalog';
 import { STATUTS } from '../../types/roster';
-import type { Statut } from '../../types/roster';
+import type { Statut, SeriousInjuryRecord } from '../../types/roster';
 import { XpGrid } from './XpGrid';
 import { CompetencesPanel } from './CompetencesPanel';
 import { AvanceeModal } from './AvanceeModal';
 import { BlessureGraveModal } from './BlessureGraveModal';
 import { Modal } from '../common/Modal';
 import { avancesDues } from '../../utils/xp';
+import { ratingMembre } from '../../utils/rating';
+import { skillById } from '../../data/gameData';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
@@ -19,6 +22,14 @@ const STATUT_BADGE: Record<string, string> = {
   mort: 'badge--danger',
   capture: 'badge--neutral',
 };
+
+// Compatibilité avec d'anciens enregistrements (roll/resultat/effet) sauvegardés
+// avant le passage de la table déroulante à la saisie libre.
+function injuryLabel(b: SeriousInjuryRecord): string {
+  if (b.description) return b.description;
+  const legacy = b as unknown as { resultat?: string; effet?: string };
+  return [legacy.resultat, legacy.effet].filter(Boolean).join(' — ') || '(sans description)';
+}
 
 export function PersonnageScreen() {
   const { id, instanceId } = useParams<{ id: string; instanceId: string }>();
@@ -32,8 +43,9 @@ export function PersonnageScreen() {
 
   const membre = roster?.membres.find((m) => m.instance_id === instanceId);
   const profil = roster && membre ? getProfil(roster.bande_id, membre.profil_id) : undefined;
+  const catalogue = roster ? getCatalogue(roster.bande_id) : undefined;
 
-  if (!roster || !membre || !profil) {
+  if (!roster || !membre || !profil || !catalogue) {
     return (
       <Screen title="Personnage introuvable" back={id ? `/roster/${id}` : '/'}>
         <p className="text-muted">Ce personnage n'existe pas (ou plus).</p>
@@ -48,9 +60,20 @@ export function PersonnageScreen() {
     updateRoster({ ...roster, membres: membresMaj });
   };
 
+  const editerStat = (k: keyof Stats, value: number) => {
+    const stats_modifiees = membre.stats_modifiees.includes(k)
+      ? membre.stats_modifiees
+      : [...membre.stats_modifiees, k];
+    majMembre({ stats_actuels: { ...membre.stats_actuels, [k]: value }, stats_modifiees });
+  };
+
+  const nomCompetence = (skillId: string) =>
+    skillById(skillId)?.nom ?? catalogue.competences_speciales.find((s) => s.id === skillId)?.nom ?? skillId;
+
   const dues = avancesDues(profil.type, membre.xp);
   const obtenues = membre.historique_avancees.length;
   const enAttente = Math.max(0, dues - obtenues);
+  const rating = ratingMembre(membre);
 
   const supprimerMembre = () => {
     updateRoster({ ...roster, membres: roster.membres.filter((m) => m.instance_id !== membre.instance_id) });
@@ -61,8 +84,12 @@ export function PersonnageScreen() {
     <Screen title={membre.nom_perso} back={`/roster/${roster.id}`}>
       <div className="card">
         <div className="flex justify-between items-center">
-          <div>
-            <h2 className="mt-0 mb-0">{membre.nom_perso}</h2>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <input
+              value={membre.nom_perso}
+              onChange={(e) => majMembre({ nom_perso: e.target.value })}
+              className="input--heading"
+            />
             <p className="text-muted text-sm mb-0">
               {profil.nom} · {profil.type === 'heros' ? 'Héros' : 'Homme de main'}
             </p>
@@ -83,6 +110,10 @@ export function PersonnageScreen() {
             </button>
           ))}
         </div>
+
+        <div className="flex items-center gap-sm" style={{ marginTop: '0.7rem' }}>
+          <span className="badge badge--info">Rating {rating}</span>
+        </div>
       </div>
 
       <div className="card">
@@ -97,29 +128,60 @@ export function PersonnageScreen() {
             <div
               key={k}
               className={`stat-grid__cell stat-grid__cell--value ${
-                profil.stats && membre.stats_actuels[k] !== profil.stats[k] ? 'stat-grid__cell--modified' : ''
+                membre.stats_modifiees.includes(k) ? 'stat-grid__cell--modified' : ''
               }`}
             >
-              {k === 'PV' ? `${membre.pv_actuels}/${membre.stats_actuels[k]}` : membre.stats_actuels[k]}
+              {k === 'PV' ? (
+                <span className="stat-grid__pv">
+                  <input
+                    type="number"
+                    className="stat-grid__input stat-grid__input--pv"
+                    value={membre.pv_actuels}
+                    onChange={(e) => majMembre({ pv_actuels: Math.max(0, Number(e.target.value) || 0) })}
+                  />
+                  <span>/</span>
+                  <input
+                    type="number"
+                    className="stat-grid__input stat-grid__input--pv"
+                    value={membre.stats_actuels.PV}
+                    onChange={(e) => editerStat('PV', Number(e.target.value) || 0)}
+                  />
+                </span>
+              ) : (
+                <input
+                  type="number"
+                  className="stat-grid__input"
+                  value={membre.stats_actuels[k]}
+                  onChange={(e) => editerStat(k, Number(e.target.value) || 0)}
+                />
+              )}
             </div>
           ))}
         </div>
-        <div className="flex gap-sm items-center" style={{ marginTop: '0.7rem' }}>
-          <span className="text-sm text-muted">PV actuels :</span>
-          <button
-            className="btn btn--sm"
-            onClick={() => majMembre({ pv_actuels: Math.max(0, membre.pv_actuels - 1) })}
-          >
-            −
-          </button>
-          <strong>{membre.pv_actuels}</strong>
-          <button
-            className="btn btn--sm"
-            onClick={() => majMembre({ pv_actuels: Math.min(membre.stats_actuels.PV, membre.pv_actuels + 1) })}
-          >
-            +
-          </button>
-        </div>
+        <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+          Caractéristiques éditables à tout moment (équipement, blessures…). Une valeur en couleur = modifiée à la
+          main ; une augmentation via une avancée XP normale reste en couleur standard.
+        </p>
+      </div>
+
+      <div className="card">
+        <h3>En un coup d'œil</h3>
+        <p className="text-sm mb-0">
+          <strong>Compétences : </strong>
+          {membre.competences_acquises.length > 0 ? (
+            membre.competences_acquises.map(nomCompetence).join(', ')
+          ) : (
+            <span className="text-muted">Aucune</span>
+          )}
+        </p>
+        <p className="text-sm mb-0" style={{ marginTop: '0.4rem' }}>
+          <strong>Blessures graves : </strong>
+          {membre.blessures_graves.length > 0 ? (
+            membre.blessures_graves.map(injuryLabel).join(' · ')
+          ) : (
+            <span className="text-muted">Aucune</span>
+          )}
+        </p>
       </div>
 
       <div className="card">
@@ -137,14 +199,6 @@ export function PersonnageScreen() {
             minHeight: '4em',
           }}
         />
-        <div className="field" style={{ marginTop: '0.6rem', maxWidth: 200 }}>
-          <label>Valeur équipement (po, pour le calcul de la valeur de bande)</label>
-          <input
-            type="number"
-            value={membre.equipement_valeur}
-            onChange={(e) => majMembre({ equipement_valeur: Number(e.target.value) || 0 })}
-          />
-        </div>
       </div>
 
       <div className="card">
@@ -178,6 +232,7 @@ export function PersonnageScreen() {
         <CompetencesPanel
           member={membre}
           profil={profil}
+          catalogue={catalogue}
           onToggleSkill={(skillId) => {
             const acquises = membre.competences_acquises.includes(skillId)
               ? membre.competences_acquises.filter((s) => s !== skillId)
@@ -240,9 +295,24 @@ export function PersonnageScreen() {
         {membre.blessures_graves.length === 0 && <p className="text-muted text-sm">Aucune.</p>}
         {membre.blessures_graves.map((b) => (
           <p key={b.id} className="text-sm">
-            {b.date} (jet {b.roll}) — <strong>{b.resultat}</strong> : {b.effet}
+            {b.date} — {injuryLabel(b)}
           </p>
         ))}
+      </div>
+
+      <div className="card">
+        <label className="flex items-center gap-sm" style={{ cursor: 'pointer' }}>
+          <input
+            type="checkbox"
+            checked={membre.grande_cible}
+            onChange={(e) => majMembre({ grande_cible: e.target.checked })}
+          />
+          <span>
+            <strong>Grande Cible</strong>
+            <br />
+            <span className="text-sm text-muted">Case manuelle — ajoute +20 au rating de ce personnage.</span>
+          </span>
+        </label>
       </div>
 
       <div className="card">
@@ -269,6 +339,7 @@ export function PersonnageScreen() {
         <AvanceeModal
           member={membre}
           profil={profil}
+          catalogue={catalogue}
           onClose={() => setModalAvancee(false)}
           onApply={(updated) => majMembre(updated)}
         />

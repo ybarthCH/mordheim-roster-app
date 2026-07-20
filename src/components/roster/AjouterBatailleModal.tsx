@@ -11,11 +11,19 @@ type Props = {
 export function AjouterBatailleModal({ onClose, onConfirm }: Props) {
   const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [resultat, setResultat] = useState<BattleRecord['resultat']>('victoire');
-  const [adversaire, setAdversaire] = useState('');
+  const [adversaires, setAdversaires] = useState<string[]>([]);
+  const [nouvelAdversaire, setNouvelAdversaire] = useState('');
   const [notes, setNotes] = useState('');
 
+  const ajouterAdversaire = () => {
+    const nom = nouvelAdversaire.trim();
+    if (!nom || adversaires.includes(nom)) return;
+    setAdversaires((prev) => [...prev, nom]);
+    setNouvelAdversaire('');
+  };
+
   const confirmer = () => {
-    onConfirm({ id: uuidv4(), date, resultat, adversaire: adversaire.trim(), notes: notes.trim() });
+    onConfirm({ id: uuidv4(), date, resultat, adversaires, notes: notes.trim() });
   };
 
   return (
@@ -36,8 +44,38 @@ export function AjouterBatailleModal({ onClose, onConfirm }: Props) {
         </div>
       </div>
       <div className="field">
-        <label>Adversaire</label>
-        <input value={adversaire} onChange={(e) => setAdversaire(e.target.value)} placeholder="Nom de la bande adverse" />
+        <label>Bande(s) adverse(s)</label>
+        <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
+          {adversaires.map((nom, i) => (
+            <span key={i} className="badge badge--info">
+              {nom}
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', marginLeft: '0.3rem', padding: 0 }}
+                onClick={() => setAdversaires((prev) => prev.filter((_, j) => j !== i))}
+              >
+                ✕
+              </button>
+            </span>
+          ))}
+          {adversaires.length === 0 && <span className="text-muted text-sm">Aucune</span>}
+        </div>
+        <div className="flex gap-sm">
+          <input
+            value={nouvelAdversaire}
+            onChange={(e) => setNouvelAdversaire(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                ajouterAdversaire();
+              }
+            }}
+            placeholder="Nom d'une bande adverse"
+          />
+          <button className="btn" onClick={ajouterAdversaire}>
+            Ajouter
+          </button>
+        </div>
       </div>
       <div className="field">
         <label>Notes</label>

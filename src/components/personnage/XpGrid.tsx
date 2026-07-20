@@ -1,4 +1,4 @@
-import { HENCHMAN_XP_BOXES, heroGridSize, isPalier } from '../../utils/xp';
+import { HENCHMAN_XP_MAX, HERO_XP_MAX, isPalierHenchman, isPalierHero } from '../../utils/xp';
 
 type Props = {
   type: 'heros' | 'homme_de_main';
@@ -12,26 +12,9 @@ export function XpGrid({ type, xp, onChange }: Props) {
     onChange(xp === box ? box - 1 : box);
   };
 
-  if (type === 'homme_de_main') {
-    return (
-      <div className="xp-grid">
-        {HENCHMAN_XP_BOXES.map((box) => (
-          <button
-            key={box}
-            type="button"
-            className={`xp-box xp-box--henchman xp-box--palier ${xp >= box ? 'xp-box--checked' : ''}`}
-            onClick={() => toggle(box)}
-            aria-label={`Case XP ${box}`}
-          >
-            {box}
-          </button>
-        ))}
-      </div>
-    );
-  }
-
-  const total = heroGridSize(xp);
-  const boxes = Array.from({ length: total }, (_, i) => i + 1);
+  const max = type === 'heros' ? HERO_XP_MAX : HENCHMAN_XP_MAX;
+  const isPalier = type === 'heros' ? isPalierHero : isPalierHenchman;
+  const boxes = Array.from({ length: max }, (_, i) => i + 1);
 
   return (
     <div className="xp-grid">
