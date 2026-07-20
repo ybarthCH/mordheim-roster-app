@@ -96,6 +96,9 @@ textarea {
 
 button {
   cursor: pointer;
+  /* Évite le délai/l'ambiguïté de reconnaissance de geste (double-tap zoom)
+     sur mobile, source classique de taps qui semblent "rater" leur cible. */
+  touch-action: manipulation;
 }
 
 .app-shell {
@@ -375,6 +378,7 @@ button {
   margin-bottom: 0.6rem;
   text-decoration: none;
   color: inherit;
+  touch-action: manipulation;
 }
 .list-item__main {
   flex: 1;
@@ -501,6 +505,7 @@ button {
 }
 .roster-table tbody tr {
   cursor: pointer;
+  touch-action: manipulation;
 }
 .roster-table tbody tr:active {
   background: var(--bg-inset);

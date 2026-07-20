@@ -79,6 +79,15 @@ export function PersonnageScreen() {
   const nomCompetence = (skillId: string) =>
     skillById(skillId) ?? catalogue.competences_speciales.find((s) => s.id === skillId);
 
+  // Pour les hommes de main non promus, le statut Hors de combat / Blessé
+  // n'a plus lieu d'être : le nombre de figurines hors combat se suit via le
+  // compteur dédié, résolu figurine par figurine au post-bataille. Seuls
+  // Actif et Mort restent pertinents pour l'historique.
+  const statutsDisponibles =
+    profil.type === 'homme_de_main' && !membre.promu_heros
+      ? STATUTS.filter((s) => s.id === 'actif' || s.id === 'mort')
+      : STATUTS;
+
   const dues = avancesDues(profil.type, membre.xp_depart, membre.xp);
   const obtenues = membre.historique_avancees.length;
   const enAttente = Math.max(0, dues - obtenues);
@@ -112,7 +121,7 @@ export function PersonnageScreen() {
         </div>
 
         <div className="status-select" style={{ marginTop: '0.7rem' }}>
-          {STATUTS.map((s) => (
+          {statutsDisponibles.map((s) => (
             <button
               key={s.id}
               className={`status-pill ${membre.statut === s.id ? 'status-pill--active' : ''}`}
@@ -163,7 +172,7 @@ export function PersonnageScreen() {
           </div>
         )}
 
-        {profil.type === 'homme_de_main' && !membre.promu_heros && membre.taille_groupe > 1 && (
+        {profil.type === 'homme_de_main' && !membre.promu_heros && (
           <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
             <span className="text-sm text-muted">Hors de combat :</span>
             <button
