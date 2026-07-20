@@ -1,0 +1,168 @@
+{
+  "id": "ostlanders",
+  "nom": "Ostlanders (1a)",
+  "grade": "1a",
+  "source": "BSData",
+  "regles_speciales": [
+    {
+      "nom": "Self Sufficient",
+      "texte": "The men of Ostland have no desire to give their hard-earned gold to outsiders.\nAs a result they can never hire any Mercenaries except for Ogres (who are not an uncommon sight in Ostland)."
+    }
+  ],
+  "profils": [
+    {
+      "id": "elder",
+      "nom": "Elder",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 60,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 4,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 4,
+        "A": 1,
+        "Cd": 8
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "blood_brothers",
+      "nom": "Blood Brothers",
+      "type": "heros",
+      "unique": false,
+      "max": 2,
+      "cout": 35,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "priest_of_taal",
+      "nom": "Priest of Taal",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 45,
+      "stats": {
+        "M": 4,
+        "CC": 2,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "kin",
+      "nom": "Kin",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "jaeger",
+      "nom": "Jaeger",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "ruffians",
+      "nom": "Ruffians",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 2,
+        "CT": 2,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 2,
+        "A": 1,
+        "Cd": 10
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "ogre",
+      "nom": "Ogre",
+      "type": "homme_de_main",
+      "cout": 160,
+      "stats": {
+        "M": 6,
+        "CC": 3,
+        "CT": 2,
+        "F": 4,
+        "E": 4,
+        "PV": 3,
+        "I": 3,
+        "A": 2,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    }
+  ]
+}
