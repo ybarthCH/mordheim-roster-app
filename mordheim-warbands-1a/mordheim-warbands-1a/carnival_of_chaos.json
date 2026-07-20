@@ -1,0 +1,168 @@
+{
+  "id": "carnival_of_chaos",
+  "nom": "Carnival of Chaos (1a)",
+  "grade": "1a",
+  "source": "BSData",
+  "regles_speciales": [
+    {
+      "nom": "Dangerous to Know",
+      "texte": "Because of its rather diseased nature a Carnival of Chaos warband would find it very hard to keep any Hired Swords alive! Therefore, a Carnival of Chaos may never hire any type of Hired Sword."
+    }
+  ],
+  "profils": [
+    {
+      "id": "carnival_master",
+      "nom": "Carnival Master",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 70,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 4,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 8
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "brutes",
+      "nom": "Brutes",
+      "type": "heros",
+      "unique": false,
+      "max": 2,
+      "cout": 60,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 0,
+        "F": 4,
+        "E": 4,
+        "PV": 1,
+        "I": 2,
+        "A": 2,
+        "Cd": 7
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "tainted_ones",
+      "nom": "Tainted Ones",
+      "type": "heros",
+      "unique": false,
+      "max": 2,
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "plague_bearers",
+      "nom": "Plague Bearers",
+      "type": "homme_de_main",
+      "cout": 50,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 3,
+        "F": 4,
+        "E": 4,
+        "PV": 1,
+        "I": 4,
+        "A": 2,
+        "Cd": 10
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "nurglings",
+      "nom": "Nurglings",
+      "type": "homme_de_main",
+      "cout": 15,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 0,
+        "F": 3,
+        "E": 2,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 10
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "brethren",
+      "nom": "Brethren",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "plague_cart",
+      "nom": "Plague Cart",
+      "type": "homme_de_main",
+      "cout": 120,
+      "stats": {
+        "M": null,
+        "CC": null,
+        "CT": null,
+        "F": null,
+        "E": 8,
+        "PV": 4,
+        "I": null,
+        "A": null,
+        "Cd": null
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    }
+  ]
+}

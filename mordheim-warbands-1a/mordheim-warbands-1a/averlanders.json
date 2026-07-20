@@ -1,0 +1,170 @@
+{
+  "id": "averlanders",
+  "nom": "Averlanders (1a)",
+  "grade": "1a",
+  "source": "BSData",
+  "regles_speciales": [],
+  "profils": [
+    {
+      "id": "captain",
+      "nom": "Captain",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 60,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 4,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 4,
+        "A": 1,
+        "Cd": 8
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "bergjaeger",
+      "nom": "Bergjaeger",
+      "type": "heros",
+      "unique": false,
+      "max": 2,
+      "cout": 35,
+      "stats": {
+        "M": 4,
+        "CC": 2,
+        "CT": 4,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "sergeant",
+      "nom": "Sergeant",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 35,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "youngblood",
+      "nom": "Youngblood",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 15,
+      "stats": {
+        "M": 4,
+        "CC": 2,
+        "CT": 2,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 6
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "mountainguard",
+      "nom": "Mountainguard",
+      "type": "homme_de_main",
+      "cout": 30,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "marksmen",
+      "nom": "Marksmen",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "halflings_scouts",
+      "nom": "Halflings Scouts",
+      "type": "homme_de_main",
+      "cout": 20,
+      "stats": {
+        "M": 4,
+        "CC": 2,
+        "CT": 4,
+        "F": 2,
+        "E": 2,
+        "PV": 1,
+        "I": 4,
+        "A": 1,
+        "Cd": 8
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    }
+  ]
+}
