@@ -1,0 +1,2409 @@
+[
+  {
+    "id": "averlanders",
+    "nom": "Averlanders (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [],
+    "profils": [
+      {
+        "id": "captain",
+        "nom": "Captain",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 60,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 4,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "bergjaeger",
+        "nom": "Bergjaeger",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 4,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "sergeant",
+        "nom": "Sergeant",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "youngblood",
+        "nom": "Youngblood",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 15,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "mountainguard",
+        "nom": "Mountainguard",
+        "type": "homme_de_main",
+        "cout": 30,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "marksmen",
+        "nom": "Marksmen",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "halflings_scouts",
+        "nom": "Halflings Scouts",
+        "type": "homme_de_main",
+        "cout": 20,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 4,
+          "F": 2,
+          "E": 2,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      }
+    ]
+  },
+  {
+    "id": "beastmen_raiders",
+    "nom": "Beastmen Raiders (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [
+      {
+        "nom": "Animals",
+        "texte": "Beastmen are fearsome creatures of Chaos that do not interact with other races other than in war.\n\nA Beastmen warband may never hire any Hired Swords unless specifically stated with the Hired Sword."
+      }
+    ],
+    "profils": [
+      {
+        "id": "beastmen_chieftain",
+        "nom": "Beastmen Chieftain",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 65,
+        "stats": {
+          "M": 5,
+          "CC": 4,
+          "CT": 3,
+          "F": 4,
+          "E": 4,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": []
+      },
+      {
+        "id": "beastmen_shaman",
+        "nom": "Beastmen Shaman",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 45,
+        "stats": {
+          "M": 5,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": []
+      },
+      {
+        "id": "bestigors",
+        "nom": "Bestigors",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 45,
+        "stats": {
+          "M": 5,
+          "CC": 4,
+          "CT": 3,
+          "F": 4,
+          "E": 4,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": []
+      },
+      {
+        "id": "centigors",
+        "nom": "Centigors",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 80,
+        "stats": {
+          "M": 8,
+          "CC": 4,
+          "CT": 3,
+          "F": 4,
+          "E": 4,
+          "PV": 1,
+          "I": 2,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": []
+      },
+      {
+        "id": "ungor",
+        "nom": "Ungor",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 5,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "gor",
+        "nom": "Gor",
+        "type": "homme_de_main",
+        "cout": 35,
+        "stats": {
+          "M": 5,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "warhounds_of_chaos",
+        "nom": "Warhounds of Chaos",
+        "type": "homme_de_main",
+        "cout": 15,
+        "stats": {
+          "M": 7,
+          "CC": 4,
+          "CT": 0,
+          "F": 4,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 5
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "minotaur",
+        "nom": "Minotaur",
+        "type": "homme_de_main",
+        "cout": 200,
+        "stats": {
+          "M": 6,
+          "CC": 4,
+          "CT": 3,
+          "F": 4,
+          "E": 4,
+          "PV": 3,
+          "I": 4,
+          "A": 3,
+          "Cd": 8
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      }
+    ]
+  },
+  {
+    "id": "carnival_of_chaos",
+    "nom": "Carnival of Chaos (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [
+      {
+        "nom": "Dangerous to Know",
+        "texte": "Because of its rather diseased nature a Carnival of Chaos warband would find it very hard to keep any Hired Swords alive! Therefore, a Carnival of Chaos may never hire any type of Hired Sword."
+      }
+    ],
+    "profils": [
+      {
+        "id": "carnival_master",
+        "nom": "Carnival Master",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 70,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 4,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "brutes",
+        "nom": "Brutes",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 60,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 0,
+          "F": 4,
+          "E": 4,
+          "PV": 1,
+          "I": 2,
+          "A": 2,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "tainted_ones",
+        "nom": "Tainted Ones",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "plague_bearers",
+        "nom": "Plague Bearers",
+        "type": "homme_de_main",
+        "cout": 50,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 4,
+          "E": 4,
+          "PV": 1,
+          "I": 4,
+          "A": 2,
+          "Cd": 10
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "nurglings",
+        "nom": "Nurglings",
+        "type": "homme_de_main",
+        "cout": 15,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 0,
+          "F": 3,
+          "E": 2,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 10
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "brethren",
+        "nom": "Brethren",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "plague_cart",
+        "nom": "Plague Cart",
+        "type": "homme_de_main",
+        "cout": 120,
+        "stats": {
+          "M": null,
+          "CC": null,
+          "CT": null,
+          "F": null,
+          "E": 8,
+          "PV": 4,
+          "I": null,
+          "A": null,
+          "Cd": null
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      }
+    ]
+  },
+  {
+    "id": "cult_of_the_possessed",
+    "nom": "Cult of the Possessed (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [],
+    "profils": [
+      {
+        "id": "beastmen",
+        "nom": "Beastmen",
+        "type": "homme_de_main",
+        "cout": 45,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 4,
+          "PV": 2,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "brethren",
+        "nom": "Brethren",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "darksouls",
+        "nom": "Darksouls",
+        "type": "homme_de_main",
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 4,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "magister",
+        "nom": "Magister",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 70,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 4,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "mutants",
+        "nom": "Mutants",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "possessed",
+        "nom": "Possessed",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 90,
+        "stats": {
+          "M": 5,
+          "CC": 4,
+          "CT": 0,
+          "F": 4,
+          "E": 4,
+          "PV": 2,
+          "I": 4,
+          "A": 2,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dwarf_treasure_hunters",
+    "nom": "Dwarf Treasure Hunters (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [
+      {
+        "nom": "Hard Head",
+        "texte": "Dwarfs ignore the special rules for maces, clubs,etc. used against them."
+      },
+      {
+        "nom": "Armour Use",
+        "texte": "Dwarfs never suffer movement penalties for wearing armour."
+      },
+      {
+        "nom": "Hate Orcs and Goblins",
+        "texte": "All Dwarfs hate Orcs and Goblins"
+      },
+      {
+        "nom": "Grudgebearers",
+        "texte": "Dwarfs hold an ancient grudge against Elves from the days when the two races fought for supremacy in the Old World. A Dwarf warband may never include any kind of Elven Hired Sword or Dramatis Personae."
+      },
+      {
+        "nom": "Incomparable Miners",
+        "texte": "Dwarfs spend much of their lives underground searching for precious minerals, and they are the best in the world at this kind of Work. In the city of Mordheim they apply similar skills to the search for wyrdstone. When checking for wyrdstone at the end of a game, add +1 to the number of pieces found for a Dwarf warband."
+      },
+      {
+        "nom": "Hard to Kill",
+        "texte": "Dwarfs are tough, resilient individuals who can only be taken out of action on a roll of 6 instead of 5-6 when rolling on the Injury chart. Treat a roll of 1-2 as knocked down, 3-5 as stunned, and 6 as out of action."
+      }
+    ],
+    "profils": [
+      {
+        "id": "beardlings",
+        "nom": "Beardlings",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 3,
+          "CC": 3,
+          "CT": 2,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 2,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "clansmen",
+        "nom": "Clansmen",
+        "type": "homme_de_main",
+        "cout": 40,
+        "stats": {
+          "M": 3,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 2,
+          "A": 1,
+          "Cd": 9
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "engineer",
+        "nom": "Engineer",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 50,
+        "stats": {
+          "M": 3,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 2,
+          "A": 1,
+          "Cd": 9
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "noble",
+        "nom": "Noble",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 85,
+        "stats": {
+          "M": 3,
+          "CC": 5,
+          "CT": 4,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 2,
+          "A": 1,
+          "Cd": 9
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "thunderers",
+        "nom": "Thunderers",
+        "type": "homme_de_main",
+        "cout": 40,
+        "stats": {
+          "M": 3,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 2,
+          "A": 1,
+          "Cd": 9
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "troll_slayer",
+        "nom": "Troll Slayer",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 50,
+        "stats": {
+          "M": 3,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 2,
+          "A": 1,
+          "Cd": 9
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kislevites",
+    "nom": "Kislevites (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [
+      {
+        "nom": "May Hire",
+        "texte": "A Kilsevite warband is allowed the same selection of Hired Swords as the Human Mercenary warbands from the Mordheim rulebook."
+      },
+      {
+        "nom": "Ancient Enemies",
+        "texte": "Kilsevites warbands may nevet ally (see the 'Multiplayer rules for Mordheim' article from Town Cryer for more details on warband alliances) with any type of Chaos warband.\nThis restriction pertains to the following warbands:\n  Possessed,\n  Beastman,\n  Skaven,\n  Dark Elf,\n  Chaos Dwarf,\nand any other warbands the players judge to be sufficiently 'Chaotic'"
+      }
+    ],
+    "profils": [
+      {
+        "id": "druzhina_captain",
+        "nom": "Druzhina Captain",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 60,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 4,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "bear_tamer",
+        "nom": "Bear Tamer",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 4,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "esaul",
+        "nom": "Esaul",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "youths",
+        "nom": "Youths",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 15,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "warriors",
+        "nom": "Warriors",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "cossacks",
+        "nom": "Cossacks",
+        "type": "homme_de_main",
+        "cout": 30,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "streltsi",
+        "nom": "Streltsi",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "trained_bear",
+        "nom": "Trained Bear",
+        "type": "homme_de_main",
+        "cout": 125,
+        "stats": {
+          "M": 6,
+          "CC": 3,
+          "CT": 0,
+          "F": 5,
+          "E": 5,
+          "PV": 2,
+          "I": 2,
+          "A": 2,
+          "Cd": 6
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      }
+    ]
+  },
+  {
+    "id": "marienburgers",
+    "nom": "Marienburgers (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [
+      {
+        "nom": "Great Traders",
+        "texte": "As natural traders with contacts in the merchant guilds Marienburg warbands receive a +1 bonus when attempting to find rare items.\nTo reflect their enormous wealth Marienburgers start off with an extra 100 gold crowns (600 in total) when fighting in a campaign.\nIn a one-off game they are permitted an extra 20% gold crowns when recruiting a warband.\nFor example, in a 1,000 gold crown game a Marienburger warband will have 1,200gc."
+      }
+    ],
+    "profils": [
+      {
+        "id": "champion",
+        "nom": "Champion",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "marksmen",
+        "nom": "Marksmen",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "mercenary_captain",
+        "nom": "Mercenary Captain",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 60,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 4,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "swordsmen",
+        "nom": "Swordsmen",
+        "type": "homme_de_main",
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "warriors",
+        "nom": "Warriors",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "youngblood",
+        "nom": "Youngblood",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 15,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "middenheimers",
+    "nom": "Middenheimers (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [
+      {
+        "nom": "Middenheim Strength",
+        "texte": "The men of Middenheim are famous for their physical prowess.\nTo represent their advantage in size and bulk, the Champions and Captains of a Middenheim warband start with Strength 4 instead of Strength 3."
+      }
+    ],
+    "profils": [
+      {
+        "id": "champion",
+        "nom": "Champion",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 4,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "marksmen",
+        "nom": "Marksmen",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "mercenary_captain",
+        "nom": "Mercenary Captain",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 60,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 4,
+          "F": 4,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "swordsmen",
+        "nom": "Swordsmen",
+        "type": "homme_de_main",
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "warriors",
+        "nom": "Warriors",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "youngblood",
+        "nom": "Youngblood",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 15,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "orc_mob",
+    "nom": "Orc Mob (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [
+      {
+        "nom": "Animosity",
+        "texte": "At the start of the Orc player’s turn, roll a D6 for each Henchman who is either an Orc or a Goblin and not in Hand to Hand Combat.\n\nRoll on table below if 1 is rolled. \n\n1 “I ’Erd Dat!”\nIf there is a friendly Orc or Goblin Henchman or Hired Sword within charge reach (if there are multiple targets within reach, choose the one nearest to the mad model), the warrior must immediately charge and fight a round of hand-to-hand combat against the Target.\nAt the end of this round of combat, the models will immediately move 1\" apart and no longer count as being in close combat.\nIf there are no friendly Orc or Goblin Henchmen or Hired Swords within charge reach, and the warrior is armed with a missile weapon, he immediately takes a shot at the nearest friendly Orc or Goblin Henchman or Hired Sword.\nIf none of the above applies, or if the nearest friendly model is an Orc Hero, the warrior behaves as if a 2-5 had been rolled on this chart.\nIn any case, the warrior in question may take no other action this turn, though he may defend himself if attacked in hand-to-hand combat.\n\n2-5 “Wud Yoo Say?” \nThe warrior is fairly certain he heard an offensive sound from the nearest friendly Orc or Goblin, but he’s not quite sure.\nHe spends the turn hurling insults at his mate.\nHe may do nothing else this turn, though he may defend himself if attacked in hand-to-hand combat.\n\n6. “I’ll Show Yer!” \nThe warrior imagines that his mates are laughing about him behind his back and calling him silly names.\nTo show them up he decides that he’ll be the first one to the scrap! \nThis model must move as quickly as possible towards the nearest enemy model, charging into combat if possible.\nIf there are no enemy models within sight, the Orc or Goblin warrior may make a normal move immediately.\nThis move is in addition to his regular move in the Movement phase, so he may therefore move twice in a single turn if you wish.\nIf the extra move takes the Orc or Goblin warrior within charge reach of an enemy model, the warrior must charge into close combat during his regular movement."
+      },
+      {
+        "nom": "Distasteful Company",
+        "texte": "Many Hired Swords refuse to Work for Orcs, as they know that Orcs are just as likely to eat them as fight alongside them.\nOrcs may only hire the following Hired Swords: \n  Pit Fighters, Ogre Bodyguards or Warlocks."
+      }
+    ],
+    "profils": [
+      {
+        "id": "orc_big_uns",
+        "nom": "Orc Big Uns",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 40,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "cave_squig",
+        "nom": "Cave Squig",
+        "type": "homme_de_main",
+        "cout": 15,
+        "stats": {
+          "M": "2d6",
+          "CC": 4,
+          "CT": 0,
+          "F": 4,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 5
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "goblin_warriors",
+        "nom": "Goblin Warriors",
+        "type": "homme_de_main",
+        "cout": 15,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 5
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "orc_boss",
+        "nom": "Orc Boss",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 80,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 4,
+          "F": 4,
+          "E": 4,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "orc_boyz",
+        "nom": "Orc Boyz",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 2,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "orc_shaman",
+        "nom": "Orc Shaman",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 40,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "troll",
+        "nom": "Troll",
+        "type": "homme_de_main",
+        "cout": 200,
+        "stats": {
+          "M": 6,
+          "CC": 3,
+          "CT": 1,
+          "F": 5,
+          "E": 4,
+          "PV": 3,
+          "I": 1,
+          "A": 3,
+          "Cd": 4
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      }
+    ]
+  },
+  {
+    "id": "ostlanders",
+    "nom": "Ostlanders (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [
+      {
+        "nom": "Self Sufficient",
+        "texte": "The men of Ostland have no desire to give their hard-earned gold to outsiders.\nAs a result they can never hire any Mercenaries except for Ogres (who are not an uncommon sight in Ostland)."
+      }
+    ],
+    "profils": [
+      {
+        "id": "elder",
+        "nom": "Elder",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 60,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 4,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "blood_brothers",
+        "nom": "Blood Brothers",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "priest_of_taal",
+        "nom": "Priest of Taal",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 45,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "kin",
+        "nom": "Kin",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "jaeger",
+        "nom": "Jaeger",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "ruffians",
+        "nom": "Ruffians",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 2,
+          "A": 1,
+          "Cd": 10
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "ogre",
+        "nom": "Ogre",
+        "type": "homme_de_main",
+        "cout": 160,
+        "stats": {
+          "M": 6,
+          "CC": 3,
+          "CT": 2,
+          "F": 4,
+          "E": 4,
+          "PV": 3,
+          "I": 3,
+          "A": 2,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      }
+    ]
+  },
+  {
+    "id": "reiklanders",
+    "nom": "Reiklanders (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [
+      {
+        "nom": "Reikland Leadership",
+        "texte": "Reikland Mercenaries are accustomed to the demands of military discipline and have a strongly developed loyalty between officers and men.\nTo represent this, fighters may use their Captain’s Leadership if within 12\" rather than the usual 6\".\n\nA strong tradition of martial training is also responsible for the high standards of archery amongst the people of Reikland.\nAll Marksmen therefore add +1 to their Ballistic Skill, whether they are recruited when the warband is first formed or added later. (this is included in their profile)"
+      }
+    ],
+    "profils": [
+      {
+        "id": "champion",
+        "nom": "Champion",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "marksmen",
+        "nom": "Marksmen",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 4,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "mercenary_captain",
+        "nom": "Mercenary Captain",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 60,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 4,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "swordsmen",
+        "nom": "Swordsmen",
+        "type": "homme_de_main",
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "warriors",
+        "nom": "Warriors",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "youngblood",
+        "nom": "Youngblood",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 15,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sisters_of_sigmar",
+    "nom": "Sisters of Sigmar (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [],
+    "profils": [
+      {
+        "id": "augur",
+        "nom": "Augur",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "novices",
+        "nom": "Novices",
+        "type": "homme_de_main",
+        "cout": 15,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "sigmarite_matriarch",
+        "nom": "Sigmarite Matriarch",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 70,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 4,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "sister_superior",
+        "nom": "Sister Superior",
+        "type": "heros",
+        "unique": false,
+        "max": 3,
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "sisters",
+        "nom": "Sisters",
+        "type": "homme_de_main",
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      }
+    ]
+  },
+  {
+    "id": "skaven",
+    "nom": "Skaven (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [],
+    "profils": [
+      {
+        "id": "assassin_adept",
+        "nom": "Assassin Adept",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 60,
+        "stats": {
+          "M": 6,
+          "CC": 4,
+          "CT": 4,
+          "F": 4,
+          "E": 3,
+          "PV": 1,
+          "I": 5,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "black_skaven",
+        "nom": "Black Skaven",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 40,
+        "stats": {
+          "M": 6,
+          "CC": 4,
+          "CT": 3,
+          "F": 4,
+          "E": 3,
+          "PV": 1,
+          "I": 5,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "eshin_sorcerer",
+        "nom": "Eshin Sorcerer",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 45,
+        "stats": {
+          "M": 5,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 6
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "giant_rats",
+        "nom": "Giant Rats",
+        "type": "homme_de_main",
+        "cout": 15,
+        "stats": {
+          "M": 6,
+          "CC": 2,
+          "CT": 0,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 4
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "night_runners",
+        "nom": "Night Runners",
+        "type": "heros",
+        "unique": false,
+        "max": 2,
+        "cout": 20,
+        "stats": {
+          "M": 6,
+          "CC": 2,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 4
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir"
+        ]
+      },
+      {
+        "id": "rat_ogre",
+        "nom": "Rat Ogre",
+        "type": "homme_de_main",
+        "cout": 210,
+        "stats": {
+          "M": 6,
+          "CC": 3,
+          "CT": 3,
+          "F": 5,
+          "E": 5,
+          "PV": 3,
+          "I": 4,
+          "A": 4,
+          "Cd": 4
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "verminkin",
+        "nom": "Verminkin",
+        "type": "homme_de_main",
+        "cout": 20,
+        "stats": {
+          "M": 5,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 5
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      }
+    ]
+  },
+  {
+    "id": "undead",
+    "nom": "Undead (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [],
+    "profils": [
+      {
+        "id": "awakened_zombie",
+        "nom": "Awakened Zombie",
+        "type": "homme_de_main",
+        "cout": 0,
+        "stats": {
+          "M": 0,
+          "CC": 0,
+          "CT": 0,
+          "F": 0,
+          "E": 0,
+          "PV": 0,
+          "I": 0,
+          "A": 0,
+          "Cd": 0
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "dire_wolves",
+        "nom": "Dire Wolves",
+        "type": "homme_de_main",
+        "cout": null,
+        "stats": {
+          "M": 9,
+          "CC": 3,
+          "CT": 0,
+          "F": 4,
+          "E": 3,
+          "PV": 1,
+          "I": 2,
+          "A": 1,
+          "Cd": 4
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "dregs",
+        "nom": "Dregs",
+        "type": "heros",
+        "unique": false,
+        "max": 3,
+        "cout": 20,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "ghouls",
+        "nom": "Ghouls",
+        "type": "homme_de_main",
+        "cout": 40,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 3,
+          "E": 4,
+          "PV": 1,
+          "I": 3,
+          "A": 2,
+          "Cd": 5
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "necromancer",
+        "nom": "Necromancer",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 35,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "vampire",
+        "nom": "Vampire",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 110,
+        "stats": {
+          "M": 6,
+          "CC": 4,
+          "CT": 4,
+          "F": 4,
+          "E": 4,
+          "PV": 2,
+          "I": 5,
+          "A": 2,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "zombies",
+        "nom": "Zombies",
+        "type": "homme_de_main",
+        "cout": 15,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 0,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 1,
+          "A": 1,
+          "Cd": 5
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      }
+    ]
+  },
+  {
+    "id": "witch_hunters",
+    "nom": "Witch Hunters (1a)",
+    "grade": "1a",
+    "source": "BSData",
+    "regles_speciales": [],
+    "profils": [
+      {
+        "id": "flagellants",
+        "nom": "Flagellants",
+        "type": "homme_de_main",
+        "cout": 40,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 4,
+          "E": 4,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 10
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "warhounds",
+        "nom": "Warhounds",
+        "type": "homme_de_main",
+        "cout": 15,
+        "stats": {
+          "M": 6,
+          "CC": 4,
+          "CT": 0,
+          "F": 4,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 5
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      },
+      {
+        "id": "warrior_priest",
+        "nom": "Warrior Priest",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 40,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "witch_hunter",
+        "nom": "Witch Hunter",
+        "type": "heros",
+        "unique": false,
+        "max": 3,
+        "cout": 25,
+        "stats": {
+          "M": 4,
+          "CC": 3,
+          "CT": 3,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "witch_hunter_captain",
+        "nom": "Witch Hunter Captain",
+        "type": "heros",
+        "unique": true,
+        "max": 1,
+        "cout": 60,
+        "stats": {
+          "M": 4,
+          "CC": 4,
+          "CT": 4,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 4,
+          "A": 1,
+          "Cd": 8
+        },
+        "acces_competences": [
+          "academique",
+          "combat",
+          "force",
+          "tir",
+          "vitesse"
+        ]
+      },
+      {
+        "id": "zealots",
+        "nom": "Zealots",
+        "type": "homme_de_main",
+        "cout": 20,
+        "stats": {
+          "M": 4,
+          "CC": 2,
+          "CT": 2,
+          "F": 3,
+          "E": 3,
+          "PV": 1,
+          "I": 3,
+          "A": 1,
+          "Cd": 7
+        },
+        "acces_competences": [],
+        "acces_competences_a_verifier": true
+      }
+    ]
+  }
+]

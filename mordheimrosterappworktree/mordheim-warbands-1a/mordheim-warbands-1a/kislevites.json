@@ -1,0 +1,198 @@
+{
+  "id": "kislevites",
+  "nom": "Kislevites (1a)",
+  "grade": "1a",
+  "source": "BSData",
+  "regles_speciales": [
+    {
+      "nom": "May Hire",
+      "texte": "A Kilsevite warband is allowed the same selection of Hired Swords as the Human Mercenary warbands from the Mordheim rulebook."
+    },
+    {
+      "nom": "Ancient Enemies",
+      "texte": "Kilsevites warbands may nevet ally (see the 'Multiplayer rules for Mordheim' article from Town Cryer for more details on warband alliances) with any type of Chaos warband.\nThis restriction pertains to the following warbands:\n  Possessed,\n  Beastman,\n  Skaven,\n  Dark Elf,\n  Chaos Dwarf,\nand any other warbands the players judge to be sufficiently 'Chaotic'"
+    }
+  ],
+  "profils": [
+    {
+      "id": "druzhina_captain",
+      "nom": "Druzhina Captain",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 60,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 4,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 4,
+        "A": 1,
+        "Cd": 8
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "bear_tamer",
+      "nom": "Bear Tamer",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 35,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 4,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "esaul",
+      "nom": "Esaul",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 35,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "youths",
+      "nom": "Youths",
+      "type": "heros",
+      "unique": false,
+      "max": 2,
+      "cout": 15,
+      "stats": {
+        "M": 4,
+        "CC": 2,
+        "CT": 2,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 6
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "warriors",
+      "nom": "Warriors",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "cossacks",
+      "nom": "Cossacks",
+      "type": "homme_de_main",
+      "cout": 30,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "streltsi",
+      "nom": "Streltsi",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "trained_bear",
+      "nom": "Trained Bear",
+      "type": "homme_de_main",
+      "cout": 125,
+      "stats": {
+        "M": 6,
+        "CC": 3,
+        "CT": 0,
+        "F": 5,
+        "E": 5,
+        "PV": 2,
+        "I": 2,
+        "A": 2,
+        "Cd": 6
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    }
+  ]
+}

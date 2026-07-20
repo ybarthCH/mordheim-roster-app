@@ -1,0 +1,149 @@
+{
+  "id": "reiklanders",
+  "nom": "Reiklanders (1a)",
+  "grade": "1a",
+  "source": "BSData",
+  "regles_speciales": [
+    {
+      "nom": "Reikland Leadership",
+      "texte": "Reikland Mercenaries are accustomed to the demands of military discipline and have a strongly developed loyalty between officers and men.\nTo represent this, fighters may use their Captain’s Leadership if within 12\" rather than the usual 6\".\n\nA strong tradition of martial training is also responsible for the high standards of archery amongst the people of Reikland.\nAll Marksmen therefore add +1 to their Ballistic Skill, whether they are recruited when the warband is first formed or added later. (this is included in their profile)"
+    }
+  ],
+  "profils": [
+    {
+      "id": "champion",
+      "nom": "Champion",
+      "type": "heros",
+      "unique": false,
+      "max": 2,
+      "cout": 35,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "marksmen",
+      "nom": "Marksmen",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 4,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "mercenary_captain",
+      "nom": "Mercenary Captain",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 60,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 4,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 4,
+        "A": 1,
+        "Cd": 8
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "swordsmen",
+      "nom": "Swordsmen",
+      "type": "homme_de_main",
+      "cout": 35,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "warriors",
+      "nom": "Warriors",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "youngblood",
+      "nom": "Youngblood",
+      "type": "heros",
+      "unique": false,
+      "max": 2,
+      "cout": 15,
+      "stats": {
+        "M": 4,
+        "CC": 2,
+        "CT": 2,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 6
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    }
+  ]
+}

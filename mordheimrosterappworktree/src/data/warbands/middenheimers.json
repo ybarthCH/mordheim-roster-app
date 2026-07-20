@@ -1,0 +1,149 @@
+{
+  "id": "middenheimers",
+  "nom": "Middenheimers (1a)",
+  "grade": "1a",
+  "source": "BSData",
+  "regles_speciales": [
+    {
+      "nom": "Middenheim Strength",
+      "texte": "The men of Middenheim are famous for their physical prowess.\nTo represent their advantage in size and bulk, the Champions and Captains of a Middenheim warband start with Strength 4 instead of Strength 3."
+    }
+  ],
+  "profils": [
+    {
+      "id": "champion",
+      "nom": "Champion",
+      "type": "heros",
+      "unique": false,
+      "max": 2,
+      "cout": 35,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 3,
+        "F": 4,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "marksmen",
+      "nom": "Marksmen",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "mercenary_captain",
+      "nom": "Mercenary Captain",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 60,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 4,
+        "F": 4,
+        "E": 3,
+        "PV": 1,
+        "I": 4,
+        "A": 1,
+        "Cd": 8
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    },
+    {
+      "id": "swordsmen",
+      "nom": "Swordsmen",
+      "type": "homme_de_main",
+      "cout": 35,
+      "stats": {
+        "M": 4,
+        "CC": 4,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "warriors",
+      "nom": "Warriors",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 4,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "youngblood",
+      "nom": "Youngblood",
+      "type": "heros",
+      "unique": false,
+      "max": 2,
+      "cout": 15,
+      "stats": {
+        "M": 4,
+        "CC": 2,
+        "CT": 2,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 6
+      },
+      "acces_competences": [
+        "academique",
+        "combat",
+        "force",
+        "tir",
+        "vitesse"
+      ]
+    }
+  ]
+}
