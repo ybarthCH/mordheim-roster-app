@@ -4,16 +4,18 @@ import type { BattleRecord } from '../../types/roster';
 import { Modal } from '../common/Modal';
 
 type Props = {
+  bataille?: BattleRecord;
   onClose: () => void;
   onConfirm: (bataille: BattleRecord) => void;
+  onDelete?: () => void;
 };
 
-export function AjouterBatailleModal({ onClose, onConfirm }: Props) {
-  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
-  const [resultat, setResultat] = useState<BattleRecord['resultat']>('victoire');
-  const [adversaires, setAdversaires] = useState<string[]>([]);
+export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }: Props) {
+  const [date, setDate] = useState(() => bataille?.date ?? new Date().toISOString().slice(0, 10));
+  const [resultat, setResultat] = useState<BattleRecord['resultat']>(bataille?.resultat ?? 'victoire');
+  const [adversaires, setAdversaires] = useState<string[]>(bataille?.adversaires ?? []);
   const [nouvelAdversaire, setNouvelAdversaire] = useState('');
-  const [notes, setNotes] = useState('');
+  const [notes, setNotes] = useState(bataille?.notes ?? '');
 
   const ajouterAdversaire = () => {
     const nom = nouvelAdversaire.trim();
@@ -23,12 +25,12 @@ export function AjouterBatailleModal({ onClose, onConfirm }: Props) {
   };
 
   const confirmer = () => {
-    onConfirm({ id: uuidv4(), date, resultat, adversaires, notes: notes.trim() });
+    onConfirm({ id: bataille?.id ?? uuidv4(), date, resultat, adversaires, notes: notes.trim() });
   };
 
   return (
     <Modal onClose={onClose}>
-      <h3>Nouvelle bataille</h3>
+      <h3>{bataille ? 'Modifier la bataille' : 'Nouvelle bataille'}</h3>
       <div className="field-row">
         <div className="field">
           <label>Date</label>
@@ -85,8 +87,13 @@ export function AjouterBatailleModal({ onClose, onConfirm }: Props) {
         <button className="btn" onClick={onClose}>
           Annuler
         </button>
+        {onDelete && (
+          <button className="btn btn--danger" onClick={onDelete}>
+            Supprimer
+          </button>
+        )}
         <button className="btn btn--primary" onClick={confirmer}>
-          Ajouter
+          {bataille ? 'Enregistrer' : 'Ajouter'}
         </button>
       </div>
     </Modal>

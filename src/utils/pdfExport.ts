@@ -1,7 +1,9 @@
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import type { RosterInstance } from '../types/roster';
-import { getCatalogue, getProfil } from '../data/warbands';
+import { STATUTS } from '../types/roster';
+import { getCatalogue } from '../data/warbands';
+import { resolveProfil } from './profil';
 import { valeurBande, bilanBatailles } from './bandeValue';
 import { STAT_KEYS } from '../types/catalog';
 
@@ -39,13 +41,13 @@ export function exporterRosterPDF(roster: RosterInstance) {
     startY: y + 2,
     head: [['Nom', 'Profil', ...STAT_KEYS, 'XP', 'Statut', 'Équipement']],
     body: membresActifs.map((m) => {
-      const profil = getProfil(roster.bande_id, m.profil_id);
+      const profil = resolveProfil(roster, m);
       return [
         m.nom_perso,
         profil?.nom ?? m.profil_id,
         ...STAT_KEYS.map((k) => String(m.stats_actuels[k])),
         String(m.xp),
-        m.statut,
+        STATUTS.find((s) => s.id === m.statut)?.label ?? m.statut,
         m.equipement || '—',
       ];
     }),

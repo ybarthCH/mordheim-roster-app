@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/RostersContext';
 import { Screen } from '../common/Screen';
-import { getCatalogue, getProfil } from '../../data/warbands';
+import { resolveProfil } from '../../utils/profil';
+import { getCatalogue } from '../../data/warbands';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import { STATUTS } from '../../types/roster';
@@ -20,7 +21,7 @@ const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
   hors_de_combat: 'badge--warning',
   mort: 'badge--danger',
-  capture: 'badge--neutral',
+  blesse: 'badge--neutral',
 };
 
 // Compatibilité avec d'anciens enregistrements (roll/resultat/effet) sauvegardés
@@ -42,7 +43,7 @@ export function PersonnageScreen() {
   const [nouveauSort, setNouveauSort] = useState('');
 
   const membre = roster?.membres.find((m) => m.instance_id === instanceId);
-  const profil = roster && membre ? getProfil(roster.bande_id, membre.profil_id) : undefined;
+  const profil = roster && membre ? resolveProfil(roster, membre) : undefined;
   const catalogue = roster ? getCatalogue(roster.bande_id) : undefined;
 
   if (!roster || !membre || !profil || !catalogue) {
@@ -67,10 +68,18 @@ export function PersonnageScreen() {
     majMembre({ stats_actuels: { ...membre.stats_actuels, [k]: value }, stats_modifiees });
   };
 
-  const nomCompetence = (skillId: string) =>
-    skillById(skillId)?.nom ?? catalogue.competences_speciales.find((s) => s.id === skillId)?.nom ?? skillId;
+  const changerStatut = (s: Statut) => {
+    if (s === 'mort') {
+      majMembre({ statut: s, date_mort: new Date().toISOString().slice(0, 10) });
+    } else {
+      majMembre({ statut: s, date_mort: undefined });
+    }
+  };
 
-  const dues = avancesDues(profil.type, membre.xp);
+  const nomCompetence = (skillId: string) =>
+    skillById(skillId) ?? catalogue.competences_speciales.find((s) => s.id === skillId);
+
+  const dues = avancesDues(profil.type, membre.xp_depart, membre.xp);
   const obtenues = membre.historique_avancees.length;
   const enAttente = Math.max(0, dues - obtenues);
   const rating = ratingMembre(membre);
@@ -92,10 +101,13 @@ export function PersonnageScreen() {
             />
             <p className="text-muted text-sm mb-0">
               {profil.nom} · {profil.type === 'heros' ? 'Héros' : 'Homme de main'}
+              {membre.promu_heros && ' (promu)'}
+              {membre.profil_custom && ' · Franc-tireur'}
             </p>
           </div>
           <span className={`badge ${STATUT_BADGE[membre.statut]}`}>
             {STATUTS.find((s) => s.id === membre.statut)?.label}
+            {membre.statut === 'mort' && membre.date_mort ? ` (${membre.date_mort})` : ''}
           </span>
         </div>
 
@@ -104,12 +116,32 @@ export function PersonnageScreen() {
             <button
               key={s.id}
               className={`status-pill ${membre.statut === s.id ? 'status-pill--active' : ''}`}
-              onClick={() => majMembre({ statut: s.id as Statut })}
+              onClick={() => changerStatut(s.id)}
             >
               {s.label}
             </button>
           ))}
         </div>
+
+        {membre.statut === 'blesse' && (
+          <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
+            <span className="text-sm text-muted">Blessé :</span>
+            <input
+              type="number"
+              className="stat-grid__input stat-grid__input--pv"
+              value={membre.blesse_tour_actuel}
+              onChange={(e) => majMembre({ blesse_tour_actuel: Number(e.target.value) || 0 })}
+            />
+            <span>/</span>
+            <input
+              type="number"
+              className="stat-grid__input stat-grid__input--pv"
+              value={membre.blesse_tour_total}
+              onChange={(e) => majMembre({ blesse_tour_total: Number(e.target.value) || 0 })}
+            />
+            <span className="text-sm text-muted">tour(s)</span>
+          </div>
+        )}
 
         <div className="flex items-center gap-sm" style={{ marginTop: '0.7rem' }}>
           <span className="badge badge--info">Rating {rating}</span>
@@ -131,57 +163,66 @@ export function PersonnageScreen() {
                 membre.stats_modifiees.includes(k) ? 'stat-grid__cell--modified' : ''
               }`}
             >
-              {k === 'PV' ? (
-                <span className="stat-grid__pv">
-                  <input
-                    type="number"
-                    className="stat-grid__input stat-grid__input--pv"
-                    value={membre.pv_actuels}
-                    onChange={(e) => majMembre({ pv_actuels: Math.max(0, Number(e.target.value) || 0) })}
-                  />
-                  <span>/</span>
-                  <input
-                    type="number"
-                    className="stat-grid__input stat-grid__input--pv"
-                    value={membre.stats_actuels.PV}
-                    onChange={(e) => editerStat('PV', Number(e.target.value) || 0)}
-                  />
-                </span>
-              ) : (
-                <input
-                  type="number"
-                  className="stat-grid__input"
-                  value={membre.stats_actuels[k]}
-                  onChange={(e) => editerStat(k, Number(e.target.value) || 0)}
-                />
-              )}
+              <input
+                type="number"
+                className="stat-grid__input"
+                value={membre.stats_actuels[k]}
+                onChange={(e) => editerStat(k, Number(e.target.value) || 0)}
+              />
             </div>
           ))}
         </div>
-        <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
-          Caractéristiques éditables à tout moment (équipement, blessures…). Une valeur en couleur = modifiée à la
-          main ; une augmentation via une avancée XP normale reste en couleur standard.
-        </p>
       </div>
 
       <div className="card">
-        <h3>En un coup d'œil</h3>
         <p className="text-sm mb-0">
-          <strong>Compétences : </strong>
-          {membre.competences_acquises.length > 0 ? (
-            membre.competences_acquises.map(nomCompetence).join(', ')
-          ) : (
-            <span className="text-muted">Aucune</span>
-          )}
+          <strong>Compétences</strong>
         </p>
-        <p className="text-sm mb-0" style={{ marginTop: '0.4rem' }}>
-          <strong>Blessures graves : </strong>
-          {membre.blessures_graves.length > 0 ? (
-            membre.blessures_graves.map(injuryLabel).join(' · ')
-          ) : (
-            <span className="text-muted">Aucune</span>
-          )}
+        {membre.competences_acquises.length > 0 ? (
+          membre.competences_acquises.map((id) => {
+            const s = nomCompetence(id);
+            return (
+              <p key={id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                <strong>{s?.nom ?? id}</strong>
+                {s?.texte && <span className="text-muted"> — {s.texte}</span>}
+              </p>
+            );
+          })
+        ) : (
+          <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+            Aucune
+          </p>
+        )}
+
+        <p className="text-sm mb-0" style={{ marginTop: '0.7rem' }}>
+          <strong>Règles spéciales / Sorts connus / mutations</strong>
         </p>
+        {membre.sorts_connus.length > 0 ? (
+          membre.sorts_connus.map((s, i) => (
+            <p key={i} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              {s}
+            </p>
+          ))
+        ) : (
+          <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+            Aucune
+          </p>
+        )}
+
+        <p className="text-sm mb-0" style={{ marginTop: '0.7rem' }}>
+          <strong>Blessures graves</strong>
+        </p>
+        {membre.blessures_graves.length > 0 ? (
+          membre.blessures_graves.map((b) => (
+            <p key={b.id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              {b.date} — {injuryLabel(b)}
+            </p>
+          ))
+        ) : (
+          <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+            Aucune
+          </p>
+        )}
       </div>
 
       <div className="card">
@@ -207,6 +248,9 @@ export function PersonnageScreen() {
           <span className="badge badge--info">{membre.xp} XP</span>
         </div>
         <XpGrid type={profil.type} xp={membre.xp} onChange={(xp) => majMembre({ xp })} />
+        <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+          XP de départ : {membre.xp_depart} (n'a déclenché aucune avancée).
+        </p>
         {enAttente > 0 && (
           <div className="flex justify-between items-center" style={{ marginTop: '0.7rem' }}>
             <span className="badge badge--warning">{enAttente} avancée(s) en attente</span>
@@ -243,7 +287,7 @@ export function PersonnageScreen() {
       </div>
 
       <div className="card">
-        <h3>Sorts connus / mutations</h3>
+        <h3>Règles spéciales / Sorts connus / mutations</h3>
         <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.6rem' }}>
           {membre.sorts_connus.map((s, i) => (
             <span key={i} className="badge badge--info">
@@ -263,7 +307,7 @@ export function PersonnageScreen() {
           <input
             value={nouveauSort}
             onChange={(e) => setNouveauSort(e.target.value)}
-            placeholder="Ex : Boule de feu, Griffes acérées…"
+            placeholder="Ex : règle spéciale, sort, mutation…"
             style={{
               flex: 1,
               background: 'var(--bg-inset)',

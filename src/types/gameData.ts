@@ -1,4 +1,4 @@
-import type { SkillCategory } from './catalog';
+import type { SkillCategory, Stats } from './catalog';
 
 export type Skill = {
   id: string;
@@ -15,19 +15,19 @@ export type InjuryEntry = {
   effet: string;
   mort?: boolean;
   horsDeCombatDefinitif?: boolean;
-  modificateur?: { stat: 'M' | 'CC' | 'CT' | 'F' | 'E' | 'PV' | 'I' | 'A' | 'Cd'; delta: number };
+  modificateur?: { stat: keyof Stats; delta: number };
 };
 
-export type AdvanceEntry = {
-  min: number;
-  max: number;
-  type: 'competence' | 'caracteristique' | 'choix';
-  label: string;
-};
-
-export type CaracAleatoireEntry = {
-  min: number;
-  max: number;
-  stat: 'M' | 'CC' | 'CT' | 'F' | 'E' | 'PV' | 'I' | 'A' | 'Cd';
-  delta: number;
-};
+// Table d'avancement — deux versions distinctes (héros / hommes de main),
+// chacune avec ses propres résultats possibles sur 2D6.
+export type AdvanceEntry =
+  | { min: number; max: number; type: 'competence'; label: string }
+  | { min: number; max: number; type: 'caracteristique_fixe'; label: string; stat: keyof Stats }
+  | {
+      min: number;
+      max: number;
+      type: 'caracteristique_choix';
+      label: string;
+      options: { stat: keyof Stats; label: string }[];
+    }
+  | { min: number; max: number; type: 'promotion'; label: string };

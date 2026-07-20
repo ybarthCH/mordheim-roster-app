@@ -41,6 +41,11 @@ export function PostBatailleScreen() {
     () => roster?.membres.filter((m) => m.statut === 'hors_de_combat') ?? [],
     [roster]
   );
+  const francTireursActifs = useMemo(
+    () => roster?.membres.filter((m) => m.profil_custom && m.statut !== 'mort') ?? [],
+    [roster]
+  );
+  const soldeTotal = francTireursActifs.reduce((acc, m) => acc + (m.profil_custom?.solde ?? 0), 0);
 
   if (!roster) {
     return (
@@ -100,7 +105,7 @@ export function PostBatailleScreen() {
 
       const survie = survieChoisies[m.instance_id];
       if (survie === 'oui') membre = { ...membre, statut: 'actif' };
-      else if (survie === 'non') membre = { ...membre, statut: 'mort' };
+      else if (survie === 'non') membre = { ...membre, statut: 'mort', date_mort: date };
 
       return membre;
     });
@@ -117,7 +122,7 @@ export function PostBatailleScreen() {
       ...roster,
       membres: membresMaj,
       wyrdstone: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue),
-      tresorerie: roster.tresorerie + prixVente,
+      tresorerie: roster.tresorerie + prixVente - soldeTotal,
       equipement_reserve: notesExploration.trim()
         ? `${roster.equipement_reserve}${roster.equipement_reserve ? '\n' : ''}${notesExploration.trim()}`
         : roster.equipement_reserve,
@@ -327,8 +332,13 @@ export function PostBatailleScreen() {
           <p className="text-sm">
             Wyrdstone : {roster.wyrdstone} → {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue)}
             <br />
-            Trésorerie : {roster.tresorerie} → {roster.tresorerie + prixVente} po
+            Trésorerie : {roster.tresorerie} → {roster.tresorerie + prixVente - soldeTotal} po
           </p>
+          {soldeTotal > 0 && (
+            <p className="text-sm">
+              Solde des francs-tireurs à payer : {soldeTotal} po ({francTireursActifs.length} franc(s)-tireur(s)).
+            </p>
+          )}
           <p className="text-sm">
             {Object.values(blessureDrafts).filter((d) => d.description.trim()).length} blessure(s) grave(s)
             enregistrée(s).

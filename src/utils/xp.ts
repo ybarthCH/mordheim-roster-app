@@ -19,8 +19,12 @@ export function isPalierHenchman(box: number): boolean {
   return HENCHMAN_XP_PALIERS.includes(box);
 }
 
-/** Nombre d'avancées dues au total pour un type de profil donné et une XP donnée. */
-export function avancesDues(type: 'heros' | 'homme_de_main', xp: number): number {
+/**
+ * Nombre d'avancées dues entre l'XP de départ (non déclencheur, acquise à la
+ * recrue) et l'XP actuelle. Seuls les paliers strictement au-delà de l'XP de
+ * départ comptent.
+ */
+export function avancesDues(type: 'heros' | 'homme_de_main', xpDepart: number, xpActuel: number): number {
   const paliers = type === 'heros' ? HERO_XP_PALIERS : HENCHMAN_XP_PALIERS;
-  return paliers.filter((p) => p <= xp).length;
+  return paliers.filter((p) => p > xpDepart && p <= xpActuel).length;
 }
