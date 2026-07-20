@@ -215,26 +215,30 @@ export function PersonnageScreen() {
       </div>
 
       <div className="card">
-        <p className="text-sm mb-0">
-          <strong>Compétences</strong>
-        </p>
-        {membre.competences_acquises.length > 0 ? (
-          membre.competences_acquises.map((id) => {
-            const s = nomCompetence(id);
-            return (
-              <p key={id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-                <strong>{s?.nom ?? id}</strong>
-                {s?.texte && <span className="text-muted"> — {s.texte}</span>}
+        {profil.type === 'heros' && (
+          <>
+            <p className="text-sm mb-0">
+              <strong>Compétences</strong>
+            </p>
+            {membre.competences_acquises.length > 0 ? (
+              membre.competences_acquises.map((id) => {
+                const s = nomCompetence(id);
+                return (
+                  <p key={id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                    <strong>{s?.nom ?? id}</strong>
+                    {s?.texte && <span className="text-muted"> — {s.texte}</span>}
+                  </p>
+                );
+              })
+            ) : (
+              <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+                Aucune
               </p>
-            );
-          })
-        ) : (
-          <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-            Aucune
-          </p>
+            )}
+          </>
         )}
 
-        <p className="text-sm mb-0" style={{ marginTop: '0.7rem' }}>
+        <p className="text-sm mb-0" style={{ marginTop: profil.type === 'heros' ? '0.7rem' : 0 }}>
           <strong>Règles spéciales / Sorts connus / mutations</strong>
         </p>
         {membre.sorts_connus.length > 0 ? (
@@ -311,20 +315,22 @@ export function PersonnageScreen() {
         )}
       </div>
 
-      <div className="card">
-        <h3>Compétences</h3>
-        <CompetencesPanel
-          member={membre}
-          profil={profil}
-          catalogue={catalogue}
-          onToggleSkill={(skillId) => {
-            const acquises = membre.competences_acquises.includes(skillId)
-              ? membre.competences_acquises.filter((s) => s !== skillId)
-              : [...membre.competences_acquises, skillId];
-            majMembre({ competences_acquises: acquises });
-          }}
-        />
-      </div>
+      {profil.type === 'heros' && (
+        <div className="card">
+          <h3>Compétences</h3>
+          <CompetencesPanel
+            member={membre}
+            profil={profil}
+            catalogue={catalogue}
+            onToggleSkill={(skillId) => {
+              const acquises = membre.competences_acquises.includes(skillId)
+                ? membre.competences_acquises.filter((s) => s !== skillId)
+                : [...membre.competences_acquises, skillId];
+              majMembre({ competences_acquises: acquises });
+            }}
+          />
+        </div>
+      )}
 
       <div className="card">
         <h3>Règles spéciales / Sorts connus / mutations</h3>
