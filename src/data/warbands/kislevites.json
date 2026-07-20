@@ -38,7 +38,8 @@
         "force",
         "tir",
         "vitesse"
-      ]
+      ],
+      "est_leader": true
     },
     {
       "id": "bear_tamer",

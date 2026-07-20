@@ -74,7 +74,8 @@
         "force",
         "tir",
         "vitesse"
-      ]
+      ],
+      "est_leader": true
     },
     {
       "id": "sister_superior",

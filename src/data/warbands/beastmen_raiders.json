@@ -28,7 +28,8 @@
         "A": 1,
         "Cd": 7
       },
-      "acces_competences": []
+      "acces_competences": [],
+      "est_leader": true
     },
     {
       "id": "beastmen_shaman",

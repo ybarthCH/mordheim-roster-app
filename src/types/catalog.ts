@@ -52,6 +52,9 @@ export type Profile = {
   xp_depart?: number;
   peut_lancer_sorts?: boolean;
   categorie_magie?: string;
+  // Chef de bande selon les règles (un seul par catalogue) : badge visuel +
+  // bonus de +1 XP automatique en cas de victoire.
+  est_leader?: boolean;
 };
 
 export type WarbandCatalog = {

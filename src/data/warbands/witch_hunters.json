@@ -119,7 +119,8 @@
         "force",
         "tir",
         "vitesse"
-      ]
+      ],
+      "est_leader": true
     },
     {
       "id": "zealots",
