@@ -1,51 +1,58 @@
 {
   "combat": [
-    { "id": "combat_01", "nom": "Maître du Combat", "texte": "En cas d'égalité au jet pour toucher lors d'un combat, ce guerrier l'emporte toujours." },
-    { "id": "combat_02", "nom": "Esquive", "texte": "Une fois par combat, permet de relancer un jet de sauvegarde raté contre une attaque au corps à corps." },
-    { "id": "combat_03", "nom": "Escrimeur Expert", "texte": "Ignore le bonus d'Attaque procuré par une arme à deux mains adverse lors d'un duel." },
-    { "id": "combat_04", "nom": "Feinte", "texte": "Avant de résoudre un combat, le joueur peut annoncer une feinte : l'adversaire doit deviner si le coup est réel." },
-    { "id": "combat_05", "nom": "Robuste", "texte": "Les jets sur la table des blessures graves subissent un malus de -1 pour l'adversaire (résultats plus favorables)." },
-    { "id": "combat_06", "nom": "Pas de Côté", "texte": "Peut se dégager d'un combat sans subir d'attaque gratuite." },
-    { "id": "combat_07", "nom": "Contre-Attaque", "texte": "Si l'ennemi rate tous ses jets pour toucher lors d'un round de combat, ce guerrier gagne une attaque supplémentaire au round suivant." }
+    { "id": "combat_01", "nom": "Coup Précis", "texte": "Le guerrier porte ses coups avec une grande précision. Ajoutez +1 à tous les jets de dégâts causés par la figurine au corps à corps." },
+    { "id": "combat_02", "nom": "Maître Combattant", "texte": "Le guerrier est capable de tenir tête à plusieurs adversaires en même temps. Il bénéficie d'une attaque supplémentaire dans chaque phase de corps à corps tant qu'il se bat contre deux ennemis ou plus. Le guerrier est également immunisé aux tests de « Seul Contre Tous »." },
+    { "id": "combat_03", "nom": "Connaissance des Armes", "texte": "Le guerrier sait manier parfaitement de nombreuses armes différentes. Il peut utiliser n'importe quelle arme de corps à corps, pas seulement celles de ses options d'équipement." },
+    { "id": "combat_04", "nom": "Mur d'Acier", "texte": "Ce guerrier a peu d'égaux. Il manie son arme avec talent et s'entoure d'un véritable mur d'acier. La figurine bénéficie de +1 à tous ses jets sur les Tableaux de Coups Critiques au corps à corps." },
+    { "id": "combat_05", "nom": "Maître Escrimeur", "texte": "Ce guerrier a reçu l'enseignement d'un grand maître dans l'art de l'escrime. S'il utilise une épée, il peut relancer ses attaques ratées lors de la phase de corps à corps du tour où il charge. Notez qu'il ne jouit de ce bonus que lorsqu'il utilise une épée ordinaire ou une lame suintante, mais pas une épée à deux mains ou un autre type d'arme." },
+    { "id": "combat_06", "nom": "Saut de Côté", "texte": "Le guerrier sait éviter les coups au combat. A chaque fois qu'il subit une blessure, il peut tenter une sauvegarde supplémentaire de 5+. Cette sauvegarde n'est jamais modifiée et s'effectue après toutes les autres sauvegardes d'armure." }
   ],
   "tir": [
-    { "id": "tir_01", "nom": "Œil de Lynx", "texte": "Ignore le malus pour tir à longue portée." },
-    { "id": "tir_02", "nom": "Chasseur", "texte": "Peut retirer un couvert léger de la cible lors d'un tir." },
-    { "id": "tir_03", "nom": "Tireur d'Élite", "texte": "Peut choisir la cible touchée lors d'un tir réussi contre un groupe." },
-    { "id": "tir_04", "nom": "Rechargement Rapide", "texte": "Recharge une arme à un coup en une demi-action au lieu d'une action complète." },
-    { "id": "tir_05", "nom": "Expert en Armes de Tir", "texte": "Ignore le malus de tir en mouvement." },
-    { "id": "tir_06", "nom": "Tir en Mouvement", "texte": "Peut tirer et courir dans le même tour sans pénalité supplémentaire." }
+    { "id": "tir_01", "nom": "Tir Rapide", "texte": "Le guerrier peut tirer deux fois par tour avec un arc ou une arbalète (mais pas avec une arbalète de poing)." },
+    { "id": "tir_02", "nom": "Pistolier", "texte": "Le guerrier est un expert en pistolets de toutes sortes, y compris les arbalètes de poing. S'il est équipé d'une paire de pistolets de n'importe quel type (y compris des arbalètes de poing), il peut tirer deux fois lors de la phase de tir (notez que les règles habituelles de rechargement s'appliquent). S'il n'a qu'un seul pistolet, il peut tirer avec même lors du tour où il l'a rechargé." },
+    { "id": "tir_03", "nom": "Œil de Faucon", "texte": "Le guerrier possède une vue exceptionnellement perçante. Il ajoute +6ps à la portée de toute arme de tir (sauf s'il s'agit d'un tromblon) qu'il utilise." },
+    { "id": "tir_04", "nom": "Expert en Armes", "texte": "Le guerrier a appris à utiliser certaines des armes les plus étranges du Vieux Monde. Il peut utiliser n'importe quelle arme de tir, pas seulement celles de ses options d'équipement." },
+    { "id": "tir_05", "nom": "Tir en Mouvement", "texte": "Le guerrier peut bouger et tirer avec des armes qui ne peuvent normalement être utilisées que si le tireur est immobile. Notez que cette compétence ne peut pas être combinée avec Tir Rapide." },
+    { "id": "tir_06", "nom": "Tireur d'Élite", "texte": "Le guerrier peut tirer à travers les plus petits trous sans que cela affecte son tir. Il ignore tous les malus de couvert lorsqu'il utilise une arme de tir." },
+    { "id": "tir_07", "nom": "Chasseur", "texte": "Le guerrier est parfaitement entraîné à charger et à apprêter son arme. Il peut tirer à chaque tour même avec une arquebuse ou un long fusil du Hochland." },
+    { "id": "tir_08", "nom": "Lanceur de Couteaux", "texte": "Le guerrier est un expert sans égal du lancer d'étoiles et de couteaux de jet. Il peut en lancer jusqu'à un maximum de trois par phase de tir, et peut répartir ses tirs entre plusieurs cibles à portée de son choix. Notez que cette compétence ne peut pas être combinée avec Tir Rapide." }
   ],
   "force": [
-    { "id": "force_01", "nom": "Coup Puissant", "texte": "+1 à la Force lors d'une attaque au corps à corps." },
-    { "id": "force_02", "nom": "Frénésie", "texte": "+1 Attaque lors d'un round où ce guerrier charge." },
-    { "id": "force_03", "nom": "Lancer Puissant", "texte": "+1 à la Force pour les armes de jet." },
-    { "id": "force_04", "nom": "Résistant à la Douleur", "texte": "Relance un jet raté sur la table des blessures graves." },
-    { "id": "force_05", "nom": "Force Surhumaine", "texte": "Les armes à une main sont traitées comme des armes lourdes contre les caractéristiques d'Endurance adverses." },
-    { "id": "force_06", "nom": "Berserker", "texte": "Doit toujours charger l'ennemi le plus proche si possible ; +1 Attaque en charge." }
+    { "id": "force_01", "nom": "Coup Puissant", "texte": "Le guerrier sait mettre ses muscles à profit et bénéficie d'un bonus de +1 en Force au corps à corps (sauf avec les pistolets). Ce bonus s'applique donc aussi à la Force des armes de corps à corps, qui dépend de celle de leur utilisateur." },
+    { "id": "force_02", "nom": "Gladiateur", "texte": "Le guerrier a appris à se battre dans des espaces confinés alors qu'il luttait dans les arènes de l'Empire. Il bénéficie de +1 en CC et de +1 Attaque s'il se bat dans un bâtiment ou des ruines. Nous vous conseillons de définir clairement avant la bataille quels éléments de décor entrent dans cette catégorie." },
+    { "id": "force_03", "nom": "Dur à Cuire", "texte": "Le guerrier est couvert de cicatrices. La Force de toutes les touches reçues au corps à corps est réduite de -1, sans toutefois affecter le modificateur de sauvegarde d'armure." },
+    { "id": "force_04", "nom": "Effrayant", "texte": "La réputation et l'apparence du guerrier sont telles qu'il cause la peur à ses ennemis." },
+    { "id": "force_05", "nom": "Homme Fort", "texte": "Le guerrier possède une grande force physique et peut manier une arme à deux mains sans avoir à frapper en dernier. Déterminez l'ordre de frappe comme avec les autres armes." },
+    { "id": "force_06", "nom": "Charge Furieuse", "texte": "Les charges du guerrier sont presque impossibles à stopper. Il bénéficie de +1 en Capacité de Combat lorsqu'il charge." }
   ],
   "academique": [
-    { "id": "academique_01", "nom": "Érudit", "texte": "Permet de lire les grimoires et parchemins trouvés en exploration sans risque." },
-    { "id": "academique_02", "nom": "Sixième Sens", "texte": "Ne peut jamais être pris par surprise (embuscade)." },
-    { "id": "academique_03", "nom": "Sens de la Magie", "texte": "Détecte la présence de wyrdstone ou d'objets magiques à courte distance." },
-    { "id": "academique_04", "nom": "Lire l'Ennemi", "texte": "Permet de connaître le profil complet d'un ennemi rencontré une fois." },
-    { "id": "academique_05", "nom": "Maître Stratège", "texte": "Le joueur peut redéployer un membre de la bande après la mise en place adverse." },
-    { "id": "academique_06", "nom": "Polyglotte", "texte": "Peut négocier avec toute créature intelligente, même hostile." }
+    { "id": "academique_01", "nom": "Langue de Bataille", "texte": "Seul un chef peut choisir cette compétence. Il donne ses ordres par des cris brefs que sa bande comprend. Cela augmente la portée de sa capacité de chef (prêter son Cd) de 6ps. Les morts-vivants ne peuvent pas utiliser cette compétence." },
+    { "id": "academique_02", "nom": "Pouvoir", "texte": "Cette compétence ne peut être choisie que par un héros capable de lancer des sorts, qui gagne alors +1 à ses jets pour voir s'il parvient à en lancer un. Les sœurs de Sigmar et les prêtres-guerriers ne peuvent pas choisir cette compétence." },
+    { "id": "academique_03", "nom": "Connaissance de la Rue", "texte": "Le guerrier possède de bons contacts et sait où acheter des objets rares. Il peut ajouter +2 au jet qui détermine s'il parvient à en trouver (voir le chapitre Commerce)." },
+    { "id": "academique_04", "nom": "Baratin", "texte": "Le guerrier sait tout du marchandage et du baratin. Il peut déduire 2D6 couronnes d'or du prix d'un seul objet une fois par séquence d'après bataille (jusqu'à un minimum de 1 couronne d'or)." },
+    { "id": "academique_05", "nom": "Sorcellerie", "texte": "Les Répurgateurs, les Sœurs de Sigmar et les prêtres-guerriers ne peuvent pas choisir cette compétence. Celui qui en est doté peut apprendre la magie mineure s'il possède un grimoire de magie." },
+    { "id": "academique_06", "nom": "Prospection", "texte": "Le guerrier possède un don pour trouver des fragments de pierre magique, et vous permet de relancer un dé lors du jet sur le Tableau d'Exploration s'il fouille les ruines après la partie. Vous devez accepter le second résultat." },
+    { "id": "academique_07", "nom": "Mage-guerrier", "texte": "Seul un lanceur de sorts peut choisir cette compétence, qui lui permet de lancer des sorts tout en portant une armure." }
   ],
   "vitesse": [
-    { "id": "vitesse_01", "nom": "Rapide comme l'Éclair", "texte": "+1 Mouvement de façon permanente." },
-    { "id": "vitesse_02", "nom": "Sprint", "texte": "Peut déclarer une course même si un ennemi est à portée de charge." },
-    { "id": "vitesse_03", "nom": "Esquive Acrobatique", "texte": "Peut traverser un gabarit de gabarit dangereux sans test." },
-    { "id": "vitesse_04", "nom": "Sauteur", "texte": "Ignore les malus de mouvement dus aux obstacles et différences de hauteur." },
-    { "id": "vitesse_05", "nom": "Réflexes Aiguisés", "texte": "Toujours considéré comme ayant l'Initiative la plus haute pour déterminer l'ordre d'un combat." },
-    { "id": "vitesse_06", "nom": "Infiltration", "texte": "Peut être déployé caché n'importe où à plus de 12 pouces des ennemis." }
+    { "id": "vitesse_01", "nom": "Saut", "texte": "Le guerrier peut sauter de D6ps lors de sa phase de mouvement en plus de son déplacement normal. Il peut bouger et sauter, courir et sauter, ou charger et sauter, mais dans tous les cas, il ne peut sauter qu'une fois par tour. Le guerrier peut sauter sans pénalité au-dessus d'obstacles de 1ps de haut au maximum et de figurines de taille humaine, même ennemies. Le saut peut aussi permettre de franchir des trous, mais vous devez dans ce cas déclarer que votre guerrier tente le saut avant de lancer le dé pour savoir jusqu'où il bondit. S'il ne parvient pas à atteindre l'autre côté, il chute." },
+    { "id": "vitesse_02", "nom": "Coureur", "texte": "Le guerrier est un excellent coureur. Il peut tripler son Mouvement lorsqu'il court ou charge au lieu de le doubler." },
+    { "id": "vitesse_03", "nom": "Acrobate", "texte": "Le guerrier est incroyablement souple et agile. Il peut tomber ou sauter sans dommage d'une hauteur maximum de 12ps s'il réussit un seul test d'Initiative, et peut relancer les jets de charges plongeantes ratés. Il ne peut toujours faire une charge plongeante que d'une hauteur maximum de 6ps." },
+    { "id": "vitesse_04", "nom": "Réflexes Foudroyants", "texte": "Si le guerrier se fait charger, il frappera en premier contre les ennemis qui l'ont chargé. Vu que ces derniers frappent en premier eux aussi (en raison de leur charge), l'ordre d'attaque des chargeurs et du chargé est déterminé par les Initiatives respectives." },
+    { "id": "vitesse_05", "nom": "Rétablissement", "texte": "Le guerrier peut se remettre debout en un instant s'il est mis à terre. Le guerrier peut ignorer tout résultat à terre lors des jets de dégâts, à moins qu'il ne s'agisse de la conséquence d'une sauvegarde due au port d'un casque ou qu'il ait la règle spéciale Insensible." },
+    { "id": "vitesse_06", "nom": "Esquive", "texte": "Le guerrier est agile et rapide comme du vif-argent. Il est capable d'éviter tout tir sur un 5+ sur 1D6. Notez que ce jet est effectué dès qu'une touche est obtenue, avant d'effectuer les jets pour blesser et avant de déterminer les effets d'autres compétences ou équipements (comme les Porte-bonheur)." },
+    { "id": "vitesse_07", "nom": "Grimpeur", "texte": "Le guerrier peut escalader grilles et murs avec une grande aisance. Il peut grimper, vers le haut comme vers le bas, d'une distance faisant jusqu'à deux fois son Mouvement normal, sans avoir besoin d'effectuer de test d'Initiative." }
   ],
-  "special": [
-    { "id": "special_01", "nom": "Chanceux", "texte": "Une fois par bataille, relance n'importe quel jet de dé." },
-    { "id": "special_02", "nom": "Increvable", "texte": "Un résultat « Hors de Combat » est traité comme un simple étourdissement récupéré en fin de tour." },
-    { "id": "special_03", "nom": "Sang-froid", "texte": "Réussit automatiquement les tests de Commandement liés à la peur ou à la terreur." },
-    { "id": "special_04", "nom": "Vieux Briscard", "texte": "+1 sur la table d'expérience lors du prochain jet d'avancée." },
-    { "id": "special_05", "nom": "Détermination", "texte": "Ne fuit jamais lors d'un test de déroute, reste et se bat." },
-    { "id": "special_06", "nom": "Bagarreur de Rue", "texte": "+1 pour toucher contre les adversaires démoralisés ou à terre." }
-  ]
+  "equitation": [
+    { "id": "equitation_01", "nom": "Équitation (ex : équitation - loup géant)", "texte": "Cette compétence est vitale pour chevaucher une monture au combat. Elle est spécifique à un animal donné et doit être de nouveau apprise si la figurine souhaite pouvoir monter un autre type d'animal. Par exemple, une figurine avec la compétence équitation - cheval devra apprendre la compétence équitation - destrier si elle souhaite chevaucher une monture au caractère aussi trempé. Les compétences spéciales d'Équitation peuvent être utilisées par les figurines qui ont une monture, mais seulement après avoir acquis au préalable la compétence équitation. Les guerriers équipés de base d'une monture sont considérés comme ayant déjà la compétence équitation." },
+    { "id": "equitation_02", "nom": "Commandeur", "texte": "La vue d'un Chef juché sur sa monture est motivante pour les troupes. De ce point de vue surélevé, le Héros peut voir (et être vu) bien plus facilement. Un Chef de bande monté avec cette compétence peut ajouter 6ps à la distance à laquelle les autres membres de sa bande peuvent utiliser son Cd, en plus de tout autre bonus dont la figurine bénéficie déjà." },
+    { "id": "equitation_03", "nom": "Sauter en selle", "texte": "Sans s'arrêter, le guerrier est capable de sauter sur la selle de sa monture avant de la lancer immédiatement au triple galop ! Une fois que le guerrier est en selle, il peut effectuer une charge ou une course avec sa monture de façon normale. La figurine doit être à moins de 2ps de sa monture pour utiliser cette compétence." },
+    { "id": "equitation_04", "nom": "Saut au trot", "texte": "Le cavalier est capable de sauter de sa monture tandis qu'elle avance à une allure modérée. Il peut se déplacer d'une distance égale au Mouvement normal de sa monture et mettre pied à terre. Aucun déplacement ou tir ultérieur n'est autorisé. Cette compétence peut être utilisée pour arriver au contact de l'ennemi. Cela compte alors comme une charge plongeante d'une hauteur de 2ps (toutes les règles sur les charges plongeantes s'appliquent). Notez que le cavalier compte ensuite comme étant à pied et ne bénéficie d'aucun avantage lié à sa monture." },
+    { "id": "equitation_05", "nom": "Cavalier archer", "texte": "Le cavalier a appris à tirer en selle auprès des nomades des steppes et peut le faire depuis une monture lancée au galop. Le cavalier a un arc de tir de 360° quand il est monté et peut tirer, même si sa monture s'est déplacée du double de son Mouvement normal. Toutefois, ce tir subit un malus de -1 pour toucher en plus de tout modificateur." },
+    { "id": "equitation_06", "nom": "Voltige", "texte": "Le guerrier peut se pendre à sa selle et se pencher sur le flanc de sa monture, ce qui le rend difficile à toucher. Quand il utilise cette compétence, tous les tirs subissent un malus de -1 au toucher. Il doit déclarer qu'il l'utilise avant de se déplacer et doit alors effectuer un test d'Initiative. En cas de succès, il peut se déplacer normalement. En cas d'échec, il doit effectuer un jet sur le tableau Holà ! Tout doux ! Cette compétence ne peut pas être utilisée avec une armure lourde. De plus, cette compétence nécessite les deux mains. Le Héros ne peut donc pas utiliser un bouclier ou une arme de tir lorsqu'il utilise cette compétence." },
+    { "id": "equitation_07", "nom": "Feinte", "texte": "Le cavalier a entraîné sa monture à se déplacer en combat. Une figurine avec cette compétence frappe toujours en premier face à des adversaires à pied. Lorsqu'elle est chargée ou affronte un ennemi ayant la capacité de frapper toujours en premier, les Attaques sont résolues selon l'Initiative. En cas d'égalité, celui avec le plus d'Expérience frappe en premier." },
+    { "id": "equitation_08", "nom": "Piétinement", "texte": "Le cavalier a entraîné sa monture à piétiner ses adversaires. Une figurine avec cette compétence peut effectuer une Attaque supplémentaire de Force 4 quand elle charge un ennemi à pied. Lors des tours suivants ou si c'est elle qui est chargée, elle combat normalement." },
+    { "id": "equitation_09", "nom": "Expert du combat monté", "texte": "La figurine est redoutable contre les cavaliers ennemis. Si la figurine est montée, se bat contre un adversaire lui aussi monté et qu'elle parvient à le Blesser, son adversaire devra ajouter +1 au résultat de son jet sur le tableau Holà ! Tout doux !" }
+  ],
+  "special": []
 }

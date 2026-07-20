@@ -5,7 +5,7 @@
       "min": 6,
       "max": 6,
       "type": "caracteristique_choix",
-      "label": "Augmentation de caractéristique",
+      "label": "+1 Force ou +1 Attaques",
       "options": [
         { "stat": "F", "label": "Force" },
         { "stat": "A", "label": "Attaques" }
@@ -15,7 +15,7 @@
       "min": 7,
       "max": 7,
       "type": "caracteristique_choix",
-      "label": "Augmentation de caractéristique",
+      "label": "+1 Capacité de Combat ou +1 Capacité de Tir",
       "options": [
         { "stat": "CC", "label": "Capacité de Combat" },
         { "stat": "CT", "label": "Capacité de Tir" }
@@ -25,7 +25,7 @@
       "min": 8,
       "max": 8,
       "type": "caracteristique_choix",
-      "label": "Augmentation de caractéristique",
+      "label": "+1 Initiative ou +1 Commandement",
       "options": [
         { "stat": "I", "label": "Initiative" },
         { "stat": "Cd", "label": "Commandement" }
@@ -35,7 +35,7 @@
       "min": 9,
       "max": 9,
       "type": "caracteristique_choix",
-      "label": "Augmentation de caractéristique",
+      "label": "+1 Points de Vie ou +1 Endurance",
       "options": [
         { "stat": "PV", "label": "Points de Vie" },
         { "stat": "E", "label": "Endurance" }
