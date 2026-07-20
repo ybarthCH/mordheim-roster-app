@@ -40,6 +40,19 @@ npm run build     # build de production (tsc + vite build)
 npm run lint       # oxlint
 ```
 
+## Déploiement
+
+L'app est publiée automatiquement sur GitHub Pages à chaque push sur
+`main`, via le workflow `.github/workflows/deploy-pages.yml` (build Vite +
+`actions/deploy-pages`) : https://ybarthCH.github.io/mordheim-roster-app/
+
+Le base path (`/mordheim-roster-app/`) est configuré dans `vite.config.ts`
+(uniquement en build, `npm run dev` reste servi à la racine) et propagé au
+manifest PWA et au service worker.
+
+À activer une seule fois côté dépôt : Settings → Pages → Build and
+deployment → Source = **GitHub Actions**.
+
 ## Structure
 
 ```
