@@ -123,15 +123,16 @@ export function PostBatailleScreen() {
     [roster]
   );
 
-  // Gain d'expérience, section « à résoudre » : groupes d'hommes de main
-  // partiellement Hors de combat (compteur dédié) — résolution figurine par
-  // figurine. Un groupe ne perd son XP que s'il est entièrement éliminé.
+  // Gain d'expérience, section « à résoudre » : hommes de main (seuls ou en
+  // groupe) marqués Hors de combat via le compteur dédié — résolution
+  // figurine par figurine. Un groupe ne perd son XP que s'il est entièrement
+  // éliminé. Remplace le statut « Hors de combat » pour les hommes de main,
+  // qui ne l'utilisent plus (cf. PersonnageScreen).
   const groupesHC = useMemo(
     () =>
       roster?.membres.filter(
         (m) =>
           resolveProfil(roster, m)?.type === 'homme_de_main' &&
-          m.taille_groupe > 1 &&
           m.hors_combat > 0 &&
           m.statut !== 'hors_de_combat'
       ) ?? [],
