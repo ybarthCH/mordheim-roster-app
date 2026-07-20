@@ -25,6 +25,8 @@ export function RecruterFrancTireurScreen() {
   const [solde, setSolde] = useState(0);
   const [xpDepart, setXpDepart] = useState(0);
   const [grandeCible, setGrandeCible] = useState(false);
+  const [quantite, setQuantite] = useState(1);
+  const [confirmationXp0, setConfirmationXp0] = useState(false);
 
   if (!roster) {
     return (
@@ -34,15 +36,26 @@ export function RecruterFrancTireurScreen() {
     );
   }
 
-  const budgetSuffisant = cout <= roster.tresorerie;
+  const estGroupable = type === 'homme_de_main';
+  const coutTotal = cout * (estGroupable ? quantite : 1);
+  const budgetSuffisant = coutTotal <= roster.tresorerie;
   const peutRecruter = nom.trim() !== '';
 
   const toggleCategorie = (cat: SkillCategory) => {
     setAccesCompetences((prev) => (prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]));
   };
 
+  const changerXpDepart = (value: number) => {
+    setXpDepart(value);
+    setConfirmationXp0(false);
+  };
+
   const recruter = () => {
     if (!peutRecruter) return;
+    if (xpDepart === 0 && !confirmationXp0) {
+      setConfirmationXp0(true);
+      return;
+    }
     const profilCustom: ProfilFrancTireur = {
       nom: nom.trim(),
       type,
@@ -51,12 +64,12 @@ export function RecruterFrancTireurScreen() {
       cout,
       solde,
     };
-    const membre = creerMembreFrancTireur(profilCustom, xpDepart);
+    const membre = creerMembreFrancTireur(profilCustom, xpDepart, estGroupable ? quantite : 1);
     membre.equipement = equipement;
     membre.grande_cible = grandeCible;
     updateRoster({
       ...roster,
-      tresorerie: roster.tresorerie - cout,
+      tresorerie: roster.tresorerie - coutTotal,
       membres: [...roster.membres, membre],
     });
     navigate(`/roster/${roster.id}`);
@@ -75,16 +88,39 @@ export function RecruterFrancTireurScreen() {
         </div>
         <div className="field">
           <label>Type</label>
-          <select value={type} onChange={(e) => setType(e.target.value as 'heros' | 'homme_de_main')}>
+          <select
+            value={type}
+            onChange={(e) => {
+              const v = e.target.value as 'heros' | 'homme_de_main';
+              setType(v);
+              if (v === 'heros') setQuantite(1);
+            }}
+          >
             <option value="heros">Héros</option>
             <option value="homme_de_main">Homme de main</option>
           </select>
         </div>
+        {estGroupable && (
+          <div className="field">
+            <label>Nombre de figurines (groupe identique)</label>
+            <input
+              type="number"
+              min={1}
+              value={quantite}
+              onChange={(e) => setQuantite(Math.max(1, Number(e.target.value) || 1))}
+            />
+          </div>
+        )}
         <div className="field">
           <label>Expérience de départ</label>
-          <input type="number" value={xpDepart} onChange={(e) => setXpDepart(Number(e.target.value) || 0)} />
+          <input type="number" value={xpDepart} onChange={(e) => changerXpDepart(Number(e.target.value) || 0)} />
           <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
         </div>
+        {confirmationXp0 && (
+          <p className="text-danger text-sm">
+            Es-tu sûr de vouloir commencer à 0 XP ? Clique à nouveau sur "Engager" pour confirmer.
+          </p>
+        )}
         <label className="flex items-center gap-sm" style={{ cursor: 'pointer' }}>
           <input type="checkbox" checked={grandeCible} onChange={(e) => setGrandeCible(e.target.checked)} />
           <span>
@@ -155,18 +191,18 @@ export function RecruterFrancTireurScreen() {
         <h3>Prix</h3>
         <div className="field-row">
           <div className="field">
-            <label>Prix d'engagement (po)</label>
+            <label>Prix d'engagement (po{estGroupable && quantite > 1 ? ' / figurine' : ''})</label>
             <input type="number" value={cout} onChange={(e) => setCout(Number(e.target.value) || 0)} />
           </div>
           <div className="field">
-            <label>Solde après chaque bataille (po)</label>
+            <label>Solde après chaque bataille (po{estGroupable && quantite > 1 ? ' / figurine' : ''})</label>
             <input type="number" value={solde} onChange={(e) => setSolde(Number(e.target.value) || 0)} />
           </div>
         </div>
         <p className={budgetSuffisant ? 'text-sm text-muted' : 'text-sm text-danger'}>
-          Le prix d'engagement ({cout} po) sera déduit immédiatement de la trésorerie ({roster.tresorerie} po
-          disponibles{!budgetSuffisant ? ' — insuffisant' : ''}). La solde ({solde} po) sera à payer après
-          chaque bataille via l'assistant post-bataille.
+          Le prix d'engagement total ({coutTotal} po) sera déduit immédiatement de la trésorerie ({roster.tresorerie}{' '}
+          po disponibles{!budgetSuffisant ? ' — insuffisant' : ''}). La solde sera à payer après chaque bataille via
+          l'assistant post-bataille.
         </p>
       </div>
 
@@ -175,7 +211,7 @@ export function RecruterFrancTireurScreen() {
           Annuler
         </button>
         <button className="btn btn--primary" disabled={!peutRecruter} onClick={recruter}>
-          Engager{!budgetSuffisant ? ' quand même' : ''}
+          {confirmationXp0 ? 'Confirmer 0 XP et engager' : `Engager${!budgetSuffisant ? ' quand même' : ''}`}
         </button>
       </div>
     </Screen>

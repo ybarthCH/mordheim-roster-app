@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Screen } from '../common/Screen';
+import { Modal } from '../common/Modal';
 import { CATALOGUES } from '../../data/warbands';
 import type { Profile } from '../../types/catalog';
 import type { Member, RosterInstance } from '../../types/roster';
@@ -18,12 +19,13 @@ export function CreationBandeScreen() {
   const [nomBande, setNomBande] = useState('');
   const [budget, setBudget] = useState(BUDGET_PAR_DEFAUT);
   const [membres, setMembres] = useState<Member[]>([]);
+  const [profilEnRecrutement, setProfilEnRecrutement] = useState<Profile | null>(null);
 
   const catalogue = useMemo(() => CATALOGUES.find((c) => c.id === bandeId), [bandeId]);
 
   const coutTotal = membres.reduce((acc, m) => {
     const profil = catalogue?.profils.find((p) => p.id === m.profil_id);
-    return acc + (profil?.cout ?? 0);
+    return acc + (profil?.cout ?? 0) * (m.taille_groupe || 1);
   }, 0);
   const restant = budget - coutTotal;
 
@@ -43,15 +45,6 @@ export function CreationBandeScreen() {
     }),
     [bandeId, nomBande, budget, membres]
   );
-
-  const ajouterProfil = (profil: Profile) => {
-    const check = peutAjouterMembre(rosterFictif, profil.id);
-    if (!check.ok) {
-      alert(check.raison);
-      return;
-    }
-    setMembres((prev) => [...prev, creerMembre(profil)]);
-  };
 
   const retirerMembre = (instanceId: string) => {
     setMembres((prev) => prev.filter((m) => m.instance_id !== instanceId));
@@ -144,7 +137,7 @@ export function CreationBandeScreen() {
                       {p.cout != null ? `${p.cout} po` : 'coût ?'}
                     </div>
                   </div>
-                  <button className="btn btn--sm" disabled={!check.ok} onClick={() => ajouterProfil(p)}>
+                  <button className="btn btn--sm" disabled={!check.ok} onClick={() => setProfilEnRecrutement(p)}>
                     + Ajouter
                   </button>
                 </div>
@@ -174,6 +167,7 @@ export function CreationBandeScreen() {
                 />
                 <div className="list-item__subtitle">
                   {catalogue?.profils.find((p) => p.id === m.profil_id)?.nom}
+                  {m.taille_groupe > 1 ? ` · × ${m.taille_groupe}` : ''} · XP {m.xp}
                 </div>
               </div>
               <button className="btn btn--sm btn--danger" onClick={() => retirerMembre(m.instance_id)}>
@@ -187,6 +181,106 @@ export function CreationBandeScreen() {
       <button className="btn btn--primary btn--block" disabled={!peutCreer} onClick={handleCreer}>
         Créer la bande
       </button>
+
+      {profilEnRecrutement && (
+        <RecrutementDraftModal
+          profil={profilEnRecrutement}
+          budgetDisponible={restant}
+          verifierLimite={(quantite) => peutAjouterMembre(rosterFictif, profilEnRecrutement.id, quantite)}
+          onClose={() => setProfilEnRecrutement(null)}
+          onConfirm={({ nom, xpDepart, quantite }) => {
+            const membre = creerMembre(profilEnRecrutement, xpDepart, quantite);
+            if (nom) membre.nom_perso = nom;
+            setMembres((prev) => [...prev, membre]);
+            setProfilEnRecrutement(null);
+          }}
+        />
+      )}
     </Screen>
+  );
+}
+
+type RecrutementDraftModalProps = {
+  profil: Profile;
+  budgetDisponible: number;
+  verifierLimite: (quantite: number) => { ok: boolean; raison?: string };
+  onClose: () => void;
+  onConfirm: (opts: { nom: string; xpDepart: number; quantite: number }) => void;
+};
+
+function RecrutementDraftModal({
+  profil,
+  budgetDisponible,
+  verifierLimite,
+  onClose,
+  onConfirm,
+}: RecrutementDraftModalProps) {
+  const [nom, setNom] = useState('');
+  const [xpDepart, setXpDepart] = useState(profil.xp_depart ?? 0);
+  const [quantite, setQuantite] = useState(1);
+  const [confirmationXp0, setConfirmationXp0] = useState(false);
+  const estGroupable = profil.type === 'homme_de_main';
+
+  const coutTotal = (profil.cout ?? 0) * quantite;
+  const budgetSuffisant = coutTotal <= budgetDisponible;
+  const check = verifierLimite(quantite);
+
+  const changerXpDepart = (value: number) => {
+    setXpDepart(value);
+    setConfirmationXp0(false);
+  };
+
+  const confirmer = () => {
+    if (!check.ok) return;
+    if (xpDepart === 0 && !confirmationXp0) {
+      setConfirmationXp0(true);
+      return;
+    }
+    onConfirm({ nom: nom.trim(), xpDepart, quantite });
+  };
+
+  return (
+    <Modal onClose={onClose}>
+      <h3>Recruter — {profil.nom}</h3>
+      <div className="field">
+        <label>Nom du personnage{estGroupable && quantite > 1 ? ' (groupe)' : ''}</label>
+        <input value={nom} onChange={(e) => setNom(e.target.value)} placeholder={profil.nom} />
+      </div>
+      {estGroupable && (
+        <div className="field">
+          <label>Nombre de figurines (groupe identique)</label>
+          <input
+            type="number"
+            min={1}
+            value={quantite}
+            onChange={(e) => setQuantite(Math.max(1, Number(e.target.value) || 1))}
+          />
+        </div>
+      )}
+      <div className="field">
+        <label>Expérience de départ</label>
+        <input type="number" value={xpDepart} onChange={(e) => changerXpDepart(Number(e.target.value) || 0)} />
+        <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
+      </div>
+      {confirmationXp0 && (
+        <p className="text-danger text-sm">
+          Es-tu sûr de vouloir commencer à 0 XP ? Clique à nouveau pour confirmer.
+        </p>
+      )}
+      {!check.ok && <p className="text-danger text-sm">{check.raison}</p>}
+      {check.ok && !budgetSuffisant && (
+        <p className="text-danger text-sm">
+          Budget insuffisant ({budgetDisponible} po restantes, {coutTotal} po requis).
+        </p>
+      )}
+      <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+        <button className="btn" onClick={onClose}>
+          Annuler
+        </button>
+        <button className="btn btn--primary" disabled={!check.ok} onClick={confirmer}>
+          {confirmationXp0 ? 'Confirmer 0 XP et ajouter' : `Ajouter${!budgetSuffisant ? ' quand même' : ''}`}
+        </button>
+      </div>
+    </Modal>
   );
 }

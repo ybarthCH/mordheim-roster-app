@@ -83,6 +83,41 @@ export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }:
         <label>Notes</label>
         <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
       </div>
+
+      {bataille?.journal && (
+        <div className="card card--tight" style={{ marginBottom: '0.7rem' }}>
+          <p className="text-sm mb-0">
+            <strong>Journal de l'assistant post-bataille</strong>
+          </p>
+          <p className="text-sm mb-0" style={{ marginTop: '0.4rem' }}>
+            Wyrdstone trouvé : {bataille.journal.wyrdstoneTrouve} · Vendu : {bataille.journal.quantiteVendue} pour{' '}
+            {bataille.journal.prixVente} po
+          </p>
+          {bataille.journal.notesExploration && (
+            <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              Exploration : {bataille.journal.notesExploration}
+            </p>
+          )}
+          {bataille.journal.soldeFrancsTireurs > 0 && (
+            <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              Solde des francs-tireurs payée : {bataille.journal.soldeFrancsTireurs} po
+            </p>
+          )}
+          {bataille.journal.blessures.length > 0 && (
+            <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              <strong>Blessures graves :</strong>{' '}
+              {bataille.journal.blessures.map((b) => `${b.nom} — ${b.description}`).join(' · ')}
+            </p>
+          )}
+          {bataille.journal.survie.length > 0 && (
+            <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              <strong>Survie :</strong>{' '}
+              {bataille.journal.survie.map((s) => `${s.nom} (${s.survecu ? 'a survécu' : "n'a pas survécu"})`).join(', ')}
+            </p>
+          )}
+        </div>
+      )}
+
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
         <button className="btn" onClick={onClose}>
           Annuler

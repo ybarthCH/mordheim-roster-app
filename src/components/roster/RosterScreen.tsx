@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/RostersContext';
 import { Screen } from '../common/Screen';
+import { Modal } from '../common/Modal';
 import { getCatalogue } from '../../data/warbands';
 import { resolveProfil } from '../../utils/profil';
 import { valeurBande, effectifTotal } from '../../utils/bandeValue';
@@ -28,6 +29,7 @@ export function RosterScreen() {
   const [modalMembre, setModalMembre] = useState(false);
   const [modalBataille, setModalBataille] = useState(false);
   const [batailleEnEdition, setBatailleEnEdition] = useState<BattleRecord | null>(null);
+  const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
 
   if (!roster) {
     return (
@@ -45,6 +47,8 @@ export function RosterScreen() {
   const patch = (partial: Partial<RosterInstance>) => {
     updateRoster({ ...roster, ...partial });
   };
+
+  const nomAffiche = (m: Member) => `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
 
   const renderGroupe = (titre: string, membres: Member[]) => (
     <div className="card">
@@ -66,6 +70,7 @@ export function RosterScreen() {
               <th>Cd</th>
               <th>XP</th>
               <th>Statut</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -73,7 +78,7 @@ export function RosterScreen() {
               const profil = resolveProfil(roster, m);
               return (
                 <tr key={m.instance_id} onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}>
-                  <td>{m.nom_perso}</td>
+                  <td>{nomAffiche(m)}</td>
                   <td>{profil?.nom ?? m.profil_id}</td>
                   <td>{m.stats_actuels.M}</td>
                   <td>{m.stats_actuels.CC}</td>
@@ -89,6 +94,19 @@ export function RosterScreen() {
                     <span className={`badge ${STATUT_BADGE[m.statut]}`}>
                       {STATUTS.find((s) => s.id === m.statut)?.label}
                     </span>
+                  </td>
+                  <td>
+                    <button
+                      className="btn--ghost"
+                      style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMembreASupprimer(m);
+                      }}
+                      title="Retirer de la bande"
+                    >
+                      ✕
+                    </button>
                   </td>
                 </tr>
               );
@@ -108,7 +126,7 @@ export function RosterScreen() {
               onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
             >
               <div className="list-item__main">
-                <div className="list-item__title">{m.nom_perso}</div>
+                <div className="list-item__title">{nomAffiche(m)}</div>
                 <div className="list-item__subtitle">
                   {profil?.nom} · XP {m.xp} · PV {m.stats_actuels.PV}
                 </div>
@@ -116,6 +134,17 @@ export function RosterScreen() {
               <span className={`badge ${STATUT_BADGE[m.statut]}`}>
                 {STATUTS.find((s) => s.id === m.statut)?.label}
               </span>
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMembreASupprimer(m);
+                }}
+                title="Retirer de la bande"
+              >
+                ✕
+              </button>
             </div>
           );
         })}
@@ -319,6 +348,26 @@ export function RosterScreen() {
             setBatailleEnEdition(null);
           }}
         />
+      )}
+      {membreASupprimer && (
+        <Modal onClose={() => setMembreASupprimer(null)}>
+          <h3>Retirer {membreASupprimer.nom_perso} ?</h3>
+          <p className="text-muted">Cette action supprime définitivement ce personnage (ou groupe) du roster.</p>
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={() => setMembreASupprimer(null)}>
+              Annuler
+            </button>
+            <button
+              className="btn btn--danger"
+              onClick={() => {
+                patch({ membres: roster.membres.filter((m) => m.instance_id !== membreASupprimer.instance_id) });
+                setMembreASupprimer(null);
+              }}
+            >
+              Retirer
+            </button>
+          </div>
+        </Modal>
       )}
     </Screen>
   );

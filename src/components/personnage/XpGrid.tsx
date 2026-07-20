@@ -3,10 +3,11 @@ import { HENCHMAN_XP_MAX, HERO_XP_MAX, isPalierHenchman, isPalierHero } from '..
 type Props = {
   type: 'heros' | 'homme_de_main';
   xp: number;
+  xpDepart?: number;
   onChange: (xp: number) => void;
 };
 
-export function XpGrid({ type, xp, onChange }: Props) {
+export function XpGrid({ type, xp, xpDepart = 0, onChange }: Props) {
   const toggle = (box: number) => {
     // cliquer une case fixe l'XP totale à cette valeur (ou la décoche si déjà à ce niveau)
     onChange(xp === box ? box - 1 : box);
@@ -22,9 +23,12 @@ export function XpGrid({ type, xp, onChange }: Props) {
         <button
           key={box}
           type="button"
-          className={`xp-box ${isPalier(box) ? 'xp-box--palier' : ''} ${xp >= box ? 'xp-box--checked' : ''}`}
+          className={`xp-box ${isPalier(box) ? 'xp-box--palier' : ''} ${xp >= box ? 'xp-box--checked' : ''} ${
+            box <= xpDepart ? 'xp-box--depart' : ''
+          }`}
           onClick={() => toggle(box)}
           aria-label={`Case XP ${box}`}
+          title={box <= xpDepart ? 'XP de départ — ne comptait pas pour une avancée' : undefined}
         >
           {isPalier(box) ? box : ''}
         </button>

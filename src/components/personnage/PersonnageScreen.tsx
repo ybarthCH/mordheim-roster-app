@@ -146,6 +146,22 @@ export function PersonnageScreen() {
         <div className="flex items-center gap-sm" style={{ marginTop: '0.7rem' }}>
           <span className="badge badge--info">Rating {rating}</span>
         </div>
+
+        {profil.type === 'homme_de_main' && !membre.promu_heros && (
+          <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
+            <span className="text-sm text-muted">Groupe :</span>
+            <input
+              type="number"
+              min={1}
+              className="stat-grid__input stat-grid__input--pv"
+              value={membre.taille_groupe}
+              onChange={(e) => majMembre({ taille_groupe: Math.max(1, Number(e.target.value) || 1) })}
+            />
+            <span className="text-sm text-muted">
+              figurine{membre.taille_groupe > 1 ? 's' : ''} identique{membre.taille_groupe > 1 ? 's' : ''}
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="card">
@@ -247,7 +263,7 @@ export function PersonnageScreen() {
           <h3 className="mt-0 mb-0">Expérience</h3>
           <span className="badge badge--info">{membre.xp} XP</span>
         </div>
-        <XpGrid type={profil.type} xp={membre.xp} onChange={(xp) => majMembre({ xp })} />
+        <XpGrid type={profil.type} xp={membre.xp} xpDepart={membre.xp_depart} onChange={(xp) => majMembre({ xp })} />
         <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
           XP de départ : {membre.xp_depart} (n'a déclenché aucune avancée).
         </p>
@@ -307,7 +323,7 @@ export function PersonnageScreen() {
           <input
             value={nouveauSort}
             onChange={(e) => setNouveauSort(e.target.value)}
-            placeholder="Ex : règle spéciale, sort, mutation…"
+            placeholder="Ex : Nuages de mouches : -1 pour être touché au corps à corps"
             style={{
               flex: 1,
               background: 'var(--bg-inset)',
@@ -385,7 +401,13 @@ export function PersonnageScreen() {
           profil={profil}
           catalogue={catalogue}
           onClose={() => setModalAvancee(false)}
-          onApply={(updated) => majMembre(updated)}
+          onApply={(updated, nouveauMembre) => {
+            const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
+            updateRoster({
+              ...roster,
+              membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj,
+            });
+          }}
         />
       )}
       {modalBlessure && (

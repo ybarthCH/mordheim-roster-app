@@ -20,11 +20,15 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const [profilId, setProfilId] = useState('');
   const [nomPerso, setNomPerso] = useState('');
   const [xpDepart, setXpDepart] = useState(0);
+  const [quantite, setQuantite] = useState(1);
+  const [confirmationXp0, setConfirmationXp0] = useState(false);
 
   const profil = catalogue?.profils.find((p) => p.id === profilId);
-  const check = profilId ? peutAjouterMembre(roster, profilId) : { ok: false };
-  const cout = profil?.cout ?? 0;
-  const budgetSuffisant = cout <= roster.tresorerie;
+  const check = profilId ? peutAjouterMembre(roster, profilId, quantite) : { ok: false };
+  const coutUnitaire = profil?.cout ?? 0;
+  const coutTotal = coutUnitaire * quantite;
+  const budgetSuffisant = coutTotal <= roster.tresorerie;
+  const estGroupable = profil?.type === 'homme_de_main';
 
   const choisirProfil = (value: string) => {
     if (value === FRANC_TIREUR) {
@@ -35,15 +39,26 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     setProfilId(value);
     const p = catalogue?.profils.find((pr) => pr.id === value);
     setXpDepart(p?.xp_depart ?? 0);
+    setQuantite(1);
+    setConfirmationXp0(false);
+  };
+
+  const changerXpDepart = (value: number) => {
+    setXpDepart(value);
+    setConfirmationXp0(false);
   };
 
   const confirmer = () => {
     if (!profil || !check.ok) return;
-    const membre = creerMembre(profil, xpDepart);
+    if (xpDepart === 0 && !confirmationXp0) {
+      setConfirmationXp0(true);
+      return;
+    }
+    const membre = creerMembre(profil, xpDepart, quantite);
     if (nomPerso.trim()) membre.nom_perso = nomPerso.trim();
     onConfirm({
       ...roster,
-      tresorerie: roster.tresorerie - cout,
+      tresorerie: roster.tresorerie - coutTotal,
       membres: [...roster.membres, membre],
     });
   };
@@ -66,24 +81,36 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
       {profil && (
         <>
           <div className="field">
-            <label>Nom du personnage</label>
+            <label>Nom du personnage{estGroupable && quantite > 1 ? ' (groupe)' : ''}</label>
             <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} placeholder={profil.nom} />
           </div>
+          {estGroupable && (
+            <div className="field">
+              <label>Nombre de figurines (groupe identique)</label>
+              <input
+                type="number"
+                min={1}
+                value={quantite}
+                onChange={(e) => setQuantite(Math.max(1, Number(e.target.value) || 1))}
+              />
+            </div>
+          )}
           <div className="field">
             <label>Expérience de départ</label>
-            <input
-              type="number"
-              value={xpDepart}
-              onChange={(e) => setXpDepart(Number(e.target.value) || 0)}
-            />
+            <input type="number" value={xpDepart} onChange={(e) => changerXpDepart(Number(e.target.value) || 0)} />
             <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
           </div>
+          {confirmationXp0 && (
+            <p className="text-danger text-sm">
+              Es-tu sûr de vouloir commencer à 0 XP ? Clique à nouveau pour confirmer.
+            </p>
+          )}
         </>
       )}
       {profilId && !check.ok && <p className="text-danger text-sm">{check.raison}</p>}
       {profil && !budgetSuffisant && (
         <p className="text-danger text-sm">
-          Trésorerie insuffisante ({roster.tresorerie} po disponibles, {cout} po requis).
+          Trésorerie insuffisante ({roster.tresorerie} po disponibles, {coutTotal} po requis).
         </p>
       )}
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
@@ -91,7 +118,9 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
           Annuler
         </button>
         <button className="btn btn--primary" disabled={!profil || !check.ok} onClick={confirmer}>
-          Recruter{profil && !budgetSuffisant ? ' quand même' : ''}
+          {confirmationXp0
+            ? 'Confirmer 0 XP et recruter'
+            : `Recruter${profil && !budgetSuffisant ? ' quand même' : ''}`}
         </button>
       </div>
     </Modal>

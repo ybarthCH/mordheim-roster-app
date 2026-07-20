@@ -5,7 +5,7 @@ import { Screen } from '../common/Screen';
 import { useRosters } from '../../state/RostersContext';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
-import type { BattleRecord, Member } from '../../types/roster';
+import type { BattleRecord, JournalPostBataille, Member } from '../../types/roster';
 
 const ETAPES = ['Blessures graves', "Gain d'expérience", 'Bataille', 'Exploration', 'Résumé'];
 
@@ -45,7 +45,10 @@ export function PostBatailleScreen() {
     () => roster?.membres.filter((m) => m.profil_custom && m.statut !== 'mort') ?? [],
     [roster]
   );
-  const soldeTotal = francTireursActifs.reduce((acc, m) => acc + (m.profil_custom?.solde ?? 0), 0);
+  const soldeTotal = francTireursActifs.reduce(
+    (acc, m) => acc + (m.profil_custom?.solde ?? 0) * (m.taille_groupe || 1),
+    0
+  );
 
   if (!roster) {
     return (
@@ -110,12 +113,31 @@ export function PostBatailleScreen() {
       return membre;
     });
 
+    const journal: JournalPostBataille = {
+      wyrdstoneTrouve,
+      notesExploration: notesExploration.trim(),
+      quantiteVendue,
+      prixVente,
+      soldeFrancsTireurs: soldeTotal,
+      blessures: Object.entries(blessureDrafts)
+        .filter(([, d]) => d.description.trim())
+        .map(([instanceId, d]) => ({
+          nom: roster.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?',
+          description: d.description.trim(),
+        })),
+      survie: Object.entries(survieChoisies).map(([instanceId, v]) => ({
+        nom: roster.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?',
+        survecu: v === 'oui',
+      })),
+    };
+
     const bataille: BattleRecord = {
       id: uuidv4(),
       date,
       resultat,
       adversaires,
       notes: notesBataille.trim(),
+      journal,
     };
 
     await updateRoster({
