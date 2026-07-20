@@ -1,0 +1,51 @@
+{
+  "combat": [
+    { "id": "combat_01", "nom": "Maître du Combat", "texte": "En cas d'égalité au jet pour toucher lors d'un combat, ce guerrier l'emporte toujours." },
+    { "id": "combat_02", "nom": "Esquive", "texte": "Une fois par combat, permet de relancer un jet de sauvegarde raté contre une attaque au corps à corps." },
+    { "id": "combat_03", "nom": "Escrimeur Expert", "texte": "Ignore le bonus d'Attaque procuré par une arme à deux mains adverse lors d'un duel." },
+    { "id": "combat_04", "nom": "Feinte", "texte": "Avant de résoudre un combat, le joueur peut annoncer une feinte : l'adversaire doit deviner si le coup est réel." },
+    { "id": "combat_05", "nom": "Robuste", "texte": "Les jets sur la table des blessures graves subissent un malus de -1 pour l'adversaire (résultats plus favorables)." },
+    { "id": "combat_06", "nom": "Pas de Côté", "texte": "Peut se dégager d'un combat sans subir d'attaque gratuite." },
+    { "id": "combat_07", "nom": "Contre-Attaque", "texte": "Si l'ennemi rate tous ses jets pour toucher lors d'un round de combat, ce guerrier gagne une attaque supplémentaire au round suivant." }
+  ],
+  "tir": [
+    { "id": "tir_01", "nom": "Œil de Lynx", "texte": "Ignore le malus pour tir à longue portée." },
+    { "id": "tir_02", "nom": "Chasseur", "texte": "Peut retirer un couvert léger de la cible lors d'un tir." },
+    { "id": "tir_03", "nom": "Tireur d'Élite", "texte": "Peut choisir la cible touchée lors d'un tir réussi contre un groupe." },
+    { "id": "tir_04", "nom": "Rechargement Rapide", "texte": "Recharge une arme à un coup en une demi-action au lieu d'une action complète." },
+    { "id": "tir_05", "nom": "Expert en Armes de Tir", "texte": "Ignore le malus de tir en mouvement." },
+    { "id": "tir_06", "nom": "Tir en Mouvement", "texte": "Peut tirer et courir dans le même tour sans pénalité supplémentaire." }
+  ],
+  "force": [
+    { "id": "force_01", "nom": "Coup Puissant", "texte": "+1 à la Force lors d'une attaque au corps à corps." },
+    { "id": "force_02", "nom": "Frénésie", "texte": "+1 Attaque lors d'un round où ce guerrier charge." },
+    { "id": "force_03", "nom": "Lancer Puissant", "texte": "+1 à la Force pour les armes de jet." },
+    { "id": "force_04", "nom": "Résistant à la Douleur", "texte": "Relance un jet raté sur la table des blessures graves." },
+    { "id": "force_05", "nom": "Force Surhumaine", "texte": "Les armes à une main sont traitées comme des armes lourdes contre les caractéristiques d'Endurance adverses." },
+    { "id": "force_06", "nom": "Berserker", "texte": "Doit toujours charger l'ennemi le plus proche si possible ; +1 Attaque en charge." }
+  ],
+  "academique": [
+    { "id": "academique_01", "nom": "Érudit", "texte": "Permet de lire les grimoires et parchemins trouvés en exploration sans risque." },
+    { "id": "academique_02", "nom": "Sixième Sens", "texte": "Ne peut jamais être pris par surprise (embuscade)." },
+    { "id": "academique_03", "nom": "Sens de la Magie", "texte": "Détecte la présence de wyrdstone ou d'objets magiques à courte distance." },
+    { "id": "academique_04", "nom": "Lire l'Ennemi", "texte": "Permet de connaître le profil complet d'un ennemi rencontré une fois." },
+    { "id": "academique_05", "nom": "Maître Stratège", "texte": "Le joueur peut redéployer un membre de la bande après la mise en place adverse." },
+    { "id": "academique_06", "nom": "Polyglotte", "texte": "Peut négocier avec toute créature intelligente, même hostile." }
+  ],
+  "vitesse": [
+    { "id": "vitesse_01", "nom": "Rapide comme l'Éclair", "texte": "+1 Mouvement de façon permanente." },
+    { "id": "vitesse_02", "nom": "Sprint", "texte": "Peut déclarer une course même si un ennemi est à portée de charge." },
+    { "id": "vitesse_03", "nom": "Esquive Acrobatique", "texte": "Peut traverser un gabarit de gabarit dangereux sans test." },
+    { "id": "vitesse_04", "nom": "Sauteur", "texte": "Ignore les malus de mouvement dus aux obstacles et différences de hauteur." },
+    { "id": "vitesse_05", "nom": "Réflexes Aiguisés", "texte": "Toujours considéré comme ayant l'Initiative la plus haute pour déterminer l'ordre d'un combat." },
+    { "id": "vitesse_06", "nom": "Infiltration", "texte": "Peut être déployé caché n'importe où à plus de 12 pouces des ennemis." }
+  ],
+  "special": [
+    { "id": "special_01", "nom": "Chanceux", "texte": "Une fois par bataille, relance n'importe quel jet de dé." },
+    { "id": "special_02", "nom": "Increvable", "texte": "Un résultat « Hors de Combat » est traité comme un simple étourdissement récupéré en fin de tour." },
+    { "id": "special_03", "nom": "Sang-froid", "texte": "Réussit automatiquement les tests de Commandement liés à la peur ou à la terreur." },
+    { "id": "special_04", "nom": "Vieux Briscard", "texte": "+1 sur la table d'expérience lors du prochain jet d'avancée." },
+    { "id": "special_05", "nom": "Détermination", "texte": "Ne fuit jamais lors d'un test de déroute, reste et se bat." },
+    { "id": "special_06", "nom": "Bagarreur de Rue", "texte": "+1 pour toucher contre les adversaires démoralisés ou à terre." }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "id": "beastmen_raiders",
+  "nom": "Beastmen Raiders (1a)",
+  "grade": "1a",
+  "source": "BSData",
+  "regles_speciales": [
+    {
+      "nom": "Animals",
+      "texte": "Beastmen are fearsome creatures of Chaos that do not interact with other races other than in war.\n\nA Beastmen warband may never hire any Hired Swords unless specifically stated with the Hired Sword."
+    }
+  ],
+  "profils": [
+    {
+      "id": "beastmen_chieftain",
+      "nom": "Beastmen Chieftain",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 65,
+      "stats": {
+        "M": 5,
+        "CC": 4,
+        "CT": 3,
+        "F": 4,
+        "E": 4,
+        "PV": 1,
+        "I": 4,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": []
+    },
+    {
+      "id": "beastmen_shaman",
+      "nom": "Beastmen Shaman",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 45,
+      "stats": {
+        "M": 5,
+        "CC": 4,
+        "CT": 3,
+        "F": 3,
+        "E": 4,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 6
+      },
+      "acces_competences": []
+    },
+    {
+      "id": "bestigors",
+      "nom": "Bestigors",
+      "type": "heros",
+      "unique": false,
+      "max": 2,
+      "cout": 45,
+      "stats": {
+        "M": 5,
+        "CC": 4,
+        "CT": 3,
+        "F": 4,
+        "E": 4,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": []
+    },
+    {
+      "id": "centigors",
+      "nom": "Centigors",
+      "type": "heros",
+      "unique": true,
+      "max": 1,
+      "cout": 80,
+      "stats": {
+        "M": 8,
+        "CC": 4,
+        "CT": 3,
+        "F": 4,
+        "E": 4,
+        "PV": 1,
+        "I": 2,
+        "A": 1,
+        "Cd": 7
+      },
+      "acces_competences": []
+    },
+    {
+      "id": "ungor",
+      "nom": "Ungor",
+      "type": "homme_de_main",
+      "cout": 25,
+      "stats": {
+        "M": 5,
+        "CC": 3,
+        "CT": 3,
+        "F": 3,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 6
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "gor",
+      "nom": "Gor",
+      "type": "homme_de_main",
+      "cout": 35,
+      "stats": {
+        "M": 5,
+        "CC": 4,
+        "CT": 3,
+        "F": 3,
+        "E": 4,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 6
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "warhounds_of_chaos",
+      "nom": "Warhounds of Chaos",
+      "type": "homme_de_main",
+      "cout": 15,
+      "stats": {
+        "M": 7,
+        "CC": 4,
+        "CT": 0,
+        "F": 4,
+        "E": 3,
+        "PV": 1,
+        "I": 3,
+        "A": 1,
+        "Cd": 5
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "minotaur",
+      "nom": "Minotaur",
+      "type": "homme_de_main",
+      "cout": 200,
+      "stats": {
+        "M": 6,
+        "CC": 4,
+        "CT": 3,
+        "F": 4,
+        "E": 4,
+        "PV": 3,
+        "I": 4,
+        "A": 3,
+        "Cd": 8
+      },
+      "acces_competences": [],
+      "acces_competences_a_verifier": true
+    }
+  ]
+}
