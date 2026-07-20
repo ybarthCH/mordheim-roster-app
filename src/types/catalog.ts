@@ -14,7 +14,7 @@ export type Stats = {
 
 export const STAT_KEYS: (keyof Stats)[] = ['M', 'CC', 'CT', 'F', 'E', 'PV', 'I', 'A', 'Cd'];
 
-export type SkillCategory = 'combat' | 'tir' | 'force' | 'academique' | 'vitesse' | 'special';
+export type SkillCategory = 'combat' | 'tir' | 'force' | 'academique' | 'vitesse' | 'equitation' | 'special';
 
 export const SKILL_CATEGORIES: { id: SkillCategory; label: string }[] = [
   { id: 'combat', label: 'Combat' },
@@ -22,6 +22,7 @@ export const SKILL_CATEGORIES: { id: SkillCategory; label: string }[] = [
   { id: 'force', label: 'Force' },
   { id: 'academique', label: 'Académique' },
   { id: 'vitesse', label: 'Vitesse' },
+  { id: 'equitation', label: 'Équitation' },
   { id: 'special', label: 'Spécial' },
 ];
 

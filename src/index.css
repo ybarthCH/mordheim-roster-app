@@ -458,6 +458,19 @@ button {
 .xp-box--depart.xp-box--palier {
   border-color: var(--text-muted);
 }
+.xp-box--session.xp-box--checked {
+  background: var(--success);
+  border-color: var(--success);
+  color: var(--accent-contrast);
+}
+.xp-box--session.xp-box--palier {
+  border-color: var(--success);
+}
+.xp-box--compact {
+  width: 20px;
+  height: 20px;
+  font-size: 0.55rem;
+}
 
 .roster-table-wrap {
   overflow-x: auto;

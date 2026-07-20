@@ -6,7 +6,7 @@
       "min": 6,
       "max": 7,
       "type": "caracteristique_choix",
-      "label": "Augmentation de caractéristique",
+      "label": "+1 Capacité de Tir ou +1 Capacité de Combat",
       "options": [
         { "stat": "CT", "label": "Capacité de Tir" },
         { "stat": "CC", "label": "Capacité de Combat" }

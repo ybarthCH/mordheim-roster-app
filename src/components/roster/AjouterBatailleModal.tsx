@@ -93,6 +93,9 @@ export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }:
             Wyrdstone trouvé : {bataille.journal.wyrdstoneTrouve} · Vendu : {bataille.journal.quantiteVendue} pour{' '}
             {bataille.journal.prixVente} po
           </p>
+          <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+            Trésorerie de la bande après cette bataille : {bataille.journal.tresorerieApres} po
+          </p>
           {bataille.journal.notesExploration && (
             <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
               Exploration : {bataille.journal.notesExploration}
