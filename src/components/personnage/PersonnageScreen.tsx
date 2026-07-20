@@ -155,11 +155,38 @@ export function PersonnageScreen() {
               min={1}
               className="stat-grid__input stat-grid__input--pv"
               value={membre.taille_groupe}
-              onChange={(e) => majMembre({ taille_groupe: Math.max(1, Number(e.target.value) || 1) })}
+              onChange={(e) => {
+                const taille = Math.max(1, Number(e.target.value) || 1);
+                majMembre({ taille_groupe: taille, hors_combat: Math.min(membre.hors_combat, taille) });
+              }}
             />
             <span className="text-sm text-muted">
               figurine{membre.taille_groupe > 1 ? 's' : ''} identique{membre.taille_groupe > 1 ? 's' : ''}
             </span>
+          </div>
+        )}
+
+        {profil.type === 'homme_de_main' && !membre.promu_heros && membre.taille_groupe > 1 && (
+          <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
+            <span className="text-sm text-muted">Hors de combat :</span>
+            <button
+              className="btn btn--sm"
+              onClick={() => majMembre({ hors_combat: Math.max(0, membre.hors_combat - 1) })}
+            >
+              −
+            </button>
+            <strong>
+              {membre.hors_combat} / {membre.taille_groupe}
+            </strong>
+            <button
+              className="btn btn--sm"
+              onClick={() => majMembre({ hors_combat: Math.min(membre.taille_groupe, membre.hors_combat + 1) })}
+            >
+              +
+            </button>
+            {membre.hors_combat > 0 && (
+              <span className="text-sm text-muted">à résoudre au prochain post-bataille</span>
+            )}
           </div>
         )}
       </div>

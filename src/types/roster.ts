@@ -80,6 +80,10 @@ export type Member = {
   // main identiques). Toujours 1 pour un héros — voir la promotion, qui
   // détache une figurine du groupe plutôt que de le convertir en bloc.
   taille_groupe: number;
+  // Nombre de figurines de ce groupe actuellement Hors de Combat (0 à
+  // taille_groupe), en attente de résolution à l'assistant post-bataille.
+  // Sans objet pour taille_groupe = 1 : le statut "Hors de combat" suffit.
+  hors_combat: number;
 };
 
 // Journal de la session post-bataille associée, pour ne pas perdre ces

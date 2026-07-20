@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { useRosters } from '../../state/RostersContext';
+import { resolveProfil } from '../../utils/profil';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member } from '../../types/roster';
@@ -13,6 +14,13 @@ type BlessureDraft = {
   description: string;
   stats: Stats;
   equipement: string;
+};
+
+type SlotSurvie = {
+  key: string;
+  instanceId: string;
+  label: string;
+  estSlotDeGroupe: boolean;
 };
 
 export function PostBatailleScreen() {
@@ -37,10 +45,43 @@ export function PostBatailleScreen() {
   const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
   const [survieChoisies, setSurvieChoisies] = useState<Record<string, 'oui' | 'non'>>({});
 
-  const horsDeCombat = useMemo(
-    () => roster?.membres.filter((m) => m.statut === 'hors_de_combat') ?? [],
+  // Blessures graves : réservé aux héros (taille_groupe = 1) Hors de Combat —
+  // seuls les héros roulent sur la table complète des blessures.
+  const horsDeCombatHeros = useMemo(
+    () =>
+      roster?.membres.filter(
+        (m) => m.statut === 'hors_de_combat' && resolveProfil(roster, m)?.type === 'heros'
+      ) ?? [],
     [roster]
   );
+
+  // Gain d'expérience / survie : hommes de main uniquement, table simple
+  // mort-ou-survivant. Un groupe est "éclaté" en autant de jets que de
+  // figurines Hors de Combat, chacun clairement rattaché à son groupe.
+  const slotsSurvie = useMemo<SlotSurvie[]>(() => {
+    if (!roster) return [];
+    const slots: SlotSurvie[] = [];
+    for (const m of roster.membres) {
+      const profil = resolveProfil(roster, m);
+      if (profil?.type === 'heros') continue;
+      if ((m.taille_groupe || 1) <= 1) {
+        if (m.statut === 'hors_de_combat') {
+          slots.push({ key: m.instance_id, instanceId: m.instance_id, label: m.nom_perso, estSlotDeGroupe: false });
+        }
+      } else if (m.hors_combat > 0) {
+        for (let i = 0; i < m.hors_combat; i++) {
+          slots.push({
+            key: `${m.instance_id}__${i}`,
+            instanceId: m.instance_id,
+            label: `${m.nom_perso} — figurine Hors de Combat (${i + 1}/${m.hors_combat})`,
+            estSlotDeGroupe: true,
+          });
+        }
+      }
+    }
+    return slots;
+  }, [roster]);
+
   const francTireursActifs = useMemo(
     () => roster?.membres.filter((m) => m.profil_custom && m.statut !== 'mort') ?? [],
     [roster]
@@ -81,6 +122,18 @@ export function PostBatailleScreen() {
   const precedent = () => setEtape((e) => Math.max(0, e - 1));
 
   const terminer = async () => {
+    // Résultats de survie des groupes : combien de "non" (morts) et de "oui"
+    // (rejoignent le groupe) par entrée de groupe.
+    const nonParGroupe: Record<string, number> = {};
+    const resolusParGroupe: Record<string, number> = {};
+    for (const slot of slotsSurvie) {
+      if (!slot.estSlotDeGroupe) continue;
+      const v = survieChoisies[slot.key];
+      if (!v) continue;
+      resolusParGroupe[slot.instanceId] = (resolusParGroupe[slot.instanceId] ?? 0) + 1;
+      if (v === 'non') nonParGroupe[slot.instanceId] = (nonParGroupe[slot.instanceId] ?? 0) + 1;
+    }
+
     const membresMaj: Member[] = roster.membres.map((m) => {
       let membre = { ...m };
 
@@ -106,9 +159,23 @@ export function PostBatailleScreen() {
         }
       }
 
-      const survie = survieChoisies[m.instance_id];
-      if (survie === 'oui') membre = { ...membre, statut: 'actif' };
-      else if (survie === 'non') membre = { ...membre, statut: 'mort', date_mort: date };
+      if ((m.taille_groupe || 1) <= 1) {
+        const survie = survieChoisies[m.instance_id];
+        if (survie === 'oui') membre = { ...membre, statut: 'actif' };
+        else if (survie === 'non') membre = { ...membre, statut: 'mort', date_mort: date };
+      } else {
+        const resolus = resolusParGroupe[m.instance_id] ?? 0;
+        if (resolus > 0) {
+          const morts = nonParGroupe[m.instance_id] ?? 0;
+          const nouvelleTaille = Math.max(0, (m.taille_groupe || 1) - morts);
+          membre = {
+            ...membre,
+            taille_groupe: nouvelleTaille,
+            hors_combat: Math.max(0, m.hors_combat - resolus),
+            ...(nouvelleTaille <= 0 ? { statut: 'mort', date_mort: date } : null),
+          };
+        }
+      }
 
       return membre;
     });
@@ -125,10 +192,9 @@ export function PostBatailleScreen() {
           nom: roster.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?',
           description: d.description.trim(),
         })),
-      survie: Object.entries(survieChoisies).map(([instanceId, v]) => ({
-        nom: roster.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?',
-        survecu: v === 'oui',
-      })),
+      survie: slotsSurvie
+        .filter((slot) => survieChoisies[slot.key])
+        .map((slot) => ({ nom: slot.label, survecu: survieChoisies[slot.key] === 'oui' })),
     };
 
     const bataille: BattleRecord = {
@@ -168,12 +234,12 @@ export function PostBatailleScreen() {
         <div className="card">
           <h3>Blessures graves</h3>
           <p className="text-sm text-muted">
-            Pour chaque personnage Hors de Combat, lance sur ta table papier (table complète des règles), note le
+            Pour chaque héros Hors de Combat, lance sur ta table papier (table complète des règles), note le
             résultat obtenu, puis ajuste directement ses caractéristiques et/ou son équipement si la blessure les
-            affecte.
+            affecte. Les hommes de main utilisent la table simple mort-ou-survivant à l'étape suivante.
           </p>
-          {horsDeCombat.length === 0 && <p className="text-muted">Aucun personnage Hors de Combat.</p>}
-          {horsDeCombat.map((m) => {
+          {horsDeCombatHeros.length === 0 && <p className="text-muted">Aucun héros Hors de Combat.</p>}
+          {horsDeCombatHeros.map((m) => {
             const d = draftDe(m);
             return (
               <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
@@ -220,23 +286,24 @@ export function PostBatailleScreen() {
         <div className="card">
           <h3>Gain d'expérience</h3>
           <p className="text-sm text-muted">
-            Pour chaque personnage Hors de Combat, indique s'il a survécu. Les gains d'XP eux-mêmes se gèrent en
-            direct via les cases à cocher sur la fiche de chaque personnage.
+            Pour chaque homme de main Hors de Combat (chaque figurine d'un groupe est listée séparément, avec le
+            groupe d'origine indiqué), indique s'il a survécu. Les gains d'XP eux-mêmes se gèrent en direct via
+            les cases à cocher sur la fiche de chaque personnage/groupe.
           </p>
-          {horsDeCombat.length === 0 && <p className="text-muted">Aucun personnage Hors de Combat.</p>}
-          {horsDeCombat.map((m) => (
-            <div key={m.instance_id} className="flex justify-between items-center" style={{ marginBottom: '0.6rem' }}>
-              <span>{m.nom_perso}</span>
+          {slotsSurvie.length === 0 && <p className="text-muted">Aucun homme de main Hors de Combat.</p>}
+          {slotsSurvie.map((slot) => (
+            <div key={slot.key} className="flex justify-between items-center" style={{ marginBottom: '0.6rem' }}>
+              <span>{slot.label}</span>
               <div className="status-select">
                 <button
-                  className={`status-pill ${survieChoisies[m.instance_id] === 'oui' ? 'status-pill--active' : ''}`}
-                  onClick={() => setSurvieChoisies((prev) => ({ ...prev, [m.instance_id]: 'oui' }))}
+                  className={`status-pill ${survieChoisies[slot.key] === 'oui' ? 'status-pill--active' : ''}`}
+                  onClick={() => setSurvieChoisies((prev) => ({ ...prev, [slot.key]: 'oui' }))}
                 >
                   A survécu
                 </button>
                 <button
-                  className={`status-pill ${survieChoisies[m.instance_id] === 'non' ? 'status-pill--active' : ''}`}
-                  onClick={() => setSurvieChoisies((prev) => ({ ...prev, [m.instance_id]: 'non' }))}
+                  className={`status-pill ${survieChoisies[slot.key] === 'non' ? 'status-pill--active' : ''}`}
+                  onClick={() => setSurvieChoisies((prev) => ({ ...prev, [slot.key]: 'non' }))}
                 >
                   N'a pas survécu
                 </button>
