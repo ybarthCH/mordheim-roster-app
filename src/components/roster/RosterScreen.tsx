@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/RostersContext';
 import { Screen } from '../common/Screen';
-import { getCatalogue, getProfil } from '../../data/warbands';
+import { getCatalogue } from '../../data/warbands';
+import { resolveProfil } from '../../utils/profil';
 import { valeurBande, effectifTotal } from '../../utils/bandeValue';
 import { ratingTotal } from '../../utils/rating';
 import { validerComposition } from '../../utils/validation';
@@ -10,13 +11,13 @@ import { exporterRoster } from '../../utils/importExport';
 import { AjouterMembreModal } from './AjouterMembreModal';
 import { AjouterBatailleModal } from './AjouterBatailleModal';
 import { STATUTS } from '../../types/roster';
-import type { RosterInstance } from '../../types/roster';
+import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
   hors_de_combat: 'badge--warning',
   mort: 'badge--danger',
-  capture: 'badge--neutral',
+  blesse: 'badge--neutral',
 };
 
 export function RosterScreen() {
@@ -26,6 +27,7 @@ export function RosterScreen() {
   const roster = getRosterById(id ?? '');
   const [modalMembre, setModalMembre] = useState(false);
   const [modalBataille, setModalBataille] = useState(false);
+  const [batailleEnEdition, setBatailleEnEdition] = useState<BattleRecord | null>(null);
 
   if (!roster) {
     return (
@@ -37,10 +39,91 @@ export function RosterScreen() {
 
   const catalogue = getCatalogue(roster.bande_id);
   const violations = validerComposition(roster);
+  const heros = roster.membres.filter((m) => resolveProfil(roster, m)?.type === 'heros');
+  const hommesDeMain = roster.membres.filter((m) => resolveProfil(roster, m)?.type !== 'heros');
 
   const patch = (partial: Partial<RosterInstance>) => {
     updateRoster({ ...roster, ...partial });
   };
+
+  const renderGroupe = (titre: string, membres: Member[]) => (
+    <div className="card">
+      <h3>{titre}</h3>
+      <div className="roster-table-wrap">
+        <table className="roster-table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Profil</th>
+              <th>M</th>
+              <th>CC</th>
+              <th>CT</th>
+              <th>F</th>
+              <th>E</th>
+              <th>PV</th>
+              <th>I</th>
+              <th>A</th>
+              <th>Cd</th>
+              <th>XP</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            {membres.map((m) => {
+              const profil = resolveProfil(roster, m);
+              return (
+                <tr key={m.instance_id} onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}>
+                  <td>{m.nom_perso}</td>
+                  <td>{profil?.nom ?? m.profil_id}</td>
+                  <td>{m.stats_actuels.M}</td>
+                  <td>{m.stats_actuels.CC}</td>
+                  <td>{m.stats_actuels.CT}</td>
+                  <td>{m.stats_actuels.F}</td>
+                  <td>{m.stats_actuels.E}</td>
+                  <td>{m.stats_actuels.PV}</td>
+                  <td>{m.stats_actuels.I}</td>
+                  <td>{m.stats_actuels.A}</td>
+                  <td>{m.stats_actuels.Cd}</td>
+                  <td>{m.xp}</td>
+                  <td>
+                    <span className={`badge ${STATUT_BADGE[m.statut]}`}>
+                      {STATUTS.find((s) => s.id === m.statut)?.label}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="member-cards">
+        {membres.map((m) => {
+          const profil = resolveProfil(roster, m);
+          return (
+            <div
+              key={m.instance_id}
+              className="list-item"
+              role="button"
+              onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
+            >
+              <div className="list-item__main">
+                <div className="list-item__title">{m.nom_perso}</div>
+                <div className="list-item__subtitle">
+                  {profil?.nom} · XP {m.xp} · PV {m.stats_actuels.PV}
+                </div>
+              </div>
+              <span className={`badge ${STATUT_BADGE[m.statut]}`}>
+                {STATUTS.find((s) => s.id === m.statut)?.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      {membres.length === 0 && <p className="text-muted">Aucun membre recruté.</p>}
+    </div>
+  );
 
   return (
     <Screen
@@ -153,84 +236,8 @@ export function RosterScreen() {
         </button>
       </div>
 
-      <div className="card">
-        <h3>Membres</h3>
-        <div className="roster-table-wrap">
-          <table className="roster-table">
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>Profil</th>
-                <th>M</th>
-                <th>CC</th>
-                <th>CT</th>
-                <th>F</th>
-                <th>E</th>
-                <th>PV</th>
-                <th>I</th>
-                <th>A</th>
-                <th>Cd</th>
-                <th>XP</th>
-                <th>Statut</th>
-              </tr>
-            </thead>
-            <tbody>
-              {roster.membres.map((m) => {
-                const profil = getProfil(roster.bande_id, m.profil_id);
-                return (
-                  <tr key={m.instance_id} onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}>
-                    <td>{m.nom_perso}</td>
-                    <td>{profil?.nom ?? m.profil_id}</td>
-                    <td>{m.stats_actuels.M}</td>
-                    <td>{m.stats_actuels.CC}</td>
-                    <td>{m.stats_actuels.CT}</td>
-                    <td>{m.stats_actuels.F}</td>
-                    <td>{m.stats_actuels.E}</td>
-                    <td>
-                      {m.pv_actuels}/{m.stats_actuels.PV}
-                    </td>
-                    <td>{m.stats_actuels.I}</td>
-                    <td>{m.stats_actuels.A}</td>
-                    <td>{m.stats_actuels.Cd}</td>
-                    <td>{m.xp}</td>
-                    <td>
-                      <span className={`badge ${STATUT_BADGE[m.statut]}`}>
-                        {STATUTS.find((s) => s.id === m.statut)?.label}
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="member-cards">
-          {roster.membres.map((m) => {
-            const profil = getProfil(roster.bande_id, m.profil_id);
-            return (
-              <div
-                key={m.instance_id}
-                className="list-item"
-                role="button"
-                onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
-              >
-                <div className="list-item__main">
-                  <div className="list-item__title">{m.nom_perso}</div>
-                  <div className="list-item__subtitle">
-                    {profil?.nom} · XP {m.xp} · PV {m.pv_actuels}/{m.stats_actuels.PV}
-                  </div>
-                </div>
-                <span className={`badge ${STATUT_BADGE[m.statut]}`}>
-                  {STATUTS.find((s) => s.id === m.statut)?.label}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-
-        {roster.membres.length === 0 && <p className="text-muted">Aucun membre recruté.</p>}
-      </div>
+      {renderGroupe('Héros', heros)}
+      {renderGroupe('Hommes de main', hommesDeMain)}
 
       <div className="card">
         <div className="flex justify-between items-center">
@@ -246,7 +253,13 @@ export function RosterScreen() {
           .slice()
           .reverse()
           .map((b) => (
-            <div key={b.id} className="list-item" style={{ marginBottom: '0.5rem' }}>
+            <div
+              key={b.id}
+              className="list-item"
+              role="button"
+              style={{ marginBottom: '0.5rem' }}
+              onClick={() => setBatailleEnEdition(b)}
+            >
               <div className="list-item__main">
                 <div className="list-item__title">
                   {b.date} —{' '}
@@ -286,6 +299,24 @@ export function RosterScreen() {
           onConfirm={(bataille) => {
             patch({ historique_batailles: [...roster.historique_batailles, bataille] });
             setModalBataille(false);
+          }}
+        />
+      )}
+      {batailleEnEdition && (
+        <AjouterBatailleModal
+          bataille={batailleEnEdition}
+          onClose={() => setBatailleEnEdition(null)}
+          onConfirm={(bataille) => {
+            patch({
+              historique_batailles: roster.historique_batailles.map((b) => (b.id === bataille.id ? bataille : b)),
+            });
+            setBatailleEnEdition(null);
+          }}
+          onDelete={() => {
+            patch({
+              historique_batailles: roster.historique_batailles.filter((b) => b.id !== batailleEnEdition.id),
+            });
+            setBatailleEnEdition(null);
           }}
         />
       )}

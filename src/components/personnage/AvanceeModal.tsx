@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import type { Member, AdvanceRecord } from '../../types/roster';
 import type { Profile, SkillCategory, WarbandCatalog } from '../../types/catalog';
 import { Modal } from '../common/Modal';
-import { SKILLS, TABLE_AVANCEMENT, CARACTERISTIQUES_ALEATOIRES } from '../../data/gameData';
+import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN } from '../../data/gameData';
 import { SKILL_CATEGORIES } from '../../types/catalog';
 
 type Props = {
@@ -14,49 +14,80 @@ type Props = {
   onApply: (member: Member) => void;
 };
 
-type Etape = 'depart' | 'choix' | 'competence' | 'caracteristique' | 'resultat';
+type Etape = 'depart' | 'choix_carac' | 'competence' | 'promotion_categories' | 'resultat';
 
 export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Props) {
+  // État local de travail : on accumule les mutations ici plutôt que de se
+  // fier à la prop `member` (qui ne se met à jour qu'au prochain rendu du
+  // parent) — indispensable pour la promotion, qui enchaîne deux mises à
+  // jour (promotion puis jet héros immédiat) dans la même session de modale.
+  const [travail, setTravail] = useState(member);
+  // Devient 'heros' dès qu'une promotion est confirmée, pour basculer sur la
+  // table héros immédiatement sans attendre le re-rendu du parent.
+  const [tableForcee, setTableForcee] = useState<'heros' | null>(null);
+
   const [etape, setEtape] = useState<Etape>('depart');
   const [indexAvancement, setIndexAvancement] = useState('');
   const [texteResultat, setTexteResultat] = useState('');
   const [categorie, setCategorie] = useState<SkillCategory | ''>('');
+  const [categoriesPromotion, setCategoriesPromotion] = useState<SkillCategory[]>([]);
+
+  const typeEffectif = tableForcee ?? profil.type;
+  const table = typeEffectif === 'heros' ? TABLE_AVANCEMENT_HEROS : TABLE_AVANCEMENT_HOMMES_DE_MAIN;
 
   const categoriesAccessibles: SkillCategory[] =
     profil.acces_competences_a_verifier || profil.acces_competences.length === 0
       ? SKILL_CATEGORIES.map((c) => c.id)
       : profil.acces_competences;
 
-  const entreeAvancement = indexAvancement !== '' ? TABLE_AVANCEMENT[Number(indexAvancement)] : null;
+  const entreeAvancement = indexAvancement !== '' ? table[Number(indexAvancement)] : null;
+
+  const appliquer = (partial: Partial<Member>, record: AdvanceRecord, resume: string) => {
+    const updated: Member = { ...travail, ...partial, historique_avancees: [...travail.historique_avancees, record] };
+    setTravail(updated);
+    onApply(updated);
+    setTexteResultat(resume);
+    setEtape('resultat');
+  };
 
   const validerJetAvancement = () => {
     if (!entreeAvancement) return;
-    if (entreeAvancement.type === 'caracteristique') setEtape('caracteristique');
-    else if (entreeAvancement.type === 'competence') setEtape('competence');
-    else setEtape('choix');
+    if (entreeAvancement.type === 'caracteristique_fixe') {
+      const { stat, label } = entreeAvancement;
+      appliquer(
+        { stats_actuels: { ...travail.stats_actuels, [stat]: travail.stats_actuels[stat] + 1 } },
+        {
+          id: uuidv4(),
+          date: new Date().toISOString().slice(0, 10),
+          xpAtRoll: travail.xp,
+          roll: entreeAvancement.min,
+          type: 'caracteristique',
+          detail: label,
+        },
+        `Caractéristique augmentée : ${label}`
+      );
+    } else if (entreeAvancement.type === 'caracteristique_choix') {
+      setEtape('choix_carac');
+    } else if (entreeAvancement.type === 'competence') {
+      setEtape('competence');
+    } else {
+      setEtape('promotion_categories');
+    }
   };
 
-  const appliquerCaracteristique = (indexCarac: number) => {
-    const carac = CARACTERISTIQUES_ALEATOIRES[indexCarac];
-    const record: AdvanceRecord = {
-      id: uuidv4(),
-      date: new Date().toISOString().slice(0, 10),
-      xpAtRoll: member.xp,
-      roll: carac.min,
-      type: 'caracteristique',
-      detail: `+${carac.delta} ${carac.stat}`,
-    };
-    const updated: Member = {
-      ...member,
-      stats_actuels: {
-        ...member.stats_actuels,
-        [carac.stat]: member.stats_actuels[carac.stat] + carac.delta,
+  const choisirCaracteristique = (stat: keyof Member['stats_actuels'], label: string) => {
+    appliquer(
+      { stats_actuels: { ...travail.stats_actuels, [stat]: travail.stats_actuels[stat] + 1 } },
+      {
+        id: uuidv4(),
+        date: new Date().toISOString().slice(0, 10),
+        xpAtRoll: travail.xp,
+        roll: entreeAvancement?.min ?? 0,
+        type: 'caracteristique',
+        detail: `+1 ${label}`,
       },
-      historique_avancees: [...member.historique_avancees, record],
-    };
-    setTexteResultat(`Caractéristique augmentée : +${carac.delta} ${carac.stat}`);
-    setEtape('resultat');
-    onApply(updated);
+      `Caractéristique augmentée : +1 ${label}`
+    );
   };
 
   const skillsDeLaCategorie = (cat: SkillCategory) =>
@@ -67,30 +98,63 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
       (s) => s.id === skillId
     );
     if (!skill) return;
+    appliquer(
+      { competences_acquises: [...travail.competences_acquises, skillId] },
+      {
+        id: uuidv4(),
+        date: new Date().toISOString().slice(0, 10),
+        xpAtRoll: travail.xp,
+        roll: entreeAvancement?.min ?? 0,
+        type: 'competence',
+        detail: skill.nom,
+      },
+      `Nouvelle compétence : ${skill.nom}`
+    );
+  };
+
+  const toggleCategoriePromotion = (cat: SkillCategory) => {
+    setCategoriesPromotion((prev) =>
+      prev.includes(cat) ? prev.filter((c) => c !== cat) : prev.length < 3 ? [...prev, cat] : prev
+    );
+  };
+
+  const confirmerPromotion = () => {
     const record: AdvanceRecord = {
       id: uuidv4(),
       date: new Date().toISOString().slice(0, 10),
-      xpAtRoll: member.xp,
+      xpAtRoll: travail.xp,
       roll: entreeAvancement?.min ?? 0,
-      type: 'competence',
-      detail: skill.nom,
+      type: 'promotion',
+      detail: `Promu héros — tables : ${categoriesPromotion
+        .map((c) => SKILL_CATEGORIES.find((sc) => sc.id === c)?.label)
+        .join(', ')}`,
     };
     const updated: Member = {
-      ...member,
-      competences_acquises: [...member.competences_acquises, skillId],
-      historique_avancees: [...member.historique_avancees, record],
+      ...travail,
+      promu_heros: true,
+      acces_competences_override: categoriesPromotion,
+      historique_avancees: [...travail.historique_avancees, record],
     };
-    setTexteResultat(`Nouvelle compétence : ${skill.nom}`);
-    setEtape('resultat');
+    setTravail(updated);
     onApply(updated);
+    setTableForcee('heros');
+    setIndexAvancement('');
+    setCategorie('');
+    setCategoriesPromotion([]);
+    setEtape('depart');
   };
 
   return (
     <Modal onClose={onClose}>
-      <h3>Avancée d'expérience — {member.nom_perso}</h3>
+      <h3>Avancée d'expérience — {travail.nom_perso}</h3>
 
       {etape === 'depart' && (
         <>
+          {tableForcee === 'heros' && profil.type !== 'heros' && (
+            <p className="text-success text-sm">
+              Promu héros ! Jet immédiat sur la table de progression des héros.
+            </p>
+          )}
           <p className="text-muted text-sm">
             Lance 2D6 sur ta table papier, puis choisis la ligne correspondante.
           </p>
@@ -98,7 +162,7 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
             <label>Résultat du jet (2D6)</label>
             <select value={indexAvancement} onChange={(e) => setIndexAvancement(e.target.value)}>
               <option value="">— Choisir le résultat obtenu —</option>
-              {TABLE_AVANCEMENT.map((entry, i) => (
+              {table.map((entry, i) => (
                 <option key={i} value={i}>
                   {entry.min === entry.max ? entry.min : `${entry.min}-${entry.max}`} — {entry.label}
                 </option>
@@ -116,33 +180,52 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
         </>
       )}
 
-      {etape === 'choix' && (
+      {etape === 'choix_carac' && entreeAvancement?.type === 'caracteristique_choix' && (
         <>
-          <p>Résultat {entreeAvancement?.label} : choisis un type d'avancée.</p>
+          <p className="text-sm text-muted">Choisis laquelle des deux caractéristiques augmenter.</p>
           <div className="flex gap-sm">
-            <button className="btn" onClick={() => setEtape('competence')}>
-              Nouvelle compétence
-            </button>
-            <button className="btn" onClick={() => setEtape('caracteristique')}>
-              Caractéristique
-            </button>
+            {entreeAvancement.options.map((o) => (
+              <button key={o.stat} className="btn" onClick={() => choisirCaracteristique(o.stat, o.label)}>
+                +1 {o.label}
+              </button>
+            ))}
           </div>
         </>
       )}
 
-      {etape === 'caracteristique' && (
+      {etape === 'promotion_categories' && (
         <>
-          <p className="text-muted text-sm">Lance 1D10 sur ta table papier, puis choisis le résultat obtenu.</p>
-          <div className="field">
-            <label>Résultat du jet (1D10)</label>
-            <select onChange={(e) => e.target.value !== '' && appliquerCaracteristique(Number(e.target.value))} defaultValue="">
-              <option value="">— Choisir le résultat obtenu —</option>
-              {CARACTERISTIQUES_ALEATOIRES.map((entry, i) => (
-                <option key={i} value={i}>
-                  {entry.min === entry.max ? entry.min : `${entry.min}-${entry.max}`} — {entry.stat} +{entry.delta}
-                </option>
-              ))}
-            </select>
+          <p className="text-sm">
+            <strong>Ce gars est doué !</strong> Ce membre devient un héros : il conserve son profil et son
+            expérience, mais accède désormais à la grille XP et à la table d'avancement des héros.
+          </p>
+          <p className="text-sm text-muted">
+            Choisis 2 ou 3 tables de compétences accessibles à ce nouveau héros.
+          </p>
+          <div className="skill-list">
+            {SKILL_CATEGORIES.map((c) => (
+              <label key={c.id} className="skill-check" style={{ cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={categoriesPromotion.includes(c.id)}
+                  onChange={() => toggleCategoriePromotion(c.id)}
+                  disabled={!categoriesPromotion.includes(c.id) && categoriesPromotion.length >= 3}
+                />
+                <span className="skill-check__name">{c.label}</span>
+              </label>
+            ))}
+          </div>
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={onClose}>
+              Annuler
+            </button>
+            <button
+              className="btn btn--primary"
+              disabled={categoriesPromotion.length < 2}
+              onClick={confirmerPromotion}
+            >
+              Confirmer la promotion et lancer sur la table héros
+            </button>
           </div>
         </>
       )}
@@ -164,7 +247,7 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
           {categorie && (
             <div className="skill-list">
               {skillsDeLaCategorie(categorie)
-                .filter((s) => !member.competences_acquises.includes(s.id))
+                .filter((s) => !travail.competences_acquises.includes(s.id))
                 .map((s) => (
                   <label key={s.id} className="skill-check" style={{ cursor: 'pointer' }}>
                     <input type="radio" name="competence" onChange={() => choisirCompetence(s.id)} />
@@ -189,7 +272,7 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
         </>
       )}
 
-      {etape !== 'resultat' && etape !== 'depart' && (
+      {etape !== 'resultat' && etape !== 'depart' && etape !== 'promotion_categories' && (
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={onClose}>
             Annuler

@@ -1,17 +1,13 @@
 import type { RosterInstance } from '../types/roster';
-import { getCatalogue, getProfil } from '../data/warbands';
-
-export function coutProfil(bandeId: string, profilId: string): number {
-  const profil = getProfil(bandeId, profilId);
-  return profil?.cout ?? 0;
-}
+import { getCatalogue } from '../data/warbands';
+import { resolveProfil } from './profil';
 
 /** Valeur de bande = coût de recrutement des membres encore actifs (hors morts). */
 export function valeurBande(roster: RosterInstance): number {
   let total = 0;
   for (const m of roster.membres) {
     if (m.statut === 'mort') continue;
-    total += coutProfil(roster.bande_id, m.profil_id);
+    total += resolveProfil(roster, m)?.cout ?? 0;
   }
   return total;
 }

@@ -1,0 +1,46 @@
+{
+  "table": [
+    { "min": 2, "max": 5, "type": "competence", "label": "Nouvelle compétence" },
+    {
+      "min": 6,
+      "max": 6,
+      "type": "caracteristique_choix",
+      "label": "Augmentation de caractéristique",
+      "options": [
+        { "stat": "F", "label": "Force" },
+        { "stat": "A", "label": "Attaques" }
+      ]
+    },
+    {
+      "min": 7,
+      "max": 7,
+      "type": "caracteristique_choix",
+      "label": "Augmentation de caractéristique",
+      "options": [
+        { "stat": "CC", "label": "Capacité de Combat" },
+        { "stat": "CT", "label": "Capacité de Tir" }
+      ]
+    },
+    {
+      "min": 8,
+      "max": 8,
+      "type": "caracteristique_choix",
+      "label": "Augmentation de caractéristique",
+      "options": [
+        { "stat": "I", "label": "Initiative" },
+        { "stat": "Cd", "label": "Commandement" }
+      ]
+    },
+    {
+      "min": 9,
+      "max": 9,
+      "type": "caracteristique_choix",
+      "label": "Augmentation de caractéristique",
+      "options": [
+        { "stat": "PV", "label": "Points de Vie" },
+        { "stat": "E", "label": "Endurance" }
+      ]
+    },
+    { "min": 10, "max": 12, "type": "competence", "label": "Nouvelle compétence" }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "table": [
+    { "min": 2, "max": 4, "type": "caracteristique_fixe", "label": "+1 Initiative", "stat": "I" },
+    { "min": 5, "max": 5, "type": "caracteristique_fixe", "label": "+1 Force", "stat": "F" },
+    {
+      "min": 6,
+      "max": 7,
+      "type": "caracteristique_choix",
+      "label": "Augmentation de caractéristique",
+      "options": [
+        { "stat": "CT", "label": "Capacité de Tir" },
+        { "stat": "CC", "label": "Capacité de Combat" }
+      ]
+    },
+    { "min": 8, "max": 8, "type": "caracteristique_fixe", "label": "+1 Attaques", "stat": "A" },
+    { "min": 9, "max": 9, "type": "caracteristique_fixe", "label": "+1 Commandement", "stat": "Cd" },
+    {
+      "min": 10,
+      "max": 12,
+      "type": "promotion",
+      "label": "Ce gars est doué — devient héros (jet immédiat sur la table des héros)"
+    }
+  ]
+}
