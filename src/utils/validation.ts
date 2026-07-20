@@ -16,7 +16,7 @@ export function validerComposition(roster: RosterInstance): ViolationComposition
   const comptes = new Map<string, number>();
   for (const m of roster.membres) {
     if (m.statut === 'mort') continue;
-    comptes.set(m.profil_id, (comptes.get(m.profil_id) ?? 0) + 1);
+    comptes.set(m.profil_id, (comptes.get(m.profil_id) ?? 0) + (m.taille_groupe || 1));
   }
   for (const profil of catalogue.profils) {
     const limite = profil.unique ? 1 : profil.max ?? undefined;
@@ -31,20 +31,21 @@ export function validerComposition(roster: RosterInstance): ViolationComposition
 
 export function peutAjouterMembre(
   roster: RosterInstance,
-  profilId: string
+  profilId: string,
+  quantite = 1
 ): { ok: boolean; raison?: string } {
   const catalogue = getCatalogue(roster.bande_id);
   const profil = catalogue?.profils.find((p) => p.id === profilId);
   if (!profil) return { ok: false, raison: 'Profil introuvable dans le catalogue.' };
   const limite = profil.unique ? 1 : profil.max ?? undefined;
   if (limite != null) {
-    const actuel = roster.membres.filter(
-      (m) => m.profil_id === profilId && m.statut !== 'mort'
-    ).length;
-    if (actuel >= limite) {
+    const actuel = roster.membres
+      .filter((m) => m.profil_id === profilId && m.statut !== 'mort')
+      .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
+    if (actuel + quantite > limite) {
       return {
         ok: false,
-        raison: `Limite atteinte pour ${profil.nom} (max ${limite}).`,
+        raison: `Limite atteinte pour ${profil.nom} (max ${limite}, ${actuel} déjà présent(s)).`,
       };
     }
   }

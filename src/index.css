@@ -450,6 +450,14 @@ button {
   height: 32px;
   font-size: 0.75rem;
 }
+.xp-box--depart.xp-box--checked {
+  background: var(--text-muted);
+  border-color: var(--text-muted);
+  color: var(--bg);
+}
+.xp-box--depart.xp-box--palier {
+  border-color: var(--text-muted);
+}
 
 .roster-table-wrap {
   overflow-x: auto;

@@ -18,10 +18,12 @@ function membreDeBase(): Omit<Member, 'profil_id' | 'nom_perso' | 'xp' | 'xp_dep
     historique_avancees: [],
     notes: '',
     grande_cible: false,
+    taille_groupe: 1,
+    hors_combat: 0,
   };
 }
 
-export function creerMembre(profil: Profile, xpDepart?: number): Member {
+export function creerMembre(profil: Profile, xpDepart?: number, tailleGroupe = 1): Member {
   const stats = profil.stats ? { ...profil.stats } : { ...STATS_VIDES };
   const xp = xpDepart ?? profil.xp_depart ?? 0;
   return {
@@ -31,10 +33,11 @@ export function creerMembre(profil: Profile, xpDepart?: number): Member {
     xp,
     xp_depart: xp,
     stats_actuels: stats,
+    taille_groupe: profil.type === 'homme_de_main' ? Math.max(1, tailleGroupe) : 1,
   };
 }
 
-export function creerMembreFrancTireur(profilCustom: ProfilFrancTireur, xpDepart = 0): Member {
+export function creerMembreFrancTireur(profilCustom: ProfilFrancTireur, xpDepart = 0, tailleGroupe = 1): Member {
   return {
     ...membreDeBase(),
     profil_id: `franc-tireur-${uuidv4()}`,
@@ -43,6 +46,7 @@ export function creerMembreFrancTireur(profilCustom: ProfilFrancTireur, xpDepart
     xp_depart: xpDepart,
     stats_actuels: { ...profilCustom.stats },
     profil_custom: profilCustom,
+    taille_groupe: profilCustom.type === 'homme_de_main' ? Math.max(1, tailleGroupe) : 1,
   };
 }
 

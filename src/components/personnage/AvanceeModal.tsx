@@ -11,7 +11,9 @@ type Props = {
   profil: Profile;
   catalogue: WarbandCatalog;
   onClose: () => void;
-  onApply: (member: Member) => void;
+  // `nouveauMembre` n'est fourni que lorsqu'une promotion détache une
+  // figurine d'un groupe de plus d'un homme de main (voir confirmerPromotion).
+  onApply: (member: Member, nouveauMembre?: Member) => void;
 };
 
 type Etape = 'depart' | 'choix_carac' | 'competence' | 'promotion_categories' | 'resultat';
@@ -119,24 +121,52 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
   };
 
   const confirmerPromotion = () => {
+    const tablesLabel = categoriesPromotion.map((c) => SKILL_CATEGORIES.find((sc) => sc.id === c)?.label).join(', ');
     const record: AdvanceRecord = {
       id: uuidv4(),
       date: new Date().toISOString().slice(0, 10),
       xpAtRoll: travail.xp,
       roll: entreeAvancement?.min ?? 0,
       type: 'promotion',
-      detail: `Promu héros — tables : ${categoriesPromotion
-        .map((c) => SKILL_CATEGORIES.find((sc) => sc.id === c)?.label)
-        .join(', ')}`,
+      detail: `Promu héros — tables : ${tablesLabel}`,
     };
-    const updated: Member = {
-      ...travail,
-      promu_heros: true,
-      acces_competences_override: categoriesPromotion,
-      historique_avancees: [...travail.historique_avancees, record],
-    };
-    setTravail(updated);
-    onApply(updated);
+
+    const tailleGroupeActuelle = travail.taille_groupe || 1;
+    let travailSuivant: Member;
+
+    if (tailleGroupeActuelle > 1) {
+      // Une seule figurine du groupe devient héros ; le reste du groupe
+      // continue avec son XP et son profil, réduit d'une figurine.
+      const nouveauHeros: Member = {
+        ...travail,
+        instance_id: uuidv4(),
+        taille_groupe: 1,
+        promu_heros: true,
+        acces_competences_override: categoriesPromotion,
+        historique_avancees: [...travail.historique_avancees, record],
+      };
+      const groupeRestant: Member = {
+        ...travail,
+        taille_groupe: tailleGroupeActuelle - 1,
+        historique_avancees: [
+          ...travail.historique_avancees,
+          { ...record, detail: `Une figurine promue héros — groupe réduit à ${tailleGroupeActuelle - 1}` },
+        ],
+      };
+      onApply(groupeRestant, nouveauHeros);
+      travailSuivant = nouveauHeros;
+    } else {
+      const updated: Member = {
+        ...travail,
+        promu_heros: true,
+        acces_competences_override: categoriesPromotion,
+        historique_avancees: [...travail.historique_avancees, record],
+      };
+      onApply(updated);
+      travailSuivant = updated;
+    }
+
+    setTravail(travailSuivant);
     setTableForcee('heros');
     setIndexAvancement('');
     setCategorie('');
@@ -196,8 +226,12 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
       {etape === 'promotion_categories' && (
         <>
           <p className="text-sm">
-            <strong>Ce gars est doué !</strong> Ce membre devient un héros : il conserve son profil et son
-            expérience, mais accède désormais à la grille XP et à la table d'avancement des héros.
+            <strong>Ce gars est doué !</strong>{' '}
+            {(travail.taille_groupe || 1) > 1
+              ? `Une figurine du groupe devient héros (le groupe continue avec ${
+                  (travail.taille_groupe || 1) - 1
+                } figurine(s)) : elle conserve le profil et l'expérience du groupe, mais accède désormais à la grille XP et à la table d'avancement des héros.`
+              : "Ce membre devient un héros : il conserve son profil et son expérience, mais accède désormais à la grille XP et à la table d'avancement des héros."}
           </p>
           <p className="text-sm text-muted">
             Choisis 2 ou 3 tables de compétences accessibles à ce nouveau héros.
