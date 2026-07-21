@@ -1,177 +1,250 @@
 {
   "id": "orc_mob",
-  "nom": "Orc Mob (1a)",
+  "nom": "Horde Orque (1a)",
   "grade": "1a",
-  "source": "BSData",
+  "source": "Livre de règles Mordheim (GW)",
   "regles_speciales": [
     {
-      "nom": "Animosity",
-      "texte": "At the start of the Orc player’s turn, roll a D6 for each Henchman who is either an Orc or a Goblin and not in Hand to Hand Combat.\n\nRoll on table below if 1 is rolled. \n\n1 “I ’Erd Dat!”\nIf there is a friendly Orc or Goblin Henchman or Hired Sword within charge reach (if there are multiple targets within reach, choose the one nearest to the mad model), the warrior must immediately charge and fight a round of hand-to-hand combat against the Target.\nAt the end of this round of combat, the models will immediately move 1\" apart and no longer count as being in close combat.\nIf there are no friendly Orc or Goblin Henchmen or Hired Swords within charge reach, and the warrior is armed with a missile weapon, he immediately takes a shot at the nearest friendly Orc or Goblin Henchman or Hired Sword.\nIf none of the above applies, or if the nearest friendly model is an Orc Hero, the warrior behaves as if a 2-5 had been rolled on this chart.\nIn any case, the warrior in question may take no other action this turn, though he may defend himself if attacked in hand-to-hand combat.\n\n2-5 “Wud Yoo Say?” \nThe warrior is fairly certain he heard an offensive sound from the nearest friendly Orc or Goblin, but he’s not quite sure.\nHe spends the turn hurling insults at his mate.\nHe may do nothing else this turn, though he may defend himself if attacked in hand-to-hand combat.\n\n6. “I’ll Show Yer!” \nThe warrior imagines that his mates are laughing about him behind his back and calling him silly names.\nTo show them up he decides that he’ll be the first one to the scrap! \nThis model must move as quickly as possible towards the nearest enemy model, charging into combat if possible.\nIf there are no enemy models within sight, the Orc or Goblin warrior may make a normal move immediately.\nThis move is in addition to his regular move in the Movement phase, so he may therefore move twice in a single turn if you wish.\nIf the extra move takes the Orc or Goblin warrior within charge reach of an enemy model, the warrior must charge into close combat during his regular movement."
+      "nom": "Des gens peu recommandables",
+      "texte": "De nombreux Francs-Tireurs refuseraient de travailler pour des Orques car ils savent que ces derniers peuvent à tout moment se retourner contre eux. Une bande d'Orques ne peut donc louer les services que des Francs-Tireurs suivants : Gladiateurs, Gardes du Corps Ogres ou Mages."
     },
     {
-      "nom": "Distasteful Company",
-      "texte": "Many Hired Swords refuse to Work for Orcs, as they know that Orcs are just as likely to eat them as fight alongside them.\nOrcs may only hire the following Hired Swords: \n  Pit Fighters, Ogre Bodyguards or Warlocks."
+      "nom": "Animosité",
+      "texte": "Les Orques et les Gobelins aiment se battre, mais ne discernent pas toujours contre qui il vaut mieux le faire. Au début de chaque tour du joueur Orque, lancez 1D6 pour chaque Homme de main (Orque ou Gobelin) qui n'est pas engagé au Corps à Corps. Sur un résultat de 1, lancez ensuite 1D6 sur le tableau suivant. 1 « Répète, pour voir ! » : le guerrier charge immédiatement l'Homme de main, Orque, Gobelin ou Franc-Tireur le plus proche à portée de charge et livre un tour de Corps à Corps ; à la fin du tour, les figurines sont déplacées à 1ps l'une de l'autre et ne sont plus engagées (sauf nouvel échec avec ce même résultat). S'il n'y a personne à portée de charge et que la figurine a une arme de tir, elle tire sur la cible la plus proche ; sinon, ou si la figurine la plus proche est un Héros, elle agit comme le résultat 2-5. Dans tous les cas elle se défend normalement si engagée au Corps à Corps. 2-5 « K'es t'a dit ? » : le guerrier passe tout le tour à invectiver tout le monde et ne fait rien d'autre (il se défend normalement s'il est engagé au Corps à Corps). 6 « J'vais leur montrer ! » : la figurine doit avancer le plus rapidement possible vers l'ennemi le plus proche et le charger si possible ; si aucun ennemi n'est visible, elle effectue un Mouvement normal supplémentaire, et si ce déplacement l'amène à portée de charge, elle devra charger à la phase de Mouvement suivante."
     }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 20,
+    "cout_max_constitution": 500
+  },
+  "caracteristiques_max": [
+    { "profil": "orque", "note": "Plafond d'amélioration de caractéristiques pour toutes les figurines de type Orque (Chef, Kosto, Boyz...) ; ne s'applique pas aux Gobelins/Squigs/Troll.", "M": 4, "CC": 6, "CT": 6, "F": 4, "E": 5, "PV": 3, "I": 5, "A": 4, "Cd": 9 }
   ],
   "profils": [
     {
-      "id": "orc_big_uns",
-      "nom": "Orc Big Uns",
-      "type": "heros",
-      "unique": false,
-      "max": 2,
-      "cout": 40,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
-    },
-    {
-      "id": "cave_squig",
-      "nom": "Cave Squig",
-      "type": "homme_de_main",
-      "cout": 15,
-      "stats": {
-        "M": "2d6",
-        "CC": 4,
-        "CT": 0,
-        "F": 4,
-        "E": 3,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 5
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "goblin_warriors",
-      "nom": "Goblin Warriors",
-      "type": "homme_de_main",
-      "cout": 15,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 5
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "orc_boss",
-      "nom": "Orc Boss",
+      "id": "chef_orque",
+      "nom": "Chef Orque",
       "type": "heros",
       "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 80,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 4,
-        "F": 4,
-        "E": 4,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 8
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout membre de la bande à moins de 6ps du Chef Orque peut utiliser le Commandement de ce dernier pour ses tests." }
       ],
+      "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
-      "id": "orc_boyz",
-      "nom": "Orc Boyz",
-      "type": "homme_de_main",
-      "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 2,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "orc_shaman",
-      "nom": "Orc Shaman",
+      "id": "chamane_orque",
+      "nom": "Chamane Orque",
       "type": "heros",
       "unique": true,
+      "min": 0,
       "max": 1,
       "cout": 40,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 10,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Un Chamane est un sorcier utilisant la magie Waaagh ! (voir magie)." },
+        { "nom": "Sans armure", "texte": "Un Chaman peut être équipé d'armes choisies dans la liste d'équipement des Orques. Il ne porte jamais d'armure." }
+      ],
+      "acces_competences": ["force", "special"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "kosto",
+      "nom": "Kosto",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 40,
+      "xp_depart": 15,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "tir", "force", "special"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "boyz_orque",
+      "nom": "Boyz Orques",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Animosité", "texte": "Les Boyz Orques sont sujets à l'animosité (voir règles spéciales de la bande)." },
+        { "nom": "Recrutement", "texte": "N'importe quel nombre. Acheté par groupes de 1 à 5." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerrier_gobelin",
+      "nom": "Guerrier Gobelin",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Animosité", "texte": "Les Guerriers Gobelins sont sujets à l'animosité. Un Gobelin qui rate son test d'Animosité et obtient 1 sur le tableau ne chargera jamais un Orque : il utilisera son arme de tir s'il en a une." },
+        { "nom": "Pas des Orques", "texte": "Lorsque vous devez déterminer si une bande Orque doit effectuer un test de Déroute, chaque Gobelin ou chaque Squig mis hors de combat compte comme une demie figurine." },
+        { "nom": "Moins que rien", "texte": "Si un Guerrier Gobelin obtient le résultat Ce gars est doué, le Chef le tue sur-le-champ. Effacez-le de la feuille de bande." },
+        { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5. Ne peut pas être plus de deux fois plus nombreux que les Orques (Héros inclus)." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "squig_des_cavernes",
+      "nom": "Squig des cavernes",
+      "type": "animal",
+      "min": 0,
+      "max": 5,
+      "cout": 15,
+      "stats": { "M": 0, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Mouvement", "texte": "La caractéristique Mouvement des Squigs n'est pas fixe (M=0 ci-dessus est un espace réservé) : lancez 2D6 chaque fois que vous voulez déplacer un Squig. Ils ne courent jamais et ne déclarent aucune charge normalement ; ils peuvent utiliser leur mouvement de 2D6ps pour arriver au contact d'un adversaire et sont alors considérés comme ayant chargé pour la phase de Combat qui suit." },
+        { "nom": "Au Pied !", "texte": "Chaque Squig doit rester au maximum à 6ps d'une figurine de Guerrier Gobelin. S'il se retrouve à plus de 6ps de tout Gobelin en début de phase de Mouvement, il devient fou : à partir de là, déplacez-le de 2D6ps dans une direction aléatoire à chaque phase de Mouvement suivante ; s'il touche une figurine (amie ou ennemie) il l'engage au Corps à Corps. Il n'est plus contrôlé par le joueur Orque jusqu'à la fin de la partie." },
+        { "nom": "Pas des Orques", "texte": "Chaque Gobelin ou Squig mis hors de combat compte comme une demie figurine pour les tests de Déroute de la bande." },
+        { "nom": "Animaux", "texte": "Les Squigs sont des animaux (enfin presque…) et ne gagnent donc jamais d'expérience." },
+        { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5. Jamais plus nombreux que les Guerriers Gobelins." },
+        { "nom": "Équipement", "texte": "Les Squigs ne portent ni armes ni armures." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
     },
     {
       "id": "troll",
       "nom": "Troll",
-      "type": "homme_de_main",
+      "type": "animal",
+      "min": 0,
+      "max": 1,
       "cout": 200,
-      "stats": {
-        "M": 6,
-        "CC": 3,
-        "CT": 1,
-        "F": 5,
-        "E": 4,
-        "PV": 3,
-        "I": 1,
-        "A": 3,
-        "Cd": 4
-      },
+      "stats": { "M": 6, "CC": 3, "CT": 1, "F": 5, "E": 4, "PV": 3, "I": 1, "A": 3, "Cd": 4 },
+      "regles_speciales": [
+        { "nom": "Peur", "texte": "Les Trolls sont des créatures effrayantes et provoquent la peur." },
+        { "nom": "Stupidité", "texte": "Les Trolls sont soumis aux règles de stupidité." },
+        { "nom": "Régénération", "texte": "Lorsqu'un Troll subit une Blessure, quelle qu'elle soit, lancez 1D6 : sur un résultat de 4+, la Blessure est ignorée. Les Trolls ne peuvent pas se régénérer de blessures causées par le feu ou des sorts basés sur le feu. Ils ne font pas de jet de Blessure Grave en fin de partie." },
+        { "nom": "Zéro de QI", "texte": "Les Trolls ne gagnent jamais d'expérience." },
+        { "nom": "Toujours Faim", "texte": "La bande doit dépenser 15 CO après chaque bataille pour nourrir le Troll, ou sacrifier 2 Gobelins ou Squigs. Si le Troll ne mange pas à sa faim, il quitte la bande définitivement." },
+        { "nom": "Vomi", "texte": "Au lieu de ses attaques normales, un Troll peut régurgiter ses fluides gastriques : attaque unique qui touche automatiquement, résolue à Force 5, ignorant les sauvegardes d'armure." },
+        { "nom": "Grande cible", "texte": "Les Trolls sont des grandes cibles, comme défini dans les règles de Tir." },
+        { "nom": "Équipement", "texte": "Ne peuvent recevoir ni armes, ni armures (portent parfois un gros gourdin sans effet de jeu)." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": []
+  "competences_speciales": [
+    { "id": "tetdure", "nom": "Têt'dure", "texte": "Le Héros bénéficie d'une sauvegarde spéciale de 3+ sur 1D6 pour éviter d'être sonné. Si la sauvegarde est réussie, la figurine est juste mise à terre. Si l'Orque porte en plus un casque, cette sauvegarde passe à 2+ (remplaçant les règles normales du casque)." },
+    { "id": "waaagh", "nom": "Waaagh !", "texte": "Le guerrier ajoute +1D3ps à sa portée de charge." },
+    { "id": "dur_a_cuire", "nom": "Dur à cuire", "texte": "Augmente de +1 la sauvegarde d'armure de la figurine." },
+    { "id": "coup_dboule", "nom": "Coup d'boule", "texte": "Toute figurine mise à terre au corps à corps par ce guerrier est considérée comme sonnée." },
+    { "id": "on_y_va", "nom": "On y va !", "texte": "La figurine n'a pas à effectuer de test de peur lorsqu'elle charge." },
+    { "id": "revnez_ici", "nom": "Rev'nez ici !", "reserve_a": "Chef Orque uniquement", "texte": "La bande peut relancer tout test de Déroute raté tant que le Chef Orque n'a pas été mis hors de combat." }
+  ],
+  "equipement": {
+    "orques": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Massue", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Hallebarde", "cout": 10 },
+        { "nom": "Lance", "cout": 10 },
+        { "nom": "Morgenstern", "cout": 15 },
+        { "nom": "Arme à deux mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "nom": "Arbalète", "cout": 25 },
+        { "nom": "Arc", "cout": 10 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Bouclier", "cout": 5 }
+      ]
+    },
+    "gobelins": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Massue", "cout": 3 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Arc Court", "cout": 5 }
+      ],
+      "armures": [
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Bouclier", "cout": 5 }
+      ],
+      "divers": [
+        { "nom": "Aiguillon à squigs", "cout": 15 },
+        { "nom": "Chaîne & boulet", "cout": 15, "restriction": "Gobelins uniquement" },
+        { "nom": "Bonnets de fou", "cout": 25, "restriction": "Si la bande comprend au moins un Gobelin" }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "chaine_et_boulet",
+      "nom": "Chaîne & boulet",
+      "cout": 15,
+      "disponibilite": "Commune (Gobelins uniquement)",
+      "portee": "Corps à corps",
+      "force": "Utilisateur+2",
+      "regles_speciales": [
+        { "nom": "Arme à deux mains", "texte": "Combinée avec les règles Force Colossale, Épuisante, Imprévisible, Encombrante." },
+        { "nom": "Encombrante", "texte": "Une figurine équipée de cette arme ne peut porter aucune autre arme ni équipement. Seule une figurine sous l'influence des champignons bonnets de fou dispose de la force nécessaire pour la manier." },
+        { "nom": "Force colossale", "texte": "Aucune sauvegarde d'armure n'est permise contre les blessures infligées par cette arme. Toute blessure subie inflige 1D3 PV au lieu d'un seul." },
+        { "nom": "Épuisante", "texte": "Après la bataille, chaque figurine ayant utilisé une chaîne & boulet doit effectuer un jet de Blessure comme si elle avait été mise hors de combat (un seul jet si elle l'a effectivement été)." },
+        { "nom": "Imprévisible", "texte": "Le tour où le guerrier commence à faire tournoyer son boulet, il est déplacé de 2D6ps dans une direction définie par le joueur. Aux phases de Mouvement suivantes, lancez 1D6 : 1 = la figurine s'étrangle et est mise hors de combat (tuée sur 1-3 au jet de Blessure Grave) ; 2-5 = déplacée de 2D6ps dans la direction voulue ; 6 = déplacée de 2D6ps dans une direction aléatoire. Si elle heurte un bâtiment/mur/obstacle, elle est immédiatement mise hors de combat. Une figurine adverse subit -1 pour toucher le porteur." },
+        { "nom": "Cinglé", "texte": "Le guerrier est immunisé aux règles d'animosité." }
+      ]
+    },
+    {
+      "id": "aiguillon_a_squigs",
+      "nom": "Aiguillon à squigs",
+      "cout": 15,
+      "disponibilite": "Commun (Gobelins uniquement)",
+      "texte": "Un gobelin équipé d'un aiguillon à squig peut contrôler tout Squig dans un rayon de 12ps au lieu des 6ps normaux. De plus, un aiguillon à squig est considéré comme une lance en ce qui concerne les combats au Corps à Corps."
+    },
+    {
+      "id": "champignons_bonnets_de_fou",
+      "nom": "Champignons bonnets de fou",
+      "cout": 25,
+      "disponibilite": "Commun (si la bande comprend au moins un Gobelin)",
+      "texte": "Indispensables à quiconque voudrait manier une chaîne & boulet. Un Guerrier Gobelin peut les absorber au début de n'importe quel tour.",
+      "regles_speciales": [
+        { "nom": "Effet", "texte": "Un guerrier consommant des bonnets de fou avant une bataille sera sujet à la frénésie." },
+        { "nom": "Effets secondaires", "texte": "Après la bataille, lancez 1D6. Sur un 1, la figurine devient stupide de manière définitive." }
+      ]
+    }
+  ],
+  "magie": {
+    "nom": "Magie Waaagh !",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["chamane_orque"],
+    "note": "Sorts invoqués au cours de rituels ressemblant à des hurlements apostrophant les dieux orques, Gork et Mork.",
+    "sorts": [
+      { "resultat": 1, "nom": "Z'y Va !", "difficulte": 9, "texte": "Tout Orque ou Gobelin dans un rayon de 4ps autour du Chamane frappe automatiquement en premier au Corps à Corps, quelles que soient les circonstances. Dure jusqu'à ce que le Chamane soit mis à terre, sonné ou hors de combat." },
+      { "resultat": 2, "nom": "Bouge de Là !", "difficulte": 7, "texte": "Portée 8ps. Déplacez une figurine ennemie d'1D6ps dans la direction opposée au Chamane. Si elle heurte une autre figurine ou un bâtiment, les deux subissent une touche de F3. Ne peut pas être utilisé contre des figurines engagées au Corps à Corps." },
+      { "resultat": 3, "nom": "Zzzap !", "difficulte": 9, "texte": "Portée 12ps. Inflige 1D3 touches de Force 4 à la figurine ennemie la plus proche, aucune sauvegarde d'armure possible." },
+      { "resultat": 4, "nom": "Bouffon, Va !", "difficulte": 6, "texte": "Aucun ennemi ne peut charger le Chamane durant le prochain tour. Si le Chamane était engagé au Corps à Corps, il peut immédiatement être déplacé de 4ps." },
+      { "resultat": 5, "nom": "Ramèn'ta Fraise !", "difficulte": 7, "texte": "Une massue fantomatique apparaît dans la main du Chamane : considérée comme un gourdin ordinaire, ajoute +2 en Force et +1 Attaque. Dure jusqu'à ce que le Chamane subisse une Blessure." },
+      { "resultat": 6, "nom": "Feu de Gork", "difficulte": 8, "texte": "Portée 12ps. Deux éclairs de flammes vertes jaillissent des narines du Chamane vers la figurine ennemie la plus proche. Chaque éclair inflige 1D3 touches de Force 3 ; les éclairs peuvent frapper tous deux la même cible ou être répartis entre les deux figurines ennemies les plus proches." }
+    ]
+  }
 }

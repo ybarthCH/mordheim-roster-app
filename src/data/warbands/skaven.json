@@ -1,175 +1,241 @@
 {
   "id": "skaven",
-  "nom": "Skaven (1a)",
+  "nom": "Skavens (1a)",
   "grade": "1a",
-  "source": "BSData",
+  "source": "Livre de règles Mordheim (GW), p.90-95 (bande) + p.61 (magie du Rat Cornu)",
   "regles_speciales": [],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 20,
+    "cout_max_constitution": 500
+  },
   "profils": [
     {
-      "id": "assassin_adept",
-      "nom": "Assassin Adept",
+      "id": "adepte_assassin",
+      "nom": "Adepte assassin",
       "type": "heros",
       "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 60,
-      "stats": {
-        "M": 6,
-        "CC": 4,
-        "CT": 4,
-        "F": 4,
-        "E": 3,
-        "PV": 1,
-        "I": 5,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 20,
+      "stats": { "M": 6, "CC": 4, "CT": 4, "F": 4, "E": 3, "PV": 1, "I": 5, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "N'importe quel guerrier à moins de 6ps d'un adepte assassin peut utiliser le Cd de ce dernier." },
+        { "nom": "Machine à Tuer", "texte": "Un adepte assassin inflige toujours un modificateur de -1 à la sauvegarde ennemie lorsqu'il blesse (au tir ou au corps à corps)." }
       ],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse", "special"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
-      "id": "black_skaven",
-      "nom": "Black Skaven",
+      "id": "skaven_noir",
+      "nom": "Skaven noir",
       "type": "heros",
       "unique": false,
+      "min": 0,
       "max": 2,
       "cout": 40,
-      "stats": {
-        "M": 6,
-        "CC": 4,
-        "CT": 3,
-        "F": 4,
-        "E": 3,
-        "PV": 1,
-        "I": 5,
-        "A": 1,
-        "Cd": 6
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 8,
+      "stats": { "M": 6, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 5, "A": 1, "Cd": 6 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "eshin_sorcerer",
-      "nom": "Eshin Sorcerer",
+      "id": "sorcier_eshin",
+      "nom": "Sorcier eshin",
       "type": "heros",
       "unique": true,
+      "min": 0,
       "max": 1,
       "cout": 45,
-      "stats": {
-        "M": 5,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 6
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 8,
+      "stats": { "M": 5, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Un sorcier eshin est un sorcier qui utilise la magie du Rat Cornu (voir Magie)." }
+      ],
+      "acces_competences": ["academique", "vitesse", "special"],
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "giant_rats",
-      "nom": "Giant Rats",
-      "type": "homme_de_main",
-      "cout": 15,
-      "stats": {
-        "M": 6,
-        "CC": 2,
-        "CT": 0,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 4
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "night_runners",
-      "nom": "Night Runners",
+      "id": "coureur_nocturne",
+      "nom": "Coureur nocturne",
       "type": "heros",
       "unique": false,
+      "min": 0,
       "max": 2,
       "cout": 20,
-      "stats": {
-        "M": 6,
-        "CC": 2,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 4
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir"
-      ]
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "vermineux",
+      "nom": "Vermineux",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." }],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "rat_geant",
+      "nom": "Rat géant",
+      "type": "animal",
+      "min": 0,
+      "max": null,
+      "cout": 15,
+      "stats": { "M": 6, "CC": 2, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
+      "regles_speciales": [
+        { "nom": "Effectifs", "texte": "Vous pouvez recruter autant de rats géants que vous le désirez. Achetés par groupes de 1 à 5." },
+        { "nom": "Expérience", "texte": "Les rats géants sont des animaux et ne gagnent donc pas d'expérience." },
+        { "nom": "Équipement", "texte": "Aucun. Les rats géants ne portent ni arme ni armure." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
     },
     {
       "id": "rat_ogre",
-      "nom": "Rat Ogre",
-      "type": "homme_de_main",
+      "nom": "Rat-ogre",
+      "type": "animal",
+      "min": 0,
+      "max": 1,
       "cout": 210,
-      "stats": {
-        "M": 6,
-        "CC": 3,
-        "CT": 3,
-        "F": 5,
-        "E": 5,
-        "PV": 3,
-        "I": 4,
-        "A": 4,
-        "Cd": 4
-      },
+      "stats": { "M": 6, "CC": 3, "CT": 3, "F": 5, "E": 5, "PV": 3, "I": 4, "A": 3, "Cd": 4 },
+      "regles_speciales": [
+        { "nom": "Peur", "texte": "Les rats ogres provoquent la peur." },
+        { "nom": "Stupidité", "texte": "Un rat ogre est sujet à la stupidité, à moins qu'un héros skaven ne se trouve à moins de 6ps." },
+        { "nom": "Expérience", "texte": "Les rats ogres ne gagnent pas d'expérience." },
+        { "nom": "Grande Cible", "texte": "Les rats ogres sont des créatures immenses faisant de bonnes cibles pour les archers ; ce sont des grandes cibles, comme défini dans les règles de tir." },
+        { "nom": "Équipement", "texte": "Crocs, griffes et force brute ! Les rats ogres n'utilisent jamais ni armes ni armures." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "verminkin",
-      "nom": "Verminkin",
-      "type": "homme_de_main",
-      "cout": 20,
-      "stats": {
-        "M": 5,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 5
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": []
+  "competences_speciales": [
+    { "id": "frenesie_mortelle", "nom": "Frénésie mortelle", "texte": "Le héros skaven peut déclarer au début d'un tour qu'il utilise cette compétence : il ajoute +1 Attaque et 1D3ps de Mouvement pour tout son tour, mais subit 1D3 touches de Force 3 sans sauvegarde possible à la fin du tour." },
+    { "id": "queue_de_combat", "nom": "Queue de combat", "texte": "Le skaven peut utiliser un bouclier, une épée ou un poignard avec sa queue : Attaque supplémentaire avec l'arme appropriée, ou bonus de +1 en sauvegarde." },
+    { "id": "grimpeur_ne", "nom": "Grimpeur né", "texte": "Le skaven n'a pas besoin de faire de test d'Initiative lorsqu'il escalade un mur ou une surface abrupte." },
+    { "id": "infiltration", "nom": "Infiltration", "texte": "Un skaven avec cette compétence est toujours placé sur le champ de bataille après le déploiement de la bande adverse ; il peut être placé n'importe où hors de toute ligne de vue adverse et à plus de 12ps de toute figurine ennemie. Si les deux joueurs ont des figurines en infiltration, lancez 1D6 ; le résultat le plus faible se déploie en premier." },
+    { "id": "art_de_la_mort_silencieuse", "nom": "Art de la mort silencieuse", "texte": "En corps à corps, le skaven peut combattre à mains nues sans pénalités et compte comme ayant deux armes (+1 Attaque). Un héros skaven avec cette compétence provoque un coup critique sur un résultat au jet pour blesser de 5-6 au lieu de 6 (sauf s'il ne peut blesser sa cible que sur du 5+, auquel cas le critique reste sur 6). Utilisable avec des griffes de combat (+2 Attaques au lieu de +1)." }
+  ],
+  "equipement": {
+    "heros_skavens": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Fléau", "cout": 15 },
+        { "nom": "Lance", "cout": 10 },
+        { "nom": "Hallebarde", "cout": 10 },
+        { "nom": "Lames Suintantes", "cout": 50 },
+        { "nom": "Griffes de Combat", "cout": 35 }
+      ],
+      "armes_tir": [
+        { "nom": "Fronde", "cout": 2 },
+        { "nom": "Étoiles de Jet", "cout": 15 },
+        { "nom": "Sarbacane", "cout": 25 },
+        { "nom": "Pistolet à Malepierre", "cout": 35, "note": "70 CO la paire" }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Rondache", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    },
+    "hommes_de_main_skavens": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Gourdin", "cout": 3 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Fronde", "cout": 2 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "sarbacane",
+      "nom": "Sarbacane",
+      "cout": 25,
+      "disponibilite": "Rare 7, skavens uniquement",
+      "portee": "8ps",
+      "force": "1",
+      "sauvegarde": "+1",
+      "regles_speciales": [
+        { "nom": "Poison", "texte": "Les aiguilles sont enduites d'un venin similaire à celui du Lotus Noir (un 6 pour toucher blesse automatiquement la cible). Ne peut pas infliger de coups critiques. Dotée d'un modificateur de sauvegarde positif : une figurine avec sauvegarde de 5+ aura 4+ contre les tirs de sarbacane ; les figurines sans sauvegarde en obtiennent une de 6+." },
+        { "nom": "Furtivité", "texte": "Un skaven armé d'une sarbacane peut tirer en étant caché sans révéler sa position. La cible peut faire un test d'Initiative pour repérer le skaven ; si réussi, il n'est plus caché." }
+      ]
+    },
+    {
+      "id": "pistolet_a_malepierre",
+      "nom": "Pistolet à malepierre",
+      "cout": 35,
+      "note": "70 CO la paire",
+      "disponibilite": "Rare 11, skavens uniquement",
+      "portee": "8ps",
+      "force": "5",
+      "sauvegarde": "-3",
+      "regles_speciales": [
+        { "nom": "Tire 1 tour sur 2", "texte": "Ces pistolets, fabriqués à partir de fragments de malepierre ensorcelés, causent d'horribles blessures mais ne peuvent être tirés qu'un tour sur deux." }
+      ]
+    },
+    {
+      "id": "griffes_de_combat",
+      "nom": "Griffes de combat",
+      "cout": 35,
+      "disponibilite": "Rare 7, skavens uniquement",
+      "portee": "C à C",
+      "force": "Utilisateur",
+      "regles_speciales": [
+        { "nom": "Paire", "texte": "Traditionnellement utilisées par paire, une dans chaque main. Un guerrier avec des griffes gagne +1 Attaque." },
+        { "nom": "Grimpeur", "texte": "Un skaven équipé d'une paire de griffes gagne +1 en Initiative pour les tests d'escalade." },
+        { "nom": "Parade", "texte": "Un skaven armé d'une paire de griffes peut parer les coups et faire une relance, comme s'il était équipé d'une épée et d'une rondache." },
+        { "nom": "Encombrant", "texte": "Une figurine équipée de griffes ne peut pas utiliser d'autres armes durant toute la partie." }
+      ]
+    },
+    {
+      "id": "lames_suintantes",
+      "nom": "Lames suintantes",
+      "cout": 50,
+      "note": "la paire",
+      "disponibilite": "Rare 9, skavens uniquement",
+      "portee": "C à C",
+      "force": "Utilisateur",
+      "regles_speciales": [
+        { "nom": "Paire", "texte": "Traditionnellement utilisées par paires. Un guerrier équipé d'une paire de lames suintantes gagne +1 Attaque." },
+        { "nom": "Venin", "texte": "Équivalentes à des armes enduites de Lotus Noir en permanence ; aucun autre poison ne peut y être ajouté." },
+        { "nom": "Parade", "texte": "Les lames suintantes sont des épées et peuvent servir à effectuer des parades." }
+      ]
+    }
+  ],
+  "magie": {
+    "nom": "Magie du Rat Cornu",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["sorcier_eshin"],
+    "note": "Cette forme sinistre de sorcellerie utilisée par les skavens provient de leur divinité, un infâme dieu démoniaque appelé le Rat Cornu.",
+    "sorts": [
+      { "resultat": 1, "nom": "Maleflamme", "difficulte": 8, "texte": "Portée 8ps, frappe la première figurine sur sa trajectoire : D3 touches de F4 sur la victime et une touche de F3 sur chaque figurine à moins de 2ps d'elle." },
+      { "resultat": 2, "nom": "Rejetons du Rat Cornu", "difficulte": "Auto", "texte": "Utilisable une seule fois avant chaque partie. Invoque D3 rats géants placés à moins de 6ps du sorcier ; ces rats ne comptent pas dans le nombre maximum de figurines de la bande." },
+      { "resultat": 3, "nom": "Rongeviande", "difficulte": 7, "texte": "Cause 2D6 touches de F1 sur une seule figurine à moins de 8ps du sorcier." },
+      { "resultat": 4, "nom": "Fureur Noire", "difficulte": 8, "texte": "Le sorcier peut immédiatement charger une figurine ennemie de son choix à moins de 12ps (en ignorant terrain et autres figurines). Il gagne 2 attaques supplémentaires et +1 en Force durant la phase de corps à corps de ce tour uniquement." },
+      { "resultat": 5, "nom": "Œil du Warp", "difficulte": 8, "texte": "Toutes les figurines debout en contact avec le sorcier doivent immédiatement effectuer un test de Commandement. Celles qui échouent subissent une touche de Force 3 et doivent courir de 2D6ps dans la direction opposée à celle du sorcier." },
+      { "resultat": 6, "nom": "Malédiction du Sorcier", "difficulte": 6, "texte": "Affecte une figurine à moins de 12ps : elle doit relancer tout jet pour toucher ou sauvegarde d'armure réussi durant la phase de corps à corps skaven qui suit, ainsi que lors des phases de tir et de corps à corps de son prochain tour." }
+    ]
+  }
 }
