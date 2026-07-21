@@ -1,0 +1,214 @@
+{
+  "id": "morts_sans_repos",
+  "nom": "Les Morts Sans Repos (1c)",
+  "grade": "1c",
+  "source": "Border Town Burning (BTB) — La Grande Librairie de Mordheim",
+  "regles_speciales": [],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 500
+  },
+  "caracteristiques_max": [
+    { "profil": "necromancien", "note": "Quasiment humain — utilise les caractéristiques maximales humaines standards du livre de règles." }
+  ],
+  "profils": [
+    {
+      "id": "liche",
+      "nom": "Liche",
+      "type": "heros",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 125,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 2, "E": 2, "PV": 4, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Sorcier puissant ; utilise la magie Nécromantique et débute avec deux sorts tirés aléatoirement de la liste Nécromancie." },
+        { "nom": "Provoque la Peur", "texte": "Abomination horrible qui provoque la peur." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affectée par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Insensible", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affectée par les poisons." },
+        { "nom": "Éternelle", "texte": "Peut ignorer tout résultat de Blessure Grave sauf Tué, en subissant à la place une perte permanente de -1 Point de Vie (non utilisable s'il ne lui reste qu'1 PV). Un résultat Tué inflige à la place -D3 PV permanents ; si cela amène la Liche à 0 PV ou moins, elle est tuée normalement." },
+        { "nom": "Se Nourrit de Magie", "texte": "Entre deux batailles, en consommant D3 Trésors, peut gagner +1 PV permanent. Ne peut pas être utilisé si la Liche a cherché des objets rares ou a été mise hors de combat lors de la bataille précédente ; les Trésors sont consommés même s'il n'y en a pas assez de disponibles." },
+        { "nom": "Sorcière Guerrière", "texte": "Peut porter une armure et lancer des sorts." },
+        { "nom": "Avancement", "texte": "Si la Liche obtient un résultat d'avancée +1 Point de Vie, elle peut choisir une nouvelle compétence dans ses tableaux accessibles à la place." },
+        { "nom": "Équipement", "texte": "Ne peut porter aucune arme non-magique (sans pénalité pour cela), mais peut porter n'importe quelle armure de la liste d'équipement des morts-vivants." }
+      ],
+      "acces_competences": ["academique", "special"],
+      "acces_competences_a_verifier": true,
+      "est_leader": true
+    },
+    {
+      "id": "necromancien",
+      "nom": "Nécromancien",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 40,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Formé par la Liche à la Nécromancie ; débute en connaissant l'un des deux sorts connus de la Liche." },
+        { "nom": "Apprenti", "texte": "Ne peut apprendre que des sorts déjà connus de la Liche (n'ose pas en utiliser d'autres par déférence). Si la Liche est tuée, le Nécromancien peut continuer à apprendre des sorts comme un sorcier normal, en ignorant cette règle." },
+        { "nom": "Fureteur", "texte": "Lors de la recherche d'objets rares, lance 3D6 et garde les deux meilleurs résultats." }
+      ],
+      "acces_competences": ["academique", "vitesse", "special"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "garde_funeraire",
+      "nom": "Garde Funéraire",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 3,
+      "cout": 35,
+      "xp_depart": 6,
+      "stats": { "M": 4, "CC": 3, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Lames de Spectre", "texte": "Tout jet pour toucher au corps à corps de 6 blesse automatiquement (jet pour blesser normal pour les coups critiques ; un jet pour blesser raté cause quand même une blessure si un 6 a été obtenu pour toucher)." },
+        { "nom": "Provoque la Peur", "texte": "Créatures mortes-vivantes terrifiantes qui provoquent la peur." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affecté par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Insensible", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
+        { "nom": "Aucun Marché", "texte": "Ne peut pas chercher d'objets rares." }
+      ],
+      "acces_competences": ["combat", "force"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "zombie",
+      "nom": "Zombie",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 1, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Provoque la Peur", "texte": "Créatures horribles qui provoquent la peur." },
+        { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affecté par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." },
+        { "nom": "Insensible", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Sans Cervelle", "texte": "Ne gagne jamais d'expérience." },
+        { "nom": "Équipement", "texte": "Ne peut porter ni armes ni armure, sans pénalité pour cela." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "squelette",
+      "nom": "Squelette",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 8,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Provoque la Peur", "texte": "Monstres morts-vivants terrifiants qui provoquent la peur." },
+        { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affecté par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." },
+        { "nom": "Insensible", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Sans Cervelle", "texte": "Ne gagne jamais d'expérience." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "spectre",
+      "nom": "Spectre",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 3,
+      "cout": 30,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Provoque la Peur", "texte": "Créatures mortes-vivantes terrifiantes qui provoquent la peur." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affecté par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Insensible", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
+        { "nom": "Expérience", "texte": "Peut gagner de l'expérience ; s'il est promu Héros via « Ce gars est doué », ne peut pas chercher d'objets rares (comme les Gardes Funéraires), doit choisir les tableaux de compétences Combat et Force, et gagne la règle Lames de Spectre." }
+      ],
+      "acces_competences": ["combat", "force"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "epouvantail",
+      "nom": "Épouvantail",
+      "type": "animal",
+      "min": 0,
+      "max": 2,
+      "cout": 65,
+      "stats": { "M": 5, "CC": 3, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 2, "Cd": 10 },
+      "regles_speciales": [
+        { "nom": "Provoque la Peur", "texte": "Spectacle profondément contre-nature qui provoque la peur." },
+        { "nom": "Immunité à la Psychologie", "texte": "Immunisé à toute psychologie, ne quitte jamais un combat." },
+        { "nom": "Immunité aux Poisons", "texte": "Immunisé à tous les poisons." },
+        { "nom": "Insensible", "texte": "Tout résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Sans Cervelle", "texte": "Ne gagne jamais d'expérience." },
+        { "nom": "Sans Substance", "texte": "Compte comme Endurance 6 face à tout tir et projectile magique, et est immunisé aux coups critiques au tir (exception : les armes de tir/sorts à base de feu infligent des dégâts normaux)." },
+        { "nom": "Inflammable", "texte": "Compte comme inflammable et prend feu sur 3+ au lieu du 4+ habituel." },
+        { "nom": "Construction", "texte": "Peut relancer tout résultat sur le tableau des blessures, sauf les blessures causées par le feu." },
+        { "nom": "Construction Animée", "texte": "Contrôlé soit par la Liche soit par le Nécromancien (à noter sur la feuille de bande), un seul à la fois ; une bande a besoin à la fois d'une Liche et d'un Nécromancien pour aligner deux Épouvantails. Si son contrôleur ne peut pas participer à une bataille, l'Épouvantail non plus. Si son contrôleur perd un Point de Vie, un test de Commandement non modifié doit être réussi sous peine que l'Épouvantail soit immédiatement mis hors de combat." },
+        { "nom": "Équipement", "texte": "Ne porte aucun équipement, sans pénalité pour cela." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "bombe_cadaverique", "nom": "Bombe cadavérique", "texte": "Désignez secrètement un Zombie au début de la bataille comme Bombe cadavérique ; s'il est chargé ou charge un ennemi, il explose immédiatement, infligeant D3 touches de Force 4 à toutes les figurines dans un rayon de D6ps. Ce Zombie ne peut plus jamais être réutilisé. Une Bombe cadavérique tuée par un tir n'explose pas. Un seul Zombie à la fois peut être une Bombe cadavérique ; le Nécromancien et la Liche peuvent tous deux choisir cette compétence." },
+    { "id": "porte_voix_des_morts", "nom": "Porte-voix des morts", "texte": "Au début de la bataille, peut déployer gratuitement D3 Zombies ; ils ne comptent pas dans l'effectif maximum de la bande mais augmentent la valeur de la bande. Ils ne peuvent pas servir de Bombe cadavérique et ne durent que le temps de la bataille." },
+    { "id": "toucher_spectral", "nom": "Toucher spectral", "texte": "Le héros peut effectuer une seule attaque à mains nues au lieu de ses attaques normales au corps à corps ; en cas de touche, elle blesse automatiquement. Si une Liche utilise cette compétence et blesse, elle récupère 1 Point de Vie perdu (sans dépasser son total de départ). Les Nécromanciens ne récupèrent pas de PV de cette façon. Sans effet sur les Possédés ou les figurines mortes-vivantes." },
+    { "id": "rite_interdit", "nom": "Rite interdit", "texte": "Si le héros n'a pas cherché d'objets rares lors de la dernière phase d'Exploration, débute la prochaine bataille avec une réserve de D3+1 modificateurs (+1) utilisables sur les jets de lancer de sorts, autant à la fois que désiré." },
+    { "id": "invocateur", "nom": "Invocateur", "texte": "L'effectif maximum de la bande est augmenté de 1." }
+  ],
+  "equipement": {
+    "morts_vivants": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Lance", "cout": 10 },
+        { "nom": "Hallebarde", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Arc court", "cout": 5 },
+        { "nom": "Arc", "cout": 10 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Rondache", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    }
+  },
+  "magie": {
+    "nom": "Nécromancie",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["liche", "necromancien"],
+    "sorts": [
+      { "resultat": 1, "nom": "Sort d'Éveil", "difficulte": "Auto", "texte": "Si un Héros ennemi est tué (l'adversaire obtient 11-15 sur le tableau des blessures graves), le sorcier peut le relever en tant que Zombie à son service, conservant ses caractéristiques, armes et armure mais aucun équipement/compétence ; il compte comme son propre groupe d'Hommes de main, ne peut pas courir, et ne gagne plus d'expérience." },
+      { "resultat": 2, "nom": "Voleur de Vie", "difficulte": 10, "texte": "Choisissez une figurine à moins de 6ps. Elle subit une blessure (sans sauvegarde), et le sorcier gagne un Point de Vie supplémentaire pour la durée de la bataille (peut dépasser le maximum de départ d'un Nécromancien ; une Liche ne peut que restaurer des PV perdus). Sans effet sur les Possédés ou les figurines mortes-vivantes." },
+      { "resultat": 3, "nom": "Réanimation", "difficulte": 5, "texte": "Un Zombie mis hors de combat lors de la dernière phase de corps à corps revient au combat à moins de 6ps du sorcier (pas directement au contact). Peut être utilisé sur un Garde Funéraire/Spectre pour lui restaurer 1 PV perdu s'il en a plus d'un ; ne peut pas ressusciter les Épouvantails, Gardes Funéraires, Spectres ou Squelettes comme il le fait pour les Zombies." },
+      { "resultat": 4, "nom": "Sort de Malédiction", "difficulte": 9, "texte": "Choisissez une figurine ennemie à moins de 12ps ; elle doit obtenir un résultat inférieur ou égal à sa Force sur 1D6 sous peine d'être happée par les morts — en cas d'échec, jet sur le tableau des Blessures." },
+      { "resultat": 5, "nom": "Appel de Vanhel", "difficulte": 6, "texte": "Un seul Zombie, Squelette, Spectre ou Garde Funéraire à moins de 6ps du sorcier peut se déplacer à nouveau de son mouvement maximum ; un mouvement amenant au contact compte comme une charge, et tout test d'Initiative nécessaire durant ce mouvement est automatiquement réussi." },
+      { "resultat": 6, "nom": "Vision Funeste", "difficulte": 6, "note": "Nécromanciens uniquement", "texte": "Le Nécromancien provoque la peur chez ses ennemis pour la durée de la bataille et y est lui-même immunisé — seule exception à la règle Apprenti, accessible si la Liche connaît le sort Vision d'Horreur." },
+      { "resultat": 6, "nom": "Horreur Vivante", "difficulte": 8, "note": "Liche uniquement", "texte": "Choisissez une figurine à moins de 8ps de la Liche et lancez D6+3 ; si le résultat est égal ou supérieur au Commandement de la cible, elle subit une Blessure (sans sauvegarde d'armure). Si elle est blessée et qu'il lui reste des Points de Vie, elle ne peut ni se déplacer, ni tirer, ni lancer de sorts au tour suivant, à moins de réussir un test de Commandement. Sans effet sur les Possédés, les morts-vivants, ou toute figurine immunisée à la peur." }
+    ]
+  }
+}

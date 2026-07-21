@@ -1,0 +1,225 @@
+[
+  {
+    "id": "arquebuse", "nom": "Arquebuse", "categorie": "armes_poudre_noire",
+    "cout": 25, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8",
+    "note_maison": "Prix officiel 35 CO, réduit à 25 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["rare_8"], "source": "LdR", "page": 24,
+    "texte": "L'arquebuse est une arme à feu rudimentaire dont la qualité de fabrication va des grossières haquebutes en bois de l'école d'artillerie de Nuln aux armes à feu sophistiquées des nains. Ces dernières sont dotées de leviers et de ressorts qui maintiennent la mèche enflammée, et de gâchettes qui actionnent le mécanisme de mise à feu. Les arquebuses ne sont pas des armes très fiables : le canon explose de temps à autre et la poudre refuse parfois de s'enflammer. Mais leur portée est extraordinaire et leur puissance de pénétration ridiculise les armures les plus épaisses. À Mordheim, les arquebuses sont rares et coûteuses, mais une bande qui dispose de telles armes forcera le respect de toutes rivales. L'arquebuse est éligible à l'option double canon pour les Artilleurs de Nuln.",
+    "portee": "24ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." }
+    ]
+  },
+  {
+    "id": "arquebuse_a_repetition", "nom": "Arquebuse à répétition", "categorie": "armes_poudre_noire",
+    "cout": "40+2D6", "cout_fixe": false, "rarete": "11", "disponibilite": "Rare 11, Artilleurs de Nuln uniquement",
+    "note_maison": "Prix officiel 60+2D6 CO, base réduite à 40+2D6 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 24,
+    "texte": "Ils représentent la prochaine étape dans l'évolution des arquebuses à canons multiples. Cette arme à répétition est composée d'un certain nombre de canons montés autour d'un cylindre rotatif, chacun tirant à son tour. Souvent victimes de dysfonctionnement, les arquebuses à répétition sont malgré tout très recherchées, car elles peuvent lancer une véritable tempête de plomb sur l'ennemi si elles n'explosent pas.",
+    "portee": "24ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Expérimental", "texte": "Cette arme est toujours soumise aux règles optionnelles des armes à poudre noire du Livre des Règles de Mordheim, même si elles ne sont pas utilisées dans votre campagne. Pour tout autre résultat que « BOUM ! », l'arme s'est enrayée ou est à court de munitions et les canons doivent être rechargés." },
+      { "nom": "Modificateur de sauvegarde", "texte": "Voir arquebuse." },
+      { "nom": "Mouvement ou tir", "texte": "Voir arquebuse." },
+      { "nom": "Rechargement long", "texte": "Recharger une arquebuse à répétition prend du temps et exige un minimum de concentration. Le guerrier ne peut rien faire d'autre pendant un tour complet afin de recharger l'arme (pas de mouvement, pas de tir, pas de combat au corps à corps, etc.)." },
+      { "nom": "Triple tir", "texte": "L'arquebuse à répétition peut tirer jusqu'à 3 fois. Si plus d'un tir est effectué, le tireur subit un malus de -1 pour toucher. Résolvez chaque tir individuellement, chaque tir pouvant avoir une cible différente tant que la cible suivante est à moins de 3ps de la cible précédente. Les règles habituelles du choix de la cible s'appliquent normalement." }
+    ]
+  },
+  {
+    "id": "canon_crache_plomb", "nom": "Canon crache-plomb", "categorie": "armes_poudre_noire",
+    "cout": "55+2D6", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12",
+    "note_maison": "Prix officiel 80+2D6 CO, base réduite à 55+2D6 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["maneaters"], "source": "MH (Mangeurs d'Hommes)", "page": 25,
+    "texte": "Dans le Setting Border Town Burning, seuls les Mangeurs d'Hommes ont accès au mortier portable, sous le nom de canon crache-plomb.",
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Voir Mortier portable", "texte": "Version renommée du Mortier portable pour les Mangeurs d'Hommes ; mêmes règles (Dispersion, Expérimental, Modificateur de sauvegarde, Mouvement ou tir, Rayon d'explosion, Rechargement)." }
+    ]
+  },
+  {
+    "id": "long_fusil_du_hochland", "nom": "Long fusil du Hochland", "categorie": "armes_poudre_noire",
+    "cout": 135, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11",
+    "note_maison": "Prix officiel 200 CO, réduit à 135 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["rare_11"], "source": "LdR", "page": 25,
+    "texte": "Hochland est une province célèbre pour ses chasseurs et l'arme préférée de sa noblesse pour aller à la chasse est un fusil à longue portée. C'est une arme rare et précieuse que seul l'armurier le plus talentueux peut réussir à fabriquer. Le long fusil du Hochland est éligible à l'option double canon pour les Mercenaires Ostlanders.",
+    "portee": "48ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Choix de la cible", "texte": "Cette arme permet de viser n'importe quelle cible en vue, pas seulement la plus proche." },
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux. Si vous avez une paire de ces armes, vous pouvez tirer une fois par tour." }
+    ]
+  },
+  {
+    "id": "mortier_portable", "nom": "Mortier portable", "categorie": "armes_poudre_noire",
+    "cout": "55+2D6", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12, Artilleurs de Nuln uniquement",
+    "note_maison": "Prix officiel 80+2D6 CO, base réduite à 55+2D6 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 25,
+    "texte": "Avec la puissance explosive d'un véritable mortier, un dispositif suffisamment petit pour être porté par un seul homme permet à un guerrier de projeter un explosif au cœur des rangs ennemis, semant la mort et le désordre.",
+    "portee": "24ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Dispersion", "texte": "Si le combattant rate son jet pour toucher, le tir atterrira à 2D6ps, dans une direction aléatoire (déterminée par un dé de dispersion ou toute autre méthode convenue par les joueurs)." },
+      { "nom": "Expérimental", "texte": "Cette arme est toujours soumise aux règles optionnelles des armes à poudre noire du livre de règles de Mordheim, même si elles ne sont pas utilisées dans votre campagne. Pour tout autre résultat que « BOUM ! », l'arme s'est enrayée ou est à court de munitions et les canons doivent être rechargés." },
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." },
+      { "nom": "Rayon d'explosion", "texte": "Après avoir déterminé le point d'impact, l'explosion créée par la bombe couvrira une petite zone. Toutes les figurines dans un rayon de 1,5ps autour du point d'impact sont touchées par une touche de Force 4 provoquée par le souffle de l'explosion." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." }
+    ]
+  },
+  {
+    "id": "pierrier", "nom": "Pierrier", "categorie": "armes_poudre_noire",
+    "cout": 45, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Artilleurs de la bande des Pirates uniquement",
+    "note_maison": "Prix officiel 65 CO, réduit à 45 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["pirates"], "source": "P (Pirates)", "page": 26,
+    "texte": "Parfois, les artilleurs pirates fabriquent et emportent sur le champ de bataille une version réduite des véritables canons habituellement fixés sur les supports pivotants aux rambardes ou aux flancs du navire. Bien que plus petits que les canons ordinaires, ces canons montés sur pivot sont si grands qu'ils doivent être montés sur un support en bois. Ils sont encombrants et plus susceptibles de s'enrayer que les armes à poudre noire plus courantes, ceci à cause de moulages imparfaits ou d'un mauvais mélange de poudre noire. Malgré tout, la plupart des artilleurs s'accordent à dire que ces inconvénients sont largement compensés par leur puissance.",
+    "portee": "Variable", "force": "Variable",
+    "regles_speciales": [
+      { "nom": "Massif", "texte": "L'utilisateur a -1 en Initiative et -1 en Mouvement tout au long de la bataille. De plus, les pierriers ne peuvent jamais tirer deux fois par tour ou tirer si l'utilisateur se déplace, quelles que soient les compétences de l'utilisateur." },
+      { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." },
+      { "nom": "Rechargement", "texte": "Il faut un tour complet pour recharger un pierrier, qui ne peut donc tirer qu'un tour sur deux." },
+      { "nom": "Rien qu'un seul", "texte": "Une bande de Pirates ne peut avoir qu'un seul pierrier en raison du temps nécessaire aux artisans du navire pour l'entretien." },
+      { "nom": "Poudre noire", "texte": "En raison de la nature douteuse des matériaux utilisés pour leur construction, les règles optionnelles pour les armes à poudre noire de la page 184 du Livre des Règles de Mordheim sont toujours en vigueur pour les pierriers." },
+      { "nom": "Munitions spéciales", "texte": "Les pierriers utilisent des types de munitions non conventionnelles qui doivent être achetées pour chaque partie. Chaque type de munitions ne dure que le temps d'une bataille. Donc, si elles sont utilisées au cours d'une partie, elles ne peuvent plus être employées jusqu'à ce que de nouvelles munitions soient achetées. Avant de tirer, le tireur doit déclarer quel type de munitions est utilisé si plus d'un type est disponible (voir munitions spéciales : Boulet, Chaînes, Mitraille)." }
+    ]
+  },
+  {
+    "id": "boulet_pierrier", "nom": "Boulet (munition pierrier)", "categorie": "munitions",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Artilleurs Pirates uniquement",
+    "acces": ["pirates"], "source": "P (Pirates)", "page": 26,
+    "texte": "Un pierrier projetant ces lourds boulets de plomb peut stopper net un ogre en pleine charge !",
+    "portee": "36ps", "force": "5",
+    "regles_speciales": [
+      { "nom": "Contondant", "texte": "L'impact du lourd projectile de plomb est suffisant pour étourdir même le plus endurci des guerriers. Un jet de dégâts de 2-4 (au lieu de 3-4 habituellement) est considéré comme sonné." },
+      { "nom": "Svg. d'armure -2", "texte": "La sauvegarde d'armure subit un malus de -2." }
+    ]
+  },
+  {
+    "id": "chaines_pierrier", "nom": "Chaînes (munition pierrier)", "categorie": "munitions",
+    "cout": 2, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Artilleurs Pirates uniquement",
+    "acces": ["pirates"], "source": "P (Pirates)", "page": 26,
+    "texte": "Ces chaînes de métal ne provoquent pas tant de dégâts que ça, mais peuvent entraver un adversaire et le mettre à genoux.",
+    "portee": "24ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Enveloppement", "texte": "Les ennemis touchés par un tir de chaînes, mais qui ne sont pas blessés, sont mis à terre sur un jet de 4+ sur 1D6, même s'ils ne peuvent normalement pas être mis à terre." },
+      { "nom": "Svg. d'armure -1", "texte": "La sauvegarde d'armure subit un malus de -1." }
+    ]
+  },
+  {
+    "id": "mitraille_pierrier", "nom": "Mitraille (munition pierrier)", "categorie": "munitions",
+    "cout": 2, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Artilleurs Pirates uniquement",
+    "acces": ["pirates"], "source": "P (Pirates)", "page": 26,
+    "texte": "Des tonnelets remplis de billes de métal, de cailloux, de ferraille et même de cristaux de sel permettent de recharger le canon. Il peut alors projeter un nuage de shrapnels.",
+    "portee": "24ps", "force": "3",
+    "regles_speciales": [
+      { "nom": "Shrapnel", "texte": "Si une touche est réussie, 1D6 autres ennemis, situés dans un rayon de 4ps de la cible et dans la ligne de vue du tireur, subissent automatiquement une touche. Si la cible initiale était à découvert, seules des cibles à découvert peuvent être touchées (les cibles à couvert ne peuvent être touchées que si la cible initiale était à couvert). Les cibles supplémentaires sont touchées en allant du combattant le plus proche de la cible initiale au plus éloigné. Les combattants cachés, s'ils sont dans la ligne de vue du tireur, sont également considérés comme proches de la cible initiale et peuvent donc être touchés. Les Pirates savent qu'ils doivent s'éclipser lorsqu'ils entendent un pierrier se déclencher et ne sont donc jamais touchés par un tir de mitraille allié." },
+      { "nom": "Pas de Sauvegarde d'armure", "texte": "Aucune sauvegarde d'armure n'est permise." }
+    ]
+  },
+  {
+    "id": "pigeon_explosif", "nom": "Pigeon explosif de Hersten-Wenkler", "categorie": "armes_poudre_noire",
+    "cout": "20+2D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8, Artilleurs de Nuln uniquement",
+    "note_maison": "Prix officiel 30+2D6 CO, base réduite à 20+2D6 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 27,
+    "texte": "Lorsque l'Empire a pris conscience de tout le potentiel de la poudre à canon, ce n'était plus qu'une question de temps avant que quelques ingénieurs entreprenants ne combinent explosifs et petits animaux. Après les échecs initiaux lors des tentatives avec des rats, des chauves-souris et des chiens, des résultats prometteurs ont été obtenus avec des pigeons. Bien qu'ils ne soient pas vraiment précis, les pigeons peuvent rapidement atteindre des cibles éloignées et, une fois lancés, il est très difficile de les intercepter. Arrivés à destination, le petit harnais métallique du pigeon se détache, libérant la bombe pour ravager une petite zone en dessous, alors que le pigeon rentre tranquillement à la maison...",
+    "portee": "Illimitée", "force": "4",
+    "regles_speciales": [
+      { "nom": "Capricieux", "texte": "Lors du lancement d'un pigeon explosif, n'utilisez pas la CT du combattant. Au lieu de cela, lancez 1D6 : 1 = quelque chose a mal tourné et le pigeon explose dans les mains du Héros... lui et tous ceux qui se trouvent à moins de 1,5ps subissent une touche de Force 4. 2-4 = la mèche n'a pas été coupée à la bonne longueur et la bombe explose en plein vol avant d'atteindre sa cible. 5-6 = la bombe atteint sa cible." },
+      { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." },
+      { "nom": "Perchoir à pigeons", "texte": "Lorsqu'un Héros achète des pigeons explosifs, il en a assez pour toute la partie et sa réserve est réapprovisionnée au début de chaque nouvelle partie." },
+      { "nom": "Rayon d'explosion", "texte": "Après avoir déterminé le point d'impact, l'explosion créée par le pigeon explosif couvrira une petite zone. Toutes les figurines dans un rayon de 1,5ps autour du point d'impact sont touchées par une touche de Force 4 provoquée par le souffle de l'explosion." }
+    ]
+  },
+  {
+    "id": "pistolet", "nom": "Pistolet", "categorie": "armes_poudre_noire",
+    "cout": 10, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8 (30 CO la paire)",
+    "note_maison": "Prix officiel 15 CO, réduit à 10 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["rare_8"], "source": "LdR", "page": 27,
+    "texte": "Un pistolet est une arme à poudre noire simple, dotée d'un mécanisme à ressort pour la mise à feu. La plupart des pistolets sont coûteux, peu fiables et de mauvaise qualité. Le pistolet est éligible à l'option double canon pour les Artilleurs de Nuln et les Mercenaires Ostlanders.",
+    "portee": "C à C/6ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Corps à corps", "texte": "Cette arme peut être utilisée une fois au premier tour de corps à corps. Utilisée avec une autre arme, donne +1A (+2A avec une paire). Ces attaques supplémentaires sont résolues avec la CC et peuvent être parées." },
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux. Si vous avez une paire de ces armes, vous pouvez tirer une fois par tour." }
+    ]
+  },
+  {
+    "id": "pistolet_a_malepierre", "nom": "Pistolet à malepierre", "categorie": "armes_poudre_noire",
+    "cout": 25, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Skavens uniquement (70 CO la paire)",
+    "note_maison": "Prix officiel 35 CO, réduit à 25 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["skaven"], "source": "LdR", "page": 27,
+    "texte": "Les pistolets à malepierre sont des armes redoutables, témoignages du génie malsain du clan Skryre. Ces pistolets tirent des munitions faites à partir de fragments de malepierre ensorcelés. Ces balles provoquent d'horribles blessures qui dégénèrent souvent en terribles infections.",
+    "portee": "8ps", "force": "5",
+    "regles_speciales": [
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1 (soit -3 au total)." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux. Si vous avez une paire de ces armes, vous pouvez tirer une fois par tour." }
+    ]
+  },
+  {
+    "id": "pistolet_a_repetition", "nom": "Pistolet à répétition", "categorie": "armes_poudre_noire",
+    "cout": "20+2D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9, Artilleurs de Nuln uniquement",
+    "note_maison": "Prix officiel 30+2D6 CO, base réduite à 20+2D6 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 28,
+    "texte": "Il ne fallut pas longtemps aux ingénieurs Impériaux pour adapter le mécanisme de l'arquebuse à répétition sur un pistolet. Bien qu'ils soient, eux aussi, enclins à des dysfonctionnements réguliers, ils ont trouvé leur place dans les armureries de l'armée. Les histoires d'officiers impassibles tirant sur des hordes d'ennemis, debout sur une pile de cadavres, sont, selon toute vraisemblance, des légendes. Mais cela pourrait bien se produire...",
+    "portee": "6ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Expérimental", "texte": "Cette arme est toujours soumise aux règles optionnelles des armes à poudre noire du livre de règles de Mordheim, même si elles ne sont pas utilisées dans votre campagne. Pour tout autre résultat que « BOUM ! », l'arme s'est enrayée ou est à court de munitions et les canons doivent être rechargés." },
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Pas une masse", "texte": "Le pistolet à répétition peut être utilisé comme un pistolet normal lors du premier tour de corps à corps. Après cela, il ne compte pas comme une arme supplémentaire, car elle est trop fragile pour être utilisée d'une manière aussi grossière. Son propriétaire ne s'en débarrassera pas volontiers au cours d'un combat et devra se battre sans utiliser d'arme additionnelle." },
+      { "nom": "Rechargement rapide", "texte": "La conception du pistolet à répétition et le nombre de canons permettent un rechargement rapide. Le pistolet à répétition sera toujours en mesure de tirer au moins un coup de feu. Si l'arme est utilisée en triple tir, le combattant devra passer une phase de Tir complète, sans être engagé au corps à corps, pour recharger l'arme." },
+      { "nom": "Triple tir", "texte": "Le pistolet à répétition peut tirer jusqu'à 3 fois. Si plus d'un tir est effectué, le tireur subit un malus de -1 pour toucher. Résolvez chaque tir individuellement, chaque tir pouvant avoir une cible différente tant que la cible suivante est à moins de 3ps de la cible précédente. Les règles habituelles du choix de la cible s'appliquent normalement." }
+    ]
+  },
+  {
+    "id": "pistolet_de_duel", "nom": "Pistolet de duel", "categorie": "armes_poudre_noire",
+    "cout": 20, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10 (60 CO la paire)",
+    "note_maison": "Prix officiel 30 CO, réduit à 20 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["rare_10"], "source": "LdR", "page": 28,
+    "texte": "Un pistolet de duel est une véritable œuvre d'art, et un armurier doit fournir un travail long et méticuleux pour en réaliser un. Ce sont des armes au coût exorbitant que le simple guerrier a rarement la chance de posséder : même si l'on parvient à en voler ou à en acheter une, le prix des munitions reste astronomique. Certains des guerriers les plus riches de Mordheim portent des pistolets de duel pour indiquer leur rang et inspirer respect et envie. Les pistolets de duel sont éligibles à l'option double canon pour les Artilleurs de Nuln.",
+    "portee": "C à C/10ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Corps à corps", "texte": "Cette arme peut être utilisée une fois au premier tour de corps à corps. Utilisée avec une autre arme, donne +1A (+2A avec une paire). Ces attaques supplémentaires sont résolues avec la CC et peuvent être parées." },
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Précision", "texte": "L'arme est conçue pour la précision. Tout tir avec cette arme bénéficie d'un bonus de +1 pour toucher." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux. Si vous avez une paire de ces armes, vous pouvez tirer une fois par tour." }
+    ]
+  },
+  {
+    "id": "tromblon", "nom": "Tromblon", "categorie": "armes_poudre_noire",
+    "cout": 20, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9",
+    "note_maison": "Prix officiel 30 CO, réduit à 20 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["rare_9"], "source": "LdR", "page": 29,
+    "texte": "Un tromblon est une arme à poudre noire rudimentaire qui tire une grêle de plombs, de rivets rouillés, de clous tordus et autre mitraille. Cette arme puissante, bien qu'hasardeuse, prend énormément de temps à recharger, si bien que la plupart des guerriers la laissent de côté après le premier tir.",
+    "portee": "S", "force": "3",
+    "regles_speciales": [
+      { "nom": "Décharge", "texte": "Lorsque l'arme fait feu, tracez une ligne de 16ps de long et de 1ps de large dans n'importe quelle direction. Toutes les figurines se trouvant sur son chemin sont automatiquement touchées par une touche de Force 3." },
+      { "nom": "Tir unique", "texte": "Il faut du temps pour recharger cette arme et cette dernière n'est utilisable qu'une seule fois par partie." }
+    ]
+  },
+  {
+    "id": "tromblon_nain_du_chaos", "nom": "Tromblon Nain du Chaos", "categorie": "armes_poudre_noire",
+    "cout": 25, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Fils d'Hashut uniquement",
+    "note_maison": "Prix officiel 40 CO, réduit à 25 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["nains_du_chaos"], "source": "FH (Fils d'Hashut)", "page": 29,
+    "texte": "Les Nains du Chaos sont réputés pour utiliser un grand nombre de ces fameux tromblons contre leurs troupes d'infanterie. Ils emploient la même tactique dans les combats de rue à Mordheim.",
+    "portee": "16ps", "force": "3",
+    "regles_speciales": [
+      { "nom": "Décharge", "texte": "Lorsque l'arme fait feu, tracez une ligne de 16ps de long et de 1ps de large dans n'importe quelle direction. Toutes les figurines se trouvant sur son chemin sont automatiquement touchées par une touche de Force 3." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." }
+    ]
+  },
+  {
+    "id": "double_canon", "nom": "Double canon (option)", "categorie": "armes_poudre_noire",
+    "cout": "Variable", "cout_fixe": false, "rarete": "Variable", "disponibilite": "Artilleurs de Nuln et Mercenaires Ostlanders uniquement",
+    "note_maison": "Le prix dépend de l'arme équipée, dont le coût est déjà réduit selon la règle maison Armes à Poudre Noire avancées (voir cette arme dans ce fichier).",
+    "acces": ["artilleurs_de_nuln", "ostlanders"], "source": "AN/MO", "page": 29,
+    "texte": "À l'origine créé par un forgeron novateur d'Ostland pour un chasseur de vampires, les ingénieurs du collège d'ingénierie de Nuln ont vite compris le principe. Le concept est relativement simple : il s'agit simplement d'une arme à poudre noire avec une paire de canons et une gâchette, capable de déclencher un ou deux canons à la fois, ce qui lui donne la capacité de perforer les armures les plus épaisses. Les armes à poudre noire suivantes peuvent bénéficier de l'option double canon (voir le tableau des prix de chaque arme pour le prix et la rareté) : Arquebuse (Artilleurs de Nuln), Long fusil du Hochland (Mercenaires Ostlanders), Pistolet (Artilleurs de Nuln, Mercenaires Ostlanders), Pistolet de duel (Artilleurs de Nuln).",
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Double canon", "texte": "Une arme à double canon est dotée d'un mécanisme délicat, mais se révèle être une arme efficace au combat. Lorsqu'il tire avec une telle arme, le tireur doit déclarer s'il tire avec un ou deux canons. Si vous tirez avec un seul canon, traitez le tir comme vous le feriez normalement pour l'équivalent normal de l'arme. Si vous tirez avec les deux canons : Pour toucher, faites un seul jet, comme vous le feriez normalement — cette arme permet un tir groupé. Pour blesser, faites un jet pour chaque touche car chaque canon peut Blesser individuellement — lancez les résultats de Coups Critiques." },
+      { "nom": "Rechargement", "texte": "Après avoir tiré avec les 2 canons, placez 2 jetons près de la figurine. Lors de votre prochaine phase de Tir, retirez 1 jeton. Il représente l'un des canons ayant été rechargé. Le retrait des jetons est la dernière action faite pendant votre phase de Tir. Vous ne pouvez donc pas recharger et tirer avec la même arme pendant une phase de Tir." },
+      { "nom": "Rechargement d'une paire", "texte": "Lorsque vous rechargez une paire de pistolets, placez 4 jetons de 2 couleurs différentes (une pour chaque pistolet). À chaque tour, retirez un jeton de chaque couleur." }
+    ]
+  }
+]

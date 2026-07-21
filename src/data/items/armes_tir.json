@@ -1,0 +1,228 @@
+[
+  {
+    "id": "arbalete", "nom": "Arbalète", "categorie": "armes_tir",
+    "cout": 25, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 19,
+    "texte": "Une arbalète est constituée d'un petit arc puissant monté sur une crosse de bois ou d'acier. Il faut du temps pour préparer une arbalète au tir, mais les carreaux qu'elle projette possèdent une portée énorme et percent les armures facilement. Les arbalètes sont bien plus longues à fabriquer que les arcs, et sont donc chères et assez rares. Beaucoup les apprécient néanmoins à Mordheim pour leur puissance et leur portée.",
+    "portee": "30ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." }
+    ]
+  },
+  {
+    "id": "arbalete_de_poing", "nom": "Arbalète de poing", "categorie": "armes_tir",
+    "cout": 35, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "LdR", "page": 19,
+    "texte": "Les arbalètes de poing sont des chefs-d'œuvre de maîtres armuriers : des miniatures dotées de la puissance et de la précision de vraies arbalètes. Elles peuvent être facilement dissimulées sous des vêtements et sont très appréciées des assassins.",
+    "portee": "C à C/10ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Tir au corps à corps", "texte": "Le combattant peut utiliser cette arme lors du premier tour de corps à corps. Cette attaque est toujours résolue en premier, avant les attaques, avec la CT et un malus de -2 pour toucher. Cette attaque s'ajoute aux attaques normales de corps à corps." }
+    ]
+  },
+  {
+    "id": "arbalete_a_repetition", "nom": "Arbalète à répétition", "categorie": "armes_tir",
+    "cout": 40, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8",
+    "acces": ["rare_8"], "source": "LdR", "page": 19,
+    "texte": "Les arbalètes à répétition sont complexes, coûteuses et difficiles à fabriquer. Elles sont donc plutôt rares, mais pas dépourvues d'avantages : elles peuvent tirer des rafales de carreaux sur l'ennemi, et un guerrier peut s'en servir tout en se déplaçant à une bonne vitesse.",
+    "portee": "24ps", "force": "3",
+    "regles_speciales": [
+      { "nom": "Double tir", "texte": "L'arme peut tirer deux fois par tour avec une pénalité supplémentaire de -1 pour toucher sur chaque tir." }
+    ]
+  },
+  {
+    "id": "arc_court", "nom": "Arc court", "categorie": "armes_tir",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 19,
+    "texte": "Ce sont de petits arcs à courte portée, bon marché et d'un maniement aisé. Certains cavaliers utilisent ces arcs car les autres modèles sont trop longs pour le tir à cheval. Les petites créatures, trop faibles pour utiliser des arcs plus puissants, doivent aussi se contenter d'arcs courts.",
+    "portee": "16ps", "force": "3",
+    "regles_speciales": []
+  },
+  {
+    "id": "arc", "nom": "Arc", "categorie": "armes_tir",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 19,
+    "texte": "L'arc est utilisé par la plupart des races, surtout en temps de guerre. C'est une arme simple mais puissante, à la fabrication peu onéreuse et d'un entretien facile.",
+    "portee": "24ps", "force": "3",
+    "regles_speciales": []
+  },
+  {
+    "id": "arc_long", "nom": "Arc long", "categorie": "armes_tir",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 20,
+    "texte": "Un arc long est fait de couches alternées de bois d'if ou d'orme. Un bon archer peut toucher la feuille de son choix sur un arbre à trois cents pas avec une telle arme. L'arc long est l'arme de prédilection des archers expérimentés du fait de sa longue portée et de sa grande précision.",
+    "portee": "30ps", "force": "3",
+    "regles_speciales": []
+  },
+  {
+    "id": "arc_elfique", "nom": "Arc elfique", "categorie": "armes_tir",
+    "cout": "35+3D6", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12",
+    "acces": ["rare_12"], "source": "LdR", "page": 20,
+    "texte": "Les arcs elfiques sont les meilleures armes du genre. Fabriqués en ithilmar ou en bois des forêts elfiques, avec des cordes tressées en cheveux de damoiselles elfes, les arcs elfiques sont loin supérieurs aux armes de tir des autres races. Entre les mains d'un archer elfe, l'arc elfique est d'une redoutable efficacité grâce à sa longue portée et à son grand pouvoir de pénétration.",
+    "portee": "36ps", "force": "3",
+    "regles_speciales": [
+      { "nom": "Modificateur de sauvegarde -1", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus de -1 supplémentaire." }
+    ]
+  },
+  {
+    "id": "baton_solaire_lustrie", "nom": "Bâton solaire (Setting Lustrie)", "categorie": "armes_tir",
+    "cout": 35, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Amazones du Setting Lustrie uniquement",
+    "acces": ["amazones_lustrie"], "source": "AL (Amazones du Setting Lustrie)", "page": 20,
+    "texte": "Le bâton solaire est un long tube fait d'un métal multicolore dont l'une des extrémités est creuse. D'étranges runes sont gravées sur toute sa longueur et une gemme est sertie dans son pommeau.",
+    "portee": "C à C/12ps", "force": "U/4",
+    "regles_speciales": [
+      { "nom": "Tir solaire", "texte": "Lors de la phase de Tir, le porteur du bâton solaire peut projeter un faisceau d'énergie qui s'apparente aux rayons du soleil. Le tir solaire a une portée de 12ps et une Force de 4. Hormis les protections magiques et saut de côté, un tir solaire ignore les sauvegardes d'armure." }
+    ]
+  },
+  {
+    "id": "baton_solaire_mordheim", "nom": "Bâton solaire (Setting Mordheim)", "categorie": "armes_tir",
+    "cout": 50, "cout_fixe": true, "rarete": "12", "disponibilite": "Rare 12, Amazones du Setting Mordheim uniquement",
+    "acces": ["amazones_mordheim"], "source": "AM (Amazones du Setting Mordheim)", "page": 20,
+    "texte": "Le bâton solaire est un long tube de métal multicolore dont une des extrémités est creuse. Des runes étranges sont gravées sur toute sa longueur et une gemme est sertie dans son pommeau. En dépit de son âge ancien (les Maîtres du savoir de la Tour Blanche de Hoeth prétendent avoir trouvé un objet similaire âgé de plus de vingt mille ans, donc plus ancien que la race des elfes !), le bâton solaire peut émettre un faisceau d'énergie ayant l'éclat du soleil.",
+    "portee": "24ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Arme précise", "texte": "Le bâton solaire ne subit pas le malus habituel de -1 au toucher à longue portée." },
+      { "nom": "Pas de Sauvegarde", "texte": "L'arme peut traverser n'importe quel matériau. Un combattant Blessé par cette arme ne bénéficie d'aucune sauvegarde d'armure, excepté celles des protections magiques et saut de côté." }
+    ]
+  },
+  {
+    "id": "arme_de_jet", "nom": "Arme de jet (étoile, couteau, etc.)", "categorie": "armes_tir",
+    "cout": 15, "cout_fixe": true, "rarete": "5", "disponibilite": "Rare 5",
+    "acces": ["rare_5"], "source": "LdR", "page": 20,
+    "texte": "Les étoiles de jet sont surtout utilisées par les assassins de la sinistre Maison des Ombres ou les bandits qui se spécialisent dans l'attaque des imprudents. Un couteau bien équilibré lancé dans le dos a mis fin à la vie de bien des nobles et marchands de Mordheim. Les couteaux de jet ne conviennent pas au corps à corps car ils ne sont pas correctement équilibrés pour cela.",
+    "portee": "6ps", "force": "U",
+    "regles_speciales": [
+      { "nom": "Arme de jet", "texte": "Cette arme est parfaitement équilibrée pour le jet et le combattant qui l'utilise ne subit pas les pénalités pour la longue portée ou pour avoir bougé. Cependant, elle est inutilisable au corps à corps." }
+    ]
+  },
+  {
+    "id": "bolas", "nom": "Bolas", "categorie": "armes_tir",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Skinks uniquement",
+    "acces": ["hommes_lezards_skinks"], "source": "HL", "page": 21,
+    "texte": "Les bolas sont faites de trois sphères de pierre ou de bronze liées ensemble. Elles se manient à la manière d'une fronde, mais dans ce cas précis, propulseur et projectile sont lancés. Il s'agit d'une arme de chasse qui a pour vocation d'immobiliser la proie sans la tuer. Elles ne peuvent être utilisées qu'une seule fois par bataille, bien qu'elles soient récupérées à la fin de celle-ci.",
+    "portee": "16ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Dangereux", "texte": "Si le jet pour toucher donne un résultat de 1, les bolas heurtent la tête de leur lanceur et occasionnent une touche de Force 3." },
+      { "nom": "Entrave", "texte": "Une figurine touchée par les bolas n'est pas Blessée, mais se retrouve entravée et ne peut plus bouger. Elle subit également une pénalité de -2 à sa CC au corps à corps. La victime peut tout de même tirer et peut tenter de se libérer à la phase de Ralliement. Si elle obtient un résultat de 4+ sur 1D6, elle y parvient et peut à nouveau se déplacer et combattre normalement." }
+    ]
+  },
+  {
+    "id": "cabillot", "nom": "Cabillot", "categorie": "armes_tir",
+    "cout": 3, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Pirates uniquement",
+    "acces": ["commun_pirates"], "source": "P (Pirates)", "page": 21,
+    "texte": "Un navire typique contient des centaines de ces petits bouts de bois sculptés. Ils sont placés dans des râteliers, à des points stratégiques du navire, autour desquels des gréements peuvent être attachés. Ils font également de bonnes armes et les pirates deviennent rapidement doués pour ce qui est de les utiliser en tant qu'arme à courte portée.",
+    "portee": "6ps", "force": "U-1",
+    "regles_speciales": [
+      { "nom": "Arme jetée", "texte": "Les combattants qui utilisent cette arme ne subissent pas de pénalités pour la longue portée, mais subissent malgré tout un malus de -1 après un déplacement." },
+      { "nom": "+1 Sauvegarde ennemie", "texte": "Un ennemi Blessé par cette arme obtient +1 à sa sauvegarde d'armure ou une sauvegarde de 6+ s'il n'en a pas." }
+    ]
+  },
+  {
+    "id": "fleches_aspic", "nom": "Flèches aspic", "categorie": "armes_tir",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Rois des Tombes des Gardiens des Tombes uniquement",
+    "acces": ["gardiens_des_tombes"], "source": "K-GT (Gardiens des Tombes)", "page": 21,
+    "texte": "Fabriquées à partir des restes momifiés de serpents venimeux, elles sont guidées dans les airs par une magie ancienne.",
+    "portee": "8ps", "force": "Utilisateur",
+    "regles_speciales": [
+      { "nom": "Précision", "texte": "L'arme est conçue pour la précision. Tout tir ou attaque au corps à corps avec cette arme bénéficie d'un bonus de +1 pour toucher." }
+    ]
+  },
+  {
+    "id": "fronde", "nom": "Fronde", "categorie": "armes_tir",
+    "cout": 2, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 21,
+    "texte": "Les frondes sont rarement utilisées, n'étant pas plus puissantes que les arcs tout en ayant une portée inférieure. Une fronde n'est rien de plus qu'une boucle de tissu ou de cuir dans laquelle on place une pierre. Le frondeur fait tournoyer son arme au-dessus de sa tête avant de lâcher la pierre vers sa cible. Bien que de nombreux archers méprisent cette arme, un frondeur talentueux peut tuer un homme à une distance considérable et les munitions se trouvent partout !",
+    "portee": "18ps", "force": "3",
+    "regles_speciales": [
+      { "nom": "Double tir à demi portée", "texte": "S'il ne se déplace pas durant la phase de Mouvement et qu'il se trouve à demi-portée, l'utilisateur de cette arme peut tirer deux fois. Cependant, chaque tir subit une pénalité de -1 pour toucher." }
+    ]
+  },
+  {
+    "id": "gantelet_du_soleil", "nom": "Gantelet du soleil", "categorie": "armes_tir",
+    "cout": 40, "cout_fixe": true, "rarete": "12", "disponibilite": "Rare 12, Amazones du Setting Mordheim uniquement",
+    "acces": ["amazones_mordheim"], "source": "AM (Amazones du Setting Mordheim)", "page": 22,
+    "texte": "Comme nombre d'artefacts des amazones, cette arme est faite d'un étrange métal multicolore qui ne se détériore jamais. Il est recouvert de runes et une gemme est incrustée dans sa garde. Le gantelet ressemble beaucoup à un pistolet à poudre noire. Il peut être tenu à une main et lorsqu'il est pointé sur un ennemi, il libère un faisceau de lumière aveuglante, tout comme le Bâton Solaire.",
+    "portee": "C à C/12ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Arme précise", "texte": "Le gantelet du soleil ne subit pas le malus habituel de -1 au toucher pour la longue portée." },
+      { "nom": "Corps à corps", "texte": "Le gantelet du soleil peut être utilisé avec une autre arme de corps à corps de Force 4, sans sauvegarde d'armure. Note : parce qu'elle n'a pas besoin d'être rechargée, cette arme peut être utilisée lors de chaque phase de Corps à corps." },
+      { "nom": "Pas de sauvegarde", "texte": "L'arme peut traverser n'importe quel matériau. Un combattant Blessé par cette arme ne bénéficie d'aucune sauvegarde d'armure, excepté celles des protections magiques et saut de côté." }
+    ]
+  },
+  {
+    "id": "javelots", "nom": "Javelots", "categorie": "armes_tir",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 22,
+    "texte": "Les javelots sont de courtes lances spécialement conçues pour atteindre des cibles éloignées. Bien que leur portée soit moindre que celle d'une flèche, ils peuvent causer de terribles dégâts lorsqu'ils sont maniés par une personne possédant une grande force physique. Note : 4 sources sur 5 appliquent une portée de 8ps. Cette dernière est de ce fait considérée comme la norme (seul le javelot des Gladiateurs avait une portée de 10ps).",
+    "portee": "8ps", "force": "Utilisateur",
+    "regles_speciales": [
+      { "nom": "Arme de lancer", "texte": "Cette arme est parfaitement équilibrée pour le jet et le lanceur ne subit pas de pénalités pour tirer s'il s'est préalablement déplacé." }
+    ]
+  },
+  {
+    "id": "javelot_nehekharien", "nom": "Javelot nehekharien", "categorie": "armes_tir",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Rois des Tombes des Gardiens des Tombes uniquement",
+    "acces": ["gardiens_des_tombes"], "source": "K-GT (Gardiens des Tombes)", "page": 22,
+    "texte": "Ces guerriers lancent ces javelots à l'aide d'une corde enroulée autour de l'arme. Lorsqu'il est lancé, le javelot tournoie comme une balle, augmentant sa précision.",
+    "portee": "8ps", "force": "Utilisateur",
+    "regles_speciales": [
+      { "nom": "Arme de lancer", "texte": "Cette arme est parfaitement équilibrée pour le jet et le lanceur ne subit pas de pénalités pour tirer s'il s'est préalablement déplacé." },
+      { "nom": "Précision", "texte": "L'arme est conçue pour la précision. Tout tir ou attaque au corps à corps avec cette arme bénéficie d'un bonus de +1 pour toucher." }
+    ]
+  },
+  {
+    "id": "kusarigama", "nom": "Kusarigama", "categorie": "armes_tir",
+    "cout": 10, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Moines Guerriers de Cathay uniquement",
+    "acces": ["moines_cathay"], "source": "BTB-MGC", "page": 22,
+    "texte": "Le Kusarigama est une fine corde ou une chaîne lestée à l'extrémité de laquelle est fixée une faux ou un crochet de pêche. Les moines utilisent, avec une précision mortelle, la portée de cette arme étrange pour déséquilibrer les ennemis armés d'une épée.",
+    "portee": "3ps", "force": "3",
+    "regles_speciales": [
+      { "nom": "Arme de jet", "texte": "Cette arme est parfaitement équilibrée pour le jet et le combattant qui l'utilise ne subit pas les pénalités de longue portée ou pour avoir bougé. Cependant, elle est inutilisable au corps à corps." },
+      { "nom": "Précis", "texte": "Un guerrier utilisant un kusarigama est si bien entraîné à l'utilisation de cette arme qu'il peut attaquer une figurine ennemie déjà engagée au corps à corps. Cependant, le Moine ne peut pas utiliser cette arme s'il est lui-même engagé au corps à corps." },
+      { "nom": "Renversement", "texte": "Le guerrier peut déclarer vouloir faire tomber une figurine ennemie plutôt que de lui infliger des dégâts. Le Moine doit effectuer un test pour toucher, puis un test de Force. Si le test est réussi, la cible est mise à terre. Ajoutez un modificateur de +1 au test de Force contre les grandes cibles. Si une monture est renversée, son cavalier chute (voir résultat 3-4 sur le tableau Holà ! Tout doux ! des règles Guerriers Montés)." }
+    ]
+  },
+  {
+    "id": "lance_harpon", "nom": "Lance-harpon", "categorie": "armes_tir",
+    "cout": 50, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Ogres uniquement",
+    "acces": ["maneaters"], "source": "MH (Mangeurs d'Hommes)", "page": 23,
+    "texte": "Plus qu'une grossière arbalète hybride, mise à l'échelle pour un tireur d'élite titanesque.",
+    "portee": "30ps", "force": "5",
+    "regles_speciales": [
+      { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." },
+      { "nom": "Rechargement", "texte": "Il faut un tour complet pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." }
+    ]
+  },
+  {
+    "id": "oiseau_de_proie", "nom": "Oiseau de proie", "categorie": "armes_tir",
+    "cout": 30, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Aristocrates de la Cavalcade Maudite uniquement",
+    "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 23,
+    "texte": "Faucon, épervier ou autre prédateur ailé dressé dès sa naissance pour chasser et combattre pour son noble propriétaire.",
+    "portee": "18ps", "force": "3",
+    "regles_speciales": [
+      { "nom": "Ciblage", "texte": "L'oiseau de proie peut attaquer les cibles cachées et ignore les pénalités liées au couvert." }
+    ]
+  },
+  {
+    "id": "sarbacane", "nom": "Sarbacane", "categorie": "armes_tir",
+    "cout": 25, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Gobelins des Forêts, Skavens et Skinks uniquement (Commun pour les Gobelins des Forêts)",
+    "acces": ["gobelins_des_forets", "skaven", "hommes_lezards_skinks"], "source": "LdR/L", "page": 23,
+    "texte": "La sarbacane est un tube utilisé pour envoyer des dards empoisonnés. Si les dards sont trop petits en eux-mêmes pour provoquer de réels dommages, les poisons Skavens sont très douloureux et entraînent même parfois la mort. Le grand avantage d'une sarbacane, c'est qu'elle est silencieuse ; un utilisateur bien caché peut tirer ses dards empoisonnés sans être repéré.",
+    "portee": "8ps", "force": "1",
+    "regles_speciales": [
+      { "nom": "+1 Sauvegarde ennemie", "texte": "Un ennemi Blessé par cette arme obtient +1 à sa sauvegarde d'armure ou une sauvegarde de 6+ s'il n'en a pas." },
+      { "nom": "Furtivité", "texte": "Un combattant armé d'une sarbacane peut tirer en étant caché sans révéler sa position. La cible peut faire un test d'Initiative afin de repérer le tireur. Si le test est réussi, il n'est plus caché." },
+      { "nom": "Poison", "texte": "Les aiguilles expédiées par la sarbacane sont enduites d'un venin dont les effets sont similaires à ceux du lotus noir (si vous faites un 6 pour toucher, la cible est Blessée automatiquement). Une sarbacane ne peut pas infliger de Coups Critiques." }
+    ]
+  },
+  {
+    "id": "tufenk", "nom": "Tufenk", "categorie": "armes_tir",
+    "cout": 15, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10",
+    "acces": ["rare_10"], "source": "K", "page": 23,
+    "texte": "Il s'agit d'une sarbacane projetant un feu alchimique, provoquant des brûlures.",
+    "portee": "8ps", "force": "2",
+    "regles_speciales": [
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." },
+      { "nom": "Feu", "texte": "Suite à une touche, lancez 1D6. Sur un résultat de 4+, la cible s'enflamme. Lors de la phase de Ralliement, elle doit obtenir un 4+ pour éteindre les flammes ou subir une touche de Force 4 et ne rien faire d'autre que de se déplacer jusqu'à extinction du feu. D'autres membres de sa bande peuvent l'aider à éteindre les flammes. Ils doivent entrer en contact socle à socle et obtenir un 4+ lors de la phase de Ralliement. Sur des cibles sèches, telles que les momies, le Tufenk a une Force de 3 et la cible s'enflamme sur un 2+ sur 1D6." }
+    ]
+  }
+]

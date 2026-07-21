@@ -1,0 +1,105 @@
+[
+  {
+    "id": "ail", "nom": "Ail", "categorie": "consommables",
+    "cout": 1, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 54,
+    "texte": "L'ail, réputé pour éloigner les vampires et autres créatures de la nuit, pousse dans la plupart des potagers de l'Empire. Un Vampire doit réussir un test de Commandement pour pouvoir charger une figurine portant un chapelet d'ail. L'ail dure le temps d'une bataille seulement, qu'il soit utilisé ou non.",
+    "regles_speciales": []
+  },
+  {
+    "id": "biere_de_bugman", "nom": "Bière de Bugman", "categorie": "consommables",
+    "cout": "50+3D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "LdR", "page": 54,
+    "texte": "De tous les maîtres brasseurs nains, Josef Bugman est le plus célèbre. Sa bière, connue dans tout le Vieux Monde, est généralement considérée comme la meilleure de toutes. Une bande qui boit un tonneau de bière de Bugman avant une bataille est immunisée à la peur pour toute la durée de la partie. Les elfes ne peuvent en boire car ils sont trop délicats pour en supporter les effets. Le tonneau contient assez de bière pour une bataille.",
+    "regles_speciales": []
+  },
+  {
+    "id": "biscuit_de_mer", "nom": "Biscuit de mer", "categorie": "consommables",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Pirates uniquement (un par Héros Pirate, une seule utilisation)",
+    "acces": ["commun_pirates"], "source": "P (Pirates)", "page": 54,
+    "texte": "Tout pirate peut emporter avec lui quelques-uns de ces blocs denses pour qu'il se nourrisse pendant la bataille de... eh bien, quelque chose consistant comparable à du pain (le cuisinier du navire refusant de divulguer la composition exacte).",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Au début de n'importe lequel de ses tours, le Pirate peut s'en empiffrer s'il n'est pas engagé au corps à corps. Son Endurance est temporairement augmentée de +1 pour la durée de ce tour et du tour suivant de l'ennemi, les effets s'estompant par la suite. Lancez 1D6 après ce tour. Sur un résultat de 1, ses biscuits sont avariés et remplis d'asticots (beurk !). Notez son nom, car le Pirate devra passer la prochaine partie pour récupérer (et donner quelques coups au cuisinier !). Si le Pirate finit par devoir passer une partie à cause d'autres effets, les conséquences s'additionneront et il devra passer les deux prochaines parties." }
+    ]
+  },
+  {
+    "id": "chausse_trappes", "nom": "Chausse-trappes", "categorie": "consommables",
+    "cout": "15+2D6", "cout_fixe": false, "rarete": "6", "disponibilite": "Rare 6",
+    "acces": ["rare_6"], "source": "VEC", "page": 54,
+    "texte": "Il s'agit de clous tripodes ou de petites sphères hérissées de pointes, conçus à l'origine pour gêner les charges de cavalerie. Dans les ruelles de Mordheim, une bourse pleine suffit à ralentir les charges, qu'il s'agisse d'un cavalier ou d'un piéton, tant le risque de blessure est grand. Les chausse-trappes peuvent être utilisées lorsqu'un adversaire décide de charger. Une bourse contient juste assez de chausse-trappes pour une seule utilisation.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le défenseur en jette sur le trajet de la charge, ce qui a pour conséquence d'en réduire la distance de 1D6ps (et potentiellement la faire échouer)." }
+    ]
+  },
+  {
+    "id": "fiole_de_pestilence", "nom": "Fiole de pestilence", "categorie": "consommables",
+    "cout": "25+2D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9, Skavens uniquement",
+    "acces": ["skaven"], "source": "L (Lustrie – les Cités d'Or)", "page": 54,
+    "texte": "Cette petite fiole de cristal contient un pathogène extrêmement virulent. Une seule inspiration suffit à dissoudre les voies respiratoires de la victime qui se noie alors dans son propre sang. Ce poison est cependant très volatil et n'est dangereux que pendant quelques secondes, avant de se dissiper dans l'air. La fiole ne peut être utilisée qu'une seule fois.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "La fiole peut être ouverte et son contenu jeté à la face d'une figurine en contact socle à socle qui vient de mettre le Skaven hors de combat. L'adversaire doit alors réussir un test d'Endurance ou être mis immédiatement hors de combat, sans sauvegarde possible. Si l'adversaire succombe au poison, il n'a pas réussi à mener à bien son attaque et le Skaven n'est que sonné au lieu d'être hors de combat." }
+    ]
+  },
+  {
+    "id": "gourde_dhuile", "nom": "Gourde d'huile", "categorie": "consommables",
+    "cout": "30+1D6", "cout_fixe": false, "rarete": "7", "disponibilite": "Rare 7",
+    "acces": ["rare_7"], "source": "FE (Les Feux de l'Enfer)", "page": 54,
+    "texte": "Ce petit récipient en peau contient de l'huile combustible pour recharger les lampes et les lanternes. La gourde d'huile peut servir à mettre le feu facilement, pour peu que l'on approche une flamme. La gourde ne peut être utilisée qu'une seule fois.",
+    "regles_speciales": []
+  },
+  {
+    "id": "herbes_de_soin", "nom": "Herbes de soin", "categorie": "consommables",
+    "cout": "20+2D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8, 35 CO (Commun) pour les Amazones du Setting Mordheim et Lustrie",
+    "acces": ["rare_8", "amazones_mordheim", "amazones_lustrie"], "source": "LdR/AM", "page": 55,
+    "texte": "Certaines plantes qui poussent sur les rives de la rivière Stir ont des propriétés curatives. Les apothicaires en ramassent les racines et les feuilles pour traiter les malades et les blessés. Un Héros avec des herbes de soin peut utiliser celles-ci au début de n'importe laquelle de ses phases de Ralliement tant qu'il n'est pas engagé au corps à corps. Il récupère alors tous les Points de Vie perdus au cours de la partie. Les herbes de soin ne peuvent être utilisées qu'une seule fois.",
+    "regles_speciales": []
+  },
+  {
+    "id": "larmes_de_shallya", "nom": "Larmes de Shallya", "categorie": "consommables",
+    "cout": "10+2D6", "cout_fixe": false, "rarete": "7", "disponibilite": "Rare 7, indisponible aux Possédés et aux Morts-Vivants",
+    "acces": ["commun_sauf_cult_of_the_possessed_undead"], "source": "LdR", "page": 55,
+    "texte": "Les larmes de Shallya sont des fioles d'eau de la source sainte de la Couronne. Shallya est la déesse de la guérison et de la miséricorde, et on dit que cette eau soigne et protège du poison. Une figurine qui en boit au début de la bataille sera complètement immunisée à tous les poisons pour la durée de la partie. Les larmes de Shallya ne peuvent être utilisées qu'une seule fois.",
+    "regles_speciales": []
+  },
+  {
+    "id": "poudre_eclair", "nom": "Poudre-éclair", "categorie": "consommables",
+    "cout": "25+2D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8",
+    "acces": ["rare_8"], "source": "VEC", "page": 55,
+    "texte": "Cette autre création naine, préparation phosphorée, est employée dans les mines pour illuminer des fissures sombres lors de la recherche de filons de minéraux précieux. À Mordheim, des sachets de cette poudre peuvent servir à éblouir les ennemis et les prendre au dépourvu au moment de l'attaque. Elle peut être utilisée lorsqu'un adversaire décide de charger. Une bourse contient juste assez de poudre-éclair pour une seule utilisation.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Celui qui charge doit réussir un test d'Initiative pour qu'il puisse se couvrir les yeux à temps. En cas d'échec, il est temporairement aveuglé et la charge est considérée comme ratée." }
+    ]
+  },
+  {
+    "id": "torche", "nom": "Torche", "categorie": "consommables",
+    "cout": 2, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "EEF", "page": 55,
+    "texte": "Les guerriers qui n'ont pas les moyens de s'offrir une lanterne peuvent se servir de torches. Une torche fonctionne exactement comme une lanterne : elle ajoute 4ps à la distance à laquelle la figurine peut repérer les figurines cachées, mais suit également d'autres règles spéciales. Une torche ne dure que le temps d'une partie.",
+    "regles_speciales": [
+      { "nom": "Effet combat", "texte": "Une figurine armée d'une torche provoque la peur aux animaux (chiens, chevaux, destriers, loups, ours, etc.) et peut l'utiliser comme une arme. Lorsqu'elle est utilisée au combat, une torche fonctionne comme une massue, mais avec un malus de -1 pour toucher. Les figurines ayant la compétence régénération (comme les Trolls) ne peuvent pas régénérer des Blessures causées par une torche. Les torches peuvent également servir à enflammer les bâtiments si vous utilisez les règles Feux de l'Enfer." }
+    ]
+  },
+  {
+    "id": "victuailles", "nom": "Victuailles", "categorie": "consommables",
+    "cout": 8, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "BTB", "page": 55,
+    "texte": "Les victuailles peuvent être utilisées après une bataille. Si la bande vend des pierres magiques ou des trésors (voir Empire en Flammes ou Border Town Burning), le nombre de guerriers de la bande est considéré comme étant inférieur d'une colonne (c.-à-d. qu'une bande comprise entre 10-12 guerriers passe à 7-9 guerriers). Une bande peut utiliser autant de victuailles qu'elle le souhaite, mais notez que la taille de la bande ne peut jamais être considérée comme étant inférieure à 1-3 guerriers.",
+    "regles_speciales": []
+  },
+  {
+    "id": "vin_elfique", "nom": "Vin elfique", "categorie": "consommables",
+    "cout": "30+3D6", "cout_fixe": false, "rarete": "10", "disponibilite": "Rare 10, Guerriers Fantômes uniquement",
+    "acces": ["guerriers_fantomes"], "source": "GF (Guerriers Fantômes)", "page": 55,
+    "texte": "Les vins des elfes sont réputés pour être les meilleurs du monde, et on dit que certains auraient même des vertus magiques. Un vin elfique délicat élimine le doute et la peur et fait ressentir à celui qui en boit un sentiment de bien-être. Une bande de Guerriers Fantômes qui boit du vin elfique avant une bataille est immunisée à la peur pour toute la durée de la bataille. L'effet dure le temps d'une bataille.",
+    "regles_speciales": []
+  },
+  {
+    "id": "vodka", "nom": "Vodka", "categorie": "consommables",
+    "cout": "35+2D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8, Kislévites uniquement",
+    "acces": ["kislevites"], "source": "K (Kislévites)", "page": 56,
+    "texte": "Les kislévites habitent un pays hostile constamment menacé par les invasions. Du coup, ils ont tendance à être graves et pragmatiques, mais cela n'a pas entamé leur amour de la fête. On pourrait même dire le contraire : les difficultés qu'ils ont à affronter quotidiennement leur enseignent que la vie est brève et que la moindre occasion de s'amuser doit être saisie. L'une des conséquences de cette attitude est la création d'une boisson alcoolisée appelée vodka. Il s'agit aussi d'un des produits d'exportation les plus célèbres du pays, bien que la plupart des habitants du Vieux Monde trouvent ce breuvage un peu trop fort pour leurs goûts méridionaux. Les kislévites, au contraire, sont friands de cette boisson, à tel point qu'ils lui prêtent des propriétés magiques. Les mères de famille donnent de la vodka à leurs enfants pour prévenir les maladies et pour les réchauffer lors des longs mois d'hiver. Les étrangers restent perplexes sur les qualités surnaturelles de ce spiritueux. Pourtant, mais il est avéré qu'une armée kislévite bien pourvue en vodka se bat mieux et avec encore plus de vaillance. Une seule utilisation.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "En termes de jeu, un Héros Kislévite peut donner la vodka à sa bande avant une bataille. Tous les membres de la bande bénéficient alors d'un bonus de +1 en Commandement (jusqu'à un maximum de 10) pour la durée de la partie. En revanche, afin de représenter les effets enivrants de la vodka, tous les membres doivent effectuer un test d'Endurance avant le début de la partie, sous peine de subir un malus de -1 en Initiative en cas d'échec." }
+    ]
+  }
+]

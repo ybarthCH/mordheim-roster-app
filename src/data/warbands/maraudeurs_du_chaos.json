@@ -1,0 +1,279 @@
+{
+  "id": "maraudeurs_du_chaos",
+  "nom": "Maraudeurs du Chaos (1c)",
+  "grade": "1c",
+  "source": "Border Town Burning (BTB) — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    {
+      "nom": "Œil des Dieux Sombres",
+      "texte": "Après chaque bataille, jetez 2D6. Si vous avez perdu, ajoutez +1 par Héros hors de combat ; sur 12+, le chef devient un Enfant du Chaos (perd expérience, compétences, blessures et équipement). Si vous avez gagné, ajoutez +1 par ennemi mis hors de combat par le chef ; sur 12+, le chef reçoit une Marque des Dieux Sombres au choix (voir règle spéciale Marques des Dieux Sombres). Une fois qu'un chef a reçu une Marque via cette règle, il n'y est plus soumis (sauf s'il décède, auquel cas le nouveau chef est testé à son tour). Si la bande a déjà un Enfant du Chaos, un chef qui obtiendrait ce résultat est simplement retiré de la bande plutôt que transformé."
+    },
+    {
+      "nom": "Francs-tireurs",
+      "texte": "Ne peuvent engager que Gladiateurs, Ogres, Chamans norses et Assassins impériaux, ainsi que tout Franc-tireur dont la description le spécifie. Les jeteurs de sorts peuvent être engagés, sauf si la bande inclut des guerriers avec la Marque d'Arkhar."
+    },
+    {
+      "nom": "Tribus",
+      "texte": "Au recrutement, le joueur choisit à quelle tribu appartient sa bande. Toutes suivent les règles standards des Maraudeurs (choix des guerriers, compétences, équipement) sauf exceptions suivantes. Les Norses : +1 aux jets de rareté lors de la recherche d'objets rares ; l'effet d'Œil des Dieux Sombres se déclenche sur 13+ au lieu de 12+, en raison de leur large panthéon de dieux. Les Kurgans : peut inclure autant de Chiens du Chaos que désiré (pas seulement 5) ; Héros et Hommes de main Maraudeurs peuvent utiliser des arcs (10 CO, Commun) ; malus de -1 sur les jets de recherche d'objets rares, sauf pour les Grandes Haches du Chaos et les Fouets Barbelés. Les Hungs : nombre maximum de guerriers dans la bande réduit à 12 au lieu de 15 (voir composition) ; les chevaux de guerre coûtent toujours 40 CO (même en dehors de la constitution initiale) et tous les Héros (y compris les Hommes de main promus) gagnent automatiquement la compétence Équitation - Cheval de Guerre."
+    },
+    {
+      "nom": "Marques des Dieux Sombres",
+      "texte": "Un chef ne peut porter qu'une seule Marque à la fois (sauf Marque du Chaos Universel, qui peut coexister avec les autres) ; les Devins choisissent leur Marque en accord avec la tribu au recrutement, et utilisent alors les rituels associés à leur Marque plutôt que les Rituels du Chaos génériques (sauf Chaos Universel, qui garde les Rituels du Chaos). Marque d'Arkhar le Chien — Chef : frénésie automatique, tout sort ciblant le Héros échoue sur 4+. Devin : devient un Père de Sang, ne jette plus de sorts mais gagne +1 à une caractéristique au choix (Combat, F, E ou I, une fois chacune) chaque fois qu'il met un ennemi hors de combat (test de Commandement requis), et accède aux compétences de Force en plus de sa liste normale. Marque de Shornaal le Serpent — Chef : les ennemis non Immunisés à la Psychologie doivent réussir un test de Cd (3D6, en retirant le plus bas) pour attaquer le Héros au corps à corps, sous peine de subir une touche automatique ; une fois réussi, plus besoin de retester. Devin : utilise les Rituels de Shornaal ; peut préparer une boisson forte pour la bande (comme une Bière de Bugman, non vendable) au lieu de chercher des objets rares, s'il n'a pas été mis hors de combat. Marque de Tchar l'Aigle — Chef : apprend immédiatement un sort aléatoire des Rituels de Tchar, avec un malus de -1 sur les jets de difficulté sauf s'il était déjà jeteur de sorts. Devin : débute avec deux sorts des Rituels de Tchar (un choisi librement, un aléatoire). Marque d'Onogal le Corbeau — Chef : +1 en Endurance, relance possible sur la table des Blessures Graves, immunité aux poisons. Devin : utilise les Rituels d'Onogal et bénéficie d'une immunité aux poisons. Marque du Chaos Universel — Chef : tous les membres de la bande dans la zone d'effet de la règle Chef peuvent relancer leurs tests de Cd ratés. Devin : permet à la bande d'inclure 0 à 3 Gors (voir Pillards Hommes-Bêtes), comptant dans l'effectif maximum ; utilise les Rituels du Chaos standards. Les rituels alternatifs propres à chaque Marque (Shornaal, Tchar, Onogal) sont fournis en référence supplémentaire ; à défaut le Devin utilise les Rituels du Chaos ci-dessous."
+    },
+    {
+      "nom": "Table de Mutations",
+      "texte": "Réservée aux Héros ayant la compétence spéciale « Mutant » (extrait et adapté du chapitre Corrupted Characters de Mutiny in Marienburg, incluant des mutations en plus de celles du livre de règles). La première mutation d'une figurine est achetée au prix normal, les suivantes pour la même figurine coûtent le double. Sang acide (30 CO) : toute figurine en contact subit une touche de F3 (sans coup critique) quand le mutant est blessé au corps à corps. Épines (35 CO) : toute figurine en contact subit une touche de F1 au début de chaque phase de corps à corps (jamais de coup critique). Corps cristallin (60 CO) : Endurance fixée à 6, PV fixés à 1, non modifiables par la suite (relance des jets de progression concernés). Âme démoniaque (20 CO) : sauvegarde de 4+ contre les sorts ou prières. Bras supplémentaire (40 CO) : Attaque supplémentaire avec une arme à une main, un bouclier ou une rondache (ou +1 Attaque sans arme supplémentaire). Pince (50 CO) : Attaque supplémentaire de Force+1 (bras sans arme). Tentacule (35 CO) : peut faire perdre 1 Attaque (minimum 1) à un adversaire au corps à corps, au choix du mutant. Brute épaisse (50 CO) : +2 en Force, -4 en Cd. Queue de scorpion (40 CO) : Attaque supplémentaire de Force 5 (2 contre l'immunité au poison). Morsure venimeuse (50 CO) : Attaque supplémentaire (ou amélioration d'une attaque de morsure existante) de Force 5 (2 contre l'immunité au poison). Sabots fendus (40 CO) : +1 en Mouvement. Queue préhensile (50 CO) : Attaque supplémentaire (sauf si déjà une attaque de queue) ; permet de tenir une arme à une main, un bouclier ou une rondache. Peau écailleuse (60 CO) : sauvegarde d'armure de 5+ (plafonnée à 6+ par les malus), cumulable avec l'armure légère. Hideux (40 CO) : provoque la peur. Ailes (45 CO) : permet de planer depuis une position élevée, 2ps horizontaux par point de chute vertical."
+    },
+    {
+      "nom": "Bénédictions de Nurgle",
+      "texte": "Extrait et adapté de la bande Kermesse du Chaos. Réservées aux Héros Maraudeurs avec la Marque d'Onogal, achetables à chaque choix de la compétence Mutant (coût double à chaque achat supplémentaire) à la place d'une mutation classique. Flot de corruption (25 CO) : attaque de tir, portée 6ps, Force 3, sans sauvegarde d'armure. Nuage de mouches (25 CO) : les adversaires du porteur subissent -1 pour toucher au corps à corps. Hideux (40 CO) : provoque la peur. Pourriture de Nurgle (50 CO) : immunité aux poisons ; sur un 6 pour blesser au corps à corps, transmet une maladie incurable réduisant l'Endurance de la victime d'1 point par bataille en cas d'échec d'un test d'Endurance (mort si Endurance à 0), avec risque de transmission à un autre membre de la bande sur un 6. Marque de Nurgle (35 CO) : +1 PV, immunité aux effets de tous les poisons. Horreur enflée (40 CO) : +1 PV, +1 en Endurance, -1 en Mouvement."
+    },
+    {
+      "nom": "Bestiaire démoniaque (alliés)",
+      "texte": "Extrait du Bestiaire des suppléments Border Town Burning et Empire en Flammes. Toutes les créatures avec la règle Démons bénéficient de : immunité aux poisons, immunité à la psychologie, provoquent la peur, et disposent d'une sauvegarde d'armure spéciale de 5+ (modifiée par la Force de l'attaquant, annulée par les armes/sorts magiques) ; elles ne gagnent jamais d'expérience. Horreur de Tzeentch (M4 CC2 CT0 F3 E3 PV1 I3 A1 Cd8) : les chefs de bande portant la Marque de Tchar peuvent s'allier avec les Horreurs de Tzeentch ; en phase de tir, jet de 2D6, sur 6+ la figurine la plus proche à 12ps subit une touche de F1 (Feu de Tzeentch). Portepeste (M4 CC4 CT0 F4 E4 PV1 I4 A2 Cd10) : les adversaires subissent -1 pour toucher au corps à corps (Nuage de mouches) ; démon éternel, ne gagne jamais d'expérience (aucune progression possible)."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "caracteristiques_max": [
+    { "profil": "maraudeur", "M": 4, "CC": 7, "CT": 7, "F": 4, "E": 4, "PV": 3, "I": 7, "A": 4, "Cd": 9 },
+    { "profil": "guerrier_du_chaos_choisi", "note": "Profil max des Maraudeurs 'Choisi par le Chaos'", "M": 4, "CC": 8, "CT": 8, "F": 5, "E": 5, "PV": 3, "I": 8, "A": 5, "Cd": 9 }
+  ],
+  "profils": [
+    {
+      "id": "chef",
+      "nom": "Chef Maraudeur",
+      "type": "heros",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 95,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 5, "CT": 3, "F": 4, "E": 4, "PV": 1, "I": 5, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps peut utiliser son Commandement pour ses tests." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_competences_a_verifier": true,
+      "est_leader": true
+    },
+    {
+      "id": "devin",
+      "nom": "Devin",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 45,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Utilise les Rituels du Chaos (ou les rituels associés à sa Marque, voir règle spéciale Marques des Dieux Sombres)." },
+        { "nom": "Marque des Dieux Sombres", "texte": "Reçoit à son recrutement une Marque en accord avec la tribu : Marque du Serpent (Shornaal), du Corbeau (Onogal), du Chien (Arkhar), de l'Aigle (Tchar), ou Marque du Chaos Universel." }
+      ],
+      "acces_competences": ["combat", "academique", "special"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "champion",
+      "nom": "Champion",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 45,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "damne",
+      "nom": "Damné",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 55,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 0, "CT": 3, "F": 0, "E": 0, "PV": 1, "I": 4, "A": 0, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Inconstance", "texte": "CC, F, E et A sont des caractéristiques variables (respectivement D6, D6, D6 et D3), déterminées quand nécessaire, une fois par tour — la valeur 0 affichée ci-dessus n'est qu'un espace réservé. Chaque augmentation possible d'une caractéristique variable est déterminée par un jet de dé (D3 ou D6) que le joueur peut fixer s'il en est satisfait, ou laisser variable sinon (perdant l'augmentation). Les maximums normaux des Maraudeurs peuvent être dépassés du fait de sa nature particulière." },
+        { "nom": "Peur", "texte": "Provoque la peur." },
+        { "nom": "Destin", "texte": "Une fois toutes les caractéristiques variables fixées, utilise armes/armures/objets normalement. S'il atteint 90 points d'expérience avec encore des caractéristiques variables, il devient un Enfant du Chaos (ou quitte la bande pour errer dans les désolations si elle en a déjà un)." },
+        { "nom": "Équipement", "texte": "N'utilise pas d'équipement mais combat sans pénalité (voir Destin)." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "maraudeur",
+      "nom": "Maraudeur",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "chien_du_chaos",
+      "nom": "Chien du Chaos",
+      "type": "animal",
+      "min": 0,
+      "max": 5,
+      "cout": 15,
+      "stats": { "M": 7, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Animaux", "texte": "Ne gagne jamais d'expérience." },
+        { "nom": "Recrutement", "texte": "Illimité pour une bande de tribu Kurgan (voir règle spéciale Tribus), sinon max 5." },
+        { "nom": "Équipement", "texte": "Aucune arme ni armure ; se bat sans pénalité grâce à ses crocs." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "enfant_du_chaos",
+      "nom": "Enfant du Chaos",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 1,
+      "cout": 180,
+      "xp_depart": 0,
+      "stats": { "M": 0, "CC": 3, "CT": 0, "F": 4, "E": 5, "PV": 3, "I": 2, "A": 0, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Mouvement spécial", "texte": "Se déplace de 2D6ps en ligne droite (direction orientable par le joueur avant le jet) à chaque phase de Mouvement, au lieu de la valeur M ci-dessus (espace réservé) ; ne double pas ce mouvement pour une charge, mais un contact avec une figurine compte comme charge et engage le combat." },
+        { "nom": "Attaque spéciale", "texte": "Le nombre d'Attaques (D6+1, au lieu de la valeur A ci-dessus qui n'est qu'un espace réservé) est déterminé par un jet au début de chaque phase de corps à corps." },
+        { "nom": "Peur", "texte": "Provoque la peur." },
+        { "nom": "Psychologie", "texte": "Créature stupide, réussit automatiquement tous ses tests de Commandement." },
+        { "nom": "Pas de cerveau", "texte": "Ne gagne jamais d'expérience." },
+        { "nom": "Grande cible", "texte": "Considéré comme une grande cible au regard des règles de Tir." },
+        { "nom": "Équipement", "texte": "Aucun ! Utilise griffes, tentacules et autres appendices." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "mutant", "nom": "Mutant", "texte": "Permet d'acheter une mutation (voir règle spéciale Table de Mutations). Les Héros avec la Marque d'Onogal peuvent choisir une Bénédiction de Nurgle à la place (voir règle spéciale Bénédictions de Nurgle). Contrairement aux autres compétences, elle peut être choisie plusieurs fois." },
+    { "id": "corps_tatoue", "nom": "Corps tatoué", "reserve_a": "Chef de bande uniquement", "texte": "Abaisse le seuil de déclenchement d'Œil des Dieux Sombres à 10+ (11+ pour un Chef Norse) au lieu de 12+." },
+    { "id": "courage_du_guerrier", "nom": "Courage du guerrier", "reserve_a": "Chef de bande uniquement", "texte": "Peut relancer tout test de Déroute raté et est immunisé à la Peur ainsi qu'à Seul contre tous." },
+    { "id": "balayage", "nom": "Balayage", "texte": "Requiert la compétence Homme Fort. Chaque mise hors de combat à l'arme à deux mains permet une attaque supplémentaire immédiate contre une autre figurine en contact socle à socle." },
+    { "id": "choisi_par_le_chaos", "nom": "Choisi par le Chaos", "texte": "Le Héros intègre le rang des Guerriers du Chaos : il utilise leur profil maximal (voir caracteristiques_max) et la liste d'équipement des Héros (si ce n'était pas déjà le cas)." }
+  ],
+  "equipement": {
+    "heros": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Hallebarde", "cout": 10 },
+        { "nom": "Morgenstern", "cout": 15 },
+        { "nom": "Fouet barbelé", "cout": 15, "note": "voir armes spéciales" },
+        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Fléau", "cout": 15 },
+        { "nom": "Grande hache du Chaos", "cout": 25, "restriction": "voir armes spéciales" }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    },
+    "hommes_de_main": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Lance", "cout": 10 },
+        { "nom": "Morgenstern", "cout": 15 },
+        { "nom": "Fléau", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "nom": "Haches de lancer", "cout": 15, "note": "considérées comme des couteaux de lancer" }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "grande_hache_du_chaos",
+      "nom": "Grande hache du Chaos",
+      "cout": 25,
+      "disponibilite": "Rare 8, Héros du Chaos avec la compétence Choisi par le Chaos",
+      "portee": "C à C",
+      "force": "U+2",
+      "regles_speciales": [
+        { "nom": "Arme à deux mains", "texte": "Interdit bouclier/rondache/arme additionnelle simultanée ; un bouclier fournit tout de même +1 à la sauvegarde contre les tirs." },
+        { "nom": "Frappe en dernier", "texte": "Frappe toujours en dernier, même en chargeant (sauf avec la compétence Homme Fort)." },
+        { "nom": "Tranchant", "texte": "Modificateur de sauvegarde supplémentaire de -1 (donc -4 au total pour un utilisateur de Force 4)." }
+      ]
+    },
+    {
+      "id": "fouet_barbele",
+      "nom": "Fouet barbelé",
+      "cout": 15,
+      "disponibilite": "Rare 9, Héros Maraudeurs du Chaos uniquement",
+      "portee": "C à C",
+      "force": "U",
+      "regles_speciales": [
+        { "nom": "Parade impossible", "texte": "Impossible à parer, épée ou rondache." },
+        { "nom": "Claquement", "texte": "+1 Attaque en chargeant, et +1A supplémentaire (utilisable uniquement contre le chargeur) si chargé, frappant en premier ; ce bonus reste de +1A même si chargé par 2+ ennemis. Avec deux fouets, seul le premier bénéficie du bonus de Claquement." },
+        { "nom": "Enrager", "texte": "Le porteur peut faire gagner +1 Attaque à tous les Chiens du Chaos à moins de 4ps (non engagés au corps à corps)." }
+      ]
+    },
+    {
+      "id": "arme_en_obsidienne",
+      "nom": "Arme en obsidienne",
+      "cout": "Prix de l'arme de base x4",
+      "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
+      "texte": "Donne +1 en Force au corps à corps ; le type d'arme de base est au choix du joueur.",
+      "regles_speciales": [
+        { "nom": "Corrompue", "texte": "Ne peut jamais être utilisée par les Nains, Elfes, Sœurs de Sigmar, Répurgateurs ou Prêtres." },
+        { "nom": "Frappe en dernier", "texte": "Frappe toujours en dernier, même en chargeant." }
+      ]
+    },
+    {
+      "id": "armure_du_chaos",
+      "nom": "Armure du Chaos",
+      "cout": 185,
+      "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
+      "sauvegarde": "4+",
+      "regles_speciales": [
+        { "nom": "Rareté", "texte": "+1 au jet de recherche par ennemi mis hors de combat lors de la bataille précédente." },
+        { "nom": "Coût", "texte": "Réduit d'1 CO par point d'expérience du Héros." },
+        { "nom": "Don du Chaos", "texte": "Ne sera jamais donnée à un autre membre de la bande, équipée immédiatement, et ne peut jamais être retirée une fois fusionnée au porteur." },
+        { "nom": "Jeteurs de sorts", "texte": "Utilisable par un jeteur de sorts, mais pas combinable avec un bouclier ou une rondache." }
+      ]
+    }
+  ],
+  "magie": {
+    "nom": "Rituels du Chaos",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["devin"],
+    "note": "Table de base utilisée par un Devin sans Marque, ou avec la Marque du Chaos Universel. Un Devin marqué par Arkhar, Shornaal, Tchar ou Onogal utilise à la place les rituels propres à sa Marque (voir règle spéciale Marques des Dieux Sombres), non détaillés ici faute de support dans la fiche.",
+    "sorts": [
+      { "resultat": 1, "nom": "Vision d'Horreur", "difficulte": 10, "texte": "Portée 6ps sur l'ennemi le plus proche (ou une cible en contact si le Devin est engagé) ; la victime est immédiatement sonnée, ou à terre si elle ne peut être sonnée." },
+      { "resultat": 2, "nom": "Œil Divin", "difficulte": 7, "texte": "Une fois par bataille. Choisissez une figurine à moins de 6ps, amie ou ennemie, et jetez 1D6 : 1 = mise hors de combat immédiate (sans jet de Blessure Grave) ; 2-5 = +1 à une caractéristique au choix pour la bataille ; 6 = +1 à toutes les caractéristiques pour la bataille." },
+      { "resultat": 3, "nom": "Sang Noir", "difficulte": 8, "texte": "Portée 8ps, D3 touches de F5 sur la première figurine sur la trajectoire ; le Devin doit ensuite jeter sur le tableau des dégâts pour sa propre blessure (un résultat hors de combat est traité comme sonné)." },
+      { "resultat": 4, "nom": "Tentation du Chaos", "difficulte": 9, "texte": "Portée 12ps sur l'ennemi le plus proche ; comparaison de 1D6+Cd du Devin contre 1D6+Cd de la cible. En cas de victoire, le Devin prend le contrôle de la victime jusqu'à un test de Cd réussi lors du Ralliement adverse ; elle ne peut se suicider mais peut attaquer son propre camp, sans combattre la bande du Devin." },
+      { "resultat": 5, "nom": "Ailes Ténébreuses", "difficulte": 7, "texte": "Le Devin se déplace immédiatement n'importe où dans les 12ps, même au contact (compte alors comme une charge) ; contre un ennemi en fuite, inflige une touche automatique puis celui-ci refuit s'il survit." },
+      { "resultat": 6, "nom": "Mot de Souffrance", "difficulte": 7, "texte": "Toutes les figurines à moins de 3ps du Devin, amies ou ennemies, subissent une touche de F3 sans sauvegarde d'armure." }
+    ]
+  }
+}

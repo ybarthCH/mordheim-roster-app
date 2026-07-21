@@ -23,6 +23,20 @@ export function CreationBandeScreen() {
 
   const catalogue = useMemo(() => CATALOGUES.find((c) => c.id === bandeId), [bandeId]);
 
+  // Groupées par grade (1a, 1b, 1c...) puis triées par nom au sein de chaque groupe.
+  const catalauguesParGrade = useMemo(() => {
+    const groupes = new Map<string, typeof CATALOGUES>();
+    for (const c of CATALOGUES) {
+      const liste = groupes.get(c.grade) ?? [];
+      liste.push(c);
+      groupes.set(c.grade, liste);
+    }
+    for (const liste of groupes.values()) {
+      liste.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+    }
+    return [...groupes.entries()].sort(([a], [b]) => a.localeCompare(b, 'fr'));
+  }, []);
+
   const coutTotal = membres.reduce((acc, m) => {
     const profil = catalogue?.profils.find((p) => p.id === m.profil_id);
     return acc + (profil?.cout ?? 0) * (m.taille_groupe || 1);
@@ -77,10 +91,14 @@ export function CreationBandeScreen() {
             }}
           >
             <option value="">— Choisir une faction —</option>
-            {CATALOGUES.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.nom}
-              </option>
+            {catalauguesParGrade.map(([grade, liste]) => (
+              <optgroup key={grade} label={`Grade ${grade}`}>
+                {liste.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.nom}
+                  </option>
+                ))}
+              </optgroup>
             ))}
           </select>
         </div>

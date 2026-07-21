@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/RostersContext';
 import { Screen } from '../common/Screen';
-import { resolveProfil } from '../../utils/profil';
+import { resolveProfil, nombreHeros } from '../../utils/profil';
 import { getCatalogue } from '../../data/warbands';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
@@ -94,6 +94,7 @@ export function PersonnageScreen() {
   const enAttente = Math.max(0, dues - obtenues);
   const rating = ratingMembre(membre);
   const plafond = catalogue.caracteristiques_max?.[0];
+  const heroCount = nombreHeros(roster);
 
   const supprimerMembre = () => {
     updateRoster({ ...roster, membres: roster.membres.filter((m) => m.instance_id !== membre.instance_id) });
@@ -476,6 +477,7 @@ export function PersonnageScreen() {
           member={membre}
           profil={profil}
           catalogue={catalogue}
+          heroCount={heroCount}
           onClose={() => setModalAvancee(false)}
           onApply={(updated, nouveauMembre) => {
             const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));

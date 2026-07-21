@@ -1,0 +1,238 @@
+[
+  {
+    "id": "amulette_lunaire", "nom": "Amulette lunaire", "categorie": "armures",
+    "cout": 50, "cout_fixe": true, "rarete": "12", "disponibilite": "Rare 12, Amazones du Setting Mordheim uniquement (Rare 11 pour les Amazones du Setting Lustrie)",
+    "acces": ["amazones_mordheim", "amazones_lustrie"], "source": "AM/AL", "page": 33,
+    "texte": "Une fois activé, cet antique objet crée une aura luminescente autour de son porteur, qui le rend plus difficile à distinguer par l'ennemi.",
+    "sauvegarde": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Tout projectile visant la figurine équipée de l'amulette subit un malus de -1 pour toucher. L'amulette confère également à son porteur une sauvegarde spéciale de 5+ contre les tirs." }
+    ]
+  },
+  {
+    "id": "armure_cathayenne_soie_matelassee", "nom": "Armure cathayenne en soie matelassée", "categorie": "armures",
+    "cout": 15, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Aristocrates uniquement",
+    "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 33,
+    "texte": "Les caravanes venues des contrées lointaines d'Orient apportent parfois de fabuleuses armures de soie matelassée, légères comme une plume et résistantes comme l'acier. Elles sont souvent portées sous l'armure ou les vêtements des nobles impériaux pour se protéger des flèches des assassins.",
+    "sauvegarde": "6+/+1",
+    "regles_speciales": [
+      { "nom": "Surépaisseur", "texte": "L'armure cathayenne en soie matelassée peut être combinée avec n'importe quel autre type d'armure." }
+    ]
+  },
+  {
+    "id": "armure_du_chaos_market", "nom": "Armure du Chaos", "categorie": "armures",
+    "cout": 185, "cout_fixe": true, "rarete": "13", "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
+    "acces": ["cult_of_the_possessed", "nains_du_chaos", "carnival_of_chaos", "maraudeurs_du_chaos", "nordiques", "beastmen_raiders"], "source": "BTB", "page": 33,
+    "texte": "L'armure du Chaos est une armure travaillée dans un métal étrange et surnaturel. Elle est la manifestation de la faveur d'un Dieu Sombre du Chaos. La plupart des armures du Chaos sont obtenues en récompense d'un Protecteur Infernal. Cependant, elles peuvent également être acquises, auprès des nains du Chaos, en échange de nombreux esclaves ou suite à un acte extraordinaire servant leurs intérêts.",
+    "sauvegarde": "4+",
+    "regles_speciales": [
+      { "nom": "Coût", "texte": "Le coût d'une armure du Chaos est réduit d'1 CO pour chaque point d'expérience possédé par le Héros." },
+      { "nom": "Don du chaos", "texte": "L'armure du Chaos est un don des Dieux Sombres au guerrier méritant. Un Héros qui en a fait l'acquisition ne la donnera jamais à un membre de sa bande et l'équipera immédiatement. L'armure fusionnera alors avec le corps du porteur et ne pourra jamais être retirée." },
+      { "nom": "Jeteurs de sorts", "texte": "L'armure du Chaos n'empêche pas son porteur de lancer des sorts ou de faire des rituels. Elle peut être portée par les jeteurs de sorts, mais ils ne peuvent pas la combiner avec un bouclier ou une rondache." },
+      { "nom": "Rareté", "texte": "Lors de la recherche d'une armure du Chaos, un guerrier gagne +1 sur le résultat de son jet de recherche pour chaque ennemi qu'il a mis hors de combat lors de la bataille précédente." }
+    ]
+  },
+  {
+    "id": "armure_en_gromril_market", "nom": "Armure en gromril", "categorie": "armures",
+    "cout": 150, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11",
+    "acces": ["rare_11"], "source": "LdR", "page": 34,
+    "texte": "Le gromril est le métal le plus rare et le plus dur du Vieux Monde. Seuls quelques rares artisans nains savent travailler le gromril, et les armures qu'ils forgent atteignent des prix astronomiques.",
+    "sauvegarde": "4+",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une armure en gromril donne une sauvegarde d'armure de 4+ à son porteur et ne le ralentit pas s'il porte aussi un bouclier. Une armure en gromril reste une armure lourde." }
+    ]
+  },
+  {
+    "id": "armure_en_ithilmar_market", "nom": "Armure en ithilmar", "categorie": "armures",
+    "cout": 90, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11",
+    "acces": ["rare_11"], "source": "LdR", "page": 34,
+    "texte": "L'ithilmar est un métal argenté aussi léger que la soie et plus dur que l'acier. Les elfes sont des experts pour fabriquer armes et armures en ithilmar, et le royaume elfe de Caledor est le seul endroit au monde où ce métal peut être trouvé.",
+    "sauvegarde": "5+",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une armure en ithilmar donne une sauvegarde d'armure de 5+, et ne ralentit pas son porteur s'il porte aussi un bouclier. Une armure en ithilmar reste une armure lourde." }
+    ]
+  },
+  {
+    "id": "armure_lamellaire", "nom": "Armure lamellaire", "categorie": "armures",
+    "cout": 120, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "BTB", "page": 34,
+    "texte": "Les forgerons ont créé ces lourdes armures pour les nobles chevaliers de Cathay qui protègent les fermes. Cette armure est commune, particulièrement parmi la garde du palais de l'Empereur de Cathay. Elle couvre non seulement le torse de son porteur, mais également la partie haute des bras et les cuisses. Une armure lamellaire reste une armure lourde.",
+    "sauvegarde": "4+",
+    "regles_speciales": [
+      { "nom": "Mouvement", "texte": "Un combattant portant à la fois cette armure et un bouclier subit une pénalité de Mouvement de -1." }
+    ]
+  },
+  {
+    "id": "armure_legere", "nom": "Armure légère", "categorie": "armures",
+    "cout": 20, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 34,
+    "texte": "Une grande variété de matériaux est utilisée pour fabriquer les armures légères, qui vont de la tunique en cuir bouilli à la chemise de mailles. Elles n'offrent pas une protection totale contre les flèches ou les épées, mais restent préférables à rien du tout. L'armure légère ne gêne pas le mouvement.",
+    "sauvegarde": "6+",
+    "regles_speciales": []
+  },
+  {
+    "id": "armure_lourde", "nom": "Armure lourde", "categorie": "armures",
+    "cout": 50, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 34,
+    "texte": "L'armure lourde typique est faite d'anneaux de métal et s'appelle cotte de mailles. Forger une cotte de mailles est très long et fastidieux, car l'armurier doit assembler des milliers d'anneaux de métal. Le coût s'en ressent, mais ce type d'armure fournit une excellente protection à qui peut se l'offrir. Il existe également d'autres types d'armures, la plus connue étant la cuirasse et les tassettes d'acier portées par les chevaliers fantassins des ordres des Templiers.",
+    "sauvegarde": "5+",
+    "regles_speciales": [
+      { "nom": "Mouvement", "texte": "Un combattant portant à la fois cette armure et un bouclier subit une pénalité de Mouvement de -1." }
+    ]
+  },
+  {
+    "id": "armure_lourde_de_maitre", "nom": "Armure lourde de maître", "categorie": "armures",
+    "cout": "-", "cout_fixe": false, "rarete": "-", "disponibilite": "Conquérant Razzieur Lustrien uniquement",
+    "acces": ["razzieurs_lustriens"], "source": "RL", "page": 34,
+    "texte": "Un héritage rapporté de Tilée, où l'on enseigne l'art de forger des armures lourdes extrêmement ornementées et presque impénétrables.",
+    "sauvegarde": "4+",
+    "regles_speciales": [
+      { "nom": "Mouvement gêné", "texte": "Un combattant portant cette armure subit une pénalité de Mouvement de -1, même sans bouclier." }
+    ]
+  },
+  {
+    "id": "bouclier", "nom": "Bouclier", "categorie": "armures",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 35,
+    "texte": "Il existe deux types de boucliers en usage à Mordheim : le premier est en bois, parfois renforcé de plaques de métal. Ce type de bouclier basique, bien que relativement robuste, a tendance à se fendre, mais cela peut parfois sauver la vie de son porteur car il arrive que l'arme de l'adversaire s'y coince. Ce dernier est alors une proie facile pendant qu'il lutte pour libérer son arme. Les boucliers métalliques sont lourds et encombrants, mais résistent bien plus longtemps aux coups. Un bouclier impérial typique est rond ou triangulaire, et porte l'emblème de la province ou de la ville de son propriétaire.",
+    "sauvegarde": "6+/+1",
+    "regles_speciales": []
+  },
+  {
+    "id": "caparacon_bretonnien", "nom": "Caparaçon bretonnien", "categorie": "armures",
+    "cout": 30, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Destriers Chevaliers Bretonniens uniquement",
+    "acces": ["chevaliers_bretonniens"], "source": "CB (Chevaliers Bretonniens)", "page": 35,
+    "texte": "Le caparaçon est une armure pour cheval, similaire à l'armure légère que portent les humains. Elle recouvre le corps de l'animal et parfois aussi la tête. Cette armure spéciale est bénie par les Bretonniens, qui n'est normalement disponible que pour les chevaliers bretonniens.",
+    "sauvegarde": "5+/+2",
+    "regles_speciales": [
+      { "nom": "Carapace", "texte": "Une figurine montée sur un destrier caparaçonné reçoit un bonus de sauvegarde supplémentaire de +1 (donc +2 au total). De plus, une monture équipée d'un caparaçon mise hors de combat ne sera tuée que sur un résultat de 1 sur 1D6 à la fin de la partie (au lieu de 1-2)." }
+    ]
+  },
+  {
+    "id": "caparacon", "nom": "Caparaçon", "categorie": "armures",
+    "cout": 80, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Destriers, Cauchemars, Coursiers elfiques et Destriers du Chaos uniquement",
+    "acces": ["destriers", "cauchemars", "coursiers_elfiques", "destriers_du_chaos"], "source": "EEF", "page": 35,
+    "texte": "Le caparaçon est une armure pour cheval, similaire à l'armure légère que portent les humains. Elle recouvre le corps de l'animal et parfois aussi la tête.",
+    "sauvegarde": "5+/+2",
+    "regles_speciales": [
+      { "nom": "Carapace", "texte": "Une figurine montée sur un destrier caparaçonné reçoit un bonus de sauvegarde supplémentaire de +1 (donc +2 au total). De plus, une monture équipée d'un caparaçon mise hors de combat ne sera tuée que sur un résultat de 1 sur 1D6 à la fin de la partie (au lieu de 1-2)." },
+      { "nom": "Pénalité de mouvement", "texte": "Une monture portant un caparaçon subit une pénalité de Mouvement de -1." }
+    ]
+  },
+  {
+    "id": "cape_en_peau_de_dragon_des_mers", "nom": "Cape en peau de dragon des mers", "categorie": "armures",
+    "cout": "50+2D6", "cout_fixe": false, "rarete": "10", "disponibilite": "Rare 10, Héros et Corsaires Elfes Noirs uniquement",
+    "acces": ["elfes_noirs"], "source": "EN (Elfes Noirs)", "page": 35,
+    "texte": "Les corsaires elfes noirs se vêtent de capes taillées dans la peau de monstres marins. Ces capes sont solides et leur offrent une excellente protection.",
+    "sauvegarde": "5+ (4+ tirs)",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une cape en peau de dragon des mers offre une sauvegarde d'armure de 5+ au corps à corps, 4+ contre les tirs." },
+      { "nom": "Mouvement", "texte": "Un combattant portant à la fois cette armure et un bouclier subit une pénalité de Mouvement de -1." }
+    ]
+  },
+  {
+    "id": "cape_en_peau_de_loup", "nom": "Cape en peau de loup", "categorie": "armures",
+    "cout": 10, "cout_fixe": true, "rarete": "Spé", "disponibilite": "Spécial, Middenheimer, Explorateurs Norses, Maraudeurs du Chaos uniquement",
+    "acces": ["middenheimers", "explorateurs_norses", "maraudeurs_du_chaos"], "source": "BB/BTB", "page": 36,
+    "texte": "À Middenheim, on considère toujours qu'il faut tuer un grand loup à mains nues pour être un vrai homme. Les guerriers qui accomplissent un tel exploit gagnent le respect de leurs pairs, et leurs capes seront bénies par le grand prêtre du culte d'Ulric, le dieu de l'hiver, de la guerre et des loups. Pour acquérir une cape en peau de loup, le Héros doit payer 10 CO (cela représente le coût du voyage à Middenheim et de la participation à une chasse). De plus, le Héros doit obtenir un résultat inférieur ou égal à sa Force sur 1D6 pour réussir à trouver et tuer le loup. Il peut ensuite se faire une cape avec sa peau comme marque de talent et de courage. Notez que les Middenheimers peuvent acheter des capes en peau de loup lors de la création de la bande sans faire de test de disponibilité.",
+    "sauvegarde": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une figurine portant une cape en peau de loup gagne +1 à ses sauvegardes contre toutes les attaques de tir." }
+    ]
+  },
+  {
+    "id": "cape_en_peau_des_hommes_lezards", "nom": "Cape en peau des hommes-lézards", "categorie": "armures",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Tueur de Saurus uniquement",
+    "acces": ["tueur_de_saurus"], "source": "RL", "page": 36,
+    "texte": null,
+    "sauvegarde": "6+ (spéciale)",
+    "regles_speciales": []
+  },
+  {
+    "id": "casque_marmite", "nom": "Casque-marmite", "categorie": "armures",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Mootlanders",
+    "acces": ["mootlanders"], "source": "M (Mootlanders)", "page": 36,
+    "texte": "Tout Maître Cuisinier digne de ce nom troquera sa ridicule toque blanche contre une marmite encore plus ridicule pour se protéger lorsqu'un combat se prépare. Cela peut sembler incroyablement stupide, mais cela permet souvent au Halfling de garder la tête intacte après la bataille.",
+    "sauvegarde": null,
+    "regles_speciales": [
+      { "nom": "Éviter l'étourdissement", "texte": "Un Maître Cuisinier équipé d'un casque-marmite bénéficie d'une sauvegarde spéciale de 5+ contre le résultat sonné. Cette sauvegarde n'est pas modifiée par la Force de l'adversaire." }
+    ]
+  },
+  {
+    "id": "cuir_durci", "nom": "Cuir durci", "categorie": "armures",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Héros uniquement",
+    "acces": ["commun_heros"], "source": "BB", "page": 36,
+    "texte": "Les meilleurs tanneurs peuvent transformer des manteaux de cuir (passés de mode) en armures et les moins riches se tournent souvent vers de telles protections tant les autres sont coûteuses. Recouvert de croûtes de sel, d'alcool et d'autres matières moins ragoûtantes, le cuir durci est difficile à percer et offre quelque protection au combat.",
+    "sauvegarde": "6+",
+    "regles_speciales": [
+      { "nom": "Combinaisons restreintes", "texte": "Une armure de cuir durci donne une sauvegarde de 6+, comme l'armure légère, à la différence qu'elle ne peut pas être combinée avec un autre type d'armure, en dehors des casques et des rondaches." },
+      { "nom": "Invendable", "texte": "Une armure de cuir durci ne peut pas être revendue, car la puanteur qu'elle dégage suffit à faire fuir les acheteurs les plus désespérés." },
+      { "nom": "Lancé de sorts", "texte": "Bien qu'un cuir durci soit un équipement divers et n'ait pas besoin d'être dans la liste d'équipement de la bande pour être utilisé, il s'agit tout de même d'une armure qui empêche de lancer des sorts." }
+    ]
+  },
+  {
+    "id": "ecu", "nom": "Écu", "categorie": "armures",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Chevaliers de la Garde de la Chapelle Bretonnienne uniquement",
+    "acces": ["gardiens_de_chapelle_bretonniens"], "source": "GB (Gardiens de Chapelle Bretonniens)", "page": 37,
+    "texte": null,
+    "sauvegarde": "5+(6+) / +2(+1)",
+    "regles_speciales": [
+      { "nom": "Sauvegarde", "texte": "Un combattant équipé d'un écu bénéficie d'une sauvegarde d'armure de 5+ lorsqu'il est à pied, et de 6+ s'il est sur une monture (ou, s'il porte déjà une armure, d'un bonus de +2 à pied et de +1 sur une monture). La sauvegarde d'armure ne peut aller en dessous de 1+." }
+    ]
+  },
+  {
+    "id": "exosquelette", "nom": "Exosquelette", "categorie": "armures",
+    "cout": 225, "cout_fixe": true, "rarete": "14", "disponibilite": "Rare 14, Nains du Chaos uniquement",
+    "acces": ["nains_du_chaos"], "source": "BTB-NdC", "page": 37,
+    "texte": "La Malédiction de la Pierre s'abat sur tous les hiérogrammates nains du Chaos, les transforme progressivement en roche en commençant par les pieds. Les ingénieurs ont conçu des machines qui peuvent transporter leurs prêtres lorsqu'ils commencent à payer le prix de leurs rituels obscurs.",
+    "sauvegarde": "4+",
+    "regles_speciales": [
+      { "nom": "Prêt à démarrer", "texte": "Un sorcier équipé d'un exosquelette reçoit +3 au Mouvement." },
+      { "nom": "Armure du Chaos", "texte": "Un exosquelette compte comme une armure du Chaos et les règles suivantes s'appliquent." },
+      { "nom": "Coût", "texte": "Le coût de l'exosquelette est réduit d'1 CO pour chaque point d'expérience possédé par le Héros." },
+      { "nom": "Don du chaos", "texte": "Un Héros qui a acquis un exosquelette ne le donnera jamais à un membre de sa bande et l'équipera immédiatement. Elle ne pourra jamais être retirée." },
+      { "nom": "Jeteurs de sorts", "texte": "L'exosquelette n'empêche pas son porteur de lancer des sorts ou de faire des rituels, mais ne peut pas être combinée avec un bouclier ou une rondache." },
+      { "nom": "Rareté", "texte": "Lors de la recherche d'un exosquelette, un guerrier gagne +1 sur le résultat de son jet de recherche pour chaque ennemi qu'il a mis hors de combat lors de la bataille précédente." }
+    ]
+  },
+  {
+    "id": "pavois", "nom": "Pavois", "categorie": "armures",
+    "cout": 25, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8",
+    "acces": ["rare_8"], "source": "VEC", "page": 37,
+    "texte": "Un pavois est un immense bouclier couramment utilisé par les soldats sur le champ de bataille pour se défendre des flèches de leurs ennemis. C'est un équipement lourd, peu utilisé au corps à corps, mais très efficace contre les tirs.",
+    "sauvegarde": "(6+) / (+1)",
+    "regles_speciales": [
+      { "nom": "Couvert / Sauvegarde", "texte": "Un guerrier qui utilise un pavois est considéré comme à couvert contre les tirs de projectiles (-1 au toucher). Au corps à corps, le pavois est considéré comme un bouclier (sauvegarde d'armure +1) mais seulement si le guerrier a été chargé de front. Le Pavois est si lourd et encombrant que le porteur se déplace à mi-vitesse." }
+    ]
+  },
+  {
+    "id": "peaux_enchantees", "nom": "Peaux enchantées", "categorie": "armures",
+    "cout": 20, "cout_fixe": true, "rarete": "6", "disponibilite": "Rare 6, Amazones du Setting Lustrie uniquement",
+    "acces": ["amazones_lustrie"], "source": "AL (Amazones du Setting Lustrie)", "page": 37,
+    "texte": "Les peaux de bête et les amulettes que portent les Amazones sont imprégnées de magie protectrice.",
+    "sauvegarde": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Toute figurine portant des peaux enchantées reçoit une sauvegarde spéciale de 6+ contre toute Blessure infligée. De plus, le porteur de peaux enchantées n'est pas affecté par la magie ennemie sur un résultat de 5+." }
+    ]
+  },
+  {
+    "id": "rondache", "nom": "Rondache", "categorie": "armures",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 37,
+    "texte": "Les rondaches sont de petits boucliers ronds conçus pour parer et dévier les coups. Elles sont souvent en acier car elles doivent être très robustes pour résister aux coups furieux du corps à corps. Leur maniement demande beaucoup de talent, mais un guerrier agile peut se protéger de coups qui le mutileraient à coup sûr sans cela.",
+    "sauvegarde": "-",
+    "regles_speciales": [
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." }
+    ]
+  },
+  {
+    "id": "casque", "nom": "Casque", "categorie": "armures",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 36,
+    "texte": "Des chevaliers bretonniens avec leurs heaumes scintillants aux skavens coiffés de capuches en cuir, tous guerriers sensés tentent de protéger la partie la plus vulnérable de leur corps : leur tête. Même les plus narcissiques portent des casques que ceux-ci soient garnis de plumes, de cornes et d'autres décorations. La forme et la taille d'un casque sont variables, mais sa fonction reste toujours la même.",
+    "sauvegarde": "-",
+    "regles_speciales": [
+      { "nom": "Protection", "texte": "Le combattant bénéficie d'une sauvegarde spéciale de 4+ contre le résultat sonné. Si la sauvegarde est réussie, transformez le résultat sonné en à terre. Cette sauvegarde n'est pas modifiée par la Force de l'adversaire." }
+    ]
+  }
+]

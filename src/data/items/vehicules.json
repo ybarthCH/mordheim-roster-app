@@ -1,0 +1,140 @@
+[
+  {
+    "id": "chariot_diligence", "nom": "Chariot / Diligence", "categorie": "vehicules",
+    "cout": 100, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7 (le prix n'inclut pas les animaux)",
+    "acces": ["rare_7"], "source": "EEF", "page": 63,
+    "texte": "Cela comprend les chariots, les diligences et généralement tout moyen de transport tracté à quatre roues.",
+    "composants": [
+      { "nom": "Chariot", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 8, "PV": 4, "I": null, "A": null, "Cd": null } },
+      { "nom": "Roue", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 6, "PV": 1, "I": null, "A": null, "Cd": null } },
+      { "nom": "Cheval (attelage)", "stats": { "M": 8, "CC": null, "CT": null, "F": 3, "E": 3, "PV": 1, "I": 3, "A": null, "Cd": null } },
+      { "nom": "Mule (attelage)", "stats": { "M": 6, "CC": null, "CT": null, "F": 3, "E": 3, "PV": 1, "I": 2, "A": null, "Cd": null } }
+    ],
+    "regles_speciales": [
+      { "nom": "Voir règles Véhicules de l'Empire et Bateau", "texte": "Voir les règles sur les chariots et les diligences dans l'article Véhicules de l'Empire et Bateau." }
+    ]
+  },
+  {
+    "id": "chariot_de_marchandises", "nom": "Chariot de marchandises", "categorie": "vehicules",
+    "cout": 180, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Caravane des Marchands uniquement",
+    "acces": ["caravane_des_marchands"], "source": "BTB-CM (Caravane des Marchands)", "page": 63,
+    "texte": "Les nombreux objets de valeur tels que les bijoux cathayens, les épices et les étoffes de soie sont stockés dans le chariot de marchandises.",
+    "composants": [
+      { "nom": "Chariot", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 8, "PV": 4, "I": null, "A": null, "Cd": null } },
+      { "nom": "Roue", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 6, "PV": 1, "I": null, "A": null, "Cd": null } },
+      { "nom": "Cheval (attelage, x2)", "stats": { "M": 8, "CC": 1, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 0, "Cd": 5 } }
+    ],
+    "regles_speciales": [
+      { "nom": "Chariot", "texte": "Le chariot de marchandises est un chariot et suit toutes ses règles (voir Véhicules de l'Empire et Bateau). Le coût du chariot de marchandises inclut deux chevaux de trait. Souvenez-vous qu'un combattant de la bande doit être désigné comme conducteur." },
+      { "nom": "Stockage", "texte": "Tout l'équipement et les trésors de la bande sont stockés dans le chariot de marchandises. Notez que cela n'inclut pas les Couronnes d'Or de la bande. Si le chariot de marchandises est détruit, tous les équipements et trésors stockés sont perdus. Jusqu'à ce qu'un nouveau chariot de marchandises (ou une diligence si le joueur préfère) soit acheté, aucun équipement ne peut être stocké. Tous les Trésors gagnés après une bataille sont perdus s'ils ne sont pas vendus avant la prochaine partie." },
+      { "nom": "Réputation", "texte": "Pour chaque tranche de cinq objets rares différents stockés dans le chariot de marchandises, le Marchand bénéficie d'un bonus de +1 à ses jets pour trouver des objets rares." },
+      { "nom": "Abandon", "texte": "Si la bande rate son test de Déroute et qu'aucun combattant ne pilote le chariot de marchandises, il est alors considéré comme abandonné. Le chariot tombe entre les mains de la bande victorieuse. Elle peut choisir de dérober son contenu, de garder le chariot (considérez-le comme un chariot ou une diligence) ou de conclure un accord avec le Marchand (utilisez les règles du résultat 61 - Capturé du tableau des Blessures Graves des Héros). Une bande capturant le chariot d'une Caravane des Marchands ne peut pas rechercher d'objets rares après la bataille, à moins que tous les combattants de la bande de la Caravane des Marchands n'aient été mis hors de combat. En effet, si ce n'est pas le cas, la nouvelle se répandra comme une traînée de poudre et les commerçants locaux effrayés préféreront l'éviter." }
+    ]
+  },
+  {
+    "id": "carrosse_opulent", "nom": "Carrosse opulent", "categorie": "vehicules",
+    "cout": 250, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10 (le prix inclut 2 chevaux)",
+    "acces": ["rare_10"], "source": "BB", "page": 63,
+    "texte": "Les chefs de bandes riches sont prompts à dépenser leur or en extravagances telles que vins fins, armes et armures incrustées de joyaux et épices de Cathay. Le carrosse opulent, utilisé pour se déplacer autour de Mordheim, en est le summum. Peu de choses impressionnent davantage les roturiers et ne suscitent plus de jalousie chez d'autres chefs moins fortunés qu'un carrosse opulent, qui obtient +3 à tous ses jets pour trouver des objets rares.",
+    "composants": [
+      { "nom": "Chariot", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 8, "PV": 4, "I": null, "A": null, "Cd": null } },
+      { "nom": "Roue", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 6, "PV": 1, "I": null, "A": null, "Cd": null } },
+      { "nom": "Cheval (attelage)", "stats": { "M": 8, "CC": null, "CT": null, "F": 3, "E": 3, "PV": 1, "I": 3, "A": null, "Cd": null } },
+      { "nom": "Mule (attelage)", "stats": { "M": 6, "CC": null, "CT": null, "F": 3, "E": 3, "PV": 1, "I": 2, "A": null, "Cd": null } }
+    ],
+    "regles_speciales": [
+      { "nom": "Voir règles Véhicules de l'Empire et Bateau", "texte": "Voir les règles sur les chariots et les diligences dans l'article Véhicules de l'Empire et Bateau." }
+    ]
+  },
+  {
+    "id": "char_squelette", "nom": "Char squelette", "categorie": "vehicules",
+    "cout": "200+10D6", "cout_fixe": false, "rarete": "10", "disponibilite": "Rare 10, Gardiens des Tombes uniquement",
+    "acces": ["gardiens_des_tombes"], "source": "K-GT (Gardiens des Tombes)", "page": 64,
+    "texte": "Un char squelette est fait d'ossements de défunts, tiré par deux coursiers squelettiques et dirigé par un membre de la bande.",
+    "composants": [
+      { "nom": "Chariot", "stats": { "M": null, "CC": null, "CT": null, "F": 4, "E": 4, "PV": 3, "I": null, "A": null, "Cd": null } },
+      { "nom": "Attelage (coursiers squelettiques)", "stats": { "M": 8, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 5 } }
+    ],
+    "regles_speciales": [
+      { "nom": "Monter un char", "texte": "Le pilote du char monte et descend du char de la même manière que le ferait un cavalier avec sa monture." },
+      { "nom": "Mouvement", "texte": "Un char squelette se déplace normalement de 8ps et ne peut pas courir. Cependant, il peut doubler son mouvement lorsqu'il charge." },
+      { "nom": "Terrain difficile", "texte": "Si un char se déplace sur un terrain difficile, il subit 1D3 touches de Force 4. Si le char termine sa charge sur un terrain difficile, il subit 2D3 touches de Force 6." },
+      { "nom": "Attelage (règle)", "texte": "Si l'un des coursiers meurt, le char réduit son Mouvement de moitié, mais peut continuer à charger (également à la moitié de son mouvement de charge normal). Cependant, les touches d'impact sont alors inefficaces. Si les deux coursiers meurent, le char est immobilisé et le conducteur devra se battre à pied." },
+      { "nom": "Combat", "texte": "Les chars sont redoutés pour leurs charges dévastatrices provoquées par les horribles faux montées sur les roues, découpant en morceaux tous les guerriers sur leur passage. Le conducteur est autorisé à charger tout ennemi dans son champ de vision et à terrain découvert. Il n'est pas obligé de charger la figurine la plus proche. Si le char se déplace à plus de la moitié de son Mouvement de base, il peut effectuer des touches d'impact. Quiconque sur la trajectoire directe d'un char en charge est autorisé à faire un test d'Initiative pour s'écarter du chemin et éviter d'être touché. Le pilote doit effectuer un jet pour toucher, comme d'habitude. Une touche réussie provoque une blessure de Force 4 avec un malus de -2 à la sauvegarde d'armure. À la fin de la charge, le pilote du char peut combattre les figurines ennemies en contact socle à socle, comme s'il s'agissait d'une charge normale." },
+      { "nom": "Tir", "texte": "Un char est une cible de grande taille et un combattant bénéficie d'un bonus de +1 au toucher avec une arme de tir lorsqu'il vise le char squelette. Si le char est touché, lancez 1D6 pour savoir où il est touché : 1-2 = Attelage. 3-4 = Char. 5-6 = Conducteur." }
+    ]
+  },
+  {
+    "id": "machine_du_chaos", "nom": "Machine du Chaos", "categorie": "vehicules",
+    "cout": 195, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Nains du Chaos uniquement",
+    "acces": ["nains_du_chaos"], "source": "BTB-NdC", "page": 65,
+    "texte": "Les geôliers enferment leurs victimes dans une machine démoniaque déformée par la folie industrielle des ingénieurs du Chaos. Ce véhicule est une prison vivante sur roues. Ces machines blindées transportent les prisonniers vers les Terres Sombres pour alimenter les fournaises en combustible ou y être sacrifiées.",
+    "composants": [
+      { "nom": "Machine", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 8, "PV": 4, "I": null, "A": null, "Cd": null } },
+      { "nom": "Roue", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 6, "PV": 1, "I": null, "A": null, "Cd": null } },
+      { "nom": "Démon (attelage)", "stats": { "M": 6, "CC": null, "CT": null, "F": null, "E": 6, "PV": 3, "I": null, "A": null, "Cd": null } }
+    ],
+    "regles_speciales": [
+      { "nom": "Chariot", "texte": "La machine du Chaos suit toutes les règles sur les Chariots (voir l'article Véhicules de l'Empire et Bateaux), sauf indication contraire ci-après." },
+      { "nom": "Démon", "texte": "La machine du Chaos est liée à un démon qui lui fournit son énergie. Toutes les références aux animaux tractant le chariot doivent être considérées comme faisant référence à son démon. Le Mouvement du démon n'est pas affecté par la cargaison." },
+      { "nom": "Passagers", "texte": "Un Nain du Chaos doit faire office de cocher. Seuls des prisonniers peuvent se trouver sur une machine du Chaos en tant que passagers. Plus de six créatures – les grandes créatures (Ogres, Minotaures, etc.) comptent comme deux – rendent celle-ci incontrôlable." },
+      { "nom": "Battre le fer", "texte": "Le cocher peut donner du fouet ! Si une machine du Chaos devient incontrôlable, se référer au tableau des pertes de contrôle. Si le résultat est Holà ! Tout doux ! remplacez le résultat 5 (Le timon du chariot se brise…) par : « Le Démon s'est libéré de la sorcellerie qui le liait à la machine du Chaos. La machine se déplace de 6ps droit devant, puis s'arrête. Le véhicule ne peut plus se déplacer pour le reste de cette bataille. »" },
+      { "nom": "Prisonniers", "texte": "Lorsqu'ils livrent bataille contre une bande de Nains du Chaos possédant une machine du Chaos, les adversaires sont toujours considérés comme prisonniers sur un résultat capturé sur le tableau des Blessures Graves ou si elles sont mises hors de combat à l'aide d'une pince. Notez que dans les deux cas, leur équipement est perdu pour la bande de Nains du Chaos. Certains résultats sur le Tableau d'Exploration de Mordheim permettent aux Nains du Chaos d'acquérir des prisonniers : 4-4 : Vagabond (1) ; 3-3-3 : Prisonniers (1D3). Sur le tableau d'exploration d'Empire en Flammes : 2-2 : Fou (1) ; 3-3 : Enfants perdus (2) ; 4-4 : Réfugiés de Mordheim (1D3) ; 3-3-3 : Petite ferme (2) ; 1-1-1-1-1 : Grande ferme (2) ; 3-3-3-3-3 : L'arbre aux pendus (1)." },
+      { "nom": "Libération des prisonniers", "texte": "Les figurines détenues en captivité peuvent être libérées en détruisant la machine du Chaos ou en utilisant les clés de la prison. Si une figurine met hors de combat l'un des Geôliers Nains du Chaos, elle prend les clés. Une figurine qui prend les clés peut libérer les prisonniers en se mettant en contact socle à socle avec la machine du Chaos. Si les Nains du Chaos sont mis en Déroute avant cela n'arrive, ou si la figurine avec les clés est mise hors de combat (perte des clés au profit d'un nouveau porteur), les prisonniers restent captifs. Les prisonniers libérés doivent toujours se déplacer vers le bord de table le plus proche. Les prisonniers qui ne sont pas issus des bandes participantes utilisent le profil de base ou celui des guerriers de Mercenaires (voir la bande des Mercenaires). Les prisonniers sauvés rejoignent leur ancienne bande." },
+      { "nom": "Récompense de Hashut", "texte": "Après une bataille, les Nains du Chaos peuvent décider de déporter les prisonniers vers les Terres Sombres. S'ils le font, ils doivent tous être sacrifiés à Hashut. La machine du Chaos plus un Héros seront absents lors de la prochaine bataille. À moins qu'il n'y ait une autre machine, aucune figurine ne peut être capturée avant son retour. Une fois le Héros revenu, consultez le tableau suivant. Prisonniers Récompense de Hashut (1D6) : 1-3 = +1 point d'expérience pour le Chef. 4-5 = +1D3 points d'expérience pouvant être répartis entre les Héros. 6 = +2D3 points d'expérience pouvant être répartis entre les Héros plus 1D6x5 Couronnes d'Or." }
+    ]
+  },
+  {
+    "id": "pousse_pousse", "nom": "Pousse-pousse", "categorie": "vehicules",
+    "cout": 70, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Humains uniquement",
+    "acces": ["commun_humains"], "source": "BTB", "page": 66,
+    "texte": "Un pousse-pousse est une charrette à deux roues tirée par un homme. On peut voir des marchands aisés, des fonctionnaires influents et d'autres membres de l'élite sociale utiliser ce moyen de transport pour se déplacer en ville. Un membre non-animal de la bande doit être affecté au déplacement du pousse-pousse. Il ne peut alors ni courir, ni charger. Tant qu'il tire le pousse-pousse, les deux figurines doivent rester en contact socle à socle et sont déplacées ensemble. La figurine peut cesser de tirer le pousse-pousse à tout moment et se déplacer normalement dans le même tour (incluant la possibilité d'effectuer une charge).",
+    "composants": [
+      { "nom": "Tireur", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": null, "PV": null, "I": null, "A": null, "Cd": null } },
+      { "nom": "Pousse-pousse", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 8, "PV": 2, "I": null, "A": null, "Cd": null } },
+      { "nom": "Roue", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 6, "PV": 1, "I": null, "A": null, "Cd": null } }
+    ],
+    "regles_speciales": [
+      { "nom": "Siège", "texte": "Le pousse-pousse est doté d'un siège, permettant à un passager de s'y asseoir. Monter ou descendre du pousse-pousse fonctionne de la même manière que de monter ou descendre d'une monture." },
+      { "nom": "Cible", "texte": "Tirer sur un pousse-pousse confère un bonus de +1 au toucher. Pour chaque touche, faites un jet sur le tableau suivant afin de déterminer quelle partie du pousse-pousse ou de l'équipage est touchée. Appliquez ensuite les modificateurs pour « blesser » en conséquence. D6 : 1-2 = le tireur du pousse-pousse. 3-4 = le pousse-pousse (Endurance 8 - 2PV). 5 = une roue (Endurance 6 - 1PV). 6 = le passager du pousse-pousse." },
+      { "nom": "Contact corps à corps", "texte": "Au corps à corps, tant qu'ils sont en contact avec les parties respectives, les attaquants peuvent choisir de frapper le tireur, le pousse-pousse, la roue ou le passager. Le passager n'est touché que sur un 6+." },
+      { "nom": "Destruction", "texte": "Notez que dès que l'une des roues est détruite (lorsqu'elle perd son dernier PV), le pousse-pousse ne peut plus être tiré. À moins que le pousse-pousse ne soit complètement détruit, il peut toujours être réparé après la bataille." }
+    ]
+  },
+  {
+    "id": "barge_fluviale", "nom": "Barge fluviale", "categorie": "vehicules",
+    "cout": 200, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "EEF", "page": 66,
+    "texte": "Une barge fluviale peut transporter douze figurines de taille humaine ou plus petites, ou leur équivalent en bagages.",
+    "composants": [
+      { "nom": "Barge", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 8, "PV": 8, "I": null, "A": null, "Cd": null } }
+    ],
+    "regles_speciales": [
+      { "nom": "Voir règles Véhicules de l'Empire et Bateau", "texte": "Voir les règles sur les bateaux dans l'article Véhicules de l'Empire et Bateau." }
+    ]
+  },
+  {
+    "id": "barque", "nom": "Barque", "categorie": "vehicules",
+    "cout": 40, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7",
+    "acces": ["rare_7"], "source": "EEF", "page": 66,
+    "texte": "Une barque peut transporter six figurines de taille humaine ou plus petites, ou leur équivalent en bagages.",
+    "composants": [
+      { "nom": "Barque", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 5, "PV": 3, "I": null, "A": null, "Cd": null } }
+    ],
+    "regles_speciales": [
+      { "nom": "Voir règles Véhicules de l'Empire et Bateau", "texte": "Voir les règles sur les bateaux dans l'article Véhicules de l'Empire et Bateau." }
+    ]
+  },
+  {
+    "id": "gabare", "nom": "Gabare", "categorie": "vehicules",
+    "cout": 100, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8",
+    "acces": ["rare_8"], "source": "EEF", "page": 66,
+    "texte": "Une gabare peut transporter huit figurines de taille humaine ou plus petites, ou leur équivalent en bagages.",
+    "composants": [
+      { "nom": "Gabare", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 8, "PV": 4, "I": null, "A": null, "Cd": null } }
+    ],
+    "regles_speciales": [
+      { "nom": "Voir règles Véhicules de l'Empire et Bateau", "texte": "Voir les règles sur les bateaux dans l'article Véhicules de l'Empire et Bateau." }
+    ]
+  }
+]

@@ -1,0 +1,648 @@
+[
+  {
+    "id": "amulette_de_malepierre", "nom": "Amulette de malepierre", "categorie": "divers",
+    "cout": 10, "cout_fixe": true, "rarete": "5", "disponibilite": "Rare 5, Skavens du Clan Pestilens uniquement",
+    "acces": ["skaven"], "source": "SCP (Skavens du Clan Pestilens)", "page": 38,
+    "texte": "Une amulette de malepierre permet à son porteur de relancer un dé durant la bataille. Si cette capacité n'a pas été utilisée au cours de celle-ci, elle peut l'être pour le jet d'Exploration pourvu que le Héros soit en état de fouiller les ruines. Cet objet est utilisé par les Skavens du Clan Pestilens en remplacement de la patte de lapin.",
+    "regles_speciales": []
+  },
+  {
+    "id": "anneau_du_scorpion", "nom": "Anneau du scorpion", "categorie": "divers",
+    "cout": "10+1D6", "cout_fixe": false, "rarete": "11", "disponibilite": "Rare 11",
+    "acces": ["rare_11"], "source": "K", "page": 38,
+    "texte": "Au début de la bataille, si le porteur réussit un test de Commandement, il peut invoquer un Scorpion des Tombeaux qui combattra avec la bande. Le Scorpion invoqué ne se battra que le temps d'une bataille. Profil du Scorpion des Tombeaux : M5 CC2 CT0 F2* E1 PV4 I1 A4 Cd(-).",
+    "regles_speciales": [
+      { "nom": "Vivant", "texte": "Les scorpions sont des êtres vivants et sont donc affectés normalement par la Psychologie. Cependant, ce sont de petites créatures du désert et n'ont pas besoin d'eau." },
+      { "nom": "Animaux", "texte": "Les Scorpions sont des animaux et ne gagnent donc pas d'expérience." },
+      { "nom": "Piqûre de scorpion", "texte": "Les Scorpions attaquent en utilisant l'aiguillon venimeux de leur queue. Les effets sont similaires à ceux du lotus noir (si vous faites un 6 pour toucher, la cible est Blessée automatiquement)." }
+    ]
+  },
+  {
+    "id": "anneau_venimeux", "nom": "Anneau venimeux", "categorie": "divers",
+    "cout": "20+2D6", "cout_fixe": false, "rarete": "10", "disponibilite": "Rare 10",
+    "acces": ["rare_10"], "source": "K", "page": 38,
+    "texte": "L'anneau venimeux immunise son porteur aux effets de tous les poisons.",
+    "regles_speciales": []
+  },
+  {
+    "id": "gnoblar_longue_vue", "nom": "Gnoblar longue-vue", "categorie": "divers",
+    "cout": 20, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Ogres uniquement",
+    "acces": ["maneaters"], "source": "BTB-MH (Mangeurs d'Hommes)", "page": 39,
+    "texte": "Les ogres prennent plaisir dans les querelles entre gnoblars et certains affirment en posséder un en tant qu'animal de compagnie pour se divertir. Un gnoblar astucieux utilisera sa malice pour faire la bonne action au bon moment afin de gagner les faveurs de son maître. Traité en tous points comme de l'équipement divers (ce ne sont pas des figurines et n'occupent pas de socle !). Si l'Ogre est mis hors de combat, lancez 1D6 pour chaque gnoblar : sur un 1-2, il est mort et retiré de l'équipement de son maître. Les Ogres peuvent avoir jusqu'à deux assistants gnoblars différents.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un Ogre avec un gnoblar longue-vue gagne la compétence esquive de la liste des compétences de Vitesse." }
+    ]
+  },
+  {
+    "id": "gnoblar_porte_bonheur", "nom": "Gnoblar porte-bonheur", "categorie": "divers",
+    "cout": 25, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Ogres uniquement",
+    "acces": ["maneaters"], "source": "BTB-MH (Mangeurs d'Hommes)", "page": 39,
+    "texte": "Traité en tous points comme de l'équipement divers (ce ne sont pas des figurines et n'occupent pas de socle !). Les Ogres peuvent avoir jusqu'à deux assistants gnoblars différents.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un Ogre avec un gnoblar porte-bonheur peut relancer un dé par partie. Rappelez-vous que vous ne pouvez jamais relancer un dé déjà relancé." }
+    ]
+  },
+  {
+    "id": "gnoblar_porte_epee", "nom": "Gnoblar porte-épée", "categorie": "divers",
+    "cout": 30, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Ogres uniquement",
+    "acces": ["maneaters"], "source": "BTB-MH (Mangeurs d'Hommes)", "page": 39,
+    "texte": "Traité en tous points comme de l'équipement divers (ce ne sont pas des figurines et n'occupent pas de socle !). Les Ogres peuvent avoir jusqu'à deux assistants gnoblars différents.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un Ogre avec un gnoblar porte-épée gagne une attaque supplémentaire de Force 2 au corps à corps, en utilisant la CC de son propriétaire. Cette attaque est faite en même temps que les autres attaques du Héros et doit être dirigée contre le même adversaire." }
+    ]
+  },
+  {
+    "id": "attirail_tribal_dent_rouj", "nom": "Attirail tribal des Dent Rouj'", "categorie": "divers",
+    "cout": 40, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Gobelins des Forêts uniquement",
+    "acces": ["gobelins_des_forets"], "source": "GDF", "page": 39,
+    "texte": "Seules les preuves de prouesses au combat peuvent attirer l'attention de ce cercle de guerriers. Une fois intégré dans la tribu, pour symboliser les exploits accomplis, le guerrier se fait faire des piercings à outrance !",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Ces bijoux ne peuvent être retirés. Le guerrier sera désormais soumis aux règles de frénésie telles que décrites dans le Livre des Règles de Mordheim." }
+    ]
+  },
+  {
+    "id": "banniere", "nom": "Bannière", "categorie": "divers",
+    "cout": 10, "cout_fixe": true, "rarete": "5", "disponibilite": "Rare 5",
+    "acces": ["rare_5"], "source": "BB", "page": 39,
+    "texte": "Les bandes bien établies portent souvent une bannière ou un drapeau pour annoncer leur présence, mais aussi pour disposer d'un point de ralliement durant la bataille.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "La bannière doit être portée dans une main par un Héros de la bande. Les guerriers amis dans un rayon de 12ps du porteur peuvent relancer tous les tests de seul contre tous ratés (mais vous ne pouvez pas relancer une relance ratée)." }
+    ]
+  },
+  {
+    "id": "banniere_de_la_maison_noble", "nom": "Bannière de la maison noble", "categorie": "divers",
+    "cout": 30, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Héros de la Cavalcade Maudite uniquement",
+    "acces": ["cavalcade_maudite"], "source": "CM (Cavalcade Maudite)", "page": 39,
+    "texte": "Brûlée et lacérée comme le reste des ornements de la Cavalcade, la bannière représente la maison noble de l'aristocrate à la tête de la bande même si elle est souvent décorée d'un masque rouge symbolisant l'allégeance à la Cavalcade. Bien que leur cité soit tombée et leur pouvoir réduit à néant, les aristocrates de la Cavalcade s'accrochent encore vainement aux symboles de leur gloire perdue.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "La fierté de porter la bannière et de ne jamais l'abandonner à l'ennemi augmente le Commandement du porteur de 1 jusqu'à un maximum de 10. La figurine portant la bannière doit utiliser une de ses mains pour la tenir en l'air et ne peut pas porter de bouclier, de rondache, d'arme à deux mains ou d'arme additionnelle." }
+    ]
+  },
+  {
+    "id": "banniere_de_nagarythe", "nom": "Bannière de Nagarythe", "categorie": "divers",
+    "cout": "75+3D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9, Guerriers Fantômes uniquement",
+    "acces": ["guerriers_fantomes"], "source": "GF (Guerriers Fantômes)", "page": 40,
+    "texte": "Tandis que de nombreux guerriers fantômes sont de simples vagabonds, d'autres sont en fait des groupes envoyés par Ulthuan accomplir une mission pour le Roi Phénix. De telles bandes sont plus proches d'unités militaires et tendent à conserver leurs insignes et autres symboles, tels que l'étendard de l'unité. Leurs couleurs peuvent avoir de nombreuses significations, surtout lorsque les guerriers de l'unité n'ont plus de véritable patrie. Les guerriers fantômes fabriquent eux-mêmes leur bannière, le coût et la rareté représentent la difficulté à trouver les matériaux appropriés (une soie fine et des fils d'or, par exemple).",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une bannière de Nagarythe peut servir de second point de ralliement pour l'unité (le Maître des Ombres étant le premier, grâce à sa compétence Chef). Tous les membres de la bande de Guerriers Fantômes à moins de 12ps de leur bannière peuvent relancer leurs tests de Commandement ratés. De plus, si la bannière est capturée par l'ennemi (si la figurine qui la porte est mise hors de combat), tous les membres de la bande sont sujets à la haine pour le reste de la partie, et ne peuvent pas se mettre volontairement en Déroute. Notez que ces effets n'affectent pas les Francs-Tireurs de la bande, mais seulement les Guerriers Fantômes (et les Héros Guerriers Fantômes). Une figurine portant une bannière a besoin d'une main libre pour la tenir. Aucune arme ou bouclier ne peut se trouver dans la main qui tient la bannière et la figurine qui la brandit ne peut pas avoir d'arme à deux mains. Au corps à corps, une bannière peut servir de lance de fortune (utilisez les règles des lances, mais avec un malus de -1 au jet pour toucher)." }
+    ]
+  },
+  {
+    "id": "banniere_du_clan_pestilens", "nom": "Bannière du clan Pestilens", "categorie": "divers",
+    "cout": 10, "cout_fixe": true, "rarete": "5", "disponibilite": "Rare 5, Skavens du Clan Pestilens uniquement",
+    "acces": ["skaven"], "source": "SCP (Skavens du Clan Pestilens)", "page": 40,
+    "texte": "Une figurine située dans un rayon de 12ps du porteur de la bannière, généralement un Moine de la Peste ou un Initié de la Peste, peut relancer une fois tout test raté de seul contre tous. Cet objet est utilisé par les Skavens du Clan Pestilens en remplacement de la bannière.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "De plus, le manche de la bannière du Clan Pestilens est considéré comme une arme à deux mains au corps à corps. Une bande ne peut avoir qu'une seule bannière du Clan Pestilens à la fois." }
+    ]
+  },
+  {
+    "id": "bidules_magiques", "nom": "Bidules magiques", "categorie": "divers",
+    "cout": 50, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Gobelins des Forêts uniquement",
+    "acces": ["gobelins_des_forets"], "source": "GDF", "page": 40,
+    "texte": "Les bidules magiques sont des objets de toutes sortes qui permettent au chaman de concentrer ses pouvoirs. La plupart du temps, ce sont des pattes de chauve-souris, des mâchoires de lézard et d'autres objets similaires, mais qui semblent tout de même apporter des avantages à leur propriétaire.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le Chaman peut relancer un jet pour lancer un sort s'il obtient un résultat de 4+ sur 1D6." }
+    ]
+  },
+  {
+    "id": "boussole", "nom": "Boussole", "categorie": "divers",
+    "cout": "45+2D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9, Pirates uniquement",
+    "acces": ["pirates"], "source": "P (Pirates)", "page": 40,
+    "texte": "Une boussole peut être d'une grande utilité, sur terre comme sur mer, en permettant aux pirates de naviguer plus rapidement et plus précisément dans les ruines apparemment désordonnées de la cité détruite.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Dans tout scénario où les joueurs doivent lancer 1D6 pour déterminer quel camp se déploie en premier, la bande du porteur d'une boussole peut relancer son dé. Notez qu'une seule relance est autorisée, même si plusieurs Pirates en ont une. Si les deux camps en ont une, aucune relance n'est autorisée." }
+    ]
+  },
+  {
+    "id": "brouette", "nom": "Brouette", "categorie": "divers",
+    "cout": 5, "cout_fixe": true, "rarete": "5", "disponibilite": "Rare 5",
+    "acces": ["rare_5"], "source": "BTB", "page": 40,
+    "texte": "Probablement la meilleure amie de l'aventurier, la brouette permet de transporter facilement toutes sortes d'objets volumineux comme des coffres ou des barils de poudre.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "La brouette doit être placée dans la zone de Déploiement, comme toutes les autres figurines de la bande. Si vous ne possédez pas de figurine adéquate, utilisez un pion marqueur pour la représenter. Un Héros ou un Homme de main, en dehors des animaux ou des créatures stupides, peut pousser la brouette s'il est en contact socle à socle avec elle. Pousser une brouette n'affecte pas le Mouvement du combattant. Il ne peut pas charger avec elle, mais il peut la lâcher à tout moment. La brouette peut être utilisée pour transporter des objets encombrants. Dans un premier temps, l'objet doit être déposé dans la brouette. Ensuite, une figurine peut pousser la brouette et son chargement. Une brouette ne peut pas contenir plus d'un objet encombrant à la fois, mais peut contenir autant de petits objets que vous le souhaitez (armes, armures et petits objets divers)." }
+    ]
+  },
+  {
+    "id": "cape_des_bois", "nom": "Cape des bois", "categorie": "divers",
+    "cout": 50, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Hors-la-loi de Stirwood uniquement",
+    "acces": ["hors_la_loi_de_stirwood"], "source": "HFS (Hors-la-loi de la forêt de Stirwood)", "page": 41,
+    "texte": "Certains hors-la-loi utilisent des capes des bois pour se camoufler et sortir du champ de vision de leurs ennemis. Tout porteur d'une telle cape semble se fondre dans la forêt environnante, ce qui le rend quasi invisible. Les capes des bois sont disponibles aux Héros Hors-la-loi de Stirwood dès leur recrutement initial, sans jet de Rareté. Si vous souhaitez en acquérir une après coup, utilisez les règles habituelles d'achat pendant la phase de Commerce et d'Exploration.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Tant que le porteur est à couvert d'un arbre, d'un buisson ou d'une haie, tout ennemi désireux d'utiliser une arme de tir sur lui subit un malus supplémentaire de -1 au toucher (en plus de tout autre modificateur). De même, si un jeteur de sort souhaite cibler un Hors-la-loi camouflé de cette manière avec une attaque magique, il ne peut le faire que sur un jet de 4+ sur 1D6. Si le guerrier ou le jeteur de sorts est à une distance en ps inférieure ou égale à son Initiative, cette règle est annulée." }
+    ]
+  },
+  {
+    "id": "cape_elfique", "nom": "Cape elfique", "categorie": "divers",
+    "cout": "100+1D6x10", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12 (75+1D6x10 CO pour les Guerriers Fantômes)",
+    "acces": ["rare_12", "guerriers_fantomes"], "source": "LdR/GF", "page": 41,
+    "texte": "Tissées de cheveux de jeunes filles elfes entrelacés avec des feuilles d'arbre vivantes, les capes elfiques sont de pures merveilles. Un guerrier qui en porte une se fondra dans les ombres et sera très difficile à viser avec des armes de tir. Ces capes sont rarement mises en vente, mais sont parfois prises sur des guerriers morts ou offertes par les elfes pour récompenser des humains qui leur ont apporté une aide quelconque.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une cape elfique inflige un malus de -1 au toucher à quiconque désire tirer sur son porteur." }
+    ]
+  },
+  {
+    "id": "carte_au_tresor", "nom": "Carte au trésor", "categorie": "divers",
+    "cout": "75+4D6", "cout_fixe": false, "rarete": "10", "disponibilite": "Rare 10, Pirates uniquement",
+    "acces": ["pirates"], "source": "P (Pirates)", "page": 42,
+    "texte": "Les Pirates peuvent utiliser une carte au trésor au lieu d'Explorer normalement les ruines de la ville. Elle indique l'emplacement (éventuel) d'un trésor qu'une autre bande de Pirates a été obligée d'enterrer avant de le mettre en lieu sûr. Lancez 1D6 après la partie pour déterminer où la carte vous mène (notez que les Couronnes d'Or gagnées représentent le gain après répartition du butin entre les membres de l'équipage). Lorsque vous achetez une carte, lancez 1D6.",
+    "regles_speciales": [
+      { "nom": "1. Fausse (mais rachat)", "texte": "La carte s'avère être fausse ! Cependant, vous parvenez à retrouver et à rosser le sale porc buveur de fond de cale qui vous l'a vendue et il offre à votre bande 1D6x5 Couronnes d'Or pour se faire pardonner (et éviter le supplice de la planche !)." },
+      { "nom": "2. Petite cachette", "texte": "La carte conduit votre équipage à une petite cachette. Après quelques heures de fouille, vous trouvez un coffre contenant un fragment de pierre magique et des bijoux d'une valeur de 2D6x10 Couronnes d'Or." },
+      { "nom": "3. Réserve de Long Drong Silver", "texte": "La carte révèle l'une des légendaires réserves de bière de Long Drong Silver lui-même ! Vous découvrez plusieurs tonneaux de rhum, de bière et d'autres alcools. L'un d'eux est un tonneau de BugmanXXXX, qui peut être consommé (appliquez les règles de la bière de Bugman). Après avoir « goûté » moult tonneaux, le reliquat est vendu pour 2D6x10 Couronnes d'Or (après le réveil de l'équipage bien sûr)." },
+      { "nom": "4. Cachette de Facio", "texte": "Enfouis dans les ruines d'une petite masure sans prétention, vous trouvez plusieurs coffres remplis de vêtements précieux, ainsi que des carnets contenant des informations compromettantes sur de nombreux marchands locaux. Vous réalisez qu'il doit s'agir de l'une des cachettes laissées par Facio, le grand escroc tiléen. Nouvellement vêtu et armé des informations recueillies, vous pourrez, lors de votre prochaine visite dans les comptoirs de commerce, acheter n'importe quel objet figurant dans le tableau des prix comme s'il s'agissait d'un objet commun (à l'exception des objets spécifiques aux Pirates, tels que les pierriers ou les cartes au trésor), à la condition d'avoir l'argent nécessaire. Une fois la transaction terminée, vous pourrez vendre les carnets à ses concurrents pour 2D6x10 CO, et continuer normalement vos achats dans les autres comptoirs. De plus, si lors de votre prochaine partie votre bande capture quelqu'un, trouve les Vagabonds (résultat 4.4 sur le Tableau d'Exploration) ou des Prisonniers (3.3.3), ils seront impressionnés par de beaux vêtements ! Le Commandement du Capitaine est augmenté de +1 lors du test d'Enrôlement." },
+      { "nom": "5. Coffre piégé", "texte": "Le coffre au trésor est savamment piégé ! L'un de vos Héros doit pénétrer dans le dédale qui protège le coffre et tenter d'éviter les flèchettes empoisonnées et les plafonds qui s'effondrent en réussissant un test d'Initiative. S'il réussit, son habileté lui permettra de découvrir un porte-bonheur près du coffre (qu'il revendiquera pour lui-même !), et 3D6x10 CO dans le coffre. S'il échoue au test, il doit passer la prochaine partie à se soigner. Cependant, maintenant que les pièges ont été déclenchés, l'équipage parvient à ouvrir le coffre et gagne l'or comme ci-dessus. Malheureusement, ils ne trouvent pas le porte-bonheur qui attend d'être trouvé par un aventurier plus prudent." },
+      { "nom": "6. Cache de Black-Wyrd", "texte": "Votre équipage incline la tête dans un silence révérencieux. La carte les conduit à l'une des légendaires caches secrètes utilisées par Black-Wyrd, le Roi-Pirate. Le premier et le plus grand pirate à avoir jamais saccagé Mordheim. Connu pour attacher des fragments de pierre magique à ses cheveux et à sa barbe, puis les enflammer pour qu'ils produisent des étincelles de feu impie, il était craint, à juste titre, par toutes les bandes, aussi bien sur terre que sur mer. Bien que seul un petit coffre trouvé sur le site, une fois ouvert, il révèle 1D3+2 fragments de pierre magique, plus une carte de Mordheim !" }
+    ]
+  },
+  {
+    "id": "carte_de_cathay", "nom": "Carte de Cathay", "categorie": "divers",
+    "cout": "20+4D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "BTB", "page": 43,
+    "texte": "De nombreuses cartes des provinces de Cathay et de ses régions frontalières circulent. La plupart d'entre elles ne sont pas fiables, mais de temps en temps, une bande réussit à mettre la main sur une carte intéressante. Lorsque vous achetez une carte, lancez 1D6.",
+    "regles_speciales": [
+      { "nom": "1. Fausse", "texte": "La carte est fausse et totalement inutile !" },
+      { "nom": "2-3. La vieille bique", "texte": "La carte indique la voie qui mène à une dame mystérieuse. Si la bande suit l'itinéraire décrit, le premier Événement Aléatoire qui se produira lors de la prochaine bataille sera automatiquement (56) « La vieille bique » (voir le Tableau des Rencontres Aléatoires de Border Town Burning)." },
+      { "nom": "4-5. Progression de campagne", "texte": "La prochaine fois qu'un 4+ est obtenu sur le Tableau de Progression (voir Border Town Burning), la bande possédant une carte de Cathay compte automatiquement comme ayant le plus de points de campagne. Elle peut donc choisir le scénario suivant. Si les deux bandes ont une carte de Cathay, comparez les points de campagne comme d'habitude." },
+      { "nom": "6. Cachette de Belandysh", "texte": "Cette carte mène à la cachette de Belandysh ! Lorsqu'une bande possédant cette carte obtient un 1 pour un jet d'Événement Aléatoire, elle peut choisir de tomber automatiquement sur l'événement (42-43) « Belandysh arrive ! »." }
+    ]
+  },
+  {
+    "id": "carte_de_mordheim", "nom": "Carte de Mordheim", "categorie": "divers",
+    "cout": "20+4D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "LdR", "page": 43,
+    "texte": "Quelques survivants du cataclysme se trouvent encore dans les campements autour de Mordheim, et gagnent leur vie en dessinant des cartes de la cité de mémoire. Beaucoup de ces cartes sont fausses, et même les vraies sont souvent grossières et imprécises. Une carte peut aider une bande à se diriger dans le labyrinthe de ruelles vers les endroits où se trouvent les riches bâtiments regorgeant de butin. Lancez 1D6 lorsque vous achetez une carte.",
+    "regles_speciales": [
+      { "nom": "1. Fausse", "texte": "La carte est fausse et sans valeur. Elle vous fait tourner en rond et votre adversaire pourra automatiquement choisir le prochain scénario que vous jouerez." },
+      { "nom": "2-3. Vague", "texte": "Bien que grossière, cette carte est relativement précise (enfin... en partie... peut-être !). Vous pouvez relancer un dé de votre choix lors de la prochaine phase d'Exploration si vous le désirez, mais vous devez accepter le résultat du second jet." },
+      { "nom": "4. Carte des catacombes", "texte": "La carte indique un accès à la cité par les catacombes. Vous choisissez automatiquement le scénario lors de votre prochaine bataille." },
+      { "nom": "5. Précise", "texte": "La carte est récente et très détaillée. Vous pouvez relancer jusqu'à trois dés durant la prochaine phase d'Exploration si vous le désirez. Vous devez accepter les résultats des seconds jets." },
+      { "nom": "6. Carte originale", "texte": "C'est l'une des douze cartes dessinées pour le comte Von Steinhardt d'Ostermark. Dorénavant, vous pouvez toujours relancer un dé lors des jets sur le tableau d'Exploration tant que votre Héros possède la carte et n'est pas mis hors de combat au cours d'une bataille." }
+    ]
+  },
+  {
+    "id": "carte_de_nehekhara", "nom": "Carte de Nehekhara", "categorie": "divers",
+    "cout": "20+4D6", "cout_fixe": false, "rarete": "10", "disponibilite": "Rare 10",
+    "acces": ["rare_10"], "source": "K", "page": 43,
+    "texte": "Les cartes du royaume des morts sont rares. Celles qui sont précises sont encore plus rares. Les dunes changeantes et les lits de rivières asséchés peuvent rendre une carte obsolète en une saison. Utilisez les règles de la carte de Mordheim du Livre des Règles.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Voir Carte de Mordheim (mêmes résultats 1D6)." }
+    ]
+  },
+  {
+    "id": "cartes_de_tarot", "nom": "Cartes de tarot", "categorie": "divers",
+    "cout": 50, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7 (indisponibles aux Répurgateurs et aux Sœurs de Sigmar)",
+    "acces": ["commun_sauf_witch_hunters_sisters_of_sigmar"], "source": "BB", "page": 44,
+    "texte": "Bien que déclaré blasphématoire et illégal par le Grand Théogoniste, on dit que le tarot des étoiles peut prédire le futur à qui ose le consulter.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un Héros muni d'un jeu de cartes de tarot peut le consulter avant chaque bataille en faisant un test de Commandement. En cas de réussite, le Héros a un aperçu de ce qui va se passer. Vous pouvez donc modifier de -1/+1 le résultat du dé de votre choix lors de la phase d'Exploration (même si le Héros portant les cartes est hors de combat). Si le test de Cd est raté de trois points ou plus, les cartes prédisent malheur et désespoir, si bien que le Héros refuse de se battre et rate la bataille suivante." }
+    ]
+  },
+  {
+    "id": "chapelet", "nom": "Chapelet", "categorie": "divers",
+    "cout": 10, "cout_fixe": true, "rarete": "6", "disponibilite": "Rare 6",
+    "acces": ["rare_6"], "source": "BTB", "page": 44,
+    "texte": "Un chapelet est fait de perles de pierre ou d'ivoire et d'autres ornements sacrés, assemblés sur une chaîne. Il aide à se concentrer lors des prières ou d'une méditation.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un lanceur de prières portant un chapelet peut relancer un test de difficulté raté s'il n'a rien fait ce tour-ci, excepté se déplacer (pas courir) ou rester sur place. Un chapelet ne peut pas être utilisé si l'utilisateur est engagé au corps à corps." }
+    ]
+  },
+  {
+    "id": "coffre", "nom": "Coffre", "categorie": "divers",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "BTB", "page": 44,
+    "texte": "Les coffres sont souvent utilisés pour mettre à l'abri des armes, de l'équipement ou des victuailles, et parfois même, des objets encore plus précieux.",
+    "regles_speciales": [
+      { "nom": "Encombrant", "texte": "Un coffre doit être porté par deux combattants. Les porteurs doivent rester en contact socle à socle avec le coffre, ou celui-ci tombera au sol. Ils ne peuvent pas utiliser d'armes de tir ou combattre au corps à corps tant qu'ils portent le coffre." }
+    ]
+  },
+  {
+    "id": "collet", "nom": "Collet", "categorie": "divers",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Chasseurs Cornus uniquement",
+    "acces": ["chasseurs_cornus"], "source": "NC-CC (Chasseurs Cornus)", "page": 44,
+    "texte": "Les Chasseurs Cornus sont des trappeurs chevronnés.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un Héros peut poser un piège s'il passe son tour à ne rien faire d'autre (il ne peut pas poser de piège s'il vient de se relever). Placez un marqueur au contact du socle du Héros. Si une figurine (à l'exception de celle qui a posé le piège) se déplace à 2ps ou moins, lancez 1D6 : 1-2 = rien ne se passe, la figurine peut continuer son Mouvement. 3-6 = le piège se déclenche, la figurine est placée à 2ps du piège et subit une touche automatique de Force 4. Si la figurine n'est pas Blessée, elle peut continuer son Mouvement. Le marqueur est ensuite retiré." }
+    ]
+  },
+  {
+    "id": "collier_de_griffes_dours_market", "nom": "Collier de griffes d'ours", "categorie": "divers",
+    "cout": "75+3D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9, Kislévites uniquement",
+    "acces": ["kislevites"], "source": "K (Kislévites)", "page": 44,
+    "texte": "À Kislev, les ours sont sacrés et un collier fait de dents (ou de crocs) de cet animal est réputé avoir des pouvoirs magiques. Un guerrier portant un collier de griffes d'ours reçoit une partie de la force et de la férocité de cet animal.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le guerrier devient sujet à la frénésie." }
+    ]
+  },
+  {
+    "id": "conque_musicale", "nom": "Conque musicale", "categorie": "divers",
+    "cout": 25, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Guerrières Piranha des Amazones du Setting Lustrie uniquement",
+    "acces": ["amazones_lustrie"], "source": "L-AL (Amazones du Setting Lustrie)", "page": 44,
+    "texte": "La conque musicale est utilisée par les guerrières piranha expérimentées pour avertir la bande des ennemis en approche.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "En début de partie, une Guerrière Piranha peut utiliser la conque pour relancer le jet déterminant qui se déploie en premier et qui commence en premier. Même si plusieurs figurines possèdent une conque, il n'est pas possible d'effectuer une seconde relance." }
+    ]
+  },
+  {
+    "id": "cor_de_guerre", "nom": "Cor de guerre", "categorie": "divers",
+    "cout": "30+2D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8",
+    "acces": ["rare_8"], "source": "VEC", "page": 45,
+    "texte": "Le son puissant d'un cor de guerre suffit souvent à insuffler du courage dans le cœur des combattants. Sa vibration belliqueuse pousse les guerriers à des actes de courage inouïs et leur donne la volonté de continuer à se battre malgré l'adversité.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le cor de guerre peut être sonné une fois par bataille, au début de n'importe quel tour du joueur. Jusqu'au début du tour suivant, tous les membres de la bande gagnent un bonus de +1 à leur Commandement (jusqu'à un maximum de 10), l'effet prenant fin au début du tour suivant. Le cor peut être utilisé juste avant un test de Déroute." }
+    ]
+  },
+  {
+    "id": "cor_de_guerre_de_nagarythe", "nom": "Cor de guerre de Nagarythe", "categorie": "divers",
+    "cout": "25+1D6", "cout_fixe": false, "rarete": "6", "disponibilite": "Rare 6, Guerriers Fantômes uniquement",
+    "acces": ["guerriers_fantomes"], "source": "GF (Guerriers Fantômes)", "page": 45,
+    "texte": "Comme pour la Bannière de Nagarythe, les unités de guerriers fantômes de Mordheim emportent avec eux un cor de guerre. Les règles du cor de guerre de Nagarythe sont les mêmes que celles des cors de guerre normaux (en dehors de la rareté et du coût).",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le cor de guerre de Nagarythe peut être sonné une fois par partie, au début de n'importe quel tour du joueur. Jusqu'au début du tour suivant, tous les membres de la bande gagnent un bonus de +1 à leur Commandement (jusqu'à un maximum de 10), l'effet prenant fin au début du tour suivant. Le cor de guerre peut être utilisé juste avant que la bande effectue un test de Déroute." }
+    ]
+  },
+  {
+    "id": "corde_et_grappin", "nom": "Corde et grappin", "categorie": "divers",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 45,
+    "texte": "Une corde associée à un grappin permet de se déplacer plus aisément dans les ruines de Mordheim.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un guerrier équipé d'une corde et d'un grappin peut relancer les tests d'Initiative ratés pour grimper ou descendre." }
+    ]
+  },
+  {
+    "id": "echelle", "nom": "Échelle (petite/grande)", "categorie": "divers",
+    "cout": "5 / 10", "cout_fixe": false, "rarete": "C / 5", "disponibilite": "Commun / Rare 5",
+    "acces": ["commun_ou_rare_5"], "source": "BTB", "page": 45,
+    "texte": "Les échelles sont pratiques pour atteindre des endroits plus élevés, comme des toits ou des arbres. L'échelle est placée sur le plateau de jeu comme n'importe quelle autre figurine de la bande. Si vous n'avez pas l'élément adéquat, utilisez un marqueur pour la représenter. Une échelle requiert deux figurines, Hommes de main ou Héros, pour être portée (ou une créature de grande taille). Cependant, bien qu'un combattant puisse porter une échelle seul, il ne pourra se déplacer qu'à demi-vitesse (au quart pour les grandes échelles).",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Les figurines portant une échelle ne peuvent pas courir, mais peuvent la lâcher quand ils le souhaitent (par exemple, lors d'une charge). Une échelle peut être installée durant la phase de Mouvement et requiert le quart du Mouvement des figurines (la moitié pour les grandes échelles). Notez que si l'un des porteurs a un Mouvement inférieur à l'autre, les deux se déplacent au Mouvement le plus faible. Les échelles sont considérées comme un terrain dégagé et n'affectent pas le Mouvement des figurines. Une figurine en contact socle à socle avec une échelle peut tenter de la faire basculer durant la phase de Corps à corps. La figurine doit faire un test de Force avec un modificateur de -1 pour chaque figurine sur l'échelle en plus de la première. Si le test est réussi, considérez que les figurines chutent de là où elles étaient. Les petites échelles ont une longueur maximale de 3ps et les grandes échelles ont une longueur supérieure à 3ps." }
+    ]
+  },
+  {
+    "id": "familier", "nom": "Familier", "categorie": "divers",
+    "cout": "20+1D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8, jeteurs de sorts uniquement",
+    "acces": ["jeteurs_de_sorts"], "source": "LdR", "page": 46,
+    "texte": "Les sorciers mènent une vie solitaire, évitée par ceux qui peuvent à peine l'imaginer, et par ceux qui, encore moins, comprendre les pouvoirs qu'ils possèdent. Ils ont donc pour habitude de partager leur existence avec des animaux de compagnie plutôt qu'avec des êtres doués de « conscience ». Il arrive qu'un lien magique s'établisse entre l'un de ces animaux et le mage, au point que celui-ci peut voir par les yeux de la créature et deviner ses pensées. Les sorciers favorisent différents types d'animaux selon leur contrée d'origine et leur environnement. Les Tisseurs d'Ombres ont, par exemple, tendance à préférer les animaux à la livrée sombre, pouvant se fondre aisément dans les ténèbres, comme les corbeaux ou les chats noirs. Malgré leur apparence, les Familiers ne sont pas des créatures normales, mais plutôt des animaux devenus sensibles aux vents de magie. Les Familiers ne peuvent pas être pris comme équipement normal. Leur coût représente en réalité celui du matériel requis pour le rituel qui invoquera le Familier et permettra de former un lien magique avec lui. Le niveau de rareté représente les chances de succès du rituel. Ainsi, le coût d'un Familier doit toujours être payé si le jet de rareté est tenté, sans tenir compte du succès ou non de ce dernier. De plus, seuls les jeteurs de sorts peuvent tenter de « trouver » un Familier. Si un Familier est trouvé, il doit être représenté sur le lanceur de sorts comme n'importe quel autre équipement. Un Familier peut être placé sur un socle séparé (en fait, c'est ainsi que se présentent la plupart des Familiers de Games Workshop), mais si vous décidez de faire ainsi, le Familier doit toujours se trouver en contact socle à socle avec le sorcier, et n'a aucun effet en termes de jeu (il ne peut pas attaquer de figurines ennemies ni être attaqué, n'augmente pas la taille du socle du sorcier, en dehors de ceux détaillés ci-dessous). Lanceurs de sorts uniquement (ce qui exclut les utilisateurs de Prières).",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un sorcier avec un Familier peut relancer un jet pour lancer un sort à chaque tour. Le résultat de cette relance doit toujours être accepté, même s'il est un échec. Il est impossible de relancer une relance." }
+    ]
+  },
+  {
+    "id": "flute_de_charmeur_de_serpent", "nom": "Flûte de charmeur de serpent", "categorie": "divers",
+    "cout": "10+1D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "K", "page": 46,
+    "texte": "Le propriétaire de cet objet est capable de contrôler les serpents.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Si le combattant ne fait rien pendant un tour complet, il peut jouer de la flûte. Dans ce cas, tous les serpents dans un rayon de 6ps ne peuvent ni bouger, ni attaquer lors de leur prochain tour." }
+    ]
+  },
+  {
+    "id": "fragments_de_malepierre_incandescents", "nom": "Fragments de malepierre incandescents", "categorie": "divers",
+    "cout": "100+1D6x10", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9, Skavens du Clan Pestilens uniquement",
+    "acces": ["skaven"], "source": "SCP (Skavens du Clan Pestilens)", "page": 46,
+    "texte": "Placés dans un encensoir à peste, ces fragments de malepierre ont la particularité de rendre les nuages de fumée pestilentielle plus épais qu'à l'accoutumée. Cet objet est utilisé par les Skavens du Clan Pestilens en remplacement de la cape elfique.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le porteur devient difficile à atteindre et les tireurs qui souhaitent le prendre pour cible subissent un malus de -1 au toucher." }
+    ]
+  },
+  {
+    "id": "gourde_magique", "nom": "Gourde magique", "categorie": "divers",
+    "cout": 10, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7",
+    "acces": ["rare_7"], "source": "K", "page": 46,
+    "texte": "Le pouvoir de la gourde peut être utilisé à la fin de chaque bataille. Elle fournit 1D3 unités d'eau. Une fois le volume d'eau consommé, lancez 1D6 supplémentaire. Sur un 6, la magie de la gourde est épuisée et elle se brise.",
+    "regles_speciales": []
+  },
+  {
+    "id": "grimoire_de_magie", "nom": "Grimoire de magie", "categorie": "divers",
+    "cout": "200+1D6x25", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12, indisponible aux Répurgateurs et aux Sœurs de Sigmar",
+    "acces": ["jeteurs_de_sorts_sauf_witch_hunters_sisters_of_sigmar"], "source": "BB", "page": 46,
+    "texte": "Des ouvrages contenant un savoir interdit sont parfois proposés à la vente dans les marchés et les sombres ruelles des campements qui entourent Mordheim.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Si une bande comporte des jeteurs de sorts, l'un d'eux gagne un nouveau sort de manière permanente. Tirez-le aléatoirement sur sa propre liste ou dans celle de Magie Mineure. Référez-vous au chapitre Magie. Ne peut être utilisé qu'une fois." }
+    ]
+  },
+  {
+    "id": "habits_de_fourrure", "nom": "Habits de fourrure", "categorie": "divers",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, indisponible aux Hommes-Bêtes",
+    "acces": ["commun_sauf_hommes_betes"], "source": "K", "page": 46,
+    "texte": "Les habits de fourrure comprennent les raquettes et des fourrures (incluant bottes et gants). Une figurine portant des habits de fourrure est immunisée aux règles spéciales des effets météorologiques suivants : froid mordant, neige abondante et froid hivernal (voir Border Town Burning).",
+    "regles_speciales": [
+      { "nom": "Trempés par l'eau", "texte": "Si les habits de fourrure deviennent trempés par l'eau, ils deviennent inutiles jusqu'à la fin de la partie. Notez que, comme le pardessus, les habits de fourrure peuvent être utilisés par des Hommes de main." }
+    ]
+  },
+  {
+    "id": "habits_de_nomade", "nom": "Habits de nomade", "categorie": "divers",
+    "cout": 25, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8",
+    "acces": ["rare_8"], "source": "K", "page": 47,
+    "texte": "Tissés par les natifs du désert, ces habits permettent à son porteur de ne subir que la moitié des pénalités liées aux Effets Météorologiques. Ces habits influent sur les résultats du Tableau Météorologique de la manière suivante : Il pleut : les habits protègent l'équipement du combattant. Lorsque vous devez lancer 1D6 à chaque fois que vous utilisez une arme à poudre noire, le tir n'est perdu que sur un 1. Chaleur infernale : un combattant vêtu d'habits de nomade ne subit qu'une pénalité de -1 à sa CC et sa CT et n'a besoin que de la quantité d'eau normale. Chaleur : un combattant portant ces habits ne subit pas de pénalités à sa CC et sa CT. Si au moins la moitié de la bande porte des habits de nomade, elle n'a besoin que de la quantité d'eau normale. Tempête de sable : les habits n'ont pas d'effet. Même ces habits ne peuvent protéger les combattants de la férocité de la tempête. Appliquez les règles normalement de la tempête de sable.",
+    "regles_speciales": []
+  },
+  {
+    "id": "habits_en_soie_de_cathay", "nom": "Habits en soie de Cathay", "categorie": "divers",
+    "cout": "50+2D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9, Mercenaires uniquement",
+    "acces": ["mercenaires"], "source": "LdR", "page": 47,
+    "texte": "Certains chefs de bande fortunés aiment étaler leur richesse et s'achètent des habits en soie de Cathay. C'est le tissu le plus cher du monde connu, et porter de tels vêtements est un moyen infaillible d'attirer l'attention, surtout des voleurs et des assassins.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Toute bande de Mercenaires dont le chef porte les habits de soie peut relancer le premier test de Déroute raté. Lancez cependant 1D6 après chaque bataille où le chef est mis hors de combat. Sur un résultat de 1-3, les vêtements sont déchirés et détruits." }
+    ]
+  },
+  {
+    "id": "jambe_de_bois", "nom": "Jambe de bois", "categorie": "divers",
+    "cout": 8, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Pirates uniquement (une seule par figurine)",
+    "acces": ["commun_pirates"], "source": "P (Pirates)", "page": 47,
+    "texte": "Tout Pirate ayant subi les Blessures Graves blessure à la jambe ou jambe écrasée peut faire le choix de faire remplacer la jambe estropiée par une solide jambe de bois. Cela réduira son Mouvement (et sa caractéristique de Mouvement maximale) de -1, mais offre une chance que les coups subis frappent sa jambe de bois. Le porteur bénéficie d'un jet de sauvegarde spécial de 6+, utilisable à chaque fois qu'il fait un jet de sauvegarde contre un tir ou un coup porté au corps à corps. Cette sauvegarde n'est pas modifiable et peut être utilisée même si aucun jet de sauvegarde n'est normalement autorisé. Un nouveau membre de la bande, que ce soit à la création de la bande ou une nouvelle recrue, peut également débuter avec un crochet.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Si le porteur subit une blessure à la jambe ou jambe écrasée lors de combats ultérieurs, ces Blessures Graves pourront être ignorées sur un jet de 4+ car le coup a été porté sur le crochet." }
+    ]
+  },
+  {
+    "id": "jolly_roger", "nom": "Jolly Roger", "categorie": "divers",
+    "cout": "40+2D6", "cout_fixe": false, "rarete": "C", "disponibilite": "Commun, Pirates uniquement, un seul par bande",
+    "acces": ["commun_pirates"], "source": "P (Pirates)", "page": 47,
+    "texte": "La simple vue du Jolly Roger ondulant au gré du vent suffit à émouvoir le plus endurci des vieux loups de mer. N'importe quel Héros peut porter le Jolly Roger. Le coût représente les efforts que doivent fournir les artisans du navire pour créer une version miniaturisée du voilier, transportable au bout d'une perche.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Les Pirates situés à moins de 12ps du Jolly Roger ne sont jamais considérés comme étant seuls contre tous. Tenir la bannière monopolise une main. Ce combattant ne peut donc pas porter ou utiliser d'armes à deux mains pour toute la partie. Notez que les Enrôlés, dépourvus du véritable esprit Pirate, ne tirent aucun avantage du Jolly Roger." }
+    ]
+  },
+  {
+    "id": "lampe_magique", "nom": "Lampe magique", "categorie": "divers",
+    "cout": "50+2D6", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12",
+    "acces": ["rare_12"], "source": "K", "page": 48,
+    "texte": "Il s'agit d'un objet extrêmement rare qui remonte à l'époque du Sultan Jaffar. On raconte que le sultan usait de sombres magies pour lier des entités démoniaques à des objets du quotidien de façon à bénéficier de leurs pouvoirs sans révéler leur nature. Il arrive que l'un ou l'autre de ces objets se retrouve entre les mains d'aventuriers assez braves ou fous pour en appeler aux pouvoirs du djinn. À chaque fois qu'un Héros utilise la lampe magique, elle lui accorde trois souhaits, mais pour chaque jet sur le tableau de la Lumière, vous devez en faire un sur le tableau de l'Ombre.",
+    "regles_speciales": [
+      { "nom": "D6 Lumière — 1", "texte": "Gagnez 1D6 points d'expérience." },
+      { "nom": "D6 Lumière — 2", "texte": "Gagnez une compétence choisie dans les listes appropriées." },
+      { "nom": "D6 Lumière — 3", "texte": "Gagnez 1D6x10 Couronnes d'Or." },
+      { "nom": "D6 Lumière — 4", "texte": "Gagnez un objet déterminé aléatoirement sur la liste d'équipement." },
+      { "nom": "D6 Lumière — 5", "texte": "Choisissez un objet dans la liste d'équipements." },
+      { "nom": "D6 Lumière — 6", "texte": "Lancez deux fois sur ce tableau." },
+      { "nom": "D6 Ombre — 1", "texte": "Rien de particulier." },
+      { "nom": "D6 Ombre — 2", "texte": "Rien de particulier." },
+      { "nom": "D6 Ombre — 3", "texte": "Vous perdez 1D6x10 CO." },
+      { "nom": "D6 Ombre — 4", "texte": "Vous perdez 1D6 armes." },
+      { "nom": "D6 Ombre — 5", "texte": "Vous perdez la lampe." },
+      { "nom": "D6 Ombre — 6", "texte": "Faites un jet sur le tableau des Dégâts." }
+    ]
+  },
+  {
+    "id": "liber_bubonicus", "nom": "Liber Bubonicus", "categorie": "divers",
+    "cout": "200+1D6x25", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12, Skavens du Clan Pestilens uniquement",
+    "acces": ["skaven"], "source": "SCP (Skavens du Clan Pestilens)", "page": 48,
+    "texte": "Si une bande de Skavens du Clan Pestilens comporte un Prêcheur-Sorcier Pestilens, il gagne un nouveau sort de manière permanente. Tirez-le aléatoirement sur la liste des sorts de la magie du Rat Cornu. S'il possède la compétence sorcellerie, un Prêtre de la Peste peut utiliser le Liber Bubonicus pour apprendre la magie du Rat Cornu. Il bénéficiera de la règle spéciale « Sorcier : un sorcier est un jeteur de sorts qui utilise la magie du Rat Cornu. Voir la section Magie. » et apprendra de manière permanente un sort tiré au hasard dans la liste des sorts de la magie du Rat Cornu. Le Liber Bubonicus ne peut être utilisé qu'une seule fois, et une bande ne peut avoir qu'un seul utilisateur du Liber Bubonicus dans une campagne donnée. Cet objet est utilisé par les Skavens du Clan Pestilens en remplacement du grimoire de magie.",
+    "regles_speciales": []
+  },
+  {
+    "id": "lanterne", "nom": "Lanterne", "categorie": "divers",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 48,
+    "texte": "Une figurine portant une lanterne peut ajouter +4ps à la distance de repérage des ennemis cachés.",
+    "regles_speciales": []
+  },
+  {
+    "id": "liber_necris", "nom": "Liber Necris", "categorie": "divers",
+    "cout": "200+1D6x25", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12, Morts-Vivants et Vampires uniquement",
+    "acces": ["undead", "morts_sans_repos"], "source": "SN (Les Seigneurs de la Nuit)", "page": 48,
+    "texte": "Ce livre retranscrit certains des écrits de Nagash, le Grand Nécromancien. S'il possède la compétence sorcellerie, grâce à ce livre, un Vampire peut apprendre la Nécromancie. Un Nécromancien gagnera un nouveau sort de manière permanente.",
+    "regles_speciales": []
+  },
+  {
+    "id": "liturgicus_infectus", "nom": "Liturgicus Infectus", "categorie": "divers",
+    "cout": "30+2D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8, Skavens du Clan Pestilens uniquement",
+    "acces": ["skaven"], "source": "SCP (Skavens du Clan Pestilens)", "page": 48,
+    "texte": "Un membre du Clan Pestilens, généralement un Moine de la Peste, peut emporter avec lui un parchemin sur lequel est inscrit le saint Liturgicus Infectus. Il s'agit du chant du Clan Pestilens à la gloire des maladies et de la contagion.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Au début d'un tour, ou juste avant de faire un test de Déroute, la bande peut chanter le Liturgicus Infectus et bénéficier d'un bonus de Commandement de +1 jusqu'à la fin du tour." }
+    ]
+  },
+  {
+    "id": "livre_de_cuisine_halfling", "nom": "Livre de cuisine Halfling", "categorie": "divers",
+    "cout": "30+3D6", "cout_fixe": false, "rarete": "7", "disponibilite": "Rare 7, indisponible à la Kermesse du Chaos et aux Morts-Vivants",
+    "acces": ["commun_sauf_carnival_of_chaos_undead"], "source": "LdR", "page": 49,
+    "texte": "Tous les chefs halflings ont leurs propres recettes secrètes, compilées dans des grimoires copiés à la main dans le Mootland, leur pays natal. La nourriture préparée selon ces recettes attire les guerriers durant les périodes difficiles.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le nombre maximum de guerriers autorisé dans votre bande est accru de +1, quel que soit le nombre de livres de cuisine en votre possession." }
+    ]
+  },
+  {
+    "id": "livre_des_damnes", "nom": "Livre des Damnés", "categorie": "divers",
+    "cout": 100, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Répurgateurs uniquement",
+    "acces": ["witch_hunters"], "source": "BB", "page": 49,
+    "texte": "Les pages de ce grimoire décrivent les serviteurs du Chaos, hérétiques, déviants, mutants, blasphémateurs, nécromanciens, pécheurs et autres ennemis de Sigmar dans toute leur ignominie. Un Héros portant le livre des damnés aura la haine de toutes les figurines des bandes de Possédés, Skavens, Sœurs de Sigmar, Hommes-Bêtes, Chaos, Démons ou Orques et Gobelins. NdT : Ces règles ont été écrites avant l'apparition de nombreuses autres bandes. Libre à vous de réfléchir aux bandes affectées ou non, mais les bandes de Morts-Vivants et chaotiques sorties ultérieurement semblent être des candidates toutes désignées.",
+    "regles_speciales": []
+  },
+  {
+    "id": "livre_saint", "nom": "Livre saint", "categorie": "divers",
+    "cout": "100+1D6x10", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8, Prêtres-Guerriers et Sœurs de Sigmar uniquement",
+    "acces": ["witch_hunters", "sisters_of_sigmar"], "source": "LdR", "page": 49,
+    "texte": "Des livres contenant prières et descriptions de miracles accomplis par des saints hommes comme Sigmar Heldenhammer sont copiés à la main dans les scriptoriums de Sigmar et d'Ulric, puis donnés ou vendus aux fidèles. De ces ouvrages, le Deus Sigmar est le plus connu et le plus répandu, mais d'autres textes, comme les Écritures de Sigmar, sont aussi vendus aux croyants. Un homme pieux peut réciter les prières d'un tel livre pour renforcer sa foi.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un Prêtre-Guerrier ou une Sœur de Sigmar portant un livre sacré ajoute +1 au résultat pour déterminer s'il (ou elle) réussit à lancer un sort ou non." }
+    ]
+  },
+  {
+    "id": "longue_vue", "nom": "Longue-vue", "categorie": "divers",
+    "cout": 20, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Pirates uniquement",
+    "acces": ["pirates"], "source": "P (Pirates)", "page": 49,
+    "texte": "Un pirate peut utiliser sa fidèle longue-vue pour scruter le champ de bataille et repérer les fourbes qui tentent de se dissimuler !",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Au début de son tour, l'utilisateur de la longue-vue peut tenter de détecter un ennemi caché sur lequel il a une ligne de vue. Sur un jet de 4+, le combattant perd son statut caché. Un Pirate utilisant une longue-vue peut se déplacer pendant ce tour, mais ne peut ni courir ni charger." }
+    ]
+  },
+  {
+    "id": "lunette_de_visee", "nom": "Lunette de visée", "categorie": "divers",
+    "cout": "75+3D6", "cout_fixe": false, "rarete": "10", "disponibilite": "Rare 10",
+    "acces": ["rare_10"], "source": "VEC", "page": 49,
+    "texte": "Le télescope, incontournable instrument des astronomes et astrologues Nulnois, est plutôt rare dans la Cité des Damnés. Cependant, sa version miniature est bien utile aux tireurs et à ceux qui veulent pouvoir surveiller à distance leur environnement.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un Héros possédant une lunette de visée peut, à chaque tour, augmenter de 1D6ps la portée normale de ses armes de tir. Elle triple également la distance à laquelle il peut repérer les figurines cachées." }
+    ]
+  },
+  {
+    "id": "masque_de_crane", "nom": "Masque de crâne", "categorie": "divers",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Tueur de Saurus uniquement",
+    "acces": ["tueur_de_saurus"], "source": "RL", "page": 49,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Provoque la peur." }
+    ]
+  },
+  {
+    "id": "masque_du_roi_soleil", "nom": "Masque du Roi soleil", "categorie": "divers",
+    "cout": 70, "cout_fixe": true, "rarete": "C", "disponibilite": "Aristocrates uniquement, un seul exemplaire par bande",
+    "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 50,
+    "texte": "Masque doré à l'effigie des anciens empereurs, orné d'une couronne de lauriers. Le masque symbolise le désir secret de la maison Steinhardt de trahir l'Empire et de monter sur le trône de Sigmar à Altdorf. Aucun porteur de ce masque ne peut être mis à genoux, comme il sied à un empereur. Chaque masque est unique, vous ne pouvez donc avoir qu'un seul exemplaire de chaque masque dans votre bande. Vous pouvez répartir librement les masques entre vos Héros avant le combat si vous le souhaitez.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le porteur du masque du Roi-Soleil ne peut pas être mis à terre ou sonné, et les résultats indiqués dans le tableau des Blessures n'ont aucun effet sur lui. La seule façon de le sortir de la table est d'obtenir un jet de Blessure correspondant à hors de combat." }
+    ]
+  },
+  {
+    "id": "masque_de_mort_en_argent", "nom": "Masque de mort en argent", "categorie": "divers",
+    "cout": 50, "cout_fixe": true, "rarete": "C", "disponibilite": "Aristocrates uniquement, un seul masque de mort d'argent par bande",
+    "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 50,
+    "texte": "Ce masque ressemble à un crâne richement décoré, mais s'anime comme la peau d'un homme vivant, reflétant les expressions de celui qui le porte.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Si le porteur du masque d'argent est mis hors de combat, il peut relancer n'importe quel résultat sur une table des Blessures Graves. Il doit accepter le deuxième résultat même s'il est pire que le précédent." }
+    ]
+  },
+  {
+    "id": "masque_de_tete_de_poisson", "nom": "Masque de tête de poisson", "categorie": "divers",
+    "cout": 60, "cout_fixe": true, "rarete": "C", "disponibilite": "Aristocrates uniquement",
+    "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 50,
+    "texte": "Un étrange masque argenté, incrusté d'yeux de pierres précieuses, semblable à celui d'un poisson des profondeurs de l'océan. On murmure que ces masques étaient autrefois utilisés par les adorateurs de divinités maléfiques oubliées qui sommeillent au fond des mers, rêvant du jour où elles s'élèveront des profondeurs pour semer la ruine parmi les hommes. Un homme portant ce masque peut avaler un humain tout entier, comme un serpent avale un rat.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Chaque fois que le porteur du masque de tête de poisson met un adversaire hors de combat, il gagne +1PV temporairement (jusqu'à un maximum de 5) jusqu'à la fin de la bataille. Après quoi, son nombre de PV revient à la normale." }
+    ]
+  },
+  {
+    "id": "masque_sans_visage", "nom": "Masque sans visage", "categorie": "divers",
+    "cout": 30, "cout_fixe": true, "rarete": "C", "disponibilite": "Aristocrates uniquement",
+    "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 50,
+    "texte": "Ce masque n'a pratiquement aucune caractéristique humaine, à l'exception de deux fentes oculaires remplies de noirceur. Le porteur peut se déplacer avec une détermination telle que personne n'ose l'arrêter.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une fois par partie, le porteur du masque sans visage peut empêcher un adversaire d'intercepter sa charge. Les combattants immunisés à la psychologie, tels que les Morts-Vivants et les Flagellants, ne sont pas affectés." }
+    ]
+  },
+  {
+    "id": "masque_de_medecin_de_peste", "nom": "Masque de médecin de peste", "categorie": "divers",
+    "cout": 70, "cout_fixe": true, "rarete": "C", "disponibilite": "Érudit Dévoyé uniquement, même s'il est amélioré en Sorcier ou en Chroniqueur",
+    "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 50,
+    "texte": "Masque argenté doté d'un long bec semblable à celui d'un oiseau, symbole même de la mort pour les peuples de l'Ancien Monde ravagé par de nombreuses maladies. Au combat, un nuage de mort noire s'échappe des orbites vides du masque.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une fois par partie, pendant la phase de Tir, le porteur peut libérer le nuage noir contenu dans le masque, brûlant ceux qui ne font pas partie de la Cavalcade. Plus le pouvoir est conservé longtemps dans le masque, plus il sera puissant. Au premier tour, il touche n'importe quelle figurine ennemie située à moins de 3ps du porteur avec une Force de 1. La distance et la Force de l'effet augmentent de +1 au début de chaque tour de la Cavalcade, jusqu'à une portée de 7ps et une Force de 5 (si vous attendez 4 tours avant de libérer le nuage). Lancez le dé pour toucher (sans pénalité pour la portée ou le couvert) et pour Blesser comme d'habitude. Le nuage ne provoque pas de Coups Critiques." }
+    ]
+  },
+  {
+    "id": "masque_de_bouffon_malefique", "nom": "Masque de bouffon maléfique", "categorie": "divers",
+    "cout": 45, "cout_fixe": true, "rarete": "C", "disponibilite": "Aristocrates uniquement",
+    "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 50,
+    "texte": "Erratique et imprévisible, le visage du masque du bouffon maléfique se tord d'un sourire dément à un regard de haine pure ou de rage terrifiante avant chaque combat.",
+    "regles_speciales": [
+      { "nom": "Effet (D6 au début du combat)", "texte": "1 : le porteur est sujet à la stupidité le temps du combat. 2-5 : le porteur hait tous ses ennemis le temps du combat. 6 : le porteur est sujet à la frénésie." }
+    ]
+  },
+  {
+    "id": "outils_de_crochetage", "nom": "Outils de crochetage", "categorie": "divers",
+    "cout": 15, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8",
+    "acces": ["rare_8"], "source": "BTB", "page": 51,
+    "texte": "Un incontournable pour les personnes sans scrupules. Ces outils permettent d'user de finesse plutôt que de force brute pour ouvrir une porte fermée.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une figurine équipée d'outils de crochetage peut effectuer un test sous son Initiative au lieu de la Force pour ouvrir une porte. Effectuez le jet à la fin de sa phase de Mouvement comme si la figurine tentait de défoncer la porte, mais sans malus de Force. De plus, une porte ouverte de cette façon ne sera pas endommagée et pourra être refermée ultérieurement." }
+    ]
+  },
+  {
+    "id": "outre", "nom": "Outre", "categorie": "divers",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "K", "page": 51,
+    "texte": "Comme les outres à vin, elle permet à son propriétaire de transporter une unité d'eau supplémentaire. Chaque figurine ne peut avoir qu'une outre.",
+    "regles_speciales": []
+  },
+  {
+    "id": "parchemin_de_rat_familier", "nom": "Parchemin de rat familier", "categorie": "divers",
+    "cout": "25+1D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8, Skavens du Clan Pestilens uniquement",
+    "acces": ["skaven"], "source": "SCP (Skavens du Clan Pestilens)", "page": 51,
+    "texte": "Sur ce parchemin est inscrit un sort utilisable par un Prêcheur-Sorcier Pestilens autant de fois qu'il le souhaite. Si la bande comprend au moins un Rat Géant, ce sort peut être lancé sur celui-ci avant le début de la bataille, le transformant en un Rat Familier. Si son Rat Familier se trouve à moins de 6ps, le Prêcheur-Sorcier Pestilens peut relancer une fois par partie un jet pour lancer un sort. Le résultat de cette relance doit être accepté, même si c'est un échec. Un Prêcheur-Sorcier Pestilens ne peut avoir qu'un seul Rat Familier à la fois. Il reste un Homme de main et il compte dans le nombre maximum de membres de la bande. Si le Prêcheur-Sorcier Pestilens meurt, son Rat Familier reprend sa forme de Rat Géant. Profil du Rat Familier : M6 CC2 CT0 F3 E3 PV1 I4 A1 Cd4. Armes/armures : Aucune.",
+    "regles_speciales": [
+      { "nom": "Animal enchanté", "texte": "Le Rat Familier gagne de l'expérience en tant qu'Homme de main. Sur le tableau de progression des Hommes de main, le résultat de 10-12 « Ce gars est doué » est remplacé par « Lancé de sorts amélioré : si le Prêcheur-Sorcier Pestilens se trouve à moins de 6ps du Rat Familier, il gagne un bonus de +1 au jet de dés pour lancer un sort. Cette capacité est cumulative. »" }
+    ]
+  },
+  {
+    "id": "pardessus", "nom": "Pardessus", "categorie": "divers",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "BTB", "page": 51,
+    "texte": "Ce manteau ou cette cape protège son porteur, et tout particulièrement son équipement, de l'effet trempé par l'eau (voir les Effets Météorologiques du Setting utilisé). Notez que cet équipement divers est une exception à la règle et qu'il peut être utilisé par des Hommes de main.",
+    "regles_speciales": []
+  },
+  {
+    "id": "patte_de_lapin", "nom": "Patte de lapin", "categorie": "divers",
+    "cout": 10, "cout_fixe": true, "rarete": "5", "disponibilite": "Rare 5",
+    "acces": ["rare_5"], "source": "LdR", "page": 52,
+    "texte": "Ce porte-bonheur est souvent porté autour du cou sur un lacet de cuir par les combattants les plus superstitieux.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une patte de lapin permet à son porteur de relancer un dé durant la bataille. Si cette capacité n'a pas été utilisée au cours de celle-ci, elle peut l'être pour le jet d'Exploration pourvu que le Héros soit en état de fouiller les ruines. Les Skavens du Clan Pestilence utilisent l'amulette de malepierre, qui a les mêmes effets." }
+    ]
+  },
+  {
+    "id": "patte_de_singe", "nom": "Patte de singe", "categorie": "divers",
+    "cout": "50+1D6", "cout_fixe": false, "rarete": "10", "disponibilite": "Rare 10",
+    "acces": ["rare_10"], "source": "K", "page": 52,
+    "texte": "Fabriqué au cours d'un étrange rituel par des tribus nomades sillonnant le désert, cet objet aussi puissant que la lampe magique ne porte pas toujours chance à son porteur. À chaque fois qu'un Héros utilise la patte, il obtient trois souhaits (sur le Tableau de Lumière) et devra faire un jet sur le Tableau de l'Ombre. Il est impossible de se débarrasser de la patte, mais elle disparaîtra au bout de trois utilisations ou si vous obtenez le résultat 6 du Tableau de l'Ombre. Après la troisième utilisation, la patte de singe disparaîtra. Si le Héros passe deux parties sans se servir de la patte, il doit faire un jet sur le tableau de l'Ombre.",
+    "regles_speciales": [
+      { "nom": "D6 Lumière — 1", "texte": "Gagnez 1D6 points d'expérience." },
+      { "nom": "D6 Lumière — 2", "texte": "Gagnez une compétence choisie dans les listes appropriées." },
+      { "nom": "D6 Lumière — 3", "texte": "Gagnez 1D6x10 Couronnes d'Or." },
+      { "nom": "D6 Lumière — 4", "texte": "Gagnez un Héros supplémentaire, même si vous êtes déjà à votre maximum." },
+      { "nom": "D6 Lumière — 5", "texte": "Gagnez un Homme de main supplémentaire, même si vous êtes déjà à votre maximum." },
+      { "nom": "D6 Lumière — 6", "texte": "Lancez deux fois sur ce tableau." },
+      { "nom": "D6 Ombre — 1", "texte": "Perdez 1D6 points d'expérience." },
+      { "nom": "D6 Ombre — 2", "texte": "Perdez une compétence déterminée aléatoirement." },
+      { "nom": "D6 Ombre — 3", "texte": "Perdez 1D6x10 CO." },
+      { "nom": "D6 Ombre — 4", "texte": "Perdez un Héros." },
+      { "nom": "D6 Ombre — 5", "texte": "Perdez un Homme de main." },
+      { "nom": "D6 Ombre — 6", "texte": "Perdez la patte de singe." }
+    ]
+  },
+  {
+    "id": "peau_de_cerf_benie", "nom": "Peau de cerf bénie", "categorie": "divers",
+    "cout": 40, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Chasseurs Cornus uniquement",
+    "acces": ["chasseurs_cornus"], "source": "NC-CC (Chasseurs Cornus)", "page": 52,
+    "texte": "Cette peau d'animal portée comme une cape est une marque d'honneur une fois bénie par le clergé de Taal.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une peau bénie confère une grâce incontestable à celui qui la porte, lui permettant de relancer un test d'Initiative raté une fois par tour." }
+    ]
+  },
+  {
+    "id": "pendule_en_pierre_magique", "nom": "Pendule en pierre magique", "categorie": "divers",
+    "cout": "25+3D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "BB", "page": 52,
+    "texte": "Les pendules en pierre magique sont utilisés pour trouver encore plus de ce précieux minerai.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "S'il n'est pas hors de combat, le Héros portant le pendule peut faire un test de Commandement après la bataille. En cas de succès, vous pouvez relancer un dé au choix lors de la phase d'Exploration. Ce dé ne peut pas être relancé une seconde fois." }
+    ]
+  },
+  {
+    "id": "perroquet", "nom": "Perroquet", "categorie": "divers",
+    "cout": 15, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Capitaine et Lieutenants Pirates uniquement",
+    "acces": ["pirates"], "source": "P (Pirates)", "page": 52,
+    "texte": "Coco ! Des fragments de pierre magique ! Des fragments de pierre magique ! Un perroquet bien dressé est excellent pour distraire ses adversaires, soit en leur criant bruyamment dessus, soit en voltigeant en tous sens dans le but de les gêner.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Tout ennemi en contact socle à socle avec le propriétaire du perroquet doit réussir un test de Commandement ou subir un malus de -1 au toucher lors de son premier tour de corps à corps contre le Pirate." }
+    ]
+  },
+  {
+    "id": "pierres_runiques_elfiques", "nom": "Pierres runiques elfiques", "categorie": "divers",
+    "cout": "50+2D6", "cout_fixe": false, "rarete": "11", "disponibilite": "Rare 11, Tisseurs d'Ombres des Guerriers Fantômes uniquement",
+    "acces": ["guerriers_fantomes"], "source": "GF (Guerriers Fantômes)", "page": 52,
+    "texte": "Les mages hauts elfes sont les maîtres de la magie défensive. Ils ont développé à cette fin nombre de puissantes runes mystiques, qu'ils inscrivent souvent sur des pierres semi-précieuses pour renforcer les défenses magiques d'un sorcier.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un sorcier doté de cet équipement peut les utiliser pour dissiper avec succès un sort lancé sur lui-même ou un autre membre de sa bande. Pour le dissiper, le sorcier doit faire un jet contre la difficulté du sort (la Sorcellerie ne fonctionne pas ici). S'il réussit, le sort échoue. En cas d'échec, le sort fonctionne normalement." }
+    ]
+  },
+  {
+    "id": "porte_bonheur", "nom": "Porte-bonheur", "categorie": "divers",
+    "cout": 10, "cout_fixe": true, "rarete": "6", "disponibilite": "Rare 6",
+    "acces": ["rare_6"], "source": "LdR", "page": 53,
+    "texte": "Il en existe beaucoup, mais les plus communs sont les médaillons en forme de marteaux bénis par un prêtre sigmarite, ou les effigies d'anciens dieux nains.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "La première fois qu'une figurine possédant un porte-bonheur est touchée, elle lance 1D6 : sur un résultat de 4+, la touche est annulée et aucun dommage n'est subi. Posséder plusieurs porte-bonheur n'apporte rien de plus car la figurine ne peut annuler que la première touche." }
+    ]
+  },
+  {
+    "id": "tonneau_de_poudre", "nom": "Tonneau de poudre", "categorie": "divers",
+    "cout": 15, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7",
+    "acces": ["rare_7"], "source": "BTB", "page": 53,
+    "texte": "Un tonneau de poudre est considéré comme un coffre, à une exception près : on peut le faire exploser ! Des combattants peuvent attaquer à distance un tonneau de poudre avec une arme à poudre noire, des grenades de Cathay, des bombes incendiaires ou des flèches enflammées. Ils peuvent également l'attaquer au corps à corps avec une torche ou un bâton ardent. Évidemment, ils peuvent aussi utiliser toute arme ou objet similaire susceptible d'enflammer la poudre contenue dans le tonneau.",
+    "regles_speciales": [
+      { "nom": "Explosion", "texte": "Le combattant doit toucher et blesser normalement (le tonneau ayant une Endurance de 4). Ensuite, jetez 1D6. Sur 4+, le tonneau explose (retirez le tonneau du plateau de jeu). S'il effectue un Coup Critique, le tonneau explose automatiquement. Un tonneau de poudre qui explose inflige automatiquement une touche de Force 6 à toutes les figurines se trouvant dans un rayon de 1D6+3ps. Si le scénario joué prend place dans un souterrain ou une caverne (les Horreurs des Souterrains, disponible dans Border Town Burning par exemple), jetez 1D6 supplémentaire. Sur 4+, l'explosion provoque l'effondrement du tunnel, formant un mur de roches bloquant le passage. Placez un marqueur à l'endroit où se situait le tonneau pour indiquer que le passage est bloqué. Les blocs de pierre peuvent être dégagés par des combattants non animaux. Pour représenter cela, lors de la phase de Corps à corps, ils doivent attaquer les rochers (Endurance 6, 4 Points de Vie). Le mur a une sauvegarde d'armure de 3+, affectée normalement par les modificateurs de Force." }
+    ]
+  },
+  {
+    "id": "trophee_coiffe_sacree_de_slann", "nom": "Trophée Coiffe sacrée de Slann", "categorie": "divers",
+    "cout": 35, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Tueur de Saurus uniquement",
+    "acces": ["tueur_de_saurus"], "source": "RL", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Sauvegarde d'armure +2." }
+    ]
+  }
+]
