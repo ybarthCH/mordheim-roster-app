@@ -319,12 +319,15 @@ export function RosterScreen() {
       <div className="card">
         <div className="flex justify-between items-center">
           <h2 className="mt-0 mb-0">{catalogue?.nom ?? roster.bande_id}</h2>
-          <span className="badge badge--info">{effectifTotal(roster)} membres</span>
         </div>
         <div className="summary-grid" style={{ marginTop: '0.7rem' }}>
           <div className="summary-tile">
             <div className="summary-tile__value">{valeurBande(roster)}</div>
             <div className="summary-tile__label">Valeur (po)</div>
+          </div>
+          <div className="summary-tile">
+            <div className="summary-tile__value">{effectifTotal(roster)}</div>
+            <div className="summary-tile__label">Membres</div>
           </div>
           <div className="summary-tile">
             <div className="summary-tile__value">{ratingTotal(roster)}</div>
@@ -340,7 +343,7 @@ export function RosterScreen() {
                 textAlign: 'center',
                 background: 'transparent',
                 border: 'none',
-                fontSize: '1.25rem',
+                fontSize: '1.1rem',
                 fontWeight: 700,
                 fontFamily: 'var(--font-heading)',
                 color: 'inherit',
@@ -358,7 +361,7 @@ export function RosterScreen() {
                 textAlign: 'center',
                 background: 'transparent',
                 border: 'none',
-                fontSize: '1.25rem',
+                fontSize: '1.1rem',
                 fontWeight: 700,
                 fontFamily: 'var(--font-heading)',
                 color: 'inherit',

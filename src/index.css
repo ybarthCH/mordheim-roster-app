@@ -526,25 +526,25 @@ button {
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  gap: 0.4rem;
 }
 .summary-tile {
   background: var(--bg-inset);
   border-radius: var(--radius);
-  padding: 0.5rem 0.6rem;
+  padding: 0.4rem 0.3rem;
   text-align: center;
 }
 .summary-tile__value {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   font-family: var(--font-heading);
 }
 .summary-tile__label {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
 
 .status-select {

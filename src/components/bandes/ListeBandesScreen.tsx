@@ -4,7 +4,7 @@ import { useRosters } from '../../state/RostersContext';
 import { ThemeToggle } from '../common/ThemeToggle';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
-import { bilanBatailles, nomCatalogue, valeurBande } from '../../utils/bandeValue';
+import { bilanBatailles, effectifTotal, nomCatalogue, valeurBande } from '../../utils/bandeValue';
 import { exporterRoster, lireFichierRoster } from '../../utils/importExport';
 import type { RosterInstance } from '../../types/roster';
 
@@ -72,7 +72,7 @@ export function ListeBandesScreen() {
             <div className="list-item__main">
               <div className="list-item__title">{roster.nom_bande}</div>
               <div className="list-item__subtitle">
-                {nomCatalogue(roster.bande_id)} · {roster.membres.filter((m) => m.statut !== 'mort').length} membres · Valeur {valeurBande(roster)} po
+                {nomCatalogue(roster.bande_id)} · {effectifTotal(roster)} membres · Valeur {valeurBande(roster)} po
               </div>
               <div className="list-item__subtitle">
                 {bilan.total > 0

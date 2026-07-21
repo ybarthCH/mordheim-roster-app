@@ -33,6 +33,13 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
   const [texteResultat, setTexteResultat] = useState('');
   const [categorie, setCategorie] = useState<SkillCategory | ''>('');
   const [categoriesPromotion, setCategoriesPromotion] = useState<SkillCategory[]>([]);
+  // Groupe restant après extraction d'une figurine promue (taille_groupe > 1
+  // au moment de la promotion) : en attente de sa propre avancée, résolue
+  // juste après celle du nouveau héros dans la même session de modale.
+  const [groupeRestantEnAttente, setGroupeRestantEnAttente] = useState<Member | null>(null);
+  // true une fois qu'on a basculé sur la résolution de l'avancée du groupe
+  // restant (après celle du nouveau héros) — pilote le message affiché.
+  const [resolutionGroupeRestant, setResolutionGroupeRestant] = useState(false);
 
   const typeEffectif = tableForcee ?? profil.type;
   const table = typeEffectif === 'heros' ? TABLE_AVANCEMENT_HEROS : TABLE_AVANCEMENT_HOMMES_DE_MAIN;
@@ -116,7 +123,7 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
 
   const toggleCategoriePromotion = (cat: SkillCategory) => {
     setCategoriesPromotion((prev) =>
-      prev.includes(cat) ? prev.filter((c) => c !== cat) : prev.length < 3 ? [...prev, cat] : prev
+      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
     );
   };
 
@@ -136,7 +143,9 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
 
     if (tailleGroupeActuelle > 1) {
       // Une seule figurine du groupe devient héros ; le reste du groupe
-      // continue avec son XP et son profil, réduit d'une figurine.
+      // continue avec son XP et son profil, réduit d'une figurine — et doit
+      // encore résoudre sa propre avancée (l'XP due n'est pas consommée par
+      // la promotion, qui ne profite qu'à la figurine extraite).
       const nouveauHeros: Member = {
         ...travail,
         instance_id: uuidv4(),
@@ -148,12 +157,9 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
       const groupeRestant: Member = {
         ...travail,
         taille_groupe: tailleGroupeActuelle - 1,
-        historique_avancees: [
-          ...travail.historique_avancees,
-          { ...record, detail: `Une figurine promue héros — groupe réduit à ${tailleGroupeActuelle - 1}` },
-        ],
       };
       onApply(groupeRestant, nouveauHeros);
+      setGroupeRestantEnAttente(groupeRestant);
       travailSuivant = nouveauHeros;
     } else {
       const updated: Member = {
@@ -174,6 +180,21 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
     setEtape('depart');
   };
 
+  // Enchaîne sur la résolution de l'avancée du groupe restant, une fois
+  // celle du nouveau héros terminée (voir étape 'resultat').
+  const poursuivreAvecGroupeRestant = () => {
+    if (!groupeRestantEnAttente) return;
+    setTravail(groupeRestantEnAttente);
+    setGroupeRestantEnAttente(null);
+    setResolutionGroupeRestant(true);
+    setTableForcee(null);
+    setIndexAvancement('');
+    setTexteResultat('');
+    setCategorie('');
+    setCategoriesPromotion([]);
+    setEtape('depart');
+  };
+
   return (
     <Modal onClose={onClose}>
       <h3>Avancée d'expérience — {travail.nom_perso}</h3>
@@ -183,6 +204,11 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
           {tableForcee === 'heros' && profil.type !== 'heros' && (
             <p className="text-success text-sm">
               Promu héros ! Jet immédiat sur la table de progression des héros.
+            </p>
+          )}
+          {resolutionGroupeRestant && !tableForcee && (
+            <p className="text-success text-sm">
+              Avancée du groupe restant ({travail.taille_groupe} figurine{travail.taille_groupe > 1 ? 's' : ''}).
             </p>
           )}
           <p className="text-muted text-sm">
@@ -234,7 +260,7 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
               : "Ce membre devient un héros : il conserve son profil et son expérience, mais accède désormais à la grille XP et à la table d'avancement des héros."}
           </p>
           <p className="text-sm text-muted">
-            Choisis 2 ou 3 tables de compétences accessibles à ce nouveau héros.
+            Choisis au moins 2 tables de compétences accessibles à ce nouveau héros.
           </p>
           <div className="skill-list">
             {SKILL_CATEGORIES.map((c) => (
@@ -243,7 +269,6 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
                   type="checkbox"
                   checked={categoriesPromotion.includes(c.id)}
                   onChange={() => toggleCategoriePromotion(c.id)}
-                  disabled={!categoriesPromotion.includes(c.id) && categoriesPromotion.length >= 3}
                 />
                 <span className="skill-check__name">{c.label}</span>
               </label>
@@ -300,9 +325,16 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
       {etape === 'resultat' && (
         <>
           <p className="text-success">{texteResultat}</p>
-          <button className="btn btn--primary btn--block" onClick={onClose}>
-            Terminer
-          </button>
+          {groupeRestantEnAttente ? (
+            <button className="btn btn--primary btn--block" onClick={poursuivreAvecGroupeRestant}>
+              Continuer — avancée du groupe restant ({groupeRestantEnAttente.taille_groupe} figurine
+              {groupeRestantEnAttente.taille_groupe > 1 ? 's' : ''})
+            </button>
+          ) : (
+            <button className="btn btn--primary btn--block" onClick={onClose}>
+              Terminer
+            </button>
+          )}
         </>
       )}
 
