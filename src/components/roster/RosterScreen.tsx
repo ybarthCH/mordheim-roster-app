@@ -11,6 +11,7 @@ import { validerComposition, validerEffectif } from '../../utils/validation';
 import { exporterRoster } from '../../utils/importExport';
 import { AjouterMembreModal } from './AjouterMembreModal';
 import { AjouterBatailleModal } from './AjouterBatailleModal';
+import { EquipementReference, MagieReference } from '../common/CatalogueReference';
 import { STATUTS } from '../../types/roster';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import { avancesDues } from '../../utils/xp';
@@ -31,6 +32,7 @@ export function RosterScreen() {
   const [modalBataille, setModalBataille] = useState(false);
   const [batailleEnEdition, setBatailleEnEdition] = useState<BattleRecord | null>(null);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
+  const [batailleASupprimer, setBatailleASupprimer] = useState<BattleRecord | null>(null);
 
   if (!roster) {
     return (
@@ -58,6 +60,33 @@ export function RosterScreen() {
     return avancesDues(profil.type, m.xp_depart, m.xp) > m.historique_avancees.length;
   };
 
+  // Bascule rapide du statut Hors de combat depuis le roster global, sans
+  // ouvrir la fiche personnage — utile en cours de partie.
+  const basculerHorsCombat = (m: Member) => {
+    const nouveauStatut = m.statut === 'hors_de_combat' ? 'actif' : 'hors_de_combat';
+    patch({
+      membres: roster.membres.map((x) =>
+        x.instance_id === m.instance_id ? { ...x, statut: nouveauStatut, date_mort: undefined } : x
+      ),
+    });
+  };
+
+  // Réordonne un membre au sein de sa section (Héros / Hommes de main),
+  // en échangeant sa position avec son voisin dans la liste affichée.
+  const deplacerMembre = (section: Member[], m: Member, direction: -1 | 1) => {
+    const idx = section.findIndex((x) => x.instance_id === m.instance_id);
+    const idxVoisin = idx + direction;
+    if (idx < 0 || idxVoisin < 0 || idxVoisin >= section.length) return;
+    const voisin = section[idxVoisin];
+    patch({
+      membres: roster.membres.map((x) => {
+        if (x.instance_id === m.instance_id) return voisin;
+        if (x.instance_id === voisin.instance_id) return m;
+        return x;
+      }),
+    });
+  };
+
   const renderGroupe = (titre: string, membres: Member[]) => (
     <div className="card">
       <h3>{titre}</h3>
@@ -82,7 +111,7 @@ export function RosterScreen() {
             </tr>
           </thead>
           <tbody>
-            {membres.map((m) => {
+            {membres.map((m, i) => {
               const profil = resolveProfil(roster, m);
               return (
                 <tr key={m.instance_id} onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}>
@@ -116,17 +145,59 @@ export function RosterScreen() {
                     </span>
                   </td>
                   <td>
-                    <button
-                      className="btn--ghost"
-                      style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setMembreASupprimer(m);
-                      }}
-                      title="Retirer de la bande"
-                    >
-                      ✕
-                    </button>
+                    <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
+                      <button
+                        className="btn--ghost"
+                        style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
+                        disabled={i === 0}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deplacerMembre(membres, m, -1);
+                        }}
+                        title="Monter"
+                      >
+                        ↑
+                      </button>
+                      <button
+                        className="btn--ghost"
+                        style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
+                        disabled={i === membres.length - 1}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deplacerMembre(membres, m, 1);
+                        }}
+                        title="Descendre"
+                      >
+                        ↓
+                      </button>
+                      <button
+                        className="btn--ghost"
+                        style={{
+                          border: 'none',
+                          background: 'none',
+                          padding: '0.2rem 0.4rem',
+                          color: m.statut === 'hors_de_combat' ? 'var(--warning)' : undefined,
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          basculerHorsCombat(m);
+                        }}
+                        title="Basculer Hors de combat"
+                      >
+                        HC
+                      </button>
+                      <button
+                        className="btn--ghost"
+                        style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setMembreASupprimer(m);
+                        }}
+                        title="Retirer de la bande"
+                      >
+                        ✕
+                      </button>
+                    </div>
                   </td>
                 </tr>
               );
@@ -136,7 +207,7 @@ export function RosterScreen() {
       </div>
 
       <div className="member-cards">
-        {membres.map((m) => {
+        {membres.map((m, i) => {
           const profil = resolveProfil(roster, m);
           return (
             <div
@@ -166,6 +237,46 @@ export function RosterScreen() {
               <span className={`badge ${STATUT_BADGE[m.statut]}`}>
                 {STATUTS.find((s) => s.id === m.statut)?.label}
               </span>
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
+                disabled={i === 0}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deplacerMembre(membres, m, -1);
+                }}
+                title="Monter"
+              >
+                ↑
+              </button>
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
+                disabled={i === membres.length - 1}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deplacerMembre(membres, m, 1);
+                }}
+                title="Descendre"
+              >
+                ↓
+              </button>
+              <button
+                className="btn--ghost"
+                style={{
+                  border: 'none',
+                  background: 'none',
+                  padding: '0.2rem 0.4rem',
+                  color: m.statut === 'hors_de_combat' ? 'var(--warning)' : undefined,
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  basculerHorsCombat(m);
+                }}
+                title="Basculer Hors de combat"
+              >
+                HC
+              </button>
               <button
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
@@ -297,75 +408,6 @@ export function RosterScreen() {
         </div>
       )}
 
-      {catalogue?.magie && (
-        <div className="card card--tight">
-          <h3>{catalogue.magie.nom} (référence)</h3>
-          <p className="text-sm text-muted">
-            {catalogue.magie.type} · dé {catalogue.magie.de} · utilisateurs :{' '}
-            {catalogue.magie.utilisateurs
-              .map((id) => catalogue.profils.find((p) => p.id === id)?.nom ?? id)
-              .join(', ')}
-            {catalogue.magie.note && <> · {catalogue.magie.note}</>}
-          </p>
-          {catalogue.magie.sorts.map((s, i) => (
-            <p key={i} className="text-sm mb-0">
-              <strong>
-                {s.resultat} — {s.nom}
-              </strong>{' '}
-              (diff. {s.difficulte}) : {s.texte}
-              {s.note && <span className="text-muted"> — {s.note}</span>}
-            </p>
-          ))}
-        </div>
-      )}
-
-      {(catalogue?.equipement || (catalogue?.equipement_special?.length ?? 0) > 0) && (
-        <div className="card card--tight">
-          <h3>Équipement (référence)</h3>
-          <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-            Texte libre, à titre indicatif — aucun achat automatisé.
-          </p>
-          {catalogue?.equipement &&
-            Object.entries(catalogue.equipement).map(([liste, groupes]) => (
-              <div key={liste} style={{ marginBottom: '0.6rem' }}>
-                <p className="text-sm mb-0">
-                  <strong>{liste}</strong>
-                </p>
-                {(['armes_cac', 'armes_tir', 'armures', 'divers'] as const).map(
-                  (cat) =>
-                    groupes[cat] &&
-                    groupes[cat]!.length > 0 && (
-                      <p key={cat} className="text-sm mb-0">
-                        {groupes[cat]!
-                          .map(
-                            (it) =>
-                              `${it.nom} (${it.cout}${typeof it.cout === 'number' ? ' po' : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`
-                          )
-                          .join(' · ')}
-                      </p>
-                    )
-                )}
-              </div>
-            ))}
-          {(catalogue?.equipement_special?.length ?? 0) > 0 && (
-            <div>
-              <p className="text-sm mb-0">
-                <strong>Objets rares</strong>
-              </p>
-              {catalogue!.equipement_special!.map((it) => (
-                <p key={it.id} className="text-sm mb-0">
-                  <strong>{it.nom}</strong> ({it.cout}
-                  {typeof it.cout === 'number' ? ' po' : ''}
-                  {it.disponibilite ? ` — ${it.disponibilite}` : ''}) — {it.texte}
-                  {it.regles_speciales?.map((r) => ` ${r.nom} : ${r.texte}`).join(' ')}
-                  {it.note && <span className="text-muted"> ({it.note})</span>}
-                </p>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-
       <div className="top-actions">
         <button className="btn btn--primary" onClick={() => setModalMembre(true)}>
           + Recruter
@@ -418,9 +460,23 @@ export function RosterScreen() {
                   {b.adversaires.length > 0 && `vs ${b.adversaires.join(', ')}`} {b.notes}
                 </div>
               </div>
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setBatailleASupprimer(b);
+                }}
+                title="Supprimer cette bataille"
+              >
+                ✕
+              </button>
             </div>
           ))}
       </div>
+
+      {catalogue && <EquipementReference catalogue={catalogue} />}
+      {catalogue && <MagieReference catalogue={catalogue} />}
 
       {modalMembre && (
         <AjouterMembreModal
@@ -475,6 +531,30 @@ export function RosterScreen() {
               }}
             >
               Retirer
+            </button>
+          </div>
+        </Modal>
+      )}
+      {batailleASupprimer && (
+        <Modal onClose={() => setBatailleASupprimer(null)}>
+          <h3>Supprimer la bataille du {batailleASupprimer.date} ?</h3>
+          <p className="text-muted">Cette action supprime définitivement cette entrée de l'historique.</p>
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={() => setBatailleASupprimer(null)}>
+              Annuler
+            </button>
+            <button
+              className="btn btn--danger"
+              onClick={() => {
+                patch({
+                  historique_batailles: roster.historique_batailles.filter(
+                    (b) => b.id !== batailleASupprimer.id
+                  ),
+                });
+                setBatailleASupprimer(null);
+              }}
+            >
+              Supprimer
             </button>
           </div>
         </Modal>

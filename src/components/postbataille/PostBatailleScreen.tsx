@@ -100,6 +100,7 @@ export function PostBatailleScreen() {
   const [notesExploration, setNotesExploration] = useState('');
   const [quantiteVendue, setQuantiteVendue] = useState(0);
   const [prixVente, setPrixVente] = useState(0);
+  const [pointsVeteran, setPointsVeteran] = useState(0);
 
   const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
   const [xpDrafts, setXpDrafts] = useState<Record<string, XpDraft>>({});
@@ -330,6 +331,7 @@ export function PostBatailleScreen() {
           return { nom: nomAffiche(m), survecu: m.taille_groupe - morts > 0 };
         }),
       ],
+      pointsVeteran,
     };
 
     const bataille: BattleRecord = {
@@ -656,6 +658,19 @@ export function PostBatailleScreen() {
             {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue)} · Trésorerie :{' '}
             {roster.tresorerie + prixVente} po
           </p>
+          <h3>Nombre de points vétéran disponibles</h3>
+          <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
+            Jet de 2D6 effectué sur table papier — saisis le résultat ici pour qu'il apparaisse dans le journal de
+            la bataille.
+          </p>
+          <div className="field">
+            <label>Points vétéran</label>
+            <input
+              type="number"
+              value={pointsVeteran}
+              onChange={(e) => setPointsVeteran(Number(e.target.value) || 0)}
+            />
+          </div>
         </div>
       )}
 

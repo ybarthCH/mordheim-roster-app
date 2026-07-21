@@ -98,6 +98,9 @@ export type JournalPostBataille = {
   tresorerieApres: number;
   blessures: { nom: string; description: string }[];
   survie: { nom: string; survecu: boolean }[];
+  // Points vétéran disponibles (2D6 lancés par le joueur), saisis
+  // manuellement à titre indicatif — juste affichés dans le journal.
+  pointsVeteran: number;
 };
 
 export type BattleRecord = {
