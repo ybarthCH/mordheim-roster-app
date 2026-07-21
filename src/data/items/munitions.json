@@ -1,0 +1,108 @@
+[
+  {
+    "id": "bombe_fumigene", "nom": "Bombe fumigène", "categorie": "munitions",
+    "cout": "30+2D6", "cout_fixe": false, "rarete": "10", "disponibilite": "Rare 10",
+    "acces": ["rare_10"], "source": "BTB", "page": 30,
+    "texte": "Les Cathayens ont une maîtrise bien supérieure aux alchimistes du Vieux Monde dans le domaine de la poudre noire, des poisons et autres étranges ingrédients d'origine naturelle. Les bombes fumigènes sont particulièrement appréciées des voleurs et des assassins. La fumée offre une occasion unique de dissimuler une retraite rapide. Une seule utilisation.",
+    "portee": "4ps", "force": null,
+    "regles_speciales": [
+      { "nom": "Fumée", "texte": "Au début de la phase de Mouvement, une bombe fumigène peut être lancée dans un rayon de 4ps où elle créera une épaisse fumée sur un rayon de 2ps qui durera jusqu'au début du prochain tour du lanceur. S'il est au corps à corps, il doit réussir un test d'Initiative ou subir une touche automatique de chacun de ses adversaires. Après cela, la bombe explose, même si le lanceur est Blessé. Les figurines qui se trouvent dans le nuage de fumée ne peuvent pas combattre, ni tirer ou être prises pour cible au tir ou au corps à corps. Cette règle s'applique également aux sorciers et aux prêtres qui souhaiteraient lancer un sort ou une prière. Les combattants engagés au corps à corps sont immédiatement éloignés d'une distance d'1ps les uns des autres. Comme les combattants ne peuvent pas voir à travers la fumée, ils ne peuvent pas non plus attaquer à travers elle. Cependant, les combattants peuvent se déplacer dans la fumée, en sortir et la traverser normalement. Notez que les Augures des Sœurs de Sigmar, grâce à leur vision sacrée, ne sont pas affectées par les effets de la bombe fumigène. Au moment où un combattant portant une bombe fumigène est mis à terre, sonné ou hors de combat, la bombe explose sur un résultat de 4+. Notez qu'il n'est pas nécessaire de faire à nouveau ce jet lorsque, au début de son tour, il passe de sonné à à terre." }
+    ]
+  },
+  {
+    "id": "bombe_incendiaire", "nom": "Bombe incendiaire", "categorie": "munitions",
+    "cout": "35+2D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "VEC", "page": 30,
+    "texte": "Fruit du génie des ingénieurs nains, ce dispositif est aussi rare qu'il est dangereux. Il est constitué d'une dose de poudre à canon emprisonnée dans une sphère de fer et reliée à l'extérieur par une courte mèche. Une fois cette dernière allumée, il reste quelques secondes pour lancer la bombe avant qu'elle n'explose. Si la mèche est trop courte ou brûle trop vite, c'est le lanceur qui se retrouve involontairement au centre de l'aire d'effet de la détonation ! Une seule utilisation.",
+    "portee": "2x Force du lanceur (ps)", "force": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Pendant la phase de Tir, une bombe incendiaire peut être jetée à une distance maximale en pas égale à deux fois la Force du lanceur. Pour toucher, utilisez la CT du lanceur, sans malus pour la portée, ni pour s'être déplacé. Si la bombe atteint sa cible, elle lui occasionne 1D3 touches de Force 4, sans sauvegarde d'armure. Tout combattant, ami ou ennemi, à moins d'1ps de la cible subit une touche de Force 3 autorisant les sauvegardes. Si le lanceur de la bombe obtient un 1 sur son jet pour toucher, alors la bombe lui explose dans les mains et il subit tous ses effets à la place de la cible visée." }
+    ]
+  },
+  {
+    "id": "eau_benite", "nom": "Eau bénite", "categorie": "munitions",
+    "cout": "10+3D6", "cout_fixe": false, "rarete": "6", "disponibilite": "Rare 6, indisponible aux Possédés et Morts-Vivants (Commun pour les Prêtres-Guerriers et les Sœurs de Sigmar)",
+    "acces": ["commun_pretres_guerriers_soeurs_de_sigmar"], "source": "LdR", "page": 30,
+    "texte": "Les prêtres d'Ulric, de Sigmar, de Mórr et de Manann possèdent un grand pouvoir contre le mal. On dit que de l'eau pure tirée d'une claire fontaine et bénite par l'un de ces prêtres brûle les créatures des ténèbres. Une seule utilisation.",
+    "portee": "2x Force du lanceur (ps)", "force": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Pendant la phase de Tir, une fiole d'eau bénite peut être jetée à une distance maximale en pas égale à deux fois la Force du lanceur. Pour toucher, utilisez la CT du lanceur, sans malus pour la portée, ni pour s'être déplacé. L'eau bénite provoque 1 Blessure automatique aux Morts-Vivants (à l'exception des Nécromanciens, des Goules et des Parias), aux Démons et aux Possédés (à l'exception des Initiés et des Hommes-Bêtes) sans sauvegarde d'armure." }
+    ]
+  },
+  {
+    "id": "filet", "nom": "Filet", "categorie": "munitions",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 31,
+    "texte": "Les filets d'acier, tels que ceux des gladiateurs, peuvent être utilisés au combat. Un filet ne peut être utilisé qu'une fois par partie, mais peut être réutilisé lors des parties suivantes.",
+    "portee": "8ps", "force": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Pendant la phase de Tir, au lieu d'utiliser une arme, le filet peut être jeté à une distance maximale de 8ps. Pour toucher, utilisez la CT du lanceur, sans malus pour la portée, ni pour s'être déplacé. Si elle est touchée, la cible doit faire un test de Force." },
+      { "nom": "Succès", "texte": "Le filet est déchiré." },
+      { "nom": "Échec", "texte": "La cible ne peut pas bouger, tirer, ou lancer de sorts lors de son prochain tour, sans autre effet." }
+    ]
+  },
+  {
+    "id": "fleches_de_chasse", "nom": "Flèches de chasse", "categorie": "munitions",
+    "cout": "25+1D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8",
+    "acces": ["rare_8"], "source": "LdR", "page": 31,
+    "texte": "Les meilleures flèches de chasse sont fabriquées par les chasseurs de la forêt de Drakwald. Leurs pointes aiguisées et barbelées provoquent des blessures très douloureuses et permettent à un archer accompli de provoquer de gros dégâts d'une seule flèche. Elles s'utilisent avec les arcs courts, simples, longs et elfiques. Il y a suffisamment de flèches de chasse pour toute la campagne.",
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Ajoutent +1 à tous les jets de Dégâts, utilisables avec les arcs courts, simples, longs et elfiques." }
+    ]
+  },
+  {
+    "id": "fleches_enflammees", "nom": "Flèches enflammées", "categorie": "munitions",
+    "cout": "30+1D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "VEC", "page": 31,
+    "texte": "Il s'agit de flèches ordinaires dont la pointe est garnie de chiffons imprégnés d'huile formant une poche qui répand son contenu igné à l'impact, enflammant la cible du tir. Il y a suffisamment de flèches enflammées pour la durée d'une partie.",
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Lorsque vous atteignez votre cible avec une telle flèche, en plus des dégâts normaux, lancez 1D6. Sur un résultat de 4+, la cible s'enflamme. S'il s'agit d'un combattant, pour éteindre les flammes, il doit obtenir un 4+ sur 1D6 au début de sa phase de Ralliement. Dans le cas contraire, il subit une touche de Force 4 et ne pourra pas se déplacer durant le tour. Les autres membres de la bande peuvent essayer de l'éteindre en se déplaçant au contact socle à socle et en obtenant un 4+ sur 1D6 durant la phase de Ralliement." }
+    ]
+  },
+  {
+    "id": "grenade_de_cathay", "nom": "Grenade de Cathay", "categorie": "munitions",
+    "cout": "25+1D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "BTB", "page": 31,
+    "texte": "Les grenades de Cathay sont des pots ou des tubes explosifs remplis de poudre noire ou d'autres ingrédients étranges. Ces explosifs instables, colportés par des marchands arabiens, explosent le plus souvent à l'impact, incendiant les objets et les corps avec lesquels ils entrent en contact.",
+    "portee": "6ps", "force": "6",
+    "regles_speciales": [
+      { "nom": "Arme de jet", "texte": "Cette arme est parfaitement équilibrée pour le jet et le combattant qui l'utilise ne subit pas les pénalités de longue portée ou pour avoir bougé. Cependant, elle est inutilisable au corps à corps." },
+      { "nom": "Feu", "texte": "Si vous réussissez une touche avec les grenades de Cathay, lancez 1D6. Si vous obtenez un 5+, la victime s'enflamme. Si le guerrier survit à l'attaque, lors de la phase de Ralliement, il doit obtenir un 4+ pour éteindre les flammes ou subir une touche de Force 4 et ne rien faire d'autre que de se déplacer jusqu'à extinction du feu. D'autres membres de sa bande peuvent l'aider à éteindre les flammes. Ils doivent entrer en contact socle à socle et obtenir un 4+ lors de la phase de Ralliement." },
+      { "nom": "Volatile", "texte": "Sur un résultat de 1 pour toucher, la grenade de Cathay explose dans les mains du lanceur. Effectuez le jet pour blesser en considérant le lanceur comme la cible." }
+    ]
+  },
+  {
+    "id": "grenade_de_miragliano", "nom": "Grenade de Miragliano", "categorie": "munitions",
+    "cout": "-", "cout_fixe": false, "rarete": "-", "disponibilite": "Maître-Trappeur Razzieur Lustrien uniquement",
+    "acces": ["razzieurs_lustriens"], "source": "RL", "page": 32,
+    "texte": "Ces grenades à main primitives faites d'argile contiennent du feu alchimique tiléen qui s'enflamme lorsqu'il est exposé à l'air.",
+    "portee": "8ps", "force": "2",
+    "regles_speciales": [
+      { "nom": "Arme jetée", "texte": "Les combattants qui utilisent cette arme ne subissent pas de pénalités pour la longue portée, mais subissent malgré tout un malus de -1 après un déplacement." },
+      { "nom": "Brûlure", "texte": "La cible subit 1 touche de F2 à cause des flammes qui jaillissent et doit faire un jet d'Initiative au début de son prochain tour afin de voir à travers la fumée. En cas d'échec, elle ne peut ni charger ni tirer jusqu'au début de son prochain tour, mais peut se déplacer ou agir normalement et combattre au corps à corps." }
+    ]
+  },
+  {
+    "id": "petards", "nom": "Pétards", "categorie": "munitions",
+    "cout": 20, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "BTB", "page": 32,
+    "texte": "Ces petits explosifs ne sont pas assez puissants pour incendier quoi que ce soit ou blesser des êtres humains. Les pétards produisent un bruit violent, effarouchant les animaux. Il y a suffisamment de pétards pour la durée d'une partie.",
+    "portee": "8ps", "force": null,
+    "regles_speciales": [
+      { "nom": "Effet charge", "texte": "Si un animal ou un cavalier tente de charger le combattant et que ce dernier n'est pas engagé au corps à corps, à terre ou sonné, il peut tenter d'utiliser ses pétards. Le lanceur doit faire un test d'Initiative. En cas de réussite, l'animal doit faire un test de Commandement (les animaux ne peuvent pas utiliser le Cd du Chef de bande et les montures ne peuvent pas utiliser le Cd de leur cavalier). Si le test échoue, le cavalier doit faire un jet sur le tableau Holà ! Tout doux ! Si la monture possède la règle spéciale entraîné, le cavalier peut relancer le dé sur le tableau Holà ! Tout doux !" },
+      { "nom": "Effet tir", "texte": "Le combattant peut également lancer ces pétards pendant la phase de Tir, à une distance maximale de 8ps. Toutes les montures ou animaux situés à moins de 3ps du point d'impact doivent faire un test de Commandement. En cas d'échec, les montures doivent effectuer un jet sur le tableau Holà ! Tout doux ! et les animaux fuient comme s'ils avaient échoué à un test de seul contre tous." }
+    ]
+  },
+  {
+    "id": "poudre_noire_superieure", "nom": "Poudre noire supérieure", "categorie": "munitions",
+    "cout": 30, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11",
+    "acces": ["rare_11"], "source": "LdR", "page": 32,
+    "texte": "La figurine a acheté de la poudre noire d'une meilleure qualité que celle qui est vendue d'habitude. Il y a suffisamment de poudre noire supérieure pour la durée d'une partie.",
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Ajoute +1 à la Force de toutes les armes à poudre noire de la figurine." }
+    ]
+  }
+]

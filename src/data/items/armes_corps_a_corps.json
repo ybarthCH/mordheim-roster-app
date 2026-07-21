@@ -1,0 +1,727 @@
+[
+  {
+    "id": "aiguillon_a_squigs", "nom": "Aiguillon à Squigs", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Gobelins uniquement",
+    "acces": ["commun_gobelins"], "source": "HO (Horde Orque)", "page": 1,
+    "texte": "Il s'agit d'un trident fixé au bout d'une longue hampe et utilisé par les gobelins pour pousser les squigs dans la bonne direction. Les squigs ont appris à reconnaître un aiguillon et éprouvent pour celui qui le porte un certain respect !",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Berger", "texte": "Un Gobelin équipé d'un aiguillon à squigs peut contrôler tout Squig dans un rayon de 12ps au lieu des 6ps normaux (voir règle spéciale au pied ! des Squigs)." },
+      { "nom": "Bonus de cavalerie", "texte": "Un cavalier armé de cette arme reçoit un bonus de +1 en Force lorsqu'il charge. Ce bonus ne s'applique que lors du tour de charge." },
+      { "nom": "Difficile à manier", "texte": "Un combattant armé de cette arme peut porter un bouclier ou une rondache normalement, mais pas d'arme additionnelle." },
+      { "nom": "Frappe en premier", "texte": "Un combattant équipé de cette arme frappe en premier lors du premier tour de corps à corps, même face à une charge." }
+    ]
+  },
+  {
+    "id": "arme_a_deux_mains", "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 1,
+    "texte": "Un coup d'épée ou de hache à deux mains peut couper un homme en deux et défoncer son armure. Il faut beaucoup de temps pour apprendre à utiliser ces armes et seuls les plus forts sont capables de les manier efficacement.",
+    "portee": "C à C", "force": "U+2",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Frappe en dernier", "texte": "L'arme est si lourde que l'on frappe toujours en dernier avec, même en ayant chargé." }
+    ]
+  },
+  {
+    "id": "arme_contondante_une_main", "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "categorie": "armes_cac",
+    "cout": 3, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 1,
+    "texte": "Ces armes rudimentaires et contondantes vont des gourdins primitifs aux marteaux nains forgés dans le meilleur acier. Un coup de masse peut facilement briser un crâne ou assommer un homme.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Contondant", "texte": "Un jet de Dégâts de 2-4 (au lieu de 3-4 habituellement) est considéré comme sonné." }
+    ]
+  },
+  {
+    "id": "attendrisseur", "nom": "Attendrisseur", "categorie": "armes_cac",
+    "cout": 3, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Mootlanders uniquement",
+    "acces": ["commun_mootlanders"], "source": "M (Mootlanders)", "page": 2,
+    "texte": "Même si les autres bandes se moquent de vos rouleaux à pâtisserie et de vos attendrisseurs, ceux-ci sont tout à fait capables d'écraser un crâne ou d'assommer un adversaire.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Contondant", "texte": "Un jet de Dégâts de 2-4 (au lieu de 3-4 habituellement) est considéré comme sonné." }
+    ]
+  },
+  {
+    "id": "baton_dboss", "nom": "Bâton d'boss", "categorie": "armes_cac",
+    "cout": 20, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Gobelins uniquement",
+    "acces": ["commun_gobelins"], "source": "NC-GDF/GDN", "page": 2,
+    "texte": "Certains gobelins influents portent des insignes de fonction, prenant généralement la forme de longues perches en bois avec une icône ou une lame tranchante à l'extrémité.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Autorité", "texte": "Permet aux Héros et à tous les Hommes de main Gobelins se trouvant à moins de 6ps et en ligne de vue d'ignorer l'animosité." },
+      { "nom": "Bonus de cavalerie", "texte": "Un cavalier armé de cette arme reçoit un bonus de +1 en Force lorsqu'il charge. Ce bonus ne s'applique que lors du tour de charge." },
+      { "nom": "Difficile à manier", "texte": "Un combattant armé de cette arme peut porter un bouclier ou une rondache normalement, mais pas d'arme additionnelle." },
+      { "nom": "Frappe en premier", "texte": "Un combattant équipé de cette arme frappe en premier lors du premier tour de corps à corps, même face à une charge." }
+    ]
+  },
+  {
+    "id": "baton_ardent", "nom": "Bâton ardent", "categorie": "armes_cac",
+    "cout": 35, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Répurgateurs uniquement",
+    "acces": ["witch_hunters"], "source": "VEC", "page": 2,
+    "texte": "Le bâton ardent est une arme couramment utilisée par les répurgateurs. Il se compose d'un long manche surmonté d'un petit brasero couvert de fer. Au combat, l'arme prend un aspect surnaturel lorsque les braises illuminent la nuit, alors que les ennemis s'enflamment et se débattent dans une agonie de feu.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Feu", "texte": "Le brasier de charbons ardents au sommet du bâton est mortel. Chaque fois que vous réussissez une touche avec le Bâton Ardent, lancez 1D6. Sur un 5+, la victime s'enflamme. Si le guerrier survit à l'attaque, lors de la phase de Ralliement, il doit obtenir un 4+ pour éteindre les flammes ou subir une touche de Force 4 et ne rien faire d'autre que de se déplacer jusqu'à extinction du feu. D'autres membres de sa bande peuvent l'aider à éteindre les flammes. Ils doivent entrer en contact socle à socle et obtenir un 4+ lors de la phase de Ralliement." }
+    ]
+  },
+  {
+    "id": "baton_de_combat", "nom": "Bâton de combat", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Moines Guerriers de Cathay uniquement",
+    "acces": ["commun_moines_cathay"], "source": "BTB-MGC", "page": 2,
+    "texte": "Les bâtons de combat sont des armes traditionnelles des confréries de moines guerriers.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Équilibré", "texte": "Un bâton de combat est particulièrement léger et facile à manier. Un guerrier équipé d'un bâton de combat gagne +1 en Initiative au corps à corps." },
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur résultat, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." },
+      { "nom": "Style libre", "texte": "Bien qu'un bâton de combat ne requière pas toujours l'usage de deux mains, il ne permet pas d'utiliser un bouclier, une rondache ou une arme additionnelle au corps à corps. Cependant, il peut être combiné avec les attaques à main nue du Moine. Par conséquent, un Moine gagne toujours le +1 en Attaque." }
+    ]
+  },
+  {
+    "id": "baton_du_serpent", "nom": "Bâton du serpent", "categorie": "armes_cac",
+    "cout": 30, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Prêtre Liche des Gardiens des Tombes uniquement",
+    "acces": ["gardiens_des_tombes"], "source": "K-GT", "page": 3,
+    "texte": "Les plus hauts prêtres liches de leur ordre arborent, comme insigne de leur fonction, un bâton orné d'une tête de serpent.",
+    "portee": "C à C", "force": "4",
+    "regles_speciales": [
+      { "nom": "Autonomie", "texte": "Une fois activé, le bâton frappe de manière autonome et utilise sa propre CC de 4 au lieu de celle de son porteur." },
+      { "nom": "Frappe en premier", "texte": "Un combattant équipé de cette arme frappe en premier lors du premier tour de corps à corps, même face à une charge. Le Prêtre Liche peut renoncer à toutes ses attaques et parades d'un tour pour utiliser le pouvoir contenu dans le bâton. Un seul mot du pouvoir donne vie au serpent qu'il frappe." },
+      { "nom": "Parade", "texte": "Le bâton est manié à deux mains et peut servir à parer. Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." }
+    ]
+  },
+  {
+    "id": "bec_de_corbin", "nom": "Bec de corbin", "categorie": "armes_cac",
+    "cout": "-", "cout_fixe": false, "rarete": "-", "disponibilite": "Conquérant Razzieur Lustrien uniquement",
+    "acces": ["razzieurs_lustriens"], "source": "RL", "page": 3,
+    "texte": "Invention tiléenne, le bec de corbin est une arme blanche d'hast qui combine les meilleurs aspects d'une hallebarde, d'une lance et d'un marteau de guerre.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Allonge", "texte": "Lorsqu'il est chargé, un combattant armé d'un bec de corbin frappe par ordre d'Initiative au lieu de frapper en dernier." },
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Contondant", "texte": "Un jet de Dégâts de 2-4 (au lieu de 3-4 habituellement) est considéré comme sonné, bien que les Nains soient immunisés à cet effet." }
+    ]
+  },
+  {
+    "id": "chaine_et_boulet_cac", "nom": "Chaîne & boulet", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Gobelins uniquement",
+    "acces": ["commun_gobelins"], "source": "HO (Horde Orque)", "page": 4,
+    "texte": "Il s'agit d'un énorme boulet fixé au bout d'une longue chaîne. C'est l'arme favorite des célèbres fanatiques des gobelins de la nuit. Extrêmement lourde et difficile à manier, cette arme nécessite la consommation de champignons bonnets de fou.",
+    "portee": "C à C", "force": "U+2",
+    "regles_speciales": [
+      { "nom": "Encombrante", "texte": "La chaîne & boulet pèse un tel poids qu'une figurine qui en est équipée ne peut porter aucune autre arme ni aucun équipement. De plus, seule une figurine sous l'influence des champignons bonnets de fou dispose de la force nécessaire pour manier cette arme." },
+      { "nom": "Force colossale", "texte": "L'impact de l'énorme boulet, accentué par la vitesse que lui confère la chaîne, rend les armures ordinaires très peu efficaces. Aucune sauvegarde d'armure n'est donc permise contre des Blessures infligées par cette arme. De plus, toute touche réussie peut très bien décapiter la victime (ou au moins lui briser quelques membres !), toute Blessure subie inflige 1D3 Blessures au lieu d'une seule." },
+      { "nom": "Épuisante", "texte": "Les efforts demandés pour manier cette arme peuvent provoquer des lésions musculaires ou même un déboîtement d'une épaule. Sous l'effet des bonnets de fou, le guerrier est insensible à la douleur et ne le remarquera même pas, mais quand les effets s'estomperont, ce ne sera plus la même chose... Pour représenter ceci, après la bataille, chaque figurine ayant utilisé une chaîne & boulet doit effectuer un jet de Blessure, comme si elle avait été mise hors de combat. Si la figurine avait effectivement été mise hors de combat, ne faites qu'un seul jet, pas deux." },
+      { "nom": "Imprévisible", "texte": "La seule manière d'utiliser cette arme est de la faire tournoyer au-dessus de sa tête, en utilisant son propre corps pour faire contrepoids. Ce n'est malheureusement pas la manière la plus fiable de combattre et dès qu'il commence à jouer du boulet, le guerrier ne maîtrise plus trop son destin. Le tour où il commence à faire tournoyer son boulet, le guerrier est déplacé de 2D6ps dans une direction définie par le joueur. Pour les phases de Mouvement suivantes, lancez 1D6 : 1 = la figurine s'emmêle les pinceaux et s'étrangle toute seule avec sa chaîne, mise hors de combat (tuée sur 1-2 au lieu de 1-3 au jet de Blessure Grave). 2-5 = déplacée de 2D6ps dans la direction définie par le joueur. 6 = déplacée de 2D6ps dans une direction aléatoire (dé de dispersion : 1 droit devant, 2-3 vers la droite, 4-5 vers la gauche, 6 en arrière). Si elle heurte un bâtiment, un mur ou tout autre obstacle, elle est immédiatement mise hors de combat. Une figurine souhaitant s'en prendre à un guerrier portant cette arme subit une pénalité de -1 pour toucher, car elle doit faire attention à ne pas recevoir le boulet en pleine tête. Le guerrier équipé d'une chaîne & boulet ne reste pas bloqué au corps à corps, même s'il est au contact d'une autre figurine au début de sa phase de Mouvement. Si la figurine arrive au contact d'une figurine (alliée ou ennemie), elle est considérée comme ayant chargé et reste engagée au corps à corps jusqu'à sa phase de Mouvement suivante." },
+      { "nom": "Cinglé", "texte": "Le guerrier est bien trop occupé à maîtriser son arme pour faire attention à ce que disent les gens autour de lui. Il est donc immunisé à l'animosité." }
+    ]
+  },
+  {
+    "id": "chat_a_neuf_queues", "nom": "Chat à neuf queues", "categorie": "armes_cac",
+    "cout": 8, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Héros Pirates uniquement",
+    "acces": ["commun_pirates"], "source": "P (Pirates)", "page": 5,
+    "texte": "À bord du navire, l'ordre est souvent maintenu sous la menace du fouet. Au combat, ce long fouet barbelé est également utilisé, mais cette fois pour châtier l'ennemi !",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "+1 Sauvegarde ennemie", "texte": "Un ennemi blessé par cette arme obtient +1 à sa sauvegarde d'armure, ou une sauvegarde de 6+ s'il n'en a pas." },
+      { "nom": "Claquement", "texte": "Une figurine armée d'un chat à neuf queues gagne +1 Attaque lorsqu'elle charge, en plus de tout autre bonus. Lorsqu'elle est chargée, elle gagne aussi +1A qu'elle ne peut utiliser que contre la figurine qui la charge. Cette attaque supplémentaire frappe en premier. Si le porteur est chargé par 2 ennemis ou plus, ce bonus reste de +1A. Si le porteur se bat avec deux fouets, il reçoit +1A pour son arme de base additionnelle, mais seul son premier fouet bénéficie du +1A dû au Claquement." },
+      { "nom": "Parade impossible", "texte": "Les tentatives de parade contre cette arme sont inutiles, que ce soit avec une épée ou une rondache." }
+    ]
+  },
+  {
+    "id": "couteau_de_cuisine", "nom": "Couteau de cuisine", "categorie": "armes_cac",
+    "cout": 2, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Mootlanders uniquement",
+    "acces": ["commun_mootlanders"], "source": "M (Mootlanders)", "page": 5,
+    "texte": "Le couteau de cuisine ordinaire ne sert pas seulement à couper des légumes. Entre les mains potelées mais expertes d'un Maître Cuisinier, il peut faire un véritable carnage dans les rangs ennemis !",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "+1 Sauvegarde ennemie", "texte": "Un ennemi blessé par cette arme obtient +1 à sa sauvegarde d'armure, ou une sauvegarde de 6+ s'il n'en a pas." }
+    ]
+  },
+  {
+    "id": "dague", "nom": "Dague", "categorie": "armes_cac",
+    "cout": 2, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 5,
+    "texte": "Dagues et couteaux sont très répandus et peuvent être portés là où les autres armes sont interdites. À Mordheim, plus d'un guerrier est mort un couteau entre les omoplates.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "+1 Sauvegarde ennemie", "texte": "Un ennemi blessé par cette arme obtient +1 à sa sauvegarde d'armure ou une sauvegarde de 6+ s'il n'en a pas." }
+    ]
+  },
+  {
+    "id": "dague_de_la_peste", "nom": "Dague de la peste", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Skavens du Clan Pestilens uniquement",
+    "acces": ["skaven"], "source": "SCP (Skavens du Clan Pestilens)", "page": 5,
+    "texte": "Cette dague est recouverte en permanence d'une substance dégoûtante à l'aspect de moisissure verte. Les blessures infligées par cette dague peuvent provoquer de terribles maladies.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "+1 sauvegarde ennemie", "texte": "Un ennemi blessé par cette arme obtient +1 à sa sauvegarde d'armure ou une sauvegarde de 6+ s'il n'en a pas." },
+      { "nom": "Poison", "texte": "Un résultat de 6 au jet pour toucher provoque une infection de la cible par la maladie. Elle doit faire un test d'Endurance. En cas d'échec, la cible subit une Blessure automatique en plus de la Blessure potentiellement provoquée par la dague. Les Morts-Vivants et les Possédés sont immunisés à la maladie et n'ont pas à faire ce test. Si la figurine utilise deux dagues de la peste, elle gagne une attaque supplémentaire, sans autre effet en dehors d'avoir une chance supplémentaire d'obtenir un 6." }
+    ]
+  },
+  {
+    "id": "dague_empoisonnee_hobgobeline", "nom": "Dague empoisonnée hobgobeline", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Hobgobelins uniquement",
+    "acces": ["hobgobelins"], "source": "FH (Fils d'Hashut)", "page": 6,
+    "texte": "Les hobgobelins, aussi appelés « crétins », empoisonnent la lame de leurs dagues. Rusés et malins, ils sont souvent employés comme assassins par leurs maîtres, bien qu'ils soient des troupes peu fiables et vulnérables.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "+1 Sauvegarde d'armure", "texte": "Un ennemi blessé par cette arme obtient +1 à sa sauvegarde d'armure ou une sauvegarde de 6+ s'il n'en a pas." },
+      { "nom": "Paire", "texte": "Ces armes sont traditionnellement utilisées par paire, une dans chaque main. Un guerrier avec ces armes gagne +1 Attaque." },
+      { "nom": "Rapide", "texte": "L'arme confère +1 en Initiative lors de la détermination de l'ordre de combat." },
+      { "nom": "Venin", "texte": "Le venin des dagues empoisonnées pénètre dans le sang de la victime et ravage ses organes et ses muscles. Ces armes sont équivalentes à celles enduites de lotus noir. Aucun autre poison ne peut y être ajouté." }
+    ]
+  },
+  {
+    "id": "encensoir_a_peste", "nom": "Encensoir à peste", "categorie": "armes_cac",
+    "cout": 40, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Skavens du Clan Pestilens uniquement",
+    "acces": ["skaven"], "source": "SCP (Skavens du Clan Pestilens)", "page": 6,
+    "texte": "L'encensoir à peste est une sphère métallique creuse et hérissée de pointes, attachée à une longue chaîne se balançant comme un fléau. Un fragment de malepierre infecté par la peste brûle au cœur de la boule et dégage une fumée infâme. Celle-ci donne la nausée aux adversaires et peut faire du porteur de l'encensoir une cible difficile à atteindre.",
+    "portee": "C à C", "force": "U+2",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Brume mortelle", "texte": "Un combattant touché par un encensoir à peste doit faire un test d'Endurance. En cas d'échec, il subit une Blessure automatique en plus de la Blessure potentiellement provoquée par l'encensoir. Un résultat de 6 inflige toujours une Blessure. De plus, le porteur de l'encensoir doit également faire le test et subira une Blessure sur un résultat de 6. Les Morts-Vivants et les Possédés sont immunisés à la maladie et n'ont pas à faire ce test. Si le Skaven qui brandit l'encensoir à peste possède également des fragments de malepierre incandescents, il devient une cible difficile à atteindre et ceux qui le visent avec des armes de tir subissent un malus de -1 au toucher." },
+      { "nom": "Fatigue", "texte": "Le maniement de l'arme est très fatigant et le bonus de Force ne s'applique qu'au premier tour de chaque combat au corps à corps." }
+    ]
+  },
+  {
+    "id": "epee", "nom": "Épée", "categorie": "armes_cac",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 7,
+    "texte": "L'épée est souvent considérée comme la reine des armes. La plus commune des épées disponibles, l'épée longue impériale, est un chef-d'œuvre pour tout forgeron : quatre pieds d'acier brillant et deux tranchants coupants comme des rasoirs. Les épées sont des armes bien plus efficaces que les grossiers gourdins ou les haches, bien qu'apprendre à s'en servir soit long et difficile.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." }
+    ]
+  },
+  {
+    "id": "epee_courte", "nom": "Épée courte", "categorie": "armes_cac",
+    "cout": 7, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Gardiens de Chapelle Bretonniens uniquement",
+    "acces": ["gardiens_de_chapelle_bretonniens"], "source": "GB (Gardiens de Chapelle Bretonniens)", "page": 7,
+    "texte": null,
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." },
+      { "nom": "+1 Sauvegarde d'armure", "texte": "Note : pour la compétence maître escrimeur, l'épée courte compte comme une épée." }
+    ]
+  },
+  {
+    "id": "epee_batarde", "nom": "Épée bâtarde", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Chevaliers des Gardiens de Chapelle Bretonniens uniquement",
+    "acces": ["gardiens_de_chapelle_bretonniens"], "source": "GB (Gardiens de Chapelle Bretonniens)", "page": 7,
+    "texte": null,
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Frappe en dernier", "texte": "L'arme est si lourde que l'on frappe toujours en dernier avec, même en ayant chargé." },
+      { "nom": "Maniement difficile", "texte": "Un combattant armé de cette arme peut porter un bouclier normalement, mais pas d'arme additionnelle ou de rondache." },
+      { "nom": "Note", "texte": "Même si le mot « épée » figure dans son nom, une épée bâtarde ne permet pas de parer. Elle est toutefois considérée comme une épée pour la compétence maître escrimeur." }
+    ]
+  },
+  {
+    "id": "epee_des_etoiles", "nom": "Épée des étoiles", "categorie": "armes_cac",
+    "cout": 30, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Amazones du Setting Lustrie uniquement",
+    "acces": ["amazones_lustrie"], "source": "L-AL (Amazones du Setting Lustrie)", "page": 7,
+    "texte": "C'est une ancienne et légendaire épée dont le fil peut découper les armures comme du beurre.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Pas de sauvegarde", "texte": "L'arme peut traverser n'importe quel matériau. Un combattant Blessé par cette arme ne bénéficie d'aucune sauvegarde d'armure, excepté celles des protections magiques et saut de côté." }
+    ]
+  },
+  {
+    "id": "epee_dragon", "nom": "Épée Dragon", "categorie": "armes_cac",
+    "cout": 20, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Moines Guerriers de Cathay et Caravane des Marchands uniquement",
+    "acces": ["moines_cathay", "caravane_des_marchands"], "source": "BTB", "page": 8,
+    "texte": "Les épées dragon sont de grandes épées, utilisées typiquement par les soldats et rônins cathayens et occasionnellement maniées par des moines.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." }
+    ]
+  },
+  {
+    "id": "fleau", "nom": "Fléau", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 8,
+    "texte": "Le fléau est une arme lourde qui se manie à deux mains. Il est habituellement constitué de lourdes boules, souvent hérissées de pointes, reliées à un manche par de robustes chaînes. Les fléaux sont très fatigants à manier, mais terriblement destructeurs dans les mains d'un guerrier talentueux.",
+    "portee": "C à C", "force": "U+2",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Fatigue", "texte": "Le maniement de l'arme est très fatigant et le bonus de Force ne s'applique qu'au premier tour de chaque combat au corps à corps." }
+    ]
+  },
+  {
+    "id": "fouet_a_betes", "nom": "Fouet à bêtes", "categorie": "armes_cac",
+    "cout": "10+1D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8, Maîtres des Bêtes Elfes Noirs uniquement",
+    "acces": ["elfes_noirs"], "source": "L-EN (Elfes Noirs)", "page": 8,
+    "texte": "Les maîtres des bêtes utilisent des fouets barbelés pour pousser leurs créatures au combat.",
+    "portee": "C à C", "force": "U-1",
+    "regles_speciales": [
+      { "nom": "Fléau des bêtes", "texte": "Un Maître des Bêtes armé d'un fouet à bêtes provoque la peur chez les animaux. Tout animal chargé par ou désirant charger un Maître des Bêtes doit donc effectuer un test de peur selon les règles habituelles du Livre des Règles de Mordheim." },
+      { "nom": "Claquement", "texte": "Une figurine armée du fouet à bêtes gagne +1 Attaque lorsqu'elle charge, en plus de tout autre bonus. Lorsqu'elle est chargée, elle gagne aussi +1 Attaque qu'elle ne peut utiliser que contre la figurine qui la charge. Cette attaque supplémentaire frappe en premier. Si le porteur est chargé par 2 ennemis ou plus, ce bonus reste de +1A. Si le porteur se bat avec deux fouets, il reçoit +1A pour son arme de base additionnelle, mais seul son premier fouet bénéficie du +1A dû au claquement." }
+    ]
+  },
+  {
+    "id": "fouet_barbele", "nom": "Fouet barbelé", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, un seul Héros Maraudeurs du Chaos uniquement",
+    "acces": ["maraudeurs_du_chaos"], "source": "BTB-MC (Maraudeurs du Chaos)", "page": 8,
+    "texte": "Utilisés à l'origine pour apprivoiser les chiens du Chaos sauvages, les fouets barbelés se sont également avérés efficaces au combat.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Claquement", "texte": "Une figurine armée d'un fouet barbelé gagne +1 Attaque lorsqu'elle charge, en plus de tout autre bonus. Lorsqu'elle est chargée, elle gagne aussi +1A qu'elle ne peut utiliser que contre la figurine qui la charge. Cette attaque supplémentaire frappe en premier. Si le porteur est chargé par 2 ennemis ou plus, ce bonus reste de +1A. Si le porteur se bat avec deux fouets, il reçoit +1A pour son arme de base additionnelle, mais seul son premier fouet bénéficie du +1A dû au claquement." },
+      { "nom": "Enrager", "texte": "Le Héros peut utiliser son fouet pour faire charger sauvagement les Chiens du Chaos. À moins d'être engagés au corps à corps, tous les Chiens du Chaos à moins de 4ps gagnent +1 Attaque." },
+      { "nom": "Parade impossible", "texte": "Les tentatives de parade contre cette arme sont inutiles, que ce soit avec une épée ou une rondache." }
+    ]
+  },
+  {
+    "id": "fouet_dacier", "nom": "Fouet d'acier", "categorie": "armes_cac",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Sœurs de Sigmar, Nains du Chaos uniquement",
+    "acces": ["sisters_of_sigmar", "nains_du_chaos"], "source": "LdR/BTB-NdC", "page": 9,
+    "texte": "Une autre arme unique de l'Ordre, faite de chaînes d'acier barbelées.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Claquement", "texte": "Une figurine armée d'un fouet d'acier gagne +1 Attaque lorsqu'elle charge, en plus de tout autre bonus. Lorsqu'elle est chargée, elle gagne aussi +1A qu'elle ne peut utiliser que contre la figurine qui la charge. Cette attaque supplémentaire frappe en premier. Si le porteur est chargé par 2 ennemis ou plus, ce bonus reste de +1A. Si le porteur se bat avec deux fouets, il reçoit +1A pour son arme de base additionnelle, mais seul son premier fouet bénéficie du +1A dû au Claquement." },
+      { "nom": "Parade impossible", "texte": "Les tentatives de parade contre cette arme sont inutiles, que ce soit avec une épée ou une rondache." }
+    ]
+  },
+  {
+    "id": "fouet_dhedoniste", "nom": "Fouet d'hédoniste", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Héros uniquement",
+    "acces": ["cour_des_plaisirs_profanes"], "source": "CP (Cour des Plaisirs Profanes)", "page": 9,
+    "texte": null,
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Claquement", "texte": "Une figurine armée d'un fouet d'hédoniste gagne +1 Attaque lorsqu'elle charge, en plus de tout autre bonus. Lorsqu'elle est chargée, elle gagne aussi +1A qu'elle ne peut utiliser que contre la figurine qui la charge. Cette attaque supplémentaire frappe en premier. Si le porteur est chargé par 2 ennemis ou plus, ce bonus reste de +1A. Si le porteur se bat avec deux fouets, il reçoit +1A pour son arme de base additionnelle, mais seul son premier fouet bénéficie du +1A dû au Claquement." },
+      { "nom": "Parade impossible", "texte": "Les tentatives de parade contre cette arme sont inutiles, que ce soit avec une épée ou une rondache." }
+    ]
+  },
+  {
+    "id": "gaffe", "nom": "Gaffe", "categorie": "armes_cac",
+    "cout": 8, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Pirates uniquement",
+    "acces": ["commun_pirates"], "source": "P (Pirates)", "page": 9,
+    "texte": "Les gaffes sont habituellement utilisées pour remonter des cordes ou d'autres objets tombés à l'eau, mais leur longue portée et leur redoutable crochet métallique les rendent également utiles au combat.",
+    "portee": "C à C", "force": "U-1",
+    "regles_speciales": [
+      { "nom": "Frappe en premier", "texte": "Un combattant équipé de cette arme frappe en premier lors du premier tour de corps à corps, même face à une charge." },
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." }
+    ]
+  },
+  {
+    "id": "gantelet_a_pointe", "nom": "Gantelet à pointe", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Gladiateurs uniquement",
+    "acces": ["gladiateurs"], "source": "G (Gladiateurs)", "page": 9,
+    "texte": "Utilisé habituellement dans les arènes, le gantelet à pointe compte à la fois comme une rondache et une arme additionnelle.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." },
+      { "nom": "Relance de parade", "texte": "Utilisée avec une épée, cette arme permet de relancer une fois par tour une parade ratée." }
+    ]
+  },
+  {
+    "id": "grande_hache_du_chaos", "nom": "Grande hache du Chaos", "categorie": "armes_cac",
+    "cout": 25, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Héros du Chaos avec la compétence Choisi par le Chaos",
+    "acces": ["chaos_choisi_par_le_chaos"], "source": "BTB-MC (Maraudeurs du Chaos)", "page": 10,
+    "texte": "Ces haches de bataille surdimensionnées ne peuvent être utilisées que par les plus forts des guerriers.",
+    "portee": "C à C", "force": "U+2",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Frappe en dernier", "texte": "Les grandes haches du Chaos sont si lourdes que la figurine frappe toujours en dernier, même en ayant chargé (à moins d'avoir la compétence homme fort)." },
+      { "nom": "Tranchant", "texte": "Une grande hache du Chaos a un modificateur de sauvegarde supplémentaire de -1. Une figurine avec une Force de 4 utilisant une grande hache du Chaos a donc un modificateur de sauvegarde de -4 au corps à corps." }
+    ]
+  },
+  {
+    "id": "griffes_de_combat", "nom": "Griffes de combat (paire)", "categorie": "armes_cac",
+    "cout": 35, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Skavens uniquement",
+    "acces": ["skaven"], "source": "LdR", "page": 10,
+    "texte": "Les arts martiaux du clan Eshin nécessitent des armes exotiques. Les plus célèbres sont les griffes de combat : des lames acérées fixées aux pattes du guerrier. Il faut être un expert pour bien les utiliser, mais les membres du clan Eshin le sont.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Encombrant", "texte": "Un combattant équipé de cette arme ne peut pas utiliser d'autres armes durant toute la partie." },
+      { "nom": "Grimpeur", "texte": "Un combattant équipé de cette arme gagne +1 en Initiative pour les tests d'escalade." },
+      { "nom": "Paire", "texte": "Ces armes sont traditionnellement utilisées par paire, une dans chaque main. Un guerrier avec ces armes gagne +1 Attaque." },
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." }
+    ]
+  },
+  {
+    "id": "griffes_des_anciens", "nom": "Griffes des anciens", "categorie": "armes_cac",
+    "cout": 30, "cout_fixe": true, "rarete": "12", "disponibilite": "Rare 12, Amazones du Setting Mordheim uniquement",
+    "acces": ["amazones_mordheim"], "source": "AM (Amazones du Setting Mordheim)", "page": 10,
+    "texte": "Cette arme très ancienne est faite d'un métal inaltérable. Les pouvoirs de cet artefact ne peuvent être libérés que par un rituel connu d'une poignée d'amazones. La lame de cette arme semble alors chauffée à blanc et peut traverser les armures comme s'il s'agissait de papier.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." },
+      { "nom": "Pas de sauvegarde", "texte": "L'arme peut traverser n'importe quel matériau. Un combattant Blessé par cette arme ne bénéficie d'aucune sauvegarde d'armure, excepté celles des protections magiques et saut de côté." }
+    ]
+  },
+  {
+    "id": "hache", "nom": "Hache", "categorie": "armes_cac",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 10,
+    "texte": "La hache est l'arme traditionnelle des bûcherons de l'Empire, mais elle est aussi utilisée comme arme dans les régions rurales les plus pauvres. Elle possède une lourde lame capable de causer beaucoup de dégâts et perce facilement les armures si elle est maniée par un homme fort. De tous les armuriers, ce sont les nains qui forgent les meilleures haches. Les haches naines ont une grande valeur pour les guerriers du Vieux Monde et font partie des armes les plus recherchées.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Tranchant", "texte": "L'arme bénéficie d'un modificateur de sauvegarde supplémentaire de -1 (un combattant de Force 4 réduira la sauvegarde de la cible de -2)." }
+    ]
+  },
+  {
+    "id": "hachoir", "nom": "Hachoir", "categorie": "armes_cac",
+    "cout": 3, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Mootlanders uniquement",
+    "acces": ["commun_mootlanders"], "source": "M (Mootlanders)", "page": 11,
+    "texte": "Le hachoir est l'un des meilleurs ustensiles de cuisine pour se battre. Il est assez léger et peut couper à peu près tout, un peu comme une hache.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Tranchant", "texte": "L'arme bénéficie d'un modificateur de sauvegarde supplémentaire de -1 (un combattant de Force 4 réduira la sauvegarde de la cible de -2)." }
+    ]
+  },
+  {
+    "id": "katar", "nom": "Katar", "categorie": "armes_cac",
+    "cout": 5, "cout_fixe": true, "rarete": "4", "disponibilite": "Rare 4",
+    "acces": ["rare_4"], "source": "K", "page": 11,
+    "texte": "Le katar est un poignard de style arabe dont la poignée est perpendiculaire à la lame et qui s'utilise de manière à pouvoir perforer l'adversaire.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Tranchant", "texte": "L'arme bénéficie d'un modificateur de sauvegarde supplémentaire de -1 (un combattant de Force 4 réduira la sauvegarde de la cible de -2)." }
+    ]
+  },
+  {
+    "id": "hache_naine", "nom": "Hache naine", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Nains uniquement",
+    "acces": ["dwarf_treasure_hunters"], "source": "CTN (Chasseurs de Trésors Nains)", "page": 11,
+    "texte": "Les haches naines sont des armes à manche court constituées de matériaux plus légers (et bien plus solides) que les haches normales. Les guerriers nains les utilisent depuis toujours et les manient aussi habilement qu'un guerrier humain pourrait manier une épée. C'est l'arme naine par excellence.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." },
+      { "nom": "Tranchant", "texte": "L'arme bénéficie d'un modificateur de sauvegarde supplémentaire de -1 (un combattant de Force 4 réduira la sauvegarde de la cible de -2)." }
+    ]
+  },
+  {
+    "id": "hallebarde", "nom": "Hallebarde", "categorie": "armes_cac",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 11,
+    "texte": "La lourde lame de la hallebarde, dotée d'une pointe de lance et d'un tranchant de hache, est fixée sur une robuste hampe de chêne ou d'acier. Cette arme, utilisable d'estoc et de taille, est polyvalente, mais difficile à manier dans les lieux clos.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." }
+    ]
+  },
+  {
+    "id": "lame_des_etoiles", "nom": "Lame des étoiles", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Amazones du Setting Lustrie uniquement",
+    "acces": ["amazones_lustrie"], "source": "L-AL (Amazones du Setting Lustrie)", "page": 11,
+    "texte": "Parmi les nombreuses armes étranges que possèdent les amazones, la lame des étoiles est une arme fabriquée comme une dague amazonienne. Elle est généralement peinte de couleurs exotiques et possède des propriétés magiques qui améliorent les prouesses martiales des amazones.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "+1 sauvegarde ennemie", "texte": "Un ennemi Blessé par cette arme obtient +1 à sa sauvegarde d'armure ou une sauvegarde de 6+ s'il n'en a pas." },
+      { "nom": "Défense", "texte": "La lame des étoiles permet de parer la première touche réussie de tout combat sur un 4+." }
+    ]
+  },
+  {
+    "id": "lames_suintantes", "nom": "Lames suintantes (paire)", "categorie": "armes_cac",
+    "cout": 50, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Skavens uniquement (la paire)",
+    "acces": ["skaven"], "source": "LdR", "page": 12,
+    "texte": "Les adeptes du clan Eshin utilisent des lames suintantes : des épées forgées avec une petite quantité de malepierre mélangée à leur acier. Les lames suintantes ont la particularité de diffuser le poison en permanence.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Paire", "texte": "Ces armes sont traditionnellement utilisées par paire, une dans chaque main. Un guerrier avec ces armes gagne +1 Attaque." },
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." },
+      { "nom": "Venin", "texte": "Le venin des lames suintantes pénètre dans la blessure de la victime, ravageant les organes et les muscles. Ces armes sont équivalentes à celles enduites de lotus noir. Aucun autre poison ne peut y être ajouté." }
+    ]
+  },
+  {
+    "id": "lance", "nom": "Lance", "categorie": "armes_cac",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 12,
+    "texte": "Les lances comprennent aussi bien les bâtons pointus des gobelins que les grandes lances utilisées par les cavaliers elfes.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Bonus de cavalerie", "texte": "Un cavalier armé de cette arme reçoit un bonus de +1 en Force lorsqu'il charge. Ce bonus ne s'applique que lors du tour de charge." },
+      { "nom": "Difficile à manier", "texte": "Un combattant armé de cette arme peut porter un bouclier ou une rondache normalement, mais pas d'arme additionnelle." },
+      { "nom": "Frappe en premier", "texte": "Un combattant équipé de cette arme frappe en premier lors du premier tour de corps à corps, même face à une charge." }
+    ]
+  },
+  {
+    "id": "lance_a_sanglier", "nom": "Lance à sanglier", "categorie": "armes_cac",
+    "cout": 30, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Aristocrates uniquement",
+    "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 12,
+    "texte": "La lance à sanglier est l'arme de chasse préférée des nobles de l'Ostermark, conçue pour arrêter la charge d'un sanglier géant rendu fou par la douleur grâce à sa garde transversale. À Mordheim, les nobles de la Cavalcade l'utilisent à des fins bien plus sinistres : chasser des hommes désespérés.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Frappe en premier", "texte": "Un combattant équipé de cette arme frappe en premier lors du premier tour de corps à corps, même face à une charge." },
+      { "nom": "Bonus de cavalerie", "texte": "Un cavalier armé de cette arme reçoit un bonus de +1 en Force lorsqu'il charge. Ce bonus ne s'applique que lors du tour de charge." },
+      { "nom": "Garde transversale", "texte": "Cette arme a été conçue pour arrêter net la charge d'un sanglier enragé. Lorsque son porteur est chargé, la lance à sanglier réduit de -1 le nombre d'Attaques du premier assaillant au corps à corps (jusqu'à un minimum de 1). Les Attaques provenant d'une deuxième arme ou de toute autre source, à l'exception de la caractéristique de base, ne sont pas affectées. La lance à sanglier n'a aucun effet sur les grandes cibles telles que les ogres, à l'exception du bonus de charge. L'Aristocrate ne peut pas manier deux lances à sanglier à la fois." }
+    ]
+  },
+  {
+    "id": "lance_de_cavalerie", "nom": "Lance de cavalerie", "categorie": "armes_cac",
+    "cout": 40, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8",
+    "acces": ["rare_8"], "source": "LdR", "page": 12,
+    "texte": "Cette longue lance est utilisée par la cavalerie lourde pour percer les armures et jeter l'ennemi au sol. C'est l'arme de prédilection des chevaliers templiers et autres riches guerriers. Son maniement demande beaucoup de talent et de force et seuls les plus riches montent les chevaux de guerre qui donnent à cette arme toute son efficacité.",
+    "portee": "C à C", "force": "U+2",
+    "regles_speciales": [
+      { "nom": "Arme de cavalerie", "texte": "Le combattant doit être monté pour manier cette arme." },
+      { "nom": "Bonus de cavalerie", "texte": "Un cavalier armé de cette arme reçoit un bonus de +1 en Force lorsqu'il charge. Ce bonus ne s'applique que lors du tour de charge." }
+    ]
+  },
+  {
+    "id": "louche", "nom": "Louche", "categorie": "armes_cac",
+    "cout": 2, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Mootlanders uniquement",
+    "acces": ["commun_mootlanders"], "source": "M (Mootlanders)", "page": 13,
+    "texte": "Une louche n'est pas très efficace pour tuer vos ennemis, mais si vous visez correctement, un coup sur les phalanges peut sérieusement réduire les capacités de combat, même du meilleur guerrier.",
+    "portee": "C à C", "force": "U+2",
+    "regles_speciales": [
+      { "nom": "Casse-phalanges", "texte": "Si un Maître Cuisinier parvient à toucher un ennemi au corps à corps (un exploit en soi), qui plus est sur un « 6 », il a frappé en plein dans les phalanges de son adversaire, forcé alors de lâcher son arme." },
+      { "nom": "Aucune sauvegarde, sauf pour les boucliers", "texte": "Un Maître Cuisinier sait exactement où diriger sa louche. Les casques et les plastrons ne sont d'aucune utilité contre une louche qui s'abat sur les mains. Les seuls jets de sauvegarde autorisés sont ceux des boucliers ou des compétences." }
+    ]
+  },
+  {
+    "id": "main_gauche", "nom": "Main-gauche", "categorie": "armes_cac",
+    "cout": 7, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Spadassin des Bandits du Hochland uniquement",
+    "acces": ["bandits_du_hochland"], "source": "NC-BH (Bandits du Hochland)", "page": 13,
+    "texte": "Une main-gauche est une dague avec une large garde, souvent utilisée en association avec une rapière ou une autre épée. Populaire chez les duellistes et les petits nobles, la main-gauche est parfois considérée comme une arme « farfelue ». En réalité, elle permet à son utilisateur d'être efficace en attaque comme en défense.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "+1 Sauvegarde ennemie", "texte": "Un ennemi Blessé par cette arme obtient +1 à sa sauvegarde d'armure ou une sauvegarde de 6+ s'il n'en a pas." },
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." },
+      { "nom": "Relance de parade", "texte": "Utilisée avec une épée, cette arme permet de relancer une fois par tour une parade ratée." }
+    ]
+  },
+  {
+    "id": "marteau_de_cavalerie", "nom": "Marteau de cavalerie", "categorie": "armes_cac",
+    "cout": 12, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10",
+    "acces": ["rare_10"], "source": "EEF", "page": 13,
+    "texte": "C'est un grand marteau tel que ceux utilisés par les chevaliers du Loup Blanc. Il est trop encombrant pour être utilisé d'une seule main et s'adapte mieux au combat monté, car l'élan de l'animal s'ajoute à la puissance de l'arme.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Charge de cavalerie", "texte": "Une figurine armée d'un marteau de cavalerie peut utiliser la vitesse de sa monture pour donner plus d'impact à son arme. Une figurine montée armée d'un marteau de cavalerie peut ajouter un bonus supplémentaire de +1 à sa Force lorsqu'elle charge (pour un total de +2). Ce bonus supplémentaire ne s'applique que lors du tour où elle charge." }
+    ]
+  },
+  {
+    "id": "marteau_de_guerre_sigmarite_market", "nom": "Marteau de guerre sigmarite", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commune, Matriarches et Sœurs Supérieures des Sœurs de Sigmar uniquement",
+    "acces": ["sisters_of_sigmar"], "source": "LdR", "page": 13,
+    "texte": "Une des armes traditionnelles de l'Ordre, en souvenir de Ghal-Maraz, le marteau de Sigmar.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Contondant", "texte": "Un jet de Dégâts de 2-4 (au lieu de 3-4 habituellement) est considéré comme sonné." },
+      { "nom": "Sacré", "texte": "Chaque marteau a été béni par une matriarche avant d'être remis à une sœur. Le marteau donne un bonus de +1 sur tous les jets pour Blesser infligés au corps à corps contre les Possédés et les Morts-Vivants. Notez qu'il vous faudra tout de même un 6 avant modificateurs pour infliger un Coup Critique." }
+    ]
+  },
+  {
+    "id": "massue_ogre", "nom": "Massue ogre", "categorie": "armes_cac",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Ogres uniquement",
+    "acces": ["maneaters"], "source": "MH (Mangeurs d'Hommes)", "page": 14,
+    "texte": "Les massues ogres sont grossièrement bricolées avec des liens, des pointes et des clous. Le soin et la taille de la massue qu'un ogre brandit est un indicateur de son statut. Un ogre armé d'un simple rondin est généralement considéré comme désespéré ou extrêmement pauvre, alors que certains vagabonds sont connus pour combattre avec quasiment n'importe quel objet d'une taille appropriée, comme des réverbères, de l'artillerie de récupération ou des pièces d'architecture. Ces massues sont généralement utilisées pour assommer une proie jusqu'à pouvoir la traîner jusqu'à la caverne sans perdre trop de sang, mais elles sont aussi parfaites pour briser la défense de l'ennemi lors d'un combat.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Attaque écrasante", "texte": "Les massues ogres peuvent être maniées avec une force impressionnante, procurant un modificateur de sauvegarde supplémentaire de -1. Concernant les tentatives de parade du défenseur, l'attaque est considérée comme étant de Force+1. Ainsi, un combattant de F3 ne peut pas parer l'attaque d'un Ogre de F5 brandissant une massue ogre. L'attaque écrasante ne fonctionne que si l'Ogre utilise la massue ogre à deux mains." },
+      { "nom": "Contondant", "texte": "Un jet de Dégâts de 2-4 (au lieu de 3-4 habituellement) est considéré comme sonné." }
+    ]
+  },
+  {
+    "id": "misericordia", "nom": "Misericordia", "categorie": "armes_cac",
+    "cout": 5, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Héros de la Cavalcade Maudite uniquement",
+    "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 14,
+    "texte": "La misericordia est une dague tiléenne dotée d'une lame longue et fine, conçue pour abréger les souffrances des guerriers blessés. Les guerriers de la Cavalcade Maudite sont experts dans l'art de frapper les points vitaux de leurs adversaires, et la misericordia peut trouver la plus petite faille même dans la meilleure armure. Souvent, ceux qui la manient choisissent un endroit qui cause une douleur indescriptible mais ne tue pas la cible sur le coup, afin de pouvoir la traîner jusqu'au Trône des Vers.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Coup de grâce", "texte": "La misericordia permet d'ignorer tous les jets de sauvegarde d'armure d'un adversaire qui est à terre." }
+    ]
+  },
+  {
+    "id": "misericorde", "nom": "Miséricorde", "categorie": "armes_cac",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Razzieurs Lustriens uniquement",
+    "acces": ["razzieurs_lustriens"], "source": "RL", "page": 14,
+    "texte": "Ces longues dagues ont été spécialement conçues pour tuer les adversaires à terre en perçant les interstices des armures et les points vulnérables tels que les yeux et la gorge.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "+1 Sauvegarde ennemie", "texte": "Un ennemi Blessé par cette arme obtient +1 à sa sauvegarde d'armure ou une sauvegarde de 6+ s'il n'en a pas." },
+      { "nom": "Coup fatal", "texte": "Lorsque la cible de l'attaque est à terre, lancez 2D6 au lieu d'un seul pour le jet de Blessure. Choisissez le résultat le plus élevé." }
+    ]
+  },
+  {
+    "id": "morgenstern", "nom": "Morgenstern", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 14,
+    "texte": "Cette arme, aussi dévastatrice que difficile à manier, est un fléau à une main constitué d'un manche auquel se rattachent des chaînes dotées de boules d'acier à pointes.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Maniement difficile", "texte": "Un combattant armé de cette arme peut porter un bouclier normalement, mais pas d'arme additionnelle ou de rondache." },
+      { "nom": "Fatigue", "texte": "Le maniement de l'arme est très fatigant et le bonus de Force ne s'applique qu'au premier tour de chaque combat au corps à corps." }
+    ]
+  },
+  {
+    "id": "nunchaku", "nom": "Nunchaku", "categorie": "armes_cac",
+    "cout": 20, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Moines Guerriers de Cathay uniquement",
+    "acces": ["moines_cathay"], "source": "BTB-MGC", "page": 15,
+    "texte": "Le nunchaku consiste en deux barres en bois, reliées entre elles et renforcées par du fer ou de l'acier afin d'en augmenter la puissance de frappe. Il est léger et offre plus de souplesse à son utilisateur qu'un fléau.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Déluge de coups", "texte": "Combattre avec deux nunchakus permet à son utilisateur de délivrer un déluge de coups. Un combattant armé de nunchakus gagne +2 Attaques. Ce bonus ne s'applique que lors du premier tour de chaque combat au corps à corps. Pour le reste du combat, les nunchakus comptent comme deux armes à une main normales." }
+    ]
+  },
+  {
+    "id": "pince_market", "nom": "Pince", "categorie": "armes_cac",
+    "cout": 25, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Geôliers Nains du Chaos uniquement",
+    "acces": ["nains_du_chaos"], "source": "BTB-NdC", "page": 15,
+    "texte": "Ce sont des dents semi-circulaires montées sur un long manche, prêtes à capturer un ennemi grâce à cette mâchoire hérissée de pointes d'acier. Populaire chez les nains du Chaos, ce dispositif ne laisse pas grande pression permettant de piéger les prisonniers les plus violents.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Capture", "texte": "Une figurine mise hors de combat grâce à une pince est capturée, à moins que la bande ne soit mise en Déroute. Ne faites pas le jet de Blessure Grave sur la victime. Les grandes cibles, comme les Ogres, les Trolls et les Minotaures, ainsi que les animaux, ne peuvent pas être capturées de cette manière." }
+    ]
+  },
+  {
+    "id": "pince_homme_slaaneshi", "nom": "Pince-homme slaaneshi", "categorie": "armes_cac",
+    "cout": 30, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Fouettard uniquement",
+    "acces": ["cour_des_plaisirs_profanes"], "source": "CP (Cour des Plaisirs Profanes)", "page": 15,
+    "texte": null,
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Immobilisation", "texte": "Si l'arme touche et provoque une Blessure non sauvegardée, ne faites pas le jet sur le tableau des Blessures. À la place, l'ennemi est mis à terre et ne peut pas se relever tant qu'il est au contact du porteur. La cible ne peut quitter le combat sauf par magie. Le porteur peut se déplacer (et traîner l'ennemi avec lui) tant qu'il n'est pas engagé par d'autres adversaires. Le pince-hommes slaaneshi ne fonctionne pas contre les grandes cibles (Ogres, montures, etc.). Si vous changez d'arme, l'adversaire pourra se relever normalement lors de sa phase de Ralliement. À la fin de la bataille, si la cible est encore immobilisée, elle est considérée comme capturée (résultat 61 sur le tableau des Blessures Graves), même s'il s'agit d'un Homme de main." }
+    ]
+  },
+  {
+    "id": "pique_market", "nom": "Pique", "categorie": "armes_cac",
+    "cout": 10, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Caravane des Marchands, Tiléens uniquement",
+    "acces": ["caravane_des_marchands", "tileens"], "source": "L-T (Créatures de taille humaine ou plus grandes)", "page": 15,
+    "texte": "La pique est un peu plus longue qu'une lance et est lestée de manière à pouvoir être maniée efficacement entre les arbres et les broussailles si fréquents dans la jungle.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+      { "nom": "Frappe toujours en premier", "texte": "Un combattant armé d'une pique frappe en premier lors du premier tour de corps à corps. Du fait du long manche de la pique, il bénéficie d'un bonus d'Initiative de +1 lors du premier tour de corps à corps, ce qui lui permet d'attaquer avant même que l'ennemi ne l'atteigne. Note : comme toute mécanique de \"portée\" a été supprimée de Mordheim, nous recommandons d'utiliser les règles de Border Town Burning, détaillées ci-dessus." }
+    ]
+  },
+  {
+    "id": "poignards_empoisonnes", "nom": "Poignards empoisonnés (paire)", "categorie": "armes_cac",
+    "cout": 25, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Gobelins de la Nuit uniquement",
+    "acces": ["gobelins_de_la_nuit"], "source": "GDN", "page": 16,
+    "texte": "Cette paire de poignards est enrobée de jus de champignon à bonnet de mort.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Paire", "texte": "Ces armes sont traditionnellement utilisées par paire, une dans chaque main. Un guerrier avec ces armes gagne +1 Attaque." },
+      { "nom": "Empoisonnées", "texte": "Les poignards sont recouverts gratuitement après chaque partie. Ces champignons ont le même effet que le lotus noir : ils Blessent automatiquement si vous obtenez un 6 pour toucher. Notez que vous devez lancer un dé pour chaque Blessure infligée par ces armes. Sur un 6, vous infligez un Coup Critique. Si vous n'obtenez pas de 6, la Blessure est normale. Faites les sauvegardes d'armure comme d'habitude." }
+    ]
+  },
+  {
+    "id": "poing", "nom": "Poing", "categorie": "armes_cac",
+    "cout": 0, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
+    "acces": ["commun"], "source": "LdR", "page": 16,
+    "texte": "Dans les cas les plus désespérés, lorsqu'on n'a même pas de couteau, il faut se battre à mains nues. Inutile de préciser que les chances de survie sont comparables à celles des halflings privés de nourriture pendant huit heures ! Note : la règle suivante ne s'applique qu'aux guerriers qui ont perdu leurs armes. Les créatures telles que zombies, animaux et autres ne sont pas affectées. Les guerriers qui se battent à mains nues n'ont toujours qu'une seule attaque.",
+    "portee": "C à C", "force": "U-1",
+    "regles_speciales": [
+      { "nom": "+1 Sauvegarde ennemie", "texte": "Un ennemi Blessé par cette arme obtient +1 à sa sauvegarde d'armure, ou une sauvegarde de 6+ s'il n'en a pas." }
+    ]
+  },
+  {
+    "id": "poing_de_fer", "nom": "Poing de fer", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Ogres uniquement",
+    "acces": ["maneaters"], "source": "MH (Mangeurs d'Hommes)", "page": 16,
+    "texte": "Les ogres protègent souvent leur main gauche avec une sorte de gantelet à pointe. Un gant aussi lourd peut être utilisé pour repousser les attaques les plus violentes, comme avec un bouclier géant, ou pour réduire en bouillie le visage d'un ennemi.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Double-rôle", "texte": "Les poings de fer fonctionnent à la fois comme un bouclier et une arme blanche. Cela signifie qu'un poing de fer permet de relancer les tentatives de parade ratées s'il est associé à une épée ou un second poing de fer." },
+      { "nom": "Ganté", "texte": "Une figurine équipée d'un poing de fer ne peut pas tenir une autre arme avec cette même main. Cela implique qu'une arme à deux mains ne peut pas être utilisée. Avec deux poings de fer, l'ogre ne peut pas utiliser d'autres armes de corps à corps pendant la bataille." },
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." }
+    ]
+  },
+  {
+    "id": "rapiere", "nom": "Rapière", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "5", "disponibilite": "Rare 5, Reiklanders et Marienburgers, Tiléens, Bandits du Hochland, Caravane des Marchands",
+    "acces": ["reiklanders", "marienburgers", "tileens", "bandits_du_hochland", "caravane_des_marchands"], "source": "VEC/BH/BH/CM", "page": 17,
+    "texte": "La rapière est une longue lame fine couramment utilisée par les duellistes. C'est une arme redoutable, capable de porter une multitude de coups, mais elle n'a pas la puissance d'une épée large.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "+1 Sauvegarde ennemie", "texte": "La rapière étant une épée très légère qui ne possède pas l'épaisse lame d'une épée capable de briser une armure. Une figurine Blessée par une rapière obtient +1 à sa sauvegarde d'armure ou une sauvegarde de 6+ si elle n'en a pas." },
+      { "nom": "Barrage", "texte": "La rapière est légère et flexible, ce qui la rend moins puissante qu'un sabre ou une hache, mais permet à un guerrier habile de faire pleuvoir sur son adversaire un déluge d'attaques rapides sans qu'il puisse réagir. Un épéiste bien entraîné peut infliger en quelques secondes une multitude de blessures légères qui suffisent souvent à mettre hors d'état de nuire le plus coriace des ennemis. Un guerrier armé d'une rapière effectue ses jets pour toucher et Blesser comme d'habitude. Cependant, si vous parvenez à toucher votre adversaire mais que vous ne parvenez pas à le Blesser, vous pouvez attaquer de nouveau comme s'il s'agissait d'une nouvelle attaque, mais avec un malus de -1 pour toucher (jusqu'à un maximum de 6+ pour toucher). Le combattant peut ainsi continuer à attaquer tant qu'il touche et peut utiliser cette capacité autant de fois qu'il a d'Attaques." },
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." }
+    ]
+  },
+  {
+    "id": "sabre_de_cathay", "nom": "Sabre de Cathay", "categorie": "armes_cac",
+    "cout": "75+2D6", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12",
+    "acces": ["rare_12"], "source": "BTB", "page": 17,
+    "texte": "Les lames en ithilmar forgées par les elfes sont très estimées. Les armes fabriquées par les forgerons de Cathay sont encore plus prestigieuses. Connues par les marchands estaliens sous le nom de lames Jintachi, les sabres de Cathay sont de véritables petits bijoux, mortels entre les mains d'un combattant chevronné. L'or seul n'est jamais suffisant pour acquérir une telle arme. Les quelques armes encore forgées ne sont offertes qu'en récompense d'un acte héroïque accompli dans les royaumes de l'est.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Arme de maître", "texte": "Les attaques réalisées avec cette arme bénéficient d'un bonus de CC+1 et I+1." },
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." },
+      { "nom": "Tranchant", "texte": "L'arme bénéficie d'un modificateur de sauvegarde supplémentaire de -1 (un combattant de Force 4 réduira la sauvegarde de la cible de -2)." }
+    ]
+  },
+  {
+    "id": "trident", "nom": "Trident", "categorie": "armes_cac",
+    "cout": 15, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Gladiateurs uniquement",
+    "acces": ["gladiateurs"], "source": "G (Gladiateurs)", "page": 17,
+    "texte": "Le trident utilisé en tant qu'arme de gladiateur trouve son origine en Tilée, aux temps anciens, quand les gladiateurs combattaient dans les grandes arènes publiques. Cette arme ressemble à une lance avec tous les avantages qu'apporte sa longueur, mais elle possède également trois pointes permettant à un utilisateur habile de dévier les lames. Traditionnellement, le trident est combiné à un filet manié par un gladiateur équipé d'une armure légère pour faire face à des épéistes plus lourdement armés.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Frappe en premier", "texte": "Un combattant équipé de cette arme frappe en premier lors du premier tour de corps à corps, même face à une charge." },
+      { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." }
+    ]
+  },
+  {
+    "id": "arme_empoisonnee_mod", "nom": "Arme empoisonnée", "categorie": "armes_cac",
+    "cout": "+25", "cout_fixe": false, "rarete": "C", "disponibilite": "Commun, Gobelins des Forêts uniquement",
+    "acces": ["gobelins_des_forets"], "source": "GDF", "page": 18,
+    "texte": "Les gobelins des forêts plantent couramment les pointes de leurs armes dans le corps des araignées géantes dans l'espoir de les enduire d'un poison mortel. Une fois ce poison acheté, il est appliqué sur une seule arme et ne peut être échangé ou vendu par la suite. L'arme en question, une fois empoisonnée, ajoute +1 à tous ses jets de Blessure.",
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Modificateur d'arme existante", "texte": "Ce n'est pas une arme à part entière mais une amélioration (+25 CO) appliquée à une arme de corps à corps déjà possédée : ajoute +1 à tous les jets de Blessure de cette arme." }
+    ]
+  },
+  {
+    "id": "arme_en_gromril", "nom": "Arme en gromril", "categorie": "armes_cac",
+    "cout": "x4", "cout_fixe": false, "rarete": "11", "disponibilite": "Rare 11",
+    "acces": ["rare_11"], "source": "LdR", "page": 18,
+    "texte": "Seul un maître des runes nain peut forger une arme en gromril, un rare minerai météorique. Une lame faite de ce métal ne s'émoussera pas avant mille ans. Une arme en gromril donne un modificateur de sauvegarde additionnel de -1, et coûte quatre fois le prix d'une arme normale du même type. Vous pouvez choisir le type d'arme de corps à corps qui vous est proposée.",
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Modificateur d'arme existante", "texte": "Prix de l'arme de base x4. Modificateur de sauvegarde supplémentaire de -1 sur l'arme de corps à corps choisie." }
+    ]
+  },
+  {
+    "id": "arme_en_ithilmar", "nom": "Arme en ithilmar", "categorie": "armes_cac",
+    "cout": "x3", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "LdR", "page": 18,
+    "texte": "Les lames elfes sont forgées en précieux ithilmar, un métal dur mais très léger que l'on ne trouve que dans les royaumes elfiques. Quelques-unes de ces armes sont parfois disponibles dans le Vieux Monde, ramenées comme butin par les pillards nordiques qui attaquent les villes côtières des elfes. Une arme en ithilmar donne à son utilisateur +1 en Initiative au corps à corps, et coûte trois fois le prix d'une arme normale de corps à corps. Vous pouvez choisir le type d'arme de corps à corps qui vous est proposée.",
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Modificateur d'arme existante", "texte": "Prix de l'arme de base x3. +1 en Initiative au corps à corps pour l'utilisateur." }
+    ]
+  },
+  {
+    "id": "arme_en_obsidienne_market", "nom": "Arme en obsidienne", "categorie": "armes_cac",
+    "cout": "x4", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
+    "acces": ["cult_of_the_possessed", "nains_du_chaos", "carnival_of_chaos", "maraudeurs_du_chaos", "nordiques", "beastmen_raiders"], "source": "BTB", "page": 18,
+    "texte": "L'obsidienne est extraite des mines des Terres Sombres par les serviteurs du Chaos. Lors de son habile extraction du minerai, cette curieuse roche volcanique est ensorcelée par les ingénieurs dans les fourneaux de Zharr-Naggrund. Forger des armes grâce à ces techniques infâmes requiert une grande expertise, ce qui la rend extrêmement rare. Une arme en obsidienne donne à son utilisateur +1 en Force au combat au corps à corps et coûte quatre fois le prix d'une arme normale de ce type. Vous pouvez choisir le type d'arme de corps à corps qui vous est proposée.",
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Corrompue", "texte": "Bien qu'ils ne soient pas strictement corrompus par le Chaos, tous les objets en obsidienne sont considérés comme empreints de l'obscure malveillance associée à leurs artisans. Ne peut jamais être utilisée par les Nains, les Elfes, les Sœurs de Sigmar, les Répurgateurs ou les Prêtres." },
+      { "nom": "Frappe en dernier", "texte": "Les armes en obsidienne sont si lourdes que l'on frappe toujours en dernier avec, même en ayant chargé." }
+    ]
+  },
+  {
+    "id": "lame_elfe_noire", "nom": "Lame elfe noire", "categorie": "armes_cac",
+    "cout": "+20", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9, Elfes Noirs uniquement",
+    "acces": ["elfes_noirs"], "source": "EN", "page": 18,
+    "texte": "Ces lames sont forgées dans la cité de Hag Graef, le Sombre Roc, à partir de fer noir, un minerai très rare trouvé au cœur des montagnes qui entourent la cité. Les barbelures des lames des elfes noirs sont capables d'infliger de graves blessures à leur victime. Tout elfe noir peut doter son épée ou sa dague d'une lame elfe noire pour le coût de 20 CO au moment de son achat. Les armes dotées d'une lame elfe noire gardent leurs règles habituelles (les épées peuvent donc parer et les dagues accordent une sauvegarde d'armure de 6+).",
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Barbelures", "texte": "Les lames elfes noires sont garnies de protubérances acérées et de crochets aux effets dévastateurs. Un jet de dégâts de 2-4 compte comme un résultat sonné." },
+      { "nom": "Dommages critiques", "texte": "Les lames elfes noires infligent de graves dommages à leurs ennemis. En cas de Coup Critique avec une arme de ce type, ajoutez +1 au résultat sur le tableau des Coups Critiques." }
+    ]
+  },
+  {
+    "id": "lame_homme_lezard", "nom": "Lame homme-lézard", "categorie": "armes_cac",
+    "cout": 30, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Tueur de Saurus uniquement",
+    "acces": ["tueur_de_saurus"], "source": "RL", "page": 18,
+    "texte": null,
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Amélioration", "texte": "Améliore une épée en épée homme-lézard (+1 aux jets de Blessure dus au poison)." }
+    ]
+  }
+]

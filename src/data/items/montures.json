@@ -1,0 +1,167 @@
+[
+  {
+    "id": "chien_de_guerre", "nom": "Chien de guerre", "categorie": "montures",
+    "cout": "25+2D6", "cout_fixe": false, "rarete": "10", "disponibilite": "Rare 10, indisponible aux Skavens",
+    "acces": ["commun_sauf_skaven"], "source": "LdR", "page": 59,
+    "texte": "Les hommes de l'Empire ont toujours excellé au dressage de féroces molosses pour garder bétail et propriétés contre les gobelins et les hommes-bêtes. Un chien de guerre bien dressé est un redoutable adversaire qui vaut son pesant d'or à Mordheim. Un chien de guerre se bat exactement comme un membre de votre bande, bien qu'il fasse partie de l'équipement du Héros qui l'a acheté. Une figurine est nécessaire pour le représenter sur le champ de bataille. Les chiens de guerre ne gagnent jamais d'expérience et, s'ils sont mis hors de combat, ont les mêmes chances de rétablissement que les Hommes de main (1-2 : Mort / 3-6 : Vivant). Ils comptent dans le nombre maximum de guerriers autorisés pour une bande. Ce profil est aussi utilisable pour représenter des animaux plus exotiques, comme des ours dressés, des familiers du Chaos ou même des singes de combat des lointaines Terres du Sud !",
+    "stats": { "M": 4, "CC": 2, "CT": 3, "F": 2, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+    "regles_speciales": []
+  },
+  {
+    "id": "guerrier_gnoblar", "nom": "Guerrier gnoblar", "categorie": "montures",
+    "cout": "15+1D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9, Ogres et Nains du Chaos uniquement",
+    "acces": ["maneaters", "nains_du_chaos"], "source": "BTB", "page": 59,
+    "texte": "Les ogres considèrent les gnoblars comme les humains considèrent les chiens, à la différence que les ogres ne les traitent pas correctement. Un ogre mord l'oreille de son gnoblar afin de l'identifier. Et une fois qu'un ogre commence à manger, il est difficile pour lui de s'arrêter... S'ils ne sont pas mangés, les nains du Chaos sont ravis de les recueillir pour en faire des esclaves. Les gnoblars ne comptent pas comme des animaux. Pour tous les autres aspects, ils comptent néanmoins comme des Peaux-Vertes, mais ne sont pas sujets à la règle d'Animosité.",
+    "stats": { "M": 4, "CC": 2, "CT": 3, "F": 2, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+    "regles_speciales": [
+      { "nom": "Armes/armures", "texte": "Le gnoblar est équipé d'une dague et de shrapnels (compte comme une arme de jet, portée 8ps, Force 2 et double tir)." },
+      { "nom": "Complètement insignifiant", "texte": "Les gnoblars comptent dans le nombre de guerriers de la bande, mais ne sont pas pris en compte pour les tests de Déroute (ni pour déterminer la taille initiale de la bande, ni pour les pertes)." },
+      { "nom": "Chamailleries", "texte": "Jetez 1D6 au début du tour pour chaque gnoblar qui n'est pas engagé au corps à corps, à moins de 2ps d'un autre gnoblar. Sur un résultat de 1, le gnoblar commence à insulter, injurier et/ou menacer l'autre gnoblar et ne peut rien faire d'autre ce tour-ci." }
+    ]
+  },
+  {
+    "id": "araignee_geante", "nom": "Araignée géante", "categorie": "montures",
+    "cout": 100, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Gobelins uniquement",
+    "acces": ["gobelins_de_la_nuit"], "source": "GM (Guerriers Montés)", "page": 59,
+    "texte": "Les araignées géantes sont des monstruosités velues faisant de 3 à 3,5 mètres de long qui peuplent les forêts du Vieux Monde. Elles sont très prisées comme montures par les gobelins des forêts. J'ai la chair de poule rien qu'à y penser...",
+    "stats": { "M": 7, "CC": 3, "CT": 0, "F": "3(4)", "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
+    "regles_speciales": [
+      { "nom": "Attaques empoisonnées", "texte": "Les Attaques d'une araignée géante sont de Force 4, mais n'infligent pas de modificateur de sauvegarde d'armure." },
+      { "nom": "Grimpe aux murs", "texte": "Les araignées géantes et leur cavalier peuvent se déplacer sur les murs sans passer de test d'Initiative. Ils ne peuvent sauter que de 2ps verticalement ou horizontalement, mais cela compte comme une charge plongeante. Lorsqu'une araignée saute, son cavalier doit faire un test d'Initiative. S'il est raté, il doit alors effectuer un jet sur le tableau Holà ! Tout doux ! Notez que si le cavalier possède la compétence saut au trot, sa distance maximale de charge plongeante reste 2ps." },
+      { "nom": "Note", "texte": "Les araignées géantes ne peuvent pas être prises par une bande ayant des loups géants." }
+    ]
+  },
+  {
+    "id": "cauchemar", "nom": "Cauchemar", "categorie": "montures",
+    "cout": 95, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Vampires et Nécromants uniquement",
+    "acces": ["undead", "morts_sans_repos"], "source": "GM (Guerriers Montés)", "page": 60,
+    "texte": "Les comtes vampires ont parfois besoin d'une monture pour se déplacer rapidement. Après tout, même mort, un cheval garde ses quatre pattes, non ?",
+    "stats": { "M": 8, "CC": 2, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 5 },
+    "regles_speciales": [
+      { "nom": "Ne peut pas courir", "texte": "En tant que Mort-Vivant, un Cauchemar ne peut pas courir, mais peut charger normalement." },
+      { "nom": "Immunité aux poisons", "texte": "Les Cauchemars sont immunisés aux poisons." },
+      { "nom": "Immunité à la psychologie", "texte": "En tant que Mort-Vivant, les Cauchemars sont immunisés à la psychologie, n'ont jamais à passer de test de Commandement et resteront toujours immobiles s'ils n'ont pas de meneur. Cependant, si le cavalier perd son dernier Point de Vie, il devra normalement effectuer un test dans le tableau Holà ! Tout doux !" }
+    ]
+  },
+  {
+    "id": "coursier_elfique", "nom": "Coursier elfique", "categorie": "montures",
+    "cout": 90, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Elfes uniquement",
+    "acces": ["elfes"], "source": "GM (Guerriers Montés)", "page": 60,
+    "texte": "Les coursiers elfiques sont des animaux gracieux qui cachent un tempérament très agressif au combat. Les elfes noirs élèvent leur propre race de coursiers. Ceux des hauts elfes sont généralement gris pommelé, ceux des elfes sylvestres sont alezans, tandis que ceux des Druchii sont d'un noir de jais.",
+    "stats": { "M": 9, "CC": 3, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
+    "regles_speciales": [
+      { "nom": "Entraîné", "texte": "L'animal est entraîné à se battre. Le cavalier peut relancer tout test de contrôle raté. Une seule relance peut être effectuée par test." }
+    ]
+  },
+  {
+    "id": "cheval", "nom": "Cheval", "categorie": "montures",
+    "cout": 40, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Humains uniquement",
+    "acces": ["commun_humains"], "source": "GM (Guerriers Montés)", "page": 60,
+    "texte": "Les chevaux ne sont pas entraînés pour la guerre et n'attaquent pas l'ennemi. Ils restent malgré tout très utiles pour se déplacer rapidement sur le champ de bataille.",
+    "stats": { "M": 8, "CC": 1, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 0, "Cd": 5 },
+    "regles_speciales": []
+  },
+  {
+    "id": "destriers", "nom": "Destriers", "categorie": "montures",
+    "cout": 80, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Humains uniquement",
+    "acces": ["commun_humains"], "source": "GM (Guerriers Montés)", "page": 60,
+    "texte": "Les destriers sont des chevaux puissamment bâtis et entraînés au combat. Ils sont surtout utilisés par les bandes humaines.",
+    "stats": { "M": 8, "CC": 3, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+    "regles_speciales": [
+      { "nom": "Entraîné", "texte": "L'animal est entraîné à se battre. Le cavalier peut relancer tout test de contrôle raté. Une seule relance peut être effectuée par test." }
+    ]
+  },
+  {
+    "id": "destrier_du_chaos_market", "nom": "Destrier du Chaos", "categorie": "montures",
+    "cout": 90, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Bandes du Chaos uniquement",
+    "acces": ["nains_du_chaos", "maraudeurs_du_chaos", "carnival_of_chaos", "cult_of_the_possessed", "beastmen_raiders"], "source": "GM (Guerriers Montés)", "page": 60,
+    "texte": "Les destriers du Chaos sont des parodies déformées des magnifiques coursiers de l'Empire. Ils sont montés au combat par les bandes du Chaos.",
+    "stats": { "M": 8, "CC": 3, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+    "regles_speciales": [
+      { "nom": "Ne peuvent pas être montés par les Possédés", "texte": "Même les destriers du Chaos refusent d'être montés par des abominations telles que les Possédés." },
+      { "nom": "Entraîné", "texte": "L'animal est entraîné à se battre. Le cavalier peut relancer tout test de contrôle raté. Une seule relance peut être effectuée par test." }
+    ]
+  },
+  {
+    "id": "lion_de_pierre", "nom": "Lion de pierre", "categorie": "montures",
+    "cout": "250+1D6x10", "cout_fixe": false, "rarete": "13", "disponibilite": "Rare 13, Moines du Dragon, Sœurs de Sigmar et Prêtres uniquement, indisponible aux Skavens, Morts-Vivants et Nains du Chaos",
+    "acces": ["sisters_of_sigmar", "moines_du_dragon"], "source": "BTB", "page": 61,
+    "texte": "Ouvrages de nature magique, sculptées dans des pierres enchantées, ces statues de pierre restent immobiles, protégeant les temples. En les inspectant de plus près, ces avatars ne se distinguent pas d'une statue normale, ne s'animant que lorsque certaines règles sont violées dans l'enceinte du temple. L'immense majorité de ces sculptures est fortement patinée par le temps, ce qui indique qu'elles peuvent provenir d'un temps ancien et que les arcanes magiques utilisées lors de leur création ont été perdues ou demeurent inconnues. La rumeur dit qu'elles se dissimulent dans des sanctuaires secrets dont les prêtres ont été massacrés par des profanateurs. Des ruines surveillées par des gardiens vigilants qui résisteront à toutes les tentatives de les faire retourner à l'immobilité, repoussant ceux qui osent percer le mystère.",
+    "stats": { "M": 6, "CC": 5, "CT": 0, "F": 5, "E": 5, "PV": 3, "I": 3, "A": 3, "Cd": 8 },
+    "regles_speciales": [
+      { "nom": "Peur", "texte": "Les lions de pierre sont des sculptures animées surnaturellement et qui provoquent la peur." },
+      { "nom": "Sauvegarde", "texte": "En raison de leur peau similaire à de la pierre, les lions de pierre ont une sauvegarde d'armure de 5+ qui ne peut être modifiée par la Force (ou par d'autres modificateurs de sauvegarde)." },
+      { "nom": "Charge féroce", "texte": "Les lions de pierre attaquent avec Force+1 lorsqu'ils chargent, dû à leur masse." },
+      { "nom": "Attaques magiques", "texte": "Toutes les Attaques du lion de pierre sont considérées comme magiques au même titre que les Attaques de Démons." },
+      { "nom": "Immunité aux poisons", "texte": "Les lions de pierre ne sont affectés par aucun poison." }
+    ]
+  },
+  {
+    "id": "loup_geant", "nom": "Loup géant", "categorie": "montures",
+    "cout": 85, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Gobelins uniquement",
+    "acces": ["gobelins_de_la_nuit"], "source": "GM (Guerriers Montés)", "page": 61,
+    "texte": "Le loup géant est courant dans la plupart des montagnes du Monde Connu. Cependant, capturer un louveteau pour le dresser est loin d'être évident, surtout quand on est un frêle gobelin.",
+    "stats": { "M": 9, "CC": 3, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
+    "regles_speciales": [
+      { "nom": "Note", "texte": "Les loups géants ne peuvent pas être pris par une bande qui a des araignées géantes." }
+    ]
+  },
+  {
+    "id": "mule_market", "nom": "Mule", "categorie": "montures",
+    "cout": 30, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7",
+    "acces": ["rare_7"], "source": "GM (Guerriers Montés)", "page": 61,
+    "texte": "Leur entêtement est légendaire. Pourtant ? Cela n'empêche pas les halflings, les nains et les clercs ventripotents de s'en servir comme monture !",
+    "stats": { "M": 6, "CC": 2, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 0, "Cd": 4 },
+    "regles_speciales": [
+      { "nom": "Lente", "texte": "Une mule ne se déplace que de 2D6ps lorsqu'elle est incontrôlable." },
+      { "nom": "Tête de mule !", "texte": "Si un guerrier chevauche une mule, ou est en contact socle à socle avec la mule, il doit réussir un test de Commandement à chaque tour ou l'animal refusera d'avancer." },
+      { "nom": "Tête de cochon !", "texte": "Si elle n'a pas de cavalier ou de meneur, la mule se déplace dans une direction déterminée aléatoirement. Si un combat a lieu dans un rayon de 6ps, la mule s'éloigne dans la direction opposée." },
+      { "nom": "Pacifique", "texte": "Les mules ne combattent pas et ne peuvent pas charger au corps à corps : elles refusent d'avancer. Si un guerrier ennemi charge une mule montée, effectuez immédiatement un jet sur le tableau Holà ! Tout doux ! Si une mule qui n'est pas montée est chargée, elle devient incontrôlable et s'éloigne directement à l'opposé de l'adversaire." }
+    ]
+  },
+  {
+    "id": "rhinox", "nom": "Rhinox", "categorie": "montures",
+    "cout": "200+1D6x10", "cout_fixe": false, "rarete": "15", "disponibilite": "Rare 15, Ogres, Maraudeurs du Chaos, Explorateurs Norses et Caravane des Marchands uniquement",
+    "acces": ["maneaters", "maraudeurs_du_chaos", "caravane_des_marchands"], "source": "BTB", "page": 62,
+    "texte": "Sous le royaume en ruines des Titans des Montagnes des Larmes se trouvent les champs de glace où paissent les troupeaux de rhinox. Les rhinox sont devenus la pierre angulaire culturelle des royaumes sauvages. Pour discipliner ces bêtes de somme au mauvais caractère, il faut accomplir un véritable tour de force.",
+    "stats": { "M": 7, "CC": 3, "CT": 0, "F": 5, "E": 5, "PV": 2, "I": 2, "A": 3, "Cd": 5 },
+    "regles_speciales": [
+      { "nom": "Disponibilité", "texte": "Un Héros recherchant un rhinox ajoute +1 au résultat de son jet de rareté pour chaque point de Force qu'il possède. Si un rhinox est trouvé, le Héros doit faire un test de Force. Si le test échoue, il est blessé par le rhinox alors qu'il essayait de le capturer et de le dompter. Faire immédiatement un jet sur le tableau des Blessures Graves." },
+      { "nom": "Peur", "texte": "Les rhinox sont de grandes et dangereuses bêtes des cavernes, aux cornes aussi longues qu'un homme adulte. Ils provoquent la peur." },
+      { "nom": "Sale caractère", "texte": "Même les rhinox domptés par leur cavalier ont une patience aussi courte que le pouce d'un pygmée. Au moment de déclarer les charges, si un combattant ennemi est éligible à une charge du cavalier du rhinox, il doit réussir un test de Commandement ou être contraint de déclarer une charge (s'il y a le choix entre plusieurs cibles, le joueur contrôlant le rhinox peut choisir librement entre elles)." },
+      { "nom": "Charge fracassante", "texte": "Un cavalier rhinox en pleine charge reste un spectacle terrifiant, le sol tremblant alors que la bête des cavernes s'abat sur les rangs ennemis. Chaque fois qu'un cavalier rhinox charge à plus de 7ps, il inflige 1D3 touches d'impact basées sur la Force de base du rhinox." }
+    ]
+  },
+  {
+    "id": "sang_froid", "nom": "Sang-froid", "categorie": "montures",
+    "cout": 100, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Elfes noirs et Skinks uniquement",
+    "acces": ["elfes_noirs", "hommes_lezards_skinks"], "source": "GM (Guerriers Montés)", "page": 62,
+    "texte": "Ces créatures écailleuses originaires du Nouveau Monde sont stupides et agressives, mais font d'excellentes montures de combat.",
+    "stats": { "M": 7, "CC": 3, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 3 },
+    "regles_speciales": [
+      { "nom": "Peur", "texte": "Les sang-froids provoquent la peur." },
+      { "nom": "Stupide", "texte": "Effectuez un test sous le Commandement du cavalier à chaque tour. Si le test est raté, appliquez les règles de stupidité. Sinon, la figurine peut agir normalement." },
+      { "nom": "Peau écailleuse", "texte": "Les sang-froids ajoutent +2 au lieu de +1 à la sauvegarde d'armure de leur cavalier." }
+    ]
+  },
+  {
+    "id": "sanglier_de_guerre_market", "nom": "Sanglier de guerre", "categorie": "montures",
+    "cout": 90, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Orques uniquement",
+    "acces": ["orc_mob"], "source": "GM (Guerriers Montés)", "page": 62,
+    "texte": "Énormes, féroces et soupe au lait : quoi de mieux pour un chef orque ? Les bandes d'orques utilisent parfois ces animaux dans les ruines de Mordheim ou pour parcourir la campagne alentour. Ils restent toutefois peu communs car les orques les plus gros se réservent immanquablement le droit de les chevaucher.",
+    "stats": { "M": 7, "CC": 3, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 3 },
+    "regles_speciales": [
+      { "nom": "Charge furieuse", "texte": "Grâce à leur masse, les sangliers de guerre gagnent un bonus de +2 en Force lorsqu'ils chargent. Notez que ce bonus ne s'applique qu'au sanglier, pas à son cavalier." },
+      { "nom": "Peau épaisse", "texte": "La peau épaisse et le pelage du sanglier le rendent difficile à blesser. Les sangliers ajoutent +2 au lieu de +1 à la sauvegarde d'armure du cavalier." }
+    ]
+  },
+  {
+    "id": "tapis_volant", "nom": "Tapis volant", "categorie": "montures",
+    "cout": "50+4D6", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12",
+    "acces": ["rare_12"], "source": "K", "page": 62,
+    "texte": "Ces objets merveilleux des temps anciens sont encore plus rares que les lampes magiques. On pense qu'ils proviennent des lointaines îles des Sorciers, disparues depuis bien longtemps.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un tapis volant compte comme une monture ordinaire et permet des mouvements de 16ps, sans pénalité due au terrain. De plus, il est possible de s'en servir pour accéder aux hauteurs d'un bâtiment sans être ralenti. Le tapis peut transporter jusqu'à trois créatures de taille humaine, ou une grande créature et une de taille humaine. L'un des occupants doit être un Héros. En raison de sa nature magique, le tapis volant est indestructible." }
+    ]
+  }
+]

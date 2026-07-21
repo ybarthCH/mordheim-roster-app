@@ -1,0 +1,80 @@
+[
+  {
+    "id": "champignons_bonnets_de_fou_market", "nom": "Champignons bonnets de fou", "categorie": "poisons_drogues",
+    "cout": "30+3D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9 (Commun, 25 CO si la bande comprend des Gobelins de la Nuit)",
+    "acces": ["rare_9", "gobelins_de_la_nuit"], "source": "LdR/HO", "page": 57,
+    "texte": "Le redouté culte des gobelins fanatiques des Montagnes du Bord du Monde utilise ces champignons hallucinogènes pour entrer dans un état de frénésie. L'utilisation du poison est presque universellement méprisée, mais lors des batailles brutales et sans merci de Mordheim, les bandes désespérées utilisent souvent des lames empoisonnées. Le poison ne peut pas être utilisé avec des armes à poudre noire. Lorsque vous achetez une fiole de poison, vous en avez toujours assez pour la durée d'une bataille. Vous ne pouvez empoisonner qu'une seule arme avec une fiole de poison.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un guerrier consommant des bonnets de fou avant une bataille sera sujet à la frénésie. Ces champignons n'ont aucun effet sur les Possédés et les Morts-Vivants." },
+      { "nom": "Effets secondaires", "texte": "Après la bataille, lancez 1D6. Sur un résultat de 1, la figurine devient stupide définitivement." }
+    ]
+  },
+  {
+    "id": "lotus_noir", "nom": "Lotus noir", "categorie": "poisons_drogues",
+    "cout": "10+1D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9, indisponible aux Répurgateurs et aux Sœurs de Sigmar (Rare 7 pour les Skavens, Commun pour les Hommes-Lézards ; 10 CO pour les armes de tir des Skinks de la bande des Hommes-Lézards)",
+    "acces": ["commun_sauf_witch_hunters_sisters_of_sigmar", "skaven", "hommes_lezards_skinks"], "source": "LdR/L", "page": 57,
+    "texte": "Au plus profond des forêts des Terres du Sud pousse une plante extrêmement vénéneuse. Le lotus noir, tel que son nom, est très recherché par les alchimistes, les assassins, les sorciers et les épouses lasses. Une arme enduite de suc de lotus noir Blesse automatiquement si vous obtenez un 6 pour toucher. Lancez tout de même le dé pour chaque Blessure ainsi infligée. Sur un 6, vous causez un Coup Critique. Si vous n'obtenez pas de 6, la Blessure est normale. Faites les sauvegardes d'armure comme d'habitude.",
+    "regles_speciales": []
+  },
+  {
+    "id": "ombre_pourpre", "nom": "Ombre pourpre", "categorie": "poisons_drogues",
+    "cout": "35+1D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8",
+    "acces": ["rare_8"], "source": "LdR", "page": 57,
+    "texte": "L'ombre pourpre est le nom donné aux feuilles du chêne sanglant d'Estalie par les habitants du Vieux Monde. Cette drogue crée une forte dépendance, mais donne une rapidité et une force surhumaines.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une figurine qui prend de l'ombre pourpre voit augmenter son Initiative de +1D3 points, et son Mouvement et sa Force de +1 (pour la durée de la partie). Elle n'a aucun effet sur les Morts-Vivants tels que les Vampires et les Zombies, ni sur les Possédés." },
+      { "nom": "Effets secondaires", "texte": "Lancez 2D6 après la bataille. Sur un résultat de 2-3, la figurine devient dépendante et vous devez dorénavant acheter une dose d'ombre pourpre avant chaque bataille. Si vous n'y parvenez pas, elle quitte la bande. Sur un résultat de 12, l'Initiative de la figurine est accrue de +1 de manière permanente." }
+    ]
+  },
+  {
+    "id": "poison_de_manticore", "nom": "Poison de manticore", "categorie": "poisons_drogues",
+    "cout": "30+2D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9",
+    "acces": ["rare_9"], "source": "BTB", "page": 57,
+    "texte": "C'est une substance soporifique, aussi mortelle que la créature qui l'excrète. Une blessure occasionnée par une lame enduite d'excréments frais de manticore provoque un état comateux, suivi d'une mort quasi certaine.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Tout combattant Blessé par une arme enduite de poison de manticore doit lancer 1D6 au début de chaque tour. Sur un résultat de 1, la victime perd 1PV. Sur un 6, les effets du poison s'estompent et il n'a plus à effectuer de jet. Une Blessure multiple causée par une arme enduite de poison de manticore n'implique pas d'effectuer plusieurs jets par tour." }
+    ]
+  },
+  {
+    "id": "racine_de_mandragore", "nom": "Racine de mandragore", "categorie": "poisons_drogues",
+    "cout": "25+1D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8",
+    "acces": ["rare_8"], "source": "LdR", "page": 58,
+    "texte": "Cette racine de forme humaine pousse dans les marais putrides de Sylvanie. Très toxique, elle crée une forte dépendance et tue ses utilisateurs à petit feu, mais leur permet aussi d'ignorer la souffrance.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Cette racine rend presque insensible à la douleur. Elle augmente l'Endurance de +1 pour la durée de la bataille et transforme les résultats sonnés en à terre. Elle n'a aucun effet sur les Possédés ou les Morts-Vivants." },
+      { "nom": "Effets secondaires", "texte": "La racine de mandragore est extrêmement vénéneuse. Lancez 2D6 à la fin de la bataille. Sur un résultat de 2-3, la figurine perd 1 point d'Endurance de manière définitive." }
+    ]
+  },
+  {
+    "id": "toxine_arachneenne", "nom": "Toxine arachnéenne", "categorie": "poisons_drogues",
+    "cout": 25, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Gobelins des Forêts uniquement",
+    "acces": ["gobelins_des_forets"], "source": "GDF", "page": 58,
+    "texte": "Les gobelins des forêts plantent couramment leurs armes dans le corps des araignées géantes dans l'espoir de les enduire d'un poison mortel. Une arme enduite de toxine arachnéenne bénéficie d'un bonus de +1 aux jets de Dégâts. Dès que la toxine est achetée, elle est immédiatement appliquée à une arme. Elle ne peut donc pas être conservée ou revendue.",
+    "regles_speciales": []
+  },
+  {
+    "id": "venin_daraignee", "nom": "Venin d'araignée", "categorie": "poisons_drogues",
+    "cout": "30+1D6", "cout_fixe": false, "rarete": "7", "disponibilite": "Rare 7",
+    "acces": ["rare_7"], "source": "LdR", "page": 58,
+    "texte": "Ces doses paralysantes sont concoctées à partir de toxines prélevées sur de petits animaux empoisonnés par une morsure d'araignée. Une lame enduite de venin d'araignée peut servir à paralyser un ennemi au corps à corps.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Tout combattant touché par une lame enduite de venin d'araignée doit immédiatement réussir un test d'Endurance ou être paralysé. Un guerrier paralysé ne peut pas se déplacer ou combattre et est touché automatiquement au corps à corps. La victime demeure paralysée jusqu'à ce qu'elle réussisse un test d'Endurance lors de sa phase de Ralliement." }
+    ]
+  },
+  {
+    "id": "venin_de_reptile", "nom": "Venin de reptile", "categorie": "poisons_drogues",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, armes de jet des Skinks uniquement (Héros et Hommes de main)",
+    "acces": ["hommes_lezards_skinks"], "source": "HL", "page": 58,
+    "texte": "Ajoute +1 à la Force de l'arme, mais n'accorde pas le malus de -1 sur la sauvegarde d'armure. N'oubliez pas que tous les Hommes de main d'un même groupe doivent être équipés de façon identique.",
+    "regles_speciales": []
+  },
+  {
+    "id": "venin_fuligineux", "nom": "Venin fuligineux", "categorie": "poisons_drogues",
+    "cout": "30+2D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8 (20 CO pour les armes de tir des Héros Skinks de la bande des Hommes-Lézards, Commun pour les Hommes-Lézards)",
+    "acces": ["rare_8", "hommes_lezards_skinks"], "source": "LdR/L", "page": 58,
+    "texte": "Ce poison est tiré des dragons de feu, les serpents de mer géants qui infestent l'océan occidental et la côte de Naggaroth. La moindre égratignure infectée par du venin fuligineux cause une douleur insoutenable qui neutralise même le plus brave des hommes.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Toute touche causée par une arme enduite de venin fuligineux bénéficie de +1 en Force. Par exemple, si un guerrier de Force 3 maniant une épée empoisonnée touche son adversaire, son coup sera de Force 4. Les sauvegardes d'armures sont modifiées pour prendre en compte la Force accrue de l'attaque." }
+    ]
+  }
+]
