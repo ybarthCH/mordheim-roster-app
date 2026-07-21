@@ -1,0 +1,264 @@
+{
+  "id": "lustrian_reavers",
+  "nom": "Lustrian Reavers (1c)",
+  "grade": "1c",
+  "source": "Mordheim Facebook Group / Lustria Team — document fourni par l'utilisateur, V1.2 (non traduit, langue conservée à l'identique)",
+  "regles_speciales": [
+    {
+      "nom": "Rare Heroes",
+      "texte": "Only one of each type of Hero may ever be bought during the warband's existence. Heroes come with the weapons/armour listed under their entry, which can never be swapped away or given away, though new equipment may be added."
+    },
+    {
+      "nom": "Promotions",
+      "texte": "When a Hero is lost, no replacement of that type may be bought. The warband keeps all of the fallen Hero's equipment, and may promote a Prospect into the vacant role as if it had just rolled 'Lad's Got Talent' on the Henchmen Advancement Table: the player picks two Hero skill lists for the new Hero and makes one immediate roll on the Heroes Advance table. The new Hero gains the fallen Hero's armour and weapons (not equipment) and takes their place in the warband; the Prospect's own equipment goes to the warband stash. If there is no Prospect currently in the warband, the next one hired may be promoted instead."
+    },
+    {
+      "nom": "Hired Swords",
+      "texte": "Allowed: Ogre Bodyguard, Dwarf Trollslayer, Tilean Marksman, Big Game Hunter."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 10,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "conqueror",
+      "nom": "Conqueror",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 150,
+      "xp_depart": 24,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 2, "I": 3, "A": 2, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Leader of the warband." },
+        { "nom": "Starting equipment", "texte": "Masterwork Heavy Armour, Bec de Corbin, Helmet (fixed — see Rare Heroes)." },
+        { "nom": "Survivor", "texte": "Cannot be taken Out of Action unless already Knocked Down or Stunned. Treat an Out of Action result as Stunned if the Conqueror was standing when the Wound was received." },
+        { "nom": "Multiple Injuries (once)", "texte": "The first time the Conqueror suffers a Dead result on the Serious Injury chart, treat it as Multiple Injuries instead. This can only save the Conqueror once." }
+      ],
+      "acces_competences": ["combat", "force"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "saurus_slayer",
+      "nom": "Saurus Slayer",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 135,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 2, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Starting equipment", "texte": "Heavy Armour, Misericordia, two Swords, Helmet (fixed — see Rare Heroes)." },
+        { "nom": "Duellist", "texte": "If engaged with only a single opponent in melee, may re-roll missed hits on the first turn, whether they charged or were charged." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "reaver_beastmaster",
+      "nom": "Reaver Beastmaster",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 90,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Starting equipment", "texte": "Heavy Armour, Spear, Sword (fixed — see Rare Heroes)." },
+        { "nom": "War Beasts", "texte": "If included, the warband may take up to 2 War Beasts from the dedicated list (see équipement de référence). They count toward the warband's maximum size, must be bought when the warband is created (but can be replaced if killed), and may use the Beastmaster's Leadership within 6\". If the Beastmaster is killed or lost, War Beasts cannot be used until a Prospect is promoted into a new Beastmaster." }
+      ],
+      "acces_competences": ["tir", "force", "vitesse"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "jungle_shadow",
+      "nom": "Jungle Shadow",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 90,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Starting equipment", "texte": "Javelins, Light Armour, two Daggers (fixed — see Rare Heroes)." },
+        { "nom": "Silent Hunter", "texte": "Always considered Hidden if touching any piece of terrain 1\" high or higher. Shooting does not reveal the Jungle Shadow's position, though spellcasting does; this does not work with Blackpowder weapons." },
+        { "nom": "Surprise attack", "texte": "If attacking an enemy whose back is turned (a shot from within a 180-degree arc behind the target's facing), may re-roll missed to-hit rolls." },
+        { "nom": "Canopy Walker", "texte": "May re-roll all failed climbing, jumping and falling-off-ledges tests once." },
+        { "nom": "Wizard option", "texte": "For +30gc, may be made a Wizard using the Lesser Magic list, generating a single spell as standard. If taken, remove the starting Light Armour and generate 1 Lesser Magic spell." }
+      ],
+      "acces_competences": ["tir", "academique", "vitesse"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "trap_master",
+      "nom": "Trap master",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 140,
+      "xp_depart": 17,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Starting equipment", "texte": "Heavy Armour, Sword, Tilean Hunting Rifle (treat as Hochland Long Rifle), Firepots of Miragliano, Leaf coat (counts as Elven Cloak) (fixed — see Rare Heroes)." },
+        { "nom": "Deadeye", "texte": "Suffers no penalties for shooting at long range." },
+        { "nom": "Traps", "texte": "Starts each game with 1 Trap and may buy up to 5 more before the game at 5gc each; each is one use only. Traps are used in the Shooting Phase instead of shooting (cannot be set if running), one at a time, and cannot be used in melee. When used, place two 1\" diameter counters (one false, one real) anywhere within 3\" of the Trapmaster but at least 3\" from any other model. Any model moving within 2\" of a counter must flip it over: a false counter does nothing, a real one inflicts D3 Strength 5 hits (no critical hits). Remove the counters once the trap is sprung." }
+      ],
+      "acces_competences": ["combat", "tir", "academique"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "prospect",
+      "nom": "Prospect",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 5,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Promotion Only", "texte": "Re-rolls any 'Lad's Got Talent' result on the Henchmen Advancement table (cannot become a Hero directly). When promoted to fill a fallen Hero's role — see the band's Promotions rule — the model no longer counts as a Prospect, so a new Prospect may be hired." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "heroes": {
+      "armes_cac": [
+        { "nom": "Dagger", "cout": 2, "note": "1st free" },
+        { "nom": "Sword", "cout": 10 },
+        { "nom": "Mace", "cout": 3 },
+        { "nom": "Misericordia", "cout": 10, "note": "voir équipement spécial" },
+        { "nom": "Double-handed weapon", "cout": 15 },
+        { "nom": "Lance", "cout": 40, "restriction": "Mounted models only" }
+      ],
+      "armes_tir": [
+        { "nom": "Javelin", "cout": 10, "note": "voir équipement spécial" },
+        { "nom": "Throwing Knives", "cout": 15 },
+        { "nom": "Blowpipe", "cout": 15 },
+        { "nom": "Pistol", "cout": 15 }
+      ],
+      "armures": [
+        { "nom": "Light Armour", "cout": 20 },
+        { "nom": "Shield", "cout": 10 },
+        { "nom": "Helmet", "cout": 10 },
+        { "nom": "Buckler", "cout": 10 }
+      ],
+      "divers": [
+        { "nom": "Rope & Hook", "cout": 5 },
+        { "nom": "Crimson Shade", "cout": 35 },
+        { "nom": "Dark Venom", "cout": 30 },
+        { "nom": "Net", "cout": 5 },
+        { "nom": "Warhorse", "cout": 80 },
+        { "nom": "Warhound", "cout": 20 }
+      ]
+    },
+    "prospects": {
+      "armes_cac": [
+        { "nom": "Dagger", "cout": 2, "note": "1st free" },
+        { "nom": "Sword", "cout": 10 },
+        { "nom": "Mace", "cout": 3 },
+        { "nom": "Spear", "cout": 10 }
+      ],
+      "armes_tir": [{ "nom": "Short Bow", "cout": 5 }],
+      "armures": [
+        { "nom": "Light Armour", "cout": 20 },
+        { "nom": "Shield", "cout": 10 },
+        { "nom": "Helmet", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "masterwork_heavy_armour",
+      "nom": "Masterwork Heavy Armour",
+      "cout": "—",
+      "texte": "A Tilean heirloom of nigh-impenetrable craftsmanship. Grants a 4+ Armour Save, but suffers -1 Movement without a shield."
+    },
+    {
+      "id": "bec_de_corbin",
+      "nom": "Bec de Corbin",
+      "cout": "—",
+      "texte": "A Tilean polearm combining the best aspects of a Halberd, Spear and Warhammer. Requires two hands. The wielder strikes in Initiative order when charged instead of going last, and gains +1 Strength. When rolling for Injuries, a 2-4 is treated as Stunned when rolling on the Injury chart (Dwarfs are immune to this effect)."
+    },
+    {
+      "id": "javelin",
+      "nom": "Javelin",
+      "cout": 10,
+      "portee": "8\"",
+      "texte": "A light throwing spear in the tradition of the ancient Reman legions, or captured from native Skinks. Suffers no penalty for moving and shooting."
+    },
+    {
+      "id": "misericordia",
+      "nom": "Misericordia",
+      "cout": 10,
+      "texte": "A long dagger designed to kill downed opponents through chinks in armour and vulnerable spots like the eyes or throat. Uses the same rules as a dagger, but when attacking a downed enemy, roll 2D6 and pick the highest number for the 'to wound' roll."
+    },
+    {
+      "id": "firepots_of_miragliano",
+      "nom": "Firepots of Miragliano",
+      "cout": "—",
+      "portee": "8\"",
+      "texte": "Primitive clay hand grenades filled with alchemic Tilean Fire that bursts into flame when exposed to air; suffers no penalty at long range. On a hit, the target suffers 1 Strength 2 hit from the bursting flames, and must roll under its Initiative at the start of its next turn to see through the resulting smoke — on a failure, it cannot charge or shoot until the beginning of the turn after that, though it may still move or fight in hand-to-hand combat normally."
+    },
+    {
+      "id": "lizardmen_skin_cloak",
+      "nom": "Lizardmen skin cloak",
+      "cout": 10,
+      "disponibilite": "Saurus Slayer uniquement",
+      "texte": "Grants a 6+ Ward save, separate from the Armour Save and unaffected by enemy Strength or other modifiers."
+    },
+    {
+      "id": "skull_mask",
+      "nom": "Skull Mask",
+      "cout": 15,
+      "disponibilite": "Saurus Slayer uniquement",
+      "texte": "Causes fear."
+    },
+    {
+      "id": "lizardman_sword_upgrade",
+      "nom": "Lizardman Sword upgrade",
+      "cout": 30,
+      "disponibilite": "Saurus Slayer uniquement",
+      "texte": "Upgrades any sword: +1 to wound rolls due to poison."
+    },
+    {
+      "id": "trophy_slann_holy_headdress",
+      "nom": "Trophy Slann Holy headdress",
+      "cout": 35,
+      "disponibilite": "Saurus Slayer uniquement",
+      "texte": "+2 bonus to armour saves."
+    },
+    {
+      "id": "estalian_warhound",
+      "nom": "Estalian Warhound (War Beast)",
+      "cout": 25,
+      "disponibilite": "Reaver Beastmaster uniquement, max 2",
+      "texte": "M6 WS4 BS0 S4 T3 W1 I4 A1 Ld5, armour save 5+. Follows the Animals rule (never gains experience), injuries as Henchmen."
+    },
+    {
+      "id": "barbary_monkey",
+      "nom": "Barbary Monkey (War Beast)",
+      "cout": 40,
+      "disponibilite": "Reaver Beastmaster uniquement, max 1",
+      "texte": "M6 WS4 BS0 S3 T3 W1 I5 A2 Ld6. Nimble: can climb any sheer surface without Initiative tests, may re-roll all failed Diving Charge tests, can enter buildings unlike other animals, and grants a 5+ Ward save against any wound (melee, shooting, magic, falling)."
+    },
+    {
+      "id": "tilean_hunting_hawk",
+      "nom": "Tilean Hunting Hawk (War Beast)",
+      "cout": 30,
+      "disponibilite": "Reaver Beastmaster uniquement, max 1",
+      "texte": "M12 WS4 BS0 S4 T3 I5 A1. Counts as part of the Beastmaster's equipment. Acts at the same time as the Beastmaster and can attack any enemy within 12\" as a melee attack, even out of line of sight (unless Hidden), returning to the Beastmaster immediately. Cannot be targeted separately by any attack or spell. Does not attack if the Beastmaster is engaged in hand-to-hand combat."
+    }
+  ]
+}

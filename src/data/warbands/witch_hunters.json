@@ -1,149 +1,177 @@
 {
   "id": "witch_hunters",
-  "nom": "Witch Hunters (1a)",
+  "nom": "Les Répurgateurs (1a)",
   "grade": "1a",
-  "source": "BSData",
+  "source": "Livre de règles Mordheim (GW)",
   "regles_speciales": [],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 500
+  },
   "profils": [
     {
-      "id": "flagellants",
-      "nom": "Flagellants",
-      "type": "homme_de_main",
-      "cout": 40,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 4,
-        "E": 4,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 10
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "warhounds",
-      "nom": "Warhounds",
-      "type": "homme_de_main",
-      "cout": 15,
-      "stats": {
-        "M": 6,
-        "CC": 4,
-        "CT": 0,
-        "F": 4,
-        "E": 3,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 5
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "warrior_priest",
-      "nom": "Warrior Priest",
+      "id": "capitaine_repurgateur",
+      "nom": "Capitaine répurgateur",
       "type": "heros",
       "unique": true,
-      "max": 1,
-      "cout": 40,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 8
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
-    },
-    {
-      "id": "witch_hunter",
-      "nom": "Witch Hunter",
-      "type": "heros",
-      "unique": false,
-      "max": 3,
-      "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
-    },
-    {
-      "id": "witch_hunter_captain",
-      "nom": "Witch Hunter Captain",
-      "type": "heros",
-      "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 60,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 4,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 8
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout guerrier à moins de 6ps peut utiliser son Cd pour ses tests de Commandement." },
+        { "nom": "Au Bûcher !", "texte": "Le capitaine répurgateur hait tous les jeteurs de sorts." }
       ],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
-      "id": "zealots",
-      "nom": "Zealots",
-      "type": "homme_de_main",
-      "cout": 20,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 2,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [],
+      "id": "pretre_guerrier",
+      "nom": "Prêtre-guerrier",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 40,
+      "xp_depart": 12,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Prières", "texte": "Serviteur de Sigmar, peut utiliser les Prières de Sigmar (voir magie)." }
+      ],
+      "acces_competences": ["combat", "academique", "force"],
       "acces_competences_a_verifier": true
+    },
+    {
+      "id": "repurgateur",
+      "nom": "Répurgateur",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 3,
+      "cout": 25,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Au Bûcher !", "texte": "Les répurgateurs haïssent tous les jeteurs de sorts." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "vitesse"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "seide",
+      "nom": "Séide",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "flagellant",
+      "nom": "Flagellant",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 5,
+      "cout": 40,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 10 },
+      "regles_speciales": [
+        { "nom": "Fanatiques", "texte": "Réussissent automatiquement tous les tests de Commandement qu'ils pourraient avoir à passer. Un flagellant ne peut jamais devenir chef de bande." },
+        { "nom": "Équipement", "texte": "Pas d'armure autorisée ; n'utilise jamais d'arme de tir même via une compétence qui le permettrait." },
+        { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "chien_de_guerre",
+      "nom": "Chien de guerre",
+      "type": "animal",
+      "min": 0,
+      "max": 5,
+      "cout": 15,
+      "stats": { "M": 6, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Animaux", "texte": "Ne gagnent jamais d'expérience." },
+        { "nom": "Équipement", "texte": "Crocs et brutalité ! N'utilisent jamais ni arme ni armure." },
+        { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": []
+  "competences_speciales": [],
+  "equipement": {
+    "repurgateurs": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "nom": "Arbalète", "cout": 25 },
+        { "nom": "Pistolet", "cout": 15, "note": "30 la paire" },
+        { "nom": "Arbalète de Poing", "cout": 35 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Rondache", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    },
+    "seides": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Arc", "cout": 10 },
+        { "nom": "Arc Court", "cout": 5 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    },
+    "flagellants": {
+      "armes_cac": [
+        { "nom": "Fléau", "cout": 15 },
+        { "nom": "Morgenstern", "cout": 15 },
+        { "nom": "Arme à deux mains", "cout": 15 }
+      ]
+    }
+  },
+  "magie": {
+    "nom": "Prières de Sigmar",
+    "type": "prières",
+    "de": "D6",
+    "utilisateurs": ["pretre_guerrier"],
+    "note": "Les prières ne sont pas considérées comme des sorts : un guerrier en armure peut en faire usage et les protections spéciales contre les sorts ne les affectent pas.",
+    "sorts": [
+      { "resultat": 1, "nom": "Le Marteau de Sigmar", "difficulte": 7, "texte": "Le porteur gagne +2 en Force au corps à corps, et toutes ses touches causent le double de dommages (1 blessure = 2 PV perdus). Le prêtre doit tester à chaque phase de Tir pour utiliser le Marteau." },
+      { "resultat": 2, "nom": "Cœur d'Acier", "difficulte": 8, "texte": "Tout guerrier allié à moins de 8ps devient immunisé à la Peur et à Seul Contre Tous, et la bande entière gagne +1 à ses tests de Déroute. Non cumulable si lancé plusieurs fois ; dure jusqu'à ce que le lanceur soit mis hors de combat." },
+      { "resultat": 3, "nom": "Feu de l'Âme", "difficulte": 9, "texte": "Toute figurine ennemie à moins de 4ps du prêtre subit une touche de Force 3 sans sauvegarde d'armure (Force 5 contre les morts-vivants et les possédés)." },
+      { "resultat": 4, "nom": "Bouclier de Sigmar", "difficulte": 6, "texte": "Le prêtre est immunisé à tous les sorts. Sur 1-2 au début de chaque tour (phase de Ralliement), le bouclier se dissipe." },
+      { "resultat": 5, "nom": "Imposition des Mains", "difficulte": 5, "texte": "Toute figurine à moins de 2ps du prêtre (lui-même inclus) récupère tous ses PV perdus ; les figurines amies sonnées ou à terre à 2ps se relèvent immédiatement et continuent le combat normalement." },
+      { "resultat": 6, "nom": "Armure du Juste", "difficulte": 9, "texte": "Le prêtre bénéficie d'une sauvegarde de 2+ qui remplace celle de son armure, cause la peur à ses ennemis et y est lui-même immunisé. Dure jusqu'au début de sa prochaine phase de Tir." }
+    ]
+  }
 }

@@ -79,19 +79,20 @@ export function PersonnageScreen() {
   const nomCompetence = (skillId: string) =>
     skillById(skillId) ?? catalogue.competences_speciales.find((s) => s.id === skillId);
 
-  // Pour les hommes de main non promus, le statut Hors de combat / Blessé
+  // Hommes de main et animaux non promus : le statut Hors de combat / Blessé
   // n'a plus lieu d'être : le nombre de figurines hors combat se suit via le
   // compteur dédié, résolu figurine par figurine au post-bataille. Seuls
   // Actif et Mort restent pertinents pour l'historique.
-  const statutsDisponibles =
-    profil.type === 'homme_de_main' && !membre.promu_heros
-      ? STATUTS.filter((s) => s.id === 'actif' || s.id === 'mort')
-      : STATUTS;
+  const estGroupeSimplifie = (profil.type === 'homme_de_main' || profil.type === 'animal') && !membre.promu_heros;
+  const statutsDisponibles = estGroupeSimplifie
+    ? STATUTS.filter((s) => s.id === 'actif' || s.id === 'mort')
+    : STATUTS;
 
   const dues = avancesDues(profil.type, membre.xp_depart, membre.xp);
   const obtenues = membre.historique_avancees.length;
   const enAttente = Math.max(0, dues - obtenues);
   const rating = ratingMembre(membre);
+  const plafond = catalogue.caracteristiques_max?.[0];
 
   const supprimerMembre = () => {
     updateRoster({ ...roster, membres: roster.membres.filter((m) => m.instance_id !== membre.instance_id) });
@@ -109,7 +110,8 @@ export function PersonnageScreen() {
               className="input--heading"
             />
             <p className="text-muted text-sm mb-0">
-              {profil.nom} · {profil.type === 'heros' ? 'Héros' : 'Homme de main'}
+              {profil.nom} ·{' '}
+              {profil.type === 'heros' ? 'Héros' : profil.type === 'animal' ? 'Animal' : 'Homme de main'}
               {membre.promu_heros && ' (promu)'}
               {membre.profil_custom && ' · Franc-tireur'}
             </p>
@@ -156,7 +158,7 @@ export function PersonnageScreen() {
           <span className="badge badge--info">Rating {rating}</span>
         </div>
 
-        {profil.type === 'homme_de_main' && !membre.promu_heros && (
+        {estGroupeSimplifie && (
           <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
             <span className="text-sm text-muted">Groupe :</span>
             <input
@@ -172,7 +174,7 @@ export function PersonnageScreen() {
           </div>
         )}
 
-        {profil.type === 'homme_de_main' && !membre.promu_heros && (
+        {estGroupeSimplifie && (
           <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
             <span className="text-sm text-muted">Hors de combat :</span>
             <button
@@ -196,6 +198,18 @@ export function PersonnageScreen() {
           </div>
         )}
       </div>
+
+      {profil.regles_speciales && profil.regles_speciales.length > 0 && (
+        <div className="card card--tight">
+          <h3>Règles spéciales du profil</h3>
+          {profil.regles_speciales.map((r) => (
+            <p key={r.nom} className="text-sm mb-0" style={{ whiteSpace: 'pre-line' }}>
+              <strong>{r.nom}</strong> — {r.texte}
+              {r.exception && <span className="text-muted"> ({r.exception})</span>}
+            </p>
+          ))}
+        </div>
+      )}
 
       <div className="card">
         <h3>Caractéristiques</h3>
@@ -221,6 +235,13 @@ export function PersonnageScreen() {
             </div>
           ))}
         </div>
+        {plafond && (
+          <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+            Plafond de caractéristiques ({plafond.profil}) :{' '}
+            {plafond.note ??
+              STAT_KEYS.map((k) => `${k} ${plafond[k] ?? '—'}`).join(' · ')}
+          </p>
+        )}
       </div>
 
       <div className="card">
@@ -295,34 +316,46 @@ export function PersonnageScreen() {
         />
       </div>
 
-      <div className="card">
-        <div className="flex justify-between items-center">
-          <h3 className="mt-0 mb-0">Expérience</h3>
-          <span className="badge badge--info">{membre.xp} XP</span>
+      {profil.type === 'animal' ? (
+        <div className="card">
+          <h3 className="mt-0">Expérience</h3>
+          <p className="text-muted text-sm mb-0">Les animaux ne gagnent jamais d'expérience.</p>
         </div>
-        <XpGrid type={profil.type} xp={membre.xp} xpDepart={membre.xp_depart} onChange={(xp) => majMembre({ xp })} />
-        <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
-          XP de départ : {membre.xp_depart} (n'a déclenché aucune avancée).
-        </p>
-        {enAttente > 0 && (
-          <div className="flex justify-between items-center" style={{ marginTop: '0.7rem' }}>
-            <span className="badge badge--warning">{enAttente} avancée(s) en attente</span>
-            <button className="btn btn--sm btn--primary" onClick={() => setModalAvancee(true)}>
-              Résoudre une avancée
-            </button>
+      ) : (
+        <div className="card">
+          <div className="flex justify-between items-center">
+            <h3 className="mt-0 mb-0">Expérience</h3>
+            <span className="badge badge--info">{membre.xp} XP</span>
           </div>
-        )}
-        {membre.historique_avancees.length > 0 && (
-          <div style={{ marginTop: '0.7rem' }}>
-            <p className="text-sm text-muted mb-0">Historique des avancées :</p>
-            {membre.historique_avancees.map((a) => (
-              <p key={a.id} className="text-sm mb-0">
-                {a.date} (jet {a.roll}) — {a.detail}
-              </p>
-            ))}
-          </div>
-        )}
-      </div>
+          <XpGrid
+            type={profil.type}
+            xp={membre.xp}
+            xpDepart={membre.xp_depart}
+            onChange={(xp) => majMembre({ xp })}
+          />
+          <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+            XP de départ : {membre.xp_depart} (n'a déclenché aucune avancée).
+          </p>
+          {enAttente > 0 && (
+            <div className="flex justify-between items-center" style={{ marginTop: '0.7rem' }}>
+              <span className="badge badge--warning">{enAttente} avancée(s) en attente</span>
+              <button className="btn btn--sm btn--primary" onClick={() => setModalAvancee(true)}>
+                Résoudre une avancée
+              </button>
+            </div>
+          )}
+          {membre.historique_avancees.length > 0 && (
+            <div style={{ marginTop: '0.7rem' }}>
+              <p className="text-sm text-muted mb-0">Historique des avancées :</p>
+              {membre.historique_avancees.map((a) => (
+                <p key={a.id} className="text-sm mb-0">
+                  {a.date} (jet {a.roll}) — {a.detail}
+                </p>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {profil.type === 'heros' && (
         <div className="card">

@@ -5,9 +5,13 @@ import beastmen_raiders from './beastmen_raiders.json';
 import carnival_of_chaos from './carnival_of_chaos.json';
 import cult_of_the_possessed from './cult_of_the_possessed.json';
 import dwarf_treasure_hunters from './dwarf_treasure_hunters.json';
+import gardiens_de_chapelle_bretonniens from './gardiens_de_chapelle_bretonniens.json';
+import gobelins_de_la_nuit from './gobelins_de_la_nuit.json';
 import kislevites from './kislevites.json';
+import lustrian_reavers from './lustrian_reavers.json';
 import marienburgers from './marienburgers.json';
 import middenheimers from './middenheimers.json';
+import nains_du_chaos from './nains_du_chaos.json';
 import orc_mob from './orc_mob.json';
 import ostlanders from './ostlanders.json';
 import reiklanders from './reiklanders.json';
@@ -22,9 +26,13 @@ export const CATALOGUES: WarbandCatalog[] = [
   carnival_of_chaos,
   cult_of_the_possessed,
   dwarf_treasure_hunters,
+  gardiens_de_chapelle_bretonniens,
+  gobelins_de_la_nuit,
   kislevites,
+  lustrian_reavers,
   marienburgers,
   middenheimers,
+  nains_du_chaos,
   orc_mob,
   ostlanders,
   reiklanders,

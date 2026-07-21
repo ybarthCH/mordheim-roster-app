@@ -7,7 +7,7 @@ import { getCatalogue } from '../../data/warbands';
 import { resolveProfil } from '../../utils/profil';
 import { valeurBande, effectifTotal } from '../../utils/bandeValue';
 import { ratingTotal } from '../../utils/rating';
-import { validerComposition } from '../../utils/validation';
+import { validerComposition, validerEffectif } from '../../utils/validation';
 import { exporterRoster } from '../../utils/importExport';
 import { AjouterMembreModal } from './AjouterMembreModal';
 import { AjouterBatailleModal } from './AjouterBatailleModal';
@@ -42,6 +42,7 @@ export function RosterScreen() {
 
   const catalogue = getCatalogue(roster.bande_id);
   const violations = validerComposition(roster);
+  const violationsEffectif = validerEffectif(roster);
   const heros = roster.membres.filter((m) => resolveProfil(roster, m)?.type === 'heros');
   const hommesDeMain = roster.membres.filter((m) => resolveProfil(roster, m)?.type !== 'heros');
 
@@ -265,12 +266,20 @@ export function RosterScreen() {
         </div>
       </div>
 
-      {violations.length > 0 && (
-        <div className="card" style={{ borderColor: 'var(--danger)' }}>
-          <h3 className="text-danger">Composition invalide</h3>
+      {(violations.length > 0 || violationsEffectif.length > 0) && (
+        <div className="card" style={{ borderColor: 'var(--warning)' }}>
+          <h3 style={{ color: 'var(--warning)' }}>Composition — à vérifier</h3>
+          <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
+            Purement indicatif, n'empêche rien.
+          </p>
+          {violationsEffectif.map((v) => (
+            <p key={`effectif-${v.type}`} className="text-sm mb-0">
+              Effectif de la bande : {v.actuel} ({v.type === 'max' ? `max ${v.limite}` : `min ${v.limite}`})
+            </p>
+          ))}
           {violations.map((v) => (
-            <p key={v.profilId} className="text-sm mb-0">
-              {v.nomProfil} : {v.actuel}/{v.limite} autorisés
+            <p key={`${v.profilId}-${v.type}`} className="text-sm mb-0">
+              {v.nomProfil} : {v.actuel}/{v.limite} {v.type === 'max' ? 'autorisés' : 'requis (minimum)'}
             </p>
           ))}
         </div>
@@ -282,8 +291,78 @@ export function RosterScreen() {
           {catalogue.regles_speciales.map((r) => (
             <p key={r.nom} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
               <strong>{r.nom}</strong> — {r.texte}
+              {r.exception && <span className="text-muted"> ({r.exception})</span>}
             </p>
           ))}
+        </div>
+      )}
+
+      {catalogue?.magie && (
+        <div className="card card--tight">
+          <h3>{catalogue.magie.nom} (référence)</h3>
+          <p className="text-sm text-muted">
+            {catalogue.magie.type} · dé {catalogue.magie.de} · utilisateurs :{' '}
+            {catalogue.magie.utilisateurs
+              .map((id) => catalogue.profils.find((p) => p.id === id)?.nom ?? id)
+              .join(', ')}
+            {catalogue.magie.note && <> · {catalogue.magie.note}</>}
+          </p>
+          {catalogue.magie.sorts.map((s, i) => (
+            <p key={i} className="text-sm mb-0">
+              <strong>
+                {s.resultat} — {s.nom}
+              </strong>{' '}
+              (diff. {s.difficulte}) : {s.texte}
+              {s.note && <span className="text-muted"> — {s.note}</span>}
+            </p>
+          ))}
+        </div>
+      )}
+
+      {(catalogue?.equipement || (catalogue?.equipement_special?.length ?? 0) > 0) && (
+        <div className="card card--tight">
+          <h3>Équipement (référence)</h3>
+          <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
+            Texte libre, à titre indicatif — aucun achat automatisé.
+          </p>
+          {catalogue?.equipement &&
+            Object.entries(catalogue.equipement).map(([liste, groupes]) => (
+              <div key={liste} style={{ marginBottom: '0.6rem' }}>
+                <p className="text-sm mb-0">
+                  <strong>{liste}</strong>
+                </p>
+                {(['armes_cac', 'armes_tir', 'armures', 'divers'] as const).map(
+                  (cat) =>
+                    groupes[cat] &&
+                    groupes[cat]!.length > 0 && (
+                      <p key={cat} className="text-sm mb-0">
+                        {groupes[cat]!
+                          .map(
+                            (it) =>
+                              `${it.nom} (${it.cout}${typeof it.cout === 'number' ? ' po' : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`
+                          )
+                          .join(' · ')}
+                      </p>
+                    )
+                )}
+              </div>
+            ))}
+          {(catalogue?.equipement_special?.length ?? 0) > 0 && (
+            <div>
+              <p className="text-sm mb-0">
+                <strong>Objets rares</strong>
+              </p>
+              {catalogue!.equipement_special!.map((it) => (
+                <p key={it.id} className="text-sm mb-0">
+                  <strong>{it.nom}</strong> ({it.cout}
+                  {typeof it.cout === 'number' ? ' po' : ''}
+                  {it.disponibilite ? ` — ${it.disponibilite}` : ''}) — {it.texte}
+                  {it.regles_speciales?.map((r) => ` ${r.nom} : ${r.texte}`).join(' ')}
+                  {it.note && <span className="text-muted"> ({it.note})</span>}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

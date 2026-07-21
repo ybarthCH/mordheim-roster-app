@@ -29,6 +29,9 @@ export const SKILL_CATEGORIES: { id: SkillCategory; label: string }[] = [
 export type SpecialRule = {
   nom: string;
   texte: string;
+  // Précision/dérogation à la règle (ex : "Ne s'applique pas aux Délateurs").
+  // Affichée telle quelle en complément du texte, purement informative.
+  exception?: string;
 };
 
 // Forme minimale dupliquée de Skill (types/gameData.ts) pour éviter un
@@ -37,13 +40,21 @@ export type CompetenceSpeciale = {
   id: string;
   nom: string;
   texte: string;
+  // Restreint la compétence à un rôle précis (ex : "Chef uniquement").
+  // Informatif seulement — l'app ne filtre pas la liste en fonction de ça.
+  reserve_a?: string;
 };
 
 export type Profile = {
   id: string;
   nom: string;
-  type: 'heros' | 'homme_de_main';
+  // 'animal' : suivi comme un groupe d'hommes de main (statut simplifié,
+  // compteur Hors de combat) mais ne gagne jamais d'expérience.
+  type: 'heros' | 'homme_de_main' | 'animal';
   unique?: boolean;
+  // Minimum requis dans la composition de bande (ex : chef obligatoire).
+  // Informatif seulement — n'empêche pas de recruter/jouer sans.
+  min?: number;
   max?: number | null;
   cout: number | null;
   stats: Stats | null;
@@ -55,6 +66,81 @@ export type Profile = {
   // Chef de bande selon les règles (un seul par catalogue) : badge visuel +
   // bonus de +1 XP automatique en cas de victoire.
   est_leader?: boolean;
+  // Règles spéciales propres à ce profil (en plus de celles de la bande).
+  regles_speciales?: SpecialRule[];
+};
+
+// Plafond de caractéristiques (limite d'avancement) pour un profil ou groupe
+// de profils d'une même bande. Purement informatif, affiché en référence sur
+// la fiche personnage — n'empêche pas de dépasser le plafond.
+export type CaracteristiquesMax = {
+  profil: string;
+  note?: string;
+  M?: number | null;
+  CC?: number | null;
+  CT?: number | null;
+  F?: number | null;
+  E?: number | null;
+  PV?: number | null;
+  I?: number | null;
+  A?: number | null;
+  Cd?: number | null;
+};
+
+// Contraintes de composition de bande. Purement informatif (affiché comme
+// les violations de max existantes) — n'empêche pas de recruter/jouer.
+export type Composition = {
+  effectif_min?: number;
+  effectif_max?: number;
+  cout_max_constitution?: number;
+};
+
+export type EquipementItem = {
+  nom: string;
+  cout: number | string;
+  note?: string;
+  restriction?: string;
+};
+
+// Une liste d'équipement nommée (ex : "repurgateurs", "flagellants"...) —
+// affichée telle quelle en référence libre, sans automatisation d'achat.
+export type EquipementListe = {
+  armes_cac?: EquipementItem[];
+  armes_tir?: EquipementItem[];
+  armures?: EquipementItem[];
+  divers?: EquipementItem[];
+};
+
+export type EquipementSpecialItem = {
+  id: string;
+  nom: string;
+  cout: number | string;
+  disponibilite?: string;
+  portee?: string;
+  force?: string;
+  sauvegarde?: string;
+  texte?: string;
+  note?: string;
+  regles_speciales?: SpecialRule[];
+};
+
+export type MagieSort = {
+  resultat: number | string;
+  nom: string;
+  difficulte: number | string;
+  texte: string;
+  note?: string;
+};
+
+// Système de magie/prières propre à la bande — affiché en référence libre
+// sur le roster, sans moteur de jet automatisé.
+export type Magie = {
+  nom: string;
+  type: string;
+  de: string;
+  utilisateurs: string[];
+  note?: string;
+  sorts: MagieSort[];
 };
 
 export type WarbandCatalog = {
@@ -68,4 +154,10 @@ export type WarbandCatalog = {
   // bande, accessible seulement à certains profils via acces_competences).
   // Vide initialement, à remplir bande par bande.
   competences_speciales: CompetenceSpeciale[];
+  composition?: Composition;
+  caracteristiques_max?: CaracteristiquesMax[];
+  // Références libres, affichées en bas du roster sans automatisation.
+  equipement?: Record<string, EquipementListe>;
+  equipement_special?: EquipementSpecialItem[];
+  magie?: Magie;
 };

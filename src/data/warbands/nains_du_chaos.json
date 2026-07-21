@@ -1,0 +1,303 @@
+{
+  "id": "nains_du_chaos",
+  "nom": "Nains du Chaos (1c)",
+  "grade": "1c",
+  "source": "Nemesis Crown / La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    {
+      "nom": "Difficile à tuer",
+      "texte": "Comme leurs frères non corrompus, les Nains du Chaos sont des individus coriaces et résilients qui ne peuvent être mis hors de combat que sur un jet de 6 au lieu de 5-6 sur le tableau des Dégâts. Considérez un jet de 1-2 comme à terre, de 3-5 comme sonné et de 6 comme hors de combat.",
+      "exception": "Ne s'applique pas aux Délateurs"
+    },
+    {
+      "nom": "Tête dure",
+      "texte": "Les Nains du Chaos ignorent les règles spéciales pour les masses, les marteaux… Eux aussi ne sont pas faciles à assommer !",
+      "exception": "Ne s'applique pas aux Délateurs"
+    },
+    {
+      "nom": "Armure",
+      "texte": "Les Nains du Chaos ne subissent aucune pénalité de Mouvement pour le port d'une armure.",
+      "exception": "Ne s'applique pas aux Délateurs"
+    },
+    {
+      "nom": "Francs-Tireurs",
+      "texte": "Une bande de Nains du Chaos peut recruter les Francs-Tireurs suivants : Garde du Corps Ogres, Gladiateurs, Mages, Assassins Impériaux et Éclaireurs Hobgobelins. Ils peuvent également engager tout Franc-Tireur pouvant être recruté par toutes les bandes ainsi que ceux autorisés pour les bandes Orques et du Chaos. Ils ne peuvent jamais recruter un Franc-Tireur Elfe, quel qu'il soit !",
+      "exception": "Ne s'applique pas aux Délateurs"
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "caracteristiques_max": [
+    { "profil": "nains_du_chaos", "M": 3, "CC": 7, "CT": 6, "F": 4, "E": 5, "PV": 3, "I": 5, "A": 4, "Cd": 10 },
+    { "profil": "centaure_taureau", "M": 8, "CC": 8, "CT": 8, "F": 5, "E": 5, "PV": 3, "I": 8, "A": 5, "Cd": 9 },
+    {
+      "profil": "delateurs",
+      "note": "Utilisent les caractéristiques maximales humaines du livre de règles de Mordheim (mélange de races, croisements et mutants)"
+    }
+  ],
+  "profils": [
+    {
+      "id": "hierogrammate",
+      "nom": "Hiérogrammate",
+      "type": "heros",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 85,
+      "xp_depart": 20,
+      "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout combattant à moins de 6ps du Hiérogrammate peut utiliser le Commandement de ce dernier pour ses tests." },
+        { "nom": "Sorcier", "texte": "Le Hiérogrammate est un sorcier utilisant les Rituels d'Hashut (voir magie)." },
+        { "nom": "Prêtre", "texte": "Le Hiérogrammate commence avec deux rituels. L'un d'eux est le Rituel sacrificiel. L'autre sort est déterminé comme d'habitude à partir des Rituels d'Hashut." }
+      ],
+      "acces_competences": ["combat", "academique", "force", "special"],
+      "acces_competences_a_verifier": true,
+      "est_leader": true
+    },
+    {
+      "id": "geolier",
+      "nom": "Geôlier",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 50,
+      "xp_depart": 8,
+      "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Sale réputation", "texte": "Les Geôliers sont connus pour leur brutalité. La simple idée d'être capturé par l'un d'eux provoque la peur chez les Humains." }
+      ],
+      "acces_competences": ["combat", "tir", "force", "special"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "centaure_taureau",
+      "nom": "Centaure-Taureau",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 100,
+      "xp_depart": 10,
+      "stats": { "M": 8, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 2, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Grande cible", "texte": "Les Centaures-Taureaux sont de grandes créatures et représentent donc des cibles de choix pour les archers. Ce sont des grandes cibles, comme défini dans les règles de tir de Mordheim. En tant que grande cible, le Centaure-Taureau ajoute un +20 supplémentaire à la valeur de la bande." },
+        { "nom": "Pas d'armes de tir", "texte": "Ne peut jamais être équipé d'armes de tir." }
+      ],
+      "acces_competences": ["combat", "force"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "delateur",
+      "nom": "Délateur",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "La corvée", "texte": "La volonté des Délateurs a été brisée par leurs maîtres. Les Délateurs ne deviendront jamais des Héros. Relancez tout résultat \"Ce gars est doué\"." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "nain_du_chaos",
+      "nom": "Nain du Chaos",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 5,
+      "cout": 40,
+      "xp_depart": 0,
+      "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "regles_speciales": [],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    {
+      "id": "increvable",
+      "nom": "Increvable",
+      "texte": "Un Nain du Chaos doté de cette compétence est réputé pour sa résistance à des blessures qui emporteraient un guerrier de moindre envergure. Suite à une partie dans laquelle ce Héros a été mis hors de combat, lorsque vous faites un jet sur le tableau des Blessures Graves, les dés peuvent être relancés une fois. Le résultat de ce second jet de dés doit être accepté, même si les conséquences sont pires."
+    },
+    {
+      "id": "ingenieur_du_chaos",
+      "nom": "Ingénieur du Chaos",
+      "texte": "Le Héros a une grande connaissance technique et peut l'utiliser pour fabriquer des armes et des armures maléfiques. Chaque fois qu'un Héros possédant cette compétence recherche une armure du Chaos (y compris un exosquelette) ou des armes en obsidienne, il bénéficie d'un bonus de +3 sur le jet. Ce bonus représente l'aptitude de l'ingénieur à fabriquer ces objets lui-même et ignore donc les règles spéciales sur la rareté et le don du Chaos. Cette compétence ne permet pas de porter les armures du Chaos."
+    },
+    {
+      "id": "crane_epais",
+      "nom": "Crâne épais",
+      "texte": "Le Héros a un crâne épais, même pour un Nain du Chaos. Le Héros a une sauvegarde spéciale de 3+ pour éviter d'être sonné. Si la sauvegarde est réussie, considérez que le Héros est à terre. Si le Nain du Chaos porte également un casque, cette sauvegarde est de 2+ au lieu de 3+ (ce qui remplace la règle spéciale habituelle du casque)."
+    },
+    {
+      "id": "chasseur_de_ressources",
+      "nom": "Chasseur de ressources",
+      "texte": "Ce Nain du Chaos est particulièrement doué pour localiser de précieuses ressources. Lorsqu'il effectue un jet de dé sur le tableau d'Exploration en fin de partie, le Héros peut modifier un jet de dés de +1/-1."
+    },
+    {
+      "id": "tres_coriace",
+      "nom": "Très coriace",
+      "texte": "Les Nains du Chaos sont des êtres robustes et ce Héros est déterminé, même pour un Nain du Chaos ! Sur le tableau des Dégâts, un jet de 1-3 est considéré comme à terre, 4-5 comme sonné et 6 comme hors de combat."
+    },
+    {
+      "id": "tyran",
+      "nom": "Tyran",
+      "reserve_a": "Chef (Hiérogrammate) uniquement",
+      "texte": "Ce prêtre d'Hashut est réputé pour sa tyrannie. Sa parole est absolue et sa propre bande craint davantage sa cruauté que celle de l'ennemi. Lors d'un test de Déroute, si la bande est dirigée par un Chef possédant cette compétence, celui-ci peut encourager sa bande à rester sur place. Cette compétence permet au Chef de refaire un test de Déroute raté tant que le Chef n'est pas à terre ou sonné. En cas de test relancé, le nouveau résultat s'appliquera, même s'il est pire. Si le Chef est mis hors de combat, la bande doit immédiatement faire un test de Déroute."
+    }
+  ],
+  "equipement": {
+    "nains_du_chaos": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Fouet d'acier", "cout": 10, "restriction": "Geôlier uniquement" },
+        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Pince", "cout": 25 }
+      ],
+      "armes_tir": [
+        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "nom": "Tromblon", "cout": 30 },
+        { "nom": "Arquebuse", "cout": 35 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Exosquelette", "cout": 175 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Bouclier", "cout": 5 }
+      ],
+      "divers": [{ "nom": "Machine du Chaos", "cout": 125 }]
+    },
+    "delateurs": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Fronde", "cout": 2 },
+        { "nom": "Arc", "cout": 10 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Bouclier", "cout": 5 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "arme_en_obsidienne",
+      "nom": "Arme en obsidienne",
+      "cout": "Prix de l'arme de base x4",
+      "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
+      "texte": "Donne à son utilisateur +1 en Force au combat au corps à corps. On choisit le type d'arme de corps à corps proposé.",
+      "regles_speciales": [
+        { "nom": "Corrompue", "texte": "Ne peut jamais être utilisée par les Nains, les Elfes, les Sœurs de Sigmar, les Répurgateurs ou les Prêtres." },
+        { "nom": "Frappe en dernier", "texte": "Les armes en obsidienne sont si lourdes que l'on frappe toujours en dernier avec, même en ayant chargé." }
+      ]
+    },
+    {
+      "id": "pince",
+      "nom": "Pince",
+      "cout": 25,
+      "disponibilite": "Rare 10, Geôliers Nains du Chaos uniquement",
+      "portee": "C à C",
+      "force": "U",
+      "regles_speciales": [
+        { "nom": "Arme à deux mains", "texte": "Interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+        { "nom": "Capture", "texte": "Un combattant mis hors de combat grâce à une pince est capturé, à moins que la bande ne soit mise en Déroute. Pas de jet sur le tableau des Blessures Graves pour la victime. Les grandes cibles (Ogres, Trolls, Minotaures) et les animaux ne peuvent pas être capturés de cette manière." }
+      ]
+    },
+    {
+      "id": "fouet_dacier",
+      "nom": "Fouet d'acier",
+      "cout": 10,
+      "disponibilite": "Commun, Sœurs de Sigmar, Nains du Chaos uniquement",
+      "portee": "C à C",
+      "force": "U",
+      "regles_speciales": [
+        { "nom": "Claquement", "texte": "+1 Attaque lorsqu'il charge, en plus de tout autre bonus. Lorsqu'il est chargé, gagne aussi +1A utilisable uniquement contre le combattant qui le charge, frappant en premier. Ce bonus reste de +1A même si chargé par 2 ennemis ou plus. Avec deux fouets, +1A pour l'arme additionnelle, mais seul le premier fouet bénéficie du +1A de Claquement." },
+        { "nom": "Parade impossible", "texte": "Les tentatives de parade contre cette arme sont inutiles, que ce soit avec une épée ou une rondache." }
+      ]
+    },
+    {
+      "id": "exosquelette",
+      "nom": "Exosquelette",
+      "cout": 225,
+      "disponibilite": "Rare 14, Nains du Chaos uniquement",
+      "sauvegarde": "4+",
+      "regles_speciales": [
+        { "nom": "Prêt à démarrer", "texte": "Un sorcier équipé d'un exosquelette reçoit +3 au Mouvement." },
+        { "nom": "Armure du Chaos", "texte": "Un exosquelette compte comme une armure du Chaos et les règles associées s'appliquent." },
+        { "nom": "Coût", "texte": "Le coût est réduit d'1CO pour chaque point d'expérience possédé par le Héros." },
+        { "nom": "Don du Chaos", "texte": "Un Héros qui l'a acquis ne la donnera jamais à un membre de sa bande et l'équipera immédiatement. Elle ne pourra jamais être retirée." },
+        { "nom": "Jeteur de sorts", "texte": "N'empêche pas de lancer des sorts ou de faire des rituels, mais ne peut pas être combinée avec un bouclier ou une rondache." },
+        { "nom": "Rareté", "texte": "Lors de la recherche, +1 sur le jet pour chaque ennemi mis hors de combat lors de la bataille précédente." }
+      ],
+      "note": "La liste d'équipement standard indique 175 CO pour l'Exosquelette, contre 225 CO dans cette section détaillée — écart présent dans le PDF source, à trancher."
+    },
+    {
+      "id": "armure_du_chaos",
+      "nom": "Armure du Chaos",
+      "cout": 185,
+      "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
+      "sauvegarde": "4+",
+      "regles_speciales": [
+        { "nom": "Coût", "texte": "Réduit d'1CO pour chaque point d'expérience possédé par le Héros." },
+        { "nom": "Don du Chaos", "texte": "Un Héros qui en fait l'acquisition ne la donnera jamais à un membre de sa bande et l'équipera immédiatement. Elle fusionne avec le porteur et ne peut jamais être retirée." },
+        { "nom": "Jeteurs de sorts", "texte": "N'empêche pas de lancer des sorts ou de faire des rituels, mais ne peut pas être combinée avec un bouclier ou une rondache." },
+        { "nom": "Rareté", "texte": "Lors de la recherche, +1 sur le jet pour chaque ennemi mis hors de combat lors de la bataille précédente." }
+      ]
+    },
+    {
+      "id": "machine_du_chaos",
+      "nom": "Machine du Chaos",
+      "cout": 195,
+      "disponibilite": "Rare 10, Nains du Chaos uniquement",
+      "texte": "Véhicule/prison vivante sur roues qui transporte les prisonniers vers les Terres Sombres.",
+      "regles_speciales": [
+        { "nom": "Chariot", "texte": "Suit toutes les règles sur les Chariots (Véhicules de l'Empire et Bateaux), sauf indication contraire." },
+        { "nom": "Démon", "texte": "Liée à un démon qui lui fournit son énergie. Toutes les références aux animaux tractant le chariot deviennent des références au démon. Son Mouvement n'est pas affecté par la cargaison." },
+        { "nom": "Passagers", "texte": "Un Nain du Chaos doit faire office de cocher. Seuls des prisonniers peuvent être passagers. Pas plus de six prisonniers (les grandes créatures comptent double)." },
+        { "nom": "Battre le fer", "texte": "Le cocher peut donner du fouet. Si la machine devient incontrôlable, se référer au tableau des pertes de contrôle. Un résultat 'Holà ! Tout doux !' est remplacé par : le Démon se libère, la machine se déplace de 6ps droit devant puis s'arrête, et ne peut plus se déplacer pour le reste de la bataille." },
+        { "nom": "Prisonniers", "texte": "Contre une bande de Nains du Chaos possédant une machine du Chaos, un résultat 'capturé' sur les Blessures Graves ou une mise hors de combat par une pince transforme toujours la victime en prisonnier (équipement perdu pour la bande adverse). Certains résultats des tableaux d'Exploration (Mordheim, Empire en Flammes) permettent d'acquérir des prisonniers. Les prisonniers peuvent être libérés en détruisant la machine ou avec les clés de la prison (obtenues en mettant hors de combat un Geôlier). Un porteur des clés en contact socle à socle avec la machine libère les prisonniers ; ceux-ci se déplacent vers le bord de table le plus proche et rejoignent leur bande d'origine si elle a participé, sinon utilisent le profil de base ou humain." },
+        { "nom": "Récompense de Hashut", "texte": "Après bataille, les prisonniers peuvent être déportés vers les Terres Sombres pour être sacrifiés à Hashut. La machine et un Héros sont alors absents lors de la prochaine bataille (sauf autre machine disponible). Une fois le Héros revenu, jet sur le tableau : 1-3 = +1 XP au Chef ; 4-5 = +1D3 XP à répartir entre les Héros ; 6 = +2D3 XP à répartir entre les Héros plus 1D6x5 CO." }
+      ],
+      "note": "La liste d'équipement standard indique 125 CO pour la Machine du Chaos, contre 195 CO dans cette section détaillée — écart présent dans le PDF source, à trancher."
+    }
+  ],
+  "magie": {
+    "nom": "Rituels d'Hashut",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["hierogrammate"],
+    "sorts": [
+      {
+        "resultat": 0,
+        "nom": "Rituel sacrificiel",
+        "difficulte": 10,
+        "texte": "Le Hiérogrammate doit être en contact avec une machine du Chaos pour lancer ce sort. Retirez un captif de la machine et de la liste de sa bande d'origine. Le Hiérogrammate peut sacrifier d'autres captifs pour réduire la difficulté de -1 par sacrifice supplémentaire (avant le test). En cas de réussite, +1D3 XP.",
+        "note": "Sort obligatoire connu dès le départ"
+      },
+      { "resultat": 1, "nom": "Esprit d'Hashut", "difficulte": 9, "texte": "Trace une ligne de 18ps à partir du Hiérogrammate. Tous les combattants sur le tracé subissent une touche de Force 4." },
+      { "resultat": 2, "nom": "Mugissement du destin", "difficulte": 8, "texte": "Tous les combattants en contact socle à socle avec le Hiérogrammate doivent réussir un test de Cd ou rompre le combat et s'enfuir." },
+      { "resultat": 3, "nom": "Fumées d'Azgorh", "difficulte": 7, "texte": "Portée de 8ps, touche tous les combattants sur son chemin sur 4+. Touche de Force 4, aucune sauvegarde d'armure autorisée." },
+      { "resultat": 4, "nom": "Peau scintillante", "difficulte": 10, "texte": "Jetable sur soi-même ou tout combattant dans un rayon de 6ps. Annule toute Blessure subie sur 4+. Au corps à corps, tout combattant qui touche la cible subit une touche de Force 3 par coup porté. Dure jusqu'au début de la prochaine phase de Tir du Hiérogrammate." },
+      { "resultat": 5, "nom": "Coulée de lave", "difficulte": 7, "texte": "Le Hiérogrammate se déplace de 12ps dans n'importe quelle direction, même pour charger, mais ne peut réapparaître que sur ou sous le sol." },
+      { "resultat": 6, "nom": "Tremblement de terre", "difficulte": 9, "texte": "Tous les combattants (alliés ou ennemis) dans un rayon de 3ps du Hiérogrammate doivent réussir un test d'Initiative ou subir 1D3 touches de Force 4." }
+    ]
+  }
+}
