@@ -1,204 +1,219 @@
 {
   "id": "kislevites",
-  "nom": "Kislevites (1a)",
+  "nom": "Kislévites (1a)",
   "grade": "1a",
-  "source": "BSData",
+  "source": "Article de Mark Havener, « Les hommes de Kislev, à la moustache pleine de givre et de vodka »",
   "regles_speciales": [
-    {
-      "nom": "May Hire",
-      "texte": "A Kilsevite warband is allowed the same selection of Hired Swords as the Human Mercenary warbands from the Mordheim rulebook."
-    },
-    {
-      "nom": "Ancient Enemies",
-      "texte": "Kilsevites warbands may nevet ally (see the 'Multiplayer rules for Mordheim' article from Town Cryer for more details on warband alliances) with any type of Chaos warband.\nThis restriction pertains to the following warbands:\n  Possessed,\n  Beastman,\n  Skaven,\n  Dark Elf,\n  Chaos Dwarf,\nand any other warbands the players judge to be sufficiently 'Chaotic'"
-    }
+    { "nom": "Francs-tireurs", "texte": "Une bande kislévite peut engager les mêmes Francs-tireurs que les bandes de mercenaires humains décrites dans le livre de règles de Mordheim." },
+    { "nom": "Vieux Ennemis", "texte": "Les kislévites ne peuvent en aucun cas s'allier avec une bande du Chaos d'un type ou d'un autre. Cette restriction s'étend aux bandes suivantes : Possédés, Hommes-Bêtes, Skavens, Elfes Noirs, Nains du Chaos, et toute autre bande jugée trop chaotique par les joueurs." }
   ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
   "profils": [
     {
-      "id": "druzhina_captain",
-      "nom": "Druzhina Captain",
+      "id": "capitaine_de_druzhina",
+      "nom": "Capitaine de Druzhina",
       "type": "heros",
       "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 60,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 4,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 8
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout guerrier dans un rayon de 6ps du Capitaine de Druzhina peut utiliser le Cd de ce dernier pour tous ses tests de Commandement." },
+        { "nom": "Héritage", "texte": "Lorsque la bande est créée, le Capitaine a le droit d'acheter un objet de la liste d'équipement des guerriers kislévites à moitié prix (héritage familial). S'il perd cet objet (par exemple résultat « Dépouillé » sur le tableau des blessures), il doit le remplacer aussitôt que possible par un substitut de bonne qualité en rachetant le même objet à 150% de son prix habituel. Tant que l'objet n'a pas été remplacé, le Capitaine subit un malus de -1 sur tous ses tests et jets pour toucher." }
       ],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
-      "id": "bear_tamer",
-      "nom": "Bear Tamer",
+      "id": "dompteur_dours",
+      "nom": "Dompteur d'Ours",
       "type": "heros",
       "unique": true,
+      "min": 0,
       "max": 1,
       "cout": 35,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 4,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 10,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Dompteur d'Ours", "texte": "Une bande kislévite incluant un Dompteur d'Ours peut recruter un Ours Apprivoisé en tant qu'Homme de Main. Cet animal a été dressé pour suivre les instructions du Dompteur : il réussit automatiquement ses tests de stupidité lorsqu'il se trouve dans un rayon de 6ps du Dompteur d'Ours (même si ce dernier est à terre ou sonné)." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse"],
+      "acces_competences_a_verifier": false
     },
     {
       "id": "esaul",
       "nom": "Esaul",
       "type": "heros",
       "unique": true,
+      "min": 0,
       "max": 1,
       "cout": 35,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "youths",
-      "nom": "Youths",
+      "id": "recrue",
+      "nom": "Recrue",
       "type": "heros",
       "unique": false,
+      "min": 0,
       "max": 2,
       "cout": 15,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 2,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 6
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "force", "vitesse"],
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "warriors",
-      "nom": "Warriors",
+      "id": "guerrier_kislevite",
+      "nom": "Guerrier",
       "type": "homme_de_main",
+      "min": 0,
+      "max": null,
       "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "N'importe quel nombre. Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "cossacks",
-      "nom": "Cossacks",
+      "id": "cosaque",
+      "nom": "Cosaque",
       "type": "homme_de_main",
+      "min": 0,
+      "max": null,
       "cout": 30,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Haine du Chaos", "texte": "Les Cosaques sont sujets à la haine des forces du Chaos, c'est-à-dire les membres de toute bande à laquelle s'applique la règle Vieux Ennemis." },
+        { "nom": "Recrutement", "texte": "N'importe quel nombre. Acheté par groupes de 1 à 5." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "streltsi",
       "nom": "Streltsi",
       "type": "homme_de_main",
+      "min": 0,
+      "max": 3,
       "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Appui", "texte": "Un Streltsi armé d'une hallebarde et d'une arquebuse peut utiliser cette dernière pour y poser son arme à feu : il bénéficie alors d'un bonus de +1 pour toucher avec son arquebuse tant qu'il ne se déplace pas durant la phase de mouvement (même s'il dispose d'une compétence lui permettant de se déplacer et de tirer)." },
+        { "nom": "Recrutement", "texte": "Seuls guerriers kislévites entraînés au maniement des arquebuses. Acheté par groupes de 1 à 5." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "trained_bear",
-      "nom": "Trained Bear",
-      "type": "homme_de_main",
+      "id": "ours_apprivoise",
+      "nom": "Ours Apprivoisé",
+      "type": "animal",
+      "min": 0,
+      "max": 1,
       "cout": 125,
-      "stats": {
-        "M": 6,
-        "CC": 3,
-        "CT": 0,
-        "F": 5,
-        "E": 5,
-        "PV": 2,
-        "I": 2,
-        "A": 2,
-        "Cd": 6
-      },
+      "stats": { "M": 6, "CC": 3, "CT": 0, "F": 5, "E": 5, "PV": 2, "I": 2, "A": 2, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Recrutement", "texte": "Ne peut être inclus que si la bande possède déjà un Dompteur d'Ours." },
+        { "nom": "Apprivoisé", "texte": "L'Ours obéit simplement à son dompteur. Il est sujet à la stupidité, mais réussit automatiquement ses tests de stupidité s'il se trouve dans un rayon de 6ps du Dompteur. L'Ours n'utilise jamais le Cd du chef de bande, mais peut utiliser celui du Dompteur s'il se trouve dans un rayon de 6ps de lui. La bande ne peut pas contrôler l'Ours sans la présence de son dompteur : si la bande perd le Dompteur, l'Ours reste dans sa cage jusqu'à ce qu'elle en recrute un autre." },
+        { "nom": "Effrayant", "texte": "Un ours en charge est un spectacle effrayant. Un Ours Apprivoisé cause la peur." },
+        { "nom": "Étreinte", "texte": "Si l'Ours touche une figurine ennemie avec ses deux Attaques lors du même tour de combat, le joueur peut lui faire effectuer une seule touche d'étreinte au lieu des deux touches ordinaires. Les deux joueurs jettent chacun 1D6 + Force de leur figurine : si le total de l'ours est supérieur ou égal, l'ennemi perd automatiquement 1PV sans sauvegarde d'armure ; sinon il se dégage sans dommage." },
+        { "nom": "Férocement Loyal", "texte": "Si à la fin d'une partie l'Ours n'a pas été mis hors de combat, le Dompteur peut ignorer les résultats Dépouillé, Capturé et Vendu aux Arènes (et équivalents) sur le tableau des blessures graves : traitez-les à la place comme Récupération Totale." },
+        { "nom": "Animal", "texte": "Les Ours sont des animaux et ne gagnent donc jamais de points d'expérience." },
+        { "nom": "Grande Cible", "texte": "Voir le livre de règles, chapitre Tir." },
+        { "nom": "Équipement", "texte": "Crocs et griffes !" }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": []
+  "competences_speciales": [],
+  "equipement": {
+    "guerriers_kislevites": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Morgenstern", "cout": 15 },
+        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Hallebarde", "cout": 10 },
+        { "nom": "Lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Couteau de lancer", "cout": 15 },
+        { "nom": "Arc court", "cout": 5 },
+        { "nom": "Arc", "cout": 10 },
+        { "nom": "Arbalète", "cout": 25 },
+        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "nom": "Pistolet de duel", "cout": 25, "note": "50 CO la paire" }
+      ],
+      "armures": [
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Rondache", "cout": 5 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 }
+      ]
+    },
+    "streltsi": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Morgenstern", "cout": 15 },
+        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Hallebarde", "cout": 10 },
+        { "nom": "Lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Arc", "cout": 10 },
+        { "nom": "Arbalète", "cout": 25 },
+        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "nom": "Pistolet de duel", "cout": 25, "note": "50 CO la paire" },
+        { "nom": "Arquebuse", "cout": 35 }
+      ],
+      "armures": [
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Armure légère", "cout": 20 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "vodka",
+      "nom": "Vodka",
+      "cout": "35+2D6 CO",
+      "disponibilite": "Rare 8",
+      "note": "Héros Kislévite uniquement",
+      "texte": "Objet à utilisation unique qu'un Héros kislévite peut donner à sa bande avant une bataille. Tous les membres de la bande bénéficient d'un bonus de +1 en Commandement (jusqu'à un maximum de 10) pour la durée de la partie. En revanche, tous les membres doivent effectuer un test d'Endurance avant le début de la partie, sous peine de subir un malus de -1 en Initiative en cas d'échec."
+    },
+    {
+      "id": "collier_de_griffes_dours",
+      "nom": "Collier de Griffes d'Ours",
+      "cout": "75+3D6 CO",
+      "disponibilite": "Rare 9",
+      "note": "Héros Kislévite uniquement",
+      "texte": "Un guerrier portant un Collier de Griffes d'Ours reçoit une partie de la force et de la férocité de cet animal : le guerrier devient sujet à la frénésie."
+    }
+  ]
 }

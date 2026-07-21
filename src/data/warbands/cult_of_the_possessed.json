@@ -1,149 +1,192 @@
 {
   "id": "cult_of_the_possessed",
-  "nom": "Cult of the Possessed (1a)",
+  "nom": "Culte des Possédés (1a)",
   "grade": "1a",
-  "source": "BSData",
-  "regles_speciales": [],
+  "source": "Livre de règles Mordheim (GW) + Border Town Burning + Mutiny in Marienburg",
+  "regles_speciales": [
+    { "nom": "Table de Mutations", "texte": "Réservée aux Mutants et aux Possédés, achetable uniquement lors du recrutement (impossible d'en acheter de nouvelles après). La première mutation est achetée au prix normal, les suivantes pour la même figurine coûtent le double. Âme démoniaque (20 CO) : sauvegarde spéciale de 4+ contre les sorts ou les prières. • Pince (50 CO) : ne porte pas d'arme avec ce bras, mais gagne une Attaque supplémentaire de Force+1 au Corps à Corps. • Tentacule (35 CO) : peut agripper un adversaire au Corps à Corps et lui faire perdre 1 Attaque au choix (minimum 1). • Sabots fendus (40 CO) : +1 en Mouvement. • Sang acide (30 CO) : si le mutant subit une blessure au Corps à Corps, les figurines en contact subissent une touche de Force 3 (pas de Coups Critiques). • Épines (35 CO) : toute figurine en contact subit une touche de Force 1 au début de chaque phase de Corps à Corps (jamais de Coups Critiques). • Queue de scorpion (40 CO) : Attaque supplémentaire de Force 5 (Force 2 si la cible est immunisée au poison). • Bras supplémentaire (40 CO) : Attaque supplémentaire avec une arme à une main, ou un bouclier/rondache, mais pas les deux. • Hideux (40 CO) : provoque la peur. • Corps cristallin (60 CO) : Endurance 6 et Points de Vie 1, non modifiables par la suite (relancer les progressions correspondantes). • Brute épaisse (50 CO) : +2 en Force, -4 en Cd. • Morsure venimeuse (50 CO) : Attaque supplémentaire de Force 5 (Force 2 si la cible est immunisée aux poisons). • Queue préhensile (50 CO) : Attaque supplémentaire ; permet de tenir une arme à une main, un bouclier ou une rondache. • Peau écailleuse (60 CO) : sauvegarde d'armure naturelle de 5+ (les armures légères ajoutent +1). • Ailes (45 CO) : permet de planer, pour 1ps de chute avance de 2ps horizontalement." },
+    { "nom": "Récompenses du Seigneur des Ombres", "texte": "Règle optionnelle : un Magister ou un Mutant ayant accumulé suffisamment d'expérience peut lancer 2D6 sur ce tableau au lieu de choisir une compétence, représentant un pèlerinage à la Fosse. 2 : Colère du Seigneur des Ombres ! Le guerrier subit tant de mutations qu'il perd toute trace d'humanité et disparaît. 3-6 : Rien ne se passe. 7-8 : Mutation importante (jetez 1D6 : sur 1, perdez un point dans une caractéristique au choix ; sur 2+, choisissez une mutation dans la Table de Mutations). 9-10 : Armure du Chaos — sauvegarde de base de 4+ sans affecter le mouvement ni empêcher de lancer des sorts. 11 : Arme démon — +1 en Force au corps à corps et +1 pour toucher avec, sous la forme au choix du porteur. 12 : Possédé ! Un démon prend possession du guerrier : +1 CC, +1 F, +1 Attaque et +1 PV (au-delà des maximums), mais il perd D3 compétences au choix du joueur et ne peut plus utiliser ni arme ni armure hormis l'armure du Chaos ou des armes démons." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
   "profils": [
-    {
-      "id": "beastmen",
-      "nom": "Beastmen",
-      "type": "homme_de_main",
-      "cout": 45,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 4,
-        "PV": 2,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "brethren",
-      "nom": "Brethren",
-      "type": "homme_de_main",
-      "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "darksouls",
-      "nom": "Darksouls",
-      "type": "homme_de_main",
-      "cout": 35,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 2,
-        "F": 4,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 6
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
     {
       "id": "magister",
       "nom": "Magister",
       "type": "heros",
       "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 70,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 4,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 8
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Magister peut utiliser le Commandement de ce dernier pour ses tests." },
+        { "nom": "Sorcier", "texte": "Le Magister est un sorcier utilisant les Rituels du Chaos (voir magie)." }
       ],
+      "acces_competences": ["combat", "academique", "vitesse"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
-      "id": "mutants",
-      "nom": "Mutants",
+      "id": "possede",
+      "nom": "Possédé",
       "type": "heros",
       "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 90,
+      "xp_depart": 8,
+      "stats": { "M": 5, "CC": 4, "CT": 0, "F": 4, "E": 4, "PV": 2, "I": 4, "A": 2, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Peur", "texte": "Les Possédés sont des créatures hideuses et informes qui provoquent la peur." },
+        { "nom": "Mutations", "texte": "Les Possédés peuvent commencer la partie avec une ou plusieurs mutations (voir la règle spéciale Table de Mutations). Coût : 90 CO + le coût des mutations achetées au recrutement." },
+        { "nom": "Équipement", "texte": "Aucun. Les Possédés n'utilisent jamais ni armes ni armures." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "mutant",
+      "nom": "Mutant",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
       "max": 2,
       "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Mutations", "texte": "Chaque Mutant doit commencer la partie avec une ou plusieurs mutations (voir la règle spéciale Table de Mutations). Coût : 25 CO + le coût des mutations." }
+      ],
+      "acces_competences": ["combat", "vitesse"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "initie",
+      "nom": "Initié",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Votre bande peut inclure autant d'Initiés que vous le voulez." }],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "damne",
+      "nom": "Damné",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 5,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Déments", "texte": "Les Damnés ont été rendus fous par la possession et ne connaissent pas la peur. Ils réussissent automatiquement tous les tests de Commandement qu'ils pourraient avoir à passer." },
+        { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "homme_bete",
+      "nom": "Homme-Bête",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 3,
+      "cout": 45,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 2, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "culte_des_possedes": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Lance", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "nom": "Arc Court", "cout": 10 },
+        { "nom": "Arc", "cout": 15 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Bouclier", "cout": 5 }
+      ]
+    },
+    "damnes": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Fléau", "cout": 15 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Bouclier", "cout": 5 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "arme_en_obsidienne",
+      "nom": "Arme en obsidienne",
+      "cout": "Prix de l'arme de base x4",
+      "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
+      "texte": "Donne à son utilisateur +1 en Force au combat au corps à corps. On choisit le type d'arme de corps à corps proposé.",
+      "regles_speciales": [
+        { "nom": "Corrompue", "texte": "Bien qu'ils ne soient pas strictement corrompus par le Chaos, tous les objets en obsidienne sont considérés comme empreints de l'obscure malveillance associée à leurs artisans. Ne peut jamais être utilisée par les Nains, les Elfes, les Sœurs de Sigmar, les Répurgateurs ou les Prêtres." },
+        { "nom": "Frappe en dernier", "texte": "Les armes en obsidienne sont si lourdes que l'on frappe toujours en dernier avec, même en ayant chargé." }
       ]
     },
     {
-      "id": "possessed",
-      "nom": "Possessed",
-      "type": "heros",
-      "unique": false,
-      "max": 2,
-      "cout": 90,
-      "stats": {
-        "M": 5,
-        "CC": 4,
-        "CT": 0,
-        "F": 4,
-        "E": 4,
-        "PV": 2,
-        "I": 4,
-        "A": 2,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "id": "armure_du_chaos",
+      "nom": "Armure du Chaos",
+      "cout": 185,
+      "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
+      "sauvegarde": "4+",
+      "regles_speciales": [
+        { "nom": "Coût", "texte": "Le coût d'une armure du Chaos est réduit d'une Couronne d'Or pour chaque point d'expérience possédé par le Héros." },
+        { "nom": "Don du Chaos", "texte": "L'armure du Chaos est un don des Dieux Sombres au guerrier méritant. Un Héros qui en fait l'acquisition ne la donnera jamais à un membre de sa bande et l'équipera immédiatement. Elle fusionnera avec le corps du porteur et ne pourra jamais être retirée." },
+        { "nom": "Jeteurs de sorts", "texte": "L'armure du Chaos n'empêche pas son porteur de lancer des sorts ou de faire des rituels. Elle peut être portée par les jeteurs de sorts, mais ils ne peuvent pas la combiner avec un bouclier ou une rondache." },
+        { "nom": "Rareté", "texte": "Lors de la recherche d'une armure du Chaos, un guerrier gagne +1 sur son jet de dé pour chaque ennemi qu'il a mis hors de combat lors de la bataille précédente." }
       ]
     }
   ],
-  "competences_speciales": []
+  "magie": {
+    "nom": "Rituels du Chaos",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["magister"],
+    "sorts": [
+      { "resultat": 1, "nom": "Vision d'Horreur", "difficulte": 10, "texte": "Portée 6ps, lancé sur l'ennemi le plus proche (cible en contact socle à socle si le sorcier est au Corps à Corps). La victime est immédiatement sonnée ; si elle ne peut pas être sonnée, elle est mise à terre." },
+      { "resultat": 2, "nom": "Œil Divin", "difficulte": 7, "texte": "Réussissable une seule fois par bataille. Choisissez n'importe quelle figurine à moins de 6ps, amie ou ennemie, et lancez 1D6 : 1 = la figurine est immédiatement mise hors de combat (sans jet sur les Blessures Graves) ; 2-5 = +1 dans une Caractéristique au choix du lanceur pour la bataille ; 6 = +1 à toutes les Caractéristiques pour la durée de la bataille." },
+      { "resultat": 3, "nom": "Sang Noir", "difficulte": 8, "texte": "Portée 8ps, cause D3 touches de F5 à la première figurine sur sa trajectoire. Le sorcier doit ensuite lancer sur le tableau des Dégâts pour sa propre Blessure (un résultat hors de combat est traité comme sonné)." },
+      { "resultat": 4, "nom": "Tentation du Chaos", "difficulte": 9, "texte": "Portée 12ps, jeté sur la figurine ennemie la plus proche. Comparez 1D6+Cd du sorcier à 1D6+Cd de la cible ; si le sorcier gagne, il prend le contrôle de sa victime jusqu'à ce qu'elle réussisse un test de Commandement en phase de Ralliement adverse. La figurine contrôlée ne peut pas se suicider mais peut attaquer son propre camp et ne combattra pas la bande du sorcier." },
+      { "resultat": 5, "nom": "Ailes Ténébreuses", "difficulte": 7, "texte": "Le sorcier peut se déplacer immédiatement n'importe où à 12ps maximum, même au contact de l'ennemi (compte comme ayant chargé). S'il engage un ennemi en fuite, il inflige une touche automatique en phase de Corps à Corps puis l'adversaire fuit à nouveau s'il survit." },
+      { "resultat": 6, "nom": "Mot de Souffrance", "difficulte": 7, "texte": "Toutes les figurines à moins de 3ps du sorcier, amies ou ennemies, subissent une touche de F3 sans sauvegarde d'armure." }
+    ]
+  }
 }

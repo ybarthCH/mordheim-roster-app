@@ -1,172 +1,230 @@
 {
   "id": "beastmen_raiders",
-  "nom": "Beastmen Raiders (1a)",
+  "nom": "Pillards Hommes-Bêtes (1a)",
   "grade": "1a",
-  "source": "BSData",
+  "source": "Town Cryer #29 & Rules Review 2005 (GW) + Border Town Burning + Mutiny in Marienburg",
   "regles_speciales": [
-    {
-      "nom": "Animals",
-      "texte": "Beastmen are fearsome creatures of Chaos that do not interact with other races other than in war.\n\nA Beastmen warband may never hire any Hired Swords unless specifically stated with the Hired Sword."
-    }
+    { "nom": "Bestiaux", "texte": "Les Hommes-Bêtes sont de féroces créatures du Chaos et ne peuvent pas recruter de Francs-Tireurs à moins que le contraire ne soit précisé dans leur description." },
+    { "nom": "Table de Mutations", "texte": "Réservée aux Héros ayant la compétence spéciale « Mutant ». La première mutation d'une figurine est achetée au prix normal, les suivantes pour la même figurine coûtent le double. Âme démoniaque (20 CO) : sauvegarde spéciale de 4+ contre les sorts ou les prières. • Pince (50 CO) : ne porte pas d'arme avec ce bras, mais gagne une Attaque supplémentaire de Force+1 au Corps à Corps. • Tentacule (35 CO) : peut agripper un adversaire au Corps à Corps et lui faire perdre 1 Attaque (minimum 1). • Sabots fendus (40 CO) : +1 en Mouvement. • Sang acide (30 CO) : si le mutant subit une blessure au Corps à Corps, les figurines en contact subissent une touche de Force 3 (pas de Coups Critiques). • Épines (35 CO) : toute figurine en contact subit une touche de Force 1 au début de chaque phase de Corps à Corps (jamais de Coups Critiques). • Queue de scorpion (40 CO) : Attaque supplémentaire de Force 5 (Force 2 si la cible est immunisée au poison). • Bras supplémentaire (40 CO) : Attaque supplémentaire avec une arme à une main, ou un bouclier/rondache. • Hideux (40 CO) : provoque la peur. • Corps cristallin (60 CO) : Endurance 6 et Points de Vie 1, non modifiables par la suite. • Brute épaisse (50 CO) : +2 en Force, -4 en Cd. • Morsure venimeuse (50 CO) : Attaque supplémentaire de Force 5 (Force 2 si la cible est immunisée aux poisons). • Queue préhensile (50 CO) : Attaque supplémentaire ; permet de tenir une arme à une main, un bouclier ou une rondache. • Peau écailleuse (60 CO) : sauvegarde d'armure naturelle de 5+ (les armures légères ajoutent +1). • Ailes (45 CO) : permet de planer, pour 1ps de chute avance de 2ps horizontalement." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "caracteristiques_max": [
+    { "profil": "gors", "M": 5, "CC": 7, "CT": 6, "F": 4, "E": 5, "PV": 4, "I": 6, "A": 4, "Cd": 9 },
+    { "profil": "centigor", "M": 9, "CC": 7, "CT": 6, "F": 4, "E": 5, "PV": 4, "I": 6, "A": 4, "Cd": 9, "note": "Le profil source indique A 4(+1) : le +1 entre parenthèses correspond à l'Attaque de Piétinement, non comptée dans le maximum d'amélioration." },
+    { "profil": "hommes_de_main", "note": "Les Hommes de main ne peuvent pas dépasser +1 par caractéristique lors de leur progression." }
   ],
   "profils": [
     {
-      "id": "beastmen_chieftain",
-      "nom": "Beastmen Chieftain",
+      "id": "chef_homme_bete",
+      "nom": "Chef Homme-Bête",
       "type": "heros",
       "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 65,
-      "stats": {
-        "M": 5,
-        "CC": 4,
-        "CT": 3,
-        "F": 4,
-        "E": 4,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [],
+      "xp_depart": 20,
+      "stats": { "M": 5, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Chef Homme-Bête peut utiliser le Commandement de ce dernier pour ses tests." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
-      "id": "beastmen_shaman",
-      "nom": "Beastmen Shaman",
+      "id": "chaman_homme_bete",
+      "nom": "Chaman Homme-Bête",
       "type": "heros",
       "unique": true,
+      "min": 0,
       "max": 1,
       "cout": 45,
-      "stats": {
-        "M": 5,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 6
-      },
-      "acces_competences": []
+      "xp_depart": 11,
+      "stats": { "M": 5, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Le Chaman Homme-Bête est un sorcier utilisant les Rituels du Chaos (voir magie)." },
+        { "nom": "Sans armure", "texte": "Ne peut en aucun cas porter d'armure." }
+      ],
+      "acces_competences": ["combat", "vitesse", "special"],
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "bestigors",
-      "nom": "Bestigors",
+      "id": "bestigor",
+      "nom": "Bestigor",
       "type": "heros",
       "unique": false,
+      "min": 0,
       "max": 2,
       "cout": 45,
-      "stats": {
-        "M": 5,
-        "CC": 4,
-        "CT": 3,
-        "F": 4,
-        "E": 4,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": []
+      "xp_depart": 8,
+      "stats": { "M": 5, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "centigors",
-      "nom": "Centigors",
+      "id": "centigor",
+      "nom": "Centigor",
       "type": "heros",
       "unique": true,
+      "min": 0,
       "max": 1,
       "cout": 80,
-      "stats": {
-        "M": 8,
-        "CC": 4,
-        "CT": 3,
-        "F": 4,
-        "E": 4,
-        "PV": 1,
-        "I": 2,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": []
+      "xp_depart": 8,
+      "stats": { "M": 8, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Ivre", "texte": "Au début de chaque tour, jetez 1D6. Sur un résultat de 1, effectuez un test de stupidité (en cas d'échec, l'effet dure jusqu'à la fin du tour). Sur 2-5, rien de particulier. Sur 6, il devient frénétique pour la durée du tour. Lorsqu'il est stupide ou frénétique, le Centigor est immunisé à la psychologie." },
+        { "nom": "Habitat forestier", "texte": "Le Centigor ne subit aucune pénalité de Mouvement en terrain boisé." },
+        { "nom": "Piétinement", "texte": "En plus de ses armes, le Centigor utilise ses sabots pour piétiner ses ennemis : il a donc une Attaque supplémentaire sur son profil, mais elle n'est pas affectée par les bonus et malus de ses armes (1 Attaque de base, la seconde entre parenthèses A 1(2) provenant de cette règle)." }
+      ],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_competences_a_verifier": false
     },
     {
       "id": "ungor",
       "nom": "Ungor",
       "type": "homme_de_main",
+      "min": 0,
+      "max": null,
       "cout": 25,
-      "stats": {
-        "M": 5,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 6
-      },
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Sous-bêtes", "texte": "Quel que soit le nombre de points d'expérience accumulé, un Ungor ne pourra jamais se hisser dans la hiérarchie. Si suite à un jet de progression, un Ungor obtient le résultat « Ce gars est doué », il doit relancer les dés." },
+        { "nom": "Recrutement", "texte": "Autant que vous le souhaitez." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "gor",
       "nom": "Gor",
       "type": "homme_de_main",
+      "min": 0,
+      "max": 5,
       "cout": 35,
-      "stats": {
-        "M": 5,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 6
-      },
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "warhounds_of_chaos",
-      "nom": "Warhounds of Chaos",
-      "type": "homme_de_main",
+      "id": "chien_du_chaos",
+      "nom": "Chien du Chaos",
+      "type": "animal",
+      "min": 0,
+      "max": 5,
       "cout": 15,
-      "stats": {
-        "M": 7,
-        "CC": 4,
-        "CT": 0,
-        "F": 4,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 5
-      },
+      "stats": { "M": 7, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Animaux", "texte": "Les Chiens du Chaos sont des animaux et ils n'acquièrent donc jamais de points d'expérience." },
+        { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." },
+        { "nom": "Équipement", "texte": "Mis à part leurs griffes, leurs crocs, et quelques cornes pour les plus altérés, les Chiens du Chaos n'ont aucun équipement. Ils combattent donc sans aucune pénalité." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "minotaur",
-      "nom": "Minotaur",
+      "id": "minotaure",
+      "nom": "Minotaure",
       "type": "homme_de_main",
+      "min": 0,
+      "max": 1,
       "cout": 200,
-      "stats": {
-        "M": 6,
-        "CC": 4,
-        "CT": 3,
-        "F": 4,
-        "E": 4,
-        "PV": 3,
-        "I": 4,
-        "A": 3,
-        "Cd": 8
-      },
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 3, "I": 4, "A": 3, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Peur", "texte": "Le Minotaure est immense et cause la peur." },
+        { "nom": "Soif de sang", "texte": "Si le Minotaure met tous ses ennemis hors de combat au Corps à Corps, il devient frénétique si vous obtenez 4+ sur 1D6." },
+        { "nom": "Animal", "texte": "Le Minotaure est bien plus bestial que ses frères Hommes-Bêtes ; bien que classé comme Homme de main pouvant gagner de l'expérience, il ne deviendra jamais un Héros ni ne prendra de compétences." },
+        { "nom": "Grande cible", "texte": "Le Minotaure est une grande cible, comme décrit dans les règles de Tir." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": []
+  "competences_speciales": [
+    { "id": "cuir_epais", "nom": "Cuir épais", "texte": "La peau du Héros est si épaisse qu'elle fait office d'armure : sauvegarde d'armure de 6+ combinable avec d'autres armures." },
+    { "id": "mutant", "nom": "Mutant", "texte": "L'Homme-Bête peut acquérir une Mutation (voir la règle spéciale Table de Mutations)." },
+    { "id": "sans_peur", "nom": "Sans peur", "texte": "L'Homme-Bête est immunisé à la peur et n'a pas à effectuer de test seul contre tous." },
+    { "id": "le_cornu", "nom": "Le cornu", "texte": "L'Homme-Bête a de grandes cornes qu'il peut utiliser lorsqu'il charge pour effectuer une Attaque supplémentaire résolue avec sa Force de base." },
+    { "id": "mugissement", "nom": "Mugissement", "reserve_a": "Chef Homme-Bête uniquement", "texte": "Permet de relancer tout test de Déroute raté." },
+    { "id": "mangeur_dhommes", "nom": "Mangeur d'hommes", "texte": "Le possesseur de cette compétence est sujet à la haine lorsqu'il combat des bandes humaines." }
+  ],
+  "equipement": {
+    "hommes_betes": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Hallebarde", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Bouclier", "cout": 5 }
+      ]
+    },
+    "ungors": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Lance", "cout": 10 }
+      ],
+      "armures": [
+        { "nom": "Bouclier", "cout": 5 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "arme_en_obsidienne",
+      "nom": "Arme en obsidienne",
+      "cout": "Prix de l'arme de base x4",
+      "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
+      "texte": "Donne à son utilisateur +1 en Force au combat au corps à corps.",
+      "regles_speciales": [
+        { "nom": "Corrompue", "texte": "Ne peut jamais être utilisée par les Nains, les Elfes, les Sœurs de Sigmar, les Répurgateurs ou les Prêtres." },
+        { "nom": "Frappe en dernier", "texte": "L'arme est si lourde que l'on frappe toujours en dernier avec, même en ayant chargé." }
+      ]
+    },
+    {
+      "id": "armure_du_chaos",
+      "nom": "Armure du Chaos",
+      "cout": 185,
+      "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
+      "sauvegarde": "4+",
+      "regles_speciales": [
+        { "nom": "Coût", "texte": "Réduit d'1 CO pour chaque point d'expérience possédé par le Héros." },
+        { "nom": "Don du Chaos", "texte": "Un Héros qui en fait l'acquisition ne la donnera jamais à un membre de sa bande et l'équipera immédiatement ; elle ne peut jamais être retirée." },
+        { "nom": "Jeteurs de sorts", "texte": "N'empêche pas de lancer des sorts, mais ne peut pas être combinée avec un bouclier ou une rondache." },
+        { "nom": "Rareté", "texte": "+1 sur le jet de recherche pour chaque ennemi mis hors de combat lors de la bataille précédente." }
+      ]
+    }
+  ],
+  "magie": {
+    "nom": "Rituels du Chaos",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["chaman_homme_bete"],
+    "sorts": [
+      { "resultat": 1, "nom": "Vision d'Horreur", "difficulte": 10, "texte": "Portée 6ps, lancé sur l'ennemi le plus proche (cible en contact socle à socle si le Chaman est au Corps à Corps). La victime est immédiatement sonnée ; si elle ne peut pas être sonnée, elle est mise à terre." },
+      { "resultat": 2, "nom": "Œil Divin", "difficulte": 7, "texte": "Réussissable une seule fois par bataille. Choisissez n'importe quelle figurine à moins de 6ps, amie ou ennemie, et lancez 1D6 : 1 = mise hors de combat immédiatement (sans jet de Blessures Graves) ; 2-5 = +1 dans une Caractéristique au choix pour la bataille ; 6 = +1 à toutes les Caractéristiques pour la durée de la bataille." },
+      { "resultat": 3, "nom": "Sang Noir", "difficulte": 8, "texte": "Portée 8ps, cause D3 touches de F5 à la première figurine sur sa trajectoire. Le Chaman doit ensuite lancer sur le tableau des Dégâts pour sa propre Blessure (un résultat hors de combat est traité comme sonné)." },
+      { "resultat": 4, "nom": "Tentation du Chaos", "difficulte": 9, "texte": "Portée 12ps, jeté sur la figurine ennemie la plus proche. Comparez 1D6+Cd du Chaman à 1D6+Cd de la cible ; si le Chaman gagne, il prend le contrôle de sa victime jusqu'à ce qu'elle réussisse un test de Commandement en phase de Ralliement adverse." },
+      { "resultat": 5, "nom": "Ailes Ténébreuses", "difficulte": 7, "texte": "Le Chaman peut se déplacer immédiatement n'importe où à 12ps maximum, même au contact de l'ennemi (compte comme ayant chargé). S'il engage un ennemi en fuite, il inflige une touche automatique puis l'adversaire fuit à nouveau s'il survit." },
+      { "resultat": 6, "nom": "Mot de Souffrance", "difficulte": 7, "texte": "Toutes les figurines à moins de 3ps du Chaman, amies ou ennemies, subissent une touche de F3 sans sauvegarde d'armure." }
+    ]
+  }
 }

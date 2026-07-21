@@ -1,176 +1,188 @@
 {
   "id": "averlanders",
-  "nom": "Averlanders (1a)",
+  "nom": "Mercenaires Averlanders (1a)",
   "grade": "1a",
-  "source": "BSData",
+  "source": "La Grande Librairie de Mordheim",
   "regles_speciales": [],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
   "profils": [
     {
-      "id": "captain",
-      "nom": "Captain",
+      "id": "capitaine",
+      "nom": "Capitaine",
       "type": "heros",
       "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 60,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 4,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 8
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Capitaine peut utiliser le Commandement de ce dernier pour ses tests." }
       ],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
+    },
+    {
+      "id": "sergent",
+      "nom": "Sergent",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 35,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "force", "vitesse"],
+      "acces_competences_a_verifier": false
     },
     {
       "id": "bergjaeger",
       "nom": "Bergjaeger",
       "type": "heros",
       "unique": false,
+      "min": 0,
       "max": 2,
       "cout": 35,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 4,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 4,
+      "stats": { "M": 4, "CC": 2, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Pièges", "texte": "Un Bergjaeger peut poser un piège s'il y passe un tour sans rien faire d'autre (sauf s'il vient tout juste de se relever après avoir été mis à terre). Placez un marqueur en contact avec son socle. Lorsqu'une figurine, amie ou ennemie, arrive dans un rayon de 2ps du piège, elle risque de le déclencher : jetez 1D6, sur un résultat de 3+ le piège inflige une touche de Force 4 (un Bergjaeger ne risque jamais de déclencher ses propres pièges). Si le piège n'a pas blessé la figurine ou n'a pas été déclenché, la victime peut achever son mouvement ; sinon elle se retrouve à terre ou sonnée à 2ps du marqueur. Que le piège ait été déclenché ou non, le marqueur est retiré du jeu." }
+      ],
+      "acces_competences": ["tir", "vitesse"],
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "sergeant",
-      "nom": "Sergeant",
+      "id": "recrue",
+      "nom": "Recrue",
       "type": "heros",
       "unique": true,
-      "max": 1,
-      "cout": 35,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
-    },
-    {
-      "id": "youngblood",
-      "nom": "Youngblood",
-      "type": "heros",
-      "unique": true,
+      "min": 0,
       "max": 1,
       "cout": 15,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 2,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 6
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "mountainguard",
-      "nom": "Mountainguard",
+      "id": "garde_des_montagnes",
+      "nom": "Garde des montagnes",
       "type": "homme_de_main",
+      "min": 0,
+      "max": null,
       "cout": 30,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." }],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "marksmen",
-      "nom": "Marksmen",
+      "id": "tireur",
+      "nom": "Tireur",
       "type": "homme_de_main",
+      "min": 0,
+      "max": null,
       "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." }],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "halflings_scouts",
-      "nom": "Halflings Scouts",
+      "id": "eclaireur_halfling",
+      "nom": "Éclaireur Halfling",
       "type": "homme_de_main",
+      "min": 0,
+      "max": 3,
       "cout": 20,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 4,
-        "F": 2,
-        "E": 2,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 8
-      },
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 4, "F": 2, "E": 2, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Promotion", "texte": "Un Éclaireur halfling promu au rang de héros par un résultat de « ce gars est doué » ne peut pas choisir les compétences de Force comme un de ses deux tableaux de compétences. Les Halflings ne sont pas renommés pour leur carrure d'athlète !" }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": []
+  "competences_speciales": [],
+  "equipement": {
+    "eclaireurs": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Arc", "cout": 10 },
+        { "nom": "Arc long", "cout": 15 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Rondache", "cout": 5 }
+      ]
+    },
+    "tireurs": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Arbalète", "cout": 25 },
+        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "nom": "Arc", "cout": 10 },
+        { "nom": "Arc long", "cout": 15 },
+        { "nom": "Arquebuse", "cout": 35 },
+        { "nom": "Tromblon", "cout": 30 },
+        { "nom": "Long fusil d'Hochland", "cout": 200 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Rondache", "cout": 5 }
+      ]
+    },
+    "gardes_des_montagnes": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Lance", "cout": 10 },
+        { "nom": "Hallebarde", "cout": 10 },
+        { "nom": "Morgenstern", "cout": 15 },
+        { "nom": "Arme à deux mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "nom": "Arbalète", "cout": 25 },
+        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "nom": "Pistolet de duel", "cout": 25, "note": "50 CO la paire" },
+        { "nom": "Arc", "cout": 10 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Rondache", "cout": 5 }
+      ]
+    }
+  }
 }

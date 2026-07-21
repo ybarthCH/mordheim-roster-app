@@ -1,173 +1,238 @@
 {
   "id": "ostlanders",
-  "nom": "Ostlanders (1a)",
+  "nom": "Mercenaires Ostlanders (1a)",
   "grade": "1a",
-  "source": "BSData",
+  "source": "Mordheim Annual 2002 / La Grande Librairie de Mordheim",
   "regles_speciales": [
     {
-      "nom": "Self Sufficient",
-      "texte": "The men of Ostland have no desire to give their hard-earned gold to outsiders.\nAs a result they can never hire any Mercenaries except for Ogres (who are not an uncommon sight in Ostland)."
+      "nom": "Autonome",
+      "texte": "Les Ostlanders n'ont aucune envie de laisser l'or qu'ils ont durement gagné aux mains d'un étranger. En conséquence, ils ne peuvent jamais embaucher de Francs-Tireurs, excepté les Ogres (qui ne sont pas rares en Ostland)."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "caracteristiques_max": [
+    { "profil": "humain", "M": 4, "CC": 6, "CT": 6, "F": 4, "E": 4, "PV": 3, "I": 6, "A": 4, "Cd": 9 },
+    { "profil": "ogre", "M": 6, "CC": 5, "CT": 4, "F": 6, "E": 6, "PV": 4, "I": 5, "A": 4, "Cd": 7 },
+    {
+      "profil": "hommes_de_main",
+      "note": "Les Hommes de main ne peuvent augmenter leurs caractéristiques que de +1 par progression."
     }
   ],
   "profils": [
     {
-      "id": "elder",
-      "nom": "Elder",
+      "id": "doyen",
+      "nom": "Doyen",
       "type": "heros",
       "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 60,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 4,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 8
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Doyen peut utiliser le Commandement de ce dernier pour ses tests." }
       ],
+      "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
-      "id": "blood_brothers",
-      "nom": "Blood Brothers",
-      "type": "heros",
-      "unique": false,
-      "max": 2,
-      "cout": 35,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
-    },
-    {
-      "id": "priest_of_taal",
-      "nom": "Priest of Taal",
+      "id": "pretre_de_taal",
+      "nom": "Prêtre de Taal",
       "type": "heros",
       "unique": true,
+      "min": 0,
       "max": 1,
       "cout": 45,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 12,
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Prières", "texte": "Un Prêtre de Taal peut utiliser les Prières de Taal (voir magie)." },
+        { "nom": "Frêle", "texte": "Les Prêtres de Taal ne peuvent jamais porter une armure lourde." }
+      ],
+      "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "kin",
-      "nom": "Kin",
-      "type": "homme_de_main",
-      "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [],
+      "id": "freres_de_sang",
+      "nom": "Frères de sang",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 35,
+      "xp_depart": 12,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "force", "special"],
       "acces_competences_a_verifier": true
+    },
+    {
+      "id": "proche",
+      "nom": "Proche",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." }],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
     },
     {
       "id": "jaeger",
       "nom": "Jaeger",
       "type": "homme_de_main",
+      "min": 0,
+      "max": 7,
       "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." }],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "ruffians",
-      "nom": "Ruffians",
+      "id": "vaurien",
+      "nom": "Vaurien",
       "type": "homme_de_main",
+      "min": 0,
+      "max": 5,
       "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 2,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 2,
-        "A": 1,
-        "Cd": 10
-      },
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 10 },
+      "regles_speciales": [
+        { "nom": "Ivres", "texte": "Les Vauriens ont l'esprit embrouillé à cause du tord-boyaux et de la mauvaise bière qu'ils boivent. Ils réussissent donc automatiquement tous les tests de Commandement qu'ils doivent passer." },
+        { "nom": "Irrespectable", "texte": "Les Vauriens provoquent des sentiments mitigés chez leurs camarades, un étrange mélange de pitié et de peur. Ils ne peuvent donc pas devenir Chef de bande." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "ogre",
       "nom": "Ogre",
       "type": "homme_de_main",
+      "min": 0,
+      "max": 1,
       "cout": 160,
-      "stats": {
-        "M": 6,
-        "CC": 3,
-        "CT": 2,
-        "F": 4,
-        "E": 4,
-        "PV": 3,
-        "I": 3,
-        "A": 2,
-        "Cd": 7
-      },
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 3, "CT": 2, "F": 4, "E": 4, "PV": 3, "I": 3, "A": 2, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Peur", "texte": "Les Ogres sont de grandes créatures menaçantes qui provoquent la Peur." },
+        { "nom": "Grande Cible", "texte": "Les Ogres sont des créatures charpentées et massives, ce qui en fait de bonnes cibles pour les archers. Ce sont des grandes cibles, comme défini dans les règles de tir." },
+        { "nom": "Compétences", "texte": "Un Ogre qui devient un Héros dans le cadre de la règle « Ce gars est doué » peut faire son choix dans les listes de compétences de Combat et de Force." },
+        { "nom": "Lent d'Esprit", "texte": "Bien que les Ogres soient capables de gagner de l'expérience et de profiter des progressions, ils ne sont pas les plus intelligentes des créatures. Les Ogres gagnent une progression qu'une fois sur deux (ils doivent accumuler deux fois plus d'expérience que la normale pour obtenir une progression)." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": []
+  "competences_speciales": [
+    { "id": "ruee_du_taureau", "nom": "Ruée du taureau", "texte": "Quand il charge, le Héros peut tenter de renverser son adversaire plutôt que de faire des attaques normales : jet pour effectuer une seule touche avec un modificateur de +1, sans jet de blessure. Si le guerrier touche, la cible est mise à terre." },
+    { "id": "odeur_nauseabonde", "nom": "Odeur nauséabonde", "texte": "Tous les ennemis vivants (pas les Morts-Vivants ni les Possédés) subissent un malus de -1 pour toucher au corps à corps contre ce guerrier. Il ne peut pas porter d'objet enflammé, et les attaques de feu à son encontre sont résolues avec Force +1 à cause de ses vêtements imbibés d'alcool." },
+    { "id": "serment_de_sang", "nom": "Serment de sang", "reserve_a": "Chef de bande uniquement", "texte": "Permet de relancer UN test de Déroute par partie." },
+    { "id": "narguer", "nom": "Narguer", "texte": "Pendant la phase de tir, le guerrier peut choisir de narguer un ennemi au lieu de tirer ou lancer un sort (suit les règles de ciblage d'un tir : l'adversaire le plus proche visible, etc.). L'ennemi doit faire un test de Commandement : en cas d'échec, il doit passer sa prochaine phase de mouvement à engager un combat au corps à corps avec le guerrier qui l'a nargué." },
+    { "id": "amis_des_betes", "nom": "Amis des bêtes", "texte": "Ce guerrier dégage un charme qui touche tous les animaux dits « normaux » (chevaux de guerre, chiens de guerre, etc.) : ils ne l'attaqueront jamais, et jusqu'à deux Chiens de Guerre possédés par la figurine ne sont pas comptés dans le nombre maximum de figurines de la bande." }
+  ],
+  "equipement": {
+    "ostlanders": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Lance", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "nom": "Arc", "cout": 10 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Bouclier", "cout": 5 }
+      ]
+    },
+    "vauriens": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 }
+      ],
+      "armures": [{ "nom": "Armure légère", "cout": 20 }]
+    },
+    "jaegers": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Lance", "cout": 5 },
+        { "nom": "Épée", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Arc", "cout": 10 },
+        { "nom": "Arquebuse", "cout": 35 },
+        { "nom": "Tromblon", "cout": 30 },
+        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "nom": "Pistolet à Double Canon", "cout": 30, "note": "60 CO la paire" },
+        { "nom": "Long fusil du Hochland", "cout": 200 },
+        { "nom": "Long fusil du Hochland à Double Canon", "cout": 300 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Casque", "cout": 10 },
+        { "nom": "Bouclier", "cout": 5 }
+      ]
+    },
+    "ogres": {
+      "armes_cac": [
+        { "nom": "Bâton", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 }
+      ],
+      "armures": [{ "nom": "Armure légère", "cout": 20 }]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "pistolet_a_double_canon",
+      "nom": "Pistolet à double canon",
+      "cout": 30,
+      "disponibilite": "Rare 10, 60 CO la paire",
+      "texte": "Une arme à feu à double canon est traitée comme une version normale à une exception près : tout ennemi est frappé par deux tirs au lieu d'un (un pistolet provoque 2 touches de F4 plutôt qu'une pour chaque coup réussi). Chaque canon nécessite un tour complet pour être rechargé (deux tours pour les deux canons). Si un seul canon est rechargé, il s'utilise comme une arme normale. Avec une paire de pistolets à double canon, il est possible de tirer tous les deux tours (au lieu d'une fois par tour comme pour une paire normale)."
+    },
+    {
+      "id": "long_fusil_du_hochland_a_double_canon",
+      "nom": "Long fusil du Hochland à double canon",
+      "cout": 300,
+      "disponibilite": "Rare 12",
+      "texte": "Applique les mêmes règles de double tir/double rechargement que le Pistolet à double canon, appliquées à un Long fusil du Hochland."
+    }
+  ],
+  "magie": {
+    "nom": "Prières de Taal",
+    "type": "prières",
+    "de": "D6",
+    "utilisateurs": ["pretre_de_taal"],
+    "note": "Les Prières de Taal fonctionnent comme les Prières de Sigmar, bien qu'un prêtre de Taal porte rarement une armure.",
+    "sorts": [
+      { "resultat": 1, "nom": "Saut du Cerf", "difficulte": 7, "texte": "Le Prêtre peut immédiatement se déplacer n'importe où dans la limite de 9ps, y compris en contact socle à socle avec un ennemi (charge avec Force +1 pour le premier tour). S'il entre en contact avec un ennemi en fuite, il inflige une touche automatique de Force+1 lors de la phase de corps à corps et l'adversaire fuit à nouveau s'il survit." },
+      { "resultat": 2, "nom": "Bière Bénite", "difficulte": 5, "texte": "Le Prêtre peut se guérir ou guérir n'importe quelle figurine à 2ps de lui, qui récupère son maximum de Points de Vie. De plus, toutes les figurines ennemies vivantes (pas les Morts-Vivants ni les Possédés) à moins de 2ps du Prêtre perdent 1 Attaque lors de la prochaine phase de combat, à cause des fortes émanations de bière." },
+      { "resultat": 3, "nom": "Patte d'Ours", "difficulte": 7, "texte": "Le prêtre invoque la bénédiction de Taal sur lui ou sur une figurine amie dans un rayon de 6ps : la cible reçoit +2 en Force jusqu'au prochain tour du Prêtre." },
+      { "resultat": 4, "nom": "Tremblement de Terre", "difficulte": 9, "texte": "Le sort doit être lancé sur un bâtiment à moins de 4ps. Toute figurine ennemie en contact avec le bâtiment subit une touche de Force 3. De plus, le bâtiment s'effondre et les figurines qui s'y trouvent subissent une chute (par tranche de 2ps, un test d'Initiative doit être réussi pour éviter 1D3 touches de F5). Retirez le bâtiment du plateau pour le reste de la partie." },
+      { "resultat": 5, "nom": "Entraves", "difficulte": 8, "texte": "Des plantes grimpantes et de petits arbres jaillissent de la terre : toutes les figurines amies ou ennemies (à l'exception des Jaegers Ostlanders) à moins de 12ps du Prêtre ne peuvent se déplacer qu'à la moitié de leur Mouvement jusqu'à la prochaine phase de tir." },
+      { "resultat": 6, "nom": "Invocation d'Écureuils", "difficulte": 7, "texte": "Le Prêtre invoque des dizaines d'écureuils enragés qui attaquent un ennemi à moins de 12ps du Prêtre : la cible subit 2D6 touches de Force 1, sans sauvegarde possible." }
+    ]
+  }
 }

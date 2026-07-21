@@ -1,174 +1,181 @@
 {
   "id": "dwarf_treasure_hunters",
-  "nom": "Dwarf Treasure Hunters (1a)",
+  "nom": "Chasseurs de Trésors Nains (1a)",
   "grade": "1a",
-  "source": "BSData",
+  "source": "Town Cryer #6 (GW) / La Grande Librairie de Mordheim",
   "regles_speciales": [
-    {
-      "nom": "Hard Head",
-      "texte": "Dwarfs ignore the special rules for maces, clubs,etc. used against them."
-    },
-    {
-      "nom": "Armour Use",
-      "texte": "Dwarfs never suffer movement penalties for wearing armour."
-    },
-    {
-      "nom": "Hate Orcs and Goblins",
-      "texte": "All Dwarfs hate Orcs and Goblins"
-    },
-    {
-      "nom": "Grudgebearers",
-      "texte": "Dwarfs hold an ancient grudge against Elves from the days when the two races fought for supremacy in the Old World. A Dwarf warband may never include any kind of Elven Hired Sword or Dramatis Personae."
-    },
-    {
-      "nom": "Incomparable Miners",
-      "texte": "Dwarfs spend much of their lives underground searching for precious minerals, and they are the best in the world at this kind of Work. In the city of Mordheim they apply similar skills to the search for wyrdstone. When checking for wyrdstone at the end of a game, add +1 to the number of pieces found for a Dwarf warband."
-    },
-    {
-      "nom": "Hard to Kill",
-      "texte": "Dwarfs are tough, resilient individuals who can only be taken out of action on a roll of 6 instead of 5-6 when rolling on the Injury chart. Treat a roll of 1-2 as knocked down, 3-5 as stunned, and 6 as out of action."
-    }
+    { "nom": "Difficiles à Tuer", "texte": "Les nains sont très coriaces et résilients, ils ne peuvent donc être mis hors de combat que sur un jet de 6 au lieu de 5-6 sur le tableau des dégâts. Considérez un jet de 1-2 comme à terre, de 3-5 comme sonné, et de 6 comme hors de combat." },
+    { "nom": "Tête Dure", "texte": "Les nains ignorent les règles spéciales des masses, marteaux, etc. Ils ne sont pas faciles à assommer !" },
+    { "nom": "Armure", "texte": "Les nains ne subissent aucune pénalité de mouvement pour le port d'une armure." },
+    { "nom": "Haine des Orques et des Gobelins", "texte": "Tous les nains haïssent les orques et les gobelins." },
+    { "nom": "Rancuniers", "texte": "Les nains gardent une vieille rancœur contre les elfes. Une bande naine ne peut jamais inclure de franc-tireur elfe, quel qu'il soit." },
+    { "nom": "Mineurs Sans Égaux", "texte": "Dans la cité de Mordheim, les nains mettent leur talent à profit pour chercher de la Pierre Magique. Ajoutez +1 au nombre de fragments trouvés lors du jet pour déterminer la quantité de Pierre Magique à la fin de la partie." }
   ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 500
+  },
   "profils": [
     {
-      "id": "beardlings",
-      "nom": "Beardlings",
-      "type": "homme_de_main",
-      "cout": 25,
-      "stats": {
-        "M": 3,
-        "CC": 3,
-        "CT": 2,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 2,
-        "A": 1,
-        "Cd": 8
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "clansmen",
-      "nom": "Clansmen",
-      "type": "homme_de_main",
-      "cout": 40,
-      "stats": {
-        "M": 3,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 2,
-        "A": 1,
-        "Cd": 9
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "engineer",
-      "nom": "Engineer",
+      "id": "noble_nain",
+      "nom": "Noble Nain",
       "type": "heros",
       "unique": true,
-      "max": 1,
-      "cout": 50,
-      "stats": {
-        "M": 3,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 2,
-        "A": 1,
-        "Cd": 9
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
-    },
-    {
-      "id": "noble",
-      "nom": "Noble",
-      "type": "heros",
-      "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 85,
-      "stats": {
-        "M": 3,
-        "CC": 5,
-        "CT": 4,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 2,
-        "A": 1,
-        "Cd": 9
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 20,
+      "stats": { "M": 3, "CC": 5, "CT": 4, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout membre de la bande situé à moins de 6ps du noble nain peut utiliser le Commandement de ce dernier à la place du sien pour effectuer ses tests." }
       ],
+      "acces_competences": ["combat", "tir", "force", "special"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
-      "id": "thunderers",
-      "nom": "Thunderers",
-      "type": "homme_de_main",
-      "cout": 40,
-      "stats": {
-        "M": 3,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 2,
-        "A": 1,
-        "Cd": 9
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "id": "ingenieur_nain",
+      "nom": "Ingénieur Nain",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 50,
+      "xp_depart": 10,
+      "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Maître Armurier", "texte": "Un ingénieur nain peut accroître la portée des armes de tir de la bande. Les armes de tir achetées sur la Liste d'Équipement Nain voient leur portée accrue de 3ps pour les Pistolets et de 6ps pour les Arbalètes et les Arquebuses. Les augmentations de portée ne s'appliquent qu'aux batailles auxquelles l'Ingénieur Nain participe (mais elles s'appliquent même s'il n'est pas encore entré sur le champ de bataille ou s'il a été mis hors de combat). L'augmentation ne s'applique pas à l'équipement des Francs-Tireurs." }
+      ],
+      "acces_competences": ["combat", "tir", "special"],
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "troll_slayer",
-      "nom": "Troll Slayer",
+      "id": "tueur_de_trolls_nain",
+      "nom": "Tueur de Trolls Nain",
       "type": "heros",
       "unique": false,
+      "min": 0,
       "max": 2,
       "cout": 50,
-      "stats": {
-        "M": 3,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 2,
-        "A": 1,
-        "Cd": 9
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 8,
+      "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Vœu de Mort", "texte": "Les Tueurs de Trolls cherchent une mort honorable au combat. Ils sont immunisés à la psychologie et ne font jamais de test lorsqu'ils se battent seuls." },
+        { "nom": "Compétences de Tueur", "texte": "Les Tueurs de Trolls peuvent choisir une compétence dans le tableau des compétences de Tueur (voir compétences spéciales, réservées) au lieu des tableaux de compétences classiques lorsqu'ils gagnent une nouvelle compétence." },
+        { "nom": "Sans arme de tir ni armure", "texte": "N'utilisent jamais d'armes de tir, ni aucune armure." }
+      ],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerrier_nain",
+      "nom": "Guerrier Nain",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 40,
+      "xp_depart": 0,
+      "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "N'importe quel nombre. Acheté par groupes de 1 à 5." }],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "tireur_nain",
+      "nom": "Tireur Nain",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 5,
+      "cout": 40,
+      "xp_depart": 0,
+      "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "poil_au_menton",
+      "nom": "Poil-au-Menton",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 3, "CC": 3, "CT": 2, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 8 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "N'importe quel nombre. Acheté par groupes de 1 à 5." }],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": []
+  "competences_speciales": [
+    { "id": "maitre_des_lames", "nom": "Maître des Lames", "texte": "Lorsqu'il utilise une arme dotée de la règle Parade, ce nain peut parer un coup en obtenant un résultat supérieur ou égal au meilleur jet pour toucher adverse, au lieu de strictement supérieur. S'il manie deux armes dotées de la règle Parade, il peut parer deux attaques au lieu d'une seule (si ses deux résultats sont supérieurs ou égaux aux deux meilleurs jets pour toucher adverses). S'il manie deux haches naines, il peut relancer les jets de parade ratés." },
+    { "id": "increvable", "nom": "Increvable", "texte": "Lorsque vous faites un jet sur le Tableau des Blessures Graves à la fin d'une partie au cours de laquelle ce héros a été mis hors de combat, le dé peut être relancé une fois. Le second résultat doit être accepté même s'il est pire que le premier." },
+    { "id": "prospecteur", "nom": "Prospecteur", "texte": "Lors de la phase d'Exploration à la fin de la partie, le héros peut modifier un jet de dé par +1/-1." },
+    { "id": "tres_coriace", "nom": "Très Coriace", "texte": "Lors des jets de dégâts affectant ce héros, on considère qu'un jet de 1-3 le met à terre, qu'un jet de 4-5 le sonne, et qu'un 6 le met hors de combat." },
+    { "id": "crane_epais", "nom": "Crâne Épais", "texte": "Le héros bénéficie d'une sauvegarde de 3+ sur 1D6 pour éviter d'être sonné. Si la sauvegarde est réussie, transformez le résultat sonné en à terre à la place. Si le héros porte en plus un casque, cette sauvegarde passe à 2+ au lieu de 3+ (ceci remplace la règle spéciale habituelle concernant les casques)." },
+    { "id": "charge_furieuse", "nom": "Charge Furieuse", "reserve_a": "Tueur de Trolls Nain uniquement", "texte": "Le Tueur peut doubler le nombre de ses attaques lors du tour où il charge. Il subit alors un malus de -1 pour toucher." },
+    { "id": "tueur_de_monstres", "nom": "Tueur de Monstres", "reserve_a": "Tueur de Trolls Nain uniquement", "texte": "Le Tueur blesse toujours son adversaire sur 4+, sans tenir compte de l'Endurance, à moins que sa Force (après tous les modificateurs dûs aux armes, etc.) ne lui permette déjà de blesser plus facilement." },
+    { "id": "berserk", "nom": "Berserk", "reserve_a": "Tueur de Trolls Nain uniquement", "texte": "Le Tueur peut ajouter +1 à ses jets pour toucher au corps à corps lors du tour où il charge." }
+  ],
+  "equipement": {
+    "guerriers_nains": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Hache naine", "cout": 15, "note": "Rare 8 (Nains seulement)" },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Lance", "cout": 10 },
+        { "nom": "Hallebarde", "cout": 10 },
+        { "nom": "Arme en Gromril", "cout": "3 fois le coût", "note": "Toute arme accessible à un nain peut être achetée en Gromril, en multipliant le coût par 3. Prix valable uniquement pour les bandes débutantes." }
+      ],
+      "armes_tir": [
+        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Armure en Gromril", "cout": 75, "note": "Prix moins élevé pour une bande débutante ; achats suivants aux tableaux de prix des règles de Mordheim." },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    },
+    "tireurs_nains": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Arbalète", "cout": 25 },
+        { "nom": "Arquebuse", "cout": 35 },
+        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "hache_naine",
+      "nom": "Hache Naine",
+      "cout": 15,
+      "disponibilite": "Rare 8 (Nains seulement)",
+      "portee": "Corps à corps",
+      "force": "Utilisateur",
+      "regles_speciales": [
+        { "nom": "Tranchant", "texte": "Les haches naines infligent un modificateur de sauvegarde additionnel de -1, si bien qu'une figurine de Force 4 maniant cette arme diminuera la sauvegarde adverse de -2 au corps à corps." },
+        { "nom": "Parade", "texte": "Une figurine ainsi armée peut parer les coups : lorsque son adversaire lance les dés pour toucher, elle peut lancer 1D6 ; si le résultat est supérieur au meilleur jet pour toucher adverse, l'attaque est annulée. Impossible de parer une attaque effectuée avec le double de sa propre Force ou plus. Une figurine ne peut pas parer plus d'une attaque par phase de corps à corps. Une figurine armée de deux haches naines (ou d'une hache naine et d'une épée, etc.) ne peut pas parer deux attaques mais peut relancer une parade ratée." }
+      ]
+    }
+  ]
 }

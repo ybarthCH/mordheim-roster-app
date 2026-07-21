@@ -1,168 +1,163 @@
 {
   "id": "undead",
-  "nom": "Undead (1a)",
+  "nom": "Morts-Vivants (1a)",
   "grade": "1a",
-  "source": "BSData",
+  "source": "Livre de règles Mordheim (GW), p.86-89 (bande) + p.58 (nécromancie)",
   "regles_speciales": [],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
   "profils": [
-    {
-      "id": "awakened_zombie",
-      "nom": "Awakened Zombie",
-      "type": "homme_de_main",
-      "cout": 0,
-      "stats": {
-        "M": 0,
-        "CC": 0,
-        "CT": 0,
-        "F": 0,
-        "E": 0,
-        "PV": 0,
-        "I": 0,
-        "A": 0,
-        "Cd": 0
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "dire_wolves",
-      "nom": "Dire Wolves",
-      "type": "homme_de_main",
-      "cout": null,
-      "stats": {
-        "M": 9,
-        "CC": 3,
-        "CT": 0,
-        "F": 4,
-        "E": 3,
-        "PV": 1,
-        "I": 2,
-        "A": 1,
-        "Cd": 4
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "dregs",
-      "nom": "Dregs",
-      "type": "heros",
-      "unique": false,
-      "max": 3,
-      "cout": 20,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 2,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
-    },
-    {
-      "id": "ghouls",
-      "nom": "Ghouls",
-      "type": "homme_de_main",
-      "cout": 40,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 2,
-        "F": 3,
-        "E": 4,
-        "PV": 1,
-        "I": 3,
-        "A": 2,
-        "Cd": 5
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "necromancer",
-      "nom": "Necromancer",
-      "type": "heros",
-      "unique": true,
-      "max": 1,
-      "cout": 35,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
-    },
     {
       "id": "vampire",
       "nom": "Vampire",
       "type": "heros",
       "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 110,
-      "stats": {
-        "M": 6,
-        "CC": 4,
-        "CT": 4,
-        "F": 4,
-        "E": 4,
-        "PV": 2,
-        "I": 5,
-        "A": 2,
-        "Cd": 8
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 20,
+      "stats": { "M": 6, "CC": 4, "CT": 4, "F": 4, "E": 4, "PV": 2, "I": 5, "A": 2, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "N'importe quel guerrier se trouvant à moins de 6ps du vampire peut utiliser le Cd de ce dernier pour ses tests de Commandement." },
+        { "nom": "Provoque la Peur", "texte": "Les vampires sont des morts-vivants et provoquent la peur." },
+        { "nom": "Immunité à la psychologie", "texte": "Les vampires ne sont pas affectés par psychologie et n'abandonnent jamais le combat." },
+        { "nom": "Immunité aux Poisons", "texte": "Les vampires ne sont affectés par aucun poison." },
+        { "nom": "Insensible", "texte": "Les vampires remplacent les résultats sonné par à terre." }
       ],
+      "acces_competences": ["combat", "academique", "force", "vitesse"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
-      "id": "zombies",
-      "nom": "Zombies",
-      "type": "homme_de_main",
+      "id": "necromancien",
+      "nom": "Nécromancien",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 35,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Les nécromanciens sont des sorciers qui utilisent la nécromancie (voir Magie)." }
+      ],
+      "acces_competences": ["academique", "vitesse"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "paria",
+      "nom": "Paria",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 3,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "force"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "zombie",
+      "nom": "Zombie",
+      "type": "animal",
+      "min": 0,
+      "max": null,
       "cout": 15,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 0,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 1,
-        "A": 1,
-        "Cd": 5
-      },
+      "stats": { "M": 4, "CC": 2, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 1, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Provoque la Peur", "texte": "Les zombies sont des créatures terrifiantes et provoquent la peur." },
+        { "nom": "Apathie", "texte": "Les zombies ont des réactions lentes et ne savent pas courir (mais ils peuvent charger normalement)." },
+        { "nom": "Immunité à la Psychologie", "texte": "Les zombies ne sont pas affectés par la psychologie et ne quittent jamais un combat." },
+        { "nom": "Immunité aux Poisons", "texte": "Les zombies ne sont affectés par aucun poison." },
+        { "nom": "Insensible", "texte": "Les zombies remplacent les résultats sonné par à terre." },
+        { "nom": "Pas de cerveau", "texte": "Les zombies ne gagnent pas d'expérience. Ils ne tirent pas parti de leurs erreurs." },
+        { "nom": "Recrutement", "texte": "Autant que vous voulez." },
+        { "nom": "Équipement", "texte": "Les zombies ne peuvent avoir ni armes ni armures." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "goule",
+      "nom": "Goule",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 40,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 2, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Provoque la Peur", "texte": "Les goules sont des créatures répugnantes et difformes qui provoquent la peur." },
+        { "nom": "Recrutement", "texte": "Achetées par groupes de 1 à 5 figurines." },
+        { "nom": "Équipement", "texte": "Les goules ne portent jamais d'équipement, excepté quelques os qu'elles utilisent comme objets contondants (sans effet de jeu)." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "loup_funeste",
+      "nom": "Loup funeste",
+      "type": "animal",
+      "min": 0,
+      "max": 5,
+      "cout": 50,
+      "stats": { "M": 9, "CC": 3, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 4 },
+      "regles_speciales": [
+        { "nom": "Charge", "texte": "Les loups funestes ont deux Attaques au lieu d'une durant le tour où ils chargent." },
+        { "nom": "Apathie", "texte": "Réactions lentes, ne savent pas courir (mais chargent normalement)." },
+        { "nom": "Provoque la Peur", "texte": "Les loups funestes sont des créatures terrifiantes qui provoquent la peur." },
+        { "nom": "Immunité à la Psychologie", "texte": "Ne sont pas affectés par la psychologie et n'abandonnent jamais un combat." },
+        { "nom": "Immunité aux Poisons", "texte": "Ne sont affectés par aucun poison." },
+        { "nom": "Cadavres", "texte": "Les loups funestes ne gagnent pas d'expérience." },
+        { "nom": "Insensible", "texte": "Remplacent les résultats sonné par à terre." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": []
+  "competences_speciales": [],
+  "equipement": {
+    "morts_vivants": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme à Deux Mains", "cout": 15 },
+        { "nom": "Lance", "cout": 10 },
+        { "nom": "Hallebarde", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "nom": "Arc", "cout": 10 },
+        { "nom": "Arc Court", "cout": 5 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    }
+  },
+  "magie": {
+    "nom": "Nécromancie",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["necromancien"],
+    "note": "La nécromancie est la magie des morts : elle donne le pouvoir de réveiller les cadavres et de commander aux esprits, mais aussi de détruire la vitalité des vivants.",
+    "sorts": [
+      { "resultat": 1, "nom": "Drain de Vie", "difficulte": 10, "texte": "Choisissez une figurine à moins de 6ps. La cible subit une blessure (sans sauvegarde possible) et le nécromancien gagne 1PV supplémentaire pour la durée de la bataille (peut dépasser sa valeur initiale). N'affecte pas les possédés ni les figurines de mort-vivant." },
+      { "resultat": 2, "nom": "Réanimation", "difficulte": 5, "texte": "Un zombie mis hors de combat durant la dernière phase de corps à corps ou de tir retourne au combat immédiatement, placé à moins de 6ps du nécromancien (pas directement au contact d'un ennemi)." },
+      { "resultat": 3, "nom": "Vision de Mort", "difficulte": 6, "texte": "Le nécromancien cause la peur à ses ennemis pour la durée de la bataille." },
+      { "resultat": 4, "nom": "Fatalité", "difficulte": 9, "texte": "Désignez une figurine ennemie à moins de 12ps ; elle doit obtenir un résultat inférieur ou égal à sa Force avec 1D6 pour ne pas être entraînée par les morts. En cas d'échec, lancez sur le tableau des dégâts." },
+      { "resultat": 5, "nom": "Appel de Vanhel", "difficulte": 6, "texte": "Un seul zombie ou loup funeste à moins de 6ps du nécromancien peut se déplacer à nouveau de son mouvement maximum ; si ce mouvement l'amène au contact socle à socle d'un ennemi, il compte comme ayant chargé." },
+      { "resultat": 6, "nom": "Incantation de Réveil", "difficulte": "Auto", "texte": "Si un héros ennemi est tué (résultat 11-16 sur le tableau des blessures graves après la bataille), le nécromancien peut le réveiller et faire de lui un zombie servile. Le héros mort suit toutes les règles des zombies (peur, insensible, etc.) mais conserve ses caractéristiques, armure et armes ; il ne peut utiliser aucun autre équipement ni compétence, ne peut plus courir, compte comme un groupe d'hommes de main à lui seul et ne peut plus gagner d'expérience. Ce sort réussit toujours." }
+    ]
+  }
 }

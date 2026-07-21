@@ -1,130 +1,165 @@
 {
   "id": "sisters_of_sigmar",
-  "nom": "Sisters of Sigmar (1a)",
+  "nom": "Sœurs de Sigmar (1a)",
   "grade": "1a",
-  "source": "BSData",
+  "source": "Livre de règles Mordheim (GW), p.82-85 (bande) + p.57 (prières de Sigmar)",
   "regles_speciales": [],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
   "profils": [
     {
-      "id": "augur",
-      "nom": "Augur",
+      "id": "matriarche_sigmarite",
+      "nom": "Matriarche sigmarite",
       "type": "heros",
       "unique": true,
-      "max": 1,
-      "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 2,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
-    },
-    {
-      "id": "novices",
-      "nom": "Novices",
-      "type": "homme_de_main",
-      "cout": 15,
-      "stats": {
-        "M": 4,
-        "CC": 2,
-        "CT": 2,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 6
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "sigmarite_matriarch",
-      "nom": "Sigmarite Matriarch",
-      "type": "heros",
-      "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 70,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 4,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 4,
-        "A": 1,
-        "Cd": 8
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "N'importe quel guerrier à moins de 6ps de la matriarche peut utiliser le Cd de cette dernière pour ses tests de Commandement." },
+        { "nom": "Prières de Sigmar", "texte": "La matriarche a étudié les prières de Sigmar (voir la section Magie)." }
       ],
+      "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
-      "id": "sister_superior",
-      "nom": "Sister Superior",
+      "id": "soeur_superieure",
+      "nom": "Sœur supérieure",
       "type": "heros",
       "unique": false,
+      "min": 0,
       "max": 3,
       "cout": 35,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "augure",
+      "nom": "Augure",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Vision Sacrée", "texte": "Une augure peut relancer ses tests de caractéristiques ratés (grimper, résister aux sorts ou autre) et les jets pour toucher au corps à corps ou au tir ; le second résultat doit toujours être gardé. De plus, si l'augure n'est pas hors de combat, elle peut utiliser sa vision sacrée pour lancer deux dés lors de la phase d'exploration lorsque les sœurs cherchent la pierre magique en ville." },
+        { "nom": "Sans armure", "texte": "Les augures ne portent jamais d'armures." }
+      ],
+      "acces_competences": ["academique", "vitesse", "special"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "soeur",
+      "nom": "Sœur",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Autant que vous le désirez. Achetées par groupes de 1 à 5." }],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "novice",
+      "nom": "Novice",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 10,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetées par groupes de 1 à 5." }],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "signe_de_sigmar", "nom": "Signe de Sigmar", "texte": "Les adversaires possédés et morts-vivants perdent une Attaque contre la prêtresse pendant le premier tour de corps à corps (jusqu'à un minimum de 1)." },
+    { "id": "protection_de_sigmar", "nom": "Protection de Sigmar", "texte": "Tout sort lancé sur la sœur sera dissipé sur un résultat de 4+ sur 1D6. Si le sort est dissipé, il n'affectera aucune autre figurine." },
+    { "id": "farouche_determination", "nom": "Farouche détermination", "reserve_a": "Matriarche uniquement", "texte": "Permet de relancer les tests de Déroute ratés." },
+    { "id": "fureur_du_juste", "nom": "Fureur du juste", "texte": "La figurine est affectée par la haine des bandes de skavens, de possédés et de morts-vivants." },
+    { "id": "foi_inebranlable", "nom": "Foi inébranlable", "texte": "Peut relancer les tests de peur et n'a pas à faire le test Seul contre Tous si elle combat plusieurs adversaires en même temps." }
+  ],
+  "equipement": {
+    "soeurs_de_sigmar": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Marteau de Guerre Sigmarite", "cout": 15 },
+        { "nom": "Fléau", "cout": 15 },
+        { "nom": "Fouet d'Acier", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "nom": "Fronde", "cout": 2 }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Rondache", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ],
+      "divers": [
+        { "nom": "Livre Saint", "cout": 120, "restriction": "Héroïnes seulement" },
+        { "nom": "Eau Bénite", "cout": 10, "restriction": "Héroïnes seulement" },
+        { "nom": "Relique Sacrée", "cout": 15, "restriction": "Héroïnes seulement" }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "marteau_de_guerre_sigmarite",
+      "nom": "Marteau de Guerre Sigmarite",
+      "cout": 15,
+      "disponibilite": "Commune (Sœurs de Sigmar uniquement)",
+      "portee": "Corps à corps",
+      "force": "Utilisateur+1",
+      "regles_speciales": [
+        { "nom": "Contondant", "texte": "Au corps à corps, un résultat de 2 à 4 compte comme sonné sur le tableau des dégâts." },
+        { "nom": "Arme Sacrée", "texte": "Bonus de +1 sur tous les jets pour blesser au corps à corps contre les possédés et les morts-vivants (un 6 avant modificateurs reste nécessaire pour une touche critique). Seules les matriarches et les sœurs supérieures peuvent porter deux marteaux de guerre sigmarites." }
       ]
     },
     {
-      "id": "sisters",
-      "nom": "Sisters",
-      "type": "homme_de_main",
-      "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "id": "fouet_dacier",
+      "nom": "Fouet d'Acier",
+      "cout": 10,
+      "disponibilite": "Commune (Sœurs de Sigmar uniquement)",
+      "portee": "Corps à corps",
+      "force": "Utilisateur",
+      "regles_speciales": [
+        { "nom": "Parade Impossible", "texte": "Les tentatives de parade contre cette arme sont inutiles, que ce soit avec une épée ou une rondache." },
+        { "nom": "Claquement", "texte": "+1 Attaque lorsqu'elle charge, en plus de tout autre bonus. Lorsqu'elle est chargée, gagne aussi +1A utilisable uniquement contre la figurine qui la charge, frappant en premier (ce bonus reste de +1A même si chargée par 2 ennemis ou plus). Avec deux fouets, +1A pour l'arme additionnelle, mais seul le premier fouet bénéficie du +1A de Claquement." }
+      ]
     }
   ],
-  "competences_speciales": []
+  "magie": {
+    "nom": "Prières de Sigmar",
+    "type": "prières",
+    "de": "D6",
+    "utilisateurs": ["matriarche_sigmarite"],
+    "note": "Les prières de Sigmar peuvent être récitées par les prêtres-guerriers Répurgateurs et les matriarches des Sœurs de Sigmar. Elles ne sont pas considérées comme des sorts : un guerrier en armure peut donc en faire usage et les protections spéciales contre les sorts ne les affectent pas.",
+    "sorts": [
+      { "resultat": 1, "nom": "Le Marteau de Sigmar", "difficulte": 7, "texte": "Le porteur gagne +2 en Force au corps à corps, et toutes ses touches causent le double de dommages (1 blessure = 2 PV perdus). Le prêtre doit tester à chaque phase de Tir pour utiliser le Marteau." },
+      { "resultat": 2, "nom": "Cœur d'Acier", "difficulte": 8, "texte": "Tout guerrier allié à moins de 8ps devient immunisé à la Peur et à Seul Contre Tous, et la bande entière gagne +1 à ses tests de Déroute. Non cumulable si lancé plusieurs fois ; dure jusqu'à ce que le lanceur soit mis hors de combat." },
+      { "resultat": 3, "nom": "Feu de l'Âme", "difficulte": 9, "texte": "Toute figurine ennemie à moins de 4ps subit une touche de Force 3 sans sauvegarde d'armure (Force 5 contre les morts-vivants et les possédés)." },
+      { "resultat": 4, "nom": "Bouclier de Sigmar", "difficulte": 6, "texte": "Le prêtre est immunisé à tous les sorts. Sur 1-2 au début de chaque tour (phase de Ralliement), le bouclier se dissipe." },
+      { "resultat": 5, "nom": "Imposition des Mains", "difficulte": 5, "texte": "Toute figurine à moins de 2ps du prêtre (lui-même inclus) récupère tous ses PV perdus ; les figurines amies sonnées ou à terre à 2ps se relèvent immédiatement et continuent le combat normalement." },
+      { "resultat": 6, "nom": "Armure du Juste", "difficulte": 9, "texte": "Le prêtre bénéficie d'une sauvegarde de 2+ qui remplace celle de son armure, cause la peur à ses ennemis et y est lui-même immunisé. Dure jusqu'au début de sa prochaine phase de Tir." }
+    ]
+  }
 }
