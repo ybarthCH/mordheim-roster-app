@@ -123,27 +123,31 @@ export function PostBatailleScreen() {
     [roster]
   );
 
-  // Gain d'expérience, section « à résoudre » : hommes de main (seuls ou en
-  // groupe) marqués Hors de combat via le compteur dédié — résolution
-  // figurine par figurine. Un groupe ne perd son XP que s'il est entièrement
-  // éliminé. Remplace le statut « Hors de combat » pour les hommes de main,
-  // qui ne l'utilisent plus (cf. PersonnageScreen).
+  // Gain d'expérience, section « à résoudre » : hommes de main et animaux
+  // (seuls ou en groupe) marqués Hors de combat via le compteur dédié —
+  // résolution figurine par figurine. Un groupe ne perd son XP que s'il est
+  // entièrement éliminé (sans objet pour les animaux, qui n'en gagnent
+  // jamais). Remplace le statut « Hors de combat » pour ces profils, qui ne
+  // l'utilisent plus (cf. PersonnageScreen).
   const groupesHC = useMemo(
     () =>
-      roster?.membres.filter(
-        (m) =>
-          resolveProfil(roster, m)?.type === 'homme_de_main' &&
-          m.hors_combat > 0 &&
-          m.statut !== 'hors_de_combat'
-      ) ?? [],
+      roster?.membres.filter((m) => {
+        const t = resolveProfil(roster, m)?.type;
+        return (t === 'homme_de_main' || t === 'animal') && m.hors_combat > 0 && m.statut !== 'hors_de_combat';
+      }) ?? [],
     [roster]
   );
 
   // Gain d'expérience, section « reste du roster » : tout le monde de vivant
-  // qui n'est pas à résoudre manuellement — gagne 1 XP automatiquement.
+  // qui n'est pas à résoudre manuellement — gagne 1 XP automatiquement. Les
+  // animaux ne gagnent jamais d'expérience et n'apparaissent donc jamais ici.
   const participantsAuto = useMemo(() => {
     const hcIds = new Set([...horsDeCombatIndividuel, ...groupesHC].map((m) => m.instance_id));
-    return roster?.membres.filter((m) => m.statut !== 'mort' && !hcIds.has(m.instance_id)) ?? [];
+    return (
+      roster?.membres.filter(
+        (m) => m.statut !== 'mort' && !hcIds.has(m.instance_id) && resolveProfil(roster, m)?.type !== 'animal'
+      ) ?? []
+    );
   }, [roster, horsDeCombatIndividuel, groupesHC]);
 
   const francTireursActifs = useMemo(
@@ -261,10 +265,14 @@ export function PostBatailleScreen() {
         return membre;
       }
 
+      const estAnimal = profil?.type === 'animal';
+
       if (m.statut === 'hors_de_combat') {
         const d = xpDrafts[m.instance_id] ?? { xp: m.xp, survecu: null };
         if (d.survecu === 'non') {
           membre = { ...membre, statut: 'mort', date_mort: date };
+        } else if (estAnimal) {
+          membre = { ...membre, statut: 'actif' };
         } else {
           let xp = d.xp;
           if (estLeaderVictoire) xp += 1;
@@ -279,6 +287,8 @@ export function PostBatailleScreen() {
         const survivants = m.taille_groupe - morts;
         if (survivants <= 0) {
           membre = { ...membre, statut: 'mort', date_mort: date, taille_groupe: 0, hors_combat: 0 };
+        } else if (estAnimal) {
+          membre = { ...membre, statut: 'actif', taille_groupe: survivants, hors_combat: 0 };
         } else {
           let xp = m.xp + 1;
           if (estLeaderVictoire) xp += 1;
@@ -479,6 +489,7 @@ export function PostBatailleScreen() {
             )}
             {horsDeCombatIndividuel.map((m) => {
               const profil = resolveProfil(roster, m);
+              const estAnimal = profil?.type === 'animal';
               const d = xpDraftDe(m, m.xp);
               const bonusLeader = !!profil?.est_leader && resultat === 'victoire' && d.survecu !== 'non';
               return (
@@ -494,20 +505,24 @@ export function PostBatailleScreen() {
                     </strong>
                     <span className="text-sm text-muted">Hors de combat</span>
                   </div>
-                  <XpBarCompacte
-                    type={profil?.type === 'heros' ? 'heros' : 'homme_de_main'}
-                    xpDepart={m.xp_depart}
-                    xpInitial={m.xp}
-                    xpActuel={d.xp}
-                    onChange={(xp) => changerXp(m, xp, m.xp)}
-                    bonusLeader={bonusLeader}
-                  />
+                  {estAnimal ? (
+                    <p className="text-sm text-muted mb-0">Ne gagne jamais d'expérience.</p>
+                  ) : (
+                    <XpBarCompacte
+                      type={profil?.type === 'heros' ? 'heros' : 'homme_de_main'}
+                      xpDepart={m.xp_depart}
+                      xpInitial={m.xp}
+                      xpActuel={d.xp}
+                      onChange={(xp) => changerXp(m, xp, m.xp)}
+                      bonusLeader={bonusLeader}
+                    />
+                  )}
                   <div className="status-select" style={{ marginTop: '0.5rem' }}>
                     <button
                       className={`status-pill ${d.survecu === 'oui' ? 'status-pill--active' : ''}`}
                       onClick={() => definirSurvie(m, 'oui')}
                     >
-                      A survécu (+1 XP)
+                      A survécu{estAnimal ? '' : ' (+1 XP)'}
                     </button>
                     <button
                       className={`status-pill ${d.survecu === 'non' ? 'status-pill--active' : ''}`}
@@ -520,6 +535,7 @@ export function PostBatailleScreen() {
               );
             })}
             {groupesHC.map((m) => {
+              const estAnimal = resolveProfil(roster, m)?.type === 'animal';
               const slots = slotsDe(m);
               const morts = slots.filter((s) => s === 'non').length;
               const enAttente = slots.filter((s) => s === null).length;
@@ -555,8 +571,8 @@ export function PostBatailleScreen() {
                     {enAttente > 0
                       ? `${enAttente} figurine(s) à résoudre.`
                       : survivants > 0
-                        ? `Résolu — le groupe garde ${survivants} figurine(s) et gagne +1 XP.`
-                        : "Résolu — le groupe est entièrement éliminé (passera au statut Mort, pas d'XP)."}
+                        ? `Résolu — le groupe garde ${survivants} figurine(s)${estAnimal ? '.' : ' et gagne +1 XP.'}`
+                        : "Résolu — le groupe est entièrement éliminé (passera au statut Mort)."}
                   </p>
                 </div>
               );

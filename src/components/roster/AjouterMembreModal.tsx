@@ -28,7 +28,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const coutUnitaire = profil?.cout ?? 0;
   const coutTotal = coutUnitaire * quantite;
   const budgetSuffisant = coutTotal <= roster.tresorerie;
-  const estGroupable = profil?.type === 'homme_de_main';
+  const estGroupable = profil?.type === 'homme_de_main' || profil?.type === 'animal';
 
   const choisirProfil = (value: string) => {
     if (value === FRANC_TIREUR) {

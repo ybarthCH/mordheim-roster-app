@@ -1,173 +1,245 @@
 {
   "id": "carnival_of_chaos",
-  "nom": "Carnival of Chaos (1a)",
+  "nom": "La Kermesse du Chaos (1a)",
   "grade": "1a",
-  "source": "BSData",
+  "source": "Empire en Flammes (GW)",
   "regles_speciales": [
     {
-      "nom": "Dangerous to Know",
-      "texte": "Because of its rather diseased nature a Carnival of Chaos warband would find it very hard to keep any Hired Swords alive! Therefore, a Carnival of Chaos may never hire any type of Hired Sword."
+      "nom": "Sinistre Réputation",
+      "texte": "En raison de sa nature pestiférée, une kermesse du Chaos ne peut recruter aucun Franc-Tireur."
+    },
+    {
+      "nom": "Corrompu",
+      "texte": "La kermesse ressemble aux bandes de Possédés (ramassis de mutants corrompus) : elle compte comme une bande de Possédés pour tout ce qui concerne l'exploration et les Blessures Graves."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "caracteristiques_max": [
+    {
+      "profil": "membres_de_la_kermesse",
+      "note": "Profil maximal humain, sauf Portepestes et Nurglings qui ne reçoivent jamais d'expérience."
     }
   ],
   "profils": [
     {
-      "id": "carnival_master",
-      "nom": "Carnival Master",
+      "id": "maitre_de_ceremonie",
+      "nom": "Maître de Cérémonie",
       "type": "heros",
       "unique": true,
+      "min": 1,
       "max": 1,
       "cout": 70,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 4,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 8
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout membre de la kermesse à moins de 6ps peut utiliser son Cd pour ses tests de Commandement." },
+        { "nom": "Sorcier", "texte": "Utilise les Rituels de Nurgle (voir magie)." }
       ],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
-      "id": "brutes",
-      "nom": "Brutes",
+      "id": "colosse",
+      "nom": "Colosse",
       "type": "heros",
       "unique": false,
+      "min": 0,
       "max": 2,
       "cout": 60,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 0,
-        "F": 4,
-        "E": 4,
-        "PV": 1,
-        "I": 2,
-        "A": 2,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 2, "A": 2, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Force Surnaturelle", "texte": "Dispose dès sa création de la compétence de Force Homme Fort du livre de règles." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse"],
+      "acces_competences_a_verifier": true
     },
     {
-      "id": "tainted_ones",
-      "nom": "Tainted Ones",
+      "id": "impur",
+      "nom": "Impur",
       "type": "heros",
       "unique": false,
+      "min": 0,
       "max": 2,
       "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
-      "acces_competences": [
-        "academique",
-        "combat",
-        "equitation",
-        "force",
-        "tir",
-        "vitesse"
-      ]
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Bénédiction de Nurgle", "texte": "Doit recevoir une ou plusieurs Bénédictions de Nurgle au moment de son recrutement (voir liste dédiée) ; aucune ne peut plus être ajoutée une fois l'Impur en jeu." },
+        { "nom": "Coût", "texte": "+ prix de la ou des Bénédiction(s) de Nurgle choisies." }
+      ],
+      "acces_competences": ["combat", "vitesse"],
+      "acces_competences_a_verifier": true
     },
     {
-      "id": "plague_bearers",
-      "nom": "Plague Bearers",
+      "id": "portepeste",
+      "nom": "Portepeste",
       "type": "homme_de_main",
+      "min": 0,
+      "max": 2,
       "cout": 50,
-      "stats": {
-        "M": 4,
-        "CC": 4,
-        "CT": 3,
-        "F": 4,
-        "E": 4,
-        "PV": 1,
-        "I": 4,
-        "A": 2,
-        "Cd": 10
-      },
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 1, "I": 4, "A": 2, "Cd": 10 },
+      "regles_speciales": [
+        { "nom": "Nuage de Mouches", "texte": "Les adversaires du Portepeste subissent un malus de -1 pour le toucher au corps à corps." },
+        { "nom": "Flot de Corruption", "texte": "Attaque de tir (portée 6ps, Force 3, sans sauvegarde d'armure) consistant en un jet de vers, viscères et pus." },
+        { "nom": "Démons", "texte": "Fait d'énergie brute du Chaos ; ne gagne jamais d'expérience." },
+        { "nom": "Immunité au Poison", "texte": "Totalement immunisé aux effets des poisons et maladies." },
+        { "nom": "Immunité à la Psychologie", "texte": "Réussit automatiquement tout test de Commandement." },
+        { "nom": "Cause la Peur", "texte": "Provoque la peur." },
+        { "nom": "Aura Démoniaque", "texte": "Sauvegarde d'armure spéciale de 5+, modifiée par la Force de l'attaquant, mais complètement annulée par les armes magiques et les sorts ; ses propres attaques comptent comme des attaques magiques." },
+        { "nom": "Instabilité Démoniaque", "texte": "S'il est mis hors de combat, banni et détruit sur 1-3 sur 1D6 (pas de jet sur le tableau des Blessures). Si la bande rate un test de Déroute, chaque Portepeste doit immédiatement réussir un test de Commandement ou être considéré détruit." },
+        { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "nurglings",
-      "nom": "Nurglings",
+      "id": "frere",
+      "nom": "Frère",
       "type": "homme_de_main",
-      "cout": 15,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 0,
-        "F": 3,
-        "E": 2,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 10
-      },
-      "acces_competences": [],
-      "acces_competences_a_verifier": true
-    },
-    {
-      "id": "brethren",
-      "nom": "Brethren",
-      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
       "cout": 25,
-      "stats": {
-        "M": 4,
-        "CC": 3,
-        "CT": 3,
-        "F": 3,
-        "E": 3,
-        "PV": 1,
-        "I": 3,
-        "A": 1,
-        "Cd": 7
-      },
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
-      "id": "plague_cart",
-      "nom": "Plague Cart",
+      "id": "nurgling",
+      "nom": "Nurgling",
       "type": "homme_de_main",
-      "cout": 120,
-      "stats": {
-        "M": null,
-        "CC": null,
-        "CT": null,
-        "F": null,
-        "E": 8,
-        "PV": 4,
-        "I": null,
-        "A": null,
-        "Cd": null
-      },
+      "min": 0,
+      "max": null,
+      "cout": 15,
+      "stats": { "M": 4, "CC": 3, "CT": 0, "F": 3, "E": 2, "PV": 1, "I": 3, "A": 1, "Cd": 10 },
+      "regles_speciales": [
+        { "nom": "Nuage de Mouches", "texte": "Les adversaires subissent un malus de -1 pour le toucher au corps à corps." },
+        { "nom": "Nuées", "texte": "Aucune limite au nombre de Nurglings pouvant être inclus, même au-delà de 5 par groupe d'hommes de main." },
+        { "nom": "Démons", "texte": "Fait d'énergie brute du Chaos ; ne gagne jamais d'expérience." },
+        { "nom": "Immunité au Poison", "texte": "Totalement immunisé aux effets des poisons et maladies." },
+        { "nom": "Immunité à la Psychologie", "texte": "Réussit automatiquement tout test de Commandement." },
+        { "nom": "Aura Démoniaque", "texte": "Sauvegarde d'armure spéciale de 5+, modifiée par la Force de l'attaquant, mais complètement annulée par les armes magiques et les sorts ; ses propres attaques comptent comme des attaques magiques." },
+        { "nom": "Instabilité Démoniaque", "texte": "S'il est mis hors de combat, banni et détruit sur 1-3 sur 1D6 (pas de jet sur le tableau des Blessures). Si la bande rate un test de Déroute, chaque Nurgling doit immédiatement réussir un test de Commandement ou être considéré détruit." },
+        { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5, mais Nuées permet de dépasser 5 par groupe." }
+      ],
       "acces_competences": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "roulotte_de_la_peste",
+      "nom": "Roulotte de la Peste",
+      "type": "homme_de_main",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 120,
+      "stats": { "M": 0, "CC": 0, "CT": 0, "F": 0, "E": 8, "PV": 4, "I": 0, "A": 0, "Cd": 0 },
+      "regles_speciales": [
+        { "nom": "Roulotte de la Peste", "texte": "Augmente le nombre maximum de guerriers de la bande de +2. Diminue l'instabilité des démons : Portepestes et Nurglings peuvent relancer leurs tests de Commandement ratés dus à l'instabilité et bénéficient d'un bonus de +1 pour déterminer la gravité de leurs blessures s'ils sont mis hors de combat." },
+        { "nom": "Cocher", "texte": "Inclus dans le prix de la roulotte ; lié à elle en permanence (ne peut jamais en descendre), ne peut être blessé que si la roulotte est détruite (auquel cas il l'est aussi). Compte comme une créature démoniaque et ne gagne donc jamais d'expérience. Ses attaques infligent la Pourriture de Nurgle (voir Bénédictions de Nurgle)." },
+        { "nom": "Immunité à la Psychologie", "texte": "La roulotte et son cocher ignorent totalement le concept de peur et réussissent automatiquement tout test de Commandement." },
+        { "nom": "Profils détaillés", "texte": "Roulotte : E8, PV4. Roue : E6, PV1. Cheval : M8, F3, E3, PV1, I3. Gardien (Cocher) : CC3, F3, E3, A1, I3." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": []
+  "competences_speciales": [],
+  "equipement": {
+    "kermesse": {
+      "armes_cac": [
+        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
+        { "nom": "Masse", "cout": 3 },
+        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Hache", "cout": 5 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme à Deux Mains", "cout": 15 },
+        { "nom": "Lance", "cout": 10 },
+        { "nom": "Hallebarde", "cout": 10 },
+        { "nom": "Morgenstern", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "nom": "Arc", "cout": 15 },
+        { "nom": "Arc Court", "cout": 10 },
+        { "nom": "Pistolet", "cout": 15, "note": "30 pour une paire" }
+      ],
+      "armures": [
+        { "nom": "Armure Légère", "cout": 20 },
+        { "nom": "Armure Lourde", "cout": 50 },
+        { "nom": "Bouclier", "cout": 5 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    },
+    "colosses": {
+      "armes_cac": [
+        { "nom": "Arme à Deux Mains", "cout": 15 },
+        { "nom": "Fléau", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "flot_de_corruption",
+      "nom": "Flot de Corruption (Bénédiction de Nurgle)",
+      "cout": 25,
+      "disponibilite": "Impur uniquement, au recrutement",
+      "texte": "Attaque de tir (portée 6ps, Force 3, sans sauvegarde d'armure) : jet de vers, de bile et de sang."
+    },
+    {
+      "id": "pourriture_de_nurgle",
+      "nom": "Pourriture de Nurgle (Bénédiction de Nurgle)",
+      "cout": 50,
+      "disponibilite": "Impur uniquement, au recrutement",
+      "texte": "L'Impur est infecté par cette maladie virulente et incurable (immunité aux poisons en prime). Sur un 6 pour blesser au corps à corps, il la transmet à sa cible (n'affecte que les figurines vivantes). La victime teste son Endurance à chaque bataille suivante : échec = perte permanente d'1 point d'Endurance (mort à 0) ; sur un 6 au test, transmission involontaire à un autre membre de sa bande, déterminé au hasard."
+    },
+    {
+      "id": "nuage_de_mouches_benediction",
+      "nom": "Nuage de Mouches (Bénédiction de Nurgle)",
+      "cout": 25,
+      "disponibilite": "Impur uniquement, au recrutement",
+      "texte": "Les adversaires de l'Impur subissent un malus de -1 pour le toucher au corps à corps."
+    },
+    {
+      "id": "horreur_enflee",
+      "nom": "Horreur Enflée (Bénédiction de Nurgle)",
+      "cout": 40,
+      "disponibilite": "Impur uniquement, au recrutement",
+      "texte": "+1 Point de Vie, +1 en Endurance, mais -1 en Mouvement."
+    },
+    {
+      "id": "marque_de_nurgle",
+      "nom": "Marque de Nurgle (Bénédiction de Nurgle)",
+      "cout": 35,
+      "disponibilite": "Impur uniquement, au recrutement",
+      "texte": "+1 Point de Vie et immunité aux effets de tous les poisons."
+    },
+    {
+      "id": "hideux",
+      "nom": "Hideux (Bénédiction de Nurgle)",
+      "cout": 40,
+      "disponibilite": "Impur uniquement, au recrutement",
+      "texte": "Provoque la peur."
+    }
+  ],
+  "magie": {
+    "nom": "Rituels de Nurgle",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["maitre_de_ceremonie"],
+    "sorts": [
+      { "resultat": 1, "nom": "Vigueur Démoniaque", "difficulte": 8, "texte": "Tout Portepeste ou Nurgling à moins de 8ps voit sa sauvegarde démoniaque passer à 4+ jusqu'au début de son prochain tour." },
+      { "resultat": 2, "nom": "Bubons", "difficulte": 7, "texte": "Portée 8ps ; un guerrier ennemi échouant un test d'Endurance perd 1 PV, sans sauvegarde d'armure autorisée." },
+      { "resultat": 3, "nom": "Miasmes Nurglesques", "difficulte": 8, "texte": "Portée 6ps, affecte toutes les créatures vivantes amies ou ennemies ; échec d'un test d'Endurance = perte d'1 Attaque pour le reste du tour." },
+      { "resultat": 4, "nom": "Pestilence", "difficulte": 10, "texte": "Toute figurine ennemie à moins de 12ps subit une touche de Force 3, sans sauvegarde d'armure." },
+      { "resultat": 5, "nom": "Peau Verruqueuse", "difficulte": 8, "texte": "Le Maître gagne une sauvegarde de 2+ qui remplace sa sauvegarde d'armure actuelle, jusqu'au début de sa prochaine phase de Tir." },
+      { "resultat": 6, "nom": "Pourriture de Nurgle", "difficulte": 9, "texte": "Toute figurine ennemie en contact avec le Maître doit immédiatement réussir un test d'Endurance ou attraper la Pourriture de Nurgle (voir Bénédictions de Nurgle)." }
+    ]
+  }
 }

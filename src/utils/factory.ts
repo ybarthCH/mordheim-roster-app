@@ -33,7 +33,7 @@ export function creerMembre(profil: Profile, xpDepart?: number, tailleGroupe = 1
     xp,
     xp_depart: xp,
     stats_actuels: stats,
-    taille_groupe: profil.type === 'homme_de_main' ? Math.max(1, tailleGroupe) : 1,
+    taille_groupe: profil.type === 'homme_de_main' || profil.type === 'animal' ? Math.max(1, tailleGroupe) : 1,
   };
 }
 

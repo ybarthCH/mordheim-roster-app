@@ -22,9 +22,14 @@ export function isPalierHenchman(box: number): boolean {
 /**
  * Nombre d'avancées dues entre l'XP de départ (non déclencheur, acquise à la
  * recrue) et l'XP actuelle. Seuls les paliers strictement au-delà de l'XP de
- * départ comptent.
+ * départ comptent. Les animaux ne gagnent jamais d'expérience.
  */
-export function avancesDues(type: 'heros' | 'homme_de_main', xpDepart: number, xpActuel: number): number {
+export function avancesDues(
+  type: 'heros' | 'homme_de_main' | 'animal',
+  xpDepart: number,
+  xpActuel: number
+): number {
+  if (type === 'animal') return 0;
   const paliers = type === 'heros' ? HERO_XP_PALIERS : HENCHMAN_XP_PALIERS;
   return paliers.filter((p) => p > xpDepart && p <= xpActuel).length;
 }
