@@ -5,11 +5,16 @@ import type { Profile, SkillCategory, WarbandCatalog } from '../../types/catalog
 import { Modal } from '../common/Modal';
 import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN } from '../../data/gameData';
 import { SKILL_CATEGORIES } from '../../types/catalog';
+import { LIMITE_HEROS } from '../../utils/profil';
 
 type Props = {
   member: Member;
   profil: Profile;
   catalogue: WarbandCatalog;
+  // Nombre de héros déjà présents dans la bande (figurine en cours d'avancée
+  // exclue) — sert à bloquer "Ce gars est doué" une fois la limite de 6
+  // héros atteinte.
+  heroCount: number;
   onClose: () => void;
   // `nouveauMembre` n'est fourni que lorsqu'une promotion détache une
   // figurine d'un groupe de plus d'un homme de main (voir confirmerPromotion).
@@ -18,7 +23,8 @@ type Props = {
 
 type Etape = 'depart' | 'choix_carac' | 'competence' | 'promotion_categories' | 'resultat';
 
-export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Props) {
+export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, onApply }: Props) {
+  const limiteHerosAtteinte = heroCount >= LIMITE_HEROS;
   // État local de travail : on accumule les mutations ici plutôt que de se
   // fier à la prop `member` (qui ne se met à jour qu'au prochain rendu du
   // parent) — indispensable pour la promotion, qui enchaîne deux mises à
@@ -79,6 +85,9 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
       setEtape('choix_carac');
     } else if (entreeAvancement.type === 'competence') {
       setEtape('competence');
+    } else if (limiteHerosAtteinte) {
+      // Défense en profondeur : l'option est déjà désactivée dans le select.
+      return;
     } else {
       setEtape('promotion_categories');
     }
@@ -218,13 +227,23 @@ export function AvanceeModal({ member, profil, catalogue, onClose, onApply }: Pr
             <label>Résultat du jet (2D6)</label>
             <select value={indexAvancement} onChange={(e) => setIndexAvancement(e.target.value)}>
               <option value="">— Choisir le résultat obtenu —</option>
-              {table.map((entry, i) => (
-                <option key={i} value={i}>
-                  {entry.min === entry.max ? entry.min : `${entry.min}-${entry.max}`} — {entry.label}
-                </option>
-              ))}
+              {table.map((entry, i) => {
+                const bloquee = entry.type === 'promotion' && limiteHerosAtteinte;
+                return (
+                  <option key={i} value={i} disabled={bloquee}>
+                    {entry.min === entry.max ? entry.min : `${entry.min}-${entry.max}`} — {entry.label}
+                    {bloquee ? ' (indisponible — 6 héros déjà atteints)' : ''}
+                  </option>
+                );
+              })}
             </select>
           </div>
+          {limiteHerosAtteinte && table.some((e) => e.type === 'promotion') && (
+            <p className="text-sm text-muted">
+              La bande compte déjà {LIMITE_HEROS} héros (maximum autorisé) : « Ce gars est doué » ne peut pas
+              promouvoir ce membre pour l'instant.
+            </p>
+          )}
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={onClose}>
               Annuler

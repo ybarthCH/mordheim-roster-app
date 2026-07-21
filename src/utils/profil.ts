@@ -33,3 +33,18 @@ export function resolveProfil(roster: RosterInstance, membre: Member): Profile |
 
   return base;
 }
+
+// Règle Mordheim : une bande ne peut jamais compter plus de 6 héros.
+export const LIMITE_HEROS = 6;
+
+/**
+ * Nombre de héros actuels dans la bande (profil résolu 'heros', figurines
+ * mortes exclues). Sert à bloquer la promotion "Ce gars est doué" une fois
+ * la limite atteinte.
+ */
+export function nombreHeros(roster: RosterInstance): number {
+  return roster.membres.filter((m) => {
+    if (m.statut === 'mort') return false;
+    return resolveProfil(roster, m)?.type === 'heros';
+  }).length;
+}

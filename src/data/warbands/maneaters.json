@@ -1,0 +1,252 @@
+{
+  "id": "maneaters",
+  "nom": "Maneaters (1c)",
+  "grade": "1c",
+  "source": "Border Town Burning (BTB) — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Peur", "texte": "Les Ogres sont de grandes créatures menaçantes qui provoquent la peur, sauf les Jeunes Sangs." },
+    { "nom": "Grande Cible", "texte": "Sauf les Jeunes Sangs et les Demi-Grands, les Ogres sont d'immenses cibles pour les archers ; n'importe quelle figurine peut leur tirer dessus même si elles ne sont pas la cible la plus proche, avec un bonus de +1 pour toucher." },
+    { "nom": "Gloutonnerie", "texte": "Chaque Ogre compte comme deux figurines lors de la vente de pierre magique ou de trésors. Les figurines capturées (via Blessures Graves ou Exploration) peuvent être dévorées, l'Ogre conservant leurs possessions et réduisant l'effectif de la bande adverse d'une figurine (deux si le captif est une Grande Cible). N'importe quel membre de bande ou animal peut être mangé de la même façon. Un Héros Ogre qui dévore des captifs gagne autant d'expérience que de figurines consommées ; les camarades consommés sont immédiatement retirés du roster." },
+    { "nom": "Lent d'Esprit", "texte": "Les Ogres progressent deux fois moins vite : il leur faut le double d'XP habituel pour obtenir une avancée." },
+    { "nom": "Clients Difficiles", "texte": "Les Héros Ogres subissent un malus de -1 lors des jets pour trouver des objets Rares non exclusivement réservés aux Ogres." },
+    { "nom": "Cannibales", "texte": "Une bande d'Ogres ne peut engager de Francs-Tireurs, sauf les Halflings (Éclaireur, Voleur, etc.) et le Garde du Corps Ogre, ou sauf mention contraire — auquel cas les Ogres peuvent choisir de le dévorer à la fin du contrat (voir Gloutonnerie)." },
+    { "nom": "Gnoblars Réclamés", "texte": "Traités en tous points comme de l'équipement divers (pas une figurine, pas de socle). Si l'Ogre propriétaire est mis hors de combat lors d'une partie, lancez 1D6 par Gnoblar : sur 1-2 il est tué et retiré. Un Ogre peut posséder jusqu'à deux Gnoblars Réclamés différents (voir équipement spécial)." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 500
+  },
+  "caracteristiques_max": [
+    { "profil": "ogre", "M": 6, "CC": 6, "CT": 5, "F": 5, "E": 5, "PV": 5, "I": 6, "A": 5, "Cd": 9 }
+  ],
+  "profils": [
+    {
+      "id": "capitaine",
+      "nom": "Capitaine",
+      "type": "heros",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 145,
+      "xp_depart": 20,
+      "stats": { "M": 6, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 3, "I": 3, "A": 2, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout guerrier à moins de 6ps du Capitaine peut utiliser son Commandement pour ses tests." },
+        { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps, même s'ils peuvent en porter une réservée à leur repas." }
+      ],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "guide_de_montagne",
+      "nom": "Guide de Montagne",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 145,
+      "xp_depart": 8,
+      "stats": { "M": 6, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 3, "I": 3, "A": 2, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Rôdeur", "texte": "S'il n'a pas été mis hors de combat lors de la bataille, peut lancer deux dés lors de la phase d'Exploration et choisir lequel garder (pas une relance)." },
+        { "nom": "Solitaire", "texte": "Immunisé aux tests Seul contre Tous ; ne réclamera jamais un Gnoblar comme animal de compagnie, et ne peut jamais devenir le chef de la bande." },
+        { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps." }
+      ],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "jeune_sang",
+      "nom": "Jeune Sang",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 3,
+      "cout": 45,
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 2, "CT": 2, "F": 3, "E": 4, "PV": 2, "I": 2, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Pas Encore Effrayant", "texte": "Contrairement aux autres Ogres, les Jeunes Sangs ne provoquent pas la peur." },
+        { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps." }
+      ],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "taureau",
+      "nom": "Taureau",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 2,
+      "cout": 140,
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 3, "CT": 2, "F": 4, "E": 4, "PV": 3, "I": 2, "A": 3, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Charge du Taureau", "texte": "En chargeant, peut tenter une seule attaque avec un bonus de +1 pour toucher au lieu de ses attaques normales ; en cas de réussite, la figurine ennemie est automatiquement mise à terre." },
+        { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "demi_grand",
+      "nom": "Demi-Grand",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 85,
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 3, "CT": 2, "F": 4, "E": 4, "PV": 2, "I": 2, "A": 2, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "tigre_a_sabre",
+      "nom": "Tigre à Sabre",
+      "type": "animal",
+      "min": 0,
+      "max": 2,
+      "cout": 125,
+      "stats": { "M": 8, "CC": 4, "CT": 0, "F": 4, "E": 4, "PV": 2, "I": 4, "A": 3, "Cd": 4 },
+      "regles_speciales": [
+        { "nom": "Dressé", "texte": "Peut utiliser le Commandement du Guide de Montagne dans un rayon de 6ps de lui ; ne peut pas être aligné s'il n'y a pas de Guide de Montagne dans la bande (doit rester en cage au campement jusqu'à ce qu'un Guide soit engagé)." },
+        { "nom": "Instinct Sauvage", "texte": "Au début du tour des Ogres, doit réussir un test de Commandement sous peine que l'adversaire puisse le déplacer ce tour-ci ; un Tigre à Sabre incontrôlé peut charger les propres figurines des Ogres." },
+        { "nom": "Ignoré", "texte": "Les Tigres à Sabre hors de combat ne comptent pas dans le nombre de figurines hors de combat pour les tests de Déroute." },
+        { "nom": "Provoque la Peur", "texte": "Immenses félins prédateurs qui provoquent la peur." },
+        { "nom": "Équipement", "texte": "Crocs et férocité primitive — aucun équipement." }
+      ],
+      "acces_competences": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "maitre_darmes", "nom": "Maître d'Armes", "texte": "Peut manier une arme Difficile à Utiliser et une arme de base simultanément, mais pas deux armes Difficiles à Utiliser." },
+    { "id": "rot_grossier", "nom": "Rot Grossier", "texte": "Le Héros peut lâcher des vapeurs tonitruantes sur tous les ennemis engagés au corps à corps ; ceux qui échouent un test de Cd subissent -1 pour toucher pour le tour. Doit attendre qu'un nouvel ennemi s'engage avant de répéter." },
+    { "id": "maneater", "nom": "Maneater", "texte": "Apprend immédiatement une compétence des tableaux Tir ou Érudition (une seule fois ; non disponible pour le Guide)." },
+    { "id": "charge_du_taureau_comp", "nom": "Charge du Taureau", "texte": "En chargeant, peut tenter une seule attaque avec un bonus de +1 pour toucher au lieu de ses attaques normales ; en cas de réussite, la figurine ennemie est automatiquement mise à terre." },
+    { "id": "chien_de_guerre", "nom": "Chien de Guerre", "reserve_a": "Chef uniquement", "texte": "La bande peut engager les Francs-Tireurs disponibles pour les Mercenaires ; si le chef meurt, tous les Francs-Tireurs sont retirés de la bande." },
+    { "id": "rugissement_tonitruant", "nom": "Rugissement Tonitruant", "reserve_a": "Chef uniquement", "texte": "Permet de relancer le premier test de Déroute raté." }
+  ],
+  "equipement": {
+    "ogres": {
+      "armes_cac": [
+        { "nom": "Couperet", "cout": 5, "note": "compte comme une hache" },
+        { "nom": "Gourdin d'Ogre", "cout": 10, "note": "voir équipement spécial" },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Lance", "cout": 10 },
+        { "nom": "Morgenstern", "cout": 15 },
+        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Poing de Fer", "cout": 15, "note": "voir équipement spécial" },
+        { "nom": "Épée longue Cathayane", "cout": 75, "restriction": "Capitaine uniquement" }
+      ],
+      "armes_tir": [
+        { "nom": "Mortier portatif", "cout": "70 + 2D6", "note": "voir équipement spécial" }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Armure lourde", "cout": 50 },
+        { "nom": "Casque", "cout": 10 }
+      ],
+      "divers": [
+        { "nom": "Gnoblar Combattant", "cout": 15 },
+        { "nom": "Gnoblar Guetteur", "cout": 20 },
+        { "nom": "Gnoblar Chanceux", "cout": 25 },
+        { "nom": "Gnoblar Épéiste", "cout": 30 }
+      ]
+    },
+    "guide": {
+      "armes_cac": [
+        { "nom": "Couperet", "cout": 5, "note": "compte comme une hache" },
+        { "nom": "Gourdin d'Ogre", "cout": 10 },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Lance", "cout": 10 },
+        { "nom": "Arme à deux mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "nom": "Arbalète à Harpon", "cout": 50, "note": "voir équipement spécial" }
+      ],
+      "armures": [
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Casque", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "id": "gourdin_dogre",
+      "nom": "Gourdin d'Ogre",
+      "cout": 10,
+      "disponibilite": "Commune (Ogres uniquement)",
+      "portee": "Corps à corps",
+      "force": "Comme l'utilisateur",
+      "regles_speciales": [
+        { "nom": "Commotion", "texte": "Un résultat de 2-4 sur le tableau des blessures est traité comme sonné." },
+        { "nom": "Frappe Écrasante", "texte": "Impose -1 à la sauvegarde d'armure adverse ; la Force de l'attaque compte comme supérieure d'un point pour les tentatives de parade du défenseur. S'applique uniquement lorsqu'il est manié à deux mains." }
+      ]
+    },
+    {
+      "id": "poing_de_fer",
+      "nom": "Poing de Fer",
+      "cout": 15,
+      "disponibilite": "Commune (Ogres uniquement)",
+      "portee": "Corps à corps",
+      "force": "Comme l'utilisateur",
+      "regles_speciales": [
+        { "nom": "Parade", "texte": "Peut parer les coups ennemis." },
+        { "nom": "Ganté", "texte": "Ne peut pas tenir une autre arme dans la même main ; deux poings de fer empêchent l'utilisation de toute autre arme de corps à corps." },
+        { "nom": "Double Usage", "texte": "Agit à la fois comme une rondache et une arme tranchante — permet de relancer les parades ratées si combiné avec une épée ou un autre poing de fer." }
+      ]
+    },
+    {
+      "id": "mortier_portatif",
+      "nom": "Mortier portatif",
+      "cout": "80 + 2D6",
+      "disponibilite": "Rare 12 (Ogres uniquement)",
+      "portee": "24ps",
+      "force": "4",
+      "regles_speciales": [
+        { "nom": "Déplacement ou tir, Préparation du tir", "texte": "Contraintes de maniement standard des armes à poudre noire." },
+        { "nom": "Dispersion", "texte": "En cas de jet pour toucher raté, le tir dévie de 2D6ps dans une direction aléatoire." },
+        { "nom": "Expérimental", "texte": "Toujours soumis aux règles optionnelles des Armes à Poudre Noire ; tout résultat autre que « BOUM ! » signifie que l'arme s'enraye et doit être rechargée." },
+        { "nom": "Rayon Explosif", "texte": "La cible et toute figurine dans un rayon d'1,5ps subissent chacune une touche de Force 4 due au souffle." }
+      ]
+    },
+    {
+      "id": "arbalete_a_harpon",
+      "nom": "Arbalète à Harpon",
+      "cout": 50,
+      "disponibilite": "Rare 10 (Ogres uniquement)",
+      "portee": "30ps",
+      "force": "5",
+      "regles_speciales": [
+        { "nom": "Déplacement ou tir, Préparation du tir", "texte": "Contraintes de maniement standard des armes lourdes." }
+      ]
+    },
+    {
+      "id": "gnoblar_guetteur",
+      "nom": "Gnoblar Guetteur",
+      "cout": 20,
+      "disponibilite": "Rare 8 (Ogres uniquement)",
+      "texte": "Confère la compétence Esquive de la liste de compétences Vitesse."
+    },
+    {
+      "id": "gnoblar_chanceux",
+      "nom": "Gnoblar Chanceux",
+      "cout": 25,
+      "disponibilite": "Rare 9 (Ogres uniquement)",
+      "texte": "Peut relancer un dé au cours de la bataille (pas une relance d'une relance)."
+    },
+    {
+      "id": "gnoblar_epeiste",
+      "nom": "Gnoblar Épéiste",
+      "cout": 30,
+      "disponibilite": "Rare 10 (Ogres uniquement)",
+      "texte": "Donne une attaque supplémentaire de Force 2 au corps à corps, à la Capacité de Combat de la figurine propriétaire, dirigée contre une figurine que l'Ogre attaque déjà."
+    }
+  ]
+}

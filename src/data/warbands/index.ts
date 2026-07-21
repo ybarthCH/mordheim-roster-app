@@ -9,8 +9,11 @@ import gardiens_de_chapelle_bretonniens from './gardiens_de_chapelle_bretonniens
 import gobelins_de_la_nuit from './gobelins_de_la_nuit.json';
 import kislevites from './kislevites.json';
 import lustrian_reavers from './lustrian_reavers.json';
+import maneaters from './maneaters.json';
+import maraudeurs_du_chaos from './maraudeurs_du_chaos.json';
 import marienburgers from './marienburgers.json';
 import middenheimers from './middenheimers.json';
+import morts_sans_repos from './morts_sans_repos.json';
 import nains_du_chaos from './nains_du_chaos.json';
 import orc_mob from './orc_mob.json';
 import ostlanders from './ostlanders.json';
@@ -30,8 +33,11 @@ export const CATALOGUES: WarbandCatalog[] = [
   gobelins_de_la_nuit,
   kislevites,
   lustrian_reavers,
+  maneaters,
+  maraudeurs_du_chaos,
   marienburgers,
   middenheimers,
+  morts_sans_repos,
   nains_du_chaos,
   orc_mob,
   ostlanders,
