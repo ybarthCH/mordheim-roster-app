@@ -9,7 +9,13 @@ export function ratingMembre(m: Member): number {
   return 5 * (m.taille_groupe || 1) + m.xp + (m.grande_cible ? 20 : 0);
 }
 
-/** Somme des ratings des membres encore actifs (hors morts) de la bande. */
+/**
+ * Somme des ratings des membres encore actifs de la bande — un héros Blessé
+ * ne compte plus dans le rating global tant qu'il l'est, tout comme un
+ * membre Mort.
+ */
 export function ratingTotal(roster: RosterInstance): number {
-  return roster.membres.filter((m) => m.statut !== 'mort').reduce((acc, m) => acc + ratingMembre(m), 0);
+  return roster.membres
+    .filter((m) => m.statut !== 'mort' && m.statut !== 'blesse')
+    .reduce((acc, m) => acc + ratingMembre(m), 0);
 }

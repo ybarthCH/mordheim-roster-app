@@ -236,7 +236,7 @@
     {
       "id": "exosquelette",
       "nom": "Exosquelette",
-      "cout": 225,
+      "cout": 175,
       "disponibilite": "Rare 14, Nains du Chaos uniquement",
       "sauvegarde": "4+",
       "regles_speciales": [
@@ -246,8 +246,7 @@
         { "nom": "Don du Chaos", "texte": "Un Héros qui l'a acquis ne la donnera jamais à un membre de sa bande et l'équipera immédiatement. Elle ne pourra jamais être retirée." },
         { "nom": "Jeteur de sorts", "texte": "N'empêche pas de lancer des sorts ou de faire des rituels, mais ne peut pas être combinée avec un bouclier ou une rondache." },
         { "nom": "Rareté", "texte": "Lors de la recherche, +1 sur le jet pour chaque ennemi mis hors de combat lors de la bataille précédente." }
-      ],
-      "note": "La liste d'équipement standard indique 175 CO pour l'Exosquelette, contre 225 CO dans cette section détaillée — écart présent dans le PDF source, à trancher."
+      ]
     },
     {
       "id": "armure_du_chaos",
@@ -265,7 +264,7 @@
     {
       "id": "machine_du_chaos",
       "nom": "Machine du Chaos",
-      "cout": 195,
+      "cout": 125,
       "disponibilite": "Rare 10, Nains du Chaos uniquement",
       "texte": "Véhicule/prison vivante sur roues qui transporte les prisonniers vers les Terres Sombres.",
       "regles_speciales": [
@@ -275,8 +274,7 @@
         { "nom": "Battre le fer", "texte": "Le cocher peut donner du fouet. Si la machine devient incontrôlable, se référer au tableau des pertes de contrôle. Un résultat 'Holà ! Tout doux !' est remplacé par : le Démon se libère, la machine se déplace de 6ps droit devant puis s'arrête, et ne peut plus se déplacer pour le reste de la bataille." },
         { "nom": "Prisonniers", "texte": "Contre une bande de Nains du Chaos possédant une machine du Chaos, un résultat 'capturé' sur les Blessures Graves ou une mise hors de combat par une pince transforme toujours la victime en prisonnier (équipement perdu pour la bande adverse). Certains résultats des tableaux d'Exploration (Mordheim, Empire en Flammes) permettent d'acquérir des prisonniers. Les prisonniers peuvent être libérés en détruisant la machine ou avec les clés de la prison (obtenues en mettant hors de combat un Geôlier). Un porteur des clés en contact socle à socle avec la machine libère les prisonniers ; ceux-ci se déplacent vers le bord de table le plus proche et rejoignent leur bande d'origine si elle a participé, sinon utilisent le profil de base ou humain." },
         { "nom": "Récompense de Hashut", "texte": "Après bataille, les prisonniers peuvent être déportés vers les Terres Sombres pour être sacrifiés à Hashut. La machine et un Héros sont alors absents lors de la prochaine bataille (sauf autre machine disponible). Une fois le Héros revenu, jet sur le tableau : 1-3 = +1 XP au Chef ; 4-5 = +1D3 XP à répartir entre les Héros ; 6 = +2D3 XP à répartir entre les Héros plus 1D6x5 CO." }
-      ],
-      "note": "La liste d'équipement standard indique 125 CO pour la Machine du Chaos, contre 195 CO dans cette section détaillée — écart présent dans le PDF source, à trancher."
+      ]
     }
   ],
   "magie": {
