@@ -13,6 +13,7 @@ import { CompetencesPanel } from './CompetencesPanel';
 import { AvanceeModal } from './AvanceeModal';
 import { BlessureGraveModal } from './BlessureGraveModal';
 import { Modal } from '../common/Modal';
+import { EquipementReference, MagieReference } from '../common/CatalogueReference';
 import { avancesDues } from '../../utils/xp';
 import { ratingMembre } from '../../utils/rating';
 import { skillById } from '../../data/gameData';
@@ -462,6 +463,9 @@ export function PersonnageScreen() {
           }}
         />
       </div>
+
+      <EquipementReference catalogue={catalogue} />
+      <MagieReference catalogue={catalogue} profilId={profil.id} />
 
       <button className="btn btn--danger btn--block" onClick={() => setModalSuppression(true)}>
         Retirer ce personnage de la bande

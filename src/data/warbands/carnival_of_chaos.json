@@ -79,7 +79,7 @@
     {
       "id": "portepeste",
       "nom": "Portepeste",
-      "type": "homme_de_main",
+      "type": "animal",
       "min": 0,
       "max": 2,
       "cout": 50,
@@ -114,7 +114,7 @@
     {
       "id": "nurgling",
       "nom": "Nurgling",
-      "type": "homme_de_main",
+      "type": "animal",
       "min": 0,
       "max": null,
       "cout": 15,

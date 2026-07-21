@@ -118,6 +118,11 @@ export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }:
               {bataille.journal.survie.map((s) => `${s.nom} (${s.survecu ? 'a survécu' : "n'a pas survécu"})`).join(', ')}
             </p>
           )}
+          {bataille.journal.pointsVeteran > 0 && (
+            <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              <strong>Points vétéran disponibles :</strong> {bataille.journal.pointsVeteran}
+            </p>
+          )}
         </div>
       )}
 
