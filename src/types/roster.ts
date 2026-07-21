@@ -39,11 +39,30 @@ export type ProfilFrancTireur = {
   solde: number; // solde à payer après chaque bataille
 };
 
+// Objet possédé, acheté depuis le shop commun ou la liste d'équipement de la
+// bande. Champs figés au moment de l'achat (nom/catégorie/coût) pour que
+// l'historique reste stable même si la base d'objets évolue ensuite.
+export type InventoryEntry = {
+  instance_id: string;
+  item_id: string;
+  nom: string;
+  categorie: string;
+  cout: number;
+  // Notation de dés affichée à l'achat (ex : "2D6"), purement informative —
+  // le coût réellement déduit est saisi à la main dans `cout`.
+  cout_notation?: string;
+  date_achat?: string;
+};
+
 export type Member = {
   instance_id: string;
   profil_id: string;
   nom_perso: string;
   equipement: string;
+  // Équipement possédé sous forme structurée (achats via le shop). Le champ
+  // `equipement` ci-dessus reste affiché en lecture seule, recalculé à
+  // partir de cette liste.
+  inventaire: InventoryEntry[];
   xp: number;
   // XP de départ à la recrue (catalogue ou saisie manuelle) : ne déclenche
   // aucune avancée due, sert uniquement de référence pour ne compter que
@@ -119,6 +138,9 @@ export type RosterInstance = {
   tresorerie: number;
   wyrdstone: number;
   equipement_reserve: string;
+  // Stock structuré de la bande (armurerie) : objets achetés mais pas encore
+  // attribués à un membre, ou renvoyés depuis la fiche d'un membre.
+  stock: InventoryEntry[];
   membres: Member[];
   historique_batailles: BattleRecord[];
   createdAt: string;

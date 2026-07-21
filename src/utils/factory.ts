@@ -8,6 +8,7 @@ function membreDeBase(): Omit<Member, 'profil_id' | 'nom_perso' | 'xp' | 'xp_dep
   return {
     instance_id: uuidv4(),
     equipement: '',
+    inventaire: [],
     stats_modifiees: [],
     competences_acquises: [],
     sorts_connus: [],
@@ -59,6 +60,7 @@ export function creerRoster(bandeId: string, nomBande: string, tresorerie: numbe
     tresorerie,
     wyrdstone: 0,
     equipement_reserve: '',
+    stock: [],
     membres: [],
     historique_batailles: [],
     createdAt: now,

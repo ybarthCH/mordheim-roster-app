@@ -11,10 +11,19 @@ import { validerComposition, validerEffectif } from '../../utils/validation';
 import { exporterRoster } from '../../utils/importExport';
 import { AjouterMembreModal } from './AjouterMembreModal';
 import { AjouterBatailleModal } from './AjouterBatailleModal';
+import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
 import { EquipementReference, MagieReference } from '../common/CatalogueReference';
 import { STATUTS } from '../../types/roster';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import { avancesDues } from '../../utils/xp';
+import {
+  acheterPourStock,
+  retirerDuStock,
+  transfererVersMembre,
+  creerEntreeInventaire,
+  formatEquipementAffiche,
+} from '../../utils/shop';
+import type { ShopItem } from '../../utils/shop';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
@@ -33,6 +42,7 @@ export function RosterScreen() {
   const [batailleEnEdition, setBatailleEnEdition] = useState<BattleRecord | null>(null);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
   const [batailleASupprimer, setBatailleASupprimer] = useState<BattleRecord | null>(null);
+  const [modalAchatStock, setModalAchatStock] = useState(false);
 
   if (!roster) {
     return (
@@ -50,6 +60,28 @@ export function RosterScreen() {
 
   const patch = (partial: Partial<RosterInstance>) => {
     updateRoster({ ...roster, ...partial });
+  };
+
+  const acheterPourArmurerie = (item: ShopItem, coutPaye: number) => {
+    updateRoster(acheterPourStock(roster, creerEntreeInventaire(item, coutPaye)));
+  };
+
+  // Retire l'objet du stock et rembourse son coût : sert à annuler un achat.
+  const retirerStock = (instanceId: string) => {
+    const entree = roster.stock.find((e) => e.instance_id === instanceId);
+    if (!entree) return;
+    const sansItem = retirerDuStock(roster, instanceId);
+    updateRoster({ ...sansItem, tresorerie: sansItem.tresorerie + entree.cout });
+  };
+
+  const donnerAMembre = (instanceId: string, membreId: string) => {
+    const nouveauRoster = transfererVersMembre(roster, instanceId, membreId);
+    updateRoster({
+      ...nouveauRoster,
+      membres: nouveauRoster.membres.map((m) =>
+        m.instance_id === membreId ? { ...m, equipement: formatEquipementAffiche(m.inventaire) } : m
+      ),
+    });
   };
 
   const nomAffiche = (m: Member) => `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
@@ -380,6 +412,45 @@ export function RosterScreen() {
         </div>
       </div>
 
+      <div className="card">
+        <div className="flex justify-between items-center">
+          <h3 className="mt-0 mb-0">Armurerie de la bande</h3>
+          <button className="btn btn--sm" onClick={() => setModalAchatStock(true)}>
+            + Acheter
+          </button>
+        </div>
+        {roster.stock.length === 0 && <p className="text-muted text-sm">Stock vide.</p>}
+        {roster.stock.map((entree) => (
+          <div key={entree.instance_id} className="list-item">
+            <div className="list-item__main">
+              <div className="list-item__title">{entree.nom}</div>
+              <div className="list-item__subtitle">
+                {entree.categorie} · {entree.cout} po
+                {entree.cout_notation ? ` (jet : ${entree.cout_notation})` : ''}
+              </div>
+            </div>
+            <div className="flex gap-sm items-center">
+              <select value="" onChange={(e) => e.target.value && donnerAMembre(entree.instance_id, e.target.value)}>
+                <option value="">Donner à…</option>
+                {roster.membres.map((m) => (
+                  <option key={m.instance_id} value={m.instance_id}>
+                    {nomAffiche(m)}
+                  </option>
+                ))}
+              </select>
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
+                onClick={() => retirerStock(entree.instance_id)}
+                title="Retirer et rembourser la trésorerie"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {(violations.length > 0 || violationsEffectif.length > 0) && (
         <div className="card" style={{ borderColor: 'var(--warning)' }}>
           <h3 style={{ color: 'var(--warning)' }}>Composition — à vérifier</h3>
@@ -481,6 +552,15 @@ export function RosterScreen() {
       {catalogue && <EquipementReference catalogue={catalogue} />}
       {catalogue && <MagieReference catalogue={catalogue} />}
 
+      {modalAchatStock && catalogue && (
+        <AchatEquipementModal
+          catalogue={catalogue}
+          profil={null}
+          tresorerie={roster.tresorerie}
+          onClose={() => setModalAchatStock(false)}
+          onAchat={acheterPourArmurerie}
+        />
+      )}
       {modalMembre && (
         <AjouterMembreModal
           roster={roster}
