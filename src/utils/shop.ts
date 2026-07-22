@@ -5,7 +5,7 @@
 // d'achat dédiée : simple déduction de trésorerie, à tout moment.
 import { v4 as uuidv4 } from 'uuid';
 import type { Member, RosterInstance, InventoryEntry } from '../types/roster';
-import type { WarbandCatalog, Profile } from '../types/catalog';
+import type { WarbandCatalog, Profile, SpecialRule } from '../types/catalog';
 import { TOUS_LES_ITEMS } from '../data/items';
 
 export type ShopItem = {
@@ -17,8 +17,26 @@ export type ShopItem = {
   disponibilite?: string;
   rarete?: string;
   texte?: string | null;
+  portee?: string | null;
+  force?: string | null;
+  sauvegarde?: string | null;
+  regles_speciales?: SpecialRule[];
   origine: 'commun' | 'bande';
 };
+
+// Résumé compact des stats de jeu d'un objet (portée/force/sauvegarde/noms
+// des règles spéciales), utilisé comme synopsis dans la liste d'achat. Se
+// rabat sur le texte d'ambiance si l'objet n'a pas de stats structurées
+// (la plupart des objets divers/consommables/poisons).
+export function resumeItem(item: ShopItem): string | null {
+  const parties: string[] = [];
+  if (item.portee) parties.push(`Portée ${item.portee}`);
+  if (item.force) parties.push(`Force ${item.force}`);
+  if (item.sauvegarde) parties.push(`Save ${item.sauvegarde}`);
+  if (item.regles_speciales?.length) parties.push(item.regles_speciales.map((r) => r.nom).join(', '));
+  if (parties.length > 0) return parties.join(' · ');
+  return item.texte ?? null;
+}
 
 // Tags "acces" considérés comme ouverts à toutes les bandes dans la base
 // d'objets (items/*.json) : "commun" strict, "rare_N" (rare mais sans
@@ -85,6 +103,10 @@ export function getShopCommun(): ShopItem[] {
     disponibilite: item.disponibilite,
     rarete: item.rarete,
     texte: item.texte,
+    portee: 'portee' in item ? (item.portee as string | null) : undefined,
+    force: 'force' in item ? (item.force as string | null) : undefined,
+    sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
+    regles_speciales: item.regles_speciales,
     origine: 'commun',
   }));
 }
@@ -103,7 +125,9 @@ function slugify(texte: string): string {
 // Objets propres à la bande (catalogue.equipement/equipement_special), déjà
 // utilisés en lecture seule par EquipementReference. Si le profil précise
 // `acces_equipement`, seules ces listes nommées sont proposées ; sinon,
-// toutes les listes de la bande le sont (repli par défaut).
+// toutes les listes de la bande le sont (repli par défaut) — plusieurs
+// listes (ex : infanterie/tireurs) partagent souvent les mêmes armes de
+// base, d'où la déduplication finale par catégorie+nom.
 export function getEquipementBande(catalogue: WarbandCatalog, profil: Profile | null): ShopItem[] {
   const items: ShopItem[] = [];
   const listes = catalogue.equipement ?? {};
@@ -135,10 +159,21 @@ export function getEquipementBande(catalogue: WarbandCatalog, profil: Profile | 
       cout_fixe: typeof item.cout === 'number',
       disponibilite: item.disponibilite,
       texte: item.texte,
+      portee: item.portee,
+      force: item.force,
+      sauvegarde: item.sauvegarde,
+      regles_speciales: item.regles_speciales,
       origine: 'bande',
     });
   }
-  return items;
+
+  const vus = new Set<string>();
+  return items.filter((item) => {
+    const cle = `${item.categorie}|${item.nom.trim().toLowerCase()}`;
+    if (vus.has(cle)) return false;
+    vus.add(cle);
+    return true;
+  });
 }
 
 export function creerEntreeInventaire(item: ShopItem, coutPaye: number): InventoryEntry {
