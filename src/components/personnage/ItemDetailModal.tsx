@@ -1,6 +1,7 @@
 import { Modal } from '../common/Modal';
-import { libelleCategorie } from '../../utils/shop';
+import { libelleCategorie, iconeCategorie, classeRarete } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
+import { Icon } from '../common/Icon';
 
 type Props = {
   item: ShopItem;
@@ -13,7 +14,12 @@ type Props = {
 export function ItemDetailModal({ item, onClose }: Props) {
   return (
     <Modal onClose={onClose}>
-      <h3 className="mt-0 mb-0">{item.nom}</h3>
+      <h3 className="mt-0 mb-0">
+        {iconeCategorie(item.categorie) && (
+          <Icon name={iconeCategorie(item.categorie)!} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
+        )}
+        {item.nom}
+      </h3>
       <p className="text-sm text-muted" style={{ marginTop: '0.2rem' }}>
         {libelleCategorie(item.categorie)} · {typeof item.cout === 'number' ? `${item.cout} po` : item.cout}
       </p>
@@ -24,6 +30,11 @@ export function ItemDetailModal({ item, onClose }: Props) {
           {item.force && <span className="badge badge--info">Force {item.force}</span>}
           {item.sauvegarde && <span className="badge badge--info">Save {item.sauvegarde}</span>}
         </div>
+      )}
+      {classeRarete(item.rarete) && (
+        <span className={`badge ${classeRarete(item.rarete)}`} style={{ marginBottom: '0.3rem' }}>
+          Rare {item.rarete}
+        </span>
       )}
       {item.disponibilite && <p className="text-sm text-muted mb-0">{item.disponibilite}</p>}
       {item.regles_speciales?.map((r) => (

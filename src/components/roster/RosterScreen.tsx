@@ -24,17 +24,26 @@ import {
   creerEntreeInventaire,
   formatEquipementAffiche,
   libelleCategorie,
+  iconeCategorie,
   resolveItemDetail,
   prixVente,
   inventaireGroupeMismatch,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
+import { Icon } from '../common/Icon';
+import type { IconName } from '../common/Icon';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
   hors_de_combat: 'badge--warning',
   mort: 'badge--danger',
   blesse: 'badge--neutral',
+};
+
+const STATUT_ICONE: Partial<Record<string, IconName>> = {
+  hors_de_combat: 'ossements',
+  mort: 'crane',
+  blesse: 'goutte',
 };
 
 export function RosterScreen() {
@@ -195,7 +204,7 @@ export function RosterScreen() {
                     {nomAffiche(m)}
                     {profil?.est_leader && (
                       <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title="Chef de bande">
-                        ★ Leader
+                        <Icon name="etoile" style={{ marginRight: '0.3em' }} /> Leader
                       </span>
                     )}
                     {avanceEnAttente(m) && (
@@ -220,6 +229,7 @@ export function RosterScreen() {
                   <td>{m.xp}</td>
                   <td>
                     <span className={`badge ${STATUT_BADGE[m.statut]}`}>
+                      {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.35em' }} />}
                       {STATUTS.find((s) => s.id === m.statut)?.label}
                     </span>
                     {m.hors_combat > 0 && (
@@ -314,7 +324,7 @@ export function RosterScreen() {
                   {nomAffiche(m)}
                   {profil?.est_leader && (
                     <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title="Chef de bande">
-                      ★ Leader
+                      <Icon name="etoile" style={{ marginRight: '0.3em' }} /> Leader
                     </span>
                   )}
                 </div>
@@ -331,6 +341,7 @@ export function RosterScreen() {
                 </span>
               )}
               <span className={`badge ${STATUT_BADGE[m.statut]}`}>
+                {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.35em' }} />}
                 {STATUTS.find((s) => s.id === m.statut)?.label}
               </span>
               {m.hors_combat > 0 && (
@@ -444,7 +455,10 @@ export function RosterScreen() {
           </div>
           <div className="summary-tile">
             <div className="summary-tile__value">{ratingTotal(roster)}</div>
-            <div className="summary-tile__label">Rating</div>
+            <div className="summary-tile__label">
+              <Icon name="cible" style={{ marginRight: '0.3em' }} />
+              Rating
+            </div>
           </div>
           <div className="summary-tile">
             <input
@@ -480,7 +494,10 @@ export function RosterScreen() {
                 color: 'inherit',
               }}
             />
-            <div className="summary-tile__label">Wyrdstone</div>
+            <div className="summary-tile__label">
+              <Icon name="gemme" style={{ marginRight: '0.3em' }} />
+              Wyrdstone
+            </div>
           </div>
         </div>
         <div className="field" style={{ marginTop: '0.7rem' }}>
@@ -513,6 +530,9 @@ export function RosterScreen() {
                 {entree.nom}
               </div>
               <div className="list-item__subtitle">
+                {iconeCategorie(entree.categorie) && (
+                  <Icon name={iconeCategorie(entree.categorie)!} style={{ marginRight: '0.35em' }} />
+                )}
                 {libelleCategorie(entree.categorie)} · {entree.cout} po
                 {entree.cout_notation ? ` (jet : ${entree.cout_notation})` : ''}
               </div>

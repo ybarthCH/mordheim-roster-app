@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import type { Member, RosterInstance, InventoryEntry } from '../types/roster';
 import type { WarbandCatalog, Profile, SpecialRule } from '../types/catalog';
 import { TOUS_LES_ITEMS, getItem } from '../data/items';
+import type { IconName } from '../components/common/Icon';
 
 export type ShopItem = {
   id: string;
@@ -100,6 +101,36 @@ const CATEGORIE_LABELS: Record<string, string> = {
 
 export function libelleCategorie(categorie: string): string {
   return CATEGORIE_LABELS[categorie] ?? categorie;
+}
+
+const CATEGORIE_ICONES: Partial<Record<string, IconName>> = {
+  armes_cac: 'epee',
+  armes_tir: 'arc',
+  armes_poudre_noire: 'flamme',
+  munitions: 'cible',
+  armures: 'bouclier',
+  divers: 'gemme',
+  consommables: 'fiole',
+  poisons_drogues: 'goutte',
+  montures: 'griffe',
+  special: 'etoile',
+};
+
+export function iconeCategorie(categorie: string): IconName | undefined {
+  return CATEGORIE_ICONES[categorie];
+}
+
+// Classe de badge indicative selon le niveau de rareté (score "Rare N" du
+// livre de règles) : plus le nombre est élevé, plus l'objet est difficile à
+// trouver. Purement décoratif, sans incidence sur les jets de disponibilité
+// (toujours faits en jeu).
+export function classeRarete(rarete?: string): string | null {
+  if (!rarete) return null;
+  const n = Number(rarete);
+  if (Number.isNaN(n)) return null;
+  if (n >= 10) return 'badge--danger';
+  if (n >= 7) return 'badge--warning';
+  return 'badge--info';
 }
 
 export function getShopCommun(): ShopItem[] {

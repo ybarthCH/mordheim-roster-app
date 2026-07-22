@@ -4,6 +4,7 @@ import { useRosters } from '../../state/RostersContext';
 import { ThemeToggle } from '../common/ThemeToggle';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
+import { Icon } from '../common/Icon';
 import { bilanBatailles, effectifTotal, nomCatalogue, valeurBande } from '../../utils/bandeValue';
 import { exporterRoster, lireFichierRoster } from '../../utils/importExport';
 import type { RosterInstance } from '../../types/roster';
@@ -66,6 +67,7 @@ export function ListeBandesScreen() {
 
       {!loading && rosters.length === 0 && (
         <div className="empty-state">
+          <Icon name="parchemin" size="2.4em" style={{ opacity: 0.5, marginBottom: '0.4rem' }} />
           <p>Aucune bande enregistrée pour l'instant.</p>
           <p className="text-sm">Crée ta première bande ou importe un fichier JSON.</p>
         </div>
