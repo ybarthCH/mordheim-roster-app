@@ -1,10 +1,11 @@
 /* Polices maison, alignées sur le style de mordheimer.net/docs/rules :
-   Garamond pour les titres/corps élégants, Schoensperger (gothique) pour les
-   grands titres façon manuscrit médiéval, variantes condensées italiques
-   pour les accroches/citations. */
+   ITC Garamond (graisse Book, gère correctement les accents français) pour
+   les titres/corps élégants, Caslon Antique pour les grands titres façon
+   manuscrit ancien, variantes condensées italiques pour les
+   accroches/citations. */
 @font-face {
   font-family: 'Garamond';
-  src: url('/fonts/Garamond.ttf') format('truetype');
+  src: url('/fonts/ITCGaramondStdBk.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -24,10 +25,31 @@
   font-display: swap;
 }
 @font-face {
-  font-family: 'Schoensperger';
-  src: url('/fonts/Schoensperger.otf') format('opentype');
+  font-family: 'Caslon Antique';
+  src: url('/fonts/CaslonAntique.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Caslon Antique';
+  src: url('/fonts/CaslonAntiqueBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Caslon Antique';
+  src: url('/fonts/CaslonAntiqueItalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Caslon Antique';
+  src: url('/fonts/CaslonAntiqueBoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -35,7 +57,7 @@
   color-scheme: light dark;
   --font-ui: 'Garamond', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-heading: 'Garamond', Georgia, 'Times New Roman', serif;
-  --font-display: 'Schoensperger', var(--font-heading);
+  --font-display: 'Caslon Antique', var(--font-heading);
   --font-accroche: 'Garamond Cond Book', var(--font-heading);
   --radius: 8px;
   --radius-lg: 14px;
