@@ -30,11 +30,56 @@ function estAccesGenerique(acces: string[]): boolean {
   return acces.some((a) => a === 'commun' || /^rare_\d+$/.test(a) || a.startsWith('commun_sauf_'));
 }
 
+// Les fichiers items/*.json et les listes d'équipement de bande utilisent des
+// clés de catégorie différentes pour la même chose (armes_corps_a_corps vs
+// armes_cac...). Normalisées ici pour que les filtres de catégorie du modal
+// d'achat fonctionnent quelle que soit la source de l'objet.
+const CATEGORIE_CANONIQUE: Record<string, string> = {
+  armes_corps_a_corps: 'armes_cac',
+  objets_divers: 'divers',
+};
+
+function normaliserCategorie(categorie: string): string {
+  return CATEGORIE_CANONIQUE[categorie] ?? categorie;
+}
+
+export const CATEGORIE_ORDRE = [
+  'armes_cac',
+  'armes_tir',
+  'armes_poudre_noire',
+  'munitions',
+  'armures',
+  'divers',
+  'consommables',
+  'poisons_drogues',
+  'montures',
+  'vehicules',
+  'special',
+];
+
+const CATEGORIE_LABELS: Record<string, string> = {
+  armes_cac: 'Corps à corps',
+  armes_tir: 'Tir',
+  armes_poudre_noire: 'Poudre noire',
+  munitions: 'Munitions',
+  armures: 'Armure',
+  divers: 'Divers',
+  consommables: 'Consommable',
+  poisons_drogues: 'Poison / drogue',
+  montures: 'Monture',
+  vehicules: 'Véhicule',
+  special: 'Spécial',
+};
+
+export function libelleCategorie(categorie: string): string {
+  return CATEGORIE_LABELS[categorie] ?? categorie;
+}
+
 export function getShopCommun(): ShopItem[] {
   return TOUS_LES_ITEMS.filter((item) => estAccesGenerique(item.acces ?? [])).map((item) => ({
     id: item.id,
     nom: item.nom,
-    categorie: item.categorie,
+    categorie: normaliserCategorie(item.categorie),
     cout: item.cout,
     cout_fixe: item.cout_fixe,
     disponibilite: item.disponibilite,

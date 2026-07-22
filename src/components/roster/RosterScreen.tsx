@@ -22,6 +22,7 @@ import {
   transfererVersMembre,
   creerEntreeInventaire,
   formatEquipementAffiche,
+  libelleCategorie,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 
@@ -425,7 +426,7 @@ export function RosterScreen() {
             <div className="list-item__main">
               <div className="list-item__title">{entree.nom}</div>
               <div className="list-item__subtitle">
-                {entree.categorie} · {entree.cout} po
+                {libelleCategorie(entree.categorie)} · {entree.cout} po
                 {entree.cout_notation ? ` (jet : ${entree.cout_notation})` : ''}
               </div>
             </div>

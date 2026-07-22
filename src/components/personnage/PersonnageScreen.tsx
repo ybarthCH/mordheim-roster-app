@@ -24,6 +24,7 @@ import {
   transfererVersStock,
   creerEntreeInventaire,
   formatEquipementAffiche,
+  libelleCategorie,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 
@@ -311,6 +312,22 @@ export function PersonnageScreen() {
         )}
 
         <p className="text-sm mb-0" style={{ marginTop: profil.type === 'heros' ? '0.7rem' : 0 }}>
+          <strong>Équipement</strong>
+        </p>
+        {membre.inventaire.length > 0 ? (
+          membre.inventaire.map((entree) => (
+            <p key={entree.instance_id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              {entree.nom}
+              <span className="text-muted"> — {libelleCategorie(entree.categorie)}</span>
+            </p>
+          ))
+        ) : (
+          <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+            Aucun
+          </p>
+        )}
+
+        <p className="text-sm mb-0" style={{ marginTop: '0.7rem' }}>
           <strong>Règles spéciales / Sorts connus / mutations</strong>
         </p>
         {membre.sorts_connus.length > 0 ? (
@@ -339,42 +356,6 @@ export function PersonnageScreen() {
             Aucune
           </p>
         )}
-      </div>
-
-      <div className="card">
-        <h3>Équipement</h3>
-        {membre.inventaire.length > 0 ? (
-          <textarea
-            value={membre.equipement}
-            readOnly
-            style={{
-              width: '100%',
-              background: 'var(--bg-inset)',
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--radius)',
-              padding: '0.5rem 0.6rem',
-              minHeight: '4em',
-              color: 'var(--text-muted)',
-            }}
-          />
-        ) : (
-          <textarea
-            value={membre.equipement}
-            onChange={(e) => majMembre({ equipement: e.target.value })}
-            placeholder="Épée, armure légère, pistolet… (ou utilise « Acheter » ci-dessous)"
-            style={{
-              width: '100%',
-              background: 'var(--bg-inset)',
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--radius)',
-              padding: '0.5rem 0.6rem',
-              minHeight: '4em',
-            }}
-          />
-        )}
-        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.4rem' }}>
-          Rempli automatiquement dès qu'un objet est acheté dans la rubrique Équipement, sous les compétences.
-        </p>
       </div>
 
       {profil.type === 'animal' ? (
@@ -448,7 +429,7 @@ export function PersonnageScreen() {
             <div className="list-item__main">
               <div className="list-item__title">{entree.nom}</div>
               <div className="list-item__subtitle">
-                {entree.categorie} · {entree.cout} po
+                {libelleCategorie(entree.categorie)} · {entree.cout} po
                 {entree.cout_notation ? ` (jet : ${entree.cout_notation})` : ''}
               </div>
             </div>
