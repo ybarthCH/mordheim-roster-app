@@ -342,6 +342,48 @@ export function coutEquipementNouvellesFigurines(inventaireExistant: InventoryEn
   return resumeInventaireParItem(inventaireExistant).reduce((acc, { entree }) => acc + entree.cout * quantiteNouvelle, 0);
 }
 
+export type CoutRejoindreGroupe = {
+  xpGroupe: number;
+  surtaxeXpUnitaire: number;
+  coutEquipementForce: number;
+  coutTotal: number;
+  vetPointsIndicatifs: number;
+};
+
+// Détail du coût pour faire rejoindre `quantite` nouvelles figurines à un
+// groupe d'hommes de main déjà expérimenté : surtaxe de 2 × XP du groupe par
+// figurine (elle profite immédiatement de l'XP acquise) + équipement forcé
+// identique au reste du groupe. Le coût en points vétéran reste indicatif,
+// volontairement non bloquant.
+export function calculerCoutRejoindreGroupe(groupe: Member, coutUnitaire: number, quantite: number): CoutRejoindreGroupe {
+  const xpGroupe = groupe.xp;
+  const surtaxeXpUnitaire = 2 * xpGroupe;
+  const coutEquipementForce = coutEquipementNouvellesFigurines(groupe.inventaire, quantite);
+  const coutTotal = (coutUnitaire + surtaxeXpUnitaire) * quantite + coutEquipementForce;
+  const vetPointsIndicatifs = xpGroupe * quantite;
+  return { xpGroupe, surtaxeXpUnitaire, coutEquipementForce, coutTotal, vetPointsIndicatifs };
+}
+
+// Fait rejoindre `quantite` nouvelles figurines à un groupe existant :
+// équipement identique cloné, taille du groupe augmentée, coût déduit.
+export function rejoindreGroupe(
+  roster: RosterInstance,
+  groupe: Member,
+  quantite: number,
+  coutTotal: number
+): RosterInstance {
+  const nouvellesEntrees = clonerEquipementPourNouvellesFigurines(groupe.inventaire, quantite);
+  return {
+    ...roster,
+    tresorerie: roster.tresorerie - coutTotal,
+    membres: roster.membres.map((m) =>
+      m.instance_id === groupe.instance_id
+        ? { ...m, taille_groupe: m.taille_groupe + quantite, inventaire: [...m.inventaire, ...nouvellesEntrees] }
+        : m
+    ),
+  };
+}
+
 // Reconstruit le détail complet (stats/règles) d'un objet possédé à partir
 // de son item_id, pour l'affichage au clic (récap "en un coup d'œil",
 // inventaire...). Se rabat sur le simple instantané pris à l'achat
