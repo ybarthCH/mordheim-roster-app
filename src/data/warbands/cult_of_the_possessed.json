@@ -48,7 +48,7 @@
         { "nom": "Équipement", "texte": "Aucun. Les Possédés n'utilisent jamais ni armes ni armures." }
       ],
       "acces_competences": ["combat", "force", "vitesse"],
-      "acces_equipement": ["culte_des_possedes"],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
