@@ -12,11 +12,20 @@ import { XpGrid } from './XpGrid';
 import { CompetencesPanel } from './CompetencesPanel';
 import { AvanceeModal } from './AvanceeModal';
 import { BlessureGraveModal } from './BlessureGraveModal';
+import { AchatEquipementModal } from './AchatEquipementModal';
 import { Modal } from '../common/Modal';
 import { EquipementReference, MagieReference } from '../common/CatalogueReference';
 import { avancesDues } from '../../utils/xp';
 import { ratingMembre } from '../../utils/rating';
 import { skillById } from '../../data/gameData';
+import {
+  acheterPourMembre,
+  retirerDeMembre,
+  transfererVersStock,
+  creerEntreeInventaire,
+  formatEquipementAffiche,
+} from '../../utils/shop';
+import type { ShopItem } from '../../utils/shop';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
@@ -41,6 +50,7 @@ export function PersonnageScreen() {
   const [modalAvancee, setModalAvancee] = useState(false);
   const [modalBlessure, setModalBlessure] = useState(false);
   const [modalSuppression, setModalSuppression] = useState(false);
+  const [modalAchat, setModalAchat] = useState(false);
   const [nouveauSort, setNouveauSort] = useState('');
 
   const membre = roster?.membres.find((m) => m.instance_id === instanceId);
@@ -60,6 +70,36 @@ export function PersonnageScreen() {
       m.instance_id === membre.instance_id ? { ...m, ...partial } : m
     );
     updateRoster({ ...roster, membres: membresMaj });
+  };
+
+  // Recale la textbox "Équipement" (utilisée telle quelle par le post-bataille
+  // et l'export PDF) sur l'inventaire structuré, à chaque achat/retrait.
+  const avecEquipementSynchronise = (nouveauRoster: typeof roster, inventaire: typeof membre.inventaire) => ({
+    ...nouveauRoster,
+    membres: nouveauRoster.membres.map((m) =>
+      m.instance_id === membre.instance_id ? { ...m, equipement: formatEquipementAffiche(inventaire) } : m
+    ),
+  });
+
+  const acheterItem = (item: ShopItem, coutPaye: number) => {
+    const entree = creerEntreeInventaire(item, coutPaye);
+    const nouveauRoster = acheterPourMembre(roster, membre.instance_id, entree);
+    updateRoster(avecEquipementSynchronise(nouveauRoster, [...membre.inventaire, entree]));
+  };
+
+  // Retire l'objet et rembourse son coût : sert à annuler un achat.
+  const retirerItem = (instanceId: string) => {
+    const entree = membre.inventaire.find((e) => e.instance_id === instanceId);
+    if (!entree) return;
+    const sansItem = retirerDeMembre(roster, membre.instance_id, instanceId);
+    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
+    updateRoster(avecEquipementSynchronise({ ...sansItem, tresorerie: sansItem.tresorerie + entree.cout }, inventaire));
+  };
+
+  const renvoyerStockItem = (instanceId: string) => {
+    const nouveauRoster = transfererVersStock(roster, membre, instanceId);
+    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
+    updateRoster(avecEquipementSynchronise(nouveauRoster, inventaire));
   };
 
   const editerStat = (k: keyof Stats, value: number) => {
@@ -303,19 +343,38 @@ export function PersonnageScreen() {
 
       <div className="card">
         <h3>Équipement</h3>
-        <textarea
-          value={membre.equipement}
-          onChange={(e) => majMembre({ equipement: e.target.value })}
-          placeholder="Épée, armure légère, pistolet…"
-          style={{
-            width: '100%',
-            background: 'var(--bg-inset)',
-            border: '1px solid var(--border)',
-            borderRadius: 'var(--radius)',
-            padding: '0.5rem 0.6rem',
-            minHeight: '4em',
-          }}
-        />
+        {membre.inventaire.length > 0 ? (
+          <textarea
+            value={membre.equipement}
+            readOnly
+            style={{
+              width: '100%',
+              background: 'var(--bg-inset)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius)',
+              padding: '0.5rem 0.6rem',
+              minHeight: '4em',
+              color: 'var(--text-muted)',
+            }}
+          />
+        ) : (
+          <textarea
+            value={membre.equipement}
+            onChange={(e) => majMembre({ equipement: e.target.value })}
+            placeholder="Épée, armure légère, pistolet… (ou utilise « Acheter » ci-dessous)"
+            style={{
+              width: '100%',
+              background: 'var(--bg-inset)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius)',
+              padding: '0.5rem 0.6rem',
+              minHeight: '4em',
+            }}
+          />
+        )}
+        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.4rem' }}>
+          Rempli automatiquement dès qu'un objet est acheté dans la rubrique Équipement, sous les compétences.
+        </p>
       </div>
 
       {profil.type === 'animal' ? (
@@ -375,6 +434,45 @@ export function PersonnageScreen() {
           />
         </div>
       )}
+
+      <div className="card">
+        <div className="flex justify-between items-center">
+          <h3 className="mt-0 mb-0">Équipement</h3>
+          <button className="btn btn--sm" onClick={() => setModalAchat(true)}>
+            + Acheter
+          </button>
+        </div>
+        {membre.inventaire.length === 0 && <p className="text-muted text-sm">Aucun objet acheté.</p>}
+        {membre.inventaire.map((entree) => (
+          <div key={entree.instance_id} className="list-item">
+            <div className="list-item__main">
+              <div className="list-item__title">{entree.nom}</div>
+              <div className="list-item__subtitle">
+                {entree.categorie} · {entree.cout} po
+                {entree.cout_notation ? ` (jet : ${entree.cout_notation})` : ''}
+              </div>
+            </div>
+            <div className="flex gap-sm">
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
+                onClick={() => renvoyerStockItem(entree.instance_id)}
+                title="Renvoyer au stock de la bande"
+              >
+                ↩
+              </button>
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
+                onClick={() => retirerItem(entree.instance_id)}
+                title="Retirer et rembourser la trésorerie"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
       <div className="card">
         <h3>Règles spéciales / Sorts connus / mutations</h3>
@@ -493,6 +591,15 @@ export function PersonnageScreen() {
           member={membre}
           onClose={() => setModalBlessure(false)}
           onApply={(updated) => majMembre(updated)}
+        />
+      )}
+      {modalAchat && (
+        <AchatEquipementModal
+          catalogue={catalogue}
+          profil={profil}
+          tresorerie={roster.tresorerie}
+          onClose={() => setModalAchat(false)}
+          onAchat={acheterItem}
         />
       )}
       {modalSuppression && (

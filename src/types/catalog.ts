@@ -60,6 +60,11 @@ export type Profile = {
   stats: Stats | null;
   acces_competences: SkillCategory[];
   acces_competences_a_verifier?: boolean;
+  // Clés du catalogue `WarbandCatalog.equipement` accessibles à ce profil
+  // pour l'achat en jeu. Non renseigné = accès à toutes les listes de la
+  // bande (repli par défaut, tant que ce champ n'est pas encore rempli
+  // partout).
+  acces_equipement?: string[];
   xp_depart?: number;
   peut_lancer_sorts?: boolean;
   categorie_magie?: string;
