@@ -149,83 +149,71 @@
   "equipement": {
     "ostlanders": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Lance", "cout": 5 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "lance", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armes_tir": [
-        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" },
-        { "nom": "Arc", "cout": 10 }
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "arc", "cout": 10 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Armure lourde", "cout": 50 },
-        { "nom": "Casque", "cout": 10 },
-        { "nom": "Bouclier", "cout": 5 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
       ]
     },
     "vauriens": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
-      "armures": [{ "nom": "Armure légère", "cout": 20 }]
+      "armures": [{ "item_id": "armure_legere", "cout": 20 }]
     },
     "jaegers": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Lance", "cout": 5 },
-        { "nom": "Épée", "cout": 10 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "lance", "cout": 5 },
+        { "item_id": "epee", "cout": 10 }
       ],
       "armes_tir": [
-        { "nom": "Arc", "cout": 10 },
-        { "nom": "Arquebuse", "cout": 35 },
-        { "nom": "Tromblon", "cout": 30 },
-        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" },
-        { "nom": "Pistolet à double canon", "cout": 30, "note": "60 CO la paire" },
-        { "nom": "Long fusil du Hochland", "cout": 200 },
-        { "nom": "Long fusil du Hochland à double canon", "cout": 300 }
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arquebuse", "cout": 35 },
+        { "item_id": "tromblon", "cout": 30 },
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "pistolet_double_canon", "cout": 30, "note": "60 CO la paire" },
+        { "item_id": "long_fusil_du_hochland", "cout": 200 },
+        { "item_id": "long_fusil_hochland_double_canon", "cout": 300 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Casque", "cout": 10 },
-        { "nom": "Bouclier", "cout": 5 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
       ]
     },
     "ogres": {
       "armes_cac": [
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
-      "armures": [{ "nom": "Armure légère", "cout": 20 }]
+      "armures": [{ "item_id": "armure_legere", "cout": 20 }]
     }
   },
   "equipement_special": [
-    {
-      "id": "pistolet_a_double_canon",
-      "nom": "Pistolet à double canon",
-      "cout": 30,
-      "disponibilite": "Rare 10, 60 CO la paire",
-      "texte": "Une arme à feu à double canon est traitée comme une version normale à une exception près : tout ennemi est frappé par deux tirs au lieu d'un (un pistolet provoque 2 touches de F4 plutôt qu'une pour chaque coup réussi). Chaque canon nécessite un tour complet pour être rechargé (deux tours pour les deux canons). Si un seul canon est rechargé, il s'utilise comme une arme normale. Avec une paire de pistolets à double canon, il est possible de tirer tous les deux tours (au lieu d'une fois par tour comme pour une paire normale)."
-    },
-    {
-      "id": "long_fusil_du_hochland_a_double_canon",
-      "nom": "Long fusil du Hochland à double canon",
-      "cout": 300,
-      "disponibilite": "Rare 12",
-      "texte": "Applique les mêmes règles de double tir/double rechargement que le Pistolet à double canon, appliquées à un Long fusil du Hochland."
-    }
+    { "item_id": "pistolet_double_canon", "cout": 30, "disponibilite": "Rare 10, 60 CO la paire" },
+    { "item_id": "long_fusil_hochland_double_canon", "cout": 300, "disponibilite": "Rare 12" }
   ],
   "magie": {
     "nom": "Prières de Taal",

@@ -163,81 +163,50 @@
   "equipement": {
     "orques": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Hallebarde", "cout": 10 },
-        { "nom": "Lance", "cout": 10 },
-        { "nom": "Morgenstern", "cout": 15 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "morgenstern", "cout": 15 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armes_tir": [
-        { "nom": "Arbalète", "cout": 25 },
-        { "nom": "Arc", "cout": 10 }
+        { "item_id": "arbalete", "cout": 25 },
+        { "item_id": "arc", "cout": 10 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Casque", "cout": 10 },
-        { "nom": "Bouclier", "cout": 5 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
       ]
     },
     "gobelins": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Lance", "cout": 10 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 }
       ],
       "armes_tir": [
-        { "nom": "Arc Court", "cout": 5 }
+        { "item_id": "arc_court", "cout": 5 }
       ],
       "armures": [
-        { "nom": "Casque", "cout": 10 },
-        { "nom": "Bouclier", "cout": 5 }
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
       ],
       "divers": [
-        { "nom": "Aiguillon à squigs", "cout": 15 },
-        { "nom": "Chaîne & boulet", "cout": 15, "restriction": "Gobelins uniquement" },
-        { "nom": "Champignons bonnets de fou", "cout": 25, "restriction": "Si la bande comprend au moins un Gobelin" }
+        { "item_id": "aiguillon_a_squigs", "cout": 15 },
+        { "item_id": "chaine_et_boulet_cac", "cout": 15, "restriction": "Gobelins uniquement" },
+        { "item_id": "champignons_bonnets_de_fou_market", "cout": 25, "restriction": "Si la bande comprend au moins un Gobelin" }
       ]
     }
   },
   "equipement_special": [
-    {
-      "id": "chaine_et_boulet",
-      "nom": "Chaîne & boulet",
-      "cout": 15,
-      "disponibilite": "Commune (Gobelins uniquement)",
-      "portee": "Corps à corps",
-      "force": "Utilisateur+2",
-      "regles_speciales": [
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "texte": "Combinée avec les règles Force Colossale, Épuisante, Imprévisible, Encombrante." },
-        { "nom": "Encombrante", "texte": "Une figurine équipée de cette arme ne peut porter aucune autre arme ni équipement. Seule une figurine sous l'influence des champignons bonnets de fou dispose de la force nécessaire pour la manier." },
-        { "nom": "Force colossale", "texte": "Aucune sauvegarde d'armure n'est permise contre les blessures infligées par cette arme. Toute blessure subie inflige 1D3 PV au lieu d'un seul." },
-        { "nom": "Épuisante", "texte": "Après la bataille, chaque figurine ayant utilisé une chaîne & boulet doit effectuer un jet de Blessure comme si elle avait été mise hors de combat (un seul jet si elle l'a effectivement été)." },
-        { "nom": "Imprévisible", "texte": "Le tour où le guerrier commence à faire tournoyer son boulet, il est déplacé de 2D6ps dans une direction définie par le joueur. Aux phases de Mouvement suivantes, lancez 1D6 : 1 = la figurine s'étrangle et est mise hors de combat (tuée sur 1-3 au jet de Blessure Grave) ; 2-5 = déplacée de 2D6ps dans la direction voulue ; 6 = déplacée de 2D6ps dans une direction aléatoire. Si elle heurte un bâtiment/mur/obstacle, elle est immédiatement mise hors de combat. Une figurine adverse subit -1 pour toucher le porteur." },
-        { "nom": "Cinglé", "texte": "Le guerrier est immunisé aux règles d'animosité." }
-      ]
-    },
-    {
-      "id": "aiguillon_a_squigs",
-      "nom": "Aiguillon à squigs",
-      "cout": 15,
-      "disponibilite": "Commun (Gobelins uniquement)",
-      "texte": "Un gobelin équipé d'un aiguillon à squig peut contrôler tout Squig dans un rayon de 12ps au lieu des 6ps normaux. De plus, un aiguillon à squig est considéré comme une lance en ce qui concerne les combats au Corps à Corps."
-    },
-    {
-      "id": "champignons_bonnets_de_fou",
-      "nom": "Champignons bonnets de fou",
-      "cout": 25,
-      "disponibilite": "Commun (si la bande comprend au moins un Gobelin)",
-      "texte": "Indispensables à quiconque voudrait manier une chaîne & boulet. Un Guerrier Gobelin peut les absorber au début de n'importe quel tour.",
-      "regles_speciales": [
-        { "nom": "Effet", "texte": "Un guerrier consommant des bonnets de fou avant une bataille sera sujet à la frénésie." },
-        { "nom": "Effets secondaires", "texte": "Après la bataille, lancez 1D6. Sur un 1, la figurine devient stupide de manière définitive." }
-      ]
-    }
+    { "item_id": "chaine_et_boulet_cac", "cout": 15, "disponibilite": "Commune (Gobelins uniquement)" },
+    { "item_id": "aiguillon_a_squigs", "cout": 15, "disponibilite": "Commun (Gobelins uniquement)" },
+    { "item_id": "champignons_bonnets_de_fou_market", "cout": 25, "disponibilite": "Commun (si la bande comprend au moins un Gobelin)" }
   ],
   "magie": {
     "nom": "Magie Waaagh !",

@@ -137,98 +137,48 @@
   "equipement": {
     "heros_skavens": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Fléau", "cout": 15 },
-        { "nom": "Lance", "cout": 10 },
-        { "nom": "Hallebarde", "cout": 10 },
-        { "nom": "Lames suintantes (paire)", "cout": 50 },
-        { "nom": "Griffes de combat (paire)", "cout": 35 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "fleau", "cout": 15 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "lames_suintantes", "cout": 50 },
+        { "item_id": "griffes_de_combat", "cout": 35 }
       ],
       "armes_tir": [
-        { "nom": "Fronde", "cout": 2 },
-        { "nom": "Arme de jet (étoile, couteau, etc.)", "cout": 15 },
-        { "nom": "Sarbacane", "cout": 25 },
-        { "nom": "Pistolet à Malepierre", "cout": 35, "note": "70 CO la paire" }
+        { "item_id": "fronde", "cout": 2 },
+        { "item_id": "arme_de_jet", "cout": 15 },
+        { "item_id": "sarbacane", "cout": 25 },
+        { "item_id": "pistolet_a_malepierre", "cout": 35, "note": "70 CO la paire" }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Rondache", "cout": 5 },
-        { "nom": "Casque", "cout": 10 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "rondache", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
       ]
     },
     "hommes_de_main_skavens": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Lance", "cout": 10 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 }
       ],
       "armes_tir": [
-        { "nom": "Fronde", "cout": 2 }
+        { "item_id": "fronde", "cout": 2 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Bouclier", "cout": 5 },
-        { "nom": "Casque", "cout": 10 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
       ]
     }
   },
   "equipement_special": [
-    {
-      "id": "sarbacane",
-      "nom": "Sarbacane",
-      "cout": 25,
-      "disponibilite": "Rare 7, skavens uniquement",
-      "portee": "8ps",
-      "force": "1",
-      "sauvegarde": "+1",
-      "regles_speciales": [
-        { "nom": "Poison", "texte": "Les aiguilles sont enduites d'un venin similaire à celui du Lotus Noir (un 6 pour toucher blesse automatiquement la cible). Ne peut pas infliger de coups critiques. Dotée d'un modificateur de sauvegarde positif : une figurine avec sauvegarde de 5+ aura 4+ contre les tirs de sarbacane ; les figurines sans sauvegarde en obtiennent une de 6+." },
-        { "nom": "Furtivité", "texte": "Un skaven armé d'une sarbacane peut tirer en étant caché sans révéler sa position. La cible peut faire un test d'Initiative pour repérer le skaven ; si réussi, il n'est plus caché." }
-      ]
-    },
-    {
-      "id": "pistolet_a_malepierre",
-      "nom": "Pistolet à malepierre",
-      "cout": 35,
-      "note": "70 CO la paire",
-      "disponibilite": "Rare 11, skavens uniquement",
-      "portee": "8ps",
-      "force": "5",
-      "sauvegarde": "-3",
-      "regles_speciales": [
-        { "nom": "Tire 1 tour sur 2", "texte": "Ces pistolets, fabriqués à partir de fragments de malepierre ensorcelés, causent d'horribles blessures mais ne peuvent être tirés qu'un tour sur deux." }
-      ]
-    },
-    {
-      "id": "griffes_de_combat",
-      "nom": "Griffes de combat (paire)",
-      "cout": 35,
-      "disponibilite": "Rare 7, skavens uniquement",
-      "portee": "C à C",
-      "force": "Utilisateur",
-      "regles_speciales": [
-        { "nom": "Paire", "texte": "Traditionnellement utilisées par paire, une dans chaque main. Un guerrier avec des griffes gagne +1 Attaque." },
-        { "nom": "Grimpeur", "texte": "Un skaven équipé d'une paire de griffes gagne +1 en Initiative pour les tests d'escalade." },
-        { "nom": "Parade", "texte": "Un skaven armé d'une paire de griffes peut parer les coups et faire une relance, comme s'il était équipé d'une épée et d'une rondache." },
-        { "nom": "Encombrant", "texte": "Une figurine équipée de griffes ne peut pas utiliser d'autres armes durant toute la partie." }
-      ]
-    },
-    {
-      "id": "lames_suintantes",
-      "nom": "Lames suintantes (paire)",
-      "cout": 50,
-      "note": "la paire",
-      "disponibilite": "Rare 9, skavens uniquement",
-      "portee": "C à C",
-      "force": "Utilisateur",
-      "regles_speciales": [
-        { "nom": "Paire", "texte": "Traditionnellement utilisées par paires. Un guerrier équipé d'une paire de lames suintantes gagne +1 Attaque." },
-        { "nom": "Venin", "texte": "Équivalentes à des armes enduites de Lotus Noir en permanence ; aucun autre poison ne peut y être ajouté." },
-        { "nom": "Parade", "texte": "Les lames suintantes sont des épées et peuvent servir à effectuer des parades." }
-      ]
-    }
+    { "item_id": "sarbacane", "cout": 25, "disponibilite": "Rare 7, skavens uniquement" },
+    { "item_id": "pistolet_a_malepierre", "cout": 35, "disponibilite": "Rare 11, skavens uniquement" },
+    { "item_id": "griffes_de_combat", "cout": 35, "disponibilite": "Rare 7, skavens uniquement" },
+    { "item_id": "lames_suintantes", "cout": 50, "disponibilite": "Rare 9, skavens uniquement" }
   ],
   "magie": {
     "nom": "Magie du Rat Cornu",

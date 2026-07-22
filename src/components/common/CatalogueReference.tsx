@@ -1,4 +1,5 @@
 import type { WarbandCatalog } from '../../types/catalog';
+import { getItem } from '../../data/items';
 
 const LISTES_EQUIPEMENT = ['armes_cac', 'armes_tir', 'armures', 'divers'] as const;
 
@@ -28,10 +29,11 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
                 groupes[cat]!.length > 0 && (
                   <p key={cat} className="text-sm mb-0">
                     {groupes[cat]!
-                      .map(
-                        (it) =>
-                          `${it.nom} (${it.cout}${typeof it.cout === 'number' ? ' po' : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`
-                      )
+                      .map((it) => {
+                        const ref = getItem(it.item_id);
+                        const nom = ref?.nom ?? it.item_id;
+                        return `${nom} (${it.cout}${typeof it.cout === 'number' ? ' po' : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`;
+                      })
                       .join(' · ')}
                   </p>
                 )
@@ -43,15 +45,17 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
           <p className="text-sm mb-0">
             <strong>Objets rares</strong>
           </p>
-          {catalogue.equipement_special!.map((it) => (
-            <p key={it.id} className="text-sm mb-0">
-              <strong>{it.nom}</strong> ({it.cout}
-              {typeof it.cout === 'number' ? ' po' : ''}
-              {it.disponibilite ? ` — ${it.disponibilite}` : ''}) — {it.texte}
-              {it.regles_speciales?.map((r) => ` ${r.nom} : ${r.texte}`).join(' ')}
-              {it.note && <span className="text-muted"> ({it.note})</span>}
-            </p>
-          ))}
+          {catalogue.equipement_special!.map((it) => {
+            const ref = getItem(it.item_id);
+            return (
+              <p key={it.item_id} className="text-sm mb-0">
+                <strong>{ref?.nom ?? it.item_id}</strong> ({it.cout}
+                {typeof it.cout === 'number' ? ' po' : ''}
+                {it.disponibilite ? ` — ${it.disponibilite}` : ''}) — {ref?.texte}
+                {ref?.regles_speciales?.map((r) => ` ${r.nom} : ${r.texte}`).join(' ')}
+              </p>
+            );
+          })}
         </div>
       )}
     </div>

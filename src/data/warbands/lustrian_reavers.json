@@ -141,130 +141,61 @@
   "equipement": {
     "heroes": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "1st free" },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Misericordia", "cout": 10, "note": "voir équipement spécial" },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
-        { "nom": "Lance", "cout": 40, "restriction": "Mounted models only" }
+        { "item_id": "dague", "cout": 2, "note": "1st free" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "misericordia", "cout": 10, "note": "voir équipement spécial" },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "lance", "cout": 40, "restriction": "Mounted models only" }
       ],
       "armes_tir": [
-        { "nom": "Javelots", "cout": 10, "note": "voir équipement spécial" },
-        { "nom": "Arme de jet (étoile, couteau, etc.)", "cout": 15 },
-        { "nom": "Sarbacane", "cout": 15 },
-        { "nom": "Pistolet", "cout": 15 }
+        { "item_id": "javelots", "cout": 10, "note": "voir équipement spécial" },
+        { "item_id": "arme_de_jet", "cout": 15 },
+        { "item_id": "sarbacane", "cout": 15 },
+        { "item_id": "pistolet", "cout": 15 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Bouclier", "cout": 10 },
-        { "nom": "Casque", "cout": 10 },
-        { "nom": "Rondache", "cout": 10 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "bouclier", "cout": 10 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "rondache", "cout": 10 }
       ],
       "divers": [
-        { "nom": "Corde et grappin", "cout": 5 },
-        { "nom": "Ombre cramoisie", "cout": 35 },
-        { "nom": "Venin sombre", "cout": 30 },
-        { "nom": "Filet", "cout": 5 },
-        { "nom": "Destriers", "cout": 80 },
-        { "nom": "Chien de guerre", "cout": 20 }
+        { "item_id": "corde_et_grappin", "cout": 5 },
+        { "item_id": "ombre_cramoisie", "cout": 35 },
+        { "item_id": "venin_sombre", "cout": 30 },
+        { "item_id": "filet", "cout": 5 },
+        { "item_id": "destriers", "cout": 80 },
+        { "item_id": "chien_de_guerre", "cout": 20 }
       ]
     },
     "prospects": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "1st free" },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Lance", "cout": 10 }
+        { "item_id": "dague", "cout": 2, "note": "1st free" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "lance", "cout": 10 }
       ],
-      "armes_tir": [{ "nom": "Arc court", "cout": 5 }],
+      "armes_tir": [{ "item_id": "arc_court", "cout": 5 }],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Bouclier", "cout": 10 },
-        { "nom": "Casque", "cout": 10 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "bouclier", "cout": 10 },
+        { "item_id": "casque", "cout": 10 }
       ]
     }
   },
   "equipement_special": [
-    {
-      "id": "masterwork_heavy_armour",
-      "nom": "Armure lourde de maître",
-      "cout": "—",
-      "texte": "A Tilean heirloom of nigh-impenetrable craftsmanship. Grants a 4+ Armour Save, but suffers -1 Movement without a shield."
-    },
-    {
-      "id": "bec_de_corbin",
-      "nom": "Bec de Corbin",
-      "cout": "—",
-      "texte": "A Tilean polearm combining the best aspects of a Halberd, Spear and Warhammer. Requires two hands. The wielder strikes in Initiative order when charged instead of going last, and gains +1 Strength. When rolling for Injuries, a 2-4 is treated as Stunned when rolling on the Injury chart (Dwarfs are immune to this effect)."
-    },
-    {
-      "id": "javelin",
-      "nom": "Javelots",
-      "cout": 10,
-      "portee": "8\"",
-      "texte": "A light throwing spear in the tradition of the ancient Reman legions, or captured from native Skinks. Suffers no penalty for moving and shooting."
-    },
-    {
-      "id": "misericordia",
-      "nom": "Misericordia",
-      "cout": 10,
-      "texte": "A long dagger designed to kill downed opponents through chinks in armour and vulnerable spots like the eyes or throat. Uses the same rules as a dagger, but when attacking a downed enemy, roll 2D6 and pick the highest number for the 'to wound' roll."
-    },
-    {
-      "id": "firepots_of_miragliano",
-      "nom": "Grenade de Miragliano",
-      "cout": "—",
-      "portee": "8\"",
-      "texte": "Primitive clay hand grenades filled with alchemic Tilean Fire that bursts into flame when exposed to air; suffers no penalty at long range. On a hit, the target suffers 1 Strength 2 hit from the bursting flames, and must roll under its Initiative at the start of its next turn to see through the resulting smoke — on a failure, it cannot charge or shoot until the beginning of the turn after that, though it may still move or fight in hand-to-hand combat normally."
-    },
-    {
-      "id": "lizardmen_skin_cloak",
-      "nom": "Cape en peau des hommes-lézards",
-      "cout": 10,
-      "disponibilite": "Saurus Slayer uniquement",
-      "texte": "Grants a 6+ Ward save, separate from the Armour Save and unaffected by enemy Strength or other modifiers."
-    },
-    {
-      "id": "skull_mask",
-      "nom": "Masque de crâne",
-      "cout": 15,
-      "disponibilite": "Saurus Slayer uniquement",
-      "texte": "Causes fear."
-    },
-    {
-      "id": "lizardman_sword_upgrade",
-      "nom": "Lame homme-lézard",
-      "cout": 30,
-      "disponibilite": "Saurus Slayer uniquement",
-      "texte": "Upgrades any sword: +1 to wound rolls due to poison."
-    },
-    {
-      "id": "trophy_slann_holy_headdress",
-      "nom": "Trophée Coiffe sacrée de Slann",
-      "cout": 35,
-      "disponibilite": "Saurus Slayer uniquement",
-      "texte": "+2 bonus to armour saves."
-    },
-    {
-      "id": "estalian_warhound",
-      "nom": "Molosse estalien",
-      "cout": 25,
-      "disponibilite": "Reaver Beastmaster uniquement, max 2",
-      "texte": "M6 WS4 BS0 S4 T3 W1 I4 A1 Ld5, armour save 5+. Follows the Animals rule (never gains experience), injuries as Henchmen."
-    },
-    {
-      "id": "barbary_monkey",
-      "nom": "Singe de Barbarie",
-      "cout": 40,
-      "disponibilite": "Reaver Beastmaster uniquement, max 1",
-      "texte": "M6 WS4 BS0 S3 T3 W1 I5 A2 Ld6. Nimble: can climb any sheer surface without Initiative tests, may re-roll all failed Diving Charge tests, can enter buildings unlike other animals, and grants a 5+ Ward save against any wound (melee, shooting, magic, falling)."
-    },
-    {
-      "id": "tilean_hunting_hawk",
-      "nom": "Oiseau de proie",
-      "cout": 30,
-      "disponibilite": "Reaver Beastmaster uniquement, max 1",
-      "texte": "M12 WS4 BS0 S4 T3 I5 A1. Counts as part of the Beastmaster's equipment. Acts at the same time as the Beastmaster and can attack any enemy within 12\" as a melee attack, even out of line of sight (unless Hidden), returning to the Beastmaster immediately. Cannot be targeted separately by any attack or spell. Does not attack if the Beastmaster is engaged in hand-to-hand combat."
-    }
+    { "item_id": "armure_lourde_de_maitre", "cout": "—" },
+    { "item_id": "bec_de_corbin", "cout": "—" },
+    { "item_id": "javelots", "cout": 10 },
+    { "item_id": "misericordia", "cout": 10 },
+    { "item_id": "grenade_de_miragliano", "cout": "—" },
+    { "item_id": "cape_en_peau_des_hommes_lezards", "cout": 10, "disponibilite": "Saurus Slayer uniquement" },
+    { "item_id": "masque_de_crane", "cout": 15, "disponibilite": "Saurus Slayer uniquement" },
+    { "item_id": "lame_homme_lezard", "cout": 30, "disponibilite": "Saurus Slayer uniquement" },
+    { "item_id": "trophee_coiffe_sacree_de_slann", "cout": 35, "disponibilite": "Saurus Slayer uniquement" },
+    { "item_id": "molosse_estalien", "cout": 25, "disponibilite": "Reaver Beastmaster uniquement, max 2" },
+    { "item_id": "singe_de_barbarie", "cout": 40, "disponibilite": "Reaver Beastmaster uniquement, max 1" },
+    { "item_id": "oiseau_de_proie", "cout": 30, "disponibilite": "Reaver Beastmaster uniquement, max 1" }
   ]
 }

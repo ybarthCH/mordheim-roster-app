@@ -230,118 +230,65 @@
   "equipement": {
     "heros": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Hallebarde", "cout": 10 },
-        { "nom": "Lance", "cout": 10 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
-        { "nom": "Bâton d'Boss", "cout": 20 },
-        { "nom": "Poignards empoisonnés (paire)", "cout": 25 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "baton_dboss", "cout": 20 },
+        { "item_id": "poignards_empoisonnes", "cout": 25 }
       ],
       "armes_tir": [
-        { "nom": "Fronde", "cout": 2 },
-        { "nom": "Arc court", "cout": 5 },
-        { "nom": "Arme de jet (étoile, couteau, etc.)", "cout": 15 }
+        { "item_id": "fronde", "cout": 2 },
+        { "item_id": "arc_court", "cout": 5 },
+        { "item_id": "arme_de_jet", "cout": 15 }
       ],
       "armures": [
-        { "nom": "Bouclier", "cout": 5 },
-        { "nom": "Casque", "cout": 10 },
-        { "nom": "Armure légère", "cout": 20 }
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "armure_legere", "cout": 20 }
       ],
       "divers": [
-        { "nom": "Filet", "cout": 5 },
-        { "nom": "Aiguillon à Squigs", "cout": 15 },
-        { "nom": "Champignons bonnets de fou", "cout": 15 }
+        { "item_id": "filet", "cout": 5 },
+        { "item_id": "aiguillon_a_squigs", "cout": 15 },
+        { "item_id": "champignons_bonnets_de_fou_market", "cout": 15 }
       ]
     },
     "hommes_de_main": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Lance", "cout": 5 },
-        { "nom": "Épée", "cout": 10 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "lance", "cout": 5 },
+        { "item_id": "epee", "cout": 10 }
       ],
-      "armes_tir": [{ "nom": "Arc court", "cout": 5 }],
+      "armes_tir": [{ "item_id": "arc_court", "cout": 5 }],
       "armures": [
-        { "nom": "Bouclier", "cout": 5 },
-        { "nom": "Armure légère", "cout": 20 }
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "armure_legere", "cout": 20 }
       ],
       "divers": [
-        { "nom": "Filet", "cout": 5 },
-        { "nom": "Aiguillon à Squigs", "cout": 15 },
-        { "nom": "Champignons bonnets de fou", "cout": 15 }
+        { "item_id": "filet", "cout": 5 },
+        { "item_id": "aiguillon_a_squigs", "cout": 15 },
+        { "item_id": "champignons_bonnets_de_fou_market", "cout": 15 }
       ]
     },
     "fanatiques": {
       "armes_cac": [
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
-        { "nom": "Chaîne & boulet", "cout": 15 },
-        { "nom": "Poignards empoisonnés (paire)", "cout": 25 }
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "chaine_et_boulet_cac", "cout": 15 },
+        { "item_id": "poignards_empoisonnes", "cout": 25 }
       ],
-      "divers": [{ "nom": "Champignons bonnets de fou", "cout": 15 }]
+      "divers": [{ "item_id": "champignons_bonnets_de_fou_market", "cout": 15 }]
     }
   },
   "equipement_special": [
-    {
-      "id": "chaine_et_boulet",
-      "nom": "Chaîne & boulet",
-      "cout": 15,
-      "disponibilite": "Commune, Fanatiques Gobelins de la Nuit uniquement",
-      "portee": "C à C",
-      "force": "U+2",
-      "regles_speciales": [
-        { "nom": "Encombrante", "texte": "Aucune autre arme ni équipement ; seule une figurine sous champignons bonnets de fou peut la manier." },
-        { "nom": "Force colossale", "texte": "Aucune sauvegarde d'armure permise ; chaque Blessure inflige 1D3 PV." },
-        { "nom": "Épuisante", "texte": "Après la bataille, jet de Blessure comme si mis hors de combat (un seul jet si déjà mis hors de combat)." },
-        { "nom": "Imprévisible", "texte": "Le premier tour, le porteur est déplacé de 2D6ps dans une direction choisie ; ensuite, jet aléatoire chaque phase de Mouvement (1 = mort, mise hors de combat définitive ; 2-5 = déplacement dirigé ; 6 = déplacement aléatoire). Un contact avec une figurine vaut charge. Un adversaire l'attaquant subit -1 pour toucher. Ne reste pas bloqué au corps à corps entre les phases. Un choc contre un obstacle met la figurine hors de combat." },
-        { "nom": "Cinglé", "texte": "Immunisé aux règles d'animosité." }
-      ]
-    },
-    {
-      "id": "champignons_bonnets_de_fou",
-      "nom": "Champignons bonnets de fou",
-      "cout": 15,
-      "disponibilite": "Commun",
-      "texte": "Nécessaires pour manier une chaîne & boulet, brasser la bière de champignons, ou permettre à un Fanatique de participer à la bataille.",
-      "regles_speciales": [
-        { "nom": "Effet", "texte": "Un guerrier qui en consomme avant la bataille est sous frénésie." },
-        { "nom": "Effets secondaires", "texte": "Après la bataille, sur un 1, la figurine devient stupide de façon définitive (sauf tant qu'elle est sous frénésie liée aux bonnets de fou)." }
-      ]
-    },
-    {
-      "id": "filet",
-      "nom": "Filet",
-      "cout": 5,
-      "disponibilite": "Commun",
-      "texte": "Une fois par partie, jetable en phase de Tir (portée 8ps, CT du lanceur, sans malus de portée ou mouvement) au lieu d'une arme normale. Cible touchée : jet de Force ; échec = immobilisée et incapable de tirer/lancer un sort au tour suivant. Le filet est perdu dans tous les cas."
-    },
-    {
-      "id": "aiguillon_a_squigs",
-      "nom": "Aiguillon à squigs",
-      "cout": 15,
-      "disponibilite": "Commun, Gobelins uniquement",
-      "texte": "Étend le rayon de contrôle des Squigs à 12ps au lieu de 6ps ; compte comme une lance au corps à corps."
-    },
-    {
-      "id": "baton_dboss",
-      "nom": "Bâton d'Boss",
-      "cout": 20,
-      "disponibilite": "Commun, Gobelins de la Nuit uniquement",
-      "texte": "Permet au Héros et aux Gobelins à moins de 6ps et en ligne de vue d'ignorer l'animosité ; compte comme une lance au corps à corps."
-    },
-    {
-      "id": "poignards_empoisonnes",
-      "nom": "Poignards empoisonnés (paire)",
-      "cout": 25,
-      "disponibilite": "Commun, Gobelins de la Nuit uniquement",
-      "portee": "C à C",
-      "force": "U",
-      "regles_speciales": [
-        { "nom": "Paire", "texte": "+1 Attaque en les utilisant par paire." },
-        { "nom": "Empoisonnées", "texte": "Blessent automatiquement sur un 6 pour toucher ; sur ce 6, un jet supplémentaire détermine un Coup Critique (autre 6) ou une Blessure normale, sauvegarde d'armure normale." }
-      ]
-    }
+    { "item_id": "chaine_et_boulet_cac", "cout": 15, "disponibilite": "Commune, Fanatiques Gobelins de la Nuit uniquement" },
+    { "item_id": "champignons_bonnets_de_fou_market", "cout": 15, "disponibilite": "Commun" },
+    { "item_id": "filet", "cout": 5, "disponibilite": "Commun" },
+    { "item_id": "aiguillon_a_squigs", "cout": 15, "disponibilite": "Commun, Gobelins uniquement" },
+    { "item_id": "baton_dboss", "cout": 20, "disponibilite": "Commun, Gobelins de la Nuit uniquement" },
+    { "item_id": "poignards_empoisonnes", "cout": 25, "disponibilite": "Commun, Gobelins de la Nuit uniquement" }
   ],
   "magie": {
     "nom": "Magie Gobeline",

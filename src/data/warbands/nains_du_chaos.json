@@ -161,126 +161,54 @@
   "equipement": {
     "nains_du_chaos": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Fouet d'acier", "cout": 10, "restriction": "Geôlier uniquement" },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
-        { "nom": "Pince", "cout": 25 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "fouet_dacier", "cout": 10, "restriction": "Geôlier uniquement" },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "pince_market", "cout": 25 }
       ],
       "armes_tir": [
-        { "nom": "Pistolet", "cout": 15, "note": "30 CO la paire" },
-        { "nom": "Tromblon", "cout": 30 },
-        { "nom": "Arquebuse", "cout": 35 }
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "tromblon", "cout": 30 },
+        { "item_id": "arquebuse", "cout": 35 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Armure lourde", "cout": 50 },
-        { "nom": "Exosquelette", "cout": 175 },
-        { "nom": "Casque", "cout": 10 },
-        { "nom": "Bouclier", "cout": 5 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "exosquelette", "cout": 175 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
       ],
-      "divers": [{ "nom": "Machine du Chaos", "cout": 125 }]
+      "divers": [{ "item_id": "machine_du_chaos", "cout": 125 }]
     },
     "delateurs": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Lance", "cout": 10 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "lance", "cout": 10 }
       ],
       "armes_tir": [
-        { "nom": "Fronde", "cout": 2 },
-        { "nom": "Arc", "cout": 10 }
+        { "item_id": "fronde", "cout": 2 },
+        { "item_id": "arc", "cout": 10 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Casque", "cout": 10 },
-        { "nom": "Bouclier", "cout": 5 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
       ]
     }
   },
   "equipement_special": [
-    {
-      "id": "arme_en_obsidienne",
-      "nom": "Arme en obsidienne",
-      "cout": "Prix de l'arme de base x4",
-      "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
-      "texte": "Donne à son utilisateur +1 en Force au combat au corps à corps. On choisit le type d'arme de corps à corps proposé.",
-      "regles_speciales": [
-        { "nom": "Corrompue", "texte": "Ne peut jamais être utilisée par les Nains, les Elfes, les Sœurs de Sigmar, les Répurgateurs ou les Prêtres." },
-        { "nom": "Frappe en dernier", "texte": "Les armes en obsidienne sont si lourdes que l'on frappe toujours en dernier avec, même en ayant chargé." }
-      ]
-    },
-    {
-      "id": "pince",
-      "nom": "Pince",
-      "cout": 25,
-      "disponibilite": "Rare 10, Geôliers Nains du Chaos uniquement",
-      "portee": "C à C",
-      "force": "U",
-      "regles_speciales": [
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "texte": "Interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
-        { "nom": "Capture", "texte": "Un combattant mis hors de combat grâce à une pince est capturé, à moins que la bande ne soit mise en Déroute. Pas de jet sur le tableau des Blessures Graves pour la victime. Les grandes cibles (Ogres, Trolls, Minotaures) et les animaux ne peuvent pas être capturés de cette manière." }
-      ]
-    },
-    {
-      "id": "fouet_dacier",
-      "nom": "Fouet d'acier",
-      "cout": 10,
-      "disponibilite": "Commun, Sœurs de Sigmar, Nains du Chaos uniquement",
-      "portee": "C à C",
-      "force": "U",
-      "regles_speciales": [
-        { "nom": "Claquement", "texte": "+1 Attaque lorsqu'il charge, en plus de tout autre bonus. Lorsqu'il est chargé, gagne aussi +1A utilisable uniquement contre le combattant qui le charge, frappant en premier. Ce bonus reste de +1A même si chargé par 2 ennemis ou plus. Avec deux fouets, +1A pour l'arme additionnelle, mais seul le premier fouet bénéficie du +1A de Claquement." },
-        { "nom": "Parade impossible", "texte": "Les tentatives de parade contre cette arme sont inutiles, que ce soit avec une épée ou une rondache." }
-      ]
-    },
-    {
-      "id": "exosquelette",
-      "nom": "Exosquelette",
-      "cout": 175,
-      "disponibilite": "Rare 14, Nains du Chaos uniquement",
-      "sauvegarde": "4+",
-      "regles_speciales": [
-        { "nom": "Prêt à démarrer", "texte": "Un sorcier équipé d'un exosquelette reçoit +3 au Mouvement." },
-        { "nom": "Armure du Chaos", "texte": "Un exosquelette compte comme une armure du Chaos et les règles associées s'appliquent." },
-        { "nom": "Coût", "texte": "Le coût est réduit d'1CO pour chaque point d'expérience possédé par le Héros." },
-        { "nom": "Don du Chaos", "texte": "Un Héros qui l'a acquis ne la donnera jamais à un membre de sa bande et l'équipera immédiatement. Elle ne pourra jamais être retirée." },
-        { "nom": "Jeteur de sorts", "texte": "N'empêche pas de lancer des sorts ou de faire des rituels, mais ne peut pas être combinée avec un bouclier ou une rondache." },
-        { "nom": "Rareté", "texte": "Lors de la recherche, +1 sur le jet pour chaque ennemi mis hors de combat lors de la bataille précédente." }
-      ]
-    },
-    {
-      "id": "armure_du_chaos",
-      "nom": "Armure du Chaos",
-      "cout": 185,
-      "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
-      "sauvegarde": "4+",
-      "regles_speciales": [
-        { "nom": "Coût", "texte": "Réduit d'1CO pour chaque point d'expérience possédé par le Héros." },
-        { "nom": "Don du Chaos", "texte": "Un Héros qui en fait l'acquisition ne la donnera jamais à un membre de sa bande et l'équipera immédiatement. Elle fusionne avec le porteur et ne peut jamais être retirée." },
-        { "nom": "Jeteurs de sorts", "texte": "N'empêche pas de lancer des sorts ou de faire des rituels, mais ne peut pas être combinée avec un bouclier ou une rondache." },
-        { "nom": "Rareté", "texte": "Lors de la recherche, +1 sur le jet pour chaque ennemi mis hors de combat lors de la bataille précédente." }
-      ]
-    },
-    {
-      "id": "machine_du_chaos",
-      "nom": "Machine du Chaos",
-      "cout": 125,
-      "disponibilite": "Rare 10, Nains du Chaos uniquement",
-      "texte": "Véhicule/prison vivante sur roues qui transporte les prisonniers vers les Terres Sombres.",
-      "regles_speciales": [
-        { "nom": "Chariot", "texte": "Suit toutes les règles sur les Chariots (Véhicules de l'Empire et Bateaux), sauf indication contraire." },
-        { "nom": "Démon", "texte": "Liée à un démon qui lui fournit son énergie. Toutes les références aux animaux tractant le chariot deviennent des références au démon. Son Mouvement n'est pas affecté par la cargaison." },
-        { "nom": "Passagers", "texte": "Un Nain du Chaos doit faire office de cocher. Seuls des prisonniers peuvent être passagers. Pas plus de six prisonniers (les grandes créatures comptent double)." },
-        { "nom": "Battre le fer", "texte": "Le cocher peut donner du fouet. Si la machine devient incontrôlable, se référer au tableau des pertes de contrôle. Un résultat 'Holà ! Tout doux !' est remplacé par : le Démon se libère, la machine se déplace de 6ps droit devant puis s'arrête, et ne peut plus se déplacer pour le reste de la bataille." },
-        { "nom": "Prisonniers", "texte": "Contre une bande de Nains du Chaos possédant une machine du Chaos, un résultat 'capturé' sur les Blessures Graves ou une mise hors de combat par une pince transforme toujours la victime en prisonnier (équipement perdu pour la bande adverse). Certains résultats des tableaux d'Exploration (Mordheim, Empire en Flammes) permettent d'acquérir des prisonniers. Les prisonniers peuvent être libérés en détruisant la machine ou avec les clés de la prison (obtenues en mettant hors de combat un Geôlier). Un porteur des clés en contact socle à socle avec la machine libère les prisonniers ; ceux-ci se déplacent vers le bord de table le plus proche et rejoignent leur bande d'origine si elle a participé, sinon utilisent le profil de base ou humain." },
-        { "nom": "Récompense de Hashut", "texte": "Après bataille, les prisonniers peuvent être déportés vers les Terres Sombres pour être sacrifiés à Hashut. La machine et un Héros sont alors absents lors de la prochaine bataille (sauf autre machine disponible). Une fois le Héros revenu, jet sur le tableau : 1-3 = +1 XP au Chef ; 4-5 = +1D3 XP à répartir entre les Héros ; 6 = +2D3 XP à répartir entre les Héros plus 1D6x5 CO." }
-      ]
-    }
+    { "item_id": "arme_en_obsidienne_market", "cout": "Prix de l'arme de base x4", "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
+    { "item_id": "pince_market", "cout": 25, "disponibilite": "Rare 10, Geôliers Nains du Chaos uniquement" },
+    { "item_id": "fouet_dacier", "cout": 10, "disponibilite": "Commun, Sœurs de Sigmar, Nains du Chaos uniquement" },
+    { "item_id": "exosquelette", "cout": 175, "disponibilite": "Rare 14, Nains du Chaos uniquement" },
+    { "item_id": "armure_du_chaos_market", "cout": 185, "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
+    { "item_id": "machine_du_chaos", "cout": 125, "disponibilite": "Rare 10, Nains du Chaos uniquement" }
   ],
   "magie": {
     "nom": "Rituels d'Hashut",

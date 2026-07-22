@@ -13,6 +13,7 @@ import { CompetencesPanel } from './CompetencesPanel';
 import { AvanceeModal } from './AvanceeModal';
 import { BlessureGraveModal } from './BlessureGraveModal';
 import { AchatEquipementModal } from './AchatEquipementModal';
+import { ItemDetailModal } from './ItemDetailModal';
 import { Modal } from '../common/Modal';
 import { EquipementReference, MagieReference } from '../common/CatalogueReference';
 import { avancesDues } from '../../utils/xp';
@@ -25,9 +26,12 @@ import {
   creerEntreeInventaire,
   formatEquipementAffiche,
   libelleCategorie,
+  resolveItemDetail,
+  resumeItem,
   prixVente,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
+import type { InventoryEntry } from '../../types/roster';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
@@ -54,6 +58,7 @@ export function PersonnageScreen() {
   const [modalSuppression, setModalSuppression] = useState(false);
   const [modalAchat, setModalAchat] = useState(false);
   const [nouveauSort, setNouveauSort] = useState('');
+  const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
 
   const membre = roster?.membres.find((m) => m.instance_id === instanceId);
   const profil = roster && membre ? resolveProfil(roster, membre) : undefined;
@@ -325,12 +330,27 @@ export function PersonnageScreen() {
           <strong>Équipement</strong>
         </p>
         {membre.inventaire.length > 0 ? (
-          membre.inventaire.map((entree) => (
-            <p key={entree.instance_id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-              {entree.nom}
-              <span className="text-muted"> — {libelleCategorie(entree.categorie)}</span>
-            </p>
-          ))
+          membre.inventaire.map((entree) => {
+            const detail = resolveItemDetail(entree);
+            const synopsis = resumeItem(detail);
+            return (
+              <p key={entree.instance_id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                <button
+                  className="btn--ghost"
+                  style={{ border: 'none', background: 'none', padding: 0, font: 'inherit', color: 'inherit' }}
+                  onClick={() => setItemDetail(entree)}
+                >
+                  <strong style={{ textDecoration: 'underline' }}>{entree.nom}</strong>
+                </button>
+                {synopsis && (
+                  <span className="text-muted">
+                    {' '}
+                    — {synopsis.length > 70 ? `${synopsis.slice(0, 70).trimEnd()}…` : synopsis}
+                  </span>
+                )}
+              </p>
+            );
+          })
         ) : (
           <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
             Aucun
@@ -436,8 +456,15 @@ export function PersonnageScreen() {
         {membre.inventaire.length === 0 && <p className="text-muted text-sm">Aucun objet acheté.</p>}
         {membre.inventaire.map((entree) => (
           <div key={entree.instance_id} className="list-item">
-            <div className="list-item__main">
-              <div className="list-item__title">{entree.nom}</div>
+            <div
+              className="list-item__main"
+              role="button"
+              style={{ cursor: 'pointer' }}
+              onClick={() => setItemDetail(entree)}
+            >
+              <div className="list-item__title" style={{ textDecoration: 'underline' }}>
+                {entree.nom}
+              </div>
               <div className="list-item__subtitle">
                 {libelleCategorie(entree.categorie)} · {entree.cout} po
                 {entree.cout_notation ? ` (jet : ${entree.cout_notation})` : ''}
@@ -602,6 +629,7 @@ export function PersonnageScreen() {
           onAchat={acheterItem}
         />
       )}
+      {itemDetail && <ItemDetailModal item={resolveItemDetail(itemDetail)} onClose={() => setItemDetail(null)} />}
       {modalSuppression && (
         <Modal onClose={() => setModalSuppression(false)}>
           <h3>Retirer {membre.nom_perso} ?</h3>
