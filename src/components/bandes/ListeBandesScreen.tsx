@@ -34,6 +34,12 @@ export function ListeBandesScreen() {
 
   return (
     <Screen title="Mes bandes" actions={<ThemeToggle />}>
+      <div className="home-hero">
+        <h1 className="home-hero__title">Mordheim</h1>
+        <div className="home-hero__rule" />
+        <p className="home-hero__subtitle">Gestionnaire de bandes</p>
+      </div>
+
       <div className="top-actions">
         <button className="btn btn--primary" onClick={() => navigate('/creer')}>
           + Nouvelle bande

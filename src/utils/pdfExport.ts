@@ -29,7 +29,7 @@ export function exporterRosterPDF(roster: RosterInstance) {
   );
   y += 6;
   if (roster.equipement_reserve) {
-    const lignes = doc.splitTextToSize(`Équipement en réserve : ${roster.equipement_reserve}`, 180);
+    const lignes = doc.splitTextToSize(`Notes : ${roster.equipement_reserve}`, 180);
     doc.text(lignes, marge, y);
     y += lignes.length * 5 + 2;
   }

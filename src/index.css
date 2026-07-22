@@ -94,6 +94,23 @@ textarea {
   color: inherit;
 }
 
+/* Un <select> non stylé hérite du chrome natif du navigateur pour son fond
+   et le popup d'options, lequel suit color-scheme (donc parfois le thème du
+   système plutôt que le data-theme choisi dans l'app) — illisible dès que
+   les deux divergent. Fond/bordure/texte explicites pour rester cohérent
+   avec le thème actif partout, même hors d'un wrapper .field. */
+select {
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.6rem;
+  font-size: 0.95rem;
+  color-scheme: light;
+}
+:root[data-theme='dark'] select {
+  color-scheme: dark;
+}
+
 button {
   cursor: pointer;
   /* Évite le délai/l'ambiguïté de reconnaissance de geste (double-tap zoom)
@@ -358,6 +375,35 @@ button {
   text-align: center;
   padding: 2.5rem 1rem;
   color: var(--text-muted);
+}
+
+.home-hero {
+  text-align: center;
+  padding: 1.4rem 1rem 1.6rem;
+  margin-bottom: 0.6rem;
+}
+.home-hero__title {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 0;
+  color: var(--accent);
+}
+.home-hero__rule {
+  width: 72px;
+  height: 3px;
+  margin: 0.6rem auto 0.7rem;
+  background: var(--accent);
+  opacity: 0.55;
+}
+.home-hero__subtitle {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
 }
 
 .top-actions {
