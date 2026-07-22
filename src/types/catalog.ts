@@ -129,6 +129,10 @@ export type EquipementSpecialRef = {
   // Restreint l'objet à certains profils (ex : mutations réservées à
   // l'Impur). Absent = accessible à tous les profils de la bande.
   profils?: string[];
+  // Restreint l'objet aux membres possédant l'une de ces compétences (ex :
+  // mutations réservées aux héros ayant pris la compétence spéciale
+  // « Mutant »). Absent = pas de restriction par compétence.
+  competences?: string[];
 };
 
 export type MagieSort = {

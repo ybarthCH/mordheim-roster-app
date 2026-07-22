@@ -22,7 +22,7 @@
     },
     {
       "nom": "Table de Mutations",
-      "texte": "Réservée aux Héros ayant la compétence spéciale « Mutant » (extrait et adapté du chapitre Corrupted Characters de Mutiny in Marienburg, incluant des mutations en plus de celles du livre de règles). La première mutation d'une figurine est achetée au prix normal, les suivantes pour la même figurine coûtent le double. Sang acide (30 CO) : toute figurine en contact subit une touche de F3 (sans coup critique) quand le mutant est blessé au corps à corps. Épines (35 CO) : toute figurine en contact subit une touche de F1 au début de chaque phase de corps à corps (jamais de coup critique). Corps cristallin (60 CO) : Endurance fixée à 6, PV fixés à 1, non modifiables par la suite (relance des jets de progression concernés). Âme démoniaque (20 CO) : sauvegarde de 4+ contre les sorts ou prières. Bras supplémentaire (40 CO) : Attaque supplémentaire avec une arme à une main, un bouclier ou une rondache (ou +1 Attaque sans arme supplémentaire). Pince (50 CO) : Attaque supplémentaire de Force+1 (bras sans arme). Tentacule (35 CO) : peut faire perdre 1 Attaque (minimum 1) à un adversaire au corps à corps, au choix du mutant. Brute épaisse (50 CO) : +2 en Force, -4 en Cd. Queue de scorpion (40 CO) : Attaque supplémentaire de Force 5 (2 contre l'immunité au poison). Morsure venimeuse (50 CO) : Attaque supplémentaire (ou amélioration d'une attaque de morsure existante) de Force 5 (2 contre l'immunité au poison). Sabots fendus (40 CO) : +1 en Mouvement. Queue préhensile (50 CO) : Attaque supplémentaire (sauf si déjà une attaque de queue) ; permet de tenir une arme à une main, un bouclier ou une rondache. Peau écailleuse (60 CO) : sauvegarde d'armure de 5+ (plafonnée à 6+ par les malus), cumulable avec l'armure légère. Hideux (40 CO) : provoque la peur. Ailes (45 CO) : permet de planer depuis une position élevée, 2ps horizontaux par point de chute vertical."
+      "texte": "Réservée aux Héros ayant la compétence spéciale « Mutant » (extrait et adapté du chapitre Corrupted Characters de Mutiny in Marienburg). La première mutation d'une figurine est achetée au prix normal, les suivantes pour la même figurine coûtent le double — voir la rubrique Équipement de sa fiche."
     },
     {
       "nom": "Bénédictions de Nurgle",
@@ -217,10 +217,26 @@
     }
   },
   "equipement_special": [
+
     { "item_id": "grande_hache_du_chaos", "cout": 25, "disponibilite": "Rare 8, Héros du Chaos avec la compétence Choisi par le Chaos" },
     { "item_id": "fouet_barbele", "cout": 15, "disponibilite": "Rare 9, Héros Maraudeurs du Chaos uniquement" },
     { "item_id": "arme_en_obsidienne_market", "cout": "Prix de l'arme de base x4", "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
-    { "item_id": "armure_du_chaos_market", "cout": 185, "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" }
+    { "item_id": "armure_du_chaos_market", "cout": 185, "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
+    { "item_id": "ame_demoniaque", "cout": 20, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "pince_mutation", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "tentacule", "cout": 35, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "sabots_fendus", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "sang_acide", "cout": 30, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "epines", "cout": 35, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "queue_de_scorpion", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "bras_supplementaire", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "hideux_mutation", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "corps_cristallin", "cout": 60, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "brute_epaisse", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "morsure_venimeuse", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "queue_prehensile", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "peau_ecailleuse", "cout": 60, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] },
+    { "item_id": "ailes_mutation", "cout": 45, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"] }
   ],
   "magie": {
     "nom": "Rituels du Chaos",

@@ -725,5 +725,140 @@
     "regles_speciales": [
       { "nom": "Effet", "texte": "Provoque la peur." }
     ]
+  },
+  {
+    "id": "ame_demoniaque", "nom": "Âme démoniaque", "categorie": "divers",
+    "cout": 20, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Sauvegarde spéciale de 4+ contre les sorts ou les prières." }
+    ]
+  },
+  {
+    "id": "pince_mutation", "nom": "Pince", "categorie": "divers",
+    "cout": 50, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le mutant ne porte pas d'arme avec ce bras, mais gagne une Attaque supplémentaire de Force+1 au corps à corps." }
+    ]
+  },
+  {
+    "id": "tentacule", "nom": "Tentacule", "categorie": "divers",
+    "cout": 35, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le mutant peut agripper un adversaire au corps à corps et lui faire perdre 1 Attaque au choix (minimum 1)." }
+    ]
+  },
+  {
+    "id": "sabots_fendus", "nom": "Sabots fendus", "categorie": "divers",
+    "cout": 40, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "+1 en Mouvement." }
+    ]
+  },
+  {
+    "id": "sang_acide", "nom": "Sang acide", "categorie": "divers",
+    "cout": 30, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Si le mutant subit une blessure au corps à corps, les figurines en contact subissent une touche de Force 3 (pas de Coups Critiques)." }
+    ]
+  },
+  {
+    "id": "epines", "nom": "Épines", "categorie": "divers",
+    "cout": 35, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Toute figurine en contact subit une touche de Force 1 au début de chaque phase de corps à corps (jamais de Coup Critique)." }
+    ]
+  },
+  {
+    "id": "queue_de_scorpion", "nom": "Queue de scorpion", "categorie": "divers",
+    "cout": 40, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Attaque supplémentaire de Force 5 (Force 2 si la cible est immunisée au poison)." }
+    ]
+  },
+  {
+    "id": "bras_supplementaire", "nom": "Bras supplémentaire", "categorie": "divers",
+    "cout": 40, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Attaque supplémentaire avec une arme à une main, un bouclier ou une rondache (ou +1 Attaque sans arme supplémentaire)." }
+    ]
+  },
+  {
+    "id": "hideux_mutation", "nom": "Hideux", "categorie": "divers",
+    "cout": 40, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Provoque la peur." }
+    ]
+  },
+  {
+    "id": "corps_cristallin", "nom": "Corps cristallin", "categorie": "divers",
+    "cout": 60, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Endurance fixée à 6 et Points de Vie fixés à 1, non modifiables par la suite (relancez les progressions correspondantes déjà obtenues)." }
+    ]
+  },
+  {
+    "id": "brute_epaisse", "nom": "Brute épaisse", "categorie": "divers",
+    "cout": 50, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "+2 en Force, -4 en Commandement." }
+    ]
+  },
+  {
+    "id": "morsure_venimeuse", "nom": "Morsure venimeuse", "categorie": "divers",
+    "cout": 50, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Attaque supplémentaire de Force 5 (Force 2 si la cible est immunisée aux poisons)." }
+    ]
+  },
+  {
+    "id": "queue_prehensile", "nom": "Queue préhensile", "categorie": "divers",
+    "cout": 50, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Attaque supplémentaire ; permet de tenir une arme à une main, un bouclier ou une rondache." }
+    ]
+  },
+  {
+    "id": "peau_ecailleuse", "nom": "Peau écailleuse", "categorie": "divers",
+    "cout": 60, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Sauvegarde d'armure naturelle de 5+, cumulable avec une armure légère (+1)." }
+    ]
+  },
+  {
+    "id": "ailes_mutation", "nom": "Ailes", "categorie": "divers",
+    "cout": 45, "cout_fixe": true, "rarete": "C", "disponibilite": "Réservée aux Mutants/Possédés ou aux héros ayant pris la compétence spéciale « Mutant » (selon la bande) — première mutation au prix normal, les suivantes sur la même figurine coûtent le double.",
+    "acces": ["cult_of_the_possessed", "beastmen_raiders", "maraudeurs_du_chaos"], "source": "LdR/BTB/MiM", "page": 53,
+    "texte": null,
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Permet de planer depuis une position élevée : pour 1ps de chute, avance de 2ps horizontalement." }
+    ]
   }
 ]

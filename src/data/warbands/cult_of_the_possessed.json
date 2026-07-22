@@ -4,7 +4,7 @@
   "grade": "1a",
   "source": "Livre de règles Mordheim (GW) + Border Town Burning + Mutiny in Marienburg",
   "regles_speciales": [
-    { "nom": "Table de Mutations", "texte": "Réservée aux Mutants et aux Possédés, achetable uniquement lors du recrutement (impossible d'en acheter de nouvelles après). La première mutation est achetée au prix normal, les suivantes pour la même figurine coûtent le double. Âme démoniaque (20 CO) : sauvegarde spéciale de 4+ contre les sorts ou les prières. • Pince (50 CO) : ne porte pas d'arme avec ce bras, mais gagne une Attaque supplémentaire de Force+1 au Corps à Corps. • Tentacule (35 CO) : peut agripper un adversaire au Corps à Corps et lui faire perdre 1 Attaque au choix (minimum 1). • Sabots fendus (40 CO) : +1 en Mouvement. • Sang acide (30 CO) : si le mutant subit une blessure au Corps à Corps, les figurines en contact subissent une touche de Force 3 (pas de Coups Critiques). • Épines (35 CO) : toute figurine en contact subit une touche de Force 1 au début de chaque phase de Corps à Corps (jamais de Coups Critiques). • Queue de scorpion (40 CO) : Attaque supplémentaire de Force 5 (Force 2 si la cible est immunisée au poison). • Bras supplémentaire (40 CO) : Attaque supplémentaire avec une arme à une main, ou un bouclier/rondache, mais pas les deux. • Hideux (40 CO) : provoque la peur. • Corps cristallin (60 CO) : Endurance 6 et Points de Vie 1, non modifiables par la suite (relancer les progressions correspondantes). • Brute épaisse (50 CO) : +2 en Force, -4 en Cd. • Morsure venimeuse (50 CO) : Attaque supplémentaire de Force 5 (Force 2 si la cible est immunisée aux poisons). • Queue préhensile (50 CO) : Attaque supplémentaire ; permet de tenir une arme à une main, un bouclier ou une rondache. • Peau écailleuse (60 CO) : sauvegarde d'armure naturelle de 5+ (les armures légères ajoutent +1). • Ailes (45 CO) : permet de planer, pour 1ps de chute avance de 2ps horizontalement." },
+    { "nom": "Table de Mutations", "texte": "Réservée aux Mutants et aux Possédés, achetable uniquement lors du recrutement (impossible d'en acheter de nouvelles après). La première mutation est achetée au prix normal, les suivantes pour la même figurine coûtent le double — voir la rubrique Équipement de leur fiche." },
     { "nom": "Récompenses du Seigneur des Ombres", "texte": "Règle optionnelle : un Magister ou un Mutant ayant accumulé suffisamment d'expérience peut lancer 2D6 sur ce tableau au lieu de choisir une compétence, représentant un pèlerinage à la Fosse. 2 : Colère du Seigneur des Ombres ! Le guerrier subit tant de mutations qu'il perd toute trace d'humanité et disparaît. 3-6 : Rien ne se passe. 7-8 : Mutation importante (jetez 1D6 : sur 1, perdez un point dans une caractéristique au choix ; sur 2+, choisissez une mutation dans la Table de Mutations). 9-10 : Armure du Chaos — sauvegarde de base de 4+ sans affecter le mouvement ni empêcher de lancer des sorts. 11 : Arme démon — +1 en Force au corps à corps et +1 pour toucher avec, sous la forme au choix du porteur. 12 : Possédé ! Un démon prend possession du guerrier : +1 CC, +1 F, +1 Attaque et +1 PV (au-delà des maximums), mais il perd D3 compétences au choix du joueur et ne peut plus utiliser ni arme ni armure hormis l'armure du Chaos ou des armes démons." }
   ],
   "composition": {
@@ -156,8 +156,24 @@
     }
   },
   "equipement_special": [
+
     { "item_id": "arme_en_obsidienne_market", "cout": "Prix de l'arme de base x4", "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
-    { "item_id": "armure_du_chaos_market", "cout": 185, "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" }
+    { "item_id": "armure_du_chaos_market", "cout": 185, "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
+    { "item_id": "ame_demoniaque", "cout": 20, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "pince_mutation", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "tentacule", "cout": 35, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "sabots_fendus", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "sang_acide", "cout": 30, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "epines", "cout": 35, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "queue_de_scorpion", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "bras_supplementaire", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "hideux_mutation", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "corps_cristallin", "cout": 60, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "brute_epaisse", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "morsure_venimeuse", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "queue_prehensile", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "peau_ecailleuse", "cout": 60, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] },
+    { "item_id": "ailes_mutation", "cout": 45, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"] }
   ],
   "magie": {
     "nom": "Rituels du Chaos",
