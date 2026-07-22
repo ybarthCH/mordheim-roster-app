@@ -640,6 +640,19 @@ button {
 .text-muted {
   color: var(--text-muted);
 }
+/* Objet/élément cliquable inline (ex : nom d'objet dans un récapitulatif) —
+   volontairement de poids normal pour ne pas rivaliser visuellement avec
+   les titres de section en gras. */
+.link-inline {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 400;
+  color: var(--accent);
+  text-decoration: underline;
+  cursor: pointer;
+}
 .text-danger {
   color: var(--danger);
 }

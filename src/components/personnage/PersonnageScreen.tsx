@@ -335,12 +335,8 @@ export function PersonnageScreen() {
             const synopsis = resumeItem(detail);
             return (
               <p key={entree.instance_id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-                <button
-                  className="btn--ghost"
-                  style={{ border: 'none', background: 'none', padding: 0, font: 'inherit', color: 'inherit' }}
-                  onClick={() => setItemDetail(entree)}
-                >
-                  <strong style={{ textDecoration: 'underline' }}>{entree.nom}</strong>
+                <button className="link-inline" onClick={() => setItemDetail(entree)}>
+                  {entree.nom}
                 </button>
                 {synopsis && (
                   <span className="text-muted">
