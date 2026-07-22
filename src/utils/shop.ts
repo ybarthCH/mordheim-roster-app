@@ -122,6 +122,17 @@ function slugify(texte: string): string {
     .replace(/^_+|_+$/g, '');
 }
 
+// Les objets des listes d'équipement de bande (catalogue.equipement) n'ont
+// que nom/coût — les stats de jeu (portée/force/règles) vivent dans la base
+// de référence (items/*.json). La plupart de ces objets sont les mêmes armes
+// communes qu'on retrouve telles quelles dans cette base ; on les enrichit
+// donc par correspondance de nom pour que le détail au clic ne soit pas vide.
+const INDEX_ITEMS_PAR_NOM = new Map<string, (typeof TOUS_LES_ITEMS)[number]>();
+for (const item of TOUS_LES_ITEMS) {
+  const cle = slugify(item.nom);
+  if (!INDEX_ITEMS_PAR_NOM.has(cle)) INDEX_ITEMS_PAR_NOM.set(cle, item);
+}
+
 // Objets propres à la bande (catalogue.equipement/equipement_special), déjà
 // utilisés en lecture seule par EquipementReference. Si le profil précise
 // `acces_equipement`, seules ces listes nommées sont proposées ; sinon,
@@ -138,6 +149,7 @@ export function getEquipementBande(catalogue: WarbandCatalog, profil: Profile | 
     const categories: (keyof typeof liste)[] = ['armes_cac', 'armes_tir', 'armures', 'divers'];
     for (const categorie of categories) {
       for (const item of liste[categorie] ?? []) {
+        const reference = INDEX_ITEMS_PAR_NOM.get(slugify(item.nom));
         items.push({
           id: `bande:${catalogue.id}:${cle}:${slugify(categorie)}:${slugify(item.nom)}`,
           nom: item.nom,
@@ -145,6 +157,11 @@ export function getEquipementBande(catalogue: WarbandCatalog, profil: Profile | 
           cout: item.cout,
           cout_fixe: typeof item.cout === 'number',
           disponibilite: item.restriction ?? item.note,
+          texte: reference?.texte,
+          portee: reference && 'portee' in reference ? (reference.portee as string | null) : undefined,
+          force: reference && 'force' in reference ? (reference.force as string | null) : undefined,
+          sauvegarde: reference && 'sauvegarde' in reference ? (reference.sauvegarde as string | null) : undefined,
+          regles_speciales: reference?.regles_speciales,
           origine: 'bande',
         });
       }
