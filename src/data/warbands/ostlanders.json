@@ -37,6 +37,7 @@
         { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Doyen peut utiliser le Commandement de ce dernier pour ses tests." }
       ],
       "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_equipement": ["ostlanders", "vauriens", "jaegers"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -55,6 +56,7 @@
         { "nom": "Frêle", "texte": "Les Prêtres de Taal ne peuvent jamais porter une armure lourde." }
       ],
       "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
+      "acces_equipement": ["ostlanders", "vauriens", "jaegers"],
       "acces_competences_a_verifier": false
     },
     {
@@ -69,6 +71,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["ostlanders", "vauriens", "jaegers"],
       "acces_competences_a_verifier": true
     },
     {
@@ -82,6 +85,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["ostlanders"],
       "acces_competences_a_verifier": false
     },
     {
@@ -95,6 +99,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["jaegers"],
       "acces_competences_a_verifier": false
     },
     {
@@ -111,6 +116,7 @@
         { "nom": "Irrespectable", "texte": "Les Vauriens provoquent des sentiments mitigés chez leurs camarades, un étrange mélange de pitié et de peur. Ils ne peuvent donc pas devenir Chef de bande." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["vauriens"],
       "acces_competences_a_verifier": false
     },
     {
@@ -129,6 +135,7 @@
         { "nom": "Lent d'Esprit", "texte": "Bien que les Ogres soient capables de gagner de l'expérience et de profiter des progressions, ils ne sont pas les plus intelligentes des créatures. Les Ogres gagnent une progression qu'une fois sur deux (ils doivent accumuler deux fois plus d'expérience que la normale pour obtenir une progression)." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["ogres"],
       "acces_competences_a_verifier": false
     }
   ],

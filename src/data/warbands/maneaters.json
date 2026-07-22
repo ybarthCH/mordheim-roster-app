@@ -36,6 +36,7 @@
         { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps, même s'ils peuvent en porter une réservée à leur repas." }
       ],
       "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["ogres"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -55,6 +56,7 @@
         { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps." }
       ],
       "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["guide"],
       "acces_competences_a_verifier": false
     },
     {
@@ -72,6 +74,7 @@
         { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps." }
       ],
       "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["ogres"],
       "acces_competences_a_verifier": false
     },
     {
@@ -88,6 +91,7 @@
         { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["ogres"],
       "acces_competences_a_verifier": false
     },
     {
@@ -103,6 +107,7 @@
         { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["ogres"],
       "acces_competences_a_verifier": false
     },
     {
@@ -121,6 +126,7 @@
         { "nom": "Équipement", "texte": "Crocs et férocité primitive — aucun équipement." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     }
   ],

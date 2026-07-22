@@ -24,6 +24,7 @@
         { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Capitaine peut utiliser le Commandement de ce dernier pour ses tests." }
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_equipement": ["eclaireurs", "tireurs", "gardes_des_montagnes"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -39,6 +40,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "vitesse"],
+      "acces_equipement": ["eclaireurs", "tireurs", "gardes_des_montagnes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -55,6 +57,7 @@
         { "nom": "Pièges", "texte": "Un Bergjaeger peut poser un piège s'il y passe un tour sans rien faire d'autre (sauf s'il vient tout juste de se relever après avoir été mis à terre). Placez un marqueur en contact avec son socle. Lorsqu'une figurine, amie ou ennemie, arrive dans un rayon de 2ps du piège, elle risque de le déclencher : jetez 1D6, sur un résultat de 3+ le piège inflige une touche de Force 4 (un Bergjaeger ne risque jamais de déclencher ses propres pièges). Si le piège n'a pas blessé la figurine ou n'a pas été déclenché, la victime peut achever son mouvement ; sinon elle se retrouve à terre ou sonnée à 2ps du marqueur. Que le piège ait été déclenché ou non, le marqueur est retiré du jeu." }
       ],
       "acces_competences": ["tir", "vitesse"],
+      "acces_equipement": ["eclaireurs", "tireurs", "gardes_des_montagnes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -69,6 +72,7 @@
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["eclaireurs", "tireurs", "gardes_des_montagnes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -82,6 +86,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["gardes_des_montagnes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -95,6 +100,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["tireurs"],
       "acces_competences_a_verifier": false
     },
     {
@@ -110,6 +116,7 @@
         { "nom": "Promotion", "texte": "Un Éclaireur halfling promu au rang de héros par un résultat de « ce gars est doué » ne peut pas choisir les compétences de Force comme un de ses deux tableaux de compétences. Les Halflings ne sont pas renommés pour leur carrure d'athlète !" }
       ],
       "acces_competences": [],
+      "acces_equipement": ["eclaireurs"],
       "acces_competences_a_verifier": false
     }
   ],

@@ -55,6 +55,7 @@
         { "nom": "Vœu de pauvreté", "texte": "Ne peut jamais prendre de lance de cavalerie." }
       ],
       "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
+      "acces_equipement": ["chevaliers", "pelerins", "paysans_archers"],
       "acces_competences_a_verifier": true,
       "est_leader": true
     },
@@ -72,6 +73,7 @@
         { "nom": "Prier la Dame", "texte": "Commence avec une Prière tirée aléatoirement dans la liste des Prières de la Dame et peut en apprendre d'autres." }
       ],
       "acces_competences": ["academique", "vitesse"],
+      "acces_equipement": ["chevaliers", "pelerins", "paysans_archers"],
       "acces_competences_a_verifier": true
     },
     {
@@ -91,6 +93,7 @@
         { "nom": "Peut dépasser 3", "texte": "Peut dépasser 3 Chevaliers Errants si un Écuyer promu en devient un (voir règle Adoubement)." }
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["chevaliers", "pelerins", "paysans_archers"],
       "acces_competences_a_verifier": true
     },
     {
@@ -107,6 +110,7 @@
         { "nom": "Monture", "texte": "Ne peut monter à cheval que si le Chevalier de la Quête et tous les Chevaliers Errants sont eux-mêmes montés sur des destriers." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["chevaliers"],
       "acces_competences_a_verifier": false
     },
     {
@@ -125,6 +129,7 @@
         { "nom": "Reliques sacrées bretonniennes", "texte": "Peut recevoir une relique sacrée malgré la restriction habituelle des Hommes de main sur les objets divers ; celle-ci donne la frénésie (donc immunité à la haine). Si un groupe n'a pas assez de reliques pour tous ses membres, le porteur se sépare et forme son propre groupe." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["pelerins"],
       "acces_competences_a_verifier": false
     },
     {
@@ -140,6 +145,7 @@
         { "nom": "Basse caste", "texte": "Gagne de l'expérience normalement mais tout 'Ce gars est doué' est relancé ; ne peut jamais devenir Héros." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["paysans_archers"],
       "acces_competences_a_verifier": false
     }
   ],

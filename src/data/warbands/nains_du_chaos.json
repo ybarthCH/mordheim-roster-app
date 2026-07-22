@@ -55,6 +55,7 @@
         { "nom": "Prêtre", "texte": "Le Hiérogrammate commence avec deux rituels. L'un d'eux est le Rituel sacrificiel. L'autre sort est déterminé comme d'habitude à partir des Rituels d'Hashut." }
       ],
       "acces_competences": ["combat", "academique", "force", "special"],
+      "acces_equipement": ["nains_du_chaos"],
       "acces_competences_a_verifier": true,
       "est_leader": true
     },
@@ -72,6 +73,7 @@
         { "nom": "Sale réputation", "texte": "Les Geôliers sont connus pour leur brutalité. La simple idée d'être capturé par l'un d'eux provoque la peur chez les Humains." }
       ],
       "acces_competences": ["combat", "tir", "force", "special"],
+      "acces_equipement": ["nains_du_chaos"],
       "acces_competences_a_verifier": true
     },
     {
@@ -89,6 +91,7 @@
         { "nom": "Pas d'armes de tir", "texte": "Ne peut jamais être équipé d'armes de tir." }
       ],
       "acces_competences": ["combat", "force"],
+      "acces_equipement": ["nains_du_chaos"],
       "acces_competences_a_verifier": true
     },
     {
@@ -104,6 +107,7 @@
         { "nom": "La corvée", "texte": "La volonté des Délateurs a été brisée par leurs maîtres. Les Délateurs ne deviendront jamais des Héros. Relancez tout résultat \"Ce gars est doué\"." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["delateurs"],
       "acces_competences_a_verifier": false
     },
     {
@@ -117,6 +121,7 @@
       "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
       "regles_speciales": [],
       "acces_competences": [],
+      "acces_equipement": ["nains_du_chaos"],
       "acces_competences_a_verifier": false
     }
   ],

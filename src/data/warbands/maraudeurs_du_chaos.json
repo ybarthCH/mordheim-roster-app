@@ -57,6 +57,7 @@
         { "nom": "Chef", "texte": "Toute figurine à moins de 6ps peut utiliser son Commandement pour ses tests." }
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": true,
       "est_leader": true
     },
@@ -75,6 +76,7 @@
         { "nom": "Marque des Dieux Sombres", "texte": "Reçoit à son recrutement une Marque en accord avec la tribu : Marque du Serpent (Shornaal), du Corbeau (Onogal), du Chien (Arkhar), de l'Aigle (Tchar), ou Marque du Chaos Universel." }
       ],
       "acces_competences": ["combat", "academique", "special"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": true
     },
     {
@@ -89,6 +91,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": true
     },
     {
@@ -108,6 +111,7 @@
         { "nom": "Équipement", "texte": "N'utilise pas d'équipement mais combat sans pénalité (voir Destin)." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": false
     },
     {
@@ -121,6 +125,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
       "acces_competences_a_verifier": false
     },
     {
@@ -137,6 +142,7 @@
         { "nom": "Équipement", "texte": "Aucune arme ni armure ; se bat sans pénalité grâce à ses crocs." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
@@ -158,6 +164,7 @@
         { "nom": "Équipement", "texte": "Aucun ! Utilise griffes, tentacules et autres appendices." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
       "acces_competences_a_verifier": false
     }
   ],

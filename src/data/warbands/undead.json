@@ -28,6 +28,7 @@
         { "nom": "Insensible", "texte": "Les vampires remplacent les résultats sonné par à terre." }
       ],
       "acces_competences": ["combat", "academique", "force", "vitesse"],
+      "acces_equipement": ["morts_vivants"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -45,6 +46,7 @@
         { "nom": "Sorcier", "texte": "Les nécromanciens sont des sorciers qui utilisent la nécromancie (voir Magie)." }
       ],
       "acces_competences": ["academique", "vitesse"],
+      "acces_equipement": ["morts_vivants"],
       "acces_competences_a_verifier": false
     },
     {
@@ -59,6 +61,7 @@
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": ["combat", "force"],
+      "acces_equipement": ["morts_vivants"],
       "acces_competences_a_verifier": false
     },
     {
@@ -80,6 +83,7 @@
         { "nom": "Équipement", "texte": "Les zombies ne peuvent avoir ni armes ni armures." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
@@ -97,6 +101,7 @@
         { "nom": "Équipement", "texte": "Les goules ne portent jamais d'équipement, excepté quelques os qu'elles utilisent comme objets contondants (sans effet de jeu)." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["morts_vivants"],
       "acces_competences_a_verifier": false
     },
     {
@@ -117,6 +122,7 @@
         { "nom": "Insensible", "texte": "Remplacent les résultats sonné par à terre." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     }
   ],

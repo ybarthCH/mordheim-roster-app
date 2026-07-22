@@ -25,6 +25,7 @@
         { "nom": "Prières de Sigmar", "texte": "La matriarche a étudié les prières de Sigmar (voir la section Magie)." }
       ],
       "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
+      "acces_equipement": ["soeurs_de_sigmar"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -40,6 +41,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
+      "acces_equipement": ["soeurs_de_sigmar"],
       "acces_competences_a_verifier": false
     },
     {
@@ -57,6 +59,7 @@
         { "nom": "Sans armure", "texte": "Les augures ne portent jamais d'armures." }
       ],
       "acces_competences": ["academique", "vitesse", "special"],
+      "acces_equipement": ["soeurs_de_sigmar"],
       "acces_competences_a_verifier": false
     },
     {
@@ -70,6 +73,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Autant que vous le désirez. Achetées par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["soeurs_de_sigmar"],
       "acces_competences_a_verifier": false
     },
     {
@@ -83,6 +87,7 @@
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetées par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["soeurs_de_sigmar"],
       "acces_competences_a_verifier": false
     }
   ],

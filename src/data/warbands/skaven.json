@@ -25,6 +25,7 @@
         { "nom": "Machine à Tuer", "texte": "Un adepte assassin inflige toujours un modificateur de -1 à la sauvegarde ennemie lorsqu'il blesse (au tir ou au corps à corps)." }
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse", "special"],
+      "acces_equipement": ["heros_skavens"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -40,6 +41,7 @@
       "stats": { "M": 6, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 5, "A": 1, "Cd": 6 },
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_equipement": ["heros_skavens"],
       "acces_competences_a_verifier": false
     },
     {
@@ -56,6 +58,7 @@
         { "nom": "Sorcier", "texte": "Un sorcier eshin est un sorcier qui utilise la magie du Rat Cornu (voir Magie)." }
       ],
       "acces_competences": ["academique", "vitesse", "special"],
+      "acces_equipement": ["heros_skavens"],
       "acces_competences_a_verifier": false
     },
     {
@@ -70,6 +73,7 @@
       "stats": { "M": 6, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["heros_skavens"],
       "acces_competences_a_verifier": false
     },
     {
@@ -83,6 +87,7 @@
       "stats": { "M": 5, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["hommes_de_main_skavens"],
       "acces_competences_a_verifier": false
     },
     {
@@ -99,6 +104,7 @@
         { "nom": "Équipement", "texte": "Aucun. Les rats géants ne portent ni arme ni armure." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
@@ -117,6 +123,7 @@
         { "nom": "Équipement", "texte": "Crocs, griffes et force brute ! Les rats ogres n'utilisent jamais ni armes ni armures." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     }
   ],

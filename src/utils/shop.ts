@@ -40,12 +40,21 @@ export function resumeItem(item: ShopItem): string | null {
 
 // Tags "acces" considérés comme ouverts à toutes les bandes dans la base
 // d'objets (items/*.json) : "commun" strict, "rare_N" (rare mais sans
-// restriction de bande), et "commun_sauf_..." (commun avec une exception
-// mineure). Les tags spécifiques à une bande ou un rôle (ex : "skaven",
-// "commun_heros") ne rendent pas l'objet accessible au shop commun ici — ils
-// resteront affichés via les listes d'équipement propres à la bande.
+// restriction de bande), "commun_sauf_..." (commun avec une exception
+// mineure) et "commun_ou_rare_N" (variante commun/rare selon les éditions —
+// dans les deux cas accessible sans restriction de bande). Attention : les
+// tags "commun_<bande ou rôle>" SANS "_sauf_" (ex : "commun_pirates",
+// "commun_heros", "commun_pretres_guerriers_soeurs_de_sigmar") signifient
+// l'inverse — l'objet est license/pas cher UNIQUEMENT pour ce groupe précis,
+// donc restreint, pas générique. Ils restent donc exclus du shop commun ici.
 function estAccesGenerique(acces: string[]): boolean {
-  return acces.some((a) => a === 'commun' || /^rare_\d+$/.test(a) || a.startsWith('commun_sauf_'));
+  return acces.some(
+    (a) =>
+      a === 'commun' ||
+      /^rare_\d+$/.test(a) ||
+      a.startsWith('commun_sauf_') ||
+      /^commun_ou_rare_\d+$/.test(a)
+  );
 }
 
 // Les fichiers items/*.json et les listes d'équipement de bande utilisent des
@@ -133,21 +142,41 @@ for (const item of TOUS_LES_ITEMS) {
   if (!INDEX_ITEMS_PAR_NOM.has(cle)) INDEX_ITEMS_PAR_NOM.set(cle, item);
 }
 
+// Compétences qui donnent accès à toute arme de la bande dans leur
+// catégorie, au-delà de la liste normalement assignée au profil (cf.
+// src/data/skills.json) : "Connaissance des Armes" (corps à corps) et
+// "Expert en Armes" (tir).
+const SKILL_TOUTES_ARMES_CAC = 'combat_03';
+const SKILL_TOUTES_ARMES_TIR = 'tir_04';
+
 // Objets propres à la bande (catalogue.equipement/equipement_special), déjà
 // utilisés en lecture seule par EquipementReference. Si le profil précise
 // `acces_equipement`, seules ces listes nommées sont proposées ; sinon,
 // toutes les listes de la bande le sont (repli par défaut) — plusieurs
 // listes (ex : infanterie/tireurs) partagent souvent les mêmes armes de
-// base, d'où la déduplication finale par catégorie+nom.
-export function getEquipementBande(catalogue: WarbandCatalog, profil: Profile | null): ShopItem[] {
+// base, d'où la déduplication finale par catégorie+nom. `competencesAcquises`
+// permet à "Connaissance des Armes"/"Expert en Armes" de lever la
+// restriction de liste pour leur catégorie d'arme respective.
+export function getEquipementBande(
+  catalogue: WarbandCatalog,
+  profil: Profile | null,
+  competencesAcquises: string[] = []
+): ShopItem[] {
   const items: ShopItem[] = [];
   const listes = catalogue.equipement ?? {};
-  const cles = profil?.acces_equipement ?? Object.keys(listes);
-  for (const cle of cles) {
-    const liste = listes[cle];
-    if (!liste) continue;
-    const categories: (keyof typeof liste)[] = ['armes_cac', 'armes_tir', 'armures', 'divers'];
-    for (const categorie of categories) {
+  const clesProfil = profil?.acces_equipement ?? Object.keys(listes);
+  const clesToutes = Object.keys(listes);
+  const clesParCategorie: Record<string, string[]> = {
+    armes_cac: competencesAcquises.includes(SKILL_TOUTES_ARMES_CAC) ? clesToutes : clesProfil,
+    armes_tir: competencesAcquises.includes(SKILL_TOUTES_ARMES_TIR) ? clesToutes : clesProfil,
+    armures: clesProfil,
+    divers: clesProfil,
+  };
+  const categories = ['armes_cac', 'armes_tir', 'armures', 'divers'] as const;
+  for (const categorie of categories) {
+    for (const cle of clesParCategorie[categorie]) {
+      const liste = listes[cle];
+      if (!liste) continue;
       for (const item of liste[categorie] ?? []) {
         const reference = INDEX_ITEMS_PAR_NOM.get(slugify(item.nom));
         items.push({
@@ -255,4 +284,9 @@ export function transfererVersMembre(roster: RosterInstance, instanceId: string,
 
 export function formatEquipementAffiche(inventaire: InventoryEntry[]): string {
   return inventaire.map((e) => e.nom).join(', ');
+}
+
+// Revente d'équipement : moitié du prix payé, arrondie au supérieur.
+export function prixVente(coutPaye: number): number {
+  return Math.ceil(coutPaye / 2);
 }

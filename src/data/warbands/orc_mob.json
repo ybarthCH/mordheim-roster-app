@@ -36,6 +36,7 @@
         { "nom": "Chef", "texte": "Tout membre de la bande à moins de 6ps du Chef Orque peut utiliser le Commandement de ce dernier pour ses tests." }
       ],
       "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_equipement": ["orques"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -54,6 +55,7 @@
         { "nom": "Sans armure", "texte": "Un Chaman peut être équipé d'armes choisies dans la liste d'équipement des Orques. Il ne porte jamais d'armure." }
       ],
       "acces_competences": ["force", "special"],
+      "acces_equipement": ["orques"],
       "acces_competences_a_verifier": false
     },
     {
@@ -68,6 +70,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "force", "special"],
+      "acces_equipement": ["orques"],
       "acces_competences_a_verifier": false
     },
     {
@@ -84,6 +87,7 @@
         { "nom": "Recrutement", "texte": "N'importe quel nombre. Acheté par groupes de 1 à 5." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["orques"],
       "acces_competences_a_verifier": false
     },
     {
@@ -102,6 +106,7 @@
         { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5. Ne peut pas être plus de deux fois plus nombreux que les Orques (Héros inclus)." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["gobelins"],
       "acces_competences_a_verifier": false
     },
     {
@@ -121,6 +126,7 @@
         { "nom": "Équipement", "texte": "Les Squigs ne portent ni armes ni armures." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
@@ -142,6 +148,7 @@
         { "nom": "Équipement", "texte": "Ne peuvent recevoir ni armes, ni armures (portent parfois un gros gourdin sans effet de jeu)." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     }
   ],

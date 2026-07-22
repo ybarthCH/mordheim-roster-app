@@ -36,6 +36,7 @@
         { "nom": "Équipement", "texte": "Ne peut porter aucune arme non-magique (sans pénalité pour cela), mais peut porter n'importe quelle armure de la liste d'équipement des morts-vivants." }
       ],
       "acces_competences": ["academique", "special"],
+      "acces_equipement": ["morts_vivants"],
       "acces_competences_a_verifier": true,
       "est_leader": true
     },
@@ -55,6 +56,7 @@
         { "nom": "Fureteur", "texte": "Lors de la recherche d'objets rares, lance 3D6 et garde les deux meilleurs résultats." }
       ],
       "acces_competences": ["academique", "vitesse", "special"],
+      "acces_equipement": ["morts_vivants"],
       "acces_competences_a_verifier": true
     },
     {
@@ -77,6 +79,7 @@
         { "nom": "Aucun Marché", "texte": "Ne peut pas chercher d'objets rares." }
       ],
       "acces_competences": ["combat", "force"],
+      "acces_equipement": ["morts_vivants"],
       "acces_competences_a_verifier": true
     },
     {
@@ -98,6 +101,7 @@
         { "nom": "Équipement", "texte": "Ne peut porter ni armes ni armure, sans pénalité pour cela." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["morts_vivants"],
       "acces_competences_a_verifier": false
     },
     {
@@ -118,6 +122,7 @@
         { "nom": "Sans Cervelle", "texte": "Ne gagne jamais d'expérience." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["morts_vivants"],
       "acces_competences_a_verifier": false
     },
     {
@@ -138,6 +143,7 @@
         { "nom": "Expérience", "texte": "Peut gagner de l'expérience ; s'il est promu Héros via « Ce gars est doué », ne peut pas chercher d'objets rares (comme les Gardes Funéraires), doit choisir les tableaux de compétences Combat et Force, et gagne la règle Lames de Spectre." }
       ],
       "acces_competences": ["combat", "force"],
+      "acces_equipement": ["morts_vivants"],
       "acces_competences_a_verifier": true
     },
     {
@@ -161,6 +167,7 @@
         { "nom": "Équipement", "texte": "Ne porte aucun équipement, sans pénalité pour cela." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     }
   ],

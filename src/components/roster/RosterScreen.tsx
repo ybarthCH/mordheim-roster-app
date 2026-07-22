@@ -23,6 +23,7 @@ import {
   creerEntreeInventaire,
   formatEquipementAffiche,
   libelleCategorie,
+  prixVente,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 
@@ -67,12 +68,17 @@ export function RosterScreen() {
     updateRoster(acheterPourStock(roster, creerEntreeInventaire(item, coutPaye)));
   };
 
-  // Retire l'objet du stock et rembourse son coût : sert à annuler un achat.
+  // Supprime l'objet du stock sans contrepartie (perdu, détruit...).
   const retirerStock = (instanceId: string) => {
+    updateRoster(retirerDuStock(roster, instanceId));
+  };
+
+  // Revend l'objet du stock : moitié du prix payé (arrondi au supérieur) reversée à la trésorerie.
+  const vendreStock = (instanceId: string) => {
     const entree = roster.stock.find((e) => e.instance_id === instanceId);
     if (!entree) return;
     const sansItem = retirerDuStock(roster, instanceId);
-    updateRoster({ ...sansItem, tresorerie: sansItem.tresorerie + entree.cout });
+    updateRoster({ ...sansItem, tresorerie: sansItem.tresorerie + prixVente(entree.cout) });
   };
 
   const donnerAMembre = (instanceId: string, membreId: string) => {
@@ -441,9 +447,17 @@ export function RosterScreen() {
               </select>
               <button
                 className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
+                onClick={() => vendreStock(entree.instance_id)}
+                title={`Vendre (+${prixVente(entree.cout)} po à la trésorerie)`}
+              >
+                Vendre
+              </button>
+              <button
+                className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
                 onClick={() => retirerStock(entree.instance_id)}
-                title="Retirer et rembourser la trésorerie"
+                title="Supprimer sans contrepartie (perdu, détruit…)"
               >
                 ✕
               </button>

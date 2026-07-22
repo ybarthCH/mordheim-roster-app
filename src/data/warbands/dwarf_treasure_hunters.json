@@ -31,6 +31,7 @@
         { "nom": "Chef", "texte": "Tout membre de la bande situé à moins de 6ps du noble nain peut utiliser le Commandement de ce dernier à la place du sien pour effectuer ses tests." }
       ],
       "acces_competences": ["combat", "tir", "force", "special"],
+      "acces_equipement": ["guerriers_nains", "tireurs_nains"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -48,6 +49,7 @@
         { "nom": "Maître Armurier", "texte": "Un ingénieur nain peut accroître la portée des armes de tir de la bande. Les armes de tir achetées sur la Liste d'Équipement Nain voient leur portée accrue de 3ps pour les Pistolets et de 6ps pour les Arbalètes et les Arquebuses. Les augmentations de portée ne s'appliquent qu'aux batailles auxquelles l'Ingénieur Nain participe (mais elles s'appliquent même s'il n'est pas encore entré sur le champ de bataille ou s'il a été mis hors de combat). L'augmentation ne s'applique pas à l'équipement des Francs-Tireurs." }
       ],
       "acces_competences": ["combat", "tir", "special"],
+      "acces_equipement": ["guerriers_nains", "tireurs_nains"],
       "acces_competences_a_verifier": false
     },
     {
@@ -66,6 +68,7 @@
         { "nom": "Sans arme de tir ni armure", "texte": "N'utilisent jamais d'armes de tir, ni aucune armure." }
       ],
       "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["guerriers_nains", "tireurs_nains"],
       "acces_competences_a_verifier": false
     },
     {
@@ -79,6 +82,7 @@
       "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "N'importe quel nombre. Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["guerriers_nains"],
       "acces_competences_a_verifier": false
     },
     {
@@ -92,6 +96,7 @@
       "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["tireurs_nains"],
       "acces_competences_a_verifier": false
     },
     {
@@ -105,6 +110,7 @@
       "stats": { "M": 3, "CC": 3, "CT": 2, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 8 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "N'importe quel nombre. Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["guerriers_nains"],
       "acces_competences_a_verifier": false
     }
   ],
