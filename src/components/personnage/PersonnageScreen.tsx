@@ -27,6 +27,7 @@ import {
   creerEntreesInventaire,
   entreesLieesAuGroupe,
   resumeInventaireParItem,
+  inventaireGroupeMismatch,
   formatEquipementAffiche,
   libelleCategorie,
   resolveItemDetail,
@@ -480,6 +481,13 @@ export function PersonnageScreen() {
             + Acheter
           </button>
         </div>
+        {inventaireGroupeMismatch(membre) && (
+          <p className="text-sm text-danger" style={{ marginTop: 0 }}>
+            ⚠ Équipement dépareillé : ce groupe de {membre.taille_groupe} figurines ne possède pas les mêmes objets
+            en nombre égal pour chacune (probablement un objet donné depuis l'armurerie à une seule figurine).
+            Complète les exemplaires manquants ou renvoie les objets en trop au stock.
+          </p>
+        )}
         {inventaireGroupe.length === 0 && <p className="text-muted text-sm">Aucun objet acheté.</p>}
         {inventaireGroupe.map(({ entree, quantite }) => (
           <div key={entree.instance_id} className="list-item">

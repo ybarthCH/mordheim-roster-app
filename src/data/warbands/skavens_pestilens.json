@@ -1,0 +1,203 @@
+{
+  "id": "skavens_pestilens",
+  "nom": "Skavens du Clan Pestilens (1b)",
+  "grade": "1b",
+  "source": "Town Cryer #29, v1e — La Grande Librairie de Mordheim",
+  "regles_speciales": [],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "caracteristiques_max": [
+    { "profil": "clan_pestilens", "note": "Plafond commun à tous les profils ; les Hommes de main ne peuvent pas dépasser +1 par caractéristique.", "M": 6, "CC": 6, "CT": 6, "F": 4, "E": 5, "PV": 3, "I": 7, "A": 4, "Cd": 7 }
+  ],
+  "profils": [
+    {
+      "id": "pretre_de_la_peste",
+      "nom": "Prêtre de la Peste",
+      "type": "heros",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 85,
+      "xp_depart": 20,
+      "stats": { "M": 5, "CC": 4, "CT": 4, "F": 4, "E": 4, "PV": 1, "I": 5, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Prêtre de la Peste peut utiliser le Commandement de ce dernier pour ses tests." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse", "special"],
+      "acces_equipement": ["heros_pestilens"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "precheur_sorcier_pestilens",
+      "nom": "Prêcheur-Sorcier Pestilens",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 45,
+      "xp_depart": 8,
+      "stats": { "M": 5, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Le Prêcheur-Sorcier Pestilens est un sorcier utilisant la Magie du Rat Cornu." }
+      ],
+      "acces_competences": ["academique", "vitesse", "special"],
+      "acces_equipement": ["heros_pestilens"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "moine_de_la_peste",
+      "nom": "Moine de la Peste",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 45,
+      "xp_depart": 8,
+      "stats": { "M": 5, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 5, "A": 1, "Cd": 6 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_equipement": ["heros_pestilens"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "initie_de_la_peste",
+      "nom": "Initié de la Peste",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 2, "CT": 3, "F": 2, "E": 2, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "tir", "vitesse", "special"],
+      "acces_equipement": ["heros_pestilens"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "novice_de_la_peste",
+      "nom": "Novice de la Peste",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
+      "regles_speciales": [{ "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." }],
+      "acces_competences": [],
+      "acces_equipement": ["hommes_de_main_pestilens"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "rat_geant",
+      "nom": "Rat géant",
+      "type": "animal",
+      "min": 0,
+      "max": null,
+      "cout": 15,
+      "stats": { "M": 6, "CC": 2, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
+      "regles_speciales": [
+        { "nom": "Recrutement", "texte": "Achetés par groupes de 1 à 5." },
+        { "nom": "Expérience", "texte": "Les rats géants sont des animaux et ne gagnent donc pas d'expérience." },
+        { "nom": "Équipement", "texte": "Aucun. Les rats géants ne portent ni arme ni armure." },
+        { "nom": "Rat Familier", "texte": "Si la bande comprend un Prêcheur-Sorcier Pestilens équipé d'un parchemin de rat familier, un rat géant peut être transformé en Rat Familier avant la bataille (voir Équipement spécial). Profil du Rat Familier : M6 CC2 CT0 F3 E3 PV1 I4 A1 Cd4, sans arme ni armure. Il gagne son expérience comme un Homme de main, mais son résultat 10-12 « Ce gars est doué » est remplacé par « Lancé de sorts amélioré : si le Prêcheur-Sorcier Pestilens se trouve à moins de 6ps du Rat Familier, il gagne un bonus cumulatif de +1 au jet de dés pour lancer un sort. » Si le Prêcheur-Sorcier Pestilens meurt, le Rat Familier reprend sa forme de Rat Géant." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "rat_ogre",
+      "nom": "Rat-ogre",
+      "type": "animal",
+      "min": 0,
+      "max": 1,
+      "cout": 210,
+      "stats": { "M": 6, "CC": 3, "CT": 3, "F": 5, "E": 5, "PV": 3, "I": 4, "A": 3, "Cd": 4 },
+      "regles_speciales": [
+        { "nom": "Peur", "texte": "Les rats ogres provoquent la peur." },
+        { "nom": "Stupidité", "texte": "Un rat ogre est sujet à la stupidité, à moins qu'un héros skaven ne se trouve à moins de 6ps." },
+        { "nom": "Expérience", "texte": "Les rats ogres ne gagnent pas d'expérience." },
+        { "nom": "Grande Cible", "texte": "Les rats ogres sont des créatures immenses faisant de bonnes cibles pour les archers ; ce sont des grandes cibles, comme défini dans les règles de tir." },
+        { "nom": "Équipement", "texte": "Crocs, griffes et force brute ! Les rats ogres n'utilisent jamais ni armes ni armures." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "insensible_a_la_douleur", "nom": "Insensible à la douleur", "texte": "Seul un Héros des Skavens du Clan Pestilens possédant la compétence dur à cuire peut choisir cette compétence. Le Skaven considère les résultats sonné comme à terre.", "reserve_a": "Nécessite la compétence Dur à cuire" },
+    { "id": "frenesie_mortelle", "nom": "Frénésie mortelle", "texte": "Au début d'un tour, le Héros du Clan Pestilens peut déclarer qu'il utilise cette compétence. Il gagne +1 Attaque et 1D3ps de Mouvement pour tout son tour. En contrepartie, dès la fin du tour, il subit 1D3 touches de Force 3, sans sauvegarde possible." },
+    { "id": "porteur_dencensoir_a_peste", "nom": "Porteur d'encensoir à peste", "texte": "Seul un Héros des Skavens du Clan Pestilens avec la compétence frénésie mortelle peut choisir cette compétence. Ce Skaven est appelé porteur d'encensoir. Il gagne la règle spéciale frénésie et ne peut utiliser qu'un encensoir à peste comme arme de corps à corps.", "reserve_a": "Nécessite la compétence Frénésie mortelle" },
+    { "id": "corps_putrefie", "nom": "Corps putréfié", "texte": "Un Héros du Clan Pestilens doté de cette compétence s'est accoutumé aux poisons, aux infections et aux émanations mortelles des encensoirs à peste. Il est désormais immunisé aux poisons et aux maladies. S'il est mis hors de combat suite à un test d'Endurance raté pour avoir porté un encensoir à peste, il ne devra pas faire de jet de Blessure Grave en fin de partie et sera juste considéré comme grisé par les vapeurs." },
+    { "id": "contagieux", "nom": "Contagieux", "texte": "Seul un Héros du Clan Pestilens possédant la compétence corps putréfié peut choisir cette compétence. Toute figurine qui met hors de combat le Skaven contagieux doit faire un test d'Endurance. En cas d'échec, l'attaquant subit une Blessure automatique. Un résultat de 6 inflige toujours une Blessure. Les Morts-Vivants et les Possédés sont immunisés et ne font jamais ce test.", "reserve_a": "Nécessite la compétence Corps putréfié" }
+  ],
+  "equipement": {
+    "heros_pestilens": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "masse" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "fleau", "cout": 15 },
+        { "item_id": "dague_de_la_peste", "cout": 15 },
+        { "item_id": "encensoir_a_peste", "cout": 40 }
+      ],
+      "armes_tir": [
+        { "item_id": "fronde", "cout": 2 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    },
+    "hommes_de_main_pestilens": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "masse" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "fronde", "cout": 2 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "dague_de_la_peste", "cout": 15, "disponibilite": "Rare 8, Clan Pestilens uniquement" },
+    { "item_id": "encensoir_a_peste", "cout": 40, "disponibilite": "Rare 9, Clan Pestilens uniquement" },
+    { "item_id": "fragments_de_malepierre_incandescents", "cout": "100+1D6x10", "disponibilite": "Rare 9, Clan Pestilens uniquement" },
+    { "item_id": "amulette_de_malepierre", "cout": 10, "disponibilite": "Rare 5, Clan Pestilens uniquement" },
+    { "item_id": "parchemin_de_rat_familier", "cout": "25+1D6", "disponibilite": "Rare 8, Clan Pestilens uniquement", "profils": ["precheur_sorcier_pestilens"] },
+    { "item_id": "liber_bubonicus", "cout": "200+1D6x25", "disponibilite": "Rare 12, Clan Pestilens uniquement (un seul utilisateur par campagne)" },
+    { "item_id": "banniere_du_clan_pestilens", "cout": 10, "disponibilite": "Rare 5, Clan Pestilens uniquement" },
+    { "item_id": "liturgicus_infectus", "cout": "30+2D6", "disponibilite": "Rare 8, Clan Pestilens uniquement" }
+  ],
+  "magie": {
+    "nom": "Magie du Rat Cornu",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["precheur_sorcier_pestilens"],
+    "note": "Cette forme sinistre de sorcellerie utilisée par les skavens provient de leur divinité, un infâme dieu démoniaque appelé le Rat Cornu.",
+    "sorts": [
+      { "resultat": 1, "nom": "Maleflamme", "difficulte": 8, "texte": "Portée 8ps, frappe la première figurine sur sa trajectoire : 1D3 touches de Force 4 sur la victime et une touche de Force 3 sur chaque figurine à moins de 2ps d'elle." },
+      { "resultat": 2, "nom": "Rejetons du Rat Cornu", "difficulte": "Auto", "texte": "Utilisable une seule fois avant chaque partie. Invoque 1D3 rats géants placés à moins de 6ps du Prêcheur-Sorcier Pestilens ; ces rats ne comptent pas dans le nombre maximum de figurines de la bande." },
+      { "resultat": 3, "nom": "Rongeviande", "difficulte": 7, "texte": "Cause 2D6 touches de Force 1 sur une seule figurine à moins de 8ps du Prêcheur-Sorcier Pestilens." },
+      { "resultat": 4, "nom": "Fureur Noire", "difficulte": 8, "texte": "Le Prêcheur-Sorcier Pestilens peut immédiatement charger une figurine ennemie de son choix à moins de 12ps (en ignorant terrain et autres figurines). Il gagne Attaques +2 et Force +1 durant la phase de corps à corps de ce tour uniquement." },
+      { "resultat": 5, "nom": "Œil du Warp", "difficulte": 8, "texte": "Toutes les figurines debout en contact avec le Prêcheur-Sorcier Pestilens doivent immédiatement effectuer un test de Commandement. Celles qui échouent subissent une touche de Force 3 et doivent courir de 2D6ps dans la direction opposée à celle du Prêcheur-Sorcier Pestilens." },
+      { "resultat": 6, "nom": "Malédiction du Sorcier", "difficulte": 6, "texte": "Affecte une figurine à moins de 12ps : elle doit relancer tout jet pour toucher ou sauvegarde d'armure réussi durant la phase de corps à corps Skaven du Clan Pestilens qui suit, ainsi que lors des phases de tir et de corps à corps de son prochain tour." }
+    ]
+  }
+}
