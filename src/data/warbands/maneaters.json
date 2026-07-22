@@ -3,6 +3,7 @@
   "nom": "Maneaters (1c)",
   "grade": "1c",
   "source": "Border Town Burning (BTB) — La Grande Librairie de Mordheim",
+  "xp_demi": true,
   "regles_speciales": [
     { "nom": "Peur", "texte": "Les Ogres sont de grandes créatures menaçantes qui provoquent la peur, sauf les Jeunes Sangs." },
     { "nom": "Gloutonnerie", "texte": "Chaque Ogre compte comme deux figurines lors de la vente de pierre magique ou de trésors. Les figurines capturées (via Blessures Graves ou Exploration) peuvent être dévorées, l'Ogre conservant leurs possessions et réduisant l'effectif de la bande adverse d'une figurine (deux si le captif est une Grande Cible). N'importe quel membre de bande ou animal peut être mangé de la même façon. Un Héros Ogre qui dévore des captifs gagne autant d'expérience que de figurines consommées ; les camarades consommés sont immédiatement retirés du roster." },

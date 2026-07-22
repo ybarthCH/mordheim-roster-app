@@ -1,7 +1,42 @@
+/* Polices maison, alignées sur le style de mordheimer.net/docs/rules :
+   Garamond pour les titres/corps élégants, Schoensperger (gothique) pour les
+   grands titres façon manuscrit médiéval, variantes condensées italiques
+   pour les accroches/citations. */
+@font-face {
+  font-family: 'Garamond';
+  src: url('/fonts/Garamond.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garamond Cond Book';
+  src: url('/fonts/GaramondCondBookItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Garamond Cond Light';
+  src: url('/fonts/GaramondCondLightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Schoensperger';
+  src: url('/fonts/Schoensperger.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light dark;
   --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-heading: Georgia, 'Times New Roman', serif;
+  --font-heading: 'Garamond', Georgia, 'Times New Roman', serif;
+  --font-display: 'Schoensperger', var(--font-heading);
+  --font-accroche: 'Garamond Cond Book', var(--font-heading);
   --radius: 8px;
   --radius-lg: 14px;
   --header-h: 56px;
@@ -80,6 +115,15 @@ h4 {
   font-family: var(--font-heading);
   margin: 0 0 0.4em;
   letter-spacing: 0.02em;
+}
+
+/* Titres de section (une carte = un <h3>, très fréquent dans l'app) : police
+   gothique façon manuscrit, à l'image des intitulés de tableaux sur
+   mordheimer.net/docs/rules. */
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 a {
@@ -383,10 +427,10 @@ button {
   margin-bottom: 0.6rem;
 }
 .home-hero__title {
-  font-family: var(--font-heading);
-  font-size: 2.4rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
   margin: 0;
   color: var(--accent);
 }
@@ -398,9 +442,10 @@ button {
   opacity: 0.55;
 }
 .home-hero__subtitle {
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
-  letter-spacing: 0.12em;
+  font-family: var(--font-accroche);
+  font-style: italic;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
   margin: 0;
@@ -494,6 +539,13 @@ button {
 .xp-box--palier.xp-box--checked {
   background: var(--palier);
   border-color: var(--palier);
+}
+.xp-box--demi {
+  background: linear-gradient(90deg, var(--accent) 50%, var(--bg-inset) 50%);
+  border-color: var(--accent);
+}
+.xp-box--demi.xp-box--palier {
+  background: linear-gradient(90deg, var(--palier) 50%, var(--bg-inset) 50%);
 }
 .xp-box--henchman {
   width: 32px;
