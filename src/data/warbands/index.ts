@@ -19,6 +19,7 @@ import morts_sans_repos from './morts_sans_repos.json';
 import nains_du_chaos from './nains_du_chaos.json';
 import norses from './norses.json';
 import orc_mob from './orc_mob.json';
+import orques_noirs from './orques_noirs.json';
 import ostlanders from './ostlanders.json';
 import reiklanders from './reiklanders.json';
 import sisters_of_sigmar from './sisters_of_sigmar.json';
@@ -47,6 +48,7 @@ export const CATALOGUES: WarbandCatalog[] = [
   nains_du_chaos,
   norses,
   orc_mob,
+  orques_noirs,
   ostlanders,
   reiklanders,
   sisters_of_sigmar,

@@ -1,0 +1,126 @@
+{
+  "id": "orques_noirs",
+  "nom": "Orques Noirs (1b)",
+  "grade": "1b",
+  "source": "Nemesis Crown, V1hFr [2025-08-07] — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    {"nom": "Laiss’ lé vrais mecs faire l’boulô’", "texte": "Les Orques Noirs ne comptent que sur eux-mêmes pour tuer leurs ennemis. Ils ne peuvent donc avoir aucune monture d’aucune sorte. Seuls les Orques communs peuvent chevaucher des sangliers ou autres montures."},
+    {"nom": "L’chef il a kané !", "texte": "Si le Chef venait à être tué, ce serait obligatoirement l’Orque Noir avec le plus d’expérience qui prendrait le commandement de la bande, même si un Orque est plus expérimenté. Le remplaçant gagne automatiquement la règle spéciale t’vas t’calmer ?!"},
+    {"nom": "Animosité", "texte": "Les Orques aiment se battre. Malheureusement pour eux, ils ne discernent pas toujours contre qui le faire. Au début de chaque tour du joueur Orque, lancez 1D6 pour chaque Orque de main qui n’est pas engagé au Corps à Corps (ceux-là ont déjà quelque chose à se mettre sous la dent !). Sur un résultat de 1, la figurine a été agacée par quelque chose qu’un de ses acolytes a dit ou fait. Lancez ensuite 1D6 sur le tableau suivant pour déterminer le résultat de cette offense :\n\n1 — « Répète, pour voir ! » Le guerrier considère que son allié le plus proche, parmi les Orques de main, a insulté ses ancêtres ou quelque chose dans le genre, et qu’il doit payer pour cela ! Si un Orque de main ou un Franc-Tireur se trouve à portée de charge (s’il y a plusieurs cibles possibles, choisissez la plus proche), la figurine offensée le charge immédiatement et livre un tour de Corps à Corps. À la fin du tour, les figurines sont déplacées à 1ps l’une de l’autre et ne sont plus considérées comme étant engagées au Corps à Corps (à moins qu’un autre test d’Animosité ne soit raté et que ce résultat ne soit à nouveau obtenu). S’il ne se trouve aucun Orque de main ou Franc-Tireur à portée de charge, et si la figurine affectée est équipée d’une arme de tir, elle l’utilise immédiatement contre l’Orque de Main ou le Franc-Tireur le plus proche. Si aucun de ces cas de figure ne se présente, ou si la figurine la plus proche est un Héros, la figurine affectée agit comme si elle avait obtenu le résultat 2-5 « K’es t’a dit ? » sur ce tableau. Dans tous les cas, la figurine ne fait rien d’autre durant ce tour. Cependant, elle se défend normalement si elle est engagée au Corps à Corps.\n\n2-5 — « K’es t’a dit ? » Le guerrier est convaincu qu’un de ses alliés l’a insulté, mais il ne sait pas trop lequel. Il passe tout ce tour à invectiver tout le monde et ne fait absolument rien d’autre. Cependant, il se défend normalement s’il est engagé au Corps à Corps.\n\n6 — « J’vais leur montrer ! » Le guerrier imagine que ses alliés se moquent de lui dans son dos et le traitent de tous les noms. Il décide de leur montrer qu’il n’est pas un couard ! La figurine doit avancer le plus rapidement possible vers la figurine ennemie la plus proche et la charger si possible. Si aucune figurine ennemie n’est visible, le guerrier peut effectuer immédiatement un Mouvement normal, venant s’ajouter à son déplacement standard durant la phase de Mouvement. Si le premier déplacement amène la figurine à portée de charge d’un ennemi, elle devra le charger lors de sa prochaine phase de Mouvement."}
+  ],
+  "composition": {"effectif_min": 3, "effectif_max": 12, "cout_max_constitution": 500},
+  "caracteristiques_max": [
+    {"profil": "orque_noir", "note": "Plafond des Boss Orques Noirs, des Orques Noirs et des Pti’meks promus en Pti’meks Orques Noirs. Les Orques de main ne peuvent pas dépasser +1 pour chaque caractéristique.", "M": 4, "CC": 7, "CT": 6, "F": 5, "E": 5, "PV": 3, "I": 5, "A": 4, "Cd": 9},
+    {"profil": "orque", "note": "Plafond des Pti’meks avant leur rituel de passage (« Sang d’orque noir ») — une fois promus en Pti’meks Orques Noirs, c’est le plafond ci-dessus qui s’applique. Les Orques de main ne peuvent pas dépasser +1 pour chaque caractéristique.", "M": 4, "CC": 6, "CT": 6, "F": 4, "E": 5, "PV": 3, "I": 5, "A": 4, "Cd": 9}
+  ],
+  "profils": [
+    {
+      "id": "boss_orque_noir", "nom": "Boss Orque Noir", "type": "heros", "unique": true, "min": 1, "max": 1, "cout": 90, "xp_depart": 20,
+      "stats": {"M": 4, "CC": 4, "CT": 4, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 8},
+      "regles_speciales": [
+        {"nom": "Chef", "texte": "Tout membre de la bande à moins de 6ps du Boss Orque Noir peut utiliser le Commandement de ce dernier pour ses tests."},
+        {"nom": "Orque noir", "texte": "La figurine commence avec une sauvegarde d’armure naturelle de 6+. Elle peut être combinée avec n’importe quel équipement qui l’améliorerait."},
+        {"nom": "T’vas t’calmer ?!", "texte": "Si un Orque de main rate son test d’Animosité à moins de 6ps du Boss Orque Noir, le joueur Orque Noir peut choisir de faire intervenir ce dernier. Le Chef Orque Noir décide alors de calmer les esprits en bottant quelques fesses… L’Orque de main indiscipliné subit une touche automatique d’une Force déterminée par le joueur Orque Noir. Si l’Orque de main est encore debout après la claque, il ajoute un nombre égal à la Force du coup reçu au résultat obtenu sur le tableau d’Animosité. Par exemple, le joueur décide que le Boss Orque Noir file une torgnole de Force 2 à un Orque de main indiscipliné. S’il n’est pas à terre, sonné ou hors de combat suite au bourre-pif, le joueur ajoute +2 au résultat sur le tableau d’Animosité."}
+      ],
+      "acces_competences": ["combat", "tir", "force", "vitesse", "special"], "acces_competences_a_verifier": false,
+      "acces_equipement": ["orques_noirs"], "est_leader": true
+    },
+    {
+      "id": "orque_noir", "nom": "Orques Noirs", "type": "heros", "unique": false, "min": 0, "max": 2, "cout": 60, "xp_depart": 8,
+      "stats": {"M": 4, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 7},
+      "regles_speciales": [
+        {"nom": "Orque noir", "texte": "La figurine commence avec une sauvegarde d’armure naturelle de 6+. Elle peut être combinée avec n’importe quel équipement qui l’améliorerait."}
+      ],
+      "acces_competences": ["combat", "tir", "force", "vitesse", "special"], "acces_competences_a_verifier": false,
+      "acces_equipement": ["orques_noirs"], "est_leader": false
+    },
+    {
+      "id": "pti_mek", "nom": "Pti’mek", "type": "heros", "unique": false, "min": 0, "max": 2, "cout": 25, "xp_depart": 0,
+      "stats": {"M": 4, "CC": 2, "CT": 2, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 6},
+      "regles_speciales": [
+        {"nom": "Sang d’orque noir", "texte": "S’il a accumulé 25 points d’expérience, un Pti’mek peut être promu en « Pti’mek Orque Noir ». Il doit avant tout subir un rituel de passage pour devenir un Pti’mek Orque Noir, dont les préparatifs coûtent 10 Couronnes d’Or. Une fois ce rituel accompli, la prochaine fois qu’il pourra choisir une nouvelle compétence, il pourra obtenir, à la place, la règle spéciale orque noir. Il devient alors un Orque Noir à part entière et a désormais accès à leur liste d’équipement et aux mêmes compétences qu’eux."}
+      ],
+      "acces_competences": ["combat", "tir", "special"], "acces_competences_a_verifier": false,
+      "acces_equipement": ["pti_meks"], "est_leader": false
+    },
+    {
+      "id": "kastagneurs_orques", "nom": "Kastagneurs Orques", "type": "homme_de_main", "unique": false, "min": 0, "max": null, "cout": 25, "xp_depart": 0,
+      "stats": {"M": 4, "CC": 3, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 6},
+      "regles_speciales": [
+        {"nom": "Animosité", "texte": "Les Kastagneurs Orques sont sujets à l’animosité (voir les règles spéciales de la bande)."}
+      ],
+      "acces_competences": [], "acces_competences_a_verifier": false,
+      "acces_equipement": ["kastagneurs"], "est_leader": false
+    },
+    {
+      "id": "chasseurs_orques", "nom": "Chasseurs Orques", "type": "homme_de_main", "unique": false, "min": 0, "max": null, "cout": 25, "xp_depart": 0,
+      "stats": {"M": 4, "CC": 3, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 6},
+      "regles_speciales": [
+        {"nom": "Animosité", "texte": "Les Chasseurs Orques sont sujets à l’animosité (voir les règles spéciales de la bande)."},
+        {"nom": "Peu commun", "texte": "Une bande ne peut pas engager plus de Chasseurs que de Kastagneurs. Si un Kastagneur meurt et qu’il y a plus de Chasseurs que de Kastagneurs, la prochaine recrue sera obligatoirement un Kastagneur pour rétablir l’équilibre."}
+      ],
+      "acces_competences": [], "acces_competences_a_verifier": false,
+      "acces_equipement": ["chasseurs"], "est_leader": false
+    },
+    {
+      "id": "ding_boyz", "nom": "Ding’boyz", "type": "homme_de_main", "unique": false, "min": 0, "max": 4, "cout": 40, "xp_depart": 0,
+      "stats": {"M": 4, "CC": 3, "CT": 2, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 5},
+      "regles_speciales": [
+        {"nom": "Instable", "texte": "Ces Orques ne sont pas tout à fait normaux. Ils ne souffrent pas d’Animosité, mais de tout un tas d’autres problèmes."},
+        {"nom": "Fou", "texte": "Les Ding’boyz réussissent automatiquement tous les tests de Commandement. Le revers de la médaille, c’est que leur esprit est si dérangé que, s’ils venaient à devenir des Héros suite à un jet de progression, ils seraient incapables d’apprendre ne serait-ce qu’une compétence d’Érudition."},
+        {"nom": "Sauvage", "texte": "Les Ding’boyz doivent toujours courir ou charger au maximum de leur Mouvement vers l’ennemi visible le plus proche. Les figurines alliées ne bloquent pas les lignes de vue. S’il n’y a pas d’ennemi visible, le joueur Orque Noir peut les déplacer normalement. Au corps à corps, ils bénéficient d’une attaque supplémentaire. Cette attaque n’apparaît pas sur leur profil et ne compte pas dans le maximum racial. Les Ding’boyz ne peuvent pas porter d’armure, ni d’armes à distance. Ils sont également trop instables pour les autres orques, qui refuseront que l’un d’entre eux devienne leur Chef. Il n’est pas possible non plus d’utiliser leur Commandement pour les tests de Déroute, à moins que les Ding’boyz soient les seules figurines de la bande restantes."}
+      ],
+      "acces_competences": [], "acces_competences_a_verifier": false,
+      "acces_equipement": ["ding_boyz"], "est_leader": false
+    },
+    {
+      "id": "troll", "nom": "Troll", "type": "animal", "unique": false, "min": 0, "max": 1, "cout": 200, "xp_depart": 0,
+      "stats": {"M": 6, "CC": 3, "CT": 1, "F": 5, "E": 4, "PV": 3, "I": 1, "A": 3, "Cd": 4},
+      "regles_speciales": [
+        {"nom": "Armes/Armures", "texte": "Les Trolls pourraient très bien se passer d’armes mais ils portent malgré tout un gros gourdin. En termes de jeu, ils ne peuvent recevoir ni armes, ni armures."},
+        {"nom": "Peur", "texte": "Les Trolls sont des créatures effrayantes et provoquent la peur."},
+        {"nom": "Zéro de QI", "texte": "Les Trolls sont bien trop stupides pour apprendre quoi que ce soit. Ils ne gagnent jamais d’expérience."},
+        {"nom": "Régénération", "texte": "Les Trolls disposent d’une capacité physiologique unique qui leur permet de soigner leurs blessures bien plus rapidement que toute autre créature. Lorsqu’un Troll subit une Blessure, quelle qu’elle soit, lancez 1D6. Sur un résultat de 4+, la Blessure est tout simplement ignorée. Les Trolls ne peuvent pas se régénérer de blessures causées par le feu ou par des sorts basés sur le feu. Ils ne font pas de jet de Blessure Grave en fin de partie."},
+        {"nom": "Stupidité", "texte": "Les Trolls sont soumis aux règles de stupidité."},
+        {"nom": "Toujours Faim", "texte": "Un Troll est assez cher à entretenir, il faut le gaver d’une quantité colossale de nourriture pour s’assurer de sa loyauté envers la bande. Celle-ci doit dépenser 20 CO après chaque bataille pour nourrir le Troll. Si elle n’en a pas les moyens, le Chef a la possibilité de le compter comme 2 membres, ce qui réduit le coût d’entretien du Troll à 5 CO. Cependant, le nombre maximum de guerriers autorisés dans la bande passera à 11. Si vous ne pouvez toujours pas payer, le Troll quittera la bande définitivement pour aller chercher sa nourriture lui-même."},
+        {"nom": "Vomi", "texte": "Au lieu d’effectuer ses attaques normales, un Troll peut régurgiter ses fluides gastriques hautement corrosifs sur son infortuné adversaire. Cette attaque unique touche automatiquement, est résolue avec une Force de 5 et ignore les sauvegardes d’armures."},
+        {"nom": "Grande cible", "texte": "Les Trolls sont des créatures immenses faisant de bonnes cibles pour les archers. Ce sont des grandes cibles, comme défini dans les règles de Tir."}
+      ],
+      "acces_competences": [], "acces_competences_a_verifier": false,
+      "acces_equipement": [], "est_leader": false
+    }
+  ],
+  "competences_speciales": [
+    {"id": "tet_dure", "nom": "Têt’dure", "texte": "Le guerrier a un crâne particulièrement épais, même pour un orque. Cet Orque bénéficie d’une sauvegarde spéciale de 3+ sur 1D6 pour éviter d’être sonné. Si la sauvegarde est réussie, la figurine est juste à terre. Si l’Orque porte également un casque, cette sauvegarde est de 2+ au lieu de 3+ (remplaçant la règle spéciale du casque)."},
+    {"id": "waaagh", "nom": "Waaagh !", "texte": "Les orques sont des créatures agressives qui adorent foncer dans le tas. Le Héros ajoute +1D3ps à sa portée de charge."},
+    {"id": "on_y_va", "nom": "On y va !", "texte": "Les orques n’hésitent pas à foncer au combat, même face à des adversaires impressionnants. Le Héros ignore les tests de peur et de terreur lorsqu’il charge."},
+    {"id": "revenez_ici", "nom": "Rev’nez ici !", "texte": "Seul le Chef peut posséder compétence. La bande peut relancer tous les tests de Déroute ratés tant que le Chef n’a pas été mis hors de combat.", "reserve_a": "Boss Orque Noir uniquement"},
+    {"id": "coup_de_boule", "nom": "Coup d’boule", "texte": "Les orques sont des créatures assez musclées et certains ont l’habitude de frapper leurs adversaires à grands coups de tête, avec des résultats assez concluants. Toute figurine mise à terre au corps à corps est considérée comme sonnée."}
+  ],
+  "equipement": {
+    "orques_noirs": {
+      "armes_cac": [{"item_id": "dague", "cout": 2, "note": "première gratuite"}, {"item_id": "hache", "cout": 5}, {"item_id": "epee", "cout": 10}, {"item_id": "morgenstern", "cout": 10, "note": "Kikoup’ (compte comme une Morgenstern)"}, {"item_id": "lance", "cout": 10}, {"item_id": "arme_a_deux_mains", "cout": 15}],
+      "armes_tir": [{"item_id": "arc", "cout": 10}, {"item_id": "arbalete", "cout": 25}],
+      "armures": [{"item_id": "armure_legere", "cout": 20}, {"item_id": "armure_lourde", "cout": 50}, {"item_id": "casque", "cout": 10}, {"item_id": "bouclier", "cout": 5}, {"item_id": "rondache", "cout": 5}]
+    },
+    "pti_meks": {
+      "armes_cac": [{"item_id": "dague", "cout": 2, "note": "première gratuite"}, {"item_id": "hache", "cout": 5}, {"item_id": "epee", "cout": 10}, {"item_id": "morgenstern", "cout": 10, "note": "Kikoup’ (compte comme une Morgenstern)"}, {"item_id": "lance", "cout": 10}],
+      "armes_tir": [{"item_id": "arc", "cout": 10}],
+      "armures": [{"item_id": "armure_legere", "cout": 20}, {"item_id": "casque", "cout": 10}, {"item_id": "bouclier", "cout": 5}]
+    },
+    "kastagneurs": {
+      "armes_cac": [{"item_id": "dague", "cout": 2, "note": "première gratuite"}, {"item_id": "hache", "cout": 5}, {"item_id": "epee", "cout": 10}, {"item_id": "morgenstern", "cout": 10, "note": "Kikoup’ (compte comme une Morgenstern)"}, {"item_id": "lance", "cout": 10}, {"item_id": "arme_a_deux_mains", "cout": 15}],
+      "armes_tir": [{"item_id": "arc", "cout": 10}],
+      "armures": [{"item_id": "armure_legere", "cout": 20}, {"item_id": "casque", "cout": 10}, {"item_id": "bouclier", "cout": 5}]
+    },
+    "ding_boyz": {
+      "armes_cac": [{"item_id": "dague", "cout": 2, "note": "première gratuite"}, {"item_id": "hache", "cout": 5}, {"item_id": "epee", "cout": 10}, {"item_id": "morgenstern", "cout": 10, "note": "Kikoup’ (compte comme une Morgenstern)"}, {"item_id": "lance", "cout": 10}, {"item_id": "arme_a_deux_mains", "cout": 15}]
+    },
+    "chasseurs": {
+      "armes_cac": [{"item_id": "dague", "cout": 2, "note": "première gratuite"}, {"item_id": "hache", "cout": 5}, {"item_id": "epee", "cout": 10}, {"item_id": "morgenstern", "cout": 10, "note": "Kikoup’ (compte comme une Morgenstern)"}, {"item_id": "lance", "cout": 10}],
+      "armes_tir": [{"item_id": "arc", "cout": 10}, {"item_id": "arbalete", "cout": 25}],
+      "armures": [{"item_id": "armure_legere", "cout": 20}, {"item_id": "casque", "cout": 10}, {"item_id": "bouclier", "cout": 5}]
+    }
+  },
+  "equipement_special": []
+}
