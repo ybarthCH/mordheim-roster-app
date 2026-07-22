@@ -15,7 +15,7 @@ import { BlessureGraveModal } from './BlessureGraveModal';
 import { AchatEquipementModal } from './AchatEquipementModal';
 import { ItemDetailModal } from './ItemDetailModal';
 import { Modal } from '../common/Modal';
-import { EquipementReference, MagieReference } from '../common/CatalogueReference';
+import { MagieReference } from '../common/CatalogueReference';
 import { avancesDues } from '../../utils/xp';
 import { ratingMembre } from '../../utils/rating';
 import { skillById } from '../../data/gameData';
@@ -23,7 +23,9 @@ import {
   acheterPourMembre,
   retirerDeMembre,
   transfererVersStock,
-  creerEntreeInventaire,
+  creerEntreesInventaire,
+  entreesLieesAuGroupe,
+  resumeInventaireParItem,
   formatEquipementAffiche,
   libelleCategorie,
   resolveItemDetail,
@@ -59,6 +61,7 @@ export function PersonnageScreen() {
   const [modalAchat, setModalAchat] = useState(false);
   const [nouveauSort, setNouveauSort] = useState('');
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
+  const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
 
   const membre = roster?.membres.find((m) => m.instance_id === instanceId);
   const profil = roster && membre ? resolveProfil(roster, membre) : undefined;
@@ -88,33 +91,43 @@ export function PersonnageScreen() {
     ),
   });
 
+  // Un groupe d'hommes de main ne peut pas mélanger son équipement : acheter
+  // un objet l'équipe d'un coup pour toutes ses figurines (prix unitaire ×
+  // taille du groupe).
   const acheterItem = (item: ShopItem, coutPaye: number) => {
-    const entree = creerEntreeInventaire(item, coutPaye);
-    const nouveauRoster = acheterPourMembre(roster, membre.instance_id, entree);
-    updateRoster(avecEquipementSynchronise(nouveauRoster, [...membre.inventaire, entree]));
+    const entrees = creerEntreesInventaire(item, coutPaye, membre.taille_groupe || 1);
+    const nouveauRoster = acheterPourMembre(roster, membre.instance_id, entrees);
+    updateRoster(avecEquipementSynchronise(nouveauRoster, [...membre.inventaire, ...entrees]));
   };
 
-  // Supprime l'objet sans contrepartie (perdu, détruit...).
+  // Supprime l'objet sans contrepartie (perdu, détruit...) — pour un groupe,
+  // retire tous les exemplaires identiques (voir entreesLieesAuGroupe).
   const retirerItem = (instanceId: string) => {
+    const aRetirer = new Set(entreesLieesAuGroupe(membre, instanceId).map((e) => e.instance_id));
     const sansItem = retirerDeMembre(roster, membre.instance_id, instanceId);
-    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
+    const inventaire = membre.inventaire.filter((e) => !aRetirer.has(e.instance_id));
     updateRoster(avecEquipementSynchronise(sansItem, inventaire));
   };
 
-  // Revend l'objet : moitié du prix payé (arrondi au supérieur) reversée à la trésorerie.
+  // Revend l'objet (et tous ses exemplaires identiques pour un groupe) :
+  // moitié du prix payé (arrondi au supérieur), par exemplaire, reversée à
+  // la trésorerie.
   const vendreItem = (instanceId: string) => {
-    const entree = membre.inventaire.find((e) => e.instance_id === instanceId);
-    if (!entree) return;
+    const aVendre = entreesLieesAuGroupe(membre, instanceId);
+    if (aVendre.length === 0) return;
+    const remboursement = aVendre.reduce((acc, e) => acc + prixVente(e.cout), 0);
+    const aVendreIds = new Set(aVendre.map((e) => e.instance_id));
     const sansItem = retirerDeMembre(roster, membre.instance_id, instanceId);
-    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
+    const inventaire = membre.inventaire.filter((e) => !aVendreIds.has(e.instance_id));
     updateRoster(
-      avecEquipementSynchronise({ ...sansItem, tresorerie: sansItem.tresorerie + prixVente(entree.cout) }, inventaire)
+      avecEquipementSynchronise({ ...sansItem, tresorerie: sansItem.tresorerie + remboursement }, inventaire)
     );
   };
 
   const renvoyerStockItem = (instanceId: string) => {
+    const aRenvoyer = new Set(entreesLieesAuGroupe(membre, instanceId).map((e) => e.instance_id));
     const nouveauRoster = transfererVersStock(roster, membre, instanceId);
-    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
+    const inventaire = membre.inventaire.filter((e) => !aRenvoyer.has(e.instance_id));
     updateRoster(avecEquipementSynchronise(nouveauRoster, inventaire));
   };
 
@@ -148,9 +161,14 @@ export function PersonnageScreen() {
   const dues = avancesDues(profil.type, membre.xp_depart, membre.xp);
   const obtenues = membre.historique_avancees.length;
   const enAttente = Math.max(0, dues - obtenues);
-  const rating = ratingMembre(membre);
+  const rating = ratingMembre(membre, roster);
   const plafond = catalogue.caracteristiques_max?.[0];
   const heroCount = nombreHeros(roster);
+
+  // Regroupe l'inventaire par objet (un groupe d'hommes de main possède
+  // toujours autant d'exemplaires identiques que de figurines) pour n'en
+  // afficher qu'une ligne par objet, suffixée de la quantité.
+  const inventaireGroupe = resumeInventaireParItem(membre.inventaire);
 
   const supprimerMembre = () => {
     updateRoster({ ...roster, membres: roster.membres.filter((m) => m.instance_id !== membre.instance_id) });
@@ -329,14 +347,15 @@ export function PersonnageScreen() {
         <p className="text-sm mb-0" style={{ marginTop: profil.type === 'heros' ? '0.7rem' : 0 }}>
           <strong>Équipement</strong>
         </p>
-        {membre.inventaire.length > 0 ? (
-          membre.inventaire.map((entree) => {
+        {inventaireGroupe.length > 0 ? (
+          inventaireGroupe.map(({ entree, quantite }) => {
             const detail = resolveItemDetail(entree);
             const synopsis = resumeItem(detail);
             return (
               <p key={entree.instance_id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
                 <button className="link-inline" onClick={() => setItemDetail(entree)}>
                   {entree.nom}
+                  {quantite > 1 ? ` ×${quantite}` : ''}
                 </button>
                 {synopsis && (
                   <span className="text-muted">
@@ -425,23 +444,6 @@ export function PersonnageScreen() {
         </div>
       )}
 
-      {profil.type === 'heros' && (
-        <div className="card">
-          <h3>Compétences</h3>
-          <CompetencesPanel
-            member={membre}
-            profil={profil}
-            catalogue={catalogue}
-            onToggleSkill={(skillId) => {
-              const acquises = membre.competences_acquises.includes(skillId)
-                ? membre.competences_acquises.filter((s) => s !== skillId)
-                : [...membre.competences_acquises, skillId];
-              majMembre({ competences_acquises: acquises });
-            }}
-          />
-        </div>
-      )}
-
       <div className="card">
         <div className="flex justify-between items-center">
           <h3 className="mt-0 mb-0">Équipement</h3>
@@ -449,8 +451,8 @@ export function PersonnageScreen() {
             + Acheter
           </button>
         </div>
-        {membre.inventaire.length === 0 && <p className="text-muted text-sm">Aucun objet acheté.</p>}
-        {membre.inventaire.map((entree) => (
+        {inventaireGroupe.length === 0 && <p className="text-muted text-sm">Aucun objet acheté.</p>}
+        {inventaireGroupe.map(({ entree, quantite }) => (
           <div key={entree.instance_id} className="list-item">
             <div
               className="list-item__main"
@@ -460,9 +462,11 @@ export function PersonnageScreen() {
             >
               <div className="list-item__title" style={{ textDecoration: 'underline' }}>
                 {entree.nom}
+                {quantite > 1 ? ` ×${quantite}` : ''}
               </div>
               <div className="list-item__subtitle">
                 {libelleCategorie(entree.categorie)} · {entree.cout} po
+                {quantite > 1 ? ` /figurine (${entree.cout * quantite} po au total)` : ''}
                 {entree.cout_notation ? ` (jet : ${entree.cout_notation})` : ''}
               </div>
             </div>
@@ -471,15 +475,15 @@ export function PersonnageScreen() {
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
                 onClick={() => renvoyerStockItem(entree.instance_id)}
-                title="Renvoyer au stock de la bande"
+                title={quantite > 1 ? `Renvoyer les ${quantite} exemplaires au stock de la bande` : 'Renvoyer au stock de la bande'}
               >
                 ↩
               </button>
               <button
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
-                onClick={() => vendreItem(entree.instance_id)}
-                title={`Vendre (+${prixVente(entree.cout)} po à la trésorerie)`}
+                onClick={() => setVenteEnCours(entree)}
+                title={`Vendre (+${prixVente(entree.cout) * quantite} po à la trésorerie)`}
               >
                 Vendre
               </button>
@@ -487,7 +491,7 @@ export function PersonnageScreen() {
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
                 onClick={() => retirerItem(entree.instance_id)}
-                title="Supprimer sans contrepartie (perdu, détruit…)"
+                title={quantite > 1 ? `Supprimer les ${quantite} exemplaires sans contrepartie (perdu, détruit…)` : 'Supprimer sans contrepartie (perdu, détruit…)'}
               >
                 ✕
               </button>
@@ -554,20 +558,22 @@ export function PersonnageScreen() {
         ))}
       </div>
 
-      <div className="card">
-        <label className="flex items-center gap-sm" style={{ cursor: 'pointer' }}>
-          <input
-            type="checkbox"
-            checked={membre.grande_cible}
-            onChange={(e) => majMembre({ grande_cible: e.target.checked })}
+      {profil.type === 'heros' && (
+        <div className="card">
+          <h3>Compétences</h3>
+          <CompetencesPanel
+            member={membre}
+            profil={profil}
+            catalogue={catalogue}
+            onToggleSkill={(skillId) => {
+              const acquises = membre.competences_acquises.includes(skillId)
+                ? membre.competences_acquises.filter((s) => s !== skillId)
+                : [...membre.competences_acquises, skillId];
+              majMembre({ competences_acquises: acquises });
+            }}
           />
-          <span>
-            <strong>Grande Cible</strong>
-            <br />
-            <span className="text-sm text-muted">Case manuelle — ajoute +20 au rating de ce personnage.</span>
-          </span>
-        </label>
-      </div>
+        </div>
+      )}
 
       <div className="card">
         <h3>Notes</h3>
@@ -585,7 +591,23 @@ export function PersonnageScreen() {
         />
       </div>
 
-      <EquipementReference catalogue={catalogue} />
+      {membre.profil_custom && (
+        <div className="card">
+          <label className="flex items-center gap-sm" style={{ cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={membre.grande_cible}
+              onChange={(e) => majMembre({ grande_cible: e.target.checked })}
+            />
+            <span>
+              <strong>Grande Cible</strong>
+              <br />
+              <span className="text-sm text-muted">Case manuelle — ajoute +20 au rating de ce personnage.</span>
+            </span>
+          </label>
+        </div>
+      )}
+
       <MagieReference catalogue={catalogue} profilId={profil.id} />
 
       <button className="btn btn--danger btn--block" onClick={() => setModalSuppression(true)}>
@@ -621,11 +643,48 @@ export function PersonnageScreen() {
           profil={profil}
           tresorerie={roster.tresorerie}
           competencesAcquises={membre.competences_acquises}
+          tailleGroupe={membre.taille_groupe || 1}
           onClose={() => setModalAchat(false)}
           onAchat={acheterItem}
         />
       )}
       {itemDetail && <ItemDetailModal item={resolveItemDetail(itemDetail)} onClose={() => setItemDetail(null)} />}
+      {venteEnCours && (
+        <Modal onClose={() => setVenteEnCours(null)}>
+          {(() => {
+            const quantiteVente = entreesLieesAuGroupe(membre, venteEnCours.instance_id).length;
+            const total = prixVente(venteEnCours.cout) * quantiteVente;
+            return (
+              <>
+                <h3>
+                  Vendre {venteEnCours.nom}
+                  {quantiteVente > 1 ? ` ×${quantiteVente}` : ''} ?
+                </h3>
+                <p className="text-muted">
+                  {quantiteVente > 1
+                    ? `Les ${quantiteVente} exemplaires seront retirés de l'inventaire du groupe et`
+                    : "L'objet sera retiré de l'inventaire et"}{' '}
+                  {total} po seront ajoutées à la trésorerie de la bande.
+                </p>
+                <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+                  <button className="btn" onClick={() => setVenteEnCours(null)}>
+                    Annuler
+                  </button>
+                  <button
+                    className="btn btn--primary"
+                    onClick={() => {
+                      vendreItem(venteEnCours.instance_id);
+                      setVenteEnCours(null);
+                    }}
+                  >
+                    Vendre pour {total} po
+                  </button>
+                </div>
+              </>
+            );
+          })()}
+        </Modal>
+      )}
       {modalSuppression && (
         <Modal onClose={() => setModalSuppression(false)}>
           <h3>Retirer {membre.nom_perso} ?</h3>

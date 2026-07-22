@@ -5,7 +5,7 @@ import type { Profile, SkillCategory, WarbandCatalog } from '../../types/catalog
 import { Modal } from '../common/Modal';
 import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN } from '../../data/gameData';
 import { SKILL_CATEGORIES } from '../../types/catalog';
-import { LIMITE_HEROS } from '../../utils/profil';
+import { LIMITE_HEROS, categoriesAccessibles } from '../../utils/profil';
 
 type Props = {
   member: Member;
@@ -50,10 +50,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
   const typeEffectif = tableForcee ?? profil.type;
   const table = typeEffectif === 'heros' ? TABLE_AVANCEMENT_HEROS : TABLE_AVANCEMENT_HOMMES_DE_MAIN;
 
-  const categoriesAccessibles: SkillCategory[] =
-    profil.acces_competences_a_verifier || profil.acces_competences.length === 0
-      ? SKILL_CATEGORIES.map((c) => c.id)
-      : profil.acces_competences;
+  const categoriesDisponibles: SkillCategory[] = categoriesAccessibles(profil);
 
   const entreeAvancement = indexAvancement !== '' ? table[Number(indexAvancement)] : null;
 
@@ -315,7 +312,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
             <label>Table de compétence</label>
             <select value={categorie} onChange={(e) => setCategorie(e.target.value as SkillCategory)}>
               <option value="">— Choisir —</option>
-              {categoriesAccessibles.map((catId) => (
+              {categoriesDisponibles.map((catId) => (
                 <option key={catId} value={catId}>
                   {SKILL_CATEGORIES.find((c) => c.id === catId)?.label}
                 </option>

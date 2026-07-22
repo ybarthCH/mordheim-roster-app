@@ -5,7 +5,6 @@
   "source": "Border Town Burning (BTB) — La Grande Librairie de Mordheim",
   "regles_speciales": [
     { "nom": "Peur", "texte": "Les Ogres sont de grandes créatures menaçantes qui provoquent la peur, sauf les Jeunes Sangs." },
-    { "nom": "Grande Cible", "texte": "Sauf les Jeunes Sangs et les Demi-Grands, les Ogres sont d'immenses cibles pour les archers ; n'importe quelle figurine peut leur tirer dessus même si elles ne sont pas la cible la plus proche, avec un bonus de +1 pour toucher." },
     { "nom": "Gloutonnerie", "texte": "Chaque Ogre compte comme deux figurines lors de la vente de pierre magique ou de trésors. Les figurines capturées (via Blessures Graves ou Exploration) peuvent être dévorées, l'Ogre conservant leurs possessions et réduisant l'effectif de la bande adverse d'une figurine (deux si le captif est une Grande Cible). N'importe quel membre de bande ou animal peut être mangé de la même façon. Un Héros Ogre qui dévore des captifs gagne autant d'expérience que de figurines consommées ; les camarades consommés sont immédiatement retirés du roster." },
     { "nom": "Lent d'Esprit", "texte": "Les Ogres progressent deux fois moins vite : il leur faut le double d'XP habituel pour obtenir une avancée." },
     { "nom": "Clients Difficiles", "texte": "Les Héros Ogres subissent un malus de -1 lors des jets pour trouver des objets Rares non exclusivement réservés aux Ogres." },
@@ -33,6 +32,7 @@
       "stats": { "M": 6, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 3, "I": 3, "A": 2, "Cd": 8 },
       "regles_speciales": [
         { "nom": "Chef", "texte": "Tout guerrier à moins de 6ps du Capitaine peut utiliser son Commandement pour ses tests." },
+        { "nom": "Grande Cible", "texte": "Immense cible pour les archers ; n'importe quelle figurine peut lui tirer dessus même si elle n'est pas la cible la plus proche, avec un bonus de +1 pour toucher." },
         { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps, même s'ils peuvent en porter une réservée à leur repas." }
       ],
       "acces_competences": ["combat", "force", "special"],
@@ -53,6 +53,7 @@
       "regles_speciales": [
         { "nom": "Rôdeur", "texte": "S'il n'a pas été mis hors de combat lors de la bataille, peut lancer deux dés lors de la phase d'Exploration et choisir lequel garder (pas une relance)." },
         { "nom": "Solitaire", "texte": "Immunisé aux tests Seul contre Tous ; ne réclamera jamais un Gnoblar comme animal de compagnie, et ne peut jamais devenir le chef de la bande." },
+        { "nom": "Grande Cible", "texte": "Immense cible pour les archers ; n'importe quelle figurine peut lui tirer dessus même si elle n'est pas la cible la plus proche, avec un bonus de +1 pour toucher." },
         { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps." }
       ],
       "acces_competences": ["combat", "force", "special"],
@@ -88,6 +89,7 @@
       "stats": { "M": 6, "CC": 3, "CT": 2, "F": 4, "E": 4, "PV": 3, "I": 2, "A": 3, "Cd": 7 },
       "regles_speciales": [
         { "nom": "Charge du Taureau", "texte": "En chargeant, peut tenter une seule attaque avec un bonus de +1 pour toucher au lieu de ses attaques normales ; en cas de réussite, la figurine ennemie est automatiquement mise à terre." },
+        { "nom": "Grande Cible", "texte": "Immense cible pour les archers ; n'importe quelle figurine peut lui tirer dessus même si elle n'est pas la cible la plus proche, avec un bonus de +1 pour toucher." },
         { "nom": "Équipement", "texte": "Les Ogres n'ont pas de dague gratuite et ne combattent jamais à la dague au corps à corps." }
       ],
       "acces_competences": [],
