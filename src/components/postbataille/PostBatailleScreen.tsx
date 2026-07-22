@@ -8,6 +8,7 @@ import { HENCHMAN_XP_MAX, HERO_XP_MAX, isPalierHenchman, isPalierHero } from '..
 import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member } from '../../types/roster';
+import { BlessureGraveWizard, type BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 
 const ETAPES = ['Blessures graves', 'Bataille', "Gain d'expérience", 'Exploration', 'Résumé'];
 
@@ -15,6 +16,10 @@ type BlessureDraft = {
   description: string;
   stats: Stats;
   equipement: string;
+  notes: string[];
+  perteEquipement: boolean;
+  statutMort: boolean;
+  xpBonus: number;
 };
 
 type XpDraft = {
@@ -168,16 +173,48 @@ export function PostBatailleScreen() {
     );
   }
 
-  const draftDe = (m: Member): BlessureDraft =>
-    blessureDrafts[m.instance_id] ?? { description: '', stats: m.stats_actuels, equipement: m.equipement };
-
-  const majDraft = (m: Member, partial: Partial<BlessureDraft>) => {
-    setBlessureDrafts((prev) => ({ ...prev, [m.instance_id]: { ...draftDe(m), ...partial } }));
+  // Blessure grave résolue via l'assistant sélectionnable (BlessureGraveWizard) :
+  // stats/equipement/notes/statut sont dérivés du résultat choisi, pas saisis à
+  // la main. Un résultat « Mort » ou impliquant une survie (tout sauf Mort)
+  // pré-remplit directement le choix Oui/Non de l'étape suivante, pour éviter
+  // de faire cliquer deux fois la même information.
+  const appliquerBlessureWizard = (m: Member, resultat: BlessureGraveResultat) => {
+    const stats = { ...m.stats_actuels };
+    for (const k of STAT_KEYS) {
+      const delta = resultat.statsDelta[k];
+      if (delta) stats[k] += delta;
+    }
+    setBlessureDrafts((prev) => ({
+      ...prev,
+      [m.instance_id]: {
+        description: resultat.texte,
+        stats,
+        equipement: resultat.perteEquipement ? '' : m.equipement,
+        notes: resultat.notes,
+        perteEquipement: resultat.perteEquipement,
+        statutMort: resultat.statutMort,
+        xpBonus: resultat.xpBonus,
+      },
+    }));
+    setXpDrafts((prev) => ({
+      ...prev,
+      [m.instance_id]: resultat.statutMort
+        ? { xp: m.xp, survecu: 'non' }
+        : { xp: m.xp + 1 + resultat.xpBonus, survecu: 'oui' },
+    }));
   };
 
-  const editerStatDraft = (m: Member, k: keyof Stats, value: number) => {
-    const d = draftDe(m);
-    majDraft(m, { stats: { ...d.stats, [k]: value } });
+  const reinitialiserBlessure = (m: Member) => {
+    setBlessureDrafts((prev) => {
+      const next = { ...prev };
+      delete next[m.instance_id];
+      return next;
+    });
+    setXpDrafts((prev) => {
+      const next = { ...prev };
+      delete next[m.instance_id];
+      return next;
+    });
   };
 
   const xpDraftDe = (m: Member, xpParDefaut: number): XpDraft =>
@@ -259,6 +296,12 @@ export function PostBatailleScreen() {
               { id: uuidv4(), date, description: draft.description.trim() },
             ],
           };
+        }
+        if (draft.notes.length > 0) {
+          membre = { ...membre, notes: [membre.notes, ...draft.notes].filter(Boolean).join('\n') };
+        }
+        if (draft.perteEquipement) {
+          membre = { ...membre, inventaire: [] };
         }
       }
 
@@ -371,48 +414,37 @@ export function PostBatailleScreen() {
         <div className="card">
           <h3>Blessures graves</h3>
           <p className="text-sm text-muted">
-            Pour chaque héros Hors de Combat, lance sur ta table papier (table complète des règles), note le
-            résultat obtenu, puis ajuste directement ses caractéristiques et/ou son équipement si la blessure les
-            affecte. Les hommes de main utilisent la table simple mort-ou-survivant à l'étape suivante.
+            Pour chaque héros Hors de Combat, lance sur ta table papier puis sélectionne le résultat obtenu
+            ci-dessous : les effets (caractéristiques, équipement, notes) sont appliqués automatiquement, et le
+            choix Oui/Non « A survécu » de l'étape suivante est pré-rempli en fonction du résultat. Les hommes de
+            main utilisent la table simple mort-ou-survivant à l'étape suivante.
           </p>
           {horsDeCombatHeros.length === 0 && <p className="text-muted">Aucun héros Hors de Combat.</p>}
           {horsDeCombatHeros.map((m) => {
-            const d = draftDe(m);
+            const d = blessureDrafts[m.instance_id];
             return (
               <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
                 <strong>{m.nom_perso}</strong>
-                <div className="field" style={{ marginTop: '0.5rem' }}>
-                  <label>Résultat obtenu</label>
-                  <textarea
-                    value={d.description}
-                    onChange={(e) => majDraft(m, { description: e.target.value })}
-                    placeholder="Ex : Jambe estropiée (-1 M définitif)"
-                  />
-                </div>
-                <div className="field">
-                  <label>Caractéristiques</label>
-                  <div className="stat-grid">
-                    {STAT_KEYS.map((k) => (
-                      <div key={k} className="stat-grid__cell stat-grid__cell--label">
-                        {k}
-                      </div>
-                    ))}
-                    {STAT_KEYS.map((k) => (
-                      <div key={k} className="stat-grid__cell stat-grid__cell--value">
-                        <input
-                          type="number"
-                          className="stat-grid__input"
-                          value={d.stats[k]}
-                          onChange={(e) => editerStatDraft(m, k, Number(e.target.value) || 0)}
-                        />
-                      </div>
-                    ))}
+                {!d && (
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <BlessureGraveWizard
+                      nomPersonnage={m.nom_perso}
+                      onAppliquer={(resultat) => appliquerBlessureWizard(m, resultat)}
+                    />
                   </div>
-                </div>
-                <div className="field" style={{ marginBottom: 0 }}>
-                  <label>Équipement</label>
-                  <textarea value={d.equipement} onChange={(e) => majDraft(m, { equipement: e.target.value })} />
-                </div>
+                )}
+                {d && (
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <p className="text-sm" style={{ whiteSpace: 'pre-wrap' }}>
+                      {d.description}
+                    </p>
+                    {d.statutMort && <p className="text-danger mb-0">⚠ Marqué Mort.</p>}
+                    {d.perteEquipement && <p className="text-danger mb-0">⚠ Équipement perdu.</p>}
+                    <button className="btn btn--sm" style={{ marginTop: '0.5rem' }} onClick={() => reinitialiserBlessure(m)}>
+                      Modifier
+                    </button>
+                  </div>
+                )}
               </div>
             );
           })}
