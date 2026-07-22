@@ -48,6 +48,7 @@ export function RosterScreen() {
   const [batailleASupprimer, setBatailleASupprimer] = useState<BattleRecord | null>(null);
   const [modalAchatStock, setModalAchatStock] = useState(false);
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
+  const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
 
   if (!roster) {
     return (
@@ -95,6 +96,14 @@ export function RosterScreen() {
   };
 
   const nomAffiche = (m: Member) => `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
+
+  // Synopsis discret de l'équipement d'un membre (ou de son groupe, toujours
+  // identique entre figurines) pour l'aperçu du roster global.
+  const resumeEquipement = (m: Member): string => {
+    if (m.inventaire.length === 0) return 'Sans équipement';
+    const noms = m.inventaire.map((e) => e.nom).join(', ');
+    return noms.length > 90 ? `${noms.slice(0, 90).trimEnd()}…` : noms;
+  };
 
   const avanceEnAttente = (m: Member) => {
     const profil = resolveProfil(roster, m);
@@ -169,6 +178,9 @@ export function RosterScreen() {
                         Avancée en attente
                       </span>
                     )}
+                    <div className="text-sm text-muted" style={{ fontStyle: 'italic', marginTop: '0.1rem' }}>
+                      {resumeEquipement(m)}
+                    </div>
                   </td>
                   <td>{profil?.nom ?? m.profil_id}</td>
                   <td>{m.stats_actuels.M}</td>
@@ -269,6 +281,9 @@ export function RosterScreen() {
                 </div>
                 <div className="list-item__subtitle">
                   {profil?.nom} · XP {m.xp} · PV {m.stats_actuels.PV}
+                </div>
+                <div className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
+                  {resumeEquipement(m)}
                 </div>
               </div>
               {avanceEnAttente(m) && (
@@ -458,7 +473,7 @@ export function RosterScreen() {
               <button
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
-                onClick={() => vendreStock(entree.instance_id)}
+                onClick={() => setVenteEnCours(entree)}
                 title={`Vendre (+${prixVente(entree.cout)} po à la trésorerie)`}
               >
                 Vendre
@@ -587,6 +602,29 @@ export function RosterScreen() {
         />
       )}
       {itemDetail && <ItemDetailModal item={resolveItemDetail(itemDetail)} onClose={() => setItemDetail(null)} />}
+      {venteEnCours && (
+        <Modal onClose={() => setVenteEnCours(null)}>
+          <h3>Vendre {venteEnCours.nom} ?</h3>
+          <p className="text-muted">
+            L'objet sera retiré de l'armurerie et {prixVente(venteEnCours.cout)} po seront ajoutées à la trésorerie
+            de la bande.
+          </p>
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={() => setVenteEnCours(null)}>
+              Annuler
+            </button>
+            <button
+              className="btn btn--primary"
+              onClick={() => {
+                vendreStock(venteEnCours.instance_id);
+                setVenteEnCours(null);
+              }}
+            >
+              Vendre pour {prixVente(venteEnCours.cout)} po
+            </button>
+          </div>
+        </Modal>
+      )}
       {modalMembre && (
         <AjouterMembreModal
           roster={roster}

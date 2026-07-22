@@ -47,7 +47,7 @@ export function resumeItem(item: ShopItem): string | null {
 // "commun_heros", "commun_pretres_guerriers_soeurs_de_sigmar") signifient
 // l'inverse — l'objet est license/pas cher UNIQUEMENT pour ce groupe précis,
 // donc restreint, pas générique. Ils restent donc exclus du shop commun ici.
-function estAccesGenerique(acces: string[]): boolean {
+export function estAccesGenerique(acces: string[]): boolean {
   return acces.some(
     (a) =>
       a === 'commun' ||
@@ -218,12 +218,38 @@ export function creerEntreeInventaire(item: ShopItem, coutPaye: number): Invento
   };
 }
 
-export function acheterPourMembre(roster: RosterInstance, membreId: string, entree: InventoryEntry): RosterInstance {
+// `quantite` exemplaires indépendants (instance_id distincts) du même objet,
+// au même prix unitaire — utilisé pour équiper un groupe d'hommes de main
+// d'un coup (l'équipement doit rester identique entre toutes ses figurines).
+export function creerEntreesInventaire(item: ShopItem, coutPaye: number, quantite: number): InventoryEntry[] {
+  return Array.from({ length: Math.max(1, quantite) }, () => creerEntreeInventaire(item, coutPaye));
+}
+
+// Toutes les entrées d'inventaire partageant le même item_id qu'une instance
+// donnée. Pour un groupe d'hommes de main (taille_groupe > 1), l'équipement
+// doit rester identique entre toutes les figurines : vendre, retirer ou
+// renvoyer un exemplaire agit donc sur tout le lot. Un héros (taille_groupe
+// = 1, toujours le cas) ne voit agir que l'exemplaire ciblé.
+export function entreesLieesAuGroupe(membre: Member, instanceId: string): InventoryEntry[] {
+  const entree = membre.inventaire.find((e) => e.instance_id === instanceId);
+  if (!entree) return [];
+  return membre.taille_groupe > 1
+    ? membre.inventaire.filter((e) => e.item_id === entree.item_id)
+    : [entree];
+}
+
+export function acheterPourMembre(
+  roster: RosterInstance,
+  membreId: string,
+  entrees: InventoryEntry | InventoryEntry[]
+): RosterInstance {
+  const liste = Array.isArray(entrees) ? entrees : [entrees];
+  const coutTotal = liste.reduce((acc, e) => acc + e.cout, 0);
   return {
     ...roster,
-    tresorerie: roster.tresorerie - entree.cout,
+    tresorerie: roster.tresorerie - coutTotal,
     membres: roster.membres.map((m) =>
-      m.instance_id === membreId ? { ...m, inventaire: [...m.inventaire, entree] } : m
+      m.instance_id === membreId ? { ...m, inventaire: [...m.inventaire, ...liste] } : m
     ),
   };
 }
@@ -233,10 +259,14 @@ export function acheterPourStock(roster: RosterInstance, entree: InventoryEntry)
 }
 
 export function retirerDeMembre(roster: RosterInstance, membreId: string, instanceId: string): RosterInstance {
+  const membre = roster.membres.find((m) => m.instance_id === membreId);
+  const aRetirer = new Set(
+    (membre ? entreesLieesAuGroupe(membre, instanceId) : [{ instance_id: instanceId }]).map((e) => e.instance_id)
+  );
   return {
     ...roster,
     membres: roster.membres.map((m) =>
-      m.instance_id === membreId ? { ...m, inventaire: m.inventaire.filter((e) => e.instance_id !== instanceId) } : m
+      m.instance_id === membreId ? { ...m, inventaire: m.inventaire.filter((e) => !aRetirer.has(e.instance_id)) } : m
     ),
   };
 }
@@ -246,11 +276,11 @@ export function retirerDuStock(roster: RosterInstance, instanceId: string): Rost
 }
 
 export function transfererVersStock(roster: RosterInstance, membre: Member, instanceId: string): RosterInstance {
-  const entree = membre.inventaire.find((e) => e.instance_id === instanceId);
-  if (!entree) return roster;
+  const aTransferer = entreesLieesAuGroupe(membre, instanceId);
+  if (aTransferer.length === 0) return roster;
   return {
     ...retirerDeMembre(roster, membre.instance_id, instanceId),
-    stock: [...roster.stock, entree],
+    stock: [...roster.stock, ...aTransferer],
   };
 }
 
@@ -268,6 +298,48 @@ export function transfererVersMembre(roster: RosterInstance, instanceId: string,
 
 export function formatEquipementAffiche(inventaire: InventoryEntry[]): string {
   return inventaire.map((e) => e.nom).join(', ');
+}
+
+// Un inventaire de groupe contient `taille_groupe` exemplaires identiques de
+// chaque objet (voir entreesLieesAuGroupe) : regroupé ici en une entrée par
+// objet distinct + sa quantité, pour l'affichage et pour calculer le coût
+// d'équipement des nouvelles figurines rejoignant le groupe.
+export function resumeInventaireParItem(inventaire: InventoryEntry[]): { entree: InventoryEntry; quantite: number }[] {
+  const parItem = new Map<string, { entree: InventoryEntry; quantite: number }>();
+  for (const entree of inventaire) {
+    const existant = parItem.get(entree.item_id);
+    if (existant) existant.quantite += 1;
+    else parItem.set(entree.item_id, { entree, quantite: 1 });
+  }
+  return [...parItem.values()];
+}
+
+// Nouveaux exemplaires (un par objet distinct déjà possédé par le groupe, ×
+// quantiteNouvelle) à offrir aux figurines qui rejoignent un groupe d'hommes
+// de main déjà équipé — l'équipement doit rester identique entre toutes les
+// figurines du groupe.
+export function clonerEquipementPourNouvellesFigurines(
+  inventaireExistant: InventoryEntry[],
+  quantiteNouvelle: number
+): InventoryEntry[] {
+  const distincts = resumeInventaireParItem(inventaireExistant);
+  const clones: InventoryEntry[] = [];
+  for (const { entree } of distincts) {
+    for (let i = 0; i < quantiteNouvelle; i++) {
+      clones.push({
+        ...entree,
+        instance_id: uuidv4(),
+        date_achat: new Date().toISOString(),
+      });
+    }
+  }
+  return clones;
+}
+
+// Coût total pour équiper `quantiteNouvelle` nouvelles figurines à
+// l'identique de l'équipement déjà possédé par le groupe.
+export function coutEquipementNouvellesFigurines(inventaireExistant: InventoryEntry[], quantiteNouvelle: number): number {
+  return resumeInventaireParItem(inventaireExistant).reduce((acc, { entree }) => acc + entree.cout * quantiteNouvelle, 0);
 }
 
 // Reconstruit le détail complet (stats/règles) d'un objet possédé à partir

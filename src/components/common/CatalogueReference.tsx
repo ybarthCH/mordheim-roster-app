@@ -1,45 +1,57 @@
 import type { WarbandCatalog } from '../../types/catalog';
 import { getItem } from '../../data/items';
+import { estAccesGenerique } from '../../utils/shop';
 
 const LISTES_EQUIPEMENT = ['armes_cac', 'armes_tir', 'armures', 'divers'] as const;
 
 // Référence libre du catalogue d'équipement d'une bande — texte indicatif
-// uniquement, aucun achat automatisé. Utilisée à la fois sur le roster
-// global (résumé de bande) et sur chaque fiche personnage.
+// uniquement, aucun achat automatisé. Ne garde que les objets propres à la
+// bande (mutations, armes à poudre noire exclusives, objets bloqués à une
+// liste précise...) : les objets génériques de la base commune sont déjà
+// accessibles via le shop intégré et n'ont plus leur place ici.
 export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }) {
-  const aEquipement = !!catalogue.equipement;
+  const listesFiltrees = Object.entries(catalogue.equipement ?? {})
+    .map(([liste, groupes]) => {
+      const parCategorie = LISTES_EQUIPEMENT.map((cat) => ({
+        cat,
+        items: (groupes[cat] ?? []).filter((it) => {
+          const ref = getItem(it.item_id);
+          return !estAccesGenerique(ref?.acces ?? []);
+        }),
+      })).filter((g) => g.items.length > 0);
+      return { liste, parCategorie };
+    })
+    .filter((l) => l.parCategorie.length > 0);
+
+  const aEquipement = listesFiltrees.length > 0;
   const aObjetsRares = (catalogue.equipement_special?.length ?? 0) > 0;
   if (!aEquipement && !aObjetsRares) return null;
 
   return (
     <div className="card card--tight">
-      <h3>Équipement (référence)</h3>
+      <h3>Équipement de bande (référence)</h3>
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-        Texte libre, à titre indicatif — aucun achat automatisé.
+        Objets propres à cette bande uniquement — texte libre, à titre indicatif. Les objets courants s'achètent
+        directement depuis la fiche personnage.
       </p>
-      {catalogue.equipement &&
-        Object.entries(catalogue.equipement).map(([liste, groupes]) => (
-          <div key={liste} style={{ marginBottom: '0.6rem' }}>
-            <p className="text-sm mb-0">
-              <strong>{liste}</strong>
+      {listesFiltrees.map(({ liste, parCategorie }) => (
+        <div key={liste} style={{ marginBottom: '0.6rem' }}>
+          <p className="text-sm mb-0">
+            <strong>{liste}</strong>
+          </p>
+          {parCategorie.map(({ cat, items }) => (
+            <p key={cat} className="text-sm mb-0">
+              {items
+                .map((it) => {
+                  const ref = getItem(it.item_id);
+                  const nom = ref?.nom ?? it.item_id;
+                  return `${nom} (${it.cout}${typeof it.cout === 'number' ? ' po' : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`;
+                })
+                .join(' · ')}
             </p>
-            {LISTES_EQUIPEMENT.map(
-              (cat) =>
-                groupes[cat] &&
-                groupes[cat]!.length > 0 && (
-                  <p key={cat} className="text-sm mb-0">
-                    {groupes[cat]!
-                      .map((it) => {
-                        const ref = getItem(it.item_id);
-                        const nom = ref?.nom ?? it.item_id;
-                        return `${nom} (${it.cout}${typeof it.cout === 'number' ? ' po' : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`;
-                      })
-                      .join(' · ')}
-                  </p>
-                )
-            )}
-          </div>
-        ))}
+          ))}
+        </div>
+      ))}
       {aObjetsRares && (
         <div>
           <p className="text-sm mb-0">

@@ -3,6 +3,7 @@ import type { Member } from '../../types/roster';
 import type { Profile, SkillCategory, WarbandCatalog } from '../../types/catalog';
 import { SKILL_CATEGORIES } from '../../types/catalog';
 import { SKILLS } from '../../data/gameData';
+import { categoriesAccessibles } from '../../utils/profil';
 
 type Props = {
   member: Member;
@@ -12,10 +13,7 @@ type Props = {
 };
 
 export function CompetencesPanel({ member, profil, catalogue, onToggleSkill }: Props) {
-  const categories: SkillCategory[] =
-    profil.acces_competences_a_verifier || profil.acces_competences.length === 0
-      ? SKILL_CATEGORIES.map((c) => c.id)
-      : profil.acces_competences;
+  const categories: SkillCategory[] = categoriesAccessibles(profil);
 
   const [ongletActif, setOngletActif] = useState<SkillCategory>(categories[0]);
 

@@ -11,6 +11,11 @@ type Props = {
   // Compétences acquises par le membre (ex : "Connaissance des Armes"),
   // pour lever la restriction de liste d'équipement le cas échéant.
   competencesAcquises?: string[];
+  // Taille du groupe d'hommes de main ciblé (1 pour un héros ou l'armurerie
+  // de bande) : l'équipement d'un groupe doit rester identique entre toutes
+  // ses figurines, l'achat porte donc automatiquement sur `tailleGroupe`
+  // exemplaires au prix unitaire saisi.
+  tailleGroupe?: number;
   onClose: () => void;
   onAchat: (item: ShopItem, coutPaye: number) => void;
 };
@@ -27,6 +32,7 @@ export function AchatEquipementModal({
   profil,
   tresorerie,
   competencesAcquises = [],
+  tailleGroupe = 1,
   onClose,
   onAchat,
 }: Props) {
@@ -70,6 +76,7 @@ export function AchatEquipementModal({
 
   const cout = Number(coutSaisi);
   const coutValide = coutSaisi.trim() !== '' && !Number.isNaN(cout) && cout >= 0;
+  const coutTotal = cout * tailleGroupe;
 
   const confirmer = () => {
     if (!itemSelectionne || !coutValide) return;
@@ -196,7 +203,7 @@ export function AchatEquipementModal({
             </div>
             <div className="field">
               <label>
-                Coût payé (po){' '}
+                Coût payé (po{tailleGroupe > 1 ? ' / figurine' : ''}){' '}
                 {!itemSelectionne.cout_fixe && (
                   <span className="text-muted">— notation : {itemSelectionne.cout}</span>
                 )}
@@ -209,7 +216,13 @@ export function AchatEquipementModal({
                 placeholder={!itemSelectionne.cout_fixe ? 'Résultat du jet, ex : 42' : undefined}
               />
             </div>
-            {coutValide && cout > tresorerie && (
+            {tailleGroupe > 1 && coutValide && (
+              <p className="text-sm text-muted">
+                Groupe de {tailleGroupe} figurines identiques : {tailleGroupe} exemplaires achetés pour {coutTotal} po
+                au total.
+              </p>
+            )}
+            {coutValide && coutTotal > tresorerie && (
               <p className="text-danger text-sm">Trésorerie insuffisante ({tresorerie} po disponibles).</p>
             )}
           </div>

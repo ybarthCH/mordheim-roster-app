@@ -1,4 +1,5 @@
-import type { Profile } from '../types/catalog';
+import type { Profile, SkillCategory } from '../types/catalog';
+import { SKILL_CATEGORIES } from '../types/catalog';
 import type { Member, RosterInstance } from '../types/roster';
 import { getProfil } from '../data/warbands';
 
@@ -32,6 +33,37 @@ export function resolveProfil(roster: RosterInstance, membre: Member): Profile |
   }
 
   return base;
+}
+
+const GRANDE_CIBLE_RE = /^grande?\s*cible$/i;
+
+/**
+ * Détecte la règle spéciale "Grande Cible" directement sur le profil du
+ * catalogue (nom de règle "Grande Cible"/"Grande cible" ou "Grand" pour les
+ * Gladiateurs Ogres), plutôt qu'une case à cocher manuelle. Reste inopérant
+ * pour un profil Franc-tireur (profil_custom), qui n'a pas de regles_speciales
+ * — d'où la case manuelle conservée uniquement pour ce cas-là.
+ */
+export function estGrandeCible(profil: Profile | undefined): boolean {
+  return (profil?.regles_speciales ?? []).some(
+    (r) => GRANDE_CIBLE_RE.test(r.nom.trim()) || r.nom.trim().toLowerCase() === 'grand'
+  );
+}
+
+/**
+ * Tables de compétences réellement accessibles à un profil : toutes les
+ * tables si l'accès est à vérifier ou non renseigné, sinon celles du
+ * catalogue — auxquelles s'ajoute toujours Équitation pour un héros, cette
+ * table étant ouverte à tous les héros du jeu sans exception (règle
+ * générique, non listée bande par bande dans les données source).
+ */
+export function categoriesAccessibles(profil: Profile): SkillCategory[] {
+  const base: SkillCategory[] =
+    profil.acces_competences_a_verifier || profil.acces_competences.length === 0
+      ? SKILL_CATEGORIES.map((c) => c.id)
+      : profil.acces_competences;
+  if (profil.type !== 'heros' || base.includes('equitation')) return base;
+  return [...base, 'equitation'];
 }
 
 // Règle Mordheim : une bande ne peut jamais compter plus de 6 héros.
