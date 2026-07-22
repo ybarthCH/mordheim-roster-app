@@ -26,6 +26,7 @@ import {
   libelleCategorie,
   resolveItemDetail,
   prixVente,
+  inventaireGroupeMismatch,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 
@@ -226,6 +227,15 @@ export function RosterScreen() {
                         {m.hors_combat}/{m.taille_groupe} HC
                       </span>
                     )}
+                    {inventaireGroupeMismatch(m) && (
+                      <span
+                        className="badge badge--danger"
+                        style={{ marginLeft: '0.3rem' }}
+                        title="Équipement dépareillé entre les figurines du groupe"
+                      >
+                        ⚠ Équipement
+                      </span>
+                    )}
                   </td>
                   <td>
                     <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
@@ -326,6 +336,11 @@ export function RosterScreen() {
               {m.hors_combat > 0 && (
                 <span className="badge badge--warning">
                   {m.hors_combat}/{m.taille_groupe} HC
+                </span>
+              )}
+              {inventaireGroupeMismatch(m) && (
+                <span className="badge badge--danger" title="Équipement dépareillé entre les figurines du groupe">
+                  ⚠ Équipement
                 </span>
               )}
               <button

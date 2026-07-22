@@ -300,6 +300,17 @@ export function formatEquipementAffiche(inventaire: InventoryEntry[]): string {
   return inventaire.map((e) => e.nom).join(', ');
 }
 
+// Un groupe d'hommes de main ne peut pas mélanger son équipement : l'achat
+// direct (voir acheterPourMembre + creerEntreesInventaire) équipe toujours
+// tout le monde d'un coup, mais donner un objet du stock au groupe un par un
+// (armurerie -> Donner à…) peut casser cette règle. Détecté ici en vérifiant
+// que chaque objet distinct est possédé en un nombre d'exemplaires multiple
+// de la taille du groupe (donc répartissable également entre figurines).
+export function inventaireGroupeMismatch(membre: Member): boolean {
+  if (membre.taille_groupe <= 1) return false;
+  return resumeInventaireParItem(membre.inventaire).some(({ quantite }) => quantite % membre.taille_groupe !== 0);
+}
+
 // Un inventaire de groupe contient `taille_groupe` exemplaires identiques de
 // chaque objet (voir entreesLieesAuGroupe) : regroupé ici en une entrée par
 // objet distinct + sa quantité, pour l'affichage et pour calculer le coût
