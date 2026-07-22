@@ -16,6 +16,8 @@ import { AchatEquipementModal } from './AchatEquipementModal';
 import { RecruterDansGroupeModal } from './RecruterDansGroupeModal';
 import { ItemDetailModal } from './ItemDetailModal';
 import { Modal } from '../common/Modal';
+import { Icon } from '../common/Icon';
+import type { IconName } from '../common/Icon';
 import { MagieReference } from '../common/CatalogueReference';
 import { avancesDues } from '../../utils/xp';
 import { ratingMembre } from '../../utils/rating';
@@ -30,6 +32,7 @@ import {
   inventaireGroupeMismatch,
   formatEquipementAffiche,
   libelleCategorie,
+  iconeCategorie,
   resolveItemDetail,
   resumeItem,
   prixVente,
@@ -42,6 +45,12 @@ const STATUT_BADGE: Record<string, string> = {
   hors_de_combat: 'badge--warning',
   mort: 'badge--danger',
   blesse: 'badge--neutral',
+};
+
+const STATUT_ICONE: Partial<Record<string, IconName>> = {
+  hors_de_combat: 'ossements',
+  mort: 'crane',
+  blesse: 'goutte',
 };
 
 // Compatibilité avec d'anciens enregistrements (roll/resultat/effet) sauvegardés
@@ -210,6 +219,9 @@ export function PersonnageScreen() {
             </p>
           </div>
           <span className={`badge ${STATUT_BADGE[membre.statut]}`}>
+            {STATUT_ICONE[membre.statut] && (
+              <Icon name={STATUT_ICONE[membre.statut]!} style={{ marginRight: '0.35em' }} />
+            )}
             {STATUTS.find((s) => s.id === membre.statut)?.label}
             {membre.statut === 'mort' && membre.date_mort ? ` (${membre.date_mort})` : ''}
           </span>
@@ -504,6 +516,9 @@ export function PersonnageScreen() {
                 {quantite > 1 ? ` ×${quantite}` : ''}
               </div>
               <div className="list-item__subtitle">
+                {iconeCategorie(entree.categorie) && (
+                  <Icon name={iconeCategorie(entree.categorie)!} style={{ marginRight: '0.35em' }} />
+                )}
                 {libelleCategorie(entree.categorie)} · {entree.cout} po
                 {quantite > 1 ? ` /figurine (${entree.cout * quantite} po au total)` : ''}
                 {entree.cout_notation ? ` (jet : ${entree.cout_notation})` : ''}
@@ -639,7 +654,10 @@ export function PersonnageScreen() {
               onChange={(e) => majMembre({ grande_cible: e.target.checked })}
             />
             <span>
-              <strong>Grande Cible</strong>
+              <strong>
+                <Icon name="cible" style={{ marginRight: '0.35em' }} />
+                Grande Cible
+              </strong>
               <br />
               <span className="text-sm text-muted">Case manuelle — ajoute +20 au rating de ce personnage.</span>
             </span>
