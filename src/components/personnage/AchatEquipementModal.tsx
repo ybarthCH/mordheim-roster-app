@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { WarbandCatalog, Profile } from '../../types/catalog';
 import { Modal } from '../common/Modal';
-import { getEquipementBande, getShopCommun, libelleCategorie, CATEGORIE_ORDRE } from '../../utils/shop';
+import { getEquipementBande, getShopCommun, libelleCategorie, resumeItem, CATEGORIE_ORDRE } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 
 type Props = {
@@ -145,9 +145,9 @@ export function AchatEquipementModal({ catalogue, profil, tresorerie, onClose, o
                 <div className="list-item__subtitle">
                   {libelleCategorie(item.categorie)} · {typeof item.cout === 'number' ? `${item.cout} po` : item.cout}
                 </div>
-                {synopsis(item.texte) && (
+                {synopsis(resumeItem(item)) && (
                   <div className="list-item__subtitle" style={{ marginTop: '0.2rem' }}>
-                    {synopsis(item.texte)}
+                    {synopsis(resumeItem(item))}
                   </div>
                 )}
               </div>
@@ -157,9 +157,30 @@ export function AchatEquipementModal({ catalogue, profil, tresorerie, onClose, o
 
         {itemSelectionne && (
           <div style={{ flexShrink: 0, borderTop: '1px solid var(--border)', paddingTop: '0.6rem' }}>
-            {itemSelectionne.disponibilite && (
-              <p className="text-sm text-muted mb-0">{itemSelectionne.disponibilite}</p>
-            )}
+            <div style={{ maxHeight: '24vh', overflowY: 'auto' }}>
+              {(itemSelectionne.portee || itemSelectionne.force || itemSelectionne.sauvegarde) && (
+                <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
+                  {itemSelectionne.portee && <span className="badge badge--info">Portée {itemSelectionne.portee}</span>}
+                  {itemSelectionne.force && <span className="badge badge--info">Force {itemSelectionne.force}</span>}
+                  {itemSelectionne.sauvegarde && (
+                    <span className="badge badge--info">Save {itemSelectionne.sauvegarde}</span>
+                  )}
+                </div>
+              )}
+              {itemSelectionne.disponibilite && (
+                <p className="text-sm text-muted mb-0">{itemSelectionne.disponibilite}</p>
+              )}
+              {itemSelectionne.regles_speciales?.map((r) => (
+                <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                  <strong>{r.nom}</strong> — {r.texte}
+                </p>
+              ))}
+              {itemSelectionne.texte && (
+                <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+                  {itemSelectionne.texte}
+                </p>
+              )}
+            </div>
             <div className="field">
               <label>
                 Coût payé (po){' '}
