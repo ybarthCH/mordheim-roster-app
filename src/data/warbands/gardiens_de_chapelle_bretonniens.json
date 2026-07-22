@@ -56,7 +56,7 @@
       ],
       "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
       "acces_equipement": ["chevaliers", "pelerins", "paysans_archers"],
-      "acces_competences_a_verifier": true,
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
@@ -74,7 +74,7 @@
       ],
       "acces_competences": ["academique", "vitesse"],
       "acces_equipement": ["chevaliers", "pelerins", "paysans_archers"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "chevalier_errant",
@@ -94,7 +94,7 @@
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": ["chevaliers", "pelerins", "paysans_archers"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "ecuyer",

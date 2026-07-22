@@ -72,7 +72,7 @@
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["ostlanders", "vauriens", "jaegers"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "proche",

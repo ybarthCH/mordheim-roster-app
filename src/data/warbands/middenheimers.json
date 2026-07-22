@@ -46,7 +46,7 @@
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "vitesse"],
       "acces_equipement": ["mercenaires", "tireur"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "recrue",
@@ -61,7 +61,7 @@
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "vitesse"],
       "acces_equipement": ["mercenaires", "tireur"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "guerrier",

@@ -58,7 +58,7 @@
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": ["heros"],
-      "acces_competences_a_verifier": true,
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
@@ -77,7 +77,7 @@
       ],
       "acces_competences": ["combat", "academique", "special"],
       "acces_equipement": ["heros"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "champion",
@@ -92,7 +92,7 @@
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["heros"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "damne",

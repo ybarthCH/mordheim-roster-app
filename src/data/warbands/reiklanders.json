@@ -48,9 +48,9 @@
       "xp_depart": 8,
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
-      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_competences": ["combat", "tir", "force"],
       "acces_equipement": ["mercenaires", "tireur"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "recrue",
@@ -65,7 +65,7 @@
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "vitesse"],
       "acces_equipement": ["mercenaires", "tireur"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "guerrier",

@@ -27,7 +27,7 @@
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": ["heros_armes", "heros_armures"],
-      "acces_competences_a_verifier": true,
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
@@ -44,9 +44,9 @@
         { "nom": "Berserk", "texte": "Sujet à la frénésie (voir Psychologie)." },
         { "nom": "Équipement", "texte": "Ne peut jamais porter d'armure." }
       ],
-      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["heros_armes"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "wulfen",
@@ -65,7 +65,7 @@
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": [],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "bondis",
@@ -79,7 +79,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 6 },
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": ["heros_armes", "heros_armures"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "maraudeur_norse",
