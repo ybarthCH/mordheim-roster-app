@@ -14,7 +14,7 @@
     },
     {
       "nom": "Bénédictions de Nurgle",
-      "texte": "Options réservées à l'Impur, achetées au recrutement uniquement (aucune ne peut plus être ajoutée une fois l'Impur en jeu) : Flot de Corruption (25 CO) — attaque de tir portée 6ps, Force 3, sans sauvegarde d'armure (jet de vers, de bile et de sang). • Pourriture de Nurgle (50 CO) — l'Impur est infecté par cette maladie virulente et incurable (immunité aux poisons en prime) ; sur un 6 pour blesser au corps à corps, il la transmet à sa cible (figurines vivantes uniquement), qui teste son Endurance à chaque bataille suivante (échec = perte permanente d'1 point d'Endurance, mort à 0 ; sur un 6 au test, transmission involontaire à un autre membre de la bande, déterminé au hasard). • Nuage de Mouches (25 CO) — les adversaires de l'Impur subissent un malus de -1 pour le toucher au corps à corps. • Horreur Enflée (40 CO) — +1 Point de Vie, +1 en Endurance, mais -1 en Mouvement. • Marque de Nurgle (35 CO) — +1 Point de Vie et immunité aux effets de tous les poisons. • Hideux (40 CO) — provoque la peur."
+      "texte": "Options réservées à l'Impur, achetées au recrutement uniquement (aucune ne peut plus être ajoutée une fois l'Impur en jeu) — voir la rubrique Équipement de sa fiche."
     }
   ],
   "composition": {
@@ -195,6 +195,14 @@
       ]
     }
   },
+  "equipement_special": [
+    { "item_id": "flot_de_corruption", "cout": 25, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] },
+    { "item_id": "pourriture_de_nurgle", "cout": 50, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] },
+    { "item_id": "nuage_de_mouches_benediction", "cout": 25, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] },
+    { "item_id": "horreur_enflee", "cout": 40, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] },
+    { "item_id": "marque_de_nurgle", "cout": 35, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] },
+    { "item_id": "hideux", "cout": 40, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] }
+  ],
   "magie": {
     "nom": "Rituels de Nurgle",
     "type": "sorcellerie",
