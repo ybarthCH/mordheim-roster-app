@@ -231,18 +231,18 @@
     "heros": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Bâton", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Épée", "cout": 10 },
         { "nom": "Hallebarde", "cout": 10 },
         { "nom": "Lance", "cout": 10 },
-        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Bâton d'Boss", "cout": 20 },
-        { "nom": "Poignards empoisonnés", "cout": 25 }
+        { "nom": "Poignards empoisonnés (paire)", "cout": 25 }
       ],
       "armes_tir": [
         { "nom": "Fronde", "cout": 2 },
         { "nom": "Arc court", "cout": 5 },
-        { "nom": "Couteaux de lancer", "cout": 15 }
+        { "nom": "Arme de jet (étoile, couteau, etc.)", "cout": 15 }
       ],
       "armures": [
         { "nom": "Bouclier", "cout": 5 },
@@ -251,14 +251,14 @@
       ],
       "divers": [
         { "nom": "Filet", "cout": 5 },
-        { "nom": "Aiguillon à squig", "cout": 15 },
-        { "nom": "Champignon bonnet de fou", "cout": 15 }
+        { "nom": "Aiguillon à Squigs", "cout": 15 },
+        { "nom": "Champignons bonnets de fou", "cout": 15 }
       ]
     },
     "hommes_de_main": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Bâton", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Lance", "cout": 5 },
         { "nom": "Épée", "cout": 10 }
       ],
@@ -269,17 +269,17 @@
       ],
       "divers": [
         { "nom": "Filet", "cout": 5 },
-        { "nom": "Aiguillon à squig", "cout": 15 },
-        { "nom": "Champignon bonnet de fou", "cout": 15 }
+        { "nom": "Aiguillon à Squigs", "cout": 15 },
+        { "nom": "Champignons bonnets de fou", "cout": 15 }
       ]
     },
     "fanatiques": {
       "armes_cac": [
-        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Chaîne & boulet", "cout": 15 },
-        { "nom": "Poignards empoisonnés", "cout": 25 }
+        { "nom": "Poignards empoisonnés (paire)", "cout": 25 }
       ],
-      "divers": [{ "nom": "Champignon bonnet de fou", "cout": 15 }]
+      "divers": [{ "nom": "Champignons bonnets de fou", "cout": 15 }]
     }
   },
   "equipement_special": [
@@ -332,7 +332,7 @@
     },
     {
       "id": "poignards_empoisonnes",
-      "nom": "Poignards empoisonnés",
+      "nom": "Poignards empoisonnés (paire)",
       "cout": 25,
       "disponibilite": "Commun, Gobelins de la Nuit uniquement",
       "portee": "C à C",

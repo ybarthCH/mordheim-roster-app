@@ -179,13 +179,13 @@
     "heros": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Épée", "cout": 10 },
         { "nom": "Hallebarde", "cout": 10 },
         { "nom": "Morgenstern", "cout": 15 },
         { "nom": "Fouet barbelé", "cout": 15, "note": "voir armes spéciales" },
-        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Fléau", "cout": 15 },
         { "nom": "Grande hache du Chaos", "cout": 25, "restriction": "voir armes spéciales" }
       ],
@@ -199,7 +199,7 @@
     "hommes_de_main": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Épée", "cout": 10 },
         { "nom": "Lance", "cout": 10 },
@@ -207,7 +207,7 @@
         { "nom": "Fléau", "cout": 15 }
       ],
       "armes_tir": [
-        { "nom": "Haches de lancer", "cout": 15, "note": "considérées comme des couteaux de lancer" }
+        { "nom": "Arme de jet (étoile, couteau, etc.)", "cout": 15, "note": "considérées comme des couteaux de lancer" }
       ],
       "armures": [
         { "nom": "Armure légère", "cout": 20 },
@@ -225,7 +225,7 @@
       "portee": "C à C",
       "force": "U+2",
       "regles_speciales": [
-        { "nom": "Arme à deux mains", "texte": "Interdit bouclier/rondache/arme additionnelle simultanée ; un bouclier fournit tout de même +1 à la sauvegarde contre les tirs." },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "texte": "Interdit bouclier/rondache/arme additionnelle simultanée ; un bouclier fournit tout de même +1 à la sauvegarde contre les tirs." },
         { "nom": "Frappe en dernier", "texte": "Frappe toujours en dernier, même en chargeant (sauf avec la compétence Homme Fort)." },
         { "nom": "Tranchant", "texte": "Modificateur de sauvegarde supplémentaire de -1 (donc -4 au total pour un utilisateur de Force 4)." }
       ]

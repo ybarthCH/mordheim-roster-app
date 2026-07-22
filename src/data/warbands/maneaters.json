@@ -146,12 +146,12 @@
         { "nom": "Épée", "cout": 10 },
         { "nom": "Lance", "cout": 10 },
         { "nom": "Morgenstern", "cout": 15 },
-        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Poing de Fer", "cout": 15, "note": "voir équipement spécial" },
-        { "nom": "Épée longue Cathayane", "cout": 75, "restriction": "Capitaine uniquement" }
+        { "nom": "Sabre de Cathay", "cout": 75, "restriction": "Capitaine uniquement" }
       ],
       "armes_tir": [
-        { "nom": "Mortier portatif", "cout": "70 + 2D6", "note": "voir équipement spécial" }
+        { "nom": "Mortier portable", "cout": "70 + 2D6", "note": "voir équipement spécial" }
       ],
       "armures": [
         { "nom": "Armure légère", "cout": 20 },
@@ -160,9 +160,9 @@
       ],
       "divers": [
         { "nom": "Gnoblar Combattant", "cout": 15 },
-        { "nom": "Gnoblar Guetteur", "cout": 20 },
-        { "nom": "Gnoblar Chanceux", "cout": 25 },
-        { "nom": "Gnoblar Épéiste", "cout": 30 }
+        { "nom": "Gnoblar longue-vue", "cout": 20 },
+        { "nom": "Gnoblar porte-bonheur", "cout": 25 },
+        { "nom": "Gnoblar porte-épée", "cout": 30 }
       ]
     },
     "guide": {
@@ -171,10 +171,10 @@
         { "nom": "Gourdin d'Ogre", "cout": 10 },
         { "nom": "Épée", "cout": 10 },
         { "nom": "Lance", "cout": 10 },
-        { "nom": "Arme à deux mains", "cout": 15 }
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
       ],
       "armes_tir": [
-        { "nom": "Arbalète à Harpon", "cout": 50, "note": "voir équipement spécial" }
+        { "nom": "Lance-harpon", "cout": 50, "note": "voir équipement spécial" }
       ],
       "armures": [
         { "nom": "Armure légère", "cout": 20 },
@@ -210,7 +210,7 @@
     },
     {
       "id": "mortier_portatif",
-      "nom": "Mortier portatif",
+      "nom": "Mortier portable",
       "cout": "80 + 2D6",
       "disponibilite": "Rare 12 (Ogres uniquement)",
       "portee": "24ps",
@@ -224,7 +224,7 @@
     },
     {
       "id": "arbalete_a_harpon",
-      "nom": "Arbalète à Harpon",
+      "nom": "Lance-harpon",
       "cout": 50,
       "disponibilite": "Rare 10 (Ogres uniquement)",
       "portee": "30ps",
@@ -235,21 +235,21 @@
     },
     {
       "id": "gnoblar_guetteur",
-      "nom": "Gnoblar Guetteur",
+      "nom": "Gnoblar longue-vue",
       "cout": 20,
       "disponibilite": "Rare 8 (Ogres uniquement)",
       "texte": "Confère la compétence Esquive de la liste de compétences Vitesse."
     },
     {
       "id": "gnoblar_chanceux",
-      "nom": "Gnoblar Chanceux",
+      "nom": "Gnoblar porte-bonheur",
       "cout": 25,
       "disponibilite": "Rare 9 (Ogres uniquement)",
       "texte": "Peut relancer un dé au cours de la bataille (pas une relance d'une relance)."
     },
     {
       "id": "gnoblar_epeiste",
-      "nom": "Gnoblar Épéiste",
+      "nom": "Gnoblar porte-épée",
       "cout": 30,
       "disponibilite": "Rare 10 (Ogres uniquement)",
       "texte": "Donne une attaque supplémentaire de Force 2 au corps à corps, à la Capacité de Combat de la figurine propriétaire, dirigée contre une figurine que l'Ogre attaque déjà."

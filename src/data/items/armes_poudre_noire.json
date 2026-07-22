@@ -221,5 +221,31 @@
       { "nom": "Rechargement", "texte": "Après avoir tiré avec les 2 canons, placez 2 jetons près de la figurine. Lors de votre prochaine phase de Tir, retirez 1 jeton. Il représente l'un des canons ayant été rechargé. Le retrait des jetons est la dernière action faite pendant votre phase de Tir. Vous ne pouvez donc pas recharger et tirer avec la même arme pendant une phase de Tir." },
       { "nom": "Rechargement d'une paire", "texte": "Lorsque vous rechargez une paire de pistolets, placez 4 jetons de 2 couleurs différentes (une pour chaque pistolet). À chaque tour, retirez un jeton de chaque couleur." }
     ]
+  },
+  {
+    "id": "pistolet_double_canon", "nom": "Pistolet à double canon", "categorie": "armes_poudre_noire",
+    "cout": 20, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9",
+    "note_maison": "Prix officiel 30 CO, réduit à 20 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["ostlanders"], "source": "BTB", "page": 24,
+    "texte": "Un pistolet doté de deux canons superposés, permettant de tirer deux coups avant de devoir recharger. Plus lourd et moins fiable qu'un pistolet simple.",
+    "portee": "6ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Double tir", "texte": "Cette arme tire deux coups avant de devoir être rechargée (au lieu d'un seul pour un pistolet normal)." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme après ses deux tirs." }
+    ]
+  },
+  {
+    "id": "long_fusil_hochland_double_canon", "nom": "Long fusil du Hochland à double canon", "categorie": "armes_poudre_noire",
+    "cout": 200, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11",
+    "note_maison": "Prix officiel 300 CO, réduit à 200 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
+    "acces": ["ostlanders"], "source": "BTB", "page": 24,
+    "texte": "Une variante à deux canons du célèbre long fusil du Hochland, encore plus rare et coûteuse que l'original, mais capable de faucher deux cibles avant de devoir être rechargée.",
+    "portee": "48ps", "force": "5",
+    "regles_speciales": [
+      { "nom": "Double tir", "texte": "Cette arme tire deux coups avant de devoir être rechargée." },
+      { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme après ses deux tirs." },
+      { "nom": "Visée", "texte": "Un tireur qui ne se déplace pas peut relancer un jet pour toucher raté." }
+    ]
   }
 ]

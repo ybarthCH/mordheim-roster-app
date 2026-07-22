@@ -168,12 +168,12 @@
     "hommes_betes": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Marteau", "cout": 3 },
-        { "nom": "Masse", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Épée", "cout": 10 },
         { "nom": "Hallebarde", "cout": 10 },
-        { "nom": "Arme à deux mains", "cout": 15 }
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
       ],
       "armures": [
         { "nom": "Armure légère", "cout": 20 },
@@ -185,8 +185,8 @@
     "ungors": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Marteau", "cout": 3 },
-        { "nom": "Masse", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Lance", "cout": 10 }
       ],

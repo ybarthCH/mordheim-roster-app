@@ -118,11 +118,11 @@
     "repurgateurs": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Masse", "cout": 3 },
-        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Épée", "cout": 10 },
-        { "nom": "Arme à deux mains", "cout": 15 }
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
       ],
       "armes_tir": [
         { "nom": "Arbalète", "cout": 25 },
@@ -140,11 +140,11 @@
     "seides": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Masse", "cout": 3 },
-        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Épée", "cout": 10 },
-        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Lance", "cout": 10 }
       ],
       "armes_tir": [
@@ -161,7 +161,7 @@
       "armes_cac": [
         { "nom": "Fléau", "cout": 15 },
         { "nom": "Morgenstern", "cout": 15 },
-        { "nom": "Arme à deux mains", "cout": 15 }
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
       ]
     }
   },

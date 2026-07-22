@@ -163,5 +163,23 @@
     "regles_speciales": [
       { "nom": "Effet", "texte": "Un tapis volant compte comme une monture ordinaire et permet des mouvements de 16ps, sans pénalité due au terrain. De plus, il est possible de s'en servir pour accéder aux hauteurs d'un bâtiment sans être ralenti. Le tapis peut transporter jusqu'à trois créatures de taille humaine, ou une grande créature et une de taille humaine. L'un des occupants doit être un Héros. En raison de sa nature magique, le tapis volant est indestructible." }
     ]
+  },
+  {
+    "id": "molosse_estalien", "nom": "Molosse estalien", "categorie": "montures",
+    "cout": 25, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Lustrian Reavers uniquement",
+    "acces": ["lustrian_reavers"], "source": "BTB", "page": 60,
+    "texte": "Un chien de guerre estalien, plus vif et mieux dressé à la chasse que les molosses du Vieux Monde.",
+    "stats": { "M": 6, "CC": 3, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
+    "regles_speciales": []
+  },
+  {
+    "id": "singe_de_barbarie", "nom": "Singe de Barbarie", "categorie": "montures",
+    "cout": 40, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Lustrian Reavers uniquement",
+    "acces": ["lustrian_reavers"], "source": "BTB", "page": 60,
+    "texte": "Un petit singe futé, capable de fouiller les décombres et de subtiliser de menus objets pendant la bataille.",
+    "stats": { "M": 6, "CC": 2, "CT": 0, "F": 2, "E": 2, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
+    "regles_speciales": [
+      { "nom": "Chapardeur", "texte": "À la fin de la partie, si son propriétaire a survécu, lancez 1D6 : sur un 6, le singe rapporte 1D6 CO chapardées durant la bataille." }
+    ]
   }
 ]

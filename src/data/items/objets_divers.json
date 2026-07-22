@@ -644,5 +644,32 @@
     "regles_speciales": [
       { "nom": "Effet", "texte": "Sauvegarde d'armure +2." }
     ]
+  },
+  {
+    "id": "relique_sacree_bretonnienne", "nom": "Relique sacrée bretonnienne", "categorie": "divers",
+    "cout": 25, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Gardiens de Chapelle Bretonniens uniquement",
+    "acces": ["gardiens_de_chapelle_bretonniens"], "source": "GB (Gardiens de Chapelle Bretonniens)", "page": 53,
+    "texte": "Un fragment de reliquaire, une mèche de cheveux d'une Dame du lac ou un éclat d'armure d'un chevalier tombé au combat — un objet de dévotion porté en pèlerinage.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le porteur bénéficie d'une sauvegarde spéciale de 6+ contre les sorts et prières dirigés contre lui." }
+    ]
+  },
+  {
+    "id": "relique_sacree_sigmarite", "nom": "Relique Sacrée", "categorie": "divers",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Sœurs de Sigmar uniquement",
+    "acces": ["sisters_of_sigmar"], "source": "SdS (Sœurs de Sigmar)", "page": 53,
+    "texte": "Un marteau miniature, un fragment d'os d'un saint martyr ou une page arrachée du Grand Testament — objet de foi porté par les Sœurs au combat.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Le porteur bénéficie d'une sauvegarde spéciale de 6+ contre les sorts et prières dirigés contre lui." }
+    ]
+  },
+  {
+    "id": "gnoblar_combattant", "nom": "Gnoblar Combattant", "categorie": "divers",
+    "cout": 15, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Ogres uniquement",
+    "acces": ["maneaters"], "source": "BTB-MH (Mangeurs d'Hommes)", "page": 39,
+    "texte": "Traité en tous points comme de l'équipement divers (ce ne sont pas des figurines et n'occupent pas de socle !). Les Ogres peuvent avoir jusqu'à deux assistants gnoblars différents.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Un Ogre avec un gnoblar combattant gagne la compétence Coup Précis de la liste des compétences de Combat." }
+    ]
   }
 ]
