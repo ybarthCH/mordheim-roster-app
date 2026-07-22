@@ -126,6 +126,9 @@ export type EquipementSpecialRef = {
   item_id: string;
   cout: number | string;
   disponibilite?: string;
+  // Restreint l'objet à certains profils (ex : mutations réservées à
+  // l'Impur). Absent = accessible à tous les profils de la bande.
+  profils?: string[];
 };
 
 export type MagieSort = {

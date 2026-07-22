@@ -671,5 +671,59 @@
     "regles_speciales": [
       { "nom": "Effet", "texte": "Un Ogre avec un gnoblar combattant gagne la compétence Coup Précis de la liste des compétences de Combat." }
     ]
+  },
+  {
+    "id": "flot_de_corruption", "nom": "Flot de Corruption (Bénédiction de Nurgle)", "categorie": "divers",
+    "cout": 25, "cout_fixe": true, "rarete": "C", "disponibilite": "Impur (Kermesse du Chaos) uniquement, au recrutement",
+    "acces": ["carnival_of_chaos"], "source": "EEF", "page": 53,
+    "texte": "Une bénédiction de Nurgle offerte à l'Impur au moment de son recrutement, qui grouille de vers, de bile et de sang.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Attaque de tir (portée 6ps, Force 3, sans sauvegarde d'armure) : jet de vers, de bile et de sang." }
+    ]
+  },
+  {
+    "id": "pourriture_de_nurgle", "nom": "Pourriture de Nurgle (Bénédiction de Nurgle)", "categorie": "divers",
+    "cout": 50, "cout_fixe": true, "rarete": "C", "disponibilite": "Impur (Kermesse du Chaos) uniquement, au recrutement",
+    "acces": ["carnival_of_chaos"], "source": "EEF", "page": 53,
+    "texte": "L'Impur est infecté par cette maladie virulente et incurable, contractée au service de Nurgle.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Immunité aux poisons. Sur un 6 pour blesser au corps à corps, le porteur transmet la maladie à sa cible (figurines vivantes uniquement), qui teste son Endurance à chaque bataille suivante (échec = perte permanente d'1 point d'Endurance, mort à 0 ; sur un 6 au test, transmission involontaire à un autre membre de la bande, déterminé au hasard)." }
+    ]
+  },
+  {
+    "id": "nuage_de_mouches_benediction", "nom": "Nuage de Mouches (Bénédiction de Nurgle)", "categorie": "divers",
+    "cout": 25, "cout_fixe": true, "rarete": "C", "disponibilite": "Impur (Kermesse du Chaos) uniquement, au recrutement",
+    "acces": ["carnival_of_chaos"], "source": "EEF", "page": 53,
+    "texte": "Un essaim de mouches nauséabondes tourbillonne en permanence autour de l'Impur, gênant ses adversaires.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Les adversaires de l'Impur subissent un malus de -1 pour le toucher au corps à corps." }
+    ]
+  },
+  {
+    "id": "horreur_enflee", "nom": "Horreur Enflée (Bénédiction de Nurgle)", "categorie": "divers",
+    "cout": 40, "cout_fixe": true, "rarete": "C", "disponibilite": "Impur (Kermesse du Chaos) uniquement, au recrutement",
+    "acces": ["carnival_of_chaos"], "source": "EEF", "page": 53,
+    "texte": "Le corps de l'Impur enfle et se boursoufle sous l'effet de la bénédiction de Nurgle.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "+1 Point de Vie, +1 en Endurance, mais -1 en Mouvement." }
+    ]
+  },
+  {
+    "id": "marque_de_nurgle", "nom": "Marque de Nurgle (Bénédiction de Nurgle)", "categorie": "divers",
+    "cout": 35, "cout_fixe": true, "rarete": "C", "disponibilite": "Impur (Kermesse du Chaos) uniquement, au recrutement",
+    "acces": ["carnival_of_chaos"], "source": "EEF", "page": 53,
+    "texte": "La marque de Nurgle s'imprime sur la chair de l'Impur, signe de la faveur du Dieu de la Peste.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "+1 Point de Vie et immunité aux effets de tous les poisons." }
+    ]
+  },
+  {
+    "id": "hideux", "nom": "Hideux (Bénédiction de Nurgle)", "categorie": "divers",
+    "cout": 40, "cout_fixe": true, "rarete": "C", "disponibilite": "Impur (Kermesse du Chaos) uniquement, au recrutement",
+    "acces": ["carnival_of_chaos"], "source": "EEF", "page": 53,
+    "texte": "L'Impur se mue en une chose si répugnante que la simple vue de ses plaies suintantes glace le sang.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Provoque la peur." }
+    ]
   }
 ]

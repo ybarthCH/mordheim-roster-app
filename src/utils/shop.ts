@@ -178,6 +178,7 @@ export function getEquipementBande(
     }
   }
   for (const ref of catalogue.equipement_special ?? []) {
+    if (ref.profils && !(profil && ref.profils.includes(profil.id))) continue;
     const item = getItem(ref.item_id);
     if (!item) continue;
     items.push({
