@@ -94,6 +94,13 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Toutes les tailles de police de l'app sont en rem : augmenter la
+     racine relève donc le texte partout d'un coup, sans devoir toucher
+     chaque règle individuellement. */
+  font-size: 113%;
+}
+
 html,
 body,
 #root {
