@@ -112,14 +112,38 @@ export function RosterScreen() {
   };
 
   // Bascule rapide du statut Hors de combat depuis le roster global, sans
-  // ouvrir la fiche personnage — utile en cours de partie.
+  // ouvrir la fiche personnage — utile en cours de partie. Un homme de main
+  // ou animal non promu n'utilise jamais le statut « Hors de combat » (voir
+  // PersonnageScreen) : chaque clic marque une figurine de plus via le
+  // compteur dédié, jusqu'à ce que tout le groupe soit à terre, puis
+  // reboucle à 0. Seuls les héros (et hommes de main promus) basculent le
+  // statut lui-même.
   const basculerHorsCombat = (m: Member) => {
+    const profil = resolveProfil(roster, m);
+    const estGroupeSimplifie = (profil?.type === 'homme_de_main' || profil?.type === 'animal') && !m.promu_heros;
+    if (estGroupeSimplifie) {
+      const nouveauHC = m.hors_combat >= m.taille_groupe ? 0 : m.hors_combat + 1;
+      patch({
+        membres: roster.membres.map((x) => (x.instance_id === m.instance_id ? { ...x, hors_combat: nouveauHC } : x)),
+      });
+      return;
+    }
     const nouveauStatut = m.statut === 'hors_de_combat' ? 'actif' : 'hors_de_combat';
     patch({
       membres: roster.membres.map((x) =>
         x.instance_id === m.instance_id ? { ...x, statut: nouveauStatut, date_mort: undefined } : x
       ),
     });
+  };
+
+  const estHorsCombat = (m: Member) => m.statut === 'hors_de_combat' || m.hors_combat > 0;
+
+  const titreHorsCombat = (m: Member) => {
+    const profil = resolveProfil(roster, m);
+    const estGroupeSimplifie = (profil?.type === 'homme_de_main' || profil?.type === 'animal') && !m.promu_heros;
+    return estGroupeSimplifie
+      ? `Marquer une figurine Hors de combat (${m.hors_combat}/${m.taille_groupe})`
+      : 'Basculer Hors de combat';
   };
 
   // Réordonne un membre au sein de sa section (Héros / Hommes de main),
@@ -197,6 +221,11 @@ export function RosterScreen() {
                     <span className={`badge ${STATUT_BADGE[m.statut]}`}>
                       {STATUTS.find((s) => s.id === m.statut)?.label}
                     </span>
+                    {m.hors_combat > 0 && (
+                      <span className="badge badge--warning" style={{ marginLeft: '0.3rem' }}>
+                        {m.hors_combat}/{m.taille_groupe} HC
+                      </span>
+                    )}
                   </td>
                   <td>
                     <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
@@ -230,13 +259,13 @@ export function RosterScreen() {
                           border: 'none',
                           background: 'none',
                           padding: '0.2rem 0.4rem',
-                          color: m.statut === 'hors_de_combat' ? 'var(--warning)' : undefined,
+                          color: estHorsCombat(m) ? 'var(--warning)' : undefined,
                         }}
                         onClick={(e) => {
                           e.stopPropagation();
                           basculerHorsCombat(m);
                         }}
-                        title="Basculer Hors de combat"
+                        title={titreHorsCombat(m)}
                       >
                         HC
                       </button>
@@ -294,6 +323,11 @@ export function RosterScreen() {
               <span className={`badge ${STATUT_BADGE[m.statut]}`}>
                 {STATUTS.find((s) => s.id === m.statut)?.label}
               </span>
+              {m.hors_combat > 0 && (
+                <span className="badge badge--warning">
+                  {m.hors_combat}/{m.taille_groupe} HC
+                </span>
+              )}
               <button
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
@@ -324,13 +358,13 @@ export function RosterScreen() {
                   border: 'none',
                   background: 'none',
                   padding: '0.2rem 0.4rem',
-                  color: m.statut === 'hors_de_combat' ? 'var(--warning)' : undefined,
+                  color: estHorsCombat(m) ? 'var(--warning)' : undefined,
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
                   basculerHorsCombat(m);
                 }}
-                title="Basculer Hors de combat"
+                title={titreHorsCombat(m)}
               >
                 HC
               </button>
@@ -374,9 +408,16 @@ export function RosterScreen() {
       }
     >
       <div className="card">
-        <div className="flex justify-between items-center">
-          <h2 className="mt-0 mb-0">{catalogue?.nom ?? roster.bande_id}</h2>
-        </div>
+        <input
+          value={roster.nom_bande}
+          onChange={(e) => patch({ nom_bande: e.target.value })}
+          className="input--heading"
+          style={{ fontSize: '1.6rem' }}
+          placeholder="Nom de la bande"
+        />
+        <p className="text-sm text-muted" style={{ margin: '0 0 0.3rem' }}>
+          {catalogue?.nom ?? roster.bande_id}
+        </p>
         <div className="summary-grid" style={{ marginTop: '0.7rem' }}>
           <div className="summary-tile">
             <div className="summary-tile__value">{valeurBande(roster)}</div>
@@ -428,11 +469,11 @@ export function RosterScreen() {
           </div>
         </div>
         <div className="field" style={{ marginTop: '0.7rem' }}>
-          <label>Équipement en réserve</label>
+          <label>Notes</label>
           <textarea
             value={roster.equipement_reserve}
             onChange={(e) => patch({ equipement_reserve: e.target.value })}
-            placeholder="Objets non attribués, réserve de la bande…"
+            placeholder="Notes libres sur la bande…"
           />
         </div>
       </div>
