@@ -1,0 +1,198 @@
+{
+  "id": "norses",
+  "nom": "Norses (1b)",
+  "grade": "1b",
+  "source": "Town Cryer #13, v1.1b — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Marins", "texte": "Les Norses sont d'excellents navigateurs. Tous gagnent +2 en Force lorsqu'ils rament (règle du scénario The Script of Sigmar, Town Cryer #9 ; à défaut, appliquer ce bonus au Mouvement du bateau)." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "jarl",
+      "nom": "Jarl",
+      "type": "heros",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 70,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 2, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Jarl peut utiliser son Commandement pour ses tests." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["heros_armes", "heros_armures"],
+      "acces_competences_a_verifier": true,
+      "est_leader": true
+    },
+    {
+      "id": "berserk",
+      "nom": "Berserk",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 50,
+      "xp_depart": 11,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Berserk", "texte": "Sujet à la frénésie (voir Psychologie)." },
+        { "nom": "Équipement", "texte": "Ne peut jamais porter d'armure." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["heros_armes"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "wulfen",
+      "nom": "Wulfen",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 90,
+      "xp_depart": 11,
+      "stats": { "M": 6, "CC": 4, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 4, "A": 2, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Peur", "texte": "Créature terrifiante provoquant la peur." },
+        { "nom": "Bestial", "texte": "Immunisé à la psychologie ; trop incontrôlable pour devenir Chef de bande." },
+        { "nom": "Équipement", "texte": "Masse de griffes et de crocs, n'utilise jamais d'armes ni d'armures. Ne subit aucune pénalité pour combattre sans arme." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "bondis",
+      "nom": "Bóndis",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 6 },
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["heros_armes", "heros_armures"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "maraudeur_norse",
+      "nom": "Maraudeur Norse",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "chasseur_norse",
+      "nom": "Chasseur Norse",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 5,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["chasseurs_norses"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "loup",
+      "nom": "Loup",
+      "type": "animal",
+      "min": 0,
+      "max": 5,
+      "cout": 15,
+      "stats": { "M": 9, "CC": 3, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Animaux", "texte": "Les Loups ne gagnent jamais d'expérience." },
+        { "nom": "Chef de Meute", "texte": "Se soumettent au Wulfen ; sans Wulfen dans la bande, les Loups ne peuvent pas être alignés jusqu'à ce qu'il soit remplacé." },
+        { "nom": "Équipement", "texte": "N'utilisent jamais d'armes." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "expert_du_bouclier", "nom": "Expert du Bouclier", "texte": "Équipé d'un bouclier, peut effectuer une parade en plus de la sauvegarde d'armure de 6+." },
+    { "id": "frappe_destructrice", "nom": "Frappe Destructrice", "texte": "Les attaques du Héros ne peuvent pas être parées." },
+    { "id": "charge_berserk", "nom": "Charge Berserk", "texte": "Armé d'une hache ou d'une arme à deux mains, peut relancer tout jet pour toucher raté lorsqu'il charge." },
+    { "id": "jargon_des_batailles", "nom": "Jargon des Batailles", "reserve_a": "Chef de bande uniquement", "texte": "Le rayon dans lequel les alliés peuvent utiliser son Commandement passe de 6 à 12ps." },
+    { "id": "intrepidite", "nom": "Intrépidité", "texte": "N'a jamais à passer de test de seul contre tous et peut relancer ses tests de peur ratés." }
+  ],
+  "equipement": {
+    "heros_armes": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "fleau", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "arme_de_jet", "cout": 15, "note": "Haches de lancer, considérées comme des couteaux de lancer" }
+      ],
+      "divers": [
+        { "item_id": "mule_market", "cout": 30, "note": "Monture — voir article Guerriers Montés" },
+        { "item_id": "cheval", "cout": 40, "note": "Monture — voir article Guerriers Montés" },
+        { "item_id": "destriers", "cout": 80, "note": "Monture — voir article Guerriers Montés" }
+      ]
+    },
+    "heros_armures": {
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    },
+    "hommes_de_main": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "arme_de_jet", "cout": 15, "note": "Haches de lancer, considérées comme des couteaux de lancer" }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    },
+    "chasseurs_norses": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "javelots", "cout": 5 },
+        { "item_id": "arc", "cout": 10 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    }
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "id": "artilleurs_de_nuln",
+  "nom": "Artilleurs de Nuln (1b)",
+  "grade": "1b",
+  "source": "Nemesis Crown — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Entretien impeccable", "texte": "Les Artilleurs de Nuln utilisent toujours le coût réduit des armes à poudre noire listées dans leur liste d'équipement, et bénéficient d'un bonus de +2 sur les jets de rareté pour trouver une arme à poudre noire." },
+    { "nom": "Bon usage", "texte": "Si vous utilisez les règles d'Incidents de Tir, un résultat de 1 pour toucher est suivi d'une relance : sur 3+, le tir est simplement raté (l'arme n'explose pas)." },
+    { "nom": "Fier artilleur !", "texte": "Les Artilleurs de Nuln n'utilisent jamais d'armes de tir ne fonctionnant pas à la poudre noire. Cette interdiction ne s'applique pas aux Francs-tireurs ni aux Dramatis Personae engagés par la bande." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "officier_superieur_dartillerie",
+      "nom": "Officier Supérieur d'Artillerie",
+      "type": "heros",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 60,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout membre de la bande à moins de 12ps de l'Officier Supérieur d'Artillerie peut utiliser son Commandement pour ses tests." },
+        { "nom": "Chasseur", "texte": "Parfaitement entraîné à charger et apprêter son arme, il peut tirer à chaque tour même avec une arquebuse ou un long fusil du Hochland (identique à la compétence de Tir Chasseur ; n'apporte pas d'effet supplémentaire s'il l'apprend à nouveau)." }
+      ],
+      "acces_competences": ["combat", "tir", "erudition", "force", "vitesse"],
+      "acces_equipement": ["artilleurs_de_nuln", "montures_nuln"],
+      "acces_competences_a_verifier": true,
+      "est_leader": true
+    },
+    {
+      "id": "instructeur",
+      "nom": "Instructeur",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 45,
+      "xp_depart": 12,
+      "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Expert en armement", "texte": "Tant qu'un Instructeur est présent dans la bande, toutes les armes de type pistolet reçoivent un bonus de +3ps et toutes les autres armes à poudre noire un bonus de +6ps." }
+      ],
+      "acces_competences": ["tir", "erudition"],
+      "acces_equipement": ["artilleurs_de_nuln", "tireurs_delite", "montures_nuln"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "aspirant",
+      "nom": "Aspirant",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 45,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": ["combat", "tir", "force", "vitesse"],
+      "acces_equipement": ["artilleurs_de_nuln", "montures_nuln"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "cadets",
+      "nom": "Cadets",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "acces_competences": ["tir", "force"],
+      "acces_equipement": ["artilleurs_de_nuln", "montures_nuln"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "pupille_de_nuln",
+      "nom": "Pupille de Nuln",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["artilleurs_de_nuln"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "tireur_delite",
+      "nom": "Tireur d'Élite",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 7,
+      "cout": 30,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Chasseur", "texte": "Parfaitement entraîné à charger et apprêter son arme, il peut tirer à chaque tour même avec une arquebuse ou un long fusil du Hochland (identique à la compétence de Tir Chasseur ; n'apporte pas d'effet supplémentaire s'il devient un Héros et l'apprend à nouveau)." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["tireurs_delite"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "pistolier",
+      "nom": "Pistolier",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 5,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "As de la gâchette", "texte": "Au premier tour de chaque corps à corps, s'ils utilisent des pistolets au corps à corps, peut relancer les jets pour toucher ratés avec les pistolets (le résultat de la relance doit être accepté ; une relance ne peut pas être relancée)." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["artilleurs_de_nuln"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "artilleurs_de_nuln": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Masse ou Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "morgenstern", "cout": 15 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "pistolet", "cout": 10, "note": "20 CO la paire" },
+        { "item_id": "pistolet_double_canon", "cout": 20, "note": "35 CO la paire" },
+        { "item_id": "pistolet_de_duel", "cout": 20, "note": "35 CO la paire" },
+        { "item_id": "pistolet_duel_double_canon", "cout": 35, "note": "65 CO la paire" },
+        { "item_id": "arquebuse", "cout": 25 },
+        { "item_id": "arquebuse_double_canon", "cout": 45 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
+      ],
+      "divers": [
+        { "item_id": "poudre_noire_superieure", "cout": 25 }
+      ]
+    },
+    "tireurs_delite": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Masse ou Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "pistolet", "cout": 10, "note": "20 CO la paire" },
+        { "item_id": "pistolet_double_canon", "cout": 20, "note": "35 CO la paire" },
+        { "item_id": "pistolet_a_repetition", "cout": 25 },
+        { "item_id": "tromblon", "cout": 20 },
+        { "item_id": "arquebuse", "cout": 25 },
+        { "item_id": "arquebuse_double_canon", "cout": 45 },
+        { "item_id": "long_fusil_du_hochland", "cout": 100 },
+        { "item_id": "arquebuse_a_repetition", "cout": 50 },
+        { "item_id": "mortier_portable", "cout": 70 },
+        { "item_id": "pigeon_explosif", "cout": 25 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
+      ],
+      "divers": [
+        { "item_id": "poudre_noire_superieure", "cout": 25 }
+      ]
+    },
+    "montures_nuln": {
+      "divers": [
+        { "item_id": "mule_market", "cout": 30, "note": "Monture — voir article Guerriers Montés" },
+        { "item_id": "cheval", "cout": 40, "note": "Monture — voir article Guerriers Montés" },
+        { "item_id": "destriers", "cout": 80, "note": "Monture — voir article Guerriers Montés" }
+      ]
+    }
+  }
+}
