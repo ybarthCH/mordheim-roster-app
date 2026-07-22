@@ -33,7 +33,7 @@
 
 :root {
   color-scheme: light dark;
-  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-ui: 'Garamond', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-heading: 'Garamond', Georgia, 'Times New Roman', serif;
   --font-display: 'Schoensperger', var(--font-heading);
   --font-accroche: 'Garamond Cond Book', var(--font-heading);
