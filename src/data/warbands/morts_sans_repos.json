@@ -181,25 +181,25 @@
   "equipement": {
     "morts_vivants": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
-        { "nom": "Lance", "cout": 10 },
-        { "nom": "Hallebarde", "cout": 10 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 }
       ],
       "armes_tir": [
-        { "nom": "Arc court", "cout": 5 },
-        { "nom": "Arc", "cout": 10 }
+        { "item_id": "arc_court", "cout": 5 },
+        { "item_id": "arc", "cout": 10 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Armure lourde", "cout": 50 },
-        { "nom": "Bouclier", "cout": 5 },
-        { "nom": "Rondache", "cout": 5 },
-        { "nom": "Casque", "cout": 10 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
       ]
     }
   },

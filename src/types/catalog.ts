@@ -100,8 +100,14 @@ export type Composition = {
   cout_max_constitution?: number;
 };
 
-export type EquipementItem = {
-  nom: string;
+// Référence vers un objet de la base commune (src/data/items/*.json, extraite
+// du compendium "Place du Marché") — nom, catégorie, stats et règles se
+// résolvent via item_id, seul le prix (souvent propre à la bande) reste
+// dupliqué ici. Remplace l'ancien schéma en texte libre (nom/cout dupliqués)
+// pour ne plus dépendre d'une correspondance de nom fragile entre les deux
+// sources.
+export type EquipementRef = {
+  item_id: string;
   cout: number | string;
   note?: string;
   restriction?: string;
@@ -110,23 +116,16 @@ export type EquipementItem = {
 // Une liste d'équipement nommée (ex : "repurgateurs", "flagellants"...) —
 // affichée telle quelle en référence libre, sans automatisation d'achat.
 export type EquipementListe = {
-  armes_cac?: EquipementItem[];
-  armes_tir?: EquipementItem[];
-  armures?: EquipementItem[];
-  divers?: EquipementItem[];
+  armes_cac?: EquipementRef[];
+  armes_tir?: EquipementRef[];
+  armures?: EquipementRef[];
+  divers?: EquipementRef[];
 };
 
-export type EquipementSpecialItem = {
-  id: string;
-  nom: string;
+export type EquipementSpecialRef = {
+  item_id: string;
   cout: number | string;
   disponibilite?: string;
-  portee?: string;
-  force?: string;
-  sauvegarde?: string;
-  texte?: string;
-  note?: string;
-  regles_speciales?: SpecialRule[];
 };
 
 export type MagieSort = {
@@ -163,6 +162,6 @@ export type WarbandCatalog = {
   caracteristiques_max?: CaracteristiquesMax[];
   // Références libres, affichées en bas du roster sans automatisation.
   equipement?: Record<string, EquipementListe>;
-  equipement_special?: EquipementSpecialItem[];
+  equipement_special?: EquipementSpecialRef[];
   magie?: Magie;
 };

@@ -6,7 +6,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import type { Member, RosterInstance, InventoryEntry } from '../types/roster';
 import type { WarbandCatalog, Profile, SpecialRule } from '../types/catalog';
-import { TOUS_LES_ITEMS } from '../data/items';
+import { TOUS_LES_ITEMS, getItem } from '../data/items';
 
 export type ShopItem = {
   id: string;
@@ -120,28 +120,6 @@ export function getShopCommun(): ShopItem[] {
   }));
 }
 
-const DIACRITIQUES = new RegExp('[̀-ͯ]', 'g');
-
-function slugify(texte: string): string {
-  return texte
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(DIACRITIQUES, '')
-    .replace(/[^a-z0-9]+/g, '_')
-    .replace(/^_+|_+$/g, '');
-}
-
-// Les objets des listes d'équipement de bande (catalogue.equipement) n'ont
-// que nom/coût — les stats de jeu (portée/force/règles) vivent dans la base
-// de référence (items/*.json). La plupart de ces objets sont les mêmes armes
-// communes qu'on retrouve telles quelles dans cette base ; on les enrichit
-// donc par correspondance de nom pour que le détail au clic ne soit pas vide.
-const INDEX_ITEMS_PAR_NOM = new Map<string, (typeof TOUS_LES_ITEMS)[number]>();
-for (const item of TOUS_LES_ITEMS) {
-  const cle = slugify(item.nom);
-  if (!INDEX_ITEMS_PAR_NOM.has(cle)) INDEX_ITEMS_PAR_NOM.set(cle, item);
-}
-
 // Compétences qui donnent accès à toute arme de la bande dans leur
 // catégorie, au-delà de la liste normalement assignée au profil (cf.
 // src/data/skills.json) : "Connaissance des Armes" (corps à corps) et
@@ -150,13 +128,15 @@ const SKILL_TOUTES_ARMES_CAC = 'combat_03';
 const SKILL_TOUTES_ARMES_TIR = 'tir_04';
 
 // Objets propres à la bande (catalogue.equipement/equipement_special), déjà
-// utilisés en lecture seule par EquipementReference. Si le profil précise
-// `acces_equipement`, seules ces listes nommées sont proposées ; sinon,
-// toutes les listes de la bande le sont (repli par défaut) — plusieurs
-// listes (ex : infanterie/tireurs) partagent souvent les mêmes armes de
-// base, d'où la déduplication finale par catégorie+nom. `competencesAcquises`
-// permet à "Connaissance des Armes"/"Expert en Armes" de lever la
-// restriction de liste pour leur catégorie d'arme respective.
+// utilisés en lecture seule par EquipementReference. Chaque référence pointe
+// vers un item_id de la base commune (items/*.json) : nom/catégorie/stats se
+// résolvent depuis là, seul le prix (souvent propre à la bande) reste local.
+// Si le profil précise `acces_equipement`, seules ces listes nommées sont
+// proposées ; sinon, toutes les listes de la bande le sont (repli par
+// défaut) — plusieurs listes (ex : infanterie/tireurs) partagent souvent les
+// mêmes armes de base, d'où la déduplication finale par item_id.
+// `competencesAcquises` permet à "Connaissance des Armes"/"Expert en Armes"
+// de lever la restriction de liste pour leur catégorie d'arme respective.
 export function getEquipementBande(
   catalogue: WarbandCatalog,
   profil: Profile | null,
@@ -177,37 +157,40 @@ export function getEquipementBande(
     for (const cle of clesParCategorie[categorie]) {
       const liste = listes[cle];
       if (!liste) continue;
-      for (const item of liste[categorie] ?? []) {
-        const reference = INDEX_ITEMS_PAR_NOM.get(slugify(item.nom));
+      for (const ref of liste[categorie] ?? []) {
+        const item = getItem(ref.item_id);
+        if (!item) continue;
         items.push({
-          id: `bande:${catalogue.id}:${cle}:${slugify(categorie)}:${slugify(item.nom)}`,
+          id: item.id,
           nom: item.nom,
           categorie,
-          cout: item.cout,
-          cout_fixe: typeof item.cout === 'number',
-          disponibilite: item.restriction ?? item.note,
-          texte: reference?.texte,
-          portee: reference && 'portee' in reference ? (reference.portee as string | null) : undefined,
-          force: reference && 'force' in reference ? (reference.force as string | null) : undefined,
-          sauvegarde: reference && 'sauvegarde' in reference ? (reference.sauvegarde as string | null) : undefined,
-          regles_speciales: reference?.regles_speciales,
+          cout: ref.cout,
+          cout_fixe: typeof ref.cout === 'number',
+          disponibilite: ref.restriction ?? ref.note ?? item.disponibilite,
+          texte: item.texte,
+          portee: 'portee' in item ? (item.portee as string | null) : undefined,
+          force: 'force' in item ? (item.force as string | null) : undefined,
+          sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
+          regles_speciales: item.regles_speciales,
           origine: 'bande',
         });
       }
     }
   }
-  for (const item of catalogue.equipement_special ?? []) {
+  for (const ref of catalogue.equipement_special ?? []) {
+    const item = getItem(ref.item_id);
+    if (!item) continue;
     items.push({
-      id: `bande:${catalogue.id}:special:${item.id}`,
+      id: item.id,
       nom: item.nom,
       categorie: 'special',
-      cout: item.cout,
-      cout_fixe: typeof item.cout === 'number',
-      disponibilite: item.disponibilite,
+      cout: ref.cout,
+      cout_fixe: typeof ref.cout === 'number',
+      disponibilite: ref.disponibilite ?? item.disponibilite,
       texte: item.texte,
-      portee: item.portee,
-      force: item.force,
-      sauvegarde: item.sauvegarde,
+      portee: 'portee' in item ? (item.portee as string | null) : undefined,
+      force: 'force' in item ? (item.force as string | null) : undefined,
+      sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
       regles_speciales: item.regles_speciales,
       origine: 'bande',
     });
@@ -215,9 +198,8 @@ export function getEquipementBande(
 
   const vus = new Set<string>();
   return items.filter((item) => {
-    const cle = `${item.categorie}|${item.nom.trim().toLowerCase()}`;
-    if (vus.has(cle)) return false;
-    vus.add(cle);
+    if (vus.has(item.id)) return false;
+    vus.add(item.id);
     return true;
   });
 }
@@ -284,6 +266,37 @@ export function transfererVersMembre(roster: RosterInstance, instanceId: string,
 
 export function formatEquipementAffiche(inventaire: InventoryEntry[]): string {
   return inventaire.map((e) => e.nom).join(', ');
+}
+
+// Reconstruit le détail complet (stats/règles) d'un objet possédé à partir
+// de son item_id, pour l'affichage au clic (récap "en un coup d'œil",
+// inventaire...). Se rabat sur le simple instantané pris à l'achat
+// (nom/catégorie/coût) si l'objet n'existe plus dans la base commune.
+export function resolveItemDetail(entree: InventoryEntry): ShopItem {
+  const item = getItem(entree.item_id);
+  if (!item) {
+    return {
+      id: entree.item_id,
+      nom: entree.nom,
+      categorie: entree.categorie,
+      cout: entree.cout,
+      origine: 'bande',
+    };
+  }
+  return {
+    id: item.id,
+    nom: item.nom,
+    categorie: normaliserCategorie(item.categorie),
+    cout: entree.cout,
+    disponibilite: item.disponibilite,
+    rarete: item.rarete,
+    texte: item.texte,
+    portee: 'portee' in item ? (item.portee as string | null) : undefined,
+    force: 'force' in item ? (item.force as string | null) : undefined,
+    sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
+    regles_speciales: item.regles_speciales,
+    origine: 'bande',
+  };
 }
 
 // Revente d'équipement : moitié du prix payé, arrondie au supérieur.

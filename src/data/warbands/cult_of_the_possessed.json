@@ -118,68 +118,46 @@
   "equipement": {
     "culte_des_possedes": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Lance", "cout": 10 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armes_tir": [
-        { "nom": "Arc Court", "cout": 10 },
-        { "nom": "Arc", "cout": 15 }
+        { "item_id": "arc_court", "cout": 10 },
+        { "item_id": "arc", "cout": 15 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Armure lourde", "cout": 50 },
-        { "nom": "Casque", "cout": 10 },
-        { "nom": "Bouclier", "cout": 5 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
       ]
     },
     "damnes": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
-        { "nom": "Fléau", "cout": 15 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "fleau", "cout": 15 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Armure lourde", "cout": 50 },
-        { "nom": "Casque", "cout": 10 },
-        { "nom": "Bouclier", "cout": 5 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
       ]
     }
   },
   "equipement_special": [
-    {
-      "id": "arme_en_obsidienne",
-      "nom": "Arme en obsidienne",
-      "cout": "Prix de l'arme de base x4",
-      "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
-      "texte": "Donne à son utilisateur +1 en Force au combat au corps à corps. On choisit le type d'arme de corps à corps proposé.",
-      "regles_speciales": [
-        { "nom": "Corrompue", "texte": "Bien qu'ils ne soient pas strictement corrompus par le Chaos, tous les objets en obsidienne sont considérés comme empreints de l'obscure malveillance associée à leurs artisans. Ne peut jamais être utilisée par les Nains, les Elfes, les Sœurs de Sigmar, les Répurgateurs ou les Prêtres." },
-        { "nom": "Frappe en dernier", "texte": "Les armes en obsidienne sont si lourdes que l'on frappe toujours en dernier avec, même en ayant chargé." }
-      ]
-    },
-    {
-      "id": "armure_du_chaos",
-      "nom": "Armure du Chaos",
-      "cout": 185,
-      "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
-      "sauvegarde": "4+",
-      "regles_speciales": [
-        { "nom": "Coût", "texte": "Le coût d'une armure du Chaos est réduit d'une Couronne d'Or pour chaque point d'expérience possédé par le Héros." },
-        { "nom": "Don du Chaos", "texte": "L'armure du Chaos est un don des Dieux Sombres au guerrier méritant. Un Héros qui en fait l'acquisition ne la donnera jamais à un membre de sa bande et l'équipera immédiatement. Elle fusionnera avec le corps du porteur et ne pourra jamais être retirée." },
-        { "nom": "Jeteurs de sorts", "texte": "L'armure du Chaos n'empêche pas son porteur de lancer des sorts ou de faire des rituels. Elle peut être portée par les jeteurs de sorts, mais ils ne peuvent pas la combiner avec un bouclier ou une rondache." },
-        { "nom": "Rareté", "texte": "Lors de la recherche d'une armure du Chaos, un guerrier gagne +1 sur son jet de dé pour chaque ennemi qu'il a mis hors de combat lors de la bataille précédente." }
-      ]
-    }
+    { "item_id": "arme_en_obsidienne_market", "cout": "Prix de l'arme de base x4", "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
+    { "item_id": "armure_du_chaos_market", "cout": 185, "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" }
   ],
   "magie": {
     "nom": "Rituels du Chaos",

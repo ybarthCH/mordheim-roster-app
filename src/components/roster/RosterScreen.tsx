@@ -12,9 +12,10 @@ import { exporterRoster } from '../../utils/importExport';
 import { AjouterMembreModal } from './AjouterMembreModal';
 import { AjouterBatailleModal } from './AjouterBatailleModal';
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
+import { ItemDetailModal } from '../personnage/ItemDetailModal';
 import { EquipementReference, MagieReference } from '../common/CatalogueReference';
 import { STATUTS } from '../../types/roster';
-import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
+import type { BattleRecord, Member, RosterInstance, InventoryEntry } from '../../types/roster';
 import { avancesDues } from '../../utils/xp';
 import {
   acheterPourStock,
@@ -23,6 +24,7 @@ import {
   creerEntreeInventaire,
   formatEquipementAffiche,
   libelleCategorie,
+  resolveItemDetail,
   prixVente,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
@@ -45,6 +47,7 @@ export function RosterScreen() {
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
   const [batailleASupprimer, setBatailleASupprimer] = useState<BattleRecord | null>(null);
   const [modalAchatStock, setModalAchatStock] = useState(false);
+  const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
 
   if (!roster) {
     return (
@@ -429,8 +432,15 @@ export function RosterScreen() {
         {roster.stock.length === 0 && <p className="text-muted text-sm">Stock vide.</p>}
         {roster.stock.map((entree) => (
           <div key={entree.instance_id} className="list-item">
-            <div className="list-item__main">
-              <div className="list-item__title">{entree.nom}</div>
+            <div
+              className="list-item__main"
+              role="button"
+              style={{ cursor: 'pointer' }}
+              onClick={() => setItemDetail(entree)}
+            >
+              <div className="list-item__title" style={{ textDecoration: 'underline' }}>
+                {entree.nom}
+              </div>
               <div className="list-item__subtitle">
                 {libelleCategorie(entree.categorie)} · {entree.cout} po
                 {entree.cout_notation ? ` (jet : ${entree.cout_notation})` : ''}
@@ -576,6 +586,7 @@ export function RosterScreen() {
           onAchat={acheterPourArmurerie}
         />
       )}
+      {itemDetail && <ItemDetailModal item={resolveItemDetail(itemDetail)} onClose={() => setItemDetail(null)} />}
       {modalMembre && (
         <AjouterMembreModal
           roster={roster}

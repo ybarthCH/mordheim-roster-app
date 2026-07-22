@@ -180,124 +180,73 @@
   "equipement": {
     "chevaliers": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Lance", "cout": 5 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Épée bâtarde", "cout": 15, "note": "voir équipement spécial" },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
-        { "nom": "Morgenstern", "cout": 15 },
-        { "nom": "Lance de cavalerie", "cout": 20, "restriction": "Pas Chevalier de la Quête" }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "lance", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "epee_batarde", "cout": 15, "note": "voir équipement spécial" },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "morgenstern", "cout": 15 },
+        { "item_id": "lance_de_cavalerie", "cout": 20, "restriction": "Pas Chevalier de la Quête" }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Armure lourde", "cout": 50 },
-        { "nom": "Casque", "cout": 10, "restriction": "Pas Chevalier Errant" },
-        { "nom": "Bouclier", "cout": 5 },
-        { "nom": "Écu", "cout": 10, "note": "voir équipement spécial" },
-        { "nom": "Caparaçon bretonnien", "cout": 30 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "casque", "cout": 10, "restriction": "Pas Chevalier Errant" },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "ecu", "cout": 10, "note": "voir équipement spécial" },
+        { "item_id": "caparacon_bretonnien", "cout": 30 }
       ],
       "divers": [
-        { "nom": "Destriers", "cout": 80 },
-        { "nom": "Porte-bonheur", "cout": 10 }
+        { "item_id": "destriers", "cout": 80 },
+        { "item_id": "porte_bonheur", "cout": 10 }
       ]
     },
     "pelerins": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Épée courte", "cout": 7, "note": "voir équipement spécial" },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Lance", "cout": 5 },
-        { "nom": "Hallebarde", "cout": 10 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee_courte", "cout": 7, "note": "voir équipement spécial" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 5 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Casque", "cout": 10 },
-        { "nom": "Bouclier", "cout": 5 },
-        { "nom": "Rondache", "cout": 5 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 }
       ],
-      "divers": [{ "nom": "Relique sacrée bretonnienne", "cout": 25, "restriction": "Pèlerin uniquement" }]
+      "divers": [{ "item_id": "relique_sacree_bretonnienne", "cout": 25, "restriction": "Pèlerin uniquement" }]
     },
     "paysans_archers": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Épée courte", "cout": 7, "note": "voir équipement spécial" },
-        { "nom": "Lance", "cout": 10 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee_courte", "cout": 7, "note": "voir équipement spécial" },
+        { "item_id": "lance", "cout": 10 }
       ],
       "armes_tir": [
-        { "nom": "Arc", "cout": 10 },
-        { "nom": "Arc long", "cout": 15 }
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arc_long", "cout": 15 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Casque", "cout": 10 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 }
       ],
-      "divers": [{ "nom": "Cheval", "cout": 40, "restriction": "Damoiselles et Écuyers uniquement" }]
+      "divers": [{ "item_id": "cheval", "cout": 40, "restriction": "Damoiselles et Écuyers uniquement" }]
     }
   },
   "equipement_special": [
-    {
-      "id": "epee_batarde",
-      "nom": "Épée bâtarde",
-      "cout": 15,
-      "disponibilite": "Commun, Chevaliers des Gardiens de Chapelle Bretonniens uniquement",
-      "portee": "C à C",
-      "force": "Utilisateur +1",
-      "regles_speciales": [
-        { "nom": "Frappe en dernier", "texte": "Frappe toujours en dernier, même en chargeant." },
-        { "nom": "Maniement difficile", "texte": "Peut être combinée avec un bouclier, mais pas d'arme additionnelle ni de rondache." }
-      ],
-      "note": "Ne permet pas de parer malgré son nom, mais compte comme une épée pour la compétence maître escrimeur."
-    },
-    {
-      "id": "epee_courte",
-      "nom": "Épée courte",
-      "cout": 7,
-      "disponibilite": "Commun, Gardiens de Chapelle Bretonniens uniquement",
-      "portee": "C à C",
-      "force": "Utilisateur",
-      "regles_speciales": [
-        { "nom": "Parade", "texte": "Sur un jet adverse pour toucher, un 1D6 supérieur au meilleur jet adverse pare le coup. Pas de parade possible contre une attaque au double (ou plus) de sa propre Force." },
-        { "nom": "+1 Sauvegarde ennemie", "texte": "Un ennemi blessé par cette arme obtient +1 à sa sauvegarde d'armure (ou 6+ s'il n'en a pas)." }
-      ],
-      "note": "Compte comme une épée pour la compétence maître escrimeur."
-    },
-    {
-      "id": "ecu",
-      "nom": "Écu",
-      "cout": 10,
-      "disponibilite": "Commun, Chevaliers des Gardiens de Chapelle Bretonniens uniquement",
-      "regles_speciales": [
-        { "nom": "Sauvegarde", "texte": "5+ à pied / 6+ monté sans armure ; ou +2 à pied / +1 monté si déjà en armure. La sauvegarde ne peut jamais aller en dessous de 1+." }
-      ]
-    },
-    {
-      "id": "destrier_monture",
-      "nom": "Destriers",
-      "cout": 80,
-      "disponibilite": "Rare 11, Humains uniquement",
-      "texte": "M8 CC3 CT0 F3 E3 PV1 I3 A1 Cd5. Entraîné : le cavalier peut relancer (une seule fois par test) tout test de contrôle raté.",
-      "note": "Limite de 2 montures par bande en environnement dense (Mordheim, Lustrie) ; pas de limite en cadre ouvert (Empire en Flammes, Khemri)."
-    },
-    {
-      "id": "cheval_monture",
-      "nom": "Cheval",
-      "cout": 40,
-      "disponibilite": "Rare 8, Humains uniquement",
-      "texte": "M8 CC1 CT0 F3 E3 PV1 I3 A0 Cd5. N'attaque pas l'ennemi, mais utile pour se déplacer rapidement."
-    },
-    {
-      "id": "caparacon_monture",
-      "nom": "Caparaçon",
-      "cout": 30,
-      "disponibilite": "Chevaliers des Gardiens de Chapelle Bretonniens uniquement",
-      "texte": "+1 sauvegarde d'armure et ignore le malus de Mouvement (règle alignée sur celle de l'Empire en Flammes)."
-    }
+    { "item_id": "epee_batarde", "cout": 15, "disponibilite": "Commun, Chevaliers des Gardiens de Chapelle Bretonniens uniquement" },
+    { "item_id": "epee_courte", "cout": 7, "disponibilite": "Commun, Gardiens de Chapelle Bretonniens uniquement" },
+    { "item_id": "ecu", "cout": 10, "disponibilite": "Commun, Chevaliers des Gardiens de Chapelle Bretonniens uniquement" },
+    { "item_id": "destriers", "cout": 80, "disponibilite": "Rare 11, Humains uniquement" },
+    { "item_id": "cheval", "cout": 40, "disponibilite": "Rare 8, Humains uniquement" },
+    { "item_id": "caparacon", "cout": 30, "disponibilite": "Chevaliers des Gardiens de Chapelle Bretonniens uniquement" }
   ],
   "magie": {
     "nom": "Prières de la Dame du Lac",

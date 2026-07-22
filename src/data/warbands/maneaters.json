@@ -141,118 +141,54 @@
   "equipement": {
     "ogres": {
       "armes_cac": [
-        { "nom": "Couperet", "cout": 5, "note": "compte comme une hache" },
-        { "nom": "Gourdin d'Ogre", "cout": 10, "note": "voir équipement spécial" },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Lance", "cout": 10 },
-        { "nom": "Morgenstern", "cout": 15 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
-        { "nom": "Poing de Fer", "cout": 15, "note": "voir équipement spécial" },
-        { "nom": "Sabre de Cathay", "cout": 75, "restriction": "Capitaine uniquement" }
+        { "item_id": "couperet", "cout": 5, "note": "compte comme une hache" },
+        { "item_id": "gourdin_ogre", "cout": 10, "note": "voir équipement spécial" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "morgenstern", "cout": 15 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "poing_de_fer", "cout": 15, "note": "voir équipement spécial" },
+        { "item_id": "sabre_de_cathay", "cout": 75, "restriction": "Capitaine uniquement" }
       ],
       "armes_tir": [
-        { "nom": "Mortier portable", "cout": "70 + 2D6", "note": "voir équipement spécial" }
+        { "item_id": "mortier_portable", "cout": "70 + 2D6", "note": "voir équipement spécial" }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Armure lourde", "cout": 50 },
-        { "nom": "Casque", "cout": 10 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "casque", "cout": 10 }
       ],
       "divers": [
-        { "nom": "Gnoblar Combattant", "cout": 15 },
-        { "nom": "Gnoblar longue-vue", "cout": 20 },
-        { "nom": "Gnoblar porte-bonheur", "cout": 25 },
-        { "nom": "Gnoblar porte-épée", "cout": 30 }
+        { "item_id": "gnoblar_combattant", "cout": 15 },
+        { "item_id": "gnoblar_longue_vue", "cout": 20 },
+        { "item_id": "gnoblar_porte_bonheur", "cout": 25 },
+        { "item_id": "gnoblar_porte_epee", "cout": 30 }
       ]
     },
     "guide": {
       "armes_cac": [
-        { "nom": "Couperet", "cout": 5, "note": "compte comme une hache" },
-        { "nom": "Gourdin d'Ogre", "cout": 10 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Lance", "cout": 10 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
+        { "item_id": "couperet", "cout": 5, "note": "compte comme une hache" },
+        { "item_id": "gourdin_ogre", "cout": 10 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armes_tir": [
-        { "nom": "Lance-harpon", "cout": 50, "note": "voir équipement spécial" }
+        { "item_id": "lance_harpon", "cout": 50, "note": "voir équipement spécial" }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Casque", "cout": 10 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 }
       ]
     }
   },
   "equipement_special": [
-    {
-      "id": "gourdin_dogre",
-      "nom": "Gourdin d'Ogre",
-      "cout": 10,
-      "disponibilite": "Commune (Ogres uniquement)",
-      "portee": "Corps à corps",
-      "force": "Comme l'utilisateur",
-      "regles_speciales": [
-        { "nom": "Commotion", "texte": "Un résultat de 2-4 sur le tableau des blessures est traité comme sonné." },
-        { "nom": "Frappe Écrasante", "texte": "Impose -1 à la sauvegarde d'armure adverse ; la Force de l'attaque compte comme supérieure d'un point pour les tentatives de parade du défenseur. S'applique uniquement lorsqu'il est manié à deux mains." }
-      ]
-    },
-    {
-      "id": "poing_de_fer",
-      "nom": "Poing de Fer",
-      "cout": 15,
-      "disponibilite": "Commune (Ogres uniquement)",
-      "portee": "Corps à corps",
-      "force": "Comme l'utilisateur",
-      "regles_speciales": [
-        { "nom": "Parade", "texte": "Peut parer les coups ennemis." },
-        { "nom": "Ganté", "texte": "Ne peut pas tenir une autre arme dans la même main ; deux poings de fer empêchent l'utilisation de toute autre arme de corps à corps." },
-        { "nom": "Double Usage", "texte": "Agit à la fois comme une rondache et une arme tranchante — permet de relancer les parades ratées si combiné avec une épée ou un autre poing de fer." }
-      ]
-    },
-    {
-      "id": "mortier_portatif",
-      "nom": "Mortier portable",
-      "cout": "80 + 2D6",
-      "disponibilite": "Rare 12 (Ogres uniquement)",
-      "portee": "24ps",
-      "force": "4",
-      "regles_speciales": [
-        { "nom": "Déplacement ou tir, Préparation du tir", "texte": "Contraintes de maniement standard des armes à poudre noire." },
-        { "nom": "Dispersion", "texte": "En cas de jet pour toucher raté, le tir dévie de 2D6ps dans une direction aléatoire." },
-        { "nom": "Expérimental", "texte": "Toujours soumis aux règles optionnelles des Armes à Poudre Noire ; tout résultat autre que « BOUM ! » signifie que l'arme s'enraye et doit être rechargée." },
-        { "nom": "Rayon Explosif", "texte": "La cible et toute figurine dans un rayon d'1,5ps subissent chacune une touche de Force 4 due au souffle." }
-      ]
-    },
-    {
-      "id": "arbalete_a_harpon",
-      "nom": "Lance-harpon",
-      "cout": 50,
-      "disponibilite": "Rare 10 (Ogres uniquement)",
-      "portee": "30ps",
-      "force": "5",
-      "regles_speciales": [
-        { "nom": "Déplacement ou tir, Préparation du tir", "texte": "Contraintes de maniement standard des armes lourdes." }
-      ]
-    },
-    {
-      "id": "gnoblar_guetteur",
-      "nom": "Gnoblar longue-vue",
-      "cout": 20,
-      "disponibilite": "Rare 8 (Ogres uniquement)",
-      "texte": "Confère la compétence Esquive de la liste de compétences Vitesse."
-    },
-    {
-      "id": "gnoblar_chanceux",
-      "nom": "Gnoblar porte-bonheur",
-      "cout": 25,
-      "disponibilite": "Rare 9 (Ogres uniquement)",
-      "texte": "Peut relancer un dé au cours de la bataille (pas une relance d'une relance)."
-    },
-    {
-      "id": "gnoblar_epeiste",
-      "nom": "Gnoblar porte-épée",
-      "cout": 30,
-      "disponibilite": "Rare 10 (Ogres uniquement)",
-      "texte": "Donne une attaque supplémentaire de Force 2 au corps à corps, à la Capacité de Combat de la figurine propriétaire, dirigée contre une figurine que l'Ogre attaque déjà."
-    }
+    { "item_id": "gourdin_ogre", "cout": 10, "disponibilite": "Commune (Ogres uniquement)" },
+    { "item_id": "poing_de_fer", "cout": 15, "disponibilite": "Commune (Ogres uniquement)" },
+    { "item_id": "mortier_portable", "cout": "80 + 2D6", "disponibilite": "Rare 12 (Ogres uniquement)" },
+    { "item_id": "lance_harpon", "cout": 50, "disponibilite": "Rare 10 (Ogres uniquement)" },
+    { "item_id": "gnoblar_longue_vue", "cout": 20, "disponibilite": "Rare 8 (Ogres uniquement)" },
+    { "item_id": "gnoblar_porte_bonheur", "cout": 25, "disponibilite": "Rare 9 (Ogres uniquement)" },
+    { "item_id": "gnoblar_porte_epee", "cout": 30, "disponibilite": "Rare 10 (Ogres uniquement)" }
   ]
 }

@@ -101,56 +101,34 @@
   "equipement": {
     "soeurs_de_sigmar": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Marteau de Guerre Sigmarite", "cout": 15 },
-        { "nom": "Fléau", "cout": 15 },
-        { "nom": "Fouet d'Acier", "cout": 10 },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "marteau_de_guerre_sigmarite_market", "cout": 15 },
+        { "item_id": "fleau", "cout": 15 },
+        { "item_id": "fouet_dacier", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armes_tir": [
-        { "nom": "Fronde", "cout": 2 }
+        { "item_id": "fronde", "cout": 2 }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Armure lourde", "cout": 50 },
-        { "nom": "Bouclier", "cout": 5 },
-        { "nom": "Rondache", "cout": 5 },
-        { "nom": "Casque", "cout": 10 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
       ],
       "divers": [
-        { "nom": "Livre Saint", "cout": 120, "restriction": "Héroïnes seulement" },
-        { "nom": "Eau Bénite", "cout": 10, "restriction": "Héroïnes seulement" },
-        { "nom": "Relique Sacrée", "cout": 15, "restriction": "Héroïnes seulement" }
+        { "item_id": "livre_saint", "cout": 120, "restriction": "Héroïnes seulement" },
+        { "item_id": "eau_benite", "cout": 10, "restriction": "Héroïnes seulement" },
+        { "item_id": "relique_sacree_sigmarite", "cout": 15, "restriction": "Héroïnes seulement" }
       ]
     }
   },
   "equipement_special": [
-    {
-      "id": "marteau_de_guerre_sigmarite",
-      "nom": "Marteau de Guerre Sigmarite",
-      "cout": 15,
-      "disponibilite": "Commune (Sœurs de Sigmar uniquement)",
-      "portee": "Corps à corps",
-      "force": "Utilisateur+1",
-      "regles_speciales": [
-        { "nom": "Contondant", "texte": "Au corps à corps, un résultat de 2 à 4 compte comme sonné sur le tableau des dégâts." },
-        { "nom": "Arme Sacrée", "texte": "Bonus de +1 sur tous les jets pour blesser au corps à corps contre les possédés et les morts-vivants (un 6 avant modificateurs reste nécessaire pour une touche critique). Seules les matriarches et les sœurs supérieures peuvent porter deux marteaux de guerre sigmarites." }
-      ]
-    },
-    {
-      "id": "fouet_dacier",
-      "nom": "Fouet d'Acier",
-      "cout": 10,
-      "disponibilite": "Commune (Sœurs de Sigmar uniquement)",
-      "portee": "Corps à corps",
-      "force": "Utilisateur",
-      "regles_speciales": [
-        { "nom": "Parade Impossible", "texte": "Les tentatives de parade contre cette arme sont inutiles, que ce soit avec une épée ou une rondache." },
-        { "nom": "Claquement", "texte": "+1 Attaque lorsqu'elle charge, en plus de tout autre bonus. Lorsqu'elle est chargée, gagne aussi +1A utilisable uniquement contre la figurine qui la charge, frappant en premier (ce bonus reste de +1A même si chargée par 2 ennemis ou plus). Avec deux fouets, +1A pour l'arme additionnelle, mais seul le premier fouet bénéficie du +1A de Claquement." }
-      ]
-    }
+    { "item_id": "marteau_de_guerre_sigmarite_market", "cout": 15, "disponibilite": "Commune (Sœurs de Sigmar uniquement)" },
+    { "item_id": "fouet_dacier", "cout": 10, "disponibilite": "Commune (Sœurs de Sigmar uniquement)" }
   ],
   "magie": {
     "nom": "Prières de Sigmar",

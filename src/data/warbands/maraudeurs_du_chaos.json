@@ -178,95 +178,49 @@
   "equipement": {
     "heros": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Hallebarde", "cout": 10 },
-        { "nom": "Morgenstern", "cout": 15 },
-        { "nom": "Fouet barbelé", "cout": 15, "note": "voir armes spéciales" },
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
-        { "nom": "Fléau", "cout": 15 },
-        { "nom": "Grande hache du Chaos", "cout": 25, "restriction": "voir armes spéciales" }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "morgenstern", "cout": 15 },
+        { "item_id": "fouet_barbele", "cout": 15, "note": "voir armes spéciales" },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "fleau", "cout": 15 },
+        { "item_id": "grande_hache_du_chaos", "cout": 25, "restriction": "voir armes spéciales" }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Armure lourde", "cout": 50 },
-        { "nom": "Bouclier", "cout": 5 },
-        { "nom": "Casque", "cout": 10 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
       ]
     },
     "hommes_de_main": {
       "armes_cac": [
-        { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
-        { "nom": "Hache", "cout": 5 },
-        { "nom": "Épée", "cout": 10 },
-        { "nom": "Lance", "cout": 10 },
-        { "nom": "Morgenstern", "cout": 15 },
-        { "nom": "Fléau", "cout": 15 }
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "morgenstern", "cout": 15 },
+        { "item_id": "fleau", "cout": 15 }
       ],
       "armes_tir": [
-        { "nom": "Arme de jet (étoile, couteau, etc.)", "cout": 15, "note": "considérées comme des couteaux de lancer" }
+        { "item_id": "arme_de_jet", "cout": 15, "note": "considérées comme des couteaux de lancer" }
       ],
       "armures": [
-        { "nom": "Armure légère", "cout": 20 },
-        { "nom": "Bouclier", "cout": 5 },
-        { "nom": "Casque", "cout": 10 }
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
       ]
     }
   },
   "equipement_special": [
-    {
-      "id": "grande_hache_du_chaos",
-      "nom": "Grande hache du Chaos",
-      "cout": 25,
-      "disponibilite": "Rare 8, Héros du Chaos avec la compétence Choisi par le Chaos",
-      "portee": "C à C",
-      "force": "U+2",
-      "regles_speciales": [
-        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "texte": "Interdit bouclier/rondache/arme additionnelle simultanée ; un bouclier fournit tout de même +1 à la sauvegarde contre les tirs." },
-        { "nom": "Frappe en dernier", "texte": "Frappe toujours en dernier, même en chargeant (sauf avec la compétence Homme Fort)." },
-        { "nom": "Tranchant", "texte": "Modificateur de sauvegarde supplémentaire de -1 (donc -4 au total pour un utilisateur de Force 4)." }
-      ]
-    },
-    {
-      "id": "fouet_barbele",
-      "nom": "Fouet barbelé",
-      "cout": 15,
-      "disponibilite": "Rare 9, Héros Maraudeurs du Chaos uniquement",
-      "portee": "C à C",
-      "force": "U",
-      "regles_speciales": [
-        { "nom": "Parade impossible", "texte": "Impossible à parer, épée ou rondache." },
-        { "nom": "Claquement", "texte": "+1 Attaque en chargeant, et +1A supplémentaire (utilisable uniquement contre le chargeur) si chargé, frappant en premier ; ce bonus reste de +1A même si chargé par 2+ ennemis. Avec deux fouets, seul le premier bénéficie du bonus de Claquement." },
-        { "nom": "Enrager", "texte": "Le porteur peut faire gagner +1 Attaque à tous les Chiens du Chaos à moins de 4ps (non engagés au corps à corps)." }
-      ]
-    },
-    {
-      "id": "arme_en_obsidienne",
-      "nom": "Arme en obsidienne",
-      "cout": "Prix de l'arme de base x4",
-      "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
-      "texte": "Donne +1 en Force au corps à corps ; le type d'arme de base est au choix du joueur.",
-      "regles_speciales": [
-        { "nom": "Corrompue", "texte": "Ne peut jamais être utilisée par les Nains, Elfes, Sœurs de Sigmar, Répurgateurs ou Prêtres." },
-        { "nom": "Frappe en dernier", "texte": "Frappe toujours en dernier, même en chargeant." }
-      ]
-    },
-    {
-      "id": "armure_du_chaos",
-      "nom": "Armure du Chaos",
-      "cout": 185,
-      "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
-      "sauvegarde": "4+",
-      "regles_speciales": [
-        { "nom": "Rareté", "texte": "+1 au jet de recherche par ennemi mis hors de combat lors de la bataille précédente." },
-        { "nom": "Coût", "texte": "Réduit d'1 CO par point d'expérience du Héros." },
-        { "nom": "Don du Chaos", "texte": "Ne sera jamais donnée à un autre membre de la bande, équipée immédiatement, et ne peut jamais être retirée une fois fusionnée au porteur." },
-        { "nom": "Jeteurs de sorts", "texte": "Utilisable par un jeteur de sorts, mais pas combinable avec un bouclier ou une rondache." }
-      ]
-    }
+    { "item_id": "grande_hache_du_chaos", "cout": 25, "disponibilite": "Rare 8, Héros du Chaos avec la compétence Choisi par le Chaos" },
+    { "item_id": "fouet_barbele", "cout": 15, "disponibilite": "Rare 9, Héros Maraudeurs du Chaos uniquement" },
+    { "item_id": "arme_en_obsidienne_market", "cout": "Prix de l'arme de base x4", "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
+    { "item_id": "armure_du_chaos_market", "cout": 185, "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" }
   ],
   "magie": {
     "nom": "Rituels du Chaos",
