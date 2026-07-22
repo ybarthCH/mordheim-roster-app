@@ -1,6 +1,7 @@
 import type { WarbandCatalog } from '../../types/catalog';
 import { getItem } from '../../data/items';
-import { estAccesGenerique } from '../../utils/shop';
+import { estAccesGenerique, iconeCategorie } from '../../utils/shop';
+import { Icon } from './Icon';
 
 const LISTES_EQUIPEMENT = ['armes_cac', 'armes_tir', 'armures', 'divers'] as const;
 
@@ -41,6 +42,7 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
           </p>
           {parCategorie.map(({ cat, items }) => (
             <p key={cat} className="text-sm mb-0">
+              {iconeCategorie(cat) && <Icon name={iconeCategorie(cat)!} style={{ marginRight: '0.35em' }} />}
               {items
                 .map((it) => {
                   const ref = getItem(it.item_id);
@@ -61,6 +63,7 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
             const ref = getItem(it.item_id);
             return (
               <p key={it.item_id} className="text-sm mb-0">
+                <Icon name="etoile" style={{ marginRight: '0.35em', color: 'var(--accent)' }} />
                 <strong>{ref?.nom ?? it.item_id}</strong> ({it.cout}
                 {typeof it.cout === 'number' ? ' po' : ''}
                 {it.disponibilite ? ` — ${it.disponibilite}` : ''}) — {ref?.texte}
@@ -86,7 +89,10 @@ export function MagieReference({ catalogue, profilId }: { catalogue: WarbandCata
 
   return (
     <div className="card card--tight">
-      <h3>{magie.nom} (référence)</h3>
+      <h3>
+        <Icon name="parchemin" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
+        {magie.nom} (référence)
+      </h3>
       <p className="text-sm text-muted">
         {magie.type} · dé {magie.de} · utilisateurs :{' '}
         {magie.utilisateurs.map((id) => catalogue.profils.find((p) => p.id === id)?.nom ?? id).join(', ')}

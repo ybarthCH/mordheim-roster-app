@@ -1,6 +1,22 @@
 import { useState } from 'react';
 import type { Stats } from '../../types/catalog';
 import { BLESSURES_GRAVES, type ResultatBlessureGrave, type SousJetOption } from '../../data/blessuresGraves';
+import { Icon, type IconName } from '../common/Icon';
+
+const ICONE_BLESSURE: Partial<Record<string, IconName>> = {
+  mort: 'crane',
+  capture: 'chaine',
+  detrousse: 'cle',
+  retablissement_complet: 'etoile',
+  endurci: 'bouclier',
+  survit_contre_tout: 'etoile',
+  vendu_aux_arenes: 'chaine',
+  cicatrices_horribles: 'ossements',
+};
+
+function iconePourBlessure(r: ResultatBlessureGrave): IconName {
+  return ICONE_BLESSURE[r.id] ?? 'goutte';
+}
 
 export type BlessureGraveResultat = {
   texte: string;
@@ -225,7 +241,10 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
     const spec = selectionActuelle.sousJet;
     return (
       <div>
-        <h4 style={{ marginTop: 0 }}>{selectionActuelle.nom}</h4>
+        <h4 style={{ marginTop: 0 }}>
+          <Icon name={iconePourBlessure(selectionActuelle)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
+          {selectionActuelle.nom}
+        </h4>
         <p className="text-sm text-muted">{spec.instructions}</p>
         <div className="flex flex-wrap gap-sm">
           {[1, 2, 3, 4, 5, 6].map((valeur) => {
@@ -249,7 +268,10 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
   if (mode === 'duree_d3' && selectionActuelle) {
     return (
       <div>
-        <h4 style={{ marginTop: 0 }}>{selectionActuelle.nom}</h4>
+        <h4 style={{ marginTop: 0 }}>
+          <Icon name={iconePourBlessure(selectionActuelle)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
+          {selectionActuelle.nom}
+        </h4>
         <p className="text-sm text-muted">Lance 1D3 : combien de parties le guerrier doit-il manquer ?</p>
         <div className="flex flex-wrap gap-sm">
           {[1, 2, 3].map((n) => (
@@ -270,7 +292,10 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
   if (mode === 'multiples_compte') {
     return (
       <div>
-        <h4 style={{ marginTop: 0 }}>Blessures multiples</h4>
+        <h4 style={{ marginTop: 0 }}>
+          <Icon name="goutte" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
+          Blessures multiples
+        </h4>
         <p className="text-sm text-muted">Lance 1D6 : combien de fois faut-il relancer sur la table ?</p>
         <div className="flex flex-wrap gap-sm">
           {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -293,7 +318,10 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
   const statsListe = Object.entries(resultatFinal.statsDelta).filter(([, v]) => v);
   return (
     <div>
-      <h4 style={{ marginTop: 0 }}>Résumé</h4>
+      <h4 style={{ marginTop: 0 }}>
+        {racine && <Icon name={iconePourBlessure(racine.resultat)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />}
+        Résumé
+      </h4>
       <p className="text-sm" style={{ whiteSpace: 'pre-wrap' }}>
         {racine ? texteIteration(racine) : ''}
       </p>

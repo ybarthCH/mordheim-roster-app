@@ -42,6 +42,10 @@
   --header-h: 56px;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  /* Grain de parchemin très discret (bruit SVG désaturé, quasi invisible en
+     isolation) posé en surimpression sur les cartes pour casser la platitude
+     des aplats de couleur — cf. mordheimer.net/docs/rules. */
+  --texture-parchemin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
 :root[data-theme='light'] {
@@ -232,7 +236,10 @@ button {
 }
 
 .card {
-  background: var(--bg-card);
+  position: relative;
+  background-color: var(--bg-card);
+  background-image: var(--texture-parchemin);
+  background-blend-mode: overlay;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 0.9rem;
@@ -240,8 +247,44 @@ button {
   box-shadow: var(--shadow);
 }
 
+/* Double-liseré discret façon reliure ancienne, à l'intérieur de la bordure
+   principale de la carte. */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius-lg) - 5px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .card--tight {
   padding: 0.6rem 0.7rem;
+}
+.card--tight::before {
+  inset: 3px;
+  border-radius: calc(var(--radius) - 2px);
+}
+
+/* Filet ornemental sous le titre de section d'une carte — écho discret du
+   `.home-hero__rule` du header, généralisé à toute l'app sans retoucher
+   chaque composant. */
+.card > h3:first-child {
+  position: relative;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border);
+}
+.card > h3:first-child::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 42px;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0.6;
 }
 
 .btn {
@@ -257,14 +300,25 @@ button {
   font-size: 0.95rem;
   font-weight: 500;
   min-height: 42px;
+  transition: transform 0.1s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .btn:active {
   transform: translateY(1px);
 }
+/* Bouton principal traité comme un sceau de cire : relief embouti plutôt
+   qu'un simple aplat de couleur. */
 .btn--primary {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: linear-gradient(160deg, var(--accent) 0%, var(--accent-strong) 100%);
+  border-color: var(--accent-strong);
   color: var(--accent-contrast);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -3px 5px rgba(0, 0, 0, 0.3),
+    0 1px 3px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.btn--primary:active {
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 .btn--danger {
   background: var(--danger-bg);
@@ -477,6 +531,7 @@ button {
   text-decoration: none;
   color: inherit;
   touch-action: manipulation;
+  transition: background-color 0.1s ease;
 }
 .list-item__main {
   flex: 1;
@@ -508,6 +563,7 @@ button {
   color: var(--text-muted);
   border-bottom: 2px solid transparent;
   white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 .tabs__btn--active {
   color: var(--accent);
@@ -529,15 +585,19 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.62rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 400;
   color: var(--text-muted);
   flex-shrink: 0;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.12s ease, box-shadow 0.12s ease;
 }
 .xp-box--checked {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--accent-contrast);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 .xp-box--palier {
   border-color: var(--palier);
@@ -720,6 +780,7 @@ button {
   align-items: flex-end;
   justify-content: center;
   z-index: 50;
+  animation: mordheim-fade-in 0.15s ease;
 }
 @media (min-width: 600px) {
   .modal-backdrop {
@@ -735,10 +796,30 @@ button {
   border-radius: 16px 16px 0 0;
   padding: 1rem;
   box-shadow: var(--shadow);
+  animation: mordheim-modal-in 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 @media (min-width: 600px) {
   .modal-sheet {
     border-radius: var(--radius-lg);
+  }
+}
+
+@keyframes mordheim-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes mordheim-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 

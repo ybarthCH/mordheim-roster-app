@@ -1,8 +1,17 @@
 import { useMemo, useState } from 'react';
 import type { WarbandCatalog, Profile } from '../../types/catalog';
 import { Modal } from '../common/Modal';
-import { getEquipementBande, getShopCommun, libelleCategorie, resumeItem, CATEGORIE_ORDRE } from '../../utils/shop';
+import {
+  getEquipementBande,
+  getShopCommun,
+  libelleCategorie,
+  iconeCategorie,
+  classeRarete,
+  resumeItem,
+  CATEGORIE_ORDRE,
+} from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
+import { Icon } from '../common/Icon';
 
 type Props = {
   catalogue: WarbandCatalog;
@@ -123,6 +132,7 @@ export function AchatEquipementModal({
                   className={`tabs__btn ${categorieFiltre === cat ? 'tabs__btn--active' : ''}`}
                   onClick={() => setCategorieFiltre(cat)}
                 >
+                  {iconeCategorie(cat) && <Icon name={iconeCategorie(cat)!} style={{ marginRight: '0.35em' }} />}
                   {libelleCategorie(cat)}
                 </button>
               ))}
@@ -163,6 +173,9 @@ export function AchatEquipementModal({
               <div className="list-item__main">
                 <div className="list-item__title">{item.nom}</div>
                 <div className="list-item__subtitle">
+                  {iconeCategorie(item.categorie) && (
+                    <Icon name={iconeCategorie(item.categorie)!} style={{ marginRight: '0.35em' }} />
+                  )}
                   {libelleCategorie(item.categorie)} · {typeof item.cout === 'number' ? `${item.cout} po` : item.cout}
                 </div>
                 {synopsis(resumeItem(item)) && (
@@ -186,6 +199,11 @@ export function AchatEquipementModal({
                     <span className="badge badge--info">Save {itemSelectionne.sauvegarde}</span>
                   )}
                 </div>
+              )}
+              {classeRarete(itemSelectionne.rarete) && (
+                <span className={`badge ${classeRarete(itemSelectionne.rarete)}`} style={{ marginBottom: '0.3rem' }}>
+                  Rare {itemSelectionne.rarete}
+                </span>
               )}
               {itemSelectionne.disponibilite && (
                 <p className="text-sm text-muted mb-0">{itemSelectionne.disponibilite}</p>
