@@ -171,4 +171,8 @@ export type WarbandCatalog = {
   equipement?: Record<string, EquipementListe>;
   equipement_special?: EquipementSpecialRef[];
   magie?: Magie;
+  // Bande à progression ralentie (ex : Mangeurs d'Hommes) : chaque case de
+  // la grille XP vaut 2 points d'XP réels au lieu d'1 — la case se remplit
+  // à moitié au premier point gagné, complètement au second.
+  xp_demi?: boolean;
 };

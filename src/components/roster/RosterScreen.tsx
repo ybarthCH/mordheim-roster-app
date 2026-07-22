@@ -109,7 +109,7 @@ export function RosterScreen() {
   const avanceEnAttente = (m: Member) => {
     const profil = resolveProfil(roster, m);
     if (!profil) return false;
-    return avancesDues(profil.type, m.xp_depart, m.xp) > m.historique_avancees.length;
+    return avancesDues(profil.type, m.xp_depart, m.xp, !!catalogue?.xp_demi) > m.historique_avancees.length;
   };
 
   // Bascule rapide du statut Hors de combat depuis le roster global, sans

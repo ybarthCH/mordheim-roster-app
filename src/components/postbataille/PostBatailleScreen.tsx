@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { useRosters } from '../../state/RostersContext';
+import { getCatalogue } from '../../data/warbands';
 import { resolveProfil } from '../../utils/profil';
 import { HENCHMAN_XP_MAX, HERO_XP_MAX, isPalierHenchman, isPalierHero } from '../../utils/xp';
 import { STAT_KEYS } from '../../types/catalog';
@@ -46,6 +47,7 @@ function XpBarCompacte({
   xpActuel,
   onChange,
   bonusLeader,
+  demiXp = false,
 }: {
   type: 'heros' | 'homme_de_main';
   xpDepart: number;
@@ -53,23 +55,41 @@ function XpBarCompacte({
   xpActuel: number;
   onChange: (xp: number) => void;
   bonusLeader?: boolean;
+  demiXp?: boolean;
 }) {
   const max = type === 'heros' ? HERO_XP_MAX : HENCHMAN_XP_MAX;
   const isPalier = type === 'heros' ? isPalierHero : isPalierHenchman;
   const boxes = Array.from({ length: max }, (_, i) => i + 1);
+  const toggle = (box: number) => {
+    if (!demiXp) {
+      onChange(xpActuel === box ? box - 1 : box);
+      return;
+    }
+    const plein = box * 2;
+    const moitie = box * 2 - 1;
+    if (xpActuel >= plein) onChange(plein - 2);
+    else if (xpActuel >= moitie) onChange(plein);
+    else onChange(moitie);
+  };
   return (
     <div className="xp-grid">
       {boxes.map((box) => {
-        const estDepart = box <= xpDepart;
-        const estSession = box > xpInitial && box <= xpActuel;
+        const seuilPlein = demiXp ? box * 2 : box;
+        const seuilMoitie = demiXp ? box * 2 - 1 : box;
+        const estPleine = xpActuel >= seuilPlein;
+        const estMoitie = !estPleine && demiXp && xpActuel >= seuilMoitie;
+        const estDepart = xpDepart >= seuilPlein;
+        const estSession = xpInitial < seuilPlein && xpActuel >= seuilPlein;
         return (
           <button
             key={box}
             type="button"
             className={`xp-box xp-box--compact ${isPalier(box) ? 'xp-box--palier' : ''} ${
-              xpActuel >= box ? 'xp-box--checked' : ''
-            } ${estDepart ? 'xp-box--depart' : ''} ${estSession ? 'xp-box--session' : ''}`}
-            onClick={() => onChange(xpActuel === box ? box - 1 : box)}
+              estPleine ? 'xp-box--checked' : ''
+            } ${estMoitie ? 'xp-box--demi' : ''} ${estDepart ? 'xp-box--depart' : ''} ${
+              estSession ? 'xp-box--session' : ''
+            }`}
+            onClick={() => toggle(box)}
             aria-label={`Case XP ${box}`}
           >
             {isPalier(box) ? box : ''}
@@ -93,6 +113,8 @@ export function PostBatailleScreen() {
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
   const roster = getRosterById(id ?? '');
+  const catalogue = roster ? getCatalogue(roster.bande_id) : undefined;
+  const demiXp = !!catalogue?.xp_demi;
 
   const [etape, setEtape] = useState(0);
 
@@ -569,6 +591,7 @@ export function PostBatailleScreen() {
                       xpActuel={d.xp}
                       onChange={(xp) => changerXp(m, xp, m.xp)}
                       bonusLeader={bonusLeader}
+                      demiXp={demiXp}
                     />
                   )}
                   <div className="status-select" style={{ marginTop: '0.5rem' }}>
@@ -664,6 +687,7 @@ export function PostBatailleScreen() {
                     xpActuel={d.xp}
                     onChange={(xp) => changerXp(m, xp, m.xp + 1)}
                     bonusLeader={bonusLeader}
+                    demiXp={demiXp}
                   />
                 </div>
               );

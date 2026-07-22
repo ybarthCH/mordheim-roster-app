@@ -174,7 +174,8 @@ export function PersonnageScreen() {
     ? STATUTS.filter((s) => s.id === 'actif' || s.id === 'mort')
     : STATUTS;
 
-  const dues = avancesDues(profil.type, membre.xp_depart, membre.xp);
+  const demiXp = !!catalogue.xp_demi;
+  const dues = avancesDues(profil.type, membre.xp_depart, membre.xp, demiXp);
   const obtenues = membre.historique_avancees.length;
   const enAttente = Math.max(0, dues - obtenues);
   const rating = ratingMembre(membre, roster);
@@ -449,6 +450,7 @@ export function PersonnageScreen() {
             xp={membre.xp}
             xpDepart={membre.xp_depart}
             onChange={(xp) => majMembre({ xp })}
+            demiXp={demiXp}
           />
           <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
             XP de départ : {membre.xp_depart} (n'a déclenché aucune avancée).
