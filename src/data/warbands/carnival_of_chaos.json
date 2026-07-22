@@ -63,7 +63,7 @@
       ],
       "acces_competences": ["combat", "force", "vitesse"],
       "acces_equipement": ["colosses"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "impur",
@@ -81,7 +81,7 @@
       ],
       "acces_competences": ["combat", "vitesse"],
       "acces_equipement": ["kermesse"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "portepeste",

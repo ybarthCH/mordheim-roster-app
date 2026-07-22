@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
+import { Modal } from '../common/Modal';
 import { useRosters } from '../../state/RostersContext';
 import { resolveProfil } from '../../utils/profil';
 import { HENCHMAN_XP_MAX, HERO_XP_MAX, isPalierHenchman, isPalierHero } from '../../utils/xp';
@@ -108,6 +109,7 @@ export function PostBatailleScreen() {
   const [pointsVeteran, setPointsVeteran] = useState(0);
 
   const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
+  const [blessureEnCours, setBlessureEnCours] = useState<string | null>(null);
   const [xpDrafts, setXpDrafts] = useState<Record<string, XpDraft>>({});
   const [groupeSlotDrafts, setGroupeSlotDrafts] = useState<Record<string, SlotDraft[]>>({});
 
@@ -414,10 +416,10 @@ export function PostBatailleScreen() {
         <div className="card">
           <h3>Blessures graves</h3>
           <p className="text-sm text-muted">
-            Pour chaque héros Hors de Combat, lance sur ta table papier puis sélectionne le résultat obtenu
-            ci-dessous : les effets (caractéristiques, équipement, notes) sont appliqués automatiquement, et le
-            choix Oui/Non « A survécu » de l'étape suivante est pré-rempli en fonction du résultat. Les hommes de
-            main utilisent la table simple mort-ou-survivant à l'étape suivante.
+            Pour chaque héros Hors de Combat, lance sur ta table papier puis résous le résultat obtenu : les effets
+            (caractéristiques, équipement, notes) sont appliqués automatiquement, et le choix Oui/Non « A survécu »
+            de l'étape suivante est pré-rempli en fonction du résultat. Les hommes de main utilisent la table
+            simple mort-ou-survivant à l'étape suivante.
           </p>
           {horsDeCombatHeros.length === 0 && <p className="text-muted">Aucun héros Hors de Combat.</p>}
           {horsDeCombatHeros.map((m) => {
@@ -427,10 +429,9 @@ export function PostBatailleScreen() {
                 <strong>{m.nom_perso}</strong>
                 {!d && (
                   <div style={{ marginTop: '0.5rem' }}>
-                    <BlessureGraveWizard
-                      nomPersonnage={m.nom_perso}
-                      onAppliquer={(resultat) => appliquerBlessureWizard(m, resultat)}
-                    />
+                    <button className="btn btn--primary btn--sm" onClick={() => setBlessureEnCours(m.instance_id)}>
+                      Résoudre la blessure grave
+                    </button>
                   </div>
                 )}
                 {d && (
@@ -450,6 +451,25 @@ export function PostBatailleScreen() {
           })}
         </div>
       )}
+
+      {blessureEnCours &&
+        (() => {
+          const m = horsDeCombatHeros.find((h) => h.instance_id === blessureEnCours);
+          if (!m) return null;
+          return (
+            <Modal onClose={() => setBlessureEnCours(null)}>
+              <h3>Blessure grave — {m.nom_perso}</h3>
+              <BlessureGraveWizard
+                nomPersonnage={m.nom_perso}
+                onAppliquer={(resultat) => {
+                  appliquerBlessureWizard(m, resultat);
+                  setBlessureEnCours(null);
+                }}
+                onAnnuler={() => setBlessureEnCours(null)}
+              />
+            </Modal>
+          );
+        })()}
 
       {etape === 1 && (
         <div className="card">
