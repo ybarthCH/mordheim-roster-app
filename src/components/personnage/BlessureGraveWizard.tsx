@@ -62,6 +62,7 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
   const [mode, setMode] = useState<Mode>('liste');
   const [contexte, setContexte] = useState<'racine' | 'boucle'>('racine');
   const [selectionActuelle, setSelectionActuelle] = useState<ResultatBlessureGrave | null>(null);
+  const [selectionEnAttente, setSelectionEnAttente] = useState('');
   const [racine, setRacine] = useState<IterationResolue | null>(null);
   const [multiplesCount, setMultiplesCount] = useState<number | null>(null);
   const [multiplesResultats, setMultiplesResultats] = useState<IterationResolue[]>([]);
@@ -74,6 +75,7 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
     setMode('liste');
     setContexte('racine');
     setSelectionActuelle(null);
+    setSelectionEnAttente('');
     setRacine(null);
     setMultiplesCount(null);
     setMultiplesResultats([]);
@@ -85,6 +87,7 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
       const nouveaux = [...multiplesResultats, it];
       setMultiplesResultats(nouveaux);
       setSelectionActuelle(null);
+      setSelectionEnAttente('');
       if (multiplesCount !== null && nouveaux.length >= multiplesCount) {
         setMode('confirmation');
       } else {
@@ -128,7 +131,13 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
     setMultiplesResultats([]);
     setContexte('boucle');
     setSelectionActuelle(null);
+    setSelectionEnAttente('');
     setMode('liste');
+  };
+
+  const validerSelection = () => {
+    const r = BLESSURES_GRAVES.find((b) => b.id === selectionEnAttente);
+    if (r) choisirResultat(r);
   };
 
   const construireResultatFinal = (): BlessureGraveResultat => {
@@ -171,12 +180,13 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
 
   if (mode === 'liste') {
     const interdits = enCoursDansBoucle ? ID_INTERDITS_BOUCLE : [];
+    const disponibles = BLESSURES_GRAVES.filter((r) => !interdits.includes(r.id));
     return (
       <div>
         {enCoursDansBoucle && (
           <p className="text-sm text-muted" style={{ marginTop: 0 }}>
             Blessures multiples — résultat {iterationActuelleIndex}/{multiplesCount}. Les résultats Mort, Capturé et
-            Blessures multiples doivent être relancés : ils sont désactivés ci-dessous.
+            Blessures multiples doivent être relancés : ils ne sont pas proposés ci-dessous.
           </p>
         )}
         {!enCoursDansBoucle && (
@@ -184,26 +194,29 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
             Lance 2D6 sur ta table papier, puis sélectionne le résultat obtenu pour {nomPersonnage}.
           </p>
         )}
-        <div className="flex flex-col gap-sm">
-          {BLESSURES_GRAVES.map((r) => (
-            <button
-              key={r.id}
-              className="btn"
-              style={{ justifyContent: 'flex-start', textAlign: 'left' }}
-              disabled={interdits.includes(r.id)}
-              onClick={() => choisirResultat(r)}
-            >
-              <strong style={{ marginRight: '0.5rem' }}>{r.code}</strong> {r.nom}
-            </button>
-          ))}
+        <div className="field">
+          <label>Résultat obtenu</label>
+          <select value={selectionEnAttente} onChange={(e) => setSelectionEnAttente(e.target.value)}>
+            <option value="" disabled>
+              Choisis un résultat…
+            </option>
+            {disponibles.map((r) => (
+              <option key={r.id} value={r.id}>
+                {r.code} — {r.nom}
+              </option>
+            ))}
+          </select>
         </div>
-        {onAnnuler && (
-          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+        <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+          {onAnnuler && (
             <button className="btn" onClick={onAnnuler}>
               Annuler
             </button>
-          </div>
-        )}
+          )}
+          <button className="btn btn--primary" disabled={!selectionEnAttente} onClick={validerSelection}>
+            Continuer
+          </button>
+        </div>
       </div>
     );
   }
