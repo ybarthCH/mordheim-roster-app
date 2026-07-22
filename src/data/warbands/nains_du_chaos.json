@@ -162,12 +162,12 @@
     "nains_du_chaos": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Marteau", "cout": 3 },
-        { "nom": "Masse", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Épée", "cout": 10 },
         { "nom": "Fouet d'acier", "cout": 10, "restriction": "Geôlier uniquement" },
-        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Pince", "cout": 25 }
       ],
       "armes_tir": [
@@ -187,7 +187,7 @@
     "delateurs": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Masse", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Lance", "cout": 10 }
       ],
@@ -222,7 +222,7 @@
       "portee": "C à C",
       "force": "U",
       "regles_speciales": [
-        { "nom": "Arme à deux mains", "texte": "Interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "texte": "Interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
         { "nom": "Capture", "texte": "Un combattant mis hors de combat grâce à une pince est capturé, à moins que la bande ne soit mise en Déroute. Pas de jet sur le tableau des Blessures Graves pour la victime. Les grandes cibles (Ogres, Trolls, Minotaures) et les animaux ne peuvent pas être capturés de cette manière." }
       ]
     },

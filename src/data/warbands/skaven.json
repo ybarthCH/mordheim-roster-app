@@ -142,12 +142,12 @@
         { "nom": "Fléau", "cout": 15 },
         { "nom": "Lance", "cout": 10 },
         { "nom": "Hallebarde", "cout": 10 },
-        { "nom": "Lames Suintantes", "cout": 50 },
-        { "nom": "Griffes de Combat", "cout": 35 }
+        { "nom": "Lames suintantes", "cout": 50 },
+        { "nom": "Griffes de combat", "cout": 35 }
       ],
       "armes_tir": [
         { "nom": "Fronde", "cout": 2 },
-        { "nom": "Étoiles de Jet", "cout": 15 },
+        { "nom": "Arme de jet (étoile, couteau, etc.)", "cout": 15 },
         { "nom": "Sarbacane", "cout": 25 },
         { "nom": "Pistolet à Malepierre", "cout": 35, "note": "70 CO la paire" }
       ],

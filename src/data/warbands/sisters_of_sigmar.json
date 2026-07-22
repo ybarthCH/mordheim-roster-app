@@ -102,12 +102,12 @@
     "soeurs_de_sigmar": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Masse", "cout": 3 },
-        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Marteau de Guerre Sigmarite", "cout": 15 },
         { "nom": "Fléau", "cout": 15 },
         { "nom": "Fouet d'Acier", "cout": 10 },
-        { "nom": "Arme à deux mains", "cout": 15 }
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
       ],
       "armes_tir": [
         { "nom": "Fronde", "cout": 2 }

@@ -181,11 +181,11 @@
     "chevaliers": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Masse", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Lance", "cout": 5 },
         { "nom": "Épée", "cout": 10 },
         { "nom": "Épée bâtarde", "cout": 15, "note": "voir équipement spécial" },
-        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Morgenstern", "cout": 15 },
         { "nom": "Lance de cavalerie", "cout": 20, "restriction": "Pas Chevalier de la Quête" }
       ],
@@ -198,20 +198,20 @@
         { "nom": "Caparaçon bretonnien", "cout": 30 }
       ],
       "divers": [
-        { "nom": "Destrier", "cout": 80 },
+        { "nom": "Destriers", "cout": 80 },
         { "nom": "Porte-bonheur", "cout": 10 }
       ]
     },
     "pelerins": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Masse", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Épée courte", "cout": 7, "note": "voir équipement spécial" },
         { "nom": "Épée", "cout": 10 },
         { "nom": "Lance", "cout": 5 },
         { "nom": "Hallebarde", "cout": 10 },
-        { "nom": "Arme à deux mains", "cout": 15 }
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
       ],
       "armures": [
         { "nom": "Armure légère", "cout": 20 },
@@ -224,7 +224,7 @@
     "paysans_archers": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Épée courte", "cout": 7, "note": "voir équipement spécial" },
         { "nom": "Lance", "cout": 10 }
@@ -278,7 +278,7 @@
     },
     {
       "id": "destrier_monture",
-      "nom": "Destrier (monture)",
+      "nom": "Destriers",
       "cout": 80,
       "disponibilite": "Rare 11, Humains uniquement",
       "texte": "M8 CC3 CT0 F3 E3 PV1 I3 A1 Cd5. Entraîné : le cavalier peut relancer (une seule fois par test) tout test de contrôle raté.",
@@ -286,14 +286,14 @@
     },
     {
       "id": "cheval_monture",
-      "nom": "Cheval (monture)",
+      "nom": "Cheval",
       "cout": 40,
       "disponibilite": "Rare 8, Humains uniquement",
       "texte": "M8 CC1 CT0 F3 E3 PV1 I3 A0 Cd5. N'attaque pas l'ennemi, mais utile pour se déplacer rapidement."
     },
     {
       "id": "caparacon_monture",
-      "nom": "Caparaçon (armure de cheval)",
+      "nom": "Caparaçon",
       "cout": 30,
       "disponibilite": "Chevaliers des Gardiens de Chapelle Bretonniens uniquement",
       "texte": "+1 sauvegarde d'armure et ignore le malus de Mouvement (règle alignée sur celle de l'Empire en Flammes)."

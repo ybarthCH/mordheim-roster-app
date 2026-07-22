@@ -128,12 +128,12 @@
     "guerriers_nains": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Masse", "cout": 3 },
-        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Hache naine", "cout": 15, "note": "Rare 8 (Nains seulement)" },
         { "nom": "Épée", "cout": 10 },
-        { "nom": "Arme à deux mains", "cout": 15 },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Lance", "cout": 10 },
         { "nom": "Hallebarde", "cout": 10 },
         { "nom": "Arme en Gromril", "cout": "3 fois le coût", "note": "Toute arme accessible à un nain peut être achetée en Gromril, en multipliant le coût par 3. Prix valable uniquement pour les bandes débutantes." }
@@ -152,8 +152,8 @@
     "tireurs_nains": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Masse", "cout": 3 },
-        { "nom": "Marteau", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Épée", "cout": 10 }
       ],

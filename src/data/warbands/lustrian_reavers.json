@@ -141,53 +141,53 @@
   "equipement": {
     "heroes": {
       "armes_cac": [
-        { "nom": "Dagger", "cout": 2, "note": "1st free" },
-        { "nom": "Sword", "cout": 10 },
-        { "nom": "Mace", "cout": 3 },
+        { "nom": "Dague", "cout": 2, "note": "1st free" },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Misericordia", "cout": 10, "note": "voir équipement spécial" },
-        { "nom": "Double-handed weapon", "cout": 15 },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Lance", "cout": 40, "restriction": "Mounted models only" }
       ],
       "armes_tir": [
-        { "nom": "Javelin", "cout": 10, "note": "voir équipement spécial" },
-        { "nom": "Throwing Knives", "cout": 15 },
-        { "nom": "Blowpipe", "cout": 15 },
-        { "nom": "Pistol", "cout": 15 }
+        { "nom": "Javelots", "cout": 10, "note": "voir équipement spécial" },
+        { "nom": "Arme de jet (étoile, couteau, etc.)", "cout": 15 },
+        { "nom": "Sarbacane", "cout": 15 },
+        { "nom": "Pistolet", "cout": 15 }
       ],
       "armures": [
-        { "nom": "Light Armour", "cout": 20 },
-        { "nom": "Shield", "cout": 10 },
-        { "nom": "Helmet", "cout": 10 },
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Bouclier", "cout": 10 },
+        { "nom": "Casque", "cout": 10 },
         { "nom": "Buckler", "cout": 10 }
       ],
       "divers": [
-        { "nom": "Rope & Hook", "cout": 5 },
+        { "nom": "Corde et grappin", "cout": 5 },
         { "nom": "Crimson Shade", "cout": 35 },
         { "nom": "Dark Venom", "cout": 30 },
-        { "nom": "Net", "cout": 5 },
-        { "nom": "Warhorse", "cout": 80 },
-        { "nom": "Warhound", "cout": 20 }
+        { "nom": "Filet", "cout": 5 },
+        { "nom": "Destriers", "cout": 80 },
+        { "nom": "Chien de guerre", "cout": 20 }
       ]
     },
     "prospects": {
       "armes_cac": [
-        { "nom": "Dagger", "cout": 2, "note": "1st free" },
-        { "nom": "Sword", "cout": 10 },
-        { "nom": "Mace", "cout": 3 },
-        { "nom": "Spear", "cout": 10 }
+        { "nom": "Dague", "cout": 2, "note": "1st free" },
+        { "nom": "Épée", "cout": 10 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
+        { "nom": "Lance", "cout": 10 }
       ],
-      "armes_tir": [{ "nom": "Short Bow", "cout": 5 }],
+      "armes_tir": [{ "nom": "Arc court", "cout": 5 }],
       "armures": [
-        { "nom": "Light Armour", "cout": 20 },
-        { "nom": "Shield", "cout": 10 },
-        { "nom": "Helmet", "cout": 10 }
+        { "nom": "Armure légère", "cout": 20 },
+        { "nom": "Bouclier", "cout": 10 },
+        { "nom": "Casque", "cout": 10 }
       ]
     }
   },
   "equipement_special": [
     {
       "id": "masterwork_heavy_armour",
-      "nom": "Masterwork Heavy Armour",
+      "nom": "Armure lourde de maître",
       "cout": "—",
       "texte": "A Tilean heirloom of nigh-impenetrable craftsmanship. Grants a 4+ Armour Save, but suffers -1 Movement without a shield."
     },
@@ -199,7 +199,7 @@
     },
     {
       "id": "javelin",
-      "nom": "Javelin",
+      "nom": "Javelots",
       "cout": 10,
       "portee": "8\"",
       "texte": "A light throwing spear in the tradition of the ancient Reman legions, or captured from native Skinks. Suffers no penalty for moving and shooting."
@@ -212,21 +212,21 @@
     },
     {
       "id": "firepots_of_miragliano",
-      "nom": "Firepots of Miragliano",
+      "nom": "Grenade de Miragliano",
       "cout": "—",
       "portee": "8\"",
       "texte": "Primitive clay hand grenades filled with alchemic Tilean Fire that bursts into flame when exposed to air; suffers no penalty at long range. On a hit, the target suffers 1 Strength 2 hit from the bursting flames, and must roll under its Initiative at the start of its next turn to see through the resulting smoke — on a failure, it cannot charge or shoot until the beginning of the turn after that, though it may still move or fight in hand-to-hand combat normally."
     },
     {
       "id": "lizardmen_skin_cloak",
-      "nom": "Lizardmen skin cloak",
+      "nom": "Cape en peau des hommes-lézards",
       "cout": 10,
       "disponibilite": "Saurus Slayer uniquement",
       "texte": "Grants a 6+ Ward save, separate from the Armour Save and unaffected by enemy Strength or other modifiers."
     },
     {
       "id": "skull_mask",
-      "nom": "Skull Mask",
+      "nom": "Masque de crâne",
       "cout": 15,
       "disponibilite": "Saurus Slayer uniquement",
       "texte": "Causes fear."
@@ -240,7 +240,7 @@
     },
     {
       "id": "trophy_slann_holy_headdress",
-      "nom": "Trophy Slann Holy headdress",
+      "nom": "Trophée Coiffe sacrée de Slann",
       "cout": 35,
       "disponibilite": "Saurus Slayer uniquement",
       "texte": "+2 bonus to armour saves."

@@ -164,13 +164,13 @@
     "orques": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Massue", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Hache", "cout": 5 },
         { "nom": "Épée", "cout": 10 },
         { "nom": "Hallebarde", "cout": 10 },
         { "nom": "Lance", "cout": 10 },
         { "nom": "Morgenstern", "cout": 15 },
-        { "nom": "Arme à deux mains", "cout": 15 }
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 }
       ],
       "armes_tir": [
         { "nom": "Arbalète", "cout": 25 },
@@ -185,7 +185,7 @@
     "gobelins": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Massue", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Épée", "cout": 10 },
         { "nom": "Lance", "cout": 10 }
       ],
@@ -199,7 +199,7 @@
       "divers": [
         { "nom": "Aiguillon à squigs", "cout": 15 },
         { "nom": "Chaîne & boulet", "cout": 15, "restriction": "Gobelins uniquement" },
-        { "nom": "Bonnets de fou", "cout": 25, "restriction": "Si la bande comprend au moins un Gobelin" }
+        { "nom": "Champignons bonnets de fou", "cout": 25, "restriction": "Si la bande comprend au moins un Gobelin" }
       ]
     }
   },
@@ -212,7 +212,7 @@
       "portee": "Corps à corps",
       "force": "Utilisateur+2",
       "regles_speciales": [
-        { "nom": "Arme à deux mains", "texte": "Combinée avec les règles Force Colossale, Épuisante, Imprévisible, Encombrante." },
+        { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "texte": "Combinée avec les règles Force Colossale, Épuisante, Imprévisible, Encombrante." },
         { "nom": "Encombrante", "texte": "Une figurine équipée de cette arme ne peut porter aucune autre arme ni équipement. Seule une figurine sous l'influence des champignons bonnets de fou dispose de la force nécessaire pour la manier." },
         { "nom": "Force colossale", "texte": "Aucune sauvegarde d'armure n'est permise contre les blessures infligées par cette arme. Toute blessure subie inflige 1D3 PV au lieu d'un seul." },
         { "nom": "Épuisante", "texte": "Après la bataille, chaque figurine ayant utilisé une chaîne & boulet doit effectuer un jet de Blessure comme si elle avait été mise hors de combat (un seul jet si elle l'a effectivement été)." },
