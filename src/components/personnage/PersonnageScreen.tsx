@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/RostersContext';
 import { Screen } from '../common/Screen';
@@ -13,6 +13,7 @@ import { CompetencesPanel } from './CompetencesPanel';
 import { AvanceeModal } from './AvanceeModal';
 import { BlessureGraveModal } from './BlessureGraveModal';
 import { AchatEquipementModal } from './AchatEquipementModal';
+import { RecruterDansGroupeModal } from './RecruterDansGroupeModal';
 import { ItemDetailModal } from './ItemDetailModal';
 import { Modal } from '../common/Modal';
 import { MagieReference } from '../common/CatalogueReference';
@@ -59,6 +60,7 @@ export function PersonnageScreen() {
   const [modalBlessure, setModalBlessure] = useState(false);
   const [modalSuppression, setModalSuppression] = useState(false);
   const [modalAchat, setModalAchat] = useState(false);
+  const [modalRecruterGroupe, setModalRecruterGroupe] = useState(false);
   const [nouveauSort, setNouveauSort] = useState('');
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
   const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
@@ -66,6 +68,19 @@ export function PersonnageScreen() {
   const membre = roster?.membres.find((m) => m.instance_id === instanceId);
   const profil = roster && membre ? resolveProfil(roster, membre) : undefined;
   const catalogue = roster ? getCatalogue(roster.bande_id) : undefined;
+
+  // Saisie gardée en texte brut : un input contrôlé par un number forcerait
+  // la valeur dès l'effacement (impossible de vider le champ pour retaper un
+  // chiffre) — la conversion/le plancher ne s'appliquent qu'à l'usage, la
+  // valeur n'est répercutée sur le membre que si elle est valide.
+  const [tailleGroupeSaisie, setTailleGroupeSaisie] = useState(String(membre?.taille_groupe ?? 1));
+  // Ne resynchronise qu'au changement de personnage affiché (navigation) :
+  // le champ lui-même pilote déjà membre.taille_groupe en écriture (voir
+  // onChange plus bas), l'y re-souscrire aussi en lecture court-circuiterait
+  // la saisie en cours.
+  useEffect(() => {
+    if (membre) setTailleGroupeSaisie(String(membre.taille_groupe));
+  }, [membre?.instance_id]);
 
   if (!roster || !membre || !profil || !catalogue) {
     return (
@@ -241,12 +256,26 @@ export function PersonnageScreen() {
               type="number"
               min={1}
               className="stat-grid__input stat-grid__input--pv"
-              value={membre.taille_groupe}
-              onChange={(e) => majMembre({ taille_groupe: Math.max(1, Number(e.target.value) || 1) })}
+              value={tailleGroupeSaisie}
+              onChange={(e) => {
+                const raw = e.target.value;
+                setTailleGroupeSaisie(raw);
+                const n = parseInt(raw, 10);
+                if (raw.trim() !== '' && n >= 1) majMembre({ taille_groupe: n });
+              }}
+              onBlur={() => setTailleGroupeSaisie(String(membre.taille_groupe))}
             />
             <span className="text-sm text-muted">
               figurine{membre.taille_groupe > 1 ? 's' : ''} identique{membre.taille_groupe > 1 ? 's' : ''}
             </span>
+          </div>
+        )}
+
+        {estGroupeSimplifie && (
+          <div style={{ marginTop: '0.6rem' }}>
+            <button className="btn btn--sm" onClick={() => setModalRecruterGroupe(true)}>
+              + Recruter un nouveau membre dans ce groupe
+            </button>
           </div>
         )}
 
@@ -646,6 +675,15 @@ export function PersonnageScreen() {
           tailleGroupe={membre.taille_groupe || 1}
           onClose={() => setModalAchat(false)}
           onAchat={acheterItem}
+        />
+      )}
+      {modalRecruterGroupe && (
+        <RecruterDansGroupeModal
+          roster={roster}
+          groupe={membre}
+          coutUnitaire={profil.cout ?? 0}
+          onClose={() => setModalRecruterGroupe(false)}
+          onConfirm={updateRoster}
         />
       )}
       {itemDetail && <ItemDetailModal item={resolveItemDetail(itemDetail)} onClose={() => setItemDetail(null)} />}

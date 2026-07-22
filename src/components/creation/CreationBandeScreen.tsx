@@ -17,9 +17,14 @@ export function CreationBandeScreen() {
 
   const [bandeId, setBandeId] = useState<string>('');
   const [nomBande, setNomBande] = useState('');
-  const [budget, setBudget] = useState(BUDGET_PAR_DEFAUT);
+  // Saisie gardée en texte brut : un input contrôlé par un number forcerait
+  // la valeur dès l'effacement (impossible de vider le champ pour retaper
+  // un chiffre) — la conversion ne s'applique qu'à l'usage (voir `budget`).
+  const [budgetSaisi, setBudgetSaisi] = useState(String(BUDGET_PAR_DEFAUT));
   const [membres, setMembres] = useState<Member[]>([]);
   const [profilEnRecrutement, setProfilEnRecrutement] = useState<Profile | null>(null);
+
+  const budget = Number(budgetSaisi) || 0;
 
   const catalogue = useMemo(() => CATALOGUES.find((c) => c.id === bandeId), [bandeId]);
 
@@ -111,11 +116,7 @@ export function CreationBandeScreen() {
 
         <div className="field">
           <label>Trésorerie de départ (couronnes d'or)</label>
-          <input
-            type="number"
-            value={budget}
-            onChange={(e) => setBudget(Number(e.target.value) || 0)}
-          />
+          <input type="number" value={budgetSaisi} onChange={(e) => setBudgetSaisi(e.target.value)} />
         </div>
       </div>
 
@@ -235,17 +236,19 @@ function RecrutementDraftModal({
   onConfirm,
 }: RecrutementDraftModalProps) {
   const [nom, setNom] = useState('');
-  const [xpDepart, setXpDepart] = useState(profil.xp_depart ?? 0);
-  const [quantite, setQuantite] = useState(1);
+  const [xpDepartSaisie, setXpDepartSaisie] = useState(String(profil.xp_depart ?? 0));
+  const [quantiteSaisie, setQuantiteSaisie] = useState('1');
   const [confirmationXp0, setConfirmationXp0] = useState(false);
   const estGroupable = profil.type === 'homme_de_main';
 
+  const xpDepart = Number(xpDepartSaisie) || 0;
+  const quantite = Math.max(1, parseInt(quantiteSaisie, 10) || 1);
   const coutTotal = (profil.cout ?? 0) * quantite;
   const budgetSuffisant = coutTotal <= budgetDisponible;
   const check = verifierLimite(quantite);
 
-  const changerXpDepart = (value: number) => {
-    setXpDepart(value);
+  const changerXpDepart = (value: string) => {
+    setXpDepartSaisie(value);
     setConfirmationXp0(false);
   };
 
@@ -268,17 +271,12 @@ function RecrutementDraftModal({
       {estGroupable && (
         <div className="field">
           <label>Nombre de figurines (groupe identique)</label>
-          <input
-            type="number"
-            min={1}
-            value={quantite}
-            onChange={(e) => setQuantite(Math.max(1, Number(e.target.value) || 1))}
-          />
+          <input type="number" min={1} value={quantiteSaisie} onChange={(e) => setQuantiteSaisie(e.target.value)} />
         </div>
       )}
       <div className="field">
         <label>Expérience de départ</label>
-        <input type="number" value={xpDepart} onChange={(e) => changerXpDepart(Number(e.target.value) || 0)} />
+        <input type="number" value={xpDepartSaisie} onChange={(e) => changerXpDepart(e.target.value)} />
         <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
       </div>
       {confirmationXp0 && (

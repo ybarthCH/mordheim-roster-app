@@ -4,7 +4,7 @@ import type { RosterInstance } from '../../types/roster';
 import { getCatalogue } from '../../data/warbands';
 import { peutAjouterMembre } from '../../utils/validation';
 import { creerMembre } from '../../utils/factory';
-import { clonerEquipementPourNouvellesFigurines, coutEquipementNouvellesFigurines } from '../../utils/shop';
+import { calculerCoutRejoindreGroupe, rejoindreGroupe } from '../../utils/shop';
 import { Modal } from '../common/Modal';
 
 const FRANC_TIREUR = '__franc_tireur__';
@@ -20,13 +20,19 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const catalogue = getCatalogue(roster.bande_id);
   const [profilId, setProfilId] = useState('');
   const [nomPerso, setNomPerso] = useState('');
-  const [xpDepart, setXpDepart] = useState(0);
-  const [quantite, setQuantite] = useState(1);
+  // Saisies gardées en texte brut (pas en number) : un input contrôlé par un
+  // number forcerait la valeur dès l'effacement (impossible de vider le
+  // champ pour retaper un chiffre) — la conversion/le plancher ne s'applique
+  // qu'à l'usage (voir xpDepart/quantite ci-dessous).
+  const [xpDepartSaisie, setXpDepartSaisie] = useState('0');
+  const [quantiteSaisie, setQuantiteSaisie] = useState('1');
   const [confirmationXp0, setConfirmationXp0] = useState(false);
   const [groupeCibleId, setGroupeCibleId] = useState<string | null>(null);
 
   const profil = catalogue?.profils.find((p) => p.id === profilId);
   const estGroupable = profil?.type === 'homme_de_main' || profil?.type === 'animal';
+  const xpDepart = Number(xpDepartSaisie) || 0;
+  const quantite = Math.max(1, parseInt(quantiteSaisie, 10) || 1);
 
   // Groupes déjà existants pour ce profil (hors morts) : recruter peut soit
   // former un nouveau groupe, soit rejoindre l'un d'eux (au prix d'une
@@ -38,11 +44,8 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
 
   const check = profilId ? peutAjouterMembre(roster, profilId, quantite) : { ok: false };
   const coutUnitaire = profil?.cout ?? 0;
-  const xpGroupe = groupeCible?.xp ?? 0;
-  const surtaxeXpUnitaire = groupeCible ? 2 * xpGroupe : 0;
-  const coutEquipementForce = groupeCible ? coutEquipementNouvellesFigurines(groupeCible.inventaire, quantite) : 0;
-  const coutTotal = (coutUnitaire + surtaxeXpUnitaire) * quantite + coutEquipementForce;
-  const vetPointsIndicatifs = groupeCible ? xpGroupe * quantite : 0;
+  const coutRejoindre = groupeCible ? calculerCoutRejoindreGroupe(groupeCible, coutUnitaire, quantite) : null;
+  const coutTotal = coutRejoindre ? coutRejoindre.coutTotal : coutUnitaire * quantite;
   const budgetSuffisant = coutTotal <= roster.tresorerie;
 
   const choisirProfil = (value: string) => {
@@ -53,14 +56,14 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     }
     setProfilId(value);
     const p = catalogue?.profils.find((pr) => pr.id === value);
-    setXpDepart(p?.xp_depart ?? 0);
-    setQuantite(1);
+    setXpDepartSaisie(String(p?.xp_depart ?? 0));
+    setQuantiteSaisie('1');
     setConfirmationXp0(false);
     setGroupeCibleId(null);
   };
 
-  const changerXpDepart = (value: number) => {
-    setXpDepart(value);
+  const changerXpDepart = (value: string) => {
+    setXpDepartSaisie(value);
     setConfirmationXp0(false);
   };
 
@@ -75,13 +78,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
       // Rejoint un groupe existant : la figurine hérite immédiatement de
       // l'XP et de l'équipement du groupe (payé séparément ci-dessus), pas
       // d'XP de départ propre.
-      const nouvellesEntrees = clonerEquipementPourNouvellesFigurines(groupeCible.inventaire, quantite);
-      const membresMaj = roster.membres.map((m) =>
-        m.instance_id === groupeCible.instance_id
-          ? { ...m, taille_groupe: m.taille_groupe + quantite, inventaire: [...m.inventaire, ...nouvellesEntrees] }
-          : m
-      );
-      onConfirm({ ...roster, tresorerie: roster.tresorerie - coutTotal, membres: membresMaj });
+      onConfirm(rejoindreGroupe(roster, groupeCible, quantite, coutTotal));
       return;
     }
 
@@ -118,7 +115,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                 value={groupeCibleId ?? ''}
                 onChange={(e) => {
                   setGroupeCibleId(e.target.value || null);
-                  setQuantite(1);
+                  setQuantiteSaisie('1');
                   setConfirmationXp0(false);
                 }}
               >
@@ -143,35 +140,35 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
               <input
                 type="number"
                 min={1}
-                value={quantite}
-                onChange={(e) => setQuantite(Math.max(1, Number(e.target.value) || 1))}
+                value={quantiteSaisie}
+                onChange={(e) => setQuantiteSaisie(e.target.value)}
               />
             </div>
           )}
-          {groupeCible ? (
+          {groupeCible && coutRejoindre ? (
             <div className="card card--tight" style={{ margin: '0.6rem 0' }}>
               <p className="text-sm mb-0">
                 <strong>Recrutement dans un groupe expérimenté</strong>
               </p>
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-                Le groupe a {xpGroupe} XP : chaque nouvelle figurine coûte +{surtaxeXpUnitaire} po (2 × XP du groupe)
-                en plus du prix normal, et doit être équipée à l'identique du reste du groupe.
+                Le groupe a {coutRejoindre.xpGroupe} XP : chaque nouvelle figurine coûte +{coutRejoindre.surtaxeXpUnitaire}{' '}
+                po (2 × XP du groupe) en plus du prix normal, et doit être équipée à l'identique du reste du groupe.
               </p>
               {groupeCible.inventaire.length > 0 && (
                 <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
                   Équipement forcé : {[...new Set(groupeCible.inventaire.map((e) => e.nom))].join(', ')} (
-                  {coutEquipementForce} po au total pour {quantite} figurine{quantite > 1 ? 's' : ''}).
+                  {coutRejoindre.coutEquipementForce} po au total pour {quantite} figurine{quantite > 1 ? 's' : ''}).
                 </p>
               )}
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-                Coût indicatif en points vétéran : {vetPointsIndicatifs} (non contrôlé — libre à toi de recruter
-                même sans les points suffisants).
+                Coût indicatif en points vétéran : {coutRejoindre.vetPointsIndicatifs} (non contrôlé — libre à toi de
+                recruter même sans les points suffisants).
               </p>
             </div>
           ) : (
             <div className="field">
               <label>Expérience de départ</label>
-              <input type="number" value={xpDepart} onChange={(e) => changerXpDepart(Number(e.target.value) || 0)} />
+              <input type="number" value={xpDepartSaisie} onChange={(e) => changerXpDepart(e.target.value)} />
               <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
             </div>
           )}
