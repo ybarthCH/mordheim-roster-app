@@ -44,7 +44,7 @@
       ],
       "acces_competences": ["combat", "academique", "force"],
       "acces_equipement": ["repurgateurs"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "repurgateur",
@@ -61,7 +61,7 @@
       ],
       "acces_competences": ["combat", "tir", "academique", "vitesse"],
       "acces_equipement": ["repurgateurs"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "seide",

@@ -28,9 +28,9 @@
         { "nom": "Chef", "texte": "Tout membre de la bande à moins de 12ps de l'Officier Supérieur d'Artillerie peut utiliser son Commandement pour ses tests." },
         { "nom": "Chasseur", "texte": "Parfaitement entraîné à charger et apprêter son arme, il peut tirer à chaque tour même avec une arquebuse ou un long fusil du Hochland (identique à la compétence de Tir Chasseur ; n'apporte pas d'effet supplémentaire s'il l'apprend à nouveau)." }
       ],
-      "acces_competences": ["combat", "tir", "erudition", "force", "vitesse"],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
       "acces_equipement": ["artilleurs_de_nuln", "montures_nuln"],
-      "acces_competences_a_verifier": true,
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
@@ -46,9 +46,9 @@
       "regles_speciales": [
         { "nom": "Expert en armement", "texte": "Tant qu'un Instructeur est présent dans la bande, toutes les armes de type pistolet reçoivent un bonus de +3ps et toutes les autres armes à poudre noire un bonus de +6ps." }
       ],
-      "acces_competences": ["tir", "erudition"],
+      "acces_competences": ["tir", "academique", "vitesse"],
       "acces_equipement": ["artilleurs_de_nuln", "tireurs_delite", "montures_nuln"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "aspirant",
@@ -62,7 +62,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "acces_competences": ["combat", "tir", "force", "vitesse"],
       "acces_equipement": ["artilleurs_de_nuln", "montures_nuln"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "cadets",
@@ -74,9 +74,9 @@
       "cout": 20,
       "xp_depart": 0,
       "stats": { "M": 4, "CC": 3, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
-      "acces_competences": ["tir", "force"],
+      "acces_competences": ["combat", "tir", "vitesse"],
       "acces_equipement": ["artilleurs_de_nuln", "montures_nuln"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "pupille_de_nuln",

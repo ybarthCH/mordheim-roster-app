@@ -37,7 +37,7 @@
       ],
       "acces_competences": ["academique", "special"],
       "acces_equipement": ["morts_vivants"],
-      "acces_competences_a_verifier": true,
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
@@ -57,7 +57,7 @@
       ],
       "acces_competences": ["academique", "vitesse", "special"],
       "acces_equipement": ["morts_vivants"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "garde_funeraire",
@@ -80,7 +80,7 @@
       ],
       "acces_competences": ["combat", "force"],
       "acces_equipement": ["morts_vivants"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "zombie",
@@ -144,7 +144,7 @@
       ],
       "acces_competences": ["combat", "force"],
       "acces_equipement": ["morts_vivants"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "epouvantail",
