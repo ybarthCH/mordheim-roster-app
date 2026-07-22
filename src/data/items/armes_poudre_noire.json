@@ -226,7 +226,7 @@
     "id": "pistolet_double_canon", "nom": "Pistolet à double canon", "categorie": "armes_poudre_noire",
     "cout": 20, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9",
     "note_maison": "Prix officiel 30 CO, réduit à 20 CO (~33% moins cher, arrondi au multiple de 5) selon la règle maison Armes à Poudre Noire avancées (incidents de tir) utilisée dans cette campagne.",
-    "acces": ["ostlanders"], "source": "BTB", "page": 24,
+    "acces": ["ostlanders", "artilleurs_de_nuln"], "source": "BTB", "page": 24,
     "texte": "Un pistolet doté de deux canons superposés, permettant de tirer deux coups avant de devoir recharger. Plus lourd et moins fiable qu'un pistolet simple.",
     "portee": "6ps", "force": "4",
     "regles_speciales": [
@@ -246,6 +246,32 @@
       { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." },
       { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme après ses deux tirs." },
       { "nom": "Visée", "texte": "Un tireur qui ne se déplace pas peut relancer un jet pour toucher raté." }
+    ]
+  },
+  {
+    "id": "pistolet_duel_double_canon", "nom": "Pistolet de duel à double canon", "categorie": "armes_poudre_noire",
+    "cout": 35, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Artilleurs de Nuln uniquement (65 CO la paire)",
+    "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 28,
+    "texte": "Une variante à deux canons du pistolet de duel, aussi précieuse que délicate à entretenir. Éligible à l'option double canon.",
+    "portee": "C à C/10ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Double tir", "texte": "Cette arme tire deux coups avant de devoir être rechargée (au lieu d'un seul pour un pistolet de duel normal)." },
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Précision", "texte": "L'arme est conçue pour la précision. Tout tir avec cette arme bénéficie d'un bonus de +1 pour toucher." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme après ses deux tirs." }
+    ]
+  },
+  {
+    "id": "arquebuse_double_canon", "nom": "Arquebuse à double canon", "categorie": "armes_poudre_noire",
+    "cout": 45, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Artilleurs de Nuln uniquement",
+    "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 24,
+    "texte": "Une arquebuse dotée d'une paire de canons, capable de perforer les armures les plus épaisses. Éligible à l'option double canon.",
+    "portee": "24ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Double tir", "texte": "Cette arme tire deux coups avant de devoir être rechargée (au lieu d'un seul pour une arquebuse normale)." },
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme après ses deux tirs." }
     ]
   }
 ]

@@ -1,0 +1,227 @@
+{
+  "id": "gladiateurs",
+  "nom": "Gladiateurs (1b)",
+  "grade": "1b",
+  "source": "Town Cryer #14, v1.4e — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Gladiateur", "texte": "Toutes les figurines de la bande bénéficient de +1 en CC et +1 Attaque si le combat se déroule dans un bâtiment, des ruines ou une arène (à définir clairement avant la partie)." },
+    { "nom": "Libérez les esclaves !", "texte": "Les Gladiateurs détestent tous les esclavagistes et ne vendront jamais un adversaire capturé à l'un d'entre eux." },
+    { "nom": "Dans l'arène !", "texte": "Un prisonnier capturé peut être envoyé combattre dans les arènes du Bourg des Coupe-gorge (règles complètes dans le Town Cryer #14) : si le Gladiateur envoyé gagne, il obtient +2 XP et la bande reçoit les armes/armures du prisonnier +50 CO ; s'il perd, jet de Blessure Grave restreint (résultats Dépouillé/Capturé/Endurci/Vendu aux arènes/Survie miraculeuse exclus) sans perte d'équipement, le prisonnier gagnant alors +50 CO et +2 XP. Le public décide ensuite (4+ sur 1D6) si le prisonnier est libéré ; sinon il reste captif et peut être renvoyé dans l'arène après de prochaines parties." },
+    { "nom": "Styles de combat", "texte": "Sauf les Gladiateurs Ogres et Tueurs de Trolls (liste restreinte séparée), chaque figurine choisit un style de combat dans la liste correspondante (armes et armures assorties) ; un Héros peut mélanger les styles s'il possède Connaissance des Armes et/ou Expert en Armes. La bande peut changer de style entre les parties (échange d'équipement ou achat du complément manquant) et les Hommes de main peuvent avoir des styles différents au sein d'un même groupe. Prix officiel du style complet, à appliquer manuellement à la place du total à l'unité si tout le style est acheté d'un coup : Orque 20 CO, Mort-Vivant 35 CO, Empire 45 CO, Chaos 50 CO, Rétiaire Skink 25 CO, Rétiaire Furie 30 CO." },
+    { "nom": "Francs-tireurs", "texte": "La bande peut engager tous les Francs-tireurs disponibles, à l'exception de l'Éclaireur Elfe." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "caracteristiques_max": [
+    { "profil": "gladiateur_ogre", "M": 6, "CC": 5, "CT": 4, "F": 6, "E": 6, "PV": 4, "I": 5, "A": 4, "Cd": 7 }
+  ],
+  "profils": [
+    {
+      "id": "roi_de_larene",
+      "nom": "Roi de l'arène",
+      "type": "heros",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 80,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 1, "I": 4, "A": 2, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Roi de l'arène peut utiliser son Commandement pour ses tests." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["style_orque", "style_mort_vivant", "style_empire", "style_chaos"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "veteran_de_larene",
+      "nom": "Vétéran de l'arène",
+      "type": "heros",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 35,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["style_orque", "style_mort_vivant", "style_empire", "style_chaos"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "gladiateur_tueur_de_trolls",
+      "nom": "Gladiateur Tueur de Trolls",
+      "type": "heros",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 50,
+      "xp_depart": 8,
+      "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Difficile à Tuer", "texte": "N'est mis Hors de combat que sur un jet de 6 (au lieu de 5-6) sur le tableau des dégâts : 1-2 à terre, 3-5 sonné, 6 hors de combat." },
+        { "nom": "Tête Dure", "texte": "Ignore les règles spéciales des masses, marteaux et autres armes contondantes." },
+        { "nom": "Haine des Orques et des Gobelins", "texte": "Comme tous les nains, hait les orques et les gobelins (voir Psychologie)." },
+        { "nom": "Rancuniers", "texte": "Si la bande engage un Franc-tireur elfe, le Gladiateur Tueur de Trolls quitte immédiatement la bande." },
+        { "nom": "Vœu de Mort", "texte": "Immunisé à la psychologie et ne fait jamais de test lorsqu'il se bat seul." }
+      ],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["ogres_trolls"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "gladiateur",
+      "nom": "Gladiateur",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": null,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["style_orque", "style_mort_vivant", "style_empire", "style_chaos"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "retiaire",
+      "nom": "Rétiaire",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 7,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Dérobade", "texte": "Ciblé par une charge, peut tenter de se dérober en réussissant un test d'Initiative : en cas de succès, la charge est considérée ratée." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["style_skink", "style_furie"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "gladiateur_ogre",
+      "nom": "Gladiateur Ogre",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 1,
+      "cout": 165,
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 3, "CT": 2, "F": 4, "E": 4, "PV": 3, "I": 3, "A": 2, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Peur", "texte": "Grande créature provoquant la peur (voir Psychologie)." },
+        { "nom": "Grand", "texte": "Grande cible, comme expliqué dans le chapitre Tir." },
+        { "nom": "Lent d'Esprit", "texte": "Ne coche qu'une demi-case à chaque point d'expérience gagné ; il faut donc le double d'XP habituel pour obtenir une progression." },
+        { "nom": "Compétences", "texte": "S'il devient un Héros sur un résultat de Ce gars est doué, choisit ses compétences dans les listes Combat, Force et les compétences spéciales des Gladiateurs (Renversement, Volonté de Fer, Gros bras, Maître d'armes, Vieux de la vieille)." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["ogres_trolls"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "renversement", "nom": "Renversement", "texte": "Au lieu d'une charge normale, tente une seule attaque à +1 pour toucher et F+1, sans bonus d'arme ni de capacité ; coup critique sur 5+." },
+    { "id": "volonte_de_fer", "nom": "Volonté de Fer", "texte": "Mis Hors de combat, teste son Endurance pour se relever et continuer à combattre ; à chaque début de tour suivant, refait le test avec un malus de -1 cumulatif, jusqu'à un nouvel échec (retiré du champ de bataille)." },
+    { "id": "gros_bras", "nom": "Gros bras", "texte": "Ignore les pénalités de Fatigue ; le bonus de Force de son arme s'applique à tous les tours de corps à corps, pas seulement au premier." },
+    { "id": "maitre_darmes", "nom": "Maître d'armes", "texte": "Ignore les restrictions liées à la règle Difficile à manier, permettant de combiner par exemple une morgenstern et un bouclier, voire une paire de morgensterns." },
+    { "id": "vieux_de_la_vieille", "nom": "Vieux de la vieille", "texte": "Immunisé à la psychologie." },
+    { "id": "berserk_gladiateur", "nom": "Berserk", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "+1 pour toucher au corps à corps lors du tour où il charge (non cumulable avec Charge furieuse)." },
+    { "id": "charge_furieuse_gladiateur", "nom": "Charge furieuse", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "Peut doubler son nombre d'attaques lors du tour où il charge, avec un malus de -1 pour toucher." },
+    { "id": "tueur_de_monstres", "nom": "Tueur de monstres", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "Blesse toujours son adversaire sur 4+ sans tenir compte de l'Endurance, sauf si sa Force lui permet déjà de blesser plus facilement." }
+  ],
+  "equipement": {
+    "style_orque": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2 },
+        { "item_id": "hache", "cout": 5 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    },
+    "style_mort_vivant": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2 },
+        { "item_id": "gantelet_a_pointe", "cout": 15 },
+        { "item_id": "epee", "cout": 10 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10 }
+      ]
+    },
+    "style_empire": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "armure_legere", "cout": 20 }
+      ]
+    },
+    "style_chaos": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2 },
+        { "item_id": "fleau", "cout": 15 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "armure_legere", "cout": 20 }
+      ]
+    },
+    "style_skink": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2 }
+      ],
+      "armes_tir": [
+        { "item_id": "trident", "cout": 15, "note": "ou Javelots" },
+        { "item_id": "javelots", "cout": 10, "note": "ou Trident" }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "rondache", "cout": 5, "note": "ou Filet" }
+      ],
+      "divers": [
+        { "item_id": "filet", "cout": 5, "note": "ou Rondache" }
+      ]
+    },
+    "style_furie": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2 },
+        { "item_id": "epee", "cout": 10, "note": "achetée en paire, ou Lance et Filet" },
+        { "item_id": "lance", "cout": 10, "note": "ou paire d'Épées" }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10 }
+      ],
+      "divers": [
+        { "item_id": "filet", "cout": 5, "note": "avec Lance, ou paire d'Épées" }
+      ]
+    },
+    "ogres_trolls": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau ou Masse" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hache_naine", "cout": 15, "restriction": "Gladiateurs Tueurs nains uniquement" },
+        { "item_id": "fleau", "cout": 15 },
+        { "item_id": "gantelet_a_pointe", "cout": 15 },
+        { "item_id": "arme_en_gromril", "cout": "x3", "restriction": "Gladiateurs Tueurs nains uniquement" }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20, "restriction": "Gladiateurs Ogres uniquement" },
+        { "item_id": "casque", "cout": 10, "restriction": "Gladiateurs Ogres uniquement" }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "trident", "cout": 15, "disponibilite": "Rare 7, Gladiateurs uniquement" },
+    { "item_id": "gantelet_a_pointe", "cout": 15, "disponibilite": "Rare 7, Gladiateurs uniquement" },
+    { "item_id": "javelots", "cout": 10, "disponibilite": "Commun, Gladiateurs uniquement (javelot de gladiateur)" }
+  ]
+}

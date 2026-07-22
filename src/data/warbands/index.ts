@@ -1,11 +1,13 @@
 import type { WarbandCatalog } from '../../types/catalog';
 
+import artilleurs_de_nuln from './artilleurs_de_nuln.json';
 import averlanders from './averlanders.json';
 import beastmen_raiders from './beastmen_raiders.json';
 import carnival_of_chaos from './carnival_of_chaos.json';
 import cult_of_the_possessed from './cult_of_the_possessed.json';
 import dwarf_treasure_hunters from './dwarf_treasure_hunters.json';
 import gardiens_de_chapelle_bretonniens from './gardiens_de_chapelle_bretonniens.json';
+import gladiateurs from './gladiateurs.json';
 import gobelins_de_la_nuit from './gobelins_de_la_nuit.json';
 import kislevites from './kislevites.json';
 import lustrian_reavers from './lustrian_reavers.json';
@@ -15,6 +17,7 @@ import marienburgers from './marienburgers.json';
 import middenheimers from './middenheimers.json';
 import morts_sans_repos from './morts_sans_repos.json';
 import nains_du_chaos from './nains_du_chaos.json';
+import norses from './norses.json';
 import orc_mob from './orc_mob.json';
 import ostlanders from './ostlanders.json';
 import reiklanders from './reiklanders.json';
@@ -24,12 +27,14 @@ import undead from './undead.json';
 import witch_hunters from './witch_hunters.json';
 
 export const CATALOGUES: WarbandCatalog[] = [
+  artilleurs_de_nuln,
   averlanders,
   beastmen_raiders,
   carnival_of_chaos,
   cult_of_the_possessed,
   dwarf_treasure_hunters,
   gardiens_de_chapelle_bretonniens,
+  gladiateurs,
   gobelins_de_la_nuit,
   kislevites,
   lustrian_reavers,
@@ -39,6 +44,7 @@ export const CATALOGUES: WarbandCatalog[] = [
   middenheimers,
   morts_sans_repos,
   nains_du_chaos,
+  norses,
   orc_mob,
   ostlanders,
   reiklanders,
