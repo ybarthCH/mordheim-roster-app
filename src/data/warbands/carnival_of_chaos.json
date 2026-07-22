@@ -40,6 +40,7 @@
         { "nom": "Sorcier", "texte": "Utilise les Rituels de Nurgle (voir magie)." }
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_equipement": ["kermesse"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -57,6 +58,7 @@
         { "nom": "Force Surnaturelle", "texte": "Dispose dès sa création de la compétence de Force Homme Fort du livre de règles." }
       ],
       "acces_competences": ["combat", "force", "vitesse"],
+      "acces_equipement": ["colosses"],
       "acces_competences_a_verifier": true
     },
     {
@@ -74,6 +76,7 @@
         { "nom": "Coût", "texte": "+ prix de la ou des Bénédiction(s) de Nurgle choisies." }
       ],
       "acces_competences": ["combat", "vitesse"],
+      "acces_equipement": ["kermesse"],
       "acces_competences_a_verifier": true
     },
     {
@@ -96,6 +99,7 @@
         { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
@@ -109,6 +113,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["kermesse"],
       "acces_competences_a_verifier": false
     },
     {
@@ -130,6 +135,7 @@
         { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5, mais Nuées permet de dépasser 5 par groupe." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
@@ -148,6 +154,7 @@
         { "nom": "Profils détaillés", "texte": "Roulotte : E8, PV4. Roue : E6, PV1. Cheval : M8, F3, E3, PV1, I3. Gardien (Cocher) : CC3, F3, E3, A1, I3." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["kermesse"],
       "acces_competences_a_verifier": false
     }
   ],

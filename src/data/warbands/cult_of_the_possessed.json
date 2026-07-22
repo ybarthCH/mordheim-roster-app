@@ -28,6 +28,7 @@
         { "nom": "Sorcier", "texte": "Le Magister est un sorcier utilisant les Rituels du Chaos (voir magie)." }
       ],
       "acces_competences": ["combat", "academique", "vitesse"],
+      "acces_equipement": ["culte_des_possedes"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -47,6 +48,7 @@
         { "nom": "Équipement", "texte": "Aucun. Les Possédés n'utilisent jamais ni armes ni armures." }
       ],
       "acces_competences": ["combat", "force", "vitesse"],
+      "acces_equipement": ["culte_des_possedes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -63,6 +65,7 @@
         { "nom": "Mutations", "texte": "Chaque Mutant doit commencer la partie avec une ou plusieurs mutations (voir la règle spéciale Table de Mutations). Coût : 25 CO + le coût des mutations." }
       ],
       "acces_competences": ["combat", "vitesse"],
+      "acces_equipement": ["culte_des_possedes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -76,6 +79,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Votre bande peut inclure autant d'Initiés que vous le voulez." }],
       "acces_competences": [],
+      "acces_equipement": ["culte_des_possedes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -92,6 +96,7 @@
         { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["damnes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -105,6 +110,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 2, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["culte_des_possedes"],
       "acces_competences_a_verifier": false
     }
   ],

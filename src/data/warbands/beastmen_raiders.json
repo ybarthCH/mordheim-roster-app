@@ -32,6 +32,7 @@
         { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Chef Homme-Bête peut utiliser le Commandement de ce dernier pour ses tests." }
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["hommes_betes"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -50,6 +51,7 @@
         { "nom": "Sans armure", "texte": "Ne peut en aucun cas porter d'armure." }
       ],
       "acces_competences": ["combat", "vitesse", "special"],
+      "acces_equipement": ["hommes_betes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -64,6 +66,7 @@
       "stats": { "M": 5, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["hommes_betes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -82,6 +85,7 @@
         { "nom": "Piétinement", "texte": "En plus de ses armes, le Centigor utilise ses sabots pour piétiner ses ennemis : il a donc une Attaque supplémentaire sur son profil, mais elle n'est pas affectée par les bonus et malus de ses armes (1 Attaque de base, la seconde entre parenthèses A 1(2) provenant de cette règle)." }
       ],
       "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["hommes_betes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -98,6 +102,7 @@
         { "nom": "Recrutement", "texte": "Autant que vous le souhaitez." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["ungors"],
       "acces_competences_a_verifier": false
     },
     {
@@ -111,6 +116,7 @@
       "stats": { "M": 5, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["hommes_betes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -127,6 +133,7 @@
         { "nom": "Équipement", "texte": "Mis à part leurs griffes, leurs crocs, et quelques cornes pour les plus altérés, les Chiens du Chaos n'ont aucun équipement. Ils combattent donc sans aucune pénalité." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
@@ -145,6 +152,7 @@
         { "nom": "Grande cible", "texte": "Le Minotaure est une grande cible, comme décrit dans les règles de Tir." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["hommes_betes"],
       "acces_competences_a_verifier": false
     }
   ],

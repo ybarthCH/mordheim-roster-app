@@ -25,6 +25,7 @@ import {
   creerEntreeInventaire,
   formatEquipementAffiche,
   libelleCategorie,
+  prixVente,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 
@@ -88,13 +89,22 @@ export function PersonnageScreen() {
     updateRoster(avecEquipementSynchronise(nouveauRoster, [...membre.inventaire, entree]));
   };
 
-  // Retire l'objet et rembourse son coût : sert à annuler un achat.
+  // Supprime l'objet sans contrepartie (perdu, détruit...).
   const retirerItem = (instanceId: string) => {
+    const sansItem = retirerDeMembre(roster, membre.instance_id, instanceId);
+    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
+    updateRoster(avecEquipementSynchronise(sansItem, inventaire));
+  };
+
+  // Revend l'objet : moitié du prix payé (arrondi au supérieur) reversée à la trésorerie.
+  const vendreItem = (instanceId: string) => {
     const entree = membre.inventaire.find((e) => e.instance_id === instanceId);
     if (!entree) return;
     const sansItem = retirerDeMembre(roster, membre.instance_id, instanceId);
     const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
-    updateRoster(avecEquipementSynchronise({ ...sansItem, tresorerie: sansItem.tresorerie + entree.cout }, inventaire));
+    updateRoster(
+      avecEquipementSynchronise({ ...sansItem, tresorerie: sansItem.tresorerie + prixVente(entree.cout) }, inventaire)
+    );
   };
 
   const renvoyerStockItem = (instanceId: string) => {
@@ -444,9 +454,17 @@ export function PersonnageScreen() {
               </button>
               <button
                 className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
+                onClick={() => vendreItem(entree.instance_id)}
+                title={`Vendre (+${prixVente(entree.cout)} po à la trésorerie)`}
+              >
+                Vendre
+              </button>
+              <button
+                className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
                 onClick={() => retirerItem(entree.instance_id)}
-                title="Retirer et rembourser la trésorerie"
+                title="Supprimer sans contrepartie (perdu, détruit…)"
               >
                 ✕
               </button>
@@ -579,6 +597,7 @@ export function PersonnageScreen() {
           catalogue={catalogue}
           profil={profil}
           tresorerie={roster.tresorerie}
+          competencesAcquises={membre.competences_acquises}
           onClose={() => setModalAchat(false)}
           onAchat={acheterItem}
         />

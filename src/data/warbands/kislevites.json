@@ -28,6 +28,7 @@
         { "nom": "Héritage", "texte": "Lorsque la bande est créée, le Capitaine a le droit d'acheter un objet de la liste d'équipement des guerriers kislévites à moitié prix (héritage familial). S'il perd cet objet (par exemple résultat « Dépouillé » sur le tableau des blessures), il doit le remplacer aussitôt que possible par un substitut de bonne qualité en rachetant le même objet à 150% de son prix habituel. Tant que l'objet n'a pas été remplacé, le Capitaine subit un malus de -1 sur tous ses tests et jets pour toucher." }
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_equipement": ["guerriers_kislevites", "streltsi"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -45,6 +46,7 @@
         { "nom": "Dompteur d'Ours", "texte": "Une bande kislévite incluant un Dompteur d'Ours peut recruter un Ours Apprivoisé en tant qu'Homme de Main. Cet animal a été dressé pour suivre les instructions du Dompteur : il réussit automatiquement ses tests de stupidité lorsqu'il se trouve dans un rayon de 6ps du Dompteur d'Ours (même si ce dernier est à terre ou sonné)." }
       ],
       "acces_competences": ["combat", "force", "vitesse"],
+      "acces_equipement": ["guerriers_kislevites", "streltsi"],
       "acces_competences_a_verifier": false
     },
     {
@@ -59,6 +61,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["guerriers_kislevites", "streltsi"],
       "acces_competences_a_verifier": false
     },
     {
@@ -73,6 +76,7 @@
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "vitesse"],
+      "acces_equipement": ["guerriers_kislevites", "streltsi"],
       "acces_competences_a_verifier": false
     },
     {
@@ -86,6 +90,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "N'importe quel nombre. Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["guerriers_kislevites"],
       "acces_competences_a_verifier": false
     },
     {
@@ -102,6 +107,7 @@
         { "nom": "Recrutement", "texte": "N'importe quel nombre. Acheté par groupes de 1 à 5." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["guerriers_kislevites"],
       "acces_competences_a_verifier": false
     },
     {
@@ -118,6 +124,7 @@
         { "nom": "Recrutement", "texte": "Seuls guerriers kislévites entraînés au maniement des arquebuses. Acheté par groupes de 1 à 5." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["streltsi"],
       "acces_competences_a_verifier": false
     },
     {
@@ -139,6 +146,7 @@
         { "nom": "Équipement", "texte": "Crocs et griffes !" }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     }
   ],

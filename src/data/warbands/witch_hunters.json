@@ -25,6 +25,7 @@
         { "nom": "Au Bûcher !", "texte": "Le capitaine répurgateur hait tous les jeteurs de sorts." }
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_equipement": ["repurgateurs"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -42,6 +43,7 @@
         { "nom": "Prières", "texte": "Serviteur de Sigmar, peut utiliser les Prières de Sigmar (voir magie)." }
       ],
       "acces_competences": ["combat", "academique", "force"],
+      "acces_equipement": ["repurgateurs"],
       "acces_competences_a_verifier": true
     },
     {
@@ -58,6 +60,7 @@
         { "nom": "Au Bûcher !", "texte": "Les répurgateurs haïssent tous les jeteurs de sorts." }
       ],
       "acces_competences": ["combat", "tir", "academique", "vitesse"],
+      "acces_equipement": ["repurgateurs"],
       "acces_competences_a_verifier": true
     },
     {
@@ -71,6 +74,7 @@
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": [],
+      "acces_equipement": ["seides"],
       "acces_competences_a_verifier": false
     },
     {
@@ -88,6 +92,7 @@
         { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["flagellants"],
       "acces_competences_a_verifier": false
     },
     {
@@ -104,6 +109,7 @@
         { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     }
   ],

@@ -8,6 +8,9 @@ type Props = {
   catalogue: WarbandCatalog;
   profil: Profile | null;
   tresorerie: number;
+  // Compétences acquises par le membre (ex : "Connaissance des Armes"),
+  // pour lever la restriction de liste d'équipement le cas échéant.
+  competencesAcquises?: string[];
   onClose: () => void;
   onAchat: (item: ShopItem, coutPaye: number) => void;
 };
@@ -19,14 +22,24 @@ function synopsis(texte: string | null | undefined): string | null {
   return texte.length > LONGUEUR_SYNOPSIS ? `${texte.slice(0, LONGUEUR_SYNOPSIS).trimEnd()}…` : texte;
 }
 
-export function AchatEquipementModal({ catalogue, profil, tresorerie, onClose, onAchat }: Props) {
+export function AchatEquipementModal({
+  catalogue,
+  profil,
+  tresorerie,
+  competencesAcquises = [],
+  onClose,
+  onAchat,
+}: Props) {
   const [source, setSource] = useState<'bande' | 'commun'>('bande');
   const [categorieFiltre, setCategorieFiltre] = useState<string | null>(null);
   const [recherche, setRecherche] = useState('');
   const [itemId, setItemId] = useState('');
   const [coutSaisi, setCoutSaisi] = useState('');
 
-  const itemsBande = useMemo(() => getEquipementBande(catalogue, profil ?? null), [catalogue, profil]);
+  const itemsBande = useMemo(
+    () => getEquipementBande(catalogue, profil ?? null, competencesAcquises),
+    [catalogue, profil, competencesAcquises]
+  );
   const itemsCommun = useMemo(() => getShopCommun(), []);
   const items = source === 'bande' ? itemsBande : itemsCommun;
 

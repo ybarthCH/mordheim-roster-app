@@ -52,6 +52,7 @@
         { "nom": "Le plus grand des Boss", "texte": "Seul le Boss actuel peut choisir les compétences de Force ; un Boss promu suite à la mort du précédent gagne ce droit à son tour, mais aucun autre membre de la bande ne peut y accéder." }
       ],
       "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": true,
       "est_leader": true
     },
@@ -70,6 +71,7 @@
         { "nom": "Bière de champignons", "texte": "Avant la bataille, peut brasser une cuvée spéciale à partir de 1 à 3 champignons bonnets de fou plus d'autres champignons récoltés, affectant un seul groupe de Guerriers Gobelins jusqu'à la fin de la bataille. Un jet est fait sur la table de la bière de champignons pour chaque champignon utilisé ; un doublon rend la cuvée ratée (juste un mal de crâne)." }
       ],
       "acces_competences": ["academique", "vitesse", "special"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": true
     },
     {
@@ -91,6 +93,7 @@
         }
       ],
       "acces_competences": ["combat", "vitesse", "special"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": true
     },
     {
@@ -105,6 +108,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "vitesse", "special"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": true
     },
     {
@@ -120,6 +124,7 @@
         { "nom": "Animosité", "texte": "Soumis à l'animosité ; un Gobelin devenu Héros n'y est plus soumis." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
       "acces_competences_a_verifier": false
     },
     {
@@ -137,6 +142,7 @@
         { "nom": "Cerveau champignon", "texte": "Ne peut jamais devenir Héros (relance les résultats Ce gars est doué)." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["fanatiques"],
       "acces_competences_a_verifier": false
     },
     {
@@ -155,6 +161,7 @@
         { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
@@ -173,6 +180,7 @@
         { "nom": "Insignifiant", "texte": "L'ensemble des Snotlings ne compte que pour une figurine aux tests de Déroute et à la vente de pierres magiques ; chaque Snotling ne rapporte qu'un demi-point d'expérience (arrondi à l'inférieur), ne gagne jamais d'expérience lui-même, et n'est pas une cible prioritaire pour les tireurs." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
       "acces_competences_a_verifier": false
     },
     {
@@ -192,6 +200,7 @@
         { "nom": "Kestu di d'un Troll ?", "texte": "Exclusif avec le Troll — une bande ne peut jamais avoir les deux." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
@@ -213,6 +222,7 @@
         { "nom": "Exclusivité", "texte": "Une bande ne peut jamais avoir à la fois un Troll et un Squig Géant." }
       ],
       "acces_competences": [],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     }
   ],

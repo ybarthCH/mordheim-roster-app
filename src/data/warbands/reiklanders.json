@@ -33,6 +33,7 @@
         { "nom": "Chef", "texte": "N'importe quel guerrier à moins de 12ps du capitaine mercenaire (au lieu de 6ps, grâce à la règle Chef à 12ps des Reiklanders) peut utiliser le commandement de ce dernier pour ses tests de Commandement." }
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_equipement": ["mercenaires", "tireur"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -48,6 +49,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["mercenaires", "tireur"],
       "acces_competences_a_verifier": true
     },
     {
@@ -62,6 +64,7 @@
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["mercenaires", "tireur"],
       "acces_competences_a_verifier": true
     },
     {
@@ -75,6 +78,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Autant que vous voulez. Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
+      "acces_equipement": ["mercenaires"],
       "acces_competences_a_verifier": false
     },
     {
@@ -91,6 +95,7 @@
         { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["tireur"],
       "acces_competences_a_verifier": false
     },
     {
@@ -107,6 +112,7 @@
         { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["mercenaires"],
       "acces_competences_a_verifier": false
     }
   ],

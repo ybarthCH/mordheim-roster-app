@@ -40,6 +40,7 @@
         { "nom": "Multiple Injuries (once)", "texte": "The first time the Conqueror suffers a Dead result on the Serious Injury chart, treat it as Multiple Injuries instead. This can only save the Conqueror once." }
       ],
       "acces_competences": ["combat", "force"],
+      "acces_equipement": ["heroes"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -58,6 +59,7 @@
         { "nom": "Duellist", "texte": "If engaged with only a single opponent in melee, may re-roll missed hits on the first turn, whether they charged or were charged." }
       ],
       "acces_competences": ["combat", "force", "vitesse"],
+      "acces_equipement": ["heroes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -75,6 +77,7 @@
         { "nom": "War Beasts", "texte": "If included, the warband may take up to 2 War Beasts from the dedicated list (see équipement de référence). They count toward the warband's maximum size, must be bought when the warband is created (but can be replaced if killed), and may use the Beastmaster's Leadership within 6\". If the Beastmaster is killed or lost, War Beasts cannot be used until a Prospect is promoted into a new Beastmaster." }
       ],
       "acces_competences": ["tir", "force", "vitesse"],
+      "acces_equipement": ["heroes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -95,6 +98,7 @@
         { "nom": "Wizard option", "texte": "For +30gc, may be made a Wizard using the Lesser Magic list, generating a single spell as standard. If taken, remove the starting Light Armour and generate 1 Lesser Magic spell." }
       ],
       "acces_competences": ["tir", "academique", "vitesse"],
+      "acces_equipement": ["heroes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -113,6 +117,7 @@
         { "nom": "Traps", "texte": "Starts each game with 1 Trap and may buy up to 5 more before the game at 5gc each; each is one use only. Traps are used in the Shooting Phase instead of shooting (cannot be set if running), one at a time, and cannot be used in melee. When used, place two 1\" diameter counters (one false, one real) anywhere within 3\" of the Trapmaster but at least 3\" from any other model. Any model moving within 2\" of a counter must flip it over: a false counter does nothing, a real one inflicts D3 Strength 5 hits (no critical hits). Remove the counters once the trap is sprung." }
       ],
       "acces_competences": ["combat", "tir", "academique"],
+      "acces_equipement": ["heroes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -128,6 +133,7 @@
         { "nom": "Promotion Only", "texte": "Re-rolls any 'Lad's Got Talent' result on the Henchmen Advancement table (cannot become a Hero directly). When promoted to fill a fallen Hero's role — see the band's Promotions rule — the model no longer counts as a Prospect, so a new Prospect may be hired." }
       ],
       "acces_competences": [],
+      "acces_equipement": ["prospects"],
       "acces_competences_a_verifier": false
     }
   ],
