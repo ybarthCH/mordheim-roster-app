@@ -142,8 +142,8 @@
         { "nom": "Fléau", "cout": 15 },
         { "nom": "Lance", "cout": 10 },
         { "nom": "Hallebarde", "cout": 10 },
-        { "nom": "Lames suintantes", "cout": 50 },
-        { "nom": "Griffes de combat", "cout": 35 }
+        { "nom": "Lames suintantes (paire)", "cout": 50 },
+        { "nom": "Griffes de combat (paire)", "cout": 35 }
       ],
       "armes_tir": [
         { "nom": "Fronde", "cout": 2 },
@@ -160,7 +160,7 @@
     "hommes_de_main_skavens": {
       "armes_cac": [
         { "nom": "Dague", "cout": 2, "note": "première gratuite" },
-        { "nom": "Gourdin", "cout": 3 },
+        { "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "cout": 3 },
         { "nom": "Épée", "cout": 10 },
         { "nom": "Lance", "cout": 10 }
       ],
@@ -203,7 +203,7 @@
     },
     {
       "id": "griffes_de_combat",
-      "nom": "Griffes de combat",
+      "nom": "Griffes de combat (paire)",
       "cout": 35,
       "disponibilite": "Rare 7, skavens uniquement",
       "portee": "C à C",
@@ -217,7 +217,7 @@
     },
     {
       "id": "lames_suintantes",
-      "nom": "Lames suintantes",
+      "nom": "Lames suintantes (paire)",
       "cout": 50,
       "note": "la paire",
       "disponibilite": "Rare 9, skavens uniquement",

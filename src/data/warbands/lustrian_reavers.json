@@ -158,12 +158,12 @@
         { "nom": "Armure légère", "cout": 20 },
         { "nom": "Bouclier", "cout": 10 },
         { "nom": "Casque", "cout": 10 },
-        { "nom": "Buckler", "cout": 10 }
+        { "nom": "Rondache", "cout": 10 }
       ],
       "divers": [
         { "nom": "Corde et grappin", "cout": 5 },
-        { "nom": "Crimson Shade", "cout": 35 },
-        { "nom": "Dark Venom", "cout": 30 },
+        { "nom": "Ombre cramoisie", "cout": 35 },
+        { "nom": "Venin sombre", "cout": 30 },
         { "nom": "Filet", "cout": 5 },
         { "nom": "Destriers", "cout": 80 },
         { "nom": "Chien de guerre", "cout": 20 }
@@ -233,7 +233,7 @@
     },
     {
       "id": "lizardman_sword_upgrade",
-      "nom": "Lizardman Sword upgrade",
+      "nom": "Lame homme-lézard",
       "cout": 30,
       "disponibilite": "Saurus Slayer uniquement",
       "texte": "Upgrades any sword: +1 to wound rolls due to poison."
@@ -247,21 +247,21 @@
     },
     {
       "id": "estalian_warhound",
-      "nom": "Estalian Warhound (War Beast)",
+      "nom": "Molosse estalien",
       "cout": 25,
       "disponibilite": "Reaver Beastmaster uniquement, max 2",
       "texte": "M6 WS4 BS0 S4 T3 W1 I4 A1 Ld5, armour save 5+. Follows the Animals rule (never gains experience), injuries as Henchmen."
     },
     {
       "id": "barbary_monkey",
-      "nom": "Barbary Monkey (War Beast)",
+      "nom": "Singe de Barbarie",
       "cout": 40,
       "disponibilite": "Reaver Beastmaster uniquement, max 1",
       "texte": "M6 WS4 BS0 S3 T3 W1 I5 A2 Ld6. Nimble: can climb any sheer surface without Initiative tests, may re-roll all failed Diving Charge tests, can enter buildings unlike other animals, and grants a 5+ Ward save against any wound (melee, shooting, magic, falling)."
     },
     {
       "id": "tilean_hunting_hawk",
-      "nom": "Tilean Hunting Hawk (War Beast)",
+      "nom": "Oiseau de proie",
       "cout": 30,
       "disponibilite": "Reaver Beastmaster uniquement, max 1",
       "texte": "M12 WS4 BS0 S4 T3 I5 A1. Counts as part of the Beastmaster's equipment. Acts at the same time as the Beastmaster and can attack any enemy within 12\" as a melee attack, even out of line of sight (unless Hidden), returning to the Beastmaster immediately. Cannot be targeted separately by any attack or spell. Does not attack if the Beastmaster is engaged in hand-to-hand combat."

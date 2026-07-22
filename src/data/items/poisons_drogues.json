@@ -76,5 +76,24 @@
     "regles_speciales": [
       { "nom": "Effet", "texte": "Toute touche causée par une arme enduite de venin fuligineux bénéficie de +1 en Force. Par exemple, si un guerrier de Force 3 maniant une épée empoisonnée touche son adversaire, son coup sera de Force 4. Les sauvegardes d'armures sont modifiées pour prendre en compte la Force accrue de l'attaque." }
     ]
+  },
+  {
+    "id": "ombre_cramoisie", "nom": "Ombre cramoisie", "categorie": "poisons_drogues",
+    "cout": 35, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Lustrian Reavers uniquement",
+    "acces": ["lustrian_reavers"], "source": "BTB", "page": 57,
+    "texte": "Un extrait tiré d'une orchidée écarlate qui ne pousse que dans les jungles de Lustrie, prisé des chasseurs de trésors pour l'endurance surhumaine qu'il procure.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une figurine qui prend de l'ombre cramoisie voit son Endurance augmenter de +1 pour la durée de la partie." },
+      { "nom": "Effets secondaires", "texte": "Lancez 1D6 après la bataille. Sur un résultat de 1, la figurine subit -1 Force de façon permanente." }
+    ]
+  },
+  {
+    "id": "venin_sombre", "nom": "Venin sombre", "categorie": "poisons_drogues",
+    "cout": 30, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Lustrian Reavers uniquement",
+    "acces": ["lustrian_reavers"], "source": "BTB", "page": 57,
+    "texte": "Extrait des glandes d'un serpent des jungles lustriennes, ce poison épais et noir provoque une paralysie douloureuse chez ceux qu'il touche.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Tout combattant touché par une arme enduite de venin sombre doit immédiatement réussir un test d'Endurance ou être paralysé jusqu'à sa prochaine phase de Ralliement." }
+    ]
   }
 ]

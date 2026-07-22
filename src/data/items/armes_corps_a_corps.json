@@ -723,5 +723,26 @@
     "regles_speciales": [
       { "nom": "Amélioration", "texte": "Améliore une épée en épée homme-lézard (+1 aux jets de Blessure dus au poison)." }
     ]
+  },
+  {
+    "id": "couperet", "nom": "Couperet", "categorie": "armes_cac",
+    "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Ogres uniquement",
+    "acces": ["maneaters"], "source": "BTB-MH (Mangeurs d'Hommes)", "page": 18,
+    "texte": "Un lourd fendoir de boucher, taillé grossièrement dans une plaque d'acier. Les Ogres l'utilisent aussi bien pour combattre que pour dépecer leurs repas.",
+    "portee": "C à C", "force": "U",
+    "regles_speciales": [
+      { "nom": "Contondant", "texte": "Un jet de Dégâts de 2-4 (au lieu de 3-4 habituellement) est considéré comme sonné." }
+    ]
+  },
+  {
+    "id": "gourdin_ogre", "nom": "Gourdin d'Ogre", "categorie": "armes_cac",
+    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Ogres uniquement",
+    "acces": ["maneaters"], "source": "BTB-MH (Mangeurs d'Hommes)", "page": 18,
+    "texte": "Un tronc d'arbre à peine équarri, ou parfois un os de créature géante, que seul un Ogre peut manier comme une arme de corps à corps.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Contondant", "texte": "Un jet de Dégâts de 2-4 (au lieu de 3-4 habituellement) est considéré comme sonné." },
+      { "nom": "Frappe en dernier", "texte": "L'arme est si lourde que l'on frappe toujours en dernier avec, même en ayant chargé." }
+    ]
   }
 ]

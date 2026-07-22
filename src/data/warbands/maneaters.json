@@ -148,7 +148,7 @@
         { "nom": "Morgenstern", "cout": 15 },
         { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Poing de Fer", "cout": 15, "note": "voir équipement spécial" },
-        { "nom": "Épée longue Cathayane", "cout": 75, "restriction": "Capitaine uniquement" }
+        { "nom": "Sabre de Cathay", "cout": 75, "restriction": "Capitaine uniquement" }
       ],
       "armes_tir": [
         { "nom": "Mortier portable", "cout": "70 + 2D6", "note": "voir équipement spécial" }

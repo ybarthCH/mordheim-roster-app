@@ -11,6 +11,10 @@
     {
       "nom": "Corrompu",
       "texte": "La kermesse ressemble aux bandes de Possédés (ramassis de mutants corrompus) : elle compte comme une bande de Possédés pour tout ce qui concerne l'exploration et les Blessures Graves."
+    },
+    {
+      "nom": "Bénédictions de Nurgle",
+      "texte": "Options réservées à l'Impur, achetées au recrutement uniquement (aucune ne peut plus être ajoutée une fois l'Impur en jeu) : Flot de Corruption (25 CO) — attaque de tir portée 6ps, Force 3, sans sauvegarde d'armure (jet de vers, de bile et de sang). • Pourriture de Nurgle (50 CO) — l'Impur est infecté par cette maladie virulente et incurable (immunité aux poisons en prime) ; sur un 6 pour blesser au corps à corps, il la transmet à sa cible (figurines vivantes uniquement), qui teste son Endurance à chaque bataille suivante (échec = perte permanente d'1 point d'Endurance, mort à 0 ; sur un 6 au test, transmission involontaire à un autre membre de la bande, déterminé au hasard). • Nuage de Mouches (25 CO) — les adversaires de l'Impur subissent un malus de -1 pour le toucher au corps à corps. • Horreur Enflée (40 CO) — +1 Point de Vie, +1 en Endurance, mais -1 en Mouvement. • Marque de Nurgle (35 CO) — +1 Point de Vie et immunité aux effets de tous les poisons. • Hideux (40 CO) — provoque la peur."
     }
   ],
   "composition": {
@@ -191,50 +195,6 @@
       ]
     }
   },
-  "equipement_special": [
-    {
-      "id": "flot_de_corruption",
-      "nom": "Flot de Corruption (Bénédiction de Nurgle)",
-      "cout": 25,
-      "disponibilite": "Impur uniquement, au recrutement",
-      "texte": "Attaque de tir (portée 6ps, Force 3, sans sauvegarde d'armure) : jet de vers, de bile et de sang."
-    },
-    {
-      "id": "pourriture_de_nurgle",
-      "nom": "Pourriture de Nurgle (Bénédiction de Nurgle)",
-      "cout": 50,
-      "disponibilite": "Impur uniquement, au recrutement",
-      "texte": "L'Impur est infecté par cette maladie virulente et incurable (immunité aux poisons en prime). Sur un 6 pour blesser au corps à corps, il la transmet à sa cible (n'affecte que les figurines vivantes). La victime teste son Endurance à chaque bataille suivante : échec = perte permanente d'1 point d'Endurance (mort à 0) ; sur un 6 au test, transmission involontaire à un autre membre de sa bande, déterminé au hasard."
-    },
-    {
-      "id": "nuage_de_mouches_benediction",
-      "nom": "Nuage de Mouches (Bénédiction de Nurgle)",
-      "cout": 25,
-      "disponibilite": "Impur uniquement, au recrutement",
-      "texte": "Les adversaires de l'Impur subissent un malus de -1 pour le toucher au corps à corps."
-    },
-    {
-      "id": "horreur_enflee",
-      "nom": "Horreur Enflée (Bénédiction de Nurgle)",
-      "cout": 40,
-      "disponibilite": "Impur uniquement, au recrutement",
-      "texte": "+1 Point de Vie, +1 en Endurance, mais -1 en Mouvement."
-    },
-    {
-      "id": "marque_de_nurgle",
-      "nom": "Marque de Nurgle (Bénédiction de Nurgle)",
-      "cout": 35,
-      "disponibilite": "Impur uniquement, au recrutement",
-      "texte": "+1 Point de Vie et immunité aux effets de tous les poisons."
-    },
-    {
-      "id": "hideux",
-      "nom": "Hideux (Bénédiction de Nurgle)",
-      "cout": 40,
-      "disponibilite": "Impur uniquement, au recrutement",
-      "texte": "Provoque la peur."
-    }
-  ],
   "magie": {
     "nom": "Rituels de Nurgle",
     "type": "sorcellerie",

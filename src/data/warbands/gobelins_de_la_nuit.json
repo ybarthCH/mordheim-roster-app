@@ -237,7 +237,7 @@
         { "nom": "Lance", "cout": 10 },
         { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Bâton d'Boss", "cout": 20 },
-        { "nom": "Poignards empoisonnés", "cout": 25 }
+        { "nom": "Poignards empoisonnés (paire)", "cout": 25 }
       ],
       "armes_tir": [
         { "nom": "Fronde", "cout": 2 },
@@ -251,7 +251,7 @@
       ],
       "divers": [
         { "nom": "Filet", "cout": 5 },
-        { "nom": "Aiguillon à squig", "cout": 15 },
+        { "nom": "Aiguillon à Squigs", "cout": 15 },
         { "nom": "Champignons bonnets de fou", "cout": 15 }
       ]
     },
@@ -269,7 +269,7 @@
       ],
       "divers": [
         { "nom": "Filet", "cout": 5 },
-        { "nom": "Aiguillon à squig", "cout": 15 },
+        { "nom": "Aiguillon à Squigs", "cout": 15 },
         { "nom": "Champignons bonnets de fou", "cout": 15 }
       ]
     },
@@ -277,7 +277,7 @@
       "armes_cac": [
         { "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "cout": 15 },
         { "nom": "Chaîne & boulet", "cout": 15 },
-        { "nom": "Poignards empoisonnés", "cout": 25 }
+        { "nom": "Poignards empoisonnés (paire)", "cout": 25 }
       ],
       "divers": [{ "nom": "Champignons bonnets de fou", "cout": 15 }]
     }
@@ -332,7 +332,7 @@
     },
     {
       "id": "poignards_empoisonnes",
-      "nom": "Poignards empoisonnés",
+      "nom": "Poignards empoisonnés (paire)",
       "cout": 25,
       "disponibilite": "Commun, Gobelins de la Nuit uniquement",
       "portee": "C à C",
