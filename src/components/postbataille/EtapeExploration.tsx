@@ -100,20 +100,30 @@ export function EtapeExploration({
         </p>
       )}
       <div className="field">
-        <label>Objets / événements d'exploration (texte libre, ajouté à l'équipement en réserve)</label>
+        <label>Événements d'exploration (texte libre)</label>
         <textarea value={notesExploration} onChange={(e) => onNotesExplorationChange(e.target.value)} />
       </div>
-      <div className="flex justify-between items-center" style={{ marginBottom: '0.3rem' }}>
+
+      <div className="card card--tight" style={{ marginBottom: '0.8rem' }}>
+        <div className="flex justify-between items-center" style={{ marginBottom: '0.3rem' }}>
+          <h3 className="mt-0 mb-0">Shop commun (objet de scénario)</h3>
+          {catalogue && (
+            <button
+              type="button"
+              className="btn btn--primary btn--sm"
+              style={{ flexShrink: 0 }}
+              onClick={() => setModalAchat(true)}
+            >
+              + Objet
+            </button>
+          )}
+        </div>
         <p className="text-sm text-muted mb-0">
-          Certains scénarios accordent un objet directement (shop commun de l'armurerie) : ajoute-le ici, il rejoint
-          aussitôt le stock de la bande. Coût payé à 0 po pour un objet gagné gratuitement.
+          Certains scénarios accordent un objet directement : ajoute-le ici, il rejoint aussitôt le stock de la
+          bande. Coût payé à 0 po pour un objet gagné gratuitement.
         </p>
-        {catalogue && (
-          <button type="button" className="btn btn--sm" style={{ flexShrink: 0 }} onClick={() => setModalAchat(true)}>
-            + Objet
-          </button>
-        )}
       </div>
+
       <h3>Vente de wyrdstone</h3>
       <p className="text-sm text-muted">
         Prix de vente selon le nombre de fragments vendus ensemble et la taille de la bande ({nbGuerriers} guerrier
