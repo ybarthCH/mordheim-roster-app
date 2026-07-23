@@ -44,6 +44,7 @@ export function RosterScreen() {
   const catalogue = getCatalogue(roster.bande_id);
   const violations = validerComposition(roster);
   const violationsEffectif = validerEffectif(roster);
+  const effectifDepasse = violationsEffectif.find((v) => v.type === 'max');
   const heros = roster.membres.filter((m) => resolveProfil(roster, m)?.type === 'heros');
   const hommesDeMain = roster.membres.filter((m) => resolveProfil(roster, m)?.type !== 'heros');
 
@@ -138,6 +139,17 @@ export function RosterScreen() {
         </div>
       }
     >
+      {effectifDepasse && (
+        <div className="banner-danger">
+          <span className="banner-danger__icon" aria-hidden="true">
+            ⚠
+          </span>
+          <span>
+            Effectif dépassé : {effectifDepasse.actuel} guerriers pour un maximum de {effectifDepasse.limite}.
+          </span>
+        </div>
+      )}
+
       <RosterSummaryCard roster={roster} catalogue={catalogue} onPatch={patch} />
 
       <ArmurerieSection
@@ -149,17 +161,19 @@ export function RosterScreen() {
         onRetirer={retirerStock}
       />
 
-      {(violations.length > 0 || violationsEffectif.length > 0) && (
+      {(violations.length > 0 || violationsEffectif.some((v) => v.type === 'min')) && (
         <div className="card" style={{ borderColor: 'var(--warning)' }}>
           <h3 style={{ color: 'var(--warning)' }}>Composition — à vérifier</h3>
           <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
             Purement indicatif, n'empêche rien.
           </p>
-          {violationsEffectif.map((v) => (
-            <p key={`effectif-${v.type}`} className="text-sm mb-0">
-              Effectif de la bande : {v.actuel} ({v.type === 'max' ? `max ${v.limite}` : `min ${v.limite}`})
-            </p>
-          ))}
+          {violationsEffectif
+            .filter((v) => v.type === 'min')
+            .map((v) => (
+              <p key={`effectif-${v.type}`} className="text-sm mb-0">
+                Effectif de la bande : {v.actuel} (min {v.limite})
+              </p>
+            ))}
           {violations.map((v) => (
             <p key={`${v.profilId}-${v.type}`} className="text-sm mb-0">
               {v.nomProfil} : {v.actuel}/{v.limite} {v.type === 'max' ? 'autorisés' : 'requis (minimum)'}

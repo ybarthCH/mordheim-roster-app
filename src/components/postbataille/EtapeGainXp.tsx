@@ -1,4 +1,4 @@
-import { HENCHMAN_XP_MAX, HERO_XP_MAX, isPalierHenchman, isPalierHero } from '../../utils/xp';
+import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, isPalierHenchman, isPalierHero } from '../../utils/xp';
 import { resolveProfil } from '../../utils/profil';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import type { XpDraft, SlotDraft } from './PostBatailleScreen';
@@ -92,7 +92,38 @@ type EtapeGainXpProps = {
   definirSurvie: (m: Member, valeur: 'oui' | 'non') => void;
   slotsDe: (m: Member) => SlotDraft[];
   definirSlot: (m: Member, index: number, valeur: 'oui' | 'non') => void;
+  onOuvrirAvancee: (m: Member) => void;
+  avancesResolues: { nom: string; detail: string }[];
 };
+
+// Affiche le badge "X avancée(s) en attente" + le bouton de résolution pour
+// un membre donné, exactement comme sur sa fiche personnage (ExperienceCard)
+// — permet de résoudre une avancée sans quitter l'assistant post-bataille.
+function BlocAvanceeDue({
+  roster,
+  membre,
+  demiXp,
+  onOuvrirAvancee,
+}: {
+  roster: RosterInstance;
+  membre: Member;
+  demiXp: boolean;
+  onOuvrirAvancee: (m: Member) => void;
+}) {
+  const profil = resolveProfil(roster, membre);
+  if (!profil || profil.type === 'animal') return null;
+  const dues = avancesDues(profil.type, membre.xp_depart, membre.xp, demiXp);
+  const enAttente = Math.max(0, dues - membre.historique_avancees.length);
+  if (enAttente === 0) return null;
+  return (
+    <div className="flex items-center gap-sm" style={{ marginTop: '0.5rem' }}>
+      <span className="badge badge--warning">{enAttente} avancée(s) en attente</span>
+      <button type="button" className="btn btn--sm" onClick={() => onOuvrirAvancee(membre)}>
+        Résoudre une avancée
+      </button>
+    </div>
+  );
+}
 
 export function EtapeGainXp({
   roster,
@@ -106,6 +137,8 @@ export function EtapeGainXp({
   definirSurvie,
   slotsDe,
   definirSlot,
+  onOuvrirAvancee,
+  avancesResolues,
 }: EtapeGainXpProps) {
   return (
     <>
@@ -164,6 +197,7 @@ export function EtapeGainXp({
                   N'a pas survécu
                 </button>
               </div>
+              <BlocAvanceeDue roster={roster} membre={m} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
           );
         })}
@@ -201,6 +235,7 @@ export function EtapeGainXp({
                     ? `Résolu — le groupe garde ${survivants} figurine(s)${estAnimal ? '.' : ' et gagne +1 XP.'}`
                     : "Résolu — le groupe est entièrement éliminé (passera au statut Mort)."}
               </p>
+              <BlocAvanceeDue roster={roster} membre={m} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
           );
         })}
@@ -239,10 +274,22 @@ export function EtapeGainXp({
                 bonusLeader={bonusLeader}
                 demiXp={demiXp}
               />
+              <BlocAvanceeDue roster={roster} membre={m} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
           );
         })}
       </div>
+
+      {avancesResolues.length > 0 && (
+        <div className="card card--tight">
+          <h3>Avancées résolues pendant cette bataille</h3>
+          {avancesResolues.map((a, i) => (
+            <p key={i} className="text-sm mb-0">
+              {a.nom} — {a.detail}
+            </p>
+          ))}
+        </div>
+      )}
     </>
   );
 }

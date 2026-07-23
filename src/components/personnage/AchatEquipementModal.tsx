@@ -11,6 +11,7 @@ import {
   CATEGORIE_ORDRE,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
+import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
 
 type Props = {
@@ -191,6 +192,20 @@ export function AchatEquipementModal({
         {itemSelectionne && (
           <div style={{ flexShrink: 0, borderTop: '1px solid var(--border)', paddingTop: '0.6rem' }}>
             <div style={{ maxHeight: '24vh', overflowY: 'auto' }}>
+              {itemSelectionne.stats && (
+                <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
+                  {STAT_KEYS.map((k) => (
+                    <div key={k} className="stat-grid__cell stat-grid__cell--label">
+                      {k}
+                    </div>
+                  ))}
+                  {STAT_KEYS.map((k) => (
+                    <div key={k} className="stat-grid__cell stat-grid__cell--value">
+                      {itemSelectionne.stats![k]}
+                    </div>
+                  ))}
+                </div>
+              )}
               {(itemSelectionne.portee || itemSelectionne.force || itemSelectionne.sauvegarde) && (
                 <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
                   {itemSelectionne.portee && <span className="badge badge--info">Portée {itemSelectionne.portee}</span>}

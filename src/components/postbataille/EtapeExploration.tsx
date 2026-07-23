@@ -9,6 +9,7 @@ import {
   indexLigneFragments,
   prixVenteWyrdstone,
 } from '../../data/tableVenteWyrdstone';
+import { TABLE_FRAGMENTS_TROUVES, fragmentsTrouves } from '../../data/tableExplorationWyrdstone';
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
 import type { ShopItem } from '../../utils/shop';
 
@@ -44,6 +45,13 @@ export function EtapeExploration({
   onAchatStock,
 }: EtapeExplorationProps) {
   const [modalAchat, setModalAchat] = useState(false);
+  const [sommeDes, setSommeDes] = useState('');
+  const sommeDesNum = Number(sommeDes) || 0;
+  const fragmentsSuggeres = sommeDesNum > 0 ? fragmentsTrouves(sommeDesNum) : 0;
+  const palierActif =
+    sommeDesNum > 0
+      ? TABLE_FRAGMENTS_TROUVES.findIndex((p) => sommeDesNum >= p.min && (p.max === null || sommeDesNum <= p.max))
+      : -1;
   const nbGuerriers = effectifTotal(roster);
   const colonneActive = indexColonneGuerriers(nbGuerriers);
   const ligneActive = quantiteVendue > 0 ? indexLigneFragments(quantiteVendue) : -1;
@@ -53,10 +61,44 @@ export function EtapeExploration({
     <div className="card">
       <h3>Exploration &amp; wyrdstone</h3>
       <p className="text-sm text-muted">Reporte ici le résultat de tes jets d'exploration effectués sur table papier.</p>
-      <div className="field">
-        <label>Wyrdstone trouvé (à ajouter à la réserve)</label>
-        <input type="number" value={wyrdstoneTrouve} onChange={(e) => onWyrdstoneTrouveChange(Number(e.target.value) || 0)} />
+      <div className="table-scroll">
+        <table className="table-reference">
+          <thead>
+            <tr>
+              <th>Résultat des dés</th>
+              <th>Fragments trouvés</th>
+            </tr>
+          </thead>
+          <tbody>
+            {TABLE_FRAGMENTS_TROUVES.map((p, i) => (
+              <tr key={i} className={i === palierActif ? 'table-reference__row-active' : undefined}>
+                <td>{p.max === null ? `${p.min}+` : `${p.min}-${p.max}`}</td>
+                <td className={i === palierActif ? 'table-reference__cell-active' : undefined}>{p.fragments}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+      <div className="field-row">
+        <div className="field">
+          <label>Somme des dés d'exploration (optionnel)</label>
+          <input type="number" value={sommeDes} onChange={(e) => setSommeDes(e.target.value)} />
+        </div>
+        <div className="field">
+          <label>Wyrdstone trouvé (à ajouter à la réserve)</label>
+          <input type="number" value={wyrdstoneTrouve} onChange={(e) => onWyrdstoneTrouveChange(Number(e.target.value) || 0)} />
+        </div>
+      </div>
+      {sommeDesNum > 0 && (
+        <p className="text-sm text-muted">
+          Fragments suggérés par la table : {fragmentsSuggeres}.{' '}
+          {wyrdstoneTrouve !== fragmentsSuggeres && (
+            <button type="button" className="btn btn--sm" onClick={() => onWyrdstoneTrouveChange(fragmentsSuggeres)}>
+              Utiliser cette valeur
+            </button>
+          )}
+        </p>
+      )}
       <div className="field">
         <label>Objets / événements d'exploration (texte libre, ajouté à l'équipement en réserve)</label>
         <textarea value={notesExploration} onChange={(e) => onNotesExplorationChange(e.target.value)} />

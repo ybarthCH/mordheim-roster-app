@@ -128,6 +128,11 @@ export type JournalPostBataille = {
   // Points vétéran disponibles (2D6 lancés par le joueur), saisis
   // manuellement à titre indicatif — juste affichés dans le journal.
   pointsVeteran: number;
+  // Avancées d'expérience résolues via l'étape Gain d'expérience de
+  // l'assistant, en plus de historique_avancees du membre concerné —
+  // pratique pour relire ce qui a été tiré sans rouvrir chaque fiche.
+  // Absent sur les batailles enregistrées avant l'introduction de ce champ.
+  avancesResolues?: { nom: string; detail: string }[];
 };
 
 export type BattleRecord = {

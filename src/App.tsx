@@ -3,6 +3,7 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 import { RostersProvider } from './state/RostersContext';
 import { ThemeProvider } from './state/ThemeContext';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
+import { ScrollToTop } from './components/common/ScrollToTop';
 
 const ListeBandesScreen = lazy(() =>
   import('./components/bandes/ListeBandesScreen').then((m) => ({ default: m.ListeBandesScreen }))
@@ -31,6 +32,7 @@ function App() {
     <ThemeProvider>
       <RostersProvider>
         <HashRouter>
+          <ScrollToTop />
           <ErrorBoundary>
             <Suspense fallback={null}>
               <Routes>
