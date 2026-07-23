@@ -57,6 +57,14 @@ export type Profile = {
   min?: number;
   max?: number | null;
   cout: number | null;
+  // Notation de dés affichée quand `cout` est variable (donc null, ex :
+  // "25+2D6" pour un chien de guerre) — le montant réel est saisi à la main
+  // au recrutement, comme pour un objet non `cout_fixe`.
+  cout_notation?: string;
+  // Score "Rare N" (règles de disponibilité) : un jet de disponibilité est
+  // requis en jeu avant de pouvoir recruter ce profil. Purement informatif,
+  // comme pour les objets — n'empêche pas de recruter/jouer.
+  rarete?: string;
   stats: Stats | null;
   acces_competences: SkillCategory[];
   acces_competences_a_verifier?: boolean;
