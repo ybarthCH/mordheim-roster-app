@@ -16,6 +16,10 @@ export type SeriousInjuryRecord = {
   // Résultat saisi librement par le joueur (table papier, règles complètes
   // largement au-delà des 12 cas de la table de base 2D6).
   description: string;
+  // Titre court de la blessure (ex : "Folie", "Jambe brisée"), utilisé pour
+  // l'affichage condensé dans le roster global. Absent sur les
+  // enregistrements créés avant son introduction.
+  nom?: string;
 };
 
 export type AdvanceRecord = {

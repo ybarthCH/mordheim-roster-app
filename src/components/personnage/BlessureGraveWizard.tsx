@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import type { Stats } from '../../types/catalog';
-import { BLESSURES_GRAVES, type ResultatBlessureGrave, type SousJetOption } from '../../data/blessuresGraves';
+import {
+  BLESSURES_GRAVES,
+  IDS_GLADIATEUR_VIVANT,
+  trouverBlessure,
+  type ResultatBlessureGrave,
+  type SousJetOption,
+} from '../../data/blessuresGraves';
 import { Icon, type IconName } from '../common/Icon';
 
 const ICONE_BLESSURE: Partial<Record<string, IconName>> = {
@@ -10,7 +16,7 @@ const ICONE_BLESSURE: Partial<Record<string, IconName>> = {
   retablissement_complet: 'etoile',
   endurci: 'bouclier',
   survit_contre_tout: 'etoile',
-  vendu_aux_arenes: 'chaine',
+  gladiateur: 'epee',
   cicatrices_horribles: 'ossements',
 };
 
@@ -19,12 +25,14 @@ function iconePourBlessure(r: ResultatBlessureGrave): IconName {
 }
 
 export type BlessureGraveResultat = {
+  nom: string;
   texte: string;
   statsDelta: Partial<Record<keyof Stats, number>>;
   notes: string[];
   perteEquipement: boolean;
   statutMort: boolean;
   xpBonus: number;
+  tresorerieBonus: number;
 };
 
 type IterationResolue = {
@@ -33,7 +41,14 @@ type IterationResolue = {
   dureeD3?: number;
 };
 
-type Mode = 'liste' | 'sous_jet' | 'duree_d3' | 'multiples_compte' | 'confirmation';
+type Mode =
+  | 'liste'
+  | 'sous_jet'
+  | 'duree_d3'
+  | 'multiples_compte'
+  | 'gladiateur_issue'
+  | 'gladiateur_mort_vivant'
+  | 'confirmation';
 
 function fusionnerStats(
   a: Partial<Record<keyof Stats, number>>,
@@ -83,6 +98,13 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
   const [multiplesCount, setMultiplesCount] = useState<number | null>(null);
   const [multiplesResultats, setMultiplesResultats] = useState<IterationResolue[]>([]);
   const [precision, setPrecision] = useState('');
+  // Cas spécial "Gladiateur" perdu mais survécu : la relance suivante est
+  // filtrée sur la plage 16-35 (voir IDS_GLADIATEUR_VIVANT) et entraîne
+  // toujours la perte d'équipement, quel que soit le résultat tiré — ce
+  // second point ne se déduit pas des données de la table elle-même, d'où ce
+  // drapeau appliqué à part dans construireResultatFinal.
+  const [enChoixGladiateurVivant, setEnChoixGladiateurVivant] = useState(false);
+  const [gladiateurForcePerte, setGladiateurForcePerte] = useState(false);
 
   const enCoursDansBoucle = contexte === 'boucle' && multiplesCount !== null;
   const iterationActuelleIndex = multiplesResultats.length + 1;
@@ -96,6 +118,8 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
     setMultiplesCount(null);
     setMultiplesResultats([]);
     setPrecision('');
+    setEnChoixGladiateurVivant(false);
+    setGladiateurForcePerte(false);
   };
 
   const terminerIteration = (it: IterationResolue) => {
@@ -117,7 +141,20 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
 
   const choisirResultat = (r: ResultatBlessureGrave) => {
     setSelectionActuelle(r);
+    // Le filtre ne concerne que ce choix précis dans la liste — une éventuelle
+    // relance imbriquée (ex : Blessures multiples tiré dans ce lot) repart sur
+    // la table complète, conformément à la règle.
+    setEnChoixGladiateurVivant(false);
+    if (r.combatGladiateur) {
+      setMode('gladiateur_issue');
+      return;
+    }
     if (r.multiplesInjuries) {
+      // Racine posée dès maintenant : la boucle de relance qui suit ne
+      // retouche jamais `racine` (voir terminerIteration, branche 'boucle'),
+      // donc c'est le seul moment où l'accrocher est possible avant que
+      // construireResultatFinal en ait besoin pour agréger le résultat final.
+      setRacine({ resultat: r });
       setMode('multiples_compte');
       return;
     }
@@ -130,6 +167,43 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
       return;
     }
     terminerIteration({ resultat: r });
+  };
+
+  const choisirGladiateurIssue = (victoire: boolean) => {
+    if (!selectionActuelle) return;
+    if (victoire) {
+      terminerIteration({
+        resultat: {
+          ...selectionActuelle,
+          nom: 'Gladiateur (victoire)',
+          texte:
+            "Le guerrier remporte son combat dans les fosses du Repaire des Coupe-Jarrets : il empoche 50 pièces d'or, gagne 2 points d'Expérience et rejoint sa bande avec tout son équipement intact.",
+          xpBonus: 2,
+          tresorerieBonus: 50,
+          perteEquipement: false,
+          statutMort: false,
+        },
+      });
+    } else {
+      setMode('gladiateur_mort_vivant');
+    }
+  };
+
+  const choisirGladiateurMortVivant = (estMort: boolean) => {
+    if (estMort) {
+      const mortEntry = trouverBlessure('mort')!;
+      terminerIteration({
+        resultat: {
+          ...mortEntry,
+          nom: 'Gladiateur (mort)',
+          texte: `Le guerrier perd son combat dans les fosses de combat et n'en ressort pas vivant. ${mortEntry.texte}`,
+        },
+      });
+    } else {
+      setGladiateurForcePerte(true);
+      setEnChoixGladiateurVivant(true);
+      setMode('liste');
+    }
   };
 
   const choisirSousJet = (option: SousJetOption) => {
@@ -165,38 +239,56 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
       let notes: string[] = [];
       let perteEquipement = false;
       let xpBonus = 0;
+      let tresorerieBonus = 0;
       for (const it of multiplesResultats) {
         stats = fusionnerStats(stats, statsIteration(it));
         notes = [...notes, ...notesIteration(it)];
         if (it.resultat.perteEquipement) perteEquipement = true;
         if (it.resultat.xpBonus) xpBonus += it.resultat.xpBonus;
+        if (it.resultat.tresorerieBonus) tresorerieBonus += it.resultat.tresorerieBonus;
       }
       return {
+        nom: `Blessures multiples (${multiplesResultats.map((it) => it.resultat.nom).join(', ')})`,
         texte: precision.trim() ? `${texte}\n\nPrécision : ${precision.trim()}` : texte,
         statsDelta: stats,
         notes,
-        perteEquipement,
+        perteEquipement: perteEquipement || gladiateurForcePerte,
         statutMort: false,
         xpBonus,
+        tresorerieBonus,
       };
     }
     if (!racine) {
-      return { texte: '', statsDelta: {}, notes: [], perteEquipement: false, statutMort: false, xpBonus: 0 };
+      return {
+        nom: '',
+        texte: '',
+        statsDelta: {},
+        notes: [],
+        perteEquipement: false,
+        statutMort: false,
+        xpBonus: 0,
+        tresorerieBonus: 0,
+      };
     }
     const texte = texteIteration(racine);
     return {
+      nom: racine.resultat.nom,
       texte: precision.trim() ? `${texte}\n\nPrécision : ${precision.trim()}` : texte,
       statsDelta: statsIteration(racine),
       notes: notesIteration(racine),
-      perteEquipement: !!racine.resultat.perteEquipement,
+      perteEquipement: !!racine.resultat.perteEquipement || gladiateurForcePerte,
       statutMort: !!racine.resultat.statutMort,
       xpBonus: racine.resultat.xpBonus ?? 0,
+      tresorerieBonus: racine.resultat.tresorerieBonus ?? 0,
     };
   };
 
   if (mode === 'liste') {
-    const interdits = enCoursDansBoucle ? ID_INTERDITS_BOUCLE : [];
-    const disponibles = BLESSURES_GRAVES.filter((r) => !interdits.includes(r.id));
+    const disponibles = enCoursDansBoucle
+      ? BLESSURES_GRAVES.filter((r) => !ID_INTERDITS_BOUCLE.includes(r.id))
+      : enChoixGladiateurVivant
+        ? BLESSURES_GRAVES.filter((r) => IDS_GLADIATEUR_VIVANT.includes(r.id))
+        : BLESSURES_GRAVES;
     return (
       <div>
         {enCoursDansBoucle && (
@@ -205,7 +297,13 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
             Blessures multiples doivent être relancés : ils ne sont pas proposés ci-dessous.
           </p>
         )}
-        {!enCoursDansBoucle && (
+        {enChoixGladiateurVivant && (
+          <p className="text-sm text-muted" style={{ marginTop: 0 }}>
+            Il survit mais est jeté hors des fosses sans arme ni armure. Relance sur la table (résultats 16 à 35
+            uniquement) pour savoir ce qu'il lui reste comme séquelle.
+          </p>
+        )}
+        {!enCoursDansBoucle && !enChoixGladiateurVivant && (
           <p className="text-sm text-muted" style={{ marginTop: 0 }}>
             Lance 2D6 sur ta table papier, puis sélectionne le résultat obtenu pour {nomPersonnage}.
           </p>
@@ -313,6 +411,59 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
     );
   }
 
+  if (mode === 'gladiateur_issue' && selectionActuelle) {
+    return (
+      <div>
+        <h4 style={{ marginTop: 0 }}>
+          <Icon name={iconePourBlessure(selectionActuelle)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
+          {selectionActuelle.nom}
+        </h4>
+        <p className="text-sm text-muted">
+          Le guerrier affronte un Gladiateur dans les fosses de combat du Repaire des Coupe-Jarrets. A-t-il gagné le
+          combat ?
+        </p>
+        <div className="flex flex-wrap gap-sm">
+          <button className="btn btn--primary" onClick={() => choisirGladiateurIssue(true)}>
+            Oui
+          </button>
+          <button className="btn" onClick={() => choisirGladiateurIssue(false)}>
+            Non
+          </button>
+        </div>
+        <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+          <button className="btn" onClick={() => setMode('liste')}>
+            ‹ Retour
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (mode === 'gladiateur_mort_vivant' && selectionActuelle) {
+    return (
+      <div>
+        <h4 style={{ marginTop: 0 }}>
+          <Icon name={iconePourBlessure(selectionActuelle)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
+          {selectionActuelle.nom}
+        </h4>
+        <p className="text-sm text-muted">Il a perdu le combat. Le guerrier est-il mort ou toujours vivant ?</p>
+        <div className="flex flex-wrap gap-sm">
+          <button className="btn btn--danger" onClick={() => choisirGladiateurMortVivant(true)}>
+            Mort
+          </button>
+          <button className="btn" onClick={() => choisirGladiateurMortVivant(false)}>
+            Vivant
+          </button>
+        </div>
+        <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+          <button className="btn" onClick={() => setMode('gladiateur_issue')}>
+            ‹ Retour
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   // mode === 'confirmation'
   const resultatFinal = construireResultatFinal();
   const statsListe = Object.entries(resultatFinal.statsDelta).filter(([, v]) => v);
@@ -346,6 +497,11 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
       {resultatFinal.xpBonus > 0 && (
         <p className="text-sm">
           <strong>Expérience :</strong> +{resultatFinal.xpBonus}
+        </p>
+      )}
+      {resultatFinal.tresorerieBonus > 0 && (
+        <p className="text-sm">
+          <strong>Trésorerie de la bande :</strong> +{resultatFinal.tresorerieBonus} po
         </p>
       )}
       {resultatFinal.statutMort && <p className="text-danger">⚠ Ce guerrier sera marqué Mort.</p>}
