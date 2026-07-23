@@ -58,6 +58,39 @@ export function estAccesGenerique(acces: string[]): boolean {
   );
 }
 
+// Bandes humaines "classiques" au sens large (mercenaires de l'Empire,
+// répurgateurs, gladiateurs, artilleurs, Norses, gardiens bretonniens,
+// sœurs de Sigmar...) — sert à résoudre le tag "commun_humains" utilisé par
+// certains objets (montures notamment), qui ne correspond à aucun id de
+// catalogue précis contrairement aux autres tags "commun_<bande>".
+const CATALOGUES_HUMAINS = new Set([
+  'reiklanders',
+  'averlanders',
+  'ostlanders',
+  'middenheimers',
+  'marienburgers',
+  'kislevites',
+  'witch_hunters',
+  'gladiateurs',
+  'artilleurs_de_nuln',
+  'norses',
+  'gardiens_de_chapelle_bretonniens',
+  'sisters_of_sigmar',
+]);
+
+// Un objet "commun_<bande>" (restreint à un groupe précis, donc exclu du
+// shop générique par estAccesGenerique) reste accessible pour la bande
+// concernée : soit l'id du catalogue est listé tel quel dans `acces` (ex :
+// "gobelins_de_la_nuit", "undead"), soit la bande appartient au tag de
+// groupe "commun_humains". Utilisé pour que les montures et autres objets
+// à accès restreint apparaissent dans le shop commun d'une bande éligible.
+export function estAccesPourCatalogue(acces: string[], catalogueId: string): boolean {
+  if (estAccesGenerique(acces)) return true;
+  if (acces.includes(catalogueId)) return true;
+  if (acces.includes('commun_humains') && CATALOGUES_HUMAINS.has(catalogueId)) return true;
+  return false;
+}
+
 // Les fichiers items/*.json et les listes d'équipement de bande utilisent des
 // clés de catégorie différentes pour la même chose (armes_corps_a_corps vs
 // armes_cac...). Normalisées ici pour que les filtres de catégorie du modal
@@ -133,8 +166,13 @@ export function classeRarete(rarete?: string): string | null {
   return 'badge--info';
 }
 
-export function getShopCommun(): ShopItem[] {
-  return TOUS_LES_ITEMS.filter((item) => estAccesGenerique(item.acces ?? [])).map((item) => ({
+// `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
+// cette bande (voir estAccesPourCatalogue) — omis, seul le shop générique
+// (accessible à toutes les bandes) est retourné.
+export function getShopCommun(catalogueId?: string): ShopItem[] {
+  return TOUS_LES_ITEMS.filter((item) =>
+    catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])
+  ).map((item) => ({
     id: item.id,
     nom: item.nom,
     categorie: normaliserCategorie(item.categorie),

@@ -55,7 +55,7 @@ export function AchatEquipementModal({
     () => getEquipementBande(catalogue, profil ?? null, competencesAcquises),
     [catalogue, profil, competencesAcquises]
   );
-  const itemsCommun = useMemo(() => getShopCommun(), []);
+  const itemsCommun = useMemo(() => getShopCommun(catalogue.id), [catalogue.id]);
   const items = source === 'bande' ? itemsBande : itemsCommun;
 
   const categoriesDisponibles = useMemo(() => {

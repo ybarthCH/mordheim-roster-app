@@ -753,15 +753,20 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
-/* Sans plafond, un synopsis d'armes trop long pousse les colonnes de
-   caractéristiques hors champ (notable sur un fold en portrait) — le nom
-   reste sur une ligne, mais le synopsis passe en retour à la ligne et se
-   coupe après 2 lignes plutôt que d'élargir la colonne à l'infini.
-   Sélecteur qualifié par l'élément (.roster-table td.roster-table__nom) pour
-   l'emporter en spécificité sur la règle white-space:nowrap ci-dessus. */
-.roster-table td.roster-table__nom {
+/* Le synopsis d'équipement d'un membre a sa propre ligne (pleine largeur,
+   sous la ligne nom+caractéristiques) plutôt que d'être coincé dans la
+   cellule Nom — sans quoi un inventaire un peu long pousse les colonnes de
+   caractéristiques hors champ (notable sur un fold en portrait). Sélecteur
+   qualifié par l'élément pour l'emporter en spécificité sur la règle
+   white-space:nowrap ci-dessus. */
+.roster-table td.roster-table__synopsis-cell {
   white-space: normal;
-  max-width: 170px;
+}
+/* Le nom+stats et son synopsis forment un seul bloc visuel : pas de
+   séparateur entre les deux, seulement après le synopsis (avant le membre
+   suivant). */
+.roster-table__row-principale td {
+  border-bottom: none;
 }
 .roster-table__synopsis {
   line-height: 1.3;
