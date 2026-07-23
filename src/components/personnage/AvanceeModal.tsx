@@ -4,8 +4,9 @@ import type { Member, AdvanceRecord } from '../../types/roster';
 import type { Profile, SkillCategory, WarbandCatalog } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN } from '../../data/gameData';
-import { SKILL_CATEGORIES } from '../../types/catalog';
+import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { LIMITE_HEROS, categoriesAccessibles } from '../../utils/profil';
+import { peutAugmenterStat } from '../../utils/plafond';
 
 type Props = {
   member: Member;
@@ -54,6 +55,12 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
 
   const entreeAvancement = indexAvancement !== '' ? table[Number(indexAvancement)] : null;
 
+  const verdictStat = (stat: keyof Member['stats_actuels']) =>
+    peutAugmenterStat(profil, travail.stats_actuels, travail.historique_avancees, stat);
+
+  const verdictFixe =
+    entreeAvancement?.type === 'caracteristique_fixe' ? verdictStat(entreeAvancement.stat) : null;
+
   const appliquer = (partial: Partial<Member>, record: AdvanceRecord, resume: string) => {
     const updated: Member = { ...travail, ...partial, historique_avancees: [...travail.historique_avancees, record] };
     setTravail(updated);
@@ -66,6 +73,8 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
     if (!entreeAvancement) return;
     if (entreeAvancement.type === 'caracteristique_fixe') {
       const { stat, label } = entreeAvancement;
+      // Défense en profondeur : le bouton Valider est déjà désactivé dans ce cas.
+      if (!verdictStat(stat).ok) return;
       appliquer(
         { stats_actuels: { ...travail.stats_actuels, [stat]: travail.stats_actuels[stat] + 1 } },
         {
@@ -75,6 +84,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
           roll: entreeAvancement.min,
           type: 'caracteristique',
           detail: label,
+          stat,
         },
         `Caractéristique augmentée : ${label}`
       );
@@ -91,6 +101,8 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
   };
 
   const choisirCaracteristique = (stat: keyof Member['stats_actuels'], label: string) => {
+    // Défense en profondeur : les boutons capés sont déjà désactivés.
+    if (!verdictStat(stat).ok) return;
     appliquer(
       { stats_actuels: { ...travail.stats_actuels, [stat]: travail.stats_actuels[stat] + 1 } },
       {
@@ -100,6 +112,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
         roll: entreeAvancement?.min ?? 0,
         type: 'caracteristique',
         detail: `+1 ${label}`,
+        stat,
       },
       `Caractéristique augmentée : +1 ${label}`
     );
@@ -241,29 +254,75 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
               promouvoir ce membre pour l'instant.
             </p>
           )}
+          {verdictFixe && !verdictFixe.ok && (
+            <p className="text-sm text-danger">
+              Impossible d'appliquer ce résultat : {verdictFixe.raison} Relance sur ta table papier pour obtenir un
+              autre résultat.
+            </p>
+          )}
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={onClose}>
               Annuler
             </button>
-            <button className="btn btn--primary" disabled={!entreeAvancement} onClick={validerJetAvancement}>
+            <button
+              className="btn btn--primary"
+              disabled={!entreeAvancement || (!!verdictFixe && !verdictFixe.ok)}
+              onClick={validerJetAvancement}
+            >
               Valider
             </button>
           </div>
         </>
       )}
 
-      {etape === 'choix_carac' && entreeAvancement?.type === 'caracteristique_choix' && (
-        <>
-          <p className="text-sm text-muted">Choisis laquelle des deux caractéristiques augmenter.</p>
-          <div className="flex gap-sm">
-            {entreeAvancement.options.map((o) => (
-              <button key={o.stat} className="btn" onClick={() => choisirCaracteristique(o.stat, o.label)}>
-                +1 {o.label}
-              </button>
-            ))}
-          </div>
-        </>
-      )}
+      {etape === 'choix_carac' &&
+        entreeAvancement?.type === 'caracteristique_choix' &&
+        (() => {
+          const options = entreeAvancement.options.map((o) => ({ ...o, verdict: verdictStat(o.stat) }));
+          const toutesBloquees = options.every((o) => !o.verdict.ok);
+          const autresDisponibles = toutesBloquees
+            ? STAT_KEYS.filter((k) => verdictStat(k).ok)
+            : [];
+          return (
+            <>
+              <p className="text-sm text-muted">Choisis laquelle des deux caractéristiques augmenter.</p>
+              <div className="flex gap-sm">
+                {options.map((o) => (
+                  <button
+                    key={o.stat}
+                    className="btn"
+                    disabled={!o.verdict.ok}
+                    title={o.verdict.ok ? undefined : o.verdict.raison}
+                    onClick={() => choisirCaracteristique(o.stat, o.label)}
+                  >
+                    +1 {o.label}
+                  </button>
+                ))}
+              </div>
+              {toutesBloquees && (
+                <>
+                  <p className="text-sm text-danger" style={{ marginTop: '0.75rem' }}>
+                    Les deux caractéristiques proposées sont déjà au maximum. Augmente n'importe quelle autre
+                    caractéristique disponible de +1 à la place.
+                  </p>
+                  {autresDisponibles.length > 0 ? (
+                    <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
+                      {autresDisponibles.map((k) => (
+                        <button key={k} className="btn" onClick={() => choisirCaracteristique(k, k)}>
+                          +1 {k}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted">
+                      Toutes les caractéristiques de ce profil sont déjà au plafond racial.
+                    </p>
+                  )}
+                </>
+              )}
+            </>
+          );
+        })()}
 
       {etape === 'promotion_categories' && (
         <>

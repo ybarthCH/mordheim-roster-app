@@ -38,15 +38,12 @@
     "effectif_max": 15,
     "cout_max_constitution": 500
   },
-  "caracteristiques_max": [
-    { "profil": "maraudeur", "M": 4, "CC": 7, "CT": 7, "F": 4, "E": 4, "PV": 3, "I": 7, "A": 4, "Cd": 9 },
-    { "profil": "guerrier_du_chaos_choisi", "note": "Profil max des Maraudeurs 'Choisi par le Chaos'", "M": 4, "CC": 8, "CT": 8, "F": 5, "E": 5, "PV": 3, "I": 8, "A": 5, "Cd": 9 }
-  ],
   "profils": [
     {
       "id": "chef",
       "nom": "Chef Maraudeur",
       "type": "heros",
+      "groupe_caracteristiques": "maraudeur",
       "unique": true,
       "min": 1,
       "max": 1,
@@ -65,6 +62,7 @@
       "id": "devin",
       "nom": "Devin",
       "type": "heros",
+      "groupe_caracteristiques": "maraudeur",
       "unique": true,
       "min": 0,
       "max": 1,
@@ -83,6 +81,7 @@
       "id": "champion",
       "nom": "Champion",
       "type": "heros",
+      "groupe_caracteristiques": "guerrier_du_chaos",
       "unique": false,
       "min": 0,
       "max": 2,
@@ -98,6 +97,7 @@
       "id": "damne",
       "nom": "Damné",
       "type": "heros",
+      "groupe_caracteristiques": "maraudeur",
       "unique": true,
       "min": 0,
       "max": 1,
@@ -118,6 +118,7 @@
       "id": "maraudeur",
       "nom": "Maraudeur",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "maraudeur",
       "min": 0,
       "max": null,
       "cout": 35,
@@ -149,6 +150,7 @@
       "id": "enfant_du_chaos",
       "nom": "Enfant du Chaos",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "maraudeur",
       "min": 0,
       "max": 1,
       "cout": 180,

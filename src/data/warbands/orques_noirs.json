@@ -9,13 +9,9 @@
     {"nom": "Animosité", "texte": "Les Orques aiment se battre. Malheureusement pour eux, ils ne discernent pas toujours contre qui le faire. Au début de chaque tour du joueur Orque, lancez 1D6 pour chaque Orque de main qui n’est pas engagé au Corps à Corps (ceux-là ont déjà quelque chose à se mettre sous la dent !). Sur un résultat de 1, la figurine a été agacée par quelque chose qu’un de ses acolytes a dit ou fait. Lancez ensuite 1D6 sur le tableau suivant pour déterminer le résultat de cette offense :\n\n1 — « Répète, pour voir ! » Le guerrier considère que son allié le plus proche, parmi les Orques de main, a insulté ses ancêtres ou quelque chose dans le genre, et qu’il doit payer pour cela ! Si un Orque de main ou un Franc-Tireur se trouve à portée de charge (s’il y a plusieurs cibles possibles, choisissez la plus proche), la figurine offensée le charge immédiatement et livre un tour de Corps à Corps. À la fin du tour, les figurines sont déplacées à 1ps l’une de l’autre et ne sont plus considérées comme étant engagées au Corps à Corps (à moins qu’un autre test d’Animosité ne soit raté et que ce résultat ne soit à nouveau obtenu). S’il ne se trouve aucun Orque de main ou Franc-Tireur à portée de charge, et si la figurine affectée est équipée d’une arme de tir, elle l’utilise immédiatement contre l’Orque de Main ou le Franc-Tireur le plus proche. Si aucun de ces cas de figure ne se présente, ou si la figurine la plus proche est un Héros, la figurine affectée agit comme si elle avait obtenu le résultat 2-5 « K’es t’a dit ? » sur ce tableau. Dans tous les cas, la figurine ne fait rien d’autre durant ce tour. Cependant, elle se défend normalement si elle est engagée au Corps à Corps.\n\n2-5 — « K’es t’a dit ? » Le guerrier est convaincu qu’un de ses alliés l’a insulté, mais il ne sait pas trop lequel. Il passe tout ce tour à invectiver tout le monde et ne fait absolument rien d’autre. Cependant, il se défend normalement s’il est engagé au Corps à Corps.\n\n6 — « J’vais leur montrer ! » Le guerrier imagine que ses alliés se moquent de lui dans son dos et le traitent de tous les noms. Il décide de leur montrer qu’il n’est pas un couard ! La figurine doit avancer le plus rapidement possible vers la figurine ennemie la plus proche et la charger si possible. Si aucune figurine ennemie n’est visible, le guerrier peut effectuer immédiatement un Mouvement normal, venant s’ajouter à son déplacement standard durant la phase de Mouvement. Si le premier déplacement amène la figurine à portée de charge d’un ennemi, elle devra le charger lors de sa prochaine phase de Mouvement."}
   ],
   "composition": {"effectif_min": 3, "effectif_max": 12, "cout_max_constitution": 500},
-  "caracteristiques_max": [
-    {"profil": "orque_noir", "note": "Plafond des Boss Orques Noirs, des Orques Noirs et des Pti’meks promus en Pti’meks Orques Noirs. Les Orques de main ne peuvent pas dépasser +1 pour chaque caractéristique.", "M": 4, "CC": 7, "CT": 6, "F": 5, "E": 5, "PV": 3, "I": 5, "A": 4, "Cd": 9},
-    {"profil": "orque", "note": "Plafond des Pti’meks avant leur rituel de passage (« Sang d’orque noir ») — une fois promus en Pti’meks Orques Noirs, c’est le plafond ci-dessus qui s’applique. Les Orques de main ne peuvent pas dépasser +1 pour chaque caractéristique.", "M": 4, "CC": 6, "CT": 6, "F": 4, "E": 5, "PV": 3, "I": 5, "A": 4, "Cd": 9}
-  ],
   "profils": [
     {
-      "id": "boss_orque_noir", "nom": "Boss Orque Noir", "type": "heros", "unique": true, "min": 1, "max": 1, "cout": 90, "xp_depart": 20,
+      "id": "boss_orque_noir", "nom": "Boss Orque Noir", "type": "heros", "groupe_caracteristiques": "peaux_vertes_orque_noir", "unique": true, "min": 1, "max": 1, "cout": 90, "xp_depart": 20,
       "stats": {"M": 4, "CC": 4, "CT": 4, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 8},
       "regles_speciales": [
         {"nom": "Chef", "texte": "Tout membre de la bande à moins de 6ps du Boss Orque Noir peut utiliser le Commandement de ce dernier pour ses tests."},
@@ -26,7 +22,7 @@
       "acces_equipement": ["orques_noirs"], "est_leader": true
     },
     {
-      "id": "orque_noir", "nom": "Orques Noirs", "type": "heros", "unique": false, "min": 0, "max": 2, "cout": 60, "xp_depart": 8,
+      "id": "orque_noir", "nom": "Orques Noirs", "type": "heros", "groupe_caracteristiques": "peaux_vertes_orque_noir", "unique": false, "min": 0, "max": 2, "cout": 60, "xp_depart": 8,
       "stats": {"M": 4, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 7},
       "regles_speciales": [
         {"nom": "Orque noir", "texte": "La figurine commence avec une sauvegarde d’armure naturelle de 6+. Elle peut être combinée avec n’importe quel équipement qui l’améliorerait."}
@@ -35,7 +31,7 @@
       "acces_equipement": ["orques_noirs"], "est_leader": false
     },
     {
-      "id": "pti_mek", "nom": "Pti’mek", "type": "heros", "unique": false, "min": 0, "max": 2, "cout": 25, "xp_depart": 0,
+      "id": "pti_mek", "nom": "Pti’mek", "type": "heros", "groupe_caracteristiques": "peaux_vertes_orque", "unique": false, "min": 0, "max": 2, "cout": 25, "xp_depart": 0,
       "stats": {"M": 4, "CC": 2, "CT": 2, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 6},
       "regles_speciales": [
         {"nom": "Sang d’orque noir", "texte": "S’il a accumulé 25 points d’expérience, un Pti’mek peut être promu en « Pti’mek Orque Noir ». Il doit avant tout subir un rituel de passage pour devenir un Pti’mek Orque Noir, dont les préparatifs coûtent 10 Couronnes d’Or. Une fois ce rituel accompli, la prochaine fois qu’il pourra choisir une nouvelle compétence, il pourra obtenir, à la place, la règle spéciale orque noir. Il devient alors un Orque Noir à part entière et a désormais accès à leur liste d’équipement et aux mêmes compétences qu’eux."}
@@ -44,7 +40,7 @@
       "acces_equipement": ["pti_meks"], "est_leader": false
     },
     {
-      "id": "kastagneurs_orques", "nom": "Kastagneurs Orques", "type": "homme_de_main", "unique": false, "min": 0, "max": null, "cout": 25, "xp_depart": 0,
+      "id": "kastagneurs_orques", "nom": "Kastagneurs Orques", "type": "homme_de_main", "groupe_caracteristiques": "peaux_vertes_orque", "unique": false, "min": 0, "max": null, "cout": 25, "xp_depart": 0,
       "stats": {"M": 4, "CC": 3, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 6},
       "regles_speciales": [
         {"nom": "Animosité", "texte": "Les Kastagneurs Orques sont sujets à l’animosité (voir les règles spéciales de la bande)."}
@@ -53,7 +49,7 @@
       "acces_equipement": ["kastagneurs"], "est_leader": false
     },
     {
-      "id": "chasseurs_orques", "nom": "Chasseurs Orques", "type": "homme_de_main", "unique": false, "min": 0, "max": null, "cout": 25, "xp_depart": 0,
+      "id": "chasseurs_orques", "nom": "Chasseurs Orques", "type": "homme_de_main", "groupe_caracteristiques": "peaux_vertes_orque", "unique": false, "min": 0, "max": null, "cout": 25, "xp_depart": 0,
       "stats": {"M": 4, "CC": 3, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 6},
       "regles_speciales": [
         {"nom": "Animosité", "texte": "Les Chasseurs Orques sont sujets à l’animosité (voir les règles spéciales de la bande)."},
@@ -63,7 +59,7 @@
       "acces_equipement": ["chasseurs"], "est_leader": false
     },
     {
-      "id": "ding_boyz", "nom": "Ding’boyz", "type": "homme_de_main", "unique": false, "min": 0, "max": 4, "cout": 40, "xp_depart": 0,
+      "id": "ding_boyz", "nom": "Ding’boyz", "type": "homme_de_main", "groupe_caracteristiques": "peaux_vertes_orque", "unique": false, "min": 0, "max": 4, "cout": 40, "xp_depart": 0,
       "stats": {"M": 4, "CC": 3, "CT": 2, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 5},
       "regles_speciales": [
         {"nom": "Instable", "texte": "Ces Orques ne sont pas tout à fait normaux. Ils ne souffrent pas d’Animosité, mais de tout un tas d’autres problèmes."},

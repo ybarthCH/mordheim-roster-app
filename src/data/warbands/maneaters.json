@@ -17,14 +17,12 @@
     "effectif_max": 12,
     "cout_max_constitution": 500
   },
-  "caracteristiques_max": [
-    { "profil": "ogre", "M": 6, "CC": 6, "CT": 5, "F": 5, "E": 5, "PV": 5, "I": 6, "A": 5, "Cd": 9 }
-  ],
   "profils": [
     {
       "id": "capitaine",
       "nom": "Capitaine",
       "type": "heros",
+      "groupe_caracteristiques": "ogre_garde_mangeur",
       "unique": true,
       "min": 1,
       "max": 1,
@@ -45,6 +43,7 @@
       "id": "guide_de_montagne",
       "nom": "Guide de Montagne",
       "type": "heros",
+      "groupe_caracteristiques": "ogre_garde_mangeur",
       "unique": true,
       "min": 0,
       "max": 1,
@@ -65,6 +64,7 @@
       "id": "jeune_sang",
       "nom": "Jeune Sang",
       "type": "heros",
+      "groupe_caracteristiques": "ogre_garde_mangeur",
       "unique": false,
       "min": 0,
       "max": 3,
@@ -83,6 +83,7 @@
       "id": "taureau",
       "nom": "Taureau",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "ogre_garde_mangeur",
       "min": 0,
       "max": 2,
       "cout": 140,
@@ -101,6 +102,7 @@
       "id": "demi_grand",
       "nom": "Demi-Grand",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "ogre_garde_mangeur",
       "min": 0,
       "max": null,
       "cout": 85,

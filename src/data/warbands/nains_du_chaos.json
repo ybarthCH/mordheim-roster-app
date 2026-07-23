@@ -30,19 +30,12 @@
     "effectif_max": 15,
     "cout_max_constitution": 500
   },
-  "caracteristiques_max": [
-    { "profil": "nains_du_chaos", "M": 3, "CC": 7, "CT": 6, "F": 4, "E": 5, "PV": 3, "I": 5, "A": 4, "Cd": 10 },
-    { "profil": "centaure_taureau", "M": 8, "CC": 8, "CT": 8, "F": 5, "E": 5, "PV": 3, "I": 8, "A": 5, "Cd": 9 },
-    {
-      "profil": "delateurs",
-      "note": "Utilisent les caractéristiques maximales humaines du livre de règles de Mordheim (mélange de races, croisements et mutants)"
-    }
-  ],
   "profils": [
     {
       "id": "hierogrammate",
       "nom": "Hiérogrammate",
       "type": "heros",
+      "groupe_caracteristiques": "nain",
       "unique": true,
       "min": 1,
       "max": 1,
@@ -63,6 +56,7 @@
       "id": "geolier",
       "nom": "Geôlier",
       "type": "heros",
+      "groupe_caracteristiques": "nain",
       "unique": false,
       "min": 0,
       "max": 2,
@@ -80,6 +74,7 @@
       "id": "centaure_taureau",
       "nom": "Centaure-Taureau",
       "type": "heros",
+      "groupe_caracteristiques": "nain_du_chaos_centaure_taureau",
       "unique": true,
       "min": 0,
       "max": 1,
@@ -98,6 +93,7 @@
       "id": "delateur",
       "nom": "Délateur",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
       "min": 0,
       "max": null,
       "cout": 15,
@@ -114,6 +110,7 @@
       "id": "nain_du_chaos",
       "nom": "Nain du Chaos",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "nain",
       "min": 0,
       "max": 5,
       "cout": 40,

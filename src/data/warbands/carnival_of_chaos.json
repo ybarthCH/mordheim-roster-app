@@ -22,17 +22,12 @@
     "effectif_max": 15,
     "cout_max_constitution": 500
   },
-  "caracteristiques_max": [
-    {
-      "profil": "membres_de_la_kermesse",
-      "note": "Profil maximal humain, sauf Portepestes et Nurglings qui ne reçoivent jamais d'expérience."
-    }
-  ],
   "profils": [
     {
       "id": "maitre_de_ceremonie",
       "nom": "Maître de Cérémonie",
       "type": "heros",
+      "groupe_caracteristiques": "humain",
       "unique": true,
       "min": 1,
       "max": 1,
@@ -52,6 +47,7 @@
       "id": "colosse",
       "nom": "Colosse",
       "type": "heros",
+      "groupe_caracteristiques": "humain",
       "unique": false,
       "min": 0,
       "max": 2,
@@ -69,6 +65,7 @@
       "id": "impur",
       "nom": "Impur",
       "type": "heros",
+      "groupe_caracteristiques": "humain",
       "unique": false,
       "min": 0,
       "max": 2,
@@ -110,6 +107,7 @@
       "id": "frere",
       "nom": "Frère",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
       "min": 0,
       "max": null,
       "cout": 25,

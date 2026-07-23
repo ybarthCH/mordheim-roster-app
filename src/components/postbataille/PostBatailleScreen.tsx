@@ -9,6 +9,8 @@ import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member } from '../../types/roster';
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
+import { acheterPourStock, creerEntreeInventaire } from '../../utils/shop';
+import type { ShopItem } from '../../utils/shop';
 import { EtapeBlessuresGraves } from './EtapeBlessuresGraves';
 import { EtapeResultat } from './EtapeResultat';
 import { EtapeGainXp } from './EtapeGainXp';
@@ -224,6 +226,13 @@ export function PostBatailleScreen() {
   };
   const precedent = () => setEtape((e) => Math.max(0, e - 1));
 
+  // Objet obtenu directement pendant l'exploration (don de scénario ou achat
+  // au shop commun) : rejoint aussitôt le stock de la bande, indépendamment
+  // de la validation finale de l'assistant.
+  const ajouterAuStock = (item: ShopItem, coutPaye: number) => {
+    updateRoster(acheterPourStock(roster, creerEntreeInventaire(item, coutPaye)));
+  };
+
   const terminer = async () => {
     const tresorerieApres = roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus;
     const groupesHCIds = new Set(groupesHC.map((m) => m.instance_id));
@@ -294,6 +303,12 @@ export function PostBatailleScreen() {
           if (estLeaderVictoire) xp += 1;
           membre = { ...membre, statut: 'actif', taille_groupe: survivants, hors_combat: 0, xp };
         }
+        return membre;
+      }
+
+      // Un animal resté actif toute la bataille (jamais Hors de combat) ne
+      // doit jamais gagner d'XP, comme les deux branches ci-dessus.
+      if (estAnimal) {
         return membre;
       }
 
@@ -409,6 +424,7 @@ export function PostBatailleScreen() {
       {etape === 3 && (
         <EtapeExploration
           roster={roster}
+          catalogue={catalogue}
           wyrdstoneTrouve={wyrdstoneTrouve}
           onWyrdstoneTrouveChange={setWyrdstoneTrouve}
           notesExploration={notesExploration}
@@ -419,6 +435,7 @@ export function PostBatailleScreen() {
           onPrixVenteChange={setPrixVente}
           pointsVeteran={pointsVeteran}
           onPointsVeteranChange={setPointsVeteran}
+          onAchatStock={ajouterAuStock}
         />
       )}
 
