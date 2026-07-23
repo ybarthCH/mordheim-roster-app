@@ -33,45 +33,17 @@ export function partageDisponible(): boolean {
 
 export async function partagerRoster(roster: RosterInstance): Promise<void> {
   const contenu = JSON.stringify(roster, null, 2);
-  const nom = nomFichierRoster(roster);
-  const echecs: string[] = [];
 
-  if (typeof navigator.canShare === 'function') {
-    // "application/json" est absent de la liste blanche de types
-    // partageables sur certains navigateurs (canShare renvoie false),
-    // d'où le repli sur "text/plain" — le destinataire (Drive, mail...)
-    // se fie au nom de fichier (.json), pas au type MIME déclaré ici.
-    const candidats = [
-      new File([contenu], nom, { type: 'application/json' }),
-      new File([contenu], nom, { type: 'text/plain' }),
-    ];
-    const fichier = candidats.find((f) => navigator.canShare!({ files: [f] }));
-    if (fichier) {
-      try {
-        await navigator.share({ files: [fichier], title: roster.nom_bande });
-        return;
-      } catch (e) {
-        if (e instanceof Error && e.name === 'AbortError') throw e;
-        echecs.push(`fichier: ${e instanceof Error ? `${e.name} — ${e.message}` : String(e)}`);
-      }
-    } else {
-      echecs.push('fichier: canShare a refusé les deux types MIME testés (json, text/plain)');
-    }
-  } else {
-    echecs.push('fichier: canShare absent (API niveau 2 non supportée)');
-  }
-
-  // Repli niveau 1 : partage du JSON en texte brut (bien plus largement
-  // supporté que le partage de fichier, y compris là où canShare échoue).
-  try {
-    await navigator.share({ title: roster.nom_bande, text: contenu });
-    return;
-  } catch (e) {
-    if (e instanceof Error && e.name === 'AbortError') throw e;
-    echecs.push(`texte: ${e instanceof Error ? `${e.name} — ${e.message}` : String(e)}`);
-  }
-
-  throw new Error(echecs.join(' | '));
+  // Un seul appel à navigator.share() par geste utilisateur : sur au moins
+  // un navigateur observé en conditions réelles (Safari iOS), l'activation
+  // utilisateur est consommée dès le premier appel même s'il échoue — un
+  // deuxième essai (fichier puis texte) échoue alors systématiquement avec
+  // "Must be handling a user gesture", quel que soit le contenu envoyé.
+  // Le partage de fichier (canShare) s'est aussi révélé peu fiable sur le
+  // terrain (accepté par canShare puis refusé par share() avec
+  // "Permission denied"), donc on se limite directement au partage en
+  // texte brut (niveau 1), nettement plus largement supporté.
+  await navigator.share({ title: roster.nom_bande, text: contenu });
 }
 
 function estRosterValide(data: unknown): data is RosterInstance {
