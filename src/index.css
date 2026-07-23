@@ -208,6 +208,20 @@ h3 {
   letter-spacing: 0.01em;
 }
 
+/* Bloc repliable (ex : règles spéciales à la création de bande) — même
+   habillage typographique qu'un <h3>, replié par défaut pour ne pas noyer
+   l'écran sous un pavé de texte avant l'essentiel (le recrutement). */
+.disclosure > summary {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+.disclosure[open] > summary {
+  margin-bottom: 0.4em;
+}
+
 a {
   color: var(--accent);
 }

@@ -5,47 +5,25 @@ import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { getCatalogue } from '../../data/warbands';
 import { resolveProfil } from '../../utils/profil';
-import { valeurBande, effectifTotal } from '../../utils/bandeValue';
-import { ratingTotal } from '../../utils/rating';
 import { validerComposition, validerEffectif } from '../../utils/validation';
 import { exporterRoster } from '../../utils/importExport';
 import { AjouterMembreModal } from './AjouterMembreModal';
-import { AjouterBatailleModal } from './AjouterBatailleModal';
-import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
-import { ItemDetailModal } from '../personnage/ItemDetailModal';
+import { RosterSummaryCard } from './RosterSummaryCard';
+import { ArmurerieSection } from './ArmurerieSection';
+import { MemberGroupCard } from './MemberGroupCard';
+import { HistoriqueBataillesSection } from './HistoriqueBataillesSection';
 import { EquipementReference, MagieReference } from '../common/CatalogueReference';
-import { STATUTS } from '../../types/roster';
-import type { BattleRecord, Member, RosterInstance, InventoryEntry } from '../../types/roster';
-import { avancesDues } from '../../utils/xp';
-import { nomCourtBlessure } from '../../utils/blessures';
+import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import {
   acheterPourStock,
   retirerDuStock,
   transfererVersMembre,
   creerEntreeInventaire,
   formatEquipementAffiche,
-  libelleCategorie,
-  iconeCategorie,
-  resolveItemDetail,
   prixVente,
-  inventaireGroupeMismatch,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { Icon } from '../common/Icon';
-import type { IconName } from '../common/Icon';
-
-const STATUT_BADGE: Record<string, string> = {
-  actif: 'badge--success',
-  hors_de_combat: 'badge--warning',
-  mort: 'badge--danger',
-  blesse: 'badge--neutral',
-};
-
-const STATUT_ICONE: Partial<Record<string, IconName>> = {
-  hors_de_combat: 'ossements',
-  mort: 'crane',
-  blesse: 'goutte',
-};
 
 export function RosterScreen() {
   const { id } = useParams<{ id: string }>();
@@ -53,13 +31,7 @@ export function RosterScreen() {
   const { getRosterById, updateRoster } = useRosters();
   const roster = getRosterById(id ?? '');
   const [modalMembre, setModalMembre] = useState(false);
-  const [modalBataille, setModalBataille] = useState(false);
-  const [batailleEnEdition, setBatailleEnEdition] = useState<BattleRecord | null>(null);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
-  const [batailleASupprimer, setBatailleASupprimer] = useState<BattleRecord | null>(null);
-  const [modalAchatStock, setModalAchatStock] = useState(false);
-  const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
-  const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
 
   if (!roster) {
     return (
@@ -106,29 +78,6 @@ export function RosterScreen() {
     });
   };
 
-  const nomAffiche = (m: Member) => `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
-
-  // Synopsis discret de l'équipement d'un membre (ou de son groupe, toujours
-  // identique entre figurines) pour l'aperçu du roster global.
-  const resumeEquipement = (m: Member): string => {
-    if (m.inventaire.length === 0) return 'Sans équipement';
-    const noms = m.inventaire.map((e) => e.nom).join(', ');
-    return noms.length > 90 ? `${noms.slice(0, 90).trimEnd()}…` : noms;
-  };
-
-  // Idem pour les blessures graves accumulées : juste les titres, pas les
-  // descriptions complètes (disponibles sur la fiche personnage).
-  const resumeBlessures = (m: Member): string | null => {
-    if (m.blessures_graves.length === 0) return null;
-    return `Blessures : ${m.blessures_graves.map((b) => nomCourtBlessure(b)).join(' - ')}`;
-  };
-
-  const avanceEnAttente = (m: Member) => {
-    const profil = resolveProfil(roster, m);
-    if (!profil) return false;
-    return avancesDues(profil.type, m.xp_depart, m.xp, !!catalogue?.xp_demi) > m.historique_avancees.length;
-  };
-
   // Bascule rapide du statut Hors de combat depuis le roster global, sans
   // ouvrir la fiche personnage — utile en cours de partie. Un homme de main
   // ou animal non promu n'utilise jamais le statut « Hors de combat » (voir
@@ -154,16 +103,6 @@ export function RosterScreen() {
     });
   };
 
-  const estHorsCombat = (m: Member) => m.statut === 'hors_de_combat' || m.hors_combat > 0;
-
-  const titreHorsCombat = (m: Member) => {
-    const profil = resolveProfil(roster, m);
-    const estGroupeSimplifie = (profil?.type === 'homme_de_main' || profil?.type === 'animal') && !m.promu_heros;
-    return estGroupeSimplifie
-      ? `Marquer une figurine Hors de combat (${m.hors_combat}/${m.taille_groupe})`
-      : 'Basculer Hors de combat';
-  };
-
   // Réordonne un membre au sein de sa section (Héros / Hommes de main),
   // en échangeant sa position avec son voisin dans la liste affichée.
   const deplacerMembre = (section: Member[], m: Member, direction: -1 | 1) => {
@@ -179,257 +118,6 @@ export function RosterScreen() {
       }),
     });
   };
-
-  const renderGroupe = (titre: string, membres: Member[]) => (
-    <div className="card">
-      <h3>
-        <Icon name={titre === 'Héros' ? 'etoile' : 'bouclier'} style={{ marginRight: '0.35em' }} />
-        {titre}
-      </h3>
-      <div className="roster-table-wrap">
-        <table className="roster-table">
-          <thead>
-            <tr>
-              <th>Nom</th>
-              <th>Profil</th>
-              <th>M</th>
-              <th>CC</th>
-              <th>CT</th>
-              <th>F</th>
-              <th>E</th>
-              <th>PV</th>
-              <th>I</th>
-              <th>A</th>
-              <th>Cd</th>
-              <th>XP</th>
-              <th>Statut</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {membres.map((m, i) => {
-              const profil = resolveProfil(roster, m);
-              return (
-                <tr key={m.instance_id} onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}>
-                  <td>
-                    {nomAffiche(m)}
-                    {profil?.est_leader && (
-                      <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title="Chef de bande">
-                        <Icon name="etoile" style={{ marginRight: '0.3em' }} /> Leader
-                      </span>
-                    )}
-                    {avanceEnAttente(m) && (
-                      <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title="Avancée en attente">
-                        Avancée en attente
-                      </span>
-                    )}
-                    <div className="text-sm text-muted" style={{ fontStyle: 'italic', marginTop: '0.1rem' }}>
-                      {resumeEquipement(m)}
-                    </div>
-                    {resumeBlessures(m) && (
-                      <div className="text-sm text-danger" style={{ marginTop: '0.1rem' }}>
-                        {resumeBlessures(m)}
-                      </div>
-                    )}
-                  </td>
-                  <td>{profil?.nom ?? m.profil_id}</td>
-                  <td>{m.stats_actuels.M}</td>
-                  <td>{m.stats_actuels.CC}</td>
-                  <td>{m.stats_actuels.CT}</td>
-                  <td>{m.stats_actuels.F}</td>
-                  <td>{m.stats_actuels.E}</td>
-                  <td>{m.stats_actuels.PV}</td>
-                  <td>{m.stats_actuels.I}</td>
-                  <td>{m.stats_actuels.A}</td>
-                  <td>{m.stats_actuels.Cd}</td>
-                  <td>{m.xp}</td>
-                  <td>
-                    <span className={`badge ${STATUT_BADGE[m.statut]}`}>
-                      {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.35em' }} />}
-                      {STATUTS.find((s) => s.id === m.statut)?.label}
-                    </span>
-                    {m.hors_combat > 0 && (
-                      <span className="badge badge--warning" style={{ marginLeft: '0.3rem' }}>
-                        {m.hors_combat}/{m.taille_groupe} HC
-                      </span>
-                    )}
-                    {inventaireGroupeMismatch(m) && (
-                      <span
-                        className="badge badge--danger"
-                        style={{ marginLeft: '0.3rem' }}
-                        title="Équipement dépareillé entre les figurines du groupe"
-                      >
-                        ⚠ Équipement
-                      </span>
-                    )}
-                  </td>
-                  <td>
-                    <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
-                      <button
-                        className="btn--ghost"
-                        style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
-                        disabled={i === 0}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deplacerMembre(membres, m, -1);
-                        }}
-                        title="Monter"
-                      >
-                        ↑
-                      </button>
-                      <button
-                        className="btn--ghost"
-                        style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
-                        disabled={i === membres.length - 1}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deplacerMembre(membres, m, 1);
-                        }}
-                        title="Descendre"
-                      >
-                        ↓
-                      </button>
-                      <button
-                        className="btn--ghost"
-                        style={{
-                          border: 'none',
-                          background: 'none',
-                          padding: '0.2rem 0.4rem',
-                          color: estHorsCombat(m) ? 'var(--warning)' : undefined,
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          basculerHorsCombat(m);
-                        }}
-                        title={titreHorsCombat(m)}
-                      >
-                        HC
-                      </button>
-                      <button
-                        className="btn--ghost"
-                        style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setMembreASupprimer(m);
-                        }}
-                        title="Retirer de la bande"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-
-      <div className="member-cards">
-        {membres.map((m, i) => {
-          const profil = resolveProfil(roster, m);
-          return (
-            <div
-              key={m.instance_id}
-              className="list-item"
-              role="button"
-              onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
-            >
-              <div className="list-item__main">
-                <div className="list-item__title">
-                  {nomAffiche(m)}
-                  {profil?.est_leader && (
-                    <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title="Chef de bande">
-                      <Icon name="etoile" style={{ marginRight: '0.3em' }} /> Leader
-                    </span>
-                  )}
-                </div>
-                <div className="list-item__subtitle">
-                  {profil?.nom} · XP {m.xp} · PV {m.stats_actuels.PV}
-                </div>
-                <div className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
-                  {resumeEquipement(m)}
-                </div>
-                {resumeBlessures(m) && <div className="text-sm text-danger">{resumeBlessures(m)}</div>}
-              </div>
-              {avanceEnAttente(m) && (
-                <span className="badge badge--warning" title="Avancée en attente">
-                  Avancée en attente
-                </span>
-              )}
-              <span className={`badge ${STATUT_BADGE[m.statut]}`}>
-                {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.35em' }} />}
-                {STATUTS.find((s) => s.id === m.statut)?.label}
-              </span>
-              {m.hors_combat > 0 && (
-                <span className="badge badge--warning">
-                  {m.hors_combat}/{m.taille_groupe} HC
-                </span>
-              )}
-              {inventaireGroupeMismatch(m) && (
-                <span className="badge badge--danger" title="Équipement dépareillé entre les figurines du groupe">
-                  ⚠ Équipement
-                </span>
-              )}
-              <button
-                className="btn--ghost"
-                style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
-                disabled={i === 0}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  deplacerMembre(membres, m, -1);
-                }}
-                title="Monter"
-              >
-                ↑
-              </button>
-              <button
-                className="btn--ghost"
-                style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
-                disabled={i === membres.length - 1}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  deplacerMembre(membres, m, 1);
-                }}
-                title="Descendre"
-              >
-                ↓
-              </button>
-              <button
-                className="btn--ghost"
-                style={{
-                  border: 'none',
-                  background: 'none',
-                  padding: '0.2rem 0.4rem',
-                  color: estHorsCombat(m) ? 'var(--warning)' : undefined,
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  basculerHorsCombat(m);
-                }}
-                title={titreHorsCombat(m)}
-              >
-                HC
-              </button>
-              <button
-                className="btn--ghost"
-                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setMembreASupprimer(m);
-                }}
-                title="Retirer de la bande"
-              >
-                ✕
-              </button>
-            </div>
-          );
-        })}
-      </div>
-
-      {membres.length === 0 && <p className="text-muted">Aucun membre recruté.</p>}
-    </div>
-  );
 
   return (
     <Screen
@@ -450,136 +138,16 @@ export function RosterScreen() {
         </div>
       }
     >
-      <div className="card">
-        <input
-          value={roster.nom_bande}
-          onChange={(e) => patch({ nom_bande: e.target.value })}
-          className="input--heading"
-          style={{ fontSize: '1.6rem' }}
-          placeholder="Nom de la bande"
-        />
-        <p className="text-sm text-muted" style={{ margin: '0 0 0.3rem' }}>
-          {catalogue?.nom ?? roster.bande_id}
-        </p>
-        <div className="summary-grid" style={{ marginTop: '0.7rem' }}>
-          <div className="summary-tile">
-            <div className="summary-tile__value">{valeurBande(roster)}</div>
-            <div className="summary-tile__label">Valeur (po)</div>
-          </div>
-          <div className="summary-tile">
-            <div className="summary-tile__value">{effectifTotal(roster)}</div>
-            <div className="summary-tile__label">Membres</div>
-          </div>
-          <div className="summary-tile">
-            <div className="summary-tile__value">{ratingTotal(roster)}</div>
-            <div className="summary-tile__label">Rating</div>
-          </div>
-          <div className="summary-tile">
-            <input
-              type="number"
-              value={roster.tresorerie}
-              onChange={(e) => patch({ tresorerie: Number(e.target.value) || 0 })}
-              style={{
-                width: '100%',
-                textAlign: 'center',
-                background: 'transparent',
-                border: 'none',
-                fontSize: '1.1rem',
-                fontWeight: 700,
-                fontFamily: 'var(--font-heading)',
-                color: 'inherit',
-              }}
-            />
-            <div className="summary-tile__label">Trésorerie (po)</div>
-          </div>
-          <div className="summary-tile">
-            <input
-              type="number"
-              value={roster.wyrdstone}
-              onChange={(e) => patch({ wyrdstone: Number(e.target.value) || 0 })}
-              style={{
-                width: '100%',
-                textAlign: 'center',
-                background: 'transparent',
-                border: 'none',
-                fontSize: '1.1rem',
-                fontWeight: 700,
-                fontFamily: 'var(--font-heading)',
-                color: 'inherit',
-              }}
-            />
-            <div className="summary-tile__label">Wyrdstone</div>
-          </div>
-        </div>
-        <div className="field" style={{ marginTop: '0.7rem' }}>
-          <label>Notes</label>
-          <textarea
-            value={roster.equipement_reserve}
-            onChange={(e) => patch({ equipement_reserve: e.target.value })}
-            placeholder="Notes libres sur la bande…"
-          />
-        </div>
-      </div>
+      <RosterSummaryCard roster={roster} catalogue={catalogue} onPatch={patch} />
 
-      <div className="card">
-        <div className="flex justify-between items-center" style={{ marginBottom: '0.7rem' }}>
-          <h3 className="mt-0 mb-0">
-            <Icon name="coffre" style={{ marginRight: '0.35em' }} />
-            Armurerie de la bande
-          </h3>
-          <button className="btn btn--sm btn--primary" onClick={() => setModalAchatStock(true)}>
-            + Acheter
-          </button>
-        </div>
-        {roster.stock.length === 0 && <p className="text-muted text-sm">Stock vide.</p>}
-        {roster.stock.map((entree) => (
-          <div key={entree.instance_id} className="list-item">
-            <div
-              className="list-item__main"
-              role="button"
-              style={{ cursor: 'pointer' }}
-              onClick={() => setItemDetail(entree)}
-            >
-              <div className="list-item__title" style={{ textDecoration: 'underline' }}>
-                {entree.nom}
-              </div>
-              <div className="list-item__subtitle">
-                {iconeCategorie(entree.categorie) && (
-                  <Icon name={iconeCategorie(entree.categorie)!} style={{ marginRight: '0.35em' }} />
-                )}
-                {libelleCategorie(entree.categorie)} · {entree.cout} po
-                {entree.cout_notation ? ` (jet : ${entree.cout_notation})` : ''}
-              </div>
-            </div>
-            <div className="flex gap-sm items-center">
-              <select value="" onChange={(e) => e.target.value && donnerAMembre(entree.instance_id, e.target.value)}>
-                <option value="">Donner à…</option>
-                {roster.membres.map((m) => (
-                  <option key={m.instance_id} value={m.instance_id}>
-                    {nomAffiche(m)}
-                  </option>
-                ))}
-              </select>
-              <button
-                className="btn--ghost"
-                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
-                onClick={() => setVenteEnCours(entree)}
-                title={`Vendre (+${prixVente(entree.cout)} po à la trésorerie)`}
-              >
-                Vendre
-              </button>
-              <button
-                className="btn--ghost"
-                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
-                onClick={() => retirerStock(entree.instance_id)}
-                title="Supprimer sans contrepartie (perdu, détruit…)"
-              >
-                ✕
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      <ArmurerieSection
+        roster={roster}
+        catalogue={catalogue}
+        onAchat={acheterPourArmurerie}
+        onDonner={donnerAMembre}
+        onVendre={vendreStock}
+        onRetirer={retirerStock}
+      />
 
       {(violations.length > 0 || violationsEffectif.length > 0) && (
         <div className="card" style={{ borderColor: 'var(--warning)' }}>
@@ -624,105 +192,43 @@ export function RosterScreen() {
         </button>
       </div>
 
-      {renderGroupe('Héros', heros)}
-      {renderGroupe('Hommes de main', hommesDeMain)}
+      <MemberGroupCard
+        titre="Héros"
+        membres={heros}
+        roster={roster}
+        catalogue={catalogue}
+        onDeplacer={deplacerMembre}
+        onBasculerHorsCombat={basculerHorsCombat}
+        onSupprimer={setMembreASupprimer}
+      />
+      <MemberGroupCard
+        titre="Hommes de main"
+        membres={hommesDeMain}
+        roster={roster}
+        catalogue={catalogue}
+        onDeplacer={deplacerMembre}
+        onBasculerHorsCombat={basculerHorsCombat}
+        onSupprimer={setMembreASupprimer}
+      />
 
-      <div className="card">
-        <div className="flex justify-between items-center" style={{ marginBottom: '0.5rem' }}>
-          <h3 className="mt-0 mb-0">
-            <Icon name="epee" style={{ marginRight: '0.35em' }} />
-            Historique des batailles
-          </h3>
-          <button className="btn btn--sm btn--primary" onClick={() => setModalBataille(true)}>
-            + Ajouter
-          </button>
-        </div>
-        {roster.historique_batailles.length === 0 && (
-          <p className="text-muted text-sm">Aucune bataille enregistrée.</p>
-        )}
-        {roster.historique_batailles
-          .slice()
-          .reverse()
-          .map((b) => (
-            <div
-              key={b.id}
-              className="list-item"
-              role="button"
-              style={{ marginBottom: '0.5rem' }}
-              onClick={() => setBatailleEnEdition(b)}
-            >
-              <div className="list-item__main">
-                <div className="list-item__title">
-                  {b.date} —{' '}
-                  <span
-                    className={
-                      b.resultat === 'victoire'
-                        ? 'text-success'
-                        : b.resultat === 'defaite'
-                          ? 'text-danger'
-                          : ''
-                    }
-                  >
-                    {b.resultat === 'victoire' && <Icon name="banniere" style={{ marginRight: '0.3em' }} />}
-                    {b.resultat === 'defaite' && <Icon name="crane" style={{ marginRight: '0.3em' }} />}
-                    {b.resultat}
-                  </span>
-                </div>
-                <div className="list-item__subtitle">
-                  {b.adversaires.length > 0 && `vs ${b.adversaires.join(', ')}`} {b.notes}
-                </div>
-              </div>
-              <button
-                className="btn--ghost"
-                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setBatailleASupprimer(b);
-                }}
-                title="Supprimer cette bataille"
-              >
-                ✕
-              </button>
-            </div>
-          ))}
-      </div>
+      <HistoriqueBataillesSection
+        historique={roster.historique_batailles}
+        onAjouter={(bataille) => patch({ historique_batailles: [...roster.historique_batailles, bataille] })}
+        onModifier={(bataille) =>
+          patch({
+            historique_batailles: roster.historique_batailles.map((b: BattleRecord) =>
+              b.id === bataille.id ? bataille : b
+            ),
+          })
+        }
+        onSupprimer={(id) =>
+          patch({ historique_batailles: roster.historique_batailles.filter((b) => b.id !== id) })
+        }
+      />
 
       {catalogue && <EquipementReference catalogue={catalogue} />}
       {catalogue && <MagieReference catalogue={catalogue} />}
 
-      {modalAchatStock && catalogue && (
-        <AchatEquipementModal
-          catalogue={catalogue}
-          profil={null}
-          tresorerie={roster.tresorerie}
-          onClose={() => setModalAchatStock(false)}
-          onAchat={acheterPourArmurerie}
-        />
-      )}
-      {itemDetail && <ItemDetailModal item={resolveItemDetail(itemDetail)} onClose={() => setItemDetail(null)} />}
-      {venteEnCours && (
-        <Modal onClose={() => setVenteEnCours(null)}>
-          <h3>Vendre {venteEnCours.nom} ?</h3>
-          <p className="text-muted">
-            L'objet sera retiré de l'armurerie et {prixVente(venteEnCours.cout)} po seront ajoutées à la trésorerie
-            de la bande.
-          </p>
-          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
-            <button className="btn" onClick={() => setVenteEnCours(null)}>
-              Annuler
-            </button>
-            <button
-              className="btn btn--primary"
-              onClick={() => {
-                vendreStock(venteEnCours.instance_id);
-                setVenteEnCours(null);
-              }}
-            >
-              Vendre pour {prixVente(venteEnCours.cout)} po
-            </button>
-          </div>
-        </Modal>
-      )}
       {modalMembre && (
         <AjouterMembreModal
           roster={roster}
@@ -730,33 +236,6 @@ export function RosterScreen() {
           onConfirm={(r) => {
             updateRoster(r);
             setModalMembre(false);
-          }}
-        />
-      )}
-      {modalBataille && (
-        <AjouterBatailleModal
-          onClose={() => setModalBataille(false)}
-          onConfirm={(bataille) => {
-            patch({ historique_batailles: [...roster.historique_batailles, bataille] });
-            setModalBataille(false);
-          }}
-        />
-      )}
-      {batailleEnEdition && (
-        <AjouterBatailleModal
-          bataille={batailleEnEdition}
-          onClose={() => setBatailleEnEdition(null)}
-          onConfirm={(bataille) => {
-            patch({
-              historique_batailles: roster.historique_batailles.map((b) => (b.id === bataille.id ? bataille : b)),
-            });
-            setBatailleEnEdition(null);
-          }}
-          onDelete={() => {
-            patch({
-              historique_batailles: roster.historique_batailles.filter((b) => b.id !== batailleEnEdition.id),
-            });
-            setBatailleEnEdition(null);
           }}
         />
       )}
@@ -776,30 +255,6 @@ export function RosterScreen() {
               }}
             >
               Retirer
-            </button>
-          </div>
-        </Modal>
-      )}
-      {batailleASupprimer && (
-        <Modal onClose={() => setBatailleASupprimer(null)}>
-          <h3>Supprimer la bataille du {batailleASupprimer.date} ?</h3>
-          <p className="text-muted">Cette action supprime définitivement cette entrée de l'historique.</p>
-          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
-            <button className="btn" onClick={() => setBatailleASupprimer(null)}>
-              Annuler
-            </button>
-            <button
-              className="btn btn--danger"
-              onClick={() => {
-                patch({
-                  historique_batailles: roster.historique_batailles.filter(
-                    (b) => b.id !== batailleASupprimer.id
-                  ),
-                });
-                setBatailleASupprimer(null);
-              }}
-            >
-              Supprimer
             </button>
           </div>
         </Modal>

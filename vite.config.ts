@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -7,9 +8,24 @@ import { VitePWA } from 'vite-plugin-pwa';
 // still serves from the root as usual.
 const base = '/mordheim-roster-app/';
 
+// Identifiant de build affiché sur l'écran d'accueil, pour distinguer un
+// service worker resté sur un ancien cache d'un vrai dernier déploiement.
+// Retombe sur 'dev' hors dépôt git (ex : archive téléchargée sans .git).
+function gitShortSha() {
+  try {
+    return execSync('git rev-parse --short HEAD').toString().trim();
+  } catch {
+    return 'dev';
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
   base: command === 'build' ? base : '/',
+  define: {
+    __APP_VERSION__: JSON.stringify(gitShortSha()),
+    __APP_BUILD_DATE__: JSON.stringify(new Date().toISOString()),
+  },
   plugins: [
     react(),
     VitePWA({

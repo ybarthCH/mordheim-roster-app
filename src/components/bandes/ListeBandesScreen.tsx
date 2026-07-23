@@ -172,6 +172,10 @@ export function ListeBandesScreen() {
           </div>
         </Modal>
       )}
+
+      <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '2rem' }}>
+        {__APP_VERSION__} · {__APP_BUILD_DATE__.slice(0, 10)}
+      </p>
     </Screen>
   );
 }

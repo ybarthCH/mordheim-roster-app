@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { RosterInstance } from '../types/roster';
 import { deleteRoster, listRosters, saveRoster } from '../db/db';
+import { normaliserRoster } from '../utils/normalize';
 
 type RostersContextValue = {
   rosters: RosterInstance[];
@@ -25,7 +26,7 @@ export function RostersProvider({ children }: { children: ReactNode }) {
   const refresh = useCallback(async () => {
     setLoading(true);
     const all = await listRosters();
-    setRosters(all);
+    setRosters(all.map(normaliserRoster));
     setLoading(false);
   }, []);
 
@@ -81,7 +82,11 @@ export function RostersProvider({ children }: { children: ReactNode }) {
   );
 
   const importRoster = useCallback(async (roster: RosterInstance) => {
-    const imported: RosterInstance = { ...roster, id: uuidv4(), updatedAt: new Date().toISOString() };
+    const imported: RosterInstance = {
+      ...normaliserRoster(roster),
+      id: uuidv4(),
+      updatedAt: new Date().toISOString(),
+    };
     await saveRoster(imported);
     setRosters((prev) => [...prev, imported]);
     return imported;
