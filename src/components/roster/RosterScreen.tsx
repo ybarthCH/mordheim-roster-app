@@ -6,7 +6,7 @@ import { Modal } from '../common/Modal';
 import { getCatalogue } from '../../data/warbands';
 import { resolveProfil } from '../../utils/profil';
 import { validerComposition, validerEffectif } from '../../utils/validation';
-import { exporterRoster } from '../../utils/importExport';
+import { exporterRoster, partageDisponible, partagerRoster } from '../../utils/importExport';
 import { AjouterMembreModal } from './AjouterMembreModal';
 import { RosterSummaryCard } from './RosterSummaryCard';
 import { ArmurerieSection } from './ArmurerieSection';
@@ -50,6 +50,20 @@ export function RosterScreen() {
 
   const patch = (partial: Partial<RosterInstance>) => {
     updateRoster({ ...roster, ...partial });
+  };
+
+  // Ouvre le menu de partage natif (Drive, mail, Dropbox...) pour que le
+  // joueur choisisse lui-même où sauvegarder sa bande, sans backend ni
+  // compte côté app. AbortError = annulation volontaire par le joueur,
+  // silencieuse ; toute autre erreur (rare, l'API est déjà feature-détectée
+  // avant d'afficher le bouton) est signalée.
+  const partager = async () => {
+    try {
+      await partagerRoster(roster);
+    } catch (e) {
+      if (e instanceof Error && e.name === 'AbortError') return;
+      alert("Le partage a échoué. Utilise plutôt l'export JSON.");
+    }
   };
 
   const acheterPourArmurerie = (item: ShopItem, coutPaye: number) => {
@@ -126,6 +140,11 @@ export function RosterScreen() {
       back="/"
       actions={
         <div className="flex gap-sm">
+          {partageDisponible() && (
+            <button className="icon-btn" onClick={partager} title="Partager (Drive, mail, Dropbox…)">
+              Partager
+            </button>
+          )}
           <button className="icon-btn" onClick={() => exporterRoster(roster)} title="Export JSON">
             JSON
           </button>
