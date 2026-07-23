@@ -463,22 +463,18 @@ export function RosterScreen() {
         </p>
         <div className="summary-grid" style={{ marginTop: '0.7rem' }}>
           <div className="summary-tile">
-            <Icon name="couronne" className="summary-tile__icon" />
             <div className="summary-tile__value">{valeurBande(roster)}</div>
             <div className="summary-tile__label">Valeur (po)</div>
           </div>
           <div className="summary-tile">
-            <Icon name="banniere" className="summary-tile__icon" />
             <div className="summary-tile__value">{effectifTotal(roster)}</div>
             <div className="summary-tile__label">Membres</div>
           </div>
           <div className="summary-tile">
-            <Icon name="cible" className="summary-tile__icon" />
             <div className="summary-tile__value">{ratingTotal(roster)}</div>
             <div className="summary-tile__label">Rating</div>
           </div>
           <div className="summary-tile">
-            <Icon name="couronne" className="summary-tile__icon" />
             <input
               type="number"
               value={roster.tresorerie}
@@ -497,7 +493,6 @@ export function RosterScreen() {
             <div className="summary-tile__label">Trésorerie (po)</div>
           </div>
           <div className="summary-tile">
-            <Icon name="gemme" className="summary-tile__icon" />
             <input
               type="number"
               value={roster.wyrdstone}
