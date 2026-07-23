@@ -182,7 +182,10 @@ export function RosterScreen() {
 
   const renderGroupe = (titre: string, membres: Member[]) => (
     <div className="card">
-      <h3>{titre}</h3>
+      <h3>
+        <Icon name={titre === 'Héros' ? 'etoile' : 'bouclier'} style={{ marginRight: '0.35em' }} />
+        {titre}
+      </h3>
       <div className="roster-table-wrap">
         <table className="roster-table">
           <thead>
@@ -460,21 +463,22 @@ export function RosterScreen() {
         </p>
         <div className="summary-grid" style={{ marginTop: '0.7rem' }}>
           <div className="summary-tile">
+            <Icon name="couronne" className="summary-tile__icon" />
             <div className="summary-tile__value">{valeurBande(roster)}</div>
             <div className="summary-tile__label">Valeur (po)</div>
           </div>
           <div className="summary-tile">
+            <Icon name="banniere" className="summary-tile__icon" />
             <div className="summary-tile__value">{effectifTotal(roster)}</div>
             <div className="summary-tile__label">Membres</div>
           </div>
           <div className="summary-tile">
+            <Icon name="cible" className="summary-tile__icon" />
             <div className="summary-tile__value">{ratingTotal(roster)}</div>
-            <div className="summary-tile__label">
-              <Icon name="cible" style={{ marginRight: '0.3em' }} />
-              Rating
-            </div>
+            <div className="summary-tile__label">Rating</div>
           </div>
           <div className="summary-tile">
+            <Icon name="couronne" className="summary-tile__icon" />
             <input
               type="number"
               value={roster.tresorerie}
@@ -493,6 +497,7 @@ export function RosterScreen() {
             <div className="summary-tile__label">Trésorerie (po)</div>
           </div>
           <div className="summary-tile">
+            <Icon name="gemme" className="summary-tile__icon" />
             <input
               type="number"
               value={roster.wyrdstone}
@@ -508,10 +513,7 @@ export function RosterScreen() {
                 color: 'inherit',
               }}
             />
-            <div className="summary-tile__label">
-              <Icon name="gemme" style={{ marginRight: '0.3em' }} />
-              Wyrdstone
-            </div>
+            <div className="summary-tile__label">Wyrdstone</div>
           </div>
         </div>
         <div className="field" style={{ marginTop: '0.7rem' }}>
@@ -526,7 +528,10 @@ export function RosterScreen() {
 
       <div className="card">
         <div className="flex justify-between items-center" style={{ marginBottom: '0.7rem' }}>
-          <h3 className="mt-0 mb-0">Armurerie de la bande</h3>
+          <h3 className="mt-0 mb-0">
+            <Icon name="cle" style={{ marginRight: '0.35em' }} />
+            Armurerie de la bande
+          </h3>
           <button className="btn btn--sm btn--primary" onClick={() => setModalAchatStock(true)}>
             + Acheter
           </button>
@@ -602,7 +607,10 @@ export function RosterScreen() {
 
       {catalogue && catalogue.regles_speciales.length > 0 && (
         <div className="card card--tight">
-          <h3>Règles spéciales</h3>
+          <h3>
+            <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
+            Règles spéciales
+          </h3>
           {catalogue.regles_speciales.map((r) => (
             <p key={r.nom} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
               <strong>{r.nom}</strong> — {r.texte}
@@ -625,9 +633,12 @@ export function RosterScreen() {
       {renderGroupe('Hommes de main', hommesDeMain)}
 
       <div className="card">
-        <div className="flex justify-between items-center">
-          <h3 className="mt-0 mb-0">Historique des batailles</h3>
-          <button className="btn btn--sm" onClick={() => setModalBataille(true)}>
+        <div className="flex justify-between items-center" style={{ marginBottom: '0.5rem' }}>
+          <h3 className="mt-0 mb-0">
+            <Icon name="epee" style={{ marginRight: '0.35em' }} />
+            Historique des batailles
+          </h3>
+          <button className="btn btn--sm btn--primary" onClick={() => setModalBataille(true)}>
             + Ajouter
           </button>
         </div>
@@ -657,6 +668,8 @@ export function RosterScreen() {
                           : ''
                     }
                   >
+                    {b.resultat === 'victoire' && <Icon name="banniere" style={{ marginRight: '0.3em' }} />}
+                    {b.resultat === 'defaite' && <Icon name="crane" style={{ marginRight: '0.3em' }} />}
                     {b.resultat}
                   </span>
                 </div>
