@@ -21,6 +21,9 @@ const PersonnageScreen = lazy(() =>
 const PostBatailleScreen = lazy(() =>
   import('./components/postbataille/PostBatailleScreen').then((m) => ({ default: m.PostBatailleScreen }))
 );
+const ReglagesScreen = lazy(() =>
+  import('./components/reglages/ReglagesScreen').then((m) => ({ default: m.ReglagesScreen }))
+);
 
 function App() {
   return (
@@ -35,6 +38,7 @@ function App() {
               <Route path="/roster/:id/recruter-franc-tireur" element={<RecruterFrancTireurScreen />} />
               <Route path="/roster/:id/personnage/:instanceId" element={<PersonnageScreen />} />
               <Route path="/roster/:id/post-bataille" element={<PostBatailleScreen />} />
+              <Route path="/reglages" element={<ReglagesScreen />} />
             </Routes>
           </Suspense>
         </HashRouter>

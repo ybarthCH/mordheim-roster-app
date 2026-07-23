@@ -524,7 +524,7 @@ export function RosterScreen() {
       <div className="card">
         <div className="flex justify-between items-center" style={{ marginBottom: '0.7rem' }}>
           <h3 className="mt-0 mb-0">
-            <Icon name="cle" style={{ marginRight: '0.35em' }} />
+            <Icon name="coffre" style={{ marginRight: '0.35em' }} />
             Armurerie de la bande
           </h3>
           <button className="btn btn--sm btn--primary" onClick={() => setModalAchatStock(true)}>
