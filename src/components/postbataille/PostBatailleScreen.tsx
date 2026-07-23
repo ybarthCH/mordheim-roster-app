@@ -4,13 +4,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { useRosters } from '../../state/RostersContext';
 import { getCatalogue } from '../../data/warbands';
-import { resolveProfil } from '../../utils/profil';
+import { resolveProfil, nombreHeros } from '../../utils/profil';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member } from '../../types/roster';
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 import { acheterPourStock, creerEntreeInventaire } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
+import { AvanceeModal } from '../personnage/AvanceeModal';
 import { EtapeBlessuresGraves } from './EtapeBlessuresGraves';
 import { EtapeResultat } from './EtapeResultat';
 import { EtapeGainXp } from './EtapeGainXp';
@@ -67,6 +68,12 @@ export function PostBatailleScreen() {
   const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
   const [xpDrafts, setXpDrafts] = useState<Record<string, XpDraft>>({});
   const [groupeSlotDrafts, setGroupeSlotDrafts] = useState<Record<string, SlotDraft[]>>({});
+
+  // Avancées résolues directement depuis l'étape Gain d'expérience (voir
+  // ouvrirAvancee/appliquerAvancee ci-dessous) — journalisées en plus de
+  // historique_avancees du membre, pour relecture dans le journal de bataille.
+  const [membreEnAvancee, setMembreEnAvancee] = useState<Member | null>(null);
+  const [avancesResolues, setAvancesResolues] = useState<{ nom: string; detail: string }[]>([]);
 
   // Blessures graves : réservé aux héros Hors de Combat — seuls les héros
   // roulent sur la table complète des blessures. Les hommes de main utilisent
@@ -233,6 +240,24 @@ export function PostBatailleScreen() {
     updateRoster(acheterPourStock(roster, creerEntreeInventaire(item, coutPaye)));
   };
 
+  const heroCount = nombreHeros(roster);
+
+  // Avancée résolue depuis l'étape Gain d'expérience : même mécanique que
+  // sur la fiche personnage (AvanceeModal ne touche jamais `xp`, donc aucun
+  // conflit avec les brouillons d'XP de cette étape, appliqués plus tard
+  // dans terminer()). Le dernier enregistrement ajouté à historique_avancees
+  // du membre ciblé (ou du nouveau héros en cas de promotion) est aussi
+  // journalisé ici pour le récapitulatif de bataille.
+  const appliquerAvancee = (updated: Member, nouveauMembre?: Member) => {
+    const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
+    updateRoster({ ...roster, membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj });
+    const cible = nouveauMembre ?? updated;
+    const dernier = cible.historique_avancees[cible.historique_avancees.length - 1];
+    if (dernier) {
+      setAvancesResolues((prev) => [...prev, { nom: nomAffiche(cible), detail: dernier.detail }]);
+    }
+  };
+
   const terminer = async () => {
     const tresorerieApres = roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus;
     const groupesHCIds = new Set(groupesHC.map((m) => m.instance_id));
@@ -346,6 +371,7 @@ export function PostBatailleScreen() {
         }),
       ],
       pointsVeteran,
+      avancesResolues,
     };
 
     const bataille: BattleRecord = {
@@ -418,6 +444,8 @@ export function PostBatailleScreen() {
           definirSurvie={definirSurvie}
           slotsDe={slotsDe}
           definirSlot={definirSlot}
+          onOuvrirAvancee={setMembreEnAvancee}
+          avancesResolues={avancesResolues}
         />
       )}
 
@@ -451,6 +479,7 @@ export function PostBatailleScreen() {
           soldeTotal={soldeTotal}
           blessuresTresorerieBonus={blessuresTresorerieBonus}
           francTireursActifsCount={francTireursActifs.length}
+          avancesResolues={avancesResolues}
           blessureDrafts={blessureDrafts}
           horsDeCombatIndividuel={horsDeCombatIndividuel}
           xpDraftDe={xpDraftDe}
@@ -479,6 +508,24 @@ export function PostBatailleScreen() {
           Résous d'abord le statut (survécu / n'a pas survécu) de tous les Hors de combat avant de continuer.
         </p>
       )}
+
+      {membreEnAvancee &&
+        catalogue &&
+        (() => {
+          const profilAvancee = resolveProfil(roster, membreEnAvancee);
+          return (
+            profilAvancee && (
+              <AvanceeModal
+                member={membreEnAvancee}
+                profil={profilAvancee}
+                catalogue={catalogue}
+                heroCount={heroCount}
+                onClose={() => setMembreEnAvancee(null)}
+                onApply={appliquerAvancee}
+              />
+            )
+          );
+        })()}
     </Screen>
   );
 }

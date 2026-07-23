@@ -18,6 +18,7 @@ type EtapeResumeProps = {
   xpDraftDe: (m: Member, xpParDefaut: number) => XpDraft;
   groupesHC: Member[];
   participantsAuto: Member[];
+  avancesResolues: { nom: string; detail: string }[];
 };
 
 export function EtapeResume({
@@ -36,6 +37,7 @@ export function EtapeResume({
   xpDraftDe,
   groupesHC,
   participantsAuto,
+  avancesResolues,
 }: EtapeResumeProps) {
   return (
     <div className="card">
@@ -65,6 +67,12 @@ export function EtapeResume({
         {groupesHC.length > 0 && ` ${groupesHC.length} groupe(s) partiellement hors de combat résolu(s).`}
       </p>
       <p className="text-sm">{participantsAuto.length} membre(s) du reste du roster gagnent leur XP de participation.</p>
+      {avancesResolues.length > 0 && (
+        <p className="text-sm">
+          {avancesResolues.length} avancée(s) résolue(s) pendant cette bataille :{' '}
+          {avancesResolues.map((a) => `${a.nom} (${a.detail})`).join(', ')}
+        </p>
+      )}
       {resultat === 'victoire' && roster.membres.some((m) => resolveProfil(roster, m)?.est_leader) && (
         <p className="text-sm">Le chef de bande gagne en plus son bonus de +1 XP pour la victoire.</p>
       )}

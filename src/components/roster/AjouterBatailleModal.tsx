@@ -123,6 +123,12 @@ export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }:
               <strong>Points vétéran disponibles :</strong> {bataille.journal.pointsVeteran}
             </p>
           )}
+          {bataille.journal.avancesResolues && bataille.journal.avancesResolues.length > 0 && (
+            <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              <strong>Avancées résolues :</strong>{' '}
+              {bataille.journal.avancesResolues.map((a) => `${a.nom} — ${a.detail}`).join(' · ')}
+            </p>
+          )}
         </div>
       )}
 

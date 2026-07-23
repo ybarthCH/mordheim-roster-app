@@ -5,9 +5,14 @@
 // d'achat dédiée : simple déduction de trésorerie, à tout moment.
 import { v4 as uuidv4 } from 'uuid';
 import type { Member, RosterInstance, InventoryEntry } from '../types/roster';
-import type { WarbandCatalog, Profile, SpecialRule } from '../types/catalog';
+import type { WarbandCatalog, Profile, SpecialRule, Stats } from '../types/catalog';
 import { TOUS_LES_ITEMS, getItem } from '../data/items';
 import type { IconName } from '../components/common/Icon';
+
+// Profil de caractéristiques d'une monture/créature (items/montures.json) :
+// valeurs habituellement numériques, mais certaines notations spéciales
+// restent du texte (ex : Force "3(4)" pour une charge d'araignée géante).
+export type StatsMonture = { [K in keyof Stats]: number | string };
 
 export type ShopItem = {
   id: string;
@@ -22,6 +27,9 @@ export type ShopItem = {
   force?: string | null;
   sauvegarde?: string | null;
   regles_speciales?: SpecialRule[];
+  // Profil de caractéristiques (montures/créatures) — présent seulement pour
+  // la catégorie "montures".
+  stats?: StatsMonture;
   origine: 'commun' | 'bande';
 };
 
@@ -185,6 +193,7 @@ export function getShopCommun(catalogueId?: string): ShopItem[] {
     force: 'force' in item ? (item.force as string | null) : undefined,
     sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
     regles_speciales: item.regles_speciales,
+    stats: 'stats' in item ? (item.stats as StatsMonture | undefined) : undefined,
     origine: 'commun',
   }));
 }
@@ -491,6 +500,7 @@ export function resolveItemDetail(entree: InventoryEntry): ShopItem {
     force: 'force' in item ? (item.force as string | null) : undefined,
     sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
     regles_speciales: item.regles_speciales,
+    stats: 'stats' in item ? (item.stats as StatsMonture | undefined) : undefined,
     origine: 'bande',
   };
 }

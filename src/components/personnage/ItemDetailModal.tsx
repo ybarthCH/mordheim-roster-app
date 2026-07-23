@@ -1,6 +1,7 @@
 import { Modal } from '../common/Modal';
 import { libelleCategorie, iconeCategorie, classeRarete } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
+import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
 
 type Props = {
@@ -24,6 +25,20 @@ export function ItemDetailModal({ item, onClose }: Props) {
         {libelleCategorie(item.categorie)} · {typeof item.cout === 'number' ? `${item.cout} po` : item.cout}
       </p>
 
+      {item.stats && (
+        <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
+          {STAT_KEYS.map((k) => (
+            <div key={k} className="stat-grid__cell stat-grid__cell--label">
+              {k}
+            </div>
+          ))}
+          {STAT_KEYS.map((k) => (
+            <div key={k} className="stat-grid__cell stat-grid__cell--value">
+              {item.stats![k]}
+            </div>
+          ))}
+        </div>
+      )}
       {(item.portee || item.force || item.sauvegarde) && (
         <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
           {item.portee && <span className="badge badge--info">Portée {item.portee}</span>}
