@@ -122,15 +122,17 @@ export function CreationBandeScreen() {
 
       {catalogue && catalogue.regles_speciales.length > 0 && (
         <div className="card">
-          <h3>Règles spéciales</h3>
-          {catalogue.regles_speciales.map((r) => (
-            <div key={r.nom} style={{ marginBottom: '0.6rem' }}>
-              <strong>{r.nom}</strong>
-              <p className="text-sm text-muted" style={{ whiteSpace: 'pre-line' }}>
-                {r.texte}
-              </p>
-            </div>
-          ))}
+          <details className="disclosure">
+            <summary>Règles spéciales</summary>
+            {catalogue.regles_speciales.map((r) => (
+              <div key={r.nom} style={{ marginBottom: '0.6rem' }}>
+                <strong>{r.nom}</strong>
+                <p className="text-sm text-muted" style={{ whiteSpace: 'pre-line' }}>
+                  {r.texte}
+                </p>
+              </div>
+            ))}
+          </details>
         </div>
       )}
 

@@ -13,3 +13,13 @@ export function nomCourtBlessure(b: SeriousInjuryRecord): string {
   const texte = b.description || '(sans description)';
   return texte.length > LONGUEUR_NOM_COURT ? `${texte.slice(0, LONGUEUR_NOM_COURT).trimEnd()}…` : texte;
 }
+
+// Description complète d'une blessure grave pour l'affichage détaillé
+// (fiche personnage). Compatibilité avec d'anciens enregistrements
+// (roll/resultat/effet) sauvegardés avant le passage de la table déroulante
+// à la saisie libre.
+export function injuryLabel(b: SeriousInjuryRecord): string {
+  if (b.description) return b.description;
+  const legacy = b as unknown as { resultat?: string; effet?: string };
+  return [legacy.resultat, legacy.effet].filter(Boolean).join(' — ') || '(sans description)';
+}

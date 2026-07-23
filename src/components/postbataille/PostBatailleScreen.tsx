@@ -2,19 +2,22 @@ import { useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
-import { Modal } from '../common/Modal';
 import { useRosters } from '../../state/RostersContext';
 import { getCatalogue } from '../../data/warbands';
 import { resolveProfil } from '../../utils/profil';
-import { HENCHMAN_XP_MAX, HERO_XP_MAX, isPalierHenchman, isPalierHero } from '../../utils/xp';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member } from '../../types/roster';
-import { BlessureGraveWizard, type BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
+import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
+import { EtapeBlessuresGraves } from './EtapeBlessuresGraves';
+import { EtapeResultat } from './EtapeResultat';
+import { EtapeGainXp } from './EtapeGainXp';
+import { EtapeExploration } from './EtapeExploration';
+import { EtapeResume } from './EtapeResume';
 
 const ETAPES = ['Blessures graves', 'Bataille', "Gain d'expérience", 'Exploration', 'Résumé'];
 
-type BlessureDraft = {
+export type BlessureDraft = {
   nom: string;
   description: string;
   stats: Stats;
@@ -26,88 +29,15 @@ type BlessureDraft = {
   tresorerieBonus: number;
 };
 
-type XpDraft = {
+export type XpDraft = {
   xp: number;
   survecu: 'oui' | 'non' | null;
 };
 
-type SlotDraft = 'oui' | 'non' | null;
+export type SlotDraft = 'oui' | 'non' | null;
 
 function nomAffiche(m: Member) {
   return `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
-}
-
-// Mini grille XP utilisée dans l'assistant post-bataille : distingue l'XP de
-// départ (ne comptait pas), l'XP déjà acquise avant cette bataille, et l'XP
-// ajoutée pendant cette session (couleur dédiée), qu'elle vienne d'un clic
-// manuel ou de la case "A survécu". Le bonus de chef de bande (victoire) est
-// affiché à part, en case non cliquable, dans une 3e couleur dédiée.
-function XpBarCompacte({
-  type,
-  xpDepart,
-  xpInitial,
-  xpActuel,
-  onChange,
-  bonusLeader,
-  demiXp = false,
-}: {
-  type: 'heros' | 'homme_de_main';
-  xpDepart: number;
-  xpInitial: number;
-  xpActuel: number;
-  onChange: (xp: number) => void;
-  bonusLeader?: boolean;
-  demiXp?: boolean;
-}) {
-  const max = type === 'heros' ? HERO_XP_MAX : HENCHMAN_XP_MAX;
-  const isPalier = type === 'heros' ? isPalierHero : isPalierHenchman;
-  const boxes = Array.from({ length: max }, (_, i) => i + 1);
-  const toggle = (box: number) => {
-    if (!demiXp) {
-      onChange(xpActuel === box ? box - 1 : box);
-      return;
-    }
-    const plein = box * 2;
-    const moitie = box * 2 - 1;
-    if (xpActuel >= plein) onChange(plein - 2);
-    else if (xpActuel >= moitie) onChange(plein);
-    else onChange(moitie);
-  };
-  return (
-    <div className="xp-grid">
-      {boxes.map((box) => {
-        const seuilPlein = demiXp ? box * 2 : box;
-        const seuilMoitie = demiXp ? box * 2 - 1 : box;
-        const estPleine = xpActuel >= seuilPlein;
-        const estMoitie = !estPleine && demiXp && xpActuel >= seuilMoitie;
-        const estDepart = xpDepart >= seuilPlein;
-        const estSession = xpInitial < seuilPlein && xpActuel >= seuilPlein;
-        return (
-          <button
-            key={box}
-            type="button"
-            className={`xp-box xp-box--compact ${isPalier(box) ? 'xp-box--palier' : ''} ${
-              estPleine ? 'xp-box--checked' : ''
-            } ${estMoitie ? 'xp-box--demi' : ''} ${estDepart ? 'xp-box--depart' : ''} ${
-              estSession ? 'xp-box--session' : ''
-            }`}
-            onClick={() => toggle(box)}
-            aria-label={`Case XP ${box}`}
-          >
-            {isPalier(box) ? box : ''}
-          </button>
-        );
-      })}
-      {bonusLeader && (
-        <span
-          className="xp-box xp-box--compact xp-box--leader"
-          title="Bonus chef de bande : +1 XP automatique à la victoire"
-        >
-          +1
-        </span>
-      )}
-    </div>
-  );
 }
 
 export function PostBatailleScreen() {
@@ -133,7 +63,6 @@ export function PostBatailleScreen() {
   const [pointsVeteran, setPointsVeteran] = useState(0);
 
   const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
-  const [blessureEnCours, setBlessureEnCours] = useState<string | null>(null);
   const [xpDrafts, setXpDrafts] = useState<Record<string, XpDraft>>({});
   const [groupeSlotDrafts, setGroupeSlotDrafts] = useState<Record<string, SlotDraft[]>>({});
 
@@ -279,13 +208,6 @@ export function PostBatailleScreen() {
     const slots = slotsDe(m).slice();
     slots[index] = slots[index] === valeur ? null : valeur;
     setGroupeSlotDrafts((prev) => ({ ...prev, [m.instance_id]: slots }));
-  };
-
-  const ajouterAdversaire = () => {
-    const nom = nouvelAdversaire.trim();
-    if (!nom || adversaires.includes(nom)) return;
-    setAdversaires((prev) => [...prev, nom]);
-    setNouvelAdversaire('');
   };
 
   // Étape Gain d'expérience : impossible de continuer tant que tous les
@@ -445,360 +367,79 @@ export function PostBatailleScreen() {
       </p>
 
       {etape === 0 && (
-        <div className="card">
-          <h3>Blessures graves</h3>
-          <p className="text-sm text-muted">
-            Pour chaque héros Hors de Combat, lance sur ta table papier puis résous le résultat obtenu : les effets
-            (caractéristiques, équipement, notes) sont appliqués automatiquement, et le choix Oui/Non « A survécu »
-            de l'étape suivante est pré-rempli en fonction du résultat. Les hommes de main utilisent la table
-            simple mort-ou-survivant à l'étape suivante.
-          </p>
-          {horsDeCombatHeros.length === 0 && <p className="text-muted">Aucun héros Hors de Combat.</p>}
-          {horsDeCombatHeros.map((m) => {
-            const d = blessureDrafts[m.instance_id];
-            return (
-              <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
-                <strong>{m.nom_perso}</strong>
-                {!d && (
-                  <div style={{ marginTop: '0.5rem' }}>
-                    <button className="btn btn--primary btn--sm" onClick={() => setBlessureEnCours(m.instance_id)}>
-                      Résoudre la blessure grave
-                    </button>
-                  </div>
-                )}
-                {d && (
-                  <div style={{ marginTop: '0.5rem' }}>
-                    <p className="text-sm" style={{ whiteSpace: 'pre-wrap' }}>
-                      {d.description}
-                    </p>
-                    {d.statutMort && <p className="text-danger mb-0">⚠ Marqué Mort.</p>}
-                    {d.perteEquipement && <p className="text-danger mb-0">⚠ Équipement perdu.</p>}
-                    <button className="btn btn--sm" style={{ marginTop: '0.5rem' }} onClick={() => reinitialiserBlessure(m)}>
-                      Modifier
-                    </button>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <EtapeBlessuresGraves
+          horsDeCombatHeros={horsDeCombatHeros}
+          blessureDrafts={blessureDrafts}
+          onAppliquer={appliquerBlessureWizard}
+          onReinitialiser={reinitialiserBlessure}
+        />
       )}
 
-      {blessureEnCours &&
-        (() => {
-          const m = horsDeCombatHeros.find((h) => h.instance_id === blessureEnCours);
-          if (!m) return null;
-          return (
-            <Modal onClose={() => setBlessureEnCours(null)}>
-              <h3>Blessure grave — {m.nom_perso}</h3>
-              <BlessureGraveWizard
-                nomPersonnage={m.nom_perso}
-                onAppliquer={(resultat) => {
-                  appliquerBlessureWizard(m, resultat);
-                  setBlessureEnCours(null);
-                }}
-                onAnnuler={() => setBlessureEnCours(null)}
-              />
-            </Modal>
-          );
-        })()}
-
       {etape === 1 && (
-        <div className="card">
-          <h3>Résultat de la bataille</h3>
-          <div className="field-row">
-            <div className="field">
-              <label>Date</label>
-              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-            </div>
-            <div className="field">
-              <label>Résultat</label>
-              <select value={resultat} onChange={(e) => setResultat(e.target.value as BattleRecord['resultat'])}>
-                <option value="victoire">Victoire</option>
-                <option value="defaite">Défaite</option>
-                <option value="nul">Match nul</option>
-              </select>
-            </div>
-          </div>
-          <div className="field">
-            <label>Bande(s) adverse(s)</label>
-            <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
-              {adversaires.map((nom, i) => (
-                <span key={i} className="badge badge--info">
-                  {nom}
-                  <button
-                    className="btn--ghost"
-                    style={{ border: 'none', background: 'none', marginLeft: '0.3rem', padding: 0 }}
-                    onClick={() => setAdversaires((prev) => prev.filter((_, j) => j !== i))}
-                  >
-                    ✕
-                  </button>
-                </span>
-              ))}
-              {adversaires.length === 0 && <span className="text-muted text-sm">Aucune</span>}
-            </div>
-            <div className="flex gap-sm">
-              <input
-                value={nouvelAdversaire}
-                onChange={(e) => setNouvelAdversaire(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    ajouterAdversaire();
-                  }
-                }}
-                placeholder="Nom d'une bande adverse"
-              />
-              <button className="btn" onClick={ajouterAdversaire}>
-                Ajouter
-              </button>
-            </div>
-          </div>
-          <div className="field">
-            <label>Notes</label>
-            <textarea value={notesBataille} onChange={(e) => setNotesBataille(e.target.value)} />
-          </div>
-        </div>
+        <EtapeResultat
+          date={date}
+          onDateChange={setDate}
+          resultat={resultat}
+          onResultatChange={setResultat}
+          adversaires={adversaires}
+          onAdversairesChange={setAdversaires}
+          nouvelAdversaire={nouvelAdversaire}
+          onNouvelAdversaireChange={setNouvelAdversaire}
+          notesBataille={notesBataille}
+          onNotesBatailleChange={setNotesBataille}
+        />
       )}
 
       {etape === indexGainXp && (
-        <>
-          <div className="card">
-            <h3>Hors de combat — à résoudre</h3>
-            <p className="text-sm text-muted">
-              Pour chaque héros ou homme de main seul Hors de combat, et pour chaque figurine d'un groupe
-              partiellement Hors de combat, indique si elle a survécu ou non. Un survivant gagne 1 XP
-              automatiquement (couleur dédiée). Un groupe ne perd son XP que s'il est entièrement éliminé.
-            </p>
-            {horsDeCombatIndividuel.length === 0 && groupesHC.length === 0 && (
-              <p className="text-muted">Personne à résoudre — aucun Hors de combat en attente.</p>
-            )}
-            {horsDeCombatIndividuel.map((m) => {
-              const profil = resolveProfil(roster, m);
-              const estAnimal = profil?.type === 'animal';
-              const d = xpDraftDe(m, m.xp);
-              const bonusLeader = !!profil?.est_leader && resultat === 'victoire' && d.survecu !== 'non';
-              return (
-                <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
-                  <div className="flex justify-between items-center" style={{ marginBottom: '0.4rem' }}>
-                    <strong>
-                      {nomAffiche(m)}
-                      {profil?.est_leader && (
-                        <span className="badge badge--info" style={{ marginLeft: '0.4rem' }}>
-                          ★ Leader
-                        </span>
-                      )}
-                    </strong>
-                    <span className="text-sm text-muted">Hors de combat</span>
-                  </div>
-                  {estAnimal ? (
-                    <p className="text-sm text-muted mb-0">Ne gagne jamais d'expérience.</p>
-                  ) : (
-                    <XpBarCompacte
-                      type={profil?.type === 'heros' ? 'heros' : 'homme_de_main'}
-                      xpDepart={m.xp_depart}
-                      xpInitial={m.xp}
-                      xpActuel={d.xp}
-                      onChange={(xp) => changerXp(m, xp, m.xp)}
-                      bonusLeader={bonusLeader}
-                      demiXp={demiXp}
-                    />
-                  )}
-                  <div className="status-select" style={{ marginTop: '0.5rem' }}>
-                    <button
-                      className={`status-pill ${d.survecu === 'oui' ? 'status-pill--active' : ''}`}
-                      onClick={() => definirSurvie(m, 'oui')}
-                    >
-                      A survécu{estAnimal ? '' : ' (+1 XP)'}
-                    </button>
-                    <button
-                      className={`status-pill ${d.survecu === 'non' ? 'status-pill--active' : ''}`}
-                      onClick={() => definirSurvie(m, 'non')}
-                    >
-                      N'a pas survécu
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-            {groupesHC.map((m) => {
-              const estAnimal = resolveProfil(roster, m)?.type === 'animal';
-              const slots = slotsDe(m);
-              const morts = slots.filter((s) => s === 'non').length;
-              const enAttente = slots.filter((s) => s === null).length;
-              const survivants = m.taille_groupe - morts;
-              return (
-                <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
-                  <div className="flex justify-between items-center" style={{ marginBottom: '0.4rem' }}>
-                    <strong>{nomAffiche(m)}</strong>
-                    <span className="text-sm text-muted">
-                      {m.hors_combat} / {m.taille_groupe} hors de combat
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-sm">
-                    {slots.map((s, i) => (
-                      <div key={i} className="flex items-center gap-sm">
-                        <span className="text-sm text-muted">#{i + 1}</span>
-                        <button
-                          className={`btn btn--sm ${s === 'oui' ? 'btn--primary' : ''}`}
-                          onClick={() => definirSlot(m, i, 'oui')}
-                        >
-                          Survécu
-                        </button>
-                        <button
-                          className={`btn btn--sm ${s === 'non' ? 'btn--danger' : ''}`}
-                          onClick={() => definirSlot(m, i, 'non')}
-                        >
-                          Mort
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
-                    {enAttente > 0
-                      ? `${enAttente} figurine(s) à résoudre.`
-                      : survivants > 0
-                        ? `Résolu — le groupe garde ${survivants} figurine(s)${estAnimal ? '.' : ' et gagne +1 XP.'}`
-                        : "Résolu — le groupe est entièrement éliminé (passera au statut Mort)."}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="card">
-            <h3>Reste du roster</h3>
-            <p className="text-sm text-muted">
-              Chaque participant qui n'était pas Hors de combat gagne 1 XP automatiquement (couleur dédiée
-              ci-dessous). Ajuste la barre si besoin.
-            </p>
-            {participantsAuto.length === 0 && <p className="text-muted">Aucun autre membre dans la bande.</p>}
-            {participantsAuto.map((m) => {
-              const profil = resolveProfil(roster, m);
-              const d = xpDraftDe(m, m.xp + 1);
-              const bonusLeader = !!profil?.est_leader && resultat === 'victoire';
-              return (
-                <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
-                  <div className="flex justify-between items-center" style={{ marginBottom: '0.4rem' }}>
-                    <strong>
-                      {nomAffiche(m)}
-                      {profil?.est_leader && (
-                        <span className="badge badge--info" style={{ marginLeft: '0.4rem' }}>
-                          ★ Leader
-                        </span>
-                      )}
-                    </strong>
-                    <span className="text-sm text-muted">{m.statut === 'blesse' ? 'Blessé' : 'Actif'}</span>
-                  </div>
-                  <XpBarCompacte
-                    type={profil?.type === 'heros' ? 'heros' : 'homme_de_main'}
-                    xpDepart={m.xp_depart}
-                    xpInitial={m.xp}
-                    xpActuel={d.xp}
-                    onChange={(xp) => changerXp(m, xp, m.xp + 1)}
-                    bonusLeader={bonusLeader}
-                    demiXp={demiXp}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </>
+        <EtapeGainXp
+          roster={roster}
+          resultat={resultat}
+          demiXp={demiXp}
+          horsDeCombatIndividuel={horsDeCombatIndividuel}
+          groupesHC={groupesHC}
+          participantsAuto={participantsAuto}
+          xpDraftDe={xpDraftDe}
+          changerXp={changerXp}
+          definirSurvie={definirSurvie}
+          slotsDe={slotsDe}
+          definirSlot={definirSlot}
+        />
       )}
 
       {etape === 3 && (
-        <div className="card">
-          <h3>Exploration &amp; wyrdstone</h3>
-          <p className="text-sm text-muted">
-            Reporte ici le résultat de tes jets d'exploration effectués sur table papier.
-          </p>
-          <div className="field">
-            <label>Wyrdstone trouvé (à ajouter à la réserve)</label>
-            <input
-              type="number"
-              value={wyrdstoneTrouve}
-              onChange={(e) => setWyrdstoneTrouve(Number(e.target.value) || 0)}
-            />
-          </div>
-          <div className="field">
-            <label>Objets / événements d'exploration (texte libre, ajouté à l'équipement en réserve)</label>
-            <textarea value={notesExploration} onChange={(e) => setNotesExploration(e.target.value)} />
-          </div>
-          <h3>Vente de wyrdstone</h3>
-          <div className="field-row">
-            <div className="field">
-              <label>Quantité vendue</label>
-              <input
-                type="number"
-                value={quantiteVendue}
-                onChange={(e) => setQuantiteVendue(Number(e.target.value) || 0)}
-              />
-            </div>
-            <div className="field">
-              <label>Prix total obtenu (po)</label>
-              <input type="number" value={prixVente} onChange={(e) => setPrixVente(Number(e.target.value) || 0)} />
-            </div>
-          </div>
-          <p className="text-sm text-muted">
-            Wyrdstone en réserve après cette étape :{' '}
-            {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue)} · Trésorerie :{' '}
-            {roster.tresorerie + prixVente} po
-          </p>
-          <h3>Nombre de points vétéran disponibles</h3>
-          <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-            Jet de 2D6 effectué sur table papier — saisis le résultat ici pour qu'il apparaisse dans le journal de
-            la bataille.
-          </p>
-          <div className="field">
-            <label>Points vétéran</label>
-            <input
-              type="number"
-              value={pointsVeteran}
-              onChange={(e) => setPointsVeteran(Number(e.target.value) || 0)}
-            />
-          </div>
-        </div>
+        <EtapeExploration
+          roster={roster}
+          wyrdstoneTrouve={wyrdstoneTrouve}
+          onWyrdstoneTrouveChange={setWyrdstoneTrouve}
+          notesExploration={notesExploration}
+          onNotesExplorationChange={setNotesExploration}
+          quantiteVendue={quantiteVendue}
+          onQuantiteVendueChange={setQuantiteVendue}
+          prixVente={prixVente}
+          onPrixVenteChange={setPrixVente}
+          pointsVeteran={pointsVeteran}
+          onPointsVeteranChange={setPointsVeteran}
+        />
       )}
 
       {etape === 4 && (
-        <div className="card">
-          <h3>Résumé</h3>
-          <p>
-            {date} — {resultat} {adversaires.length > 0 && `vs ${adversaires.join(', ')}`}
-          </p>
-          <p className="text-sm">
-            Wyrdstone : {roster.wyrdstone} → {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue)}
-            <br />
-            Trésorerie : {roster.tresorerie} → {roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus}{' '}
-            po
-          </p>
-          {soldeTotal > 0 && (
-            <p className="text-sm">
-              Solde des francs-tireurs à payer : {soldeTotal} po ({francTireursActifs.length} franc(s)-tireur(s)).
-            </p>
-          )}
-          {blessuresTresorerieBonus > 0 && (
-            <p className="text-sm">
-              Gains issus des blessures graves résolues : +{blessuresTresorerieBonus} po.
-            </p>
-          )}
-          <p className="text-sm">
-            {Object.values(blessureDrafts).filter((d) => d.description.trim()).length} blessure(s) grave(s)
-            enregistrée(s).
-          </p>
-          <p className="text-sm">
-            Hors de combat :{' '}
-            {horsDeCombatIndividuel.filter((m) => xpDraftDe(m, m.xp).survecu === 'oui').length} survivant(s),{' '}
-            {horsDeCombatIndividuel.filter((m) => xpDraftDe(m, m.xp).survecu === 'non').length} mort(s).
-            {groupesHC.length > 0 && ` ${groupesHC.length} groupe(s) partiellement hors de combat résolu(s).`}
-          </p>
-          <p className="text-sm">
-            {participantsAuto.length} membre(s) du reste du roster gagnent leur XP de participation.
-          </p>
-          {resultat === 'victoire' && roster.membres.some((m) => resolveProfil(roster, m)?.est_leader) && (
-            <p className="text-sm">Le chef de bande gagne en plus son bonus de +1 XP pour la victoire.</p>
-          )}
-        </div>
+        <EtapeResume
+          roster={roster}
+          date={date}
+          resultat={resultat}
+          adversaires={adversaires}
+          wyrdstoneTrouve={wyrdstoneTrouve}
+          quantiteVendue={quantiteVendue}
+          prixVente={prixVente}
+          soldeTotal={soldeTotal}
+          blessuresTresorerieBonus={blessuresTresorerieBonus}
+          francTireursActifsCount={francTireursActifs.length}
+          blessureDrafts={blessureDrafts}
+          horsDeCombatIndividuel={horsDeCombatIndividuel}
+          xpDraftDe={xpDraftDe}
+          groupesHC={groupesHC}
+          participantsAuto={participantsAuto}
+        />
       )}
 
       <div className="flex gap-sm">
