@@ -753,6 +753,24 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
+/* Sans plafond, un synopsis d'armes trop long pousse les colonnes de
+   caractéristiques hors champ (notable sur un fold en portrait) — le nom
+   reste sur une ligne, mais le synopsis passe en retour à la ligne et se
+   coupe après 2 lignes plutôt que d'élargir la colonne à l'infini.
+   Sélecteur qualifié par l'élément (.roster-table td.roster-table__nom) pour
+   l'emporter en spécificité sur la règle white-space:nowrap ci-dessus. */
+.roster-table td.roster-table__nom {
+  white-space: normal;
+  max-width: 170px;
+}
+.roster-table__synopsis {
+  line-height: 1.3;
+  max-height: 2.6em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
 .roster-table tbody tr {
   cursor: pointer;
   touch-action: manipulation;

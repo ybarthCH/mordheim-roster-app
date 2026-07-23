@@ -113,7 +113,7 @@ export function MemberGroupCard({
               const profil = resolveProfil(roster, m);
               return (
                 <tr key={m.instance_id} onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}>
-                  <td>
+                  <td className="roster-table__nom">
                     {nomAffiche(m)}
                     {profil?.est_leader && (
                       <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title="Chef de bande">
@@ -125,11 +125,14 @@ export function MemberGroupCard({
                         Avancée en attente
                       </span>
                     )}
-                    <div className="text-sm text-muted" style={{ fontStyle: 'italic', marginTop: '0.1rem' }}>
+                    <div
+                      className="text-sm text-muted roster-table__synopsis"
+                      style={{ fontStyle: 'italic', marginTop: '0.1rem' }}
+                    >
                       {resumeEquipement(m)}
                     </div>
                     {resumeBlessures(m) && (
-                      <div className="text-sm text-danger" style={{ marginTop: '0.1rem' }}>
+                      <div className="text-sm text-danger roster-table__synopsis" style={{ marginTop: '0.1rem' }}>
                         {resumeBlessures(m)}
                       </div>
                     )}
