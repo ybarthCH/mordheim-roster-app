@@ -163,7 +163,6 @@ export function PersonnageScreen() {
   const obtenues = membre.historique_avancees.length;
   const enAttente = Math.max(0, dues - obtenues);
   const rating = ratingMembre(membre, roster);
-  const plafond = catalogue.caracteristiques_max?.[0];
   const heroCount = nombreHeros(roster);
 
   // Regroupe l'inventaire par objet (un groupe d'hommes de main possède
@@ -203,7 +202,7 @@ export function PersonnageScreen() {
         </div>
       )}
 
-      <CaracteristiquesCard membre={membre} plafond={plafond} onEditerStat={editerStat} />
+      <CaracteristiquesCard membre={membre} profil={profil} onEditerStat={editerStat} />
 
       <ResumeCard
         profil={profil}

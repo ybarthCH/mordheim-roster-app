@@ -73,23 +73,10 @@ export type Profile = {
   est_leader?: boolean;
   // Règles spéciales propres à ce profil (en plus de celles de la bande).
   regles_speciales?: SpecialRule[];
-};
-
-// Plafond de caractéristiques (limite d'avancement) pour un profil ou groupe
-// de profils d'une même bande. Purement informatif, affiché en référence sur
-// la fiche personnage — n'empêche pas de dépasser le plafond.
-export type CaracteristiquesMax = {
-  profil: string;
-  note?: string;
-  M?: number | null;
-  CC?: number | null;
-  CT?: number | null;
-  F?: number | null;
-  E?: number | null;
-  PV?: number | null;
-  I?: number | null;
-  A?: number | null;
-  Cd?: number | null;
+  // Clé vers CARACTERISTIQUES_MAX (src/data/caracteristiquesMax.ts) : plafond
+  // d'avancement applicable à ce profil. Absent seulement pour les profils
+  // de type 'animal' (n'avancent jamais, voir avancesDues).
+  groupe_caracteristiques?: string;
 };
 
 // Contraintes de composition de bande. Purement informatif (affiché comme
@@ -166,7 +153,6 @@ export type WarbandCatalog = {
   // Vide initialement, à remplir bande par bande.
   competences_speciales: CompetenceSpeciale[];
   composition?: Composition;
-  caracteristiques_max?: CaracteristiquesMax[];
   // Références libres, affichées en bas du roster sans automatisation.
   equipement?: Record<string, EquipementListe>;
   equipement_special?: EquipementSpecialRef[];

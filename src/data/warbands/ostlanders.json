@@ -14,19 +14,12 @@
     "effectif_max": 15,
     "cout_max_constitution": 500
   },
-  "caracteristiques_max": [
-    { "profil": "humain", "M": 4, "CC": 6, "CT": 6, "F": 4, "E": 4, "PV": 3, "I": 6, "A": 4, "Cd": 9 },
-    { "profil": "ogre", "M": 6, "CC": 5, "CT": 4, "F": 6, "E": 6, "PV": 4, "I": 5, "A": 4, "Cd": 7 },
-    {
-      "profil": "hommes_de_main",
-      "note": "Les Hommes de main ne peuvent augmenter leurs caractéristiques que de +1 par progression."
-    }
-  ],
   "profils": [
     {
       "id": "doyen",
       "nom": "Doyen",
       "type": "heros",
+      "groupe_caracteristiques": "humain",
       "unique": true,
       "min": 1,
       "max": 1,
@@ -45,6 +38,7 @@
       "id": "pretre_de_taal",
       "nom": "Prêtre de Taal",
       "type": "heros",
+      "groupe_caracteristiques": "humain",
       "unique": true,
       "min": 0,
       "max": 1,
@@ -63,6 +57,7 @@
       "id": "freres_de_sang",
       "nom": "Frères de sang",
       "type": "heros",
+      "groupe_caracteristiques": "humain",
       "unique": false,
       "min": 0,
       "max": 2,
@@ -78,6 +73,7 @@
       "id": "proche",
       "nom": "Proche",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
       "min": 0,
       "max": null,
       "cout": 25,
@@ -92,6 +88,7 @@
       "id": "jaeger",
       "nom": "Jaeger",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
       "min": 0,
       "max": 7,
       "cout": 25,
@@ -106,6 +103,7 @@
       "id": "vaurien",
       "nom": "Vaurien",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
       "min": 0,
       "max": 5,
       "cout": 25,
@@ -123,6 +121,7 @@
       "id": "ogre",
       "nom": "Ogre",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "ogre_gladiateur_ostlander",
       "min": 0,
       "max": 1,
       "cout": 160,

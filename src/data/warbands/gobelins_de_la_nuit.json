@@ -33,14 +33,12 @@
     "effectif_max": 20,
     "cout_max_constitution": 500
   },
-  "caracteristiques_max": [
-    { "profil": "gobelin", "M": 4, "CC": 5, "CT": 6, "F": 4, "E": 4, "PV": 3, "I": 6, "A": 4, "Cd": 7 }
-  ],
   "profils": [
     {
       "id": "boss",
       "nom": "Boss",
       "type": "heros",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
       "unique": true,
       "min": 1,
       "max": 1,
@@ -60,6 +58,7 @@
       "id": "chaman",
       "nom": "Chaman Gobelin de la Nuit",
       "type": "heros",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
       "unique": true,
       "min": 0,
       "max": 1,
@@ -78,6 +77,7 @@
       "id": "berger_a_squig",
       "nom": "Berger à Squig",
       "type": "heros",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
       "unique": true,
       "min": 0,
       "max": 1,
@@ -100,6 +100,7 @@
       "id": "zbir",
       "nom": "Zbir",
       "type": "heros",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
       "unique": false,
       "min": 0,
       "max": 3,
@@ -115,6 +116,7 @@
       "id": "guerrier_gobelin_de_la_nuit",
       "nom": "Guerrier Gobelin de la Nuit",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
       "min": 0,
       "max": null,
       "cout": 15,
@@ -131,6 +133,7 @@
       "id": "fanatique",
       "nom": "Fanatique Gobelin de la Nuit",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
       "min": 0,
       "max": 3,
       "cout": 20,
@@ -168,6 +171,7 @@
       "id": "snotling",
       "nom": "Snotling",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
       "min": 0,
       "max": 5,
       "cout": 10,

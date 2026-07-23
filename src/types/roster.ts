@@ -29,6 +29,10 @@ export type AdvanceRecord = {
   roll: number;
   type: string;
   detail: string;
+  // Caractéristique ciblée, uniquement pour type: 'caracteristique' — sert à
+  // faire respecter la règle "un homme de main ne peut pas augmenter la même
+  // caractéristique de plus de +1" (voir utils/plafond.ts).
+  stat?: keyof Stats;
 };
 
 // Profil entièrement défini à la main pour une recrue "Franc-tireur"

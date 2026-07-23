@@ -9,14 +9,12 @@
     "effectif_max": 15,
     "cout_max_constitution": 500
   },
-  "caracteristiques_max": [
-    { "profil": "clan_pestilens", "note": "Plafond commun à tous les profils ; les Hommes de main ne peuvent pas dépasser +1 par caractéristique.", "M": 6, "CC": 6, "CT": 6, "F": 4, "E": 5, "PV": 3, "I": 7, "A": 4, "Cd": 7 }
-  ],
   "profils": [
     {
       "id": "pretre_de_la_peste",
       "nom": "Prêtre de la Peste",
       "type": "heros",
+      "groupe_caracteristiques": "skaven_pestilens",
       "unique": true,
       "min": 1,
       "max": 1,
@@ -35,6 +33,7 @@
       "id": "precheur_sorcier_pestilens",
       "nom": "Prêcheur-Sorcier Pestilens",
       "type": "heros",
+      "groupe_caracteristiques": "skaven_pestilens",
       "unique": true,
       "min": 0,
       "max": 1,
@@ -52,6 +51,7 @@
       "id": "moine_de_la_peste",
       "nom": "Moine de la Peste",
       "type": "heros",
+      "groupe_caracteristiques": "skaven_pestilens",
       "unique": false,
       "min": 0,
       "max": 2,
@@ -67,6 +67,7 @@
       "id": "initie_de_la_peste",
       "nom": "Initié de la Peste",
       "type": "heros",
+      "groupe_caracteristiques": "skaven_pestilens",
       "unique": false,
       "min": 0,
       "max": 2,
@@ -82,6 +83,7 @@
       "id": "novice_de_la_peste",
       "nom": "Novice de la Peste",
       "type": "homme_de_main",
+      "groupe_caracteristiques": "skaven_pestilens",
       "min": 0,
       "max": null,
       "cout": 20,
