@@ -54,15 +54,17 @@ export function RosterScreen() {
 
   // Ouvre le menu de partage natif (Drive, mail, Dropbox...) pour que le
   // joueur choisisse lui-même où sauvegarder sa bande, sans backend ni
-  // compte côté app. AbortError = annulation volontaire par le joueur,
-  // silencieuse ; toute autre erreur (rare, l'API est déjà feature-détectée
-  // avant d'afficher le bouton) est signalée.
+  // compte côté app. Le support du partage de fichier via cette API varie
+  // beaucoup selon navigateur/OS (même quand navigator.share existe) : en
+  // cas d'échec (hors annulation volontaire), on se rabat automatiquement
+  // sur le téléchargement JSON classique plutôt que de laisser le joueur
+  // sans solution.
   const partager = async () => {
     try {
       await partagerRoster(roster);
     } catch (e) {
       if (e instanceof Error && e.name === 'AbortError') return;
-      alert("Le partage a échoué. Utilise plutôt l'export JSON.");
+      exporterRoster(roster);
     }
   };
 

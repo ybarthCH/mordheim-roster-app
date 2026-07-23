@@ -30,10 +30,18 @@ export function partageDisponible(): boolean {
 }
 
 export async function partagerRoster(roster: RosterInstance): Promise<void> {
-  const fichier = new File([JSON.stringify(roster, null, 2)], nomFichierRoster(roster), {
-    type: 'application/json',
-  });
-  if (!navigator.canShare({ files: [fichier] })) {
+  const contenu = JSON.stringify(roster, null, 2);
+  const nom = nomFichierRoster(roster);
+  // "application/json" est absent de la liste blanche de types partageables
+  // sur certains navigateurs (canShare renvoie false), d'où ce repli sur
+  // "text/plain" — le destinataire (Drive, mail...) se fie au nom de
+  // fichier (.json), pas au type MIME déclaré ici.
+  const candidats = [
+    new File([contenu], nom, { type: 'application/json' }),
+    new File([contenu], nom, { type: 'text/plain' }),
+  ];
+  const fichier = candidats.find((f) => navigator.canShare({ files: [f] }));
+  if (!fichier) {
     throw new Error('Le partage de ce fichier n’est pas supporté sur cet appareil.');
   }
   await navigator.share({ files: [fichier], title: roster.nom_bande });

@@ -107,6 +107,7 @@
       "min": 0,
       "max": 5,
       "cout": 15,
+      "rarete": "10",
       "stats": { "M": 6, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
       "regles_speciales": [
         { "nom": "Animaux", "texte": "Ne gagnent jamais d'expérience." },

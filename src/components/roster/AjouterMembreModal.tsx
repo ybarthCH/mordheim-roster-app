@@ -28,11 +28,17 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
   const [confirmationXp0, setConfirmationXp0] = useState(false);
   const [groupeCibleId, setGroupeCibleId] = useState<string | null>(null);
+  // Coût saisi à la main quand le profil n'a pas de prix fixe (ex : chien de
+  // guerre, "25+2D6") — jet à faire sur table papier, comme pour un objet.
+  const [coutManuelSaisi, setCoutManuelSaisi] = useState('');
 
   const profil = catalogue?.profils.find((p) => p.id === profilId);
   const estGroupable = profil?.type === 'homme_de_main' || profil?.type === 'animal';
   const xpDepart = Number(xpDepartSaisie) || 0;
   const quantite = Math.max(1, parseInt(quantiteSaisie, 10) || 1);
+  const coutManuelRequis = !!profil && profil.cout === null;
+  const coutManuelValide =
+    !coutManuelRequis || (coutManuelSaisi.trim() !== '' && !Number.isNaN(Number(coutManuelSaisi)) && Number(coutManuelSaisi) >= 0);
 
   // Groupes déjà existants pour ce profil (hors morts) : recruter peut soit
   // former un nouveau groupe, soit rejoindre l'un d'eux (au prix d'une
@@ -43,7 +49,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const groupeCible = groupeCibleId ? (groupesExistants.find((m) => m.instance_id === groupeCibleId) ?? null) : null;
 
   const check = profilId ? peutAjouterMembre(roster, profilId, quantite) : { ok: false };
-  const coutUnitaire = profil?.cout ?? 0;
+  const coutUnitaire = profil?.cout ?? (coutManuelRequis ? Number(coutManuelSaisi) || 0 : 0);
   const coutRejoindre = groupeCible ? calculerCoutRejoindreGroupe(groupeCible, coutUnitaire, quantite) : null;
   const coutTotal = coutRejoindre ? coutRejoindre.coutTotal : coutUnitaire * quantite;
   const budgetSuffisant = coutTotal <= roster.tresorerie;
@@ -60,6 +66,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     setQuantiteSaisie('1');
     setConfirmationXp0(false);
     setGroupeCibleId(null);
+    setCoutManuelSaisi('');
   };
 
   const changerXpDepart = (value: string) => {
@@ -68,7 +75,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   };
 
   const confirmer = () => {
-    if (!profil || !check.ok) return;
+    if (!profil || !check.ok || !coutManuelValide) return;
     if (!groupeCible && xpDepart === 0 && !confirmationXp0) {
       setConfirmationXp0(true);
       return;
@@ -100,7 +107,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
           <option value="">— Choisir —</option>
           {catalogue?.profils.map((p) => (
             <option key={p.id} value={p.id}>
-              {p.nom} ({p.cout != null ? `${p.cout} po` : 'coût ?'})
+              {p.nom} ({p.cout != null ? `${p.cout} po` : p.cout_notation ? `${p.cout_notation} po` : 'coût ?'})
             </option>
           ))}
           <option value={FRANC_TIREUR}>Franc-tireur…</option>
@@ -108,6 +115,27 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
       </div>
       {profil && (
         <>
+          {profil.rarete && (
+            <p className="text-sm text-danger">
+              Rare {profil.rarete} : un jet de disponibilité est requis sur table papier avant de pouvoir recruter ce
+              profil. Purement indicatif — n'empêche pas de recruter.
+            </p>
+          )}
+          {coutManuelRequis && (
+            <div className="field">
+              <label>
+                Coût (po){' '}
+                {profil.cout_notation && <span className="text-muted">— notation : {profil.cout_notation}</span>}
+              </label>
+              <input
+                type="number"
+                min={0}
+                value={coutManuelSaisi}
+                onChange={(e) => setCoutManuelSaisi(e.target.value)}
+                placeholder={profil.cout_notation ? `Résultat du jet, ex : 32` : undefined}
+              />
+            </div>
+          )}
           {groupesExistants.length > 0 && (
             <div className="field">
               <label>Groupe</label>
@@ -189,7 +217,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
         <button className="btn" onClick={onClose}>
           Annuler
         </button>
-        <button className="btn btn--primary" disabled={!profil || !check.ok} onClick={confirmer}>
+        <button className="btn btn--primary" disabled={!profil || !check.ok || !coutManuelValide} onClick={confirmer}>
           {confirmationXp0 && !groupeCible
             ? 'Confirmer 0 XP et recruter'
             : `Recruter pour ${coutTotal} po${profil && !budgetSuffisant ? ' quand même' : ''}`}

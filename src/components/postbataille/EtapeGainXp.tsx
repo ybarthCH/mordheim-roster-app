@@ -99,20 +99,26 @@ type EtapeGainXpProps = {
 // Affiche le badge "X avancée(s) en attente" + le bouton de résolution pour
 // un membre donné, exactement comme sur sa fiche personnage (ExperienceCard)
 // — permet de résoudre une avancée sans quitter l'assistant post-bataille.
+// `xpActuel` reçoit l'XP en cours d'ajustement dans cette étape (brouillon,
+// pas encore enregistrée) plutôt que membre.xp figé : la case s'affiche dès
+// qu'un palier est franchi en bougeant la barre, sans attendre la validation
+// finale de l'assistant.
 function BlocAvanceeDue({
   roster,
   membre,
+  xpActuel,
   demiXp,
   onOuvrirAvancee,
 }: {
   roster: RosterInstance;
   membre: Member;
+  xpActuel: number;
   demiXp: boolean;
   onOuvrirAvancee: (m: Member) => void;
 }) {
   const profil = resolveProfil(roster, membre);
   if (!profil || profil.type === 'animal') return null;
-  const dues = avancesDues(profil.type, membre.xp_depart, membre.xp, demiXp);
+  const dues = avancesDues(profil.type, membre.xp_depart, xpActuel, demiXp);
   const enAttente = Math.max(0, dues - membre.historique_avancees.length);
   if (enAttente === 0) return null;
   return (
@@ -197,7 +203,7 @@ export function EtapeGainXp({
                   N'a pas survécu
                 </button>
               </div>
-              <BlocAvanceeDue roster={roster} membre={m} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
+              <BlocAvanceeDue roster={roster} membre={m} xpActuel={d.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
           );
         })}
@@ -235,7 +241,7 @@ export function EtapeGainXp({
                     ? `Résolu — le groupe garde ${survivants} figurine(s)${estAnimal ? '.' : ' et gagne +1 XP.'}`
                     : "Résolu — le groupe est entièrement éliminé (passera au statut Mort)."}
               </p>
-              <BlocAvanceeDue roster={roster} membre={m} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
+              <BlocAvanceeDue roster={roster} membre={m} xpActuel={m.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
           );
         })}
@@ -274,7 +280,7 @@ export function EtapeGainXp({
                 bonusLeader={bonusLeader}
                 demiXp={demiXp}
               />
-              <BlocAvanceeDue roster={roster} membre={m} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
+              <BlocAvanceeDue roster={roster} membre={m} xpActuel={d.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
           );
         })}

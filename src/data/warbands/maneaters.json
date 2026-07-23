@@ -133,6 +133,46 @@
       "acces_competences": [],
       "acces_equipement": [],
       "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerrier_gnoblar",
+      "nom": "Guerrier gnoblar",
+      "type": "animal",
+      "min": 0,
+      "max": null,
+      "cout": null,
+      "cout_notation": "15+1D6",
+      "rarete": "9",
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 2, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Armes/armures", "texte": "Équipé d'une dague et de shrapnels (compte comme une arme de jet, portée 8ps, Force 2 et double tir)." },
+        { "nom": "Complètement insignifiant", "texte": "Compte dans le nombre de guerriers de la bande, mais n'est pas pris en compte pour les tests de Déroute (ni pour déterminer la taille initiale de la bande, ni pour les pertes)." },
+        { "nom": "Chamailleries", "texte": "Jetez 1D6 au début du tour pour chaque gnoblar qui n'est pas engagé au corps à corps, à moins de 2ps d'un autre gnoblar. Sur un résultat de 1, le gnoblar insulte, injurie et/ou menace l'autre gnoblar et ne peut rien faire d'autre ce tour-ci." },
+        { "nom": "Comme un chien de guerre", "texte": "Ne compte pas comme un animal dans la fiction (compte comme un Peau-Verte, non sujet à l'Animosité), mais suit les mêmes règles qu'un chien de guerre : ne gagne jamais d'expérience, rétablissement 1-2 Mort/3-6 Vivant, compte dans l'effectif max." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "chien_de_guerre",
+      "nom": "Chien de guerre",
+      "type": "animal",
+      "min": 0,
+      "max": null,
+      "cout": null,
+      "cout_notation": "25+2D6",
+      "rarete": "10",
+      "stats": { "M": 6, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Molosse de combat", "texte": "Se bat exactement comme un membre de la bande, bien qu'il fasse partie de l'équipement du Héros qui l'a acheté. Une figurine est nécessaire pour le représenter sur le champ de bataille." },
+        { "nom": "Ne gagne jamais d'expérience", "texte": "Un chien de guerre reste au même niveau toute sa carrière." },
+        { "nom": "Rétablissement", "texte": "S'il est mis hors de combat : 1-2 Mort, 3-6 Vivant (comme un Homme de main)." },
+        { "nom": "Profil polyvalent", "texte": "Utilisable pour représenter des animaux plus exotiques (ours dressé, familier du Chaos, singe de combat des Terres du Sud...)." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
     }
   ],
   "competences_speciales": [

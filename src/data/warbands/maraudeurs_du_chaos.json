@@ -168,6 +168,26 @@
       "acces_competences": [],
       "acces_equipement": ["hommes_de_main"],
       "acces_competences_a_verifier": false
+    },
+    {
+      "id": "chien_de_guerre",
+      "nom": "Chien de guerre",
+      "type": "animal",
+      "min": 0,
+      "max": null,
+      "cout": null,
+      "cout_notation": "25+2D6",
+      "rarete": "10",
+      "stats": { "M": 6, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Molosse de combat", "texte": "Se bat exactement comme un membre de la bande, bien qu'il fasse partie de l'équipement du Héros qui l'a acheté. Une figurine est nécessaire pour le représenter sur le champ de bataille." },
+        { "nom": "Ne gagne jamais d'expérience", "texte": "Un chien de guerre reste au même niveau toute sa carrière." },
+        { "nom": "Rétablissement", "texte": "S'il est mis hors de combat : 1-2 Mort, 3-6 Vivant (comme un Homme de main)." },
+        { "nom": "Profil polyvalent", "texte": "Utilisable pour représenter des animaux plus exotiques (ours dressé, familier du Chaos, singe de combat des Terres du Sud...)." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
     }
   ],
   "competences_speciales": [
