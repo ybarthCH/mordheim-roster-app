@@ -22,7 +22,8 @@ export type IconName =
   | 'etoile'
   | 'griffe'
   | 'couronne'
-  | 'banniere';
+  | 'banniere'
+  | 'coffre';
 
 const PATHS: Record<IconName, string> = {
   epee:
@@ -48,6 +49,8 @@ const PATHS: Record<IconName, string> = {
     'M5 3 C4 6 4 9 6 12 L4 21 L7 20 L8 14 M10 3 C9 6 9 9 11 12 L9 21 L12 20 L13 14 M15 3 C14 6 14 9 16 12 L14 21 L17 20 L18 14',
   couronne: 'M5 19 L5 9 L9 13 L12 6 L15 13 L19 9 L19 19 L5 19',
   banniere: 'M6 2 L6 22 M6 4 L18 7.5 L6 11',
+  coffre:
+    'M4 9.5 C4 7 7 5.5 12 5.5 C17 5.5 20 7 20 9.5 L20 20 L4 20 Z M4 9.5 L20 9.5 M4 9.5 L4 6.5 M20 9.5 L20 6.5 M10.5 12.5 L13.5 12.5 L13.5 16 L10.5 16 Z',
 };
 
 const VIEWBOX: Record<IconName, string> = {
@@ -68,6 +71,7 @@ const VIEWBOX: Record<IconName, string> = {
   griffe: '0 0 24 24',
   couronne: '0 0 24 24',
   banniere: '0 0 24 24',
+  coffre: '0 0 24 24',
 };
 
 type Props = {

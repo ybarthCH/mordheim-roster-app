@@ -70,7 +70,8 @@
   --texture-parchemin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
-:root[data-theme='light'] {
+:root[data-theme='light']:not([data-palette]),
+:root[data-theme='light'][data-palette='rouge'] {
   --bg: #f3ece0;
   --bg-elevated: #fffdf8;
   --bg-card: #fffaf1;
@@ -93,7 +94,8 @@
   --shadow: 0 2px 8px rgba(60, 40, 10, 0.12);
 }
 
-:root[data-theme='dark'] {
+:root[data-theme='dark']:not([data-palette]),
+:root[data-theme='dark'][data-palette='rouge'] {
   --bg: #17130f;
   --bg-elevated: #221c16;
   --bg-card: #241d17;
@@ -114,6 +116,52 @@
   --info-bg: #1c2733;
   --palier: #d9a441;
   --shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme='light'][data-palette='noir'] {
+  --bg: #eceeef;
+  --bg-elevated: #ffffff;
+  --bg-card: #f7f8f9;
+  --bg-inset: #e2e5e7;
+  --text: #1c2023;
+  --text-muted: #5b6268;
+  --border: #cbd1d5;
+  --accent: #3a4149;
+  --accent-strong: #23282d;
+  --accent-contrast: #f5f6f7;
+  --accent-soft: #dde1e4;
+  --success: #2f6b3a;
+  --success-bg: #dcecd9;
+  --danger: #a11d1d;
+  --danger-bg: #f7dcdc;
+  --warning: #8a5a10;
+  --warning-bg: #f6e6c6;
+  --info-bg: #dde6ee;
+  --palier: #b8860b;
+  --shadow: 0 2px 8px rgba(20, 25, 30, 0.12);
+}
+
+:root[data-theme='dark'][data-palette='noir'] {
+  --bg: #121316;
+  --bg-elevated: #1c1e22;
+  --bg-card: #1e2024;
+  --bg-inset: #0e0f11;
+  --text: #e6e8ea;
+  --text-muted: #9aa0a6;
+  --border: #2c3034;
+  --accent: #7b8590;
+  --accent-strong: #9aa4af;
+  --accent-contrast: #101214;
+  --accent-soft: #2a2e33;
+  --success: #7fbf85;
+  --success-bg: #1c2c1d;
+  --danger: #e06a6a;
+  --danger-bg: #3a1c1c;
+  --warning: #e0b45c;
+  --warning-bg: #3a2c14;
+  --info-bg: #1c2733;
+  --palier: #d9a441;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 * {

@@ -34,7 +34,23 @@ export function ListeBandesScreen() {
   };
 
   return (
-    <Screen title="Mes bandes" actions={<ThemeToggle />}>
+    <Screen
+      title="Mes bandes"
+      actions={
+        <>
+          <button
+            type="button"
+            className="icon-btn"
+            onClick={() => navigate('/reglages')}
+            aria-label="Réglages"
+            title="Réglages"
+          >
+            ⚙
+          </button>
+          <ThemeToggle />
+        </>
+      }
+    >
       <div className="home-hero">
         <h1 className="home-hero__title">Mordheim</h1>
         <div className="home-hero__rule" />
