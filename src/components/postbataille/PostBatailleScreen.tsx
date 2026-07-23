@@ -15,6 +15,7 @@ import { BlessureGraveWizard, type BlessureGraveResultat } from '../personnage/B
 const ETAPES = ['Blessures graves', 'Bataille', "Gain d'expérience", 'Exploration', 'Résumé'];
 
 type BlessureDraft = {
+  nom: string;
   description: string;
   stats: Stats;
   equipement: string;
@@ -22,6 +23,7 @@ type BlessureDraft = {
   perteEquipement: boolean;
   statutMort: boolean;
   xpBonus: number;
+  tresorerieBonus: number;
 };
 
 type XpDraft = {
@@ -188,6 +190,12 @@ export function PostBatailleScreen() {
     (acc, m) => acc + (m.profil_custom?.solde ?? 0) * (m.taille_groupe || 1),
     0
   );
+  // Gains de trésorerie issus de résultats de blessure grave automatisés
+  // (ex : victoire au combat de Gladiateur, +50 po).
+  const blessuresTresorerieBonus = Object.values(blessureDrafts).reduce(
+    (total, d) => total + d.tresorerieBonus,
+    0
+  );
 
   if (!roster) {
     return (
@@ -211,6 +219,7 @@ export function PostBatailleScreen() {
     setBlessureDrafts((prev) => ({
       ...prev,
       [m.instance_id]: {
+        nom: resultat.nom,
         description: resultat.texte,
         stats,
         equipement: resultat.perteEquipement ? '' : m.equipement,
@@ -218,6 +227,7 @@ export function PostBatailleScreen() {
         perteEquipement: resultat.perteEquipement,
         statutMort: resultat.statutMort,
         xpBonus: resultat.xpBonus,
+        tresorerieBonus: resultat.tresorerieBonus,
       },
     }));
     setXpDrafts((prev) => ({
@@ -293,7 +303,7 @@ export function PostBatailleScreen() {
   const precedent = () => setEtape((e) => Math.max(0, e - 1));
 
   const terminer = async () => {
-    const tresorerieApres = roster.tresorerie + prixVente - soldeTotal;
+    const tresorerieApres = roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus;
     const groupesHCIds = new Set(groupesHC.map((m) => m.instance_id));
 
     const membresMaj: Member[] = roster.membres.map((m) => {
@@ -317,7 +327,7 @@ export function PostBatailleScreen() {
             ...membre,
             blessures_graves: [
               ...membre.blessures_graves,
-              { id: uuidv4(), date, description: draft.description.trim() },
+              { id: uuidv4(), date, description: draft.description.trim(), nom: draft.nom },
             ],
           };
         }
@@ -759,11 +769,17 @@ export function PostBatailleScreen() {
           <p className="text-sm">
             Wyrdstone : {roster.wyrdstone} → {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue)}
             <br />
-            Trésorerie : {roster.tresorerie} → {roster.tresorerie + prixVente - soldeTotal} po
+            Trésorerie : {roster.tresorerie} → {roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus}{' '}
+            po
           </p>
           {soldeTotal > 0 && (
             <p className="text-sm">
               Solde des francs-tireurs à payer : {soldeTotal} po ({francTireursActifs.length} franc(s)-tireur(s)).
+            </p>
+          )}
+          {blessuresTresorerieBonus > 0 && (
+            <p className="text-sm">
+              Gains issus des blessures graves résolues : +{blessuresTresorerieBonus} po.
             </p>
           )}
           <p className="text-sm">

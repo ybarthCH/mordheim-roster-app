@@ -8,7 +8,7 @@ import { BlessureGraveWizard, type BlessureGraveResultat } from './BlessureGrave
 type Props = {
   member: Member;
   onClose: () => void;
-  onApply: (member: Member) => void;
+  onApply: (member: Member, tresorerieBonus: number) => void;
 };
 
 export function BlessureGraveModal({ member, onClose, onApply }: Props) {
@@ -19,6 +19,7 @@ export function BlessureGraveModal({ member, onClose, onApply }: Props) {
       id: uuidv4(),
       date: new Date().toISOString().slice(0, 10),
       description: resultat.texte,
+      nom: resultat.nom,
     };
     const statsActuels = { ...member.stats_actuels };
     const statsModifiees = new Set(member.stats_modifiees);
@@ -47,7 +48,7 @@ export function BlessureGraveModal({ member, onClose, onApply }: Props) {
     if (resultat.statutMort) {
       updated = { ...updated, statut: 'mort', date_mort: new Date().toISOString().slice(0, 10) };
     }
-    onApply(updated);
+    onApply(updated, resultat.tresorerieBonus);
     setApplique(true);
   };
 

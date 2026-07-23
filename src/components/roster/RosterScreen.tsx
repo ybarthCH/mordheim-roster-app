@@ -17,6 +17,7 @@ import { EquipementReference, MagieReference } from '../common/CatalogueReferenc
 import { STATUTS } from '../../types/roster';
 import type { BattleRecord, Member, RosterInstance, InventoryEntry } from '../../types/roster';
 import { avancesDues } from '../../utils/xp';
+import { nomCourtBlessure } from '../../utils/blessures';
 import {
   acheterPourStock,
   retirerDuStock,
@@ -113,6 +114,13 @@ export function RosterScreen() {
     if (m.inventaire.length === 0) return 'Sans équipement';
     const noms = m.inventaire.map((e) => e.nom).join(', ');
     return noms.length > 90 ? `${noms.slice(0, 90).trimEnd()}…` : noms;
+  };
+
+  // Idem pour les blessures graves accumulées : juste les titres, pas les
+  // descriptions complètes (disponibles sur la fiche personnage).
+  const resumeBlessures = (m: Member): string | null => {
+    if (m.blessures_graves.length === 0) return null;
+    return `Blessures : ${m.blessures_graves.map((b) => nomCourtBlessure(b)).join(' - ')}`;
   };
 
   const avanceEnAttente = (m: Member) => {
@@ -215,6 +223,11 @@ export function RosterScreen() {
                     <div className="text-sm text-muted" style={{ fontStyle: 'italic', marginTop: '0.1rem' }}>
                       {resumeEquipement(m)}
                     </div>
+                    {resumeBlessures(m) && (
+                      <div className="text-sm text-danger" style={{ marginTop: '0.1rem' }}>
+                        {resumeBlessures(m)}
+                      </div>
+                    )}
                   </td>
                   <td>{profil?.nom ?? m.profil_id}</td>
                   <td>{m.stats_actuels.M}</td>
@@ -334,6 +347,7 @@ export function RosterScreen() {
                 <div className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
                   {resumeEquipement(m)}
                 </div>
+                {resumeBlessures(m) && <div className="text-sm text-danger">{resumeBlessures(m)}</div>}
               </div>
               {avanceEnAttente(m) && (
                 <span className="badge badge--warning" title="Avancée en attente">
@@ -511,9 +525,9 @@ export function RosterScreen() {
       </div>
 
       <div className="card">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center" style={{ marginBottom: '0.7rem' }}>
           <h3 className="mt-0 mb-0">Armurerie de la bande</h3>
-          <button className="btn btn--sm" onClick={() => setModalAchatStock(true)}>
+          <button className="btn btn--sm btn--primary" onClick={() => setModalAchatStock(true)}>
             + Acheter
           </button>
         </div>

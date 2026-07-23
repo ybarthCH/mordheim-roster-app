@@ -107,6 +107,20 @@ export function PersonnageScreen() {
     updateRoster({ ...roster, membres: membresMaj });
   };
 
+  // Résultat de blessure grave "Gladiateur" gagné : la récompense en po
+  // s'applique à la trésorerie de bande, pas au personnage — un seul appel à
+  // updateRoster pour éviter qu'une mise à jour écrase l'autre.
+  const appliquerBlessureGrave = (updated: typeof membre, tresorerieBonus: number) => {
+    const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
+    updateRoster({ ...roster, membres: membresMaj, tresorerie: roster.tresorerie + tresorerieBonus });
+  };
+
+  // Correction d'une saisie erronée : ne modifie ni stats, ni équipement, ni
+  // trésorerie déjà appliqués — juste l'entrée d'historique elle-même.
+  const supprimerBlessure = (id: string) => {
+    majMembre({ blessures_graves: membre.blessures_graves.filter((b) => b.id !== id) });
+  };
+
   // Recale la textbox "Équipement" (utilisée telle quelle par le post-bataille
   // et l'export PDF) sur l'inventaire structuré, à chaque achat/retrait.
   const avecEquipementSynchronise = (nouveauRoster: typeof roster, inventaire: typeof membre.inventaire) => ({
@@ -489,9 +503,9 @@ export function PersonnageScreen() {
       )}
 
       <div className="card">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center" style={{ marginBottom: '0.7rem' }}>
           <h3 className="mt-0 mb-0">Équipement</h3>
-          <button className="btn btn--sm" onClick={() => setModalAchat(true)}>
+          <button className="btn btn--sm btn--primary" onClick={() => setModalAchat(true)}>
             + Acheter
           </button>
         </div>
@@ -598,17 +612,31 @@ export function PersonnageScreen() {
       </div>
 
       <div className="card">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center" style={{ marginBottom: '0.5rem' }}>
           <h3 className="mt-0 mb-0">Blessures graves</h3>
-          <button className="btn btn--sm" onClick={() => setModalBlessure(true)}>
+          <button className="btn btn--sm btn--primary" onClick={() => setModalBlessure(true)}>
             + Enregistrer un résultat
           </button>
         </div>
         {membre.blessures_graves.length === 0 && <p className="text-muted text-sm">Aucune.</p>}
         {membre.blessures_graves.map((b) => (
-          <p key={b.id} className="text-sm">
-            {b.date} — {injuryLabel(b)}
-          </p>
+          <div
+            key={b.id}
+            className="flex justify-between"
+            style={{ alignItems: 'flex-start', gap: '0.4rem', marginTop: '0.3rem' }}
+          >
+            <p className="text-sm mb-0">
+              {b.date} — {injuryLabel(b)}
+            </p>
+            <button
+              className="btn--ghost"
+              style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)', flexShrink: 0 }}
+              onClick={() => supprimerBlessure(b.id)}
+              title="Supprimer cette entrée de l'historique"
+            >
+              ✕
+            </button>
+          </div>
         ))}
       </div>
 
@@ -691,7 +719,7 @@ export function PersonnageScreen() {
         <BlessureGraveModal
           member={membre}
           onClose={() => setModalBlessure(false)}
-          onApply={(updated) => majMembre(updated)}
+          onApply={(updated, tresorerieBonus) => appliquerBlessureGrave(updated, tresorerieBonus)}
         />
       )}
       {modalAchat && (
