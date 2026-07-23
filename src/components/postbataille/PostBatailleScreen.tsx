@@ -9,7 +9,7 @@ import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member } from '../../types/roster';
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
-import { acheterPourStock, creerEntreeInventaire } from '../../utils/shop';
+import { creerEntreeInventaire } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { AvanceeModal } from '../personnage/AvanceeModal';
 import { EtapeBlessuresGraves } from './EtapeBlessuresGraves';
@@ -233,11 +233,13 @@ export function PostBatailleScreen() {
   };
   const precedent = () => setEtape((e) => Math.max(0, e - 1));
 
-  // Objet obtenu directement pendant l'exploration (don de scénario ou achat
-  // au shop commun) : rejoint aussitôt le stock de la bande, indépendamment
-  // de la validation finale de l'assistant.
+  // Objet trouvé gratuitement pendant l'exploration (don de scénario) :
+  // rejoint aussitôt le stock de la bande, indépendamment de la validation
+  // finale de l'assistant. La valeur saisie sert de référence pour une
+  // revente future mais n'est jamais déduite de la trésorerie (voir
+  // AchatEquipementModal `gratuit`), contrairement à un achat classique.
   const ajouterAuStock = (item: ShopItem, coutPaye: number) => {
-    updateRoster(acheterPourStock(roster, creerEntreeInventaire(item, coutPaye)));
+    updateRoster({ ...roster, stock: [...roster.stock, creerEntreeInventaire(item, coutPaye)] });
   };
 
   const heroCount = nombreHeros(roster);

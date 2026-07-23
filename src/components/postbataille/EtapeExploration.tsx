@@ -120,7 +120,7 @@ export function EtapeExploration({
         </div>
         <p className="text-sm text-muted mb-0">
           Certains scénarios accordent un objet directement : ajoute-le ici, il rejoint aussitôt le stock de la
-          bande. Coût payé à 0 po pour un objet gagné gratuitement.
+          bande, sans toucher à la trésorerie.
         </p>
       </div>
 
@@ -197,6 +197,7 @@ export function EtapeExploration({
           catalogue={catalogue}
           profil={null}
           tresorerie={roster.tresorerie}
+          gratuit
           onClose={() => setModalAchat(false)}
           onAchat={onAchatStock}
         />

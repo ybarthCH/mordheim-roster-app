@@ -26,6 +26,11 @@ type Props = {
   // ses figurines, l'achat porte donc automatiquement sur `tailleGroupe`
   // exemplaires au prix unitaire saisi.
   tailleGroupe?: number;
+  // Objet trouvé gratuitement (ex : don de scénario à l'exploration) plutôt
+  // qu'acheté : la valeur saisie sert uniquement de référence pour une
+  // revente future, elle n'est pas déduite de la trésorerie. Adapte le texte
+  // et masque les avertissements liés au coût.
+  gratuit?: boolean;
   onClose: () => void;
   onAchat: (item: ShopItem, coutPaye: number) => void;
 };
@@ -43,6 +48,7 @@ export function AchatEquipementModal({
   tresorerie,
   competencesAcquises = [],
   tailleGroupe = 1,
+  gratuit = false,
   onClose,
   onAchat,
 }: Props) {
@@ -98,10 +104,12 @@ export function AchatEquipementModal({
     <Modal onClose={onClose}>
       <div style={{ display: 'flex', flexDirection: 'column', height: '80vh', maxHeight: '80vh' }}>
         <div style={{ flexShrink: 0 }}>
-          <h3 className="mt-0 mb-0">Acheter de l'équipement</h3>
+          <h3 className="mt-0 mb-0">{gratuit ? "Ajouter un objet trouvé" : "Acheter de l'équipement"}</h3>
           <p className="text-sm text-muted" style={{ marginTop: '0.2rem' }}>
-            Trésorerie disponible : {tresorerie} po. Pas de gestion de rareté ici — les jets de disponibilité se
-            font en jeu.
+            {gratuit
+              ? "Objet trouvé gratuitement : n'affecte pas la trésorerie de la bande."
+              : `Trésorerie disponible : ${tresorerie} po.`}{' '}
+            Pas de gestion de rareté ici — les jets de disponibilité se font en jeu.
           </p>
 
           <div className="flex gap-sm" style={{ marginBottom: '0.5rem' }}>
@@ -236,7 +244,7 @@ export function AchatEquipementModal({
             </div>
             <div className="field">
               <label>
-                Coût payé (po{tailleGroupe > 1 ? ' / figurine' : ''}){' '}
+                {gratuit ? `Valeur de l'objet (po)` : `Coût payé (po${tailleGroupe > 1 ? ' / figurine' : ''})`}{' '}
                 {!itemSelectionne.cout_fixe && (
                   <span className="text-muted">— notation : {itemSelectionne.cout}</span>
                 )}
@@ -248,14 +256,19 @@ export function AchatEquipementModal({
                 onChange={(e) => setCoutSaisi(e.target.value)}
                 placeholder={!itemSelectionne.cout_fixe ? 'Résultat du jet, ex : 42' : undefined}
               />
+              {gratuit && (
+                <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+                  Sert uniquement de référence pour une revente future — rien n'est déduit de la trésorerie.
+                </p>
+              )}
             </div>
-            {tailleGroupe > 1 && coutValide && (
+            {!gratuit && tailleGroupe > 1 && coutValide && (
               <p className="text-sm text-muted">
                 Groupe de {tailleGroupe} figurines identiques : {tailleGroupe} exemplaires achetés pour {coutTotal} po
                 au total.
               </p>
             )}
-            {coutValide && coutTotal > tresorerie && (
+            {!gratuit && coutValide && coutTotal > tresorerie && (
               <p className="text-danger text-sm">Trésorerie insuffisante ({tresorerie} po disponibles).</p>
             )}
           </div>
@@ -266,7 +279,7 @@ export function AchatEquipementModal({
             Annuler
           </button>
           <button className="btn btn--primary" disabled={!itemSelectionne || !coutValide} onClick={confirmer}>
-            Acheter
+            {gratuit ? 'Ajouter' : 'Acheter'}
           </button>
         </div>
       </div>
