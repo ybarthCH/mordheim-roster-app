@@ -723,6 +723,13 @@ button {
   padding: 0.4rem 0.3rem;
   text-align: center;
 }
+.summary-tile__icon {
+  display: block;
+  margin: 0 auto 0.2rem;
+  font-size: 1.4rem;
+  color: var(--accent);
+  opacity: 0.85;
+}
 .summary-tile__value {
   font-size: 1.1rem;
   font-weight: 700;

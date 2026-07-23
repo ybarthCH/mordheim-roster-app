@@ -334,7 +334,10 @@ export function PersonnageScreen() {
 
       {profil.regles_speciales && profil.regles_speciales.length > 0 && (
         <div className="card card--tight">
-          <h3>Règles spéciales du profil</h3>
+          <h3>
+            <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
+            Règles spéciales du profil
+          </h3>
           {profil.regles_speciales.map((r) => (
             <p key={r.nom} className="text-sm mb-0" style={{ whiteSpace: 'pre-line' }}>
               <strong>{r.nom}</strong> — {r.texte}
@@ -462,13 +465,19 @@ export function PersonnageScreen() {
 
       {profil.type === 'animal' ? (
         <div className="card">
-          <h3 className="mt-0">Expérience</h3>
+          <h3 className="mt-0">
+            <Icon name="etoile" style={{ marginRight: '0.35em' }} />
+            Expérience
+          </h3>
           <p className="text-muted text-sm mb-0">Les animaux ne gagnent jamais d'expérience.</p>
         </div>
       ) : (
         <div className="card">
           <div className="flex justify-between items-center">
-            <h3 className="mt-0 mb-0">Expérience</h3>
+            <h3 className="mt-0 mb-0">
+              <Icon name="etoile" style={{ marginRight: '0.35em' }} />
+              Expérience
+            </h3>
             <span className="badge badge--info">{membre.xp} XP</span>
           </div>
           <XpGrid
@@ -504,7 +513,10 @@ export function PersonnageScreen() {
 
       <div className="card">
         <div className="flex justify-between items-center" style={{ marginBottom: '0.7rem' }}>
-          <h3 className="mt-0 mb-0">Équipement</h3>
+          <h3 className="mt-0 mb-0">
+            <Icon name="epee" style={{ marginRight: '0.35em' }} />
+            Équipement
+          </h3>
           <button className="btn btn--sm btn--primary" onClick={() => setModalAchat(true)}>
             + Acheter
           </button>
@@ -569,7 +581,10 @@ export function PersonnageScreen() {
       </div>
 
       <div className="card">
-        <h3>Règles spéciales / Sorts connus / mutations</h3>
+        <h3>
+          <Icon name="flamme" style={{ marginRight: '0.35em' }} />
+          Règles spéciales / Sorts connus / mutations
+        </h3>
         <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.6rem' }}>
           {membre.sorts_connus.map((s, i) => (
             <span key={i} className="badge badge--info">
@@ -613,7 +628,10 @@ export function PersonnageScreen() {
 
       <div className="card">
         <div className="flex justify-between items-center" style={{ marginBottom: '0.5rem' }}>
-          <h3 className="mt-0 mb-0">Blessures graves</h3>
+          <h3 className="mt-0 mb-0">
+            <Icon name="goutte" style={{ marginRight: '0.35em' }} />
+            Blessures graves
+          </h3>
           <button className="btn btn--sm btn--primary" onClick={() => setModalBlessure(true)}>
             + Enregistrer un résultat
           </button>
