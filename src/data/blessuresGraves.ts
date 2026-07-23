@@ -282,7 +282,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
     code: '65',
     nom: 'Gladiateur',
     texte:
-      "Le guerrier se réveille dans les tristement célèbres fosses de combat du Repaire des Coupe-Jarrets et doit affronter un champion des fosses. Déterminez qui charge, puis résolvez le combat normalement. S'il perd, relance sur cette table (Mort à Blessure profonde, soit 11-35) pour savoir s'il meurt ou est blessé ; s'il survit, il est jeté hors des fosses sans son armure ni ses armes et peut rejoindre sa bande. S'il gagne, il empoche 50 po, gagne +2 Expérience et est libre de rejoindre sa bande avec tout son équipement.",
+      "Le guerrier se réveille dans les tristement célèbres fosses de combat du Repaire des Coupe-Jarrets et doit affronter un gladiateur. Déterminez qui charge, puis résolvez le combat normalement. S'il perd, relance sur cette table (Mort à Blessure profonde, soit 11-35) pour savoir s'il meurt ou est blessé ; s'il survit, il est jeté hors des fosses sans son armure ni ses armes et peut rejoindre sa bande. S'il gagne, il empoche 50 po, gagne +2 Expérience et est libre de rejoindre sa bande avec tout son équipement.",
     combatGladiateur: true,
   },
   {
@@ -298,12 +298,13 @@ export function trouverBlessure(id: string): ResultatBlessureGrave | undefined {
   return BLESSURES_GRAVES.find((b) => b.id === id);
 }
 
-// Résultat "Gladiateur" perdu, mais survécu : la table papier précise de
-// relancer sur la plage 11-35 pour savoir s'il meurt ou est blessé. L'app
-// scinde ça en une question Mort/Vivant préalable (voir BlessureGraveWizard),
-// donc cette liste ne couvre plus que la partie "Vivant" de cette plage
-// (11-15 = Mort, déjà traité séparément).
-export const IDS_GLADIATEUR_VIVANT = [
+// Résultat "Gladiateur" perdu : la table papier précise de relancer sur la
+// plage 11-35 (Mort à Blessure profonde) pour savoir ce qu'il devient — Mort
+// est un résultat possible de CETTE relance comme un autre, pas une
+// question à part : le personnage n'est déclaré mort (statut, tag, perte
+// d'équipement...) que si la relance tombe elle-même sur 11-15.
+export const IDS_GLADIATEUR_PERDU = [
+  'mort',
   'blessures_multiples',
   'blessure_jambe',
   'blessure_bras',

@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#7a1414"/>
-  <rect x="24" y="24" width="464" height="464" rx="80" fill="none" stroke="#e9dfcc" stroke-width="10" opacity="0.35"/>
-  <text x="256" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="300" font-weight="700"
-        text-anchor="middle" fill="#f3ece0">M</text>
-  <path d="M160 372 L256 410 L352 372" stroke="#f3ece0" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
-</svg>
