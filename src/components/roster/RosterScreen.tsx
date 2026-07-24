@@ -122,19 +122,14 @@ export function RosterScreen() {
     });
   };
 
-  // Réordonne un membre au sein de sa section (Héros / Hommes de main),
-  // en échangeant sa position avec son voisin dans la liste affichée.
-  const deplacerMembre = (section: Member[], m: Member, direction: -1 | 1) => {
-    const idx = section.findIndex((x) => x.instance_id === m.instance_id);
-    const idxVoisin = idx + direction;
-    if (idx < 0 || idxVoisin < 0 || idxVoisin >= section.length) return;
-    const voisin = section[idxVoisin];
+  // Réordonne une section (Héros / Hommes de main) par glisser-déposer : les
+  // autres membres du roster gardent leur position, seul le contenu des
+  // emplacements de cette section est réarrangé selon `nouvelOrdre`.
+  const reordonnerSection = (nouvelOrdre: Member[]) => {
+    const idsSection = new Set(nouvelOrdre.map((m) => m.instance_id));
+    let i = 0;
     patch({
-      membres: roster.membres.map((x) => {
-        if (x.instance_id === m.instance_id) return voisin;
-        if (x.instance_id === voisin.instance_id) return m;
-        return x;
-      }),
+      membres: roster.membres.map((m) => (idsSection.has(m.instance_id) ? nouvelOrdre[i++] : m)),
     });
   };
 
@@ -234,7 +229,7 @@ export function RosterScreen() {
         membres={heros}
         roster={roster}
         catalogue={catalogue}
-        onDeplacer={deplacerMembre}
+        onReordonner={reordonnerSection}
         onBasculerHorsCombat={basculerHorsCombat}
         onSupprimer={setMembreASupprimer}
       />
@@ -243,7 +238,7 @@ export function RosterScreen() {
         membres={hommesDeMain}
         roster={roster}
         catalogue={catalogue}
-        onDeplacer={deplacerMembre}
+        onReordonner={reordonnerSection}
         onBasculerHorsCombat={basculerHorsCombat}
         onSupprimer={setMembreASupprimer}
       />
