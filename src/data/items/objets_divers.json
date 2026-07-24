@@ -706,7 +706,8 @@
     "texte": "Le corps de l'Impur enfle et se boursoufle sous l'effet de la bénédiction de Nurgle.",
     "regles_speciales": [
       { "nom": "Effet", "texte": "+1 Point de Vie, +1 en Endurance, mais -1 en Mouvement." }
-    ]
+    ],
+    "stats_delta": { "PV": 1, "E": 1, "M": -1 }
   },
   {
     "id": "marque_de_nurgle", "nom": "Marque de Nurgle (Bénédiction de Nurgle)", "categorie": "divers",
@@ -715,7 +716,8 @@
     "texte": "La marque de Nurgle s'imprime sur la chair de l'Impur, signe de la faveur du Dieu de la Peste.",
     "regles_speciales": [
       { "nom": "Effet", "texte": "+1 Point de Vie et immunité aux effets de tous les poisons." }
-    ]
+    ],
+    "stats_delta": { "PV": 1 }
   },
   {
     "id": "hideux", "nom": "Hideux (Bénédiction de Nurgle)", "categorie": "divers",

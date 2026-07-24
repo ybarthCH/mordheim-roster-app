@@ -214,12 +214,12 @@
     }
   },
   "equipement_special": [
-    { "item_id": "flot_de_corruption", "cout": 25, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] },
-    { "item_id": "pourriture_de_nurgle", "cout": 50, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] },
-    { "item_id": "nuage_de_mouches_benediction", "cout": 25, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] },
-    { "item_id": "horreur_enflee", "cout": 40, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] },
-    { "item_id": "marque_de_nurgle", "cout": 35, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] },
-    { "item_id": "hideux", "cout": 40, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"] }
+    { "item_id": "flot_de_corruption", "cout": 25, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"], "groupe_prix": "benediction_nurgle" },
+    { "item_id": "pourriture_de_nurgle", "cout": 50, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"], "groupe_prix": "benediction_nurgle" },
+    { "item_id": "nuage_de_mouches_benediction", "cout": 25, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"], "groupe_prix": "benediction_nurgle" },
+    { "item_id": "horreur_enflee", "cout": 40, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"], "groupe_prix": "benediction_nurgle" },
+    { "item_id": "marque_de_nurgle", "cout": 35, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"], "groupe_prix": "benediction_nurgle" },
+    { "item_id": "hideux", "cout": 40, "disponibilite": "Impur uniquement, au recrutement", "profils": ["impur"], "groupe_prix": "benediction_nurgle" }
   ],
   "magie": {
     "nom": "Rituels de Nurgle",
