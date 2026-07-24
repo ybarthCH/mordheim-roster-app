@@ -762,7 +762,8 @@
     "texte": null,
     "regles_speciales": [
       { "nom": "Effet", "texte": "+1 en Mouvement." }
-    ]
+    ],
+    "stats_delta": { "M": 1 }
   },
   {
     "id": "sang_acide", "nom": "Sang acide", "categorie": "divers",
@@ -825,7 +826,8 @@
     "texte": null,
     "regles_speciales": [
       { "nom": "Effet", "texte": "+2 en Force, -4 en Commandement." }
-    ]
+    ],
+    "stats_delta": { "F": 2, "Cd": -4 }
   },
   {
     "id": "morsure_venimeuse", "nom": "Morsure venimeuse", "categorie": "divers",
