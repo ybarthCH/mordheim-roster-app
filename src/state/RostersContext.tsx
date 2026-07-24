@@ -66,11 +66,24 @@ export function RostersProvider({ children }: { children: ReactNode }) {
       const original = rosters.find((r) => r.id === id);
       if (!original) return undefined;
       const now = new Date().toISOString();
+      // Chaque membre reçoit un nouvel instance_id — leader_instance_id
+      // (bandes à leadership libre) doit être remappé en conséquence, sinon
+      // il pointe vers un id qui n'existe plus dans la copie et le chef
+      // choisi est silencieusement perdu.
+      const idsRemappes = new Map<string, string>();
+      const membres = original.membres.map((m) => {
+        const instance_id = uuidv4();
+        idsRemappes.set(m.instance_id, instance_id);
+        return { ...m, instance_id };
+      });
       const copy: RosterInstance = {
         ...original,
         id: uuidv4(),
         nom_bande: `${original.nom_bande} (copie)`,
-        membres: original.membres.map((m) => ({ ...m, instance_id: uuidv4() })),
+        membres,
+        leader_instance_id: original.leader_instance_id
+          ? idsRemappes.get(original.leader_instance_id)
+          : undefined,
         createdAt: now,
         updatedAt: now,
       };

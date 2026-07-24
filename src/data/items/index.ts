@@ -1,7 +1,7 @@
 // Base de référence complète de l'équipement Mordheim (toutes bandes et suppléments
 // confondus), extraite du compendium "Place du Marché" (La Grande Librairie de
 // Mordheim). Indépendante des catalogues de bande (src/data/warbands/) : sert de
-// shop commun / référence croisée, pas encore branchée sur le roster.
+// shop commun, accessible à l'achat depuis la fiche personnage (voir utils/shop.ts).
 import armesCorpsACorps from './armes_corps_a_corps.json';
 import armesTir from './armes_tir.json';
 import armesPoudreNoire from './armes_poudre_noire.json';

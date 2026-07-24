@@ -16,7 +16,7 @@ pour un déploiement statique). Lint via `oxlint`.
 L'app couvre : création de bande, recrutement, fiche personnage (stats,
 équipement, compétences, avancées XP), assistant post-bataille pas à pas,
 export JSON/PDF, partage natif (Web Share API), thème clair/sombre/palettes,
-et ~34 bandes du jeu entièrement converties en JSON depuis les PDF de
+et 27 bandes du jeu entièrement converties en JSON depuis les PDF de
 règles officielles/fan-made (dans `src/data/warbands/*.json`).
 
 ## Repo & branche
@@ -137,7 +137,7 @@ supprimer les scripts `.mjs` de test.
 - `src/types/roster.ts` — schéma de **l'instance** de bande du joueur
   (`RosterInstance`, `Member`, historique de bataille...). C'est ce qui est
   persisté en IndexedDB.
-- `src/data/warbands/*.json` — ~34 bandes converties depuis les PDF de
+- `src/data/warbands/*.json` — 27 bandes converties depuis les PDF de
   règles (une par fichier, chargées via `src/data/warbands/index.ts` →
   `getCatalogue(id)` / `getProfil(bandeId, profilId)`).
 - `src/data/items/*.json` + `src/data/items/index.ts` — base d'objets
@@ -345,6 +345,52 @@ compact type "1850 CEST" (fonction `heureBuildCET()` locale au composant,
 via le décalage horaire renvoyé par `timeZoneName: 'shortOffset'` — pas de
 flag catalogue ni changement de `vite.config.ts` nécessaire, tout se fait
 à l'affichage à partir de `__APP_BUILD_DATE__` qui contenait déjà l'heure).
+
+## Revue croisée par une autre IA (Codex) — corrections appliquées
+
+L'utilisateur a fait relire le repo par Codex en parallèle. Bilan : données
+cohérentes (pas d'id dupliqué, pas de référence d'objet manquante,
+config magie/leadership valides), mais quelques points relevés :
+
+- **Bug réel corrigé** : `duplicateRoster()` (`src/state/RostersContext.tsx`)
+  régénérait les `instance_id` des membres dupliqués sans remapper
+  `leader_instance_id` — sur une bande à leadership libre (Lustrian
+  Reavers), le chef choisi était donc silencieusement perdu après
+  duplication (retombait sur "aucun chef", bannière de choix). Corrigé en
+  construisant une `Map` ancien→nouveau id et en l'utilisant pour
+  remapper `leader_instance_id` (ou le vider proprement si absent).
+- **Commentaire obsolète corrigé** : `src/data/items/index.ts` disait le
+  shop commun "pas encore branché sur le roster" — c'est faux depuis
+  longtemps (achat direct depuis la fiche personnage, voir
+  `utils/shop.ts`). Reformulé.
+- **Ce handoff corrigé** : mentionnait "~34 bandes", le repo en contient
+  exactement 27 (`ls src/data/warbands/*.json | wc -l`) — corrigé aux deux
+  endroits où le chiffre apparaissait.
+- **Reproductibilité des builds** : `package-lock.json` était gitignoré
+  (donc `npm install` en CI résolvait les versions à chaque run, pas de
+  garantie de reproductibilité). Retiré du `.gitignore`, lockfile commité,
+  et le workflow `deploy-pages.yml` bascule sur `npm ci` (installation
+  stricte depuis le lock) au lieu de `npm install`.
+- **CI ne lintait pas** : `deploy-pages.yml` ne faisait que `npm run
+  build` (qui inclut déjà `tsc -b`, donc le typecheck était déjà couvert)
+  sans jamais lancer `oxlint`. Ajouté une étape `npx oxlint` avant le
+  build — exit code 0 même avec les 3 warnings pré-existants tolérés
+  (`oxlint` ne fait échouer le job que sur de vraies erreurs), donc rien
+  à craindre côté faux positifs.
+- **Points relevés mais volontairement non traités** (décisions de scope,
+  pas des oublis) :
+  - Pas de suite de tests automatisés — seulement des scripts Playwright
+    temporaires (`verify_*.mjs`, jamais committés, voir workflow plus
+    haut). Mettre en place une vraie suite (Vitest/Playwright committé)
+    serait un chantier à part entière, à ne lancer que si l'utilisateur
+    le demande explicitement — pas fait ici pour ne pas engager un choix
+    d'outillage structurant sans son accord.
+  - La migration `sorts_connus` → `regles_speciales_notes` (PR #69) reste
+    une heuristique assumée (voir section magie ci-dessus) — comportement
+    voulu, pas un bug, mais à garder en tête si un cas limite remonte un
+    jour (roster avec `regles_speciales_notes` déjà défini à `[]`
+    explicitement AVANT ce changement — cas quasi impossible vu que le
+    champ n'existait pas avant, mais notons-le).
 
 ## État actuel
 
