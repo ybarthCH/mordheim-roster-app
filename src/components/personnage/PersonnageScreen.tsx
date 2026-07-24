@@ -5,6 +5,7 @@ import { Screen } from '../common/Screen';
 import { resolveProfil, nombreHeros } from '../../utils/profil';
 import { getCatalogue } from '../../data/warbands';
 import type { Stats } from '../../types/catalog';
+import { STAT_KEYS } from '../../types/catalog';
 import type { Statut } from '../../types/roster';
 import { StatutCard } from './StatutCard';
 import { CaracteristiquesCard } from './CaracteristiquesCard';
@@ -97,10 +98,34 @@ export function PersonnageScreen() {
   // Un groupe d'hommes de main ne peut pas mélanger son équipement : acheter
   // un objet l'équipe d'un coup pour toutes ses figurines (prix unitaire ×
   // taille du groupe).
+  // Certains objets (ex : Bénédictions de Nurgle de la Kermesse du Chaos)
+  // modifient en permanence les caractéristiques du membre à l'achat — un
+  // seul ajustement même pour un groupe (taille_groupe), les figurines d'un
+  // même groupe partageant un unique jeu de caractéristiques.
   const acheterItem = (item: ShopItem, coutPaye: number) => {
     const entrees = creerEntreesInventaire(item, coutPaye, membre.taille_groupe || 1);
     const nouveauRoster = acheterPourMembre(roster, membre.instance_id, entrees);
-    updateRoster(avecEquipementSynchronise(nouveauRoster, [...membre.inventaire, ...entrees]));
+    const inventaire = [...membre.inventaire, ...entrees];
+    let stats_actuels = membre.stats_actuels;
+    let stats_modifiees = membre.stats_modifiees;
+    if (item.stats_delta) {
+      stats_actuels = { ...stats_actuels };
+      stats_modifiees = [...stats_modifiees];
+      for (const k of STAT_KEYS) {
+        const delta = item.stats_delta[k];
+        if (!delta) continue;
+        stats_actuels[k] += delta;
+        if (!stats_modifiees.includes(k)) stats_modifiees.push(k);
+      }
+    }
+    updateRoster({
+      ...nouveauRoster,
+      membres: nouveauRoster.membres.map((m) =>
+        m.instance_id === membre.instance_id
+          ? { ...m, equipement: formatEquipementAffiche(inventaire), stats_actuels, stats_modifiees }
+          : m
+      ),
+    });
   };
 
   // Supprime l'objet sans contrepartie (perdu, détruit...) — pour un groupe,
@@ -323,6 +348,7 @@ export function PersonnageScreen() {
           profil={profil}
           tresorerie={roster.tresorerie}
           competencesAcquises={membre.competences_acquises}
+          inventaireActuel={membre.inventaire}
           tailleGroupe={membre.taille_groupe || 1}
           onClose={() => setModalAchat(false)}
           onAchat={acheterItem}

@@ -128,6 +128,10 @@ export type EquipementSpecialRef = {
   // mutations réservées aux héros ayant pris la compétence spéciale
   // « Mutant »). Absent = pas de restriction par compétence.
   competences?: string[];
+  // Objets partageant la même clé : le prix double dès que le membre
+  // possède déjà l'un d'entre eux (ex : Bénédictions de Nurgle — la
+  // première coûte le prix normal, toute suivante coûte le double).
+  groupe_prix?: string;
 };
 
 export type MagieSort = {

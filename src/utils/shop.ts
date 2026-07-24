@@ -30,6 +30,10 @@ export type ShopItem = {
   // Profil de caractéristiques (montures/créatures) — présent seulement pour
   // la catégorie "montures".
   stats?: StatsMonture;
+  // Modification permanente des caractéristiques du membre à l'achat (ex :
+  // mutations de la Kermesse du Chaos). Appliquée une seule fois au moment
+  // de l'achat, jamais annulée automatiquement si l'objet est revendu.
+  stats_delta?: Partial<Record<keyof Stats, number>>;
   origine: 'commun' | 'bande';
 };
 
@@ -218,7 +222,8 @@ const SKILL_TOUTES_ARMES_TIR = 'tir_04';
 export function getEquipementBande(
   catalogue: WarbandCatalog,
   profil: Profile | null,
-  competencesAcquises: string[] = []
+  competencesAcquises: string[] = [],
+  inventaireActuel: InventoryEntry[] = []
 ): ShopItem[] {
   const items: ShopItem[] = [];
   const listes = catalogue.equipement ?? {};
@@ -260,18 +265,29 @@ export function getEquipementBande(
     if (ref.competences && !ref.competences.some((c) => competencesAcquises.includes(c))) continue;
     const item = getItem(ref.item_id);
     if (!item) continue;
+    let cout = ref.cout;
+    if (ref.groupe_prix && typeof cout === 'number') {
+      const idsGroupe = new Set(
+        (catalogue.equipement_special ?? [])
+          .filter((r) => r.groupe_prix === ref.groupe_prix)
+          .map((r) => r.item_id)
+      );
+      const dejaPossede = inventaireActuel.some((e) => idsGroupe.has(e.item_id));
+      if (dejaPossede) cout = cout * 2;
+    }
     items.push({
       id: item.id,
       nom: item.nom,
       categorie: 'special',
-      cout: ref.cout,
-      cout_fixe: typeof ref.cout === 'number',
+      cout,
+      cout_fixe: typeof cout === 'number',
       disponibilite: ref.disponibilite ?? item.disponibilite,
       texte: item.texte,
       portee: 'portee' in item ? (item.portee as string | null) : undefined,
       force: 'force' in item ? (item.force as string | null) : undefined,
       sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
       regles_speciales: item.regles_speciales,
+      stats_delta: 'stats_delta' in item ? item.stats_delta : undefined,
       origine: 'bande',
     });
   }
@@ -501,6 +517,7 @@ export function resolveItemDetail(entree: InventoryEntry): ShopItem {
     sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
     regles_speciales: item.regles_speciales,
     stats: 'stats' in item ? (item.stats as StatsMonture | undefined) : undefined,
+    stats_delta: 'stats_delta' in item ? item.stats_delta : undefined,
     origine: 'bande',
   };
 }

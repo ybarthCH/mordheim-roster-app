@@ -13,6 +13,7 @@ import {
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
+import type { InventoryEntry } from '../../types/roster';
 
 type Props = {
   catalogue: WarbandCatalog;
@@ -21,6 +22,10 @@ type Props = {
   // Compétences acquises par le membre (ex : "Connaissance des Armes"),
   // pour lever la restriction de liste d'équipement le cas échéant.
   competencesAcquises?: string[];
+  // Inventaire actuel du membre (ou stock de bande) ciblé par l'achat : sert
+  // à détecter les objets déjà possédés d'un même `groupe_prix` (ex :
+  // Bénédictions de Nurgle) pour appliquer le doublement de prix.
+  inventaireActuel?: InventoryEntry[];
   // Taille du groupe d'hommes de main ciblé (1 pour un héros ou l'armurerie
   // de bande) : l'équipement d'un groupe doit rester identique entre toutes
   // ses figurines, l'achat porte donc automatiquement sur `tailleGroupe`
@@ -47,6 +52,7 @@ export function AchatEquipementModal({
   profil,
   tresorerie,
   competencesAcquises = [],
+  inventaireActuel = [],
   tailleGroupe = 1,
   gratuit = false,
   onClose,
@@ -59,8 +65,8 @@ export function AchatEquipementModal({
   const [coutSaisi, setCoutSaisi] = useState('');
 
   const itemsBande = useMemo(
-    () => getEquipementBande(catalogue, profil ?? null, competencesAcquises),
-    [catalogue, profil, competencesAcquises]
+    () => getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel),
+    [catalogue, profil, competencesAcquises, inventaireActuel]
   );
   const itemsCommun = useMemo(() => getShopCommun(catalogue.id), [catalogue.id]);
   const items = source === 'bande' ? itemsBande : itemsCommun;
@@ -227,6 +233,15 @@ export function AchatEquipementModal({
                 <span className={`badge ${classeRarete(itemSelectionne.rarete)}`} style={{ marginBottom: '0.3rem' }}>
                   Rare {itemSelectionne.rarete}
                 </span>
+              )}
+              {itemSelectionne.stats_delta && (
+                <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                  <strong>Effet permanent</strong> —{' '}
+                  {STAT_KEYS.filter((k) => itemSelectionne.stats_delta![k]).map((k) => {
+                    const v = itemSelectionne.stats_delta![k]!;
+                    return `${v > 0 ? '+' : ''}${v} ${k}`;
+                  }).join(', ')}
+                </p>
               )}
               {itemSelectionne.disponibilite && (
                 <p className="text-sm text-muted mb-0">{itemSelectionne.disponibilite}</p>
