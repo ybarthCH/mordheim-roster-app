@@ -1,9 +1,10 @@
 # Handoff — Mordheim Roster App
 
 Ce document sert à faire reprendre le travail par une autre session/IA sans
-perte de contexte. L'utilisateur (ybartholdi@gmail.com) a atteint sa limite
-d'usage hebdomadaire au moment de sa rédaction (24 juillet 2026) — tout ce
-qui suit est à jour à ce moment-là.
+perte de contexte. Rédigé initialement le 24 juillet 2026 (limite d'usage
+hebdomadaire de l'utilisateur, ybartholdi@gmail.com) puis mis à jour le même
+jour après la livraison de deux nouvelles PR (#69, #70) — tout ce qui suit
+est à jour à ce moment-là.
 
 ## C'est quoi, ce projet
 
@@ -24,11 +25,16 @@ règles officielles/fan-made (dans `src/data/warbands/*.json`).
 - Branche de travail : `claude/verify-mordheim-pwa-repo-y5i4bz` — **toujours
   développer ici**, jamais ailleurs sans autorisation explicite de
   l'utilisateur.
-- `main` est très en retard (101 commits) : ne pas s'y fier comme référence,
-  c'est la branche de travail qui contient tout le travail réel.
-- Au 24/07/2026, la branche de travail est propre (`git status` vide),
-  synchronisée avec `origin/claude/verify-mordheim-pwa-repo-y5i4bz`, HEAD =
-  `3591f00` (PR #67 mergée).
+- Toutes les PR de cette session mergent dans `main` sur GitHub, et après
+  chaque merge la branche de travail est réinitialisée sur `origin/main` —
+  les deux avancent donc ensemble. **Piège** : la branche locale `main` du
+  clone (si elle existe) peut rester très en retard (`git branch -vv`
+  affichera "behind N") car elle n'est jamais checkout/mise à jour — ce
+  n'est pas un problème, ignorer ce ref local et se fier uniquement à
+  `origin/main` (toujours `git fetch origin main` avant de comparer).
+- Au 24/07/2026 (soir), la branche de travail est propre (`git status`
+  vide), synchronisée avec `origin/claude/verify-mordheim-pwa-repo-y5i4bz`
+  et avec `origin/main`, HEAD = `e1ec082` (PR #70 mergée).
 
 ## Règles permanentes (autorisées par l'utilisateur en amont, ne pas redemander)
 
@@ -262,15 +268,94 @@ de chef sur `CreationBandeScreen.tsx` (visible seulement si
 5 endroits — `MemberGroupCard`, `PostBatailleScreen`, `EtapeGainXp`,
 `EtapeResume`).
 
+## Fonctionnalité livrée ensuite (PR #69) — système de magie structuré
+
+### Demande initiale (verbatim résumé)
+
+Un sorcier (Matriarche sigmarite, prêtre-guerrier, Maître de Cérémonie,
+Nécromancien...) qui obtient une avancée "nouvelle compétence" peut à la
+place apprendre un nouveau sort. Il fallait donc : une section dédiée
+"Magie - Sort connu" (sortie de l'ancien fourre-tout "Règles spéciales /
+Sorts connus / mutations", ce dernier renommé simplement "Règles
+spéciales" puisque les mutations sont déjà automatisées via `stats_delta`
+— PR #57), un sélecteur de premier sort obligatoire au recrutement d'un
+sorcier, et la possibilité de choisir un nouveau sort à la place d'une
+compétence lors d'une avancée.
+
+### Modèle de données
+
+- `Member.sorts_connus: string[]` (champ déjà existant) est **repurposé** :
+  contient maintenant de vrais noms de sorts choisis via sélecteur
+  (correspondant à `catalogue.magie.sorts[].nom`), plus du texte libre.
+- `Member.regles_speciales_notes: string[]` (nouveau) reprend l'ancien
+  usage texte-libre de `sorts_connus` (notes de règles spéciales
+  manuscrites, hors magie/mutations).
+- Migration automatique et idempotente dans `normaliserRoster` : si
+  `regles_speciales_notes` est absent (roster jamais relu depuis ce
+  changement), l'ancien contenu de `sorts_connus` bascule vers
+  `regles_speciales_notes` et `sorts_connus` repart vide — sinon (déjà
+  migré), chaque champ garde son contenu propre. Voir
+  `normaliserMembre()` dans `src/utils/normalize.ts`.
+
+### Logique centrale : `src/utils/magie.ts`
+
+- `estSorcier(catalogue, profilId)` — vrai si `profilId` figure dans
+  `catalogue.magie.utilisateurs` (aucun nouveau flag catalogue requis,
+  cette liste existait déjà pour `MagieReference`).
+- `sortsDisponibles(catalogue, dejaConnus)` — sorts du catalogue pas
+  encore dans `dejaConnus`, proposés au choix.
+- `resolveSort(catalogue, nom)` — synopsis complet d'un sort connu par son
+  nom (undefined si legacy/texte-libre non reconnu — l'UI retombe alors
+  sur l'affichage du texte brut).
+
+### Où c'est branché
+
+- `MagieConnueCard.tsx` (nouveau) — carte "Magie — Sort connu" sur
+  `PersonnageScreen`, visible seulement si `estSorcier`. Liste synopsis +
+  bouton d'ajout manuel de correction (pas de suppression de la
+  contrainte "premier sort obligatoire", juste un filet de rattrapage).
+- `ReglesSpecialesCard.tsx` (renommé depuis `SortsConnusCard.tsx`) — même
+  mécanique texte-libre qu'avant, mais sur `regles_speciales_notes` et
+  titrée "Règles spéciales".
+- `ResumeCard.tsx` — section "Magie — Sort connu" ajoutée (gated
+  `estSorcier`), section "Règles spéciales" adaptée au nouveau champ ;
+  reçoit maintenant un prop `catalogue` en plus.
+- `AjouterMembreModal.tsx` et `CreationBandeScreen.tsx`
+  (`RecrutementDraftModal`) — champ "Premier sort connu" obligatoire
+  (bloque le bouton de confirmation) dès que le profil sélectionné est un
+  sorcier et qu'on ne rejoint pas un groupe existant.
+- `AvanceeModal.tsx` — nouvelle étape `choix_voie_sort` (miroir de
+  `choix_voie_competence` déjà existante pour le Seigneur des Ombres) :
+  sur un résultat "nouvelle compétence" pour un profil sorcier, propose
+  compétence normale vs nouveau sort ; nouvelle étape `sort` liste les
+  sorts pas encore connus (radio, comme la liste de compétences),
+  confirmer ajoute le nom à `sorts_connus` et journalise un
+  `AdvanceRecord` de `type: 'sort'`.
+
+## Fonctionnalité livrée ensuite (PR #70) — heure de build (CET/CEST)
+
+Petite fonctionnalité de confort demandée par l'utilisateur après avoir
+confondu une ancienne version en cache avec la dernière : le pied de page
+de l'écran d'accueil (`ListeBandesScreen.tsx`) affichait déjà un hash git +
+date de build (`__APP_VERSION__` / `__APP_BUILD_DATE__`, définis dans
+`vite.config.ts` via `execSync('git rev-parse --short HEAD')` +
+`new Date().toISOString()` au moment du build). Ajouté : un code horaire
+compact type "1850 CEST" (fonction `heureBuildCET()` locale au composant,
+`Intl.DateTimeFormat` sur le fuseau `Europe/Paris`, CET vs CEST distingués
+via le décalage horaire renvoyé par `timeZoneName: 'shortOffset'` — pas de
+flag catalogue ni changement de `vite.config.ts` nécessaire, tout se fait
+à l'affichage à partir de `__APP_BUILD_DATE__` qui contenait déjà l'heure).
+
 ## État actuel
 
-Tout ce qui précède est **mergé et déployé** sur la branche de travail. Le
-tree est propre. Rien n'est en cours. La liste de tâches interne
-(TaskCreate/TaskUpdate) contient ~178 entrées historiques toutes marquées
-`completed` — certaines ont pu être marquées completed rétroactivement par
-inférence depuis un résumé de session compressé plutôt que vérifiées une à
-une ; en cas de doute sur un point précis de l'historique, se fier au
-contenu réel du code et à `git log`, pas à la liste de tâches.
+Tout ce qui précède (PR #57 à #70) est **mergé et déployé**. HEAD =
+`e1ec082`. Le tree est propre. Rien n'est en cours. La liste de tâches
+interne (TaskCreate/TaskUpdate) contient ~178 entrées historiques toutes
+marquées `completed` — certaines ont pu être marquées completed
+rétroactivement par inférence depuis un résumé de session compressé plutôt
+que vérifiées une à une ; en cas de doute sur un point précis de
+l'historique, se fier au contenu réel du code et à `git log`, pas à la
+liste de tâches.
 
 ## Pour reprendre le travail
 
