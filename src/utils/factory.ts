@@ -12,6 +12,7 @@ function membreDeBase(): Omit<Member, 'profil_id' | 'nom_perso' | 'xp' | 'xp_dep
     stats_modifiees: [],
     competences_acquises: [],
     sorts_connus: [],
+    regles_speciales_notes: [],
     statut: 'actif',
     blesse_tour_actuel: 0,
     blesse_tour_total: 0,

@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { CATALOGUES } from '../../data/warbands';
-import type { Profile } from '../../types/catalog';
+import type { Profile, WarbandCatalog } from '../../types/catalog';
 import type { Member, RosterInstance } from '../../types/roster';
 import { creerMembre, creerRoster } from '../../utils/factory';
 import { peutAjouterMembre } from '../../utils/validation';
+import { estSorcier, sortsDisponibles } from '../../utils/magie';
 import { useRosters } from '../../state/RostersContext';
 
 const BUDGET_PAR_DEFAUT = 500;
@@ -239,12 +240,14 @@ export function CreationBandeScreen() {
       {profilEnRecrutement && (
         <RecrutementDraftModal
           profil={profilEnRecrutement}
+          catalogue={catalogue}
           budgetDisponible={restant}
           verifierLimite={(quantite) => peutAjouterMembre(rosterFictif, profilEnRecrutement.id, quantite)}
           onClose={() => setProfilEnRecrutement(null)}
-          onConfirm={({ nom, xpDepart, quantite }) => {
+          onConfirm={({ nom, xpDepart, quantite, sortChoisi }) => {
             const membre = creerMembre(profilEnRecrutement, xpDepart, quantite);
             if (nom) membre.nom_perso = nom;
+            if (sortChoisi) membre.sorts_connus = [sortChoisi];
             setMembres((prev) => [...prev, membre]);
             setProfilEnRecrutement(null);
           }}
@@ -256,14 +259,16 @@ export function CreationBandeScreen() {
 
 type RecrutementDraftModalProps = {
   profil: Profile;
+  catalogue: WarbandCatalog | undefined;
   budgetDisponible: number;
   verifierLimite: (quantite: number) => { ok: boolean; raison?: string };
   onClose: () => void;
-  onConfirm: (opts: { nom: string; xpDepart: number; quantite: number }) => void;
+  onConfirm: (opts: { nom: string; xpDepart: number; quantite: number; sortChoisi: string }) => void;
 };
 
 function RecrutementDraftModal({
   profil,
+  catalogue,
   budgetDisponible,
   verifierLimite,
   onClose,
@@ -273,7 +278,10 @@ function RecrutementDraftModal({
   const [xpDepartSaisie, setXpDepartSaisie] = useState(String(profil.xp_depart ?? 0));
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
   const [confirmationXp0, setConfirmationXp0] = useState(false);
+  const [sortChoisi, setSortChoisi] = useState('');
   const estGroupable = profil.type === 'homme_de_main';
+  const premierSortRequis = estSorcier(catalogue, profil.id);
+  const sortsPossibles = sortsDisponibles(catalogue, []);
 
   const xpDepart = Number(xpDepartSaisie) || 0;
   const quantite = Math.max(1, parseInt(quantiteSaisie, 10) || 1);
@@ -288,11 +296,12 @@ function RecrutementDraftModal({
 
   const confirmer = () => {
     if (!check.ok) return;
+    if (premierSortRequis && !sortChoisi) return;
     if (xpDepart === 0 && !confirmationXp0) {
       setConfirmationXp0(true);
       return;
     }
-    onConfirm({ nom: nom.trim(), xpDepart, quantite });
+    onConfirm({ nom: nom.trim(), xpDepart, quantite, sortChoisi });
   };
 
   return (
@@ -306,6 +315,20 @@ function RecrutementDraftModal({
         <div className="field">
           <label>Nombre de figurines (groupe identique)</label>
           <input type="number" min={1} value={quantiteSaisie} onChange={(e) => setQuantiteSaisie(e.target.value)} />
+        </div>
+      )}
+      {premierSortRequis && (
+        <div className="field">
+          <label>Premier sort connu</label>
+          <select value={sortChoisi} onChange={(e) => setSortChoisi(e.target.value)}>
+            <option value="">— Choisir —</option>
+            {sortsPossibles.map((s) => (
+              <option key={s.nom} value={s.nom}>
+                {s.resultat} — {s.nom}
+              </option>
+            ))}
+          </select>
+          <p className="text-sm text-muted mb-0">Obligatoire pour un profil sorcier.</p>
         </div>
       )}
       <div className="field">
@@ -328,7 +351,11 @@ function RecrutementDraftModal({
         <button className="btn" onClick={onClose}>
           Annuler
         </button>
-        <button className="btn btn--primary" disabled={!check.ok} onClick={confirmer}>
+        <button
+          className="btn btn--primary"
+          disabled={!check.ok || (premierSortRequis && !sortChoisi)}
+          onClick={confirmer}
+        >
           {confirmationXp0 ? 'Confirmer 0 XP et ajouter' : `Ajouter${!budgetSuffisant ? ' quand même' : ''}`}
         </button>
       </div>

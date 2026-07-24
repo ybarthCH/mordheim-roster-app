@@ -69,6 +69,7 @@ export function PromotionHerosDechuModal({ roster, catalogue, rolesVacants, pros
       stats_modifiees: [],
       competences_acquises: [],
       sorts_connus: [],
+      regles_speciales_notes: [],
       statut: 'actif',
       blesse_tour_actuel: 0,
       blesse_tour_total: 0,

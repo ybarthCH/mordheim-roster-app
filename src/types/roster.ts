@@ -82,7 +82,15 @@ export type Member = {
   // sert uniquement à l'affichage distinct sur la fiche personnage.
   stats_modifiees: (keyof Stats)[];
   competences_acquises: string[];
+  // Sorts effectivement appris (noms correspondant à `Magie.sorts[].nom` du
+  // catalogue de la bande) : le premier est choisi obligatoirement au
+  // recrutement d'un profil sorcier, les suivants via une avancée "nouvelle
+  // compétence" (voir utils/magie.ts et AvanceeModal).
   sorts_connus: string[];
+  // Notes libres pour toute règle spéciale gagnée en jeu (hors mutations,
+  // désormais appliquées automatiquement à l'achat — voir stats_delta sur
+  // ShopItem) et hors sorts (voir sorts_connus ci-dessus).
+  regles_speciales_notes: string[];
   statut: Statut;
   // Renseigné automatiquement quand le statut passe à "Mort".
   date_mort?: string;

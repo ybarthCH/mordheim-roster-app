@@ -1,17 +1,19 @@
 import { injuryLabel } from '../../utils/blessures';
 import { resolveItemDetail, resumeItem } from '../../utils/shop';
+import { estSorcier, resolveSort } from '../../utils/magie';
 import type { InventoryEntry, Member } from '../../types/roster';
-import type { Profile } from '../../types/catalog';
+import type { Profile, WarbandCatalog } from '../../types/catalog';
 
 type ResumeCardProps = {
   profil: Profile;
   membre: Member;
+  catalogue: WarbandCatalog;
   inventaireGroupe: { entree: InventoryEntry; quantite: number }[];
   nomCompetence: (skillId: string) => { nom: string; texte?: string } | undefined;
   onItemClick: (entree: InventoryEntry) => void;
 };
 
-export function ResumeCard({ profil, membre, inventaireGroupe, nomCompetence, onItemClick }: ResumeCardProps) {
+export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCompetence, onItemClick }: ResumeCardProps) {
   return (
     <div className="card">
       {profil.type === 'heros' && (
@@ -62,11 +64,34 @@ export function ResumeCard({ profil, membre, inventaireGroupe, nomCompetence, on
         </p>
       )}
 
+      {estSorcier(catalogue, profil.id) && (
+        <>
+          <p className="text-sm mb-0" style={{ marginTop: '0.7rem' }}>
+            <strong>Magie — Sort connu</strong>
+          </p>
+          {membre.sorts_connus.length > 0 ? (
+            membre.sorts_connus.map((nom, i) => {
+              const sort = resolveSort(catalogue, nom);
+              return (
+                <p key={i} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                  <strong>{sort ? sort.nom : nom}</strong>
+                  {sort && <span className="text-muted"> — {sort.texte}</span>}
+                </p>
+              );
+            })
+          ) : (
+            <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+              Aucun
+            </p>
+          )}
+        </>
+      )}
+
       <p className="text-sm mb-0" style={{ marginTop: '0.7rem' }}>
-        <strong>Règles spéciales / Sorts connus / mutations</strong>
+        <strong>Règles spéciales</strong>
       </p>
-      {membre.sorts_connus.length > 0 ? (
-        membre.sorts_connus.map((s, i) => (
+      {membre.regles_speciales_notes.length > 0 ? (
+        membre.regles_speciales_notes.map((s, i) => (
           <p key={i} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
             {s}
           </p>
