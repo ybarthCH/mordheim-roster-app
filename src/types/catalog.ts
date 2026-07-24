@@ -79,6 +79,14 @@ export type Profile = {
   // Chef de bande selon les règles (un seul par catalogue) : badge visuel +
   // bonus de +1 XP automatique en cas de victoire.
   est_leader?: boolean;
+  // Exemption à la règle générale "le profil du chef mort est banni du
+  // recrutement à jamais" : réservée aux profils qui restent recrutables
+  // indéfiniment malgré leur statut de chef (ex : le Vampire des
+  // Morts-Vivants — un nouveau Vampire peut toujours être recruté après la
+  // mort du précédent, et reprend alors le leadership automatiquement dès
+  // lors qu'il est vivant, `est_leader` restant prioritaire sur toute
+  // assignation manuelle intérimaire — voir utils/leader.ts).
+  leader_toujours_recrutable?: boolean;
   // Règles spéciales propres à ce profil (en plus de celles de la bande).
   regles_speciales?: SpecialRule[];
   // Clé vers CARACTERISTIQUES_MAX (src/data/caracteristiquesMax.ts) : plafond
@@ -90,6 +98,11 @@ export type Profile = {
   // choisir une compétence lors d'une avancée d'expérience. Réservée aux
   // Magisters/Mutants du Culte des Possédés dans le livre de règles.
   acces_seigneur_des_ombres?: boolean;
+  // Ce profil ne peut jamais devenir héros via "Ce gars est doué" normal
+  // (voir Profile "Promotion Only" des Lustrian Reavers) : sa seule voie de
+  // promotion est de remplir le rôle d'un héros unique tombé, via l'action
+  // dédiée sur le roster (voir WarbandCatalog.bannir_profils_uniques_a_mort).
+  remplace_heros_tombe?: boolean;
 };
 
 // Contraintes de composition de bande. Purement informatif (affiché comme
@@ -178,4 +191,12 @@ export type WarbandCatalog = {
   // la grille XP vaut 2 points d'XP réels au lieu d'1 — la case se remplit
   // à moitié au premier point gagné, complètement au second.
   xp_demi?: boolean;
+  // Le chef n'est pas un profil fixe : choisi librement par le joueur parmi
+  // les héros de la bande (ex : Lustrian Reavers). Aucun profil de cette
+  // bande ne doit alors porter `est_leader`.
+  leader_libre?: boolean;
+  // "Héros rares" (Lustrian Reavers) : la mort de N'IMPORTE quel héros
+  // unique bannit son profil du recrutement, pas seulement celui du chef —
+  // voir Profile.unique et utils/leader.ts.
+  bannir_profils_uniques_a_mort?: boolean;
 };

@@ -70,6 +70,12 @@ export function peutAjouterMembre(
   const catalogue = getCatalogue(roster.bande_id);
   const profil = catalogue?.profils.find((p) => p.id === profilId);
   if (!profil) return { ok: false, raison: 'Profil introuvable dans le catalogue.' };
+  if ((roster.profils_bannis ?? []).includes(profilId)) {
+    return {
+      ok: false,
+      raison: `${profil.nom} ne peut plus jamais être recruté dans cette bande (profil banni définitivement).`,
+    };
+  }
   const limite = profil.unique ? 1 : profil.max ?? undefined;
   if (limite != null) {
     const actuel = roster.membres

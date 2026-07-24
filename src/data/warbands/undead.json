@@ -31,7 +31,8 @@
       "acces_competences": ["combat", "academique", "force", "vitesse"],
       "acces_equipement": ["morts_vivants"],
       "acces_competences_a_verifier": false,
-      "est_leader": true
+      "est_leader": true,
+      "leader_toujours_recrutable": true
     },
     {
       "id": "necromancien",

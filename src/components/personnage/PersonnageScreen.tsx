@@ -25,6 +25,7 @@ import { Icon } from '../common/Icon';
 import { MagieReference } from '../common/CatalogueReference';
 import { avancesDues } from '../../utils/xp';
 import { ratingMembre } from '../../utils/rating';
+import { succederApresMorts } from '../../utils/leader';
 import { skillById } from '../../data/gameData';
 import {
   acheterPourMembre,
@@ -74,10 +75,17 @@ export function PersonnageScreen() {
 
   // Résultat de blessure grave "Gladiateur" gagné : la récompense en po
   // s'applique à la trésorerie de bande, pas au personnage — un seul appel à
-  // updateRoster pour éviter qu'une mise à jour écrase l'autre.
+  // updateRoster pour éviter qu'une mise à jour écrase l'autre. Une blessure
+  // grave "Tué" peut aussi faire tomber le chef de bande (voir succession).
   const appliquerBlessureGrave = (updated: typeof membre, tresorerieBonus: number) => {
     const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
-    updateRoster({ ...roster, membres: membresMaj, tresorerie: roster.tresorerie + tresorerieBonus });
+    const succession = succederApresMorts(roster, catalogue, membresMaj);
+    updateRoster({
+      ...roster,
+      ...succession,
+      membres: membresMaj,
+      tresorerie: roster.tresorerie + tresorerieBonus,
+    });
   };
 
   // Correction d'une saisie erronée : ne modifie ni stats, ni équipement, ni
@@ -168,7 +176,12 @@ export function PersonnageScreen() {
 
   const changerStatut = (s: Statut, toursBlesse?: number) => {
     if (s === 'mort') {
-      majMembre({ statut: s, date_mort: new Date().toISOString().slice(0, 10) });
+      const dateMort = new Date().toISOString().slice(0, 10);
+      const membresApres = roster.membres.map((m) =>
+        m.instance_id === membre.instance_id ? { ...m, statut: s, date_mort: dateMort } : m
+      );
+      const succession = succederApresMorts(roster, catalogue, membresApres);
+      updateRoster({ ...roster, ...succession, membres: membresApres });
     } else if (s === 'blesse') {
       majMembre({ statut: s, date_mort: undefined, blesse_tour_actuel: 0, blesse_tour_total: toursBlesse ?? 0 });
     } else {
@@ -330,8 +343,10 @@ export function PersonnageScreen() {
           onClose={() => setModalAvancee(false)}
           onApply={(updated, nouveauMembre) => {
             const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
+            const succession = succederApresMorts(roster, catalogue, membresMaj);
             updateRoster({
               ...roster,
+              ...succession,
               membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj,
             });
           }}

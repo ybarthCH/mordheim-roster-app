@@ -7,6 +7,7 @@ import { avancesDues } from '../../utils/xp';
 import { nomCourtBlessure } from '../../utils/blessures';
 import { inventaireGroupeMismatch } from '../../utils/shop';
 import { useDragReorder } from '../../utils/useDragReorder';
+import { estLeaderActuel } from '../../utils/leader';
 import { STATUTS } from '../../types/roster';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
@@ -138,7 +139,7 @@ export function MemberGroupCard({
                     </td>
                     <td>
                       {nomAffiche(m)}
-                      {profil?.est_leader && (
+                      {estLeaderActuel(roster, catalogue, m) && (
                         <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title="Chef de bande">
                           <Icon name="etoile" style={{ marginRight: '0.3em' }} /> Leader
                         </span>
@@ -255,7 +256,7 @@ export function MemberGroupCard({
               <div className="list-item__main">
                 <div className="list-item__title">
                   {nomAffiche(m)}
-                  {profil?.est_leader && (
+                  {estLeaderActuel(roster, catalogue, m) && (
                     <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title="Chef de bande">
                       <Icon name="etoile" style={{ marginRight: '0.3em' }} /> Leader
                     </span>

@@ -161,6 +161,19 @@ export type RosterInstance = {
   stock: InventoryEntry[];
   membres: Member[];
   historique_batailles: BattleRecord[];
+  // Membre actuellement chef de bande, quand ce n'est pas déterminé par un
+  // profil à leadership fixe (voir Profile.est_leader) : choix libre à la
+  // création (Lustrian Reavers), départage d'égalité de Commandement à la
+  // mort du chef, ou chef intérimaire (Morts-Vivants, en attendant qu'un
+  // nouveau Vampire soit recruté). Résolu via utils/leader.ts, jamais lu
+  // directement — peut pointer vers un membre mort ou retiré (ignoré par la
+  // résolution dans ce cas).
+  leader_instance_id?: string;
+  // Profils définitivement bannis du recrutement pour cette bande : le chef
+  // mort ne peut plus jamais être repris (sauf exemption, ex : Vampire), ou
+  // — chez les bandes à "héros rares" comme les Lustrian Reavers — tout héros
+  // unique perdu, qu'il ait été chef ou non. Vide par défaut.
+  profils_bannis?: string[];
   createdAt: string;
   updatedAt: string;
 };

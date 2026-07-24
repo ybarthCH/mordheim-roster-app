@@ -1,9 +1,11 @@
-import { resolveProfil } from '../../utils/profil';
+import { resolveLeader } from '../../utils/leader';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
+import type { WarbandCatalog } from '../../types/catalog';
 import type { BlessureDraft, XpDraft } from './PostBatailleScreen';
 
 type EtapeResumeProps = {
   roster: RosterInstance;
+  catalogue: WarbandCatalog | undefined;
   date: string;
   resultat: BattleRecord['resultat'];
   adversaires: string[];
@@ -23,6 +25,7 @@ type EtapeResumeProps = {
 
 export function EtapeResume({
   roster,
+  catalogue,
   date,
   resultat,
   adversaires,
@@ -73,7 +76,7 @@ export function EtapeResume({
           {avancesResolues.map((a) => `${a.nom} (${a.detail})`).join(', ')}
         </p>
       )}
-      {resultat === 'victoire' && roster.membres.some((m) => resolveProfil(roster, m)?.est_leader) && (
+      {resultat === 'victoire' && !!resolveLeader(roster, catalogue) && (
         <p className="text-sm">Le chef de bande gagne en plus son bonus de +1 XP pour la victoire.</p>
       )}
     </div>

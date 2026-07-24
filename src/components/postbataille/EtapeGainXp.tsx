@@ -1,6 +1,8 @@
 import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, isPalierHenchman, isPalierHero } from '../../utils/xp';
 import { resolveProfil } from '../../utils/profil';
+import { estLeaderActuel } from '../../utils/leader';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
+import type { WarbandCatalog } from '../../types/catalog';
 import type { XpDraft, SlotDraft } from './PostBatailleScreen';
 
 function nomAffiche(m: Member) {
@@ -82,6 +84,7 @@ function XpBarCompacte({
 
 type EtapeGainXpProps = {
   roster: RosterInstance;
+  catalogue: WarbandCatalog | undefined;
   resultat: BattleRecord['resultat'];
   demiXp: boolean;
   horsDeCombatIndividuel: Member[];
@@ -133,6 +136,7 @@ function BlocAvanceeDue({
 
 export function EtapeGainXp({
   roster,
+  catalogue,
   resultat,
   demiXp,
   horsDeCombatIndividuel,
@@ -162,13 +166,14 @@ export function EtapeGainXp({
           const profil = resolveProfil(roster, m);
           const estAnimal = profil?.type === 'animal';
           const d = xpDraftDe(m, m.xp);
-          const bonusLeader = !!profil?.est_leader && resultat === 'victoire' && d.survecu !== 'non';
+          const estLeader = estLeaderActuel(roster, catalogue, m);
+          const bonusLeader = estLeader && resultat === 'victoire' && d.survecu !== 'non';
           return (
             <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
               <div className="flex justify-between items-center" style={{ marginBottom: '0.4rem' }}>
                 <strong>
                   {nomAffiche(m)}
-                  {profil?.est_leader && (
+                  {estLeader && (
                     <span className="badge badge--info" style={{ marginLeft: '0.4rem' }}>
                       ★ Leader
                     </span>
@@ -257,13 +262,14 @@ export function EtapeGainXp({
         {participantsAuto.map((m) => {
           const profil = resolveProfil(roster, m);
           const d = xpDraftDe(m, m.xp + 1);
-          const bonusLeader = !!profil?.est_leader && resultat === 'victoire';
+          const estLeader = estLeaderActuel(roster, catalogue, m);
+          const bonusLeader = estLeader && resultat === 'victoire';
           return (
             <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
               <div className="flex justify-between items-center" style={{ marginBottom: '0.4rem' }}>
                 <strong>
                   {nomAffiche(m)}
-                  {profil?.est_leader && (
+                  {estLeader && (
                     <span className="badge badge--info" style={{ marginLeft: '0.4rem' }}>
                       ★ Leader
                     </span>
