@@ -1,4 +1,4 @@
-import { valeurBande, effectifTotal } from '../../utils/bandeValue';
+import { effectifTotal } from '../../utils/bandeValue';
 import { ratingTotal } from '../../utils/rating';
 import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
@@ -10,6 +10,10 @@ type RosterSummaryCardProps = {
 };
 
 export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryCardProps) {
+  const effectif = effectifTotal(roster);
+  const effectifMax = catalogue?.composition?.effectif_max;
+  const effectifPlein = effectifMax != null && effectif >= effectifMax;
+
   return (
     <div className="card">
       <input
@@ -23,12 +27,10 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
         {catalogue?.nom ?? roster.bande_id}
       </p>
       <div className="summary-grid" style={{ marginTop: '0.7rem' }}>
-        <div className="summary-tile">
-          <div className="summary-tile__value">{valeurBande(roster)}</div>
-          <div className="summary-tile__label">Valeur (po)</div>
-        </div>
-        <div className="summary-tile">
-          <div className="summary-tile__value">{effectifTotal(roster)}</div>
+        <div className="summary-tile" style={effectifPlein ? { background: 'var(--warning-bg)' } : undefined}>
+          <div className="summary-tile__value" style={effectifPlein ? { color: 'var(--warning)' } : undefined}>
+            {effectifMax != null ? `${effectif}/${effectifMax}` : effectif}
+          </div>
           <div className="summary-tile__label">Membres</div>
         </div>
         <div className="summary-tile">
@@ -48,7 +50,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
               fontSize: '1.1rem',
               fontWeight: 700,
               fontFamily: 'var(--font-heading)',
-              color: 'inherit',
+              color: roster.tresorerie < 0 ? 'var(--danger)' : 'inherit',
             }}
           />
           <div className="summary-tile__label">Trésorerie (po)</div>
