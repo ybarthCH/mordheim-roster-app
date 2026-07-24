@@ -122,7 +122,7 @@ export function MemberGroupCard({
               return (
                 <Fragment key={m.instance_id}>
                   <tr
-                    ref={refItem(m.instance_id)}
+                    ref={refItem('table', m.instance_id)}
                     className={`roster-table__row-principale${idEnCours === m.instance_id ? ' roster-table__row--fantome' : ''}`}
                     onClick={versPersonnage}
                   >
@@ -239,7 +239,7 @@ export function MemberGroupCard({
           return (
             <div
               key={m.instance_id}
-              ref={refItem(m.instance_id)}
+              ref={refItem('card', m.instance_id)}
               className={`list-item${idEnCours === m.instance_id ? ' list-item--fantome' : ''}`}
               role="button"
               onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
