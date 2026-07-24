@@ -133,6 +133,11 @@ export type JournalPostBataille = {
   // pratique pour relire ce qui a été tiré sans rouvrir chaque fiche.
   // Absent sur les batailles enregistrées avant l'introduction de ce champ.
   avancesResolues?: { nom: string; detail: string }[];
+  // Guerriers restés au camp car Blessé (n'ont pas participé à la bataille,
+  // donc pas d'XP) : le compteur de tours blessé avance automatiquement à
+  // chaque post-bataille — voir PostBatailleScreen.terminer(). Absent sur
+  // les batailles enregistrées avant l'introduction de ce champ.
+  blesses?: { nom: string; retabli: boolean }[];
 };
 
 export type BattleRecord = {

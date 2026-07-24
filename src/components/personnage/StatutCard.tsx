@@ -4,6 +4,7 @@ import type { IconName } from '../common/Icon';
 import { STATUTS } from '../../types/roster';
 import type { Member, Statut } from '../../types/roster';
 import type { Profile } from '../../types/catalog';
+import { Modal } from '../common/Modal';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
@@ -24,7 +25,9 @@ type StatutCardProps = {
   rating: number;
   estGroupeSimplifie: boolean;
   onMajMembre: (partial: Partial<Member>) => void;
-  onChangerStatut: (s: Statut) => void;
+  // toursBlesse n'est renseigné que pour le statut "blesse" (voir dialog
+  // ci-dessous) : nombre de tours (post-batailles) avant rétablissement.
+  onChangerStatut: (s: Statut, toursBlesse?: number) => void;
   onOpenRecruterGroupe: () => void;
 };
 
@@ -51,6 +54,28 @@ export function StatutCard({
   }, [membre.instance_id]);
 
   const statutsDisponibles = estGroupeSimplifie ? STATUTS.filter((s) => s.id === 'actif' || s.id === 'mort') : STATUTS;
+
+  // Passage au statut Blessé : demande le nombre de tours (post-batailles)
+  // avant rétablissement plutôt que de laisser 0/0 à compléter à la main —
+  // voir onChangerStatut('blesse', n) et le décompte automatique en
+  // post-bataille (PostBatailleScreen.terminer).
+  const [modalBlesseOuvert, setModalBlesseOuvert] = useState(false);
+  const [toursSaisis, setToursSaisis] = useState('2');
+
+  const cliquerStatut = (s: Statut) => {
+    if (s === 'blesse' && membre.statut !== 'blesse') {
+      setToursSaisis('2');
+      setModalBlesseOuvert(true);
+      return;
+    }
+    onChangerStatut(s);
+  };
+
+  const confirmerBlesse = () => {
+    const n = Math.max(1, parseInt(toursSaisis, 10) || 1);
+    onChangerStatut('blesse', n);
+    setModalBlesseOuvert(false);
+  };
 
   return (
     <div className="card">
@@ -79,7 +104,7 @@ export function StatutCard({
           <button
             key={s.id}
             className={`status-pill ${membre.statut === s.id ? 'status-pill--active' : ''}`}
-            onClick={() => onChangerStatut(s.id)}
+            onClick={() => cliquerStatut(s.id)}
           >
             {s.label}
           </button>
@@ -157,6 +182,35 @@ export function StatutCard({
           </button>
           {membre.hors_combat > 0 && <span className="text-sm text-muted">à résoudre au prochain post-bataille</span>}
         </div>
+      )}
+
+      {modalBlesseOuvert && (
+        <Modal onClose={() => setModalBlesseOuvert(false)}>
+          <h3>Blessé — combien de tours ?</h3>
+          <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
+            Nombre de post-batailles avant rétablissement. Le guerrier ne gagnera pas d'expérience tant qu'il est
+            blessé (il n'a pas participé à la bataille), mais le compteur avancera automatiquement à la fin de
+            chaque assistant post-bataille.
+          </p>
+          <div className="field">
+            <label>Tours blessé</label>
+            <input
+              type="number"
+              min={1}
+              value={toursSaisis}
+              onChange={(e) => setToursSaisis(e.target.value)}
+              autoFocus
+            />
+          </div>
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={() => setModalBlesseOuvert(false)}>
+              Annuler
+            </button>
+            <button className="btn btn--primary" onClick={confirmerBlesse}>
+              Confirmer
+            </button>
+          </div>
+        </Modal>
       )}
     </div>
   );

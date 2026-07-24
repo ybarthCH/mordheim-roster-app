@@ -166,9 +166,11 @@ export function PersonnageScreen() {
     majMembre({ stats_actuels: { ...membre.stats_actuels, [k]: value }, stats_modifiees });
   };
 
-  const changerStatut = (s: Statut) => {
+  const changerStatut = (s: Statut, toursBlesse?: number) => {
     if (s === 'mort') {
       majMembre({ statut: s, date_mort: new Date().toISOString().slice(0, 10) });
+    } else if (s === 'blesse') {
+      majMembre({ statut: s, date_mort: undefined, blesse_tour_actuel: 0, blesse_tour_total: toursBlesse ?? 0 });
     } else {
       majMembre({ statut: s, date_mort: undefined });
     }
