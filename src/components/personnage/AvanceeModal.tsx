@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { Member, AdvanceRecord } from '../../types/roster';
-import type { Profile, SkillCategory, WarbandCatalog } from '../../types/catalog';
+import type { Profile, SkillCategory, Stats, WarbandCatalog } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN } from '../../data/gameData';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { LIMITE_HEROS, categoriesAccessibles } from '../../utils/profil';
 import { peutAugmenterStat } from '../../utils/plafond';
+import {
+  RecompenseSeigneurDesOmbresWizard,
+  type RecompenseResultat,
+} from './RecompenseSeigneurDesOmbresWizard';
 
 type Props = {
   member: Member;
@@ -22,7 +26,14 @@ type Props = {
   onApply: (member: Member, nouveauMembre?: Member) => void;
 };
 
-type Etape = 'depart' | 'choix_carac' | 'competence' | 'promotion_categories' | 'resultat';
+type Etape =
+  | 'depart'
+  | 'choix_carac'
+  | 'choix_voie_competence'
+  | 'competence'
+  | 'seigneur_des_ombres'
+  | 'promotion_categories'
+  | 'resultat';
 
 export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, onApply }: Props) {
   const limiteHerosAtteinte = heroCount >= LIMITE_HEROS;
@@ -91,7 +102,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
     } else if (entreeAvancement.type === 'caracteristique_choix') {
       setEtape('choix_carac');
     } else if (entreeAvancement.type === 'competence') {
-      setEtape('competence');
+      setEtape(profil.acces_seigneur_des_ombres ? 'choix_voie_competence' : 'competence');
     } else if (limiteHerosAtteinte) {
       // Défense en profondeur : l'option est déjà désactivée dans le select.
       return;
@@ -120,6 +131,70 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
 
   const skillsDeLaCategorie = (cat: SkillCategory) =>
     cat === 'special' ? catalogue.competences_speciales : SKILLS[cat];
+
+  const nomCompetence = (skillId: string) =>
+    [...Object.values(SKILLS).flat(), ...catalogue.competences_speciales].find((s) => s.id === skillId)?.nom ??
+    skillId;
+
+  const appliquerSeigneurDesOmbres = (resultat: RecompenseResultat) => {
+    const statsActuels = { ...travail.stats_actuels };
+    const statsModifiees = new Set(travail.stats_modifiees);
+    for (const [k, v] of Object.entries(resultat.statsDelta)) {
+      statsActuels[k as keyof Stats] += v ?? 0;
+      statsModifiees.add(k as keyof Stats);
+    }
+    if (resultat.objetStatsDelta) {
+      for (const [k, v] of Object.entries(resultat.objetStatsDelta)) {
+        statsActuels[k as keyof Stats] += v ?? 0;
+        statsModifiees.add(k as keyof Stats);
+      }
+    }
+
+    const inventaire = resultat.objetGratuit
+      ? [
+          ...travail.inventaire,
+          {
+            instance_id: uuidv4(),
+            item_id: resultat.objetGratuit.item_id,
+            nom: resultat.objetGratuit.nom,
+            categorie: resultat.objetGratuit.categorie,
+            cout: 0,
+            date_achat: new Date().toISOString(),
+          },
+        ]
+      : travail.inventaire;
+
+    const notes = resultat.objetGratuit?.texte
+      ? [travail.notes, resultat.objetGratuit.texte].filter(Boolean).join('\n')
+      : travail.notes;
+
+    const competences_acquises =
+      resultat.competencesRetirees.length > 0
+        ? travail.competences_acquises.filter((id) => !resultat.competencesRetirees.includes(id))
+        : travail.competences_acquises;
+
+    appliquer(
+      {
+        stats_actuels: statsActuels,
+        stats_modifiees: Array.from(statsModifiees),
+        inventaire,
+        notes,
+        competences_acquises,
+        ...(resultat.statutMort
+          ? { statut: 'mort', date_mort: new Date().toISOString().slice(0, 10) }
+          : {}),
+      },
+      {
+        id: uuidv4(),
+        date: new Date().toISOString().slice(0, 10),
+        xpAtRoll: travail.xp,
+        roll: entreeAvancement?.min ?? 0,
+        type: 'seigneur_des_ombres',
+        detail: resultat.nom,
+      },
+      `Seigneur des Ombres : ${resultat.nom}`
+    );
+  };
 
   const choisirCompetence = (skillId: string) => {
     const skill = [...Object.values(SKILLS).flat(), ...catalogue.competences_speciales].find(
@@ -364,6 +439,36 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
         </>
       )}
 
+      {etape === 'choix_voie_competence' && (
+        <>
+          <p className="text-sm text-muted" style={{ marginTop: 0 }}>
+            {travail.nom_perso} peut choisir une compétence normale, ou tenter un pèlerinage à la Fosse pour une
+            récompense du Seigneur des Ombres (règle optionnelle).
+          </p>
+          <div className="flex gap-sm" style={{ marginTop: '1rem', flexWrap: 'wrap' }}>
+            <button className="btn" onClick={onClose}>
+              Annuler
+            </button>
+            <button className="btn btn--primary" onClick={() => setEtape('competence')}>
+              Choisir une compétence
+            </button>
+            <button className="btn" onClick={() => setEtape('seigneur_des_ombres')}>
+              Récompenses du Seigneur des Ombres
+            </button>
+          </div>
+        </>
+      )}
+
+      {etape === 'seigneur_des_ombres' && (
+        <RecompenseSeigneurDesOmbresWizard
+          nomPersonnage={travail.nom_perso}
+          competencesAcquises={travail.competences_acquises}
+          nomCompetence={nomCompetence}
+          onAppliquer={appliquerSeigneurDesOmbres}
+          onAnnuler={() => setEtape('choix_voie_competence')}
+        />
+      )}
+
       {etape === 'competence' && (
         <>
           {entreeAvancement && <p className="text-sm text-muted">Résultat {entreeAvancement.label}.</p>}
@@ -413,7 +518,11 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
         </>
       )}
 
-      {etape !== 'resultat' && etape !== 'depart' && etape !== 'promotion_categories' && (
+      {etape !== 'resultat' &&
+        etape !== 'depart' &&
+        etape !== 'promotion_categories' &&
+        etape !== 'choix_voie_competence' &&
+        etape !== 'seigneur_des_ombres' && (
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={onClose}>
             Annuler

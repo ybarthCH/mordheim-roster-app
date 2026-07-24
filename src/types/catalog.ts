@@ -85,6 +85,11 @@ export type Profile = {
   // d'avancement applicable à ce profil. Absent seulement pour les profils
   // de type 'animal' (n'avancent jamais, voir avancesDues).
   groupe_caracteristiques?: string;
+  // Règle optionnelle "Récompenses du Seigneur des Ombres" (livre de règles
+  // Mordheim, p.146) : ce profil peut lancer 2D6 sur cette table au lieu de
+  // choisir une compétence lors d'une avancée d'expérience. Réservée aux
+  // Magisters/Mutants du Culte des Possédés dans le livre de règles.
+  acces_seigneur_des_ombres?: boolean;
 };
 
 // Contraintes de composition de bande. Purement informatif (affiché comme
