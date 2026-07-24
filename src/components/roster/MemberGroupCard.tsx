@@ -6,6 +6,7 @@ import { resolveProfil } from '../../utils/profil';
 import { avancesDues } from '../../utils/xp';
 import { nomCourtBlessure } from '../../utils/blessures';
 import { inventaireGroupeMismatch } from '../../utils/shop';
+import { useDragReorder } from '../../utils/useDragReorder';
 import { STATUTS } from '../../types/roster';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
@@ -52,7 +53,7 @@ type MemberGroupCardProps = {
   membres: Member[];
   roster: RosterInstance;
   catalogue: WarbandCatalog | undefined;
-  onDeplacer: (section: Member[], m: Member, direction: -1 | 1) => void;
+  onReordonner: (nouvelOrdre: Member[]) => void;
   onBasculerHorsCombat: (m: Member) => void;
   onSupprimer: (m: Member) => void;
 };
@@ -62,11 +63,12 @@ export function MemberGroupCard({
   membres,
   roster,
   catalogue,
-  onDeplacer,
+  onReordonner,
   onBasculerHorsCombat,
   onSupprimer,
 }: MemberGroupCardProps) {
   const navigate = useNavigate();
+  const { elements, refItem, demarrerDrag, idEnCours } = useDragReorder(membres, onReordonner);
 
   const avanceEnAttente = (m: Member) => {
     const profil = resolveProfil(roster, m);
@@ -113,12 +115,17 @@ export function MemberGroupCard({
             </tr>
           </thead>
           <tbody>
-            {membres.map((m, i) => {
+            {elements.map((m) => {
               const profil = resolveProfil(roster, m);
               const versPersonnage = () => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`);
               return (
                 <Fragment key={m.instance_id}>
-                  <tr className="roster-table__row-principale" onClick={versPersonnage}>
+                  <tr
+                    ref={refItem(m.instance_id)}
+                    className="roster-table__row-principale"
+                    style={idEnCours === m.instance_id ? { opacity: 0.5 } : undefined}
+                    onClick={versPersonnage}
+                  >
                     <td>
                       {nomAffiche(m)}
                       {profil?.est_leader && (
@@ -168,28 +175,13 @@ export function MemberGroupCard({
                     <td>
                       <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
                         <button
-                          className="btn--ghost"
+                          className="btn--ghost drag-handle"
                           style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
-                          disabled={i === 0}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onDeplacer(membres, m, -1);
-                          }}
-                          title="Monter"
+                          onPointerDown={demarrerDrag(m.instance_id)}
+                          onClick={(e) => e.stopPropagation()}
+                          title="Glisser pour réordonner"
                         >
-                          ↑
-                        </button>
-                        <button
-                          className="btn--ghost"
-                          style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
-                          disabled={i === membres.length - 1}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onDeplacer(membres, m, 1);
-                          }}
-                          title="Descendre"
-                        >
-                          ↓
+                          <Icon name="poignee" />
                         </button>
                         <button
                           className="btn--ghost"
@@ -241,13 +233,15 @@ export function MemberGroupCard({
       </div>
 
       <div className="member-cards">
-        {membres.map((m, i) => {
+        {elements.map((m) => {
           const profil = resolveProfil(roster, m);
           return (
             <div
               key={m.instance_id}
+              ref={refItem(m.instance_id)}
               className="list-item"
               role="button"
+              style={idEnCours === m.instance_id ? { opacity: 0.5 } : undefined}
               onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
             >
               <div className="list-item__main">
@@ -287,28 +281,13 @@ export function MemberGroupCard({
                 </span>
               )}
               <button
-                className="btn--ghost"
+                className="btn--ghost drag-handle"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
-                disabled={i === 0}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDeplacer(membres, m, -1);
-                }}
-                title="Monter"
+                onPointerDown={demarrerDrag(m.instance_id)}
+                onClick={(e) => e.stopPropagation()}
+                title="Glisser pour réordonner"
               >
-                ↑
-              </button>
-              <button
-                className="btn--ghost"
-                style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
-                disabled={i === membres.length - 1}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDeplacer(membres, m, 1);
-                }}
-                title="Descendre"
-              >
-                ↓
+                <Icon name="poignee" />
               </button>
               <button
                 className="btn--ghost"

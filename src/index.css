@@ -414,6 +414,14 @@ button {
   background: transparent;
   border-color: transparent;
 }
+.drag-handle {
+  cursor: grab;
+  touch-action: none;
+  color: var(--text-muted);
+}
+.drag-handle:active {
+  cursor: grabbing;
+}
 .btn--sm {
   padding: 0.3rem 0.6rem;
   font-size: 0.85rem;
