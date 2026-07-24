@@ -129,6 +129,14 @@ export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }:
               {bataille.journal.avancesResolues.map((a) => `${a.nom} — ${a.detail}`).join(' · ')}
             </p>
           )}
+          {bataille.journal.blesses && bataille.journal.blesses.length > 0 && (
+            <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              <strong>Restés au camp (Blessé) :</strong>{' '}
+              {bataille.journal.blesses
+                .map((b) => `${b.nom} a passé un tour blessé au camp${b.retabli ? ' (rétabli)' : ''}.`)
+                .join(' ')}
+            </p>
+          )}
         </div>
       )}
 

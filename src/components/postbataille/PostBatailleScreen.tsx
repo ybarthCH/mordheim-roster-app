@@ -111,11 +111,17 @@ export function PostBatailleScreen() {
   // Gain d'expérience, section « reste du roster » : tout le monde de vivant
   // qui n'est pas à résoudre manuellement — gagne 1 XP automatiquement. Les
   // animaux ne gagnent jamais d'expérience et n'apparaissent donc jamais ici.
+  // Un guerrier Blessé n'a pas participé à la bataille : pas d'XP non plus
+  // (voir terminer(), qui avance seulement son compteur de tours blessé).
   const participantsAuto = useMemo(() => {
     const hcIds = new Set([...horsDeCombatIndividuel, ...groupesHC].map((m) => m.instance_id));
     return (
       roster?.membres.filter(
-        (m) => m.statut !== 'mort' && !hcIds.has(m.instance_id) && resolveProfil(roster, m)?.type !== 'animal'
+        (m) =>
+          m.statut !== 'mort' &&
+          m.statut !== 'blesse' &&
+          !hcIds.has(m.instance_id) &&
+          resolveProfil(roster, m)?.type !== 'animal'
       ) ?? []
     );
   }, [roster, horsDeCombatIndividuel, groupesHC]);
@@ -264,6 +270,11 @@ export function PostBatailleScreen() {
     const tresorerieApres = roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus;
     const groupesHCIds = new Set(groupesHC.map((m) => m.instance_id));
 
+    // Journalisation des guerriers restés au camp car Blessé (voir la
+    // branche m.statut === 'blesse' ci-dessous) — remplie en même temps que
+    // membresMaj, pour le journal de bataille.
+    const blessesAuCamp: { nom: string; retabli: boolean }[] = [];
+
     const membresMaj: Member[] = roster.membres.map((m) => {
       let membre = { ...m };
       const profil = resolveProfil(roster, m);
@@ -339,6 +350,19 @@ export function PostBatailleScreen() {
         return membre;
       }
 
+      // Guerrier Blessé : reste au camp, ne participe pas à la bataille (pas
+      // d'XP), mais son compteur de tours blessé avance d'un cran. Rétabli
+      // (retour à Actif, compteur remis à 0/0) une fois le total atteint.
+      if (m.statut === 'blesse') {
+        const tourActuel = m.blesse_tour_actuel + 1;
+        const retabli = m.blesse_tour_total > 0 && tourActuel >= m.blesse_tour_total;
+        blessesAuCamp.push({ nom: nomAffiche(m), retabli });
+        membre = retabli
+          ? { ...membre, statut: 'actif', blesse_tour_actuel: 0, blesse_tour_total: 0 }
+          : { ...membre, blesse_tour_actuel: tourActuel };
+        return membre;
+      }
+
       // Reste du roster : XP de participation automatique (+1), ajustable
       // via la barre pendant l'assistant.
       const d = xpDrafts[m.instance_id];
@@ -374,6 +398,7 @@ export function PostBatailleScreen() {
       ],
       pointsVeteran,
       avancesResolues,
+      blesses: blessesAuCamp,
     };
 
     const bataille: BattleRecord = {
