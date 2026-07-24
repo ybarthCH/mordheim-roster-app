@@ -10,6 +10,7 @@ import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member } from '../../types/roster';
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 import { creerEntreeInventaire } from '../../utils/shop';
+import { estLeaderActuel, succederApresMorts } from '../../utils/leader';
 import type { ShopItem } from '../../utils/shop';
 import { AvanceeModal } from '../personnage/AvanceeModal';
 import { EtapeBlessuresGraves } from './EtapeBlessuresGraves';
@@ -258,7 +259,8 @@ export function PostBatailleScreen() {
   // journalisé ici pour le récapitulatif de bataille.
   const appliquerAvancee = (updated: Member, nouveauMembre?: Member) => {
     const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
-    updateRoster({ ...roster, membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj });
+    const succession = succederApresMorts(roster, catalogue, membresMaj);
+    updateRoster({ ...roster, ...succession, membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj });
     const cible = nouveauMembre ?? updated;
     const dernier = cible.historique_avancees[cible.historique_avancees.length - 1];
     if (dernier) {
@@ -278,7 +280,7 @@ export function PostBatailleScreen() {
     const membresMaj: Member[] = roster.membres.map((m) => {
       let membre = { ...m };
       const profil = resolveProfil(roster, m);
-      const estLeaderVictoire = !!profil?.est_leader && resultat === 'victoire';
+      const estLeaderVictoire = estLeaderActuel(roster, catalogue, m) && resultat === 'victoire';
 
       const draft = blessureDrafts[m.instance_id];
       if (draft) {
@@ -410,8 +412,11 @@ export function PostBatailleScreen() {
       journal,
     };
 
+    const succession = succederApresMorts(roster, catalogue, membresMaj);
+
     await updateRoster({
       ...roster,
+      ...succession,
       membres: membresMaj,
       wyrdstone: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue),
       tresorerie: tresorerieApres,
@@ -461,6 +466,7 @@ export function PostBatailleScreen() {
       {etape === indexGainXp && (
         <EtapeGainXp
           roster={roster}
+          catalogue={catalogue}
           resultat={resultat}
           demiXp={demiXp}
           horsDeCombatIndividuel={horsDeCombatIndividuel}
@@ -497,6 +503,7 @@ export function PostBatailleScreen() {
       {etape === 4 && (
         <EtapeResume
           roster={roster}
+          catalogue={catalogue}
           date={date}
           resultat={resultat}
           adversaires={adversaires}

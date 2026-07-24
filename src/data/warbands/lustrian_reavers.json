@@ -22,6 +22,8 @@
     "effectif_max": 10,
     "cout_max_constitution": 500
   },
+  "leader_libre": true,
+  "bannir_profils_uniques_a_mort": true,
   "profils": [
     {
       "id": "conqueror",
@@ -35,15 +37,13 @@
       "xp_depart": 24,
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 2, "I": 3, "A": 2, "Cd": 7 },
       "regles_speciales": [
-        { "nom": "Chef", "texte": "Leader of the warband." },
         { "nom": "Starting equipment", "texte": "Masterwork Heavy Armour, Bec de Corbin, Helmet (fixed — see Rare Heroes)." },
         { "nom": "Survivor", "texte": "Cannot be taken Out of Action unless already Knocked Down or Stunned. Treat an Out of Action result as Stunned if the Conqueror was standing when the Wound was received." },
         { "nom": "Multiple Injuries (once)", "texte": "The first time the Conqueror suffers a Dead result on the Serious Injury chart, treat it as Multiple Injuries instead. This can only save the Conqueror once." }
       ],
       "acces_competences": ["combat", "force"],
       "acces_equipement": ["heroes"],
-      "acces_competences_a_verifier": false,
-      "est_leader": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "saurus_slayer",
@@ -140,7 +140,8 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["prospects"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "remplace_heros_tombe": true
     },
     {
       "id": "chien_de_guerre",

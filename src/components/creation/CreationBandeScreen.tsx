@@ -23,6 +23,9 @@ export function CreationBandeScreen() {
   const [budgetSaisi, setBudgetSaisi] = useState(String(BUDGET_PAR_DEFAUT));
   const [membres, setMembres] = useState<Member[]>([]);
   const [profilEnRecrutement, setProfilEnRecrutement] = useState<Profile | null>(null);
+  // Bandes à chef libre (ex : Lustrian Reavers) : le joueur choisit le chef
+  // parmi les héros recrutés, plutôt qu'un profil fixe (voir Profile.est_leader).
+  const [leaderInstanceId, setLeaderInstanceId] = useState<string | null>(null);
 
   const budget = Number(budgetSaisi) || 0;
 
@@ -68,7 +71,10 @@ export function CreationBandeScreen() {
 
   const retirerMembre = (instanceId: string) => {
     setMembres((prev) => prev.filter((m) => m.instance_id !== instanceId));
+    setLeaderInstanceId((prev) => (prev === instanceId ? null : prev));
   };
+
+  const herosRecrutes = membres.filter((m) => catalogue?.profils.find((p) => p.id === m.profil_id)?.type === 'heros');
 
   const renommerMembre = (instanceId: string, nom: string) => {
     setMembres((prev) => prev.map((m) => (m.instance_id === instanceId ? { ...m, nom_perso: nom } : m)));
@@ -80,6 +86,9 @@ export function CreationBandeScreen() {
     if (!peutCreer) return;
     const roster = creerRoster(bandeId, nomBande.trim(), restant);
     roster.membres = membres;
+    if (catalogue?.leader_libre && leaderInstanceId) {
+      roster.leader_instance_id = leaderInstanceId;
+    }
     await addRoster(roster);
     navigate(`/roster/${roster.id}`);
   };
@@ -197,6 +206,29 @@ export function CreationBandeScreen() {
               </button>
             </div>
           ))}
+        </div>
+      )}
+
+      {catalogue?.leader_libre && herosRecrutes.length > 0 && (
+        <div className="card">
+          <h3>Chef de bande</h3>
+          <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
+            Cette bande n'a pas de chef fixe : choisis-le parmi les héros recrutés (facultatif ici, modifiable
+            depuis la fiche de bande).
+          </p>
+          <div className="flex flex-col gap-sm">
+            {herosRecrutes.map((m) => (
+              <label key={m.instance_id} className="flex items-center gap-sm" style={{ cursor: 'pointer' }}>
+                <input
+                  type="radio"
+                  name="leader"
+                  checked={leaderInstanceId === m.instance_id}
+                  onChange={() => setLeaderInstanceId(m.instance_id)}
+                />
+                <span>{m.nom_perso || catalogue.profils.find((p) => p.id === m.profil_id)?.nom}</span>
+              </label>
+            ))}
+          </div>
         </div>
       )}
 

@@ -5,6 +5,7 @@ import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { getCatalogue } from '../../data/warbands';
 import { resolveProfil } from '../../utils/profil';
+import { choixLeaderRequis, succederApresMorts } from '../../utils/leader';
 import { validerComposition, validerEffectif } from '../../utils/validation';
 import { exporterRoster, partageDisponible, partagerRoster } from '../../utils/importExport';
 import { AjouterMembreModal } from './AjouterMembreModal';
@@ -12,7 +13,10 @@ import { RosterSummaryCard } from './RosterSummaryCard';
 import { ArmurerieSection } from './ArmurerieSection';
 import { MemberGroupCard } from './MemberGroupCard';
 import { HistoriqueBataillesSection } from './HistoriqueBataillesSection';
+import { PromotionHerosDechuModal } from './PromotionHerosDechuModal';
 import { EquipementReference, MagieReference } from '../common/CatalogueReference';
+import { AvanceeModal } from '../personnage/AvanceeModal';
+import { nombreHeros } from '../../utils/profil';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import {
   acheterPourStock,
@@ -32,6 +36,9 @@ export function RosterScreen() {
   const roster = getRosterById(id ?? '');
   const [modalMembre, setModalMembre] = useState(false);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
+  const [modalLeader, setModalLeader] = useState(false);
+  const [modalPromotion, setModalPromotion] = useState(false);
+  const [heroPromuEnAttente, setHeroPromuEnAttente] = useState<Member | null>(null);
 
   if (!roster) {
     return (
@@ -47,6 +54,21 @@ export function RosterScreen() {
   const effectifDepasse = violationsEffectif.find((v) => v.type === 'max');
   const heros = roster.membres.filter((m) => resolveProfil(roster, m)?.type === 'heros');
   const hommesDeMain = roster.membres.filter((m) => resolveProfil(roster, m)?.type !== 'heros');
+  const herosVivants = heros.filter((m) => m.statut !== 'mort');
+  const besoinChoixLeader = choixLeaderRequis(roster, catalogue);
+
+  // Lustrian Reavers ("Promotions") : rôles de héros uniques tombés — bannis
+  // du recrutement mais toujours vacants (aucun titulaire vivant) — qu'un
+  // Prospect vivant peut reprendre. Voir PromotionHerosDechuModal.
+  const rolesVacants = catalogue?.bannir_profils_uniques_a_mort
+    ? (roster.profils_bannis ?? []).filter(
+        (profilId) => !roster.membres.some((m) => m.profil_id === profilId && m.statut !== 'mort')
+      )
+    : [];
+  const prospectsDisponibles = roster.membres.filter(
+    (m) => m.statut !== 'mort' && catalogue?.profils.find((p) => p.id === m.profil_id)?.remplace_heros_tombe
+  );
+  const promotionDisponible = rolesVacants.length > 0 && prospectsDisponibles.length > 0;
 
   const patch = (partial: Partial<RosterInstance>) => {
     updateRoster({ ...roster, ...partial });
@@ -168,6 +190,37 @@ export function RosterScreen() {
         </div>
       )}
 
+      {besoinChoixLeader && (
+        <div className="banner-danger">
+          <span className="banner-danger__icon" aria-hidden="true">
+            <Icon name="couronne" />
+          </span>
+          <span style={{ flex: 1 }}>Aucun chef n'est désigné pour cette bande.</span>
+          <button className="btn btn--sm" onClick={() => setModalLeader(true)}>
+            Choisir un chef
+          </button>
+        </div>
+      )}
+
+      {promotionDisponible && (
+        <div className="card card--tight">
+          <div className="flex justify-between items-center">
+            <div>
+              <strong>
+                <Icon name="etoile" style={{ marginRight: '0.35em' }} />
+                Rôle de héros vacant
+              </strong>
+              <p className="text-sm text-muted mb-0">
+                Un Prospect peut être promu pour reprendre le rôle d'un héros unique tombé (« Ce gars est doué »).
+              </p>
+            </div>
+            <button className="btn btn--sm" onClick={() => setModalPromotion(true)}>
+              Promouvoir
+            </button>
+          </div>
+        </div>
+      )}
+
       <RosterSummaryCard roster={roster} catalogue={catalogue} onPatch={patch} />
 
       <ArmurerieSection
@@ -271,6 +324,81 @@ export function RosterScreen() {
           }}
         />
       )}
+      {modalLeader && (
+        <Modal onClose={() => setModalLeader(false)}>
+          <h3>Choisir un chef de bande</h3>
+          <p className="text-muted text-sm" style={{ marginTop: '-0.4rem' }}>
+            Choisis parmi les héros vivants celui qui prend (ou reprend) le commandement.
+          </p>
+          {herosVivants.length === 0 ? (
+            <p className="text-muted">Aucun héros vivant dans la bande.</p>
+          ) : (
+            <div className="flex flex-col gap-sm">
+              {herosVivants
+                .slice()
+                .sort((a, b) => b.stats_actuels.Cd - a.stats_actuels.Cd)
+                .map((m) => (
+                  <button
+                    key={m.instance_id}
+                    className="btn btn--block"
+                    style={{ justifyContent: 'space-between' }}
+                    onClick={() => {
+                      patch({ leader_instance_id: m.instance_id });
+                      setModalLeader(false);
+                    }}
+                  >
+                    <span>{m.nom_perso}</span>
+                    <span className="text-muted">Cd {m.stats_actuels.Cd}</span>
+                  </button>
+                ))}
+            </div>
+          )}
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={() => setModalLeader(false)}>
+              Annuler
+            </button>
+          </div>
+        </Modal>
+      )}
+      {modalPromotion && catalogue && (
+        <PromotionHerosDechuModal
+          roster={roster}
+          catalogue={catalogue}
+          rolesVacants={rolesVacants}
+          prospects={prospectsDisponibles}
+          onClose={() => setModalPromotion(false)}
+          onConfirm={(r, nouveauHeros) => {
+            updateRoster(r);
+            setModalPromotion(false);
+            setHeroPromuEnAttente(nouveauHeros);
+          }}
+        />
+      )}
+      {heroPromuEnAttente &&
+        catalogue &&
+        (() => {
+          const profilPromu = resolveProfil(roster, heroPromuEnAttente);
+          return (
+            profilPromu && (
+              <AvanceeModal
+                member={heroPromuEnAttente}
+                profil={profilPromu}
+                catalogue={catalogue}
+                heroCount={nombreHeros(roster)}
+                onClose={() => setHeroPromuEnAttente(null)}
+                onApply={(updated, nouveauMembre) => {
+                  const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
+                  const succession = succederApresMorts(roster, catalogue, membresMaj);
+                  updateRoster({
+                    ...roster,
+                    ...succession,
+                    membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj,
+                  });
+                }}
+              />
+            )
+          );
+        })()}
       {membreASupprimer && (
         <Modal onClose={() => setMembreASupprimer(null)}>
           <h3>Retirer {membreASupprimer.nom_perso} ?</h3>
