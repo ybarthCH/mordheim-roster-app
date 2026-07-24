@@ -68,7 +68,7 @@ export function MemberGroupCard({
   onSupprimer,
 }: MemberGroupCardProps) {
   const navigate = useNavigate();
-  const { elements, refItem, demarrerDrag, idEnCours } = useDragReorder(membres, onReordonner);
+  const { elements, refItem, demarrerDrag, idEnCours, pointerPos } = useDragReorder(membres, onReordonner);
 
   const avanceEnAttente = (m: Member) => {
     const profil = resolveProfil(roster, m);
@@ -98,6 +98,7 @@ export function MemberGroupCard({
         <table className="roster-table">
           <thead>
             <tr>
+              <th style={{ width: '1.6rem' }}></th>
               <th>Nom</th>
               <th>Profil</th>
               <th>M</th>
@@ -122,10 +123,19 @@ export function MemberGroupCard({
                 <Fragment key={m.instance_id}>
                   <tr
                     ref={refItem(m.instance_id)}
-                    className="roster-table__row-principale"
-                    style={idEnCours === m.instance_id ? { opacity: 0.5 } : undefined}
+                    className={`roster-table__row-principale${idEnCours === m.instance_id ? ' roster-table__row--fantome' : ''}`}
                     onClick={versPersonnage}
                   >
+                    <td className="roster-table__poignee-cell">
+                      <span
+                        className="drag-handle drag-handle--discret"
+                        onPointerDown={demarrerDrag(m.instance_id)}
+                        onClick={(e) => e.stopPropagation()}
+                        title="Glisser pour réordonner"
+                      >
+                        <Icon name="poignee" size="0.85em" />
+                      </span>
+                    </td>
                     <td>
                       {nomAffiche(m)}
                       {profil?.est_leader && (
@@ -175,15 +185,6 @@ export function MemberGroupCard({
                     <td>
                       <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
                         <button
-                          className="btn--ghost drag-handle"
-                          style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
-                          onPointerDown={demarrerDrag(m.instance_id)}
-                          onClick={(e) => e.stopPropagation()}
-                          title="Glisser pour réordonner"
-                        >
-                          <Icon name="poignee" />
-                        </button>
-                        <button
                           className="btn--ghost"
                           style={{
                             border: 'none',
@@ -214,7 +215,7 @@ export function MemberGroupCard({
                     </td>
                   </tr>
                   <tr className="roster-table__row-synopsis" onClick={versPersonnage}>
-                    <td colSpan={14} className="roster-table__synopsis-cell">
+                    <td colSpan={15} className="roster-table__synopsis-cell">
                       <div className="text-sm text-muted roster-table__synopsis" style={{ fontStyle: 'italic' }}>
                         {resumeEquipement(m)}
                       </div>
@@ -239,11 +240,18 @@ export function MemberGroupCard({
             <div
               key={m.instance_id}
               ref={refItem(m.instance_id)}
-              className="list-item"
+              className={`list-item${idEnCours === m.instance_id ? ' list-item--fantome' : ''}`}
               role="button"
-              style={idEnCours === m.instance_id ? { opacity: 0.5 } : undefined}
               onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
             >
+              <span
+                className="drag-handle drag-handle--discret"
+                onPointerDown={demarrerDrag(m.instance_id)}
+                onClick={(e) => e.stopPropagation()}
+                title="Glisser pour réordonner"
+              >
+                <Icon name="poignee" size="0.85em" />
+              </span>
               <div className="list-item__main">
                 <div className="list-item__title">
                   {nomAffiche(m)}
@@ -281,15 +289,6 @@ export function MemberGroupCard({
                 </span>
               )}
               <button
-                className="btn--ghost drag-handle"
-                style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem' }}
-                onPointerDown={demarrerDrag(m.instance_id)}
-                onClick={(e) => e.stopPropagation()}
-                title="Glisser pour réordonner"
-              >
-                <Icon name="poignee" />
-              </button>
-              <button
                 className="btn--ghost"
                 style={{
                   border: 'none',
@@ -322,6 +321,21 @@ export function MemberGroupCard({
       </div>
 
       {membres.length === 0 && <p className="text-muted">Aucun membre recruté.</p>}
+
+      {idEnCours &&
+        pointerPos &&
+        (() => {
+          const dragged = elements.find((x) => x.instance_id === idEnCours);
+          if (!dragged) return null;
+          const profil = resolveProfil(roster, dragged);
+          return (
+            <div className="drag-ghost" style={{ left: pointerPos.x, top: pointerPos.y }}>
+              <Icon name="poignee" size="0.85em" style={{ marginRight: '0.4em', color: 'var(--text-muted)' }} />
+              <span className="drag-ghost__nom">{nomAffiche(dragged)}</span>
+              {profil?.nom && <span className="drag-ghost__profil"> · {profil.nom}</span>}
+            </div>
+          );
+        })()}
     </div>
   );
 }

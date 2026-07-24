@@ -5,12 +5,17 @@ import { useEffect, useRef, useState } from 'react';
 // remplace les anciens boutons ↑/↓. Le survol met à jour l'ordre affiché en
 // direct (comme un vrai drag natif) ; seul le relâchement du pointeur
 // déclenche `onReorder`, pour ne pas spammer la persistance à chaque frame.
+// L'élément glissé lui-même reste dans le flux normal (opacité réduite,
+// pour garder sa hauteur exacte et des rects fiables pour les autres) —
+// c'est une vignette flottante séparée (voir pointerPos) qui suit le
+// curseur/doigt à l'écran.
 export function useDragReorder<T extends { instance_id: string }>(
   items: T[],
   onReorder: (nouvelOrdre: T[]) => void
 ) {
   const [ordreEnCours, setOrdreEnCours] = useState<T[] | null>(null);
   const [idEnCours, setIdEnCours] = useState<string | null>(null);
+  const [pointerPos, setPointerPos] = useState<{ x: number; y: number } | null>(null);
   const refsElements = useRef<Map<string, HTMLElement>>(new Map());
 
   const refItem = (id: string) => (el: HTMLElement | null) => {
@@ -23,12 +28,14 @@ export function useDragReorder<T extends { instance_id: string }>(
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     setIdEnCours(id);
     setOrdreEnCours(items);
+    setPointerPos({ x: e.clientX, y: e.clientY });
   };
 
   useEffect(() => {
     if (!idEnCours) return;
 
     const onMove = (e: PointerEvent) => {
+      setPointerPos({ x: e.clientX, y: e.clientY });
       setOrdreEnCours((current) => {
         if (!current) return current;
         const dragged = current.find((it) => it.instance_id === idEnCours);
@@ -52,6 +59,7 @@ export function useDragReorder<T extends { instance_id: string }>(
 
     const onFin = () => {
       setIdEnCours(null);
+      setPointerPos(null);
       setOrdreEnCours((current) => {
         if (current) onReorder(current);
         return null;
@@ -73,5 +81,6 @@ export function useDragReorder<T extends { instance_id: string }>(
     refItem,
     demarrerDrag,
     idEnCours,
+    pointerPos,
   };
 }

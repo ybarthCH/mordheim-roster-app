@@ -422,6 +422,64 @@ button {
 .drag-handle:active {
   cursor: grabbing;
 }
+.drag-handle--discret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.4rem;
+  height: 1.4rem;
+  padding: 0;
+  opacity: 0.55;
+}
+.drag-handle--discret:active {
+  opacity: 1;
+}
+.roster-table__poignee-cell {
+  width: 1.6rem;
+  padding-left: 0.4rem !important;
+  padding-right: 0 !important;
+}
+
+/* Emplacement laissé par la figurine en cours de glissement (voir
+   drag-ghost, qui suit le curseur/doigt séparément) : le montrer estompé
+   plutôt que masqué garde sa hauteur exacte, donc des rects fiables pour
+   le calcul de la position cible chez les autres figurines. */
+.roster-table__row--fantome td,
+.list-item--fantome {
+  opacity: 0.15;
+}
+.list-item--fantome {
+  border-style: dashed;
+}
+
+.drag-ghost {
+  position: fixed;
+  z-index: 1000;
+  transform: translate(-50%, -130%);
+  display: flex;
+  align-items: center;
+  max-width: 220px;
+  padding: 0.45rem 0.7rem;
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.drag-ghost__nom {
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.drag-ghost__profil {
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
 .btn--sm {
   padding: 0.3rem 0.6rem;
   font-size: 0.85rem;
