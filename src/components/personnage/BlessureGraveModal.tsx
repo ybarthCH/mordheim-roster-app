@@ -4,6 +4,7 @@ import type { Member, SeriousInjuryRecord } from '../../types/roster';
 import { STAT_KEYS } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { BlessureGraveWizard, type BlessureGraveResultat } from './BlessureGraveWizard';
+import { trouverBlessure } from '../../data/blessuresGraves';
 
 type Props = {
   member: Member;
@@ -11,8 +12,11 @@ type Props = {
   onApply: (member: Member, tresorerieBonus: number) => void;
 };
 
+const NOM_AVEUGLE_OEIL = trouverBlessure('aveugle_oeil')?.nom;
+
 export function BlessureGraveModal({ member, onClose, onApply }: Props) {
   const [applique, setApplique] = useState(false);
+  const dejaAveugle = member.blessures_graves.some((b) => b.nom === NOM_AVEUGLE_OEIL);
 
   const appliquer = (resultat: BlessureGraveResultat) => {
     const record: SeriousInjuryRecord = {
@@ -55,7 +59,14 @@ export function BlessureGraveModal({ member, onClose, onApply }: Props) {
   return (
     <Modal onClose={onClose}>
       <h3>Blessure grave — {member.nom_perso}</h3>
-      {!applique && <BlessureGraveWizard nomPersonnage={member.nom_perso} onAppliquer={appliquer} onAnnuler={onClose} />}
+      {!applique && (
+        <BlessureGraveWizard
+          nomPersonnage={member.nom_perso}
+          dejaAveugle={dejaAveugle}
+          onAppliquer={appliquer}
+          onAnnuler={onClose}
+        />
+      )}
       {applique && (
         <>
           <p className="text-success">Blessure enregistrée dans l'historique.</p>

@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { Modal } from '../common/Modal';
 import { BlessureGraveWizard, type BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
+import { trouverBlessure } from '../../data/blessuresGraves';
 import type { Member } from '../../types/roster';
 import type { BlessureDraft } from './PostBatailleScreen';
+
+const NOM_AVEUGLE_OEIL = trouverBlessure('aveugle_oeil')?.nom;
 
 type EtapeBlessuresGravesProps = {
   horsDeCombatHeros: Member[];
@@ -65,6 +68,7 @@ export function EtapeBlessuresGraves({
           <h3>Blessure grave — {membreEnCours.nom_perso}</h3>
           <BlessureGraveWizard
             nomPersonnage={membreEnCours.nom_perso}
+            dejaAveugle={membreEnCours.blessures_graves.some((b) => b.nom === NOM_AVEUGLE_OEIL)}
             onAppliquer={(resultat) => {
               onAppliquer(membreEnCours, resultat);
               setBlessureEnCours(null);
