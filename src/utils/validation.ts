@@ -23,13 +23,17 @@ export function validerComposition(roster: RosterInstance): ViolationComposition
     if (m.statut === 'mort') continue;
     comptes.set(m.profil_id, (comptes.get(m.profil_id) ?? 0) + (m.taille_groupe || 1));
   }
+  const bannis = new Set(roster.profils_bannis ?? []);
   for (const profil of catalogue.profils) {
     const actuel = comptes.get(profil.id) ?? 0;
     const limiteMax = profil.unique ? 1 : profil.max ?? undefined;
     if (limiteMax != null && actuel > limiteMax) {
       violations.push({ profilId: profil.id, nomProfil: profil.nom, type: 'max', limite: limiteMax, actuel });
     }
-    if (profil.min != null && profil.min > 0 && actuel < profil.min) {
+    // Un profil banni à jamais (chef mort, héros unique perdu...) ne peut
+    // plus être recruté : signaler le minimum non atteint n'aurait aucun
+    // sens puisque impossible à corriger.
+    if (profil.min != null && profil.min > 0 && actuel < profil.min && !bannis.has(profil.id)) {
       violations.push({ profilId: profil.id, nomProfil: profil.nom, type: 'min', limite: profil.min, actuel });
     }
   }
