@@ -9,6 +9,31 @@ import { bilanBatailles, effectifTotal, nomCatalogue, valeurBande } from '../../
 import { exporterRoster, lireFichierRoster } from '../../utils/importExport';
 import type { RosterInstance } from '../../types/roster';
 
+// Code horaire compact (ex : "1847 CEST") sur le fuseau Europe/Paris —
+// affiché à côté du hash de build pour repérer d'un coup d'œil un service
+// worker resté sur un ancien cache : un déploiement qui vient de sortir a
+// une heure de build proche de l'heure actuelle. CET/CEST distingués via le
+// décalage horaire (Intl ne fournit pas l'abréviation directement).
+function heureBuildCET(isoDate: string): string {
+  const date = new Date(isoDate);
+  const heure = new Intl.DateTimeFormat('fr-FR', {
+    timeZone: 'Europe/Paris',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  })
+    .format(date)
+    .replace(':', '');
+  const decalage = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Europe/Paris',
+    timeZoneName: 'shortOffset',
+  })
+    .formatToParts(date)
+    .find((p) => p.type === 'timeZoneName')?.value;
+  const fuseau = decalage === 'GMT+2' ? 'CEST' : 'CET';
+  return `${heure} ${fuseau}`;
+}
+
 export function ListeBandesScreen() {
   const { rosters, loading, removeRoster, duplicateRoster, importRoster } = useRosters();
   const navigate = useNavigate();
@@ -174,7 +199,7 @@ export function ListeBandesScreen() {
       )}
 
       <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '2rem' }}>
-        {__APP_VERSION__} · {__APP_BUILD_DATE__.slice(0, 10)}
+        {__APP_VERSION__} · {__APP_BUILD_DATE__.slice(0, 10)} · {heureBuildCET(__APP_BUILD_DATE__)}
       </p>
     </Screen>
   );
