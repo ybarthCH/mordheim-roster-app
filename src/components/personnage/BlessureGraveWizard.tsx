@@ -75,13 +75,18 @@ function statsIteration(it: IterationResolue): Partial<Record<keyof Stats, numbe
 
 type Props = {
   nomPersonnage: string;
+  // Le guerrier a déjà résolu "Aveuglé d'un œil" par le passé (historique
+  // blessures_graves) : un second tirage sur ce résultat lui fait perdre son
+  // second œil, ce qui force le statut Mort (règle imprimée dans le texte de
+  // la blessure elle-même — voir data/blessuresGraves.ts).
+  dejaAveugle?: boolean;
   onAppliquer: (resultat: BlessureGraveResultat) => void;
   onAnnuler?: () => void;
 };
 
 const ID_INTERDITS_BOUCLE = ['mort', 'capture', 'blessures_multiples'];
 
-export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: Props) {
+export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppliquer, onAnnuler }: Props) {
   const [mode, setMode] = useState<Mode>('liste');
   const [contexte, setContexte] = useState<'racine' | 'boucle'>('racine');
   const [selectionActuelle, setSelectionActuelle] = useState<ResultatBlessureGrave | null>(null);
@@ -216,6 +221,8 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
 
   const prefixeGladiateur = gladiateurForcePerte ? 'Défaite face à un gladiateur dans les fosses de combat — ' : '';
 
+  const NOTE_SECOND_OEIL = 'Perd son second œil — retiré définitivement de la bande (Mort).';
+
   const construireResultatFinal = (): BlessureGraveResultat => {
     if (racine && racine.resultat.multiplesInjuries) {
       const texte =
@@ -226,20 +233,28 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
       let perteEquipement = false;
       let xpBonus = 0;
       let tresorerieBonus = 0;
+      let nombreOeilPerdu = dejaAveugle ? 1 : 0;
       for (const it of multiplesResultats) {
         stats = fusionnerStats(stats, statsIteration(it));
         notes = [...notes, ...notesIteration(it)];
         if (it.resultat.perteEquipement) perteEquipement = true;
         if (it.resultat.xpBonus) xpBonus += it.resultat.xpBonus;
         if (it.resultat.tresorerieBonus) tresorerieBonus += it.resultat.tresorerieBonus;
+        if (it.resultat.id === 'aveugle_oeil') nombreOeilPerdu += 1;
       }
+      const secondOeilPerdu = nombreOeilPerdu >= 2;
+      if (secondOeilPerdu) notes = [...notes, NOTE_SECOND_OEIL];
       return {
         nom: `Blessures multiples (${multiplesResultats.map((it) => it.resultat.nom).join(', ')})`,
-        texte: precision.trim() ? `${texte}\n\nPrécision : ${precision.trim()}` : texte,
+        texte: precision.trim()
+          ? `${texte}\n\nPrécision : ${precision.trim()}`
+          : secondOeilPerdu
+            ? `${texte}\n\n${NOTE_SECOND_OEIL}`
+            : texte,
         statsDelta: stats,
         notes,
         perteEquipement: perteEquipement || gladiateurForcePerte,
-        statutMort: false,
+        statutMort: secondOeilPerdu,
         xpBonus,
         tresorerieBonus,
       };
@@ -256,14 +271,19 @@ export function BlessureGraveWizard({ nomPersonnage, onAppliquer, onAnnuler }: P
         tresorerieBonus: 0,
       };
     }
+    const secondOeilPerdu = racine.resultat.id === 'aveugle_oeil' && dejaAveugle;
     const texte = `${prefixeGladiateur}${texteIteration(racine)}`;
     return {
       nom: racine.resultat.nom,
-      texte: precision.trim() ? `${texte}\n\nPrécision : ${precision.trim()}` : texte,
+      texte: precision.trim()
+        ? `${texte}\n\nPrécision : ${precision.trim()}`
+        : secondOeilPerdu
+          ? `${texte}\n\n${NOTE_SECOND_OEIL}`
+          : texte,
       statsDelta: statsIteration(racine),
-      notes: notesIteration(racine),
+      notes: secondOeilPerdu ? [...notesIteration(racine), NOTE_SECOND_OEIL] : notesIteration(racine),
       perteEquipement: !!racine.resultat.perteEquipement || gladiateurForcePerte,
-      statutMort: !!racine.resultat.statutMort,
+      statutMort: !!racine.resultat.statutMort || secondOeilPerdu,
       xpBonus: racine.resultat.xpBonus ?? 0,
       tresorerieBonus: racine.resultat.tresorerieBonus ?? 0,
     };

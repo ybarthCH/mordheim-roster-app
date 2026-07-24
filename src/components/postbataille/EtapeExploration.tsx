@@ -106,7 +106,7 @@ export function EtapeExploration({
 
       <div className="card card--tight" style={{ marginBottom: '0.8rem' }}>
         <div className="flex justify-between items-center" style={{ marginBottom: '0.3rem' }}>
-          <h3 className="mt-0 mb-0">Shop commun (objet de scénario)</h3>
+          <h3 className="mt-0 mb-0">Shop commun (objet(s) gagné(s) lors du scénario ou évènement d'exploration)</h3>
           {catalogue && (
             <button
               type="button"

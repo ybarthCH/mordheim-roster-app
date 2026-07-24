@@ -18,7 +18,7 @@ import { EtapeGainXp } from './EtapeGainXp';
 import { EtapeExploration } from './EtapeExploration';
 import { EtapeResume } from './EtapeResume';
 
-const ETAPES = ['Blessures graves', 'Bataille', "Gain d'expérience", 'Exploration', 'Résumé'];
+const ETAPES = ['Bataille', 'Blessures graves', "Gain d'expérience", 'Exploration', 'Résumé'];
 
 export type BlessureDraft = {
   nom: string;
@@ -410,15 +410,6 @@ export function PostBatailleScreen() {
       </p>
 
       {etape === 0 && (
-        <EtapeBlessuresGraves
-          horsDeCombatHeros={horsDeCombatHeros}
-          blessureDrafts={blessureDrafts}
-          onAppliquer={appliquerBlessureWizard}
-          onReinitialiser={reinitialiserBlessure}
-        />
-      )}
-
-      {etape === 1 && (
         <EtapeResultat
           date={date}
           onDateChange={setDate}
@@ -430,6 +421,15 @@ export function PostBatailleScreen() {
           onNouvelAdversaireChange={setNouvelAdversaire}
           notesBataille={notesBataille}
           onNotesBatailleChange={setNotesBataille}
+        />
+      )}
+
+      {etape === 1 && (
+        <EtapeBlessuresGraves
+          horsDeCombatHeros={horsDeCombatHeros}
+          blessureDrafts={blessureDrafts}
+          onAppliquer={appliquerBlessureWizard}
+          onReinitialiser={reinitialiserBlessure}
         />
       )}
 
