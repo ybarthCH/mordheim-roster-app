@@ -11,6 +11,16 @@ import type { Member, RosterInstance, Statut } from '../types/roster';
 const STATS_VIDES: Stats = { M: 0, CC: 0, CT: 0, F: 0, E: 0, PV: 0, I: 0, A: 0, Cd: 0 };
 
 function normaliserMembre(membre: Partial<Member>): Member {
+  // `sorts_connus` servait autrefois de fourre-tout texte libre (règles
+  // spéciales gagnées en jeu, sorts, mutations manuscrites). Le champ dédié
+  // `regles_speciales_notes` sépare maintenant les deux : sur un roster
+  // jamais encore relu depuis cette séparation (regles_speciales_notes
+  // absent), on bascule l'ancien contenu de sorts_connus vers les notes —
+  // il s'agissait alors très majoritairement de notes manuscrites, jamais
+  // de vrais sorts choisis dans un sélecteur — et on repart avec des sorts
+  // connus vides, prêts pour le nouveau système structuré. Idempotent :
+  // une fois `regles_speciales_notes` présent, plus aucune bascule.
+  const dejaMigreVersNotes = membre.regles_speciales_notes !== undefined;
   return {
     instance_id: membre.instance_id ?? uuidv4(),
     profil_id: membre.profil_id ?? '',
@@ -22,7 +32,8 @@ function normaliserMembre(membre: Partial<Member>): Member {
     stats_actuels: membre.stats_actuels ?? { ...STATS_VIDES },
     stats_modifiees: membre.stats_modifiees ?? [],
     competences_acquises: membre.competences_acquises ?? [],
-    sorts_connus: membre.sorts_connus ?? [],
+    sorts_connus: dejaMigreVersNotes ? (membre.sorts_connus ?? []) : [],
+    regles_speciales_notes: dejaMigreVersNotes ? membre.regles_speciales_notes! : (membre.sorts_connus ?? []),
     statut: (membre.statut as Statut | undefined) ?? 'actif',
     date_mort: membre.date_mort,
     blesse_tour_actuel: membre.blesse_tour_actuel ?? 0,

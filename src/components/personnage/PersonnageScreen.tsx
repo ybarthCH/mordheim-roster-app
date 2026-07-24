@@ -12,7 +12,8 @@ import { CaracteristiquesCard } from './CaracteristiquesCard';
 import { ResumeCard } from './ResumeCard';
 import { ExperienceCard } from './ExperienceCard';
 import { EquipementCard } from './EquipementCard';
-import { SortsConnusCard } from './SortsConnusCard';
+import { ReglesSpecialesCard } from './ReglesSpecialesCard';
+import { MagieConnueCard } from './MagieConnueCard';
 import { BlessuresGravesCard } from './BlessuresGravesCard';
 import { CompetencesPanel } from './CompetencesPanel';
 import { AvanceeModal } from './AvanceeModal';
@@ -26,6 +27,7 @@ import { MagieReference } from '../common/CatalogueReference';
 import { avancesDues } from '../../utils/xp';
 import { ratingMembre } from '../../utils/rating';
 import { succederApresMorts } from '../../utils/leader';
+import { estSorcier } from '../../utils/magie';
 import { skillById } from '../../data/gameData';
 import {
   acheterPourMembre,
@@ -247,6 +249,7 @@ export function PersonnageScreen() {
       <ResumeCard
         profil={profil}
         membre={membre}
+        catalogue={catalogue}
         inventaireGroupe={inventaireGroupe}
         nomCompetence={nomCompetence}
         onItemClick={setItemDetail}
@@ -271,7 +274,11 @@ export function PersonnageScreen() {
         onRetirer={retirerItem}
       />
 
-      <SortsConnusCard membre={membre} onMajMembre={majMembre} />
+      {estSorcier(catalogue, profil.id) && (
+        <MagieConnueCard membre={membre} catalogue={catalogue} onMajMembre={majMembre} />
+      )}
+
+      <ReglesSpecialesCard membre={membre} onMajMembre={majMembre} />
 
       <BlessuresGravesCard membre={membre} onOpenAjout={() => setModalBlessure(true)} onSupprimer={supprimerBlessure} />
 

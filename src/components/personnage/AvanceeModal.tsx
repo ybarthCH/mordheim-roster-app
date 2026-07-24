@@ -7,6 +7,7 @@ import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN } from 
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { LIMITE_HEROS, categoriesAccessibles } from '../../utils/profil';
 import { peutAugmenterStat } from '../../utils/plafond';
+import { estSorcier, sortsDisponibles } from '../../utils/magie';
 import {
   RecompenseSeigneurDesOmbresWizard,
   type RecompenseResultat,
@@ -30,7 +31,9 @@ type Etape =
   | 'depart'
   | 'choix_carac'
   | 'choix_voie_competence'
+  | 'choix_voie_sort'
   | 'competence'
+  | 'sort'
   | 'seigneur_des_ombres'
   | 'promotion_categories'
   | 'resultat';
@@ -102,7 +105,13 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
     } else if (entreeAvancement.type === 'caracteristique_choix') {
       setEtape('choix_carac');
     } else if (entreeAvancement.type === 'competence') {
-      setEtape(profil.acces_seigneur_des_ombres ? 'choix_voie_competence' : 'competence');
+      if (profil.acces_seigneur_des_ombres) {
+        setEtape('choix_voie_competence');
+      } else if (estSorcier(catalogue, profil.id)) {
+        setEtape('choix_voie_sort');
+      } else {
+        setEtape('competence');
+      }
     } else if (limiteHerosAtteinte) {
       // Défense en profondeur : l'option est déjà désactivée dans le select.
       return;
@@ -212,6 +221,21 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
         detail: skill.nom,
       },
       `Nouvelle compétence : ${skill.nom}`
+    );
+  };
+
+  const choisirSort = (nomSort: string) => {
+    appliquer(
+      { sorts_connus: [...travail.sorts_connus, nomSort] },
+      {
+        id: uuidv4(),
+        date: new Date().toISOString().slice(0, 10),
+        xpAtRoll: travail.xp,
+        roll: entreeAvancement?.min ?? 0,
+        type: 'sort',
+        detail: `Nouveau sort : ${nomSort}`,
+      },
+      `Nouveau sort appris : ${nomSort}`
     );
   };
 
@@ -459,6 +483,53 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
         </>
       )}
 
+      {etape === 'choix_voie_sort' && (
+        <>
+          <p className="text-sm text-muted" style={{ marginTop: 0 }}>
+            {travail.nom_perso} peut choisir une compétence normale, ou apprendre un nouveau sort à la place.
+          </p>
+          <div className="flex gap-sm" style={{ marginTop: '1rem', flexWrap: 'wrap' }}>
+            <button className="btn" onClick={onClose}>
+              Annuler
+            </button>
+            <button className="btn btn--primary" onClick={() => setEtape('competence')}>
+              Choisir une compétence
+            </button>
+            <button className="btn" onClick={() => setEtape('sort')}>
+              Apprendre un nouveau sort
+            </button>
+          </div>
+        </>
+      )}
+
+      {etape === 'sort' &&
+        (() => {
+          const disponibles = sortsDisponibles(catalogue, travail.sorts_connus);
+          return (
+            <>
+              {entreeAvancement && <p className="text-sm text-muted">Résultat {entreeAvancement.label}.</p>}
+              {disponibles.length === 0 ? (
+                <p className="text-sm text-muted">Tous les sorts de cette bande sont déjà connus.</p>
+              ) : (
+                <div className="skill-list">
+                  {disponibles.map((s) => (
+                    <label key={s.nom} className="skill-check" style={{ cursor: 'pointer' }}>
+                      <input type="radio" name="sort" onChange={() => choisirSort(s.nom)} />
+                      <span>
+                        <span className="skill-check__name">
+                          {s.resultat} — {s.nom} (diff. {s.difficulte})
+                        </span>
+                        <br />
+                        <span className="skill-check__text">{s.texte}</span>
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </>
+          );
+        })()}
+
       {etape === 'seigneur_des_ombres' && (
         <RecompenseSeigneurDesOmbresWizard
           nomPersonnage={travail.nom_perso}
@@ -522,6 +593,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
         etape !== 'depart' &&
         etape !== 'promotion_categories' &&
         etape !== 'choix_voie_competence' &&
+        etape !== 'choix_voie_sort' &&
         etape !== 'seigneur_des_ombres' && (
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={onClose}>

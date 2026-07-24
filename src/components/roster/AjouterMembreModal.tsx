@@ -5,6 +5,7 @@ import { getCatalogue } from '../../data/warbands';
 import { peutAjouterMembre } from '../../utils/validation';
 import { creerMembre } from '../../utils/factory';
 import { calculerCoutRejoindreGroupe, rejoindreGroupe } from '../../utils/shop';
+import { estSorcier, sortsDisponibles } from '../../utils/magie';
 import { Modal } from '../common/Modal';
 
 const FRANC_TIREUR = '__franc_tireur__';
@@ -31,6 +32,8 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   // Coût saisi à la main quand le profil n'a pas de prix fixe (ex : chien de
   // guerre, "25+2D6") — jet à faire sur table papier, comme pour un objet.
   const [coutManuelSaisi, setCoutManuelSaisi] = useState('');
+  // Premier sort connu, obligatoire au recrutement d'un profil sorcier.
+  const [sortChoisi, setSortChoisi] = useState('');
 
   const profilsHeros = catalogue?.profils.filter((p) => p.type === 'heros') ?? [];
   const profilsHommesDeMain = catalogue?.profils.filter((p) => p.type === 'homme_de_main') ?? [];
@@ -38,6 +41,8 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
 
   const profil = catalogue?.profils.find((p) => p.id === profilId);
   const estGroupable = profil?.type === 'homme_de_main' || profil?.type === 'animal';
+  const estSorcierProfil = !!profil && estSorcier(catalogue, profil.id);
+  const sortsPossibles = sortsDisponibles(catalogue, []);
   const xpDepart = Number(xpDepartSaisie) || 0;
   const quantite = Math.max(1, parseInt(quantiteSaisie, 10) || 1);
   const coutManuelRequis = !!profil && profil.cout === null;
@@ -51,6 +56,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     ? roster.membres.filter((m) => m.profil_id === profilId && m.statut !== 'mort' && !m.promu_heros)
     : [];
   const groupeCible = groupeCibleId ? (groupesExistants.find((m) => m.instance_id === groupeCibleId) ?? null) : null;
+  const premierSortRequis = estSorcierProfil && !groupeCible;
 
   const check = profilId ? peutAjouterMembre(roster, profilId, quantite) : { ok: false };
   const coutUnitaire = profil?.cout ?? (coutManuelRequis ? Number(coutManuelSaisi) || 0 : 0);
@@ -71,6 +77,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     setConfirmationXp0(false);
     setGroupeCibleId(null);
     setCoutManuelSaisi('');
+    setSortChoisi('');
   };
 
   const changerXpDepart = (value: string) => {
@@ -80,6 +87,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
 
   const confirmer = () => {
     if (!profil || !check.ok || !coutManuelValide) return;
+    if (premierSortRequis && !sortChoisi) return;
     if (!groupeCible && xpDepart === 0 && !confirmationXp0) {
       setConfirmationXp0(true);
       return;
@@ -95,6 +103,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
 
     const membre = creerMembre(profil, xpDepart, quantite);
     if (nomPerso.trim()) membre.nom_perso = nomPerso.trim();
+    if (premierSortRequis && sortChoisi) membre.sorts_connus = [sortChoisi];
     onConfirm({
       ...roster,
       tresorerie: roster.tresorerie - coutTotal,
@@ -186,6 +195,20 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
               <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} placeholder={profil.nom} />
             </div>
           )}
+          {premierSortRequis && (
+            <div className="field">
+              <label>Premier sort connu</label>
+              <select value={sortChoisi} onChange={(e) => setSortChoisi(e.target.value)}>
+                <option value="">— Choisir —</option>
+                {sortsPossibles.map((s) => (
+                  <option key={s.nom} value={s.nom}>
+                    {s.resultat} — {s.nom}
+                  </option>
+                ))}
+              </select>
+              <p className="text-sm text-muted mb-0">Obligatoire pour un profil sorcier.</p>
+            </div>
+          )}
           {(estGroupable || groupeCible) && (
             <div className="field">
               <label>Nombre de figurines {groupeCible ? 'rejoignant le groupe' : '(groupe identique)'}</label>
@@ -241,7 +264,11 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
         <button className="btn" onClick={onClose}>
           Annuler
         </button>
-        <button className="btn btn--primary" disabled={!profil || !check.ok || !coutManuelValide} onClick={confirmer}>
+        <button
+          className="btn btn--primary"
+          disabled={!profil || !check.ok || !coutManuelValide || (premierSortRequis && !sortChoisi)}
+          onClick={confirmer}
+        >
           {confirmationXp0 && !groupeCible
             ? 'Confirmer 0 XP et recruter'
             : `Recruter pour ${coutTotal} po${profil && !budgetSuffisant ? ' quand même' : ''}`}
