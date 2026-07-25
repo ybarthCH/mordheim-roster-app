@@ -8,6 +8,7 @@ import {
   FRANCS_TIREURS,
 } from '../../data/hiredSwords';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
+import { sortsMagieMineureDisponibles } from '../../utils/magie';
 
 export function RecruterFrancTireurScreen() {
   const { id } = useParams<{ id: string }>();
@@ -16,10 +17,12 @@ export function RecruterFrancTireurScreen() {
   const roster = getRosterById(id ?? '');
   const [recherche, setRecherche] = useState('');
   const [voirIndisponibles, setVoirIndisponibles] = useState(false);
+  const [catalogueOuvert, setCatalogueOuvert] = useState(true);
   const [selectionId, setSelectionId] = useState('');
   const [nomPerso, setNomPerso] = useState('');
   const [coutVariable, setCoutVariable] = useState('');
   const [sacrificeLiche, setSacrificeLiche] = useState(1);
+  const [sortsChoisis, setSortsChoisis] = useState<string[]>([]);
 
   const profils = useMemo(() => {
     if (!roster) return [];
@@ -48,8 +51,12 @@ export function RecruterFrancTireurScreen() {
     : 0;
   const budgetSuffisant = coutRecrutement <= roster.tresorerie;
   const coutVariableValide = !selection || selection.recrutement.cout != null || Number(coutVariable) > 0;
+  const nombreSortsRequis = selection?.magie?.sorts_depart ?? 0;
+  const sortsRenseignes = sortsChoisis.filter(Boolean);
+  const sortsValides =
+    sortsRenseignes.length === nombreSortsRequis && new Set(sortsRenseignes).size === nombreSortsRequis;
   const peutEngager =
-    !!selection && disponibiliteSelection?.disponible && budgetSuffisant && coutVariableValide;
+    !!selection && disponibiliteSelection?.disponible && budgetSuffisant && coutVariableValide && sortsValides;
 
   const choisir = (profilId: string) => {
     const profil = FRANCS_TIREURS.find((p) => p.id === profilId);
@@ -57,12 +64,15 @@ export function RecruterFrancTireurScreen() {
     setNomPerso(profil?.nom ?? '');
     setCoutVariable('');
     setSacrificeLiche(1);
+    setSortsChoisis([]);
+    setCatalogueOuvert(false);
   };
 
   const recruter = () => {
     if (!selection || !peutEngager) return;
     const membre = creerMembreFrancTireurCatalogue(selection);
     membre.nom_perso = nomPerso.trim() || selection.nom;
+    membre.sorts_connus = [...sortsRenseignes];
 
     const membres = roster.membres.map((m) => {
       if (!selection.sacrifice_liche || m.profil_id !== 'liche' || m.statut === 'mort') return m;
@@ -107,35 +117,53 @@ export function RecruterFrancTireurScreen() {
       </div>
 
       <div className="card">
-        <h3>Catalogue</h3>
-        {profils.length === 0 && <p className="text-muted text-sm">Aucun profil ne correspond à ce filtre.</p>}
-        <div className="skill-list">
-          {profils.map(({ profil, disponibilite }) => (
-            <button
-              key={profil.id}
-              className={`list-item${selectionId === profil.id ? ' list-item--selected' : ''}`}
-              style={{ width: '100%', textAlign: 'left', opacity: disponibilite.disponible ? 1 : 0.62 }}
-              onClick={() => choisir(profil.id)}
-            >
-              <div className="list-item__main">
-                <div className="list-item__title">{profil.nom}</div>
-                <div className="list-item__subtitle">
-                  Engagement : {profil.recrutement.cout ?? profil.recrutement.notation} CO · Entretien :{' '}
-                  {profil.entretien.type === 'or'
-                    ? `${profil.entretien.cout} CO`
-                    : profil.entretien.type === 'malepierre'
-                      ? `${profil.entretien.cout} fragment de malepierre`
-                      : 'aucun'}
-                </div>
-                {!disponibilite.disponible && (
-                  <div className="text-danger text-sm" style={{ marginTop: '0.2rem' }}>
-                    {disponibilite.raison}
-                  </div>
-                )}
-              </div>
-            </button>
-          ))}
+        <div className="flex items-center justify-between gap-sm">
+          <h3 className="mb-0">Catalogue</h3>
+          <button
+            className="btn btn--sm"
+            onClick={() => setCatalogueOuvert((ouvert) => !ouvert)}
+            aria-expanded={catalogueOuvert}
+          >
+            {catalogueOuvert ? 'Replier' : 'Afficher'}
+          </button>
         </div>
+        {!catalogueOuvert && selection && (
+          <p className="text-sm text-muted mb-0" style={{ marginTop: '0.5rem' }}>
+            Sélection actuelle : <strong>{selection.nom}</strong>
+          </p>
+        )}
+        {catalogueOuvert && (
+          <>
+            {profils.length === 0 && <p className="text-muted text-sm">Aucun profil ne correspond à ce filtre.</p>}
+            <div className="skill-list" style={{ marginTop: '0.6rem' }}>
+              {profils.map(({ profil, disponibilite }) => (
+                <button
+                  key={profil.id}
+                  className={`list-item${selectionId === profil.id ? ' list-item--selected' : ''}`}
+                  style={{ width: '100%', textAlign: 'left', opacity: disponibilite.disponible ? 1 : 0.62 }}
+                  onClick={() => choisir(profil.id)}
+                >
+                  <div className="list-item__main">
+                    <div className="list-item__title">{profil.nom}</div>
+                    <div className="list-item__subtitle">
+                      Engagement : {profil.recrutement.cout ?? profil.recrutement.notation} CO · Entretien :{' '}
+                      {profil.entretien.type === 'or'
+                        ? `${profil.entretien.cout} CO`
+                        : profil.entretien.type === 'malepierre'
+                          ? `${profil.entretien.cout} fragment de malepierre`
+                          : 'aucun'}
+                    </div>
+                    {!disponibilite.disponible && (
+                      <div className="text-danger text-sm" style={{ marginTop: '0.2rem' }}>
+                        {disponibilite.raison}
+                      </div>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       {selection && (
@@ -241,6 +269,38 @@ export function RecruterFrancTireurScreen() {
                   <option value={2}>2 PV</option>
                   <option value={3}>3 PV</option>
                 </select>
+              </div>
+            )}
+            {nombreSortsRequis > 0 && (
+              <div className="field">
+                <label>Sorts de Magie mineure ({nombreSortsRequis} différents requis)</label>
+                {Array.from({ length: nombreSortsRequis }, (_, index) => (
+                  <select
+                    key={index}
+                    value={sortsChoisis[index] ?? ''}
+                    onChange={(e) => {
+                      const prochains = Array.from(
+                        { length: nombreSortsRequis },
+                        (_, sortIndex) => sortsChoisis[sortIndex] ?? ''
+                      );
+                      prochains[index] = e.target.value;
+                      setSortsChoisis(prochains);
+                    }}
+                    style={{ marginTop: index > 0 ? '0.45rem' : undefined }}
+                  >
+                    <option value="">— Choisir le sort {index + 1} —</option>
+                    {sortsMagieMineureDisponibles(
+                      sortsChoisis.filter((_, sortIndex) => sortIndex !== index)
+                    ).map((sort) => (
+                      <option key={sort.nom} value={sort.nom}>
+                        {sort.resultat} — {sort.nom} (diff. {sort.difficulte})
+                      </option>
+                    ))}
+                  </select>
+                ))}
+                <p className="text-sm text-muted mb-0">
+                  Le Mage commence avec deux sorts de Magie mineure, choisis ici.
+                </p>
               </div>
             )}
             <p className={budgetSuffisant ? 'text-sm text-muted' : 'text-sm text-danger'}>

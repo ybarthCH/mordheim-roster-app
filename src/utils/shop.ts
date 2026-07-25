@@ -100,6 +100,13 @@ export function estAccesPourCatalogue(acces: string[], catalogueId: string): boo
   if (estAccesGenerique(acces)) return true;
   if (acces.includes(catalogueId)) return true;
   if (acces.includes('commun_humains') && CATALOGUES_HUMAINS.has(catalogueId)) return true;
+  if (
+    acces.includes('jeteurs_de_sorts_sauf_witch_hunters_sisters_of_sigmar') &&
+    catalogueId !== 'witch_hunters' &&
+    catalogueId !== 'sisters_of_sigmar'
+  ) {
+    return true;
+  }
   return false;
 }
 

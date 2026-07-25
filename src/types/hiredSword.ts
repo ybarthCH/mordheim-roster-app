@@ -46,6 +46,10 @@ export type FrancTireurCatalog = {
   competences_speciales?: CompetenceSpeciale[];
   profils_secondaires?: ProfilSecondaireFrancTireur[];
   groupe_caracteristiques?: string;
+  magie?: {
+    categorie: 'magie_mineure';
+    sorts_depart: number;
+  };
   tags?: ('elfe' | 'nain' | 'malefique' | 'peau_verte' | 'halfling')[];
   gagne_experience?: boolean;
   // Le Ninja n'est engagé que pour une mission et quitte automatiquement la

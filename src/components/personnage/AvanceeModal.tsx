@@ -107,7 +107,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
     } else if (entreeAvancement.type === 'competence') {
       if (profil.acces_seigneur_des_ombres) {
         setEtape('choix_voie_competence');
-      } else if (estSorcier(catalogue, profil.id)) {
+      } else if (estSorcier(catalogue, profil)) {
         setEtape('choix_voie_sort');
       } else {
         setEtape('competence');
@@ -506,7 +506,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
 
       {etape === 'sort' &&
         (() => {
-          const disponibles = sortsDisponibles(catalogue, travail.sorts_connus);
+          const disponibles = sortsDisponibles(catalogue, travail.sorts_connus, profil);
           return (
             <>
               {entreeAvancement && <p className="text-sm text-muted">Résultat {entreeAvancement.label}.</p>}

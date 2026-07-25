@@ -1,6 +1,7 @@
-import type { WarbandCatalog } from '../../types/catalog';
+import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { getItem } from '../../data/items';
 import { estAccesGenerique, iconeCategorie } from '../../utils/shop';
+import { magieDuProfil } from '../../utils/magie';
 import { Icon } from './Icon';
 
 const LISTES_EQUIPEMENT = ['armes_cac', 'armes_tir', 'armures', 'divers'] as const;
@@ -144,10 +145,9 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
 // utilisateurs (usage : fiche personnage d'un sorcier précis). Sans
 // profilId, s'affiche dès que la bande a un système de magie (usage :
 // résumé de roster global).
-export function MagieReference({ catalogue, profilId }: { catalogue: WarbandCatalog; profilId?: string }) {
-  const magie = catalogue.magie;
+export function MagieReference({ catalogue, profil }: { catalogue: WarbandCatalog; profil?: Profile }) {
+  const magie = profil ? magieDuProfil(catalogue, profil) : catalogue.magie;
   if (!magie) return null;
-  if (profilId && !magie.utilisateurs.includes(profilId)) return null;
 
   return (
     <div className="card card--tight">
@@ -156,8 +156,14 @@ export function MagieReference({ catalogue, profilId }: { catalogue: WarbandCata
         {magie.nom} (référence)
       </h3>
       <p className="text-sm text-muted">
-        {magie.type} · dé {magie.de} · utilisateurs :{' '}
-        {magie.utilisateurs.map((id) => catalogue.profils.find((p) => p.id === id)?.nom ?? id).join(', ')}
+        {magie.type} · dé {magie.de}
+        {!profil && magie.utilisateurs.length > 0 && (
+          <>
+            {' '}
+            · utilisateurs :{' '}
+            {magie.utilisateurs.map((id) => catalogue.profils.find((p) => p.id === id)?.nom ?? id).join(', ')}
+          </>
+        )}
         {magie.note && <> · {magie.note}</>}
       </p>
       {magie.sorts.map((s, i) => (

@@ -158,6 +158,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     stats: { M: 4, CC: 2, CT: 2, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 8 },
     equipement: ['Bâton'],
     acces_competences: ['academique'],
+    magie: { categorie: 'magie_mineure', sorts_depart: 2 },
     regles_speciales: [
       {
         nom: 'Jeteur de sorts',
@@ -1505,6 +1506,8 @@ export function profilDeFrancTireur(francTireur: FrancTireurCatalog): Profile {
     grille_xp: 'homme_de_main',
     table_avancement: 'heros',
     acces_equitation_automatique: false,
+    peut_lancer_sorts: !!francTireur.magie,
+    categorie_magie: francTireur.magie?.categorie,
     regles_speciales: francTireur.regles_speciales,
     competences_speciales: francTireur.competences_speciales,
     groupe_caracteristiques: francTireur.groupe_caracteristiques,

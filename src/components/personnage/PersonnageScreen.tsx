@@ -44,6 +44,8 @@ import type { ShopItem } from '../../utils/shop';
 import type { InventoryEntry } from '../../types/roster';
 import { getFrancTireur } from '../../data/hiredSwords';
 
+const GRIMOIRE_DE_MAGIE_ID = 'grimoire_de_magie';
+
 export function PersonnageScreen() {
   const { id, instanceId } = useParams<{ id: string; instanceId: string }>();
   const navigate = useNavigate();
@@ -213,11 +215,40 @@ export function PersonnageScreen() {
   const enAttente = Math.max(0, dues - obtenues);
   const rating = ratingMembre(membre, roster);
   const heroCount = nombreHeros(roster);
+  const grimoireMembre = membre.inventaire.find((entree) => entree.item_id === GRIMOIRE_DE_MAGIE_ID);
+  const grimoireStock = roster.stock.find((entree) => entree.item_id === GRIMOIRE_DE_MAGIE_ID);
 
   // Regroupe l'inventaire par objet (un groupe d'hommes de main possède
   // toujours autant d'exemplaires identiques que de figurines) pour n'en
   // afficher qu'une ligne par objet, suffixée de la quantité.
   const inventaireGroupe = resumeInventaireParItem(membre.inventaire);
+
+  const utiliserGrimoire = (nomSort: string) => {
+    if (membre.sorts_connus.includes(nomSort)) return;
+    if (!grimoireMembre && !grimoireStock) return;
+
+    const inventaire = grimoireMembre
+      ? membre.inventaire.filter((entree) => entree.instance_id !== grimoireMembre.instance_id)
+      : membre.inventaire;
+    const stock = !grimoireMembre && grimoireStock
+      ? roster.stock.filter((entree) => entree.instance_id !== grimoireStock.instance_id)
+      : roster.stock;
+
+    updateRoster({
+      ...roster,
+      stock,
+      membres: roster.membres.map((m) =>
+        m.instance_id === membre.instance_id
+          ? {
+              ...m,
+              inventaire,
+              equipement: grimoireMembre ? formatEquipementAffiche(inventaire) : m.equipement,
+              sorts_connus: [...m.sorts_connus, nomSort],
+            }
+          : m
+      ),
+    });
+  };
 
   const supprimerMembre = () => {
     updateRoster({ ...roster, membres: roster.membres.filter((m) => m.instance_id !== membre.instance_id) });
@@ -283,8 +314,15 @@ export function PersonnageScreen() {
         verrouille={!!francTireur}
       />
 
-      {estSorcier(catalogue, profil.id) && (
-        <MagieConnueCard membre={membre} catalogue={catalogue} onMajMembre={majMembre} />
+      {estSorcier(catalogue, profil) && (
+        <MagieConnueCard
+          membre={membre}
+          profil={profil}
+          catalogue={catalogue}
+          onMajMembre={majMembre}
+          grimoireDisponible={!!(grimoireMembre || grimoireStock)}
+          onUtiliserGrimoire={utiliserGrimoire}
+        />
       )}
 
       <ReglesSpecialesCard membre={membre} onMajMembre={majMembre} />
@@ -344,7 +382,7 @@ export function PersonnageScreen() {
         </div>
       )}
 
-      <MagieReference catalogue={catalogue} profilId={profil.id} />
+      <MagieReference catalogue={catalogue} profil={profil} />
 
       <button className="btn btn--danger btn--block" onClick={() => setModalSuppression(true)}>
         Retirer ce personnage de la bande
