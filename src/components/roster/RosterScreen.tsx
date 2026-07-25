@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRosters } from '../../state/RostersContext';
+import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { getCatalogue } from '../../data/warbands';
@@ -15,6 +15,7 @@ import { MemberGroupCard } from './MemberGroupCard';
 import { HistoriqueBataillesSection } from './HistoriqueBataillesSection';
 import { PromotionHerosDechuModal } from './PromotionHerosDechuModal';
 import { EquipementReference, MagieReference } from '../common/CatalogueReference';
+import { CollapsibleCard } from '../common/CollapsibleCard';
 import { AvanceeModal } from '../personnage/AvanceeModal';
 import { nombreHeros } from '../../utils/profil';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
@@ -24,15 +25,20 @@ import {
   transfererVersMembre,
   creerEntreeInventaire,
   formatEquipementAffiche,
+  inventaireComplet,
   prixVente,
+  trouverTrinketsLimitesEnTrop,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { Icon } from '../common/Icon';
+import { estFrancTireur } from '../../data/hiredSwords';
+import { useGameRules } from '../../state/useGameRules';
 
 export function RosterScreen() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
+  const { rules } = useGameRules();
   const roster = getRosterById(id ?? '');
   const [modalMembre, setModalMembre] = useState(false);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
@@ -52,10 +58,12 @@ export function RosterScreen() {
   const violations = validerComposition(roster);
   const violationsEffectif = validerEffectif(roster);
   const effectifDepasse = violationsEffectif.find((v) => v.type === 'max');
-  const heros = roster.membres.filter((m) => resolveProfil(roster, m)?.type === 'heros');
-  const hommesDeMain = roster.membres.filter((m) => resolveProfil(roster, m)?.type !== 'heros');
+  const francsTireurs = roster.membres.filter(estFrancTireur);
+  const heros = roster.membres.filter((m) => !estFrancTireur(m) && resolveProfil(roster, m)?.type === 'heros');
+  const hommesDeMain = roster.membres.filter((m) => !estFrancTireur(m) && resolveProfil(roster, m)?.type !== 'heros');
   const herosVivants = heros.filter((m) => m.statut !== 'mort');
   const besoinChoixLeader = choixLeaderRequis(roster, catalogue);
+  const trinketsLimitesEnTrop = rules.trinketsLimites ? trouverTrinketsLimitesEnTrop(roster) : [];
 
   // Lustrian Reavers ("Promotions") : rôles de héros uniques tombés — bannis
   // du recrutement mais toujours vacants (aucun titulaire vivant) — qu'un
@@ -202,6 +210,19 @@ export function RosterScreen() {
         </div>
       )}
 
+      {trinketsLimitesEnTrop.length > 0 && (
+        <div className="banner-danger">
+          <span className="banner-danger__icon" aria-hidden="true">
+            ⚠
+          </span>
+          <span>
+            Règle « Trinket limité » non respectée :{' '}
+            {trinketsLimitesEnTrop.map(({ nom, quantite }) => `${nom} ×${quantite}`).join(', ')}. Un seul exemplaire
+            de chaque objet est autorisé dans toute la bande.
+          </span>
+        </div>
+      )}
+
       {promotionDisponible && (
         <div className="card card--tight">
           <div className="flex justify-between items-center">
@@ -226,6 +247,8 @@ export function RosterScreen() {
       <ArmurerieSection
         roster={roster}
         catalogue={catalogue}
+        inventaireBande={inventaireComplet(roster)}
+        rules={rules}
         onAchat={acheterPourArmurerie}
         onDonner={donnerAMembre}
         onVendre={vendreStock}
@@ -254,18 +277,22 @@ export function RosterScreen() {
       )}
 
       {catalogue && catalogue.regles_speciales.length > 0 && (
-        <div className="card card--tight">
-          <h3>
-            <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
-            Règles spéciales
-          </h3>
+        <CollapsibleCard
+          preferenceKey="ui.roster.regles_speciales.ouvert"
+          title={
+            <>
+              <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
+              Règles spéciales
+            </>
+          }
+        >
           {catalogue.regles_speciales.map((r) => (
             <p key={r.nom} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
               <strong>{r.nom}</strong> — {r.texte}
               {r.exception && <span className="text-muted"> ({r.exception})</span>}
             </p>
           ))}
-        </div>
+        </CollapsibleCard>
       )}
 
       <div className="top-actions">
@@ -295,6 +322,17 @@ export function RosterScreen() {
         onBasculerHorsCombat={basculerHorsCombat}
         onSupprimer={setMembreASupprimer}
       />
+      {francsTireurs.length > 0 && (
+        <MemberGroupCard
+          titre="Francs-tireurs"
+          membres={francsTireurs}
+          roster={roster}
+          catalogue={catalogue}
+          onReordonner={reordonnerSection}
+          onBasculerHorsCombat={basculerHorsCombat}
+          onSupprimer={setMembreASupprimer}
+        />
+      )}
 
       <HistoriqueBataillesSection
         historique={roster.historique_batailles}

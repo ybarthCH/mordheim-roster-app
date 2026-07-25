@@ -2,12 +2,12 @@ import { useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
-import { useRosters } from '../../state/RostersContext';
+import { useRosters } from '../../state/useRosters';
 import { getCatalogue } from '../../data/warbands';
 import { resolveProfil, nombreHeros } from '../../utils/profil';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
-import type { BattleRecord, JournalPostBataille, Member } from '../../types/roster';
+import type { BattleRecord, JournalPostBataille, Member, SeriousInjuryEffect } from '../../types/roster';
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 import { creerEntreeInventaire } from '../../utils/shop';
 import { estLeaderActuel, succederApresMorts } from '../../utils/leader';
@@ -17,21 +17,80 @@ import { EtapeBlessuresGraves } from './EtapeBlessuresGraves';
 import { EtapeResultat } from './EtapeResultat';
 import { EtapeGainXp } from './EtapeGainXp';
 import { EtapeExploration } from './EtapeExploration';
+import { EtapeCommerce, type CommerceDraft, type HerosCommerce } from './EtapeCommerce';
 import { EtapeResume } from './EtapeResume';
+import {
+  EtapeEntretien,
+  type DecisionEntretien,
+  type LigneEntretien,
+} from './EtapeEntretien';
+import {
+  coutEntretienFrancTireur,
+  estFrancTireur,
+  getFrancTireur,
+} from '../../data/hiredSwords';
+import { useGameRules } from '../../state/useGameRules';
+import { resumeExploration } from '../../utils/exploration';
+import { COUT_DOCTEUR } from '../../utils/docteur';
 
-const ETAPES = ['Bataille', 'Blessures graves', "Gain d'expérience", 'Exploration', 'Résumé'];
+const ETAPES = [
+  'Bataille',
+  'Blessures graves',
+  "Gain d'expérience",
+  'Exploration',
+  'Commerce',
+  'Entretien',
+  'Résumé',
+];
 
 export type BlessureDraft = {
+  recordId: string;
   nom: string;
   description: string;
   stats: Stats;
   equipement: string;
   notes: string[];
+  effets: SeriousInjuryEffect[];
   perteEquipement: boolean;
   statutMort: boolean;
   xpBonus: number;
   tresorerieBonus: number;
 };
+
+function appliquerBlessureDraft(membre: Member, draft: BlessureDraft | undefined, date: string): Member {
+  if (!draft) return { ...membre };
+  let resultat: Member = {
+    ...membre,
+    stats_actuels: draft.stats,
+    equipement: draft.equipement,
+    stats_modifiees: Array.from(
+      new Set([
+        ...membre.stats_modifiees,
+        ...STAT_KEYS.filter((stat) => draft.stats[stat] !== membre.stats_actuels[stat]),
+      ])
+    ),
+    blessures_graves: draft.description.trim()
+      ? [
+          ...membre.blessures_graves,
+          {
+            id: draft.recordId,
+            date,
+            description: draft.description.trim(),
+            nom: draft.nom,
+            effets: draft.effets,
+          },
+        ]
+      : membre.blessures_graves,
+    notes: draft.notes.length > 0
+      ? [membre.notes, ...draft.notes].filter(Boolean).join('\n')
+      : membre.notes,
+  };
+  if (draft.perteEquipement) resultat = { ...resultat, inventaire: [] };
+  if (draft.statutMort) {
+    resultat = { ...resultat, statut: 'mort', date_mort: date };
+  }
+  return resultat;
+}
 
 export type XpDraft = {
   xp: number;
@@ -48,6 +107,7 @@ export function PostBatailleScreen() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
+  const { rules } = useGameRules();
   const roster = getRosterById(id ?? '');
   const catalogue = roster ? getCatalogue(roster.bande_id) : undefined;
   const demiXp = !!catalogue?.xp_demi;
@@ -69,6 +129,8 @@ export function PostBatailleScreen() {
   const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
   const [xpDrafts, setXpDrafts] = useState<Record<string, XpDraft>>({});
   const [groupeSlotDrafts, setGroupeSlotDrafts] = useState<Record<string, SlotDraft[]>>({});
+  const [entretienDrafts, setEntretienDrafts] = useState<Record<string, DecisionEntretien>>({});
+  const [commerceDrafts, setCommerceDrafts] = useState<Record<string, CommerceDraft>>({});
 
   // Avancées résolues directement depuis l'étape Gain d'expérience (voir
   // ouvrirAvancee/appliquerAvancee ci-dessous) — journalisées en plus de
@@ -82,7 +144,10 @@ export function PostBatailleScreen() {
   const horsDeCombatHeros = useMemo(
     () =>
       roster?.membres.filter(
-        (m) => m.statut === 'hors_de_combat' && resolveProfil(roster, m)?.type === 'heros'
+        (m) =>
+          m.statut === 'hors_de_combat' &&
+          !estFrancTireur(m) &&
+          resolveProfil(roster, m)?.type === 'heros'
       ) ?? [],
     [roster]
   );
@@ -121,24 +186,118 @@ export function PostBatailleScreen() {
         (m) =>
           m.statut !== 'mort' &&
           m.statut !== 'blesse' &&
+          !m.franc_tireur_impaye &&
           !hcIds.has(m.instance_id) &&
-          resolveProfil(roster, m)?.type !== 'animal'
+          resolveProfil(roster, m)?.type !== 'animal' &&
+          getFrancTireur(m.franc_tireur_id)?.gagne_experience !== false
       ) ?? []
     );
   }, [roster, horsDeCombatIndividuel, groupesHC]);
 
-  const francTireursActifs = useMemo(
-    () => roster?.membres.filter((m) => m.profil_custom && m.statut !== 'mort') ?? [],
-    [roster]
+  const francTireursParticipants = useMemo(
+    () =>
+      roster?.membres.filter((m) => {
+        if (!estFrancTireur(m) || m.statut === 'mort' || m.statut === 'blesse' || m.franc_tireur_impaye) return false;
+        if (m.statut === 'hors_de_combat' && xpDrafts[m.instance_id]?.survecu === 'non') return false;
+        return true;
+      }) ?? [],
+    [roster, xpDrafts]
   );
-  const soldeTotal = francTireursActifs.reduce(
-    (acc, m) => acc + (m.profil_custom?.solde ?? 0) * (m.taille_groupe || 1),
-    0
+
+  const exploration = useMemo(
+    () =>
+      roster
+        ? resumeExploration(roster, catalogue, resultat, rules)
+        : {
+            herosEligibles: [],
+            desHeros: 0,
+            bonusVictoire: 0,
+            bonusFixes: 0,
+            totalDesALancer: 0,
+            maximumAConserver: 6,
+            aides: [],
+          },
+    [roster, catalogue, resultat, rules]
   );
+
+  const herosCommerce: HerosCommerce[] = useMemo(() => {
+    if (!roster) return [];
+    return roster.membres.flatMap((membre) => {
+      const profil = resolveProfil(roster, membre);
+      if (
+        profil?.type !== 'heros' ||
+        estFrancTireur(membre) ||
+        membre.statut === 'mort' ||
+        membre.statut === 'blesse' ||
+        membre.franc_tireur_impaye
+      ) {
+        return [];
+      }
+      const horsDeCombat = membre.statut === 'hors_de_combat';
+      if (horsDeCombat && xpDrafts[membre.instance_id]?.survecu !== 'oui') return [];
+      const membreApresBlessure = appliquerBlessureDraft(membre, blessureDrafts[membre.instance_id], date);
+      if (membreApresBlessure.statut === 'mort') return [];
+      return [{ membre, membreApresBlessure, horsDeCombat }];
+    });
+  }, [roster, xpDrafts, blessureDrafts, date]);
+
+  const coutCommerce = Object.values(commerceDrafts).reduce((total, draft) => {
+    if (draft.action === 'docteur') return total + COUT_DOCTEUR;
+    if (draft.action === 'rare' && draft.achat) return total + draft.achat.cout;
+    return total;
+  }, 0);
+  const stockCommerce = Object.values(commerceDrafts).flatMap((draft) => {
+    if (draft.action === 'rare' && draft.achat) return [draft.achat];
+    if (draft.action === 'docteur' && draft.statut === 'termine') return draft.equipementConserve;
+    return [];
+  });
+  const commerceIncomplet = herosCommerce.some((hero) => {
+    const draft = commerceDrafts[hero.membre.instance_id];
+    return !draft || draft.statut !== 'termine';
+  });
   // Gains de trésorerie issus de résultats de blessure grave automatisés
   // (ex : victoire au combat de Gladiateur, +50 po).
   const blessuresTresorerieBonus = Object.values(blessureDrafts).reduce(
     (total, d) => total + d.tresorerieBonus,
+    0
+  );
+
+  const lignesEntretien: LigneEntretien[] = useMemo(() => {
+    if (!roster) return [];
+    return francTireursParticipants.map((m) => {
+      const profil = getFrancTireur(m.franc_tireur_id);
+      if (!profil) {
+        return {
+          membre: m,
+          nom: nomAffiche(m),
+          type: 'or',
+          cout: (m.profil_custom?.solde ?? 0) * (m.taille_groupe || 1),
+          texte: 'Ancien profil personnalisé : solde enregistrée lors du recrutement.',
+        };
+      }
+      return {
+        membre: m,
+        nom: nomAffiche(m),
+        type: profil.entretien.type,
+        cout: coutEntretienFrancTireur(profil, roster),
+        texte: profil.entretien.texte,
+        exemption: profil.entretien.exemption,
+        maintienSansPaiement: profil.entretien.maintien_sans_paiement,
+        departAutomatique: profil.depart_apres_bataille,
+      };
+    });
+  }, [francTireursParticipants, roster]);
+
+  const decisionEntretien = (ligne: LigneEntretien): DecisionEntretien =>
+    entretienDrafts[ligne.membre.instance_id] ??
+    (ligne.departAutomatique ? 'depart_automatique' : ligne.type === 'aucun' ? 'gratuit' : 'payer');
+
+  const soldeTotal = lignesEntretien.reduce(
+    (acc, ligne) => acc + (decisionEntretien(ligne) === 'payer' && ligne.type === 'or' ? ligne.cout : 0),
+    0
+  );
+  const entretienMalepierre = lignesEntretien.reduce(
+    (acc, ligne) => acc + (decisionEntretien(ligne) === 'payer' && ligne.type === 'malepierre' ? ligne.cout : 0),
     0
   );
 
@@ -164,11 +323,13 @@ export function PostBatailleScreen() {
     setBlessureDrafts((prev) => ({
       ...prev,
       [m.instance_id]: {
+        recordId: uuidv4(),
         nom: resultat.nom,
         description: resultat.texte,
         stats,
         equipement: resultat.perteEquipement ? '' : m.equipement,
         notes: resultat.notes,
+        effets: resultat.effets.map((effet) => ({ ...effet, id: uuidv4() })),
         perteEquipement: resultat.perteEquipement,
         statutMort: resultat.statutMort,
         xpBonus: resultat.xpBonus,
@@ -181,6 +342,11 @@ export function PostBatailleScreen() {
         ? { xp: m.xp, survecu: 'non' }
         : { xp: m.xp + 1 + resultat.xpBonus, survecu: 'oui' },
     }));
+    setCommerceDrafts((prev) => {
+      const next = { ...prev };
+      delete next[m.instance_id];
+      return next;
+    });
   };
 
   const reinitialiserBlessure = (m: Member) => {
@@ -190,6 +356,11 @@ export function PostBatailleScreen() {
       return next;
     });
     setXpDrafts((prev) => {
+      const next = { ...prev };
+      delete next[m.instance_id];
+      return next;
+    });
+    setCommerceDrafts((prev) => {
       const next = { ...prev };
       delete next[m.instance_id];
       return next;
@@ -212,6 +383,11 @@ export function PostBatailleScreen() {
     const nouveauSurvecu = d.survecu === valeur ? null : valeur;
     if (nouveauSurvecu === 'oui') xp += 1;
     setXpDrafts((prev) => ({ ...prev, [m.instance_id]: { xp, survecu: nouveauSurvecu } }));
+    setCommerceDrafts((prev) => {
+      const next = { ...prev };
+      delete next[m.instance_id];
+      return next;
+    });
   };
 
   const slotsDe = (m: Member): SlotDraft[] => {
@@ -231,11 +407,26 @@ export function PostBatailleScreen() {
   const hcIncomplete =
     horsDeCombatIndividuel.some((m) => xpDraftDe(m, m.xp).survecu === null) ||
     groupesHC.some((m) => slotsDe(m).some((s) => s === null));
+  const blessuresIncompletes = horsDeCombatHeros.some((m) => !blessureDrafts[m.instance_id]);
 
+  const indexBlessures = 1;
   const indexGainXp = 2;
+  const indexCommerce = 4;
+  const indexEntretien = 5;
+  const orDisponibleAvantCommerce = roster.tresorerie + prixVente + blessuresTresorerieBonus;
+  const orDisponiblePourEntretien = orDisponibleAvantCommerce - coutCommerce;
+  const wyrdstoneDisponiblePourEntretien = Math.max(
+    0,
+    roster.wyrdstone + wyrdstoneTrouve - quantiteVendue
+  );
+  const entretienInsuffisant =
+    soldeTotal > orDisponiblePourEntretien || entretienMalepierre > wyrdstoneDisponiblePourEntretien;
 
   const suivant = () => {
+    if (etape === indexBlessures && blessuresIncompletes) return;
     if (etape === indexGainXp && hcIncomplete) return;
+    if (etape === indexCommerce && commerceIncomplet) return;
+    if (etape === indexEntretien && entretienInsuffisant) return;
     setEtape((e) => Math.min(ETAPES.length - 1, e + 1));
   };
   const precedent = () => setEtape((e) => Math.max(0, e - 1));
@@ -269,7 +460,8 @@ export function PostBatailleScreen() {
   };
 
   const terminer = async () => {
-    const tresorerieApres = roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus;
+    const tresorerieApres =
+      roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus - coutCommerce;
     const groupesHCIds = new Set(groupesHC.map((m) => m.instance_id));
 
     // Journalisation des guerriers restés au camp car Blessé (voir la
@@ -278,39 +470,28 @@ export function PostBatailleScreen() {
     const blessesAuCamp: { nom: string; retabli: boolean }[] = [];
 
     const membresMaj: Member[] = roster.membres.map((m) => {
-      let membre = { ...m };
+      const commerce = commerceDrafts[m.instance_id];
+      const traitementDocteur =
+        commerce?.action === 'docteur' && commerce.statut === 'termine'
+          ? commerce.membreApresTraitement
+          : undefined;
+      let membre = {
+        ...(traitementDocteur ?? appliquerBlessureDraft(m, blessureDrafts[m.instance_id], date)),
+        franc_tireur_impaye: false,
+      };
       const profil = resolveProfil(roster, m);
+      const profilFrancTireur = getFrancTireur(m.franc_tireur_id);
+      const decision = lignesEntretien.find((ligne) => ligne.membre.instance_id === m.instance_id)
+        ? entretienDrafts[m.instance_id] ??
+          (profilFrancTireur?.depart_apres_bataille
+            ? 'depart_automatique'
+            : profilFrancTireur?.entretien.type === 'aucun'
+              ? 'gratuit'
+              : 'payer')
+        : undefined;
       const estLeaderVictoire = estLeaderActuel(roster, catalogue, m) && resultat === 'victoire';
 
-      const draft = blessureDrafts[m.instance_id];
-      if (draft) {
-        const statsModifiees = STAT_KEYS.filter((k) => draft.stats[k] !== m.stats_actuels[k]);
-        if (statsModifiees.length > 0 || draft.equipement !== m.equipement) {
-          membre = {
-            ...membre,
-            stats_actuels: draft.stats,
-            equipement: draft.equipement,
-            stats_modifiees: Array.from(new Set([...membre.stats_modifiees, ...statsModifiees])),
-          };
-        }
-        if (draft.description.trim()) {
-          membre = {
-            ...membre,
-            blessures_graves: [
-              ...membre.blessures_graves,
-              { id: uuidv4(), date, description: draft.description.trim(), nom: draft.nom },
-            ],
-          };
-        }
-        if (draft.notes.length > 0) {
-          membre = { ...membre, notes: [membre.notes, ...draft.notes].filter(Boolean).join('\n') };
-        }
-        if (draft.perteEquipement) {
-          membre = { ...membre, inventaire: [] };
-        }
-      }
-
-      if (m.statut === 'mort') {
+      if (membre.statut === 'mort') {
         return membre;
       }
 
@@ -323,10 +504,14 @@ export function PostBatailleScreen() {
         } else if (estAnimal) {
           membre = { ...membre, statut: 'actif' };
         } else {
-          let xp = d.xp;
+          let xp = profilFrancTireur?.gagne_experience === false ? m.xp : d.xp;
           if (estLeaderVictoire) xp += 1;
-          membre = { ...membre, statut: 'actif', xp };
+          membre =
+            membre.statut === 'blesse'
+              ? { ...membre, xp }
+              : { ...membre, statut: 'actif', xp };
         }
+        if (decision === 'impaye') membre = { ...membre, franc_tireur_impaye: true };
         return membre;
       }
 
@@ -352,6 +537,17 @@ export function PostBatailleScreen() {
         return membre;
       }
 
+      // Un Geôlier conservé sans solde a manqué cette bataille : pas d’XP,
+      // puis sa dette est considérée comme purgée pour la prochaine partie.
+      if (m.franc_tireur_impaye) {
+        return membre;
+      }
+
+      if (profilFrancTireur?.gagne_experience === false) {
+        if (decision === 'impaye') membre = { ...membre, franc_tireur_impaye: true };
+        return membre;
+      }
+
       // Guerrier Blessé : reste au camp, ne participe pas à la bataille (pas
       // d'XP), mais son compteur de tours blessé avance d'un cran. Rétabli
       // (retour à Actif, compteur remis à 0/0) une fois le total atteint.
@@ -371,8 +567,19 @@ export function PostBatailleScreen() {
       let xp = d ? d.xp : m.xp + 1;
       if (estLeaderVictoire) xp += 1;
       membre = { ...membre, xp };
+      if (decision === 'impaye') membre = { ...membre, franc_tireur_impaye: true };
       return membre;
     });
+
+    const idsARenvoyer = new Set(
+      lignesEntretien
+        .filter((ligne) => {
+          const decision = decisionEntretien(ligne);
+          return decision === 'renvoyer' || decision === 'depart_automatique';
+        })
+        .map((ligne) => ligne.membre.instance_id)
+    );
+    const membresConserves = membresMaj.filter((m) => !idsARenvoyer.has(m.instance_id));
 
     const journal: JournalPostBataille = {
       wyrdstoneTrouve,
@@ -380,6 +587,50 @@ export function PostBatailleScreen() {
       quantiteVendue,
       prixVente,
       soldeFrancsTireurs: soldeTotal,
+      entretienFrancsTireurs: lignesEntretien.map((ligne) => {
+        const decision = decisionEntretien(ligne);
+        const decisionJournal: NonNullable<JournalPostBataille['entretienFrancsTireurs']>[number]['decision'] =
+          decision === 'payer'
+            ? 'paye'
+            : decision === 'renvoyer'
+              ? 'renvoye'
+              : decision === 'depart_automatique'
+                ? 'depart_automatique'
+                : decision === 'gratuit'
+                  ? 'gratuit'
+                  : 'exempte';
+        return {
+          nom: ligne.nom,
+          decision: decisionJournal,
+          coutOr: decision === 'payer' && ligne.type === 'or' ? ligne.cout : 0,
+          coutMalepierre: decision === 'payer' && ligne.type === 'malepierre' ? ligne.cout : 0,
+        };
+      }),
+      commerce: herosCommerce.map(({ membre }) => {
+        const draft = commerceDrafts[membre.instance_id];
+        if (!draft || draft.action === 'aucune') {
+          return { nom: membre.nom_perso, action: 'aucune' as const, detail: 'Aucune action.', cout: 0 };
+        }
+        if (draft.action === 'rare') {
+          return {
+            nom: membre.nom_perso,
+            action: 'recherche_rare' as const,
+            detail: `${draft.objetNom} : 2D6 = ${draft.jet} contre Rare ${draft.rarete} — ${
+              draft.reussi ? (draft.achat ? 'acheté' : 'disponible, non acheté') : 'indisponible'
+            }.`,
+            cout: draft.achat?.cout ?? 0,
+          };
+        }
+        return {
+          nom: membre.nom_perso,
+          action: 'docteur' as const,
+          detail:
+            draft.statut === 'termine'
+              ? `2D6 = ${draft.jet} — ${draft.resultatTitre}.`
+              : 'Consultation payée, résultat non saisi.',
+          cout: COUT_DOCTEUR,
+        };
+      }),
       tresorerieApres,
       blessures: Object.entries(blessureDrafts)
         .filter(([, d]) => d.description.trim())
@@ -412,13 +663,14 @@ export function PostBatailleScreen() {
       journal,
     };
 
-    const succession = succederApresMorts(roster, catalogue, membresMaj);
+    const succession = succederApresMorts(roster, catalogue, membresConserves);
 
     await updateRoster({
       ...roster,
       ...succession,
-      membres: membresMaj,
-      wyrdstone: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue),
+      membres: membresConserves,
+      stock: [...roster.stock, ...stockCommerce],
+      wyrdstone: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre),
       tresorerie: tresorerieApres,
       equipement_reserve: notesExploration.trim()
         ? `${roster.equipement_reserve}${roster.equipement_reserve ? '\n' : ''}${notesExploration.trim()}`
@@ -497,10 +749,44 @@ export function PostBatailleScreen() {
           pointsVeteran={pointsVeteran}
           onPointsVeteranChange={setPointsVeteran}
           onAchatStock={ajouterAuStock}
+          resumeExploration={exploration}
         />
       )}
 
       {etape === 4 && (
+        <EtapeCommerce
+          roster={roster}
+          catalogue={catalogue!}
+          heros={herosCommerce}
+          drafts={commerceDrafts}
+          tresorerieDisponible={orDisponibleAvantCommerce - coutCommerce}
+          docteurActif={rules.sawbonesDocteur}
+          onChanger={(instanceId, draft) =>
+            setCommerceDrafts((precedents) => {
+              if (draft) return { ...precedents, [instanceId]: draft };
+              const suivants = { ...precedents };
+              delete suivants[instanceId];
+              return suivants;
+            })
+          }
+        />
+      )}
+
+      {etape === 5 && (
+        <EtapeEntretien
+          lignes={lignesEntretien}
+          decisions={entretienDrafts}
+          onDecision={(instanceId, decision) =>
+            setEntretienDrafts((precedents) => ({ ...precedents, [instanceId]: decision }))
+          }
+          totalOr={soldeTotal}
+          totalMalepierre={entretienMalepierre}
+          orDisponible={orDisponiblePourEntretien}
+          malepierreDisponible={wyrdstoneDisponiblePourEntretien}
+        />
+      )}
+
+      {etape === 6 && (
         <EtapeResume
           roster={roster}
           catalogue={catalogue}
@@ -511,8 +797,18 @@ export function PostBatailleScreen() {
           quantiteVendue={quantiteVendue}
           prixVente={prixVente}
           soldeTotal={soldeTotal}
+          entretienMalepierre={entretienMalepierre}
           blessuresTresorerieBonus={blessuresTresorerieBonus}
-          francTireursActifsCount={francTireursActifs.length}
+          coutCommerce={coutCommerce}
+          francTireursPayesCount={lignesEntretien.filter(
+            (ligne) => decisionEntretien(ligne) === 'payer' && ligne.type === 'or'
+          ).length}
+          francsTireursPartants={lignesEntretien
+            .filter((ligne) => {
+              const decision = decisionEntretien(ligne);
+              return decision === 'renvoyer' || decision === 'depart_automatique';
+            })
+            .map((ligne) => ligne.nom)}
           avancesResolues={avancesResolues}
           blessureDrafts={blessureDrafts}
           horsDeCombatIndividuel={horsDeCombatIndividuel}
@@ -527,7 +823,16 @@ export function PostBatailleScreen() {
           Précédent
         </button>
         {etape < ETAPES.length - 1 && (
-          <button className="btn btn--primary" disabled={etape === indexGainXp && hcIncomplete} onClick={suivant}>
+          <button
+            className="btn btn--primary"
+            disabled={
+              (etape === indexBlessures && blessuresIncompletes) ||
+              (etape === indexGainXp && hcIncomplete) ||
+              (etape === indexCommerce && commerceIncomplet) ||
+              (etape === indexEntretien && entretienInsuffisant)
+            }
+            onClick={suivant}
+          >
             Suivant
           </button>
         )}
@@ -537,9 +842,24 @@ export function PostBatailleScreen() {
           </button>
         )}
       </div>
+      {etape === indexBlessures && blessuresIncompletes && (
+        <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
+          Résous la blessure grave de chaque Héros Hors de combat avant de continuer.
+        </p>
+      )}
       {etape === indexGainXp && hcIncomplete && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
           Résous d'abord le statut (survécu / n'a pas survécu) de tous les Hors de combat avant de continuer.
+        </p>
+      )}
+      {etape === indexCommerce && commerceIncomplet && (
+        <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
+          Choisis une action de commerce pour chaque Héros et termine toute consultation payée avant de continuer.
+        </p>
+      )}
+      {etape === indexEntretien && entretienInsuffisant && (
+        <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
+          Les ressources disponibles ne couvrent pas les contrats conservés.
         </p>
       )}
 

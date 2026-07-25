@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { RostersProvider } from './state/RostersContext';
 import { ThemeProvider } from './state/ThemeContext';
+import { GameRulesProvider } from './state/GameRulesContext';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { ScrollToTop } from './components/common/ScrollToTop';
 
@@ -30,24 +31,26 @@ const ReglagesScreen = lazy(() =>
 function App() {
   return (
     <ThemeProvider>
-      <RostersProvider>
-        <HashRouter>
-          <ScrollToTop />
-          <ErrorBoundary>
-            <Suspense fallback={null}>
-              <Routes>
-                <Route path="/" element={<ListeBandesScreen />} />
-                <Route path="/creer" element={<CreationBandeScreen />} />
-                <Route path="/roster/:id" element={<RosterScreen />} />
-                <Route path="/roster/:id/recruter-franc-tireur" element={<RecruterFrancTireurScreen />} />
-                <Route path="/roster/:id/personnage/:instanceId" element={<PersonnageScreen />} />
-                <Route path="/roster/:id/post-bataille" element={<PostBatailleScreen />} />
-                <Route path="/reglages" element={<ReglagesScreen />} />
-              </Routes>
-            </Suspense>
-          </ErrorBoundary>
-        </HashRouter>
-      </RostersProvider>
+      <GameRulesProvider>
+        <RostersProvider>
+          <HashRouter>
+            <ScrollToTop />
+            <ErrorBoundary>
+              <Suspense fallback={null}>
+                <Routes>
+                  <Route path="/" element={<ListeBandesScreen />} />
+                  <Route path="/creer" element={<CreationBandeScreen />} />
+                  <Route path="/roster/:id" element={<RosterScreen />} />
+                  <Route path="/roster/:id/recruter-franc-tireur" element={<RecruterFrancTireurScreen />} />
+                  <Route path="/roster/:id/personnage/:instanceId" element={<PersonnageScreen />} />
+                  <Route path="/roster/:id/post-bataille" element={<PostBatailleScreen />} />
+                  <Route path="/reglages" element={<ReglagesScreen />} />
+                </Routes>
+              </Suspense>
+            </ErrorBoundary>
+          </HashRouter>
+        </RostersProvider>
+      </GameRulesProvider>
     </ThemeProvider>
   );
 }

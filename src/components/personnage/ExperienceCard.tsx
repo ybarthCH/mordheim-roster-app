@@ -10,17 +10,26 @@ type ExperienceCardProps = {
   enAttente: number;
   onChangeXp: (xp: number) => void;
   onOpenAvancee: () => void;
+  gagneExperience?: boolean;
 };
 
-export function ExperienceCard({ type, membre, demiXp, enAttente, onChangeXp, onOpenAvancee }: ExperienceCardProps) {
-  if (type === 'animal') {
+export function ExperienceCard({
+  type,
+  membre,
+  demiXp,
+  enAttente,
+  onChangeXp,
+  onOpenAvancee,
+  gagneExperience = true,
+}: ExperienceCardProps) {
+  if (type === 'animal' || !gagneExperience) {
     return (
       <div className="card">
         <h3 className="mt-0">
           <Icon name="etoile" style={{ marginRight: '0.35em' }} />
           Expérience
         </h3>
-        <p className="text-muted text-sm mb-0">Les animaux ne gagnent jamais d'expérience.</p>
+        <p className="text-muted text-sm mb-0">Ce profil ne gagne jamais d'expérience.</p>
       </div>
     );
   }

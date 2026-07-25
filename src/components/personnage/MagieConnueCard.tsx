@@ -1,22 +1,53 @@
 import { useState } from 'react';
 import { Icon } from '../common/Icon';
-import { resolveSort, sortsDisponibles } from '../../utils/magie';
+import {
+  magieDuProfil,
+  resolveSort,
+  sortsDisponibles,
+  sortsMagieMineureDisponibles,
+} from '../../utils/magie';
 import type { Member } from '../../types/roster';
-import type { WarbandCatalog } from '../../types/catalog';
+import type { Profile, WarbandCatalog } from '../../types/catalog';
 
 type MagieConnueCardProps = {
   membre: Member;
+  profil: Profile;
   catalogue: WarbandCatalog;
   onMajMembre: (partial: Partial<Member>) => void;
+  grimoireDisponible: boolean;
+  onUtiliserGrimoire: (nomSort: string) => void;
 };
 
 // Sorts effectivement appris par ce sorcier — le premier est choisi
 // obligatoirement au recrutement, les suivants via une avancée "nouvelle
 // compétence" (voir AvanceeModal). Un ajout manuel reste possible ici, pour
 // corriger un oubli sans repasser par une avancée.
-export function MagieConnueCard({ membre, catalogue, onMajMembre }: MagieConnueCardProps) {
+export function MagieConnueCard({
+  membre,
+  profil,
+  catalogue,
+  onMajMembre,
+  grimoireDisponible,
+  onUtiliserGrimoire,
+}: MagieConnueCardProps) {
   const [sortAAjouter, setSortAAjouter] = useState('');
-  const disponibles = sortsDisponibles(catalogue, membre.sorts_connus);
+  const [grimoireOuvert, setGrimoireOuvert] = useState(false);
+  const [sourceGrimoire, setSourceGrimoire] = useState<'propre' | 'mineure'>('propre');
+  const [sortGrimoire, setSortGrimoire] = useState('');
+  const magiePropre = magieDuProfil(catalogue, profil);
+  const disponibles = sortsDisponibles(catalogue, membre.sorts_connus, profil);
+  const magieMineureEstPropre = magiePropre?.nom === 'Magie mineure';
+  const sortsGrimoire =
+    sourceGrimoire === 'propre'
+      ? disponibles
+      : sortsMagieMineureDisponibles(membre.sorts_connus);
+
+  const utiliserGrimoire = () => {
+    if (!sortGrimoire) return;
+    onUtiliserGrimoire(sortGrimoire);
+    setSortGrimoire('');
+    setGrimoireOuvert(false);
+  };
 
   return (
     <div className="card">
@@ -26,7 +57,7 @@ export function MagieConnueCard({ membre, catalogue, onMajMembre }: MagieConnueC
       </h3>
       {membre.sorts_connus.length > 0 ? (
         membre.sorts_connus.map((nom, i) => {
-          const sort = resolveSort(catalogue, nom);
+          const sort = resolveSort(catalogue, nom, profil);
           return (
             <p key={i} className="text-sm mb-0" style={{ marginTop: i > 0 ? '0.4rem' : 0 }}>
               <strong>{sort ? `${sort.resultat} — ${sort.nom}` : nom}</strong>
@@ -66,6 +97,53 @@ export function MagieConnueCard({ membre, catalogue, onMajMembre }: MagieConnueC
           >
             Ajouter
           </button>
+        </div>
+      )}
+      {grimoireDisponible && (
+        <div style={{ marginTop: '0.8rem', paddingTop: '0.7rem', borderTop: '1px solid var(--border)' }}>
+          <button className="btn btn--sm" onClick={() => setGrimoireOuvert((ouvert) => !ouvert)}>
+            {grimoireOuvert ? 'Annuler' : 'Utiliser un Grimoire de magie'}
+          </button>
+          {grimoireOuvert && (
+            <div style={{ marginTop: '0.6rem' }}>
+              <p className="text-sm text-muted">
+                Le grimoire sera consommé. Choisis un sort permanent dans la liste propre du sorcier ou dans celle
+                de Magie mineure.
+              </p>
+              {!magieMineureEstPropre && (
+                <div className="field">
+                  <label>Liste de sorts</label>
+                  <select
+                    value={sourceGrimoire}
+                    onChange={(e) => {
+                      setSourceGrimoire(e.target.value as 'propre' | 'mineure');
+                      setSortGrimoire('');
+                    }}
+                  >
+                    <option value="propre">{magiePropre?.nom ?? 'Liste propre du sorcier'}</option>
+                    <option value="mineure">Magie mineure</option>
+                  </select>
+                </div>
+              )}
+              <div className="field">
+                <label>Nouveau sort</label>
+                <select value={sortGrimoire} onChange={(e) => setSortGrimoire(e.target.value)}>
+                  <option value="">— Choisir —</option>
+                  {sortsGrimoire.map((sort) => (
+                    <option key={sort.nom} value={sort.nom}>
+                      {sort.resultat} — {sort.nom} (diff. {sort.difficulte})
+                    </option>
+                  ))}
+                </select>
+                {sortsGrimoire.length === 0 && (
+                  <p className="text-sm text-muted mb-0">Tous les sorts de cette liste sont déjà connus.</p>
+                )}
+              </div>
+              <button className="btn btn--primary" disabled={!sortGrimoire} onClick={utiliserGrimoire}>
+                Consommer le grimoire et apprendre ce sort
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

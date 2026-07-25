@@ -1,23 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { RosterInstance } from '../types/roster';
 import { deleteRoster, listRosters, saveRoster } from '../db/db';
 import { normaliserRoster } from '../utils/normalize';
-
-type RostersContextValue = {
-  rosters: RosterInstance[];
-  loading: boolean;
-  refresh: () => Promise<void>;
-  getRosterById: (id: string) => RosterInstance | undefined;
-  updateRoster: (roster: RosterInstance) => Promise<void>;
-  addRoster: (roster: RosterInstance) => Promise<void>;
-  removeRoster: (id: string) => Promise<void>;
-  duplicateRoster: (id: string) => Promise<RosterInstance | undefined>;
-  importRoster: (roster: RosterInstance) => Promise<RosterInstance>;
-};
-
-const RostersContext = createContext<RostersContextValue | undefined>(undefined);
+import { RostersContext } from './useRosters';
 
 export function RostersProvider({ children }: { children: ReactNode }) {
   const [rosters, setRosters] = useState<RosterInstance[]>([]);
@@ -121,10 +108,4 @@ export function RostersProvider({ children }: { children: ReactNode }) {
   );
 
   return <RostersContext.Provider value={value}>{children}</RostersContext.Provider>;
-}
-
-export function useRosters() {
-  const ctx = useContext(RostersContext);
-  if (!ctx) throw new Error('useRosters doit être utilisé dans un RostersProvider');
-  return ctx;
 }

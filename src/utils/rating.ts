@@ -1,6 +1,7 @@
 import type { Member, RosterInstance } from '../types/roster';
 import { estGrandeCible, resolveProfil } from './profil';
 import { getItem } from '../data/items';
+import { getFrancTireur } from '../data/hiredSwords';
 
 // Monture : 3 points si elle n'a aucune attaque dans son profil (A = 0 ou
 // absent), 5 points si elle peut attaquer (A > 0) — règle imprimée (Valeur
@@ -23,6 +24,8 @@ function pointsMonture(itemId: string): number {
  * sur la case manuelle saisie à l'engagement.
  */
 export function ratingMembre(m: Member, roster: RosterInstance): number {
+  const francTireur = getFrancTireur(m.franc_tireur_id);
+  if (francTireur) return francTireur.valeur + (francTireur.gagne_experience === false ? 0 : m.xp);
   const grandeCible = m.profil_custom ? m.grande_cible : estGrandeCible(resolveProfil(roster, m));
   const pointsMontures = m.inventaire
     .filter((e) => e.categorie === 'montures')

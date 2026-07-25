@@ -68,6 +68,16 @@ export type Profile = {
   stats: Stats | null;
   acces_competences: SkillCategory[];
   acces_competences_a_verifier?: boolean;
+  // La grille qui détermine les cases et paliers d'XP peut différer du type
+  // du profil. Les francs-tireurs utilisent celle des hommes de main.
+  grille_xp?: 'heros' | 'homme_de_main';
+  // La table sur laquelle résoudre une avancée peut à son tour différer de
+  // la grille XP. Les francs-tireurs lancent sur la table des héros.
+  table_avancement?: 'heros' | 'homme_de_main';
+  // Les héros de bande gagnent normalement l'accès générique à Équitation.
+  // Les francs-tireurs suivent exclusivement les tables indiquées sur leur
+  // profil et désactivent donc cet ajout automatique.
+  acces_equitation_automatique?: boolean;
   // Clés du catalogue `WarbandCatalog.equipement` accessibles à ce profil
   // pour l'achat en jeu. Non renseigné = accès à toutes les listes de la
   // bande (repli par défaut, tant que ce champ n'est pas encore rempli
@@ -89,6 +99,9 @@ export type Profile = {
   leader_toujours_recrutable?: boolean;
   // Règles spéciales propres à ce profil (en plus de celles de la bande).
   regles_speciales?: SpecialRule[];
+  // Compétences spéciales propres au profil. Utilisé notamment par les
+  // francs-tireurs, dont les listes ne dépendent pas de la bande employeuse.
+  competences_speciales?: CompetenceSpeciale[];
   // Clé vers CARACTERISTIQUES_MAX (src/data/caracteristiquesMax.ts) : plafond
   // d'avancement applicable à ce profil. Absent seulement pour les profils
   // de type 'animal' (n'avancent jamais, voir avancesDues).

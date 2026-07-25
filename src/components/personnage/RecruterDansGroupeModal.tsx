@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Member, RosterInstance } from '../../types/roster';
-import { calculerCoutRejoindreGroupe, rejoindreGroupe } from '../../utils/shop';
+import { calculerCoutRejoindreGroupe, rejoindreGroupe, TRINKETS_LIMITES } from '../../utils/shop';
+import { useGameRules } from '../../state/useGameRules';
 import { Modal } from '../common/Modal';
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
 // Raccourci pour recruter directement de nouvelles figurines dans ce groupe
 // depuis sa propre fiche, sans repasser par le recrutement global du roster.
 export function RecruterDansGroupeModal({ roster, groupe, coutUnitaire, onClose, onConfirm }: Props) {
+  const { rules } = useGameRules();
   // Saisie gardée en texte brut : un input contrôlé par un number forcerait
   // la valeur dès l'effacement (impossible de vider le champ pour retaper
   // un chiffre) — le plancher ne s'applique qu'à l'usage.
@@ -22,8 +24,11 @@ export function RecruterDansGroupeModal({ roster, groupe, coutUnitaire, onClose,
 
   const cout = calculerCoutRejoindreGroupe(groupe, coutUnitaire, quantite);
   const budgetSuffisant = cout.coutTotal <= roster.tresorerie;
+  const dupliqueraitTrinket =
+    rules.trinketsLimites && groupe.inventaire.some((entree) => TRINKETS_LIMITES.has(entree.item_id));
 
   const confirmer = () => {
+    if (dupliqueraitTrinket) return;
     onConfirm(rejoindreGroupe(roster, groupe, quantite, cout.coutTotal));
     onClose();
   };
@@ -53,6 +58,12 @@ export function RecruterDansGroupeModal({ roster, groupe, coutUnitaire, onClose,
             même sans les points suffisants).
           </p>
         )}
+        {dupliqueraitTrinket && (
+          <p className="text-danger text-sm">
+            Recrutement bloqué : l'équipement du groupe contient un objet limité à un exemplaire par bande et serait
+            automatiquement dupliqué.
+          </p>
+        )}
       </div>
       {!budgetSuffisant && (
         <p className="text-danger text-sm">
@@ -63,7 +74,7 @@ export function RecruterDansGroupeModal({ roster, groupe, coutUnitaire, onClose,
         <button className="btn" onClick={onClose}>
           Annuler
         </button>
-        <button className="btn btn--primary" onClick={confirmer}>
+        <button className="btn btn--primary" disabled={dupliqueraitTrinket} onClick={confirmer}>
           Recruter pour {cout.coutTotal} po{!budgetSuffisant ? ' quand même' : ''}
         </button>
       </div>

@@ -7,6 +7,7 @@ import {
   type SousJetOption,
 } from '../../data/blessuresGraves';
 import { Icon, type IconName } from '../common/Icon';
+import type { SeriousInjuryEffect } from '../../types/roster';
 
 const ICONE_BLESSURE: Partial<Record<string, IconName>> = {
   mort: 'crane',
@@ -28,6 +29,7 @@ export type BlessureGraveResultat = {
   texte: string;
   statsDelta: Partial<Record<keyof Stats, number>>;
   notes: string[];
+  effets: Omit<SeriousInjuryEffect, 'id'>[];
   perteEquipement: boolean;
   statutMort: boolean;
   xpBonus: number;
@@ -253,6 +255,12 @@ export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppl
             : texte,
         statsDelta: stats,
         notes,
+        effets: multiplesResultats.map((it) => ({
+          resultat_id: it.resultat.id,
+          nom: it.resultat.nom,
+          stats_delta: statsIteration(it),
+          notes_ajoutees: notesIteration(it),
+        })),
         perteEquipement: perteEquipement || gladiateurForcePerte,
         statutMort: secondOeilPerdu,
         xpBonus,
@@ -265,6 +273,7 @@ export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppl
         texte: '',
         statsDelta: {},
         notes: [],
+        effets: [],
         perteEquipement: false,
         statutMort: false,
         xpBonus: 0,
@@ -282,6 +291,14 @@ export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppl
           : texte,
       statsDelta: statsIteration(racine),
       notes: secondOeilPerdu ? [...notesIteration(racine), NOTE_SECOND_OEIL] : notesIteration(racine),
+      effets: [
+        {
+          resultat_id: racine.resultat.id,
+          nom: racine.resultat.nom,
+          stats_delta: statsIteration(racine),
+          notes_ajoutees: notesIteration(racine),
+        },
+      ],
       perteEquipement: !!racine.resultat.perteEquipement || gladiateurForcePerte,
       statutMort: !!racine.resultat.statutMort || secondOeilPerdu,
       xpBonus: racine.resultat.xpBonus ?? 0,

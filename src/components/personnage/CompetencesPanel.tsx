@@ -18,7 +18,8 @@ export function CompetencesPanel({ member, profil, catalogue, onToggleSkill }: P
   const [ongletActif, setOngletActif] = useState<SkillCategory>(categories[0]);
 
   const skillsDeLaCategorie = (cat: SkillCategory) =>
-    cat === 'special' ? catalogue.competences_speciales : SKILLS[cat];
+    cat === 'special' ? (profil.competences_speciales ?? catalogue.competences_speciales) : SKILLS[cat];
+  const competencesSpeciales = profil.competences_speciales ?? catalogue.competences_speciales;
 
   return (
     <div>
@@ -54,7 +55,7 @@ export function CompetencesPanel({ member, profil, catalogue, onToggleSkill }: P
             </span>
           </label>
         ))}
-        {ongletActif === 'special' && catalogue.competences_speciales.length === 0 && (
+        {ongletActif === 'special' && competencesSpeciales.length === 0 && (
           <p className="text-muted text-sm">
             Aucune compétence spéciale renseignée pour cette bande pour l'instant.
           </p>

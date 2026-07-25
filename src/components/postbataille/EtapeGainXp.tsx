@@ -1,5 +1,6 @@
 import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, isPalierHenchman, isPalierHero } from '../../utils/xp';
-import { resolveProfil } from '../../utils/profil';
+import { grilleXpDuProfil, resolveProfil } from '../../utils/profil';
+import { estFrancTireur } from '../../data/hiredSwords';
 import { estLeaderActuel } from '../../utils/leader';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
@@ -121,7 +122,7 @@ function BlocAvanceeDue({
 }) {
   const profil = resolveProfil(roster, membre);
   if (!profil || profil.type === 'animal') return null;
-  const dues = avancesDues(profil.type, membre.xp_depart, xpActuel, demiXp);
+  const dues = avancesDues(grilleXpDuProfil(profil), membre.xp_depart, xpActuel, demiXp);
   const enAttente = Math.max(0, dues - membre.historique_avancees.length);
   if (enAttente === 0) return null;
   return (
@@ -165,6 +166,7 @@ export function EtapeGainXp({
         {horsDeCombatIndividuel.map((m) => {
           const profil = resolveProfil(roster, m);
           const estAnimal = profil?.type === 'animal';
+          const francTireur = estFrancTireur(m);
           const d = xpDraftDe(m, m.xp);
           const estLeader = estLeaderActuel(roster, catalogue, m);
           const bonusLeader = estLeader && resultat === 'victoire' && d.survecu !== 'non';
@@ -185,7 +187,7 @@ export function EtapeGainXp({
                 <p className="text-sm text-muted mb-0">Ne gagne jamais d'expérience.</p>
               ) : (
                 <XpBarCompacte
-                  type={profil?.type === 'heros' ? 'heros' : 'homme_de_main'}
+                  type={profil ? grilleXpDuProfil(profil) : 'homme_de_main'}
                   xpDepart={m.xp_depart}
                   xpInitial={m.xp}
                   xpActuel={d.xp}
@@ -193,6 +195,11 @@ export function EtapeGainXp({
                   bonusLeader={bonusLeader}
                   demiXp={demiXp}
                 />
+              )}
+              {francTireur && (
+                <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+                  Lance 1D6 pour ce franc-tireur : 1–2, il meurt ; 3–6, il survit.
+                </p>
               )}
               <div className="status-select" style={{ marginTop: '0.5rem' }}>
                 <button
@@ -278,7 +285,7 @@ export function EtapeGainXp({
                 <span className="text-sm text-muted">{m.statut === 'blesse' ? 'Blessé' : 'Actif'}</span>
               </div>
               <XpBarCompacte
-                type={profil?.type === 'heros' ? 'heros' : 'homme_de_main'}
+                type={profil ? grilleXpDuProfil(profil) : 'homme_de_main'}
                 xpDepart={m.xp_depart}
                 xpInitial={m.xp}
                 xpActuel={d.xp}

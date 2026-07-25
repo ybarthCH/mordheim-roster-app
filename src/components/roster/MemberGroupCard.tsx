@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../common/Icon';
 import type { IconName } from '../common/Icon';
-import { resolveProfil } from '../../utils/profil';
+import { grilleXpDuProfil, resolveProfil } from '../../utils/profil';
 import { avancesDues } from '../../utils/xp';
 import { nomCourtBlessure } from '../../utils/blessures';
 import { inventaireGroupeMismatch } from '../../utils/shop';
@@ -11,6 +11,7 @@ import { estLeaderActuel } from '../../utils/leader';
 import { STATUTS } from '../../types/roster';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
+import { getFrancTireur } from '../../data/hiredSwords';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
@@ -33,7 +34,7 @@ const nomAffiche = (m: Member) => `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${
 // la limite ici n'est qu'un filet de sécurité contre un inventaire
 // interminable, pas la contrainte principale.
 function resumeEquipement(m: Member): string {
-  if (m.inventaire.length === 0) return 'Sans équipement';
+  if (m.inventaire.length === 0) return m.equipement || 'Sans équipement';
   const noms = m.inventaire.map((e) => e.nom).join(', ');
   return noms.length > 160 ? `${noms.slice(0, 160).trimEnd()}…` : noms;
 }
@@ -74,7 +75,11 @@ export function MemberGroupCard({
   const avanceEnAttente = (m: Member) => {
     const profil = resolveProfil(roster, m);
     if (!profil) return false;
-    return avancesDues(profil.type, m.xp_depart, m.xp, !!catalogue?.xp_demi) > m.historique_avancees.length;
+    if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return false;
+    return (
+      avancesDues(grilleXpDuProfil(profil), m.xp_depart, m.xp, !!catalogue?.xp_demi) >
+      m.historique_avancees.length
+    );
   };
 
   // Un homme de main ou animal non promu n'utilise jamais le statut « Hors
@@ -180,6 +185,11 @@ export function MemberGroupCard({
                           title="Équipement dépareillé entre les figurines du groupe"
                         >
                           ⚠ Équipement
+                        </span>
+                      )}
+                      {m.franc_tireur_impaye && (
+                        <span className="badge badge--warning" style={{ marginLeft: '0.3rem' }}>
+                          Absent — solde impayée
                         </span>
                       )}
                     </td>

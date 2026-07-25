@@ -8,6 +8,8 @@ import type { Member, RosterInstance, InventoryEntry } from '../types/roster';
 import type { WarbandCatalog, Profile, SpecialRule, Stats } from '../types/catalog';
 import { TOUS_LES_ITEMS, getItem } from '../data/items';
 import type { IconName } from '../components/common/Icon';
+import { DEFAULT_GAME_RULES } from '../types/rules';
+import type { GameRules } from '../types/rules';
 
 // Profil de caractéristiques d'une monture/créature (items/montures.json) :
 // valeurs habituellement numériques, mais certaines notations spéciales
@@ -19,6 +21,9 @@ export type ShopItem = {
   nom: string;
   categorie: string;
   cout: number | string;
+  // Prix officiel avant l'éventuelle réduction de la règle avancée de
+  // poudre noire. Présent uniquement sur les armes concernées.
+  cout_officiel?: number | string;
   cout_fixe?: boolean;
   disponibilite?: string;
   rarete?: string;
@@ -100,6 +105,13 @@ export function estAccesPourCatalogue(acces: string[], catalogueId: string): boo
   if (estAccesGenerique(acces)) return true;
   if (acces.includes(catalogueId)) return true;
   if (acces.includes('commun_humains') && CATALOGUES_HUMAINS.has(catalogueId)) return true;
+  if (
+    acces.includes('jeteurs_de_sorts_sauf_witch_hunters_sisters_of_sigmar') &&
+    catalogueId !== 'witch_hunters' &&
+    catalogueId !== 'sisters_of_sigmar'
+  ) {
+    return true;
+  }
   return false;
 }
 
@@ -114,6 +126,145 @@ const CATEGORIE_CANONIQUE: Record<string, string> = {
 
 function normaliserCategorie(categorie: string): string {
   return CATEGORIE_CANONIQUE[categorie] ?? categorie;
+}
+
+const CATALOGUE_ARTILLEURS_NULN = 'artilleurs_de_nuln';
+
+// Armures de corps et caparaçons concernés par la règle Lozheim. Les
+// protections périphériques (boucliers, casques, cuir durci, pavois,
+// rondaches, écus, capes...) sont volontairement absentes.
+const ARMURES_LOZHEIM = new Set([
+  'armure_cathayenne_soie_matelassee',
+  'armure_du_chaos_market',
+  'armure_en_gromril_market',
+  'armure_en_ithilmar_market',
+  'armure_lamellaire',
+  'armure_legere',
+  'armure_lourde',
+  'armure_lourde_de_maitre',
+  'exosquelette',
+  'caparacon',
+  'caparacon_bretonnien',
+]);
+
+export const TRINKETS_LIMITES = new Set([
+  'porte_bonheur',
+  'gnoblar_porte_bonheur',
+  'herbes_de_soin',
+  'patte_de_lapin',
+  'amulette_de_malepierre',
+  'familier',
+  'parchemin_de_rat_familier',
+  'relique_sacree_bretonnienne',
+  'relique_sacree_sigmarite',
+  // Réservés aux variantes impies lorsqu'elles seront ajoutées au catalogue.
+  'relique_impie',
+  'relique_maudite',
+]);
+
+function arrondirMultipleDeCinq(value: number): number {
+  return Math.round(value / 5) * 5;
+}
+
+// La règle enlève environ un tiers du prix : 35 -> 25, 200 -> 135.
+// Pour une notation avec dés, seule la base fixe est adaptée.
+export function reduirePrixPoudreNoire(cout: number | string): number | string {
+  if (typeof cout === 'number') return arrondirMultipleDeCinq((cout * 2) / 3);
+  const match = cout.match(/^(\s*)(\d+(?:[.,]\d+)?)(.*)$/);
+  if (!match) return cout;
+  const base = Number(match[2].replace(',', '.'));
+  return `${match[1]}${arrondirMultipleDeCinq((base * 2) / 3)}${match[3]}`;
+}
+
+type OriginePrix = 'commun' | 'bande' | 'paye';
+
+export function prixAvecRegles(
+  itemId: string,
+  cout: number | string,
+  catalogueId: string,
+  rules: GameRules,
+  origine: OriginePrix
+): number | string {
+  const reference = getItem(itemId);
+  const estPoudreNoire = reference?.categorie === 'armes_poudre_noire';
+  let prix = cout;
+
+  if (estPoudreNoire && origine !== 'paye') {
+    const prixReduit = rules.poudreNoireAvancee || catalogueId === CATALOGUE_ARTILLEURS_NULN;
+    if (origine === 'commun') {
+      const officiel =
+        reference && 'cout_officiel' in reference
+          ? (reference.cout_officiel as number | string | undefined)
+          : undefined;
+      prix = prixReduit ? cout : (officiel ?? cout);
+    } else if (prixReduit && catalogueId !== CATALOGUE_ARTILLEURS_NULN) {
+      // Les listes de bande utilisent les prix officiels, sauf celle de
+      // Nuln qui contient déjà ses prix réduits permanents.
+      prix = reduirePrixPoudreNoire(cout);
+    }
+  }
+
+  if (rules.armuresLozheim && ARMURES_LOZHEIM.has(itemId) && typeof prix === 'number') {
+    prix /= 2;
+  }
+  return prix;
+}
+
+function appliquerReglesObjet(
+  item: ShopItem,
+  catalogueId: string,
+  rules: GameRules,
+  originePrix: OriginePrix
+): ShopItem {
+  const lozheim = rules.armuresLozheim && ARMURES_LOZHEIM.has(item.id);
+  return {
+    ...item,
+    cout: prixAvecRegles(item.id, item.cout, catalogueId, rules, originePrix),
+    regles_speciales: lozheim
+      ? [
+          ...(item.regles_speciales ?? []),
+          {
+            nom: 'Règle Maison Lozheim',
+            texte: "Cette armure coûte 50 % de son prix normal et accorde +1 supplémentaire à la sauvegarde d'armure.",
+          },
+        ]
+      : item.regles_speciales,
+  };
+}
+
+export function inventaireComplet(roster: RosterInstance): InventoryEntry[] {
+  return [...roster.stock, ...roster.membres.flatMap((m) => m.inventaire)];
+}
+
+export type AvertissementTrinketLimite = {
+  itemId: string;
+  nom: string;
+  quantite: number;
+};
+
+// Contrôle aussi bien le stock de bande que l'équipement porté. Cette
+// validation reste utile pour les anciens rosters ou lorsqu'une règle est
+// activée après que plusieurs exemplaires ont déjà été achetés.
+export function trouverTrinketsLimitesEnTrop(roster: RosterInstance): AvertissementTrinketLimite[] {
+  const parItem = new Map<string, AvertissementTrinketLimite>();
+
+  for (const entree of inventaireComplet(roster)) {
+    if (!TRINKETS_LIMITES.has(entree.item_id)) continue;
+    const existant = parItem.get(entree.item_id);
+    if (existant) {
+      existant.quantite += 1;
+    } else {
+      parItem.set(entree.item_id, {
+        itemId: entree.item_id,
+        nom: getItem(entree.item_id)?.nom ?? entree.nom,
+        quantite: 1,
+      });
+    }
+  }
+
+  return [...parItem.values()]
+    .filter(({ quantite }) => quantite > 1)
+    .sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
 }
 
 export const CATEGORIE_ORDRE = [
@@ -181,14 +332,16 @@ export function classeRarete(rarete?: string): string | null {
 // `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
 // cette bande (voir estAccesPourCatalogue) — omis, seul le shop générique
 // (accessible à toutes les bandes) est retourné.
-export function getShopCommun(catalogueId?: string): ShopItem[] {
-  return TOUS_LES_ITEMS.filter((item) =>
+export function getShopCommun(catalogueId?: string, rules: GameRules = DEFAULT_GAME_RULES): ShopItem[] {
+  const items: ShopItem[] = TOUS_LES_ITEMS.filter((item) =>
     catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])
   ).map((item) => ({
     id: item.id,
     nom: item.nom,
     categorie: normaliserCategorie(item.categorie),
     cout: item.cout,
+    cout_officiel:
+      'cout_officiel' in item ? (item.cout_officiel as number | string | undefined) : undefined,
     cout_fixe: item.cout_fixe,
     disponibilite: item.disponibilite,
     rarete: item.rarete,
@@ -200,6 +353,7 @@ export function getShopCommun(catalogueId?: string): ShopItem[] {
     stats: 'stats' in item ? (item.stats as StatsMonture | undefined) : undefined,
     origine: 'commun',
   }));
+  return items.map((item) => appliquerReglesObjet(item, catalogueId ?? '', rules, 'commun'));
 }
 
 // Compétences qui donnent accès à toute arme de la bande dans leur
@@ -223,7 +377,8 @@ export function getEquipementBande(
   catalogue: WarbandCatalog,
   profil: Profile | null,
   competencesAcquises: string[] = [],
-  inventaireActuel: InventoryEntry[] = []
+  inventaireActuel: InventoryEntry[] = [],
+  rules: GameRules = DEFAULT_GAME_RULES
 ): ShopItem[] {
   const items: ShopItem[] = [];
   const listes = catalogue.equipement ?? {};
@@ -297,7 +452,7 @@ export function getEquipementBande(
     if (vus.has(item.id)) return false;
     vus.add(item.id);
     return true;
-  });
+  }).map((item) => appliquerReglesObjet(item, catalogue.id, rules, 'bande'));
 }
 
 export function creerEntreeInventaire(item: ShopItem, coutPaye: number): InventoryEntry {
@@ -493,18 +648,22 @@ export function rejoindreGroupe(
 // de son item_id, pour l'affichage au clic (récap "en un coup d'œil",
 // inventaire...). Se rabat sur le simple instantané pris à l'achat
 // (nom/catégorie/coût) si l'objet n'existe plus dans la base commune.
-export function resolveItemDetail(entree: InventoryEntry): ShopItem {
+export function resolveItemDetail(
+  entree: InventoryEntry,
+  catalogueId = '',
+  rules: GameRules = DEFAULT_GAME_RULES
+): ShopItem {
   const item = getItem(entree.item_id);
   if (!item) {
-    return {
+    return appliquerReglesObjet({
       id: entree.item_id,
       nom: entree.nom,
       categorie: entree.categorie,
       cout: entree.cout,
       origine: 'bande',
-    };
+    }, catalogueId, rules, 'paye');
   }
-  return {
+  return appliquerReglesObjet({
     id: item.id,
     nom: item.nom,
     categorie: normaliserCategorie(item.categorie),
@@ -519,7 +678,7 @@ export function resolveItemDetail(entree: InventoryEntry): ShopItem {
     stats: 'stats' in item ? (item.stats as StatsMonture | undefined) : undefined,
     stats_delta: 'stats_delta' in item ? item.stats_delta : undefined,
     origine: 'bande',
-  };
+  }, catalogueId, rules, 'paye');
 }
 
 // Revente d'équipement : moitié du prix payé, arrondie au supérieur.

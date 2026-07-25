@@ -58,20 +58,24 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
             </p>
           );
         })
+      ) : membre.equipement ? (
+        <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+          {membre.equipement}
+        </p>
       ) : (
         <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
           Aucun
         </p>
       )}
 
-      {estSorcier(catalogue, profil.id) && (
+      {estSorcier(catalogue, profil) && (
         <>
           <p className="text-sm mb-0" style={{ marginTop: '0.7rem' }}>
             <strong>Magie — Sort connu</strong>
           </p>
           {membre.sorts_connus.length > 0 ? (
             membre.sorts_connus.map((nom, i) => {
-              const sort = resolveSort(catalogue, nom);
+              const sort = resolveSort(catalogue, nom, profil);
               return (
                 <p key={i} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
                   <strong>{sort ? sort.nom : nom}</strong>

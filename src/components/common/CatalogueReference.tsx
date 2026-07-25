@@ -1,7 +1,10 @@
-import type { WarbandCatalog } from '../../types/catalog';
+import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { getItem } from '../../data/items';
-import { estAccesGenerique, iconeCategorie } from '../../utils/shop';
+import { estAccesGenerique, iconeCategorie, prixAvecRegles } from '../../utils/shop';
+import { magieDuProfil } from '../../utils/magie';
+import { useGameRules } from '../../state/useGameRules';
 import { Icon } from './Icon';
+import { CollapsibleCard } from './CollapsibleCard';
 
 const LISTES_EQUIPEMENT = ['armes_cac', 'armes_tir', 'armures', 'divers'] as const;
 
@@ -73,6 +76,7 @@ function libelleListe(cle: string): string {
 // liste précise...) : les objets génériques de la base commune sont déjà
 // accessibles via le shop intégré et n'ont plus leur place ici.
 export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }) {
+  const { rules } = useGameRules();
   const listesFiltrees = Object.entries(catalogue.equipement ?? {})
     .map(([liste, groupes]) => {
       const parCategorie = LISTES_EQUIPEMENT.map((cat) => ({
@@ -91,8 +95,10 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
   if (!aEquipement && !aObjetsRares) return null;
 
   return (
-    <div className="card card--tight">
-      <h3>Équipement de bande (référence)</h3>
+    <CollapsibleCard
+      preferenceKey="ui.roster.equipement_reference.ouvert"
+      title="Équipement de la bande (référence)"
+    >
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
         Objets propres à cette bande uniquement — texte libre, à titre indicatif. Les objets courants s'achètent
         directement depuis la fiche personnage.
@@ -109,7 +115,8 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
                 .map((it) => {
                   const ref = getItem(it.item_id);
                   const nom = ref?.nom ?? it.item_id;
-                  return `${nom} (${it.cout}${typeof it.cout === 'number' ? ' po' : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`;
+                  const cout = prixAvecRegles(it.item_id, it.cout, catalogue.id, rules, 'bande');
+                  return `${nom} (${cout}${typeof cout === 'number' ? ' po' : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`;
                 })
                 .join(' · ')}
             </p>
@@ -123,11 +130,12 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
           </p>
           {catalogue.equipement_special!.map((it) => {
             const ref = getItem(it.item_id);
+            const cout = prixAvecRegles(it.item_id, it.cout, catalogue.id, rules, 'bande');
             return (
               <p key={it.item_id} className="text-sm mb-0">
                 <Icon name="etoile" style={{ marginRight: '0.35em', color: 'var(--accent)' }} />
-                <strong>{ref?.nom ?? it.item_id}</strong> ({it.cout}
-                {typeof it.cout === 'number' ? ' po' : ''}
+                <strong>{ref?.nom ?? it.item_id}</strong> ({cout}
+                {typeof cout === 'number' ? ' po' : ''}
                 {it.disponibilite ? ` — ${it.disponibilite}` : ''}) — {ref?.texte}
                 {ref?.regles_speciales?.map((r) => ` ${r.nom} : ${r.texte}`).join(' ')}
               </p>
@@ -135,29 +143,35 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
           })}
         </div>
       )}
-    </div>
+    </CollapsibleCard>
   );
 }
 
-// Référence libre du système de magie/prières d'une bande. Si profilId est
-// fourni, la carte ne s'affiche que si ce profil fait partie des
-// utilisateurs (usage : fiche personnage d'un sorcier précis). Sans
-// profilId, s'affiche dès que la bande a un système de magie (usage :
-// résumé de roster global).
-export function MagieReference({ catalogue, profilId }: { catalogue: WarbandCatalog; profilId?: string }) {
-  const magie = catalogue.magie;
+// Référence libre du système de magie/prières. Avec un profil, résout son
+// domaine et mémorise l'état replié de la carte sur sa fiche. Sans profil,
+// affiche le domaine général de la bande dans le résumé du roster.
+export function MagieReference({ catalogue, profil }: { catalogue: WarbandCatalog; profil?: Profile }) {
+  const magie = profil ? magieDuProfil(catalogue, profil) : catalogue.magie;
   if (!magie) return null;
-  if (profilId && !magie.utilisateurs.includes(profilId)) return null;
 
-  return (
-    <div className="card card--tight">
-      <h3>
-        <Icon name="parchemin" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
-        {magie.nom} (référence)
-      </h3>
+  const titre = (
+    <>
+      <Icon name="parchemin" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
+      {magie.nom} (référence)
+    </>
+  );
+
+  const contenu = (
+    <>
       <p className="text-sm text-muted">
-        {magie.type} · dé {magie.de} · utilisateurs :{' '}
-        {magie.utilisateurs.map((id) => catalogue.profils.find((p) => p.id === id)?.nom ?? id).join(', ')}
+        {magie.type} · dé {magie.de}
+        {!profil && magie.utilisateurs.length > 0 && (
+          <>
+            {' '}
+            · utilisateurs :{' '}
+            {magie.utilisateurs.map((id) => catalogue.profils.find((p) => p.id === id)?.nom ?? id).join(', ')}
+          </>
+        )}
         {magie.note && <> · {magie.note}</>}
       </p>
       {magie.sorts.map((s, i) => (
@@ -169,6 +183,21 @@ export function MagieReference({ catalogue, profilId }: { catalogue: WarbandCata
           {s.note && <span className="text-muted"> — {s.note}</span>}
         </p>
       ))}
+    </>
+  );
+
+  if (profil) {
+    return (
+      <CollapsibleCard preferenceKey="ui.personnage.magie_reference.ouvert" title={titre}>
+        {contenu}
+      </CollapsibleCard>
+    );
+  }
+
+  return (
+    <div className="card card--tight">
+      <h3>{titre}</h3>
+      {contenu}
     </div>
   );
 }

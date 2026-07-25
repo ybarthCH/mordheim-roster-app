@@ -2,6 +2,7 @@ import type { Profile, SkillCategory } from '../types/catalog';
 import { SKILL_CATEGORIES } from '../types/catalog';
 import type { Member, RosterInstance } from '../types/roster';
 import { getProfil } from '../data/warbands';
+import { estFrancTireur, getFrancTireur, profilDeFrancTireur } from '../data/hiredSwords';
 
 /**
  * Profil effectif d'un membre : celui du catalogue de la bande, ou le profil
@@ -10,7 +11,10 @@ import { getProfil } from '../data/warbands';
  * compétences choisies à la promotion).
  */
 export function resolveProfil(roster: RosterInstance, membre: Member): Profile | undefined {
-  const base: Profile | undefined = membre.profil_custom
+  const francTireur = getFrancTireur(membre.franc_tireur_id);
+  const base: Profile | undefined = francTireur
+    ? profilDeFrancTireur(francTireur)
+    : membre.profil_custom
     ? {
         id: membre.profil_id,
         nom: membre.profil_custom.nom,
@@ -18,6 +22,8 @@ export function resolveProfil(roster: RosterInstance, membre: Member): Profile |
         cout: membre.profil_custom.cout,
         stats: membre.profil_custom.stats,
         acces_competences: membre.profil_custom.acces_competences,
+        grille_xp: 'homme_de_main',
+        table_avancement: 'heros',
       }
     : getProfil(roster.bande_id, membre.profil_id);
 
@@ -33,6 +39,14 @@ export function resolveProfil(roster: RosterInstance, membre: Member): Profile |
   }
 
   return base;
+}
+
+export function grilleXpDuProfil(profil: Profile): 'heros' | 'homme_de_main' {
+  return profil.grille_xp ?? (profil.type === 'heros' ? 'heros' : 'homme_de_main');
+}
+
+export function tableAvancementDuProfil(profil: Profile): 'heros' | 'homme_de_main' {
+  return profil.table_avancement ?? (profil.type === 'heros' ? 'heros' : 'homme_de_main');
 }
 
 const GRANDE_CIBLE_RE = /^grande?\s*cible$/i;
@@ -62,7 +76,13 @@ export function categoriesAccessibles(profil: Profile): SkillCategory[] {
     profil.acces_competences_a_verifier || profil.acces_competences.length === 0
       ? SKILL_CATEGORIES.map((c) => c.id)
       : profil.acces_competences;
-  if (profil.type !== 'heros' || base.includes('equitation')) return base;
+  if (
+    profil.type !== 'heros' ||
+    profil.acces_equitation_automatique === false ||
+    base.includes('equitation')
+  ) {
+    return base;
+  }
   return [...base, 'equitation'];
 }
 
@@ -76,7 +96,7 @@ export const LIMITE_HEROS = 6;
  */
 export function nombreHeros(roster: RosterInstance): number {
   return roster.membres.filter((m) => {
-    if (m.statut === 'mort') return false;
+    if (m.statut === 'mort' || estFrancTireur(m)) return false;
     return resolveProfil(roster, m)?.type === 'heros';
   }).length;
 }

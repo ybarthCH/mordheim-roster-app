@@ -40,18 +40,18 @@ export function StatutCard({
   onChangerStatut,
   onOpenRecruterGroupe,
 }: StatutCardProps) {
+  const estFrancTireur = !!(membre.franc_tireur_id || membre.profil_custom);
   // Saisie gardée en texte brut : un input contrôlé par un number forcerait
   // la valeur dès l'effacement (impossible de vider le champ pour retaper un
   // chiffre) — la conversion/le plancher ne s'appliquent qu'à l'usage, la
   // valeur n'est répercutée sur le membre que si elle est valide.
   const [tailleGroupeSaisie, setTailleGroupeSaisie] = useState(String(membre.taille_groupe));
-  // Ne resynchronise qu'au changement de personnage affiché (navigation) :
-  // le champ lui-même pilote déjà membre.taille_groupe en écriture (voir
-  // onChange plus bas), l'y re-souscrire aussi en lecture court-circuiterait
-  // la saisie en cours.
+  // Resynchronise la saisie au changement de personnage ou lorsqu'une autre
+  // action modifie la taille du groupe. Une valeur temporairement vide ne
+  // modifie pas membre.taille_groupe et reste donc éditable jusqu'au blur.
   useEffect(() => {
     setTailleGroupeSaisie(String(membre.taille_groupe));
-  }, [membre.instance_id]);
+  }, [membre.instance_id, membre.taille_groupe]);
 
   const statutsDisponibles = estGroupeSimplifie ? STATUTS.filter((s) => s.id === 'actif' || s.id === 'mort') : STATUTS;
 
@@ -87,9 +87,15 @@ export function StatutCard({
             className="input--heading"
           />
           <p className="text-muted text-sm mb-0">
-            {profil.nom} · {profil.type === 'heros' ? 'Héros' : profil.type === 'animal' ? 'Animal' : 'Homme de main'}
+            {profil.nom} ·{' '}
+            {estFrancTireur
+              ? 'Franc-tireur'
+              : profil.type === 'heros'
+                ? 'Héros'
+                : profil.type === 'animal'
+                  ? 'Animal'
+                  : 'Homme de main'}
             {membre.promu_heros && ' (promu)'}
-            {membre.profil_custom && ' · Franc-tireur'}
           </p>
         </div>
         <span className={`badge ${STATUT_BADGE[membre.statut]}`}>

@@ -5,7 +5,7 @@ import type { Profile, SkillCategory, Stats, WarbandCatalog } from '../../types/
 import { Modal } from '../common/Modal';
 import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN } from '../../data/gameData';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
-import { LIMITE_HEROS, categoriesAccessibles } from '../../utils/profil';
+import { LIMITE_HEROS, categoriesAccessibles, tableAvancementDuProfil } from '../../utils/profil';
 import { peutAugmenterStat } from '../../utils/plafond';
 import { estSorcier, sortsDisponibles } from '../../utils/magie';
 import {
@@ -62,7 +62,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
   // restant (après celle du nouveau héros) — pilote le message affiché.
   const [resolutionGroupeRestant, setResolutionGroupeRestant] = useState(false);
 
-  const typeEffectif = tableForcee ?? profil.type;
+  const typeEffectif = tableForcee ?? tableAvancementDuProfil(profil);
   const table = typeEffectif === 'heros' ? TABLE_AVANCEMENT_HEROS : TABLE_AVANCEMENT_HOMMES_DE_MAIN;
 
   const categoriesDisponibles: SkillCategory[] = categoriesAccessibles(profil);
@@ -107,7 +107,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
     } else if (entreeAvancement.type === 'competence') {
       if (profil.acces_seigneur_des_ombres) {
         setEtape('choix_voie_competence');
-      } else if (estSorcier(catalogue, profil.id)) {
+      } else if (estSorcier(catalogue, profil)) {
         setEtape('choix_voie_sort');
       } else {
         setEtape('competence');
@@ -139,10 +139,12 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
   };
 
   const skillsDeLaCategorie = (cat: SkillCategory) =>
-    cat === 'special' ? catalogue.competences_speciales : SKILLS[cat];
+    cat === 'special' ? (profil.competences_speciales ?? catalogue.competences_speciales) : SKILLS[cat];
 
   const nomCompetence = (skillId: string) =>
-    [...Object.values(SKILLS).flat(), ...catalogue.competences_speciales].find((s) => s.id === skillId)?.nom ??
+    [...Object.values(SKILLS).flat(), ...(profil.competences_speciales ?? catalogue.competences_speciales)].find(
+      (s) => s.id === skillId
+    )?.nom ??
     skillId;
 
   const appliquerSeigneurDesOmbres = (resultat: RecompenseResultat) => {
@@ -206,7 +208,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
   };
 
   const choisirCompetence = (skillId: string) => {
-    const skill = [...Object.values(SKILLS).flat(), ...catalogue.competences_speciales].find(
+    const skill = [...Object.values(SKILLS).flat(), ...(profil.competences_speciales ?? catalogue.competences_speciales)].find(
       (s) => s.id === skillId
     );
     if (!skill) return;
@@ -504,7 +506,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
 
       {etape === 'sort' &&
         (() => {
-          const disponibles = sortsDisponibles(catalogue, travail.sorts_connus);
+          const disponibles = sortsDisponibles(catalogue, travail.sorts_connus, profil);
           return (
             <>
               {entreeAvancement && <p className="text-sm text-muted">Résultat {entreeAvancement.label}.</p>}

@@ -24,6 +24,7 @@ export function BlessureGraveModal({ member, onClose, onApply }: Props) {
       date: new Date().toISOString().slice(0, 10),
       description: resultat.texte,
       nom: resultat.nom,
+      effets: resultat.effets.map((effet) => ({ ...effet, id: uuidv4() })),
     };
     const statsActuels = { ...member.stats_actuels };
     const statsModifiees = new Set(member.stats_modifiees);

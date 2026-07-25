@@ -524,6 +524,23 @@ button {
 .field-row > .field {
   flex: 1;
 }
+.quantity-stepper {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  gap: 0.4rem;
+  align-items: stretch;
+}
+.field .quantity-stepper > input {
+  min-width: 0;
+  text-align: center;
+  font-weight: 700;
+}
+.quantity-stepper__button {
+  min-height: 42px;
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+}
 
 .badge {
   display: inline-flex;
@@ -910,6 +927,9 @@ button {
   color: var(--accent);
   font-weight: 700;
 }
+.table-reference tbody tr td.table-reference__col-active {
+  background: var(--accent-soft);
+}
 .table-reference td.table-reference__cell-active {
   background: var(--warning-bg);
   color: var(--warning);
@@ -1039,10 +1059,97 @@ button {
   box-shadow: var(--shadow);
   animation: mordheim-modal-in 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
+.modal-backdrop--fullscreen {
+  align-items: stretch;
+}
+.modal-sheet--fullscreen {
+  max-width: none;
+  max-height: none;
+  height: 100dvh;
+  padding: 0;
+  border-radius: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
 @media (min-width: 600px) {
   .modal-sheet {
     border-radius: var(--radius-lg);
   }
+  .modal-sheet--fullscreen {
+    border-radius: 0;
+  }
+}
+
+.achat-equipement {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 760px);
+  min-height: 100%;
+  margin: 0 auto;
+}
+.achat-equipement__header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: max(1rem, env(safe-area-inset-top)) 1rem 0.85rem;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.achat-equipement__header--selection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.achat-equipement__header-ligne {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.achat-equipement__selection-titre,
+.achat-equipement__item-titre {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+.achat-equipement__selection-titre h3 {
+  min-width: 0;
+}
+.achat-equipement__rarete {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.achat-equipement__contenu {
+  flex: 1;
+  padding: 1rem;
+}
+.achat-equipement__catalogue {
+  margin-top: 0.75rem;
+}
+.achat-equipement__item {
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.achat-equipement__detail {
+  padding-bottom: 1.5rem;
+}
+.achat-equipement__cout {
+  margin-top: 1.25rem;
+}
+.achat-equipement__actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem max(0.75rem, env(safe-area-inset-bottom));
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
 }
 
 @keyframes mordheim-fade-in {

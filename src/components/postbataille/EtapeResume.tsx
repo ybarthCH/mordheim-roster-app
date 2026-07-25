@@ -13,8 +13,11 @@ type EtapeResumeProps = {
   quantiteVendue: number;
   prixVente: number;
   soldeTotal: number;
+  entretienMalepierre: number;
   blessuresTresorerieBonus: number;
-  francTireursActifsCount: number;
+  coutCommerce: number;
+  francTireursPayesCount: number;
+  francsTireursPartants: string[];
   blessureDrafts: Record<string, BlessureDraft>;
   horsDeCombatIndividuel: Member[];
   xpDraftDe: (m: Member, xpParDefaut: number) => XpDraft;
@@ -33,8 +36,11 @@ export function EtapeResume({
   quantiteVendue,
   prixVente,
   soldeTotal,
+  entretienMalepierre,
   blessuresTresorerieBonus,
-  francTireursActifsCount,
+  coutCommerce,
+  francTireursPayesCount,
+  francsTireursPartants,
   blessureDrafts,
   horsDeCombatIndividuel,
   xpDraftDe,
@@ -49,18 +55,32 @@ export function EtapeResume({
         {date} — {resultat} {adversaires.length > 0 && `vs ${adversaires.join(', ')}`}
       </p>
       <p className="text-sm">
-        Wyrdstone : {roster.wyrdstone} → {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue)}
+        Wyrdstone : {roster.wyrdstone} →{' '}
+        {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre)}
         <br />
-        Trésorerie : {roster.tresorerie} → {roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus} po
+        Trésorerie : {roster.tresorerie} →{' '}
+        {roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus - coutCommerce} po
       </p>
       {soldeTotal > 0 && (
         <p className="text-sm">
-          Solde des francs-tireurs à payer : {soldeTotal} po ({francTireursActifsCount} franc(s)-tireur(s)).
+          Solde des francs-tireurs à payer : {soldeTotal} po ({francTireursPayesCount} franc(s)-tireur(s)).
+        </p>
+      )}
+      {entretienMalepierre > 0 && (
+        <p className="text-sm">
+          Entretien en malepierre : {entretienMalepierre} fragment(s).
+        </p>
+      )}
+      {francsTireursPartants.length > 0 && (
+        <p className="text-sm">
+          Départ de la bande : {francsTireursPartants.join(', ')}.{' '}
+          {francsTireursPartants.length === 1 ? 'Son expérience est perdue.' : 'Leur expérience est perdue.'}
         </p>
       )}
       {blessuresTresorerieBonus > 0 && (
         <p className="text-sm">Gains issus des blessures graves résolues : +{blessuresTresorerieBonus} po.</p>
       )}
+      {coutCommerce > 0 && <p className="text-sm">Dépenses de commerce : {coutCommerce} po.</p>}
       <p className="text-sm">
         {Object.values(blessureDrafts).filter((d) => d.description.trim()).length} blessure(s) grave(s) enregistrée(s).
       </p>

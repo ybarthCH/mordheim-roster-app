@@ -20,6 +20,34 @@ export type SeriousInjuryRecord = {
   // l'affichage condensé dans le roster global. Absent sur les
   // enregistrements créés avant son introduction.
   nom?: string;
+  // Effets structurés réellement appliqués par l'assistant. Les anciens
+  // rosters n'en ont pas : le docteur retombe alors sur le nom et le texte
+  // de la blessure pour identifier les cinq traitements possibles.
+  effets?: SeriousInjuryEffect[];
+  // Consultation payée mais dont le résultat 2D6 n'a pas encore été saisi.
+  // Utilisé par le brouillon de l'étape Commerce pour fermer puis rouvrir la
+  // fenêtre sans proposer un second paiement.
+  docteur_effet_en_attente?: string;
+  // Une blessure simple héritée d'un ancien roster peut être marquée soignée
+  // sans disposer d'un tableau `effets` structuré.
+  soignee?: boolean;
+  historique_docteur?: DoctorTreatmentRecord[];
+};
+
+export type SeriousInjuryEffect = {
+  id: string;
+  resultat_id: string;
+  nom: string;
+  stats_delta: Partial<Record<keyof Stats, number>>;
+  notes_ajoutees: string[];
+  traitee?: boolean;
+};
+
+export type DoctorTreatmentRecord = {
+  date: string;
+  jet: number;
+  titre: string;
+  texte: string;
 };
 
 export type AdvanceRecord = {
@@ -105,6 +133,12 @@ export type Member = {
   // Profil "Franc-tireur" : présent uniquement pour une recrue hors
   // catalogue, entièrement définie à la création (voir ProfilFrancTireur).
   profil_custom?: ProfilFrancTireur;
+  // Franc-tireur structuré du catalogue commun. `profil_custom` reste
+  // supporté uniquement pour les anciens exports/imports.
+  franc_tireur_id?: string;
+  // Un Geôlier conservé sans payer sa solde doit manquer la bataille
+  // suivante. Le drapeau est consommé au prochain post-bataille.
+  franc_tireur_impaye?: boolean;
   // Homme de main ayant obtenu "Ce gars est doué" : traité comme un héros
   // (grille XP à 90, table d'avancement héros) à partir de là.
   promu_heros?: boolean;
@@ -130,6 +164,18 @@ export type JournalPostBataille = {
   quantiteVendue: number;
   prixVente: number;
   soldeFrancsTireurs: number;
+  entretienFrancsTireurs?: {
+    nom: string;
+    decision: 'paye' | 'renvoye' | 'exempte' | 'gratuit' | 'depart_automatique';
+    coutOr: number;
+    coutMalepierre: number;
+  }[];
+  commerce?: {
+    nom: string;
+    action: 'aucune' | 'recherche_rare' | 'docteur';
+    detail: string;
+    cout: number;
+  }[];
   tresorerieApres: number;
   blessures: { nom: string; description: string }[];
   survie: { nom: string; survecu: boolean }[];
