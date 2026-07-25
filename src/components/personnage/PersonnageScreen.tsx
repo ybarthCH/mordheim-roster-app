@@ -37,12 +37,14 @@ import {
   entreesLieesAuGroupe,
   resumeInventaireParItem,
   formatEquipementAffiche,
+  inventaireComplet,
   resolveItemDetail,
   prixVente,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { InventoryEntry } from '../../types/roster';
 import { getFrancTireur } from '../../data/hiredSwords';
+import { useGameRules } from '../../state/useGameRules';
 
 const GRIMOIRE_DE_MAGIE_ID = 'grimoire_de_magie';
 
@@ -50,6 +52,7 @@ export function PersonnageScreen() {
   const { id, instanceId } = useParams<{ id: string; instanceId: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
+  const { rules } = useGameRules();
   const roster = getRosterById(id ?? '');
   const [modalAvancee, setModalAvancee] = useState(false);
   const [modalBlessure, setModalBlessure] = useState(false);
@@ -420,6 +423,7 @@ export function PersonnageScreen() {
           tresorerie={roster.tresorerie}
           competencesAcquises={membre.competences_acquises}
           inventaireActuel={membre.inventaire}
+          inventaireBande={inventaireComplet(roster)}
           tailleGroupe={membre.taille_groupe || 1}
           onClose={() => setModalAchat(false)}
           onAchat={acheterItem}
@@ -434,7 +438,12 @@ export function PersonnageScreen() {
           onConfirm={updateRoster}
         />
       )}
-      {itemDetail && <ItemDetailModal item={resolveItemDetail(itemDetail)} onClose={() => setItemDetail(null)} />}
+      {itemDetail && (
+        <ItemDetailModal
+          item={resolveItemDetail(itemDetail, catalogue.id, rules)}
+          onClose={() => setItemDetail(null)}
+        />
+      )}
       {venteEnCours && (
         <Modal onClose={() => setVenteEnCours(null)}>
           {(() => {

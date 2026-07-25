@@ -9,11 +9,13 @@ import {
   classeRarete,
   resumeItem,
   CATEGORIE_ORDRE,
+  TRINKETS_LIMITES,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
 import type { InventoryEntry } from '../../types/roster';
+import { useGameRules } from '../../state/useGameRules';
 
 type Props = {
   catalogue: WarbandCatalog;
@@ -26,6 +28,9 @@ type Props = {
   // à détecter les objets déjà possédés d'un même `groupe_prix` (ex :
   // Bénédictions de Nurgle) pour appliquer le doublement de prix.
   inventaireActuel?: InventoryEntry[];
+  // Ensemble du stock et des inventaires de tous les membres. Sert aux
+  // limites qui s'appliquent à l'échelle de la bande entière.
+  inventaireBande?: InventoryEntry[];
   // Taille du groupe d'hommes de main ciblé (1 pour un héros ou l'armurerie
   // de bande) : l'équipement d'un groupe doit rester identique entre toutes
   // ses figurines, l'achat porte donc automatiquement sur `tailleGroupe`
@@ -53,11 +58,13 @@ export function AchatEquipementModal({
   tresorerie,
   competencesAcquises = [],
   inventaireActuel = [],
+  inventaireBande = [],
   tailleGroupe = 1,
   gratuit = false,
   onClose,
   onAchat,
 }: Props) {
+  const { rules } = useGameRules();
   const [source, setSource] = useState<'bande' | 'commun'>('bande');
   const [categorieFiltre, setCategorieFiltre] = useState<string | null>(null);
   const [recherche, setRecherche] = useState('');
@@ -65,10 +72,10 @@ export function AchatEquipementModal({
   const [coutSaisi, setCoutSaisi] = useState('');
 
   const itemsBande = useMemo(
-    () => getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel),
-    [catalogue, profil, competencesAcquises, inventaireActuel]
+    () => getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel, rules),
+    [catalogue, profil, competencesAcquises, inventaireActuel, rules]
   );
-  const itemsCommun = useMemo(() => getShopCommun(catalogue.id), [catalogue.id]);
+  const itemsCommun = useMemo(() => getShopCommun(catalogue.id, rules), [catalogue.id, rules]);
   const items = source === 'bande' ? itemsBande : itemsCommun;
 
   const categoriesDisponibles = useMemo(() => {
@@ -99,9 +106,14 @@ export function AchatEquipementModal({
   const cout = Number(coutSaisi);
   const coutValide = coutSaisi.trim() !== '' && !Number.isNaN(cout) && cout >= 0;
   const coutTotal = cout * tailleGroupe;
+  const trinketLimite =
+    !!itemSelectionne &&
+    rules.trinketsLimites &&
+    TRINKETS_LIMITES.has(itemSelectionne.id) &&
+    (inventaireBande.some((entree) => entree.item_id === itemSelectionne.id) || tailleGroupe > 1);
 
   const confirmer = () => {
-    if (!itemSelectionne || !coutValide) return;
+    if (!itemSelectionne || !coutValide || trinketLimite) return;
     onAchat(itemSelectionne, cout);
     onClose();
   };
@@ -286,6 +298,14 @@ export function AchatEquipementModal({
             {!gratuit && coutValide && coutTotal > tresorerie && (
               <p className="text-danger text-sm">Trésorerie insuffisante ({tresorerie} po disponibles).</p>
             )}
+            {trinketLimite && (
+              <p className="text-danger text-sm">
+                Limite atteinte : cet objet est limité à un exemplaire par bande
+                {tailleGroupe > 1 && !inventaireBande.some((entree) => entree.item_id === itemSelectionne.id)
+                  ? ` et cet achat en ajouterait ${tailleGroupe}.`
+                  : '.'}
+              </p>
+            )}
           </div>
         )}
 
@@ -293,7 +313,11 @@ export function AchatEquipementModal({
           <button className="btn" onClick={onClose}>
             Annuler
           </button>
-          <button className="btn btn--primary" disabled={!itemSelectionne || !coutValide} onClick={confirmer}>
+          <button
+            className="btn btn--primary"
+            disabled={!itemSelectionne || !coutValide || trinketLimite}
+            onClick={confirmer}
+          >
             {gratuit ? 'Ajouter' : 'Acheter'}
           </button>
         </div>

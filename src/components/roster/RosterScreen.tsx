@@ -25,16 +25,19 @@ import {
   transfererVersMembre,
   creerEntreeInventaire,
   formatEquipementAffiche,
+  inventaireComplet,
   prixVente,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { Icon } from '../common/Icon';
 import { estFrancTireur } from '../../data/hiredSwords';
+import { useGameRules } from '../../state/useGameRules';
 
 export function RosterScreen() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
+  const { rules } = useGameRules();
   const roster = getRosterById(id ?? '');
   const [modalMembre, setModalMembre] = useState(false);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
@@ -229,6 +232,8 @@ export function RosterScreen() {
       <ArmurerieSection
         roster={roster}
         catalogue={catalogue}
+        inventaireBande={inventaireComplet(roster)}
+        rules={rules}
         onAchat={acheterPourArmurerie}
         onDonner={donnerAMembre}
         onVendre={vendreStock}

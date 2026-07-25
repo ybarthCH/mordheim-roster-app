@@ -4,9 +4,10 @@ import type { RosterInstance } from '../../types/roster';
 import { getCatalogue } from '../../data/warbands';
 import { peutAjouterMembre } from '../../utils/validation';
 import { creerMembre } from '../../utils/factory';
-import { calculerCoutRejoindreGroupe, rejoindreGroupe } from '../../utils/shop';
+import { calculerCoutRejoindreGroupe, rejoindreGroupe, TRINKETS_LIMITES } from '../../utils/shop';
 import { estSorcier, sortsDisponibles } from '../../utils/magie';
 import { Modal } from '../common/Modal';
+import { useGameRules } from '../../state/useGameRules';
 
 const FRANC_TIREUR = '__franc_tireur__';
 
@@ -18,6 +19,7 @@ type Props = {
 
 export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const navigate = useNavigate();
+  const { rules } = useGameRules();
   const catalogue = getCatalogue(roster.bande_id);
   const [profilId, setProfilId] = useState('');
   const [nomPerso, setNomPerso] = useState('');
@@ -63,6 +65,10 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const coutRejoindre = groupeCible ? calculerCoutRejoindreGroupe(groupeCible, coutUnitaire, quantite) : null;
   const coutTotal = coutRejoindre ? coutRejoindre.coutTotal : coutUnitaire * quantite;
   const budgetSuffisant = coutTotal <= roster.tresorerie;
+  const dupliqueraitTrinket =
+    !!groupeCible &&
+    rules.trinketsLimites &&
+    groupeCible.inventaire.some((entree) => TRINKETS_LIMITES.has(entree.item_id));
 
   const choisirProfil = (value: string) => {
     if (value === FRANC_TIREUR) {
@@ -86,7 +92,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   };
 
   const confirmer = () => {
-    if (!profil || !check.ok || !coutManuelValide) return;
+    if (!profil || !check.ok || !coutManuelValide || dupliqueraitTrinket) return;
     if (premierSortRequis && !sortChoisi) return;
     if (!groupeCible && xpDepart === 0 && !confirmationXp0) {
       setConfirmationXp0(true);
@@ -239,6 +245,12 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                 Coût indicatif en points vétéran : {coutRejoindre.vetPointsIndicatifs} (non contrôlé — libre à toi de
                 recruter même sans les points suffisants).
               </p>
+              {dupliqueraitTrinket && (
+                <p className="text-danger text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                  Recrutement bloqué : l'équipement du groupe contient un objet limité à un exemplaire par bande et
+                  serait automatiquement dupliqué.
+                </p>
+              )}
             </div>
           ) : (
             <div className="field">
@@ -266,7 +278,9 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
         </button>
         <button
           className="btn btn--primary"
-          disabled={!profil || !check.ok || !coutManuelValide || (premierSortRequis && !sortChoisi)}
+          disabled={
+            !profil || !check.ok || !coutManuelValide || dupliqueraitTrinket || (premierSortRequis && !sortChoisi)
+          }
           onClick={confirmer}
         >
           {confirmationXp0 && !groupeCible

@@ -7,19 +7,31 @@ import { iconeCategorie, libelleCategorie, resolveItemDetail, prixVente } from '
 import type { ShopItem } from '../../utils/shop';
 import type { RosterInstance, Member, InventoryEntry } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
+import type { GameRules } from '../../types/rules';
 
 const nomAffiche = (m: Member) => `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
 
 type ArmurerieSectionProps = {
   roster: RosterInstance;
   catalogue: WarbandCatalog | undefined;
+  inventaireBande: InventoryEntry[];
+  rules: GameRules;
   onAchat: (item: ShopItem, coutPaye: number) => void;
   onDonner: (instanceId: string, membreId: string) => void;
   onVendre: (instanceId: string) => void;
   onRetirer: (instanceId: string) => void;
 };
 
-export function ArmurerieSection({ roster, catalogue, onAchat, onDonner, onVendre, onRetirer }: ArmurerieSectionProps) {
+export function ArmurerieSection({
+  roster,
+  catalogue,
+  inventaireBande,
+  rules,
+  onAchat,
+  onDonner,
+  onVendre,
+  onRetirer,
+}: ArmurerieSectionProps) {
   const [modalAchat, setModalAchat] = useState(false);
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
   const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
@@ -89,11 +101,17 @@ export function ArmurerieSection({ roster, catalogue, onAchat, onDonner, onVendr
           catalogue={catalogue}
           profil={null}
           tresorerie={roster.tresorerie}
+          inventaireBande={inventaireBande}
           onClose={() => setModalAchat(false)}
           onAchat={onAchat}
         />
       )}
-      {itemDetail && <ItemDetailModal item={resolveItemDetail(itemDetail)} onClose={() => setItemDetail(null)} />}
+      {itemDetail && catalogue && (
+        <ItemDetailModal
+          item={resolveItemDetail(itemDetail, catalogue.id, rules)}
+          onClose={() => setItemDetail(null)}
+        />
+      )}
       {venteEnCours && (
         <Modal onClose={() => setVenteEnCours(null)}>
           <h3>Vendre {venteEnCours.nom} ?</h3>

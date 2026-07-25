@@ -1,7 +1,8 @@
 import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { getItem } from '../../data/items';
-import { estAccesGenerique, iconeCategorie } from '../../utils/shop';
+import { estAccesGenerique, iconeCategorie, prixAvecRegles } from '../../utils/shop';
 import { magieDuProfil } from '../../utils/magie';
+import { useGameRules } from '../../state/useGameRules';
 import { Icon } from './Icon';
 import { CollapsibleCard } from './CollapsibleCard';
 
@@ -75,6 +76,7 @@ function libelleListe(cle: string): string {
 // liste précise...) : les objets génériques de la base commune sont déjà
 // accessibles via le shop intégré et n'ont plus leur place ici.
 export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }) {
+  const { rules } = useGameRules();
   const listesFiltrees = Object.entries(catalogue.equipement ?? {})
     .map(([liste, groupes]) => {
       const parCategorie = LISTES_EQUIPEMENT.map((cat) => ({
@@ -113,7 +115,8 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
                 .map((it) => {
                   const ref = getItem(it.item_id);
                   const nom = ref?.nom ?? it.item_id;
-                  return `${nom} (${it.cout}${typeof it.cout === 'number' ? ' po' : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`;
+                  const cout = prixAvecRegles(it.item_id, it.cout, catalogue.id, rules, 'bande');
+                  return `${nom} (${cout}${typeof cout === 'number' ? ' po' : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`;
                 })
                 .join(' · ')}
             </p>
@@ -127,11 +130,12 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
           </p>
           {catalogue.equipement_special!.map((it) => {
             const ref = getItem(it.item_id);
+            const cout = prixAvecRegles(it.item_id, it.cout, catalogue.id, rules, 'bande');
             return (
               <p key={it.item_id} className="text-sm mb-0">
                 <Icon name="etoile" style={{ marginRight: '0.35em', color: 'var(--accent)' }} />
-                <strong>{ref?.nom ?? it.item_id}</strong> ({it.cout}
-                {typeof it.cout === 'number' ? ' po' : ''}
+                <strong>{ref?.nom ?? it.item_id}</strong> ({cout}
+                {typeof cout === 'number' ? ' po' : ''}
                 {it.disponibilite ? ` — ${it.disponibilite}` : ''}) — {ref?.texte}
                 {ref?.regles_speciales?.map((r) => ` ${r.nom} : ${r.texte}`).join(' ')}
               </p>

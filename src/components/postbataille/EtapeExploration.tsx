@@ -11,6 +11,7 @@ import {
 } from '../../data/tableVenteWyrdstone';
 import { TABLE_FRAGMENTS_TROUVES, fragmentsTrouves } from '../../data/tableExplorationWyrdstone';
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
+import { inventaireComplet } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 
 type EtapeExplorationProps = {
@@ -197,6 +198,7 @@ export function EtapeExploration({
           catalogue={catalogue}
           profil={null}
           tresorerie={roster.tresorerie}
+          inventaireBande={inventaireComplet(roster)}
           gratuit
           onClose={() => setModalAchat(false)}
           onAchat={onAchatStock}
