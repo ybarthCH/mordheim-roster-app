@@ -8,7 +8,7 @@ import type { Member, RosterInstance } from '../../types/roster';
 import { creerMembre, creerRoster } from '../../utils/factory';
 import { peutAjouterMembre } from '../../utils/validation';
 import { estSorcier, sortsDisponibles } from '../../utils/magie';
-import { useRosters } from '../../state/RostersContext';
+import { useRosters } from '../../state/useRosters';
 
 const BUDGET_PAR_DEFAUT = 500;
 

@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
-import { useRosters } from '../../state/RostersContext';
+import { useRosters } from '../../state/useRosters';
 import { getCatalogue } from '../../data/warbands';
 import { resolveProfil, nombreHeros } from '../../utils/profil';
 import { STAT_KEYS } from '../../types/catalog';

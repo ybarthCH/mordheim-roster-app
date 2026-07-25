@@ -1,6 +1,6 @@
 import { Screen } from '../common/Screen';
-import { useTheme } from '../../state/ThemeContext';
-import type { Palette } from '../../state/ThemeContext';
+import { useTheme } from '../../state/useTheme';
+import type { Palette } from '../../state/useTheme';
 
 const THEMES = [
   { value: 'light', label: 'Clair' },

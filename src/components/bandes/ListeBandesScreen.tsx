@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRosters } from '../../state/RostersContext';
+import { useRosters } from '../../state/useRosters';
 import { ThemeToggle } from '../common/ThemeToggle';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';

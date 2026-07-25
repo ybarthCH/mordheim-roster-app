@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
-import { useRosters } from '../../state/RostersContext';
+import { useRosters } from '../../state/useRosters';
 import { creerMembreFrancTireurCatalogue } from '../../utils/factory';
 import {
   disponibiliteFrancTireur,

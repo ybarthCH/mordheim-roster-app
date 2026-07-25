@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRosters } from '../../state/RostersContext';
+import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
 import { grilleXpDuProfil, resolveProfil, nombreHeros } from '../../utils/profil';
 import { getCatalogue } from '../../data/warbands';
