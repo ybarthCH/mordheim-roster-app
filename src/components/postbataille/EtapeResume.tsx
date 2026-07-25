@@ -15,6 +15,7 @@ type EtapeResumeProps = {
   soldeTotal: number;
   entretienMalepierre: number;
   blessuresTresorerieBonus: number;
+  coutCommerce: number;
   francTireursPayesCount: number;
   francsTireursPartants: string[];
   blessureDrafts: Record<string, BlessureDraft>;
@@ -37,6 +38,7 @@ export function EtapeResume({
   soldeTotal,
   entretienMalepierre,
   blessuresTresorerieBonus,
+  coutCommerce,
   francTireursPayesCount,
   francsTireursPartants,
   blessureDrafts,
@@ -56,7 +58,8 @@ export function EtapeResume({
         Wyrdstone : {roster.wyrdstone} →{' '}
         {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre)}
         <br />
-        Trésorerie : {roster.tresorerie} → {roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus} po
+        Trésorerie : {roster.tresorerie} →{' '}
+        {roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus - coutCommerce} po
       </p>
       {soldeTotal > 0 && (
         <p className="text-sm">
@@ -77,6 +80,7 @@ export function EtapeResume({
       {blessuresTresorerieBonus > 0 && (
         <p className="text-sm">Gains issus des blessures graves résolues : +{blessuresTresorerieBonus} po.</p>
       )}
+      {coutCommerce > 0 && <p className="text-sm">Dépenses de commerce : {coutCommerce} po.</p>}
       <p className="text-sm">
         {Object.values(blessureDrafts).filter((d) => d.description.trim()).length} blessure(s) grave(s) enregistrée(s).
       </p>

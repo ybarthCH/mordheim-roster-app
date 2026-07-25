@@ -330,7 +330,11 @@ export function PersonnageScreen() {
 
       <ReglesSpecialesCard membre={membre} onMajMembre={majMembre} />
 
-      <BlessuresGravesCard membre={membre} onOpenAjout={() => setModalBlessure(true)} onSupprimer={supprimerBlessure} />
+      <BlessuresGravesCard
+        membre={membre}
+        onOpenAjout={() => setModalBlessure(true)}
+        onSupprimer={supprimerBlessure}
+      />
 
       {profil.type === 'heros' && (
         <div className="card">

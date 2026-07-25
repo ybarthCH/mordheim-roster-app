@@ -13,6 +13,7 @@ import { TABLE_FRAGMENTS_TROUVES, fragmentsTrouves } from '../../data/tableExplo
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
 import { inventaireComplet } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
+import type { ResumeExploration } from '../../utils/exploration';
 
 type EtapeExplorationProps = {
   roster: RosterInstance;
@@ -28,6 +29,7 @@ type EtapeExplorationProps = {
   pointsVeteran: number;
   onPointsVeteranChange: (v: number) => void;
   onAchatStock: (item: ShopItem, coutPaye: number) => void;
+  resumeExploration: ResumeExploration;
 };
 
 export function EtapeExploration({
@@ -44,6 +46,7 @@ export function EtapeExploration({
   pointsVeteran,
   onPointsVeteranChange,
   onAchatStock,
+  resumeExploration,
 }: EtapeExplorationProps) {
   const [modalAchat, setModalAchat] = useState(false);
   const [sommeDes, setSommeDes] = useState('');
@@ -61,6 +64,42 @@ export function EtapeExploration({
   return (
     <div className="card">
       <h3>Exploration &amp; wyrdstone</h3>
+      <div className="card card--tight" style={{ marginBottom: '0.8rem' }}>
+        <p className="mb-0">
+          Lance <strong>{resumeExploration.totalDesALancer}D6</strong> :
+          {' '}{resumeExploration.desHeros} pour les Héros ayant participé sans être mis Hors de combat
+          {resumeExploration.bonusVictoire > 0 ? ' + 1 pour la victoire' : ''}
+          {resumeExploration.bonusFixes > 0
+            ? ` + ${resumeExploration.bonusFixes} dû aux règles de la bande`
+            : ''}.
+        </p>
+        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.35rem' }}>
+          Tu peux lancer plus de six dés, mais tu dois en choisir au maximum six pour former le résultat
+          d'exploration.
+        </p>
+        {resumeExploration.herosEligibles.length > 0 && (
+          <p className="text-sm mb-0" style={{ marginTop: '0.35rem' }}>
+            <strong>Héros qui fournissent un dé :</strong>{' '}
+            {resumeExploration.herosEligibles.map((membre) => membre.nom_perso).join(', ')}.
+          </p>
+        )}
+      </div>
+
+      {resumeExploration.aides.length > 0 && (
+        <div className="card card--tight" style={{ marginBottom: '0.8rem', borderColor: 'var(--warning)' }}>
+          <strong>Aides à l'exploration détectées</strong>
+          {resumeExploration.aides.map((aide) => (
+            <p key={`${aide.source}-${aide.texte}`} className="text-sm mb-0" style={{ marginTop: '0.35rem' }}>
+              <strong>{aide.source}</strong> — {aide.texte}
+            </p>
+          ))}
+          <p className="text-sm text-muted mb-0" style={{ marginTop: '0.45rem' }}>
+            Ces règles ne lancent aucun dé automatiquement. Notamment, <strong>Prospection</strong> accorde une
+            relance d'un dé d'exploration, pas un dé supplémentaire.
+          </p>
+        </div>
+      )}
+
       <p className="text-sm text-muted">Reporte ici le résultat de tes jets d'exploration effectués sur table papier.</p>
       <div className="table-scroll">
         <table className="table-reference">

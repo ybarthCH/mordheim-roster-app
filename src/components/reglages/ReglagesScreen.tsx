@@ -110,6 +110,22 @@ export function ReglagesScreen() {
             </span>
           </span>
         </label>
+
+        <label className="flex items-start gap-sm" style={{ cursor: 'pointer', marginTop: '1rem' }}>
+          <input
+            type="checkbox"
+            checked={rules.sawbonesDocteur}
+            onChange={(e) => setRule('sawbonesDocteur', e.target.checked)}
+          />
+          <span>
+            <strong>Quoi de neuf, docteur ? (Sawbones)</strong>
+            <br />
+            <span className="text-sm text-muted">
+              Active le supplément du médecin pendant l'étape Commerce de la séquence post-bataille. Un Héros peut
+              payer 20 po pour tenter de soigner une blessure au lieu de rechercher un objet rare.
+            </span>
+          </span>
+        </label>
       </div>
     </Screen>
   );
