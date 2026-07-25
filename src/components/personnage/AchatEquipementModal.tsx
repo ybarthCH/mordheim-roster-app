@@ -52,6 +52,15 @@ function synopsis(texte: string | null | undefined): string | null {
   return texte.length > LONGUEUR_SYNOPSIS ? `${texte.slice(0, LONGUEUR_SYNOPSIS).trimEnd()}…` : texte;
 }
 
+function disponibiliteSansRarete(disponibilite: string | undefined, rarete: string | undefined): string | null {
+  if (!disponibilite) return null;
+  if (!rarete) return disponibilite;
+
+  const prefixe = `Rare ${rarete}`;
+  if (disponibilite === prefixe) return null;
+  return disponibilite.startsWith(`${prefixe}, `) ? disponibilite.slice(prefixe.length + 2) : disponibilite;
+}
+
 export function AchatEquipementModal({
   catalogue,
   profil,
@@ -91,6 +100,10 @@ export function AchatEquipementModal({
   }, [items, recherche, categorieFiltre]);
 
   const itemSelectionne = items.find((i) => i.id === itemId) ?? null;
+  const disponibiliteDetail = disponibiliteSansRarete(
+    itemSelectionne?.disponibilite,
+    itemSelectionne?.rarete
+  );
 
   const changerSource = (s: 'bande' | 'commun') => {
     setSource(s);
@@ -119,105 +132,135 @@ export function AchatEquipementModal({
   };
 
   return (
-    <Modal onClose={onClose}>
-      <div style={{ display: 'flex', flexDirection: 'column', height: '80vh', maxHeight: '80vh' }}>
-        <div style={{ flexShrink: 0 }}>
-          <h3 className="mt-0 mb-0">{gratuit ? "Ajouter un objet trouvé" : "Acheter de l'équipement"}</h3>
-          <p className="text-sm text-muted" style={{ marginTop: '0.2rem' }}>
-            {gratuit
-              ? "Objet trouvé gratuitement : n'affecte pas la trésorerie de la bande."
-              : `Trésorerie disponible : ${tresorerie} po.`}{' '}
-            Pas de gestion de rareté ici — les jets de disponibilité se font en jeu.
-          </p>
-
-          <div className="flex gap-sm" style={{ marginBottom: '0.5rem' }}>
-            <button
-              className={`btn btn--sm ${source === 'bande' ? 'btn--primary' : ''}`}
-              onClick={() => changerSource('bande')}
-            >
-              Équipement de la bande
-            </button>
-            <button
-              className={`btn btn--sm ${source === 'commun' ? 'btn--primary' : ''}`}
-              onClick={() => changerSource('commun')}
-            >
-              Shop commun ({itemsCommun.length})
-            </button>
-          </div>
-
-          {categoriesDisponibles.length > 1 && (
-            <div className="tabs" style={{ marginBottom: '0.5rem' }}>
-              <button
-                className={`tabs__btn ${categorieFiltre === null ? 'tabs__btn--active' : ''}`}
-                onClick={() => setCategorieFiltre(null)}
-              >
-                Toutes
-              </button>
-              {categoriesDisponibles.map((cat) => (
-                <button
-                  key={cat}
-                  className={`tabs__btn ${categorieFiltre === cat ? 'tabs__btn--active' : ''}`}
-                  onClick={() => setCategorieFiltre(cat)}
-                >
-                  {iconeCategorie(cat) && <Icon name={iconeCategorie(cat)!} style={{ marginRight: '0.35em' }} />}
-                  {libelleCategorie(cat)}
+    <Modal onClose={onClose} variant="fullscreen">
+      <div className="achat-equipement">
+        {!itemSelectionne ? (
+          <>
+            <header className="achat-equipement__header">
+              <div className="achat-equipement__header-ligne">
+                <h3 className="mt-0 mb-0">{gratuit ? "Ajouter un objet trouvé" : "Acheter de l'équipement"}</h3>
+                <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                  ✕
                 </button>
-              ))}
-            </div>
-          )}
+              </div>
+              <p className="text-sm text-muted mb-0" style={{ marginTop: '0.2rem' }}>
+                {gratuit
+                  ? "Objet trouvé gratuitement : n'affecte pas la trésorerie de la bande."
+                  : `Trésorerie disponible : ${tresorerie} po.`}{' '}
+                Les jets de disponibilité se font en jeu.
+              </p>
+            </header>
 
-          <div className="field" style={{ marginBottom: 0 }}>
-            <input value={recherche} onChange={(e) => setRecherche(e.target.value)} placeholder="Rechercher un objet…" />
-          </div>
-        </div>
+            <div className="achat-equipement__contenu">
+              <div className="flex gap-sm" style={{ marginBottom: '0.5rem' }}>
+                <button
+                  className={`btn btn--sm ${source === 'bande' ? 'btn--primary' : ''}`}
+                  onClick={() => changerSource('bande')}
+                >
+                  Équipement de la bande
+                </button>
+                <button
+                  className={`btn btn--sm ${source === 'commun' ? 'btn--primary' : ''}`}
+                  onClick={() => changerSource('commun')}
+                >
+                  Shop commun ({itemsCommun.length})
+                </button>
+              </div>
 
-        <div
-          style={{
-            flex: 1,
-            minHeight: 0,
-            overflowY: 'auto',
-            border: '1px solid var(--border)',
-            borderRadius: 'var(--radius)',
-            margin: '0.6rem 0',
-          }}
-        >
-          {itemsFiltres.length === 0 && (
-            <p className="text-muted text-sm" style={{ padding: '0.6rem' }}>
-              Aucun objet.
-            </p>
-          )}
-          {itemsFiltres.map((item) => (
-            <div
-              key={item.id}
-              className="list-item"
-              role="button"
-              onClick={() => choisir(item)}
-              style={{
-                cursor: 'pointer',
-                background: itemId === item.id ? 'var(--bg-inset)' : undefined,
-              }}
-            >
-              <div className="list-item__main">
-                <div className="list-item__title">{item.nom}</div>
-                <div className="list-item__subtitle">
-                  {iconeCategorie(item.categorie) && (
-                    <Icon name={iconeCategorie(item.categorie)!} style={{ marginRight: '0.35em' }} />
-                  )}
-                  {libelleCategorie(item.categorie)} · {typeof item.cout === 'number' ? `${item.cout} po` : item.cout}
+              {categoriesDisponibles.length > 1 && (
+                <div className="tabs" style={{ marginBottom: '0.5rem' }}>
+                  <button
+                    className={`tabs__btn ${categorieFiltre === null ? 'tabs__btn--active' : ''}`}
+                    onClick={() => setCategorieFiltre(null)}
+                  >
+                    Toutes
+                  </button>
+                  {categoriesDisponibles.map((cat) => (
+                    <button
+                      key={cat}
+                      className={`tabs__btn ${categorieFiltre === cat ? 'tabs__btn--active' : ''}`}
+                      onClick={() => setCategorieFiltre(cat)}
+                    >
+                      {iconeCategorie(cat) && <Icon name={iconeCategorie(cat)!} style={{ marginRight: '0.35em' }} />}
+                      {libelleCategorie(cat)}
+                    </button>
+                  ))}
                 </div>
-                {synopsis(resumeItem(item)) && (
-                  <div className="list-item__subtitle" style={{ marginTop: '0.2rem' }}>
-                    {synopsis(resumeItem(item))}
-                  </div>
-                )}
+              )}
+
+              <div className="field">
+                <input
+                  value={recherche}
+                  onChange={(e) => setRecherche(e.target.value)}
+                  placeholder="Rechercher un objet…"
+                />
+              </div>
+
+              <div className="achat-equipement__catalogue">
+                {itemsFiltres.length === 0 && <p className="text-muted text-sm">Aucun objet.</p>}
+                {itemsFiltres.map((item) => {
+                  const rareteClasse = classeRarete(item.rarete);
+                  return (
+                    <button
+                      type="button"
+                      key={item.id}
+                      className="list-item achat-equipement__item"
+                      onClick={() => choisir(item)}
+                    >
+                      <div className="list-item__main">
+                        <div className="achat-equipement__item-titre">
+                          <span className="list-item__title">{item.nom}</span>
+                          {rareteClasse && (
+                            <span className={`badge ${rareteClasse} achat-equipement__rarete`}>
+                              Rare {item.rarete}
+                            </span>
+                          )}
+                        </div>
+                        <div className="list-item__subtitle">
+                          {iconeCategorie(item.categorie) && (
+                            <Icon name={iconeCategorie(item.categorie)!} style={{ marginRight: '0.35em' }} />
+                          )}
+                          {libelleCategorie(item.categorie)} ·{' '}
+                          {typeof item.cout === 'number' ? `${item.cout} po` : item.cout}
+                        </div>
+                        {synopsis(resumeItem(item)) && (
+                          <div className="list-item__subtitle" style={{ marginTop: '0.2rem' }}>
+                            {synopsis(resumeItem(item))}
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
-          ))}
-        </div>
 
-        {itemSelectionne && (
-          <div style={{ flexShrink: 0, borderTop: '1px solid var(--border)', paddingTop: '0.6rem' }}>
-            <div style={{ maxHeight: '24vh', overflowY: 'auto' }}>
+          </>
+        ) : (
+          <>
+            <header className="achat-equipement__header achat-equipement__header--selection">
+              <div className="achat-equipement__header-ligne">
+                <button className="btn btn--sm" onClick={() => setItemId('')}>
+                  ← Catalogue
+                </button>
+                <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                  ✕
+                </button>
+              </div>
+              <div className="achat-equipement__selection-titre">
+                <h3 className="mt-0 mb-0">{itemSelectionne.nom}</h3>
+                {classeRarete(itemSelectionne.rarete) && (
+                  <span className={`badge ${classeRarete(itemSelectionne.rarete)} achat-equipement__rarete`}>
+                    Rare {itemSelectionne.rarete}
+                  </span>
+                )}
+              </div>
+              <p className="text-sm text-muted mb-0">
+                {gratuit ? "Ajouter cet objet à l'inventaire" : `Trésorerie disponible : ${tresorerie} po.`}
+              </p>
+            </header>
+
+            <div className="achat-equipement__contenu achat-equipement__detail">
               {itemSelectionne.stats && (
                 <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
                   {STAT_KEYS.map((k) => (
@@ -241,22 +284,19 @@ export function AchatEquipementModal({
                   )}
                 </div>
               )}
-              {classeRarete(itemSelectionne.rarete) && (
-                <span className={`badge ${classeRarete(itemSelectionne.rarete)}`} style={{ marginBottom: '0.3rem' }}>
-                  Rare {itemSelectionne.rarete}
-                </span>
-              )}
               {itemSelectionne.stats_delta && (
                 <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
                   <strong>Effet permanent</strong> —{' '}
-                  {STAT_KEYS.filter((k) => itemSelectionne.stats_delta![k]).map((k) => {
-                    const v = itemSelectionne.stats_delta![k]!;
-                    return `${v > 0 ? '+' : ''}${v} ${k}`;
-                  }).join(', ')}
+                  {STAT_KEYS.filter((k) => itemSelectionne.stats_delta![k])
+                    .map((k) => {
+                      const v = itemSelectionne.stats_delta![k]!;
+                      return `${v > 0 ? '+' : ''}${v} ${k}`;
+                    })
+                    .join(', ')}
                 </p>
               )}
-              {itemSelectionne.disponibilite && (
-                <p className="text-sm text-muted mb-0">{itemSelectionne.disponibilite}</p>
+              {disponibiliteDetail && (
+                <p className="text-sm text-muted mb-0">{disponibiliteDetail}</p>
               )}
               {itemSelectionne.regles_speciales?.map((r) => (
                 <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
@@ -268,59 +308,60 @@ export function AchatEquipementModal({
                   {itemSelectionne.texte}
                 </p>
               )}
-            </div>
-            <div className="field">
-              <label>
-                {gratuit ? `Valeur de l'objet (po)` : `Coût payé (po${tailleGroupe > 1 ? ' / figurine' : ''})`}{' '}
-                {!itemSelectionne.cout_fixe && (
-                  <span className="text-muted">— notation : {itemSelectionne.cout}</span>
+
+              <div className="field achat-equipement__cout">
+                <label>
+                  {gratuit ? `Valeur de l'objet (po)` : `Coût payé (po${tailleGroupe > 1 ? ' / figurine' : ''})`}{' '}
+                  {!itemSelectionne.cout_fixe && (
+                    <span className="text-muted">— notation : {itemSelectionne.cout}</span>
+                  )}
+                </label>
+                <input
+                  type="number"
+                  min={0}
+                  value={coutSaisi}
+                  onChange={(e) => setCoutSaisi(e.target.value)}
+                  placeholder={!itemSelectionne.cout_fixe ? 'Résultat du jet, ex : 42' : undefined}
+                />
+                {gratuit && (
+                  <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+                    Sert uniquement de référence pour une revente future — rien n'est déduit de la trésorerie.
+                  </p>
                 )}
-              </label>
-              <input
-                type="number"
-                min={0}
-                value={coutSaisi}
-                onChange={(e) => setCoutSaisi(e.target.value)}
-                placeholder={!itemSelectionne.cout_fixe ? 'Résultat du jet, ex : 42' : undefined}
-              />
-              {gratuit && (
-                <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-                  Sert uniquement de référence pour une revente future — rien n'est déduit de la trésorerie.
+              </div>
+              {!gratuit && tailleGroupe > 1 && coutValide && (
+                <p className="text-sm text-muted">
+                  Groupe de {tailleGroupe} figurines identiques : {tailleGroupe} exemplaires achetés pour {coutTotal} po
+                  au total.
+                </p>
+              )}
+              {!gratuit && coutValide && coutTotal > tresorerie && (
+                <p className="text-danger text-sm">Trésorerie insuffisante ({tresorerie} po disponibles).</p>
+              )}
+              {trinketLimite && (
+                <p className="text-danger text-sm">
+                  Limite atteinte : cet objet est limité à un exemplaire par bande
+                  {tailleGroupe > 1 && !inventaireBande.some((entree) => entree.item_id === itemSelectionne.id)
+                    ? ` et cet achat en ajouterait ${tailleGroupe}.`
+                    : '.'}
                 </p>
               )}
             </div>
-            {!gratuit && tailleGroupe > 1 && coutValide && (
-              <p className="text-sm text-muted">
-                Groupe de {tailleGroupe} figurines identiques : {tailleGroupe} exemplaires achetés pour {coutTotal} po
-                au total.
-              </p>
-            )}
-            {!gratuit && coutValide && coutTotal > tresorerie && (
-              <p className="text-danger text-sm">Trésorerie insuffisante ({tresorerie} po disponibles).</p>
-            )}
-            {trinketLimite && (
-              <p className="text-danger text-sm">
-                Limite atteinte : cet objet est limité à un exemplaire par bande
-                {tailleGroupe > 1 && !inventaireBande.some((entree) => entree.item_id === itemSelectionne.id)
-                  ? ` et cet achat en ajouterait ${tailleGroupe}.`
-                  : '.'}
-              </p>
-            )}
-          </div>
-        )}
 
-        <div className="flex gap-sm" style={{ marginTop: '0.8rem', flexShrink: 0 }}>
-          <button className="btn" onClick={onClose}>
-            Annuler
-          </button>
-          <button
-            className="btn btn--primary"
-            disabled={!itemSelectionne || !coutValide || trinketLimite}
-            onClick={confirmer}
-          >
-            {gratuit ? 'Ajouter' : 'Acheter'}
-          </button>
-        </div>
+            <footer className="achat-equipement__actions">
+              <button className="btn" onClick={() => setItemId('')}>
+                Retour
+              </button>
+              <button
+                className="btn btn--primary"
+                disabled={!coutValide || trinketLimite}
+                onClick={confirmer}
+              >
+                {gratuit ? 'Ajouter' : 'Acheter'}
+              </button>
+            </footer>
+          </>
+        )}
       </div>
     </Modal>
   );
