@@ -10,6 +10,7 @@ type EquipementCardProps = {
   onRenvoyer: (instanceId: string) => void;
   onVendre: (entree: InventoryEntry) => void;
   onRetirer: (instanceId: string) => void;
+  verrouille?: boolean;
 };
 
 export function EquipementCard({
@@ -20,6 +21,7 @@ export function EquipementCard({
   onRenvoyer,
   onVendre,
   onRetirer,
+  verrouille = false,
 }: EquipementCardProps) {
   return (
     <div className="card">
@@ -28,10 +30,21 @@ export function EquipementCard({
           <Icon name="epee" style={{ marginRight: '0.35em' }} />
           Équipement
         </h3>
-        <button className="btn btn--sm btn--primary" onClick={onOpenAchat}>
-          + Acheter
-        </button>
+        {!verrouille && (
+          <button className="btn btn--sm btn--primary" onClick={onOpenAchat}>
+            + Acheter
+          </button>
+        )}
       </div>
+      {verrouille && (
+        <p className="text-sm">
+          {membre.equipement || 'Aucun équipement'}
+          <br />
+          <span className="text-muted">
+            Équipement fourni avec le contrat : il ne peut être ni complété, ni revendu, ni transféré.
+          </span>
+        </p>
+      )}
       {inventaireGroupeMismatch(membre) && (
         <p className="text-sm text-danger" style={{ marginTop: 0 }}>
           ⚠ Équipement dépareillé : ce groupe de {membre.taille_groupe} figurines ne possède pas les mêmes objets en
@@ -39,8 +52,8 @@ export function EquipementCard({
           exemplaires manquants ou renvoie les objets en trop au stock.
         </p>
       )}
-      {inventaireGroupe.length === 0 && <p className="text-muted text-sm">Aucun objet acheté.</p>}
-      {inventaireGroupe.map(({ entree, quantite }) => (
+      {!verrouille && inventaireGroupe.length === 0 && <p className="text-muted text-sm">Aucun objet acheté.</p>}
+      {!verrouille && inventaireGroupe.map(({ entree, quantite }) => (
         <div key={entree.instance_id} className="list-item">
           <div className="list-item__main" role="button" style={{ cursor: 'pointer' }} onClick={() => onItemClick(entree)}>
             <div className="list-item__title" style={{ textDecoration: 'underline' }}>

@@ -1,37 +1,37 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { useRosters } from '../../state/RostersContext';
-import { creerMembreFrancTireur } from '../../utils/factory';
-import { SKILL_CATEGORIES } from '../../types/catalog';
-import type { SkillCategory, Stats } from '../../types/catalog';
-import type { ProfilFrancTireur } from '../../types/roster';
-
-const STATS_PAR_DEFAUT: Stats = { M: 4, CC: 3, CT: 3, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 7 };
-const STAT_LABELS: (keyof Stats)[] = ['M', 'CC', 'CT', 'F', 'E', 'PV', 'I', 'A', 'Cd'];
+import { creerMembreFrancTireurCatalogue } from '../../utils/factory';
+import {
+  disponibiliteFrancTireur,
+  FRANCS_TIREURS,
+} from '../../data/hiredSwords';
+import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 
 export function RecruterFrancTireurScreen() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
   const roster = getRosterById(id ?? '');
+  const [recherche, setRecherche] = useState('');
+  const [voirIndisponibles, setVoirIndisponibles] = useState(false);
+  const [selectionId, setSelectionId] = useState('');
+  const [nomPerso, setNomPerso] = useState('');
+  const [coutVariable, setCoutVariable] = useState('');
+  const [sacrificeLiche, setSacrificeLiche] = useState(1);
 
-  const [nom, setNom] = useState('');
-  const [type, setType] = useState<'heros' | 'homme_de_main'>('heros');
-  // Saisies gardées en texte brut : un input contrôlé par un number forcerait
-  // la valeur dès l'effacement (impossible de vider le champ pour retaper un
-  // chiffre) — la conversion/le plancher ne s'appliquent qu'à l'usage.
-  const [statsSaisies, setStatsSaisies] = useState<Record<keyof Stats, string>>(
-    Object.fromEntries(STAT_LABELS.map((k) => [k, String(STATS_PAR_DEFAUT[k])])) as Record<keyof Stats, string>
-  );
-  const [accesCompetences, setAccesCompetences] = useState<SkillCategory[]>([]);
-  const [equipement, setEquipement] = useState('');
-  const [coutSaisi, setCoutSaisi] = useState('0');
-  const [soldeSaisi, setSoldeSaisi] = useState('0');
-  const [xpDepartSaisie, setXpDepartSaisie] = useState('0');
-  const [grandeCible, setGrandeCible] = useState(false);
-  const [quantiteSaisie, setQuantiteSaisie] = useState('1');
-  const [confirmationXp0, setConfirmationXp0] = useState(false);
+  const profils = useMemo(() => {
+    if (!roster) return [];
+    const terme = recherche.trim().toLocaleLowerCase('fr');
+    return FRANCS_TIREURS.map((profil) => ({
+      profil,
+      disponibilite: disponibiliteFrancTireur(profil, roster),
+    })).filter(({ profil, disponibilite }) => {
+      if (!voirIndisponibles && !disponibilite.disponible) return false;
+      return !terme || `${profil.nom} ${profil.nom_original ?? ''}`.toLocaleLowerCase('fr').includes(terme);
+    });
+  }, [recherche, roster, voirIndisponibles]);
 
   if (!roster) {
     return (
@@ -41,184 +41,228 @@ export function RecruterFrancTireurScreen() {
     );
   }
 
-  const stats = Object.fromEntries(STAT_LABELS.map((k) => [k, Number(statsSaisies[k]) || 0])) as Stats;
-  const cout = Number(coutSaisi) || 0;
-  const solde = Number(soldeSaisi) || 0;
-  const xpDepart = Number(xpDepartSaisie) || 0;
-  const quantite = Math.max(1, parseInt(quantiteSaisie, 10) || 1);
-  const estGroupable = type === 'homme_de_main';
-  const coutTotal = cout * (estGroupable ? quantite : 1);
-  const budgetSuffisant = coutTotal <= roster.tresorerie;
-  const peutRecruter = nom.trim() !== '';
+  const selection = FRANCS_TIREURS.find((p) => p.id === selectionId);
+  const disponibiliteSelection = selection ? disponibiliteFrancTireur(selection, roster) : null;
+  const coutRecrutement = selection
+    ? selection.recrutement.cout ?? Math.max(0, Number(coutVariable) || 0)
+    : 0;
+  const budgetSuffisant = coutRecrutement <= roster.tresorerie;
+  const coutVariableValide = !selection || selection.recrutement.cout != null || Number(coutVariable) > 0;
+  const peutEngager =
+    !!selection && disponibiliteSelection?.disponible && budgetSuffisant && coutVariableValide;
 
-  const toggleCategorie = (cat: SkillCategory) => {
-    setAccesCompetences((prev) => (prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]));
-  };
-
-  const changerXpDepart = (value: string) => {
-    setXpDepartSaisie(value);
-    setConfirmationXp0(false);
+  const choisir = (profilId: string) => {
+    const profil = FRANCS_TIREURS.find((p) => p.id === profilId);
+    setSelectionId(profilId);
+    setNomPerso(profil?.nom ?? '');
+    setCoutVariable('');
+    setSacrificeLiche(1);
   };
 
   const recruter = () => {
-    if (!peutRecruter) return;
-    if (xpDepart === 0 && !confirmationXp0) {
-      setConfirmationXp0(true);
-      return;
-    }
-    const profilCustom: ProfilFrancTireur = {
-      nom: nom.trim(),
-      type,
-      stats,
-      acces_competences: accesCompetences,
-      cout,
-      solde,
-    };
-    const membre = creerMembreFrancTireur(profilCustom, xpDepart, estGroupable ? quantite : 1);
-    membre.equipement = equipement;
-    membre.grande_cible = grandeCible;
+    if (!selection || !peutEngager) return;
+    const membre = creerMembreFrancTireurCatalogue(selection);
+    membre.nom_perso = nomPerso.trim() || selection.nom;
+
+    const membres = roster.membres.map((m) => {
+      if (!selection.sacrifice_liche || m.profil_id !== 'liche' || m.statut === 'mort') return m;
+      return {
+        ...m,
+        stats_actuels: { ...m.stats_actuels, PV: Math.max(1, m.stats_actuels.PV - sacrificeLiche) },
+        stats_modifiees: m.stats_modifiees.includes('PV') ? m.stats_modifiees : [...m.stats_modifiees, 'PV' as const],
+      };
+    });
+
     updateRoster({
       ...roster,
-      tresorerie: roster.tresorerie - coutTotal,
-      membres: [...roster.membres, membre],
+      tresorerie: roster.tresorerie - coutRecrutement,
+      membres: [...membres, membre],
     });
     navigate(`/roster/${roster.id}`);
   };
 
   return (
-    <Screen title="Franc-tireur" back={`/roster/${roster.id}`}>
+    <Screen title="Engager un franc-tireur" back={`/roster/${roster.id}`}>
       <div className="card">
         <p className="text-sm text-muted">
-          Profil entièrement défini à la main, indépendant du catalogue de la bande — utile pour un mercenaire,
-          un compagnon ou toute recrue hors liste habituelle.
+          Le catalogue reprend les 35 profils du document fourni. Un seul exemplaire de chaque type peut être
+          engagé ; les profils incompatibles avec cette bande sont masqués par défaut.
         </p>
         <div className="field">
-          <label>Nom du personnage</label>
-          <input value={nom} onChange={(e) => setNom(e.target.value)} placeholder="Nom du franc-tireur" />
+          <label>Rechercher</label>
+          <input
+            value={recherche}
+            onChange={(e) => setRecherche(e.target.value)}
+            placeholder="Ogre, assassin, guide…"
+          />
         </div>
-        <div className="field">
-          <label>Type</label>
-          <select
-            value={type}
-            onChange={(e) => {
-              const v = e.target.value as 'heros' | 'homme_de_main';
-              setType(v);
-              if (v === 'heros') setQuantiteSaisie('1');
-            }}
-          >
-            <option value="heros">Héros</option>
-            <option value="homme_de_main">Homme de main</option>
-          </select>
-        </div>
-        {estGroupable && (
-          <div className="field">
-            <label>Nombre de figurines (groupe identique)</label>
-            <input type="number" min={1} value={quantiteSaisie} onChange={(e) => setQuantiteSaisie(e.target.value)} />
-          </div>
-        )}
-        <div className="field">
-          <label>Expérience de départ</label>
-          <input type="number" value={xpDepartSaisie} onChange={(e) => changerXpDepart(e.target.value)} />
-          <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
-        </div>
-        {confirmationXp0 && (
-          <p className="text-danger text-sm">
-            Es-tu sûr de vouloir commencer à 0 XP ? Clique à nouveau sur "Engager" pour confirmer.
-          </p>
-        )}
-        <label className="flex items-center gap-sm" style={{ cursor: 'pointer' }}>
-          <input type="checkbox" checked={grandeCible} onChange={(e) => setGrandeCible(e.target.checked)} />
-          <span>
-            <strong>Grande Cible</strong>
-            <br />
-            <span className="text-sm text-muted">
-              Grosse figurine (troll, ogre…) — ajoute +20 au rating. Modifiable ensuite sur la fiche.
-            </span>
-          </span>
+        <label className="flex items-center gap-sm text-sm" style={{ cursor: 'pointer' }}>
+          <input
+            type="checkbox"
+            checked={voirIndisponibles}
+            onChange={(e) => setVoirIndisponibles(e.target.checked)}
+          />
+          Voir aussi les profils indisponibles
         </label>
       </div>
 
       <div className="card">
-        <h3>Caractéristiques</h3>
-        <div className="stat-grid">
-          {STAT_LABELS.map((k) => (
-            <div key={k} className="stat-grid__cell stat-grid__cell--label">
-              {k}
-            </div>
-          ))}
-          {STAT_LABELS.map((k) => (
-            <div key={k} className="stat-grid__cell stat-grid__cell--value">
-              <input
-                type="number"
-                className="stat-grid__input"
-                value={statsSaisies[k]}
-                onChange={(e) => setStatsSaisies((prev) => ({ ...prev, [k]: e.target.value }))}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="card">
-        <h3>Accès aux tables de compétences</h3>
+        <h3>Catalogue</h3>
+        {profils.length === 0 && <p className="text-muted text-sm">Aucun profil ne correspond à ce filtre.</p>}
         <div className="skill-list">
-          {SKILL_CATEGORIES.map((c) => (
-            <label key={c.id} className="skill-check" style={{ cursor: 'pointer' }}>
-              <input
-                type="checkbox"
-                checked={accesCompetences.includes(c.id)}
-                onChange={() => toggleCategorie(c.id)}
-              />
-              <span className="skill-check__name">{c.label}</span>
-            </label>
+          {profils.map(({ profil, disponibilite }) => (
+            <button
+              key={profil.id}
+              className={`list-item${selectionId === profil.id ? ' list-item--selected' : ''}`}
+              style={{ width: '100%', textAlign: 'left', opacity: disponibilite.disponible ? 1 : 0.62 }}
+              onClick={() => choisir(profil.id)}
+            >
+              <span className="list-item__main">
+                <span className="list-item__title">
+                  {profil.nom}
+                  {profil.nom_original && <span className="text-muted"> — {profil.nom_original}</span>}
+                </span>
+                <span className="list-item__subtitle">
+                  Engagement : {profil.recrutement.cout ?? profil.recrutement.notation} CO · Entretien :{' '}
+                  {profil.entretien.type === 'or'
+                    ? `${profil.entretien.cout} CO`
+                    : profil.entretien.type === 'malepierre'
+                      ? `${profil.entretien.cout} fragment de malepierre`
+                      : 'aucun'}
+                </span>
+                {!disponibilite.disponible && (
+                  <span className="text-danger text-sm">{disponibilite.raison}</span>
+                )}
+              </span>
+            </button>
           ))}
         </div>
       </div>
 
-      <div className="card">
-        <h3>Équipement</h3>
-        <textarea
-          value={equipement}
-          onChange={(e) => setEquipement(e.target.value)}
-          placeholder="Épée, armure légère, pistolet…"
-          style={{
-            width: '100%',
-            background: 'var(--bg-inset)',
-            border: '1px solid var(--border)',
-            borderRadius: 'var(--radius)',
-            padding: '0.5rem 0.6rem',
-            minHeight: '4em',
-          }}
-        />
-      </div>
-
-      <div className="card">
-        <h3>Prix</h3>
-        <div className="field-row">
-          <div className="field">
-            <label>Prix d'engagement (po{estGroupable && quantite > 1 ? ' / figurine' : ''})</label>
-            <input type="number" value={coutSaisi} onChange={(e) => setCoutSaisi(e.target.value)} />
+      {selection && (
+        <>
+          <div className="card">
+            <h3>{selection.nom}</h3>
+            <p className="text-sm text-muted">
+              <strong>Employeurs :</strong> {selection.employeurs.texte}
+              <br />
+              <strong>Valeur de bande :</strong> +{selection.valeur} points
+              {selection.gagne_experience !== false ? ' + XP' : ''}
+              <br />
+              <strong>Source :</strong> page {selection.page_source} du PDF
+            </p>
+            <div className="stat-grid">
+              {STAT_KEYS.map((k) => (
+                <div key={k} className="stat-grid__cell stat-grid__cell--label">
+                  {k}
+                </div>
+              ))}
+              {STAT_KEYS.map((k) => (
+                <div key={k} className="stat-grid__cell stat-grid__cell--value">
+                  {selection.stats[k]}
+                </div>
+              ))}
+            </div>
+            {selection.profils_secondaires?.map((secondaire) => (
+              <div key={secondaire.nom} style={{ marginTop: '0.8rem' }}>
+                <p className="text-sm mb-0">
+                  <strong>{secondaire.nom}</strong>
+                </p>
+                <div className="stat-grid">
+                  {STAT_KEYS.map((k) => (
+                    <div key={k} className="stat-grid__cell stat-grid__cell--label">
+                      {k}
+                    </div>
+                  ))}
+                  {STAT_KEYS.map((k) => (
+                    <div key={k} className="stat-grid__cell stat-grid__cell--value">
+                      {secondaire.stats[k]}
+                    </div>
+                  ))}
+                </div>
+                {secondaire.equipement && (
+                  <p className="text-sm text-muted">Équipement : {secondaire.equipement.join(', ')}</p>
+                )}
+              </div>
+            ))}
           </div>
-          <div className="field">
-            <label>Solde après chaque bataille (po{estGroupable && quantite > 1 ? ' / figurine' : ''})</label>
-            <input type="number" value={soldeSaisi} onChange={(e) => setSoldeSaisi(e.target.value)} />
-          </div>
-        </div>
-        <p className={budgetSuffisant ? 'text-sm text-muted' : 'text-sm text-danger'}>
-          Le prix d'engagement total ({coutTotal} po) sera déduit immédiatement de la trésorerie ({roster.tresorerie}{' '}
-          po disponibles{!budgetSuffisant ? ' — insuffisant' : ''}). La solde sera à payer après chaque bataille via
-          l'assistant post-bataille.
-        </p>
-      </div>
 
-      <div className="flex gap-sm">
-        <button className="btn" onClick={() => navigate(`/roster/${roster.id}`)}>
-          Annuler
-        </button>
-        <button className="btn btn--primary" disabled={!peutRecruter} onClick={recruter}>
-          {confirmationXp0 ? 'Confirmer 0 XP et engager' : `Engager${!budgetSuffisant ? ' quand même' : ''}`}
-        </button>
-      </div>
+          <div className="card">
+            <h3>Équipement et progression</h3>
+            <p className="text-sm">
+              <strong>Équipement fourni :</strong> {selection.equipement.join(', ')}
+            </p>
+            <p className="text-sm">
+              <strong>Tables de compétences :</strong>{' '}
+              {selection.acces_competences
+                .map((id) => SKILL_CATEGORIES.find((categorie) => categorie.id === id)?.label ?? id)
+                .join(', ') || 'Aucune'}
+            </p>
+            <p className="text-sm text-muted mb-0">
+              L’équipement d’un franc-tireur est inclus dans son contrat et ne peut être acheté, revendu ou transféré.
+            </p>
+          </div>
+
+          <div className="card">
+            <h3>Règles</h3>
+            {selection.regles_speciales.map((regle) => (
+              <p key={regle.nom} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
+                <strong>{regle.nom}</strong> — {regle.texte}
+              </p>
+            ))}
+            {selection.competences_speciales?.map((competence) => (
+              <p key={competence.id} className="text-sm">
+                <strong>{competence.nom}</strong> — {competence.texte}
+              </p>
+            ))}
+          </div>
+
+          <div className="card">
+            <h3>Contrat</h3>
+            <div className="field">
+              <label>Nom sur la feuille de bande</label>
+              <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} />
+            </div>
+            {selection.recrutement.cout == null && (
+              <div className="field">
+                <label>Coût réellement obtenu ({selection.recrutement.notation} CO)</label>
+                <input
+                  type="number"
+                  min={1}
+                  value={coutVariable}
+                  onChange={(e) => setCoutVariable(e.target.value)}
+                />
+              </div>
+            )}
+            {selection.sacrifice_liche && (
+              <div className="field">
+                <label>Résultat du D3 : PV retirés à la Liche (minimum 1 PV restant)</label>
+                <select value={sacrificeLiche} onChange={(e) => setSacrificeLiche(Number(e.target.value))}>
+                  <option value={1}>1 PV</option>
+                  <option value={2}>2 PV</option>
+                  <option value={3}>3 PV</option>
+                </select>
+              </div>
+            )}
+            <p className={budgetSuffisant ? 'text-sm text-muted' : 'text-sm text-danger'}>
+              {coutRecrutement} CO seront déduites de la trésorerie ({roster.tresorerie} CO disponibles).
+              {!budgetSuffisant && ' Trésorerie insuffisante.'}
+            </p>
+            {disponibiliteSelection && !disponibiliteSelection.disponible && (
+              <p className="text-sm text-danger">{disponibiliteSelection.raison}</p>
+            )}
+          </div>
+
+          <div className="flex gap-sm">
+            <button className="btn" onClick={() => navigate(`/roster/${roster.id}`)}>
+              Annuler
+            </button>
+            <button className="btn btn--primary" disabled={!peutEngager} onClick={recruter}>
+              Engager pour {coutRecrutement || '…'} CO
+            </button>
+          </div>
+        </>
+      )}
     </Screen>
   );
 }

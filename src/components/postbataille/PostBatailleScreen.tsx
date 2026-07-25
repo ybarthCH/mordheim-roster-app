@@ -18,8 +18,18 @@ import { EtapeResultat } from './EtapeResultat';
 import { EtapeGainXp } from './EtapeGainXp';
 import { EtapeExploration } from './EtapeExploration';
 import { EtapeResume } from './EtapeResume';
+import {
+  EtapeEntretien,
+  type DecisionEntretien,
+  type LigneEntretien,
+} from './EtapeEntretien';
+import {
+  coutEntretienFrancTireur,
+  estFrancTireur,
+  getFrancTireur,
+} from '../../data/hiredSwords';
 
-const ETAPES = ['Bataille', 'Blessures graves', "Gain d'expérience", 'Exploration', 'Résumé'];
+const ETAPES = ['Bataille', 'Blessures graves', "Gain d'expérience", 'Exploration', 'Entretien', 'Résumé'];
 
 export type BlessureDraft = {
   nom: string;
@@ -69,6 +79,7 @@ export function PostBatailleScreen() {
   const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
   const [xpDrafts, setXpDrafts] = useState<Record<string, XpDraft>>({});
   const [groupeSlotDrafts, setGroupeSlotDrafts] = useState<Record<string, SlotDraft[]>>({});
+  const [entretienDrafts, setEntretienDrafts] = useState<Record<string, DecisionEntretien>>({});
 
   // Avancées résolues directement depuis l'étape Gain d'expérience (voir
   // ouvrirAvancee/appliquerAvancee ci-dessous) — journalisées en plus de
@@ -82,7 +93,10 @@ export function PostBatailleScreen() {
   const horsDeCombatHeros = useMemo(
     () =>
       roster?.membres.filter(
-        (m) => m.statut === 'hors_de_combat' && resolveProfil(roster, m)?.type === 'heros'
+        (m) =>
+          m.statut === 'hors_de_combat' &&
+          !estFrancTireur(m) &&
+          resolveProfil(roster, m)?.type === 'heros'
       ) ?? [],
     [roster]
   );
@@ -121,24 +135,66 @@ export function PostBatailleScreen() {
         (m) =>
           m.statut !== 'mort' &&
           m.statut !== 'blesse' &&
+          !m.franc_tireur_impaye &&
           !hcIds.has(m.instance_id) &&
-          resolveProfil(roster, m)?.type !== 'animal'
+          resolveProfil(roster, m)?.type !== 'animal' &&
+          getFrancTireur(m.franc_tireur_id)?.gagne_experience !== false
       ) ?? []
     );
   }, [roster, horsDeCombatIndividuel, groupesHC]);
 
-  const francTireursActifs = useMemo(
-    () => roster?.membres.filter((m) => m.profil_custom && m.statut !== 'mort') ?? [],
-    [roster]
-  );
-  const soldeTotal = francTireursActifs.reduce(
-    (acc, m) => acc + (m.profil_custom?.solde ?? 0) * (m.taille_groupe || 1),
-    0
+  const francTireursParticipants = useMemo(
+    () =>
+      roster?.membres.filter((m) => {
+        if (!estFrancTireur(m) || m.statut === 'mort' || m.statut === 'blesse' || m.franc_tireur_impaye) return false;
+        if (m.statut === 'hors_de_combat' && xpDrafts[m.instance_id]?.survecu === 'non') return false;
+        return true;
+      }) ?? [],
+    [roster, xpDrafts]
   );
   // Gains de trésorerie issus de résultats de blessure grave automatisés
   // (ex : victoire au combat de Gladiateur, +50 po).
   const blessuresTresorerieBonus = Object.values(blessureDrafts).reduce(
     (total, d) => total + d.tresorerieBonus,
+    0
+  );
+
+  const lignesEntretien: LigneEntretien[] = useMemo(() => {
+    if (!roster) return [];
+    return francTireursParticipants.map((m) => {
+      const profil = getFrancTireur(m.franc_tireur_id);
+      if (!profil) {
+        return {
+          membre: m,
+          nom: nomAffiche(m),
+          type: 'or',
+          cout: (m.profil_custom?.solde ?? 0) * (m.taille_groupe || 1),
+          texte: 'Ancien profil personnalisé : solde enregistrée lors du recrutement.',
+        };
+      }
+      return {
+        membre: m,
+        nom: nomAffiche(m),
+        type: profil.entretien.type,
+        cout: coutEntretienFrancTireur(profil, roster),
+        texte: profil.entretien.texte,
+        exemption: profil.entretien.exemption,
+        maintienSansPaiement: profil.entretien.maintien_sans_paiement,
+        departAutomatique: profil.depart_apres_bataille,
+      };
+    });
+  }, [francTireursParticipants, roster]);
+
+  const decisionEntretien = (ligne: LigneEntretien): DecisionEntretien =>
+    entretienDrafts[ligne.membre.instance_id] ??
+    (ligne.departAutomatique ? 'depart_automatique' : ligne.type === 'aucun' ? 'gratuit' : 'payer');
+
+  const soldeTotal = lignesEntretien.reduce(
+    (acc, ligne) => acc + (decisionEntretien(ligne) === 'payer' && ligne.type === 'or' ? ligne.cout : 0),
+    0
+  );
+  const entretienMalepierre = lignesEntretien.reduce(
+    (acc, ligne) => acc + (decisionEntretien(ligne) === 'payer' && ligne.type === 'malepierre' ? ligne.cout : 0),
     0
   );
 
@@ -233,9 +289,14 @@ export function PostBatailleScreen() {
     groupesHC.some((m) => slotsDe(m).some((s) => s === null));
 
   const indexGainXp = 2;
+  const indexEntretien = 4;
+  const orDisponiblePourEntretien = roster.tresorerie + prixVente + blessuresTresorerieBonus;
+  const entretienInsuffisant =
+    soldeTotal > orDisponiblePourEntretien || entretienMalepierre > roster.wyrdstone + wyrdstoneTrouve - quantiteVendue;
 
   const suivant = () => {
     if (etape === indexGainXp && hcIncomplete) return;
+    if (etape === indexEntretien && entretienInsuffisant) return;
     setEtape((e) => Math.min(ETAPES.length - 1, e + 1));
   };
   const precedent = () => setEtape((e) => Math.max(0, e - 1));
@@ -278,8 +339,17 @@ export function PostBatailleScreen() {
     const blessesAuCamp: { nom: string; retabli: boolean }[] = [];
 
     const membresMaj: Member[] = roster.membres.map((m) => {
-      let membre = { ...m };
+      let membre = { ...m, franc_tireur_impaye: false };
       const profil = resolveProfil(roster, m);
+      const profilFrancTireur = getFrancTireur(m.franc_tireur_id);
+      const decision = lignesEntretien.find((ligne) => ligne.membre.instance_id === m.instance_id)
+        ? entretienDrafts[m.instance_id] ??
+          (profilFrancTireur?.depart_apres_bataille
+            ? 'depart_automatique'
+            : profilFrancTireur?.entretien.type === 'aucun'
+              ? 'gratuit'
+              : 'payer')
+        : undefined;
       const estLeaderVictoire = estLeaderActuel(roster, catalogue, m) && resultat === 'victoire';
 
       const draft = blessureDrafts[m.instance_id];
@@ -323,10 +393,11 @@ export function PostBatailleScreen() {
         } else if (estAnimal) {
           membre = { ...membre, statut: 'actif' };
         } else {
-          let xp = d.xp;
+          let xp = profilFrancTireur?.gagne_experience === false ? m.xp : d.xp;
           if (estLeaderVictoire) xp += 1;
           membre = { ...membre, statut: 'actif', xp };
         }
+        if (decision === 'impaye') membre = { ...membre, franc_tireur_impaye: true };
         return membre;
       }
 
@@ -352,6 +423,17 @@ export function PostBatailleScreen() {
         return membre;
       }
 
+      // Un Geôlier conservé sans solde a manqué cette bataille : pas d’XP,
+      // puis sa dette est considérée comme purgée pour la prochaine partie.
+      if (m.franc_tireur_impaye) {
+        return membre;
+      }
+
+      if (profilFrancTireur?.gagne_experience === false) {
+        if (decision === 'impaye') membre = { ...membre, franc_tireur_impaye: true };
+        return membre;
+      }
+
       // Guerrier Blessé : reste au camp, ne participe pas à la bataille (pas
       // d'XP), mais son compteur de tours blessé avance d'un cran. Rétabli
       // (retour à Actif, compteur remis à 0/0) une fois le total atteint.
@@ -371,8 +453,19 @@ export function PostBatailleScreen() {
       let xp = d ? d.xp : m.xp + 1;
       if (estLeaderVictoire) xp += 1;
       membre = { ...membre, xp };
+      if (decision === 'impaye') membre = { ...membre, franc_tireur_impaye: true };
       return membre;
     });
+
+    const idsARenvoyer = new Set(
+      lignesEntretien
+        .filter((ligne) => {
+          const decision = decisionEntretien(ligne);
+          return decision === 'renvoyer' || decision === 'depart_automatique';
+        })
+        .map((ligne) => ligne.membre.instance_id)
+    );
+    const membresConserves = membresMaj.filter((m) => !idsARenvoyer.has(m.instance_id));
 
     const journal: JournalPostBataille = {
       wyrdstoneTrouve,
@@ -380,6 +473,25 @@ export function PostBatailleScreen() {
       quantiteVendue,
       prixVente,
       soldeFrancsTireurs: soldeTotal,
+      entretienFrancsTireurs: lignesEntretien.map((ligne) => {
+        const decision = decisionEntretien(ligne);
+        const decisionJournal: NonNullable<JournalPostBataille['entretienFrancsTireurs']>[number]['decision'] =
+          decision === 'payer'
+            ? 'paye'
+            : decision === 'renvoyer'
+              ? 'renvoye'
+              : decision === 'depart_automatique'
+                ? 'depart_automatique'
+                : decision === 'gratuit'
+                  ? 'gratuit'
+                  : 'exempte';
+        return {
+          nom: ligne.nom,
+          decision: decisionJournal,
+          coutOr: decision === 'payer' && ligne.type === 'or' ? ligne.cout : 0,
+          coutMalepierre: decision === 'payer' && ligne.type === 'malepierre' ? ligne.cout : 0,
+        };
+      }),
       tresorerieApres,
       blessures: Object.entries(blessureDrafts)
         .filter(([, d]) => d.description.trim())
@@ -412,13 +524,13 @@ export function PostBatailleScreen() {
       journal,
     };
 
-    const succession = succederApresMorts(roster, catalogue, membresMaj);
+    const succession = succederApresMorts(roster, catalogue, membresConserves);
 
     await updateRoster({
       ...roster,
       ...succession,
-      membres: membresMaj,
-      wyrdstone: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue),
+      membres: membresConserves,
+      wyrdstone: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre),
       tresorerie: tresorerieApres,
       equipement_reserve: notesExploration.trim()
         ? `${roster.equipement_reserve}${roster.equipement_reserve ? '\n' : ''}${notesExploration.trim()}`
@@ -501,6 +613,20 @@ export function PostBatailleScreen() {
       )}
 
       {etape === 4 && (
+        <EtapeEntretien
+          lignes={lignesEntretien}
+          decisions={entretienDrafts}
+          onDecision={(instanceId, decision) =>
+            setEntretienDrafts((precedents) => ({ ...precedents, [instanceId]: decision }))
+          }
+          totalOr={soldeTotal}
+          totalMalepierre={entretienMalepierre}
+          orDisponible={orDisponiblePourEntretien}
+          malepierreDisponible={Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue)}
+        />
+      )}
+
+      {etape === 5 && (
         <EtapeResume
           roster={roster}
           catalogue={catalogue}
@@ -511,8 +637,17 @@ export function PostBatailleScreen() {
           quantiteVendue={quantiteVendue}
           prixVente={prixVente}
           soldeTotal={soldeTotal}
+          entretienMalepierre={entretienMalepierre}
           blessuresTresorerieBonus={blessuresTresorerieBonus}
-          francTireursActifsCount={francTireursActifs.length}
+          francTireursPayesCount={lignesEntretien.filter(
+            (ligne) => decisionEntretien(ligne) === 'payer' && ligne.type === 'or'
+          ).length}
+          francsTireursPartants={lignesEntretien
+            .filter((ligne) => {
+              const decision = decisionEntretien(ligne);
+              return decision === 'renvoyer' || decision === 'depart_automatique';
+            })
+            .map((ligne) => ligne.nom)}
           avancesResolues={avancesResolues}
           blessureDrafts={blessureDrafts}
           horsDeCombatIndividuel={horsDeCombatIndividuel}
@@ -527,7 +662,11 @@ export function PostBatailleScreen() {
           Précédent
         </button>
         {etape < ETAPES.length - 1 && (
-          <button className="btn btn--primary" disabled={etape === indexGainXp && hcIncomplete} onClick={suivant}>
+          <button
+            className="btn btn--primary"
+            disabled={(etape === indexGainXp && hcIncomplete) || (etape === indexEntretien && entretienInsuffisant)}
+            onClick={suivant}
+          >
             Suivant
           </button>
         )}
@@ -540,6 +679,11 @@ export function PostBatailleScreen() {
       {etape === indexGainXp && hcIncomplete && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
           Résous d'abord le statut (survécu / n'a pas survécu) de tous les Hors de combat avant de continuer.
+        </p>
+      )}
+      {etape === indexEntretien && entretienInsuffisant && (
+        <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
+          Les ressources disponibles ne couvrent pas les contrats conservés.
         </p>
       )}
 

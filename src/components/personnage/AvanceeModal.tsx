@@ -139,10 +139,12 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
   };
 
   const skillsDeLaCategorie = (cat: SkillCategory) =>
-    cat === 'special' ? catalogue.competences_speciales : SKILLS[cat];
+    cat === 'special' ? (profil.competences_speciales ?? catalogue.competences_speciales) : SKILLS[cat];
 
   const nomCompetence = (skillId: string) =>
-    [...Object.values(SKILLS).flat(), ...catalogue.competences_speciales].find((s) => s.id === skillId)?.nom ??
+    [...Object.values(SKILLS).flat(), ...(profil.competences_speciales ?? catalogue.competences_speciales)].find(
+      (s) => s.id === skillId
+    )?.nom ??
     skillId;
 
   const appliquerSeigneurDesOmbres = (resultat: RecompenseResultat) => {
@@ -206,7 +208,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
   };
 
   const choisirCompetence = (skillId: string) => {
-    const skill = [...Object.values(SKILLS).flat(), ...catalogue.competences_speciales].find(
+    const skill = [...Object.values(SKILLS).flat(), ...(profil.competences_speciales ?? catalogue.competences_speciales)].find(
       (s) => s.id === skillId
     );
     if (!skill) return;

@@ -58,6 +58,10 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
             </p>
           );
         })
+      ) : membre.equipement ? (
+        <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+          {membre.equipement}
+        </p>
       ) : (
         <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
           Aucun

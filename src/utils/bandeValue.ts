@@ -1,6 +1,7 @@
 import type { RosterInstance } from '../types/roster';
 import { getCatalogue } from '../data/warbands';
 import { resolveProfil } from './profil';
+import { estFrancTireur } from '../data/hiredSwords';
 
 /** Valeur de bande = coût de recrutement des membres encore actifs (hors morts), par figurine. */
 export function valeurBande(roster: RosterInstance): number {
@@ -15,7 +16,7 @@ export function valeurBande(roster: RosterInstance): number {
 /** Nombre total de figurines (groupes comptés par leur taille) encore actives. */
 export function effectifTotal(roster: RosterInstance): number {
   return roster.membres
-    .filter((m) => m.statut !== 'mort')
+    .filter((m) => m.statut !== 'mort' && !estFrancTireur(m))
     .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
 }
 

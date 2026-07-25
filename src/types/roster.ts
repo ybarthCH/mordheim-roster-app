@@ -105,6 +105,12 @@ export type Member = {
   // Profil "Franc-tireur" : présent uniquement pour une recrue hors
   // catalogue, entièrement définie à la création (voir ProfilFrancTireur).
   profil_custom?: ProfilFrancTireur;
+  // Franc-tireur structuré du catalogue commun. `profil_custom` reste
+  // supporté uniquement pour les anciens exports/imports.
+  franc_tireur_id?: string;
+  // Un Geôlier conservé sans payer sa solde doit manquer la bataille
+  // suivante. Le drapeau est consommé au prochain post-bataille.
+  franc_tireur_impaye?: boolean;
   // Homme de main ayant obtenu "Ce gars est doué" : traité comme un héros
   // (grille XP à 90, table d'avancement héros) à partir de là.
   promu_heros?: boolean;
@@ -130,6 +136,12 @@ export type JournalPostBataille = {
   quantiteVendue: number;
   prixVente: number;
   soldeFrancsTireurs: number;
+  entretienFrancsTireurs?: {
+    nom: string;
+    decision: 'paye' | 'renvoye' | 'exempte' | 'gratuit' | 'depart_automatique';
+    coutOr: number;
+    coutMalepierre: number;
+  }[];
   tresorerieApres: number;
   blessures: { nom: string; description: string }[];
   survie: { nom: string; survecu: boolean }[];

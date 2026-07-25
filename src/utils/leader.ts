@@ -5,6 +5,7 @@
 import type { Member, RosterInstance } from '../types/roster';
 import type { WarbandCatalog } from '../types/catalog';
 import { resolveProfil } from './profil';
+import { estFrancTireur } from '../data/hiredSwords';
 
 /**
  * Membre actuellement chef de bande, par ordre de priorité :
@@ -45,7 +46,9 @@ function utiliseLeadership(catalogue: WarbandCatalog | undefined): boolean {
  */
 export function choixLeaderRequis(roster: RosterInstance, catalogue: WarbandCatalog | undefined): boolean {
   if (!utiliseLeadership(catalogue) || resolveLeader(roster, catalogue)) return false;
-  return roster.membres.some((m) => m.statut !== 'mort' && resolveProfil(roster, m)?.type === 'heros');
+  return roster.membres.some(
+    (m) => m.statut !== 'mort' && !estFrancTireur(m) && resolveProfil(roster, m)?.type === 'heros'
+  );
 }
 
 /** Vrai si ce membre précis est le chef de bande actuel. */
@@ -111,6 +114,7 @@ export function succederApresMorts(
       (m) =>
         m.instance_id !== leaderAvant.instance_id &&
         m.statut !== 'mort' &&
+        !estFrancTireur(m) &&
         resolveProfil(rosterAvant, m)?.type === 'heros'
     );
     if (survivants.length === 0) {

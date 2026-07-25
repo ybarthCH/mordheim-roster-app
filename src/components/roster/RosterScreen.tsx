@@ -28,6 +28,7 @@ import {
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { Icon } from '../common/Icon';
+import { estFrancTireur } from '../../data/hiredSwords';
 
 export function RosterScreen() {
   const { id } = useParams<{ id: string }>();
@@ -52,8 +53,9 @@ export function RosterScreen() {
   const violations = validerComposition(roster);
   const violationsEffectif = validerEffectif(roster);
   const effectifDepasse = violationsEffectif.find((v) => v.type === 'max');
-  const heros = roster.membres.filter((m) => resolveProfil(roster, m)?.type === 'heros');
-  const hommesDeMain = roster.membres.filter((m) => resolveProfil(roster, m)?.type !== 'heros');
+  const francsTireurs = roster.membres.filter(estFrancTireur);
+  const heros = roster.membres.filter((m) => !estFrancTireur(m) && resolveProfil(roster, m)?.type === 'heros');
+  const hommesDeMain = roster.membres.filter((m) => !estFrancTireur(m) && resolveProfil(roster, m)?.type !== 'heros');
   const herosVivants = heros.filter((m) => m.statut !== 'mort');
   const besoinChoixLeader = choixLeaderRequis(roster, catalogue);
 
@@ -295,6 +297,17 @@ export function RosterScreen() {
         onBasculerHorsCombat={basculerHorsCombat}
         onSupprimer={setMembreASupprimer}
       />
+      {francsTireurs.length > 0 && (
+        <MemberGroupCard
+          titre="Francs-tireurs"
+          membres={francsTireurs}
+          roster={roster}
+          catalogue={catalogue}
+          onReordonner={reordonnerSection}
+          onBasculerHorsCombat={basculerHorsCombat}
+          onSupprimer={setMembreASupprimer}
+        />
+      )}
 
       <HistoriqueBataillesSection
         historique={roster.historique_batailles}

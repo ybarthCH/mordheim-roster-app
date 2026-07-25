@@ -43,6 +43,8 @@ function normaliserMembre(membre: Partial<Member>): Member {
     notes: membre.notes ?? '',
     grande_cible: membre.grande_cible ?? false,
     profil_custom: membre.profil_custom,
+    franc_tireur_id: membre.franc_tireur_id,
+    franc_tireur_impaye: membre.franc_tireur_impaye ?? false,
     promu_heros: membre.promu_heros,
     acces_competences_override: membre.acces_competences_override,
     taille_groupe: membre.taille_groupe ?? 1,

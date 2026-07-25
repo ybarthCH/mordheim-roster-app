@@ -42,6 +42,7 @@ import {
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { InventoryEntry } from '../../types/roster';
+import { getFrancTireur } from '../../data/hiredSwords';
 
 export function PersonnageScreen() {
   const { id, instanceId } = useParams<{ id: string; instanceId: string }>();
@@ -59,6 +60,7 @@ export function PersonnageScreen() {
   const membre = roster?.membres.find((m) => m.instance_id === instanceId);
   const profil = roster && membre ? resolveProfil(roster, membre) : undefined;
   const catalogue = roster ? getCatalogue(roster.bande_id) : undefined;
+  const francTireur = getFrancTireur(membre?.franc_tireur_id);
 
   if (!roster || !membre || !profil || !catalogue) {
     return (
@@ -192,7 +194,9 @@ export function PersonnageScreen() {
   };
 
   const nomCompetence = (skillId: string) =>
-    skillById(skillId) ?? catalogue.competences_speciales.find((s) => s.id === skillId);
+    skillById(skillId) ??
+    profil.competences_speciales?.find((s) => s.id === skillId) ??
+    catalogue.competences_speciales.find((s) => s.id === skillId);
 
   // Hommes de main et animaux non promus : le statut Hors de combat / Blessé
   // n'a plus lieu d'être : le nombre de figurines hors combat se suit via le
@@ -201,7 +205,8 @@ export function PersonnageScreen() {
   const estGroupeSimplifie = (profil.type === 'homme_de_main' || profil.type === 'animal') && !membre.promu_heros;
 
   const demiXp = !!catalogue.xp_demi;
-  const dues = avancesDues(profil.type, membre.xp_depart, membre.xp, demiXp);
+  const dues =
+    francTireur?.gagne_experience === false ? 0 : avancesDues(profil.type, membre.xp_depart, membre.xp, demiXp);
   const obtenues = membre.historique_avancees.length;
   const enAttente = Math.max(0, dues - obtenues);
   const rating = ratingMembre(membre, roster);
@@ -262,6 +267,7 @@ export function PersonnageScreen() {
         enAttente={enAttente}
         onChangeXp={(xp) => majMembre({ xp })}
         onOpenAvancee={() => setModalAvancee(true)}
+        gagneExperience={francTireur?.gagne_experience !== false}
       />
 
       <EquipementCard
@@ -272,6 +278,7 @@ export function PersonnageScreen() {
         onRenvoyer={renvoyerStockItem}
         onVendre={setVenteEnCours}
         onRetirer={retirerItem}
+        verrouille={!!francTireur}
       />
 
       {estSorcier(catalogue, profil.id) && (

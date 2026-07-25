@@ -1,6 +1,7 @@
 import type { RosterInstance } from '../types/roster';
 import { getCatalogue } from '../data/warbands';
 import { effectifTotal } from './bandeValue';
+import { aUnFrancTireurAvecTag, estFrancTireur } from '../data/hiredSwords';
 
 export type ViolationComposition = {
   profilId: string;
@@ -20,7 +21,7 @@ export function validerComposition(roster: RosterInstance): ViolationComposition
   const violations: ViolationComposition[] = [];
   const comptes = new Map<string, number>();
   for (const m of roster.membres) {
-    if (m.statut === 'mort') continue;
+    if (m.statut === 'mort' || estFrancTireur(m)) continue;
     comptes.set(m.profil_id, (comptes.get(m.profil_id) ?? 0) + (m.taille_groupe || 1));
   }
   const bannis = new Set(roster.profils_bannis ?? []);
@@ -46,6 +47,13 @@ export type ViolationEffectif = {
   actuel: number;
 };
 
+/** Le Cuisinier Halfling permet à la bande d'accueillir un guerrier de plus. */
+export function effectifMaxAutorise(roster: RosterInstance): number | undefined {
+  const maximum = getCatalogue(roster.bande_id)?.composition?.effectif_max;
+  if (maximum == null) return undefined;
+  return maximum + (aUnFrancTireurAvecTag(roster, 'halfling') ? 1 : 0);
+}
+
 /**
  * Vérifie l'effectif total de la bande par rapport aux bornes du catalogue
  * (composition.effectif_min/effectif_max), quand elles sont renseignées.
@@ -60,8 +68,9 @@ export function validerEffectif(roster: RosterInstance): ViolationEffectif[] {
   if (composition.effectif_min != null && actuel < composition.effectif_min) {
     violations.push({ type: 'min', limite: composition.effectif_min, actuel });
   }
-  if (composition.effectif_max != null && actuel > composition.effectif_max) {
-    violations.push({ type: 'max', limite: composition.effectif_max, actuel });
+  const effectifMax = effectifMaxAutorise(roster);
+  if (effectifMax != null && actuel > effectifMax) {
+    violations.push({ type: 'max', limite: effectifMax, actuel });
   }
   return violations;
 }

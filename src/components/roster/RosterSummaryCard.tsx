@@ -2,6 +2,7 @@ import { effectifTotal } from '../../utils/bandeValue';
 import { ratingTotal } from '../../utils/rating';
 import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
+import { effectifMaxAutorise } from '../../utils/validation';
 
 type RosterSummaryCardProps = {
   roster: RosterInstance;
@@ -11,7 +12,7 @@ type RosterSummaryCardProps = {
 
 export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryCardProps) {
   const effectif = effectifTotal(roster);
-  const effectifMax = catalogue?.composition?.effectif_max;
+  const effectifMax = catalogue ? effectifMaxAutorise(roster) : undefined;
   const effectifPlein = effectifMax != null && effectif >= effectifMax;
 
   return (
