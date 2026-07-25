@@ -9,7 +9,7 @@ import {
   indexLigneFragments,
   prixVenteWyrdstone,
 } from '../../data/tableVenteWyrdstone';
-import { TABLE_FRAGMENTS_TROUVES, fragmentsTrouves } from '../../data/tableExplorationWyrdstone';
+import { TABLE_FRAGMENTS_TROUVES } from '../../data/tableExplorationWyrdstone';
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
 import { inventaireComplet } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
@@ -24,8 +24,6 @@ type EtapeExplorationProps = {
   onNotesExplorationChange: (v: string) => void;
   quantiteVendue: number;
   onQuantiteVendueChange: (v: number) => void;
-  prixVente: number;
-  onPrixVenteChange: (v: number) => void;
   pointsVeteran: number;
   onPointsVeteranChange: (v: number) => void;
   onAchatStock: (item: ShopItem, coutPaye: number) => void;
@@ -41,21 +39,13 @@ export function EtapeExploration({
   onNotesExplorationChange,
   quantiteVendue,
   onQuantiteVendueChange,
-  prixVente,
-  onPrixVenteChange,
   pointsVeteran,
   onPointsVeteranChange,
   onAchatStock,
   resumeExploration,
 }: EtapeExplorationProps) {
   const [modalAchat, setModalAchat] = useState(false);
-  const [sommeDes, setSommeDes] = useState('');
-  const sommeDesNum = Number(sommeDes) || 0;
-  const fragmentsSuggeres = sommeDesNum > 0 ? fragmentsTrouves(sommeDesNum) : 0;
-  const palierActif =
-    sommeDesNum > 0
-      ? TABLE_FRAGMENTS_TROUVES.findIndex((p) => sommeDesNum >= p.min && (p.max === null || sommeDesNum <= p.max))
-      : -1;
+  const palierActif = TABLE_FRAGMENTS_TROUVES.findIndex((p) => p.fragments === wyrdstoneTrouve);
   const nbGuerriers = effectifTotal(roster);
   const colonneActive = indexColonneGuerriers(nbGuerriers);
   const ligneActive = quantiteVendue > 0 ? indexLigneFragments(quantiteVendue) : -1;
@@ -107,13 +97,14 @@ export function EtapeExploration({
             </p>
           ))}
           <p className="text-sm text-muted mb-0" style={{ marginTop: '0.45rem' }}>
-            Ces règles ne lancent aucun dé automatiquement. Notamment, <strong>Prospection</strong> accorde une
-            relance d'un dé d'exploration, pas un dé supplémentaire.
+            Ces règles ne lancent aucun dé automatiquement.
           </p>
         </div>
       )}
 
-      <p className="text-sm text-muted">Reporte ici le résultat de tes jets d'exploration effectués sur table papier.</p>
+      <p className="text-sm text-muted">
+        Reporte ici le résultat de tes jets d'exploration effectués sur table papier : clique sur le palier obtenu.
+      </p>
       <div className="table-scroll">
         <table className="table-reference">
           <thead>
@@ -126,37 +117,33 @@ export function EtapeExploration({
             {TABLE_FRAGMENTS_TROUVES.map((p, i) => (
               <tr key={i} className={i === palierActif ? 'table-reference__row-active' : undefined}>
                 <td>{p.max === null ? `${p.min}+` : `${p.min}-${p.max}`}</td>
-                <td className={i === palierActif ? 'table-reference__cell-active' : undefined}>{p.fragments}</td>
+                <td
+                  className={`table-reference__cell-clickable${i === palierActif ? ' table-reference__cell-active' : ''}`}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => changerWyrdstoneTrouve(i === palierActif ? 0 : p.fragments)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      changerWyrdstoneTrouve(i === palierActif ? 0 : p.fragments);
+                    }
+                  }}
+                >
+                  {p.fragments}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <div className="field-row">
-        <div className="field">
-          <label>Somme des dés d'exploration (optionnel)</label>
-          <input type="number" value={sommeDes} onChange={(e) => setSommeDes(e.target.value)} />
-        </div>
-        <div className="field">
-          <label>Wyrdstone trouvé (à ajouter à la réserve)</label>
-          <input
-            type="number"
-            min={0}
-            value={wyrdstoneTrouve}
-            onChange={(e) => changerWyrdstoneTrouve(Number(e.target.value) || 0)}
-          />
-        </div>
-      </div>
-      {sommeDesNum > 0 && (
-        <p className="text-sm text-muted">
-          Fragments suggérés par la table : {fragmentsSuggeres}.{' '}
-          {wyrdstoneTrouve !== fragmentsSuggeres && (
-            <button type="button" className="btn btn--sm" onClick={() => onWyrdstoneTrouveChange(fragmentsSuggeres)}>
-              Utiliser cette valeur
-            </button>
-          )}
-        </p>
-      )}
+      <p className="text-sm text-muted">
+        Wyrdstone trouvé : <strong>{wyrdstoneTrouve}</strong> fragment{wyrdstoneTrouve > 1 ? 's' : ''}.
+      </p>
+
+      <h3>Événement d'exploration</h3>
+      <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
+        Cette rubrique fera l'objet d'une amélioration majeure plus tard.
+      </p>
       <div className="field">
         <label>Événements d'exploration (texte libre)</label>
         <textarea value={notesExploration} onChange={(e) => onNotesExplorationChange(e.target.value)} />
@@ -255,28 +242,12 @@ export function EtapeExploration({
           {fragmentsDisponibles > 1 ? 's' : ''}.
         </span>
       </div>
-      <div className="field">
-        <label>Prix total obtenu (po)</label>
-        <input
-          type="number"
-          min={0}
-          value={prixVente}
-          onChange={(e) => onPrixVenteChange(Math.max(0, Number(e.target.value) || 0))}
-        />
-      </div>
-      {quantiteVendue > 0 && (
-        <p className="text-sm text-muted">
-          Prix suggéré par la table : {prixSuggere} po.{' '}
-          {prixVente !== prixSuggere && (
-            <button type="button" className="btn btn--sm" onClick={() => onPrixVenteChange(prixSuggere)}>
-              Utiliser ce prix
-            </button>
-          )}
-        </p>
-      )}
+      <p className="text-sm text-muted">
+        Prix obtenu : <strong>{prixSuggere} po</strong> pour {quantiteVendue} fragment{quantiteVendue > 1 ? 's' : ''}.
+      </p>
       <p className="text-sm text-muted">
         Wyrdstone en réserve après cette étape : {fragmentsDisponibles - quantiteVendue} ·
-        Trésorerie : {roster.tresorerie + prixVente} po
+        Trésorerie : {roster.tresorerie + prixSuggere} po
       </p>
       <h3>Nombre de points vétéran disponibles</h3>
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
