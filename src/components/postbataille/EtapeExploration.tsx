@@ -60,6 +60,19 @@ export function EtapeExploration({
   const colonneActive = indexColonneGuerriers(nbGuerriers);
   const ligneActive = quantiteVendue > 0 ? indexLigneFragments(quantiteVendue) : -1;
   const prixSuggere = quantiteVendue > 0 ? prixVenteWyrdstone(quantiteVendue, nbGuerriers) : 0;
+  const fragmentsDisponibles = Math.max(0, roster.wyrdstone + wyrdstoneTrouve);
+
+  const changerQuantiteVendue = (valeur: number) => {
+    const quantite = Math.min(fragmentsDisponibles, Math.max(0, Math.trunc(valeur)));
+    onQuantiteVendueChange(quantite);
+  };
+
+  const changerWyrdstoneTrouve = (valeur: number) => {
+    const trouve = Math.max(0, Math.trunc(valeur));
+    onWyrdstoneTrouveChange(trouve);
+    const nouveauMaximum = Math.max(0, roster.wyrdstone + trouve);
+    if (quantiteVendue > nouveauMaximum) onQuantiteVendueChange(nouveauMaximum);
+  };
 
   return (
     <div className="card">
@@ -126,7 +139,12 @@ export function EtapeExploration({
         </div>
         <div className="field">
           <label>Wyrdstone trouvé (à ajouter à la réserve)</label>
-          <input type="number" value={wyrdstoneTrouve} onChange={(e) => onWyrdstoneTrouveChange(Number(e.target.value) || 0)} />
+          <input
+            type="number"
+            min={0}
+            value={wyrdstoneTrouve}
+            onChange={(e) => changerWyrdstoneTrouve(Number(e.target.value) || 0)}
+          />
         </div>
       </div>
       {sommeDesNum > 0 && (
@@ -188,7 +206,10 @@ export function EtapeExploration({
                 {ligne.map((prix, j) => (
                   <td
                     key={j}
-                    className={i === ligneActive && j === colonneActive ? 'table-reference__cell-active' : undefined}
+                    className={[
+                      j === colonneActive ? 'table-reference__col-active' : '',
+                      i === ligneActive && j === colonneActive ? 'table-reference__cell-active' : '',
+                    ].filter(Boolean).join(' ') || undefined}
                   >
                     {prix}
                   </td>
@@ -198,15 +219,50 @@ export function EtapeExploration({
           </tbody>
         </table>
       </div>
-      <div className="field-row">
-        <div className="field">
-          <label>Quantité vendue</label>
-          <input type="number" value={quantiteVendue} onChange={(e) => onQuantiteVendueChange(Number(e.target.value) || 0)} />
+      <div className="field">
+        <label>Quantité vendue</label>
+        <div className="quantity-stepper">
+          <button
+            type="button"
+            className="btn quantity-stepper__button"
+            aria-label="Retirer un fragment de la vente"
+            disabled={quantiteVendue <= 0}
+            onClick={() => changerQuantiteVendue(quantiteVendue - 1)}
+          >
+            −
+          </button>
+          <input
+            type="number"
+            min={0}
+            max={fragmentsDisponibles}
+            inputMode="numeric"
+            aria-label="Nombre de fragments à vendre"
+            value={quantiteVendue}
+            onChange={(e) => changerQuantiteVendue(Number(e.target.value) || 0)}
+          />
+          <button
+            type="button"
+            className="btn quantity-stepper__button"
+            aria-label="Ajouter un fragment à la vente"
+            disabled={quantiteVendue >= fragmentsDisponibles}
+            onClick={() => changerQuantiteVendue(quantiteVendue + 1)}
+          >
+            +
+          </button>
         </div>
-        <div className="field">
-          <label>Prix total obtenu (po)</label>
-          <input type="number" value={prixVente} onChange={(e) => onPrixVenteChange(Number(e.target.value) || 0)} />
-        </div>
+        <span className="text-sm text-muted">
+          {fragmentsDisponibles} fragment{fragmentsDisponibles > 1 ? 's' : ''} disponible
+          {fragmentsDisponibles > 1 ? 's' : ''}.
+        </span>
+      </div>
+      <div className="field">
+        <label>Prix total obtenu (po)</label>
+        <input
+          type="number"
+          min={0}
+          value={prixVente}
+          onChange={(e) => onPrixVenteChange(Math.max(0, Number(e.target.value) || 0))}
+        />
       </div>
       {quantiteVendue > 0 && (
         <p className="text-sm text-muted">
@@ -219,7 +275,7 @@ export function EtapeExploration({
         </p>
       )}
       <p className="text-sm text-muted">
-        Wyrdstone en réserve après cette étape : {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue)} ·
+        Wyrdstone en réserve après cette étape : {fragmentsDisponibles - quantiteVendue} ·
         Trésorerie : {roster.tresorerie + prixVente} po
       </p>
       <h3>Nombre de points vétéran disponibles</h3>

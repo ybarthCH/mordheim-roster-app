@@ -524,6 +524,23 @@ button {
 .field-row > .field {
   flex: 1;
 }
+.quantity-stepper {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  gap: 0.4rem;
+  align-items: stretch;
+}
+.field .quantity-stepper > input {
+  min-width: 0;
+  text-align: center;
+  font-weight: 700;
+}
+.quantity-stepper__button {
+  min-height: 42px;
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+}
 
 .badge {
   display: inline-flex;
@@ -909,6 +926,9 @@ button {
 .table-reference__col-active {
   color: var(--accent);
   font-weight: 700;
+}
+.table-reference tbody tr td.table-reference__col-active {
+  background: var(--accent-soft);
 }
 .table-reference td.table-reference__cell-active {
   background: var(--warning-bg);

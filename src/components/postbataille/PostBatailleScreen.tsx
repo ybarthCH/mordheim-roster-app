@@ -415,8 +415,12 @@ export function PostBatailleScreen() {
   const indexEntretien = 5;
   const orDisponibleAvantCommerce = roster.tresorerie + prixVente + blessuresTresorerieBonus;
   const orDisponiblePourEntretien = orDisponibleAvantCommerce - coutCommerce;
+  const wyrdstoneDisponiblePourEntretien = Math.max(
+    0,
+    roster.wyrdstone + wyrdstoneTrouve - quantiteVendue
+  );
   const entretienInsuffisant =
-    soldeTotal > orDisponiblePourEntretien || entretienMalepierre > roster.wyrdstone + wyrdstoneTrouve - quantiteVendue;
+    soldeTotal > orDisponiblePourEntretien || entretienMalepierre > wyrdstoneDisponiblePourEntretien;
 
   const suivant = () => {
     if (etape === indexBlessures && blessuresIncompletes) return;
@@ -778,7 +782,7 @@ export function PostBatailleScreen() {
           totalOr={soldeTotal}
           totalMalepierre={entretienMalepierre}
           orDisponible={orDisponiblePourEntretien}
-          malepierreDisponible={Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue)}
+          malepierreDisponible={wyrdstoneDisponiblePourEntretien}
         />
       )}
 
