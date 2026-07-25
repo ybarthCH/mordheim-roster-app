@@ -45,6 +45,7 @@ import type { ShopItem } from '../../utils/shop';
 import type { InventoryEntry } from '../../types/roster';
 import { getFrancTireur } from '../../data/hiredSwords';
 import { useGameRules } from '../../state/useGameRules';
+import { annulerEffetsBlessure } from '../../utils/blessures';
 
 const GRIMOIRE_DE_MAGIE_ID = 'grimoire_de_magie';
 
@@ -97,10 +98,17 @@ export function PersonnageScreen() {
     });
   };
 
-  // Correction d'une saisie erronée : ne modifie ni stats, ni équipement, ni
-  // trésorerie déjà appliqués — juste l'entrée d'historique elle-même.
+  // Correction d'une saisie erronée : annule l'effet sur les stats encore
+  // actif (voir annulerEffetsBlessure), mais ne touche ni équipement, ni XP,
+  // ni trésorerie déjà appliqués — seuls des effets ponctuels, pas des
+  // ajustements permanents réversibles sans ambiguïté.
   const supprimerBlessure = (id: string) => {
-    majMembre({ blessures_graves: membre.blessures_graves.filter((b) => b.id !== id) });
+    const blessure = membre.blessures_graves.find((b) => b.id === id);
+    const annulation = blessure ? annulerEffetsBlessure(membre, blessure) : undefined;
+    majMembre({
+      ...annulation,
+      blessures_graves: membre.blessures_graves.filter((b) => b.id !== id),
+    });
   };
 
   // Recale la textbox "Équipement" (utilisée telle quelle par le post-bataille
