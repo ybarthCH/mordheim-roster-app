@@ -11,7 +11,7 @@ obsolètes sur la branche et le workflow.
 - Branche : `codex/reprise-mordheim`
 - PR brouillon : https://github.com/ybarthCH/mordheim-roster-app/pull/73
 - Point de départ : `0a6e797` (PR #72 mergée dans `main`)
-- Dernier commit fonctionnel documenté ici : `b582208`
+- Dernier commit fonctionnel documenté ici : `3588859`
 - La branche est poussée sur GitHub.
 - Aucun des changements de cette branche n'a été mergé dans `main`.
 
@@ -45,6 +45,7 @@ que `CODEXCHANGE.md` décrive toujours l'état réel de la branche.
 | `60ba7ce` | Trois règles optionnelles persistantes |
 | `d6d2245` | Nouvelle fenêtre plein écran d'achat d'équipement |
 | `b582208` | Alerte de roster pour les trinkets limités en doublon |
+| `3588859` | Nouvelle étape Commerce, exploration dynamique et règle optionnelle Sawbones |
 
 ## 1. Catalogue des francs-tireurs
 
@@ -240,6 +241,89 @@ des fichiers dédiés :
 
 Le lint doit maintenant terminer sans avertissement.
 
+## 7. Exploration, commerce et médecin Sawbones
+
+La séquence post-bataille comporte maintenant sept étapes :
+
+1. Bataille ;
+2. Blessures graves ;
+3. Gain d'expérience ;
+4. Exploration ;
+5. Commerce ;
+6. Entretien ;
+7. Résumé.
+
+Il n'est plus possible de quitter l'étape Blessures graves tant que chaque
+Héros mis Hors de combat n'a pas reçu un résultat. Cela évite de terminer une
+séquence en laissant une blessure obligatoire non résolue.
+
+### Dés d'exploration
+
+L'étape Exploration indique dynamiquement le nombre de D6 à lancer :
+
+- un dé par Héros de la bande ayant participé sans être mis Hors de combat ;
+- un dé supplémentaire en cas de victoire ;
+- les dés fixes explicitement accordés par un profil ;
+- au maximum six dés choisis pour former le résultat d'exploration.
+
+Les francs-tireurs ne fournissent pas le dé de base réservé aux Héros de la
+bande. Leurs règles pouvant aider l'exploration sont néanmoins détectées et
+affichées. L'app signale également les compétences, équipements et règles de
+bande liés à l'exploration, notamment l'Éclaireur elfe et Prospection. Ces
+effets restent des rappels : l'app ne lance et ne relance aucun dé.
+
+### Recherche d'objets rares
+
+Chaque Héros disponible reçoit une action de Commerce. Il peut :
+
+- passer ;
+- rechercher un objet rare ;
+- ou, si Sawbones est activé, consulter le médecin.
+
+Une recherche rare demande la saisie manuelle d'un résultat de 2D6. L'objet
+est disponible si le résultat atteint sa valeur `Rare N`. Une réussite permet
+d'acheter au maximum un exemplaire de l'objet recherché. Le prix payé est
+déduit à la validation finale de la séquence et l'objet rejoint le stock de la
+bande. Un Héros mis Hors de combat ne peut pas rechercher d'objet rare.
+
+### Règle optionnelle « Quoi de neuf, docteur ? (Sawbones) »
+
+Le supplément du médecin est une règle optionnelle globale, désactivée par
+défaut dans les réglages. Quand elle est désactivée, aucune commande ni
+indication liée au médecin n'apparaît dans l'étape Commerce.
+
+Quand elle est activée, un Héros peut remplacer sa recherche d'objet rare par
+une consultation à 20 po. Un Héros mis Hors de combat peut également consulter
+en urgence s'il a survécu. Une seule blessure peut être traitée par Héros et
+par séquence post-bataille.
+
+Le joueur saisit lui-même le total des 2D6. L'app applique ensuite les tables
+du supplément :
+
+- chirurgie des membres pour les blessures à la jambe, jambes
+  brisées/écrasées et blessures à la main ;
+- chirurgie de la tête pour la folie et les traumatismes nerveux ;
+- mort, amputation, séquelles, repos obligatoire, échec ou guérison selon le
+  résultat.
+
+Les blessures à la poitrine, pertes d'œil et vieilles blessures de guerre ne
+sont pas traitables. Les nouveaux résultats de blessures graves conservent
+leurs effets sous une forme structurée, ce qui permet à une guérison
+d'annuler précisément les pertes de caractéristiques et les notes appliquées.
+Les anciens rosters restent lisibles grâce à une reconnaissance par le nom et
+le texte de la blessure.
+
+Fichiers centraux :
+
+- `src/components/postbataille/EtapeCommerce.tsx`
+- `src/components/postbataille/RechercheObjetRareModal.tsx`
+- `src/components/personnage/DocteurModal.tsx`
+- `src/utils/exploration.ts`
+- `src/utils/docteur.ts`
+- `src/components/postbataille/PostBatailleScreen.tsx`
+- `src/types/roster.ts`
+- `src/types/rules.ts`
+
 ## Vérifications réalisées
 
 Pour chaque ensemble fonctionnel :
@@ -264,6 +348,13 @@ Cas vérifiés manuellement :
 - alerte `Porte-bonheur ×2` pour un roster déjà invalide ;
 - fenêtre d'achat à défilement unique ;
 - badge de rareté visible dans le catalogue et fixé pendant l'achat.
+- blocage de l'étape Blessures graves tant qu'un Héros reste non résolu ;
+- calcul des dés d'exploration avec et sans victoire ;
+- exclusion des francs-tireurs du nombre de dés de base ;
+- recherche rare réussie ou échouée avec saisie manuelle des 2D6 ;
+- interdiction de recherche rare pour un Héros mis Hors de combat ;
+- consultation d'urgence du médecin, paiement différé et guérison ;
+- disparition complète du médecin lorsque Sawbones est désactivé.
 
 Les rosters et réglages créés ou modifiés pour les tests ont été restaurés
 après chaque vérification.
@@ -278,6 +369,11 @@ après chaque vérification.
   règle de prix ne doit pas réécrire rétroactivement les anciens achats.
 - Les règles optionnelles sont globales à l'appareil, pas stockées
   séparément dans chaque roster.
+- Le commerce et les consultations restent des brouillons jusqu'à la
+  validation finale de l'assistant post-bataille. Revenir sur une décision
+  avant cette validation restitue donc les ressources correspondantes.
+- Les jets d'exploration, de rareté et du médecin ne sont jamais automatisés.
+  Seuls leur interprétation et leurs conséquences le sont.
 - `HANDOFF.md` ne décrit pas cette branche. Ses consignes d'ancienne branche
   et de merge automatique ne doivent pas être appliquées à la PR #73.
 
