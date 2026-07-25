@@ -85,8 +85,8 @@ export function RecruterFrancTireurScreen() {
     <Screen title="Engager un franc-tireur" back={`/roster/${roster.id}`}>
       <div className="card">
         <p className="text-sm text-muted">
-          Le catalogue reprend les 35 profils du document fourni. Un seul exemplaire de chaque type peut être
-          engagé ; les profils incompatibles avec cette bande sont masqués par défaut.
+          Choisis le franc-tireur que tu souhaites engager. Chaque franc-tireur ne peut être engagé qu’une seule
+          fois ; les francs-tireurs incompatibles avec cette bande sont masqués par défaut.
         </p>
         <div className="field">
           <label>Rechercher</label>
@@ -117,23 +117,22 @@ export function RecruterFrancTireurScreen() {
               style={{ width: '100%', textAlign: 'left', opacity: disponibilite.disponible ? 1 : 0.62 }}
               onClick={() => choisir(profil.id)}
             >
-              <span className="list-item__main">
-                <span className="list-item__title">
-                  {profil.nom}
-                  {profil.nom_original && <span className="text-muted"> — {profil.nom_original}</span>}
-                </span>
-                <span className="list-item__subtitle">
+              <div className="list-item__main">
+                <div className="list-item__title">{profil.nom}</div>
+                <div className="list-item__subtitle">
                   Engagement : {profil.recrutement.cout ?? profil.recrutement.notation} CO · Entretien :{' '}
                   {profil.entretien.type === 'or'
                     ? `${profil.entretien.cout} CO`
                     : profil.entretien.type === 'malepierre'
                       ? `${profil.entretien.cout} fragment de malepierre`
                       : 'aucun'}
-                </span>
+                </div>
                 {!disponibilite.disponible && (
-                  <span className="text-danger text-sm">{disponibilite.raison}</span>
+                  <div className="text-danger text-sm" style={{ marginTop: '0.2rem' }}>
+                    {disponibilite.raison}
+                  </div>
                 )}
-              </span>
+              </div>
             </button>
           ))}
         </div>

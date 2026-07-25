@@ -1502,6 +1502,8 @@ export function profilDeFrancTireur(francTireur: FrancTireurCatalog): Profile {
     cout_notation: francTireur.recrutement.notation,
     stats: francTireur.stats,
     acces_competences: francTireur.acces_competences,
+    grille_xp: 'homme_de_main',
+    table_avancement: 'heros',
     acces_equitation_automatique: false,
     regles_speciales: francTireur.regles_speciales,
     competences_speciales: francTireur.competences_speciales,

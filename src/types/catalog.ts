@@ -68,6 +68,12 @@ export type Profile = {
   stats: Stats | null;
   acces_competences: SkillCategory[];
   acces_competences_a_verifier?: boolean;
+  // La grille qui détermine les cases et paliers d'XP peut différer du type
+  // du profil. Les francs-tireurs utilisent celle des hommes de main.
+  grille_xp?: 'heros' | 'homme_de_main';
+  // La table sur laquelle résoudre une avancée peut à son tour différer de
+  // la grille XP. Les francs-tireurs lancent sur la table des héros.
+  table_avancement?: 'heros' | 'homme_de_main';
   // Les héros de bande gagnent normalement l'accès générique à Équitation.
   // Les francs-tireurs suivent exclusivement les tables indiquées sur leur
   // profil et désactivent donc cet ajout automatique.

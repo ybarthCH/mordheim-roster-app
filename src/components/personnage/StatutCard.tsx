@@ -40,6 +40,7 @@ export function StatutCard({
   onChangerStatut,
   onOpenRecruterGroupe,
 }: StatutCardProps) {
+  const estFrancTireur = !!(membre.franc_tireur_id || membre.profil_custom);
   // Saisie gardée en texte brut : un input contrôlé par un number forcerait
   // la valeur dès l'effacement (impossible de vider le champ pour retaper un
   // chiffre) — la conversion/le plancher ne s'appliquent qu'à l'usage, la
@@ -87,9 +88,15 @@ export function StatutCard({
             className="input--heading"
           />
           <p className="text-muted text-sm mb-0">
-            {profil.nom} · {profil.type === 'heros' ? 'Héros' : profil.type === 'animal' ? 'Animal' : 'Homme de main'}
+            {profil.nom} ·{' '}
+            {estFrancTireur
+              ? 'Franc-tireur'
+              : profil.type === 'heros'
+                ? 'Héros'
+                : profil.type === 'animal'
+                  ? 'Animal'
+                  : 'Homme de main'}
             {membre.promu_heros && ' (promu)'}
-            {membre.profil_custom && ' · Franc-tireur'}
           </p>
         </div>
         <span className={`badge ${STATUT_BADGE[membre.statut]}`}>

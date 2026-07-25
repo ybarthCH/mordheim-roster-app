@@ -5,7 +5,7 @@ import type { Profile, SkillCategory, Stats, WarbandCatalog } from '../../types/
 import { Modal } from '../common/Modal';
 import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN } from '../../data/gameData';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
-import { LIMITE_HEROS, categoriesAccessibles } from '../../utils/profil';
+import { LIMITE_HEROS, categoriesAccessibles, tableAvancementDuProfil } from '../../utils/profil';
 import { peutAugmenterStat } from '../../utils/plafond';
 import { estSorcier, sortsDisponibles } from '../../utils/magie';
 import {
@@ -62,7 +62,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
   // restant (après celle du nouveau héros) — pilote le message affiché.
   const [resolutionGroupeRestant, setResolutionGroupeRestant] = useState(false);
 
-  const typeEffectif = tableForcee ?? profil.type;
+  const typeEffectif = tableForcee ?? tableAvancementDuProfil(profil);
   const table = typeEffectif === 'heros' ? TABLE_AVANCEMENT_HEROS : TABLE_AVANCEMENT_HOMMES_DE_MAIN;
 
   const categoriesDisponibles: SkillCategory[] = categoriesAccessibles(profil);

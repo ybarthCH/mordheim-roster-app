@@ -22,6 +22,8 @@ export function resolveProfil(roster: RosterInstance, membre: Member): Profile |
         cout: membre.profil_custom.cout,
         stats: membre.profil_custom.stats,
         acces_competences: membre.profil_custom.acces_competences,
+        grille_xp: 'homme_de_main',
+        table_avancement: 'heros',
       }
     : getProfil(roster.bande_id, membre.profil_id);
 
@@ -37,6 +39,14 @@ export function resolveProfil(roster: RosterInstance, membre: Member): Profile |
   }
 
   return base;
+}
+
+export function grilleXpDuProfil(profil: Profile): 'heros' | 'homme_de_main' {
+  return profil.grille_xp ?? (profil.type === 'heros' ? 'heros' : 'homme_de_main');
+}
+
+export function tableAvancementDuProfil(profil: Profile): 'heros' | 'homme_de_main' {
+  return profil.table_avancement ?? (profil.type === 'heros' ? 'heros' : 'homme_de_main');
 }
 
 const GRANDE_CIBLE_RE = /^grande?\s*cible$/i;

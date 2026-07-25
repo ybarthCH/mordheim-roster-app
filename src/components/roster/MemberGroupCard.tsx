@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../common/Icon';
 import type { IconName } from '../common/Icon';
-import { resolveProfil } from '../../utils/profil';
+import { grilleXpDuProfil, resolveProfil } from '../../utils/profil';
 import { avancesDues } from '../../utils/xp';
 import { nomCourtBlessure } from '../../utils/blessures';
 import { inventaireGroupeMismatch } from '../../utils/shop';
@@ -76,7 +76,10 @@ export function MemberGroupCard({
     const profil = resolveProfil(roster, m);
     if (!profil) return false;
     if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return false;
-    return avancesDues(profil.type, m.xp_depart, m.xp, !!catalogue?.xp_demi) > m.historique_avancees.length;
+    return (
+      avancesDues(grilleXpDuProfil(profil), m.xp_depart, m.xp, !!catalogue?.xp_demi) >
+      m.historique_avancees.length
+    );
   };
 
   // Un homme de main ou animal non promu n'utilise jamais le statut « Hors

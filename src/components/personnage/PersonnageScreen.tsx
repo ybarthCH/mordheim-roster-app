@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/RostersContext';
 import { Screen } from '../common/Screen';
-import { resolveProfil, nombreHeros } from '../../utils/profil';
+import { grilleXpDuProfil, resolveProfil, nombreHeros } from '../../utils/profil';
 import { getCatalogue } from '../../data/warbands';
 import type { Stats } from '../../types/catalog';
 import { STAT_KEYS } from '../../types/catalog';
@@ -206,7 +206,9 @@ export function PersonnageScreen() {
 
   const demiXp = !!catalogue.xp_demi;
   const dues =
-    francTireur?.gagne_experience === false ? 0 : avancesDues(profil.type, membre.xp_depart, membre.xp, demiXp);
+    francTireur?.gagne_experience === false
+      ? 0
+      : avancesDues(grilleXpDuProfil(profil), membre.xp_depart, membre.xp, demiXp);
   const obtenues = membre.historique_avancees.length;
   const enAttente = Math.max(0, dues - obtenues);
   const rating = ratingMembre(membre, roster);
@@ -261,7 +263,7 @@ export function PersonnageScreen() {
       />
 
       <ExperienceCard
-        type={profil.type}
+        type={grilleXpDuProfil(profil)}
         membre={membre}
         demiXp={demiXp}
         enAttente={enAttente}
