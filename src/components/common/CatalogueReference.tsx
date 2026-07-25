@@ -3,6 +3,7 @@ import { getItem } from '../../data/items';
 import { estAccesGenerique, iconeCategorie } from '../../utils/shop';
 import { magieDuProfil } from '../../utils/magie';
 import { Icon } from './Icon';
+import { CollapsibleCard } from './CollapsibleCard';
 
 const LISTES_EQUIPEMENT = ['armes_cac', 'armes_tir', 'armures', 'divers'] as const;
 
@@ -92,8 +93,10 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
   if (!aEquipement && !aObjetsRares) return null;
 
   return (
-    <div className="card card--tight">
-      <h3>Équipement de bande (référence)</h3>
+    <CollapsibleCard
+      preferenceKey="ui.roster.equipement_reference.ouvert"
+      title="Équipement de la bande (référence)"
+    >
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
         Objets propres à cette bande uniquement — texte libre, à titre indicatif. Les objets courants s'achètent
         directement depuis la fiche personnage.
@@ -136,25 +139,26 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
           })}
         </div>
       )}
-    </div>
+    </CollapsibleCard>
   );
 }
 
-// Référence libre du système de magie/prières d'une bande. Si profilId est
-// fourni, la carte ne s'affiche que si ce profil fait partie des
-// utilisateurs (usage : fiche personnage d'un sorcier précis). Sans
-// profilId, s'affiche dès que la bande a un système de magie (usage :
-// résumé de roster global).
+// Référence libre du système de magie/prières. Avec un profil, résout son
+// domaine et mémorise l'état replié de la carte sur sa fiche. Sans profil,
+// affiche le domaine général de la bande dans le résumé du roster.
 export function MagieReference({ catalogue, profil }: { catalogue: WarbandCatalog; profil?: Profile }) {
   const magie = profil ? magieDuProfil(catalogue, profil) : catalogue.magie;
   if (!magie) return null;
 
-  return (
-    <div className="card card--tight">
-      <h3>
-        <Icon name="parchemin" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
-        {magie.nom} (référence)
-      </h3>
+  const titre = (
+    <>
+      <Icon name="parchemin" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
+      {magie.nom} (référence)
+    </>
+  );
+
+  const contenu = (
+    <>
       <p className="text-sm text-muted">
         {magie.type} · dé {magie.de}
         {!profil && magie.utilisateurs.length > 0 && (
@@ -175,6 +179,21 @@ export function MagieReference({ catalogue, profil }: { catalogue: WarbandCatalo
           {s.note && <span className="text-muted"> — {s.note}</span>}
         </p>
       ))}
+    </>
+  );
+
+  if (profil) {
+    return (
+      <CollapsibleCard preferenceKey="ui.personnage.magie_reference.ouvert" title={titre}>
+        {contenu}
+      </CollapsibleCard>
+    );
+  }
+
+  return (
+    <div className="card card--tight">
+      <h3>{titre}</h3>
+      {contenu}
     </div>
   );
 }

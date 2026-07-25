@@ -15,6 +15,7 @@ import { MemberGroupCard } from './MemberGroupCard';
 import { HistoriqueBataillesSection } from './HistoriqueBataillesSection';
 import { PromotionHerosDechuModal } from './PromotionHerosDechuModal';
 import { EquipementReference, MagieReference } from '../common/CatalogueReference';
+import { CollapsibleCard } from '../common/CollapsibleCard';
 import { AvanceeModal } from '../personnage/AvanceeModal';
 import { nombreHeros } from '../../utils/profil';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
@@ -256,18 +257,22 @@ export function RosterScreen() {
       )}
 
       {catalogue && catalogue.regles_speciales.length > 0 && (
-        <div className="card card--tight">
-          <h3>
-            <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
-            Règles spéciales
-          </h3>
+        <CollapsibleCard
+          preferenceKey="ui.roster.regles_speciales.ouvert"
+          title={
+            <>
+              <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
+              Règles spéciales
+            </>
+          }
+        >
           {catalogue.regles_speciales.map((r) => (
             <p key={r.nom} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
               <strong>{r.nom}</strong> — {r.texte}
               {r.exception && <span className="text-muted"> ({r.exception})</span>}
             </p>
           ))}
-        </div>
+        </CollapsibleCard>
       )}
 
       <div className="top-actions">
