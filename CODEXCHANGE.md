@@ -11,7 +11,7 @@ obsolètes sur la branche et le workflow.
 - Branche : `codex/reprise-mordheim`
 - PR brouillon : https://github.com/ybarthCH/mordheim-roster-app/pull/73
 - Point de départ : `0a6e797` (PR #72 mergée dans `main`)
-- Dernier commit fonctionnel documenté ici : `3588859`
+- Dernier commit fonctionnel documenté ici : `3cb40e9`
 - La branche est poussée sur GitHub.
 - Aucun des changements de cette branche n'a été mergé dans `main`.
 
@@ -46,6 +46,7 @@ que `CODEXCHANGE.md` décrive toujours l'état réel de la branche.
 | `d6d2245` | Nouvelle fenêtre plein écran d'achat d'équipement |
 | `b582208` | Alerte de roster pour les trinkets limités en doublon |
 | `3588859` | Nouvelle étape Commerce, exploration dynamique et règle optionnelle Sawbones |
+| `3cb40e9` | Correction et amélioration mobile de la vente de wyrdstone |
 
 ## 1. Catalogue des francs-tireurs
 
@@ -272,6 +273,28 @@ affichées. L'app signale également les compétences, équipements et règles d
 bande liés à l'exploration, notamment l'Éclaireur elfe et Prospection. Ces
 effets restent des rappels : l'app ne lance et ne relance aucun dé.
 
+### Vente de wyrdstone
+
+La colonne correspondant à l'effectif actuel de la bande est maintenant
+surlignée sur toute la hauteur de la table de vente. La cellule située à
+l'intersection de cette colonne et du nombre de fragments vendus conserve un
+surlignage plus fort.
+
+La quantité à vendre utilise des boutons `−` et `+` toujours visibles, y
+compris sur mobile. Elle est automatiquement bornée entre zéro et le nombre
+de fragments réellement disponibles. Le champ « Prix total obtenu (po) » est
+placé directement en dessous du sélecteur de quantité.
+
+Un ancien calcul pouvait bloquer l'étape Entretien lorsque le brouillon
+contenait une quantité vendue supérieure à la réserve : l'écran affichait
+alors zéro fragment, mais comparait encore l'entretien à une réserve négative.
+La quantité ne peut plus dépasser la réserve et le contrôle d'entretien
+utilise désormais une disponibilité minimale de zéro.
+
+Lors de la validation finale, les fragments vendus sont bien retirés de la
+réserve de la bande. Le prix de vente est ajouté à la trésorerie avant le
+paiement des contrats de francs-tireurs.
+
 ### Recherche d'objets rares
 
 Chaque Héros disponible reçoit une action de Commerce. Il peut :
@@ -355,6 +378,11 @@ Cas vérifiés manuellement :
 - interdiction de recherche rare pour un Héros mis Hors de combat ;
 - consultation d'urgence du médecin, paiement différé et guérison ;
 - disparition complète du médecin lorsque Sawbones est désactivé.
+- surlignage complet de la colonne de vente correspondant à l'effectif ;
+- sélecteur mobile `−` / `+` limité aux fragments disponibles ;
+- vente réelle de deux fragments : réserve vérifiée de `3 → 1` ;
+- ajout de 60 po de vente, paiement de 5 po d'entretien et validation finale
+  à 540 po sans faux blocage.
 
 Les rosters et réglages créés ou modifiés pour les tests ont été restaurés
 après chaque vérification.
