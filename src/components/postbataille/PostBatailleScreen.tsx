@@ -32,6 +32,8 @@ import {
 import { useGameRules } from '../../state/useGameRules';
 import { resumeExploration } from '../../utils/exploration';
 import { COUT_DOCTEUR } from '../../utils/docteur';
+import { effectifTotal } from '../../utils/bandeValue';
+import { prixVenteWyrdstone } from '../../data/tableVenteWyrdstone';
 
 const ETAPES = [
   'Bataille',
@@ -123,7 +125,6 @@ export function PostBatailleScreen() {
   const [wyrdstoneTrouve, setWyrdstoneTrouve] = useState(0);
   const [notesExploration, setNotesExploration] = useState('');
   const [quantiteVendue, setQuantiteVendue] = useState(0);
-  const [prixVente, setPrixVente] = useState(0);
   const [pointsVeteran, setPointsVeteran] = useState(0);
 
   const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
@@ -255,6 +256,21 @@ export function PostBatailleScreen() {
     const draft = commerceDrafts[hero.membre.instance_id];
     return !draft || draft.statut !== 'termine';
   });
+  // Résultats du docteur (étape Commerce), pour affichage nominatif dans le
+  // résumé final — qui a consulté, quel jet, quel résultat.
+  const docteurResultats = Object.entries(commerceDrafts).flatMap(([instanceId, draft]) => {
+    if (draft.action !== 'docteur' || draft.statut !== 'termine') return [];
+    const nom = roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?';
+    return [{ nom, jet: draft.jet, titre: draft.resultatTitre }];
+  });
+  // Blessures graves enregistrées cette bataille, pour affichage nominatif
+  // dans le résumé final — qui a été touché et par quelle blessure.
+  const blessuresResume = Object.entries(blessureDrafts)
+    .filter(([, d]) => d.description.trim())
+    .map(([instanceId, d]) => ({
+      nom: roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?',
+      blessure: d.nom,
+    }));
   // Gains de trésorerie issus de résultats de blessure grave automatisés
   // (ex : victoire au combat de Gladiateur, +50 po).
   const blessuresTresorerieBonus = Object.values(blessureDrafts).reduce(
@@ -413,6 +429,10 @@ export function PostBatailleScreen() {
   const indexGainXp = 2;
   const indexCommerce = 4;
   const indexEntretien = 5;
+  // Le prix de vente du wyrdstone est entièrement dérivé de la table
+  // officielle (quantité vendue × taille de bande) — jamais saisi à la main,
+  // pour ne jamais diverger de ce que le tableau affiche.
+  const prixVente = prixVenteWyrdstone(quantiteVendue, effectifTotal(roster));
   const orDisponibleAvantCommerce = roster.tresorerie + prixVente + blessuresTresorerieBonus;
   const orDisponiblePourEntretien = orDisponibleAvantCommerce - coutCommerce;
   const wyrdstoneDisponiblePourEntretien = Math.max(
@@ -744,8 +764,6 @@ export function PostBatailleScreen() {
           onNotesExplorationChange={setNotesExploration}
           quantiteVendue={quantiteVendue}
           onQuantiteVendueChange={setQuantiteVendue}
-          prixVente={prixVente}
-          onPrixVenteChange={setPrixVente}
           pointsVeteran={pointsVeteran}
           onPointsVeteranChange={setPointsVeteran}
           onAchatStock={ajouterAuStock}
@@ -810,7 +828,8 @@ export function PostBatailleScreen() {
             })
             .map((ligne) => ligne.nom)}
           avancesResolues={avancesResolues}
-          blessureDrafts={blessureDrafts}
+          blessuresResume={blessuresResume}
+          docteurResultats={docteurResultats}
           horsDeCombatIndividuel={horsDeCombatIndividuel}
           xpDraftDe={xpDraftDe}
           groupesHC={groupesHC}

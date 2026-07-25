@@ -1,7 +1,7 @@
 import { resolveLeader } from '../../utils/leader';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
-import type { BlessureDraft, XpDraft } from './PostBatailleScreen';
+import type { XpDraft } from './PostBatailleScreen';
 
 type EtapeResumeProps = {
   roster: RosterInstance;
@@ -18,7 +18,8 @@ type EtapeResumeProps = {
   coutCommerce: number;
   francTireursPayesCount: number;
   francsTireursPartants: string[];
-  blessureDrafts: Record<string, BlessureDraft>;
+  blessuresResume: { nom: string; blessure: string }[];
+  docteurResultats: { nom: string; jet: number; titre: string }[];
   horsDeCombatIndividuel: Member[];
   xpDraftDe: (m: Member, xpParDefaut: number) => XpDraft;
   groupesHC: Member[];
@@ -41,7 +42,8 @@ export function EtapeResume({
   coutCommerce,
   francTireursPayesCount,
   francsTireursPartants,
-  blessureDrafts,
+  blessuresResume,
+  docteurResultats,
   horsDeCombatIndividuel,
   xpDraftDe,
   groupesHC,
@@ -81,9 +83,31 @@ export function EtapeResume({
         <p className="text-sm">Gains issus des blessures graves résolues : +{blessuresTresorerieBonus} po.</p>
       )}
       {coutCommerce > 0 && <p className="text-sm">Dépenses de commerce : {coutCommerce} po.</p>}
-      <p className="text-sm">
-        {Object.values(blessureDrafts).filter((d) => d.description.trim()).length} blessure(s) grave(s) enregistrée(s).
+      {docteurResultats.length > 0 && (
+        <div className="text-sm">
+          <p className="mb-0">Résultats du docteur :</p>
+          <ul style={{ margin: '0.2rem 0 0.6rem', paddingLeft: '1.2rem' }}>
+            {docteurResultats.map((d, i) => (
+              <li key={`${d.nom}-${i}`}>
+                {d.nom} — 2D6 = {d.jet} : <strong>{d.titre}</strong>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <p className="text-sm mb-0">
+        {blessuresResume.length} blessure(s) grave(s) enregistrée(s)
+        {blessuresResume.length > 0 ? ' :' : '.'}
       </p>
+      {blessuresResume.length > 0 && (
+        <ul className="text-sm" style={{ margin: '0.2rem 0 0.6rem', paddingLeft: '1.2rem' }}>
+          {blessuresResume.map((b, i) => (
+            <li key={`${b.nom}-${i}`}>
+              {b.nom} — {b.blessure}
+            </li>
+          ))}
+        </ul>
+      )}
       <p className="text-sm">
         Hors de combat : {horsDeCombatIndividuel.filter((m) => xpDraftDe(m, m.xp).survecu === 'oui').length} survivant(s),{' '}
         {horsDeCombatIndividuel.filter((m) => xpDraftDe(m, m.xp).survecu === 'non').length} mort(s).
