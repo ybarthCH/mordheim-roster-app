@@ -27,6 +27,7 @@ import {
   formatEquipementAffiche,
   inventaireComplet,
   prixVente,
+  trouverTrinketsLimitesEnTrop,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { Icon } from '../common/Icon';
@@ -62,6 +63,7 @@ export function RosterScreen() {
   const hommesDeMain = roster.membres.filter((m) => !estFrancTireur(m) && resolveProfil(roster, m)?.type !== 'heros');
   const herosVivants = heros.filter((m) => m.statut !== 'mort');
   const besoinChoixLeader = choixLeaderRequis(roster, catalogue);
+  const trinketsLimitesEnTrop = rules.trinketsLimites ? trouverTrinketsLimitesEnTrop(roster) : [];
 
   // Lustrian Reavers ("Promotions") : rôles de héros uniques tombés — bannis
   // du recrutement mais toujours vacants (aucun titulaire vivant) — qu'un
@@ -205,6 +207,19 @@ export function RosterScreen() {
           <button className="btn btn--sm" onClick={() => setModalLeader(true)}>
             Choisir un chef
           </button>
+        </div>
+      )}
+
+      {trinketsLimitesEnTrop.length > 0 && (
+        <div className="banner-danger">
+          <span className="banner-danger__icon" aria-hidden="true">
+            ⚠
+          </span>
+          <span>
+            Règle « Trinket limité » non respectée :{' '}
+            {trinketsLimitesEnTrop.map(({ nom, quantite }) => `${nom} ×${quantite}`).join(', ')}. Un seul exemplaire
+            de chaque objet est autorisé dans toute la bande.
+          </span>
         </div>
       )}
 

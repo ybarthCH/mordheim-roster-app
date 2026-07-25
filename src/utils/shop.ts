@@ -236,6 +236,37 @@ export function inventaireComplet(roster: RosterInstance): InventoryEntry[] {
   return [...roster.stock, ...roster.membres.flatMap((m) => m.inventaire)];
 }
 
+export type AvertissementTrinketLimite = {
+  itemId: string;
+  nom: string;
+  quantite: number;
+};
+
+// Contrôle aussi bien le stock de bande que l'équipement porté. Cette
+// validation reste utile pour les anciens rosters ou lorsqu'une règle est
+// activée après que plusieurs exemplaires ont déjà été achetés.
+export function trouverTrinketsLimitesEnTrop(roster: RosterInstance): AvertissementTrinketLimite[] {
+  const parItem = new Map<string, AvertissementTrinketLimite>();
+
+  for (const entree of inventaireComplet(roster)) {
+    if (!TRINKETS_LIMITES.has(entree.item_id)) continue;
+    const existant = parItem.get(entree.item_id);
+    if (existant) {
+      existant.quantite += 1;
+    } else {
+      parItem.set(entree.item_id, {
+        itemId: entree.item_id,
+        nom: getItem(entree.item_id)?.nom ?? entree.nom,
+        quantite: 1,
+      });
+    }
+  }
+
+  return [...parItem.values()]
+    .filter(({ quantite }) => quantite > 1)
+    .sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+}
+
 export const CATEGORIE_ORDRE = [
   'armes_cac',
   'armes_tir',
