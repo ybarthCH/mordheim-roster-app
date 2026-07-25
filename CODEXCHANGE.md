@@ -19,6 +19,20 @@ Règle de travail actuelle : continuer sur cette branche et mettre à jour la
 PR #73, sans merger dans `main` tant que l'utilisateur n'a pas explicitement
 demandé le merge.
 
+### Tenue de ce journal
+
+À chaque mise à jour fonctionnelle poussée sur la PR #73, mettre également
+ce fichier à jour avec :
+
+- le nouveau commit et son objectif ;
+- le comportement ajouté ou modifié ;
+- les fichiers et choix techniques importants ;
+- les vérifications réellement effectuées ;
+- toute nouvelle limite connue ou décision laissée en attente.
+
+La mise à jour du journal doit accompagner le changement correspondant afin
+que `CODEXCHANGE.md` décrive toujours l'état réel de la branche.
+
 ## Résumé des commits
 
 | Commit | Objet |
@@ -276,4 +290,3 @@ après chaque vérification.
 5. Lancer au minimum `npm run lint` et `npm run build`.
 6. Tester les changements d'interface sur mobile.
 7. Ne pas merger dans `main` sans demande explicite de l'utilisateur.
-
