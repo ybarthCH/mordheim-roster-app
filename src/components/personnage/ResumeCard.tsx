@@ -1,6 +1,7 @@
 import { injuryLabel } from '../../utils/blessures';
 import { resolveItemDetail, resumeItem } from '../../utils/shop';
 import { estSorcier, resolveSort } from '../../utils/magie';
+import { CollapsibleCard } from '../common/CollapsibleCard';
 import type { InventoryEntry, Member } from '../../types/roster';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
 
@@ -15,12 +16,10 @@ type ResumeCardProps = {
 
 export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCompetence, onItemClick }: ResumeCardProps) {
   return (
-    <div className="card">
+    <CollapsibleCard title="Résumé" preferenceKey="ui.personnage.resume.ouvert" className="card">
       {profil.type === 'heros' && (
         <>
-          <p className="text-sm mb-0">
-            <strong>Compétences</strong>
-          </p>
+          <span className="resume-section__title">Compétences</span>
           {membre.competences_acquises.length > 0 ? (
             membre.competences_acquises.map((id) => {
               const s = nomCompetence(id);
@@ -32,16 +31,14 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
               );
             })
           ) : (
-            <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+            <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem', fontStyle: 'italic' }}>
               Aucune
             </p>
           )}
         </>
       )}
 
-      <p className="text-sm mb-0" style={{ marginTop: profil.type === 'heros' ? '0.7rem' : 0 }}>
-        <strong>Équipement</strong>
-      </p>
+      <span className="resume-section__title">Équipement</span>
       {inventaireGroupe.length > 0 ? (
         inventaireGroupe.map(({ entree, quantite }) => {
           const detail = resolveItemDetail(entree);
@@ -53,7 +50,10 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
                 {quantite > 1 ? ` ×${quantite}` : ''}
               </button>
               {synopsis && (
-                <span className="text-muted"> — {synopsis.length > 70 ? `${synopsis.slice(0, 70).trimEnd()}…` : synopsis}</span>
+                <span className="text-muted" style={{ fontStyle: 'italic' }}>
+                  {' '}
+                  — {synopsis.length > 70 ? `${synopsis.slice(0, 70).trimEnd()}…` : synopsis}
+                </span>
               )}
             </p>
           );
@@ -63,16 +63,14 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
           {membre.equipement}
         </p>
       ) : (
-        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem', fontStyle: 'italic' }}>
           Aucun
         </p>
       )}
 
       {estSorcier(catalogue, profil) && (
         <>
-          <p className="text-sm mb-0" style={{ marginTop: '0.7rem' }}>
-            <strong>Magie — Sort connu</strong>
-          </p>
+          <span className="resume-section__title">Magie — Sort connu</span>
           {membre.sorts_connus.length > 0 ? (
             membre.sorts_connus.map((nom, i) => {
               const sort = resolveSort(catalogue, nom, profil);
@@ -84,16 +82,14 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
               );
             })
           ) : (
-            <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+            <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem', fontStyle: 'italic' }}>
               Aucun
             </p>
           )}
         </>
       )}
 
-      <p className="text-sm mb-0" style={{ marginTop: '0.7rem' }}>
-        <strong>Règles spéciales</strong>
-      </p>
+      <span className="resume-section__title">Règles spéciales</span>
       {membre.regles_speciales_notes.length > 0 ? (
         membre.regles_speciales_notes.map((s, i) => (
           <p key={i} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
@@ -101,14 +97,12 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
           </p>
         ))
       ) : (
-        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem', fontStyle: 'italic' }}>
           Aucune
         </p>
       )}
 
-      <p className="text-sm mb-0" style={{ marginTop: '0.7rem' }}>
-        <strong>Blessures graves</strong>
-      </p>
+      <span className="resume-section__title">Blessures graves</span>
       {membre.blessures_graves.length > 0 ? (
         membre.blessures_graves.map((b) => (
           <p key={b.id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
@@ -116,10 +110,10 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
           </p>
         ))
       ) : (
-        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem', fontStyle: 'italic' }}>
           Aucune
         </p>
       )}
-    </div>
+    </CollapsibleCard>
   );
 }

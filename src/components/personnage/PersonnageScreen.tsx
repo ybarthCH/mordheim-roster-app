@@ -424,6 +424,7 @@ export function PersonnageScreen() {
       {modalBlessure && (
         <BlessureGraveModal
           member={membre}
+          tresorerieDisponible={roster.tresorerie}
           onClose={() => setModalBlessure(false)}
           onApply={(updated, tresorerieBonus) => appliquerBlessureGrave(updated, tresorerieBonus)}
         />

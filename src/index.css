@@ -372,6 +372,23 @@ button {
   opacity: 0.6;
 }
 
+/* Sous-titre discret pour une sous-section à l'intérieur d'une carte (ex :
+   les rubriques du résumé de personnage) — même taille de corps de texte
+   que le contenu qui suit, mais couleur/casse/espacement pour bien le
+   distinguer d'un simple paragraphe en gras. */
+.resume-section__title {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-top: 0.9rem;
+}
+.resume-section__title:first-child {
+  margin-top: 0;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -526,20 +543,28 @@ button {
 }
 .quantity-stepper {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) 44px;
-  gap: 0.4rem;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  gap: 0.5rem;
   align-items: stretch;
 }
 .field .quantity-stepper > input {
   min-width: 0;
   text-align: center;
+  font-size: 1.3rem;
   font-weight: 700;
+  font-family: var(--font-heading);
 }
 .quantity-stepper__button {
-  min-height: 42px;
+  min-height: 48px;
   padding: 0;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   line-height: 1;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+}
+.quantity-stepper__button:not(:disabled):hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .badge {
@@ -936,16 +961,81 @@ button {
   font-weight: 700;
   border-radius: var(--radius);
 }
-.table-reference td.table-reference__cell-clickable {
-  cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+/* Sélecteur de palier façon "dé d'exploration" — chips cliquables, plus
+   lisibles et plus faciles à toucher sur mobile qu'une cellule de tableau. */
+.dice-choice-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.6rem 0 0.8rem;
 }
-.table-reference td.table-reference__cell-clickable:hover {
+.dice-choice {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 4.4rem;
+  min-height: 44px;
+  padding: 0.5rem 0.6rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-inset);
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+}
+.dice-choice:hover {
+  border-color: var(--accent);
+}
+.dice-choice:active {
+  transform: scale(0.96);
+}
+.dice-choice:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.dice-choice__range {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.dice-choice__value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+}
+.dice-choice--active {
+  border-color: var(--accent);
   background: var(--accent-soft);
 }
-.table-reference td.table-reference__cell-clickable:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: -2px;
+.dice-choice--active .dice-choice__value {
+  color: var(--accent);
+}
+
+/* Mise en avant d'un montant calculé (ex : prix de vente obtenu). */
+.price-highlight {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.9rem;
+  margin: 0.7rem 0;
+  text-align: center;
+}
+.price-highlight__value {
+  font-size: 1.7rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--accent);
+}
+.price-highlight__label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 .member-cards {

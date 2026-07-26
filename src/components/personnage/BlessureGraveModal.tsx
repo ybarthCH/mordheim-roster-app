@@ -8,13 +8,14 @@ import { trouverBlessure } from '../../data/blessuresGraves';
 
 type Props = {
   member: Member;
+  tresorerieDisponible: number;
   onClose: () => void;
   onApply: (member: Member, tresorerieBonus: number) => void;
 };
 
 const NOM_AVEUGLE_OEIL = trouverBlessure('aveugle_oeil')?.nom;
 
-export function BlessureGraveModal({ member, onClose, onApply }: Props) {
+export function BlessureGraveModal({ member, tresorerieDisponible, onClose, onApply }: Props) {
   const [applique, setApplique] = useState(false);
   const dejaAveugle = member.blessures_graves.some((b) => b.nom === NOM_AVEUGLE_OEIL);
 
@@ -64,6 +65,7 @@ export function BlessureGraveModal({ member, onClose, onApply }: Props) {
         <BlessureGraveWizard
           nomPersonnage={member.nom_perso}
           dejaAveugle={dejaAveugle}
+          tresorerieDisponible={tresorerieDisponible}
           onAppliquer={appliquer}
           onAnnuler={onClose}
         />

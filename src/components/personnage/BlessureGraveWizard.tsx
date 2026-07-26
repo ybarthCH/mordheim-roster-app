@@ -42,7 +42,14 @@ type IterationResolue = {
   dureeD3?: number;
 };
 
-type Mode = 'liste' | 'sous_jet' | 'duree_d3' | 'multiples_compte' | 'gladiateur_issue' | 'confirmation';
+type Mode =
+  | 'liste'
+  | 'sous_jet'
+  | 'duree_d3'
+  | 'multiples_compte'
+  | 'gladiateur_issue'
+  | 'capture_issue'
+  | 'confirmation';
 
 function fusionnerStats(
   a: Partial<Record<keyof Stats, number>>,
@@ -82,13 +89,23 @@ type Props = {
   // second œil, ce qui force le statut Mort (règle imprimée dans le texte de
   // la blessure elle-même — voir data/blessuresGraves.ts).
   dejaAveugle?: boolean;
+  // Trésorerie actuelle de la bande — affichée avant/après le choix d'une
+  // rançon pour le résultat "Capturé", purement informatif (le paiement
+  // n'est appliqué qu'à la validation finale, via tresorerieBonus négatif).
+  tresorerieDisponible?: number;
   onAppliquer: (resultat: BlessureGraveResultat) => void;
   onAnnuler?: () => void;
 };
 
 const ID_INTERDITS_BOUCLE = ['mort', 'capture', 'blessures_multiples'];
 
-export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppliquer, onAnnuler }: Props) {
+export function BlessureGraveWizard({
+  nomPersonnage,
+  dejaAveugle = false,
+  tresorerieDisponible,
+  onAppliquer,
+  onAnnuler,
+}: Props) {
   const [mode, setMode] = useState<Mode>('liste');
   const [contexte, setContexte] = useState<'racine' | 'boucle'>('racine');
   const [selectionActuelle, setSelectionActuelle] = useState<ResultatBlessureGrave | null>(null);
@@ -106,6 +123,11 @@ export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppl
   // aucun cas particulier à gérer ici.
   const [enChoixGladiateurPerdu, setEnChoixGladiateurPerdu] = useState(false);
   const [gladiateurForcePerte, setGladiateurForcePerte] = useState(false);
+  // Cas spécial "Capturé" : deux issues possibles, la seconde nécessitant un
+  // montant de rançon saisi avant de pouvoir conclure (voir mode
+  // 'capture_issue' plus bas).
+  const [captureChoix, setCaptureChoix] = useState<'perdu' | 'rancon' | null>(null);
+  const [ranconSaisie, setRanconSaisie] = useState('');
 
   const enCoursDansBoucle = contexte === 'boucle' && multiplesCount !== null;
   const iterationActuelleIndex = multiplesResultats.length + 1;
@@ -121,6 +143,8 @@ export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppl
     setPrecision('');
     setEnChoixGladiateurPerdu(false);
     setGladiateurForcePerte(false);
+    setCaptureChoix(null);
+    setRanconSaisie('');
   };
 
   const terminerIteration = (it: IterationResolue) => {
@@ -148,6 +172,12 @@ export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppl
     setEnChoixGladiateurPerdu(false);
     if (r.combatGladiateur) {
       setMode('gladiateur_issue');
+      return;
+    }
+    if (r.captureIssue) {
+      setCaptureChoix(null);
+      setRanconSaisie('');
+      setMode('capture_issue');
       return;
     }
     if (r.multiplesInjuries) {
@@ -195,6 +225,37 @@ export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppl
       setSelectionEnAttente('');
       setMode('liste');
     }
+  };
+
+  const choisirCapturePerdu = () => {
+    if (!selectionActuelle) return;
+    terminerIteration({
+      resultat: {
+        ...selectionActuelle,
+        nom: 'Capturé — héros perdu',
+        texte:
+          "Le prisonnier ne revient pas : vendu à des marchands d'esclaves, exécuté ou transformé par ses ravisseurs, il quitte définitivement la bande. Son équipement reste aux mains de ses ravisseurs.",
+        captureIssue: false,
+        perteEquipement: true,
+        statutMort: true,
+      },
+    });
+  };
+
+  const choisirCaptureRancon = () => {
+    if (!selectionActuelle) return;
+    const montant = Math.max(0, Math.trunc(Number(ranconSaisie) || 0));
+    terminerIteration({
+      resultat: {
+        ...selectionActuelle,
+        nom: 'Capturé — libéré contre rançon',
+        texte: `Le prisonnier est libéré contre une rançon de ${montant} po, payée par la bande. Il conserve tout son équipement et rejoint aussitôt la bande.`,
+        captureIssue: false,
+        perteEquipement: false,
+        statutMort: false,
+        tresorerieBonus: -montant,
+      },
+    });
   };
 
   const choisirSousJet = (option: SousJetOption) => {
@@ -462,6 +523,68 @@ export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppl
     );
   }
 
+  if (mode === 'capture_issue' && selectionActuelle) {
+    const montantRancon = Math.max(0, Math.trunc(Number(ranconSaisie) || 0));
+    return (
+      <div>
+        <h4 style={{ marginTop: 0 }}>
+          <Icon name={iconePourBlessure(selectionActuelle)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
+          {selectionActuelle.nom}
+        </h4>
+        <p className="text-sm text-muted">{selectionActuelle.texte}</p>
+        {typeof tresorerieDisponible === 'number' && (
+          <p className="text-sm">
+            Trésorerie actuelle de la bande : <strong>{tresorerieDisponible} po</strong>.
+          </p>
+        )}
+        {captureChoix !== 'rancon' && (
+          <div className="flex flex-wrap gap-sm">
+            <button className="btn" onClick={choisirCapturePerdu}>
+              Héros perdu
+            </button>
+            <button className="btn btn--primary" onClick={() => setCaptureChoix('rancon')}>
+              Récupéré contre rançon
+            </button>
+          </div>
+        )}
+        {captureChoix === 'rancon' && (
+          <>
+            <div className="field">
+              <label>Montant de la rançon (po)</label>
+              <input
+                type="number"
+                min={0}
+                value={ranconSaisie}
+                onChange={(e) => setRanconSaisie(e.target.value)}
+                placeholder="0"
+              />
+            </div>
+            {typeof tresorerieDisponible === 'number' && (
+              <p className="text-sm text-muted">
+                Trésorerie après paiement : {Math.max(0, tresorerieDisponible - montantRancon)} po.
+              </p>
+            )}
+            <div className="flex flex-wrap gap-sm">
+              <button className="btn" onClick={() => setCaptureChoix(null)}>
+                ‹ Retour
+              </button>
+              <button className="btn btn--primary" onClick={choisirCaptureRancon}>
+                Confirmer la rançon
+              </button>
+            </div>
+          </>
+        )}
+        {captureChoix !== 'rancon' && (
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={() => setMode('liste')}>
+              ‹ Retour
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   // mode === 'confirmation'
   const resultatFinal = construireResultatFinal();
   const statsListe = Object.entries(resultatFinal.statsDelta).filter(([, v]) => v);
@@ -497,9 +620,10 @@ export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppl
           <strong>Expérience :</strong> +{resultatFinal.xpBonus}
         </p>
       )}
-      {resultatFinal.tresorerieBonus > 0 && (
+      {resultatFinal.tresorerieBonus !== 0 && (
         <p className="text-sm">
-          <strong>Trésorerie de la bande :</strong> +{resultatFinal.tresorerieBonus} po
+          <strong>Trésorerie de la bande :</strong> {resultatFinal.tresorerieBonus > 0 ? '+' : ''}
+          {resultatFinal.tresorerieBonus} po
         </p>
       )}
       {resultatFinal.statutMort && <p className="text-danger">⚠ Ce guerrier sera marqué Mort.</p>}
@@ -520,7 +644,11 @@ export function BlessureGraveWizard({ nomPersonnage, dejaAveugle = false, onAppl
         <textarea
           value={precision}
           onChange={(e) => setPrecision(e.target.value)}
-          placeholder="Ex : nom de l'adversaire responsable, issue de la négociation..."
+          placeholder={
+            racine?.resultat.id === 'capture'
+              ? "Ex : nom de la bande ou du guerrier qui l'a capturé..."
+              : "Ex : nom de l'adversaire responsable, issue de la négociation..."
+          }
         />
       </div>
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>

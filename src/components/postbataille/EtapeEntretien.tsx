@@ -44,12 +44,13 @@ export function EtapeEntretien({
     <>
       <div className="card">
         <h3>Entretien des francs-tireurs</h3>
-        <p className="text-sm text-muted">
-          La prime d’engagement couvrait le recrutement, pas cette solde. Choisis qui reste sous contrat ; un
-          franc-tireur renvoyé quitte immédiatement la bande et perd son expérience.
-        </p>
-        {lignes.length === 0 && (
-          <p className="text-sm text-muted mb-0">Aucun franc-tireur ayant participé ne réclame de solde.</p>
+        {lignes.length === 0 ? (
+          <p className="text-sm text-muted mb-0">Aucun franc-tireur engagé, aucune solde à payer.</p>
+        ) : (
+          <p className="text-sm text-muted mb-0">
+            La prime d’engagement couvrait le recrutement, pas cette solde. Choisis qui reste sous contrat ; un
+            franc-tireur renvoyé quitte immédiatement la bande et perd son expérience.
+          </p>
         )}
       </div>
 

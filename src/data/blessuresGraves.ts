@@ -51,6 +51,10 @@ export type ResultatBlessureGrave = {
   // Vivant (et dans ce dernier cas une relance filtrée sur les résultats
   // 16-35), plutôt que via `sousJet`.
   combatGladiateur?: boolean;
+  // Cas spécial "Capturé" : résolu par l'assistant via deux issues (héros
+  // perdu ou libéré contre rançon, avec montant saisi) plutôt que laissé
+  // purement informatif — voir BlessureGraveWizard.
+  captureIssue?: boolean;
 };
 
 export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
@@ -260,7 +264,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
     nom: 'Capturé',
     texte:
       "Le guerrier reprend conscience, prisonnier de la bande adverse. Il peut être libéré contre rançon (prix fixé par le ravisseur) ou échangé contre un prisonnier détenu par sa propre bande. Un prisonnier peut être vendu à des marchands d'esclaves pour D6×5 po. Les Morts-Vivants peuvent tuer leur prisonnier pour en faire un nouveau Zombie. Les Possédés peuvent sacrifier le prisonnier — le chef de la bande gagne alors +1 Expérience. Un prisonnier échangé ou libéré contre rançon conserve tout son équipement ; s'il est vendu, tué ou zombifié, son équipement reste à ses ravisseurs.",
-    informatifSeulement: true,
+    captureIssue: true,
   },
   {
     id: 'endurci',

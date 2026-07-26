@@ -24,8 +24,12 @@ export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }:
     setNouvelAdversaire('');
   };
 
+  // Cet écran n'expose que quelques champs (date/résultat/adversaires/notes)
+  // — le reste de l'enregistrement (notamment `journal`, rempli par
+  // l'assistant post-bataille) doit être préservé tel quel, sinon modifier
+  // une bataille existante l'écraserait avec une entrée vide.
   const confirmer = () => {
-    onConfirm({ id: bataille?.id ?? uuidv4(), date, resultat, adversaires, notes: notes.trim() });
+    onConfirm({ ...bataille, id: bataille?.id ?? uuidv4(), date, resultat, adversaires, notes: notes.trim() });
   };
 
   return (
