@@ -1,14 +1,10 @@
 import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, isPalierHenchman, isPalierHero } from '../../utils/xp';
-import { grilleXpDuProfil, resolveProfil } from '../../utils/profil';
+import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import { estFrancTireur } from '../../data/hiredSwords';
 import { estLeaderActuel } from '../../utils/leader';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import type { XpDraft, SlotDraft } from './PostBatailleScreen';
-
-function nomAffiche(m: Member) {
-  return `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
-}
 
 // Mini grille XP utilisée dans l'assistant post-bataille : distingue l'XP de
 // départ (ne comptait pas), l'XP déjà acquise avant cette bataille, et l'XP

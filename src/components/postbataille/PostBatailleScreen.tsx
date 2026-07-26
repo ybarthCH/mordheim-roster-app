@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { useRosters } from '../../state/useRosters';
 import { getCatalogue } from '../../data/warbands';
-import { resolveProfil, nombreHeros } from '../../utils/profil';
+import { resolveProfil, nombreHeros, nomAffiche } from '../../utils/profil';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member, SeriousInjuryEffect } from '../../types/roster';
@@ -100,10 +100,6 @@ export type XpDraft = {
 };
 
 export type SlotDraft = 'oui' | 'non' | null;
-
-function nomAffiche(m: Member) {
-  return `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
-}
 
 export function PostBatailleScreen() {
   const { id } = useParams<{ id: string }>();

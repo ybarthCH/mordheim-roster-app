@@ -4,6 +4,7 @@ import type { WarbandCatalog } from '../../types/catalog';
 import {
   classeRarete,
   creerEntreeInventaire,
+  formatCoutItem,
   getShopCommun,
   inventaireComplet,
   libelleCategorie,
@@ -154,8 +155,7 @@ export function RechercheObjetRareModal({
                           <span className={`badge ${classeRarete(String(niveau)) ?? ''}`}>Rare {niveau}</span>
                         </div>
                         <div className="list-item__subtitle">
-                          {libelleCategorie(candidat.categorie)} ·{' '}
-                          {typeof candidat.cout === 'number' ? `${candidat.cout} po` : candidat.cout}
+                          {libelleCategorie(candidat.categorie)} · {formatCoutItem(candidat.cout)}
                         </div>
                         {resumeItem(candidat) && (
                           <div className="list-item__subtitle" style={{ marginTop: '0.2rem' }}>

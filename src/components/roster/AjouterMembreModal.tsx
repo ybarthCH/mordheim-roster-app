@@ -4,7 +4,7 @@ import type { RosterInstance } from '../../types/roster';
 import { getCatalogue } from '../../data/warbands';
 import { peutAjouterMembre } from '../../utils/validation';
 import { creerMembre } from '../../utils/factory';
-import { calculerCoutRejoindreGroupe, rejoindreGroupe, TRINKETS_LIMITES } from '../../utils/shop';
+import { calculerCoutRejoindreGroupe, formatCoutProfil, rejoindreGroupe, TRINKETS_LIMITES } from '../../utils/shop';
 import { estSorcier, sortsDisponibles } from '../../utils/magie';
 import { Modal } from '../common/Modal';
 import { useGameRules } from '../../state/useGameRules';
@@ -29,7 +29,6 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   // qu'à l'usage (voir xpDepart/quantite ci-dessous).
   const [xpDepartSaisie, setXpDepartSaisie] = useState('0');
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
-  const [confirmationXp0, setConfirmationXp0] = useState(false);
   const [groupeCibleId, setGroupeCibleId] = useState<string | null>(null);
   // Coût saisi à la main quand le profil n'a pas de prix fixe (ex : chien de
   // guerre, "25+2D6") — jet à faire sur table papier, comme pour un objet.
@@ -80,24 +79,14 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     const p = catalogue?.profils.find((pr) => pr.id === value);
     setXpDepartSaisie(String(p?.xp_depart ?? 0));
     setQuantiteSaisie('1');
-    setConfirmationXp0(false);
     setGroupeCibleId(null);
     setCoutManuelSaisi('');
     setSortChoisi('');
   };
 
-  const changerXpDepart = (value: string) => {
-    setXpDepartSaisie(value);
-    setConfirmationXp0(false);
-  };
-
   const confirmer = () => {
     if (!profil || !check.ok || !coutManuelValide || dupliqueraitTrinket) return;
     if (premierSortRequis && !sortChoisi) return;
-    if (!groupeCible && xpDepart === 0 && !confirmationXp0) {
-      setConfirmationXp0(true);
-      return;
-    }
 
     if (groupeCible) {
       // Rejoint un groupe existant : la figurine hérite immédiatement de
@@ -128,7 +117,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
             <optgroup label="Héros">
               {profilsHeros.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {p.nom} ({p.cout != null ? `${p.cout} po` : p.cout_notation ? `${p.cout_notation} po` : 'coût ?'})
+                  {p.nom} ({formatCoutProfil(p.cout, p.cout_notation)})
                 </option>
               ))}
             </optgroup>
@@ -137,7 +126,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
             <optgroup label="Hommes de main">
               {profilsHommesDeMain.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {p.nom} ({p.cout != null ? `${p.cout} po` : p.cout_notation ? `${p.cout_notation} po` : 'coût ?'})
+                  {p.nom} ({formatCoutProfil(p.cout, p.cout_notation)})
                 </option>
               ))}
             </optgroup>
@@ -183,7 +172,6 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                 onChange={(e) => {
                   setGroupeCibleId(e.target.value || null);
                   setQuantiteSaisie('1');
-                  setConfirmationXp0(false);
                 }}
               >
                 <option value="">Nouveau groupe</option>
@@ -255,14 +243,9 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
           ) : (
             <div className="field">
               <label>Expérience de départ</label>
-              <input type="number" value={xpDepartSaisie} onChange={(e) => changerXpDepart(e.target.value)} />
+              <input type="number" value={xpDepartSaisie} onChange={(e) => setXpDepartSaisie(e.target.value)} />
               <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
             </div>
-          )}
-          {confirmationXp0 && !groupeCible && (
-            <p className="text-danger text-sm">
-              Es-tu sûr de vouloir commencer à 0 XP ? Clique à nouveau pour confirmer.
-            </p>
           )}
         </>
       )}
@@ -283,9 +266,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
           }
           onClick={confirmer}
         >
-          {confirmationXp0 && !groupeCible
-            ? 'Confirmer 0 XP et recruter'
-            : `Recruter pour ${coutTotal} po${profil && !budgetSuffisant ? ' quand même' : ''}`}
+          Recruter pour {coutTotal} po{profil && !budgetSuffisant ? ' quand même' : ''}
         </button>
       </div>
     </Modal>

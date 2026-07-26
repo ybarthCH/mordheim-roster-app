@@ -277,7 +277,6 @@ function RecrutementDraftModal({
   const [nom, setNom] = useState('');
   const [xpDepartSaisie, setXpDepartSaisie] = useState(String(profil.xp_depart ?? 0));
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
-  const [confirmationXp0, setConfirmationXp0] = useState(false);
   const [sortChoisi, setSortChoisi] = useState('');
   const estGroupable = profil.type === 'homme_de_main';
   const premierSortRequis = estSorcier(catalogue, profil.id);
@@ -289,18 +288,9 @@ function RecrutementDraftModal({
   const budgetSuffisant = coutTotal <= budgetDisponible;
   const check = verifierLimite(quantite);
 
-  const changerXpDepart = (value: string) => {
-    setXpDepartSaisie(value);
-    setConfirmationXp0(false);
-  };
-
   const confirmer = () => {
     if (!check.ok) return;
     if (premierSortRequis && !sortChoisi) return;
-    if (xpDepart === 0 && !confirmationXp0) {
-      setConfirmationXp0(true);
-      return;
-    }
     onConfirm({ nom: nom.trim(), xpDepart, quantite, sortChoisi });
   };
 
@@ -333,14 +323,9 @@ function RecrutementDraftModal({
       )}
       <div className="field">
         <label>Expérience de départ</label>
-        <input type="number" value={xpDepartSaisie} onChange={(e) => changerXpDepart(e.target.value)} />
+        <input type="number" value={xpDepartSaisie} onChange={(e) => setXpDepartSaisie(e.target.value)} />
         <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
       </div>
-      {confirmationXp0 && (
-        <p className="text-danger text-sm">
-          Es-tu sûr de vouloir commencer à 0 XP ? Clique à nouveau pour confirmer.
-        </p>
-      )}
       {!check.ok && <p className="text-danger text-sm">{check.raison}</p>}
       {check.ok && !budgetSuffisant && (
         <p className="text-danger text-sm">
@@ -356,7 +341,7 @@ function RecrutementDraftModal({
           disabled={!check.ok || (premierSortRequis && !sortChoisi)}
           onClick={confirmer}
         >
-          {confirmationXp0 ? 'Confirmer 0 XP et ajouter' : `Ajouter${!budgetSuffisant ? ' quand même' : ''}`}
+          Ajouter{!budgetSuffisant ? ' quand même' : ''}
         </button>
       </div>
     </Modal>

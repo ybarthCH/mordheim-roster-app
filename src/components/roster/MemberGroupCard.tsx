@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../common/Icon';
 import type { IconName } from '../common/Icon';
-import { grilleXpDuProfil, resolveProfil } from '../../utils/profil';
+import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import { avancesDues } from '../../utils/xp';
 import { nomCourtBlessure } from '../../utils/blessures';
 import { inventaireGroupeMismatch } from '../../utils/shop';
@@ -25,8 +25,6 @@ const STATUT_ICONE: Partial<Record<string, IconName>> = {
   mort: 'crane',
   blesse: 'goutte',
 };
-
-const nomAffiche = (m: Member) => `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
 
 // Synopsis discret de l'équipement d'un membre (ou de son groupe, toujours
 // identique entre figurines) pour l'aperçu du roster global. Affiché sur

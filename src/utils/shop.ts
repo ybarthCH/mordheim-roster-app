@@ -56,6 +56,21 @@ export function resumeItem(item: ShopItem): string | null {
   return item.texte ?? null;
 }
 
+// "12 po" pour un coût numérique, ou la notation telle quelle (ex : "10+1D6",
+// "x4") sinon — un coût d'objet non fixe reste une formule à résoudre à la
+// main, pas un montant en po.
+export function formatCoutItem(cout: number | string): string {
+  return typeof cout === 'number' ? `${cout} po` : cout;
+}
+
+// "12 po", "25+2D6 po" ou "coût ?" pour le coût (éventuellement variable)
+// d'un profil de catalogue.
+export function formatCoutProfil(cout: number | null, coutNotation?: string): string {
+  if (cout != null) return `${cout} po`;
+  if (coutNotation) return `${coutNotation} po`;
+  return 'coût ?';
+}
+
 // Tags "acces" considérés comme ouverts à toutes les bandes dans la base
 // d'objets (items/*.json) : "commun" strict, "rare_N" (rare mais sans
 // restriction de bande), "commun_sauf_..." (commun avec une exception
