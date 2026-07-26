@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { trouverBlessure } from '../data/blessuresGraves';
+import { annulerDeltaStats } from './blessures';
 import type {
   DoctorTreatmentRecord,
   InventoryEntry,
@@ -201,16 +202,6 @@ export function resultatDocteur(
   };
 }
 
-function retirerNotes(texte: string, notes: string[]): string {
-  if (notes.length === 0) return texte;
-  const aRetirer = new Set(notes.map((note) => note.trim()));
-  return texte
-    .split('\n')
-    .filter((ligne) => !aRetirer.has(ligne.trim()))
-    .join('\n')
-    .trim();
-}
-
 function creerSequelle(
   nom: string,
   description: string,
@@ -248,11 +239,12 @@ function annulerEffet(
   blessure: SeriousInjuryRecord,
   effet: EffetTraitableDocteur
 ): { membre: Member; blessure: SeriousInjuryRecord } {
-  const statsActuels = { ...membre.stats_actuels };
-  for (const [cle, delta] of Object.entries(effet.statsDelta)) {
-    const stat = cle as keyof Stats;
-    statsActuels[stat] -= delta ?? 0;
-  }
+  const { stats_actuels, notes } = annulerDeltaStats(
+    membre.stats_actuels,
+    membre.notes,
+    effet.statsDelta,
+    effet.notesAjoutees
+  );
 
   let blessureMaj: SeriousInjuryRecord;
   if (effet.legacy) {
@@ -265,11 +257,7 @@ function annulerEffet(
   }
 
   return {
-    membre: {
-      ...membre,
-      stats_actuels: statsActuels,
-      notes: retirerNotes(membre.notes, effet.notesAjoutees),
-    },
+    membre: { ...membre, stats_actuels, notes },
     blessure: blessureMaj,
   };
 }

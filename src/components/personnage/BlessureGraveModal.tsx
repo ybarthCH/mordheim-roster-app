@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { Member, SeriousInjuryRecord } from '../../types/roster';
-import { STAT_KEYS } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { BlessureGraveWizard, type BlessureGraveResultat } from './BlessureGraveWizard';
 import { trouverBlessure } from '../../data/blessuresGraves';
+import { appliquerDeltaStats } from '../../utils/blessures';
 
 type Props = {
   member: Member;
@@ -27,23 +27,17 @@ export function BlessureGraveModal({ member, tresorerieDisponible, onClose, onAp
       nom: resultat.nom,
       effets: resultat.effets.map((effet) => ({ ...effet, id: uuidv4() })),
     };
-    const statsActuels = { ...member.stats_actuels };
-    const statsModifiees = new Set(member.stats_modifiees);
-    for (const k of STAT_KEYS) {
-      const delta = resultat.statsDelta[k];
-      if (delta) {
-        statsActuels[k] += delta;
-        statsModifiees.add(k);
-      }
-    }
-    const notes = resultat.notes.length
-      ? [member.notes, ...resultat.notes].filter(Boolean).join('\n')
-      : member.notes;
+    const { stats_actuels, notes, statsTouchees } = appliquerDeltaStats(
+      member.stats_actuels,
+      member.notes,
+      resultat.statsDelta,
+      resultat.notes
+    );
 
     let updated: Member = {
       ...member,
-      stats_actuels: statsActuels,
-      stats_modifiees: Array.from(statsModifiees),
+      stats_actuels,
+      stats_modifiees: Array.from(new Set([...member.stats_modifiees, ...statsTouchees])),
       notes,
       blessures_graves: [...member.blessures_graves, record],
       xp: member.xp + resultat.xpBonus,

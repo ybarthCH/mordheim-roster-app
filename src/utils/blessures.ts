@@ -25,6 +25,66 @@ export function injuryLabel(b: SeriousInjuryRecord): string {
   return [legacy.resultat, legacy.effet].filter(Boolean).join(' — ') || '(sans description)';
 }
 
+export type ApplicationDeltaStats = {
+  stats_actuels: Stats;
+  notes: string;
+  // Clés touchées par CE delta (valeurs non nulles seulement) — à fusionner
+  // dans `stats_modifiees` côté appelant, qui connaît le reste de l'historique.
+  statsTouchees: (keyof Stats)[];
+};
+
+// Primitive bas niveau partagée par tout ce qui inflige un effet mesurable
+// à un membre (blessure grave, docteur...) : applique un delta de
+// caractéristiques et ajoute des notes (dédupliquées contre les lignes déjà
+// présentes) à sa suite. Ne connaît rien d'autre du membre (équipement, XP,
+// statut...) — chaque appelant gère ces champs-là lui-même.
+export function appliquerDeltaStats(
+  statsActuels: Stats,
+  notes: string,
+  delta: Partial<Record<keyof Stats, number>>,
+  notesAjoutees: string[]
+): ApplicationDeltaStats {
+  const stats_actuels = { ...statsActuels };
+  const statsTouchees: (keyof Stats)[] = [];
+  for (const [cle, valeur] of Object.entries(delta)) {
+    if (!valeur) continue;
+    const stat = cle as keyof Stats;
+    stats_actuels[stat] += valeur;
+    statsTouchees.push(stat);
+  }
+  const existantes = new Set(
+    notes
+      .split('\n')
+      .map((ligne) => ligne.trim())
+      .filter(Boolean)
+  );
+  const nouvelles = notesAjoutees.filter((note) => !existantes.has(note.trim()));
+  const notesMaj = [notes.trim(), ...nouvelles].filter(Boolean).join('\n');
+  return { stats_actuels, notes: notesMaj, statsTouchees };
+}
+
+// Inverse d'appliquerDeltaStats : annule un delta déjà appliqué et retire
+// les lignes de notes qu'il avait ajoutées.
+export function annulerDeltaStats(
+  statsActuels: Stats,
+  notes: string,
+  delta: Partial<Record<keyof Stats, number>>,
+  notesAjoutees: string[]
+): Pick<ApplicationDeltaStats, 'stats_actuels' | 'notes'> {
+  const stats_actuels = { ...statsActuels };
+  for (const [cle, valeur] of Object.entries(delta)) {
+    const stat = cle as keyof Stats;
+    stats_actuels[stat] -= valeur ?? 0;
+  }
+  const aRetirer = new Set(notesAjoutees.map((note) => note.trim()));
+  const notesMaj = notes
+    .split('\n')
+    .filter((ligne) => !aRetirer.has(ligne.trim()))
+    .join('\n')
+    .trim();
+  return { stats_actuels, notes: notesMaj };
+}
+
 // Annule sur le membre les effets encore actifs d'une blessure grave (stats
 // et notes ajoutées), avant de la retirer de l'historique. Un effet déjà
 // traité par le docteur (`traitee`) n'a plus d'impact sur les stats
@@ -36,21 +96,12 @@ export function annulerEffetsBlessure(
   blessure: SeriousInjuryRecord
 ): Pick<Member, 'stats_actuels' | 'notes'> {
   const effetsActifs = (blessure.effets ?? []).filter((e) => !e.traitee);
-  if (effetsActifs.length === 0) {
-    return { stats_actuels: membre.stats_actuels, notes: membre.notes };
-  }
-  const stats_actuels = { ...membre.stats_actuels };
+  let stats_actuels = membre.stats_actuels;
+  let notes = membre.notes;
   for (const effet of effetsActifs) {
-    for (const [cle, delta] of Object.entries(effet.stats_delta)) {
-      const stat = cle as keyof Stats;
-      stats_actuels[stat] -= delta ?? 0;
-    }
+    const resultat = annulerDeltaStats(stats_actuels, notes, effet.stats_delta, effet.notes_ajoutees);
+    stats_actuels = resultat.stats_actuels;
+    notes = resultat.notes;
   }
-  const notesARetirer = new Set(effetsActifs.flatMap((e) => e.notes_ajoutees).map((n) => n.trim()));
-  const notes = membre.notes
-    .split('\n')
-    .filter((ligne) => !notesARetirer.has(ligne.trim()))
-    .join('\n')
-    .trim();
   return { stats_actuels, notes };
 }

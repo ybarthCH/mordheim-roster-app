@@ -5,10 +5,10 @@ import { Screen } from '../common/Screen';
 import { useRosters } from '../../state/useRosters';
 import { getCatalogue } from '../../data/warbands';
 import { resolveProfil, nombreHeros, nomAffiche } from '../../utils/profil';
-import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member, SeriousInjuryEffect } from '../../types/roster';
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
+import { appliquerDeltaStats } from '../../utils/blessures';
 import { creerEntreeInventaire } from '../../utils/shop';
 import { estLeaderActuel, succederApresMorts } from '../../utils/leader';
 import type { ShopItem } from '../../utils/shop';
@@ -49,7 +49,12 @@ export type BlessureDraft = {
   recordId: string;
   nom: string;
   description: string;
-  stats: Stats;
+  // Delta (pas snapshot absolu) : appliqué sur les stats du membre au moment
+  // de terminer(), pas sur celles figées à l'étape "Blessures graves" — un
+  // membre Hors de Combat peut aussi voir une avancée résolue entre-temps à
+  // l'étape "Gain d'expérience" (voir appliquerAvancee, qui persiste
+  // immédiatement), qu'un snapshot absolu écraserait silencieusement.
+  statsDelta: Partial<Record<keyof Stats, number>>;
   equipement: string;
   notes: string[];
   effets: SeriousInjuryEffect[];
@@ -61,16 +66,17 @@ export type BlessureDraft = {
 
 function appliquerBlessureDraft(membre: Member, draft: BlessureDraft | undefined, date: string): Member {
   if (!draft) return { ...membre };
+  const { stats_actuels, notes, statsTouchees } = appliquerDeltaStats(
+    membre.stats_actuels,
+    membre.notes,
+    draft.statsDelta,
+    draft.notes
+  );
   let resultat: Member = {
     ...membre,
-    stats_actuels: draft.stats,
+    stats_actuels,
     equipement: draft.equipement,
-    stats_modifiees: Array.from(
-      new Set([
-        ...membre.stats_modifiees,
-        ...STAT_KEYS.filter((stat) => draft.stats[stat] !== membre.stats_actuels[stat]),
-      ])
-    ),
+    stats_modifiees: Array.from(new Set([...membre.stats_modifiees, ...statsTouchees])),
     blessures_graves: draft.description.trim()
       ? [
           ...membre.blessures_graves,
@@ -83,9 +89,7 @@ function appliquerBlessureDraft(membre: Member, draft: BlessureDraft | undefined
           },
         ]
       : membre.blessures_graves,
-    notes: draft.notes.length > 0
-      ? [membre.notes, ...draft.notes].filter(Boolean).join('\n')
-      : membre.notes,
+    notes,
   };
   if (draft.perteEquipement) resultat = { ...resultat, inventaire: [] };
   if (draft.statutMort) {
@@ -327,18 +331,13 @@ export function PostBatailleScreen() {
   // pré-remplit directement le choix Oui/Non de l'étape suivante, pour éviter
   // de faire cliquer deux fois la même information.
   const appliquerBlessureWizard = (m: Member, resultat: BlessureGraveResultat) => {
-    const stats = { ...m.stats_actuels };
-    for (const k of STAT_KEYS) {
-      const delta = resultat.statsDelta[k];
-      if (delta) stats[k] += delta;
-    }
     setBlessureDrafts((prev) => ({
       ...prev,
       [m.instance_id]: {
         recordId: uuidv4(),
         nom: resultat.nom,
         description: resultat.texte,
-        stats,
+        statsDelta: resultat.statsDelta,
         equipement: resultat.perteEquipement ? '' : m.equipement,
         notes: resultat.notes,
         effets: resultat.effets.map((effet) => ({ ...effet, id: uuidv4() })),
