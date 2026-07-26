@@ -50,24 +50,39 @@ export function EtapeResume({
   participantsAuto,
   avancesResolues,
 }: EtapeResumeProps) {
+  const tresorerieApres = roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus - coutCommerce;
+  const lignesTresorerie = [
+    prixVente > 0 && { label: 'Vente de wyrdstone', montant: prixVente },
+    blessuresTresorerieBonus > 0 && { label: 'Gains des blessures graves résolues', montant: blessuresTresorerieBonus },
+    coutCommerce > 0 && { label: 'Dépenses de commerce', montant: -coutCommerce },
+    soldeTotal > 0 && { label: `Solde des francs-tireurs (${francTireursPayesCount})`, montant: -soldeTotal },
+  ].filter((l): l is { label: string; montant: number } => !!l);
+
   return (
     <div className="card">
       <h3>Résumé</h3>
       <p>
         {date} — {resultat} {adversaires.length > 0 && `vs ${adversaires.join(', ')}`}
       </p>
-      <p className="text-sm">
+      <p className="text-sm mb-0">
         Wyrdstone : {roster.wyrdstone} →{' '}
         {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre)}
-        <br />
-        Trésorerie : {roster.tresorerie} →{' '}
-        {roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus - coutCommerce} po
       </p>
-      {soldeTotal > 0 && (
-        <p className="text-sm">
-          Solde des francs-tireurs à payer : {soldeTotal} po ({francTireursPayesCount} franc(s)-tireur(s)).
+      <div className="text-sm" style={{ marginTop: '0.3rem' }}>
+        <p className="mb-0">
+          Trésorerie : {roster.tresorerie} → <strong>{tresorerieApres} po</strong>
         </p>
-      )}
+        {lignesTresorerie.length > 0 && (
+          <ul style={{ margin: '0.2rem 0 0', paddingLeft: '1.2rem' }}>
+            {lignesTresorerie.map((l) => (
+              <li key={l.label}>
+                {l.label} : {l.montant > 0 ? '+' : ''}
+                {l.montant} po
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       {entretienMalepierre > 0 && (
         <p className="text-sm">
           Entretien en malepierre : {entretienMalepierre} fragment(s).
@@ -79,10 +94,6 @@ export function EtapeResume({
           {francsTireursPartants.length === 1 ? 'Son expérience est perdue.' : 'Leur expérience est perdue.'}
         </p>
       )}
-      {blessuresTresorerieBonus > 0 && (
-        <p className="text-sm">Gains issus des blessures graves résolues : +{blessuresTresorerieBonus} po.</p>
-      )}
-      {coutCommerce > 0 && <p className="text-sm">Dépenses de commerce : {coutCommerce} po.</p>}
       {docteurResultats.length > 0 && (
         <div className="text-sm">
           <p className="mb-0">Résultats du docteur :</p>

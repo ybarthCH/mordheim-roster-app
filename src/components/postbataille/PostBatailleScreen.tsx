@@ -730,6 +730,7 @@ export function PostBatailleScreen() {
         <EtapeBlessuresGraves
           horsDeCombatHeros={horsDeCombatHeros}
           blessureDrafts={blessureDrafts}
+          tresorerieDisponible={roster.tresorerie + blessuresTresorerieBonus}
           onAppliquer={appliquerBlessureWizard}
           onReinitialiser={reinitialiserBlessure}
         />

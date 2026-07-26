@@ -103,38 +103,21 @@ export function EtapeExploration({
       )}
 
       <p className="text-sm text-muted">
-        Reporte ici le résultat de tes jets d'exploration effectués sur table papier : clique sur le palier obtenu.
+        Reporte ici le résultat de tes jets d'exploration effectués sur table papier : touche le palier obtenu
+        ci-dessous.
       </p>
-      <div className="table-scroll">
-        <table className="table-reference">
-          <thead>
-            <tr>
-              <th>Résultat des dés</th>
-              <th>Fragments trouvés</th>
-            </tr>
-          </thead>
-          <tbody>
-            {TABLE_FRAGMENTS_TROUVES.map((p, i) => (
-              <tr key={i} className={i === palierActif ? 'table-reference__row-active' : undefined}>
-                <td>{p.max === null ? `${p.min}+` : `${p.min}-${p.max}`}</td>
-                <td
-                  className={`table-reference__cell-clickable${i === palierActif ? ' table-reference__cell-active' : ''}`}
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => changerWyrdstoneTrouve(i === palierActif ? 0 : p.fragments)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      changerWyrdstoneTrouve(i === palierActif ? 0 : p.fragments);
-                    }
-                  }}
-                >
-                  {p.fragments}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="dice-choice-grid">
+        {TABLE_FRAGMENTS_TROUVES.map((p, i) => (
+          <button
+            key={i}
+            type="button"
+            className={`dice-choice${i === palierActif ? ' dice-choice--active' : ''}`}
+            onClick={() => changerWyrdstoneTrouve(i === palierActif ? 0 : p.fragments)}
+          >
+            <span className="dice-choice__range">{p.max === null ? `${p.min}+` : `${p.min}-${p.max}`}</span>
+            <span className="dice-choice__value">{p.fragments}</span>
+          </button>
+        ))}
       </div>
       <p className="text-sm text-muted">
         Wyrdstone trouvé : <strong>{wyrdstoneTrouve}</strong> fragment{wyrdstoneTrouve > 1 ? 's' : ''}.
@@ -242,9 +225,12 @@ export function EtapeExploration({
           {fragmentsDisponibles > 1 ? 's' : ''}.
         </span>
       </div>
-      <p className="text-sm text-muted">
-        Prix obtenu : <strong>{prixSuggere} po</strong> pour {quantiteVendue} fragment{quantiteVendue > 1 ? 's' : ''}.
-      </p>
+      <div className="price-highlight">
+        <span className="price-highlight__value">{prixSuggere} po</span>
+        <span className="price-highlight__label">
+          pour {quantiteVendue} fragment{quantiteVendue > 1 ? 's' : ''} vendu{quantiteVendue > 1 ? 's' : ''}
+        </span>
+      </div>
       <p className="text-sm text-muted">
         Wyrdstone en réserve après cette étape : {fragmentsDisponibles - quantiteVendue} ·
         Trésorerie : {roster.tresorerie + prixSuggere} po

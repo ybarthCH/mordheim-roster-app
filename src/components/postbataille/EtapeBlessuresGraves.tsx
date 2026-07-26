@@ -10,6 +10,7 @@ const NOM_AVEUGLE_OEIL = trouverBlessure('aveugle_oeil')?.nom;
 type EtapeBlessuresGravesProps = {
   horsDeCombatHeros: Member[];
   blessureDrafts: Record<string, BlessureDraft>;
+  tresorerieDisponible: number;
   onAppliquer: (m: Member, resultat: BlessureGraveResultat) => void;
   onReinitialiser: (m: Member) => void;
 };
@@ -17,6 +18,7 @@ type EtapeBlessuresGravesProps = {
 export function EtapeBlessuresGraves({
   horsDeCombatHeros,
   blessureDrafts,
+  tresorerieDisponible,
   onAppliquer,
   onReinitialiser,
 }: EtapeBlessuresGravesProps) {
@@ -69,6 +71,7 @@ export function EtapeBlessuresGraves({
           <BlessureGraveWizard
             nomPersonnage={membreEnCours.nom_perso}
             dejaAveugle={membreEnCours.blessures_graves.some((b) => b.nom === NOM_AVEUGLE_OEIL)}
+            tresorerieDisponible={tresorerieDisponible}
             onAppliquer={(resultat) => {
               onAppliquer(membreEnCours, resultat);
               setBlessureEnCours(null);
