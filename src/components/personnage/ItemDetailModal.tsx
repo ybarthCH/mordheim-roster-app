@@ -1,5 +1,5 @@
 import { Modal } from '../common/Modal';
-import { libelleCategorie, iconeCategorie, classeRarete } from '../../utils/shop';
+import { libelleCategorie, iconeCategorie, classeRarete, formatCoutItem } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
@@ -22,7 +22,7 @@ export function ItemDetailModal({ item, onClose }: Props) {
         {item.nom}
       </h3>
       <p className="text-sm text-muted" style={{ marginTop: '0.2rem' }}>
-        {libelleCategorie(item.categorie)} · {typeof item.cout === 'number' ? `${item.cout} po` : item.cout}
+        {libelleCategorie(item.categorie)} · {formatCoutItem(item.cout)}
       </p>
 
       {item.stats && (

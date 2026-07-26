@@ -5,11 +5,10 @@ import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
 import { ItemDetailModal } from '../personnage/ItemDetailModal';
 import { iconeCategorie, libelleCategorie, resolveItemDetail, prixVente } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
-import type { RosterInstance, Member, InventoryEntry } from '../../types/roster';
+import { nomAffiche } from '../../utils/profil';
+import type { RosterInstance, InventoryEntry } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import type { GameRules } from '../../types/rules';
-
-const nomAffiche = (m: Member) => `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
 
 type ArmurerieSectionProps = {
   roster: RosterInstance;

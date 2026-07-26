@@ -211,12 +211,6 @@ function retirerNotes(texte: string, notes: string[]): string {
     .trim();
 }
 
-function ajouterNotes(texte: string, notes: string[]): string {
-  const existantes = new Set(texte.split('\n').map((ligne) => ligne.trim()).filter(Boolean));
-  const nouvelles = notes.filter((note) => !existantes.has(note.trim()));
-  return [texte.trim(), ...nouvelles].filter(Boolean).join('\n');
-}
-
 function creerSequelle(
   nom: string,
   description: string,
@@ -342,13 +336,11 @@ export function appliquerTraitementDocteur(
       stats_modifiees: membre.stats_modifiees.includes('M')
         ? membre.stats_modifiees
         : [...membre.stats_modifiees, 'M'],
-      notes: ajouterNotes(membre.notes, [note]),
     };
     sequelles.push(creerSequelle('Jambe amputée', resultat.texte, { M: delta }, [note]));
   } else if (resultat.action === 'amputation_main') {
     guerir();
     const note = "Main amputée (Docteur) — une seule arme à une main peut être utilisée";
-    membre = { ...membre, notes: ajouterNotes(membre.notes, [note]) };
     sequelles.push(creerSequelle('Main amputée', resultat.texte, {}, [note]));
   } else if (resultat.action === 'inefficace_repos') {
     membre = imposerRepos(membre);
@@ -359,7 +351,6 @@ export function appliquerTraitementDocteur(
     guerir();
   } else if (resultat.action === 'stupidite' && !dejaStupide) {
     const note = 'Sujet à la Stupidité (Docteur)';
-    membre = { ...membre, notes: ajouterNotes(membre.notes, [note]) };
     sequelles.push(creerSequelle('Séquelles du docteur — Stupidité', resultat.texte, {}, [note]));
   } else if (resultat.action === 'fou_furieux') {
     const initiativeAvant = membre.stats_actuels.I;
@@ -372,7 +363,6 @@ export function appliquerTraitementDocteur(
       stats_modifiees: membre.stats_modifiees.includes('I')
         ? membre.stats_modifiees
         : [...membre.stats_modifiees, 'I'],
-      notes: ajouterNotes(membre.notes, [note]),
     };
     sequelles.push(creerSequelle('Fou furieux après traitement', resultat.texte, { I: delta }, [note]));
   }

@@ -100,3 +100,8 @@ export function nombreHeros(roster: RosterInstance): number {
     return resolveProfil(roster, m)?.type === 'heros';
   }).length;
 }
+
+/** Nom affiché d'un membre, avec sa taille de groupe si figurines multiples. */
+export function nomAffiche(m: Member): string {
+  return `${m.nom_perso}${m.taille_groupe > 1 ? ` × ${m.taille_groupe}` : ''}`;
+}

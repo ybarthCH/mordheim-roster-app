@@ -8,6 +8,7 @@ import {
   iconeCategorie,
   classeRarete,
   resumeItem,
+  formatCoutItem,
   CATEGORIE_ORDRE,
   TRINKETS_LIMITES,
 } from '../../utils/shop';
@@ -220,8 +221,7 @@ export function AchatEquipementModal({
                           {iconeCategorie(item.categorie) && (
                             <Icon name={iconeCategorie(item.categorie)!} style={{ marginRight: '0.35em' }} />
                           )}
-                          {libelleCategorie(item.categorie)} ·{' '}
-                          {typeof item.cout === 'number' ? `${item.cout} po` : item.cout}
+                          {libelleCategorie(item.categorie)} · {formatCoutItem(item.cout)}
                         </div>
                         {synopsis(resumeItem(item)) && (
                           <div className="list-item__subtitle" style={{ marginTop: '0.2rem' }}>
