@@ -74,16 +74,22 @@ export function formatCoutProfil(cout: number | null, coutNotation?: string): st
 // Tags "acces" considérés comme ouverts à toutes les bandes dans la base
 // d'objets (items/*.json) : "commun" strict, "rare_N" (rare mais sans
 // restriction de bande), "commun_sauf_..." (commun avec une exception
-// mineure) et "commun_ou_rare_N" (variante commun/rare selon les éditions —
-// dans les deux cas accessible sans restriction de bande). Attention : les
-// tags "commun_<bande ou rôle>" SANS "_sauf_" (ex : "commun_pirates",
-// "commun_heros", "commun_pretres_guerriers_soeurs_de_sigmar") signifient
-// l'inverse — l'objet est license/pas cher UNIQUEMENT pour ce groupe précis,
-// donc restreint, pas générique. Ils restent donc exclus du shop commun ici.
+// mineure), "commun_ou_rare_N" (variante commun/rare selon les éditions —
+// dans les deux cas accessible sans restriction de bande) et
+// "jeteurs_de_sorts" (réservé aux jeteurs de sorts par le texte de règle,
+// mais sans restriction de bande particulière — contrairement au Grimoire de
+// magie, dont le texte exclut explicitement Répurgateurs et Sœurs de Sigmar,
+// voir "jeteurs_de_sorts_sauf_witch_hunters_sisters_of_sigmar" plus bas).
+// Attention : les tags "commun_<bande ou rôle>" SANS "_sauf_" (ex :
+// "commun_pirates", "commun_heros", "commun_pretres_guerriers_soeurs_de_sigmar")
+// signifient l'inverse — l'objet est licite/pas cher UNIQUEMENT pour ce
+// groupe précis, donc restreint, pas générique. Ils restent donc exclus du
+// shop commun ici.
 export function estAccesGenerique(acces: string[]): boolean {
   return acces.some(
     (a) =>
       a === 'commun' ||
+      a === 'jeteurs_de_sorts' ||
       /^rare_\d+$/.test(a) ||
       a.startsWith('commun_sauf_') ||
       /^commun_ou_rare_\d+$/.test(a)
