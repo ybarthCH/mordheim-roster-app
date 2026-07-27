@@ -61,19 +61,17 @@ export function ExperienceCard({
         <div style={{ marginTop: '0.7rem' }}>
           <p className="text-sm text-muted mb-0">Historique des avancées :</p>
           {membre.historique_avancees.map((a) => (
-            <div key={a.id} className="flex justify-between items-center gap-sm">
-              <p className="text-sm mb-0">
-                {a.date} (jet {a.roll}) — {a.detail}
-              </p>
+            <p key={a.id} className="text-sm mb-0">
+              {a.date} (jet {a.roll}) — {a.detail}
               <button
                 className="btn--ghost"
-                style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem', color: 'var(--text-muted)', flexShrink: 0 }}
+                style={{ border: 'none', background: 'none', padding: '0 0 0 0.3rem', color: 'var(--text-muted)' }}
                 onClick={() => onModifierAvancee(a)}
                 title="Modifier cette avancée"
               >
                 <Icon name="crayon" size="0.85em" />
               </button>
-            </div>
+            </p>
           ))}
         </div>
       )}
