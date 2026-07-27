@@ -1,6 +1,6 @@
 import { Icon } from '../common/Icon';
 import { XpGrid } from './XpGrid';
-import type { Member } from '../../types/roster';
+import type { AdvanceRecord, Member } from '../../types/roster';
 import type { Profile } from '../../types/catalog';
 
 type ExperienceCardProps = {
@@ -10,6 +10,7 @@ type ExperienceCardProps = {
   enAttente: number;
   onChangeXp: (xp: number) => void;
   onOpenAvancee: () => void;
+  onModifierAvancee: (record: AdvanceRecord) => void;
   gagneExperience?: boolean;
 };
 
@@ -20,6 +21,7 @@ export function ExperienceCard({
   enAttente,
   onChangeXp,
   onOpenAvancee,
+  onModifierAvancee,
   gagneExperience = true,
 }: ExperienceCardProps) {
   if (type === 'animal' || !gagneExperience) {
@@ -59,9 +61,19 @@ export function ExperienceCard({
         <div style={{ marginTop: '0.7rem' }}>
           <p className="text-sm text-muted mb-0">Historique des avancées :</p>
           {membre.historique_avancees.map((a) => (
-            <p key={a.id} className="text-sm mb-0">
-              {a.date} (jet {a.roll}) — {a.detail}
-            </p>
+            <div key={a.id} className="flex justify-between items-center gap-sm">
+              <p className="text-sm mb-0">
+                {a.date} (jet {a.roll}) — {a.detail}
+              </p>
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem', color: 'var(--text-muted)', flexShrink: 0 }}
+                onClick={() => onModifierAvancee(a)}
+                title="Modifier cette avancée"
+              >
+                <Icon name="crayon" size="0.85em" />
+              </button>
+            </div>
           ))}
         </div>
       )}
