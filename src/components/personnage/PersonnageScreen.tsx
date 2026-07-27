@@ -6,7 +6,7 @@ import { grilleXpDuProfil, resolveProfil, nombreHeros } from '../../utils/profil
 import { getCatalogue } from '../../data/warbands';
 import type { Stats } from '../../types/catalog';
 import { STAT_KEYS } from '../../types/catalog';
-import type { Statut } from '../../types/roster';
+import type { AdvanceRecord, Statut } from '../../types/roster';
 import { StatutCard } from './StatutCard';
 import { CaracteristiquesCard } from './CaracteristiquesCard';
 import { ResumeCard } from './ResumeCard';
@@ -46,6 +46,7 @@ import type { InventoryEntry } from '../../types/roster';
 import { getFrancTireur } from '../../data/hiredSwords';
 import { useGameRules } from '../../state/useGameRules';
 import { annulerEffetsBlessure } from '../../utils/blessures';
+import { annulerAvancee, avanceeReversible } from '../../utils/avancees';
 
 const GRIMOIRE_DE_MAGIE_ID = 'grimoire_de_magie';
 
@@ -62,6 +63,7 @@ export function PersonnageScreen() {
   const [modalRecruterGroupe, setModalRecruterGroupe] = useState(false);
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
   const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
+  const [avanceeAModifier, setAvanceeAModifier] = useState<AdvanceRecord | null>(null);
 
   const membre = roster?.membres.find((m) => m.instance_id === instanceId);
   const profil = roster && membre ? resolveProfil(roster, membre) : undefined;
@@ -109,6 +111,14 @@ export function PersonnageScreen() {
       ...annulation,
       blessures_graves: membre.blessures_graves.filter((b) => b.id !== id),
     });
+  };
+
+  // Corrige une avancée mal saisie : annule son effet (voir annulerAvancee)
+  // et la retire de l'historique. L'avancée redevient alors "en attente" et
+  // peut être relancée normalement via "Résoudre une avancée".
+  const supprimerAvancee = (record: AdvanceRecord) => {
+    majMembre(annulerAvancee(membre, record, (skillId) => nomCompetence(skillId)?.nom ?? skillId));
+    setAvanceeAModifier(null);
   };
 
   // Recale la textbox "Équipement" (utilisée telle quelle par le post-bataille
@@ -311,6 +321,7 @@ export function PersonnageScreen() {
         enAttente={enAttente}
         onChangeXp={(xp) => majMembre({ xp })}
         onOpenAvancee={() => setModalAvancee(true)}
+        onModifierAvancee={setAvanceeAModifier}
         gagneExperience={francTireur?.gagne_experience !== false}
       />
 
@@ -505,6 +516,43 @@ export function PersonnageScreen() {
               Retirer
             </button>
           </div>
+        </Modal>
+      )}
+      {avanceeAModifier && (
+        <Modal onClose={() => setAvanceeAModifier(null)}>
+          <h3>Modifier cette avancée ?</h3>
+          <p className="text-muted">
+            {avanceeAModifier.date} (jet {avanceeAModifier.roll}) — {avanceeAModifier.detail}
+          </p>
+          {avanceeReversible(avanceeAModifier) ? (
+            <>
+              <p className="text-sm text-muted">
+                Cela annule l'effet de cette avancée (caractéristique, compétence ou sort) et la retire de
+                l'historique. Elle redeviendra disponible sous « Résoudre une avancée » pour être relancée.
+              </p>
+              <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+                <button className="btn" onClick={() => setAvanceeAModifier(null)}>
+                  Annuler
+                </button>
+                <button className="btn btn--danger" onClick={() => supprimerAvancee(avanceeAModifier)}>
+                  Annuler cette avancée
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="text-sm text-muted">
+                Ce type d'avancée (promotion en héros ou récompense du Seigneur des Ombres) a des effets trop
+                étendus pour être annulé automatiquement. Contacte-moi si tu as besoin d'aide pour corriger ça à la
+                main.
+              </p>
+              <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+                <button className="btn" onClick={() => setAvanceeAModifier(null)}>
+                  Fermer
+                </button>
+              </div>
+            </>
+          )}
         </Modal>
       )}
     </Screen>
