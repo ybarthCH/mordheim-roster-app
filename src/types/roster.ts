@@ -203,6 +203,27 @@ export type BattleRecord = {
   journal?: JournalPostBataille;
 };
 
+// Objet créé sur mesure pour une bande précise (voir AchatEquipementModal et
+// utils/shop.ts) — même forme qu'un objet du catalogue officiel, mais sans
+// gestion d'accès inter-bande : il n'existe que pour cette bande.
+export type CustomItem = {
+  id: string;
+  nom: string;
+  categorie: string;
+  cout: number | string;
+  cout_fixe: boolean;
+  rarete?: string;
+  disponibilite?: string;
+  texte?: string;
+  stats_delta?: Partial<Record<keyof Stats, number>>;
+};
+
+// Surcharge locale d'un objet existant (officiel ou personnalisé) : un
+// instantané complet des champs modifiables pour cette bande — l'objet
+// d'origine reste inchangé pour les autres bandes/campagnes. Résolue par id
+// dans utils/shop.ts, jamais persistée ailleurs.
+export type CustomItemOverride = Omit<CustomItem, 'id'>;
+
 export type RosterInstance = {
   id: string;
   bande_id: string;
@@ -213,6 +234,13 @@ export type RosterInstance = {
   // Stock structuré de la bande (armurerie) : objets achetés mais pas encore
   // attribués à un membre, ou renvoyés depuis la fiche d'un membre.
   stock: InventoryEntry[];
+  // Objets homebrew créés pour cette bande (voir CustomItem ci-dessus) —
+  // rejoignent l'onglet "Équipement de la bande" de la modale d'achat.
+  objets_personnalises: CustomItem[];
+  // Surcharges locales d'objets existants (officiels ou personnalisés),
+  // clé = id de l'objet. Permet par ex. d'ajuster un prix "maison" sans
+  // affecter les autres bandes.
+  objets_surcharges: Record<string, CustomItemOverride>;
   membres: Member[];
   historique_batailles: BattleRecord[];
   // Membre actuellement chef de bande, quand ce n'est pas déterminé par un

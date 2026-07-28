@@ -62,6 +62,8 @@ export function CreationBandeScreen() {
       wyrdstone: 0,
       equipement_reserve: '',
       stock: [],
+      objets_personnalises: [],
+      objets_surcharges: {},
       membres,
       historique_batailles: [],
       createdAt: '',

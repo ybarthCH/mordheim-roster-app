@@ -73,6 +73,8 @@ export function creerRoster(bandeId: string, nomBande: string, tresorerie: numbe
     wyrdstone: 0,
     equipement_reserve: '',
     stock: [],
+    objets_personnalises: [],
+    objets_surcharges: {},
     membres: [],
     historique_batailles: [],
     profils_bannis: [],

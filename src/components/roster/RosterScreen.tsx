@@ -253,6 +253,8 @@ export function RosterScreen() {
         onDonner={donnerAMembre}
         onVendre={vendreStock}
         onRetirer={retirerStock}
+        onObjetsPersonnalisesChange={(objets) => patch({ objets_personnalises: objets })}
+        onObjetsSurchargesChange={(surcharges) => patch({ objets_surcharges: surcharges })}
       />
 
       {(violations.length > 0 || violationsEffectif.some((v) => v.type === 'min')) && (

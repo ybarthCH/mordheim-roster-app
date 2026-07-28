@@ -1,9 +1,12 @@
 import { useMemo, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import type { WarbandCatalog, Profile } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import {
   getEquipementBande,
   getShopCommun,
+  objetsPersonnalisesEnShopItems,
+  avecSurcharges,
   libelleCategorie,
   iconeCategorie,
   classeRarete,
@@ -15,8 +18,9 @@ import {
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
-import type { InventoryEntry } from '../../types/roster';
+import type { InventoryEntry, CustomItem, CustomItemOverride } from '../../types/roster';
 import { useGameRules } from '../../state/useGameRules';
+import { CustomItemForm } from './CustomItemForm';
 
 type Props = {
   catalogue: WarbandCatalog;
@@ -42,6 +46,14 @@ type Props = {
   // revente future, elle n'est pas déduite de la trésorerie. Adapte le texte
   // et masque les avertissements liés au coût.
   gratuit?: boolean;
+  // Objets homebrew de la bande et surcharges locales d'objets existants
+  // (voir types/roster.ts). Le bouton "Personnalisé" n'apparaît que si ces
+  // quatre props sont fournies — omis (ex : don de scénario à l'exploration),
+  // le modal reste une simple vitrine en lecture seule du catalogue.
+  objetsPersonnalises?: CustomItem[];
+  objetsSurcharges?: Record<string, CustomItemOverride>;
+  onObjetsPersonnalisesChange?: (objets: CustomItem[]) => void;
+  onObjetsSurchargesChange?: (surcharges: Record<string, CustomItemOverride>) => void;
   onClose: () => void;
   onAchat: (item: ShopItem, coutPaye: number) => void;
 };
@@ -71,6 +83,10 @@ export function AchatEquipementModal({
   inventaireBande = [],
   tailleGroupe = 1,
   gratuit = false,
+  objetsPersonnalises = [],
+  objetsSurcharges = {},
+  onObjetsPersonnalisesChange,
+  onObjetsSurchargesChange,
   onClose,
   onAchat,
 }: Props) {
@@ -80,13 +96,44 @@ export function AchatEquipementModal({
   const [recherche, setRecherche] = useState('');
   const [itemId, setItemId] = useState('');
   const [coutSaisi, setCoutSaisi] = useState('');
+  const [vuePersonnalise, setVuePersonnalise] = useState<'menu' | 'creer' | 'selection' | 'editer' | null>(null);
+  const [rechercheEdition, setRechercheEdition] = useState('');
+  const [itemAEditer, setItemAEditer] = useState<ShopItem | null>(null);
 
-  const itemsBande = useMemo(
-    () => getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel, rules),
-    [catalogue, profil, competencesAcquises, inventaireActuel, rules]
+  const personnaliseActif = !!(onObjetsPersonnalisesChange && onObjetsSurchargesChange);
+
+  const itemsBandeBase = useMemo(
+    () => [
+      ...getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel, rules),
+      ...objetsPersonnalisesEnShopItems(objetsPersonnalises),
+    ],
+    [catalogue, profil, competencesAcquises, inventaireActuel, rules, objetsPersonnalises]
   );
-  const itemsCommun = useMemo(() => getShopCommun(catalogue.id, rules), [catalogue.id, rules]);
+  const itemsBande = useMemo(
+    () => avecSurcharges(itemsBandeBase, objetsSurcharges),
+    [itemsBandeBase, objetsSurcharges]
+  );
+  const itemsCommunBase = useMemo(() => getShopCommun(catalogue.id, rules), [catalogue.id, rules]);
+  const itemsCommun = useMemo(
+    () => avecSurcharges(itemsCommunBase, objetsSurcharges),
+    [itemsCommunBase, objetsSurcharges]
+  );
   const items = source === 'bande' ? itemsBande : itemsCommun;
+
+  const itemsPourEdition = useMemo(() => {
+    const vus = new Set<string>();
+    return [...itemsBande, ...itemsCommun]
+      .filter((i) => {
+        if (vus.has(i.id)) return false;
+        vus.add(i.id);
+        return true;
+      })
+      .sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+  }, [itemsBande, itemsCommun]);
+  const itemsPourEditionFiltres = useMemo(() => {
+    const q = rechercheEdition.trim().toLowerCase();
+    return q ? itemsPourEdition.filter((i) => i.nom.toLowerCase().includes(q)) : itemsPourEdition;
+  }, [itemsPourEdition, rechercheEdition]);
 
   const categoriesDisponibles = useMemo(() => {
     const presentes = new Set(items.map((i) => i.categorie));
@@ -132,17 +179,152 @@ export function AchatEquipementModal({
     onClose();
   };
 
+  const fermerFlowPersonnalise = () => {
+    setVuePersonnalise(null);
+    setItemAEditer(null);
+    setRechercheEdition('');
+  };
+
+  const creerObjetPersonnalise = (valeur: Omit<CustomItem, 'id'>) => {
+    onObjetsPersonnalisesChange?.([...objetsPersonnalises, { id: uuidv4(), ...valeur }]);
+    fermerFlowPersonnalise();
+  };
+
+  const enregistrerEditionObjet = (valeur: Omit<CustomItem, 'id'>) => {
+    if (!itemAEditer) return;
+    if (itemAEditer.origine === 'personnalise') {
+      onObjetsPersonnalisesChange?.(
+        objetsPersonnalises.map((o) => (o.id === itemAEditer.id ? { id: o.id, ...valeur } : o))
+      );
+    } else {
+      onObjetsSurchargesChange?.({ ...objetsSurcharges, [itemAEditer.id]: valeur });
+    }
+    fermerFlowPersonnalise();
+  };
+
+  const revertSurcharge = () => {
+    if (!itemAEditer || !onObjetsSurchargesChange) return;
+    const reste = { ...objetsSurcharges };
+    delete reste[itemAEditer.id];
+    onObjetsSurchargesChange(reste);
+    fermerFlowPersonnalise();
+  };
+
+  const ouvrirEditionDepuisDetail = () => {
+    if (!itemSelectionne) return;
+    setItemAEditer(itemSelectionne);
+    setVuePersonnalise('editer');
+  };
+
+  const initialEdition: Omit<CustomItem, 'id'> | undefined = itemAEditer
+    ? {
+        nom: itemAEditer.nom,
+        categorie: itemAEditer.categorie,
+        cout: itemAEditer.cout,
+        cout_fixe: itemAEditer.cout_fixe ?? typeof itemAEditer.cout === 'number',
+        rarete: itemAEditer.rarete,
+        disponibilite: itemAEditer.disponibilite,
+        texte: itemAEditer.texte ?? undefined,
+        stats_delta: itemAEditer.stats_delta,
+      }
+    : undefined;
+
   return (
     <Modal onClose={onClose} variant="fullscreen">
       <div className="achat-equipement">
-        {!itemSelectionne ? (
+        {vuePersonnalise === 'menu' ? (
+          <div className="achat-equipement__contenu">
+            <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
+              <h3 className="mt-0 mb-0">Objet personnalisé</h3>
+              <button className="btn btn--sm" aria-label="Fermer" onClick={fermerFlowPersonnalise}>
+                ✕
+              </button>
+            </div>
+            <p className="text-sm text-muted">
+              Crée un objet homebrew pour cette bande, ou ajuste un objet existant (prix, effet, caractéristiques…)
+              sans affecter les autres bandes.
+            </p>
+            <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
+              <button className="btn btn--primary" onClick={() => setVuePersonnalise('creer')}>
+                Créer un objet
+              </button>
+              <button className="btn" onClick={() => setVuePersonnalise('selection')}>
+                Éditer un objet existant
+              </button>
+            </div>
+          </div>
+        ) : vuePersonnalise === 'creer' ? (
+          <CustomItemForm
+            titre="Créer un objet personnalisé"
+            onEnregistrer={creerObjetPersonnalise}
+            onAnnuler={() => setVuePersonnalise('menu')}
+          />
+        ) : vuePersonnalise === 'selection' ? (
+          <div className="achat-equipement__contenu">
+            <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
+              <h3 className="mt-0 mb-0">Choisir un objet à éditer</h3>
+              <button className="btn btn--sm" onClick={() => setVuePersonnalise('menu')}>
+                ← Retour
+              </button>
+            </div>
+            <div className="field">
+              <input
+                value={rechercheEdition}
+                onChange={(e) => setRechercheEdition(e.target.value)}
+                placeholder="Rechercher un objet…"
+              />
+            </div>
+            <div className="achat-equipement__catalogue">
+              {itemsPourEditionFiltres.length === 0 && <p className="text-muted text-sm">Aucun objet.</p>}
+              {itemsPourEditionFiltres.map((item) => (
+                <button
+                  type="button"
+                  key={item.id}
+                  className="list-item achat-equipement__item"
+                  onClick={() => {
+                    setItemAEditer(item);
+                    setVuePersonnalise('editer');
+                  }}
+                >
+                  <div className="list-item__main">
+                    <div className="achat-equipement__item-titre">
+                      <span className="list-item__title">{item.nom}</span>
+                      {item.origine === 'personnalise' && <span className="badge badge--info">Personnalisé</span>}
+                      {item.surcharge && <span className="badge badge--warning">Modifié</span>}
+                    </div>
+                    <div className="list-item__subtitle">
+                      {libelleCategorie(item.categorie)} · {formatCoutItem(item.cout)}
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : vuePersonnalise === 'editer' && itemAEditer ? (
+          <CustomItemForm
+            titre={`Éditer ${itemAEditer.nom}`}
+            initial={initialEdition}
+            onEnregistrer={enregistrerEditionObjet}
+            onAnnuler={() => setVuePersonnalise('menu')}
+            onRevert={
+              itemAEditer.origine !== 'personnalise' && objetsSurcharges[itemAEditer.id] ? revertSurcharge : undefined
+            }
+          />
+        ) : !itemSelectionne ? (
           <>
             <header className="achat-equipement__header">
               <div className="achat-equipement__header-ligne">
                 <h3 className="mt-0 mb-0">{gratuit ? "Ajouter un objet trouvé" : "Acheter de l'équipement"}</h3>
-                <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
-                  ✕
-                </button>
+                <div className="flex gap-sm items-center">
+                  {personnaliseActif && (
+                    <button className="btn btn--sm" onClick={() => setVuePersonnalise('menu')}>
+                      Personnalisé
+                    </button>
+                  )}
+                  <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                    ✕
+                  </button>
+                </div>
               </div>
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.2rem' }}>
                 {gratuit
@@ -216,6 +398,8 @@ export function AchatEquipementModal({
                               Rare {item.rarete}
                             </span>
                           )}
+                          {item.origine === 'personnalise' && <span className="badge badge--info">Personnalisé</span>}
+                          {item.surcharge && <span className="badge badge--warning">Modifié</span>}
                         </div>
                         <div className="list-item__subtitle">
                           {iconeCategorie(item.categorie) && (
@@ -253,6 +437,20 @@ export function AchatEquipementModal({
                   <span className={`badge ${classeRarete(itemSelectionne.rarete)} achat-equipement__rarete`}>
                     Rare {itemSelectionne.rarete}
                   </span>
+                )}
+                {itemSelectionne.origine === 'personnalise' && (
+                  <span className="badge badge--info">Personnalisé</span>
+                )}
+                {itemSelectionne.surcharge && <span className="badge badge--warning">Modifié</span>}
+                {personnaliseActif && (
+                  <button
+                    className="btn--ghost"
+                    style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem', color: 'var(--text-muted)' }}
+                    onClick={ouvrirEditionDepuisDetail}
+                    title="Modifier cet objet pour cette bande"
+                  >
+                    <Icon name="crayon" size="0.85em" />
+                  </button>
                 )}
               </div>
               <p className="text-sm text-muted mb-0">
