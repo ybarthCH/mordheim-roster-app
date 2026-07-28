@@ -28,7 +28,7 @@ import { avancesDues } from '../../utils/xp';
 import { ratingMembre } from '../../utils/rating';
 import { succederApresMorts } from '../../utils/leader';
 import { estSorcier } from '../../utils/magie';
-import { equitationGratuitePourTribu } from '../../utils/tribu';
+import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
 import { skillById } from '../../data/gameData';
 import {
   acheterPourMembre,
@@ -227,10 +227,16 @@ export function PersonnageScreen() {
     }
   };
 
-  const nomCompetence = (skillId: string) =>
-    skillById(skillId) ??
-    profil.competences_speciales?.find((s) => s.id === skillId) ??
-    catalogue.competences_speciales.find((s) => s.id === skillId);
+  const nomCompetence = (skillId: string) => {
+    const base =
+      skillById(skillId) ??
+      profil.competences_speciales?.find((s) => s.id === skillId) ??
+      catalogue.competences_speciales.find((s) => s.id === skillId);
+    if (base && skillId === SKILL_EQUITATION && membre.monture_equitation) {
+      return { ...base, nom: `${base.nom} — ${membre.monture_equitation}` };
+    }
+    return base;
+  };
 
   // Hommes de main et animaux non promus : le statut Hors de combat / Blessé
   // n'a plus lieu d'être : le nombre de figurines hors combat se suit via le

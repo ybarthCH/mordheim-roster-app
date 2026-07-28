@@ -6,6 +6,7 @@
 // récompenses du Seigneur des Ombres (stats, objets, notes, mort possible...)
 // ont des effets trop larges pour être annulés sans ambiguïté.
 import type { AdvanceRecord, Member } from '../types/roster';
+import { SKILL_EQUITATION } from './tribu';
 
 export function avanceeReversible(record: AdvanceRecord): boolean {
   return record.type === 'caracteristique' || record.type === 'competence' || record.type === 'sort';
@@ -28,9 +29,11 @@ export function annulerAvancee(
   if (record.type === 'competence') {
     const index = membre.competences_acquises.findIndex((id) => nomCompetence(id) === record.detail);
     if (index === -1) return { historique_avancees };
+    const retiree = membre.competences_acquises[index];
     return {
       historique_avancees,
       competences_acquises: membre.competences_acquises.filter((_, i) => i !== index),
+      ...(retiree === SKILL_EQUITATION ? { monture_equitation: undefined } : {}),
     };
   }
 
