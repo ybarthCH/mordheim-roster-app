@@ -53,8 +53,8 @@
   },
   {
     "id": "destrier_du_chaos_market", "nom": "Destrier du Chaos", "categorie": "montures",
-    "cout": 90, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Bandes du Chaos uniquement",
-    "acces": ["nains_du_chaos", "maraudeurs_du_chaos", "carnival_of_chaos", "cult_of_the_possessed", "beastmen_raiders"], "source": "GM (Guerriers Montés)", "page": 60,
+    "cout": 90, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
+    "acces": ["nains_du_chaos", "maraudeurs_du_chaos", "carnival_of_chaos", "cult_of_the_possessed", "beastmen_raiders", "norses"], "source": "GM (Guerriers Montés)", "page": 60,
     "texte": "Les destriers du Chaos sont des parodies déformées des magnifiques coursiers de l'Empire. Ils sont montés au combat par les bandes du Chaos.",
     "stats": { "M": 8, "CC": 3, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
     "regles_speciales": [
