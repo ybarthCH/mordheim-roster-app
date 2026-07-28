@@ -36,6 +36,7 @@ type Etape =
   | 'sort'
   | 'seigneur_des_ombres'
   | 'promotion_categories'
+  | 'jet_caracteristique_variable'
   | 'resultat';
 
 export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, onApply }: Props) {
@@ -54,6 +55,11 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
   const [texteResultat, setTexteResultat] = useState('');
   const [categorie, setCategorie] = useState<SkillCategory | ''>('');
   const [categoriesPromotion, setCategoriesPromotion] = useState<SkillCategory[]>([]);
+  // Caractéristique variable ciblée par l'avancée en cours (ex : le Damné,
+  // dont CC/F/E/A restent indéterminées jusqu'à ce que le joueur choisisse de
+  // fixer un résultat de jet — voir règle spéciale Destin/Expérience).
+  const [statVariableCiblee, setStatVariableCiblee] = useState<{ stat: keyof Stats; label: string } | null>(null);
+  const [jetVariableSaisi, setJetVariableSaisi] = useState('');
   // Groupe restant après extraction d'une figurine promue (taille_groupe > 1
   // au moment de la promotion) : en attente de sa propre avancée, résolue
   // juste après celle du nouveau héros dans la même session de modale.
@@ -87,6 +93,12 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
     if (!entreeAvancement) return;
     if (entreeAvancement.type === 'caracteristique_fixe') {
       const { stat, label } = entreeAvancement;
+      if (travail.stats_variables?.[stat]) {
+        setStatVariableCiblee({ stat, label });
+        setJetVariableSaisi('');
+        setEtape('jet_caracteristique_variable');
+        return;
+      }
       // Défense en profondeur : le bouton Valider est déjà désactivé dans ce cas.
       if (!verdictStat(stat).ok) return;
       appliquer(
@@ -121,6 +133,12 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
   };
 
   const choisirCaracteristique = (stat: keyof Member['stats_actuels'], label: string) => {
+    if (travail.stats_variables?.[stat]) {
+      setStatVariableCiblee({ stat, label });
+      setJetVariableSaisi('');
+      setEtape('jet_caracteristique_variable');
+      return;
+    }
     // Défense en profondeur : les boutons capés sont déjà désactivés.
     if (!verdictStat(stat).ok) return;
     appliquer(
@@ -315,6 +333,54 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
     setEtape('depart');
   };
 
+  // Règle spéciale Destin/Expérience (Damné) : chaque fois qu'une avancée
+  // cible une caractéristique encore variable, on lance le dé indiqué sur
+  // table papier puis on choisit de fixer ce résultat ou de le perdre —
+  // dans les deux cas, l'avancée est consommée.
+  const fixerCaracteristiqueVariable = () => {
+    if (!statVariableCiblee) return;
+    const valeur = Number(jetVariableSaisi);
+    if (!Number.isFinite(valeur) || valeur < 0) return;
+    const { stat, label } = statVariableCiblee;
+    const stats_variables = { ...travail.stats_variables };
+    delete stats_variables[stat];
+    appliquer(
+      {
+        stats_actuels: { ...travail.stats_actuels, [stat]: valeur },
+        stats_variables: Object.keys(stats_variables).length > 0 ? stats_variables : undefined,
+      },
+      {
+        id: uuidv4(),
+        date: new Date().toISOString().slice(0, 10),
+        xpAtRoll: travail.xp,
+        roll: entreeAvancement?.min ?? 0,
+        type: 'caracteristique_variable',
+        detail: `${label} fixée à ${valeur}`,
+        stat,
+      },
+      `Caractéristique fixée : ${label} = ${valeur}`
+    );
+  };
+
+  const laisserCaracteristiqueVariable = () => {
+    if (!statVariableCiblee) return;
+    const { stat, label } = statVariableCiblee;
+    const notation = travail.stats_variables?.[stat] ?? '';
+    appliquer(
+      {},
+      {
+        id: uuidv4(),
+        date: new Date().toISOString().slice(0, 10),
+        xpAtRoll: travail.xp,
+        roll: entreeAvancement?.min ?? 0,
+        type: 'caracteristique_variable',
+        detail: `Jet de ${label} (${notation}) non concluant — reste variable`,
+        stat,
+      },
+      `${label} reste variable (jet non concluant).`
+    );
+  };
+
   return (
     <Modal onClose={onClose}>
       <h3>Avancée d'expérience — {travail.nom_perso}</h3>
@@ -424,6 +490,38 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
             </>
           );
         })()}
+
+      {etape === 'jet_caracteristique_variable' && statVariableCiblee && (
+        <>
+          <p className="text-sm">
+            <strong>{statVariableCiblee.label}</strong> est une caractéristique variable (
+            {travail.stats_variables?.[statVariableCiblee.stat]}) : lance ce dé sur ta table papier. Si tu es
+            satisfait du résultat, fixe-le définitivement — sinon la caractéristique reste variable et l'avancée
+            est perdue.
+          </p>
+          <div className="field">
+            <label>Résultat du jet</label>
+            <input
+              type="number"
+              min={0}
+              value={jetVariableSaisi}
+              onChange={(e) => setJetVariableSaisi(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-sm" style={{ marginTop: '1rem', flexWrap: 'wrap' }}>
+            <button className="btn" onClick={laisserCaracteristiqueVariable}>
+              Laisser variable (jet perdu)
+            </button>
+            <button
+              className="btn btn--primary"
+              disabled={jetVariableSaisi.trim() === '' || Number.isNaN(Number(jetVariableSaisi))}
+              onClick={fixerCaracteristiqueVariable}
+            >
+              Fixer à ce résultat
+            </button>
+          </div>
+        </>
+      )}
 
       {etape === 'promotion_categories' && (
         <>
