@@ -34,8 +34,8 @@ export function MagieConnueCard({
   const [grimoireOuvert, setGrimoireOuvert] = useState(false);
   const [sourceGrimoire, setSourceGrimoire] = useState<'propre' | 'mineure'>('propre');
   const [sortGrimoire, setSortGrimoire] = useState('');
-  const magiePropre = magieDuProfil(catalogue, profil);
-  const disponibles = sortsDisponibles(catalogue, membre.sorts_connus, profil);
+  const magiePropre = magieDuProfil(catalogue, profil, membre.marque);
+  const disponibles = sortsDisponibles(catalogue, membre.sorts_connus, profil, membre.marque);
   const magieMineureEstPropre = magiePropre?.nom === 'Magie mineure';
   const sortsGrimoire =
     sourceGrimoire === 'propre'
@@ -57,7 +57,7 @@ export function MagieConnueCard({
       </h3>
       {membre.sorts_connus.length > 0 ? (
         membre.sorts_connus.map((nom, i) => {
-          const sort = resolveSort(catalogue, nom, profil);
+          const sort = resolveSort(catalogue, nom, profil, membre.marque);
           return (
             <p key={i} className="text-sm mb-0" style={{ marginTop: i > 0 ? '0.4rem' : 0 }}>
               <strong>{sort ? `${sort.resultat} — ${sort.nom}` : nom}</strong>

@@ -336,7 +336,7 @@ export function PersonnageScreen() {
         verrouille={!!francTireur}
       />
 
-      {estSorcier(catalogue, profil) && (
+      {estSorcier(catalogue, profil, membre.marque) && (
         <MagieConnueCard
           membre={membre}
           profil={profil}
@@ -408,7 +408,7 @@ export function PersonnageScreen() {
         </div>
       )}
 
-      <MagieReference catalogue={catalogue} profil={profil} />
+      <MagieReference catalogue={catalogue} profil={profil} marqueId={membre.marque} />
 
       <button className="btn btn--danger btn--block" onClick={() => setModalSuppression(true)}>
         Retirer ce personnage de la bande

@@ -68,12 +68,12 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
         </p>
       )}
 
-      {estSorcier(catalogue, profil) && (
+      {estSorcier(catalogue, profil, membre.marque) && (
         <>
           <span className="resume-section__title">Magie — Sort connu</span>
           {membre.sorts_connus.length > 0 ? (
             membre.sorts_connus.map((nom, i) => {
-              const sort = resolveSort(catalogue, nom, profil);
+              const sort = resolveSort(catalogue, nom, profil, membre.marque);
               return (
                 <p key={i} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
                   <strong>{sort ? sort.nom : nom}</strong>

@@ -34,6 +34,7 @@ function normaliserMembre(membre: Partial<Member>): Member {
     stats_variables: membre.stats_variables,
     competences_acquises: membre.competences_acquises ?? [],
     sorts_connus: dejaMigreVersNotes ? (membre.sorts_connus ?? []) : [],
+    marque: membre.marque,
     regles_speciales_notes: dejaMigreVersNotes ? membre.regles_speciales_notes! : (membre.sorts_connus ?? []),
     statut: (membre.statut as Statut | undefined) ?? 'actif',
     date_mort: membre.date_mort,
