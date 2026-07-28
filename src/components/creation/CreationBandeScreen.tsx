@@ -295,9 +295,10 @@ export function CreationBandeScreen() {
           budgetDisponible={restant}
           verifierLimite={(quantite) => peutAjouterMembre(rosterFictif, profilEnRecrutement.id, quantite)}
           onClose={() => setProfilEnRecrutement(null)}
-          onConfirm={({ nom, xpDepart, quantite, sortChoisi, coutUnitaire }) => {
+          onConfirm={({ nom, xpDepart, quantite, sortChoisi, coutUnitaire, marque }) => {
             const membre = creerMembre(profilEnRecrutement, xpDepart, quantite);
             if (nom) membre.nom_perso = nom;
+            if (marque) membre.marque = marque;
             if (sortChoisi) membre.sorts_connus = [sortChoisi];
             if (profilEnRecrutement.cout === null) {
               setCoutPayeParInstance((prev) => ({ ...prev, [membre.instance_id]: coutUnitaire }));
@@ -323,6 +324,7 @@ type RecrutementDraftModalProps = {
     quantite: number;
     sortChoisi: string;
     coutUnitaire: number;
+    marque: string;
   }) => void;
 };
 
@@ -342,12 +344,18 @@ function RecrutementDraftModal({
   // guerre, "25+2D6") — jet à faire sur table papier, comme pour un objet
   // acheté au shop plutôt qu'un recrutement classique.
   const [coutManuelSaisi, setCoutManuelSaisi] = useState('');
+  // Marque choisie au recrutement pour les profils à `marque_requise` (ex :
+  // le Devin des Maraudeurs du Chaos) — détermine le domaine de sorts
+  // proposé ensuite (voir utils/magie.ts).
+  const [marqueChoisie, setMarqueChoisie] = useState('');
   const estGroupable = profil.type === 'homme_de_main';
   // Un animal (chien de guerre, guerrier gnoblar...) ne gagne jamais
   // d'expérience — inutile et trompeur de proposer un XP de départ.
   const gagneExperience = profil.type !== 'animal';
-  const premierSortRequis = estSorcier(catalogue, profil.id);
-  const sortsPossibles = sortsDisponibles(catalogue, []);
+  const marqueRequise = !!profil.marque_requise;
+  const premierSortRequis =
+    estSorcier(catalogue, profil.id, marqueChoisie || undefined) && (!marqueRequise || marqueChoisie !== '');
+  const sortsPossibles = sortsDisponibles(catalogue, [], profil, marqueChoisie || undefined);
   const coutManuelRequis = profil.cout === null;
   const coutManuelValide =
     !coutManuelRequis || (coutManuelSaisi.trim() !== '' && !Number.isNaN(Number(coutManuelSaisi)) && Number(coutManuelSaisi) >= 0);
@@ -361,8 +369,16 @@ function RecrutementDraftModal({
 
   const confirmer = () => {
     if (!check.ok || !coutManuelValide) return;
+    if (marqueRequise && !marqueChoisie) return;
     if (premierSortRequis && !sortChoisi) return;
-    onConfirm({ nom: nom.trim(), xpDepart: gagneExperience ? xpDepart : 0, quantite, sortChoisi, coutUnitaire });
+    onConfirm({
+      nom: nom.trim(),
+      xpDepart: gagneExperience ? xpDepart : 0,
+      quantite,
+      sortChoisi,
+      coutUnitaire,
+      marque: marqueRequise ? marqueChoisie : '',
+    });
   };
 
   return (
@@ -424,6 +440,24 @@ function RecrutementDraftModal({
           <input type="number" min={1} value={quantiteSaisie} onChange={(e) => setQuantiteSaisie(e.target.value)} />
         </div>
       )}
+      {marqueRequise && (
+        <div className="field">
+          <label>Marque des Dieux Sombres</label>
+          <select value={marqueChoisie} onChange={(e) => setMarqueChoisie(e.target.value)}>
+            <option value="">— Choisir —</option>
+            {catalogue?.marques?.map((m) => (
+              <option key={m.id} value={m.id}>
+                {m.nom}
+              </option>
+            ))}
+          </select>
+          {marqueChoisie && catalogue?.marques?.find((m) => m.id === marqueChoisie)?.texte && (
+            <p className="text-sm text-muted mb-0">
+              {catalogue.marques.find((m) => m.id === marqueChoisie)?.texte}
+            </p>
+          )}
+        </div>
+      )}
       {premierSortRequis && (
         <div className="field">
           <label>Premier sort connu</label>
@@ -459,7 +493,12 @@ function RecrutementDraftModal({
         </button>
         <button
           className="btn btn--primary"
-          disabled={!check.ok || !coutManuelValide || (premierSortRequis && !sortChoisi)}
+          disabled={
+            !check.ok ||
+            !coutManuelValide ||
+            (marqueRequise && !marqueChoisie) ||
+            (premierSortRequis && !sortChoisi)
+          }
           onClick={confirmer}
         >
           Ajouter pour {coutTotal} po{!budgetSuffisant ? ' quand même' : ''}

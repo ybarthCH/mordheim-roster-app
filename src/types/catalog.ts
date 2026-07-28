@@ -98,6 +98,10 @@ export type Profile = {
   xp_depart?: number;
   peut_lancer_sorts?: boolean;
   categorie_magie?: string;
+  // Ce profil doit choisir une Marque au recrutement (voir
+  // WarbandCatalog.marques, ex : le Devin des Maraudeurs du Chaos) — le
+  // choix détermine le domaine de sorts utilisé (Member.marque).
+  marque_requise?: boolean;
   // Chef de bande selon les règles (un seul par catalogue) : badge visuel +
   // bonus de +1 XP automatique en cas de victoire.
   est_leader?: boolean;
@@ -196,6 +200,22 @@ export type Magie = {
   sorts: MagieSort[];
 };
 
+// Marque choisie au recrutement par un profil à `marque_requise` (ex : le
+// Devin des Maraudeurs du Chaos, qui choisit sa Marque des Dieux Sombres) —
+// détermine le domaine de sorts utilisé. Stockée sur Member.marque.
+export type Marque = {
+  id: string;
+  nom: string;
+  texte?: string;
+  // Clé dans WarbandCatalog.magie_variantes : domaine de sorts propre à
+  // cette Marque. Absent = utilise le domaine par défaut du profil
+  // (WarbandCatalog.magie), sauf si `pas_de_sorts` est vrai.
+  magie_variante?: string;
+  // Cette Marque retire tout accès aux sorts (ex : Arkhar, dont le Devin
+  // devient un Père de Sang qui ne jette plus de sorts).
+  pas_de_sorts?: boolean;
+};
+
 // Variante de bande choisie une fois pour toutes à la création (ex : les
 // trois tribus des Maraudeurs du Chaos) — modifie certaines règles de
 // composition sans justifier un catalogue à part entière. Le choix du
@@ -229,6 +249,12 @@ export type WarbandCatalog = {
   equipement?: Record<string, EquipementListe>;
   equipement_special?: EquipementSpecialRef[];
   magie?: Magie;
+  // Marques disponibles au recrutement pour les profils à `marque_requise`
+  // (voir Marque, Profile.marque_requise, Member.marque).
+  marques?: Marque[];
+  // Domaines de sorts alternatifs propres à certaines Marques, clé =
+  // Marque.magie_variante (voir Marque et magieDuProfil dans utils/magie.ts).
+  magie_variantes?: Record<string, Magie>;
   // Bande à progression ralentie (ex : Mangeurs d'Hommes) : chaque case de
   // la grille XP vaut 2 points d'XP réels au lieu d'1 — la case se remplit
   // à moitié au premier point gagné, complètement au second.

@@ -122,6 +122,11 @@ export type Member = {
   // recrutement d'un profil sorcier, les suivants via une avancée "nouvelle
   // compétence" (voir utils/magie.ts et AvanceeModal).
   sorts_connus: string[];
+  // Marque choisie au recrutement pour les profils à `marque_requise` (ex :
+  // le Devin des Maraudeurs du Chaos) — référence vers Marque.id, détermine
+  // le domaine de sorts utilisé (voir utils/magie.ts). Fixée une fois pour
+  // toutes.
+  marque?: string;
   // Notes libres pour toute règle spéciale gagnée en jeu (hors mutations,
   // désormais appliquées automatiquement à l'achat — voir stats_delta sur
   // ShopItem) et hors sorts (voir sorts_connus ci-dessus).

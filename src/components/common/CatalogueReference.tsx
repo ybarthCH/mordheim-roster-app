@@ -150,8 +150,18 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
 // Référence libre du système de magie/prières. Avec un profil, résout son
 // domaine et mémorise l'état replié de la carte sur sa fiche. Sans profil,
 // affiche le domaine général de la bande dans le résumé du roster.
-export function MagieReference({ catalogue, profil }: { catalogue: WarbandCatalog; profil?: Profile }) {
-  const magie = profil ? magieDuProfil(catalogue, profil) : catalogue.magie;
+export function MagieReference({
+  catalogue,
+  profil,
+  marqueId,
+}: {
+  catalogue: WarbandCatalog;
+  profil?: Profile;
+  // Marque du membre affiché (voir Profile.marque_requise), pour résoudre le
+  // bon domaine de sorts quand la bande en propose plusieurs.
+  marqueId?: string;
+}) {
+  const magie = profil ? magieDuProfil(catalogue, profil, marqueId) : catalogue.magie;
   if (!magie) return null;
 
   const titre = (

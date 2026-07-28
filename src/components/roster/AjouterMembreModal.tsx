@@ -35,6 +35,10 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const [coutManuelSaisi, setCoutManuelSaisi] = useState('');
   // Premier sort connu, obligatoire au recrutement d'un profil sorcier.
   const [sortChoisi, setSortChoisi] = useState('');
+  // Marque choisie au recrutement pour les profils à `marque_requise` (ex :
+  // le Devin des Maraudeurs du Chaos) — détermine le domaine de sorts
+  // proposé ensuite (voir utils/magie.ts).
+  const [marqueChoisie, setMarqueChoisie] = useState('');
 
   const profilsHeros = catalogue?.profils.filter((p) => p.type === 'heros') ?? [];
   const profilsHommesDeMain = catalogue?.profils.filter((p) => p.type === 'homme_de_main') ?? [];
@@ -42,8 +46,10 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
 
   const profil = catalogue?.profils.find((p) => p.id === profilId);
   const estGroupable = profil?.type === 'homme_de_main' || profil?.type === 'animal';
-  const estSorcierProfil = !!profil && estSorcier(catalogue, profil.id);
-  const sortsPossibles = sortsDisponibles(catalogue, []);
+  const marqueRequise = !!profil?.marque_requise;
+  const marqueChoisieValide = !marqueRequise || marqueChoisie !== '';
+  const estSorcierProfil = !!profil && estSorcier(catalogue, profil.id, marqueChoisie || undefined);
+  const sortsPossibles = sortsDisponibles(catalogue, [], profil, marqueChoisie || undefined);
   const xpDepart = Number(xpDepartSaisie) || 0;
   const quantite = Math.max(1, parseInt(quantiteSaisie, 10) || 1);
   const coutManuelRequis = !!profil && profil.cout === null;
@@ -57,7 +63,10 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     ? roster.membres.filter((m) => m.profil_id === profilId && m.statut !== 'mort' && !m.promu_heros)
     : [];
   const groupeCible = groupeCibleId ? (groupesExistants.find((m) => m.instance_id === groupeCibleId) ?? null) : null;
-  const premierSortRequis = estSorcierProfil && !groupeCible;
+  // Le choix de la Marque (s'il y en a un) doit être fait avant de proposer
+  // un premier sort : le domaine de sorts en dépend, et certaines Marques
+  // (ex : Arkhar) retirent tout accès aux sorts.
+  const premierSortRequis = estSorcierProfil && !groupeCible && marqueChoisieValide;
 
   const check = profilId ? peutAjouterMembre(roster, profilId, quantite) : { ok: false };
   const coutUnitaire = profil?.cout ?? (coutManuelRequis ? Number(coutManuelSaisi) || 0 : 0);
@@ -82,10 +91,12 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     setGroupeCibleId(null);
     setCoutManuelSaisi('');
     setSortChoisi('');
+    setMarqueChoisie('');
   };
 
   const confirmer = () => {
     if (!profil || !check.ok || !coutManuelValide || dupliqueraitTrinket) return;
+    if (marqueRequise && !marqueChoisie) return;
     if (premierSortRequis && !sortChoisi) return;
 
     if (groupeCible) {
@@ -98,6 +109,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
 
     const membre = creerMembre(profil, xpDepart, quantite);
     if (nomPerso.trim()) membre.nom_perso = nomPerso.trim();
+    if (marqueRequise && marqueChoisie) membre.marque = marqueChoisie;
     if (premierSortRequis && sortChoisi) membre.sorts_connus = [sortChoisi];
     onConfirm({
       ...roster,
@@ -189,6 +201,24 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
               <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} placeholder={profil.nom} />
             </div>
           )}
+          {marqueRequise && !groupeCible && (
+            <div className="field">
+              <label>Marque des Dieux Sombres</label>
+              <select value={marqueChoisie} onChange={(e) => setMarqueChoisie(e.target.value)}>
+                <option value="">— Choisir —</option>
+                {catalogue?.marques?.map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.nom}
+                  </option>
+                ))}
+              </select>
+              {marqueChoisie && catalogue?.marques?.find((m) => m.id === marqueChoisie)?.texte && (
+                <p className="text-sm text-muted mb-0">
+                  {catalogue.marques.find((m) => m.id === marqueChoisie)?.texte}
+                </p>
+              )}
+            </div>
+          )}
           {premierSortRequis && (
             <div className="field">
               <label>Premier sort connu</label>
@@ -202,6 +232,11 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
               </select>
               <p className="text-sm text-muted mb-0">Obligatoire pour un profil sorcier.</p>
             </div>
+          )}
+          {marqueChoisieValide && !estSorcierProfil && marqueRequise && !groupeCible && (
+            <p className="text-sm text-muted">
+              Cette Marque retire tout accès aux sorts (voir son détail ci-dessus).
+            </p>
           )}
           {(estGroupable || groupeCible) && (
             <div className="field">
@@ -262,7 +297,12 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
         <button
           className="btn btn--primary"
           disabled={
-            !profil || !check.ok || !coutManuelValide || dupliqueraitTrinket || (premierSortRequis && !sortChoisi)
+            !profil ||
+            !check.ok ||
+            !coutManuelValide ||
+            dupliqueraitTrinket ||
+            (marqueRequise && !groupeCible && !marqueChoisie) ||
+            (premierSortRequis && !sortChoisi)
           }
           onClick={confirmer}
         >
