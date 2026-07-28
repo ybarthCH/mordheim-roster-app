@@ -6,6 +6,7 @@ import { peutAjouterMembre } from '../../utils/validation';
 import { creerMembre } from '../../utils/factory';
 import { calculerCoutRejoindreGroupe, formatCoutProfil, rejoindreGroupe, TRINKETS_LIMITES } from '../../utils/shop';
 import { estSorcier, sortsDisponibles } from '../../utils/magie';
+import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
 import { Modal } from '../common/Modal';
 import { useGameRules } from '../../state/useGameRules';
 
@@ -111,6 +112,9 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     if (nomPerso.trim()) membre.nom_perso = nomPerso.trim();
     if (marqueRequise && marqueChoisie) membre.marque = marqueChoisie;
     if (premierSortRequis && sortChoisi) membre.sorts_connus = [sortChoisi];
+    if (profil.type === 'heros' && equitationGratuitePourTribu(catalogue, roster)) {
+      membre.competences_acquises = [...membre.competences_acquises, SKILL_EQUITATION];
+    }
     onConfirm({
       ...roster,
       tresorerie: roster.tresorerie - coutTotal,

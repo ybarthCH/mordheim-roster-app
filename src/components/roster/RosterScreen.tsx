@@ -18,7 +18,7 @@ import { EquipementReference, MagieReference } from '../common/CatalogueReferenc
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { AvanceeModal } from '../personnage/AvanceeModal';
 import { nombreHeros } from '../../utils/profil';
-import { tribuChoisie } from '../../utils/tribu';
+import { tribuChoisie, equitationGratuitePourTribu } from '../../utils/tribu';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import {
   acheterPourStock,
@@ -453,6 +453,7 @@ export function RosterScreen() {
                 profil={profilPromu}
                 catalogue={catalogue}
                 heroCount={nombreHeros(roster)}
+                equitationGratuite={equitationGratuitePourTribu(catalogue, roster)}
                 onClose={() => setHeroPromuEnAttente(null)}
                 onApply={(updated, nouveauMembre) => {
                   const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));

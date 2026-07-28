@@ -403,7 +403,8 @@ export function getEquipementBande(
   profil: Profile | null,
   competencesAcquises: string[] = [],
   inventaireActuel: InventoryEntry[] = [],
-  rules: GameRules = DEFAULT_GAME_RULES
+  rules: GameRules = DEFAULT_GAME_RULES,
+  marqueId?: string
 ): ShopItem[] {
   const items: ShopItem[] = [];
   const listes = catalogue.equipement ?? {};
@@ -444,6 +445,7 @@ export function getEquipementBande(
   for (const ref of catalogue.equipement_special ?? []) {
     if (ref.profils && !(profil && ref.profils.includes(profil.id))) continue;
     if (ref.competences && !ref.competences.some((c) => competencesAcquises.includes(c))) continue;
+    if (ref.marques && !(marqueId && ref.marques.includes(marqueId))) continue;
     const item = getItem(ref.item_id);
     if (!item) continue;
     let cout = ref.cout;

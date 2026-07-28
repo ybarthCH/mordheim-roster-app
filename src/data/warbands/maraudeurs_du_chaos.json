@@ -49,7 +49,8 @@
       "id": "hungs",
       "nom": "Hungs",
       "texte": "Infidélité : la fidélité tribale de ces nomades est au mieux faible — le nombre maximum de guerriers dans la bande est réduit à 12 (au lieu de 15). Affinité avec les chevaux : les chevaux de guerre coûtent toujours 40 CO à la bande, même en dehors de la constitution initiale (purement indicatif, non automatisé dans le shop) ; tous les Héros (y compris les Hommes de main promus) gagnent automatiquement la compétence Équitation - Cheval de Guerre.",
-      "effectif_max": 12
+      "effectif_max": 12,
+      "equitation_gratuite_heros": true
     }
   ],
   "composition": {
@@ -135,7 +136,7 @@
         { "nom": "Destin", "texte": "Une fois toutes les caractéristiques variables fixées, utilise armes/armures/objets normalement. S'il atteint 90 points d'expérience avec encore des caractéristiques variables, il devient un Enfant du Chaos (ou quitte la bande pour errer dans les désolations si elle en a déjà un)." },
         { "nom": "Équipement", "texte": "N'utilise pas d'équipement mais combat sans pénalité (voir Destin)." }
       ],
-      "acces_competences": [],
+      "acces_competences": ["force", "vitesse", "special"],
       "acces_equipement": ["heros"],
       "acces_competences_a_verifier": false
     },
@@ -192,7 +193,7 @@
         { "nom": "Équipement", "texte": "Aucun ! Utilise griffes, tentacules et autres appendices." }
       ],
       "acces_competences": [],
-      "acces_equipement": ["hommes_de_main"],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
@@ -283,7 +284,13 @@
     { "item_id": "morsure_venimeuse", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"], "groupe_prix": "table_mutations" },
     { "item_id": "queue_prehensile", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"], "groupe_prix": "table_mutations" },
     { "item_id": "peau_ecailleuse", "cout": 60, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"], "groupe_prix": "table_mutations" },
-    { "item_id": "ailes_mutation", "cout": 45, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"], "groupe_prix": "table_mutations" }
+    { "item_id": "ailes_mutation", "cout": 45, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "competences": ["mutant"], "groupe_prix": "table_mutations" },
+    { "item_id": "flot_de_corruption", "cout": 25, "disponibilite": "Héros Maraudeur avec la Marque d'Onogal et la compétence Mutant, à la place d'une mutation classique. Première au prix normal, les suivantes coûtent le double.", "competences": ["mutant"], "marques": ["onogal"], "groupe_prix": "table_mutations" },
+    { "item_id": "nuage_de_mouches_benediction", "cout": 25, "disponibilite": "Héros Maraudeur avec la Marque d'Onogal et la compétence Mutant, à la place d'une mutation classique. Première au prix normal, les suivantes coûtent le double.", "competences": ["mutant"], "marques": ["onogal"], "groupe_prix": "table_mutations" },
+    { "item_id": "marque_de_nurgle", "cout": 35, "disponibilite": "Héros Maraudeur avec la Marque d'Onogal et la compétence Mutant, à la place d'une mutation classique. Première au prix normal, les suivantes coûtent le double.", "competences": ["mutant"], "marques": ["onogal"], "groupe_prix": "table_mutations" },
+    { "item_id": "hideux", "cout": 40, "disponibilite": "Héros Maraudeur avec la Marque d'Onogal et la compétence Mutant, à la place d'une mutation classique. Première au prix normal, les suivantes coûtent le double.", "competences": ["mutant"], "marques": ["onogal"], "groupe_prix": "table_mutations" },
+    { "item_id": "horreur_enflee", "cout": 40, "disponibilite": "Héros Maraudeur avec la Marque d'Onogal et la compétence Mutant, à la place d'une mutation classique. Première au prix normal, les suivantes coûtent le double.", "competences": ["mutant"], "marques": ["onogal"], "groupe_prix": "table_mutations" },
+    { "item_id": "pourriture_de_nurgle", "cout": 50, "disponibilite": "Héros Maraudeur avec la Marque d'Onogal et la compétence Mutant, à la place d'une mutation classique. Première au prix normal, les suivantes coûtent le double.", "competences": ["mutant"], "marques": ["onogal"], "groupe_prix": "table_mutations" }
   ],
   "magie": {
     "nom": "Rituels du Chaos",

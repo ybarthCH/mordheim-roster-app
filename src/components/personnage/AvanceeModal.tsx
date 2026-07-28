@@ -8,6 +8,7 @@ import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { LIMITE_HEROS, categoriesAccessibles, tableAvancementDuProfil } from '../../utils/profil';
 import { peutAugmenterStat } from '../../utils/plafond';
 import { estSorcier, sortsDisponibles } from '../../utils/magie';
+import { SKILL_EQUITATION } from '../../utils/tribu';
 import {
   RecompenseSeigneurDesOmbresWizard,
   type RecompenseResultat,
@@ -21,6 +22,10 @@ type Props = {
   // exclue) — sert à bloquer "Ce gars est doué" une fois la limite de 6
   // héros atteinte.
   heroCount: number;
+  // Vrai si la tribu choisie octroie automatiquement la compétence
+  // Équitation à tout nouveau Héros (voir Tribu.equitation_gratuite_heros) —
+  // appliquée ici lors d'une promotion "Ce gars est doué".
+  equitationGratuite?: boolean;
   onClose: () => void;
   // `nouveauMembre` n'est fourni que lorsqu'une promotion détache une
   // figurine d'un groupe de plus d'un homme de main (voir confirmerPromotion).
@@ -39,7 +44,7 @@ type Etape =
   | 'jet_caracteristique_variable'
   | 'resultat';
 
-export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, onApply }: Props) {
+export function AvanceeModal({ member, profil, catalogue, heroCount, equitationGratuite, onClose, onApply }: Props) {
   const limiteHerosAtteinte = heroCount >= LIMITE_HEROS;
   // État local de travail : on accumule les mutations ici plutôt que de se
   // fier à la prop `member` (qui ne se met à jour qu'au prochain rendu du
@@ -291,6 +296,9 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
         promu_heros: true,
         acces_competences_override: categoriesPromotion,
         historique_avancees: [...travail.historique_avancees, record],
+        competences_acquises: equitationGratuite
+          ? [...travail.competences_acquises, SKILL_EQUITATION]
+          : travail.competences_acquises,
       };
       const groupeRestant: Member = {
         ...travail,
@@ -305,6 +313,9 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
         promu_heros: true,
         acces_competences_override: categoriesPromotion,
         historique_avancees: [...travail.historique_avancees, record],
+        competences_acquises: equitationGratuite
+          ? [...travail.competences_acquises, SKILL_EQUITATION]
+          : travail.competences_acquises,
       };
       onApply(updated);
       travailSuivant = updated;
