@@ -32,6 +32,9 @@ export function CreationBandeScreen() {
   // Bandes à chef libre (ex : Lustrian Reavers) : le joueur choisit le chef
   // parmi les héros recrutés, plutôt qu'un profil fixe (voir Profile.est_leader).
   const [leaderInstanceId, setLeaderInstanceId] = useState<string | null>(null);
+  // Tribu choisie pour les bandes qui en proposent (ex : Maraudeurs du
+  // Chaos) — voir WarbandCatalog.tribus. Fixée une fois pour toutes.
+  const [tribuId, setTribuId] = useState('');
 
   const budget = Number(budgetSaisi) || 0;
 
@@ -95,7 +98,9 @@ export function CreationBandeScreen() {
     setMembres((prev) => prev.map((m) => (m.instance_id === instanceId ? { ...m, nom_perso: nom } : m)));
   };
 
-  const peutCreer = bandeId !== '' && nomBande.trim() !== '' && membres.length > 0;
+  const tribuRequise = (catalogue?.tribus?.length ?? 0) > 0;
+  const peutCreer =
+    bandeId !== '' && nomBande.trim() !== '' && membres.length > 0 && (!tribuRequise || tribuId !== '');
 
   const handleCreer = async () => {
     if (!peutCreer) return;
@@ -103,6 +108,9 @@ export function CreationBandeScreen() {
     roster.membres = membres;
     if (catalogue?.leader_libre && leaderInstanceId) {
       roster.leader_instance_id = leaderInstanceId;
+    }
+    if (tribuRequise && tribuId) {
+      roster.tribu = tribuId;
     }
     await addRoster(roster);
     navigate(`/roster/${roster.id}`);
@@ -118,6 +126,7 @@ export function CreationBandeScreen() {
             onChange={(e) => {
               setBandeId(e.target.value);
               setMembres([]);
+              setTribuId('');
             }}
           >
             <option value="">— Choisir une faction —</option>
@@ -132,6 +141,21 @@ export function CreationBandeScreen() {
             ))}
           </select>
         </div>
+
+        {tribuRequise && (
+          <div className="field">
+            <label>Tribu</label>
+            <select value={tribuId} onChange={(e) => setTribuId(e.target.value)}>
+              <option value="">— Choisir une tribu —</option>
+              {catalogue?.tribus?.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.nom}
+                </option>
+              ))}
+            </select>
+            <p className="text-sm text-muted mb-0">Fixée une fois pour toutes — voir le détail dans Règles spéciales.</p>
+          </div>
+        )}
 
         <div className="field">
           <label>Nom de la bande</label>
@@ -156,6 +180,19 @@ export function CreationBandeScreen() {
                 </p>
               </div>
             ))}
+            {tribuRequise && (
+              <div style={{ marginTop: '0.6rem', paddingTop: '0.6rem', borderTop: '1px solid var(--border)' }}>
+                <strong>Tribu {tribuId ? `choisie : ${catalogue?.tribus?.find((t) => t.id === tribuId)?.nom}` : '(à choisir ci-dessus)'}</strong>
+                {(tribuId ? catalogue?.tribus?.filter((t) => t.id === tribuId) : catalogue?.tribus)?.map((t) => (
+                  <div key={t.id} style={{ marginTop: '0.5rem' }}>
+                    {!tribuId && <strong>{t.nom}</strong>}
+                    <p className="text-sm text-muted" style={{ whiteSpace: 'pre-line' }}>
+                      {t.texte}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
           </details>
         </div>
       )}

@@ -1,0 +1,28 @@
+// Résolution de la tribu choisie à la création pour les bandes qui en
+// proposent (voir WarbandCatalog.tribus, ex : Maraudeurs du Chaos).
+import type { WarbandCatalog } from '../types/catalog';
+import type { RosterInstance } from '../types/roster';
+
+export function tribuChoisie(catalogue: WarbandCatalog | undefined, roster: RosterInstance) {
+  return catalogue?.tribus?.find((t) => t.id === roster.tribu);
+}
+
+// Effectif max applicable, en tenant compte d'une éventuelle surcharge de
+// tribu (ex : Hungs, limités à 12 au lieu de 15).
+export function effectifMaxPourTribu(catalogue: WarbandCatalog | undefined, roster: RosterInstance): number | undefined {
+  return tribuChoisie(catalogue, roster)?.effectif_max ?? catalogue?.composition?.effectif_max;
+}
+
+// Max applicable pour un profil donné, en tenant compte d'une éventuelle
+// surcharge de tribu (ex : Chiens du Chaos illimités chez les Kurgans,
+// null = illimité). `undefined` signifie "pas de surcharge" — l'appelant se
+// rabat alors sur `profil.max`.
+export function maxProfilPourTribu(
+  catalogue: WarbandCatalog | undefined,
+  roster: RosterInstance,
+  profilId: string
+): number | null | undefined {
+  const tribu = tribuChoisie(catalogue, roster);
+  if (tribu?.profil_max && profilId in tribu.profil_max) return tribu.profil_max[profilId];
+  return undefined;
+}

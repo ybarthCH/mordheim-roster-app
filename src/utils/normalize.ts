@@ -69,6 +69,7 @@ export function normaliserRoster(roster: Partial<RosterInstance>): RosterInstanc
     historique_batailles: roster.historique_batailles ?? [],
     leader_instance_id: roster.leader_instance_id,
     profils_bannis: roster.profils_bannis ?? [],
+    tribu: roster.tribu,
     createdAt: roster.createdAt ?? now,
     updatedAt: roster.updatedAt ?? now,
   };

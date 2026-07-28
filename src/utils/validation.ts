@@ -2,6 +2,7 @@ import type { RosterInstance } from '../types/roster';
 import { getCatalogue } from '../data/warbands';
 import { effectifTotal } from './bandeValue';
 import { aUnFrancTireurAvecTag, estFrancTireur } from '../data/hiredSwords';
+import { effectifMaxPourTribu, maxProfilPourTribu } from './tribu';
 
 export type ViolationComposition = {
   profilId: string;
@@ -27,7 +28,8 @@ export function validerComposition(roster: RosterInstance): ViolationComposition
   const bannis = new Set(roster.profils_bannis ?? []);
   for (const profil of catalogue.profils) {
     const actuel = comptes.get(profil.id) ?? 0;
-    const limiteMax = profil.unique ? 1 : profil.max ?? undefined;
+    const surchargeTribu = maxProfilPourTribu(catalogue, roster, profil.id);
+    const limiteMax = profil.unique ? 1 : (surchargeTribu !== undefined ? surchargeTribu : profil.max) ?? undefined;
     if (limiteMax != null && actuel > limiteMax) {
       violations.push({ profilId: profil.id, nomProfil: profil.nom, type: 'max', limite: limiteMax, actuel });
     }
@@ -49,7 +51,7 @@ export type ViolationEffectif = {
 
 /** Le Cuisinier Halfling permet à la bande d'accueillir un guerrier de plus. */
 export function effectifMaxAutorise(roster: RosterInstance): number | undefined {
-  const maximum = getCatalogue(roster.bande_id)?.composition?.effectif_max;
+  const maximum = effectifMaxPourTribu(getCatalogue(roster.bande_id), roster);
   if (maximum == null) return undefined;
   return maximum + (aUnFrancTireurAvecTag(roster, 'halfling') ? 1 : 0);
 }
@@ -89,7 +91,8 @@ export function peutAjouterMembre(
       raison: `${profil.nom} ne peut plus jamais être recruté dans cette bande (profil banni définitivement).`,
     };
   }
-  const limite = profil.unique ? 1 : profil.max ?? undefined;
+  const surchargeTribu = maxProfilPourTribu(catalogue, roster, profilId);
+  const limite = profil.unique ? 1 : (surchargeTribu !== undefined ? surchargeTribu : profil.max) ?? undefined;
   if (limite != null) {
     const actuel = roster.membres
       .filter((m) => m.profil_id === profilId && m.statut !== 'mort')

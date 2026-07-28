@@ -18,6 +18,7 @@ import { EquipementReference, MagieReference } from '../common/CatalogueReferenc
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { AvanceeModal } from '../personnage/AvanceeModal';
 import { nombreHeros } from '../../utils/profil';
+import { tribuChoisie } from '../../utils/tribu';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import {
   acheterPourStock,
@@ -55,6 +56,7 @@ export function RosterScreen() {
   }
 
   const catalogue = getCatalogue(roster.bande_id);
+  const tribu = tribuChoisie(catalogue, roster);
   const violations = validerComposition(roster);
   const violationsEffectif = validerEffectif(roster);
   const effectifDepasse = violationsEffectif.find((v) => v.type === 'max');
@@ -294,6 +296,24 @@ export function RosterScreen() {
               {r.exception && <span className="text-muted"> ({r.exception})</span>}
             </p>
           ))}
+          {catalogue.tribus && catalogue.tribus.length > 0 && (
+            <div style={{ marginTop: '0.8rem', paddingTop: '0.6rem', borderTop: '1px solid var(--border)' }}>
+              <p className="text-sm mb-0">
+                <strong>Tribu {tribu ? tribu.nom : '— non renseignée'}</strong>
+              </p>
+              {tribu ? (
+                <p className="text-sm" style={{ whiteSpace: 'pre-line' }}>
+                  {tribu.texte}
+                </p>
+              ) : (
+                catalogue.tribus.map((t) => (
+                  <p key={t.id} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
+                    <strong>{t.nom}</strong> — {t.texte}
+                  </p>
+                ))
+              )}
+            </div>
+          )}
         </CollapsibleCard>
       )}
 

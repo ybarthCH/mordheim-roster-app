@@ -14,7 +14,7 @@
     },
     {
       "nom": "Tribus",
-      "texte": "Au recrutement, le joueur choisit à quelle tribu appartient sa bande. Toutes suivent les règles standards des Maraudeurs (choix des guerriers, compétences, équipement) sauf exceptions suivantes. Les Norses : +1 aux jets de rareté lors de la recherche d'objets rares ; l'effet d'Œil des Dieux Sombres se déclenche sur 13+ au lieu de 12+, en raison de leur large panthéon de dieux. Les Kurgans : peut inclure autant de Chiens du Chaos que désiré (pas seulement 5) ; Héros et Hommes de main Maraudeurs peuvent utiliser des arcs (10 CO, Commun) ; malus de -1 sur les jets de recherche d'objets rares, sauf pour les Grandes Haches du Chaos et les Fouets Barbelés. Les Hungs : nombre maximum de guerriers dans la bande réduit à 12 au lieu de 15 (voir composition) ; les chevaux de guerre coûtent toujours 40 CO (même en dehors de la constitution initiale) et tous les Héros (y compris les Hommes de main promus) gagnent automatiquement la compétence Équitation - Cheval de Guerre."
+      "texte": "Au recrutement, le joueur choisit à quelle tribu appartient sa bande (Norses, Kurgans ou Hungs). Toutes suivent les règles standards des Maraudeurs (choix des guerriers, compétences, équipement) sauf les quelques exceptions détaillées pour chacune (voir Tribu choisie ci-dessous)."
     },
     {
       "nom": "Marques des Dieux Sombres",
@@ -31,6 +31,25 @@
     {
       "nom": "Bestiaire démoniaque (alliés)",
       "texte": "Extrait du Bestiaire des suppléments Border Town Burning et Empire en Flammes. Toutes les créatures avec la règle Démons bénéficient de : immunité aux poisons, immunité à la psychologie, provoquent la peur, et disposent d'une sauvegarde d'armure spéciale de 5+ (modifiée par la Force de l'attaquant, annulée par les armes/sorts magiques) ; elles ne gagnent jamais d'expérience. Horreur de Tzeentch (M4 CC2 CT0 F3 E3 PV1 I3 A1 Cd8) : les chefs de bande portant la Marque de Tchar peuvent s'allier avec les Horreurs de Tzeentch ; en phase de tir, jet de 2D6, sur 6+ la figurine la plus proche à 12ps subit une touche de F1 (Feu de Tzeentch). Portepeste (M4 CC4 CT0 F4 E4 PV1 I4 A2 Cd10) : les adversaires subissent -1 pour toucher au corps à corps (Nuage de mouches) ; démon éternel, ne gagne jamais d'expérience (aucune progression possible)."
+    }
+  ],
+  "tribus": [
+    {
+      "id": "norses",
+      "nom": "Norses",
+      "texte": "Pilleurs : en raison de leur proximité avec l'Empire et de la fréquence de leurs raids, les Norses excellent dans l'art de trouver le meilleur équipement et du matériel rapidement — ils gagnent +1 à leurs jets de rareté lors de la recherche d'objets rares (purement indicatif, à appliquer sur table papier). Panthéon : les Norses adorent une myriade de dieux, esprits et ancêtres ; en raison de leur large panthéon, l'effet de la règle spéciale Œil des Dieux Sombres (devenir un Enfant du Chaos ou recevoir une Marque) se produit sur un résultat de 13+ au lieu de 12+."
+    },
+    {
+      "id": "kurgans",
+      "nom": "Kurgans",
+      "texte": "Pedigree : une bande Kurgan peut inclure autant de Chiens du Chaos que désiré, pas seulement cinq. Arcs d'os : les Héros et Hommes de main Maraudeurs peuvent utiliser des arcs (10 CO, Commun — purement indicatif, non filtré automatiquement dans le shop). Clients Difficiles : alors que les Norses et les Hungs commercent avec le sud, les Kurgans vivent loin de la civilisation et n'y sont pas bienvenus — malus de -1 sur les jets de recherche d'objets rares, sauf pour les Grandes Haches du Chaos et les Fouets Barbelés (purement indicatif, à appliquer sur table papier).",
+      "profil_max": { "chien_du_chaos": null }
+    },
+    {
+      "id": "hungs",
+      "nom": "Hungs",
+      "texte": "Infidélité : la fidélité tribale de ces nomades est au mieux faible — le nombre maximum de guerriers dans la bande est réduit à 12 (au lieu de 15). Affinité avec les chevaux : les chevaux de guerre coûtent toujours 40 CO à la bande, même en dehors de la constitution initiale (purement indicatif, non automatisé dans le shop) ; tous les Héros (y compris les Hommes de main promus) gagnent automatiquement la compétence Équitation - Cheval de Guerre.",
+      "effectif_max": 12
     }
   ],
   "composition": {
