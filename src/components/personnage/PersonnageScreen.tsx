@@ -48,6 +48,7 @@ import { getFrancTireur } from '../../data/hiredSwords';
 import { useGameRules } from '../../state/useGameRules';
 import { annulerEffetsBlessure } from '../../utils/blessures';
 import { annulerAvancee, avanceeReversible } from '../../utils/avancees';
+import { appliquerDeltaSurNotation } from '../../utils/statsVariables';
 
 const GRIMOIRE_DE_MAGIE_ID = 'grimoire_de_magie';
 
@@ -144,12 +145,21 @@ export function PersonnageScreen() {
     const inventaire = [...membre.inventaire, ...entrees];
     let stats_actuels = membre.stats_actuels;
     let stats_modifiees = membre.stats_modifiees;
+    let stats_variables = membre.stats_variables;
     if (item.stats_delta) {
       stats_actuels = { ...stats_actuels };
       stats_modifiees = [...stats_modifiees];
       for (const k of STAT_KEYS) {
         const delta = item.stats_delta[k];
         if (!delta) continue;
+        // Une caractéristique encore variable (ex : F du Damné) n'a pas de
+        // stats_actuels significatif à ce stade : le delta s'applique à la
+        // notation dé elle-même plutôt que sur l'espace réservé ignoré par
+        // l'affichage — voir CaracteristiquesCard.
+        if (stats_variables?.[k]) {
+          stats_variables = { ...stats_variables, [k]: appliquerDeltaSurNotation(stats_variables[k]!, delta) };
+          continue;
+        }
         stats_actuels[k] += delta;
         if (!stats_modifiees.includes(k)) stats_modifiees.push(k);
       }
@@ -158,7 +168,7 @@ export function PersonnageScreen() {
       ...nouveauRoster,
       membres: nouveauRoster.membres.map((m) =>
         m.instance_id === membre.instance_id
-          ? { ...m, equipement: formatEquipementAffiche(inventaire), stats_actuels, stats_modifiees }
+          ? { ...m, equipement: formatEquipementAffiche(inventaire), stats_actuels, stats_modifiees, stats_variables }
           : m
       ),
     });
