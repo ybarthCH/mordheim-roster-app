@@ -4,6 +4,7 @@ import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { CATALOGUES } from '../../data/warbands';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
+import { STAT_KEYS } from '../../types/catalog';
 import type { Member, RosterInstance } from '../../types/roster';
 import { creerMembre, creerRoster } from '../../utils/factory';
 import { peutAjouterMembre } from '../../utils/validation';
@@ -23,6 +24,10 @@ export function CreationBandeScreen() {
   // un chiffre) — la conversion ne s'applique qu'à l'usage (voir `budget`).
   const [budgetSaisi, setBudgetSaisi] = useState(String(BUDGET_PAR_DEFAUT));
   const [membres, setMembres] = useState<Member[]>([]);
+  // Coût unitaire réellement payé pour les profils sans prix fixe (ex :
+  // chien de guerre, "25+2D6") — le catalogue n'a pas de `cout` numérique
+  // pour ces profils, donc `coutTotal` ci-dessous ne peut pas le déduire.
+  const [coutPayeParInstance, setCoutPayeParInstance] = useState<Record<string, number>>({});
   const [profilEnRecrutement, setProfilEnRecrutement] = useState<Profile | null>(null);
   // Bandes à chef libre (ex : Lustrian Reavers) : le joueur choisit le chef
   // parmi les héros recrutés, plutôt qu'un profil fixe (voir Profile.est_leader).
@@ -48,7 +53,8 @@ export function CreationBandeScreen() {
 
   const coutTotal = membres.reduce((acc, m) => {
     const profil = catalogue?.profils.find((p) => p.id === m.profil_id);
-    return acc + (profil?.cout ?? 0) * (m.taille_groupe || 1);
+    const coutUnitaire = profil?.cout ?? coutPayeParInstance[m.instance_id] ?? 0;
+    return acc + coutUnitaire * (m.taille_groupe || 1);
   }, 0);
   const restant = budget - coutTotal;
 
@@ -75,6 +81,12 @@ export function CreationBandeScreen() {
   const retirerMembre = (instanceId: string) => {
     setMembres((prev) => prev.filter((m) => m.instance_id !== instanceId));
     setLeaderInstanceId((prev) => (prev === instanceId ? null : prev));
+    setCoutPayeParInstance((prev) => {
+      if (!(instanceId in prev)) return prev;
+      const reste = { ...prev };
+      delete reste[instanceId];
+      return reste;
+    });
   };
 
   const herosRecrutes = membres.filter((m) => catalogue?.profils.find((p) => p.id === m.profil_id)?.type === 'heros');
@@ -246,10 +258,13 @@ export function CreationBandeScreen() {
           budgetDisponible={restant}
           verifierLimite={(quantite) => peutAjouterMembre(rosterFictif, profilEnRecrutement.id, quantite)}
           onClose={() => setProfilEnRecrutement(null)}
-          onConfirm={({ nom, xpDepart, quantite, sortChoisi }) => {
+          onConfirm={({ nom, xpDepart, quantite, sortChoisi, coutUnitaire }) => {
             const membre = creerMembre(profilEnRecrutement, xpDepart, quantite);
             if (nom) membre.nom_perso = nom;
             if (sortChoisi) membre.sorts_connus = [sortChoisi];
+            if (profilEnRecrutement.cout === null) {
+              setCoutPayeParInstance((prev) => ({ ...prev, [membre.instance_id]: coutUnitaire }));
+            }
             setMembres((prev) => [...prev, membre]);
             setProfilEnRecrutement(null);
           }}
@@ -265,7 +280,13 @@ type RecrutementDraftModalProps = {
   budgetDisponible: number;
   verifierLimite: (quantite: number) => { ok: boolean; raison?: string };
   onClose: () => void;
-  onConfirm: (opts: { nom: string; xpDepart: number; quantite: number; sortChoisi: string }) => void;
+  onConfirm: (opts: {
+    nom: string;
+    xpDepart: number;
+    quantite: number;
+    sortChoisi: string;
+    coutUnitaire: number;
+  }) => void;
 };
 
 function RecrutementDraftModal({
@@ -280,25 +301,82 @@ function RecrutementDraftModal({
   const [xpDepartSaisie, setXpDepartSaisie] = useState(String(profil.xp_depart ?? 0));
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
   const [sortChoisi, setSortChoisi] = useState('');
+  // Coût saisi à la main quand le profil n'a pas de prix fixe (ex : chien de
+  // guerre, "25+2D6") — jet à faire sur table papier, comme pour un objet
+  // acheté au shop plutôt qu'un recrutement classique.
+  const [coutManuelSaisi, setCoutManuelSaisi] = useState('');
   const estGroupable = profil.type === 'homme_de_main';
+  // Un animal (chien de guerre, guerrier gnoblar...) ne gagne jamais
+  // d'expérience — inutile et trompeur de proposer un XP de départ.
+  const gagneExperience = profil.type !== 'animal';
   const premierSortRequis = estSorcier(catalogue, profil.id);
   const sortsPossibles = sortsDisponibles(catalogue, []);
+  const coutManuelRequis = profil.cout === null;
+  const coutManuelValide =
+    !coutManuelRequis || (coutManuelSaisi.trim() !== '' && !Number.isNaN(Number(coutManuelSaisi)) && Number(coutManuelSaisi) >= 0);
 
   const xpDepart = Number(xpDepartSaisie) || 0;
   const quantite = Math.max(1, parseInt(quantiteSaisie, 10) || 1);
-  const coutTotal = (profil.cout ?? 0) * quantite;
+  const coutUnitaire = profil.cout ?? (coutManuelRequis ? Number(coutManuelSaisi) || 0 : 0);
+  const coutTotal = coutUnitaire * quantite;
   const budgetSuffisant = coutTotal <= budgetDisponible;
   const check = verifierLimite(quantite);
 
   const confirmer = () => {
-    if (!check.ok) return;
+    if (!check.ok || !coutManuelValide) return;
     if (premierSortRequis && !sortChoisi) return;
-    onConfirm({ nom: nom.trim(), xpDepart, quantite, sortChoisi });
+    onConfirm({ nom: nom.trim(), xpDepart: gagneExperience ? xpDepart : 0, quantite, sortChoisi, coutUnitaire });
   };
 
   return (
     <Modal onClose={onClose}>
       <h3>Recruter — {profil.nom}</h3>
+      {!gagneExperience && (
+        <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
+          Traité comme une créature/objet d'équipement (recrutement, prix et rareté comme au shop), pas comme un
+          combattant normal de la bande.
+        </p>
+      )}
+      {profil.stats && (
+        <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
+          {STAT_KEYS.map((k) => (
+            <div key={k} className="stat-grid__cell stat-grid__cell--label">
+              {k}
+            </div>
+          ))}
+          {STAT_KEYS.map((k) => (
+            <div key={k} className="stat-grid__cell stat-grid__cell--value">
+              {profil.stats![k]}
+            </div>
+          ))}
+        </div>
+      )}
+      {profil.regles_speciales?.map((r) => (
+        <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+          <strong>{r.nom}</strong> — {r.texte}
+        </p>
+      ))}
+      {profil.rarete && (
+        <p className="text-sm text-danger" style={{ marginTop: '0.6rem' }}>
+          Rare {profil.rarete} : un jet de disponibilité est requis sur table papier avant de pouvoir recruter ce
+          profil. Purement indicatif — n'empêche pas de recruter.
+        </p>
+      )}
+      {coutManuelRequis && (
+        <div className="field">
+          <label>
+            Coût (po){' '}
+            {profil.cout_notation && <span className="text-muted">— notation : {profil.cout_notation}</span>}
+          </label>
+          <input
+            type="number"
+            min={0}
+            value={coutManuelSaisi}
+            onChange={(e) => setCoutManuelSaisi(e.target.value)}
+            placeholder={profil.cout_notation ? `Résultat du jet, ex : 32` : undefined}
+          />
+        </div>
+      )}
       <div className="field">
         <label>Nom du personnage{estGroupable && quantite > 1 ? ' (groupe)' : ''}</label>
         <input value={nom} onChange={(e) => setNom(e.target.value)} placeholder={profil.nom} />
@@ -323,11 +401,15 @@ function RecrutementDraftModal({
           <p className="text-sm text-muted mb-0">Obligatoire pour un profil sorcier.</p>
         </div>
       )}
-      <div className="field">
-        <label>Expérience de départ</label>
-        <input type="number" value={xpDepartSaisie} onChange={(e) => setXpDepartSaisie(e.target.value)} />
-        <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
-      </div>
+      {gagneExperience ? (
+        <div className="field">
+          <label>Expérience de départ</label>
+          <input type="number" value={xpDepartSaisie} onChange={(e) => setXpDepartSaisie(e.target.value)} />
+          <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
+        </div>
+      ) : (
+        <p className="text-sm text-muted">Ce profil ne gagne jamais d'expérience.</p>
+      )}
       {!check.ok && <p className="text-danger text-sm">{check.raison}</p>}
       {check.ok && !budgetSuffisant && (
         <p className="text-danger text-sm">
@@ -340,10 +422,10 @@ function RecrutementDraftModal({
         </button>
         <button
           className="btn btn--primary"
-          disabled={!check.ok || (premierSortRequis && !sortChoisi)}
+          disabled={!check.ok || !coutManuelValide || (premierSortRequis && !sortChoisi)}
           onClick={confirmer}
         >
-          Ajouter{!budgetSuffisant ? ' quand même' : ''}
+          Ajouter pour {coutTotal} po{!budgetSuffisant ? ' quand même' : ''}
         </button>
       </div>
     </Modal>
