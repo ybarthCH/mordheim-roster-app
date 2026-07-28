@@ -62,6 +62,8 @@ export function normaliserRoster(roster: Partial<RosterInstance>): RosterInstanc
     wyrdstone: roster.wyrdstone ?? 0,
     equipement_reserve: roster.equipement_reserve ?? '',
     stock: roster.stock ?? [],
+    objets_personnalises: roster.objets_personnalises ?? [],
+    objets_surcharges: roster.objets_surcharges ?? {},
     membres: (roster.membres ?? []).map(normaliserMembre),
     historique_batailles: roster.historique_batailles ?? [],
     leader_instance_id: roster.leader_instance_id,

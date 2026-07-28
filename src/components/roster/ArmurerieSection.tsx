@@ -6,7 +6,7 @@ import { ItemDetailModal } from '../personnage/ItemDetailModal';
 import { iconeCategorie, libelleCategorie, resolveItemDetail, prixVente } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { nomAffiche } from '../../utils/profil';
-import type { RosterInstance, InventoryEntry } from '../../types/roster';
+import type { RosterInstance, InventoryEntry, CustomItem, CustomItemOverride } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import type { GameRules } from '../../types/rules';
 
@@ -19,6 +19,8 @@ type ArmurerieSectionProps = {
   onDonner: (instanceId: string, membreId: string) => void;
   onVendre: (instanceId: string) => void;
   onRetirer: (instanceId: string) => void;
+  onObjetsPersonnalisesChange: (objets: CustomItem[]) => void;
+  onObjetsSurchargesChange: (surcharges: Record<string, CustomItemOverride>) => void;
 };
 
 export function ArmurerieSection({
@@ -30,6 +32,8 @@ export function ArmurerieSection({
   onDonner,
   onVendre,
   onRetirer,
+  onObjetsPersonnalisesChange,
+  onObjetsSurchargesChange,
 }: ArmurerieSectionProps) {
   const [modalAchat, setModalAchat] = useState(false);
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
@@ -101,6 +105,10 @@ export function ArmurerieSection({
           profil={null}
           tresorerie={roster.tresorerie}
           inventaireBande={inventaireBande}
+          objetsPersonnalises={roster.objets_personnalises}
+          objetsSurcharges={roster.objets_surcharges}
+          onObjetsPersonnalisesChange={onObjetsPersonnalisesChange}
+          onObjetsSurchargesChange={onObjetsSurchargesChange}
           onClose={() => setModalAchat(false)}
           onAchat={onAchat}
         />

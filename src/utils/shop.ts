@@ -4,7 +4,7 @@
 // libre par EquipementReference). Pas de gestion de rareté ni de phase
 // d'achat dédiée : simple déduction de trésorerie, à tout moment.
 import { v4 as uuidv4 } from 'uuid';
-import type { Member, RosterInstance, InventoryEntry } from '../types/roster';
+import type { Member, RosterInstance, InventoryEntry, CustomItem, CustomItemOverride } from '../types/roster';
 import type { WarbandCatalog, Profile, SpecialRule, Stats } from '../types/catalog';
 import { TOUS_LES_ITEMS, getItem } from '../data/items';
 import type { IconName } from '../components/common/Icon';
@@ -39,7 +39,11 @@ export type ShopItem = {
   // mutations de la Kermesse du Chaos). Appliquée une seule fois au moment
   // de l'achat, jamais annulée automatiquement si l'objet est revendu.
   stats_delta?: Partial<Record<keyof Stats, number>>;
-  origine: 'commun' | 'bande';
+  origine: 'commun' | 'bande' | 'personnalise';
+  // true si une surcharge locale (voir CustomItemOverride) a été appliquée à
+  // un objet du catalogue officiel pour cette bande — purement indicatif
+  // pour l'UI (badge + option de revert), n'affecte jamais la résolution.
+  surcharge?: boolean;
 };
 
 // Résumé compact des stats de jeu d'un objet (portée/force/sauvegarde/noms
@@ -474,6 +478,37 @@ export function getEquipementBande(
     vus.add(item.id);
     return true;
   }).map((item) => appliquerReglesObjet(item, catalogue.id, rules, 'bande'));
+}
+
+// Objets homebrew créés pour cette bande (voir CustomItem/RosterInstance) —
+// convertis à la forme ShopItem pour rejoindre le reste du catalogue d'achat.
+export function objetsPersonnalisesEnShopItems(objets: CustomItem[]): ShopItem[] {
+  return objets.map((o) => ({
+    id: o.id,
+    nom: o.nom,
+    categorie: o.categorie,
+    cout: o.cout,
+    cout_fixe: o.cout_fixe,
+    rarete: o.rarete,
+    disponibilite: o.disponibilite,
+    texte: o.texte,
+    stats_delta: o.stats_delta,
+    origine: 'personnalise',
+  }));
+}
+
+// Applique les surcharges locales (voir CustomItemOverride) à une liste
+// d'objets déjà résolue, par id — les champs surchargés remplacent
+// intégralement ceux de l'objet d'origine, `id`/`origine` restant inchangés.
+export function avecSurcharges(
+  items: ShopItem[],
+  surcharges: Record<string, CustomItemOverride>
+): ShopItem[] {
+  return items.map((item) => {
+    const surcharge = surcharges[item.id];
+    if (!surcharge) return item;
+    return { ...item, ...surcharge, id: item.id, origine: item.origine, surcharge: true };
+  });
 }
 
 export function creerEntreeInventaire(item: ShopItem, coutPaye: number): InventoryEntry {
