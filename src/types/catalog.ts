@@ -196,12 +196,29 @@ export type Magie = {
   sorts: MagieSort[];
 };
 
+// Variante de bande choisie une fois pour toutes à la création (ex : les
+// trois tribus des Maraudeurs du Chaos) — modifie certaines règles de
+// composition sans justifier un catalogue à part entière. Le choix du
+// joueur est stocké sur RosterInstance.tribu (référence vers Tribu.id).
+export type Tribu = {
+  id: string;
+  nom: string;
+  // Texte de référence complet des règles propres à cette tribu.
+  texte: string;
+  // Surcharge de composition.effectif_max pour cette tribu, si différent.
+  effectif_max?: number;
+  // Surcharge du max d'un profil par id pour cette tribu (null = illimité),
+  // si différent du `max` normal du profil.
+  profil_max?: Record<string, number | null>;
+};
+
 export type WarbandCatalog = {
   id: string;
   nom: string;
   grade: string;
   source: string;
   regles_speciales: SpecialRule[];
+  tribus?: Tribu[];
   profils: Profile[];
   // Compétences "Spéciale" propres à cette bande (contenu différent par
   // bande, accessible seulement à certains profils via acces_competences).

@@ -263,6 +263,10 @@ export type RosterInstance = {
   // — chez les bandes à "héros rares" comme les Lustrian Reavers — tout héros
   // unique perdu, qu'il ait été chef ou non. Vide par défaut.
   profils_bannis?: string[];
+  // Tribu choisie à la création pour les bandes qui en proposent (voir
+  // WarbandCatalog.tribus, ex : Maraudeurs du Chaos) — référence vers
+  // Tribu.id. Fixé une fois pour toutes, jamais modifié ensuite.
+  tribu?: string;
   createdAt: string;
   updatedAt: string;
 };
