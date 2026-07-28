@@ -6,7 +6,7 @@ import type { Profile, Stats } from '../types/catalog';
 import type { AdvanceRecord } from '../types/roster';
 
 export function plafondPour(profil: Profile | undefined): PlafondCaracteristiques | undefined {
-  if (!profil?.groupe_caracteristiques) return undefined;
+  if (!profil?.groupe_caracteristiques || profil.plafond_ignore) return undefined;
   return CARACTERISTIQUES_MAX[profil.groupe_caracteristiques];
 }
 

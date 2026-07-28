@@ -74,6 +74,10 @@ export type Profile = {
   // quel sur le Member au recrutement (voir Member.stats_variables) ; peut
   // ensuite en être retiré individuellement une fois une valeur fixée.
   stats_variables?: Partial<Record<keyof Stats, string>>;
+  // Ce profil peut dépasser le plafond racial normal de son
+  // groupe_caracteristiques (ex : le Damné des Maraudeurs, dont la nature
+  // erratique n'est bridée par aucune limite normale) — voir plafondPour.
+  plafond_ignore?: boolean;
   acces_competences: SkillCategory[];
   acces_competences_a_verifier?: boolean;
   // La grille qui détermine les cases et paliers d'XP peut différer du type
