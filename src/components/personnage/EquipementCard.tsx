@@ -1,5 +1,6 @@
 import { Icon } from '../common/Icon';
 import { iconeCategorie, inventaireGroupeMismatch, libelleCategorie, prixVente } from '../../utils/shop';
+import { getItem } from '../../data/items';
 import type { InventoryEntry, Member } from '../../types/roster';
 
 type EquipementCardProps = {
@@ -53,7 +54,14 @@ export function EquipementCard({
         </p>
       )}
       {!verrouille && inventaireGroupe.length === 0 && <p className="text-muted text-sm">Aucun objet acheté.</p>}
-      {!verrouille && inventaireGroupe.map(({ entree, quantite }) => (
+      {!verrouille && inventaireGroupe.map(({ entree, quantite }) => {
+        // Une mutation/bénédiction modifie les caractéristiques à l'achat de
+        // façon permanente (voir ShopItem.stats_delta) : elle ne peut ni être
+        // revendue, ni transférée au stock de la bande, seulement supprimée
+        // (perdue/détruite) sans annuler son effet sur les stats.
+        const itemRef = getItem(entree.item_id);
+        const modificationPermanente = !!itemRef && 'stats_delta' in itemRef && !!itemRef.stats_delta;
+        return (
         <div key={entree.instance_id} className="list-item">
           <div className="list-item__main" role="button" style={{ cursor: 'pointer' }} onClick={() => onItemClick(entree)}>
             <div className="list-item__title" style={{ textDecoration: 'underline' }}>
@@ -70,22 +78,26 @@ export function EquipementCard({
             </div>
           </div>
           <div className="flex gap-sm">
-            <button
-              className="btn--ghost"
-              style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
-              onClick={() => onRenvoyer(entree.instance_id)}
-              title={quantite > 1 ? `Renvoyer les ${quantite} exemplaires au stock de la bande` : 'Renvoyer au stock de la bande'}
-            >
-              ↩
-            </button>
-            <button
-              className="btn--ghost"
-              style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
-              onClick={() => onVendre(entree)}
-              title={`Vendre (+${prixVente(entree.cout) * quantite} po à la trésorerie)`}
-            >
-              Vendre
-            </button>
+            {!modificationPermanente && (
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
+                onClick={() => onRenvoyer(entree.instance_id)}
+                title={quantite > 1 ? `Renvoyer les ${quantite} exemplaires au stock de la bande` : 'Renvoyer au stock de la bande'}
+              >
+                ↩
+              </button>
+            )}
+            {!modificationPermanente && (
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
+                onClick={() => onVendre(entree)}
+                title={`Vendre (+${prixVente(entree.cout) * quantite} po à la trésorerie)`}
+              >
+                Vendre
+              </button>
+            )}
             <button
               className="btn--ghost"
               style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
@@ -100,7 +112,8 @@ export function EquipementCard({
             </button>
           </div>
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
