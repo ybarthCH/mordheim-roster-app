@@ -5,6 +5,7 @@ import { Screen } from '../common/Screen';
 import { useRosters } from '../../state/useRosters';
 import { getCatalogue } from '../../data/warbands';
 import { resolveProfil, nombreHeros, nomAffiche } from '../../utils/profil';
+import { equitationGratuitePourTribu } from '../../utils/tribu';
 import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member, SeriousInjuryEffect } from '../../types/roster';
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
@@ -889,6 +890,7 @@ export function PostBatailleScreen() {
                 profil={profilAvancee}
                 catalogue={catalogue}
                 heroCount={heroCount}
+                equitationGratuite={equitationGratuitePourTribu(catalogue, roster)}
                 onClose={() => setMembreEnAvancee(null)}
                 onApply={appliquerAvancee}
               />

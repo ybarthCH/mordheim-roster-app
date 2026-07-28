@@ -43,6 +43,11 @@ export type CompetenceSpeciale = {
   // Restreint la compétence à un rôle précis (ex : "Chef uniquement").
   // Informatif seulement — l'app ne filtre pas la liste en fonction de ça.
   reserve_a?: string;
+  // Cette compétence peut être choisie plusieurs fois par le même membre
+  // (ex : Mutant chez les Maraudeurs du Chaos, pour cumuler des mutations à
+  // prix croissant) — reste proposée après un premier choix, contrairement
+  // aux autres compétences.
+  repetable?: boolean;
 };
 
 export type Profile = {
@@ -78,6 +83,11 @@ export type Profile = {
   // groupe_caracteristiques (ex : le Damné des Maraudeurs, dont la nature
   // erratique n'est bridée par aucune limite normale) — voir plafondPour.
   plafond_ignore?: boolean;
+  // Un membre ayant acquis cette compétence utilise le plafond d'un autre
+  // groupe_caracteristiques à la place du sien (ex : Choisi par le Chaos chez
+  // les Maraudeurs, qui élève un Héros au niveau Guerrier du Chaos) — voir
+  // plafondPour.
+  plafond_competence_override?: { competence_id: string; groupe: string };
   acces_competences: SkillCategory[];
   acces_competences_a_verifier?: boolean;
   // La grille qui détermine les cases et paliers d'XP peut différer du type
@@ -179,6 +189,11 @@ export type EquipementSpecialRef = {
   // possède déjà l'un d'entre eux (ex : Bénédictions de Nurgle — la
   // première coûte le prix normal, toute suivante coûte le double).
   groupe_prix?: string;
+  // Restreint l'objet aux membres portant l'une de ces Marques (voir
+  // Member.marque, ex : Bénédictions de Nurgle réservées aux Héros
+  // Maraudeurs avec la Marque d'Onogal). Absent = pas de restriction par
+  // Marque.
+  marques?: string[];
 };
 
 export type MagieSort = {
@@ -230,6 +245,11 @@ export type Tribu = {
   // Surcharge du max d'un profil par id pour cette tribu (null = illimité),
   // si différent du `max` normal du profil.
   profil_max?: Record<string, number | null>;
+  // Tous les Héros de cette tribu (y compris les Hommes de main promus)
+  // possèdent automatiquement la compétence Équitation dès leur
+  // recrutement/promotion (ex : les Hungs et leurs Chevaux de Guerre), sans
+  // consommer d'avancée.
+  equitation_gratuite_heros?: boolean;
 };
 
 export type WarbandCatalog = {

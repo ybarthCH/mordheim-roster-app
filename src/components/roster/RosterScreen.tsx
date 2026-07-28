@@ -18,7 +18,7 @@ import { EquipementReference, MagieReference } from '../common/CatalogueReferenc
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { AvanceeModal } from '../personnage/AvanceeModal';
 import { nombreHeros } from '../../utils/profil';
-import { tribuChoisie } from '../../utils/tribu';
+import { tribuChoisie, equitationGratuitePourTribu } from '../../utils/tribu';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import {
   acheterPourStock,
@@ -372,7 +372,15 @@ export function RosterScreen() {
       />
 
       {catalogue && <EquipementReference catalogue={catalogue} />}
-      {catalogue && <MagieReference catalogue={catalogue} />}
+      {catalogue &&
+        (() => {
+          // Si un membre au profil à Marque (ex : le Devin des Maraudeurs)
+          // a déjà été recruté, la référence de magie de la bande se cale
+          // sur sa Marque plutôt que d'afficher le domaine par défaut.
+          const membreMarque = roster.membres.find((m) => resolveProfil(roster, m)?.marque_requise);
+          const profilMarque = membreMarque ? resolveProfil(roster, membreMarque) : undefined;
+          return <MagieReference catalogue={catalogue} profil={profilMarque} marqueId={membreMarque?.marque} />;
+        })()}
 
       {modalMembre && (
         <AjouterMembreModal
@@ -445,6 +453,7 @@ export function RosterScreen() {
                 profil={profilPromu}
                 catalogue={catalogue}
                 heroCount={nombreHeros(roster)}
+                equitationGratuite={equitationGratuitePourTribu(catalogue, roster)}
                 onClose={() => setHeroPromuEnAttente(null)}
                 onApply={(updated, nouveauMembre) => {
                   const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));

@@ -29,6 +29,10 @@ type Props = {
   // Compétences acquises par le membre (ex : "Connaissance des Armes"),
   // pour lever la restriction de liste d'équipement le cas échéant.
   competencesAcquises?: string[];
+  // Marque du membre (voir Profile.marque_requise), pour les objets
+  // equipement_special réservés à une Marque précise (ex : Bénédictions de
+  // Nurgle réservées à la Marque d'Onogal chez les Maraudeurs).
+  marqueId?: string;
   // Inventaire actuel du membre (ou stock de bande) ciblé par l'achat : sert
   // à détecter les objets déjà possédés d'un même `groupe_prix` (ex :
   // Bénédictions de Nurgle) pour appliquer le doublement de prix.
@@ -79,6 +83,7 @@ export function AchatEquipementModal({
   profil,
   tresorerie,
   competencesAcquises = [],
+  marqueId,
   inventaireActuel = [],
   inventaireBande = [],
   tailleGroupe = 1,
@@ -104,10 +109,10 @@ export function AchatEquipementModal({
 
   const itemsBandeBase = useMemo(
     () => [
-      ...getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel, rules),
+      ...getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel, rules, marqueId),
       ...objetsPersonnalisesEnShopItems(objetsPersonnalises),
     ],
-    [catalogue, profil, competencesAcquises, inventaireActuel, rules, objetsPersonnalises]
+    [catalogue, profil, competencesAcquises, inventaireActuel, rules, marqueId, objetsPersonnalises]
   );
   const itemsBande = useMemo(
     () => avecSurcharges(itemsBandeBase, objetsSurcharges),

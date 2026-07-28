@@ -5,13 +5,24 @@ import type { PlafondCaracteristiques } from '../data/caracteristiquesMax';
 import type { Profile, Stats } from '../types/catalog';
 import type { AdvanceRecord } from '../types/roster';
 
-export function plafondPour(profil: Profile | undefined): PlafondCaracteristiques | undefined {
+export function plafondPour(
+  profil: Profile | undefined,
+  competencesAcquises: string[] = []
+): PlafondCaracteristiques | undefined {
   if (!profil?.groupe_caracteristiques || profil.plafond_ignore) return undefined;
-  return CARACTERISTIQUES_MAX[profil.groupe_caracteristiques];
+  const override = profil.plafond_competence_override;
+  const groupe =
+    override && competencesAcquises.includes(override.competence_id) ? override.groupe : profil.groupe_caracteristiques;
+  return CARACTERISTIQUES_MAX[groupe];
 }
 
-export function estStatAuPlafond(profil: Profile | undefined, statsActuels: Stats, stat: keyof Stats): boolean {
-  const plafond = plafondPour(profil);
+export function estStatAuPlafond(
+  profil: Profile | undefined,
+  statsActuels: Stats,
+  stat: keyof Stats,
+  competencesAcquises: string[] = []
+): boolean {
+  const plafond = plafondPour(profil, competencesAcquises);
   if (!plafond) return false;
   return statsActuels[stat] >= plafond[stat];
 }
@@ -36,9 +47,10 @@ export function peutAugmenterStat(
   profil: Profile | undefined,
   statsActuels: Stats,
   historique: AdvanceRecord[],
-  stat: keyof Stats
+  stat: keyof Stats,
+  competencesAcquises: string[] = []
 ): VerdictAugmentation {
-  if (estStatAuPlafond(profil, statsActuels, stat)) {
+  if (estStatAuPlafond(profil, statsActuels, stat, competencesAcquises)) {
     return { ok: false, raison: 'Déjà au plafond racial pour ce profil.' };
   }
   if (estStatDejaAugmenteeUneFois(profil, historique, stat)) {

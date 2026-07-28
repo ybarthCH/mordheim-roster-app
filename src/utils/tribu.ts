@@ -7,6 +7,17 @@ export function tribuChoisie(catalogue: WarbandCatalog | undefined, roster: Rost
   return catalogue?.tribus?.find((t) => t.id === roster.tribu);
 }
 
+// Identifiant de la compétence générique "Équitation" (data/skills.json,
+// catégorie equitation) — voir Tribu.equitation_gratuite_heros.
+export const SKILL_EQUITATION = 'equitation_01';
+
+// Vrai si un Héros de la tribu choisie possède automatiquement la
+// compétence Équitation sans consommer d'avancée (ex : les Hungs et leurs
+// Chevaux de Guerre).
+export function equitationGratuitePourTribu(catalogue: WarbandCatalog | undefined, roster: RosterInstance): boolean {
+  return !!tribuChoisie(catalogue, roster)?.equitation_gratuite_heros;
+}
+
 // Effectif max applicable, en tenant compte d'une éventuelle surcharge de
 // tribu (ex : Hungs, limités à 12 au lieu de 15).
 export function effectifMaxPourTribu(catalogue: WarbandCatalog | undefined, roster: RosterInstance): number | undefined {

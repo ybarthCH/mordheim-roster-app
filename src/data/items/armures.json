@@ -22,7 +22,7 @@
   {
     "id": "armure_du_chaos_market", "nom": "Armure du Chaos", "categorie": "armures",
     "cout": 185, "cout_fixe": true, "rarete": "13", "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
-    "acces": ["cult_of_the_possessed", "nains_du_chaos", "carnival_of_chaos", "maraudeurs_du_chaos", "nordiques", "beastmen_raiders"], "source": "BTB", "page": 33,
+    "acces": ["cult_of_the_possessed", "nains_du_chaos", "carnival_of_chaos", "maraudeurs_du_chaos", "norses", "beastmen_raiders"], "source": "BTB", "page": 33,
     "texte": "L'armure du Chaos est une armure travaillée dans un métal étrange et surnaturel. Elle est la manifestation de la faveur d'un Dieu Sombre du Chaos. La plupart des armures du Chaos sont obtenues en récompense d'un Protecteur Infernal. Cependant, elles peuvent également être acquises, auprès des nains du Chaos, en échange de nombreux esclaves ou suite à un acte extraordinaire servant leurs intérêts.",
     "sauvegarde": "4+",
     "regles_speciales": [

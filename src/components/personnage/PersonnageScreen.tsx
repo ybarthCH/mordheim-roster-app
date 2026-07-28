@@ -28,6 +28,7 @@ import { avancesDues } from '../../utils/xp';
 import { ratingMembre } from '../../utils/rating';
 import { succederApresMorts } from '../../utils/leader';
 import { estSorcier } from '../../utils/magie';
+import { equitationGratuitePourTribu } from '../../utils/tribu';
 import { skillById } from '../../data/gameData';
 import {
   acheterPourMembre,
@@ -420,6 +421,7 @@ export function PersonnageScreen() {
           profil={profil}
           catalogue={catalogue}
           heroCount={heroCount}
+          equitationGratuite={equitationGratuitePourTribu(catalogue, roster)}
           onClose={() => setModalAvancee(false)}
           onApply={(updated, nouveauMembre) => {
             const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
@@ -446,6 +448,7 @@ export function PersonnageScreen() {
           profil={profil}
           tresorerie={roster.tresorerie}
           competencesAcquises={membre.competences_acquises}
+          marqueId={membre.marque}
           inventaireActuel={membre.inventaire}
           inventaireBande={inventaireComplet(roster)}
           tailleGroupe={membre.taille_groupe || 1}
