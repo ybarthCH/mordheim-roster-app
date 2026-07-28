@@ -154,15 +154,15 @@ export function MemberGroupCard({
                       )}
                     </td>
                     <td>{profil?.nom ?? m.profil_id}</td>
-                    <td>{m.stats_actuels.M}</td>
-                    <td>{m.stats_actuels.CC}</td>
-                    <td>{m.stats_actuels.CT}</td>
-                    <td>{m.stats_actuels.F}</td>
-                    <td>{m.stats_actuels.E}</td>
-                    <td>{m.stats_actuels.PV}</td>
-                    <td>{m.stats_actuels.I}</td>
-                    <td>{m.stats_actuels.A}</td>
-                    <td>{m.stats_actuels.Cd}</td>
+                    <td>{m.stats_variables?.M ?? m.stats_actuels.M}</td>
+                    <td>{m.stats_variables?.CC ?? m.stats_actuels.CC}</td>
+                    <td>{m.stats_variables?.CT ?? m.stats_actuels.CT}</td>
+                    <td>{m.stats_variables?.F ?? m.stats_actuels.F}</td>
+                    <td>{m.stats_variables?.E ?? m.stats_actuels.E}</td>
+                    <td>{m.stats_variables?.PV ?? m.stats_actuels.PV}</td>
+                    <td>{m.stats_variables?.I ?? m.stats_actuels.I}</td>
+                    <td>{m.stats_variables?.A ?? m.stats_actuels.A}</td>
+                    <td>{m.stats_variables?.Cd ?? m.stats_actuels.Cd}</td>
                     <td>{m.xp}</td>
                     <td>
                       <span className={`badge ${STATUT_BADGE[m.statut]}`}>
