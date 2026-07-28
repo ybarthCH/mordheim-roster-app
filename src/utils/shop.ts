@@ -381,6 +381,31 @@ export function getShopCommun(catalogueId?: string, rules: GameRules = DEFAULT_G
   return items.map((item) => appliquerReglesObjet(item, catalogueId ?? '', rules, 'commun'));
 }
 
+// Montures accessibles à cette bande (pour un profil donné), qu'elles
+// soient listées dans son propre catalogue (`equipement`/`equipement_special`)
+// ou dans le shop commun — utilisé pour proposer un choix de monture liée à
+// la compétence Équitation (voir utils/tribu.SKILL_EQUITATION). Résolu via
+// la catégorie réelle de l'objet (`getItem(id).categorie`) plutôt que la
+// catégorie d'affichage du `ShopItem`, qui reflète la liste où l'objet a été
+// placé plutôt que sa nature propre (ex : une monture rangée dans "divers").
+export function monturesDisponibles(
+  catalogue: WarbandCatalog,
+  profil: Profile | null,
+  competencesAcquises: string[] = [],
+  rules: GameRules = DEFAULT_GAME_RULES
+): ShopItem[] {
+  const items = [
+    ...getEquipementBande(catalogue, profil, competencesAcquises, [], rules),
+    ...getShopCommun(catalogue.id, rules),
+  ];
+  const vus = new Set<string>();
+  return items.filter((item) => {
+    if (vus.has(item.id)) return false;
+    vus.add(item.id);
+    return getItem(item.id)?.categorie === 'montures';
+  });
+}
+
 // Compétences qui donnent accès à toute arme de la bande dans leur
 // catégorie, au-delà de la liste normalement assignée au profil (cf.
 // src/data/skills.json) : "Connaissance des Armes" (corps à corps) et

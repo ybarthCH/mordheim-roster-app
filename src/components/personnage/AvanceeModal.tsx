@@ -3,11 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 import type { Member, AdvanceRecord } from '../../types/roster';
 import type { Profile, SkillCategory, Stats, WarbandCatalog } from '../../types/catalog';
 import { Modal } from '../common/Modal';
-import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN } from '../../data/gameData';
+import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN, skillById } from '../../data/gameData';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { LIMITE_HEROS, categoriesAccessibles, tableAvancementDuProfil } from '../../utils/profil';
 import { peutAugmenterStat } from '../../utils/plafond';
 import { estSorcier, sortsDisponibles } from '../../utils/magie';
+import { monturesDisponibles } from '../../utils/shop';
 import { SKILL_EQUITATION } from '../../utils/tribu';
 import {
   RecompenseSeigneurDesOmbresWizard,
@@ -38,6 +39,7 @@ type Etape =
   | 'choix_voie_competence'
   | 'choix_voie_sort'
   | 'competence'
+  | 'choix_monture'
   | 'sort'
   | 'seigneur_des_ombres'
   | 'promotion_categories'
@@ -65,6 +67,10 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, equitationG
   // fixer un résultat de jet — voir règle spéciale Destin/Expérience).
   const [statVariableCiblee, setStatVariableCiblee] = useState<{ stat: keyof Stats; label: string } | null>(null);
   const [jetVariableSaisi, setJetVariableSaisi] = useState('');
+  // Compétence Équitation en attente du choix de la monture à laquelle elle
+  // est liée (règle imprimée : spécifique à un animal donné) — voir
+  // choisirCompetence/confirmerMonture.
+  const [monture, setMonture] = useState('');
   // Groupe restant après extraction d'une figurine promue (taille_groupe > 1
   // au moment de la promotion) : en attente de sa propre avancée, résolue
   // juste après celle du nouveau héros dans la même session de modale.
@@ -231,6 +237,11 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, equitationG
   };
 
   const choisirCompetence = (skillId: string) => {
+    if (skillId === SKILL_EQUITATION) {
+      setMonture('');
+      setEtape('choix_monture');
+      return;
+    }
     const skill = [...Object.values(SKILLS).flat(), ...(profil.competences_speciales ?? catalogue.competences_speciales)].find(
       (s) => s.id === skillId
     );
@@ -246,6 +257,33 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, equitationG
         detail: skill.nom,
       },
       `Nouvelle compétence : ${skill.nom}`
+    );
+  };
+
+  const confirmerMonture = () => {
+    const skill = skillById(SKILL_EQUITATION);
+    if (!skill) return;
+    const nomMonture = monture.trim();
+    appliquer(
+      {
+        competences_acquises: [...travail.competences_acquises, SKILL_EQUITATION],
+        monture_equitation: nomMonture || undefined,
+      },
+      {
+        id: uuidv4(),
+        date: new Date().toISOString().slice(0, 10),
+        xpAtRoll: travail.xp,
+        roll: entreeAvancement?.min ?? 0,
+        type: 'competence',
+        // Doit correspondre exactement au libellé produit par nomCompetence()
+        // une fois monture_equitation renseigné (voir PersonnageScreen), sous
+        // peine de casser l'appariement fait par annulerAvancee() lors d'une
+        // annulation d'avancée.
+        detail: nomMonture ? `${skill.nom} — ${nomMonture}` : skill.nom,
+      },
+      nomMonture
+        ? `Nouvelle compétence : ${skill.nom} — ${nomMonture}`
+        : `Nouvelle compétence : ${skill.nom}`
     );
   };
 
@@ -683,6 +721,39 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, equitationG
           )}
         </>
       )}
+
+      {etape === 'choix_monture' &&
+        (() => {
+          const montures = monturesDisponibles(catalogue, profil, travail.competences_acquises);
+          return (
+            <>
+              <p className="text-sm text-muted">
+                Équitation est une compétence propre à une monture précise (règle imprimée : elle doit être
+                réapprise pour en chevaucher une autre) — choisis celle à laquelle elle est liée.
+              </p>
+              <div className="field">
+                <label>Monture</label>
+                <select value={monture} onChange={(e) => setMonture(e.target.value)}>
+                  <option value="">— Non précisée pour l'instant —</option>
+                  {montures.map((m) => (
+                    <option key={m.id} value={m.nom}>
+                      {m.nom}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {montures.length === 0 && (
+                <p className="text-sm text-muted">
+                  Aucune monture répertoriée dans le shop de cette bande — la compétence peut être acquise sans
+                  monture précisée pour l'instant.
+                </p>
+              )}
+              <button className="btn btn--primary" onClick={confirmerMonture}>
+                Confirmer
+              </button>
+            </>
+          );
+        })()}
 
       {etape === 'resultat' && (
         <>

@@ -20,7 +20,7 @@ import { plafondPour } from './plafond';
 import { skillById } from '../data/gameData';
 import { resolveSort } from './magie';
 import { injuryLabel } from './blessures';
-import { tribuChoisie } from './tribu';
+import { tribuChoisie, SKILL_EQUITATION } from './tribu';
 import { HERO_XP_MAX, HENCHMAN_XP_MAX, isPalierHero, isPalierHenchman } from './xp';
 
 const ACCENT: [number, number, number] = [122, 20, 20];
@@ -43,23 +43,24 @@ function sautDePageSiNecessaire(doc: jsPDF, y: number, hauteur: number): number 
   return y;
 }
 
-function nomCompetence(catalogue: WarbandCatalog | undefined, profil: Profile, skillId: string): string {
+function nomCompetence(catalogue: WarbandCatalog | undefined, profil: Profile, m: Member, skillId: string): string {
   const s =
     skillById(skillId) ??
     profil.competences_speciales?.find((c) => c.id === skillId) ??
     catalogue?.competences_speciales.find((c) => c.id === skillId);
-  return s?.nom ?? skillId;
+  const nom = s?.nom ?? skillId;
+  return skillId === SKILL_EQUITATION && m.monture_equitation ? `${nom} — ${m.monture_equitation}` : nom;
 }
 
 function texteCompetencesEtSorts(catalogue: WarbandCatalog | undefined, profil: Profile, m: Member): string {
-  const competences = m.competences_acquises.map((id) => nomCompetence(catalogue, profil, id));
+  const competences = m.competences_acquises.map((id) => nomCompetence(catalogue, profil, m, id));
   const sorts = m.sorts_connus.map((nom) => resolveSort(catalogue, nom, profil, m.marque)?.nom ?? nom);
   return [...competences, ...sorts].join(', ') || '—';
 }
 
 function texteReglesEtCompetences(catalogue: WarbandCatalog | undefined, profil: Profile, m: Member): string {
   const regles = (profil.regles_speciales ?? []).map((r) => r.nom);
-  const competences = m.competences_acquises.map((id) => nomCompetence(catalogue, profil, id));
+  const competences = m.competences_acquises.map((id) => nomCompetence(catalogue, profil, m, id));
   return [...regles, ...competences].join(', ') || '—';
 }
 

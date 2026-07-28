@@ -117,6 +117,12 @@ export type Member = {
   // fixée définitivement (ex : Destin du Damné).
   stats_variables?: Partial<Record<keyof Stats, string>>;
   competences_acquises: string[];
+  // Monture à laquelle la compétence Équitation (utils/tribu.SKILL_EQUITATION)
+  // est liée — cette compétence est spécifique à un animal donné (règle
+  // imprimée) et doit être réapprise pour chevaucher un autre type de
+  // monture. Choisie parmi les montures accessibles à la bande au moment où
+  // la compétence est acquise (voir AvanceeModal).
+  monture_equitation?: string;
   // Sorts effectivement appris (noms correspondant à `Magie.sorts[].nom` du
   // catalogue de la bande) : le premier est choisi obligatoirement au
   // recrutement d'un profil sorcier, les suivants via une avancée "nouvelle
