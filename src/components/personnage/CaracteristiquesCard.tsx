@@ -10,7 +10,7 @@ type CaracteristiquesCardProps = {
 };
 
 export function CaracteristiquesCard({ membre, profil, onEditerStat }: CaracteristiquesCardProps) {
-  const plafond = plafondPour(profil);
+  const plafond = plafondPour(profil, membre.competences_acquises);
   return (
     <div className="card">
       <h3>Caractéristiques</h3>
@@ -33,7 +33,7 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
               </div>
             );
           }
-          const auPlafond = estStatAuPlafond(profil, membre.stats_actuels, k);
+          const auPlafond = estStatAuPlafond(profil, membre.stats_actuels, k, membre.competences_acquises);
           return (
             <div
               key={k}

@@ -76,7 +76,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
   const entreeAvancement = indexAvancement !== '' ? table[Number(indexAvancement)] : null;
 
   const verdictStat = (stat: keyof Member['stats_actuels']) =>
-    peutAugmenterStat(profil, travail.stats_actuels, travail.historique_avancees, stat);
+    peutAugmenterStat(profil, travail.stats_actuels, travail.historique_avancees, stat, travail.competences_acquises);
 
   const verdictFixe =
     entreeAvancement?.type === 'caracteristique_fixe' ? verdictStat(entreeAvancement.stat) : null;
@@ -657,7 +657,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, onClose, on
           {categorie && (
             <div className="skill-list">
               {skillsDeLaCategorie(categorie)
-                .filter((s) => !travail.competences_acquises.includes(s.id))
+                .filter((s) => !travail.competences_acquises.includes(s.id) || ('repetable' in s && s.repetable))
                 .map((s) => (
                   <label key={s.id} className="skill-check" style={{ cursor: 'pointer' }}>
                     <input type="radio" name="competence" onChange={() => choisirCompetence(s.id)} />

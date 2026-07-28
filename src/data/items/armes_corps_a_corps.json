@@ -695,7 +695,7 @@
   {
     "id": "arme_en_obsidienne_market", "nom": "Arme en obsidienne", "categorie": "armes_cac",
     "cout": "x4", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
-    "acces": ["cult_of_the_possessed", "nains_du_chaos", "carnival_of_chaos", "maraudeurs_du_chaos", "nordiques", "beastmen_raiders"], "source": "BTB", "page": 18,
+    "acces": ["cult_of_the_possessed", "nains_du_chaos", "carnival_of_chaos", "maraudeurs_du_chaos", "norses", "beastmen_raiders"], "source": "BTB", "page": 18,
     "texte": "L'obsidienne est extraite des mines des Terres Sombres par les serviteurs du Chaos. Lors de son habile extraction du minerai, cette curieuse roche volcanique est ensorcelée par les ingénieurs dans les fourneaux de Zharr-Naggrund. Forger des armes grâce à ces techniques infâmes requiert une grande expertise, ce qui la rend extrêmement rare. Une arme en obsidienne donne à son utilisateur +1 en Force au combat au corps à corps et coûte quatre fois le prix d'une arme normale de ce type. Vous pouvez choisir le type d'arme de corps à corps qui vous est proposée.",
     "portee": null, "force": null,
     "regles_speciales": [
