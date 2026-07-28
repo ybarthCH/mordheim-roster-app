@@ -109,6 +109,13 @@ export type Member = {
   // par opposition à une augmentation obtenue via une avancée XP normale —
   // sert uniquement à l'affichage distinct sur la fiche personnage.
   stats_modifiees: (keyof Stats)[];
+  // Notation de dés (voir Profile.stats_variables) affichée à la place de la
+  // valeur numérique correspondante dans stats_actuels, purement en lecture
+  // pour l'affichage — la valeur numérique sous-jacente reste un espace
+  // réservé ignoré par tout calcul (rating, plafond, avancées). Copié depuis
+  // le profil au recrutement ; une clé est retirée dès que sa valeur est
+  // fixée définitivement (ex : Destin du Damné).
+  stats_variables?: Partial<Record<keyof Stats, string>>;
   competences_acquises: string[];
   // Sorts effectivement appris (noms correspondant à `Magie.sorts[].nom` du
   // catalogue de la bande) : le premier est choisi obligatoirement au

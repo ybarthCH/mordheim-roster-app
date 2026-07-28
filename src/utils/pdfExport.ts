@@ -45,7 +45,7 @@ export function exporterRosterPDF(roster: RosterInstance) {
       return [
         m.nom_perso,
         profil?.nom ?? m.profil_id,
-        ...STAT_KEYS.map((k) => String(m.stats_actuels[k])),
+        ...STAT_KEYS.map((k) => m.stats_variables?.[k] ?? String(m.stats_actuels[k])),
         String(m.xp),
         STATUTS.find((s) => s.id === m.statut)?.label ?? m.statut,
         m.equipement || '—',

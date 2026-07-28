@@ -21,6 +21,18 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
           </div>
         ))}
         {STAT_KEYS.map((k) => {
+          const variable = membre.stats_variables?.[k];
+          if (variable) {
+            return (
+              <div
+                key={k}
+                className="stat-grid__cell stat-grid__cell--value"
+                title="Caractéristique variable — se fixe via une avancée d'expérience"
+              >
+                <span className="stat-grid__input stat-grid__input--variable">{variable}</span>
+              </div>
+            );
+          }
           const auPlafond = estStatAuPlafond(profil, membre.stats_actuels, k);
           return (
             <div

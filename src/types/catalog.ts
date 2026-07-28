@@ -66,6 +66,14 @@ export type Profile = {
   // comme pour les objets — n'empêche pas de recruter/jouer.
   rarete?: string;
   stats: Stats | null;
+  // Notation de dés (ex : "2D6", "D6+1") pour les caractéristiques trop
+  // instables pour tenir dans un seul nombre (Mouvement d'un Squig, valeurs
+  // du Damné avant fixation via Destin...). La valeur correspondante dans
+  // `stats` n'est alors qu'un espace réservé (0), ignoré par tout calcul
+  // (rating, plafond, avancées) — seul l'affichage lit ce champ. Copié tel
+  // quel sur le Member au recrutement (voir Member.stats_variables) ; peut
+  // ensuite en être retiré individuellement une fois une valeur fixée.
+  stats_variables?: Partial<Record<keyof Stats, string>>;
   acces_competences: SkillCategory[];
   acces_competences_a_verifier?: boolean;
   // La grille qui détermine les cases et paliers d'XP peut différer du type

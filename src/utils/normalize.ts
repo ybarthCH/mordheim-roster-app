@@ -31,6 +31,7 @@ function normaliserMembre(membre: Partial<Member>): Member {
     xp_depart: membre.xp_depart ?? 0,
     stats_actuels: membre.stats_actuels ?? { ...STATS_VIDES },
     stats_modifiees: membre.stats_modifiees ?? [],
+    stats_variables: membre.stats_variables,
     competences_acquises: membre.competences_acquises ?? [],
     sorts_connus: dejaMigreVersNotes ? (membre.sorts_connus ?? []) : [],
     regles_speciales_notes: dejaMigreVersNotes ? membre.regles_speciales_notes! : (membre.sorts_connus ?? []),

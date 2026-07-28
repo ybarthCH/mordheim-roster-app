@@ -104,6 +104,7 @@
       "cout": 55,
       "xp_depart": 8,
       "stats": { "M": 4, "CC": 0, "CT": 3, "F": 0, "E": 0, "PV": 1, "I": 4, "A": 0, "Cd": 7 },
+      "stats_variables": { "CC": "D6", "F": "D6", "E": "D6", "A": "D3" },
       "regles_speciales": [
         { "nom": "Inconstance", "texte": "CC, F, E et A sont des caractéristiques variables (respectivement D6, D6, D6 et D3), déterminées quand nécessaire, une fois par tour — la valeur 0 affichée ci-dessus n'est qu'un espace réservé. Chaque augmentation possible d'une caractéristique variable est déterminée par un jet de dé (D3 ou D6) que le joueur peut fixer s'il en est satisfait, ou laisser variable sinon (perdant l'augmentation). Les maximums normaux des Maraudeurs peuvent être dépassés du fait de sa nature particulière." },
         { "nom": "Peur", "texte": "Provoque la peur." },
@@ -156,6 +157,7 @@
       "cout": 180,
       "xp_depart": 0,
       "stats": { "M": 0, "CC": 3, "CT": 0, "F": 4, "E": 5, "PV": 3, "I": 2, "A": 0, "Cd": 5 },
+      "stats_variables": { "M": "2D6", "A": "D6+1" },
       "regles_speciales": [
         { "nom": "Mouvement spécial", "texte": "Se déplace de 2D6ps en ligne droite (direction orientable par le joueur avant le jet) à chaque phase de Mouvement, au lieu de la valeur M ci-dessus (espace réservé) ; ne double pas ce mouvement pour une charge, mais un contact avec une figurine compte comme charge et engage le combat." },
         { "nom": "Attaque spéciale", "texte": "Le nombre d'Attaques (D6+1, au lieu de la valeur A ci-dessus qui n'est qu'un espace réservé) est déterminé par un jet au début de chaque phase de corps à corps." },

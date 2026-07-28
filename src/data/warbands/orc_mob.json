@@ -119,6 +119,7 @@
       "max": 5,
       "cout": 15,
       "stats": { "M": 0, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
+      "stats_variables": { "M": "2D6" },
       "regles_speciales": [
         { "nom": "Mouvement", "texte": "La caractéristique Mouvement des Squigs n'est pas fixe (M=0 ci-dessus est un espace réservé) : lancez 2D6 chaque fois que vous voulez déplacer un Squig. Ils ne courent jamais et ne déclarent aucune charge normalement ; ils peuvent utiliser leur mouvement de 2D6ps pour arriver au contact d'un adversaire et sont alors considérés comme ayant chargé pour la phase de Combat qui suit." },
         { "nom": "Au Pied !", "texte": "Chaque Squig doit rester au maximum à 6ps d'une figurine de Guerrier Gobelin. S'il se retrouve à plus de 6ps de tout Gobelin en début de phase de Mouvement, il devient fou : à partir de là, déplacez-le de 2D6ps dans une direction aléatoire à chaque phase de Mouvement suivante ; s'il touche une figurine (amie ou ennemie) il l'engage au Corps à Corps. Il n'est plus contrôlé par le joueur Orque jusqu'à la fin de la partie." },

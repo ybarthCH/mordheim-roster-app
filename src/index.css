@@ -662,6 +662,13 @@ button {
 .stat-grid__input--plafond {
   color: var(--warning);
 }
+.stat-grid__input--variable {
+  display: block;
+  color: var(--text-muted);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
 .stat-grid__cell--value:has(.stat-grid__input--plafond) {
   background: var(--warning-bg);
 }
