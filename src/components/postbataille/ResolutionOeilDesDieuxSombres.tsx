@@ -25,11 +25,9 @@ function seuilDeclenchement(roster: RosterInstance, chef: Member): number {
 
 // Règle spéciale Œil des Dieux Sombres (Maraudeurs du Chaos) : après chaque
 // bataille, le chef risque de se transformer en Enfant du Chaos (défaite) ou
-// de recevoir une Marque des Dieux Sombres (victoire). Le jet de 2D6 est
-// physique (saisi par le joueur), le modificateur de défaite est déduit
-// automatiquement du nombre de Héros hors de combat de cette bataille ; celui
-// de victoire (ennemis mis hors de combat par le chef) reste manuel, l'app ne
-// suivant pas les pertes adverses.
+// de recevoir une Marque des Dieux Sombres (victoire), sur un jet de 2D6 +
+// modificateur comparé au seuil. Le calcul (jet physique + modificateur) se
+// fait sur table papier ; l'app ne demande que le résultat du test.
 export function ResolutionOeilDesDieuxSombres({
   roster,
   catalogue,
@@ -38,9 +36,8 @@ export function ResolutionOeilDesDieuxSombres({
   nbHerosHorsDeCombat,
   onMajRoster,
 }: Props) {
-  const [jet, setJet] = useState('');
-  const [ennemisHc, setEnnemisHc] = useState('');
   const [marqueChoisie, setMarqueChoisie] = useState('');
+  const [succesDeclare, setSuccesDeclare] = useState(false);
   const [resolu, setResolu] = useState<string | null>(null);
 
   if (resolu) {
@@ -59,12 +56,7 @@ export function ResolutionOeilDesDieuxSombres({
   // autre biais, donc toute Marque présente vient forcément de ce test.
   if (chef.marque) return null;
 
-  const jetNombre = Number(jet);
-  const jetValide = jet.trim() !== '' && Number.isFinite(jetNombre) && jetNombre > 0;
-  const modificateur = resultat === 'defaite' ? nbHerosHorsDeCombat : Math.max(0, Math.trunc(Number(ennemisHc)) || 0);
-  const total = jetValide ? jetNombre + modificateur : null;
   const seuil = seuilDeclenchement(roster, chef);
-  const succes = total !== null && total >= seuil;
 
   const appliquerDefaite = () => {
     const dejaEnfant = roster.membres.some((m) => m.profil_id === 'enfant_du_chaos' && m.statut !== 'mort');
@@ -96,41 +88,35 @@ export function ResolutionOeilDesDieuxSombres({
     setResolu(note);
   };
 
+  const enregistrerEchec = () => {
+    setResolu(`Œil des Dieux Sombres : test raté pour ${nomAffiche(chef)} — aucun effet.`);
+  };
+
   return (
     <div className="card card--tight" style={{ marginTop: '0.8rem' }}>
       <h3 className="mt-0">Œil des Dieux Sombres</h3>
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
         {resultat === 'defaite'
-          ? `Défaite : jette 2D6 et ajoute +1 par Héros hors de combat (${nbHerosHorsDeCombat} ici). Sur ${seuil}+, ${nomAffiche(chef)} devient un Enfant du Chaos.`
-          : `Victoire : jette 2D6 et ajoute +1 par ennemi mis hors de combat par ${nomAffiche(chef)}. Sur ${seuil}+, il reçoit une Marque des Dieux Sombres au choix.`}
+          ? `Défaite : 2D6 + 1 par Héros hors de combat (${nbHerosHorsDeCombat} ici) ≥ ${seuil}+ → ${nomAffiche(chef)} devient un Enfant du Chaos.`
+          : `Victoire : 2D6 + 1 par ennemi mis hors de combat par ${nomAffiche(chef)} ≥ ${seuil}+ → il reçoit une Marque des Dieux Sombres au choix.`}
       </p>
-      <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap' }}>
-        <span className="text-sm text-muted">Jet obtenu (2D6) :</span>
-        <input type="number" min={2} max={12} style={{ width: '5rem' }} value={jet} onChange={(e) => setJet(e.target.value)} />
-        {resultat === 'victoire' && (
-          <>
-            <span className="text-sm text-muted">Ennemis mis HC par le chef :</span>
-            <input
-              type="number"
-              min={0}
-              style={{ width: '4rem' }}
-              value={ennemisHc}
-              onChange={(e) => setEnnemisHc(e.target.value)}
-            />
-          </>
-        )}
-      </div>
-      {jetValide && (
-        <p className="text-sm" style={{ marginTop: '0.4rem' }}>
-          Total : {total} (seuil {seuil}+) — {succes ? 'déclenché !' : 'aucun effet.'}
-        </p>
+
+      {!succesDeclare && (
+        <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            className="btn btn--sm btn--primary"
+            onClick={resultat === 'defaite' ? appliquerDefaite : () => setSuccesDeclare(true)}
+          >
+            Réussi
+          </button>
+          <button type="button" className="btn btn--sm" onClick={enregistrerEchec}>
+            Raté
+          </button>
+        </div>
       )}
-      {succes && resultat === 'defaite' && (
-        <button type="button" className="btn btn--sm btn--primary" onClick={appliquerDefaite}>
-          Appliquer
-        </button>
-      )}
-      {succes && resultat === 'victoire' && (
+
+      {succesDeclare && resultat === 'victoire' && (
         <div style={{ marginTop: '0.4rem' }}>
           <div className="field">
             <label>Marque des Dieux Sombres</label>
