@@ -255,6 +255,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, equitationG
         roll: entreeAvancement?.min ?? 0,
         type: 'competence',
         detail: skill.nom,
+        competenceId: skillId,
       },
       `Nouvelle compétence : ${skill.nom}`
     );
@@ -280,6 +281,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, equitationG
         // peine de casser l'appariement fait par annulerAvancee() lors d'une
         // annulation d'avancée.
         detail: nomMonture ? `${skill.nom} — ${nomMonture}` : skill.nom,
+        competenceId: SKILL_EQUITATION,
       },
       nomMonture
         ? `Nouvelle compétence : ${skill.nom} — ${nomMonture}`

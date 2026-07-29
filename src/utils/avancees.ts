@@ -27,7 +27,9 @@ export function annulerAvancee(
   }
 
   if (record.type === 'competence') {
-    const index = membre.competences_acquises.findIndex((id) => nomCompetence(id) === record.detail);
+    const index = record.competenceId
+      ? membre.competences_acquises.findIndex((id) => id === record.competenceId)
+      : membre.competences_acquises.findIndex((id) => nomCompetence(id) === record.detail);
     if (index === -1) return { historique_avancees };
     const retiree = membre.competences_acquises[index];
     return {
