@@ -14,6 +14,7 @@ import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
 import { inventaireComplet } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { ResumeExploration } from '../../utils/exploration';
+import { EvenementExploration } from './EvenementExploration';
 
 type EtapeExplorationProps = {
   roster: RosterInstance;
@@ -27,6 +28,11 @@ type EtapeExplorationProps = {
   pointsVeteran: number;
   onPointsVeteranChange: (v: number) => void;
   onAchatStock: (item: ShopItem, coutPaye: number) => void;
+  // Ajoute directement le montant à la trésorerie de la bande (voir les
+  // événements à gain d'or de tableExplorationEvenements.ts) — appliqué
+  // immédiatement, comme onAchatStock, indépendamment de la validation
+  // finale de l'assistant.
+  onAjouterOr: (montant: number) => void;
   resumeExploration: ResumeExploration;
 };
 
@@ -42,9 +48,14 @@ export function EtapeExploration({
   pointsVeteran,
   onPointsVeteranChange,
   onAchatStock,
+  onAjouterOr,
   resumeExploration,
 }: EtapeExplorationProps) {
-  const [modalAchat, setModalAchat] = useState(false);
+  const [modalAchat, setModalAchat] = useState<false | 'normal' | 'artefacts'>(false);
+
+  const ajouterAuJournalExploration = (texte: string) => {
+    onNotesExplorationChange(`${notesExploration}${notesExploration ? '\n' : ''}${texte}`);
+  };
   const palierActif = TABLE_FRAGMENTS_TROUVES.findIndex((p) => p.fragments === wyrdstoneTrouve);
   const nbGuerriers = effectifTotal(roster);
   const colonneActive = indexColonneGuerriers(nbGuerriers);
@@ -124,11 +135,17 @@ export function EtapeExploration({
       </p>
 
       <h3>Événement d'exploration</h3>
-      <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-        Cette rubrique fera l'objet d'une amélioration majeure plus tard.
-      </p>
+
+      {catalogue && (
+        <EvenementExploration
+          onAjouterOr={onAjouterOr}
+          onAjouterAuJournal={ajouterAuJournalExploration}
+          onOuvrirArtefacts={() => setModalAchat('artefacts')}
+        />
+      )}
+
       <div className="field">
-        <label>Événements d'exploration (texte libre)</label>
+        <label>Journal d'exploration</label>
         <textarea value={notesExploration} onChange={(e) => onNotesExplorationChange(e.target.value)} />
       </div>
 
@@ -140,7 +157,7 @@ export function EtapeExploration({
               type="button"
               className="btn btn--primary btn--sm"
               style={{ flexShrink: 0 }}
-              onClick={() => setModalAchat(true)}
+              onClick={() => setModalAchat('normal')}
             >
               + Objet
             </button>
@@ -252,6 +269,7 @@ export function EtapeExploration({
           tresorerie={roster.tresorerie}
           inventaireBande={inventaireComplet(roster)}
           gratuit
+          categorieInitiale={modalAchat === 'artefacts' ? 'artefacts_magiques' : undefined}
           onClose={() => setModalAchat(false)}
           onAchat={onAchatStock}
         />
