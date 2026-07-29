@@ -5,6 +5,7 @@ import { resolveItemDetail } from './shop';
 import { resolveProfil } from './profil';
 import type { GameRules } from '../types/rules';
 import { estFrancTireur } from '../data/hiredSwords';
+import { CLE_DE_SUPPLEMENTAIRE_EXPLORATION, effetsPersistantsAvecCle } from './effetsPersistants';
 
 export type AideExploration = {
   source: string;
@@ -119,6 +120,23 @@ export function resumeExploration(
 
   for (const regle of catalogue?.regles_speciales ?? []) {
     ajouterAide(aides, `Bande — ${regle.nom}`, regle.texte);
+  }
+
+  // Bonus de dé(s) obtenu lors d'un précédent jet d'exploration (ex :
+  // Vagabond interrogé) — consommé une fois cette bataille terminée, voir
+  // PostBatailleScreen.terminer().
+  const desSupplementairesPersistants = effetsPersistantsAvecCle(roster, CLE_DE_SUPPLEMENTAIRE_EXPLORATION).reduce(
+    (total, effet) => total + (effet.valeur ?? 1),
+    0
+  );
+  if (desSupplementairesPersistants > 0) {
+    bonusFixes += desSupplementairesPersistants;
+    ajouterAide(
+      aides,
+      'Effet en attente',
+      `Vous bénéficiez de ${desSupplementairesPersistants} dé(s) supplémentaire(s) lors de cette phase d'exploration.`,
+      desSupplementairesPersistants
+    );
   }
 
   const desHeros = herosEligibles.length;

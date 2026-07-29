@@ -33,6 +33,10 @@ type EtapeExplorationProps = {
   // immédiatement, comme onAchatStock, indépendamment de la validation
   // finale de l'assistant.
   onAjouterOr: (montant: number) => void;
+  // Fusionne un patch quelconque dans la bande — utilisé par les résolutions
+  // d'événement qui touchent autre chose que la trésorerie (ex : Puits,
+  // Vagabond) sans avoir à ajouter une prop dédiée pour chaque cas.
+  onMajRoster: (patch: Partial<RosterInstance>) => void;
   resumeExploration: ResumeExploration;
 };
 
@@ -49,6 +53,7 @@ export function EtapeExploration({
   onPointsVeteranChange,
   onAchatStock,
   onAjouterOr,
+  onMajRoster,
   resumeExploration,
 }: EtapeExplorationProps) {
   const [modalAchat, setModalAchat] = useState<false | 'normal' | 'artefacts'>(false);
@@ -138,6 +143,9 @@ export function EtapeExploration({
 
       {catalogue && (
         <EvenementExploration
+          roster={roster}
+          catalogue={catalogue}
+          onMajRoster={onMajRoster}
           onAjouterOr={onAjouterOr}
           onAjouterAuJournal={ajouterAuJournalExploration}
           onOuvrirArtefacts={() => setModalAchat('artefacts')}

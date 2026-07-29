@@ -1,18 +1,32 @@
 import { useState } from 'react';
+import type { RosterInstance } from '../../types/roster';
+import type { WarbandCatalog } from '../../types/catalog';
 import { TABLE_EXPLORATION_EVENEMENTS } from '../../data/tableExplorationEvenements';
 import type { EvenementExploration as Evenement, PalierExploration } from '../../data/tableExplorationEvenements';
+import { JetOrButton } from './JetOrButton';
+import { ResolutionPuits } from './ResolutionPuits';
+import { ResolutionVagabond } from './ResolutionVagabond';
 
 type Props = {
+  roster: RosterInstance;
+  catalogue: WarbandCatalog;
+  onMajRoster: (patch: Partial<RosterInstance>) => void;
   onAjouterOr: (montant: number) => void;
   onAjouterAuJournal: (texte: string) => void;
   onOuvrirArtefacts: () => void;
 };
 
-export function EvenementExploration({ onAjouterOr, onAjouterAuJournal, onOuvrirArtefacts }: Props) {
+export function EvenementExploration({
+  roster,
+  catalogue,
+  onMajRoster,
+  onAjouterOr,
+  onAjouterAuJournal,
+  onOuvrirArtefacts,
+}: Props) {
   const [palierId, setPalierId] = useState<PalierExploration['id'] | ''>('');
   const [face, setFace] = useState<number | ''>('');
   const [jetSousTable, setJetSousTable] = useState('');
-  const [jetOr, setJetOr] = useState('');
 
   const palier = TABLE_EXPLORATION_EVENEMENTS.find((p) => p.id === palierId) ?? null;
   const evenement: Evenement | null =
@@ -25,21 +39,17 @@ export function EvenementExploration({ onAjouterOr, onAjouterAuJournal, onOuvrir
     setPalierId(id);
     setFace('');
     setJetSousTable('');
-    setJetOr('');
   };
 
   const changerFace = (f: number) => {
     setFace((prev) => (prev === f ? '' : f));
     setJetSousTable('');
-    setJetOr('');
   };
 
-  const ajouterOr = (notation: string, nomLigne: string) => {
-    const valeur = Number(jetOr);
-    if (!Number.isFinite(valeur) || valeur <= 0 || !evenement) return;
+  const ajouterOr = (notation: string, nomLigne: string, valeur: number) => {
+    if (!evenement) return;
     onAjouterOr(valeur);
     onAjouterAuJournal(`${evenement.nom}${nomLigne ? ` — ${nomLigne}` : ''} : +${valeur} po (${notation}).`);
-    setJetOr('');
   };
 
   return (
@@ -93,23 +103,24 @@ export function EvenementExploration({ onAjouterOr, onAjouterAuJournal, onOuvrir
           ))}
 
           {evenement.or && (
-            <div className="flex gap-sm items-center" style={{ marginTop: '0.5rem', flexWrap: 'wrap' }}>
-              <span className="text-sm text-muted">Jet obtenu ({evenement.or}) :</span>
-              <input
-                type="number"
-                min={0}
-                style={{ width: '5rem' }}
-                value={jetOr}
-                onChange={(e) => setJetOr(e.target.value)}
-              />
-              <button
-                className="btn btn--sm btn--primary"
-                disabled={!jetOr}
-                onClick={() => ajouterOr(evenement.or!, '')}
-              >
-                Ajouter à la trésorerie
-              </button>
-            </div>
+            <JetOrButton
+              label={`Jet obtenu (${evenement.or}) :`}
+              onValider={(valeur) => ajouterOr(evenement.or!, '', valeur)}
+            />
+          )}
+
+          {evenement.id === 'puits' && (
+            <ResolutionPuits roster={roster} onMajRoster={onMajRoster} onAjouterAuJournal={onAjouterAuJournal} />
+          )}
+
+          {evenement.id === 'vagabond' && (
+            <ResolutionVagabond
+              roster={roster}
+              catalogue={catalogue}
+              onMajRoster={onMajRoster}
+              onAjouterOr={onAjouterOr}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
           )}
 
           {evenement.artefactMagique && (
@@ -144,23 +155,10 @@ export function EvenementExploration({ onAjouterOr, onAjouterAuJournal, onOuvrir
                 </table>
               </div>
               {ligneSousTable?.or && (
-                <div className="flex gap-sm items-center" style={{ marginTop: '0.5rem', flexWrap: 'wrap' }}>
-                  <span className="text-sm text-muted">Jet or ({ligneSousTable.or}) :</span>
-                  <input
-                    type="number"
-                    min={0}
-                    style={{ width: '5rem' }}
-                    value={jetOr}
-                    onChange={(e) => setJetOr(e.target.value)}
-                  />
-                  <button
-                    className="btn btn--sm btn--primary"
-                    disabled={!jetOr}
-                    onClick={() => ajouterOr(ligneSousTable.or!, ligneSousTable.resultat)}
-                  >
-                    Ajouter à la trésorerie
-                  </button>
-                </div>
+                <JetOrButton
+                  label={`Jet or (${ligneSousTable.or}) :`}
+                  onValider={(valeur) => ajouterOr(ligneSousTable.or!, ligneSousTable.resultat, valeur)}
+                />
               )}
             </div>
           )}

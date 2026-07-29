@@ -79,6 +79,7 @@ export function creerRoster(bandeId: string, nomBande: string, tresorerie: numbe
     membres: [],
     historique_batailles: [],
     profils_bannis: [],
+    effets_persistants: [],
     createdAt: now,
     updatedAt: now,
   };
