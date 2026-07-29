@@ -35,7 +35,11 @@ import { resumeExploration } from '../../utils/exploration';
 import { COUT_DOCTEUR } from '../../utils/docteur';
 import { effectifTotal } from '../../utils/bandeValue';
 import { prixVenteWyrdstone } from '../../data/tableVenteWyrdstone';
-import { CLE_DE_SUPPLEMENTAIRE_EXPLORATION } from '../../utils/effetsPersistants';
+import {
+  CLE_DE_SUPPLEMENTAIRE_EXPLORATION,
+  CLE_FRANC_TIREUR_GRATUIT,
+  effetsPersistantsAvecCle,
+} from '../../utils/effetsPersistants';
 
 const ETAPES = [
   'Bataille',
@@ -282,7 +286,16 @@ export function PostBatailleScreen() {
 
   const lignesEntretien: LigneEntretien[] = useMemo(() => {
     if (!roster) return [];
+    const idsGratuits = new Set(
+      effetsPersistantsAvecCle(roster, CLE_FRANC_TIREUR_GRATUIT).map((e) => e.cible)
+    );
     return francTireursParticipants.map((m) => {
+      // Engagé gratuitement pour une bataille via un événement d'exploration
+      // (ex : Débiteur reconnaissant) — exemption ponctuelle, prioritaire sur
+      // celle éventuellement définie par le profil lui-même.
+      const exemptionGratuite = idsGratuits.has(m.instance_id)
+        ? { label: 'Débiteur reconnaissant', texte: "Engagé gratuitement pour cette bataille." }
+        : undefined;
       const profil = getFrancTireur(m.franc_tireur_id);
       if (!profil) {
         return {
@@ -291,6 +304,7 @@ export function PostBatailleScreen() {
           type: 'or',
           cout: (m.profil_custom?.solde ?? 0) * (m.taille_groupe || 1),
           texte: 'Ancien profil personnalisé : solde enregistrée lors du recrutement.',
+          exemption: exemptionGratuite,
         };
       }
       return {
@@ -299,7 +313,7 @@ export function PostBatailleScreen() {
         type: profil.entretien.type,
         cout: coutEntretienFrancTireur(profil, roster),
         texte: profil.entretien.texte,
-        exemption: profil.entretien.exemption,
+        exemption: exemptionGratuite ?? profil.entretien.exemption,
         maintienSansPaiement: profil.entretien.maintien_sans_paiement,
         departAutomatique: profil.depart_apres_bataille,
       };
@@ -697,6 +711,11 @@ export function PostBatailleScreen() {
 
     const succession = succederApresMorts(roster, catalogue, membresConserves);
 
+    // Francs-tireurs dont l'exemption "Débiteur reconnaissant" vient d'être
+    // proposée à l'entretien de cette bataille — consommée qu'elle ait été
+    // choisie ou non (la gratuité ne couvrait qu'une seule bataille).
+    const idsEntretienResolu = new Set(lignesEntretien.map((ligne) => ligne.membre.instance_id));
+
     await updateRoster({
       ...roster,
       ...succession,
@@ -711,7 +730,9 @@ export function PostBatailleScreen() {
       // Le bonus de dé(s) d'exploration en attente (ex : Vagabond interrogé)
       // vient d'être utilisé pour cette phase d'exploration — consommé.
       effets_persistants: (roster.effets_persistants ?? []).filter(
-        (e) => e.cle !== CLE_DE_SUPPLEMENTAIRE_EXPLORATION
+        (e) =>
+          e.cle !== CLE_DE_SUPPLEMENTAIRE_EXPLORATION &&
+          !(e.cle === CLE_FRANC_TIREUR_GRATUIT && e.cible && idsEntretienResolu.has(e.cible))
       ),
     });
     navigate(`/roster/${roster.id}`);
