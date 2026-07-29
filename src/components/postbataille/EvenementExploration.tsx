@@ -45,7 +45,14 @@ export function EvenementExploration({
   };
 
   const changerFace = (f: number) => {
-    setFace((prev) => (prev === f ? '' : f));
+    setFace((prev) => {
+      const nouveau = prev === f ? '' : f;
+      if (nouveau !== '') {
+        const ev = palier?.evenements.find((e) => e.face === f);
+        if (ev) onAjouterAuJournal(ev.nom);
+      }
+      return nouveau;
+    });
     setJetSousTable('');
   };
 
@@ -214,14 +221,6 @@ export function EvenementExploration({
             </div>
           )}
 
-          <button
-            type="button"
-            className="btn btn--sm"
-            style={{ marginTop: '0.6rem' }}
-            onClick={() => onAjouterAuJournal(evenement.nom)}
-          >
-            Consigner dans le journal d'exploration
-          </button>
         </div>
       )}
     </div>
