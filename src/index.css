@@ -239,7 +239,15 @@ textarea {
    système plutôt que le data-theme choisi dans l'app) — illisible dès que
    les deux divergent. Fond/bordure/texte explicites pour rester cohérent
    avec le thème actif partout, même hors d'un wrapper .field. */
-select {
+/* Même problème pour un <input>/<textarea> non stylé (hors wrapper .field,
+   ex : saisie de jet inline dans une carte) : sans fond/color-scheme
+   explicites, le champ suit le chrome natif du système plutôt que le thème
+   de l'app — illisible dès que les deux divergent (texte clair sur fond
+   noir en thème sombre système + thème clair choisi dans l'app, ou
+   l'inverse). */
+select,
+input,
+textarea {
   background: var(--bg-inset);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -247,7 +255,9 @@ select {
   font-size: 0.95rem;
   color-scheme: light;
 }
-:root[data-theme='dark'] select {
+:root[data-theme='dark'] select,
+:root[data-theme='dark'] input,
+:root[data-theme='dark'] textarea {
   color-scheme: dark;
 }
 
@@ -546,6 +556,7 @@ button {
   grid-template-columns: 48px minmax(0, 1fr) 48px;
   gap: 0.5rem;
   align-items: stretch;
+  max-width: 280px;
 }
 .field .quantity-stepper > input {
   min-width: 0;
@@ -959,6 +970,16 @@ button {
   color: var(--accent);
   font-weight: 700;
 }
+.table-reference--clickable tbody tr {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.table-reference--clickable tbody tr:hover td {
+  background: var(--accent-soft);
+}
+.table-reference--clickable tr.table-reference__row-active td {
+  background: var(--accent-soft);
+}
 .table-reference tbody tr td.table-reference__col-active {
   background: var(--accent-soft);
 }
@@ -1033,6 +1054,7 @@ button {
   padding: 0.6rem 0.9rem;
   margin: 0.7rem 0;
   text-align: center;
+  max-width: 360px;
 }
 .price-highlight__value {
   font-size: 1.7rem;
