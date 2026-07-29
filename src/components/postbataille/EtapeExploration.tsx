@@ -138,7 +138,9 @@ export function EtapeExploration({
                 onClick={() => changerWyrdstoneTrouve(i === palierActif ? 0 : p.fragments)}
               >
                 <td>{p.max === null ? `${p.min}+` : `${p.min}-${p.max}`}</td>
-                <td>{p.fragments}</td>
+                <td>
+                  <span className="table-reference__badge">{p.fragments}</span>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -989,6 +989,31 @@ button {
   font-weight: 700;
   border-radius: var(--radius);
 }
+/* Valeur mise en avant façon bouton (ex : fragments de wyrdstone trouvés),
+   dans une cellule dont la ligne entière reste le vrai déclencheur du clic. */
+.table-reference__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.7rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  font-weight: 700;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.table-reference--clickable tbody tr:hover .table-reference__badge {
+  border-color: var(--accent-strong);
+}
+.table-reference__row-active .table-reference__badge {
+  background: linear-gradient(160deg, var(--accent) 0%, var(--accent-strong) 100%);
+  border-color: var(--accent-strong);
+  color: var(--accent-contrast);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
 /* Sélecteur de palier façon "dé d'exploration" — chips cliquables, plus
    lisibles et plus faciles à toucher sur mobile qu'une cellule de tableau. */
 .dice-choice-grid {
