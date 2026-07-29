@@ -1,0 +1,213 @@
+{
+  "id": "elfes_noirs",
+  "nom": "Elfes Noirs (1b)",
+  "grade": "1b",
+  "source": "Town Cryer #12 — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Haine fratricide", "texte": "Les elfes noirs combattent les hauts elfes depuis des millénaires et les guerres opposant les deux peuples ont été longues et sanglantes. Les Elfes Noirs haïssent les hauts elfes, y compris les francs-tireurs de cette race." },
+    { "nom": "Vue surhumaine", "texte": "De nombreuses légendes font état de l'excellente vue des elfes, qu'il s'agisse des druchii ou des hauts elfes. Les elfes peuvent détecter les ennemis cachés deux fois plus loin que les autres guerriers (c'est-à-dire à une distance égale au double de leur Initiative)." },
+    { "nom": "Armes à feu", "texte": "Les Elfes Noirs n'utilisent jamais d'armes à poudre noire car ils les trouvent primitives, bruyantes et peu fiables." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "dynaste",
+      "nom": "Dynaste",
+      "type": "heros",
+      "groupe_caracteristiques": "elfe",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 70,
+      "xp_depart": 20,
+      "stats": { "M": 5, "CC": 5, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 6, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine de la bande des Elfes Noirs dans un rayon de 6ps autour du Dynaste peut utiliser son Cd pour les Tests qu'elle a à effectuer." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "vitesse", "special"],
+      "acces_equipement": ["elfes_noirs"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "spadassin",
+      "nom": "Spadassin",
+      "type": "heros",
+      "groupe_caracteristiques": "elfe",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 40,
+      "xp_depart": 8,
+      "stats": { "M": 5, "CC": 5, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 6, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Spécialistes de la mêlée", "texte": "Les Spadassins adhèrent à un code de conduite très strict leur imposant de ne se battre qu'au corps à corps et ne peuvent en aucun cas être équipés d'armes de tir." }
+      ],
+      "acces_competences": ["combat", "vitesse", "special"],
+      "acces_equipement": ["elfes_noirs"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "maitre_des_betes",
+      "nom": "Maître des Bêtes",
+      "type": "heros",
+      "groupe_caracteristiques": "elfe",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 45,
+      "xp_depart": 8,
+      "stats": { "M": 5, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 6, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Molosse à Sang-Froid", "texte": "Le Maître des Bêtes peut être accompagné par un maximum de deux Molosses à Sang-Froid, recrutés comme Hommes de main et suivant les règles spéciales indiquées plus loin." }
+      ],
+      "acces_competences": ["combat", "vitesse", "special"],
+      "acces_equipement": ["elfes_noirs"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "sorciere_elfe_noire",
+      "nom": "Sorcière",
+      "type": "heros",
+      "groupe_caracteristiques": "elfe",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 55,
+      "xp_depart": 12,
+      "stats": { "M": 5, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 6, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Magie", "texte": "Les Sorcières Elfes Noires sont des jeteurs de sorts qui utilisent la Magie Noire. Elle ne pourra pas jeter de sort si elle porte une armure." }
+      ],
+      "acces_competences": ["academique", "vitesse", "special"],
+      "acces_equipement": ["elfes_noirs"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "corsaire",
+      "nom": "Corsaire",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "elfe",
+      "min": 0,
+      "max": null,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 6, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Cape en Peau de Dragon des Mers", "texte": "Les Corsaires peuvent recevoir des Capes en Peau de Dragon des Mers, même s'ils ne sont pas des Héros." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["elfes_noirs"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "ombre",
+      "nom": "Ombre",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "elfe",
+      "min": 0,
+      "max": 5,
+      "cout": 30,
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 5, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Discrétion", "texte": "Avant toute chose, les éclaireurs elfes noirs apprennent à se mouvoir silencieusement. Si une Ombre se cache, les ennemis subissent un malus de -1 à leur Initiative pour la repérer." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["ombres"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "molosse_a_sang_froid",
+      "nom": "Molosse à Sang-Froid",
+      "type": "animal",
+      "min": 0,
+      "max": 2,
+      "cout": 30,
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 3, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 1, "A": 1, "Cd": 4 },
+      "regles_speciales": [
+        { "nom": "Armes/armures", "texte": "Les Molosses à Sang-Froid sont des animaux et n'ont pas besoin d'équipement autre que leurs écailles et leurs dents !" },
+        { "nom": "Animaux", "texte": "Les Molosses à Sang-Froid sont des animaux et toutes les règles relatives aux animaux s'appliquent à eux. Ils ne peuvent en aucun cas gagner d'expérience." },
+        { "nom": "Maître des Bêtes", "texte": "Les Molosses à Sang-Froid sont des animaux sournois et vicieux à peine contrôlables. Si le Maître des Bêtes meurt, les Molosses s'échappent immédiatement et sont rayés de la feuille de Bande. Si pour une raison ou une autre le Maître des Bêtes ne peut pas participer à une bataille, les Molosses à Sang-Froid n'y participeront pas non plus." },
+        { "nom": "Soumises", "texte": "Les Molosses à Sang-Froid peuvent utiliser le Cd de base du Maître des Bêtes s'ils se trouvent dans un rayon de 6ps de lui. Ils ne peuvent toutefois pas bénéficier du Cd du Chef de bande, pas même si leur Maître des Bêtes, dans un rayon de 6ps, en bénéficie." },
+        { "nom": "Écailles", "texte": "Les Molosses à Sang-Froid sont protégés par une épaisse peau écailleuse. Ils comptent donc comme ayant une Sauvegarde d'Armure de 6+. Cette sauvegarde ne peut pas être réduite par la Force de l'attaquant, mais certains Coups Critiques l'annulent normalement." },
+        { "nom": "Peur", "texte": "Les Molosses à Sang-Froid provoquent la peur." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "infiltration_elfe_noir", "nom": "Infiltration", "reserve_a": "Héros Elfes Noirs uniquement", "texte": "Un Elfe Noir avec cette compétence est toujours placé sur le champ de bataille après le déploiement de la bande adverse. Il peut être placé n'importe où sur le terrain, à condition d'être hors de toute ligne de vue adverse et à plus de 12ps de toute figurine ennemie. Si les deux joueurs ont des figurines en infiltration, lancez 1D6, le résultat le plus faible se déploie en premier." },
+    { "id": "rapidite_surnaturelle", "nom": "Rapidité Surnaturelle", "reserve_a": "Héros Elfes Noirs uniquement", "texte": "Rares sont ceux qui peuvent égaler l'incroyable célérité des elfes. Un elfe doté de cette compétence peut éviter les attaques de tir ou de corps à corps sur un résultat de 6 sur 1D6. Si l'elfe dispose aussi de la compétence saut de côté ou esquive, cette sauvegarde passe à 4+ dans le domaine approprié. Par exemple, un elfe doté de rapidité surnaturelle et de saut de côté évite les blessures au corps à corps sur un 4+ et les tirs sur un 6+." },
+    { "id": "massif_elfe_noir", "nom": "Massif", "reserve_a": "Héros Elfes Noirs uniquement, hors Sorcière, maximum deux figurines par bande", "texte": "Le guerrier est solidement bâti (pour un elfe) et doué d'une grande force. Un guerrier doté de cette compétence peut choisir des compétences de Force. La Sorcière ne peut pas recevoir cette compétence et votre bande ne peut compter plus de deux figurines la possédant." },
+    { "id": "maitre_des_poisons", "nom": "Maître des Poisons", "reserve_a": "Héros Elfes Noirs uniquement", "texte": "Un elfe noir sait concocter divers poisons. Si le Héros ne recherche pas d'objets rares, il peut fabriquer à la place 1D3-1 doses de venin fuligineux. Il est possible que le résultat soit de 0 car l'elfe n'aura peut-être pas accès à un laboratoire convenable. Le poison doit être utilisé lors de la prochaine bataille et ne pourra pas être vendu ou échangé à d'autres bandes car les elfes noirs gardent bien leurs secrets." },
+    { "id": "fureur_de_khaine", "nom": "Fureur de Khaine", "reserve_a": "Héros Elfes Noirs uniquement", "texte": "Un Elfe Noir est une machine à tuer assoiffée de sang. Il peut effectuer un Mouvement de poursuite de 4ps s'il met tous ses adversaires hors de combat. S'il entre en contact avec un autre ennemi, un nouveau combat aura lieu lors du tour suivant et il comptera comme ayant chargé. Ce Mouvement ne peut pas être effectué lors du tour de l'ennemi." }
+  ],
+  "equipement": {
+    "elfes_noirs": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "fouet_a_betes", "cout": "10+1D6", "restriction": "Maître des Bêtes uniquement" },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "lame_elfe_noire", "cout": "+20", "note": "prix de l'arme (dague ou épée) + 20 CO, Héros uniquement" }
+      ],
+      "armes_tir": [
+        { "item_id": "arbalete_a_repetition", "cout": 35 },
+        { "item_id": "arbalete_de_poing", "cout": 35 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 50 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 },
+        { "item_id": "cape_en_peau_de_dragon_des_mers", "cout": "50+2D6", "note": "Héros et Corsaires uniquement" }
+      ]
+    },
+    "ombres": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "arbalete_a_repetition", "cout": 35 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "lame_elfe_noire", "cout": "+20", "disponibilite": "Rare 9, Héros Elfes Noirs uniquement" },
+    { "item_id": "fouet_a_betes", "cout": "10+1D6", "disponibilite": "Rare 8, Maître des Bêtes uniquement", "profils": ["maitre_des_betes"] },
+    { "item_id": "cape_en_peau_de_dragon_des_mers", "cout": "50+2D6", "disponibilite": "Rare 10, Héros et Corsaires uniquement" },
+    { "item_id": "venin_fuligineux", "cout": 15, "disponibilite": "Rare, Héros uniquement" }
+  ],
+  "magie": {
+    "nom": "Magie Noire",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["sorciere_elfe_noire"],
+    "note": "Tout comme les hauts elfes, les elfes noirs sont des sorciers accomplis. Mais là où les premiers usent de leur magie pour se protéger et faire le bien, les Elfes Noirs emploient la magie noire pour détruire.",
+    "sorts": [
+      { "resultat": 1, "nom": "Éclair Noir", "difficulte": 9, "texte": "Murmurant une antique incantation, la Sorcière crée un éclair de pure énergie noire qu'elle libère sur ses ennemis. L'Éclair Noir peut être envoyé contre toute figurine ennemie en ligne de vue. Sa portée est de 18ps et touche avec une Force de 5. Si la cible est blessée, la figurine la plus proche dans un rayon de 6ps de celle-ci est également touchée sur 4+ avec une Force inférieure d'un point à celle de la touche précédente. L'éclair continue ainsi d'aller d'une figurine à l'autre jusqu'à ce qu'il tombe à court de cible, qu'il la rate ou que sa Force tombe en dessous de 1. Chaque figurine ne peut être touchée qu'une fois par tour par cet éclair. Les sauvegardes d'armure s'appliquent normalement." },
+      { "resultat": 2, "nom": "Mot de Douleur", "difficulte": 8, "texte": "La Sorcière appelle la colère du Roi Sorcier sur ses ennemis, émoussant leur ardeur au combat. Ce sort peut être lancé sur une figurine ennemie dans un rayon de 12ps. La victime devra alors relancer tous ses jets pour toucher et pour blesser réussis, au tir comme au corps à corps. Si la victime veut charger, elle devra au préalable réussir un test de Commandement. Ce sort dure jusqu'au début du prochain tour des Elfes Noirs." },
+      { "resultat": 3, "nom": "Voleur d'Âmes", "difficulte": 9, "texte": "Par simple contact, la Sorcière draine ses ennemis de leur essence vitale et l'absorbe, ce qui renforce ses propres énergies. Une fois que le sort est lancé avec succès, la Sorcière doit effectuer un jet pour toucher contre une figurine située au contact. Si l'attaque touche, sa cible perd un PV, sans sauvegarde d'armure possible. La Sorcière se nourrit alors de cette énergie et ajoute +1PV à son profil. Note : la Sorcière ne peut jamais avoir plus d'1 PV supplémentaire dû à ce sort et il sera perdu en fin de partie." },
+      { "resultat": 4, "nom": "Épée de Feu", "difficulte": 8, "texte": "Invoquant de funestes énergies, la Sorcière entoure de flammes noires et glaciales la lame d'une arme. La Sorcière peut lancer ce sort sur l'une des armes de corps à corps d'un des Elfes Noirs situé dans un rayon de 6ps. Une arme ainsi ensorcelée compte toujours comme une arme normale du type approprié, mais elle ajoute +2 à la Force de son porteur et les touches qu'elle inflige ignorent les sauvegardes d'armure. Ce sort dure jusqu'à la prochaine phase de Tir des Elfes Noirs." },
+      { "resultat": 5, "nom": "Spasmes de Mort", "difficulte": 10, "texte": "La Sorcière crible le corps de son ennemi de magie noire, lui infligeant une douleur insupportable pour le commun des mortels. Ce sort a une portée de 6ps et peut être lancé sur l'ennemi le plus proche. La figurine affectée doit immédiatement faire un jet sur le tableau des Dégâts. Si le sort est lancé avec succès, la Sorcière est immédiatement mise à terre." },
+      { "resultat": 6, "nom": "Vol des Sorcières", "difficulte": 7, "texte": "La Sorcière soumet les vents magiques à son bon vouloir et s'élève dans les airs. La Sorcière peut immédiatement se déplacer n'importe où dans un rayon de 12ps et peut charger un ennemi de cette façon. Si elle charge un ennemi en fuite, elle lui inflige une touche automatique, puis ce dernier se remet à fuir." }
+    ]
+  }
+}

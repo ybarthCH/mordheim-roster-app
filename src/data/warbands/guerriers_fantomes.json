@@ -1,0 +1,158 @@
+{
+  "id": "guerriers_fantomes",
+  "nom": "Guerriers Fantômes (1b)",
+  "grade": "1b",
+  "source": "Town Cryer — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Aversion pour le Poison", "texte": "L'usage des poisons et autres drogues est une spécialité des elfes noirs. Les Guerriers Fantômes en désapprouvent l'usage, plus encore que les hauts elfes. Les membres d'une bande de Guerriers Fantômes n'utilisent jamais aucun type de poison." },
+    { "nom": "Impitoyables", "texte": "En plus de leur haine envers leurs cousins corrompus, le peuple de Nagarythe combat depuis longtemps le Chaos. Dans une partie multijoueurs, une bande de Guerriers Fantômes ne peut jamais s'allier avec aucune bande de nature chaotique (Possédés, Skavens, Hommes-bêtes, Elfes noirs, etc.)." },
+    { "nom": "Tolérants", "texte": "En raison de leur statut de parias auprès de leur peuple, les elfes de Nagarythe ont appris à réprimer leur mépris pour les « races inférieures », et travaillent même parfois pour elles. Une bande de Guerriers Fantômes peut donc recruter tout franc-tireur non chaotique ou maléfique (donc pas de Skavens, de Possédés, d'Elfes Noirs, de Morts-vivants, etc.) Ils évitent également tous ceux qui font usage de poisons (donc pas d'assassins)." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "maitre_des_ombres",
+      "nom": "Maître des Ombres",
+      "type": "heros",
+      "groupe_caracteristiques": "elfe",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 70,
+      "xp_depart": 20,
+      "stats": { "M": 5, "CC": 5, "CT": 5, "F": 3, "E": 3, "PV": 1, "I": 6, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "N'importe quel guerrier se trouvant à moins de 6ps du Maître des Ombres peut utiliser la valeur de Commandement de ce dernier pour ses tests de Commandement." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "vitesse", "special"],
+      "acces_equipement": ["guerriers_fantomes"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "rodeur_des_ombres",
+      "nom": "Rôdeur des Ombres",
+      "type": "heros",
+      "groupe_caracteristiques": "elfe",
+      "unique": false,
+      "min": 0,
+      "max": 3,
+      "cout": 45,
+      "xp_depart": 12,
+      "stats": { "M": 5, "CC": 5, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 6, "A": 1, "Cd": 8 },
+      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["guerriers_fantomes"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "tisseur_dombres",
+      "nom": "Tisseur d'Ombres",
+      "type": "heros",
+      "groupe_caracteristiques": "elfe",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 55,
+      "xp_depart": 12,
+      "stats": { "M": 5, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 6, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Le Tisseur d'Ombres est un sorcier utilisant la liste des sorts de la Magie d'Ombre. Il ne peut pas lancer de sorts s'il porte une armure." }
+      ],
+      "acces_competences": ["combat", "vitesse", "special"],
+      "acces_equipement": ["guerriers_fantomes"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerrier_fantome",
+      "nom": "Guerrier Fantôme",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "elfe",
+      "min": 0,
+      "max": null,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 6, "A": 1, "Cd": 8 },
+      "acces_competences": [],
+      "acces_equipement": ["guerriers_fantomes"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "novice",
+      "nom": "Novice",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "elfe",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 5, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["guerriers_fantomes"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "infiltration_fantome", "nom": "Infiltration", "reserve_a": "Héros Guerriers Fantômes uniquement", "texte": "Cette compétence est identique à la compétence skaven du même nom : en début de partie, vous pouvez le placer n'importe où sur la table, pourvu qu'il soit caché et à plus de 12ps de tout ennemi." },
+    { "id": "voir_dans_les_tenebres", "nom": "Voir dans les Ténèbres", "reserve_a": "Héros Guerriers Fantômes uniquement", "texte": "Les sens du guerrier se sont affûtés après des années passées à évoluer dans l'ombre. Tant que son mouvement lui permet de les atteindre, le guerrier peut toujours lancer les dés pour charger les ennemis qu'il ne peut pas voir (au lieu des 4ps habituels)." },
+    { "id": "se_cacher_parmi_les_ombres", "nom": "Se Cacher Parmi les Ombres", "reserve_a": "Héros Guerriers Fantômes uniquement", "texte": "Les Guerriers Fantômes ont appris à se tenir complètement immobiles et devenir indétectables, même par les sens aiguisés de leurs cousins elfes noirs. Un guerrier ennemi tentant de détecter ce guerrier alors qu'il est caché doit diviser son Initiative par 2 avant de mesurer la distance." },
+    { "id": "tir_silencieux", "nom": "Tir Silencieux", "reserve_a": "Héros Guerriers Fantômes uniquement", "texte": "De longues années de guérilla contre les elfes noirs ont enseigné aux Guerriers Fantômes comment frapper depuis les ténèbres sans être vus. S'il est caché, le guerrier doté de cette compétence peut tirer ou lancer des sorts tout en demeurant caché. Si sa cible n'est pas immédiatement mise hors de combat, celle-ci doit faire un test sous son Initiative pour le repérer. Un succès signifie que le tireur est repéré et ne peut plus demeurer caché." },
+    { "id": "solide_carrure_fantome", "nom": "Solide Carrure", "reserve_a": "Héros Guerriers Fantômes uniquement, hors Tisseur d'Ombres, maximum deux figurines par bande", "texte": "Pour un elfe, le guerrier est solidement bâti, capable de prouesses physiques rares chez les habitants d'Ulthuan. Un guerrier doté de cette compétence peut choisir ses compétences dans le tableau des compétences de Force. Cette compétence ne peut pas être prise par un Tisseur d'Ombres. Il ne peut jamais y avoir en même temps plus de deux elfes dotés de cette compétence dans une bande." },
+    { "id": "maitre_des_runes", "nom": "Maître des Runes", "reserve_a": "Tisseur d'Ombres uniquement", "texte": "Le Tisseur d'Ombres a appris à canaliser le pouvoir des runes elfiques (voir Pierre Runiques Elfiques) à un niveau inégalé. Lorsqu'il utilise des Pierres Runiques Elfiques, le sorcier ajoute +1 à son jet de dissipation. De plus, le sorcier peut graver des runes elfiques sur les armes et l'armure d'un de ses compagnons. Un membre de la bande peut relancer un seul jet de sauvegarde d'armure ou de parade par bataille. Après une bataille, la rune perd ses pouvoirs et doit être refaite." }
+  ],
+  "equipement": {
+    "guerriers_fantomes": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_en_ithilmar", "cout": "coût x2", "note": "Héros uniquement" }
+      ],
+      "armes_tir": [
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arc_long", "cout": 15 },
+        { "item_id": "arc_elfique", "cout": 35 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10, "note": "Heaume" },
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "armure_en_ithilmar_market", "cout": 60, "note": "Héros uniquement" }
+      ],
+      "divers": [
+        { "item_id": "banniere_de_nagarythe", "cout": "75+3D6", "note": "Héros uniquement" },
+        { "item_id": "cor_de_guerre_de_nagarythe", "cout": "25+1D6", "note": "Héros uniquement" },
+        { "item_id": "cape_elfique", "cout": "75+1D6x10", "note": "Héros uniquement" },
+        { "item_id": "vin_elfique", "cout": "30+3D6", "note": "Héros uniquement" },
+        { "item_id": "pierres_runiques_elfiques", "cout": "50+2D6", "note": "Héros uniquement" }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "vin_elfique", "cout": "30+3D6", "disponibilite": "Rare 10, Guerriers Fantômes uniquement, une seule utilisation" },
+    { "item_id": "pierres_runiques_elfiques", "cout": "50+2D6", "disponibilite": "Rare 11, Guerriers Fantômes uniquement" },
+    { "item_id": "banniere_de_nagarythe", "cout": "75+3D6", "disponibilite": "Rare 9, Guerriers Fantômes uniquement, à la création de la bande seulement" },
+    { "item_id": "cor_de_guerre_de_nagarythe", "cout": "25+1D6", "disponibilite": "Rare 6, Guerriers Fantômes uniquement" },
+    { "item_id": "cape_elfique", "cout": "75+1D6x10", "disponibilite": "Rare 12, Guerriers Fantômes uniquement" },
+    { "item_id": "familier", "cout": "20+1D6", "disponibilite": "Rare 8, Tisseurs d'Ombres uniquement", "profils": ["tisseur_dombres"] }
+  ],
+  "magie": {
+    "nom": "Magie d'Ombre",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["tisseur_dombres"],
+    "note": "La magie qu'emploient les Tisseurs d'Ombres diffère grandement de la haute magie traditionnelle que l'on enseigne à la Tour de Hoeth. Certains sorts indiquent que la cible doit se trouver proche d'un « mur » : cela s'étend à tout élément de décor projetant une ombre de la taille d'un homme.",
+    "sorts": [
+      { "resultat": 1, "nom": "Puits de Ténèbres", "difficulte": 7, "texte": "La zone entourant le sorcier est soudainement emplie d'ombres dissimulant tout ce qui se trouve en leur sein. Ce sort permet au sorcier et à tous ceux qui se trouvent dans un rayon de 6ps autour de lui de se cacher, exactement comme si un mur se trouvait entre eux et leurs adversaires. Ils peuvent se cacher même après avoir couru. L'effet est interrompu si un ennemi entre dans la zone d'effet. De plus, ceux qui sont affectés comptent comme étant à couvert contre les tirs ennemis. Ce sort dure jusqu'au début du tour suivant du Tisseur d'Ombres." },
+      { "resultat": 2, "nom": "Ombres Vivantes", "difficulte": 7, "texte": "Les ombres autour de la victime s'animent et se déplacent pour la frapper. Le Tisseur d'Ombres peut lancer ce sort sur n'importe quelle figurine ennemie dans un rayon de 12ps autour de lui, et à moins de 2ps d'un mur. La cible subit une seule touche de Force 4 sans sauvegarde d'armure possible." },
+      { "resultat": 3, "nom": "Ailes de la Nuit", "difficulte": 6, "texte": "Des ailes ténébreuses se déploient dans le dos du Tisseur d'Ombres. Il disparaît pour réapparaître au sein des ombres proches. Ce sort ne peut être lancé que si le sorcier est à moins de 2ps d'un mur. Il est immédiatement déplacé jusqu'à 12ps de distance, à un endroit se trouvant également à moins de 2ps d'un mur. S'il se retrouve en contact avec une figurine ennemie, le Tisseur d'Ombres compte comme ayant chargé durant le premier tour de combat." },
+      { "resultat": 4, "nom": "Cape de Ténèbres", "difficulte": 7, "texte": "Le Tisseur d'Ombres semble avalé par des ténèbres impénétrables. Le Tisseur d'Ombres se dissimule à la vue de l'ennemi. Tant qu'il n'attaque pas de figurine ennemie (en lançant des sorts, tirant ou engageant l'ennemi au corps à corps), il ne peut pas être attaqué. Il peut intercepter normalement, mais n'est pas obligé de le faire (et s'il ne le fait pas, les guerriers ennemis peuvent bien sûr le dépasser lors de leur charge). L'effet dure jusqu'à ce que le Tisseur d'Ombres attaque une figurine ennemie. Une figurine engagée au corps à corps ne peut jamais choisir de ne pas attaquer." },
+      { "resultat": 5, "nom": "Théâtre d'Ombres", "difficulte": 9, "texte": "Des tentacules noirs comme la nuit jaillissent des ténèbres pour se saisir d'un guerrier ennemi, le plaçant à la merci du sorcier. Le Tisseur d'Ombres peut lancer ce sort contre toute figurine adverse dans un rayon de 24ps autour de lui et à moins de 2ps d'un mur. La cible ne peut pas se déplacer à moins de réussir un test de Force sur 2D6 au début de son tour (avant la phase de ralliement). Ce sort dure jusqu'à ce que le Tisseur d'Ombres subisse une blessure ou tente de lancer un autre sort. Si elle est attaquée alors qu'elle est sous l'effet du sort, la victime est traitée exactement comme si elle était sonnée." },
+      { "resultat": 6, "nom": "Bouclier d'Ombres", "difficulte": 7, "texte": "Les ombres forment une barrière protectrice devant le sorcier ou un de ses camarades. Le Tisseur d'Ombres peut lancer ce sort sur lui-même ou un membre de sa bande se trouvant à moins de 12ps de lui. La cible bénéficie d'une sauvegarde d'armure de 5+ non modifiée par la Force de l'attaquant. Le sort dure jusqu'au début du tour suivant du Tisseur d'Ombres." }
+    ]
+  }
+}
