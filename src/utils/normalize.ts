@@ -71,6 +71,7 @@ export function normaliserRoster(roster: Partial<RosterInstance>): RosterInstanc
     leader_instance_id: roster.leader_instance_id,
     profils_bannis: roster.profils_bannis ?? [],
     tribu: roster.tribu,
+    effets_persistants: roster.effets_persistants ?? [],
     createdAt: roster.createdAt ?? now,
     updatedAt: roster.updatedAt ?? now,
   };

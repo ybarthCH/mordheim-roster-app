@@ -7,7 +7,7 @@ import { getCatalogue } from '../../data/warbands';
 import { resolveProfil, nombreHeros, nomAffiche } from '../../utils/profil';
 import { equitationGratuitePourTribu } from '../../utils/tribu';
 import type { Stats } from '../../types/catalog';
-import type { BattleRecord, JournalPostBataille, Member, SeriousInjuryEffect } from '../../types/roster';
+import type { BattleRecord, JournalPostBataille, Member, RosterInstance, SeriousInjuryEffect } from '../../types/roster';
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 import { appliquerDeltaStats } from '../../utils/blessures';
 import { creerEntreeInventaire } from '../../utils/shop';
@@ -35,6 +35,7 @@ import { resumeExploration } from '../../utils/exploration';
 import { COUT_DOCTEUR } from '../../utils/docteur';
 import { effectifTotal } from '../../utils/bandeValue';
 import { prixVenteWyrdstone } from '../../data/tableVenteWyrdstone';
+import { CLE_DE_SUPPLEMENTAIRE_EXPLORATION } from '../../utils/effetsPersistants';
 
 const ETAPES = [
   'Bataille',
@@ -464,6 +465,13 @@ export function PostBatailleScreen() {
     updateRoster({ ...roster, tresorerie: roster.tresorerie + montant });
   };
 
+  // Fusion générique d'un patch dans la bande, appliqué immédiatement — pour
+  // les résolutions d'événement d'exploration qui touchent autre chose que
+  // la trésorerie ou le stock (ex : Puits, Vagabond).
+  const majRosterExploration = (patch: Partial<RosterInstance>) => {
+    updateRoster({ ...roster, ...patch });
+  };
+
   const heroCount = nombreHeros(roster);
 
   // Avancée résolue depuis l'étape Gain d'expérience : même mécanique que
@@ -700,6 +708,11 @@ export function PostBatailleScreen() {
         ? `${roster.equipement_reserve}${roster.equipement_reserve ? '\n' : ''}${notesExploration.trim()}`
         : roster.equipement_reserve,
       historique_batailles: [...roster.historique_batailles, bataille],
+      // Le bonus de dé(s) d'exploration en attente (ex : Vagabond interrogé)
+      // vient d'être utilisé pour cette phase d'exploration — consommé.
+      effets_persistants: (roster.effets_persistants ?? []).filter(
+        (e) => e.cle !== CLE_DE_SUPPLEMENTAIRE_EXPLORATION
+      ),
     });
     navigate(`/roster/${roster.id}`);
   };
@@ -773,6 +786,7 @@ export function PostBatailleScreen() {
           onPointsVeteranChange={setPointsVeteran}
           onAchatStock={ajouterAuStock}
           onAjouterOr={ajouterOrExploration}
+          onMajRoster={majRosterExploration}
           resumeExploration={exploration}
         />
       )}

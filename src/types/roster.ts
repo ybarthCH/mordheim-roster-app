@@ -284,6 +284,29 @@ export type RosterInstance = {
   // WarbandCatalog.tribus, ex : Maraudeurs du Chaos) — référence vers
   // Tribu.id. Fixé une fois pour toutes, jamais modifié ensuite.
   tribu?: string;
+  // Effets à retardement qui doivent survivre au-delà de la session
+  // post-bataille courante (bonus au prochain jet d'exploration, franc-tireur
+  // engagé gratuitement en attendant l'entretien suivant, jauge cumulative
+  // type Œil des Dieux Sombres...) — voir utils/effetsPersistants.ts. Tout
+  // état qui doit être retrouvé lors d'un post-bataille ultérieur doit
+  // transiter par ce tableau plutôt que par un champ ad hoc.
+  effets_persistants?: EffetPersistant[];
   createdAt: string;
   updatedAt: string;
+};
+
+export type EffetPersistant = {
+  id: string;
+  // Identifiant du type d'effet (voir les constantes CLE_* de
+  // utils/effetsPersistants.ts) — sert à retrouver/filtrer les effets d'une
+  // même nature sans dépendre du texte affiché.
+  cle: string;
+  // Texte affiché sur la fiche de bande / dans les rappels post-bataille.
+  label: string;
+  // Compteur ou jauge éventuelle (ex : nombre de dés bonus).
+  valeur?: number;
+  // instance_id d'un membre, si l'effet cible une figurine précise plutôt
+  // que la bande entière (ex : franc-tireur engagé gratuitement).
+  cible?: string;
+  notes?: string;
 };
