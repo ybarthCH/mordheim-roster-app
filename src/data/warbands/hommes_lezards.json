@@ -1,0 +1,196 @@
+{
+  "id": "hommes_lezards",
+  "nom": "Hommes-Lézards (1b)",
+  "grade": "1b",
+  "source": "Town Cryer #11 — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Peau écailleuse", "texte": "Tous les Hommes-Lézards ont une peau écailleuse qui leur confère une sauvegarde d'armure : 6+ pour les Skinks, 5+ pour les Saurus et 4+ pour les Kroxigors. Les malus imposés aux sauvegardes ne peuvent pas modifier celles-ci au-delà de 6+, mais un résultat « aucune sauvegarde » sur le Tableau des Coups Critiques les annulera. Les armures légères et les boucliers ajoutent un bonus de +1 à ces sauvegardes." },
+    { "nom": "Armure", "texte": "Les armures sont rares dans les sociétés hommes-lézards, une armure légère coûtera donc toujours 50 Couronnes d'Or, même si elle est achetée à partir de la liste d'équipement." },
+    { "nom": "Morsure", "texte": "Les Saurus ont de puissantes mâchoires et peuvent mordre au corps à corps. Ils ont donc une attaque supplémentaire résolue avec la Force de leur profil et qui ne subit pas le malus pour le combat sans arme. Cette attaque est toujours effectuée en dernier, que le Saurus ait chargé ou non et quelles que soient les armes employées (y compris les armes à deux mains)." },
+    { "nom": "Sang-froid", "texte": "Tous les Hommes-Lézards sont lents à réagir. En raison de ce flegme, ils peuvent jeter 3D6 et ne garder que les deux plus petits résultats lors de leurs tests de Psychologie ou de Déroute. Une bande d'Hommes-Lézards ne peut pas utiliser le Commandement d'un Saurus ou d'un Kroxigor pour ses tests de Déroute." },
+    { "nom": "Aquatiques", "texte": "Les Skinks peuvent se déplacer dans les Terrains Aquatiques sans pénalités et sont considérés comme étant à couvert dans tout Terrain de ce type." },
+    { "nom": "Créatures de la jungle", "texte": "Les Skinks peuvent se déplacer dans la jungle sans pénalités." },
+    { "nom": "Rareté des Saurus", "texte": "Les prêtres mages slanns n'incluent jamais plus d'Hommes de main Saurus que d'Hommes de main Skinks dans une bande. Vous ne pouvez pas le faire non plus." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 20,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "pretre_skink",
+      "nom": "Prêtre Skink",
+      "type": "heros",
+      "groupe_caracteristiques": "hommes_lezards_skinks",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 60,
+      "xp_depart": 20,
+      "stats": { "M": 6, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 5, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "En tant que Chef, le Prêtre Skink peut faire bénéficier de son Commandement tout Homme-Lézard effectuant un test de Cd à 6ps ou moins de lui. Si le Prêtre Skink est tué, vous pouvez en recruter un autre, mais vous devez jouer au moins une partie sans chef, le temps qu'il rejoigne la bande." },
+        { "nom": "Sorcier", "texte": "Les Prêtres Skinks sont des sorciers et peuvent utiliser la magie des Hommes-Lézards." }
+      ],
+      "acces_competences": ["academique", "vitesse", "special"],
+      "acces_equipement": ["skinks"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "guerrier_totem_saurus",
+      "nom": "Guerrier Totem Saurus",
+      "type": "heros",
+      "groupe_caracteristiques": "hommes_lezards_saurus",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 60,
+      "xp_depart": 11,
+      "stats": { "M": 4, "CC": 4, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 2, "A": 2, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Totem", "texte": "Lorsqu'un guerrier saurus a tué vingt ennemis, il est accepté au sein de l'un des trois Totems Guerriers : Aigle, Jaguar ou Alligator. Mais, auparavant, il doit chasser et tuer lui-même son animal totem pour prouver sa valeur. Une fois intégré dans l'un de ces groupes prestigieux, il sera choisi par les Prêtres Skinks pour participer à la protection des temples." },
+        { "nom": "Attaques", "texte": "Son profil de base (A1) est augmenté de +1 grâce à son statut de Guerrier Totem, imprimé A1+1 dans les règles originales." }
+      ],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["saurus"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "skink_a_grande_crete",
+      "nom": "Skink à Grande Crête",
+      "type": "heros",
+      "groupe_caracteristiques": "hommes_lezards_skinks",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 30,
+      "xp_depart": 8,
+      "stats": { "M": 6, "CC": 3, "CT": 3, "F": 3, "E": 2, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "acces_competences": ["tir", "vitesse", "special"],
+      "acces_equipement": ["skinks"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "skink",
+      "nom": "Skink",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "hommes_lezards_skinks",
+      "min": 0,
+      "max": null,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 2, "CT": 3, "F": 3, "E": 2, "PV": 1, "I": 4, "A": 1, "Cd": 6 },
+      "acces_competences": [],
+      "acces_equipement": ["skinks"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "saurus",
+      "nom": "Saurus",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "hommes_lezards_saurus",
+      "min": 0,
+      "max": 4,
+      "cout": 40,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 1, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Rareté des Saurus", "texte": "Il n'est pas possible d'avoir plus d'Hommes de main Saurus que d'Hommes de main Skinks dans une bande." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["saurus"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "kroxigor",
+      "nom": "Kroxigor",
+      "type": "animal",
+      "min": 0,
+      "max": 1,
+      "cout": 200,
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 3, "CT": 0, "F": 5, "E": 4, "PV": 3, "I": 1, "A": 3, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Équipement", "texte": "Un Kroxigor n'a accès à aucune liste d'équipement mais, contrairement à l'usage, est recruté avec une hallebarde. Les attaques réalisées avec cette arme sont donc résolues avec F6." },
+        { "nom": "Aquatique", "texte": "Le Kroxigor se déplace à travers les Terrains Aquatiques sans pénalités. Lorsqu'il se trouve dans de tels Terrains, il compte comme étant à couvert." },
+        { "nom": "Provoque la Peur", "texte": "Comme tout monstre de grande taille qui se respecte, un Kroxigor provoque la peur." },
+        { "nom": "Grand", "texte": "En raison de sa taille importante, le Kroxigor peut toujours être pris pour cible par un tireur, même si d'autres cibles sont plus proches de celui-ci." },
+        { "nom": "Animal", "texte": "Le Kroxigor est si peu intelligent qu'il ne peut bénéficier d'aucun apprentissage. Il ne gagne donc aucun point d'expérience." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "infiltration_skink", "nom": "Infiltration", "reserve_a": "Skinks uniquement", "texte": "Ce Skink peut s'approcher discrètement de ses ennemis. En début de partie, vous pouvez le placer n'importe où sur la table, pourvu qu'il soit caché et à plus de 12ps de tout ennemi." },
+    { "id": "grand_chasseur", "nom": "Grand Chasseur", "reserve_a": "Skink à Grande Crête uniquement", "texte": "Ce Skink à Grande Crête est un excellent chasseur et utilise le couvert disponible avec le maximum d'efficacité. S'il est à couvert, le malus pour le toucher au tir passe de -1 à -2." },
+    { "id": "cri_de_guerre_saurus", "nom": "Cri de Guerre", "reserve_a": "Saurus uniquement", "texte": "Le cri de guerre du Saurus est assourdissant. Les ennemis au contact socle à socle avec lui subissent un malus de -1 sur leurs jets pour toucher au premier tour de corps à corps." },
+    { "id": "peau_de_bois", "nom": "Peau de Bois", "reserve_a": "Saurus uniquement", "texte": "Au cours des années, la peau écailleuse du Saurus s'est renforcée et a durci. Il ne sera mis hors de combat que sur un résultat de 6+ sur 1D6." },
+    { "id": "glandes_a_venin", "nom": "Glandes à Venin", "reserve_a": "Marque Sacrée — Skinks uniquement", "texte": "Le Skink possède des glandes sublinguales qui sécrètent un poison mortel (40 CO). Le Skink peut effectuer tout ou partie de ses attaques en mordant, plutôt qu'avec ses armes. Ces attaques subissent un modificateur de sauvegarde d'armure de +1, quelle que soit la Force du Skink. Cependant, elles ne subissent pas le malus pour le combat sans arme et, en cas de Blessure, ont un bonus de +1 sur le Tableau des Dégâts. Ces attaques sont toujours effectuées en dernier, que le Skink ait chargé ou non et quelles que soient les armes employées (y compris les armes à deux mains)." },
+    { "id": "gueule_enorme", "nom": "Gueule Énorme", "reserve_a": "Marque Sacrée — Saurus uniquement", "texte": "Le Saurus a des mâchoires hypertrophiées et de puissants muscles maxillaires (40 CO). En conséquence, son attaque de morsure est résolue avec un bonus de Force de +1." },
+    { "id": "marque_des_anciens", "nom": "Marque des Anciens", "reserve_a": "Marque Sacrée — acquise uniquement au recrutement d'un Héros né avec", "texte": "La plus prestigieuse marque avec laquelle un Homme-Lézard puisse naître (50 CO). Ces albinos ont une grande destinée aux yeux de leurs dieux et des autres Hommes-Lézards. Le Héros peut transformer l'un de ses jets de dés ratés en un jet réussi. Cette marque ne peut être utilisée qu'une fois par bataille et uniquement sur les actions du Héros. Vous pouvez utiliser cette marque sur un test de Déroute raté si vous le souhaitez." }
+  ],
+  "equipement": {
+    "skinks": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Hache de pierre" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10, "restriction": "Héros uniquement" }
+      ],
+      "armes_tir": [
+        { "item_id": "arc_court", "cout": 5 },
+        { "item_id": "bolas", "cout": 5 },
+        { "item_id": "javelots", "cout": 10 },
+        { "item_id": "couteau_de_cuisine", "cout": 15, "note": "Couteaux de lancer" },
+        { "item_id": "sarbacane", "cout": 25 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10, "note": "Heaume d'os — Prêtre Skink uniquement" },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 }
+      ]
+    },
+    "saurus": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Hache de pierre" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 50 },
+        { "item_id": "casque", "cout": 10, "note": "Heaume d'os" },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "venin_fuligineux", "cout": 20, "disponibilite": "Héros Skinks uniquement, utilisable seulement avec des armes de tir" },
+    { "item_id": "lotus_noir", "cout": 10, "disponibilite": "Héros Skinks uniquement, utilisable seulement avec des armes de tir" },
+    { "item_id": "venin_de_reptile", "cout": 5, "disponibilite": "Commun pour une bataille, Hommes de main Skinks uniquement — +1 Force, aucun malus de sauvegarde" },
+    { "item_id": "sarbacane", "cout": 25, "disponibilite": "Rare 7, Skinks uniquement" },
+    { "item_id": "bolas", "cout": 5, "disponibilite": "Commun, Skinks uniquement" }
+  ],
+  "magie": {
+    "nom": "Magie des Hommes-Lézards",
+    "type": "prières",
+    "de": "D6",
+    "utilisateurs": ["pretre_skink"],
+    "note": "La magie des Hommes-Lézards fonctionne comme les prières de Sigmar et le Prêtre Skink peut y faire appel, même s'il porte des pièces d'armure.",
+    "sorts": [
+      { "resultat": 1, "nom": "Colère de Chotec", "difficulte": 8, "texte": "Un éclair tombe du ciel et frappe l'ennemi le plus proche à moins de 10ps du Prêtre Skink, lui infligeant une touche de Force 5. Si la cible porte une armure (légère, lourde, gromril, etc.), augmentez la Force de +1 et ajoutez +1 au résultat du jet sur le tableau de Dégâts." },
+      { "resultat": 2, "nom": "Bénédiction de Sotek", "difficulte": 7, "texte": "Ce sort peut être lancé sur une figurine à moins de 6ps du Prêtre Skink ou sur lui-même. Jetez 1D6 pour déterminer la nature de la bénédiction (1-2 CT+1 ou +1 pour toucher au corps à corps ; 3-4 Endurance +1 ; 5-6 Mouvement et Initiative +1). Les effets s'appliquent tant que le Prêtre Skink ou la cible n'est pas sonnée ou mise hors de combat. Une seule figurine à la fois peut être sous l'effet de la bénédiction." },
+      { "resultat": 3, "nom": "Furtivité d'Huanchi", "difficulte": 6, "texte": "Ce sort affecte tous les Skinks situés dans un rayon de moins de 6ps du Prêtre Skink, y compris lui-même. Il permet à ceux qui sont à couvert de se cacher immédiatement. Une figurine peut ainsi se cacher, même si elle a couru ou tiré durant ce tour." },
+      { "resultat": 4, "nom": "Protection des Anciens", "difficulte": 4, "texte": "Le Prêtre Skink et tous les Hommes-Lézards dans un rayon de moins de 4ps acquièrent une sauvegarde spéciale de 4+ contre les effets des sorts et prières. Ce sort reste actif tant que le Prêtre n'est pas mis hors de combat." },
+      { "resultat": 5, "nom": "Fureur de Tinci", "difficulte": 8, "texte": "Le Prêtre Skink, ou une figurine située à moins de 6ps, est submergé par une rage sanguinaire et devient frénétique. Il reçoit en outre un bonus de +1 en Force. Les effets de ce sort s'appliquent tant que le Prêtre Skink n'est pas sonné ou mis hors de combat. De plus, au début de chaque tour, le Prêtre Skink doit réussir un test de Commandement pour le maintenir. Une seule figurine peut être sous l'effet de ce sort à un instant donné, mais le Prêtre Skink peut l'interrompre au début du tour pour le lancer sur une autre cible pendant la phase de Tir." },
+      { "resultat": 6, "nom": "Célérité d'Itzl", "difficulte": 7, "texte": "Ce sort peut être lancé sur une figurine à moins de 6ps du Prêtre Skink ou sur lui-même. La cible peut faire un Mouvement supplémentaire de 4ps. Ceci compte comme une course et la figurine ne peut pas bouger si elle a déjà utilisé une arme de jet durant le tour. Il n'est pas possible de charger en utilisant ce déplacement magique." }
+    ]
+  }
+}

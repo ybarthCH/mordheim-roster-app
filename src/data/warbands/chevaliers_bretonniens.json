@@ -1,0 +1,191 @@
+{
+  "id": "chevaliers_bretonniens",
+  "nom": "Chevaliers Bretonniens (1b)",
+  "grade": "1b",
+  "source": "Town Cryer #8 — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Dame du Lac", "texte": "Avant d'engager une bataille, les Chevaliers Bretonniens s'agenouillent et prient la Dame du Lac, jurant de se battre jusqu'à la mort pour l'honneur et la justice. Avant de commencer la partie, faites un test de Commandement avec le Cd du Chef de bande. Si le test est réussi, la Dame du Lac a accordé sa bénédiction à la bande. Celle-ci prend la forme d'une puissante malédiction qui s'abat sur les ennemis de la chevalerie et tout particulièrement sur ceux qui font usage d'armes de destruction massive, immondes et déshonorantes. Toute figurine ennemie qui désire utiliser une arme à feu doit réussir un jet de 4+ avec 1D6 pour passer outre la malédiction. En cas d'échec, elle ne peut pas tirer. Le test doit être effectué à chaque fois qu'un ennemi désire utiliser une de ses armes. Les figurines armées d'autres armes de tir telles que des arcs ou des arbalètes n'ont pas à effectuer ce test, à moins qu'elles ne visent un Chevalier Bretonnien (Chevalier de la Quête et Chevaliers errants uniquement)." },
+    { "nom": "Équitation", "texte": "Toute figurine équipée de base d'une monture est considérée comme ayant déjà la compétence équitation spécifique à sa monture. Ainsi, à la création de la bande, tout Chevalier doté d'un destrier ou Écuyer doté d'un cheval gagne la compétence équitation (destrier) ou équitation (cheval), selon le cas." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "chevalier_de_la_quete",
+      "nom": "Chevalier de la Quête",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 80,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Chevalier de la Quête peut utiliser le Commandement de ce dernier pour effectuer ses tests." },
+        { "nom": "Vertu chevaleresque", "texte": "Un Chevalier de la Quête est un guerrier chevaleresque bien au-dessus du guerrier ordinaire. Il ne panique jamais et ne fuit pas le combat. Il n'a donc pas à faire de tests de Seul contre tous." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["chevaliers"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "chevalier_errant",
+      "nom": "Chevalier Errant",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 50,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Vertu chevaleresque", "texte": "Un Chevalier de la Quête est un guerrier chevaleresque bien au-dessus du guerrier ordinaire. Il ne panique jamais et ne fuit pas le combat. Il n'a donc pas à faire de tests de Seul contre tous." },
+        { "nom": "Monture", "texte": "Un Chevalier Errant ne peut pas monter un destrier si le Chevalier de la Quête n'en possède pas déjà un." }
+      ],
+      "acces_competences": ["combat", "vitesse", "special"],
+      "acces_equipement": ["chevaliers"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "ecuyer",
+      "nom": "Écuyer",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 3,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Effectif", "texte": "Vous ne pouvez pas avoir plus d'Écuyers que de Chevaliers dans votre bande." },
+        { "nom": "Monture", "texte": "Un Écuyer ne peut pas monter de cheval, à moins que le Chevalier de la Quête et tous les Chevaliers Errants de la bande ne montent déjà un destrier." }
+      ],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["ecuyers"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "homme_darme_bretonnien",
+      "nom": "Homme d'Arme",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["hommes_darmes"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "archer_bretonnien",
+      "nom": "Archer",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "acces_competences": [],
+      "acces_equipement": ["archers"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "vertu_discipline", "nom": "Vertu de Discipline", "reserve_a": "Héros Chevaliers Bretonniens uniquement, au lieu d'une compétence habituelle", "texte": "Le chevalier éprouve une foi totale envers le code de la chevalerie : il garde son sang-froid face à l'adversité et fait preuve d'une confiance totale quelle que soit la situation. Une fois par bataille, si le Héros n'est pas à terre, sonné ou hors de combat, vous pouvez relancer un test de Déroute raté." },
+    { "id": "vertu_impetuosite", "nom": "Vertu d'Impétuosité", "reserve_a": "Héros Chevaliers Bretonniens uniquement, au lieu d'une compétence habituelle", "texte": "Le chevalier est impatient d'en découdre avec ses adversaires et charge avec un téméraire enthousiasme. Lorsqu'il charge, le Héros ajoute +1D3ps à son Mouvement. Lancez le dé avant de déplacer la figurine." },
+    { "id": "vertu_purete", "nom": "Vertu de Pureté", "reserve_a": "Héros Chevaliers Bretonniens uniquement, au lieu d'une compétence habituelle", "texte": "Le seul objectif du chevalier est de servir la Dame du Lac. La pureté de son cœur et sa discipline le dote d'une force d'esprit lui permettant de résister à la magie de ses ennemis. Tout sort lancé contre le Héros est dissipé sur un résultat de 4+ sur 1D6. C'est une dissipation naturelle due à la piété du Héros." },
+    { "id": "vertu_bravoure", "nom": "Vertu de Bravoure", "reserve_a": "Héros Chevaliers Bretonniens uniquement, au lieu d'une compétence habituelle", "texte": "Le chevalier a fait vœu de combattre les plus grands et les plus puissants adversaires. Plus l'ennemi sera puissant, plus valeureux seront les efforts du chevalier. S'il combat une figurine avec une Force supérieure à la sienne, le Héros peut relancer ses jets pour toucher ratés au corps à corps." },
+    { "id": "vertu_noble_dedain", "nom": "Vertu de Noble Dédain", "reserve_a": "Héros Chevaliers Bretonniens uniquement, au lieu d'une compétence habituelle", "texte": "Le chevalier n'éprouve que du mépris envers les ennemis se cachant derrière des armes déshonorantes. Le Héros est sujet à la haine envers tous les ennemis équipés d'armes de tir." }
+  ],
+  "equipement": {
+    "chevaliers": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Masse" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "morgenstern", "cout": 15 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "lance_de_cavalerie", "cout": 20 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "caparacon_bretonnien", "cout": 30, "restriction": "Destriers uniquement" }
+      ],
+      "divers": [
+        { "item_id": "destriers", "cout": 80 }
+      ]
+    },
+    "ecuyers": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arc_long", "cout": 15 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 }
+      ],
+      "divers": [
+        { "item_id": "cheval", "cout": 40 }
+      ]
+    },
+    "hommes_darmes": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    },
+    "archers": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arc_long", "cout": 15 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "destriers", "cout": 80, "disponibilite": "Rare 11, Humains uniquement" },
+    { "item_id": "cheval", "cout": 40, "disponibilite": "Rare 8, Humains uniquement" },
+    { "item_id": "caparacon_bretonnien", "cout": 30, "disponibilite": "Rare 11, destriers uniquement" }
+  ]
+}
