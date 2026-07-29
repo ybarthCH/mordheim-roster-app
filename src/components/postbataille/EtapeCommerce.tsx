@@ -26,7 +26,6 @@ export type CommerceDraft =
   | {
       action: 'rare';
       statut: 'termine';
-      jet: number;
       rarete: number;
       objetNom: string;
       reussi: boolean;
@@ -178,12 +177,12 @@ export function EtapeCommerce({
               {draft?.action === 'aucune' && <p className="text-sm text-muted mb-0">Aucune action de commerce.</p>}
               {draft?.action === 'rare' && (
                 <p className={`text-sm mb-0 ${draft.reussi ? 'text-success' : 'text-danger'}`}>
-                  Recherche de {draft.objetNom} : 2D6 = {draft.jet} contre Rare {draft.rarete} —{' '}
+                  Recherche de {draft.objetNom} (Rare {draft.rarete}) :{' '}
                   {draft.reussi
                     ? draft.achat
-                      ? `acheté pour ${draft.achat.cout} po et placé dans le stock.`
-                      : 'disponible, mais non acheté.'
-                    : 'indisponible.'}
+                      ? `réussie, acheté pour ${draft.achat.cout} po et placé dans le stock.`
+                      : 'réussie, mais non acheté.'
+                    : 'ratée.'}
                 </p>
               )}
               {draft?.action === 'docteur' && draft.statut === 'paye' && (
