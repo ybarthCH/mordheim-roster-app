@@ -6,6 +6,8 @@ import type { EvenementExploration as Evenement, PalierExploration } from '../..
 import { JetOrButton } from './JetOrButton';
 import { ResolutionPuits } from './ResolutionPuits';
 import { ResolutionVagabond } from './ResolutionVagabond';
+import { ResolutionTaverne } from './ResolutionTaverne';
+import { ResolutionPrisonniers } from './ResolutionPrisonniers';
 
 type Props = {
   roster: RosterInstance;
@@ -115,6 +117,25 @@ export function EvenementExploration({
 
           {evenement.id === 'vagabond' && (
             <ResolutionVagabond
+              roster={roster}
+              catalogue={catalogue}
+              onMajRoster={onMajRoster}
+              onAjouterOr={onAjouterOr}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
+          )}
+
+          {evenement.id === 'taverne' && (
+            <ResolutionTaverne
+              roster={roster}
+              catalogue={catalogue}
+              onAjouterOr={onAjouterOr}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
+          )}
+
+          {evenement.id === 'prisonniers' && (
+            <ResolutionPrisonniers
               roster={roster}
               catalogue={catalogue}
               onMajRoster={onMajRoster}
