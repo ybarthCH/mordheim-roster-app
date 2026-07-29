@@ -1,0 +1,180 @@
+{
+  "id": "tileens",
+  "nom": "Tiléens (1b)",
+  "grade": "1b",
+  "source": "Town Cryer #14 — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Francs-Tireurs", "texte": "Une bande de Tiléens peut utiliser les Francs-Tireurs disponibles pour les bandes de Mercenaires du Livre des Règles de Mordheim, en incluant ceux-ci : Guerrier Fantôme, Chasseur de gros gibier, Arbalétrier Tiléen. Sauf indication contraire, les Francs-Tireurs ne peuvent pas bénéficier des règles spécifiques des cités-états Tiléennes." }
+  ],
+  "tribus": [
+    {
+      "id": "miragliano",
+      "nom": "Miragliano",
+      "texte": "Les Tiléens de Miragliano sont d'une précision mortelle grâce à l'arme officielle de leur cité : l'arbalète. Par conséquent, les Héros de Miragliano ont +1 pour Toucher lorsqu'ils utilisent des arbalètes. Les Tireurs d'Élite ont +1 pour toucher avec n'importe quelle arme de tir. Tous les habitants de Miragliano ont une profonde aversion des Skavens. Cela remonte à l'épidémie de Fièvre Rouge de 1812 CI. durant laquelle les trois quarts des habitants de la cité périrent. Lorsqu'une bande de Miragliano combat des Skavens, elle est affectée par les règles de haine. Les Francs-Tireurs ne sont pas affectés par cette règle (purement indicatif, à appliquer sur table papier)."
+    },
+    {
+      "id": "remas",
+      "nom": "Remas",
+      "texte": "En 1487 CI., une flotte de vaisseaux elfes noirs envahit les côtes de la cité de Remas et depuis, ses habitants ressentent une profonde aversion envers les druchii. Une bande originaire de Remas se battra jusqu'à la mort face à une bande d'Elfes Noirs. Pour représenter ceci, lorsqu'il combat des Elfes Noirs, un joueur de Tiléens de Remas est autorisé à relancer un test de Déroute mais doit conserver le second résultat. Les officiers de Remas sont des individus indéfectibles dont les années d'entraînement ont donné d'excellents commandants. La valeur de Commandement d'un Capitaine, d'un Champion ou d'une Recrue de Remas est toujours d'un point supérieur, quelle que soit la bande adverse (purement indicatif, à appliquer sur la fiche papier)."
+    },
+    {
+      "id": "trantio",
+      "nom": "Trantio",
+      "texte": "Une bande originaire de Trantio sera la mieux équipée et la plus expérimentée des bandes humaines en Lustrie. Pour représenter ceci, une bande de Trantio commencera toujours une partie simple avec 100 Couronnes d'Or supplémentaires et avec une majoration de 20% de la somme prévue pour le recrutement lors d'une campagne en Lustrie (purement indicatif, non automatisé)."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "capitaine",
+      "nom": "Capitaine",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 60,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 2, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "N'importe quel combattant à moins de 6ps du Capitaine peut utiliser le Commandement de ce dernier pour ses tests de Commandement." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_equipement": ["tileens"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "champion",
+      "nom": "Champion",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 35,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["tileens"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "recrue",
+      "nom": "Recrue",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 15,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "acces_competences": ["force", "vitesse"],
+      "acces_equipement": ["tileens"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerrier_tileen",
+      "nom": "Guerrier",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["tileens"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "duelliste",
+      "nom": "Duelliste",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 5,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Cape & dague", "texte": "Les Duellistes sont habiles et combattent en tournoyant autour de leur ennemi, utilisant leur cape ondulante pour le distraire et bloquer ces coups. Les Duellistes sont considérés comme utilisant un bouclier, uniquement au corps à corps." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["tileens"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "tireur_delite",
+      "nom": "Tireur d'Élite",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 7,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["tireurs_delite"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "tileens": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau ou Masse" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "pique_market", "cout": 12 },
+        { "item_id": "morgenstern", "cout": 15 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "rapiere", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "pistolet_de_duel", "cout": 25, "note": "50 CO la paire" },
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arbalete", "cout": 25 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 }
+      ]
+    },
+    "tireurs_delite": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau ou Masse" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "pistolet_de_duel", "cout": 25, "note": "50 CO la paire" },
+        { "item_id": "arc_long", "cout": 15 },
+        { "item_id": "arbalete", "cout": 25 },
+        { "item_id": "arquebuse", "cout": 35 },
+        { "item_id": "long_fusil_du_hochland", "cout": 200 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "pique_market", "cout": 12, "disponibilite": "Rare 7, créatures de taille humaine ou plus grandes uniquement" },
+    { "item_id": "rapiere", "cout": 15, "disponibilite": "Rare 5, Bandits du Hochland, Reiklanders, Marienburgers, Caravane des Marchands et Tiléens uniquement" }
+  ]
+}

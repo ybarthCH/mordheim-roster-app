@@ -348,12 +348,21 @@
     ]
   },
   {
+    "id": "crochet", "nom": "Crochet", "categorie": "divers",
+    "cout": 4, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Pirates uniquement (un seul par figurine)",
+    "acces": ["commun_pirates"], "source": "P (Pirates)", "page": 47,
+    "texte": "Tout Pirate qui a perdu une main ou un bras suite aux Blessures Graves blessure à la main ou blessure au bras peut y adapter un crochet métallique aiguisé. Le détenteur de ce nouveau et élégant dispositif ne peut pas utiliser d'armes à deux mains, mais sera toujours considéré comme équipé d'une arme de corps à corps grâce à cette prothèse. Le crochet est considéré comme une dague. Un nouveau membre de la bande, que ce soit à la création de la bande ou une nouvelle recrue, peut également débuter avec un crochet.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Si le porteur subit une blessure à la main ou une blessure au bras lors de combats ultérieurs, ces Blessures Graves pourront être ignorées sur un jet de 4+ car le coup a été porté sur le crochet." }
+    ]
+  },
+  {
     "id": "jambe_de_bois", "nom": "Jambe de bois", "categorie": "divers",
     "cout": 8, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Pirates uniquement (une seule par figurine)",
     "acces": ["commun_pirates"], "source": "P (Pirates)", "page": 47,
-    "texte": "Tout Pirate ayant subi les Blessures Graves blessure à la jambe ou jambe écrasée peut faire le choix de faire remplacer la jambe estropiée par une solide jambe de bois. Cela réduira son Mouvement (et sa caractéristique de Mouvement maximale) de -1, mais offre une chance que les coups subis frappent sa jambe de bois. Le porteur bénéficie d'un jet de sauvegarde spécial de 6+, utilisable à chaque fois qu'il fait un jet de sauvegarde contre un tir ou un coup porté au corps à corps. Cette sauvegarde n'est pas modifiable et peut être utilisée même si aucun jet de sauvegarde n'est normalement autorisé. Un nouveau membre de la bande, que ce soit à la création de la bande ou une nouvelle recrue, peut également débuter avec un crochet.",
+    "texte": "Tout Pirate ayant subi les Blessures Graves blessure à la jambe ou jambe écrasée peut faire le choix de faire remplacer la jambe estropiée par une solide jambe de bois. Cela réduira son Mouvement (et sa caractéristique de Mouvement maximale) de -1, mais offre une chance que les coups subis frappent sa jambe de bois. Le porteur bénéficie d'un jet de sauvegarde spécial de 6+, utilisable à chaque fois qu'il fait un jet de sauvegarde contre un tir ou un coup porté au corps à corps. Cette sauvegarde n'est pas modifiable et peut être utilisée même si aucun jet de sauvegarde n'est normalement autorisé. Un nouveau membre de la bande, que ce soit à la création de la bande ou une nouvelle recrue, peut également débuter avec une jambe de bois.",
     "regles_speciales": [
-      { "nom": "Effet", "texte": "Si le porteur subit une blessure à la jambe ou jambe écrasée lors de combats ultérieurs, ces Blessures Graves pourront être ignorées sur un jet de 4+ car le coup a été porté sur le crochet." }
+      { "nom": "Effet", "texte": "Si le porteur subit une blessure à la jambe ou jambe écrasée lors de combats ultérieurs, ces Blessures Graves pourront être ignorées sur un jet de 4+ car le coup a été porté sur la jambe de bois." }
     ]
   },
   {

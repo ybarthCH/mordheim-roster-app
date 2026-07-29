@@ -1,0 +1,193 @@
+{
+  "id": "expedition_runique",
+  "nom": "Expédition Runique (1b)",
+  "grade": "1b",
+  "source": "Nemesis Crown — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Difficiles à tuer", "texte": "Les nains sont très coriaces et résilients. Ils ne peuvent donc être mis hors de combat que sur un jet de 6 au lieu de 5-6 sur le tableau des Dégâts. Considérez un jet de 1-2 comme à terre, de 3-5 comme sonné, et de 6 comme hors de combat." },
+    { "nom": "Tête dure", "texte": "Les nains ignorent les règles spéciales des masses, marteaux, etc. Ils ne sont pas faciles à assommer !" },
+    { "nom": "Armure", "texte": "Les nains ne subissent aucune pénalité de Mouvement pour le port d'une armure." },
+    { "nom": "Haine des Orques et des Gobelins", "texte": "Tous les Nains haïssent les Orques et les Gobelins. Voir la section Psychologie des règles de Mordheim pour les détails sur les effets de la haine." },
+    { "nom": "Rancuniers", "texte": "Les nains gardent une vieille rancœur contre les elfes qui date du temps où les deux races se disputaient la suprématie sur le Vieux Monde. Une Bande Naine ne peut jamais inclure de Franc-Tireur Elfe, quel qu'il soit." },
+    { "nom": "Mineurs sans égal", "texte": "Les nains passent leur vie sous terre à la recherche de minerais précieux et sont les meilleurs mineurs du Vieux Monde. Ajoutez +1 au nombre de Trésors trouvés lors du jet pour déterminer la quantité de Trésors en fin de partie." },
+    { "nom": "Suspicieux", "texte": "Les Expéditions Runiques sont détachées des autres bandes Naines en partie multijoueurs. Leurs points de vue sont tellement différents qu'ils ne se feront jamais confiance. Les membres d'une Expédition Runique ne sont jamais considérés comme combattants alliés et vice versa. Cela signifie que les membres d'une bande stopperont la charge d'une autre, qu'ils ne peuvent se soutenir en cas de test de seul contre tous, etc. Ils ne sont pas considérés pas comme des ennemis et peuvent donc se partager le butin d'Exploration en fin de bataille comme d'habitude. Cependant, les deux bandes ne seront jamais amies, ne vous y trompez pas." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "forgerune",
+      "nom": "Forgerune",
+      "type": "heros",
+      "groupe_caracteristiques": "nain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 85,
+      "xp_depart": 20,
+      "stats": { "M": 3, "CC": 5, "CT": 4, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 10 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Forgerune peut utiliser le Commandement de ce dernier pour ses tests." },
+        { "nom": "Graveur de Runes", "texte": "Un Forgerune connaît une Rune Mineure (voir Runes Naines, article non détaillé ici). Elle est déterminée aléatoirement lors de la création de la bande. Il peut inscrire une Rune sur un seul objet porté par un membre de la bande et, s'il réussit, l'objet obtient un bonus pour la durée de la partie. Lorsqu'un Forgerune progresse et gagne une compétence, il peut décider de remplacer l'apprentissage d'une nouvelle compétence par l'apprentissage d'une nouvelle Rune." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "force", "special"],
+      "acces_equipement": ["guerriers_nains"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "apprenti_forgerune",
+      "nom": "Apprenti Forgerune",
+      "type": "heros",
+      "groupe_caracteristiques": "nain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 40,
+      "xp_depart": 0,
+      "stats": { "M": 3, "CC": 3, "CT": 2, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Paire de mains supplémentaire", "texte": "Un Apprenti Forgerune aide son maître à inscrire des runes. Il accomplit également toutes les sales besognes pour permettre au Forgerune de gagner en efficacité. Si la bande compte un Apprenti Forgerune, le Forgerune peut inscrire la Rune sur deux objets au lieu d'un avant chaque bataille." }
+      ],
+      "acces_competences": ["combat", "tir", "force", "special"],
+      "acces_equipement": ["guerriers_nains"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "tueur_de_trolls",
+      "nom": "Tueur de Trolls",
+      "type": "heros",
+      "groupe_caracteristiques": "nain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 50,
+      "xp_depart": 8,
+      "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Vœu de mort", "texte": "Les Tueurs de Trolls cherchent une mort honorable. Ils sont complètement immunisés à la Psychologie et ne feront jamais de test de seul contre tous." },
+        { "nom": "Compétences de Tueur", "texte": "Lorsqu'ils gagnent une nouvelle compétence, les Tueurs de Trolls peuvent choisir l'une des compétences qui leur est spécifique (voir compétences spéciales)." },
+        { "nom": "Restrictions", "texte": "Les Tueurs ne peuvent jamais s'équiper d'armes de tir ou de toute forme d'armure." }
+      ],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["guerriers_nains"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "longues_barbes",
+      "nom": "Longues-Barbes",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "nain",
+      "min": 0,
+      "max": 5,
+      "cout": 50,
+      "xp_depart": 0,
+      "stats": { "M": 3, "CC": 5, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Tenace", "texte": "Les Longues-Barbes ont tout vu au cours de leur longue carrière et ils en sont conscients. Ils ont l'habitude de se battre seuls face à des adversaires surpuissants et ont toujours survécu. De plus, ils sont mieux préparés que les autres et ne laisseront sûrement pas une bande de Gobelins chétifs les décourager. Les Longues-Barbes peuvent donc relancer tous tests de Commandement ratés. Souvenez-vous qu'il est impossible de relancer une relance et que vous devez toujours accepter le second résultat." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["guerriers_nains"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "arbaletrier_nain",
+      "nom": "Arbalétrier Nain",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "nain",
+      "min": 0,
+      "max": 5,
+      "cout": 40,
+      "xp_depart": 0,
+      "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "acces_competences": [],
+      "acces_equipement": ["arbaletriers"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "poil_au_menton",
+      "nom": "Poil-au-Menton",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "nain",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 3, "CC": 3, "CT": 2, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 8 },
+      "acces_competences": [],
+      "acces_equipement": ["guerriers_nains"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerrier_des_clans",
+      "nom": "Guerrier des Clans",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "nain",
+      "min": 0,
+      "max": null,
+      "cout": 40,
+      "xp_depart": 0,
+      "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 9 },
+      "acces_competences": [],
+      "acces_equipement": ["guerriers_nains"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "maitre_des_lames", "nom": "Maître des lames", "reserve_a": "Héros de l'Expédition Runique uniquement", "texte": "Ce Nain est un combattant surdoué qui a affronté sans coup férir des hordes d'Orques et de Gobelins. Lorsqu'il utilise une arme dotée de la règle parade, il peut parer un coup en obtenant un résultat supérieur ou égal au meilleur jet pour toucher adverse, au lieu de strictement supérieur. De plus, si ce combattant manie deux armes dotées de la règle spéciale parade, il peut parer deux attaques (si ses deux résultats sont supérieurs ou égaux aux deux meilleurs jets pour toucher adverses) au lieu d'une seule. Notez que s'il manie deux haches naines, il peut relancer les jets de parade ratés." },
+    { "id": "prospecteur", "nom": "Prospecteur", "reserve_a": "Héros de l'Expédition Runique uniquement", "texte": "Ce Nain est particulièrement doué pour localiser des objets de valeur. Lorsqu'il effectue un jet de dé sur le tableau d'Exploration en fin de partie, le Héros peut modifier un jet de dés de +1/-1." },
+    { "id": "tres_coriace", "nom": "Très coriace", "reserve_a": "Héros de l'Expédition Runique uniquement", "texte": "Les Nains sont des êtres robustes et ce Héros est déterminé, même pour un Nain ! Sur le tableau des Dégâts, un jet de 1-3 est considéré comme à terre, 4-5 comme sonné et 6 comme hors de combat." },
+    { "id": "crane_epais", "nom": "Crâne épais", "reserve_a": "Héros de l'Expédition Runique uniquement", "texte": "Le Héros a une sauvegarde spéciale de 3+ pour éviter d'être sonné. Si la sauvegarde est réussie, considérez que le Héros est à terre. Si le Nain porte également un casque, cette sauvegarde est de 2+ au lieu de 3+ (ce qui remplace la règle spéciale habituelle du casque)." },
+    { "id": "increvable", "nom": "Increvable", "reserve_a": "Héros de l'Expédition Runique uniquement", "texte": "Ce Nain est célèbre pour avoir survécu à des blessures qui auraient terrassé un individu moins résistant. Suite à une partie dans laquelle ce Héros a été mis hors de combat, lorsque vous faites un jet sur le tableau des Blessures Graves, les dés peuvent être relancés une fois. Le résultat de ce second jet de dés doit être accepté, même si les conséquences sont pires." },
+    { "id": "charge_furieuse_tueur", "nom": "Charge furieuse", "reserve_a": "Tueurs de Trolls uniquement", "texte": "Le Tueur de Trolls peut doubler ses attaques lors du tour où il charge. Il subit cependant une pénalité de -1 pour toucher lors de ce tour." },
+    { "id": "tueur_de_monstres", "nom": "Tueur de monstres", "reserve_a": "Tueurs de Trolls uniquement", "texte": "Le Tueur de Trolls Blesse toujours ses adversaires sur un 4+ sur 1D6, sans tenir compte de l'Endurance, à moins que sa propre Force (avec les modificateurs d'armes) ne lui permette de blesser plus facilement." },
+    { "id": "berserk_tueur", "nom": "Berserk", "reserve_a": "Tueurs de Trolls uniquement", "texte": "Le Tueur de Trolls ajoute +1 à ses jets pour toucher durant le tour où il charge." }
+  ],
+  "equipement": {
+    "guerriers_nains": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau ou Masse" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "hache_naine", "cout": 15 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "armure_en_gromril_market", "cout": 75, "note": "prix réduit pour une bande débutante" },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    },
+    "arbaletriers": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau ou Masse" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "arbalete", "cout": 25 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "hache_naine", "cout": 15, "disponibilite": "Rare 8, Nains uniquement" }
+  ]
+}

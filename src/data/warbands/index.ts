@@ -9,9 +9,12 @@ import carnival_of_chaos from './carnival_of_chaos.json';
 import chevaliers_bretonniens from './chevaliers_bretonniens.json';
 import cult_of_the_possessed from './cult_of_the_possessed.json';
 import dwarf_treasure_hunters from './dwarf_treasure_hunters.json';
+import elfes_noirs from './elfes_noirs.json';
+import expedition_runique from './expedition_runique.json';
 import gardiens_de_chapelle_bretonniens from './gardiens_de_chapelle_bretonniens.json';
 import gladiateurs from './gladiateurs.json';
 import gobelins_de_la_nuit from './gobelins_de_la_nuit.json';
+import guerriers_fantomes from './guerriers_fantomes.json';
 import hommes_lezards from './hommes_lezards.json';
 import hors_la_loi_de_stirwood from './hors_la_loi_de_stirwood.json';
 import kislevites from './kislevites.json';
@@ -26,10 +29,12 @@ import norses from './norses.json';
 import orc_mob from './orc_mob.json';
 import orques_noirs from './orques_noirs.json';
 import ostlanders from './ostlanders.json';
+import pirates from './pirates.json';
 import reiklanders from './reiklanders.json';
 import sisters_of_sigmar from './sisters_of_sigmar.json';
 import skaven from './skaven.json';
 import skavens_pestilens from './skavens_pestilens.json';
+import tileens from './tileens.json';
 import undead from './undead.json';
 import witch_hunters from './witch_hunters.json';
 
@@ -43,9 +48,12 @@ export const CATALOGUES: WarbandCatalog[] = [
   chevaliers_bretonniens,
   cult_of_the_possessed,
   dwarf_treasure_hunters,
+  elfes_noirs,
+  expedition_runique,
   gardiens_de_chapelle_bretonniens,
   gladiateurs,
   gobelins_de_la_nuit,
+  guerriers_fantomes,
   hommes_lezards,
   hors_la_loi_de_stirwood,
   kislevites,
@@ -60,10 +68,12 @@ export const CATALOGUES: WarbandCatalog[] = [
   orc_mob,
   orques_noirs,
   ostlanders,
+  pirates,
   reiklanders,
   sisters_of_sigmar,
   skaven,
   skavens_pestilens,
+  tileens,
   undead,
   witch_hunters,
 ] as unknown as WarbandCatalog[];

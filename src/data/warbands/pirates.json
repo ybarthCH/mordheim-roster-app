@@ -1,0 +1,214 @@
+{
+  "id": "pirates",
+  "nom": "Pirates (1b)",
+  "grade": "1b",
+  "source": "Town Cryer #9 — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Francs-Tireurs", "texte": "Sauf indication contraire, les bandes de Pirates ont accès aux mêmes Francs-Tireurs et objets qu'une bande de Mercenaires humains. Il en va de même pour les règles usuelles. Les Pirates doivent cependant payer un supplément de +20 CO de solde si elles comptent à la fois des Nains et des Elfes dans la même bande (le navire n'est pas si grand, et l'espace restreint les rend plus irritables que d'habitude !)." },
+    { "nom": "Enrôlés en partie unique", "texte": "Lors d'une partie unique, une bande de Pirates commence avec 2 Enrôlés gratuits !" },
+    { "nom": "Succession", "texte": "Si le Capitaine est tué, l'un des Quartiers-Maîtres prend la relève de la même manière qu'un Champion prendrait la tête d'une bande de Mercenaires." },
+    { "nom": "Enrôlement", "texte": "Les bandes de Pirates peuvent « recruter » de nouveaux membres pour rejoindre la trépidante vie de pirate, parfois de leur plein gré, mais plus souvent comme alternative à la planche ! Seuls les Héros ou Hommes de main humains peuvent être recrutés de cette manière. Tout Héros humain d'une bande qui affronte des Pirates et qui obtient le résultat Capturé (61) sur le Tableau des Blessures Graves peut se voir « offrir » une place dans l'équipage (le plus souvent sous la menace d'un sabre !). Chaque joueur lance 2D6, le joueur Pirate ajoute le Commandement de son Capitaine et l'adversaire ajoute le Cd du Héros capturé. Si l'un des camps a remporté la partie, il peut ajouter +1 à son résultat. Si le joueur Pirate obtient le résultat le plus haut, le Héros renonce à son ancienne vie et devient un Matelot (compétences et caractéristiques modifiées pour correspondre à celles d'un Matelot de base, ou à celles de ses nouveaux compagnons d'équipage s'il rejoint un groupe existant). Si le Héros obtient le résultat le plus haut, il résiste au chant des sirènes et devient un Enrôlé (dépouillé de son équipement et de ses armes, mais conserve ses compétences et ses caractéristiques d'origine). Les Hommes de main humains ennemis mis hors de combat pendant une partie gagnée par les Pirates (résultat 1-2 sur le jet de Blessure Grave) ont également une chance de rejoindre l'équipage, selon une procédure similaire. Cette règle n'est pas automatisée dans l'application : elle se résout entièrement sur table papier, en accord avec l'adversaire, et le membre obtenu doit être ajouté manuellement à la bande (comme Enrôlé ou Matelot selon le résultat)." },
+    { "nom": "Vagabonds et Prisonniers", "texte": "Sur le Tableau d'Exploration, si les Pirates tombent sur le résultat (4.4) Vagabonds ou (3.3.3) Prisonniers au cours de leurs fouilles, il se peut qu'ils acceptent de s'embarquer sur le Jolly Roger et de rejoindre l'équipage comme Enrôlé ou Matelot, selon une procédure alternative à celle utilisée pour recruter un franc-tireur classique. Non automatisé — à résoudre sur table papier." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "capitaine_pirate",
+      "nom": "Capitaine Pirate",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 60,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "N'importe quel Pirate à moins de 6ps du Capitaine Pirate peut utiliser le Cd de ce dernier pour ses tests de Commandement." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse", "special"],
+      "acces_equipement": ["pirates"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "quartier_maitre",
+      "nom": "Quartier-Maître",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 35,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": ["combat", "tir", "force", "special"],
+      "acces_equipement": ["pirates"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "mousse",
+      "nom": "Mousse",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "acces_competences": ["combat", "tir", "vitesse", "special"],
+      "acces_equipement": ["pirates"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "matelot",
+      "nom": "Matelot",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["pirates"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "artilleur",
+      "nom": "Artilleur",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 7,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Les pierriers, c'est dangereux mon gars !", "texte": "Les Artilleurs sont reconnus comme faisant partie des pirates les plus courageux en raison de leur proximité avec les armes à poudre noire. Mais même entre eux, ils sont admiratifs de ceux qui osent emporter un pierrier au combat. En général, ils restent à bonne distance car même eux ne peuvent pas être sûrs du moment où il va exploser. Si une bande de Pirates comprend un pierrier, l'Artilleur qui le manie sera toujours considéré comme un groupe d'Hommes de main à lui seul et ne pourra jamais avoir quelqu'un d'autre avec lui. Comme une bande de Pirates ne peut avoir qu'un seul pierrier, si un Artilleur en est équipé, il doit soit être une nouvelle recrue, soit être séparé d'un groupe d'Hommes de main existant. Dans ce dernier cas, il conserve toute l'expérience et toutes les compétences qu'il avait acquises." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["artilleurs"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "bosco",
+      "nom": "Bosco",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 5,
+      "cout": 32,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Gréeurs experts", "texte": "Les Boscos sont hautement qualifiés dans l'utilisation de leurs cordes car ils entretiennent le réseau complexe de gréements du navire. Ils peuvent relancer les tests d'Initiative ratés lorsqu'ils sautent par-dessus un vide, font une charge plongeante ou lorsqu'ils grimpent ou descendent à l'aide d'une corde." },
+        { "nom": "Corde & grappin", "texte": "Les Boscos commencent avec une corde & grappin et peuvent s'équiper d'armes et d'armures choisies dans la liste d'équipement des Pirates. Notez qu'ils ne peuvent jamais vendre ou donner leur corde & grappin !" }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["pirates"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "enrole",
+      "nom": "Enrôlé",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 5,
+      "cout": 0,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Non recruté", "texte": "Les Enrôlés ne sont pas recrutés contre Couronnes d'Or : ils rejoignent la bande via la règle spéciale Enrôlement (Héros ou Homme de main ennemi capturé) ou via les résultats Vagabonds/Prisonniers du Tableau d'Exploration — voir Règles Spéciales des Pirates. Ce profil est fourni ici pour l'enregistrer manuellement dans la bande une fois la procédure résolue sur table papier." },
+        { "nom": "Ne gagne jamais d'expérience", "texte": "De manière générale, les Enrôlés n'ont pas envie de prouver leur valeur aux membres de l'équipage. Ils ne sont intéressés que par leur survie et, si possible, par une évasion !" },
+        { "nom": "Racaille", "texte": "Les Enrôlés n'ont pas besoin d'être tous armés de la même façon. Chacun d'entre eux peut recevoir un équipement différent, tant qu'il figure dans la liste d'équipement des Enrôlés. Les Enrôlés ne peuvent jamais utiliser la magie ou lancer des sorts d'une manière ou d'une autre, quels que soient leurs antécédents ou capacités d'origine." },
+        { "nom": "Mille sabords, ils ont pris les voiles !", "texte": "Si la bande de Pirates subit une Déroute, tous les Enrôlés qui ont quitté la table lors des tours précédents sont présumés avoir réussi à s'enfuir et l'on ne les reverra plus jamais. Retirez-les de votre feuille de bande comme s'ils étaient morts." },
+        { "nom": "Faites pas gaffe à eux les gars, c'est pas des vrais pirates !", "texte": "Le reste de l'équipage remarquera à peine si un Enrôlé s'enfuit ou est mis hors d'état de nuire ; ils savent qu'ils le retrouveront tôt ou tard et lui donneront 30 coups de fouet s'il a de la chance ! Les Enrôlés qui fuient ou qui sont mis hors de combat ne sont pas pris en compte dans le calcul du seuil de test de Déroute." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["enroles"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "interprete_de_chants_marins", "nom": "Interprète de chants marins", "reserve_a": "Héros Pirates uniquement", "texte": "Sur toutes les mers, le pirate est réputé comme étant l'un des plus grands chanteurs sur les planches d'un navire, capable de remonter le moral de n'importe quel équipage avec leur interprétation entraînante de chansons de pirates. Au début de sa phase de Corps à corps, le Héros peut soudainement se mettre à chanter, distrayant un adversaire de son choix en contact socle à socle. Cet ennemi doit réussir un test de Commandement, ou perdre 1 Attaque pendant ce tour. N'affecte pas les Morts-Vivants ou autres créatures non vivantes, comme les Possédés." },
+    { "id": "constitution_solide", "nom": "Constitution solide", "reserve_a": "Héros Pirates uniquement", "texte": "De nombreux mois passés en mer à manger du biscuit de mer ont endurci le corps du pirate alors qu'un homme moins endurant se serait effondré. Durant la bataille, le Pirate peut ignorer tout Coup Critique sur un jet de 5+ avec 1D6 (en cas de réussite, la Blessure est traitée normalement). Si le jet est raté, le Coup Critique est appliqué." },
+    { "id": "voix_tonitruante", "nom": "Voix tonitruante", "reserve_a": "Capitaine Pirate uniquement", "texte": "Le capitaine a connu de nombreuses batailles, beuglant des ordres à son équipage, hurlant par-dessus le rugissement des canons et des cris ennemis. Une fois par tour, le Capitaine Pirate peut hurler des encouragements (ou des menaces) à l'un de ses Pirates dans un rayon de 8ps qui vient d'échouer à un test dont le résultat aboutit à la fuite du combat, ou à un test de Ralliement. Ce Pirate peut alors refaire son test. Ceci ne peut être fait que si le Capitaine Pirate est debout sans être engagé au corps à corps." },
+    { "id": "pied_marin", "nom": "Pied marin", "reserve_a": "Héros Pirates uniquement", "texte": "Même sur les mers les plus fortes, le pirate a appris à garder ses appuis et son équilibre. Pendant un combat, si le Héros chute, il peut ignorer les 1D3 touches sur un résultat de 4+ avec 1D6 (faire un seul jet pour l'ensemble des touches). De plus, s'il est mis à terre ou sonné à moins de 1ps d'un précipice, il peut relancer son test d'Initiative pour déterminer s'il tombe ou non dans le vide." },
+    { "id": "maitre_du_sabre_dabordage", "nom": "Maître du sabre d'abordage", "reserve_a": "Héros Pirates uniquement", "texte": "Ces épées à lame courte sont l'arme de base de tout équipage pirate, et entre les mains d'un marin entraîné, ce sont de formidables armes au combat rapproché. Si le Pirate est équipé d'une épée, cette compétence lui confère l'avantage de réussir une parade sur un jet supérieur ou égal au résultat de l'attaquant au lieu de strictement supérieur. Cette aptitude ne s'applique que si le Pirate est à couvert, dans un bâtiment ou à moins de 2ps d'un élément de décor comme un mur, un arbre, etc." },
+    { "id": "bretteur", "nom": "Bretteur", "reserve_a": "Héros Pirates uniquement", "texte": "Ce pirate se distingue au combat par son allure fringante, mêlant un jeu d'épée éblouissant et des prouesses acrobatiques au charme et aux commentaires spirituels. Même les plus vils scélérats de Mordheim respectent (et maudissent) sa capacité à toujours sembler échapper à leur emprise sans effort. Le Pirate peut faire un test de Commandement à la fin d'une phase de Corps à corps (tour du Pirate ou de l'ennemi) s'il est toujours en contact socle à socle avec des combattants ennemis. S'il réussit, il peut effectuer un Mouvement normal pour s'éloigner de l'ennemi (il ne peut ni courir ni charger), sans que l'ennemi ne lui porte de coups. S'il rate le test, il reste en combat et doit combattre normalement au tour suivant." }
+  ],
+  "equipement": {
+    "pirates": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau ou Masse" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "gaffe", "cout": 8 },
+        { "item_id": "chat_a_neuf_queues", "cout": 8, "restriction": "Héros uniquement" },
+        { "item_id": "epee", "cout": 10, "note": "Sabre d'abordage" },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "cabillot", "cout": 3 },
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arbalete", "cout": 25 },
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "pistolet_de_duel", "cout": 30, "note": "60 CO la paire" }
+      ],
+      "armures": [
+        { "item_id": "cuir_durci", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 }
+      ]
+    },
+    "artilleurs": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau ou Masse" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10, "note": "Sabre d'abordage" }
+      ],
+      "armes_tir": [
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "pistolet_de_duel", "cout": 30, "note": "60 CO la paire" },
+        { "item_id": "tromblon", "cout": 30 },
+        { "item_id": "arquebuse", "cout": 35 },
+        { "item_id": "pierrier", "cout": 65, "note": "un seul par bande" }
+      ],
+      "armures": [
+        { "item_id": "cuir_durci", "cout": 5 },
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 }
+      ]
+    },
+    "enroles": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau ou Masse" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "gaffe", "cout": 8, "note": "Crochet" },
+        { "item_id": "epee", "cout": 10, "note": "Sabre d'abordage" },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "boulet_pierrier", "cout": 5, "disponibilite": "Commun, Artilleurs Pirates uniquement", "profils": ["artilleur"] },
+    { "item_id": "chaines_pierrier", "cout": 2, "disponibilite": "Commun, Artilleurs Pirates uniquement", "profils": ["artilleur"] },
+    { "item_id": "mitraille_pierrier", "cout": 2, "disponibilite": "Commun, Artilleurs Pirates uniquement", "profils": ["artilleur"] },
+    { "item_id": "biscuit_de_mer", "cout": 5, "disponibilite": "Commun, un par Héros Pirate, une seule utilisation" },
+    { "item_id": "jolly_roger", "cout": "40+2D6", "disponibilite": "Commun, Pirates uniquement, un seul par bande" },
+    { "item_id": "boussole", "cout": "45+2D6", "disponibilite": "Rare 9, Pirates uniquement" },
+    { "item_id": "perroquet", "cout": 15, "disponibilite": "Rare 8, Capitaine et Lieutenants Pirates uniquement" },
+    { "item_id": "longue_vue", "cout": 20, "disponibilite": "Rare 8, Pirates uniquement" },
+    { "item_id": "crochet", "cout": 4, "disponibilite": "Commun, Pirates uniquement (un seul par figurine)" },
+    { "item_id": "jambe_de_bois", "cout": 8, "disponibilite": "Commun, Pirates uniquement (une seule par figurine)" },
+    { "item_id": "carte_au_tresor", "cout": "75+4D6", "disponibilite": "Rare 10, Pirates uniquement, une seule utilisation" }
+  ]
+}
