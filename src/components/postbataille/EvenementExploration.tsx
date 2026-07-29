@@ -8,6 +8,7 @@ import { ResolutionPuits } from './ResolutionPuits';
 import { ResolutionVagabond } from './ResolutionVagabond';
 import { ResolutionTaverne } from './ResolutionTaverne';
 import { ResolutionPrisonniers } from './ResolutionPrisonniers';
+import { ResolutionDebiteurReconnaissant } from './ResolutionDebiteurReconnaissant';
 
 type Props = {
   roster: RosterInstance;
@@ -140,6 +141,14 @@ export function EvenementExploration({
               catalogue={catalogue}
               onMajRoster={onMajRoster}
               onAjouterOr={onAjouterOr}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
+          )}
+
+          {evenement.id === 'debiteur_reconnaissant' && (
+            <ResolutionDebiteurReconnaissant
+              roster={roster}
+              onMajRoster={onMajRoster}
               onAjouterAuJournal={onAjouterAuJournal}
             />
           )}
