@@ -456,6 +456,14 @@ export function PostBatailleScreen() {
     updateRoster({ ...roster, stock: [...roster.stock, creerEntreeInventaire(item, coutPaye)] });
   };
 
+  // Or trouvé lors d'un événement d'exploration (double/triple/etc., voir
+  // tableExplorationEvenements.ts) : appliqué immédiatement à la trésorerie,
+  // comme ajouterAuStock ci-dessus, indépendamment de la validation finale
+  // de l'assistant.
+  const ajouterOrExploration = (montant: number) => {
+    updateRoster({ ...roster, tresorerie: roster.tresorerie + montant });
+  };
+
   const heroCount = nombreHeros(roster);
 
   // Avancée résolue depuis l'étape Gain d'expérience : même mécanique que
@@ -764,6 +772,7 @@ export function PostBatailleScreen() {
           pointsVeteran={pointsVeteran}
           onPointsVeteranChange={setPointsVeteran}
           onAchatStock={ajouterAuStock}
+          onAjouterOr={ajouterOrExploration}
           resumeExploration={exploration}
         />
       )}

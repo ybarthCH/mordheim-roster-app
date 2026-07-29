@@ -58,6 +58,10 @@ type Props = {
   objetsSurcharges?: Record<string, CustomItemOverride>;
   onObjetsPersonnalisesChange?: (objets: CustomItem[]) => void;
   onObjetsSurchargesChange?: (surcharges: Record<string, CustomItemOverride>) => void;
+  // Ouvre le modal directement filtré sur cette catégorie et sur le shop
+  // commun (ex : "artefacts_magiques" depuis un événement d'exploration qui
+  // renvoie sur le Tableau des artefacts magiques).
+  categorieInitiale?: string;
   onClose: () => void;
   onAchat: (item: ShopItem, coutPaye: number) => void;
 };
@@ -92,12 +96,13 @@ export function AchatEquipementModal({
   objetsSurcharges = {},
   onObjetsPersonnalisesChange,
   onObjetsSurchargesChange,
+  categorieInitiale,
   onClose,
   onAchat,
 }: Props) {
   const { rules } = useGameRules();
-  const [source, setSource] = useState<'bande' | 'commun'>('bande');
-  const [categorieFiltre, setCategorieFiltre] = useState<string | null>(null);
+  const [source, setSource] = useState<'bande' | 'commun'>(categorieInitiale ? 'commun' : 'bande');
+  const [categorieFiltre, setCategorieFiltre] = useState<string | null>(categorieInitiale ?? null);
   const [recherche, setRecherche] = useState('');
   const [itemId, setItemId] = useState('');
   const [coutSaisi, setCoutSaisi] = useState('');
