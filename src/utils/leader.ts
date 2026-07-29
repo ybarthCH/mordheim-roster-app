@@ -77,7 +77,12 @@ export function estLeaderActuel(roster: RosterInstance, catalogue: WarbandCatalo
 export function succederApresMorts(
   rosterAvant: RosterInstance,
   catalogue: WarbandCatalog | undefined,
-  membresApres: Member[]
+  membresApres: Member[],
+  // `sansBannirProfilLeader` : la succession de commandement a bien lieu,
+  // mais le profil du chef n'est pas banni du recrutement futur — utilisé
+  // par la règle Œil des Dieux Sombres des Maraudeurs du Chaos, où le chef
+  // est transformé plutôt que réellement tué au combat.
+  options?: { sansBannirProfilLeader?: boolean }
 ): Pick<RosterInstance, 'profils_bannis' | 'leader_instance_id'> | null {
   if (!catalogue) return null;
 
@@ -105,7 +110,12 @@ export function succederApresMorts(
   const leaderAvant = resolveLeader(rosterAvant, catalogue);
   if (leaderAvant && vientDeMourir(leaderAvant.instance_id)) {
     const profilLeader = catalogue.profils.find((p) => p.id === leaderAvant.profil_id);
-    if (profilLeader && !profilLeader.leader_toujours_recrutable && !bannisSet.has(profilLeader.id)) {
+    if (
+      !options?.sansBannirProfilLeader &&
+      profilLeader &&
+      !profilLeader.leader_toujours_recrutable &&
+      !bannisSet.has(profilLeader.id)
+    ) {
       bannisSet.add(profilLeader.id);
       changement = true;
     }

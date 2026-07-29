@@ -20,6 +20,7 @@ import { EtapeGainXp } from './EtapeGainXp';
 import { EtapeExploration } from './EtapeExploration';
 import { EtapeCommerce, type CommerceDraft, type HerosCommerce } from './EtapeCommerce';
 import { EtapeResume } from './EtapeResume';
+import { ResolutionOeilDesDieuxSombres } from './ResolutionOeilDesDieuxSombres';
 import {
   EtapeEntretien,
   type DecisionEntretien,
@@ -164,6 +165,13 @@ export function PostBatailleScreen() {
   const horsDeCombatIndividuel = useMemo(
     () => roster?.membres.filter((m) => m.statut === 'hors_de_combat') ?? [],
     [roster]
+  );
+
+  // Modificateur automatique de la règle spéciale Œil des Dieux Sombres
+  // (Maraudeurs du Chaos) en cas de défaite : +1 par Héros hors de combat.
+  const nbHerosHorsDeCombat = useMemo(
+    () => (roster ? horsDeCombatIndividuel.filter((m) => resolveProfil(roster, m)?.type === 'heros').length : 0),
+    [horsDeCombatIndividuel, roster]
   );
 
   // Gain d'expérience, section « à résoudre » : hommes de main et animaux
@@ -875,6 +883,17 @@ export function PostBatailleScreen() {
           xpDraftDe={xpDraftDe}
           groupesHC={groupesHC}
           participantsAuto={participantsAuto}
+        />
+      )}
+
+      {etape === 6 && catalogue?.id === 'maraudeurs_du_chaos' && (
+        <ResolutionOeilDesDieuxSombres
+          roster={roster}
+          catalogue={catalogue}
+          resultat={resultat}
+          date={date}
+          nbHerosHorsDeCombat={nbHerosHorsDeCombat}
+          onMajRoster={majRosterExploration}
         />
       )}
 
