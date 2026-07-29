@@ -1,0 +1,67 @@
+[
+  {
+    "id": "bottes_et_corde_de_pieter", "nom": "Les Bottes et la Corde de Pieter", "categorie": "artefacts_magiques",
+    "cout": "Trouvaille unique", "cout_fixe": false, "rarete": "Artefact",
+    "disponibilite": "Artefact magique unique — trouvé uniquement via le Tableau des artefacts magiques (Exploration), jamais à l'achat. Ne peut être possédé que par un seul guerrier dans toute la campagne : relancez si l'artefact est déjà possédé par quelqu'un, même s'il a été tué.",
+    "acces": ["commun"], "source": "Tableau des artefacts magiques",
+    "texte": "Pieter, le maître voleur de la Guilde des Ombres, était le plus célèbre monte-en-l'air de Mordheim, et ses cambriolages audacieux lui ont valu le surnom de \"l'araignée\". Le secret de son succès résidait dans ses bottes enchantées et sa corde magique qu'il avait acquises dans la lointaine Arabie.",
+    "regles_speciales": [
+      { "nom": "Escalade surnaturelle", "texte": "Une figurine portant ces bottes peut se déplacer normalement (et donc charger, courir, etc.) sur n'importe quel terrain, y compris les surfaces verticales. Lors des déplacements, cumulez les distances parcourues horizontalement et verticalement sans faire de tests d'Initiative (sauf pour les sauts)." }
+    ]
+  },
+  {
+    "id": "misericorde_de_ventimiglia", "nom": "La Miséricorde du Comte de Ventimiglia", "categorie": "artefacts_magiques",
+    "cout": "Trouvaille unique", "cout_fixe": false, "rarete": "Artefact",
+    "disponibilite": "Artefact magique unique — trouvé uniquement via le Tableau des artefacts magiques (Exploration), jamais à l'achat. Ne peut être possédé que par un seul guerrier dans toute la campagne : relancez si l'artefact est déjà possédé par quelqu'un, même s'il a été tué.",
+    "acces": ["commun"], "source": "Tableau des artefacts magiques",
+    "texte": "Cette dague était utilisée par le célèbre gentilhomme pirate connu sous le nom du Corsaire Noir. On dit qu'elle fut trouvée dans d'anciennes ruines elfes et que sa lame est indestructible.",
+    "regles_speciales": [
+      { "nom": "Miséricorde", "texte": "La dague compte comme une épée. Les adversaires qu'elle blesse sont sonnés sur un résultat de 1-3 (les Morts-Vivants sont mis à terre normalement) et mis hors de combat sur un jet de 4-6." }
+    ]
+  },
+  {
+    "id": "armure_dattla", "nom": "L'Armure d'Att'la", "categorie": "artefacts_magiques",
+    "cout": "Trouvaille unique", "cout_fixe": false, "rarete": "Artefact",
+    "disponibilite": "Artefact magique unique — trouvé uniquement via le Tableau des artefacts magiques (Exploration), jamais à l'achat. Ne peut être possédé que par un seul guerrier dans toute la campagne : relancez si l'artefact est déjà possédé par quelqu'un, même s'il a été tué.",
+    "acces": ["commun"], "source": "Tableau des artefacts magiques",
+    "texte": "Cette armure en gromril fut offerte en cadeau par le seigneur nain Kurgan au chef de guerre Att'la, du temps de Sigmar Heldenhammer. L'armure d'Att'la est une armure en gromril gravée de trois runes.",
+    "regles_speciales": [
+      { "nom": "Rune Mange-sort", "texte": "Le héros portant cette armure est immunisé à tous les sorts." },
+      { "nom": "Rune de Passage", "texte": "Le héros peut traverser les objets solides tels que les murs (cela ne signifie pas qu'il peut voir au travers pour autant)." },
+      { "nom": "Rune de Vigueur", "texte": "Le héros gagne un point de Vie supplémentaire. Notez que son total de PV peut ainsi dépasser le maximum de sa race." }
+    ]
+  },
+  {
+    "id": "arc_traqueur", "nom": "Arc Traqueur", "categorie": "artefacts_magiques",
+    "cout": "Trouvaille unique", "cout_fixe": false, "rarete": "Artefact",
+    "disponibilite": "Artefact magique unique — trouvé uniquement via le Tableau des artefacts magiques (Exploration), jamais à l'achat. Ne peut être possédé que par un seul guerrier dans toute la campagne : relancez si l'artefact est déjà possédé par quelqu'un, même s'il a été tué.",
+    "acces": ["commun"], "source": "Tableau des artefacts magiques",
+    "texte": "Cet arc fut offert au Comte Steinhardt par les seigneurs elfes de la Forêt des Ombres.",
+    "regles_speciales": [
+      { "nom": "Flèche traqueuse", "texte": "Toute flèche tirée par cet arc magique poursuivra sa cible et la touchera même derrière un couvert. Considérez l'Arc Traqueur comme un arc elfique qui touche toujours sur 2+ quels que soient les malus. Sa précision est si redoutable que les flèches tirées comptent comme des flèches de chasse (+1 sur tous les jets de dégâts). Choisissez n'importe quel ennemi à portée, pas seulement le plus proche, mais le tireur doit le voir (même le bout d'une arme est suffisant, il suffit que le tireur connaisse la position de la cible)." },
+      { "nom": "Chasseur de nains", "texte": "Si un nain constitue une cible possible, les flèches dévieront toujours de leur cible initiale pour tenter de toucher le nain à la place. Cet arc ne peut évidemment pas être utilisé pour tirer sur des elfes." }
+    ]
+  },
+  {
+    "id": "cagoule_dexecuteur", "nom": "Cagoule d'Exécuteur", "categorie": "artefacts_magiques",
+    "cout": "Trouvaille unique", "cout_fixe": false, "rarete": "Artefact",
+    "disponibilite": "Artefact magique unique — trouvé uniquement via le Tableau des artefacts magiques (Exploration), jamais à l'achat. Ne peut être possédé que par un seul guerrier dans toute la campagne : relancez si l'artefact est déjà possédé par quelqu'un, même s'il a été tué.",
+    "acces": ["commun"], "source": "Tableau des artefacts magiques",
+    "texte": "Trouvée sur un vaisseau elfe noir naufragé, cette cagoule porte des runes maléfiques et luisantes qui mettent son porteur dans un état de rage démentielle.",
+    "regles_speciales": [
+      { "nom": "Rage démentielle", "texte": "Un guerrier coiffé de cette cagoule devient frénétique et le restera même s'il est mis à terre ou sonné. Il gagne également +1 en Force au corps à corps tant sa fureur est intense. Le porteur ne quitte jamais le combat quoi qu'il arrive et attaque toujours les adversaires au contact jusqu'à ce qu'ils soient hors de combat." },
+      { "nom": "Charge incontrôlable", "texte": "Si des figurines sonnées ou à terre se trouvent à portée de charge du porteur au début de son tour, il chargera et attaquera la plus proche, même si elle fait partie de sa propre bande ! Le corps à corps dure alors jusqu'à ce que l'un des guerriers soit mis hors de combat." }
+    ]
+  },
+  {
+    "id": "oeil_omniscient_de_numas", "nom": "L'Œil Omniscient de Numas", "categorie": "artefacts_magiques",
+    "cout": "Trouvaille unique", "cout_fixe": false, "rarete": "Artefact",
+    "disponibilite": "Artefact magique unique — trouvé uniquement via le Tableau des artefacts magiques (Exploration), jamais à l'achat. Ne peut être possédé que par un seul guerrier dans toute la campagne : relancez si l'artefact est déjà possédé par quelqu'un, même s'il a été tué.",
+    "acces": ["commun"], "source": "Tableau des artefacts magiques",
+    "texte": "Ce joyau fut trouvé au cœur des ruines de Numas, très loin au sud. Il donne à son porteur d'horribles cauchemars prémonitoires.",
+    "regles_speciales": [
+      { "nom": "Vision prémonitoire", "texte": "Le porteur de l'Œil Omniscient peut voir toutes les figurines sur la table, même si elles sont cachées ou hors de vue. Il peut guider ses camarades à travers les ruines (cela permet de lancer deux dés pour le porteur après la bataille lors de la phase d'exploration). Il bénéficie en plus d'une sauvegarde additionnelle de 6+ (qui n'est jamais modifiée) contre toutes les attaques de tir et de corps à corps, car il peut les sentir venir avant même qu'elles ne soient portées." },
+      { "nom": "Terreur animale", "texte": "Tous les animaux (comme les chiens de guerre, les chevaux, etc.) sont frénétiques en affrontant le porteur de l'Œil Omniscient de Numas." }
+    ]
+  }
+]

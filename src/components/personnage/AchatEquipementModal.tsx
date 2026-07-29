@@ -118,7 +118,11 @@ export function AchatEquipementModal({
     () => avecSurcharges(itemsBandeBase, objetsSurcharges),
     [itemsBandeBase, objetsSurcharges]
   );
-  const itemsCommunBase = useMemo(() => getShopCommun(catalogue.id, rules), [catalogue.id, rules]);
+  const itemsCommunBase = useMemo(
+    () =>
+      getShopCommun(catalogue.id, rules).filter((item) => gratuit || item.categorie !== 'artefacts_magiques'),
+    [catalogue.id, rules, gratuit]
+  );
   const itemsCommun = useMemo(
     () => avecSurcharges(itemsCommunBase, objetsSurcharges),
     [itemsCommunBase, objetsSurcharges]
