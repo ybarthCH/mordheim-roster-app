@@ -46,9 +46,6 @@ export function ExperienceCard({
         <span className="badge badge--info">{membre.xp} XP</span>
       </div>
       <XpGrid type={type} xp={membre.xp} xpDepart={membre.xp_depart} onChange={onChangeXp} demiXp={demiXp} />
-      <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
-        XP de départ : {membre.xp_depart} (n'a déclenché aucune avancée).
-      </p>
       {enAttente > 0 && (
         <div className="flex justify-between items-center" style={{ marginTop: '0.7rem' }}>
           <span className="badge badge--warning">{enAttente} avancée(s) en attente</span>
