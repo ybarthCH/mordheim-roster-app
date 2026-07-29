@@ -1,0 +1,280 @@
+{
+  "id": "bandits_du_hochland",
+  "nom": "Bandits du Hochland (1b)",
+  "grade": "1b",
+  "source": "Nemesis Crown — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    {
+      "nom": "La poudre, c'est cher !",
+      "texte": "Les Bandits sont souvent trop pauvres pour acheter ou entretenir du matériel onéreux comme les armes à poudre noire. Seuls les Héros peuvent en acheter (armes à poudre noire disponibles uniquement via la liste des Ferrailleurs) ; les Hommes de main ne peuvent jamais en acheter."
+    },
+    {
+      "nom": "Radins",
+      "texte": "Les Bandits du Hochland savent économiser leur or : lorsque vous déterminez le Revenu de la bande, décalez d'une colonne vers la gauche la taille de bande (une bande de 1 à 3 membres utilise toujours la première colonne). Purement indicatif, non automatisé."
+    },
+    {
+      "nom": "Receleur",
+      "texte": "En plus de la moitié du prix de base de l'objet, lorsqu'un Bandit du Hochland revend du matériel, il reçoit également la moitié de la partie variable du prix de l'équipement. Purement indicatif, non automatisé."
+    },
+    {
+      "nom": "Francs-Tireurs",
+      "texte": "Les Bandits peuvent engager n'importe quel Franc-Tireur autorisé pour une bande de Mercenaires humains."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "prince_des_bandits",
+      "nom": "Prince des bandits",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 60,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "N'importe quel guerrier à moins de 6ps du Prince des bandits peut utiliser le Commandement de ce dernier pour ses tests de Commandement." }
+      ],
+      "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_equipement": ["bandits"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "brigand",
+      "nom": "Brigand",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 45,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Dissimulation", "texte": "Les ennemis d'un Brigand ont le plus grand mal à le détecter avant qu'il ne frappe. Si un guerrier ennemi souhaite charger un Brigand qu'il ne voit pas (et qui n'a pas été déclaré caché), il doit soustraire 1 à son Initiative avant de faire son test d'Initiative (un résultat de 6 est toujours un échec). De plus, la distance de détection d'un Brigand caché est divisée par deux." }
+      ],
+      "acces_competences": ["combat", "tir", "vitesse", "special"],
+      "acces_equipement": ["bandits"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "ferrailleur",
+      "nom": "Ferrailleur",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 45,
+      "xp_depart": 12,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Maître à l'épée", "texte": "S'il est équipé d'une arme ou d'une armure qui lui permet une parade, le Ferrailleur réussit à parer un coup ennemi sur un résultat supérieur ou égal au jet pour toucher de l'adversaire, et pas uniquement sur un résultat supérieur comme pour une parade normale." },
+        { "nom": "Connaissance des armes", "texte": "Les armes de la liste d'équipement des Ferrailleurs ne représentent que celles avec lesquelles il peut débuter. Un Ferrailleur peut utiliser n'importe quelle arme de corps à corps ou de tir que les membres de la bande peuvent trouver." }
+      ],
+      "acces_competences": ["combat", "tir", "vitesse", "special"],
+      "acces_equipement": ["ferrailleurs"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "demagogue",
+      "nom": "Démagogue",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 40,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 2, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Manières convaincantes", "texte": "Lorsqu'un guerrier ennemi tente de charger un membre de la bande du Démagogue à moins de 12ps de celui-ci, l'ennemi doit d'abord réussir un test de Commandement, sous peine de rater sa charge (comme s'il avait échoué à charger un ennemi qui inspire la peur). Les individus soumis à la stupidité et les animaux (ainsi que les Morts-Vivants) sont immunisés." },
+        { "nom": "Gestionnaire astucieux", "texte": "Entre deux parties, le joueur peut faire appel au Démagogue pour escroquer les habitants de la région. Lancez 1D6. Sur 2-6, l'arnaque est réussie et la bande gagne 2D6 Couronnes d'Or. Sur 1, le Démagogue doit prendre la fuite : il rate la partie suivante et ne participe pas à la phase d'Exploration. Purement indicatif, non automatisé." }
+      ],
+      "acces_competences": ["combat", "academique", "special"],
+      "acces_equipement": ["pleutres"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "malfrat",
+      "nom": "Malfrat",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 30,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Recrutement", "texte": "Achetés par groupes de 5." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["bandits"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "braconnier",
+      "nom": "Braconnier",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 2,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Pionniers", "texte": "Permet à la bande de relancer, pour chaque Braconnier, 1D6 lors de la phase d'Exploration." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["braconniers"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "detrousseur",
+      "nom": "Détrousseur",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 4,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Détrousser les cadavres", "texte": "À la fin d'une bataille, pour chaque guerrier ami ou ennemi mort devant être retiré des listes de bande, lancez 1D6 par Détrousseur de la bande. Sur 4+, tout l'équipement du guerrier mort est récupéré au profit de la bande (limité à un cadavre par Détrousseur). Purement indicatif, non automatisé." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["pleutres"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "sans_coeur",
+      "nom": "Sans-cœur",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 2,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Endurci", "texte": "Immunisé contre la peur et n'a jamais à faire de test de seul contre tous." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["bandits"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "racaille",
+      "nom": "Racaille",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 10,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Totalement inapte", "texte": "Les Racailles n'acquièrent pas d'expérience." },
+        { "nom": "Recrutement", "texte": "Achetés par groupes de 5." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["pleutres"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    {
+      "nom": "Banditisme",
+      "texte": "Au lieu de chercher de l'équipement Rare, le Héros peut se livrer au banditisme. Lancez 1D6. Sur 2-6, le banditisme est réussi et le Héros ajoute 1D6+1 Couronnes d'Or à la réserve de la bande. Sur 1, effectuez un jet sur le Tableau des Blessures Graves pour le Héros, comme s'il avait été mis hors de combat. Non cumulable avec Gestionnaire astucieux."
+    },
+    {
+      "nom": "Caché dans l'ombre",
+      "texte": "Un guerrier ennemi qui tente de détecter le Héros caché doit réduire de moitié son Initiative (arrondi au supérieur) avant de mesurer la distance de détection."
+    },
+    {
+      "nom": "Bond arrière",
+      "texte": "Si le guerrier est engagé au Corps à corps au début de sa phase de Mouvement et qu'il n'est ni à terre, ni sonné, il peut tenter un saut pour rompre le combat via un test d'Initiative. En cas d'échec, il frappera automatiquement en dernier ce tour. En cas de succès, il est éloigné de 1ps du guerrier ennemi et peut agir normalement (et même charger à nouveau)."
+    },
+    {
+      "nom": "Tir silencieux",
+      "texte": "S'il est caché, le Héros peut tirer ou lancer des sorts tout en demeurant caché. Si sa cible n'est pas immédiatement mise hors de combat, elle doit faire un test d'Initiative pour le repérer. Ne fonctionne pas avec une arme à poudre noire."
+    },
+    {
+      "nom": "Ventriloque",
+      "texte": "Si un guerrier ennemi tente de détecter le Héros alors qu'il est caché, lancez 1D6. Sur 4+, le Héros n'est pas repéré et reste caché."
+    }
+  ],
+  "equipement": {
+    "bandits": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "arme_de_jet", "cout": 15, "note": "Hache de lancer, considérée comme un couteau de lancer" }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    },
+    "pleutres": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "fronde", "cout": 2 }
+      ],
+      "armures": []
+    },
+    "ferrailleurs": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "rapiere", "cout": 15 },
+        { "item_id": "main_gauche", "cout": 7 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "pistolet", "cout": 20, "note": "40 CO la paire" },
+        { "item_id": "pistolet_de_duel", "cout": 30, "note": "60 CO la paire" }
+      ],
+      "armures": [
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 }
+      ]
+    },
+    "braconniers": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc_court", "cout": 5 },
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arc_long", "cout": 15 },
+        { "item_id": "arbalete", "cout": 25 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "main_gauche", "cout": 7, "disponibilite": "Rare 7, Bandits du Hochland uniquement" },
+    { "item_id": "rapiere", "cout": 15, "disponibilite": "Rare 5, Reiklanders, Marienburgers, Bandits du Hochland uniquement" }
+  ]
+}
