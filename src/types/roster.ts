@@ -61,6 +61,12 @@ export type AdvanceRecord = {
   // faire respecter la règle "un homme de main ne peut pas augmenter la même
   // caractéristique de plus de +1" (voir utils/plafond.ts).
   stat?: keyof Stats;
+  // Id de la compétence acquise, uniquement pour type: 'competence' — permet
+  // à annulerAvancee() de retrouver et retirer la compétence de façon fiable
+  // même si son nom affiché a changé depuis (ex : renommage d'Équitation).
+  // Absent sur les entrées historiques antérieures à l'ajout de ce champ, qui
+  // retombent alors sur l'appariement par nom (fragile aux renommages).
+  competenceId?: string;
 };
 
 // Profil entièrement défini à la main pour une recrue "Franc-tireur"
