@@ -1,0 +1,243 @@
+{
+  "id": "gobelins_des_forets",
+  "nom": "Gobelins des Forêts (1b)",
+  "grade": "1b",
+  "source": "Nemesis Crown, Guerriers Montés — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    {
+      "nom": "Natifs",
+      "texte": "Habitués à arpenter les sous-bois, les Gobelins des Forêts ne souffrent d'aucune pénalité de Mouvement lorsqu'ils se déplacent en terrain boisé."
+    },
+    {
+      "nom": "Animosité",
+      "texte": "Au début de chaque tour du joueur Gobelin, lancez 1D6 pour chaque Brav' ou Homme de main Gobelin qui n'est pas engagé au corps à corps. Sur un résultat de 1, lancez 1D6 sur le tableau suivant : 1 \"Répète, pour voir !\" — le combattant charge immédiatement l'Homme de main Gobelin ou Franc-Tireur ami le plus proche à portée de charge (ou lui tire dessus s'il n'y en a aucun à portée et qu'il est équipé d'une arme de tir ; sinon, comme un résultat 2-5). 2-5 \"K'es t'a dit ?\" — le combattant invective tout le monde et ne fait rien d'autre ce tour (il se défend normalement au corps à corps). 6 \"J'vais leur montrer !\" — le combattant doit avancer le plus rapidement possible vers l'ennemi le plus proche et le charger si possible. Purement indicatif, non automatisé."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "gran_chef",
+      "nom": "Gran' Chef",
+      "type": "heros",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 50,
+      "xp_depart": 17,
+      "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout membre de la bande à moins de 6ps du Gran' Chef peut utiliser le Commandement de ce dernier pour ses tests." },
+        { "nom": "Chevaucheur d'araignées", "texte": "Le Gran' Chef peut chevaucher des Araignées Géantes ou l'Araignée Gigantesque en utilisant les règles détaillées dans l'article Guerriers Montés." }
+      ],
+      "acces_competences": ["combat", "tir", "force", "special"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "chaman",
+      "nom": "Chaman Gobelin des Forêts",
+      "type": "heros",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 20,
+      "xp_depart": 6,
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Le Chaman débute avec un sort tiré au hasard dans la liste de sorts de la Magie Gobeline." }
+      ],
+      "acces_competences": ["academique", "vitesse"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "brav",
+      "nom": "Brav'",
+      "type": "heros",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
+      "unique": false,
+      "min": 0,
+      "max": 4,
+      "cout": 20,
+      "xp_depart": 6,
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Animosité", "texte": "Les Brav' sont sujets aux règles d'Animosité. Un Brav' peut choisir de retirer son animosité au lieu de choisir une compétence Spéciale." }
+      ],
+      "acces_competences": ["combat", "tir", "vitesse", "special"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "gobelin_des_forets",
+      "nom": "Gobelin des Forêts",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
+      "min": 0,
+      "max": null,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Animosité", "texte": "Les Gobelins des Forêts sont sujets aux règles d'Animosité." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "gobelin_dent_rouj",
+      "nom": "Gobelin d'la Dent Rouj'",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
+      "min": 0,
+      "max": 5,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Berserks", "texte": "Les Gobelins d'la Dent Rouj' sont sujets à la frénésie. De plus, s'ils commencent leur tour à portée de charge d'un ennemi, ils sont immunisés à l'Animosité pour ce tour." },
+        { "nom": "Animosité", "texte": "Les Gobelins d'la Dent Rouj' sont sujets aux règles d'Animosité." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "lanceur",
+      "nom": "Lanceur",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "peaux_vertes_gobelin",
+      "min": 0,
+      "max": 5,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Lanceurs", "texte": "Pendant la phase de Tir, les Lanceurs peuvent lancer des armes de jet jusqu'à trois fois par tour. Si un Lanceur est promu au rang de Héros, cette capacité ne peut pas être utilisée en même temps que tir rapide." },
+        { "nom": "Animosité", "texte": "Les Lanceurs sont sujets aux règles d'Animosité." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "araignee_gigantesque",
+      "nom": "Araignée Gigantesque",
+      "type": "animal",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 200,
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 3, "CT": 0, "F": 5, "E": 5, "PV": 3, "I": 4, "A": 2, "Cd": 4 },
+      "regles_speciales": [
+        { "nom": "Armes/armures", "texte": "Une Araignée Gigantesque n'a pas besoin et n'utilise pas d'armes ou d'armure." },
+        { "nom": "Peur", "texte": "Les Araignées Gigantesques provoquent la peur." },
+        { "nom": "Grosse bête", "texte": "Les Araignées Gigantesques sont des grandes cibles comme défini dans les règles de Tir." },
+        { "nom": "Locale", "texte": "Elles se déplacent à travers n'importe quel terrain boisé sans aucune pénalité." },
+        { "nom": "Venimeuse", "texte": "Lorsqu'elle provoque une Blessure, utilisez le tableau suivant : 1 À terre ; 2-4 Sonné ; 5-6 Hors de combat." },
+        { "nom": "Natifs", "texte": "Aucune pénalité de Mouvement en terrain boisé." },
+        { "nom": "Non sentient", "texte": "Soumise aux règles de stupidité. Ne gagne jamais d'expérience. Peut grimper normalement." },
+        { "nom": "Monture", "texte": "Le Gran' Chef Gobelin des Forêts peut la chevaucher (voir l'article Guerriers Montés). Si une attaque à distance touche, lancez 1D6 : 1-2 le Gran' Chef est touché, 3-6 l'Araignée Gigantesque est touchée. Au corps à corps, l'adversaire choisit sa cible. Tant qu'elle est chevauchée, elle n'est pas sujette à la stupidité." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "heros": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "lance", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "baton_dboss", "cout": 20 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc_court", "cout": 5 },
+        { "item_id": "sarbacane", "cout": 25 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    },
+    "hommes_de_main": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "lance", "cout": 5 },
+        { "item_id": "epee", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc_court", "cout": 5 },
+        { "item_id": "arme_de_jet", "cout": 15 },
+        { "item_id": "sarbacane", "cout": 25 }
+      ],
+      "armures": [
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "attirail_tribal_dent_rouj", "cout": 40, "disponibilite": "Rare 9, Gobelins des Forêts uniquement" },
+    { "item_id": "bidules_magiques", "cout": 50, "disponibilite": "Rare 9, Gobelins des Forêts uniquement", "profils": ["chaman"] },
+    { "item_id": "toxine_arachneenne", "cout": 25, "disponibilite": "Commun, Gobelins des Forêts uniquement" },
+    { "item_id": "arme_empoisonnee_mod", "cout": "+25", "disponibilite": "Commun, Gobelins des Forêts uniquement" },
+    { "item_id": "araignee_geante", "cout": 100, "disponibilite": "Rare 11, Gobelins uniquement", "profils": ["gran_chef"] }
+  ],
+  "magie": {
+    "nom": "Magie Gobeline",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["chaman"],
+    "sorts": [
+      {
+        "resultat": 1,
+        "nom": "Vent de Gork",
+        "difficulte": 6,
+        "texte": "Portée 12ps ; la première figurine touchée doit réussir un test d'Endurance ou subir une touche de F2 et être mise à terre automatiquement."
+      },
+      {
+        "resultat": 2,
+        "nom": "Regard de Mork",
+        "difficulte": 8,
+        "texte": "Portée 12ps ; D3 touches de F3 sur la première figurine sur le chemin."
+      },
+      {
+        "resultat": 3,
+        "nom": "Têtechercheuz'",
+        "difficulte": 8,
+        "texte": "Portée 6ps ; tire un nombre d'éclairs égal à l'Attaque de base du Chaman, Force égale à son Endurance, touchant la première figurine sur le chemin. Sur un 1 après résolution, le Chaman s'effondre et est mis hors de combat."
+      },
+      {
+        "resultat": 4,
+        "nom": "Saut de Waaagh !",
+        "difficulte": 7,
+        "texte": "Le Chaman ou un Gobelin dans un rayon de 3ps peut être déplacé jusqu'à 12ps en ignorant le terrain ; si cela amène au corps à corps, cela compte comme une charge."
+      },
+      {
+        "resultat": 5,
+        "nom": "Idole de Gork",
+        "difficulte": 8,
+        "texte": "Le Chaman gagne CC+1, F+1 et A+1 jusqu'à ce qu'il subisse une Blessure."
+      },
+      {
+        "resultat": 6,
+        "nom": "On y va !",
+        "difficulte": 8,
+        "texte": "Les figurines alliées à moins de 6ps du Chaman considèrent les résultats sonné comme à terre, jusqu'à ce que le Chaman subisse une Blessure."
+      }
+    ]
+  }
+}

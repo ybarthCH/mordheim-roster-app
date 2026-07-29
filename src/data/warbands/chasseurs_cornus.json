@@ -1,0 +1,248 @@
+{
+  "id": "chasseurs_cornus",
+  "nom": "Chasseurs Cornus (1b)",
+  "grade": "1b",
+  "source": "Nemesis Crown — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    {
+      "nom": "Forestier",
+      "texte": "Les bandes de Chasseurs Cornus ne subissent pas de pénalités de Mouvement sur les terrains accidentés."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "chasseur_cornu",
+      "nom": "Chasseur Cornu",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 60,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "N'importe quel guerrier à moins de 6ps du Chasseur Cornu peut utiliser le Commandement de ce dernier pour ses tests." },
+        { "nom": "Pendez les Bandits !", "texte": "Un Chasseur Cornu haït tous les Bandits et Hors-la-loi." }
+      ],
+      "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "pretre_de_taal",
+      "nom": "Prêtre de Taal",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 45,
+      "xp_depart": 12,
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Prières", "texte": "Un Prêtre de Taal peut utiliser les Prières de Taal." },
+        { "nom": "Restrictions", "texte": "Les Prêtres de Taal ne portent jamais d'armure lourde." }
+      ],
+      "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "initie",
+      "nom": "Initié",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 3,
+      "cout": 40,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Infiltration", "texte": "Le Héros est toujours placé sur le champ de bataille après la bande adverse. Il peut être placé n'importe où sur la table tant qu'il est hors de vue et à plus de 12ps de tout combattant ennemi. Si les deux joueurs ont des combattants qui s'infiltrent, chacun lance 1D6 ; le résultat le plus bas se déploie en premier." },
+        { "nom": "Pendez les Bandits !", "texte": "Un Initié haït tous les Bandits et Hors-la-loi." },
+        { "nom": "Restrictions", "texte": "Les Initiés ne portent jamais d'armure." }
+      ],
+      "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "soiffard",
+      "nom": "Soiffard",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 5,
+      "cout": 30,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Ivresse", "texte": "Les Soiffards réussissent automatiquement tous leurs tests de Commandement." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "zelote",
+      "nom": "Zélote",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Restrictions", "texte": "Les Zélotes ne portent jamais d'armure." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "chien_de_guerre",
+      "nom": "Chien de guerre",
+      "type": "animal",
+      "min": 0,
+      "max": 5,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Armes/armures", "texte": "Crocs et brutalité ! Les chiens de guerre n'utilisent jamais ni arme ni armure." },
+        { "nom": "Animaux", "texte": "Les Chiens de guerre sont des animaux et ne gagnent par conséquent aucune expérience." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    {
+      "nom": "Maître trappeur",
+      "texte": "La portée des collets posés par ce Héros est augmentée pour atteindre 4ps. Les pièges posés par un maître trappeur se déclenchent sur un résultat de 2+ au lieu de 3+."
+    },
+    {
+      "nom": "Effluve nauséabonde",
+      "texte": "Tous les ennemis vivants (hors Morts-Vivants et Possédés) subissent un malus de -1 au toucher au Corps à corps contre ce Héros. De plus, il ne peut porter aucune flamme, et les attaques enflammées qui le touchent bénéficient d'un bonus de +1 en Force."
+    },
+    {
+      "nom": "Ami des bêtes",
+      "texte": "Le Héros ne peut être attaqué par aucun animal et jusqu'à deux chiens de guerre en sa possession ne sont pas comptabilisés dans le nombre maximum de figurines de la bande."
+    },
+    {
+      "nom": "Infiltration",
+      "texte": "Le Héros est toujours placé sur le champ de bataille après la bande adverse. Il peut être placé n'importe où sur la table tant qu'il est hors de vue et à plus de 12ps de tout combattant ennemi. Si les deux joueurs ont des combattants qui s'infiltrent, chacun lance 1D6 ; le résultat le plus bas se déploie en premier."
+    },
+    {
+      "nom": "Guide",
+      "texte": "Lancez 1D6 supplémentaire pendant la phase d'Exploration. Une bande ne peut avoir qu'un seul Héros avec la compétence guide."
+    },
+    {
+      "nom": "Caché dans les ombres",
+      "texte": "Les combattants ennemis doivent réduire de moitié leur Initiative lorsqu'ils tentent de détecter ce Héros quand il est caché."
+    }
+  ],
+  "equipement": {
+    "heros": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Masse / Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 5 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc_court", "cout": 5 },
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arc_long", "cout": 15 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "cuir_durci", "cout": 5 },
+        { "item_id": "bouclier", "cout": 5 }
+      ],
+      "divers": [
+        { "item_id": "collet", "cout": 15 },
+        { "item_id": "fleches_de_chasse", "cout": "25+1D6" },
+        { "item_id": "peau_de_cerf_benie", "cout": 40 }
+      ]
+    },
+    "hommes_de_main": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Masse / Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 5 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc", "cout": 10 }
+      ],
+      "armures": [
+        { "item_id": "cuir_durci", "cout": 5 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "collet", "cout": 15, "disponibilite": "Commun, Héros Chasseurs Cornus uniquement" },
+    { "item_id": "fleches_de_chasse", "cout": "25+1D6", "disponibilite": "Rare 8" },
+    { "item_id": "peau_de_cerf_benie", "cout": 40, "disponibilite": "Rare 10, Héros Chasseurs Cornus uniquement" }
+  ],
+  "magie": {
+    "nom": "Prières de Taal",
+    "type": "prières",
+    "de": "D6",
+    "utilisateurs": ["pretre_de_taal"],
+    "note": "Les prières de Taal fonctionnent comme les prières de Sigmar, à la différence qu'un prêtre de Taal ne porte jamais d'armure.",
+    "sorts": [
+      {
+        "resultat": 1,
+        "nom": "Bond du Cerf",
+        "difficulte": 7,
+        "texte": "Le Prêtre de Taal peut immédiatement se déplacer n'importe où dans un rayon de 9ps, y compris au contact d'un ennemi (compte comme une charge avec F+1 lors du premier tour). S'il engage un ennemi en fuite, il fait une touche automatique de F+1, puis son adversaire fuit à nouveau."
+      },
+      {
+        "resultat": 2,
+        "nom": "Bière Bénite",
+        "difficulte": 5,
+        "texte": "Boire une outre de bière bénie par Taal permet au prêtre de guérir un combattant à moins de 2ps (lui inclus) : il récupère tous ses PV. De plus, tout combattant ennemi en vie (hors Morts-Vivants et Possédés) à moins de 2ps du Prêtre perd A-1 lors du prochain tour de corps à corps."
+      },
+      {
+        "resultat": 3,
+        "nom": "Patte d'Ours",
+        "difficulte": 7,
+        "texte": "Le prêtre invoque la bénédiction de Taal sur un combattant allié ou sur lui-même dans un rayon de 6ps. La cible bénéficie d'un bonus de F+2 jusqu'au prochain tour du Prêtre."
+      },
+      {
+        "resultat": 4,
+        "nom": "Secousse Tellurique",
+        "difficulte": 9,
+        "texte": "La prière cible un bâtiment dans un rayon de 4ps. Tout combattant ennemi en contact avec le bâtiment subit une touche de F3. De plus, le bâtiment s'effondre et tous les combattants qui s'y trouvent sont considérés comme ayant chuté. Retirez le décor ciblé de la table pour le reste de la partie."
+      },
+      {
+        "resultat": 5,
+        "nom": "Enchevêtrement",
+        "difficulte": 8,
+        "texte": "Tous les combattants, ennemis comme alliés (à l'exception des Zélotes), à moins de 12ps du Prêtre, voient leur Mouvement divisé par 2 jusqu'à la prochaine phase de Tir."
+      },
+      {
+        "resultat": 6,
+        "nom": "Convocation d'Écureuils",
+        "difficulte": 7,
+        "texte": "Le Prêtre en appelle à la colère du Seigneur des Bêtes. La cible, un ennemi à moins de 12ps du Prêtre, subit 2D6 touches de F1, sans sauvegarde d'armure."
+      }
+    ]
+  }
+}

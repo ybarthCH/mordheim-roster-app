@@ -4,16 +4,20 @@ import amazones_lustrie from './amazones_lustrie.json';
 import amazones_mordheim from './amazones_mordheim.json';
 import artilleurs_de_nuln from './artilleurs_de_nuln.json';
 import averlanders from './averlanders.json';
+import bandits_du_hochland from './bandits_du_hochland.json';
 import beastmen_raiders from './beastmen_raiders.json';
 import carnival_of_chaos from './carnival_of_chaos.json';
+import chasseurs_cornus from './chasseurs_cornus.json';
 import chevaliers_bretonniens from './chevaliers_bretonniens.json';
 import cult_of_the_possessed from './cult_of_the_possessed.json';
 import dwarf_treasure_hunters from './dwarf_treasure_hunters.json';
 import elfes_noirs from './elfes_noirs.json';
+import escorteurs_imperiaux from './escorteurs_imperiaux.json';
 import expedition_runique from './expedition_runique.json';
 import gardiens_de_chapelle_bretonniens from './gardiens_de_chapelle_bretonniens.json';
 import gladiateurs from './gladiateurs.json';
 import gobelins_de_la_nuit from './gobelins_de_la_nuit.json';
+import gobelins_des_forets from './gobelins_des_forets.json';
 import guerriers_fantomes from './guerriers_fantomes.json';
 import hommes_lezards from './hommes_lezards.json';
 import hors_la_loi_de_stirwood from './hors_la_loi_de_stirwood.json';
@@ -43,16 +47,20 @@ export const CATALOGUES: WarbandCatalog[] = [
   amazones_mordheim,
   artilleurs_de_nuln,
   averlanders,
+  bandits_du_hochland,
   beastmen_raiders,
   carnival_of_chaos,
+  chasseurs_cornus,
   chevaliers_bretonniens,
   cult_of_the_possessed,
   dwarf_treasure_hunters,
   elfes_noirs,
+  escorteurs_imperiaux,
   expedition_runique,
   gardiens_de_chapelle_bretonniens,
   gladiateurs,
   gobelins_de_la_nuit,
+  gobelins_des_forets,
   guerriers_fantomes,
   hommes_lezards,
   hors_la_loi_de_stirwood,
