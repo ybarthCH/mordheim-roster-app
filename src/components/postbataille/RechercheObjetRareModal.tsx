@@ -16,7 +16,6 @@ import { useGameRules } from '../../state/useGameRules';
 import { Modal } from '../common/Modal';
 
 export type ResultatRechercheRare = {
-  jet: number;
   rarete: number;
   objetNom: string;
   reussi: boolean;
@@ -52,7 +51,7 @@ export function RechercheObjetRareModal({
   const { rules } = useGameRules();
   const [recherche, setRecherche] = useState('');
   const [itemId, setItemId] = useState('');
-  const [jetSaisi, setJetSaisi] = useState('');
+  const [succesDeclare, setSuccesDeclare] = useState(false);
   const [coutSaisi, setCoutSaisi] = useState('');
 
   const items = useMemo(() => {
@@ -69,9 +68,6 @@ export function RechercheObjetRareModal({
   const itemsFiltres = q ? items.filter((item) => item.nom.toLocaleLowerCase('fr').includes(q)) : items;
   const item = items.find((candidat) => candidat.id === itemId) ?? null;
   const rarete = item ? niveauRarete(item) : null;
-  const jet = Number(jetSaisi);
-  const jetValide = Number.isInteger(jet) && jet >= 2 && jet <= 12;
-  const reussi = jetValide && rarete !== null && jet >= rarete;
   const cout = Number(coutSaisi);
   const coutValide = coutSaisi.trim() !== '' && Number.isFinite(cout) && cout >= 0;
   const inventaireBande = [...inventaireComplet(roster), ...inventaireSupplementaire];
@@ -83,29 +79,25 @@ export function RechercheObjetRareModal({
 
   const choisir = (choisi: ShopItem) => {
     setItemId(choisi.id);
-    setJetSaisi('');
+    setSuccesDeclare(false);
     setCoutSaisi(choisi.cout_fixe && typeof choisi.cout === 'number' ? String(choisi.cout) : '');
   };
 
-  const resultatSansAchat = () => {
-    if (!item || rarete === null || !jetValide) return;
-    onTerminer({ jet, rarete, objetNom: item.nom, reussi });
+  const enregistrerEchec = () => {
+    if (!item || rarete === null) return;
+    onTerminer({ rarete, objetNom: item.nom, reussi: false });
+  };
+
+  const neePasAcheter = () => {
+    if (!item || rarete === null) return;
+    onTerminer({ rarete, objetNom: item.nom, reussi: true });
   };
 
   const acheter = () => {
-    if (
-      !item ||
-      rarete === null ||
-      !jetValide ||
-      !reussi ||
-      !coutValide ||
-      cout > tresorerieDisponible ||
-      trinketBloque
-    ) {
+    if (!item || rarete === null || !coutValide || cout > tresorerieDisponible || trinketBloque) {
       return;
     }
     onTerminer({
-      jet,
       rarete,
       objetNom: item.nom,
       reussi: true,
@@ -126,8 +118,8 @@ export function RechercheObjetRareModal({
                 </button>
               </div>
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.25rem' }}>
-                Choisis l'objet recherché, puis saisis le total des 2D6 lancés devant les joueurs. Ce Héros ne
-                dispose que d'un seul jet pendant cette séquence.
+                Choisis l'objet recherché, puis indique si le test de rareté (2D6 sur table papier) est réussi ou
+                raté. Ce Héros ne dispose que d'un seul jet pendant cette séquence.
               </p>
             </header>
             <div className="achat-equipement__contenu">
@@ -188,30 +180,23 @@ export function RechercheObjetRareModal({
 
             <div className="achat-equipement__contenu achat-equipement__detail">
               <p className="text-sm text-muted">
-                Un résultat total supérieur ou égal à {rarete} rend disponible un seul exemplaire.
+                Réussi sur un résultat de 2D6 supérieur ou égal à {rarete}.
               </p>
               {item.disponibilite && <p className="text-sm text-muted">{item.disponibilite}</p>}
               {resumeItem(item) && <p className="text-sm">{resumeItem(item)}</p>}
-              <div className="field">
-                <label>Résultat total des 2D6</label>
-                <select value={jetSaisi} onChange={(e) => setJetSaisi(e.target.value)}>
-                  <option value="">Choisis le résultat obtenu…</option>
-                  {[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((valeur) => (
-                    <option key={valeur} value={valeur}>{valeur}</option>
-                  ))}
-                </select>
-              </div>
 
-              {jetValide && (
-                <div className="card card--tight" style={{ borderColor: reussi ? 'var(--success)' : 'var(--danger)' }}>
-                  <strong>{reussi ? 'Objet disponible' : 'Recherche échouée'}</strong>
-                  <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-                    2D6 = {jet} contre Rare {rarete}.
-                  </p>
+              {!succesDeclare && (
+                <div className="flex gap-sm" style={{ marginTop: '0.4rem' }}>
+                  <button type="button" className="btn btn--primary" onClick={() => setSuccesDeclare(true)}>
+                    Réussi
+                  </button>
+                  <button type="button" className="btn" onClick={enregistrerEchec}>
+                    Raté
+                  </button>
                 </div>
               )}
 
-              {reussi && (
+              {succesDeclare && (
                 <>
                   <div className="field">
                     <label>
@@ -240,14 +225,9 @@ export function RechercheObjetRareModal({
 
             <footer className="achat-equipement__actions">
               <button className="btn" onClick={onClose}>Annuler</button>
-              {jetValide && !reussi && (
-                <button className="btn btn--primary" onClick={resultatSansAchat}>
-                  Enregistrer l'échec
-                </button>
-              )}
-              {reussi && (
+              {succesDeclare && (
                 <>
-                  <button className="btn" onClick={resultatSansAchat}>
+                  <button className="btn" onClick={neePasAcheter}>
                     Ne pas acheter
                   </button>
                   <button

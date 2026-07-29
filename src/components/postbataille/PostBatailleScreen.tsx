@@ -669,8 +669,8 @@ export function PostBatailleScreen() {
           return {
             nom: membre.nom_perso,
             action: 'recherche_rare' as const,
-            detail: `${draft.objetNom} : 2D6 = ${draft.jet} contre Rare ${draft.rarete} — ${
-              draft.reussi ? (draft.achat ? 'acheté' : 'disponible, non acheté') : 'indisponible'
+            detail: `${draft.objetNom} (Rare ${draft.rarete}) — ${
+              draft.reussi ? (draft.achat ? 'réussie, acheté' : 'réussie, non acheté') : 'ratée'
             }.`,
             cout: draft.achat?.cout ?? 0,
           };
