@@ -1,0 +1,188 @@
+{
+  "id": "amazones_lustrie",
+  "nom": "Amazones — Setting Lustrie (1b)",
+  "grade": "1b",
+  "source": "Town Cryer #15 — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Isolationnistes", "texte": "Les Amazones luttent constamment contre les attaques des norses et des hommes-lézards avides de trésors. La culture amazone reflète leur aversion et leur méfiance envers les étrangers, et au combat, elles sont particulièrement sauvages. Face aux Norses et aux Hommes-Lézards, les Amazones peuvent relancer tous les jets d'attaque ratés lors du premier tour de combat." },
+    { "nom": "Sacrifice", "texte": "Les amazones sont promptes à sacrifier leurs captifs à leurs dieux. Un combattant capturé (résultat 61 sur le tableau des Blessures Graves) peut être sacrifié. La Chef de bande gagne alors +1 pt d'expérience. De surcroît, si c'est un Homme-Lézard qui est sacrifié, la bande obtient gratuitement une Peau Enchantée." },
+    { "nom": "Inimitié Norse", "texte": "Face à une bande Norse, les Amazones se battront à mort. Les Amazones peuvent relancer leur premier test de Déroute raté contre les Norses. N'oubliez pas qu'il est impossible de relancer une relance ratée. De plus, les Amazones ne peuvent jamais choisir d'effectuer une Déroute Volontaire face à une bande Norse, à moins que la Chef de bande ait été mise hors de combat." },
+    { "nom": "Il n'est pas des nôtres", "texte": "Du fait de leur isolationnisme et de leur suspicion envers les autres races, les Amazones ne combattent jamais avec quelqu'un d'autre. Pour cette raison, les Amazones ne recrutent pas de Francs-Tireurs ou de Dramatis Personae, à moins qu'elles ne soient également des Amazones." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "pretresse_serpent",
+      "nom": "Prêtresse Serpent",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 70,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "N'importe quel guerrier à moins de 6ps de la Prêtresse Serpent peut utiliser le Cd de cette dernière pour ses tests de Commandement." },
+        { "nom": "Sorcière", "texte": "La Prêtresse Serpent est une sorcière qui utilise les Rituels des Amazones. Elle commence avec un rituel tiré au hasard dans la liste." }
+      ],
+      "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
+      "acces_equipement": ["heroines"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "guerriere_aigle",
+      "nom": "Guerrière Aigle",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 35,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["heroines"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerriere_piranha",
+      "nom": "Guerrière Piranha",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 30,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Conque musicale", "texte": "Les Guerrières Piranha sont les seules Amazones à pouvoir utiliser la conque musicale, qui permet de relancer le jet déterminant qui se déploie et commence en premier." }
+      ],
+      "acces_competences": ["combat", "tir", "vitesse", "special"],
+      "acces_equipement": ["heroines"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerriere_amazone",
+      "nom": "Guerrière Amazone",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 1,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["femmes_de_main"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerriere_jaguar",
+      "nom": "Guerrière Jaguar",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 3,
+      "cout": 30,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Filles de la jungle", "texte": "Les Guerrières Jaguar ont passé leur vie dans les parties les plus profondes de la jungle et peuvent se déplacer sur un terrain de type jungle sans pénalités." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["guerrieres_jaguar"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "chasseuse_de_skinks", "nom": "Chasseuse de Skinks", "reserve_a": "Héroïnes Amazones uniquement, au lieu de la liste standard", "texte": "Grâce à ses exploits, l'amazone a prouvé qu'elle était experte dans la chasse aux Hommes-Lézards, en particulier les Skinks. Face à un Skink, une Amazone avec cette compétence frappera toujours en premier lors du premier tour de combat." },
+    { "id": "danse_hypnotique", "nom": "Danse Hypnotique", "reserve_a": "Héroïnes Amazones uniquement, au lieu de la liste standard", "texte": "Certaines amazones utilisent, en guise de technique de combat, une danse gracieuse qui peut subjuguer leurs ennemis. Tout combattant engagé au corps-à-corps contre l'Amazone doit réussir un test de Commandement au début de chaque tour. En cas d'échec, le combattant ne peut pas attaquer ce tour-ci, mais peut se défendre. La danse est cependant sans effets contre les Hommes-Lézards ou les Morts-Vivants qui sont immunisés à leurs charmes." },
+    { "id": "fureur_sauvage", "nom": "Fureur Sauvage", "reserve_a": "Héroïnes Amazones uniquement, au lieu de la liste standard", "texte": "L'amazone a appris à canaliser sa colère et son agressivité, faisant d'elle un véritable animal sauvage lorsqu'elle attaque ses ennemis. Toute figurine Amazone avec cette compétence gagne +1 Attaque lorsqu'elle charge et est immunisée aux effets de charme ou de peur." },
+    { "id": "dissimulation", "nom": "Dissimulation", "reserve_a": "Héroïnes Amazones uniquement, au lieu de la liste standard", "texte": "L'amazone est spécialisée dans l'art de se camoufler dans son environnement. Lorsqu'elle se cache dans un terrain de type jungle, toutes les figurines ennemies divisent par deux la portée nécessaire pour la détecter." },
+    { "id": "elixir_de_vie", "nom": "Élixir de Vie", "reserve_a": "Héroïnes Amazones uniquement, au lieu de la liste standard", "texte": "Après des années de service au sein de sa tribu, cette amazone a gagné l'accès aux sources qui produisent l'Élixir de Vie. On dit que l'Élixir guérit les blessures et rend les amazones immortelles. Après la bataille, si l'Amazone a été mise hors de combat, elle peut relancer son jet de Dégâts. Ainsi, sur un résultat de 1-4 sur 1D6, l'Amazone ne subit pas les conséquences du statut hors de combat et peut participer normalement à la séquence d'Après Bataille." }
+  ],
+  "equipement": {
+    "heroines": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Massue" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "lame_des_etoiles", "cout": 15 },
+        { "item_id": "epee_des_etoiles", "cout": 30 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "baton_solaire_lustrie", "cout": 35 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10, "note": "Heaume" },
+        { "item_id": "rondache", "cout": 5 },
+        { "item_id": "peaux_enchantees", "cout": 20 }
+      ],
+      "divers": [
+        { "item_id": "amulette_lunaire", "cout": 50 },
+        { "item_id": "herbes_de_soin", "cout": 35 }
+      ]
+    },
+    "femmes_de_main": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Massue" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ]
+    },
+    "guerrieres_jaguar": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Massue" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "fronde", "cout": 5 },
+        { "item_id": "bolas", "cout": 5 },
+        { "item_id": "javelots", "cout": 5 },
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "baton_solaire_lustrie", "cout": 35 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10, "note": "Heaume" },
+        { "item_id": "rondache", "cout": 5 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "lame_des_etoiles", "cout": 15, "disponibilite": "Rare 7, Amazones uniquement" },
+    { "item_id": "epee_des_etoiles", "cout": 30, "disponibilite": "Rare 10, Amazones uniquement" },
+    { "item_id": "baton_solaire_lustrie", "cout": 35, "disponibilite": "Rare 10, Amazones uniquement" },
+    { "item_id": "peaux_enchantees", "cout": 20, "disponibilite": "Rare 6, Amazones uniquement" },
+    { "item_id": "amulette_lunaire", "cout": 50, "disponibilite": "Rare 11, Amazones uniquement" },
+    { "item_id": "conque_musicale", "cout": 25, "disponibilite": "Rare 8, Guerrières Piranha des Amazones uniquement", "profils": ["guerriere_piranha"] },
+    { "item_id": "herbes_de_soin", "cout": 35, "disponibilite": "Commun pour les Amazones" }
+  ],
+  "magie": {
+    "nom": "Rituels des Amazones",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["pretresse_serpent"],
+    "note": "Au-delà de leur île, peu de choses sont connues sur la magie des Amazones. Il est dit que les immortelles amazones ont appris leur magie des dieux eux-mêmes.",
+    "sorts": [
+      { "resultat": 1, "nom": "Chant du vent", "difficulte": 8, "texte": "La Prêtresse enjoint la Déesse du Vent Shaekal de participer à la bataille. La Déesse apparaît sous forme de notes de musique et de lumières dansantes qui subjuguent une figurine ennemie se trouvant à moins de 10ps de la Prêtresse. Jusqu'au début du prochain tour du joueur Amazones, la figurine ne peut pas se déplacer, tirer ou lancer de sorts, mais peut se défendre au corps à corps. Les figurines affectées par ce rituel frappent toujours en dernier au corps à corps." },
+      { "resultat": 2, "nom": "Force du Serpent", "difficulte": 9, "texte": "La Prêtresse accomplit ce rituel en dansant sauvagement et en hurlant des mots oubliés. Toutes les figurines alliées à moins de 8ps de la Prêtresse (y compris celle-ci) sont habitées d'une puissante énergie et gagnent +1 en Force jusqu'à la fin du prochain tour des Amazones. Le rituel ne peut pas être lancé si la Prêtresse est engagée au corps à corps pendant sa phase de Tir. Cependant, après que le rituel ait été lancé, l'effet persistera même si la Prêtresse se retrouve engagée au corps à corps." },
+      { "resultat": 3, "nom": "Maelström de Wendala", "difficulte": 7, "texte": "La Prêtresse invoque de violents vents tropicaux pour protéger les Amazones des tirs ennemis. La tempête s'étend sur un rayon de 18ps autour de la Prêtresse. Toutes les tentatives de tirs ennemis subissent une pénalité de -1 pour toucher. Le rituel dure jusqu'au début du prochain tour du joueur Amazones." },
+      { "resultat": 4, "nom": "Bouclier d'Épines", "difficulte": 7, "texte": "Faisant danser ses mains comme si elle tissait d'obscurs entrelacs, la Prêtresse en appelle aux végétaux pour se protéger. Ce rituel crée un cocon d'épines autour de la Prêtresse, l'immunisant contre tout tir ou attaque magique. Toute figurine souhaitant charger la Prêtresse peut le faire, mais les épines annulent toutes les attaques de la Prêtresse et de ses ennemis lors du premier tour du corps à corps. La Prêtresse ne peut pas lancer ce rituel si elle est engagée au corps à corps." },
+      { "resultat": 5, "nom": "Jungle Vivante", "difficulte": 6, "texte": "Concentrant sa volonté, la Prêtresse invoque l'aide des créatures de la jungle. Choisissez une figurine à moins de 12ps. Celle-ci est soudainement attaquée par une véritable vague de serpents, d'araignées et d'insectes, tous plus venimeux les uns que les autres. La victime subit 1D6 touches de Force 2, sans sauvegarde d'armure en dehors des sauvegardes invulnérables. La figurine ne peut pas utiliser saut de côté contre cet essaim." },
+      { "resultat": 6, "nom": "Rêves de la Sirène", "difficulte": 7, "texte": "La Prêtresse entonne une douce mélopée d'une voix magnifique, bientôt rejointe par les autres amazones. La chanson est si belle et envoûtante que les tests de Cd des adversaires situés à moins de 12ps subissent un malus de -1 jusqu'à la fin du tour du joueur adverse. Les Hommes-Lézards et les Morts-Vivants sont immunisés aux effets de ce rituel." }
+    ]
+  }
+}

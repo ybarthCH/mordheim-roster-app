@@ -1,14 +1,19 @@
 import type { WarbandCatalog } from '../../types/catalog';
 
+import amazones_lustrie from './amazones_lustrie.json';
+import amazones_mordheim from './amazones_mordheim.json';
 import artilleurs_de_nuln from './artilleurs_de_nuln.json';
 import averlanders from './averlanders.json';
 import beastmen_raiders from './beastmen_raiders.json';
 import carnival_of_chaos from './carnival_of_chaos.json';
+import chevaliers_bretonniens from './chevaliers_bretonniens.json';
 import cult_of_the_possessed from './cult_of_the_possessed.json';
 import dwarf_treasure_hunters from './dwarf_treasure_hunters.json';
 import gardiens_de_chapelle_bretonniens from './gardiens_de_chapelle_bretonniens.json';
 import gladiateurs from './gladiateurs.json';
 import gobelins_de_la_nuit from './gobelins_de_la_nuit.json';
+import hommes_lezards from './hommes_lezards.json';
+import hors_la_loi_de_stirwood from './hors_la_loi_de_stirwood.json';
 import kislevites from './kislevites.json';
 import lustrian_reavers from './lustrian_reavers.json';
 import maneaters from './maneaters.json';
@@ -29,15 +34,20 @@ import undead from './undead.json';
 import witch_hunters from './witch_hunters.json';
 
 export const CATALOGUES: WarbandCatalog[] = [
+  amazones_lustrie,
+  amazones_mordheim,
   artilleurs_de_nuln,
   averlanders,
   beastmen_raiders,
   carnival_of_chaos,
+  chevaliers_bretonniens,
   cult_of_the_possessed,
   dwarf_treasure_hunters,
   gardiens_de_chapelle_bretonniens,
   gladiateurs,
   gobelins_de_la_nuit,
+  hommes_lezards,
+  hors_la_loi_de_stirwood,
   kislevites,
   lustrian_reavers,
   maneaters,

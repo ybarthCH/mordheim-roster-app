@@ -1,0 +1,183 @@
+{
+  "id": "amazones_mordheim",
+  "nom": "Amazones — Setting Mordheim (1b)",
+  "grade": "1b",
+  "source": "Fanatic Online Mag #33 — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Sacrifice", "texte": "Les Amazones sont promptes à offrir leurs prisonniers en sacrifice à leurs dieux. Les Amazones suivent les règles des Possédés du livre de règles pour ce qui est des captifs." },
+    { "nom": "Il n'est pas des nôtres", "texte": "En raison de leur indépendance et de leur suspicion envers les autres races, les Amazones ne s'allient jamais avec personne. Pour cette raison, elles ne peuvent recruter ni Francs-tireurs ni personnages spéciaux, à moins qu'il ne s'agisse d'Amazones." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "pretresse",
+      "nom": "Prêtresse",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 70,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "N'importe quelle figurine de la bande se trouvant dans un rayon de 6ps autour de la Prêtresse peut utiliser le Cd de cette dernière." },
+        { "nom": "Sorcière", "texte": "La Prêtresse est une Sorcière utilisant les Rituels Amazones. Elle débute avec un rituel choisi aléatoirement dans la liste." }
+      ],
+      "acces_competences": ["combat", "academique", "force", "vitesse"],
+      "acces_equipement": ["heroines"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "championne",
+      "nom": "Championne",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 35,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Lieutenantes", "texte": "Les Championnes ont participé à des dizaines de campagnes au fil des ans. Ce sont les lieutenantes des Prêtresses, ainsi que leurs gardes du corps. Elles maîtrisent différents types d'armes, y compris les légendaires Griffes des Anciens." }
+      ],
+      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["heroines"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerriere_totem",
+      "nom": "Guerrière Totem",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 30,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Frénésie", "texte": "Les Guerrières Totem sont des combattantes frénétiques et assoiffées de sang. Elles sont également totalement enivrées par les potions préparées par leurs sœurs. Les Guerrières Totem sont des machines à tuer qui ne se soucient guère de leur propre existence. Elles sont sujettes à la frénésie." }
+      ],
+      "acces_competences": ["combat", "force"],
+      "acces_equipement": ["heroines"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerriere_amazone_mordheim",
+      "nom": "Guerrière Amazone",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 1,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["femmes_de_main"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "scout",
+      "nom": "Scout",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 3,
+      "cout": 30,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Furtives", "texte": "Une Scout peut se déployer deux fois plus loin sur le champ de bataille que les autres guerriers et peut commencer la bataille cachée." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["scouts"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "heroines": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Massue" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "griffes_des_anciens", "cout": 30, "note": "Griffe des Anciens" }
+      ],
+      "armes_tir": [
+        { "item_id": "baton_solaire_mordheim", "cout": 50 },
+        { "item_id": "gantelet_du_soleil", "cout": 40 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10, "note": "Heaume" },
+        { "item_id": "rondache", "cout": 5 }
+      ],
+      "divers": [
+        { "item_id": "amulette_lunaire", "cout": 50, "note": "Amulette de la Lune" },
+        { "item_id": "herbes_de_soin", "cout": 35, "note": "Herbes Médicinales" }
+      ]
+    },
+    "femmes_de_main": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Massue" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "fronde", "cout": 5 },
+        { "item_id": "arc", "cout": 10 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10, "note": "Heaume" },
+        { "item_id": "rondache", "cout": 5 }
+      ]
+    },
+    "scouts": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Massue" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "fronde", "cout": 5 },
+        { "item_id": "javelots", "cout": 5 },
+        { "item_id": "arc", "cout": 10 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10, "note": "Heaume" },
+        { "item_id": "rondache", "cout": 5 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "griffes_des_anciens", "cout": 30, "disponibilite": "Rare 12" },
+    { "item_id": "baton_solaire_mordheim", "cout": 50, "disponibilite": "Rare 12" },
+    { "item_id": "gantelet_du_soleil", "cout": 40, "disponibilite": "Rare 12" },
+    { "item_id": "amulette_lunaire", "cout": 50, "disponibilite": "Rare 12" },
+    { "item_id": "herbes_de_soin", "cout": 35, "disponibilite": "Commune pour les Amazones" }
+  ],
+  "magie": {
+    "nom": "Rituels Amazones",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["pretresse"],
+    "note": "On sait peu de choses de la magie amazone, mais on raconte que ces guerrières immortelles ont appris la magie de la bouche des dieux en personne.",
+    "sorts": [
+      { "resultat": 1, "nom": "Chanson du Vent", "difficulte": 8, "texte": "La Prêtresse enjoint la Déesse du Vent Shaekal de participer à la bataille. La déesse apparaît sous forme de notes de musique et de lumières dansantes qui fera entrer en transe une figurine ennemie se trouvant à moins de 10ps du lanceur. Jusqu'au début du tour suivant des Amazones, la figurine ne peut pas se déplacer, tirer ou lancer de sorts mais peut se défendre au corps à corps. Les figurines affectées par ce rituel agissent automatiquement en dernier dans la phase de combat." },
+      { "resultat": 2, "nom": "Force du Serpent", "difficulte": 9, "texte": "La Prêtresse accomplit ce rituel en dansant sauvagement et en hurlant des mots oubliés. Toutes les figurines amies à proximité de la Prêtresse sont habitées d'une puissante énergie, jusqu'à la fin de leur tour suivant. Pendant cette période, toute figurine dans un rayon de 8ps autour de la Prêtresse (y compris celle-ci) ajoutera +1 à la Force. Le rituel ne peut être lancé si la Prêtresse se trouve engagée au corps à corps pendant sa phase de tir. L'effet continuera après que le rituel ait été lancé si la Prêtresse rejoint un corps à corps." },
+      { "resultat": 3, "nom": "Maelström de Wendala", "difficulte": 7, "texte": "La Prêtresse invoque de violents vents tropicaux pour protéger les Amazones des tirs ennemis. La tempête s'étend dans un rayon de 18ps autour de la Prêtresse. Toute tentative de l'ennemi d'utiliser des armes de tir se fait avec une pénalité de -1 pour toucher. Le rituel dure jusqu'au début du prochain tour du joueur Amazones." },
+      { "resultat": 4, "nom": "Bouclier d'Épines", "difficulte": 7, "texte": "Mouvant délicatement ses mains comme si elle tissait l'air lui-même, la Prêtresse invoque la protection des végétaux. Ce rituel crée un cocon d'épines autour de la Prêtresse, l'immunisant contre toute attaque de tir ou magique. Toute figurine souhaitant charger la Prêtresse peut le faire, mais les épines annulent tous les coups de la Prêtresse et de ses adversaires lors du premier tour de corps à corps. La Prêtresse ne peut pas lancer ce rituel si elle est engagée au corps à corps." },
+      { "resultat": 5, "nom": "Jungle Vivante", "difficulte": 6, "texte": "Concentrant sa volonté, la Prêtresse invoque l'aide des créatures de la jungle. Choisissez une figurine à moins de 12ps. Celle-ci est soudainement assaillie par une véritable vague de serpents, d'araignées et d'insectes, tous plus venimeux les uns que les autres. La victime subit 1D6 touches de Force 2 sans aucune sauvegarde autorisée, en dehors des sauvegardes invulnérables. Vous ne pouvez pas esquiver cette nuée." },
+      { "resultat": 6, "nom": "Rêve de la Sirène", "difficulte": 7, "texte": "La Prêtresse entonne une douce mélopée d'une voix magnifique, bientôt rejointe par les autres Amazones. La chanson est si belle et envoûtante que les tests de Cd des adversaires situés à moins de 12ps subissent un malus de -1 jusqu'à la fin du tour du joueur adverse. Les hommes-lézards et les morts-vivants sont immunisés aux effets de ce rituel." }
+    ]
+  }
+}

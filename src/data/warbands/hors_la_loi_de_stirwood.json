@@ -1,0 +1,165 @@
+{
+  "id": "hors_la_loi_de_stirwood",
+  "nom": "Hors-la-loi de la Forêt de Stirwood (1b)",
+  "grade": "1b",
+  "source": "Fanatic Online Mag — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    { "nom": "Archers", "texte": "Tous les guerriers d'une bande de Hors-la-loi de la Forêt de Stirwood doivent obligatoirement être équipés d'un arc. Cependant, il leur est impossible de porter ou d'utiliser toute autre arme de tir. Donc, même si un Hors-la-loi acquiert des compétences qui lui permettent d'utiliser des armes de tir supplémentaires, il ne peut pas les utiliser. La seule exception à cette règle est le Moine qui peut choisir de porter un arc, mais n'est pas obligé de le faire." },
+    { "nom": "Francs-tireurs", "texte": "Les francs-tireurs suivants ne sont pas disponibles aux Hors-la-loi : Chasseurs de primes, Prêtres-loups d'Ulric, Chamans norses et les Assassins elfes noirs." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "chef_hors_la_loi",
+      "nom": "Chef des Hors-la-loi",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 60,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Chef des Hors-la-loi peut utiliser le Commandement de ce dernier pour effectuer ses tests." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_equipement": ["hors_la_loi"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "moine_stirwood",
+      "nom": "Moine",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 35,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Recrutement", "texte": "La bande peut inclure un Moine, mais il doit remplacer un Champion de Stirwood ou un Petit Voleur." },
+        { "nom": "Disciple de Sigmar", "texte": "Le Moine a consacré sa vie au service de Sigmar et peut utiliser les Prières de Sigmar. Comme un Prêtre-guerrier Répurgateur, il est également soumis à certaines restrictions applicables aux disciples de Sigmar et ne peut donc apprendre ni la Sorcellerie, ni la Magie. Comme les Prières ne sont pas considérées comme des sorts, un Moine peut porter une armure s'il le désire." }
+      ],
+      "acces_competences": ["academique"],
+      "acces_equipement": ["hors_la_loi"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "champion_de_stirwood",
+      "nom": "Champion de Stirwood",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 35,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["hors_la_loi"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "petit_voleur",
+      "nom": "Petit Voleur",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["hors_la_loi"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "hors_la_loi",
+      "nom": "Hors-la-loi",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["hors_la_loi"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "tireur",
+      "nom": "Tireur",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 7,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["hors_la_loi"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "hors_la_loi": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau, Masse ou Bâton" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc_court", "cout": 5 },
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arc_long", "cout": 15, "restriction": "Héros et Tireurs uniquement" }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20, "restriction": "Héros et Tireurs uniquement" },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "item_id": "fleches_de_chasse",
+      "cout": 30,
+      "disponibilite": "Rare 8, Héros uniquement — disponibles sans jet de Rareté au recrutement initial",
+      "profils": ["chef_hors_la_loi", "moine_stirwood", "champion_de_stirwood", "petit_voleur"]
+    },
+    {
+      "item_id": "cape_des_bois",
+      "cout": 50,
+      "disponibilite": "Rare 10, Héros Hors-la-loi de Stirwood uniquement — disponible sans jet de Rareté au recrutement initial",
+      "profils": ["chef_hors_la_loi", "moine_stirwood", "champion_de_stirwood", "petit_voleur"]
+    }
+  ],
+  "magie": {
+    "nom": "Prières de Sigmar",
+    "type": "prières",
+    "de": "D6",
+    "utilisateurs": ["moine_stirwood"],
+    "note": "Les prêtres de Sigmar peuvent réaliser bien des miracles : guérison des blessures, encouragement de leurs camarades ou bannissement des créatures démoniaques et des morts-vivants. Les prières ne sont pas considérées comme des sorts : un guerrier en armure peut donc en faire usage et les protections spéciales contre les sorts ne les affectent pas.",
+    "sorts": [
+      { "resultat": 1, "nom": "Le Marteau de Sigmar", "difficulte": 7, "texte": "Cette arme de la foi, qui contient la toute-puissance de la justice divine de Sigmar, brille d'une intense lumière dorée. Le porteur gagne +2 en Force au corps à corps et toutes les touches qu'il inflige causent le double de dommages (1 blessure fait perdre 2 PV par exemple). Le prêtre doit tester à chaque phase de tir lorsqu'il désire utiliser le Marteau." },
+      { "resultat": 2, "nom": "Cœur d'Acier", "difficulte": 8, "texte": "Lorsque les trois mots de pouvoir sont prononcés, une aura de gloire émane du serviteur de Sigmar. Le courage des fidèles est ainsi renforcé par la présence du dieu guerrier. Tout guerrier allié à moins de 8ps du lanceur devient immunisé à la Peur et aux tests de Seul contre tous. De plus, la bande entière bénéficie d'un +1 pour tous ses tests de Déroute. Les effets de ce sort ne peuvent pas être cumulés s'il est lancé plusieurs fois. Les effets du sort durent jusqu'à ce que son lanceur soit mis Hors de combat." },
+      { "resultat": 3, "nom": "Feu de l'Âme", "difficulte": 9, "texte": "La colère de Sigmar se matérialise. Des flammes purificatrices entourent le prêtre et balayent ceux qui résistent à la fureuse justice de l'Empereur-Dieu ! Toute figurine ennemie à moins de 4ps du prêtre subit une touche de Force 3 sans sauvegarde d'armure. Les adorateurs des ténèbres et du Chaos sont particulièrement vulnérables au pouvoir sacré de Sigmar. La touche subie par les morts-vivants et les possédés est de Force 5." },
+      { "resultat": 4, "nom": "Bouclier de Sigmar", "difficulte": 6, "texte": "Un bouclier de pure lumière blanche apparaît devant le prêtre de Sigmar, qui sera protégé tant que sa foi demeure inébranlable. Le prêtre est immunisé à tous les sorts. Lancez 1D6 au début de chaque tour pendant la phase de ralliement. Sur un résultat de 1 ou 2, le bouclier se dissipe." },
+      { "resultat": 5, "nom": "Imposition des Mains", "difficulte": 5, "texte": "Plaçant les mains sur un camarade blessé, le serviteur de Sigmar implore son Seigneur de soigner les blessures du guerrier. Toute figurine à moins de 2ps du prêtre (y compris lui-même) peut être soignée et récupère alors tous ses PV perdus. De plus, les figurines amies à moins de 2ps sonnées ou à terre reprennent immédiatement leurs esprits, se relèvent et continuent le combat normalement." },
+      { "resultat": 6, "nom": "Armure du Juste", "difficulte": 9, "texte": "Une armure impénétrable recouvre le prêtre et la flamboyante image d'une comète à double queue brûle au-dessus de sa tête. Le prêtre bénéficie d'une sauvegarde de 2+ qui remplace celle de son armure normale. De plus, il cause la peur à ses ennemis et y est par conséquent lui-même immunisé. Le pouvoir de l'Armure du Juste dure jusqu'au début de la prochaine phase de tir du prêtre." }
+    ]
+  }
+}
