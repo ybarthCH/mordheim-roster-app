@@ -303,6 +303,7 @@ export const CATEGORIE_ORDRE = [
   'poisons_drogues',
   'montures',
   'vehicules',
+  'artefacts_magiques',
   'special',
 ];
 
@@ -317,6 +318,7 @@ const CATEGORIE_LABELS: Record<string, string> = {
   poisons_drogues: 'Poison / drogue',
   montures: 'Monture',
   vehicules: 'Véhicule',
+  artefacts_magiques: 'Artefact magique',
   special: 'Spécial',
 };
 
@@ -334,6 +336,7 @@ const CATEGORIE_ICONES: Partial<Record<string, IconName>> = {
   consommables: 'fiole',
   poisons_drogues: 'goutte',
   montures: 'griffe',
+  artefacts_magiques: 'couronne',
   special: 'etoile',
 };
 
