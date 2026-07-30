@@ -2,6 +2,7 @@ import { Screen } from '../common/Screen';
 import { useTheme } from '../../state/useTheme';
 import type { Palette } from '../../state/useTheme';
 import { useGameRules } from '../../state/useGameRules';
+import { useWakeLock } from '../../state/useWakeLock';
 
 const THEMES = [
   { value: 'light', label: 'Clair' },
@@ -17,6 +18,7 @@ const PALETTES: { value: Palette; label: string }[] = [
 export function ReglagesScreen() {
   const { theme, setTheme, palette, setPalette } = useTheme();
   const { rules, setRule } = useGameRules();
+  const { actif: ecranActif, setActif: setEcranActif, supporte: ecranActifSupporte } = useWakeLock();
 
   return (
     <Screen title="Réglages" back>
@@ -54,6 +56,22 @@ export function ReglagesScreen() {
             ))}
           </div>
         </div>
+
+        <label className="flex items-start gap-sm" style={{ cursor: 'pointer', marginTop: '1rem' }}>
+          <input
+            type="checkbox"
+            checked={ecranActif}
+            onChange={(e) => setEcranActif(e.target.checked)}
+          />
+          <span>
+            <strong>Garder l'écran allumé</strong>
+            <br />
+            <span className="text-sm text-muted">
+              Empêche l'appareil de se mettre en veille tant que l'appli est ouverte — pratique en table de jeu.
+              {!ecranActifSupporte && ' Non pris en charge par ce navigateur.'}
+            </span>
+          </span>
+        </label>
       </div>
 
       <div className="card">

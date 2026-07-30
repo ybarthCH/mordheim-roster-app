@@ -44,8 +44,10 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const [marqueChoisie, setMarqueChoisie] = useState('');
 
   const profilsHeros = catalogue?.profils.filter((p) => p.type === 'heros') ?? [];
-  const profilsHommesDeMain = catalogue?.profils.filter((p) => p.type === 'homme_de_main') ?? [];
-  const profilsAutres = catalogue?.profils.filter((p) => p.type === 'animal') ?? [];
+  // Les profils "animal" (chien de guerre...) se recrutent et se suivent
+  // comme un groupe d'hommes de main (voir estGroupable plus bas) : classés
+  // dans le même optgroup pour ne pas les faire ressembler à un objet à part.
+  const profilsHommesDeMain = catalogue?.profils.filter((p) => p.type === 'homme_de_main' || p.type === 'animal') ?? [];
 
   const profil = catalogue?.profils.find((p) => p.id === profilId);
   const estGroupable = profil?.type === 'homme_de_main' || profil?.type === 'animal';
@@ -155,11 +157,6 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
             </optgroup>
           )}
           <optgroup label="Autres">
-            {profilsAutres.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.nom} ({p.cout != null ? `${p.cout} po` : p.cout_notation ? `${p.cout_notation} po` : 'coût ?'})
-              </option>
-            ))}
             <option value={FRANC_TIREUR}>Franc-tireur…</option>
           </optgroup>
         </select>
