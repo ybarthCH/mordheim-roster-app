@@ -79,6 +79,11 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
   // true une fois qu'on a basculé sur la résolution de l'avancée du groupe
   // restant (après celle du nouveau héros) — pilote le message affiché.
   const [resolutionGroupeRestant, setResolutionGroupeRestant] = useState(false);
+  // true uniquement pour le jet immédiat et gratuit sur la table des héros
+  // qui suit "Ce gars est doué" (voir confirmerPromotion) — marque le
+  // prochain résultat appliqué comme `bonus` (ne consomme pas une avancée
+  // due au titre de la progression XP normale, voir AdvanceRecord.bonus).
+  const [avanceeGratuiteEnAttente, setAvanceeGratuiteEnAttente] = useState(false);
 
   const typeEffectif = tableForcee ?? tableAvancementDuProfil(profil);
   const table = typeEffectif === 'heros' ? TABLE_AVANCEMENT_HEROS : TABLE_AVANCEMENT_HOMMES_DE_MAIN;
@@ -94,11 +99,17 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
     entreeAvancement?.type === 'caracteristique_fixe' ? verdictStat(entreeAvancement.stat) : null;
 
   const appliquer = (partial: Partial<Member>, record: AdvanceRecord, resume: string) => {
-    const updated: Member = { ...travail, ...partial, historique_avancees: [...travail.historique_avancees, record] };
+    const enregistrement = avanceeGratuiteEnAttente ? { ...record, bonus: true } : record;
+    const updated: Member = {
+      ...travail,
+      ...partial,
+      historique_avancees: [...travail.historique_avancees, enregistrement],
+    };
     setTravail(updated);
     onApply(updated);
     setTexteResultat(resume);
     setEtape('resultat');
+    if (avanceeGratuiteEnAttente) setAvanceeGratuiteEnAttente(false);
   };
 
   const validerJetAvancement = () => {
@@ -364,6 +375,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
 
     setTravail(travailSuivant);
     setTableForcee('heros');
+    setAvanceeGratuiteEnAttente(true);
     setIndexAvancement('');
     setCategorie('');
     setCategoriesPromotion([]);
