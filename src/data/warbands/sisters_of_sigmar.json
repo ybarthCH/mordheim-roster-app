@@ -135,7 +135,8 @@
         { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armes_tir": [
-        { "item_id": "fronde", "cout": 2 }
+        { "item_id": "fronde", "cout": 2 },
+        { "item_id": "eau_benite", "cout": 10, "restriction": "Héroïnes seulement" }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
@@ -146,7 +147,6 @@
       ],
       "divers": [
         { "item_id": "livre_saint", "cout": 120, "restriction": "Héroïnes seulement" },
-        { "item_id": "eau_benite", "cout": 10, "restriction": "Héroïnes seulement" },
         { "item_id": "relique_sacree_sigmarite", "cout": 15, "restriction": "Héroïnes seulement" }
       ]
     }
