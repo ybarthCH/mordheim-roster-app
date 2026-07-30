@@ -189,34 +189,50 @@ export const TRINKETS_LIMITES = new Set([
   'relique_maudite',
 ]);
 
-// Objets "matériau" (gromril, ithilmar, obsidienne) : au lieu de s'acheter
-// tels quels, ils demandent de choisir une arme/armure de base existante,
-// dont le prix est multiplié et dont l'effet du matériau vient s'ajouter aux
-// règles spéciales déjà en place — voir basesPourMateriau/
+// Objets "matériau" (gromril, ithilmar, obsidienne, lame elfe noire) : au
+// lieu de s'acheter tels quels, ils demandent de choisir une arme/armure de
+// base existante — son prix est soit multiplié (gromril/ithilmar/
+// obsidienne), soit augmenté d'un montant fixe (lame elfe noire), et
+// l'effet du matériau vient s'ajouter aux règles spéciales déjà en place.
+// `basesAutorisees` restreint le choix à une liste d'ids précise (ex : la
+// lame elfe noire ne se pose que sur une épée ou une dague) ; omis, toute la
+// catégorie `categorieBase` est proposée. Voir basesPourMateriau/
 // construireObjetMateriau/resolveCombinaisonMateriau ci-dessous.
-export const MATERIAU_MULTIPLICATEURS: Record<string, { multiplicateur: number; categorieBase: string }> = {
-  arme_en_gromril: { multiplicateur: 4, categorieBase: 'armes_cac' },
-  arme_en_ithilmar: { multiplicateur: 3, categorieBase: 'armes_cac' },
-  arme_en_obsidienne_market: { multiplicateur: 4, categorieBase: 'armes_cac' },
-  armure_en_gromril_market: { multiplicateur: 4, categorieBase: 'armures' },
-  armure_en_ithilmar_market: { multiplicateur: 3, categorieBase: 'armures' },
+type SpecMateriau = { categorieBase: string; basesAutorisees?: string[] } & (
+  | { mode: 'multiplicateur'; multiplicateur: number }
+  | { mode: 'addition'; montant: number }
+);
+
+export const MATERIAUX: Record<string, SpecMateriau> = {
+  arme_en_gromril: { mode: 'multiplicateur', multiplicateur: 4, categorieBase: 'armes_cac' },
+  arme_en_ithilmar: { mode: 'multiplicateur', multiplicateur: 3, categorieBase: 'armes_cac' },
+  arme_en_obsidienne_market: { mode: 'multiplicateur', multiplicateur: 4, categorieBase: 'armes_cac' },
+  armure_en_gromril_market: { mode: 'multiplicateur', multiplicateur: 4, categorieBase: 'armures' },
+  armure_en_ithilmar_market: { mode: 'multiplicateur', multiplicateur: 3, categorieBase: 'armures' },
+  lame_elfe_noire: { mode: 'addition', montant: 20, categorieBase: 'armes_cac', basesAutorisees: ['epee', 'dague'] },
 };
 
-export function estItemMateriau(id: string): boolean {
-  return id in MATERIAU_MULTIPLICATEURS;
+function coutFinalMateriau(spec: SpecMateriau, coutBase: number): number {
+  return spec.mode === 'multiplicateur' ? coutBase * spec.multiplicateur : coutBase + spec.montant;
 }
 
-// Armes/armures de base proposées pour un matériau donné : même catégorie,
-// à l'exclusion des objets matériau eux-mêmes (pas de gromril sur gromril),
-// dédupliquées par id (une arme peut apparaître à la fois dans la liste de
-// la bande et dans le shop commun).
+export function estItemMateriau(id: string): boolean {
+  return id in MATERIAUX;
+}
+
+// Armes/armures de base proposées pour un matériau donné : même catégorie
+// (ou restreinte à `basesAutorisees` si précisé), à l'exclusion des objets
+// matériau eux-mêmes (pas de gromril sur gromril), dédupliquées par id (une
+// arme peut apparaître à la fois dans la liste de la bande et dans le shop
+// commun).
 export function basesPourMateriau(items: ShopItem[], materiauId: string): ShopItem[] {
-  const spec = MATERIAU_MULTIPLICATEURS[materiauId];
+  const spec = MATERIAUX[materiauId];
   if (!spec) return [];
   const vus = new Set<string>();
   return items
     .filter((item) => {
       if (item.categorie !== spec.categorieBase || estItemMateriau(item.id) || vus.has(item.id)) return false;
+      if (spec.basesAutorisees && !spec.basesAutorisees.includes(item.id)) return false;
       vus.add(item.id);
       return true;
     })
@@ -233,13 +249,12 @@ function libelleMateriau(nomMateriau: string): string {
 // (id synthétique combo__<baseId>__<materiauId>, résolu par
 // resolveCombinaisonMateriau pour un affichage cohérent après achat).
 export function construireObjetMateriau(base: ShopItem, materiau: ShopItem, coutBase: number): ShopItem {
-  const spec = MATERIAU_MULTIPLICATEURS[materiau.id];
-  const multiplicateur = spec?.multiplicateur ?? 1;
+  const spec = MATERIAUX[materiau.id];
   return {
     id: `${PREFIXE_COMBO}${base.id}__${materiau.id}`,
     nom: `${base.nom} (${libelleMateriau(materiau.nom)})`,
     categorie: base.categorie,
-    cout: coutBase * multiplicateur,
+    cout: spec ? coutFinalMateriau(spec, coutBase) : coutBase,
     cout_fixe: true,
     rarete: materiau.rarete,
     disponibilite: materiau.disponibilite,
@@ -262,12 +277,12 @@ export function resolveCombinaisonMateriau(comboId: string): ShopItem | undefine
   const base = baseId ? getItem(baseId) : undefined;
   const materiau = materiauId ? getItem(materiauId) : undefined;
   if (!base || !materiau) return undefined;
-  const spec = MATERIAU_MULTIPLICATEURS[materiauId];
+  const spec = materiauId ? MATERIAUX[materiauId] : undefined;
   return {
     id: comboId,
     nom: `${base.nom} (${libelleMateriau(materiau.nom)})`,
     categorie: normaliserCategorie(base.categorie),
-    cout: spec && typeof base.cout === 'number' ? base.cout * spec.multiplicateur : materiau.cout,
+    cout: spec && typeof base.cout === 'number' ? coutFinalMateriau(spec, base.cout) : materiau.cout,
     cout_fixe: true,
     rarete: materiau.rarete,
     disponibilite: materiau.disponibilite,

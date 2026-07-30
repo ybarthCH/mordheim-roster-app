@@ -17,7 +17,7 @@ import {
   estItemMateriau,
   basesPourMateriau,
   construireObjetMateriau,
-  MATERIAU_MULTIPLICATEURS,
+  MATERIAUX,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
@@ -438,7 +438,7 @@ export function AchatEquipementModal({
               ))}
               <div className="field achat-equipement__cout">
                 <label>
-                  Coût de la base (po){' '}
+                  Coût de base (po){' '}
                   {!baseMateriauChoisie.cout_fixe && (
                     <span className="text-muted">— notation : {baseMateriauChoisie.cout}</span>
                   )}
@@ -453,8 +453,12 @@ export function AchatEquipementModal({
               </div>
               {coutBaseValide && (
                 <p className="text-sm">
-                  Prix final ({coutBase} po × {MATERIAU_MULTIPLICATEURS[materiauSelectionne.id]?.multiplicateur}) :{' '}
-                  <strong>{objetMateriauCombine?.cout} po</strong>
+                  Prix final (
+                  {(() => {
+                    const spec = MATERIAUX[materiauSelectionne.id];
+                    return spec?.mode === 'addition' ? `${coutBase} po + ${spec.montant}` : `${coutBase} po × ${spec?.multiplicateur}`;
+                  })()}
+                  ) : <strong>{objetMateriauCombine?.cout} po</strong>
                 </p>
               )}
               {!gratuit && coutBaseValide && (objetMateriauCombine?.cout as number) > tresorerie && (
