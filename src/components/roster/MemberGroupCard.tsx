@@ -76,7 +76,7 @@ export function MemberGroupCard({
     if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return false;
     return (
       avancesDues(grilleXpDuProfil(profil), m.xp_depart, m.xp, !!catalogue?.xp_demi) >
-      m.historique_avancees.length
+      m.historique_avancees.filter((a) => !a.bonus).length
     );
   };
 

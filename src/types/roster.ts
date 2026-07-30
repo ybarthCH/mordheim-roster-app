@@ -67,6 +67,11 @@ export type AdvanceRecord = {
   // Absent sur les entrées historiques antérieures à l'ajout de ce champ, qui
   // retombent alors sur l'appariement par nom (fragile aux renommages).
   competenceId?: string;
+  // Jet immédiat et gratuit sur la table des héros accordé par "Ce gars est
+  // doué" (voir AvanceeModal.confirmerPromotion) — ne consomme pas une
+  // avancée due au titre de la progression XP normale : à exclure du calcul
+  // d'avancées obtenues (voir avancesDues côté utils/xp.ts et ses appelants).
+  bonus?: boolean;
 };
 
 // Profil entièrement défini à la main pour une recrue "Franc-tireur"

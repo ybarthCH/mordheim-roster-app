@@ -119,7 +119,7 @@ function BlocAvanceeDue({
   const profil = resolveProfil(roster, membre);
   if (!profil || profil.type === 'animal') return null;
   const dues = avancesDues(grilleXpDuProfil(profil), membre.xp_depart, xpActuel, demiXp);
-  const enAttente = Math.max(0, dues - membre.historique_avancees.length);
+  const enAttente = Math.max(0, dues - membre.historique_avancees.filter((a) => !a.bonus).length);
   if (enAttente === 0) return null;
   return (
     <div className="flex items-center gap-sm" style={{ marginTop: '0.5rem' }}>
