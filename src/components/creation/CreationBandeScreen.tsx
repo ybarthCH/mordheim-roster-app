@@ -8,7 +8,7 @@ import { STAT_KEYS } from '../../types/catalog';
 import type { Member, RosterInstance } from '../../types/roster';
 import { creerMembre, creerRoster } from '../../utils/factory';
 import { peutAjouterMembre } from '../../utils/validation';
-import { estSorcier, sortsDisponibles } from '../../utils/magie';
+import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { useRosters } from '../../state/useRosters';
 
 const BUDGET_PAR_DEFAUT = 500;
@@ -292,14 +292,15 @@ export function CreationBandeScreen() {
         <RecrutementDraftModal
           profil={profilEnRecrutement}
           catalogue={catalogue}
+          roster={rosterFictif}
           budgetDisponible={restant}
           verifierLimite={(quantite) => peutAjouterMembre(rosterFictif, profilEnRecrutement.id, quantite)}
           onClose={() => setProfilEnRecrutement(null)}
-          onConfirm={({ nom, xpDepart, quantite, sortChoisi, coutUnitaire, marque }) => {
+          onConfirm={({ nom, xpDepart, quantite, sortsConnus, coutUnitaire, marque }) => {
             const membre = creerMembre(profilEnRecrutement, xpDepart, quantite);
             if (nom) membre.nom_perso = nom;
             if (marque) membre.marque = marque;
-            if (sortChoisi) membre.sorts_connus = [sortChoisi];
+            if (sortsConnus.length > 0) membre.sorts_connus = sortsConnus;
             if (profilEnRecrutement.cout === null) {
               setCoutPayeParInstance((prev) => ({ ...prev, [membre.instance_id]: coutUnitaire }));
             }
@@ -315,6 +316,7 @@ export function CreationBandeScreen() {
 type RecrutementDraftModalProps = {
   profil: Profile;
   catalogue: WarbandCatalog | undefined;
+  roster: RosterInstance;
   budgetDisponible: number;
   verifierLimite: (quantite: number) => { ok: boolean; raison?: string };
   onClose: () => void;
@@ -322,7 +324,7 @@ type RecrutementDraftModalProps = {
     nom: string;
     xpDepart: number;
     quantite: number;
-    sortChoisi: string;
+    sortsConnus: string[];
     coutUnitaire: number;
     marque: string;
   }) => void;
@@ -331,6 +333,7 @@ type RecrutementDraftModalProps = {
 function RecrutementDraftModal({
   profil,
   catalogue,
+  roster,
   budgetDisponible,
   verifierLimite,
   onClose,
@@ -339,7 +342,9 @@ function RecrutementDraftModal({
   const [nom, setNom] = useState('');
   const [xpDepartSaisie, setXpDepartSaisie] = useState(String(profil.xp_depart ?? 0));
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
-  const [sortChoisi, setSortChoisi] = useState('');
+  // Sort(s) connu(s) choisis librement au recrutement — un seul par défaut,
+  // davantage si le profil le précise (voir Profile.nombre_sorts_choisis_depart).
+  const [sortsChoisis, setSortsChoisis] = useState<string[]>([]);
   // Coût saisi à la main quand le profil n'a pas de prix fixe (ex : chien de
   // guerre, "25+2D6") — jet à faire sur table papier, comme pour un objet
   // acheté au shop plutôt qu'un recrutement classique.
@@ -355,7 +360,10 @@ function RecrutementDraftModal({
   const marqueRequise = !!profil.marque_requise;
   const premierSortRequis =
     estSorcier(catalogue, profil.id, marqueChoisie || undefined) && (!marqueRequise || marqueChoisie !== '');
-  const sortsPossibles = sortsDisponibles(catalogue, [], profil, marqueChoisie || undefined);
+  const sortsPossibles = sortsDisponiblesPourRoster(catalogue, roster, [], profil, marqueChoisie || undefined);
+  const nombreSortsRequis = profil.nombre_sorts_choisis_depart ?? 1;
+  const sortsChoisisValides =
+    sortsChoisis.length === nombreSortsRequis && sortsChoisis.every((s) => s !== '');
   const coutManuelRequis = profil.cout === null;
   const coutManuelValide =
     !coutManuelRequis || (coutManuelSaisi.trim() !== '' && !Number.isNaN(Number(coutManuelSaisi)) && Number(coutManuelSaisi) >= 0);
@@ -370,12 +378,13 @@ function RecrutementDraftModal({
   const confirmer = () => {
     if (!check.ok || !coutManuelValide) return;
     if (marqueRequise && !marqueChoisie) return;
-    if (premierSortRequis && !sortChoisi) return;
+    if (premierSortRequis && !sortsChoisisValides) return;
     onConfirm({
       nom: nom.trim(),
       xpDepart: gagneExperience ? xpDepart : 0,
       quantite,
-      sortChoisi,
+      sortsConnus:
+        premierSortRequis && sortsChoisisValides ? [...(profil.sorts_fixes_depart ?? []), ...sortsChoisis] : [],
       coutUnitaire,
       marque: marqueRequise ? marqueChoisie : '',
     });
@@ -458,20 +467,40 @@ function RecrutementDraftModal({
           )}
         </div>
       )}
-      {premierSortRequis && (
-        <div className="field">
-          <label>Premier sort connu</label>
-          <select value={sortChoisi} onChange={(e) => setSortChoisi(e.target.value)}>
-            <option value="">— Choisir —</option>
-            {sortsPossibles.map((s) => (
-              <option key={s.nom} value={s.nom}>
-                {s.resultat} — {s.nom}
-              </option>
-            ))}
-          </select>
-          <p className="text-sm text-muted mb-0">Obligatoire pour un profil sorcier.</p>
-        </div>
+      {premierSortRequis && profil.sorts_fixes_depart && profil.sorts_fixes_depart.length > 0 && (
+        <p className="text-sm text-muted">
+          Connaît automatiquement : <strong>{profil.sorts_fixes_depart.join(', ')}</strong>.
+        </p>
       )}
+      {premierSortRequis &&
+        Array.from({ length: nombreSortsRequis }, (_, i) => {
+          const sortsRestants = sortsPossibles.filter(
+            (s) => !sortsChoisis.some((sel, j) => j !== i && sel === s.nom)
+          );
+          return (
+            <div className="field" key={i}>
+              <label>{nombreSortsRequis > 1 ? `Sort connu (${i + 1}/${nombreSortsRequis})` : 'Premier sort connu'}</label>
+              <select
+                value={sortsChoisis[i] ?? ''}
+                onChange={(e) => {
+                  const copie = [...sortsChoisis];
+                  copie[i] = e.target.value;
+                  setSortsChoisis(copie);
+                }}
+              >
+                <option value="">— Choisir —</option>
+                {sortsRestants.map((s) => (
+                  <option key={s.nom} value={s.nom}>
+                    {s.resultat} — {s.nom}
+                  </option>
+                ))}
+              </select>
+              {i === nombreSortsRequis - 1 && (
+                <p className="text-sm text-muted mb-0">Obligatoire pour un profil sorcier.</p>
+              )}
+            </div>
+          );
+        })}
       {gagneExperience ? (
         <div className="field">
           <label>Expérience de départ</label>
@@ -497,7 +526,7 @@ function RecrutementDraftModal({
             !check.ok ||
             !coutManuelValide ||
             (marqueRequise && !marqueChoisie) ||
-            (premierSortRequis && !sortChoisi)
+            (premierSortRequis && !sortsChoisisValides)
           }
           onClick={confirmer}
         >

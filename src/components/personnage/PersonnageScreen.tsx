@@ -436,6 +436,7 @@ export function PersonnageScreen() {
           member={membre}
           profil={profil}
           catalogue={catalogue}
+          roster={roster}
           heroCount={heroCount}
           equitationGratuite={equitationGratuitePourTribu(catalogue, roster)}
           onClose={() => setModalAvancee(false)}
@@ -453,6 +454,7 @@ export function PersonnageScreen() {
       {modalBlessure && (
         <BlessureGraveModal
           member={membre}
+          profil={profil}
           tresorerieDisponible={roster.tresorerie}
           onClose={() => setModalBlessure(false)}
           onApply={(updated, tresorerieBonus) => appliquerBlessureGrave(updated, tresorerieBonus)}

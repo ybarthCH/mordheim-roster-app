@@ -108,6 +108,21 @@ export type Profile = {
   xp_depart?: number;
   peut_lancer_sorts?: boolean;
   categorie_magie?: string;
+  // Sort(s) toujours connu(s) au recrutement, sans choix — s'ajoute(nt) aux
+  // sorts choisis normalement (ex : le Hiérogrammate des Nains du Chaos
+  // débute toujours avec le Rituel sacrificiel, en plus d'un rituel choisi).
+  sorts_fixes_depart?: string[];
+  // Nombre de sorts à choisir librement au recrutement (résultat déjà tiré
+  // sur table papier, comme pour tout premier sort) — 1 par défaut pour tout
+  // sorcier, davantage si la bande le précise (ex : la Liche des Morts Sans
+  // Repos débute avec deux sorts tirés aléatoirement).
+  nombre_sorts_choisis_depart?: number;
+  // Restreint les sorts accessibles (recrutement et avancées) à ceux connus
+  // par un membre vivant de ce profil dans la même bande — retombe sur la
+  // liste complète si aucun membre vivant de ce profil n'existe (ex : le
+  // Nécromancien des Morts Sans Repos, limité aux sorts connus de la Liche
+  // tant qu'elle est vivante ; règle levée si la Liche meurt).
+  sorts_restreints_a_profil?: string;
   // Ce profil doit choisir une Marque au recrutement (voir
   // WarbandCatalog.marques, ex : le Devin des Maraudeurs du Chaos) — le
   // choix détermine le domaine de sorts utilisé (Member.marque).
@@ -142,6 +157,12 @@ export type Profile = {
   // promotion est de remplir le rôle d'un héros unique tombé, via l'action
   // dédiée sur le roster (voir WarbandCatalog.bannir_profils_uniques_a_mort).
   remplace_heros_tombe?: boolean;
+  // Règle spéciale Éternelle (Liche des Morts Sans Repos) : peut ignorer
+  // n'importe quel résultat de Blessure grave sauf Tué, en subissant à la
+  // place -1 PV permanent (indisponible s'il ne lui reste qu'1 PV) ; un
+  // résultat Tué devient -D3 PV permanents, mort normale seulement si cela
+  // ramène ses PV à 0 ou moins — voir BlessureGraveWizard.
+  eternelle?: boolean;
 };
 
 // Contraintes de composition de bande. Purement informatif (affiché comme

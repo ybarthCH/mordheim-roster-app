@@ -452,6 +452,7 @@ export function RosterScreen() {
                 member={heroPromuEnAttente}
                 profil={profilPromu}
                 catalogue={catalogue}
+                roster={roster}
                 heroCount={nombreHeros(roster)}
                 equitationGratuite={equitationGratuitePourTribu(catalogue, roster)}
                 onClose={() => setHeroPromuEnAttente(null)}
