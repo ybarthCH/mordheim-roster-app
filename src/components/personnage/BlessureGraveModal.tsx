@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { Member, SeriousInjuryRecord } from '../../types/roster';
+import type { Profile } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { BlessureGraveWizard, type BlessureGraveResultat } from './BlessureGraveWizard';
 import { trouverBlessure } from '../../data/blessuresGraves';
@@ -8,6 +9,7 @@ import { appliquerDeltaStats } from '../../utils/blessures';
 
 type Props = {
   member: Member;
+  profil?: Profile;
   tresorerieDisponible: number;
   onClose: () => void;
   onApply: (member: Member, tresorerieBonus: number) => void;
@@ -15,7 +17,7 @@ type Props = {
 
 const NOM_AVEUGLE_OEIL = trouverBlessure('aveugle_oeil')?.nom;
 
-export function BlessureGraveModal({ member, tresorerieDisponible, onClose, onApply }: Props) {
+export function BlessureGraveModal({ member, profil, tresorerieDisponible, onClose, onApply }: Props) {
   const [applique, setApplique] = useState(false);
   const dejaAveugle = member.blessures_graves.some((b) => b.nom === NOM_AVEUGLE_OEIL);
 
@@ -60,6 +62,8 @@ export function BlessureGraveModal({ member, tresorerieDisponible, onClose, onAp
           nomPersonnage={member.nom_perso}
           dejaAveugle={dejaAveugle}
           tresorerieDisponible={tresorerieDisponible}
+          estEternelle={!!profil?.eternelle}
+          pvActuelProfil={member.stats_actuels.PV}
           onAppliquer={appliquer}
           onAnnuler={onClose}
         />

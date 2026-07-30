@@ -791,6 +791,7 @@ export function PostBatailleScreen() {
 
       {etape === 1 && (
         <EtapeBlessuresGraves
+          roster={roster}
           horsDeCombatHeros={horsDeCombatHeros}
           blessureDrafts={blessureDrafts}
           tresorerieDisponible={roster.tresorerie + blessuresTresorerieBonus}
@@ -971,6 +972,7 @@ export function PostBatailleScreen() {
                 member={membreEnAvancee}
                 profil={profilAvancee}
                 catalogue={catalogue}
+                roster={roster}
                 heroCount={heroCount}
                 equitationGratuite={equitationGratuitePourTribu(catalogue, roster)}
                 onClose={() => setMembreEnAvancee(null)}

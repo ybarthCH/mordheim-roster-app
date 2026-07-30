@@ -4,6 +4,7 @@
 // à l'avancée d'expérience ("nouvelle compétence" → sort à la place), et à
 // l'affichage sur la fiche personnage.
 import type { Magie, MagieSort, Profile, WarbandCatalog } from '../types/catalog';
+import type { RosterInstance } from '../types/roster';
 import { MAGIE_MINEURE } from '../data/minorMagic';
 
 /** Domaine utilisé par un profil. Les profils du catalogue de bande gardent
@@ -57,6 +58,34 @@ export function sortsDisponibles(
 
 export function sortsMagieMineureDisponibles(dejaConnus: string[]): MagieSort[] {
   return MAGIE_MINEURE.sorts.filter((s) => !dejaConnus.includes(s.nom));
+}
+
+/** Sorts connus par un membre vivant du profil `profilId` dans cette bande —
+ * undefined si aucun n'existe (aucune restriction à appliquer dans ce cas).
+ * Ex : les sorts de la Liche, pour restreindre ceux du Nécromancien tant
+ * qu'elle est vivante (voir Profile.sorts_restreints_a_profil). */
+export function sortsConnusParProfil(roster: RosterInstance, profilId: string): string[] | undefined {
+  const source = roster.membres.find((m) => m.statut !== 'mort' && m.profil_id === profilId);
+  return source?.sorts_connus;
+}
+
+/** Variante de sortsDisponibles tenant compte de Profile.sorts_restreints_a_profil
+ * (voir sortsConnusParProfil) — à utiliser partout où un choix de sort est
+ * proposé au joueur (recrutement, avancée) pour une bande susceptible
+ * d'avoir ce genre de restriction croisée entre profils. */
+export function sortsDisponiblesPourRoster(
+  catalogue: WarbandCatalog | undefined,
+  roster: RosterInstance,
+  dejaConnus: string[],
+  profil?: Profile | string,
+  marqueId?: string
+): MagieSort[] {
+  const base = sortsDisponibles(catalogue, dejaConnus, profil, marqueId);
+  const profilRestriction = typeof profil !== 'string' ? profil?.sorts_restreints_a_profil : undefined;
+  if (!profilRestriction) return base;
+  const connus = sortsConnusParProfil(roster, profilRestriction);
+  if (!connus) return base;
+  return base.filter((s) => connus.includes(s.nom));
 }
 
 /** Synopsis complet d'un sort connu (nom, difficulté, texte) à partir de son

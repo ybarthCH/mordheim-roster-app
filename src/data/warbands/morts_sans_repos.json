@@ -20,6 +20,8 @@
       "max": 1,
       "cout": 125,
       "xp_depart": 20,
+      "nombre_sorts_choisis_depart": 2,
+      "eternelle": true,
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 2, "E": 2, "PV": 4, "I": 4, "A": 1, "Cd": 8 },
       "regles_speciales": [
         { "nom": "Sorcier", "texte": "Sorcier puissant ; utilise la magie Nécromantique et débute avec deux sorts tirés aléatoirement de la liste Nécromancie." },
@@ -48,6 +50,7 @@
       "max": 1,
       "cout": 40,
       "xp_depart": 8,
+      "sorts_restreints_a_profil": "liche",
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [
         { "nom": "Sorcier", "texte": "Formé par la Liche à la Nécromancie ; débute en connaissant l'un des deux sorts connus de la Liche." },

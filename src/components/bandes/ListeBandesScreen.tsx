@@ -5,7 +5,8 @@ import { ThemeToggle } from '../common/ThemeToggle';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { Icon } from '../common/Icon';
-import { bilanBatailles, effectifTotal, nomCatalogue, valeurBande } from '../../utils/bandeValue';
+import { bilanBatailles, effectifTotal, nomCatalogue } from '../../utils/bandeValue';
+import { ratingTotal } from '../../utils/rating';
 import { exporterRoster, lireFichierRoster } from '../../utils/importExport';
 import type { RosterInstance } from '../../types/roster';
 
@@ -42,7 +43,7 @@ export function ListeBandesScreen() {
   const [erreurImport, setErreurImport] = useState<string | null>(null);
 
   const classement = useMemo(() => {
-    return [...rosters].sort((a, b) => valeurBande(b) - valeurBande(a));
+    return [...rosters].sort((a, b) => ratingTotal(b) - ratingTotal(a));
   }, [rosters]);
 
   const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,7 +122,7 @@ export function ListeBandesScreen() {
             <div className="list-item__main">
               <div className="list-item__title">{roster.nom_bande}</div>
               <div className="list-item__subtitle">
-                {nomCatalogue(roster.bande_id)} · {effectifTotal(roster)} membres · Valeur {valeurBande(roster)} po
+                {nomCatalogue(roster.bande_id)} · {effectifTotal(roster)} membres · Rating {ratingTotal(roster)}
               </div>
               <div className="list-item__subtitle">
                 {bilan.total > 0
@@ -153,7 +154,7 @@ export function ListeBandesScreen() {
                 <tr>
                   <th>#</th>
                   <th>Bande</th>
-                  <th>Valeur</th>
+                  <th>Rating</th>
                   <th>V/D/N</th>
                 </tr>
               </thead>
@@ -164,7 +165,7 @@ export function ListeBandesScreen() {
                     <tr key={r.id} onClick={() => navigate(`/roster/${r.id}`)}>
                       <td>{i + 1}</td>
                       <td>{r.nom_bande}</td>
-                      <td>{valeurBande(r)} po</td>
+                      <td>{ratingTotal(r)}</td>
                       <td>
                         {bilan.victoires}/{bilan.defaites}/{bilan.nuls}
                       </td>

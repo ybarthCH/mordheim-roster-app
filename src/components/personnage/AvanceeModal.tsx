@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import type { Member, AdvanceRecord } from '../../types/roster';
+import type { Member, AdvanceRecord, RosterInstance } from '../../types/roster';
 import type { Profile, SkillCategory, Stats, WarbandCatalog } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN, skillById } from '../../data/gameData';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { LIMITE_HEROS, categoriesAccessibles, tableAvancementDuProfil } from '../../utils/profil';
 import { peutAugmenterStat } from '../../utils/plafond';
-import { estSorcier, sortsDisponibles } from '../../utils/magie';
+import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { monturesDisponibles } from '../../utils/shop';
 import { SKILL_EQUITATION } from '../../utils/tribu';
 import {
@@ -19,6 +19,7 @@ type Props = {
   member: Member;
   profil: Profile;
   catalogue: WarbandCatalog;
+  roster: RosterInstance;
   // Nombre de héros déjà présents dans la bande (figurine en cours d'avancée
   // exclue) — sert à bloquer "Ce gars est doué" une fois la limite de 6
   // héros atteinte.
@@ -46,7 +47,7 @@ type Etape =
   | 'jet_caracteristique_variable'
   | 'resultat';
 
-export function AvanceeModal({ member, profil, catalogue, heroCount, equitationGratuite, onClose, onApply }: Props) {
+export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equitationGratuite, onClose, onApply }: Props) {
   const limiteHerosAtteinte = heroCount >= LIMITE_HEROS;
   // État local de travail : on accumule les mutations ici plutôt que de se
   // fier à la prop `member` (qui ne se met à jour qu'au prochain rendu du
@@ -655,7 +656,7 @@ export function AvanceeModal({ member, profil, catalogue, heroCount, equitationG
 
       {etape === 'sort' &&
         (() => {
-          const disponibles = sortsDisponibles(catalogue, travail.sorts_connus, profil, travail.marque);
+          const disponibles = sortsDisponiblesPourRoster(catalogue, roster, travail.sorts_connus, profil, travail.marque);
           return (
             <>
               {entreeAvancement && <p className="text-sm text-muted">Résultat {entreeAvancement.label}.</p>}

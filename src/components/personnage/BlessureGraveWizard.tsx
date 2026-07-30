@@ -93,6 +93,15 @@ type Props = {
   // rançon pour le résultat "Capturé", purement informatif (le paiement
   // n'est appliqué qu'à la validation finale, via tresorerieBonus négatif).
   tresorerieDisponible?: number;
+  // Règle spéciale Éternelle (Liche des Morts Sans Repos) : peut ignorer
+  // n'importe quel résultat de Blessure grave sauf Tué, en subissant à la
+  // place -1 PV permanent — indisponible s'il ne lui reste qu'1 PV. Un
+  // résultat Tué devient automatiquement -D3 PV permanents (mort normale
+  // seulement si cela ramène ses PV à 0 ou moins).
+  estEternelle?: boolean;
+  // PV actuels du profil (Member.stats_actuels.PV) — nécessaire pour
+  // appliquer/vérifier la règle Éternelle ci-dessus.
+  pvActuelProfil?: number;
   onAppliquer: (resultat: BlessureGraveResultat) => void;
   onAnnuler?: () => void;
 };
@@ -103,6 +112,8 @@ export function BlessureGraveWizard({
   nomPersonnage,
   dejaAveugle = false,
   tresorerieDisponible,
+  estEternelle = false,
+  pvActuelProfil,
   onAppliquer,
   onAnnuler,
 }: Props) {
@@ -128,6 +139,12 @@ export function BlessureGraveWizard({
   // 'capture_issue' plus bas).
   const [captureChoix, setCaptureChoix] = useState<'perdu' | 'rancon' | null>(null);
   const [ranconSaisie, setRanconSaisie] = useState('');
+  // Règle Éternelle (voir Props.estEternelle) : sur un résultat autre que
+  // Tué, la Liche peut choisir d'ignorer ce résultat contre -1 PV permanent.
+  const [eternelleIgnorer, setEternelleIgnorer] = useState(false);
+  // Sur un résultat Tué, le jet de D3 (perte de PV permanents) qui remplace
+  // automatiquement la mort — saisi comme n'importe quel jet papier.
+  const [eternelleDeD3Saisi, setEternelleDeD3Saisi] = useState('');
 
   const enCoursDansBoucle = contexte === 'boucle' && multiplesCount !== null;
   const iterationActuelleIndex = multiplesResultats.length + 1;
@@ -145,6 +162,8 @@ export function BlessureGraveWizard({
     setGladiateurForcePerte(false);
     setCaptureChoix(null);
     setRanconSaisie('');
+    setEternelleIgnorer(false);
+    setEternelleDeD3Saisi('');
   };
 
   const terminerIteration = (it: IterationResolue) => {
@@ -286,7 +305,7 @@ export function BlessureGraveWizard({
 
   const NOTE_SECOND_OEIL = 'Perd son second œil — retiré définitivement de la bande (Mort).';
 
-  const construireResultatFinal = (): BlessureGraveResultat => {
+  const construireResultatBase = (): BlessureGraveResultat => {
     if (racine && racine.resultat.multiplesInjuries) {
       const texte =
         `${prefixeGladiateur}Blessures multiples (16-21) — relance de ${multiplesResultats.length} résultat(s) supplémentaire(s) :\n` +
@@ -365,6 +384,49 @@ export function BlessureGraveWizard({
       xpBonus: racine.resultat.xpBonus ?? 0,
       tresorerieBonus: racine.resultat.tresorerieBonus ?? 0,
     };
+  };
+
+  // Une Liche a 1 PV restant : elle ne peut pas ignorer un résultat contre
+  // -1 PV (cela la tuerait sans passer par un jet Tué).
+  const eternellePeutIgnorer = estEternelle && (pvActuelProfil ?? 0) > 1;
+
+  const construireResultatEternelleIgnore = (base: BlessureGraveResultat): BlessureGraveResultat => ({
+    ...base,
+    texte: `${base.texte}\n\nÉternelle : ce résultat est ignoré — la Liche subit à la place une perte permanente de -1 Point de Vie.`,
+    statsDelta: fusionnerStats(base.statsDelta, { PV: -1 }),
+    notes: [...base.notes, 'Éternelle : résultat ignoré, -1 PV permanent'],
+    perteEquipement: false,
+    statutMort: false,
+    xpBonus: 0,
+    tresorerieBonus: 0,
+  });
+
+  const construireResultatEternelleTue = (base: BlessureGraveResultat): BlessureGraveResultat => {
+    const jet = Math.trunc(Number(eternelleDeD3Saisi));
+    const perte = Number.isFinite(jet) && jet > 0 ? jet : 0;
+    const pvApres = (pvActuelProfil ?? 0) - perte;
+    const tue = pvApres <= 0;
+    const texte = `${base.texte}\n\nÉternelle : un résultat Tué inflige à la place une perte permanente de -${perte} Point(s) de Vie (jet de 1D3).${
+      tue
+        ? ' Cette perte ramène ses PV à 0 ou moins : la Liche est tuée normalement.'
+        : ` Ses PV passent définitivement à ${pvApres}.`
+    }`;
+    return {
+      ...base,
+      texte,
+      statsDelta: tue ? {} : { PV: -perte },
+      notes: tue ? base.notes : [...base.notes, `Éternelle : -${perte} PV permanent (Tué évité)`],
+      perteEquipement: tue,
+      statutMort: tue,
+    };
+  };
+
+  const construireResultatFinal = (): BlessureGraveResultat => {
+    const base = construireResultatBase();
+    if (!racine) return base;
+    if (estEternelle && racine.resultat.id === 'mort') return construireResultatEternelleTue(base);
+    if (eternellePeutIgnorer && eternelleIgnorer) return construireResultatEternelleIgnore(base);
+    return base;
   };
 
   if (mode === 'liste') {
@@ -604,6 +666,38 @@ export function BlessureGraveWizard({
           ))}
         </ol>
       )}
+      {estEternelle && racine?.resultat.id === 'mort' && (
+        <div className="card card--tight" style={{ margin: '0.6rem 0', borderColor: 'var(--accent)' }}>
+          <p className="text-sm mb-0">
+            <strong>Éternelle</strong> — un résultat Tué inflige à la place une perte permanente de -D3 Points de
+            Vie. Lance 1D3 sur ta table papier.
+          </p>
+          <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.5rem' }}>
+            {[1, 2, 3].map((n) => (
+              <button
+                key={n}
+                type="button"
+                className={eternelleDeD3Saisi === String(n) ? 'btn btn--primary' : 'btn'}
+                onClick={() => setEternelleDeD3Saisi(String(n))}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      {eternellePeutIgnorer && racine && racine.resultat.id !== 'mort' && (
+        <label className="skill-check" style={{ cursor: 'pointer', margin: '0.6rem 0' }}>
+          <input
+            type="checkbox"
+            checked={eternelleIgnorer}
+            onChange={(e) => setEternelleIgnorer(e.target.checked)}
+          />
+          <span className="skill-check__name">
+            Éternelle : ignorer ce résultat, -1 PV permanent à la place (PV actuels : {pvActuelProfil})
+          </span>
+        </label>
+      )}
       {statsListe.length > 0 && (
         <p className="text-sm">
           <strong>Caractéristiques modifiées :</strong>{' '}
@@ -660,7 +754,11 @@ export function BlessureGraveWizard({
             Annuler
           </button>
         )}
-        <button className="btn btn--primary" onClick={() => onAppliquer(resultatFinal)}>
+        <button
+          className="btn btn--primary"
+          disabled={estEternelle && racine?.resultat.id === 'mort' && !eternelleDeD3Saisi}
+          onClick={() => onAppliquer(resultatFinal)}
+        >
           Appliquer
         </button>
       </div>
