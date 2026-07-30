@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import {
   BLESSURES_GRAVES,
@@ -6,8 +7,37 @@ import {
   type ResultatBlessureGrave,
   type SousJetOption,
 } from '../../data/blessuresGraves';
+import { getCatalogue } from '../../data/warbands';
 import { Icon, type IconName } from '../common/Icon';
 import type { SeriousInjuryEffect } from '../../types/roster';
+
+// Profil générique de l'adversaire dans les fosses de combat (résultat
+// "Gladiateur", spécifique à la bande Gladiateurs) — affiché à côté du
+// profil du combattant blessé pour permettre de résoudre le duel sans avoir
+// à quitter l'assistant pour consulter sa fiche.
+const PROFIL_GLADIATEUR_ADVERSAIRE = getCatalogue('gladiateurs')?.profils.find((p) => p.id === 'gladiateur');
+
+function BlocStats({ titre, stats }: { titre: string; stats: Stats }) {
+  return (
+    <div className="card card--tight" style={{ marginBottom: '0.5rem' }}>
+      <p className="text-sm mb-0" style={{ fontWeight: 'bold' }}>
+        {titre}
+      </p>
+      <div className="stat-grid" style={{ marginTop: '0.3rem' }}>
+        {STAT_KEYS.map((k) => (
+          <div key={k} className="stat-grid__cell stat-grid__cell--label">
+            {k}
+          </div>
+        ))}
+        {STAT_KEYS.map((k) => (
+          <div key={k} className="stat-grid__cell stat-grid__cell--value">
+            {stats[k]}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const ICONE_BLESSURE: Partial<Record<string, IconName>> = {
   mort: 'crane',
@@ -102,6 +132,10 @@ type Props = {
   // PV actuels du profil (Member.stats_actuels.PV) — nécessaire pour
   // appliquer/vérifier la règle Éternelle ci-dessus.
   pvActuelProfil?: number;
+  // Caractéristiques actuelles du combattant — affichées à côté du profil
+  // générique de l'adversaire pendant la résolution du résultat "Gladiateur"
+  // (voir BlocStats), pour éviter d'avoir à quitter l'assistant.
+  statsPersonnage?: Stats;
   onAppliquer: (resultat: BlessureGraveResultat) => void;
   onAnnuler?: () => void;
 };
@@ -114,6 +148,7 @@ export function BlessureGraveWizard({
   tresorerieDisponible,
   estEternelle = false,
   pvActuelProfil,
+  statsPersonnage,
   onAppliquer,
   onAnnuler,
 }: Props) {
@@ -568,6 +603,15 @@ export function BlessureGraveWizard({
           Le guerrier affronte un gladiateur dans les fosses de combat du Repaire des Coupe-Jarrets. A-t-il gagné le
           combat ?
         </p>
+        {(PROFIL_GLADIATEUR_ADVERSAIRE?.stats || statsPersonnage) && (
+          <p className="text-sm text-muted mb-0">
+            Profils l'un au-dessus de l'autre, pour résoudre le duel sans quitter cet écran :
+          </p>
+        )}
+        {PROFIL_GLADIATEUR_ADVERSAIRE?.stats && (
+          <BlocStats titre="Gladiateur adverse (profil générique)" stats={PROFIL_GLADIATEUR_ADVERSAIRE.stats} />
+        )}
+        {statsPersonnage && <BlocStats titre={nomPersonnage} stats={statsPersonnage} />}
         <div className="flex flex-wrap gap-sm">
           <button className="btn btn--primary" onClick={() => choisirGladiateurIssue(true)}>
             Oui

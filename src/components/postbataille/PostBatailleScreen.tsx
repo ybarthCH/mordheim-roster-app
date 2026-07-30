@@ -9,6 +9,7 @@ import { equitationGratuitePourTribu } from '../../utils/tribu';
 import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member, RosterInstance, SeriousInjuryEffect } from '../../types/roster';
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
+import { estRetablissementIsole } from '../../data/blessuresGraves';
 import { appliquerDeltaStats } from '../../utils/blessures';
 import { creerEntreeInventaire, creerEntreesInventaire } from '../../utils/shop';
 import { estLeaderActuel, succederApresMorts } from '../../utils/leader';
@@ -84,7 +85,7 @@ function appliquerBlessureDraft(membre: Member, draft: BlessureDraft | undefined
     stats_actuels,
     equipement: draft.equipement,
     stats_modifiees: Array.from(new Set([...membre.stats_modifiees, ...statsTouchees])),
-    blessures_graves: draft.description.trim()
+    blessures_graves: draft.description.trim() && !estRetablissementIsole(draft.effets)
       ? [
           ...membre.blessures_graves,
           {
@@ -789,6 +790,7 @@ export function PostBatailleScreen() {
           notesBataille={notesBataille}
           onNotesBatailleChange={setNotesBataille}
           onAchatStock={ajouterAuStock}
+          onArgentGagne={ajouterOrExploration}
         />
       )}
 

@@ -121,6 +121,9 @@ export function EtapeCommerce({
     <>
       <div className="card">
         <h3>Commerce : objets rares{docteurActif ? ' ou docteur' : ''}</h3>
+        <p className="text-sm">
+          Trésorerie disponible : <strong>{tresorerieDisponible} po</strong>.
+        </p>
         <p className="text-sm text-muted">
           Chaque Héros dispose d'une seule action de commerce. S'il n'a pas été mis Hors de combat, il peut effectuer
           un jet de rareté pour tenter d'acheter un seul objet rare.

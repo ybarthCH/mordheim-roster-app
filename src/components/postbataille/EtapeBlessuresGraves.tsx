@@ -78,6 +78,7 @@ export function EtapeBlessuresGraves({
             tresorerieDisponible={tresorerieDisponible}
             estEternelle={!!profilEnCours?.eternelle}
             pvActuelProfil={membreEnCours.stats_actuels.PV}
+            statsPersonnage={membreEnCours.stats_actuels}
             onAppliquer={(resultat) => {
               onAppliquer(membreEnCours, resultat);
               setBlessureEnCours(null);

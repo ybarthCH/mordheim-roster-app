@@ -23,6 +23,9 @@ type EtapeResultatProps = {
   // la validation finale de l'assistant — même mécanisme que les objets
   // trouvés à l'exploration.
   onAchatStock: (item: ShopItem, coutPaye: number) => void;
+  // Or de récompense de scénario, ajouté immédiatement à la trésorerie (voir
+  // ajouterOrExploration dans PostBatailleScreen) — même mécanisme.
+  onArgentGagne: (montant: number) => void;
 };
 
 export function EtapeResultat({
@@ -39,13 +42,21 @@ export function EtapeResultat({
   notesBataille,
   onNotesBatailleChange,
   onAchatStock,
+  onArgentGagne,
 }: EtapeResultatProps) {
   const [modalRecompense, setModalRecompense] = useState(false);
+  const [argentSaisi, setArgentSaisi] = useState('');
   const ajouterAdversaire = () => {
     const nom = nouvelAdversaire.trim();
     if (!nom || adversaires.includes(nom)) return;
     onAdversairesChange([...adversaires, nom]);
     onNouvelAdversaireChange('');
+  };
+  const ajouterArgent = () => {
+    const montant = Math.trunc(Number(argentSaisi));
+    if (!Number.isFinite(montant) || montant <= 0) return;
+    onArgentGagne(montant);
+    setArgentSaisi('');
   };
 
   return (
@@ -106,12 +117,31 @@ export function EtapeResultat({
 
       <h3>Récompense du scénario</h3>
       <p className="text-sm text-muted">
-        Certains scénarios accordent un objet gratuit à l'issue de la partie (victoire, défaite ou règle
-        spéciale) : choisis-le ici, il rejoint directement l'armurerie de la bande.
+        Certains scénarios accordent un objet gratuit ou une somme d'or à l'issue de la partie (victoire, défaite ou
+        règle spéciale) : ajoute-les ici, ils rejoignent directement l'armurerie et la trésorerie de la bande.
       </p>
-      <button className="btn btn--primary" onClick={() => setModalRecompense(true)}>
-        + Objet
-      </button>
+      <div className="flex flex-wrap gap-sm items-end">
+        <button className="btn btn--primary" onClick={() => setModalRecompense(true)}>
+          + Objet
+        </button>
+        <div className="field" style={{ marginBottom: 0 }}>
+          <label>Or gagné (po)</label>
+          <div className="flex gap-sm">
+            <input
+              type="number"
+              min={0}
+              value={argentSaisi}
+              onChange={(e) => setArgentSaisi(e.target.value)}
+              placeholder="0"
+              style={{ maxWidth: '8rem' }}
+            />
+            <button className="btn" disabled={!argentSaisi.trim()} onClick={ajouterArgent}>
+              Ajouter
+            </button>
+          </div>
+        </div>
+      </div>
+      <p className="text-sm text-muted mb-0">Trésorerie actuelle de la bande : {roster.tresorerie} po.</p>
 
       {modalRecompense && catalogue && (
         <AchatEquipementModal
