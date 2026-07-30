@@ -51,6 +51,9 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
 
   const profil = catalogue?.profils.find((p) => p.id === profilId);
   const estGroupable = profil?.type === 'homme_de_main' || profil?.type === 'animal';
+  // Un profil "animal" ne gagne jamais d'expérience (voir utils/xp.ts) : lui
+  // demander une expérience de départ n'aurait aucun sens.
+  const gagneExperience = profil?.type !== 'animal';
   const marqueRequise = !!profil?.marque_requise;
   const marqueChoisieValide = !marqueRequise || marqueChoisie !== '';
   const estSorcierProfil = !!profil && estSorcier(catalogue, profil.id, marqueChoisie || undefined);
@@ -309,12 +312,14 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                 </p>
               )}
             </div>
-          ) : (
+          ) : gagneExperience ? (
             <div className="field">
               <label>Expérience de départ</label>
               <input type="number" value={xpDepartSaisie} onChange={(e) => setXpDepartSaisie(e.target.value)} />
               <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
             </div>
+          ) : (
+            <p className="text-sm text-muted">Ce profil ne gagne jamais d'expérience.</p>
           )}
         </>
       )}

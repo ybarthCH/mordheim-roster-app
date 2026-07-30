@@ -189,6 +189,97 @@ export const TRINKETS_LIMITES = new Set([
   'relique_maudite',
 ]);
 
+// Objets "matériau" (gromril, ithilmar, obsidienne) : au lieu de s'acheter
+// tels quels, ils demandent de choisir une arme/armure de base existante,
+// dont le prix est multiplié et dont l'effet du matériau vient s'ajouter aux
+// règles spéciales déjà en place — voir basesPourMateriau/
+// construireObjetMateriau/resolveCombinaisonMateriau ci-dessous.
+export const MATERIAU_MULTIPLICATEURS: Record<string, { multiplicateur: number; categorieBase: string }> = {
+  arme_en_gromril: { multiplicateur: 4, categorieBase: 'armes_cac' },
+  arme_en_ithilmar: { multiplicateur: 3, categorieBase: 'armes_cac' },
+  arme_en_obsidienne_market: { multiplicateur: 4, categorieBase: 'armes_cac' },
+  armure_en_gromril_market: { multiplicateur: 4, categorieBase: 'armures' },
+  armure_en_ithilmar_market: { multiplicateur: 3, categorieBase: 'armures' },
+};
+
+export function estItemMateriau(id: string): boolean {
+  return id in MATERIAU_MULTIPLICATEURS;
+}
+
+// Armes/armures de base proposées pour un matériau donné : même catégorie,
+// à l'exclusion des objets matériau eux-mêmes (pas de gromril sur gromril),
+// dédupliquées par id (une arme peut apparaître à la fois dans la liste de
+// la bande et dans le shop commun).
+export function basesPourMateriau(items: ShopItem[], materiauId: string): ShopItem[] {
+  const spec = MATERIAU_MULTIPLICATEURS[materiauId];
+  if (!spec) return [];
+  const vus = new Set<string>();
+  return items
+    .filter((item) => {
+      if (item.categorie !== spec.categorieBase || estItemMateriau(item.id) || vus.has(item.id)) return false;
+      vus.add(item.id);
+      return true;
+    })
+    .sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+}
+
+const PREFIXE_COMBO = 'combo__';
+
+function libelleMateriau(nomMateriau: string): string {
+  return nomMateriau.replace(/^Arme en /, '').replace(/^Armure en /, '');
+}
+
+// Fusionne une arme/armure de base et un objet matériau en un objet unique
+// (id synthétique combo__<baseId>__<materiauId>, résolu par
+// resolveCombinaisonMateriau pour un affichage cohérent après achat).
+export function construireObjetMateriau(base: ShopItem, materiau: ShopItem, coutBase: number): ShopItem {
+  const spec = MATERIAU_MULTIPLICATEURS[materiau.id];
+  const multiplicateur = spec?.multiplicateur ?? 1;
+  return {
+    id: `${PREFIXE_COMBO}${base.id}__${materiau.id}`,
+    nom: `${base.nom} (${libelleMateriau(materiau.nom)})`,
+    categorie: base.categorie,
+    cout: coutBase * multiplicateur,
+    cout_fixe: true,
+    rarete: materiau.rarete,
+    disponibilite: materiau.disponibilite,
+    texte: base.texte ?? null,
+    portee: base.portee,
+    force: base.force,
+    sauvegarde: base.sauvegarde,
+    regles_speciales: [...(base.regles_speciales ?? []), ...(materiau.regles_speciales ?? [])],
+    origine: 'personnalise',
+  };
+}
+
+// Reconstruit un objet base+matériau déjà acheté (id combo__<baseId>__
+// <materiauId>) à partir des deux objets d'origine dans la base commune —
+// utilisé par resolveItemDetail pour ré-afficher le détail complet d'un
+// objet déjà dans un inventaire, sans avoir besoin de le stocker à part.
+export function resolveCombinaisonMateriau(comboId: string): ShopItem | undefined {
+  if (!comboId.startsWith(PREFIXE_COMBO)) return undefined;
+  const [baseId, materiauId] = comboId.slice(PREFIXE_COMBO.length).split('__');
+  const base = baseId ? getItem(baseId) : undefined;
+  const materiau = materiauId ? getItem(materiauId) : undefined;
+  if (!base || !materiau) return undefined;
+  const spec = MATERIAU_MULTIPLICATEURS[materiauId];
+  return {
+    id: comboId,
+    nom: `${base.nom} (${libelleMateriau(materiau.nom)})`,
+    categorie: normaliserCategorie(base.categorie),
+    cout: spec && typeof base.cout === 'number' ? base.cout * spec.multiplicateur : materiau.cout,
+    cout_fixe: true,
+    rarete: materiau.rarete,
+    disponibilite: materiau.disponibilite,
+    texte: 'texte' in base ? (base.texte as string | undefined) ?? null : null,
+    portee: 'portee' in base ? (base.portee as string | null) : undefined,
+    force: 'force' in base ? (base.force as string | null) : undefined,
+    sauvegarde: 'sauvegarde' in base ? (base.sauvegarde as string | null) : undefined,
+    regles_speciales: [...(base.regles_speciales ?? []), ...(materiau.regles_speciales ?? [])],
+    origine: 'personnalise',
+  };
+}
+
 function arrondirMultipleDeCinq(value: number): number {
   return Math.round(value / 5) * 5;
 }
@@ -770,6 +861,8 @@ export function resolveItemDetail(
 ): ShopItem {
   const item = getItem(entree.item_id);
   if (!item) {
+    const combo = resolveCombinaisonMateriau(entree.item_id);
+    if (combo) return { ...combo, cout: entree.cout };
     return appliquerReglesObjet({
       id: entree.item_id,
       nom: entree.nom,

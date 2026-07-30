@@ -14,6 +14,10 @@ import {
   formatCoutItem,
   CATEGORIE_ORDRE,
   TRINKETS_LIMITES,
+  estItemMateriau,
+  basesPourMateriau,
+  construireObjetMateriau,
+  MATERIAU_MULTIPLICATEURS,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
@@ -109,6 +113,12 @@ export function AchatEquipementModal({
   const [vuePersonnalise, setVuePersonnalise] = useState<'menu' | 'creer' | 'selection' | 'editer' | null>(null);
   const [rechercheEdition, setRechercheEdition] = useState('');
   const [itemAEditer, setItemAEditer] = useState<ShopItem | null>(null);
+  // Objet "matériau" (gromril/ithilmar/obsidienne) sélectionné : demande de
+  // choisir une arme/armure de base avant de pouvoir acheter (voir
+  // basesPourMateriau/construireObjetMateriau dans utils/shop.ts).
+  const [baseMateriauId, setBaseMateriauId] = useState('');
+  const [rechercheMateriau, setRechercheMateriau] = useState('');
+  const [coutBaseSaisi, setCoutBaseSaisi] = useState('');
 
   const personnaliseActif = !!(onObjetsPersonnalisesChange && onObjetsSurchargesChange);
 
@@ -176,6 +186,33 @@ export function AchatEquipementModal({
   const choisir = (item: ShopItem) => {
     setItemId(item.id);
     setCoutSaisi(item.cout_fixe && typeof item.cout === 'number' ? String(item.cout) : '');
+    setBaseMateriauId('');
+    setRechercheMateriau('');
+    setCoutBaseSaisi('');
+  };
+
+  const materiauSelectionne = itemId && estItemMateriau(itemId) ? items.find((i) => i.id === itemId) : undefined;
+  const basesMateriau = materiauSelectionne ? basesPourMateriau(itemsPourEdition, materiauSelectionne.id) : [];
+  const baseMateriauChoisie = basesMateriau.find((b) => b.id === baseMateriauId) ?? null;
+  const baseMateriauFiltrees = rechercheMateriau.trim()
+    ? basesMateriau.filter((b) => b.nom.toLowerCase().includes(rechercheMateriau.trim().toLowerCase()))
+    : basesMateriau;
+  const coutBase = Number(coutBaseSaisi);
+  const coutBaseValide = coutBaseSaisi.trim() !== '' && !Number.isNaN(coutBase) && coutBase >= 0;
+  const objetMateriauCombine =
+    materiauSelectionne && baseMateriauChoisie && coutBaseValide
+      ? construireObjetMateriau(baseMateriauChoisie, materiauSelectionne, coutBase)
+      : null;
+
+  const choisirBaseMateriau = (base: ShopItem) => {
+    setBaseMateriauId(base.id);
+    setCoutBaseSaisi(base.cout_fixe && typeof base.cout === 'number' ? String(base.cout) : '');
+  };
+
+  const confirmerMateriau = () => {
+    if (!objetMateriauCombine) return;
+    onAchat(objetMateriauCombine, objetMateriauCombine.cout as number);
+    onClose();
   };
 
   const cout = Number(coutSaisi);
@@ -324,6 +361,119 @@ export function AchatEquipementModal({
               itemAEditer.origine !== 'personnalise' && objetsSurcharges[itemAEditer.id] ? revertSurcharge : undefined
             }
           />
+        ) : materiauSelectionne && !baseMateriauChoisie ? (
+          <div className="achat-equipement__contenu">
+            <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
+              <h3 className="mt-0 mb-0">{materiauSelectionne.nom} — choisir la base</h3>
+              <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                ✕
+              </button>
+            </div>
+            <p className="text-sm text-muted">
+              Choisis l'arme ou l'armure de base : son prix sera multiplié et l'effet du matériau viendra s'ajouter à
+              ses règles habituelles.
+            </p>
+            <button className="btn btn--sm" style={{ marginBottom: '0.5rem' }} onClick={() => setItemId('')}>
+              ← Catalogue
+            </button>
+            <div className="field">
+              <input
+                value={rechercheMateriau}
+                onChange={(e) => setRechercheMateriau(e.target.value)}
+                placeholder="Rechercher une base…"
+              />
+            </div>
+            <div className="achat-equipement__catalogue">
+              {baseMateriauFiltrees.length === 0 && <p className="text-muted text-sm">Aucune base disponible.</p>}
+              {baseMateriauFiltrees.map((base) => (
+                <button
+                  type="button"
+                  key={base.id}
+                  className="list-item achat-equipement__item"
+                  onClick={() => choisirBaseMateriau(base)}
+                >
+                  <div className="list-item__main">
+                    <span className="list-item__title">{base.nom}</span>
+                    <div className="list-item__subtitle">{formatCoutItem(base.cout)}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : materiauSelectionne && baseMateriauChoisie ? (
+          <>
+            <header className="achat-equipement__header achat-equipement__header--selection">
+              <div className="achat-equipement__header-ligne">
+                <button className="btn btn--sm" onClick={() => setBaseMateriauId('')}>
+                  ← Choisir une autre base
+                </button>
+                <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                  ✕
+                </button>
+              </div>
+              <div className="achat-equipement__selection-titre">
+                <h3 className="mt-0 mb-0">
+                  {baseMateriauChoisie.nom} ({materiauSelectionne.nom.replace(/^Arme en |^Armure en /, '')})
+                </h3>
+                {classeRarete(materiauSelectionne.rarete) && (
+                  <span className={`badge ${classeRarete(materiauSelectionne.rarete)} achat-equipement__rarete`}>
+                    Rare {materiauSelectionne.rarete}
+                  </span>
+                )}
+              </div>
+              <p className="text-sm text-muted mb-0">
+                {gratuit ? "Ajouter cet objet à l'inventaire" : `Trésorerie disponible : ${tresorerie} po.`}
+              </p>
+            </header>
+            <div className="achat-equipement__contenu achat-equipement__detail">
+              {baseMateriauChoisie.regles_speciales?.map((r) => (
+                <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                  <strong>{r.nom}</strong> — {r.texte}
+                </p>
+              ))}
+              {materiauSelectionne.regles_speciales?.map((r) => (
+                <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                  <strong>{r.nom}</strong> — {r.texte}
+                </p>
+              ))}
+              <div className="field achat-equipement__cout">
+                <label>
+                  Coût de la base (po){' '}
+                  {!baseMateriauChoisie.cout_fixe && (
+                    <span className="text-muted">— notation : {baseMateriauChoisie.cout}</span>
+                  )}
+                </label>
+                <input
+                  type="number"
+                  min={0}
+                  value={coutBaseSaisi}
+                  onChange={(e) => setCoutBaseSaisi(e.target.value)}
+                  placeholder={!baseMateriauChoisie.cout_fixe ? 'Résultat du jet, ex : 15' : undefined}
+                />
+              </div>
+              {coutBaseValide && (
+                <p className="text-sm">
+                  Prix final ({coutBase} po × {MATERIAU_MULTIPLICATEURS[materiauSelectionne.id]?.multiplicateur}) :{' '}
+                  <strong>{objetMateriauCombine?.cout} po</strong>
+                </p>
+              )}
+              {!gratuit && coutBaseValide && (objetMateriauCombine?.cout as number) > tresorerie && (
+                <p className="text-danger text-sm">Trésorerie insuffisante ({tresorerie} po disponibles).</p>
+              )}
+            </div>
+            <footer className="achat-equipement__actions">
+              <button className="btn" onClick={onClose}>
+                Annuler
+              </button>
+              <button
+                className="btn btn--primary"
+                disabled={!objetMateriauCombine || (!gratuit && (objetMateriauCombine.cout as number) > tresorerie)}
+                onClick={confirmerMateriau}
+              >
+                {gratuit ? 'Ajouter' : `Acheter pour ${objetMateriauCombine?.cout ?? 0} po`}
+              </button>
+            </footer>
+          </>
         ) : !itemSelectionne ? (
           <>
             <header className="achat-equipement__header">
