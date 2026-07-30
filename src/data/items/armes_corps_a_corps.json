@@ -679,7 +679,7 @@
     "texte": "Seul un maître des runes nain peut forger une arme en gromril, un rare minerai météorique. Une lame faite de ce métal ne s'émoussera pas avant mille ans. Une arme en gromril donne un modificateur de sauvegarde additionnel de -1, et coûte quatre fois le prix d'une arme normale du même type. Vous pouvez choisir le type d'arme de corps à corps qui vous est proposée.",
     "portee": null, "force": null,
     "regles_speciales": [
-      { "nom": "Modificateur d'arme existante", "texte": "Prix de l'arme de base x4. Modificateur de sauvegarde supplémentaire de -1 sur l'arme de corps à corps choisie." }
+      { "nom": "Arme en gromril", "texte": "Prix de l'arme de base x4. Modificateur de sauvegarde supplémentaire de -1 sur l'arme de corps à corps choisie." }
     ]
   },
   {
@@ -689,7 +689,7 @@
     "texte": "Les lames elfes sont forgées en précieux ithilmar, un métal dur mais très léger que l'on ne trouve que dans les royaumes elfiques. Quelques-unes de ces armes sont parfois disponibles dans le Vieux Monde, ramenées comme butin par les pillards nordiques qui attaquent les villes côtières des elfes. Une arme en ithilmar donne à son utilisateur +1 en Initiative au corps à corps, et coûte trois fois le prix d'une arme normale de corps à corps. Vous pouvez choisir le type d'arme de corps à corps qui vous est proposée.",
     "portee": null, "force": null,
     "regles_speciales": [
-      { "nom": "Modificateur d'arme existante", "texte": "Prix de l'arme de base x3. +1 en Initiative au corps à corps pour l'utilisateur." }
+      { "nom": "Arme en ithilmar", "texte": "Prix de l'arme de base x3. +1 en Initiative au corps à corps pour l'utilisateur." }
     ]
   },
   {
@@ -699,6 +699,7 @@
     "texte": "L'obsidienne est extraite des mines des Terres Sombres par les serviteurs du Chaos. Lors de son habile extraction du minerai, cette curieuse roche volcanique est ensorcelée par les ingénieurs dans les fourneaux de Zharr-Naggrund. Forger des armes grâce à ces techniques infâmes requiert une grande expertise, ce qui la rend extrêmement rare. Une arme en obsidienne donne à son utilisateur +1 en Force au combat au corps à corps et coûte quatre fois le prix d'une arme normale de ce type. Vous pouvez choisir le type d'arme de corps à corps qui vous est proposée.",
     "portee": null, "force": null,
     "regles_speciales": [
+      { "nom": "Arme en obsidienne", "texte": "Prix de l'arme de base x4. +1 en Force au corps à corps pour l'utilisateur." },
       { "nom": "Corrompue", "texte": "Bien qu'ils ne soient pas strictement corrompus par le Chaos, tous les objets en obsidienne sont considérés comme empreints de l'obscure malveillance associée à leurs artisans. Ne peut jamais être utilisée par les Nains, les Elfes, les Sœurs de Sigmar, les Répurgateurs ou les Prêtres." },
       { "nom": "Frappe en dernier", "texte": "Les armes en obsidienne sont si lourdes que l'on frappe toujours en dernier avec, même en ayant chargé." }
     ]

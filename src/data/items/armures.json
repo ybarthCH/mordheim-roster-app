@@ -38,7 +38,7 @@
     "acces": ["rare_11"], "source": "LdR", "page": 34,
     "texte": "Le gromril est le métal le plus rare et le plus dur du Vieux Monde. Seuls quelques rares artisans nains savent travailler le gromril, et les armures qu'ils forgent atteignent des prix astronomiques. Une armure en gromril coûte quatre fois le prix d'une armure normale du même type. Vous pouvez choisir le type d'armure qui vous est proposée.",
     "regles_speciales": [
-      { "nom": "Modificateur d'armure existante", "texte": "Prix de l'armure de base x4. Améliore sa sauvegarde d'armure de +1 (une armure légère à 6+ devient 5+, une armure lourde à 5+ devient 4+) et ne ralentit pas son porteur s'il porte aussi un bouclier." }
+      { "nom": "Armure en gromril", "texte": "Prix de l'armure de base x4. Améliore sa sauvegarde d'armure de +1 (une armure légère à 6+ devient 5+, une armure lourde à 5+ devient 4+) et ne ralentit pas son porteur s'il porte aussi un bouclier." }
     ]
   },
   {
@@ -47,7 +47,7 @@
     "acces": ["rare_11"], "source": "LdR", "page": 34,
     "texte": "L'ithilmar est un métal argenté aussi léger que la soie et plus dur que l'acier. Les elfes sont des experts pour fabriquer armes et armures en ithilmar, et le royaume elfe de Caledor est le seul endroit au monde où ce métal peut être trouvé. Une armure en ithilmar coûte trois fois le prix d'une armure normale du même type. Vous pouvez choisir le type d'armure qui vous est proposée.",
     "regles_speciales": [
-      { "nom": "Modificateur d'armure existante", "texte": "Prix de l'armure de base x3. Améliore sa sauvegarde d'armure de +1 (une armure légère à 6+ devient 5+, une armure lourde à 5+ devient 4+) et ne ralentit pas son porteur s'il porte aussi un bouclier." }
+      { "nom": "Armure en ithilmar", "texte": "Prix de l'armure de base x3. Améliore sa sauvegarde d'armure de +1 (une armure légère à 6+ devient 5+, une armure lourde à 5+ devient 4+) et ne ralentit pas son porteur s'il porte aussi un bouclier." }
     ]
   },
   {
