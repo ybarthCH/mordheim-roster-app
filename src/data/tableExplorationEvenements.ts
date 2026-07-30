@@ -34,10 +34,25 @@ export type LigneSousTableD6 = {
 
 // Élément d'une sous-table "trésor" (Trésor caché, Bande massacrée) : chaque
 // élément est déterminé indépendamment via un jet à seuil séparé, sauf
-// mention "Auto" (toujours obtenu).
+// mention "Auto" (toujours obtenu). Le joueur fait le jet de seuil sur table
+// papier ; l'app ne demande que le résultat ("Jet réussi") avant de proposer
+// l'ajout de la récompense (voir LigneTresorRow) — au plus un des champs
+// or/objets/fragments/artefactMagique est renseigné par élément.
 export type LigneTresorConditionnel = {
   element: string;
   seuil: string;
+  // Gain d'or automatisable une fois le seuil atteint (même sémantique que
+  // LigneSousTableD6.or).
+  or?: string;
+  // Objet(s) trouvé(s) une fois le seuil atteint (même sémantique que
+  // LigneSousTableD6.objets).
+  objets?: LigneObjetTrouve[];
+  // Fragments de pierre magique gagnés une fois le seuil atteint — notation
+  // de dés (ex : "D3"), ajoutés directement à roster.wyrdstone (comme pour
+  // Puits/La Fosse), jamais lancés par l'app.
+  fragments?: string;
+  // Renvoie vers le Tableau des artefacts magiques une fois le seuil atteint.
+  artefactMagique?: boolean;
 };
 
 export type EvenementExploration = {
@@ -460,17 +475,19 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
           'Vous trouvez les objets qui suivent en ouvrant le coffre. Lancez séparément pour chaque élément de la liste (sauf pour les couronnes d\'or) afin de savoir si vous l\'avez trouvé. Par exemple, vous trouvez de la Pierre Magique sur un jet de 4+.',
         ],
         sousTableTresor: [
-          { element: 'D3 Fragments de pierre magique', seuil: '4+' },
-          { element: '5D6x5 CO', seuil: 'Auto' },
-          { element: 'Relique sacrée', seuil: '5+' },
-          { element: 'Armure lourde', seuil: '5+' },
-          { element: 'D3 Gemmes valant 10 CO chacune', seuil: '4+' },
-          { element: 'Cape elfique', seuil: '5+' },
-          { element: 'Livre saint', seuil: '5+' },
-          { element: 'Artefact magique', seuil: '5+' },
+          { element: 'D3 Fragments de pierre magique', seuil: '4+', fragments: 'D3' },
+          { element: '5D6x5 CO', seuil: 'Auto', or: '5D6x5' },
+          {
+            element: 'Relique sacrée',
+            seuil: '5+',
+            objets: [{ item_id: 'relique_sacree_bretonnienne' }, { item_id: 'relique_sacree_sigmarite' }],
+          },
+          { element: 'Armure lourde', seuil: '5+', objets: [{ item_id: 'armure_lourde' }] },
+          { element: 'D3 Gemmes valant 10 CO chacune', seuil: '4+', or: 'D3x10' },
+          { element: 'Cape elfique', seuil: '5+', objets: [{ item_id: 'cape_elfique' }] },
+          { element: 'Livre saint', seuil: '5+', objets: [{ item_id: 'livre_saint' }] },
+          { element: 'Artefact magique', seuil: '5+', artefactMagique: true },
         ],
-        or: '5D6x5',
-        artefactMagique: true,
       },
       {
         id: 'forge_naine',
@@ -508,18 +525,21 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
           "Après les avoir enterrés (Sœurs de Sigmar ou Répurgateurs), mangés (skavens ou morts-vivants) ou volés (tous les autres !) vous trouvez les objets suivants. Lancez un D6 séparément pour chaque élément (sauf l'or et les dagues) pour savoir si vous le trouvez. Par exemple, vous trouvez les armures légères sur un jet de 4+.",
         ],
         sousTableTresor: [
-          { element: '3D6x5 CO', seuil: 'Auto' },
-          { element: 'D3 Armures légères', seuil: '4+' },
-          { element: 'Armure lourde', seuil: '5+' },
-          { element: 'D6 Dagues', seuil: 'Auto' },
-          { element: 'Carte de Mordheim (voir p55)', seuil: '4+' },
-          { element: 'D3 Hallebarde', seuil: '5+' },
-          { element: 'D3 Épées', seuil: '3+' },
-          { element: 'D3 Boucliers', seuil: '2+' },
-          { element: 'D3 Arcs', seuil: '4+' },
-          { element: 'D3 Casques', seuil: '2+' },
+          { element: '3D6x5 CO', seuil: 'Auto', or: '3D6x5' },
+          { element: 'D3 Armures légères', seuil: '4+', objets: [{ item_id: 'armure_legere', quantite: 'D3' }] },
+          { element: 'Armure lourde', seuil: '5+', objets: [{ item_id: 'armure_lourde' }] },
+          { element: 'D6 Dagues', seuil: 'Auto', objets: [{ item_id: 'dague', quantite: 6 }] },
+          {
+            element: 'Carte de Mordheim (voir p55)',
+            seuil: '4+',
+            objets: [{ item_id: 'carte_de_mordheim' }],
+          },
+          { element: 'D3 Hallebarde', seuil: '5+', objets: [{ item_id: 'hallebarde', quantite: 'D3' }] },
+          { element: 'D3 Épées', seuil: '3+', objets: [{ item_id: 'epee', quantite: 'D3' }] },
+          { element: 'D3 Boucliers', seuil: '2+', objets: [{ item_id: 'bouclier', quantite: 'D3' }] },
+          { element: 'D3 Arcs', seuil: '4+', objets: [{ item_id: 'arc', quantite: 'D3' }] },
+          { element: 'D3 Casques', seuil: '2+', objets: [{ item_id: 'casque', quantite: 'D3' }] },
         ],
-        or: '3D6x5',
       },
       {
         id: 'arene',

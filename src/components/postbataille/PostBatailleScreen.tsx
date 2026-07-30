@@ -822,6 +822,7 @@ export function PostBatailleScreen() {
         <EtapeExploration
           roster={roster}
           catalogue={catalogue}
+          date={date}
           wyrdstoneTrouve={wyrdstoneTrouve}
           onWyrdstoneTrouveChange={setWyrdstoneTrouve}
           notesExploration={notesExploration}
