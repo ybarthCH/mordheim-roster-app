@@ -1,6 +1,13 @@
-import type { BattleRecord } from '../../types/roster';
+import { useState } from 'react';
+import type { RosterInstance, BattleRecord } from '../../types/roster';
+import type { WarbandCatalog } from '../../types/catalog';
+import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
+import { inventaireComplet } from '../../utils/shop';
+import type { ShopItem } from '../../utils/shop';
 
 type EtapeResultatProps = {
+  roster: RosterInstance;
+  catalogue: WarbandCatalog | undefined;
   date: string;
   onDateChange: (v: string) => void;
   resultat: BattleRecord['resultat'];
@@ -11,9 +18,16 @@ type EtapeResultatProps = {
   onNouvelAdversaireChange: (v: string) => void;
   notesBataille: string;
   onNotesBatailleChange: (v: string) => void;
+  // Objet de récompense de scénario ajouté gratuitement au stock de la
+  // bande (voir ajouterAuStock dans PostBatailleScreen), indépendamment de
+  // la validation finale de l'assistant — même mécanisme que les objets
+  // trouvés à l'exploration.
+  onAchatStock: (item: ShopItem, coutPaye: number) => void;
 };
 
 export function EtapeResultat({
+  roster,
+  catalogue,
   date,
   onDateChange,
   resultat,
@@ -24,7 +38,9 @@ export function EtapeResultat({
   onNouvelAdversaireChange,
   notesBataille,
   onNotesBatailleChange,
+  onAchatStock,
 }: EtapeResultatProps) {
+  const [modalRecompense, setModalRecompense] = useState(false);
   const ajouterAdversaire = () => {
     const nom = nouvelAdversaire.trim();
     if (!nom || adversaires.includes(nom)) return;
@@ -87,6 +103,27 @@ export function EtapeResultat({
         <label>Notes</label>
         <textarea value={notesBataille} onChange={(e) => onNotesBatailleChange(e.target.value)} />
       </div>
+
+      <h3>Récompense du scénario</h3>
+      <p className="text-sm text-muted">
+        Certains scénarios accordent un objet gratuit à l'issue de la partie (victoire, défaite ou règle
+        spéciale) : choisis-le ici, il rejoint directement l'armurerie de la bande.
+      </p>
+      <button className="btn btn--primary" onClick={() => setModalRecompense(true)}>
+        + Objet
+      </button>
+
+      {modalRecompense && catalogue && (
+        <AchatEquipementModal
+          catalogue={catalogue}
+          profil={null}
+          tresorerie={roster.tresorerie}
+          inventaireBande={inventaireComplet(roster)}
+          gratuit
+          onClose={() => setModalRecompense(false)}
+          onAchat={onAchatStock}
+        />
+      )}
     </div>
   );
 }

@@ -776,6 +776,8 @@ export function PostBatailleScreen() {
 
       {etape === 0 && (
         <EtapeResultat
+          roster={roster}
+          catalogue={catalogue}
           date={date}
           onDateChange={setDate}
           resultat={resultat}
@@ -786,6 +788,7 @@ export function PostBatailleScreen() {
           onNouvelAdversaireChange={setNouvelAdversaire}
           notesBataille={notesBataille}
           onNotesBatailleChange={setNotesBataille}
+          onAchatStock={ajouterAuStock}
         />
       )}
 
