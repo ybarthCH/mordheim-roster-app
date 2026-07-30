@@ -25,6 +25,13 @@
   font-display: swap;
 }
 @font-face {
+  font-family: 'Schoensperger';
+  src: url('/fonts/Schoensperger.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: 'Caslon Antique';
   src: url('/fonts/CaslonAntique.ttf') format('truetype');
   font-weight: 400;
@@ -723,9 +730,9 @@ button {
   margin-bottom: 0.6rem;
 }
 .home-hero__title {
-  font-family: var(--font-display);
+  font-family: 'Schoensperger', var(--font-display);
   font-size: 3.15rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.04em;
   margin: 0;
   color: var(--accent);
