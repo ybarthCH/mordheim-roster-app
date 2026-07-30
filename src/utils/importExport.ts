@@ -12,8 +12,17 @@ export function telechargerJSON(data: unknown, filename: string) {
   URL.revokeObjectURL(url);
 }
 
+// Horodatage lisible en format européen (jour-mois-année_heureHminute),
+// accolé au nom de fichier pour distinguer plusieurs exports d'une même
+// bande sans les écraser les uns les autres.
+function horodatageFichier(date = new Date()): string {
+  const p = (n: number) => String(n).padStart(2, '0');
+  return `${p(date.getDate())}-${p(date.getMonth() + 1)}-${date.getFullYear()}_${p(date.getHours())}h${p(date.getMinutes())}`;
+}
+
 function nomFichierRoster(roster: RosterInstance): string {
-  return `${roster.nom_bande.replace(/[^a-z0-9]+/gi, '_').toLowerCase()}.json`;
+  const base = roster.nom_bande.replace(/[^a-z0-9]+/gi, '_').toLowerCase();
+  return `${base}_${horodatageFichier()}.json`;
 }
 
 export function exporterRoster(roster: RosterInstance) {
@@ -23,26 +32,31 @@ export function exporterRoster(roster: RosterInstance) {
 // Web Share API : ouvre le menu de partage natif du téléphone (Drive,
 // mail, Dropbox...) pour que le joueur choisisse lui-même où sauvegarder
 // sa bande — sans compte ni backend côté app. Seul `navigator.share`
-// (niveau 1, texte/titre) est requis pour afficher le bouton : le partage
-// de fichier (niveau 2, `canShare`) est tenté en priorité mais son support
-// réel est très inégal (souvent absent même quand l'API existe), d'où le
-// repli sur le partage du contenu en texte brut ci-dessous.
+// (niveau 1, texte/titre) est requis pour afficher le bouton.
 export function partageDisponible(): boolean {
   return typeof navigator !== 'undefined' && typeof navigator.share === 'function';
 }
 
 export async function partagerRoster(roster: RosterInstance): Promise<void> {
   const contenu = JSON.stringify(roster, null, 2);
+  const nomFichier = nomFichierRoster(roster);
 
   // Un seul appel à navigator.share() par geste utilisateur : sur au moins
   // un navigateur observé en conditions réelles (Safari iOS), l'activation
   // utilisateur est consommée dès le premier appel même s'il échoue — un
-  // deuxième essai (fichier puis texte) échoue alors systématiquement avec
-  // "Must be handling a user gesture", quel que soit le contenu envoyé.
-  // Le partage de fichier (canShare) s'est aussi révélé peu fiable sur le
-  // terrain (accepté par canShare puis refusé par share() avec
-  // "Permission denied"), donc on se limite directement au partage en
-  // texte brut (niveau 1), nettement plus largement supporté.
+  // deuxième essai échouerait systématiquement avec "Must be handling a
+  // user gesture". `canShare()` en revanche ne consomme pas le geste et
+  // permet donc de choisir file vs texte AVANT cet unique appel à share().
+  // Si le partage fichier choisi ici échoue malgré tout (canShare() accepte
+  // parfois un fichier que share() refuse ensuite), l'appelant (RosterScreen)
+  // se rabat automatiquement sur le téléchargement JSON classique.
+  if (typeof navigator.canShare === 'function') {
+    const fichier = new File([contenu], nomFichier, { type: 'application/json' });
+    if (navigator.canShare({ files: [fichier] })) {
+      await navigator.share({ title: roster.nom_bande, files: [fichier] });
+      return;
+    }
+  }
   await navigator.share({ title: roster.nom_bande, text: contenu });
 }
 
