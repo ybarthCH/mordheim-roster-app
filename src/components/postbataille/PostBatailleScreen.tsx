@@ -10,7 +10,7 @@ import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member, RosterInstance, SeriousInjuryEffect } from '../../types/roster';
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 import { appliquerDeltaStats } from '../../utils/blessures';
-import { creerEntreeInventaire } from '../../utils/shop';
+import { creerEntreeInventaire, creerEntreesInventaire } from '../../utils/shop';
 import { estLeaderActuel, succederApresMorts } from '../../utils/leader';
 import type { ShopItem } from '../../utils/shop';
 import { AvanceeModal } from '../personnage/AvanceeModal';
@@ -487,6 +487,15 @@ export function PostBatailleScreen() {
     updateRoster({ ...roster, stock: [...roster.stock, creerEntreeInventaire(item, coutPaye)] });
   };
 
+  // Variante à quantité multiple (voir LigneObjetTrouve dans
+  // tableExplorationEvenements.ts, ex : "D3 Arquebuses") : toutes les
+  // instances rejoignent le stock en un seul patch, pour éviter de perdre
+  // des exemplaires en rappelant ajouterAuStock plusieurs fois de suite sur
+  // le même `roster` capturé par la fermeture.
+  const ajouterAuStockMultiple = (item: ShopItem, coutPaye: number, quantite: number) => {
+    updateRoster({ ...roster, stock: [...roster.stock, ...creerEntreesInventaire(item, coutPaye, quantite)] });
+  };
+
   // Or trouvé lors d'un événement d'exploration (double/triple/etc., voir
   // tableExplorationEvenements.ts) : appliqué immédiatement à la trésorerie,
   // comme ajouterAuStock ci-dessus, indépendamment de la validation finale
@@ -822,6 +831,7 @@ export function PostBatailleScreen() {
           pointsVeteran={pointsVeteran}
           onPointsVeteranChange={setPointsVeteran}
           onAchatStock={ajouterAuStock}
+          onAchatStockMultiple={ajouterAuStockMultiple}
           onAjouterOr={ajouterOrExploration}
           onMajRoster={majRosterExploration}
           resumeExploration={exploration}

@@ -357,13 +357,11 @@ export function classeRarete(rarete?: string): string | null {
   return 'badge--info';
 }
 
-// `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
-// cette bande (voir estAccesPourCatalogue) — omis, seul le shop générique
-// (accessible à toutes les bandes) est retourné.
-export function getShopCommun(catalogueId?: string, rules: GameRules = DEFAULT_GAME_RULES): ShopItem[] {
-  const items: ShopItem[] = TOUS_LES_ITEMS.filter((item) =>
-    catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])
-  ).map((item) => ({
+// Mappe un objet brut (items/*.json) vers un ShopItem "commun", sans
+// résolution de règles de prix (voir getShopCommun/itemVersShopItem qui
+// appellent appliquerReglesObjet par-dessus).
+function mapperItemVersShopItem(item: (typeof TOUS_LES_ITEMS)[number]): ShopItem {
+  return {
     id: item.id,
     nom: item.nom,
     categorie: normaliserCategorie(item.categorie),
@@ -380,8 +378,31 @@ export function getShopCommun(catalogueId?: string, rules: GameRules = DEFAULT_G
     regles_speciales: item.regles_speciales,
     stats: 'stats' in item ? (item.stats as StatsMonture | undefined) : undefined,
     origine: 'commun',
-  }));
+  };
+}
+
+// `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
+// cette bande (voir estAccesPourCatalogue) — omis, seul le shop générique
+// (accessible à toutes les bandes) est retourné.
+export function getShopCommun(catalogueId?: string, rules: GameRules = DEFAULT_GAME_RULES): ShopItem[] {
+  const items: ShopItem[] = TOUS_LES_ITEMS.filter((item) =>
+    catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])
+  ).map(mapperItemVersShopItem);
   return items.map((item) => appliquerReglesObjet(item, catalogueId ?? '', rules, 'commun'));
+}
+
+// Résout un item_id de la base commune en ShopItem, indépendamment de son
+// accessibilité normale (voir estAccesGenerique/estAccesPourCatalogue) —
+// utilisé quand un événement (ex : Tableau d'Exploration) accorde un objet
+// spécifique directement, sans passer par la liste d'achat habituelle.
+export function itemVersShopItem(
+  itemId: string,
+  catalogueId?: string,
+  rules: GameRules = DEFAULT_GAME_RULES
+): ShopItem | undefined {
+  const item = getItem(itemId);
+  if (!item) return undefined;
+  return appliquerReglesObjet(mapperItemVersShopItem(item), catalogueId ?? '', rules, 'commun');
 }
 
 // Montures accessibles à cette bande (pour un profil donné), qu'elles

@@ -2,8 +2,14 @@ import { useState } from 'react';
 import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { TABLE_EXPLORATION_EVENEMENTS } from '../../data/tableExplorationEvenements';
-import type { EvenementExploration as Evenement, PalierExploration } from '../../data/tableExplorationEvenements';
+import type {
+  EvenementExploration as Evenement,
+  LigneSousTableD6,
+  PalierExploration,
+} from '../../data/tableExplorationEvenements';
+import type { ShopItem } from '../../utils/shop';
 import { JetOrButton } from './JetOrButton';
+import { AjouterObjetTrouveButton } from './AjouterObjetTrouveButton';
 import { ResolutionPuits } from './ResolutionPuits';
 import { ResolutionVagabond } from './ResolutionVagabond';
 import { ResolutionTaverne } from './ResolutionTaverne';
@@ -15,6 +21,9 @@ type Props = {
   catalogue: WarbandCatalog;
   onMajRoster: (patch: Partial<RosterInstance>) => void;
   onAjouterOr: (montant: number) => void;
+  // Ajoute directement un objet trouvé au stock de la bande, gratuitement,
+  // sans passer par la liste d'achat (voir LigneSousTableD6.objets).
+  onAchatStockMultiple: (item: ShopItem, coutPaye: number, quantite: number) => void;
   onAjouterAuJournal: (texte: string) => void;
   onOuvrirArtefacts: () => void;
 };
@@ -24,6 +33,7 @@ export function EvenementExploration({
   catalogue,
   onMajRoster,
   onAjouterOr,
+  onAchatStockMultiple,
   onAjouterAuJournal,
   onOuvrirArtefacts,
 }: Props) {
@@ -45,14 +55,12 @@ export function EvenementExploration({
   };
 
   const changerFace = (f: number) => {
-    setFace((prev) => {
-      const nouveau = prev === f ? '' : f;
-      if (nouveau !== '') {
-        const ev = palier?.evenements.find((e) => e.face === f);
-        if (ev) onAjouterAuJournal(ev.nom);
-      }
-      return nouveau;
-    });
+    const nouveau = face === f ? '' : f;
+    if (nouveau !== '') {
+      const ev = palier?.evenements.find((e) => e.face === f);
+      if (ev) onAjouterAuJournal(ev.nom);
+    }
+    setFace(nouveau);
     setJetSousTable('');
   };
 
@@ -60,6 +68,18 @@ export function EvenementExploration({
     if (!evenement) return;
     onAjouterOr(valeur);
     onAjouterAuJournal(`${evenement.nom}${nomLigne ? ` — ${nomLigne}` : ''} : +${valeur} po (${notation}).`);
+  };
+
+  const ajouterObjet = (nomLigne: string, item: ShopItem, quantite: number) => {
+    if (!evenement) return;
+    onAchatStockMultiple(item, 0, quantite);
+    onAjouterAuJournal(
+      `${evenement.nom}${nomLigne ? ` — ${nomLigne}` : ''} : ${item.nom}${quantite > 1 ? ` ×${quantite}` : ''} ajouté(e) au stock.`
+    );
+  };
+
+  const selectionnerLigneSousTable = (ligne: LigneSousTableD6) => {
+    setJetSousTable(ligneSousTable === ligne ? '' : String(ligne.min));
   };
 
   return (
@@ -180,10 +200,14 @@ export function EvenementExploration({
                 />
               </div>
               <div className="table-scroll">
-                <table className="table-reference">
+                <table className="table-reference table-reference--clickable">
                   <tbody>
                     {evenement.sousTable.map((ligne, i) => (
-                      <tr key={i} className={ligneSousTable === ligne ? 'table-reference__row-active' : undefined}>
+                      <tr
+                        key={i}
+                        className={ligneSousTable === ligne ? 'table-reference__row-active' : undefined}
+                        onClick={() => selectionnerLigneSousTable(ligne)}
+                      >
                         <td>{ligne.min === ligne.max ? ligne.min : `${ligne.min}-${ligne.max}`}</td>
                         <td>{ligne.resultat}</td>
                       </tr>
@@ -196,6 +220,18 @@ export function EvenementExploration({
                   label={`Jet or (${ligneSousTable.or}) :`}
                   onValider={(valeur) => ajouterOr(ligneSousTable.or!, ligneSousTable.resultat, valeur)}
                 />
+              )}
+              {ligneSousTable?.objets && (
+                <div style={{ marginTop: '0.3rem' }}>
+                  {ligneSousTable.objets.map((objet, i) => (
+                    <AjouterObjetTrouveButton
+                      key={i}
+                      ligneObjet={objet}
+                      catalogueId={catalogue.id}
+                      onAjouter={(item, quantite) => ajouterObjet(ligneSousTable.resultat, item, quantite)}
+                    />
+                  ))}
+                </div>
               )}
             </div>
           )}
