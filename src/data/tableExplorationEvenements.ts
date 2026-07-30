@@ -5,6 +5,18 @@
 // géré par tableExplorationWyrdstone.ts — ils sont indépendants et peuvent
 // se cumuler avec lui sur le même jet.
 
+// Objet trouvé directement ajoutable au stock de la bande (voir
+// EvenementExploration/AjouterObjetTrouveButton), en un clic plutôt qu'en
+// rouvrant la liste d'achat pour retrouver l'objet correspondant.
+export type LigneObjetTrouve = {
+  // Doit exister dans la base commune (src/data/items/*.json).
+  item_id: string;
+  // Nombre fixe (défaut 1), ou notation de dés (ex : "D3") si la quantité
+  // exacte dépend d'un jet à reporter depuis la table papier — jamais lancé
+  // par l'app, comme `or` ci-dessous.
+  quantite?: number | string;
+};
+
 // Résultat d'une sous-table à un seul jet de D6 (ex : Cadavre, Forge...).
 export type LigneSousTableD6 = {
   min: number;
@@ -14,6 +26,10 @@ export type LigneSousTableD6 = {
   // (ex : "D6", "2D6") — le joueur reporte le total obtenu sur sa table
   // papier, jamais lancé par l'app (comme partout ailleurs dans l'outil).
   or?: string;
+  // Objet(s) trouvé(s) correspondant à ce résultat. Plusieurs entrées =
+  // objets alternatifs (ex : Bouclier OU Rondache) affichés côte à côte, pas
+  // cumulatifs : le joueur clique celui qu'il a choisi sur table papier.
+  objets?: LigneObjetTrouve[];
 };
 
 // Élément d'une sous-table "trésor" (Trésor caché, Bande massacrée) : chaque
@@ -85,10 +101,10 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
         regle: ['Lancez 1D6 pour savoir ce que vous trouvez sur le cadavre lorsque vous le fouillez :'],
         sousTable: [
           { min: 1, max: 2, resultat: 'D6 CO', or: 'D6' },
-          { min: 3, max: 3, resultat: 'Dague' },
-          { min: 4, max: 4, resultat: 'Hache' },
-          { min: 5, max: 5, resultat: 'Épée' },
-          { min: 6, max: 6, resultat: 'Armure légère' },
+          { min: 3, max: 3, resultat: 'Dague', objets: [{ item_id: 'dague' }] },
+          { min: 4, max: 4, resultat: 'Hache', objets: [{ item_id: 'hache' }] },
+          { min: 5, max: 5, resultat: 'Épée', objets: [{ item_id: 'epee' }] },
+          { min: 6, max: 6, resultat: 'Armure légère', objets: [{ item_id: 'armure_legere' }] },
         ],
       },
       {
@@ -112,7 +128,12 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
           "Un carrosse retourné est coincé dans un portail écroulé. Il s'agit d'un carrosse couvert, du genre de ceux qu'utilisent les nobles pour aller de la cité à leur propriété à la campagne. Que fait-il ici, puisque tous les gens importants sont partis depuis bien longtemps ?",
         regle: ['Lancez 1D6 pour savoir ce que vous trouvez :'],
         sousTable: [
-          { min: 1, max: 2, resultat: 'Carte de Mordheim (voir Équipement)' },
+          {
+            min: 1,
+            max: 2,
+            resultat: 'Carte de Mordheim (voir Équipement)',
+            objets: [{ item_id: 'carte_de_mordheim' }],
+          },
           { min: 3, max: 4, resultat: 'Une bourse contenant 2D6 CO', or: '2D6' },
           {
             min: 5,
@@ -158,11 +179,11 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
           "Le fourneau et l'enclume renversée indiquent clairement la fonction passée de ce lieu. Le fer et les outils ont été volés depuis longtemps, le charbon et les scories jonchent le sol, mais il reste peut-être des armes parmi les décombres.",
         regle: ['Lancez 1D6 pour savoir ce que vous trouvez :'],
         sousTable: [
-          { min: 1, max: 1, resultat: 'Épée' },
-          { min: 2, max: 2, resultat: 'Arme à deux mains' },
-          { min: 3, max: 3, resultat: 'Fléau' },
-          { min: 4, max: 4, resultat: 'D3 Hallebardes' },
-          { min: 5, max: 5, resultat: 'Lance de cavalerie' },
+          { min: 1, max: 1, resultat: 'Épée', objets: [{ item_id: 'epee' }] },
+          { min: 2, max: 2, resultat: 'Arme à deux mains', objets: [{ item_id: 'arme_a_deux_mains' }] },
+          { min: 3, max: 3, resultat: 'Fléau', objets: [{ item_id: 'fleau' }] },
+          { min: 4, max: 4, resultat: 'D3 Hallebardes', objets: [{ item_id: 'hallebarde', quantite: 'D3' }] },
+          { min: 5, max: 5, resultat: 'Lance de cavalerie', objets: [{ item_id: 'lance_de_cavalerie' }] },
           { min: 6, max: 6, resultat: '2D6 CO de métal (ajoutez la valeur à votre magot)', or: '2D6' },
         ],
       },
@@ -187,11 +208,16 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
           "Cette masure était jadis l'atelier d'un fabricant d'arcs et de flèches. Le sol est jonché de fagots de bois d'if et de saule.",
         regle: ['Lancez 1D6 pour savoir ce que vous trouvez :'],
         sousTable: [
-          { min: 1, max: 2, resultat: 'D3 Arcs courts' },
-          { min: 3, max: 3, resultat: 'D3 Arcs' },
-          { min: 4, max: 4, resultat: 'D3 Arcs longs' },
-          { min: 5, max: 5, resultat: 'Carquois de flèches de chasse' },
-          { min: 6, max: 6, resultat: 'D3 Arbalètes' },
+          { min: 1, max: 2, resultat: 'D3 Arcs courts', objets: [{ item_id: 'arc_court', quantite: 'D3' }] },
+          { min: 3, max: 3, resultat: 'D3 Arcs', objets: [{ item_id: 'arc', quantite: 'D3' }] },
+          { min: 4, max: 4, resultat: 'D3 Arcs longs', objets: [{ item_id: 'arc_long', quantite: 'D3' }] },
+          {
+            min: 5,
+            max: 5,
+            resultat: 'Carquois de flèches de chasse',
+            objets: [{ item_id: 'fleches_de_chasse' }],
+          },
+          { min: 6, max: 6, resultat: 'D3 Arbalètes', objets: [{ item_id: 'arbalete', quantite: 'D3' }] },
         ],
       },
       {
@@ -228,12 +254,27 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
           "Vous trouvez l'atelier d'un nain fabricant d'armes à poudre noire. Les portes ont été défoncées et les chambres pillées, mais quelques coffres métalliques sont intacts.",
         regle: ['Lancez 1D6 pour savoir ce que vous trouvez :'],
         sousTable: [
-          { min: 1, max: 1, resultat: 'Tromblon' },
-          { min: 2, max: 2, resultat: 'Paire de pistolets' },
-          { min: 3, max: 3, resultat: 'Paire de pistolets de duel' },
-          { min: 4, max: 4, resultat: 'D3 Arquebuses' },
-          { min: 5, max: 5, resultat: 'D3 Poires de poudre noire supérieure' },
-          { min: 6, max: 6, resultat: "Long fusil d'Hochland" },
+          { min: 1, max: 1, resultat: 'Tromblon', objets: [{ item_id: 'tromblon' }] },
+          { min: 2, max: 2, resultat: 'Paire de pistolets', objets: [{ item_id: 'pistolet', quantite: 2 }] },
+          {
+            min: 3,
+            max: 3,
+            resultat: 'Paire de pistolets de duel',
+            objets: [{ item_id: 'pistolet_de_duel', quantite: 2 }],
+          },
+          { min: 4, max: 4, resultat: 'D3 Arquebuses', objets: [{ item_id: 'arquebuse', quantite: 'D3' }] },
+          {
+            min: 5,
+            max: 5,
+            resultat: 'D3 Poires de poudre noire supérieure',
+            objets: [{ item_id: 'poudre_noire_superieure', quantite: 'D3' }],
+          },
+          {
+            min: 6,
+            max: 6,
+            resultat: "Long fusil d'Hochland",
+            objets: [{ item_id: 'long_fusil_du_hochland' }],
+          },
         ],
       },
       {
@@ -265,11 +306,34 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
           "Une cuirasse pendue à une perche attire votre attention sur ce lieu. L'atelier est en ruine et la forge a été dévastée. En fouillant les décombres, vous trouvez divers éléments d'armure à moitié finis.",
         regle: ['Lancez 1D6 pour savoir ce que vous trouvez :'],
         sousTable: [
-          { min: 1, max: 2, resultat: 'D3 Boucliers ou rondaches (au choix)' },
-          { min: 3, max: 3, resultat: 'D3 Casques' },
-          { min: 4, max: 4, resultat: 'D3 Armures légères' },
-          { min: 5, max: 5, resultat: 'D3 Armures lourdes' },
-          { min: 6, max: 6, resultat: 'Armure en ithilmar' },
+          {
+            min: 1,
+            max: 2,
+            resultat: 'D3 Boucliers ou rondaches (au choix)',
+            objets: [
+              { item_id: 'bouclier', quantite: 'D3' },
+              { item_id: 'rondache', quantite: 'D3' },
+            ],
+          },
+          { min: 3, max: 3, resultat: 'D3 Casques', objets: [{ item_id: 'casque', quantite: 'D3' }] },
+          {
+            min: 4,
+            max: 4,
+            resultat: 'D3 Armures légères',
+            objets: [{ item_id: 'armure_legere', quantite: 'D3' }],
+          },
+          {
+            min: 5,
+            max: 5,
+            resultat: 'D3 Armures lourdes',
+            objets: [{ item_id: 'armure_lourde', quantite: 'D3' }],
+          },
+          {
+            min: 6,
+            max: 6,
+            resultat: 'Armure en ithilmar',
+            objets: [{ item_id: 'armure_en_ithilmar_market' }],
+          },
         ],
       },
       {
@@ -416,12 +480,22 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
           "Vous trouvez un atelier solidement bâti en pierre. Une inscription runique indique qu'il s'agit d'une ancienne forge naine.",
         regle: ['Lancez 1D6 pour savoir ce que vous trouvez :'],
         sousTable: [
-          { min: 1, max: 1, resultat: 'D3 Haches à deux mains' },
-          { min: 2, max: 2, resultat: 'D3 Armures lourdes' },
+          {
+            min: 1,
+            max: 1,
+            resultat: 'D3 Haches à deux mains',
+            objets: [{ item_id: 'arme_a_deux_mains', quantite: 'D3' }],
+          },
+          {
+            min: 2,
+            max: 2,
+            resultat: 'D3 Armures lourdes',
+            objets: [{ item_id: 'armure_lourde', quantite: 'D3' }],
+          },
           { min: 3, max: 3, resultat: 'Hache en gromril' },
           { min: 4, max: 4, resultat: 'Marteau en gromril' },
           { min: 5, max: 5, resultat: 'Hache à deux mains en gromril' },
-          { min: 6, max: 6, resultat: 'Armure en gromril' },
+          { min: 6, max: 6, resultat: 'Armure en gromril', objets: [{ item_id: 'armure_en_gromril_market' }] },
         ],
       },
       {
@@ -467,7 +541,12 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
         regle: ['Lancez 1D6 :'],
         sousTable: [
           { min: 1, max: 2, resultat: "D6x10 CO d'objets et d'or à ajouter à votre magot", or: 'D6x10' },
-          { min: 3, max: 4, resultat: "D6 fioles d'ombre pourpre" },
+          {
+            min: 3,
+            max: 4,
+            resultat: "D6 fioles d'ombre pourpre",
+            objets: [{ item_id: 'ombre_pourpre', quantite: 'D6' }],
+          },
           {
             min: 5,
             max: 6,

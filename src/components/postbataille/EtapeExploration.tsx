@@ -28,6 +28,9 @@ type EtapeExplorationProps = {
   pointsVeteran: number;
   onPointsVeteranChange: (v: number) => void;
   onAchatStock: (item: ShopItem, coutPaye: number) => void;
+  // Variante à quantité multiple pour un objet trouvé lors d'un événement
+  // d'exploration (voir LigneObjetTrouve dans tableExplorationEvenements.ts).
+  onAchatStockMultiple: (item: ShopItem, coutPaye: number, quantite: number) => void;
   // Ajoute directement le montant à la trésorerie de la bande (voir les
   // événements à gain d'or de tableExplorationEvenements.ts) — appliqué
   // immédiatement, comme onAchatStock, indépendamment de la validation
@@ -52,6 +55,7 @@ export function EtapeExploration({
   pointsVeteran,
   onPointsVeteranChange,
   onAchatStock,
+  onAchatStockMultiple,
   onAjouterOr,
   onMajRoster,
   resumeExploration,
@@ -158,6 +162,7 @@ export function EtapeExploration({
           catalogue={catalogue}
           onMajRoster={onMajRoster}
           onAjouterOr={onAjouterOr}
+          onAchatStockMultiple={onAchatStockMultiple}
           onAjouterAuJournal={ajouterAuJournalExploration}
           onOuvrirArtefacts={() => setModalAchat('artefacts')}
         />
