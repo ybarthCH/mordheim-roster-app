@@ -10,7 +10,9 @@ import type {
 import type { ShopItem } from '../../utils/shop';
 import { JetOrButton } from './JetOrButton';
 import { AjouterObjetTrouveButton } from './AjouterObjetTrouveButton';
+import { LigneTresorRow } from './LigneTresorRow';
 import { ResolutionPuits } from './ResolutionPuits';
+import { ResolutionLaFosse } from './ResolutionLaFosse';
 import { ResolutionVagabond } from './ResolutionVagabond';
 import { ResolutionTaverne } from './ResolutionTaverne';
 import { ResolutionPrisonniers } from './ResolutionPrisonniers';
@@ -19,6 +21,7 @@ import { ResolutionDebiteurReconnaissant } from './ResolutionDebiteurReconnaissa
 type Props = {
   roster: RosterInstance;
   catalogue: WarbandCatalog;
+  date: string;
   onMajRoster: (patch: Partial<RosterInstance>) => void;
   onAjouterOr: (montant: number) => void;
   // Ajoute directement un objet trouvé au stock de la bande, gratuitement,
@@ -28,9 +31,31 @@ type Props = {
   onOuvrirArtefacts: () => void;
 };
 
+// Événements ayant leur propre résolution interactive (composant dédié,
+// gain d'or/objet automatisable, ou sous-table à seuils) — sert à savoir si
+// la sélection d'une face doit attendre l'action finale avant de s'inscrire
+// au journal, ou si elle doit s'y inscrire tout de suite faute d'autre
+// occasion (événement purement narratif, ex : Catacombes).
+const EVENEMENTS_AVEC_COMPOSANT = new Set([
+  'puits',
+  'la_fosse',
+  'vagabond',
+  'taverne',
+  'prisonniers',
+  'debiteur_reconnaissant',
+]);
+
+function evenementAUneResolution(ev: Evenement): boolean {
+  if (ev.or || ev.artefactMagique) return true;
+  if (ev.sousTable?.some((l) => l.or || l.objets)) return true;
+  if (ev.sousTableTresor?.length) return true;
+  return EVENEMENTS_AVEC_COMPOSANT.has(ev.id);
+}
+
 export function EvenementExploration({
   roster,
   catalogue,
+  date,
   onMajRoster,
   onAjouterOr,
   onAchatStockMultiple,
@@ -58,7 +83,11 @@ export function EvenementExploration({
     const nouveau = face === f ? '' : f;
     if (nouveau !== '') {
       const ev = palier?.evenements.find((e) => e.face === f);
-      if (ev) onAjouterAuJournal(ev.nom);
+      // Consigné tout de suite seulement si l'événement n'a aucune action à
+      // accomplir ensuite (purement narratif) — sinon, c'est cette dernière
+      // action qui inscrit l'entrée de journal (voir ajouterOr/ajouterObjet
+      // ci-dessous et les composants de résolution dédiés).
+      if (ev && !evenementAUneResolution(ev)) onAjouterAuJournal(ev.nom);
     }
     setFace(nouveau);
     setJetSousTable('');
@@ -78,8 +107,23 @@ export function EvenementExploration({
     );
   };
 
+  const ajouterFragments = (nomLigne: string, notation: string, valeur: number) => {
+    if (!evenement) return;
+    onMajRoster({ wyrdstone: roster.wyrdstone + valeur });
+    onAjouterAuJournal(
+      `${evenement.nom}${nomLigne ? ` — ${nomLigne}` : ''} : +${valeur} fragment${valeur > 1 ? 's' : ''} de pierre magique (${notation}).`
+    );
+  };
+
   const selectionnerLigneSousTable = (ligne: LigneSousTableD6) => {
-    setJetSousTable(ligneSousTable === ligne ? '' : String(ligne.min));
+    const deselection = ligneSousTable === ligne;
+    setJetSousTable(deselection ? '' : String(ligne.min));
+    // Résultat sans aucune action possible (ex : butin narratif à revendre à
+    // un prix spécial) : on consigne au moment de la sélection, faute
+    // d'autre occasion de le faire.
+    if (!deselection && evenement && !ligne.or && !ligne.objets) {
+      onAjouterAuJournal(`${evenement.nom} — ${ligne.resultat}`);
+    }
   };
 
   return (
@@ -143,6 +187,15 @@ export function EvenementExploration({
             <ResolutionPuits roster={roster} onMajRoster={onMajRoster} onAjouterAuJournal={onAjouterAuJournal} />
           )}
 
+          {evenement.id === 'la_fosse' && (
+            <ResolutionLaFosse
+              roster={roster}
+              date={date}
+              onMajRoster={onMajRoster}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
+          )}
+
           {evenement.id === 'vagabond' && (
             <ResolutionVagabond
               roster={roster}
@@ -188,17 +241,9 @@ export function EvenementExploration({
 
           {evenement.sousTable && (
             <div style={{ marginTop: '0.6rem' }}>
-              <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap', marginBottom: '0.4rem' }}>
-                <span className="text-sm text-muted">Jet (1D6) :</span>
-                <input
-                  type="number"
-                  min={1}
-                  max={6}
-                  style={{ width: '4rem' }}
-                  value={jetSousTable}
-                  onChange={(e) => setJetSousTable(e.target.value)}
-                />
-              </div>
+              <p className="text-sm text-muted" style={{ marginBottom: '0.4rem' }}>
+                Sélectionne le résultat obtenu sur le D6 :
+              </p>
               <div className="table-scroll">
                 <table className="table-reference table-reference--clickable">
                   <tbody>
@@ -243,20 +288,25 @@ export function EvenementExploration({
                   <tr>
                     <th>Élément</th>
                     <th>Résultat requis</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {evenement.sousTableTresor.map((ligne) => (
-                    <tr key={ligne.element}>
-                      <td>{ligne.element}</td>
-                      <td>{ligne.seuil}</td>
-                    </tr>
+                    <LigneTresorRow
+                      key={ligne.element}
+                      ligne={ligne}
+                      catalogueId={catalogue.id}
+                      onAjouterOr={ajouterOr}
+                      onAjouterObjet={ajouterObjet}
+                      onAjouterFragments={ajouterFragments}
+                      onOuvrirArtefacts={onOuvrirArtefacts}
+                    />
                   ))}
                 </tbody>
               </table>
             </div>
           )}
-
         </div>
       )}
     </div>

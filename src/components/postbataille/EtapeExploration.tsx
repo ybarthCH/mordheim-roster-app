@@ -19,6 +19,7 @@ import { EvenementExploration } from './EvenementExploration';
 type EtapeExplorationProps = {
   roster: RosterInstance;
   catalogue: WarbandCatalog | undefined;
+  date: string;
   wyrdstoneTrouve: number;
   onWyrdstoneTrouveChange: (v: number) => void;
   notesExploration: string;
@@ -46,6 +47,7 @@ type EtapeExplorationProps = {
 export function EtapeExploration({
   roster,
   catalogue,
+  date,
   wyrdstoneTrouve,
   onWyrdstoneTrouveChange,
   notesExploration,
@@ -60,7 +62,7 @@ export function EtapeExploration({
   onMajRoster,
   resumeExploration,
 }: EtapeExplorationProps) {
-  const [modalAchat, setModalAchat] = useState<false | 'normal' | 'artefacts'>(false);
+  const [modalAchat, setModalAchat] = useState(false);
 
   const ajouterAuJournalExploration = (texte: string) => {
     onNotesExplorationChange(`${notesExploration}${notesExploration ? '\n' : ''}${texte}`);
@@ -160,37 +162,18 @@ export function EtapeExploration({
         <EvenementExploration
           roster={roster}
           catalogue={catalogue}
+          date={date}
           onMajRoster={onMajRoster}
           onAjouterOr={onAjouterOr}
           onAchatStockMultiple={onAchatStockMultiple}
           onAjouterAuJournal={ajouterAuJournalExploration}
-          onOuvrirArtefacts={() => setModalAchat('artefacts')}
+          onOuvrirArtefacts={() => setModalAchat(true)}
         />
       )}
 
       <div className="field">
         <label>Journal d'exploration</label>
         <textarea value={notesExploration} onChange={(e) => onNotesExplorationChange(e.target.value)} />
-      </div>
-
-      <div className="card card--tight" style={{ marginBottom: '0.8rem' }}>
-        <div className="flex justify-between items-center" style={{ marginBottom: '0.3rem' }}>
-          <h3 className="mt-0 mb-0">Shop commun (objet(s) gagné(s) lors du scénario ou évènement d'exploration)</h3>
-          {catalogue && (
-            <button
-              type="button"
-              className="btn btn--primary btn--sm"
-              style={{ flexShrink: 0 }}
-              onClick={() => setModalAchat('normal')}
-            >
-              + Objet
-            </button>
-          )}
-        </div>
-        <p className="text-sm text-muted mb-0">
-          Certains scénarios accordent un objet directement : ajoute-le ici, il rejoint aussitôt le stock de la
-          bande, sans toucher à la trésorerie.
-        </p>
       </div>
 
       <h3>Vente de wyrdstone</h3>
@@ -293,7 +276,7 @@ export function EtapeExploration({
           tresorerie={roster.tresorerie}
           inventaireBande={inventaireComplet(roster)}
           gratuit
-          categorieInitiale={modalAchat === 'artefacts' ? 'artefacts_magiques' : undefined}
+          categorieInitiale="artefacts_magiques"
           onClose={() => setModalAchat(false)}
           onAchat={onAchatStock}
         />
