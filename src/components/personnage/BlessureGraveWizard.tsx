@@ -701,7 +701,15 @@ export function BlessureGraveWizard({
       {statsListe.length > 0 && (
         <p className="text-sm">
           <strong>Caractéristiques modifiées :</strong>{' '}
-          {statsListe.map(([k, v]) => `${k} ${(v ?? 0) > 0 ? '+' : ''}${v}`).join(', ')}
+          {statsListe.map(([k, v], i) => (
+            <span key={k}>
+              {i > 0 && ', '}
+              <span className={(v ?? 0) < 0 ? 'text-danger' : 'text-success'}>
+                {k} {(v ?? 0) > 0 ? '+' : ''}
+                {v}
+              </span>
+            </span>
+          ))}
         </p>
       )}
       {resultatFinal.notes.length > 0 && (
