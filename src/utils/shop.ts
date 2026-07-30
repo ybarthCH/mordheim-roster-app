@@ -95,6 +95,7 @@ export function estAccesGenerique(acces: string[]): boolean {
       a === 'commun' ||
       a === 'jeteurs_de_sorts' ||
       /^rare_\d+$/.test(a) ||
+      /^rare_\d+_sauf_.+$/.test(a) ||
       a.startsWith('commun_sauf_') ||
       /^commun_ou_rare_\d+$/.test(a)
   );
@@ -127,6 +128,7 @@ const CATALOGUES_HUMAINS = new Set([
 // groupe "commun_humains". Utilisé pour que les montures et autres objets
 // à accès restreint apparaissent dans le shop commun d'une bande éligible.
 export function estAccesPourCatalogue(acces: string[], catalogueId: string): boolean {
+  if (acces.includes(`rare_9_sauf_${catalogueId}`)) return false;
   if (estAccesGenerique(acces)) return true;
   if (acces.includes(catalogueId)) return true;
   if (acces.includes('commun_humains') && CATALOGUES_HUMAINS.has(catalogueId)) return true;
@@ -211,7 +213,11 @@ export function prixAvecRegles(
   origine: OriginePrix
 ): number | string {
   const reference = getItem(itemId);
-  const estPoudreNoire = reference?.categorie === 'armes_poudre_noire';
+  // Tromblon Nain du Chaos : joue toujours avec les incidents de tir (voir
+  // son texte de règle), donc son prix ne suit pas la remise habituelle de
+  // la règle optionnelle des armes à poudre noire — il est fixe.
+  const prixFixePoudreNoire = !!reference && 'prix_poudre_noire_fixe' in reference && !!reference.prix_poudre_noire_fixe;
+  const estPoudreNoire = reference?.categorie === 'armes_poudre_noire' && !prixFixePoudreNoire;
   let prix = cout;
 
   if (estPoudreNoire && origine !== 'paye') {

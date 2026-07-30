@@ -187,9 +187,9 @@
   },
   {
     "id": "tromblon", "nom": "Tromblon", "categorie": "armes_poudre_noire",
-    "cout": 20, "cout_officiel": 30, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9",
-    "note_maison": "Prix officiel 30 CO, réduit à 20 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée.",
-    "acces": ["rare_9"], "source": "LdR", "page": 29,
+    "cout": 20, "cout_officiel": 30, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, sauf Nains du Chaos (voir Tromblon Nain du Chaos)",
+    "note_maison": "Prix officiel 30 CO, réduit à 20 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée. Remplacé par le Tromblon Nain du Chaos pour cette bande.",
+    "acces": ["rare_9_sauf_nains_du_chaos"], "source": "LdR", "page": 29,
     "texte": "Un tromblon est une arme à poudre noire rudimentaire qui tire une grêle de plombs, de rivets rouillés, de clous tordus et autre mitraille. Cette arme puissante, bien qu'hasardeuse, prend énormément de temps à recharger, si bien que la plupart des guerriers la laissent de côté après le premier tir.",
     "portee": "S", "force": "3",
     "regles_speciales": [
@@ -199,14 +199,15 @@
   },
   {
     "id": "tromblon_nain_du_chaos", "nom": "Tromblon Nain du Chaos", "categorie": "armes_poudre_noire",
-    "cout": 25, "cout_officiel": 40, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Fils d'Hashut uniquement",
-    "note_maison": "Prix officiel 40 CO, réduit à 25 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée.",
+    "cout": 40, "cout_fixe": true, "prix_poudre_noire_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Nains du Chaos uniquement",
+    "note_maison": "Prix fixe à 40 CO, non affecté par la règle avancée de poudre noire (l'arme joue déjà systématiquement les incidents de tir, voir sa règle spéciale). Remplace le Tromblon normal pour cette bande.",
     "acces": ["nains_du_chaos"], "source": "FH (Fils d'Hashut)", "page": 29,
     "texte": "Les Nains du Chaos sont réputés pour utiliser un grand nombre de ces fameux tromblons contre leurs troupes d'infanterie. Ils emploient la même tactique dans les combats de rue à Mordheim.",
     "portee": "16ps", "force": "3",
     "regles_speciales": [
       { "nom": "Décharge", "texte": "Lorsque l'arme fait feu, tracez une ligne de 16ps de long et de 1ps de large dans n'importe quelle direction. Toutes les figurines se trouvant sur son chemin sont automatiquement touchées par une touche de Force 3." },
-      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." }
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." },
+      { "nom": "Incidents de tir systématiques", "texte": "Contrairement aux autres armes à poudre noire, ce tromblon joue toujours avec les règles optionnelles des incidents de tir, même si elles ne sont pas utilisées dans la campagne : avant de tirer, lancez 1D6 — sur un résultat de 1, résolvez un incident de tir sur la table dédiée." }
     ]
   },
   {
