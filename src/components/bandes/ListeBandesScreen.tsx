@@ -202,6 +202,10 @@ export function ListeBandesScreen() {
       <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '2rem' }}>
         {__APP_VERSION__} · {__APP_BUILD_DATE__.slice(0, 10)} · {heureBuildCET(__APP_BUILD_DATE__)}
       </p>
+      <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '0.4rem' }}>
+        This app is a free community project not associated with Games Workshop. All original content is
+        Copyright 2026 Games Workshop.
+      </p>
     </Screen>
   );
 }
