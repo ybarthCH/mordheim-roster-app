@@ -1,4 +1,5 @@
 import { Icon } from '../common/Icon';
+import { CollapsibleCard } from '../common/CollapsibleCard';
 import { injuryLabel, nomCourtBlessure } from '../../utils/blessures';
 import type { Member } from '../../types/roster';
 
@@ -14,16 +15,20 @@ export function BlessuresGravesCard({
   onSupprimer,
 }: BlessuresGravesCardProps) {
   return (
-    <div className="card">
-      <div className="flex justify-between items-center" style={{ marginBottom: '0.5rem' }}>
-        <h3 className="mt-0 mb-0">
+    <CollapsibleCard
+      preferenceKey="ui.personnage.blessures_graves.ouvert"
+      title={
+        <>
           <Icon name="goutte" style={{ marginRight: '0.35em' }} />
           Blessures graves
-        </h3>
+        </>
+      }
+      actions={
         <button className="btn btn--sm btn--primary" onClick={onOpenAjout}>
           + Enregistrer un résultat
         </button>
-      </div>
+      }
+    >
       {membre.blessures_graves.length === 0 && <p className="text-muted text-sm">Aucune.</p>}
       {membre.blessures_graves.map((b) => (
         <div key={b.id} className="list-item" style={{ alignItems: 'flex-start' }}>
@@ -51,6 +56,6 @@ export function BlessuresGravesCard({
           </button>
         </div>
       ))}
-    </div>
+    </CollapsibleCard>
   );
 }

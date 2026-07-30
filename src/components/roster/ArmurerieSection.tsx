@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Modal } from '../common/Modal';
 import { Icon } from '../common/Icon';
+import { CollapsibleCard } from '../common/CollapsibleCard';
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
 import { ItemDetailModal } from '../personnage/ItemDetailModal';
 import { iconeCategorie, libelleCategorie, resolveItemDetail, prixVente } from '../../utils/shop';
@@ -40,16 +41,21 @@ export function ArmurerieSection({
   const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
 
   return (
-    <div className="card">
-      <div className="flex justify-between items-center" style={{ marginBottom: '0.7rem' }}>
-        <h3 className="mt-0 mb-0">
+    <>
+    <CollapsibleCard
+      preferenceKey="ui.roster.armurerie.ouvert"
+      title={
+        <>
           <Icon name="coffre" style={{ marginRight: '0.35em' }} />
           Armurerie de la bande
-        </h3>
+        </>
+      }
+      actions={
         <button className="btn btn--sm btn--primary" onClick={() => setModalAchat(true)}>
           + Acheter
         </button>
-      </div>
+      }
+    >
       {roster.stock.length === 0 && <p className="text-muted text-sm">Stock vide.</p>}
       {roster.stock.map((entree) => (
         <div key={entree.instance_id} className="list-item">
@@ -98,6 +104,7 @@ export function ArmurerieSection({
           </div>
         </div>
       ))}
+    </CollapsibleCard>
 
       {modalAchat && catalogue && (
         <AchatEquipementModal
@@ -142,6 +149,6 @@ export function ArmurerieSection({
           </div>
         </Modal>
       )}
-    </div>
+    </>
   );
 }

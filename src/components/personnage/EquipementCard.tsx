@@ -2,6 +2,7 @@ import { Icon } from '../common/Icon';
 import { iconeCategorie, inventaireGroupeMismatch, libelleCategorie, prixVente } from '../../utils/shop';
 import { getItem } from '../../data/items';
 import type { InventoryEntry, Member } from '../../types/roster';
+import { CollapsibleCard } from '../common/CollapsibleCard';
 
 type EquipementCardProps = {
   membre: Member;
@@ -25,18 +26,22 @@ export function EquipementCard({
   verrouille = false,
 }: EquipementCardProps) {
   return (
-    <div className="card">
-      <div className="flex justify-between items-center" style={{ marginBottom: '0.7rem' }}>
-        <h3 className="mt-0 mb-0">
+    <CollapsibleCard
+      preferenceKey="ui.personnage.equipement.ouvert"
+      title={
+        <>
           <Icon name="epee" style={{ marginRight: '0.35em' }} />
           Équipement
-        </h3>
-        {!verrouille && (
+        </>
+      }
+      actions={
+        !verrouille && (
           <button className="btn btn--sm btn--primary" onClick={onOpenAchat}>
             + Acheter
           </button>
-        )}
-      </div>
+        )
+      }
+    >
       {verrouille && (
         <p className="text-sm">
           {membre.equipement || 'Aucun équipement'}
@@ -114,6 +119,6 @@ export function EquipementCard({
         </div>
         );
       })}
-    </div>
+    </CollapsibleCard>
   );
 }

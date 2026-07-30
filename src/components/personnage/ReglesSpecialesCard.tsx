@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Icon } from '../common/Icon';
+import { CollapsibleCard } from '../common/CollapsibleCard';
 import type { Member } from '../../types/roster';
 
 type ReglesSpecialesCardProps = {
@@ -15,11 +16,15 @@ export function ReglesSpecialesCard({ membre, onMajMembre }: ReglesSpecialesCard
   const [nouvelleNote, setNouvelleNote] = useState('');
 
   return (
-    <div className="card">
-      <h3>
-        <Icon name="flamme" style={{ marginRight: '0.35em' }} />
-        Règles spéciales
-      </h3>
+    <CollapsibleCard
+      preferenceKey="ui.personnage.regles_speciales.ouvert"
+      title={
+        <>
+          <Icon name="flamme" style={{ marginRight: '0.35em' }} />
+          Règles spéciales
+        </>
+      }
+    >
       <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.6rem' }}>
         {membre.regles_speciales_notes.map((s, i) => (
           <span key={i} className="badge badge--info">
@@ -61,6 +66,6 @@ export function ReglesSpecialesCard({ membre, onMajMembre }: ReglesSpecialesCard
           Ajouter
         </button>
       </div>
-    </div>
+    </CollapsibleCard>
   );
 }
