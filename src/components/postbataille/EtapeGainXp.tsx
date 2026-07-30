@@ -156,6 +156,10 @@ export function EtapeGainXp({
           Hors de combat, indique si elle a survécu ou non. Un survivant gagne 1 XP automatiquement (couleur
           dédiée). Un groupe ne perd son XP que s'il est entièrement éliminé.
         </p>
+        <p className="text-sm text-muted">
+          Pour un homme de main ou un animal (les héros passent par la table complète des blessures graves) : lance
+          1D6 — 1–2, il meurt ; 3–6, il se rétablit complètement.
+        </p>
         {horsDeCombatIndividuel.length === 0 && groupesHC.length === 0 && (
           <p className="text-muted">Personne à résoudre — aucun Hors de combat en attente.</p>
         )}

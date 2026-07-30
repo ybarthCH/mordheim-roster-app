@@ -4,7 +4,7 @@ import type { Member, SeriousInjuryRecord } from '../../types/roster';
 import type { Profile } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { BlessureGraveWizard, type BlessureGraveResultat } from './BlessureGraveWizard';
-import { trouverBlessure } from '../../data/blessuresGraves';
+import { estRetablissementIsole, trouverBlessure } from '../../data/blessuresGraves';
 import { appliquerDeltaStats } from '../../utils/blessures';
 
 type Props = {
@@ -22,13 +22,6 @@ export function BlessureGraveModal({ member, profil, tresorerieDisponible, onClo
   const dejaAveugle = member.blessures_graves.some((b) => b.nom === NOM_AVEUGLE_OEIL);
 
   const appliquer = (resultat: BlessureGraveResultat) => {
-    const record: SeriousInjuryRecord = {
-      id: uuidv4(),
-      date: new Date().toISOString().slice(0, 10),
-      description: resultat.texte,
-      nom: resultat.nom,
-      effets: resultat.effets.map((effet) => ({ ...effet, id: uuidv4() })),
-    };
     const { stats_actuels, notes, statsTouchees } = appliquerDeltaStats(
       member.stats_actuels,
       member.notes,
@@ -41,9 +34,18 @@ export function BlessureGraveModal({ member, profil, tresorerieDisponible, onClo
       stats_actuels,
       stats_modifiees: Array.from(new Set([...member.stats_modifiees, ...statsTouchees])),
       notes,
-      blessures_graves: [...member.blessures_graves, record],
       xp: member.xp + resultat.xpBonus,
     };
+    if (!estRetablissementIsole(resultat.effets)) {
+      const record: SeriousInjuryRecord = {
+        id: uuidv4(),
+        date: new Date().toISOString().slice(0, 10),
+        description: resultat.texte,
+        nom: resultat.nom,
+        effets: resultat.effets.map((effet) => ({ ...effet, id: uuidv4() })),
+      };
+      updated = { ...updated, blessures_graves: [...member.blessures_graves, record] };
+    }
     if (resultat.perteEquipement) {
       updated = { ...updated, inventaire: [], equipement: '' };
     }
@@ -64,6 +66,7 @@ export function BlessureGraveModal({ member, profil, tresorerieDisponible, onClo
           tresorerieDisponible={tresorerieDisponible}
           estEternelle={!!profil?.eternelle}
           pvActuelProfil={member.stats_actuels.PV}
+          statsPersonnage={member.stats_actuels}
           onAppliquer={appliquer}
           onAnnuler={onClose}
         />

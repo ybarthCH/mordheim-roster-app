@@ -302,6 +302,14 @@ export function trouverBlessure(id: string): ResultatBlessureGrave | undefined {
   return BLESSURES_GRAVES.find((b) => b.id === id);
 }
 
+// "Rétablissement complet" (41-55) ne laisse aucune séquelle : inutile de le
+// journaliser dans l'historique des blessures graves, contrairement à tous
+// les autres résultats. Non filtré s'il fait partie d'un tirage "Blessures
+// multiples" — le reste du lot reste pertinent à conserver.
+export function estRetablissementIsole(effets: { resultat_id: string }[]): boolean {
+  return effets.length === 1 && effets[0].resultat_id === 'retablissement_complet';
+}
+
 // Résultat "Gladiateur" perdu : la table papier précise de relancer sur la
 // plage 11-35 (Mort à Blessure profonde) pour savoir ce qu'il devient — Mort
 // est un résultat possible de CETTE relance comme un autre, pas une
