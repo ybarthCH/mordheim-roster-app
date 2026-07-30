@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
@@ -122,6 +122,14 @@ export function PostBatailleScreen() {
   const demiXp = !!catalogue?.xp_demi;
 
   const [etape, setEtape] = useState(0);
+
+  // ScrollToTop (common/ScrollToTop.tsx) ne réagit qu'aux changements de
+  // route : les étapes de cet assistant sont un state interne sur la même
+  // URL, donc sans ceci le scroll de l'étape précédente reste en place et
+  // la nouvelle étape s'affiche au milieu de l'écran.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [etape]);
 
   const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [resultat, setResultat] = useState<BattleRecord['resultat']>('victoire');
