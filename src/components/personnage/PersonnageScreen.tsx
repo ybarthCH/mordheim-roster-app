@@ -307,18 +307,23 @@ export function PersonnageScreen() {
       />
 
       {profil.regles_speciales && profil.regles_speciales.length > 0 && (
-        <div className="card card--tight">
-          <h3>
-            <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
-            Règles spéciales du profil
-          </h3>
+        <CollapsibleCard
+          preferenceKey="ui.personnage.regles_speciales_profil.ouvert"
+          className="card card--tight"
+          title={
+            <>
+              <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
+              Règles spéciales du profil
+            </>
+          }
+        >
           {profil.regles_speciales.map((r) => (
             <p key={r.nom} className="text-sm mb-0" style={{ whiteSpace: 'pre-line' }}>
               <strong>{r.nom}</strong> — {r.texte}
               {r.exception && <span className="text-muted"> ({r.exception})</span>}
             </p>
           ))}
-        </div>
+        </CollapsibleCard>
       )}
 
       <CaracteristiquesCard membre={membre} profil={profil} onEditerStat={editerStat} />
