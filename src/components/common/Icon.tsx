@@ -25,7 +25,8 @@ export type IconName =
   | 'banniere'
   | 'coffre'
   | 'poignee'
-  | 'crayon';
+  | 'crayon'
+  | 'chevrons';
 
 const PATHS: Record<IconName, string> = {
   epee:
@@ -57,6 +58,7 @@ const PATHS: Record<IconName, string> = {
     'M9 6 A1 1 0 1 0 9.01 6 M15 6 A1 1 0 1 0 15.01 6 M9 12 A1 1 0 1 0 9.01 12 M15 12 A1 1 0 1 0 15.01 12 M9 18 A1 1 0 1 0 9.01 18 M15 18 A1 1 0 1 0 15.01 18',
   crayon:
     'M17 3 L21 7 L8 20 L3 21 L4 16 Z M14 6 L18 10',
+  chevrons: 'M6 8 L12 13 L18 8 M6 15 L12 20 L18 15',
 };
 
 const VIEWBOX: Record<IconName, string> = {
@@ -80,6 +82,7 @@ const VIEWBOX: Record<IconName, string> = {
   coffre: '0 0 24 24',
   poignee: '0 0 24 24',
   crayon: '0 0 24 24',
+  chevrons: '0 0 24 24',
 };
 
 type Props = {

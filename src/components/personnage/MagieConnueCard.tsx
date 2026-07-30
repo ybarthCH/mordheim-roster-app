@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Icon } from '../common/Icon';
+import { CollapsibleCard } from '../common/CollapsibleCard';
 import {
   magieDuProfil,
   resolveSort,
@@ -50,11 +51,15 @@ export function MagieConnueCard({
   };
 
   return (
-    <div className="card">
-      <h3>
-        <Icon name="flamme" style={{ marginRight: '0.35em' }} />
-        Magie — Sort connu
-      </h3>
+    <CollapsibleCard
+      preferenceKey="ui.personnage.magie_connue.ouvert"
+      title={
+        <>
+          <Icon name="flamme" style={{ marginRight: '0.35em' }} />
+          Magie — Sort connu
+        </>
+      }
+    >
       {membre.sorts_connus.length > 0 ? (
         membre.sorts_connus.map((nom, i) => {
           const sort = resolveSort(catalogue, nom, profil, membre.marque);
@@ -146,6 +151,6 @@ export function MagieConnueCard({
           )}
         </div>
       )}
-    </div>
+    </CollapsibleCard>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Modal } from '../common/Modal';
 import { Icon } from '../common/Icon';
+import { CollapsibleCard } from '../common/CollapsibleCard';
 import { AjouterBatailleModal } from './AjouterBatailleModal';
 import type { BattleRecord } from '../../types/roster';
 
@@ -22,16 +23,21 @@ export function HistoriqueBataillesSection({
   const [aSupprimer, setASupprimer] = useState<BattleRecord | null>(null);
 
   return (
-    <div className="card">
-      <div className="flex justify-between items-center" style={{ marginBottom: '0.5rem' }}>
-        <h3 className="mt-0 mb-0">
+    <>
+    <CollapsibleCard
+      preferenceKey="ui.roster.historique_batailles.ouvert"
+      title={
+        <>
           <Icon name="epee" style={{ marginRight: '0.35em' }} />
           Historique des batailles
-        </h3>
+        </>
+      }
+      actions={
         <button className="btn btn--sm btn--primary" onClick={() => setModalAjout(true)}>
           + Ajouter
         </button>
-      </div>
+      }
+    >
       {historique.length === 0 && <p className="text-muted text-sm">Aucune bataille enregistrée.</p>}
       {historique
         .slice()
@@ -72,6 +78,7 @@ export function HistoriqueBataillesSection({
             </button>
           </div>
         ))}
+    </CollapsibleCard>
 
       {modalAjout && (
         <AjouterBatailleModal
@@ -116,6 +123,6 @@ export function HistoriqueBataillesSection({
           </div>
         </Modal>
       )}
-    </div>
+    </>
   );
 }

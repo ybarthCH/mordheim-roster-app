@@ -22,6 +22,7 @@ import { AchatEquipementModal } from './AchatEquipementModal';
 import { RecruterDansGroupeModal } from './RecruterDansGroupeModal';
 import { ItemDetailModal } from './ItemDetailModal';
 import { Modal } from '../common/Modal';
+import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
 import { MagieReference } from '../common/CatalogueReference';
 import { avancesDues } from '../../utils/xp';
@@ -373,8 +374,7 @@ export function PersonnageScreen() {
       />
 
       {profil.type === 'heros' && (
-        <div className="card">
-          <h3>Compétences</h3>
+        <CollapsibleCard preferenceKey="ui.personnage.competences.ouvert" title="Compétences">
           <CompetencesPanel
             member={membre}
             profil={profil}
@@ -386,11 +386,10 @@ export function PersonnageScreen() {
               majMembre({ competences_acquises: acquises });
             }}
           />
-        </div>
+        </CollapsibleCard>
       )}
 
-      <div className="card">
-        <h3>Notes</h3>
+      <CollapsibleCard preferenceKey="ui.personnage.notes.ouvert" title="Notes">
         <textarea
           value={membre.notes}
           onChange={(e) => majMembre({ notes: e.target.value })}
@@ -403,7 +402,7 @@ export function PersonnageScreen() {
             minHeight: '3em',
           }}
         />
-      </div>
+      </CollapsibleCard>
 
       {membre.profil_custom && (
         <div className="card">

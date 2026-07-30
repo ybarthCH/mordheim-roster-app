@@ -527,6 +527,29 @@ button {
   cursor: not-allowed;
 }
 
+/* Bouton de repli/déploiement de bloc — deux chevrons empilés dans un
+   cadre discret, pivote de 180° une fois le bloc replié. */
+.collapse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.collapse-btn:active {
+  background: var(--bg-card);
+}
+.collapse-btn--replie {
+  transform: rotate(180deg);
+}
+
 .field {
   display: flex;
   flex-direction: column;
