@@ -19,6 +19,7 @@ import { etapeResume } from './etapeResume';
 import { rechercheDramatisPersonaeModal } from './rechercheDramatisPersonaeModal';
 import { rechercheObjetRareModal } from './rechercheObjetRareModal';
 import { etapeGainXp } from './etapeGainXp';
+import { etapeExploration } from './etapeExploration';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -44,4 +45,5 @@ export const uiDictionary: UiDictionary = {
   ...rechercheDramatisPersonaeModal,
   ...rechercheObjetRareModal,
   ...etapeGainXp,
+  ...etapeExploration,
 };
