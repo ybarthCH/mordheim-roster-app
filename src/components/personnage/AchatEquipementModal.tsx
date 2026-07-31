@@ -699,7 +699,17 @@ export function AchatEquipementModal({
                   placeholder={!itemSelectionne.cout_fixe ? 'Résultat du jet, ex : 42' : undefined}
                 />
                 {gratuit && (
-                  <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+                  <p
+                    className="text-sm mb-0"
+                    style={{
+                      marginTop: '0.4rem',
+                      padding: '0.4rem 0.6rem',
+                      borderRadius: 'var(--radius)',
+                      background: 'var(--warning-bg)',
+                      color: 'var(--warning)',
+                      fontWeight: 700,
+                    }}
+                  >
                     Sert uniquement de référence pour une revente future — rien n'est déduit de la trésorerie.
                   </p>
                 )}
