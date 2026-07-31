@@ -14,6 +14,7 @@ import {
 } from '../../utils/shop';
 import { useGameRules } from '../../state/useGameRules';
 import { Modal } from '../common/Modal';
+import { useLanguage } from '../../state/useLanguage';
 
 export type ResultatRechercheRare = {
   rarete: number;
@@ -48,6 +49,7 @@ export function RechercheObjetRareModal({
   onClose,
   onTerminer,
 }: Props) {
+  const { t } = useLanguage();
   const { rules } = useGameRules();
   const [recherche, setRecherche] = useState('');
   const [itemId, setItemId] = useState('');
@@ -112,14 +114,13 @@ export function RechercheObjetRareModal({
           <>
             <header className="achat-equipement__header">
               <div className="achat-equipement__header-ligne">
-                <h3 className="mt-0 mb-0">Recherche d'un objet rare — {membre.nom_perso}</h3>
-                <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                <h3 className="mt-0 mb-0">{t('rareModal.title', { nom: membre.nom_perso })}</h3>
+                <button className="btn btn--sm" aria-label={t('rareModal.close')} onClick={onClose}>
                   ✕
                 </button>
               </div>
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.25rem' }}>
-                Choisis l'objet recherché, puis indique si le test de rareté (2D6 sur table papier) est réussi ou
-                raté. Ce Héros ne dispose que d'un seul jet pendant cette séquence.
+                {t('rareModal.intro')}
               </p>
             </header>
             <div className="achat-equipement__contenu">
@@ -127,11 +128,11 @@ export function RechercheObjetRareModal({
                 <input
                   value={recherche}
                   onChange={(e) => setRecherche(e.target.value)}
-                  placeholder="Rechercher un objet rare…"
+                  placeholder={t('rareModal.searchPlaceholder')}
                 />
               </div>
               <div className="achat-equipement__catalogue">
-                {itemsFiltres.length === 0 && <p className="text-muted">Aucun objet rare correspondant.</p>}
+                {itemsFiltres.length === 0 && <p className="text-muted">{t('rareModal.noMatch')}</p>}
                 {itemsFiltres.map((candidat) => {
                   const niveau = niveauRarete(candidat);
                   return (
@@ -144,7 +145,7 @@ export function RechercheObjetRareModal({
                       <div className="list-item__main">
                         <div className="achat-equipement__item-titre">
                           <span className="list-item__title">{candidat.nom}</span>
-                          <span className={`badge ${classeRarete(String(niveau)) ?? ''}`}>Rare {niveau}</span>
+                          <span className={`badge ${classeRarete(String(niveau)) ?? ''}`}>{t('rareModal.rareLevel', { n: niveau ?? 0 })}</span>
                         </div>
                         <div className="list-item__subtitle">
                           {libelleCategorie(candidat.categorie)} · {formatCoutItem(candidat.cout)}
@@ -166,32 +167,30 @@ export function RechercheObjetRareModal({
             <header className="achat-equipement__header achat-equipement__header--selection">
               <div className="achat-equipement__header-ligne">
                 <button className="btn btn--sm" onClick={() => setItemId('')}>
-                  ← Catalogue
+                  {t('rareModal.backToCatalogue')}
                 </button>
-                <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                <button className="btn btn--sm" aria-label={t('rareModal.close')} onClick={onClose}>
                   ✕
                 </button>
               </div>
               <div className="achat-equipement__selection-titre">
                 <h3 className="mt-0 mb-0">{item.nom}</h3>
-                <span className={`badge ${classeRarete(String(rarete)) ?? ''}`}>Rare {rarete}</span>
+                <span className={`badge ${classeRarete(String(rarete)) ?? ''}`}>{t('rareModal.rareLevel', { n: rarete ?? 0 })}</span>
               </div>
             </header>
 
             <div className="achat-equipement__contenu achat-equipement__detail">
-              <p className="text-sm text-muted">
-                Réussi sur un résultat de 2D6 supérieur ou égal à {rarete}.
-              </p>
+              <p className="text-sm text-muted">{t('rareModal.succeedsOn', { n: rarete ?? 0 })}</p>
               {item.disponibilite && <p className="text-sm text-muted">{item.disponibilite}</p>}
               {resumeItem(item) && <p className="text-sm">{resumeItem(item)}</p>}
 
               {!succesDeclare && (
                 <div className="flex gap-sm" style={{ marginTop: '0.4rem' }}>
                   <button type="button" className="btn btn--primary" onClick={() => setSuccesDeclare(true)}>
-                    Réussi
+                    {t('rareModal.success')}
                   </button>
                   <button type="button" className="btn" onClick={enregistrerEchec}>
-                    Raté
+                    {t('rareModal.failure')}
                   </button>
                 </div>
               )}
@@ -200,8 +199,8 @@ export function RechercheObjetRareModal({
                 <>
                   <div className="field">
                     <label>
-                      Coût payé (po)
-                      {!item.cout_fixe && <span className="text-muted"> — notation : {item.cout}</span>}
+                      {t('rareModal.costPaidLabel')}
+                      {!item.cout_fixe && <span className="text-muted">{t('rareModal.notationSuffix', { notation: item.cout })}</span>}
                     </label>
                     <input
                       type="number"
@@ -210,32 +209,30 @@ export function RechercheObjetRareModal({
                       onChange={(e) => setCoutSaisi(e.target.value)}
                     />
                   </div>
-                  <p className="text-sm text-muted">Trésorerie disponible : {tresorerieDisponible} po.</p>
+                  <p className="text-sm text-muted">{t('rareModal.treasuryAvailable', { n: tresorerieDisponible })}</p>
                   {coutValide && cout > tresorerieDisponible && (
-                    <p className="text-sm text-danger">Trésorerie insuffisante.</p>
+                    <p className="text-sm text-danger">{t('rareModal.insufficientTreasury')}</p>
                   )}
                   {trinketBloque && (
-                    <p className="text-sm text-danger">
-                      Limite atteinte : cet objet est limité à un exemplaire par bande.
-                    </p>
+                    <p className="text-sm text-danger">{t('rareModal.trinketLimitReached')}</p>
                   )}
                 </>
               )}
             </div>
 
             <footer className="achat-equipement__actions">
-              <button className="btn" onClick={onClose}>Annuler</button>
+              <button className="btn" onClick={onClose}>{t('rareModal.cancel')}</button>
               {succesDeclare && (
                 <>
                   <button className="btn" onClick={neePasAcheter}>
-                    Ne pas acheter
+                    {t('rareModal.dontBuy')}
                   </button>
                   <button
                     className="btn btn--primary"
                     disabled={!coutValide || cout > tresorerieDisponible || trinketBloque}
                     onClick={acheter}
                   >
-                    Acheter et terminer
+                    {t('rareModal.buyAndFinish')}
                   </button>
                 </>
               )}
