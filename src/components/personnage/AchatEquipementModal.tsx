@@ -25,6 +25,7 @@ import { Icon } from '../common/Icon';
 import type { InventoryEntry, CustomItem, CustomItemOverride } from '../../types/roster';
 import { useGameRules } from '../../state/useGameRules';
 import { CustomItemForm } from './CustomItemForm';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   catalogue: WarbandCatalog;
@@ -105,6 +106,7 @@ export function AchatEquipementModal({
   onAchat,
 }: Props) {
   const { rules } = useGameRules();
+  const { t } = useLanguage();
   const [source, setSource] = useState<'bande' | 'commun'>(categorieInitiale ? 'commun' : 'bande');
   const [categorieFiltre, setCategorieFiltre] = useState<string | null>(categorieInitiale ?? null);
   const [recherche, setRecherche] = useState('');
@@ -288,47 +290,44 @@ export function AchatEquipementModal({
         {vuePersonnalise === 'menu' ? (
           <div className="achat-equipement__contenu">
             <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
-              <h3 className="mt-0 mb-0">Objet personnalisé</h3>
-              <button className="btn btn--sm" aria-label="Fermer" onClick={fermerFlowPersonnalise}>
+              <h3 className="mt-0 mb-0">{t('achatEquipement.customItemTitle')}</h3>
+              <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={fermerFlowPersonnalise}>
                 ✕
               </button>
             </div>
-            <p className="text-sm text-muted">
-              Crée un objet homebrew pour cette bande, ou ajuste un objet existant (prix, effet, caractéristiques…)
-              sans affecter les autres bandes.
-            </p>
+            <p className="text-sm text-muted">{t('achatEquipement.customItemIntro')}</p>
             <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
               <button className="btn btn--primary" onClick={() => setVuePersonnalise('creer')}>
-                Créer un objet
+                {t('achatEquipement.createItem')}
               </button>
               <button className="btn" onClick={() => setVuePersonnalise('selection')}>
-                Éditer un objet existant
+                {t('achatEquipement.editExistingItem')}
               </button>
             </div>
           </div>
         ) : vuePersonnalise === 'creer' ? (
           <CustomItemForm
-            titre="Créer un objet personnalisé"
+            titre={t('achatEquipement.createCustomItemTitle')}
             onEnregistrer={creerObjetPersonnalise}
             onAnnuler={() => setVuePersonnalise('menu')}
           />
         ) : vuePersonnalise === 'selection' ? (
           <div className="achat-equipement__contenu">
             <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
-              <h3 className="mt-0 mb-0">Choisir un objet à éditer</h3>
+              <h3 className="mt-0 mb-0">{t('achatEquipement.chooseItemToEditTitle')}</h3>
               <button className="btn btn--sm" onClick={() => setVuePersonnalise('menu')}>
-                ← Retour
+                {t('achatEquipement.back')}
               </button>
             </div>
             <div className="field">
               <input
                 value={rechercheEdition}
                 onChange={(e) => setRechercheEdition(e.target.value)}
-                placeholder="Rechercher un objet…"
+                placeholder={t('achatEquipement.searchItemPlaceholder')}
               />
             </div>
             <div className="achat-equipement__catalogue">
-              {itemsPourEditionFiltres.length === 0 && <p className="text-muted text-sm">Aucun objet.</p>}
+              {itemsPourEditionFiltres.length === 0 && <p className="text-muted text-sm">{t('achatEquipement.noItem')}</p>}
               {itemsPourEditionFiltres.map((item) => (
                 <button
                   type="button"
@@ -342,8 +341,8 @@ export function AchatEquipementModal({
                   <div className="list-item__main">
                     <div className="achat-equipement__item-titre">
                       <span className="list-item__title">{item.nom}</span>
-                      {item.origine === 'personnalise' && <span className="badge badge--info">Personnalisé</span>}
-                      {item.surcharge && <span className="badge badge--warning">Modifié</span>}
+                      {item.origine === 'personnalise' && <span className="badge badge--info">{t('achatEquipement.customBadge')}</span>}
+                      {item.surcharge && <span className="badge badge--warning">{t('achatEquipement.modifiedBadge')}</span>}
                     </div>
                     <div className="list-item__subtitle">
                       {libelleCategorie(item.categorie)} · {formatCoutItem(item.cout)}
@@ -355,7 +354,7 @@ export function AchatEquipementModal({
           </div>
         ) : vuePersonnalise === 'editer' && itemAEditer ? (
           <CustomItemForm
-            titre={`Éditer ${itemAEditer.nom}`}
+            titre={`${t('achatEquipement.editPrefix')} ${itemAEditer.nom}`}
             initial={initialEdition}
             onEnregistrer={enregistrerEditionObjet}
             onAnnuler={() => setVuePersonnalise('menu')}
@@ -366,27 +365,26 @@ export function AchatEquipementModal({
         ) : materiauSelectionne && !baseMateriauChoisie ? (
           <div className="achat-equipement__contenu">
             <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
-              <h3 className="mt-0 mb-0">{materiauSelectionne.nom} — choisir la base</h3>
-              <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+              <h3 className="mt-0 mb-0">
+                {materiauSelectionne.nom} {t('achatEquipement.chooseBaseSuffix')}
+              </h3>
+              <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={onClose}>
                 ✕
               </button>
             </div>
-            <p className="text-sm text-muted">
-              Choisis l'arme ou l'armure de base : son prix sera multiplié et l'effet du matériau viendra s'ajouter à
-              ses règles habituelles.
-            </p>
+            <p className="text-sm text-muted">{t('achatEquipement.chooseBaseNote')}</p>
             <button className="btn btn--sm" style={{ marginBottom: '0.5rem' }} onClick={() => setItemId('')}>
-              ← Catalogue
+              {t('achatEquipement.catalogBack')}
             </button>
             <div className="field">
               <input
                 value={rechercheMateriau}
                 onChange={(e) => setRechercheMateriau(e.target.value)}
-                placeholder="Rechercher une base…"
+                placeholder={t('achatEquipement.searchBasePlaceholder')}
               />
             </div>
             <div className="achat-equipement__catalogue">
-              {baseMateriauFiltrees.length === 0 && <p className="text-muted text-sm">Aucune base disponible.</p>}
+              {baseMateriauFiltrees.length === 0 && <p className="text-muted text-sm">{t('achatEquipement.noBaseAvailable')}</p>}
               {baseMateriauFiltrees.map((base) => (
                 <button
                   type="button"
@@ -407,9 +405,9 @@ export function AchatEquipementModal({
             <header className="achat-equipement__header achat-equipement__header--selection">
               <div className="achat-equipement__header-ligne">
                 <button className="btn btn--sm" onClick={() => setBaseMateriauId('')}>
-                  ← Choisir une autre base
+                  {t('achatEquipement.chooseOtherBase')}
                 </button>
-                <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={onClose}>
                   ✕
                 </button>
               </div>
@@ -424,7 +422,9 @@ export function AchatEquipementModal({
                 )}
               </div>
               <p className="text-sm text-muted mb-0">
-                {gratuit ? "Ajouter cet objet à l'inventaire" : `Trésorerie disponible : ${tresorerie} po.`}
+                {gratuit
+                  ? t('achatEquipement.freeAddNote')
+                  : `${t('achatEquipement.treasuryAvailablePrefix')} ${tresorerie} ${t('creation.gc')}.`}
               </p>
             </header>
             <div className="achat-equipement__contenu achat-equipement__detail">
@@ -440,9 +440,11 @@ export function AchatEquipementModal({
               ))}
               <div className="field achat-equipement__cout">
                 <label>
-                  Coût de base (po){' '}
+                  {t('achatEquipement.baseCostLabel')}{' '}
                   {!baseMateriauChoisie.cout_fixe && (
-                    <span className="text-muted">— notation : {baseMateriauChoisie.cout}</span>
+                    <span className="text-muted">
+                      {t('achatEquipement.notationPrefix')} {baseMateriauChoisie.cout}
+                    </span>
                   )}
                 </label>
                 <input
@@ -450,40 +452,42 @@ export function AchatEquipementModal({
                   min={0}
                   value={coutBaseSaisi}
                   onChange={(e) => setCoutBaseSaisi(e.target.value)}
-                  placeholder={!baseMateriauChoisie.cout_fixe ? 'Résultat du jet, ex : 15' : undefined}
+                  placeholder={!baseMateriauChoisie.cout_fixe ? t('achatEquipement.rollResultPlaceholder15') : undefined}
                 />
               </div>
               {coutBaseValide && (
                 <p className="text-sm">
-                  Prix final (
+                  {t('achatEquipement.finalPricePrefix')} (
                   {(() => {
                     const spec = MATERIAUX[materiauSelectionne.id];
-                    return spec?.mode === 'addition' ? `${coutBase} po + ${spec.montant}` : `${coutBase} po × ${spec?.multiplicateur}`;
+                    return spec?.mode === 'addition'
+                      ? `${coutBase} ${t('creation.gc')} + ${spec.montant}`
+                      : `${coutBase} ${t('creation.gc')} × ${spec?.multiplicateur}`;
                   })()}
-                  ) : <strong>{objetMateriauCombine?.cout} po</strong>
-                  {tailleGroupe > 1 ? ` / figurine` : ''}
+                  ) : <strong>{objetMateriauCombine?.cout} {t('creation.gc')}</strong>
+                  {tailleGroupe > 1 ? ` ${t('achatEquipement.perModelSuffix')}` : ''}
                 </p>
               )}
               {!gratuit && tailleGroupe > 1 && coutBaseValide && (
                 <p className="text-sm">
-                  Groupe de {tailleGroupe} figurines identiques : {tailleGroupe} exemplaires achetés pour{' '}
-                  {coutTotalMateriau} po
+                  {t('achatEquipement.groupOfPrefix')} {tailleGroupe} {t('achatEquipement.identicalModelsMiddle')}{' '}
+                  {tailleGroupe} {t('achatEquipement.copiesBoughtForMiddle')} {coutTotalMateriau} {t('creation.gc')}
                 </p>
               )}
               {!gratuit && coutBaseValide && !budgetMateriauSuffisant && (
-                <p className="text-danger text-sm">Trésorerie insuffisante ({tresorerie} po disponibles).</p>
+                <p className="text-danger text-sm">{t('achatEquipement.insufficientTreasury', { tresorerie })}</p>
               )}
             </div>
             <footer className="achat-equipement__actions">
               <button className="btn" onClick={onClose}>
-                Annuler
+                {t('achatEquipement.cancel')}
               </button>
               <button
                 className="btn btn--primary"
                 disabled={!objetMateriauCombine || !budgetMateriauSuffisant}
                 onClick={confirmerMateriau}
               >
-                {gratuit ? 'Ajouter' : `Acheter pour ${coutTotalMateriau} po`}
+                {gratuit ? t('achatEquipement.add') : `${t('achatEquipement.buyForPrefix')} ${coutTotalMateriau} ${t('creation.gc')}`}
               </button>
             </footer>
           </>
@@ -491,23 +495,23 @@ export function AchatEquipementModal({
           <>
             <header className="achat-equipement__header">
               <div className="achat-equipement__header-ligne">
-                <h3 className="mt-0 mb-0">{gratuit ? "Ajouter un objet trouvé" : "Acheter de l'équipement"}</h3>
+                <h3 className="mt-0 mb-0">{gratuit ? t('achatEquipement.addItemTitle') : t('achatEquipement.buyEquipmentTitle')}</h3>
                 <div className="flex gap-sm items-center">
                   {personnaliseActif && (
                     <button className="btn btn--sm" onClick={() => setVuePersonnalise('menu')}>
-                      Personnalisé
+                      {t('achatEquipement.custom')}
                     </button>
                   )}
-                  <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                  <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={onClose}>
                     ✕
                   </button>
                 </div>
               </div>
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.2rem' }}>
                 {gratuit
-                  ? "Objet trouvé gratuitement : n'affecte pas la trésorerie de la bande."
-                  : `Trésorerie disponible : ${tresorerie} po.`}{' '}
-                Les jets de disponibilité se font en jeu.
+                  ? t('achatEquipement.freeFoundNote')
+                  : `${t('achatEquipement.treasuryAvailablePrefix')} ${tresorerie} ${t('creation.gc')}.`}{' '}
+                {t('achatEquipement.availabilityRollNote')}
               </p>
             </header>
 
@@ -517,13 +521,13 @@ export function AchatEquipementModal({
                   className={`btn btn--sm ${source === 'bande' ? 'btn--primary' : ''}`}
                   onClick={() => changerSource('bande')}
                 >
-                  Équipement de la bande
+                  {t('achatEquipement.bandEquipment')}
                 </button>
                 <button
                   className={`btn btn--sm ${source === 'commun' ? 'btn--primary' : ''}`}
                   onClick={() => changerSource('commun')}
                 >
-                  Shop commun ({itemsCommun.length})
+                  {t('achatEquipement.commonShop')} ({itemsCommun.length})
                 </button>
               </div>
 
@@ -533,7 +537,7 @@ export function AchatEquipementModal({
                     className={`tabs__btn ${categorieFiltre === null ? 'tabs__btn--active' : ''}`}
                     onClick={() => setCategorieFiltre(null)}
                   >
-                    Toutes
+                    {t('achatEquipement.all')}
                   </button>
                   {categoriesDisponibles.map((cat) => (
                     <button
@@ -552,12 +556,12 @@ export function AchatEquipementModal({
                 <input
                   value={recherche}
                   onChange={(e) => setRecherche(e.target.value)}
-                  placeholder="Rechercher un objet…"
+                  placeholder={t('achatEquipement.searchItemPlaceholder')}
                 />
               </div>
 
               <div className="achat-equipement__catalogue">
-                {itemsFiltres.length === 0 && <p className="text-muted text-sm">Aucun objet.</p>}
+                {itemsFiltres.length === 0 && <p className="text-muted text-sm">{t('achatEquipement.noItem')}</p>}
                 {itemsFiltres.map((item) => {
                   const rareteClasse = classeRarete(item.rarete);
                   return (
@@ -575,8 +579,8 @@ export function AchatEquipementModal({
                               Rare {item.rarete}
                             </span>
                           )}
-                          {item.origine === 'personnalise' && <span className="badge badge--info">Personnalisé</span>}
-                          {item.surcharge && <span className="badge badge--warning">Modifié</span>}
+                          {item.origine === 'personnalise' && <span className="badge badge--info">{t('achatEquipement.customBadge')}</span>}
+                          {item.surcharge && <span className="badge badge--warning">{t('achatEquipement.modifiedBadge')}</span>}
                         </div>
                         <div className="list-item__subtitle">
                           {iconeCategorie(item.categorie) && (
@@ -602,9 +606,9 @@ export function AchatEquipementModal({
             <header className="achat-equipement__header achat-equipement__header--selection">
               <div className="achat-equipement__header-ligne">
                 <button className="btn btn--sm" onClick={() => setItemId('')}>
-                  ← Catalogue
+                  {t('achatEquipement.catalogBack')}
                 </button>
-                <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={onClose}>
                   ✕
                 </button>
               </div>
@@ -616,22 +620,24 @@ export function AchatEquipementModal({
                   </span>
                 )}
                 {itemSelectionne.origine === 'personnalise' && (
-                  <span className="badge badge--info">Personnalisé</span>
+                  <span className="badge badge--info">{t('achatEquipement.customBadge')}</span>
                 )}
-                {itemSelectionne.surcharge && <span className="badge badge--warning">Modifié</span>}
+                {itemSelectionne.surcharge && <span className="badge badge--warning">{t('achatEquipement.modifiedBadge')}</span>}
                 {personnaliseActif && (
                   <button
                     className="btn--ghost"
                     style={{ border: 'none', background: 'none', padding: '0.2rem 0.3rem', color: 'var(--text-muted)' }}
                     onClick={ouvrirEditionDepuisDetail}
-                    title="Modifier cet objet pour cette bande"
+                    title={t('achatEquipement.editThisItemTitle')}
                   >
                     <Icon name="crayon" size="0.85em" />
                   </button>
                 )}
               </div>
               <p className="text-sm text-muted mb-0">
-                {gratuit ? "Ajouter cet objet à l'inventaire" : `Trésorerie disponible : ${tresorerie} po.`}
+                {gratuit
+                  ? t('achatEquipement.freeAddNote')
+                  : `${t('achatEquipement.treasuryAvailablePrefix')} ${tresorerie} ${t('creation.gc')}.`}
               </p>
             </header>
 
@@ -652,16 +658,16 @@ export function AchatEquipementModal({
               )}
               {(itemSelectionne.portee || itemSelectionne.force || itemSelectionne.sauvegarde) && (
                 <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
-                  {itemSelectionne.portee && <span className="badge badge--info">Portée {itemSelectionne.portee}</span>}
-                  {itemSelectionne.force && <span className="badge badge--info">Force {itemSelectionne.force}</span>}
+                  {itemSelectionne.portee && <span className="badge badge--info">{t('itemDetail.range')} {itemSelectionne.portee}</span>}
+                  {itemSelectionne.force && <span className="badge badge--info">{t('itemDetail.strength')} {itemSelectionne.force}</span>}
                   {itemSelectionne.sauvegarde && (
-                    <span className="badge badge--info">Save {itemSelectionne.sauvegarde}</span>
+                    <span className="badge badge--info">{t('itemDetail.save')} {itemSelectionne.sauvegarde}</span>
                   )}
                 </div>
               )}
               {itemSelectionne.stats_delta && (
                 <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-                  <strong>Effet permanent</strong> —{' '}
+                  <strong>{t('achatEquipement.permanentEffect')}</strong> —{' '}
                   {STAT_KEYS.filter((k) => itemSelectionne.stats_delta![k])
                     .map((k) => {
                       const v = itemSelectionne.stats_delta![k]!;
@@ -686,9 +692,14 @@ export function AchatEquipementModal({
 
               <div className="field achat-equipement__cout">
                 <label>
-                  {gratuit ? `Valeur de l'objet (po)` : `Coût payé (po${tailleGroupe > 1 ? ' / figurine' : ''})`}{' '}
+                  {gratuit
+                    ? t('achatEquipement.itemValueLabel')
+                    : `${t('achatEquipement.costPaidLabelBase')}${tailleGroupe > 1 ? t('achatEquipement.perModelParenSuffix') : ')'}`}
+                  {' '}
                   {!itemSelectionne.cout_fixe && (
-                    <span className="text-muted">— notation : {itemSelectionne.cout}</span>
+                    <span className="text-muted">
+                      {t('achatEquipement.notationPrefix')} {itemSelectionne.cout}
+                    </span>
                   )}
                 </label>
                 <input
@@ -696,7 +707,7 @@ export function AchatEquipementModal({
                   min={0}
                   value={coutSaisi}
                   onChange={(e) => setCoutSaisi(e.target.value)}
-                  placeholder={!itemSelectionne.cout_fixe ? 'Résultat du jet, ex : 42' : undefined}
+                  placeholder={!itemSelectionne.cout_fixe ? t('achatEquipement.rollResultPlaceholder42') : undefined}
                 />
                 {gratuit && (
                   <p
@@ -710,24 +721,25 @@ export function AchatEquipementModal({
                       fontWeight: 700,
                     }}
                   >
-                    Sert uniquement de référence pour une revente future — rien n'est déduit de la trésorerie.
+                    {t('achatEquipement.freeReferenceNote')}
                   </p>
                 )}
               </div>
               {!gratuit && tailleGroupe > 1 && coutValide && (
                 <p className="text-sm text-muted">
-                  Groupe de {tailleGroupe} figurines identiques : {tailleGroupe} exemplaires achetés pour {coutTotal} po
-                  au total.
+                  {t('achatEquipement.groupOfPrefix')} {tailleGroupe} {t('achatEquipement.identicalModelsMiddle')}{' '}
+                  {tailleGroupe} {t('achatEquipement.copiesBoughtForMiddle')} {coutTotal} {t('creation.gc')}{' '}
+                  {t('achatEquipement.totalSuffix')}
                 </p>
               )}
               {!gratuit && coutValide && coutTotal > tresorerie && (
-                <p className="text-danger text-sm">Trésorerie insuffisante ({tresorerie} po disponibles).</p>
+                <p className="text-danger text-sm">{t('achatEquipement.insufficientTreasury', { tresorerie })}</p>
               )}
               {trinketLimite && (
                 <p className="text-danger text-sm">
-                  Limite atteinte : cet objet est limité à un exemplaire par bande
+                  {t('achatEquipement.trinketLimitPrefix')}{' '}
                   {tailleGroupe > 1 && !inventaireBande.some((entree) => entree.item_id === itemSelectionne.id)
-                    ? ` et cet achat en ajouterait ${tailleGroupe}.`
+                    ? t('achatEquipement.trinketLimitAddSuffix', { n: tailleGroupe })
                     : '.'}
                 </p>
               )}
@@ -735,14 +747,14 @@ export function AchatEquipementModal({
 
             <footer className="achat-equipement__actions">
               <button className="btn" onClick={() => setItemId('')}>
-                Retour
+                {t('achatEquipement.return')}
               </button>
               <button
                 className="btn btn--primary"
                 disabled={!coutValide || trinketLimite || (!gratuit && coutTotal > tresorerie)}
                 onClick={confirmer}
               >
-                {gratuit ? 'Ajouter' : 'Acheter'}
+                {gratuit ? t('achatEquipement.add') : t('achatEquipement.buy')}
               </button>
             </footer>
           </>
