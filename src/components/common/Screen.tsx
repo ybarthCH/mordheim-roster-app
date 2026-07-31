@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { LanguageToggle } from './LanguageToggle';
 
 type ScreenProps = {
   title: string;
@@ -23,6 +24,7 @@ export function Screen({ title, back, actions, children }: ScreenProps) {
           </button>
         )}
         <div className="app-header__title">{title}</div>
+        <LanguageToggle />
         {actions}
       </header>
       <main className="app-main">{children}</main>
