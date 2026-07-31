@@ -11,12 +11,14 @@ import { peutAjouterMembre } from '../../utils/validation';
 import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { peutGagnerExperience } from '../../utils/xp';
 import { useRosters } from '../../state/useRosters';
+import { useLanguage } from '../../state/useLanguage';
 
 const BUDGET_PAR_DEFAUT = 500;
 
 export function CreationBandeScreen() {
   const navigate = useNavigate();
   const { addRoster } = useRosters();
+  const { t } = useLanguage();
 
   const [bandeId, setBandeId] = useState<string>('');
   const [nomBande, setNomBande] = useState('');
@@ -118,10 +120,10 @@ export function CreationBandeScreen() {
   };
 
   return (
-    <Screen title="Nouvelle bande" back="/">
+    <Screen title={t('creation.title')} back="/">
       <div className="card">
         <div className="field">
-          <label>Faction</label>
+          <label>{t('creation.faction')}</label>
           <select
             value={bandeId}
             onChange={(e) => {
@@ -130,9 +132,9 @@ export function CreationBandeScreen() {
               setTribuId('');
             }}
           >
-            <option value="">— Choisir une faction —</option>
+            <option value="">{t('creation.factionPlaceholder')}</option>
             {catalauguesParGrade.map(([grade, liste]) => (
-              <optgroup key={grade} label={`Grade ${grade}`}>
+              <optgroup key={grade} label={`${t('creation.grade')} ${grade}`}>
                 {liste.map((c) => (
                   <option key={c.id} value={c.id}>
                     {c.nom}
@@ -145,26 +147,26 @@ export function CreationBandeScreen() {
 
         {tribuRequise && (
           <div className="field">
-            <label>Tribu</label>
+            <label>{t('creation.tribe')}</label>
             <select value={tribuId} onChange={(e) => setTribuId(e.target.value)}>
-              <option value="">— Choisir une tribu —</option>
-              {catalogue?.tribus?.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.nom}
+              <option value="">{t('creation.tribePlaceholder')}</option>
+              {catalogue?.tribus?.map((tr) => (
+                <option key={tr.id} value={tr.id}>
+                  {tr.nom}
                 </option>
               ))}
             </select>
-            <p className="text-sm text-muted mb-0">Fixée une fois pour toutes — voir le détail dans Règles spéciales.</p>
+            <p className="text-sm text-muted mb-0">{t('creation.tribeFixedNote')}</p>
           </div>
         )}
 
         <div className="field">
-          <label>Nom de la bande</label>
-          <input value={nomBande} onChange={(e) => setNomBande(e.target.value)} placeholder="Les Lueurs de Fond" />
+          <label>{t('creation.bandName')}</label>
+          <input value={nomBande} onChange={(e) => setNomBande(e.target.value)} placeholder={t('creation.bandNamePlaceholder')} />
         </div>
 
         <div className="field">
-          <label>Trésorerie de départ (couronnes d'or)</label>
+          <label>{t('creation.startingTreasury')}</label>
           <input type="number" value={budgetSaisi} onChange={(e) => setBudgetSaisi(e.target.value)} />
         </div>
       </div>
@@ -172,7 +174,7 @@ export function CreationBandeScreen() {
       {catalogue && catalogue.regles_speciales.length > 0 && (
         <div className="card">
           <details className="disclosure">
-            <summary>Règles spéciales</summary>
+            <summary>{t('creation.specialRules')}</summary>
             {catalogue.regles_speciales.map((r) => (
               <div key={r.nom} style={{ marginBottom: '0.6rem' }}>
                 <strong>{r.nom}</strong>
@@ -183,12 +185,17 @@ export function CreationBandeScreen() {
             ))}
             {tribuRequise && (
               <div style={{ marginTop: '0.6rem', paddingTop: '0.6rem', borderTop: '1px solid var(--border)' }}>
-                <strong>Tribu {tribuId ? `choisie : ${catalogue?.tribus?.find((t) => t.id === tribuId)?.nom}` : '(à choisir ci-dessus)'}</strong>
-                {(tribuId ? catalogue?.tribus?.filter((t) => t.id === tribuId) : catalogue?.tribus)?.map((t) => (
-                  <div key={t.id} style={{ marginTop: '0.5rem' }}>
-                    {!tribuId && <strong>{t.nom}</strong>}
+                <strong>
+                  {t('creation.tribe')}{' '}
+                  {tribuId
+                    ? `${t('creation.tribeChosen')} ${catalogue?.tribus?.find((tr) => tr.id === tribuId)?.nom}`
+                    : t('creation.tribeToChoose')}
+                </strong>
+                {(tribuId ? catalogue?.tribus?.filter((tr) => tr.id === tribuId) : catalogue?.tribus)?.map((tr) => (
+                  <div key={tr.id} style={{ marginTop: '0.5rem' }}>
+                    {!tribuId && <strong>{tr.nom}</strong>}
                     <p className="text-sm text-muted" style={{ whiteSpace: 'pre-line' }}>
-                      {t.texte}
+                      {tr.texte}
                     </p>
                   </div>
                 ))}
@@ -201,9 +208,9 @@ export function CreationBandeScreen() {
       {catalogue && (
         <div className="card">
           <div className="flex justify-between items-center">
-            <h3 className="mt-0 mb-0">Recruter</h3>
+            <h3 className="mt-0 mb-0">{t('creation.recruit')}</h3>
             <span className={restant < 0 ? 'badge badge--danger' : 'badge badge--success'}>
-              {restant} po restantes
+              {restant} {t('creation.goldRemaining')}
             </span>
           </div>
           <div className="flex flex-col gap-sm" style={{ marginTop: '0.6rem' }}>
@@ -214,15 +221,15 @@ export function CreationBandeScreen() {
                   <div className="list-item__main">
                     <div className="list-item__title">{p.nom}</div>
                     <div className="list-item__subtitle">
-                      {p.type === 'heros' ? 'Héros' : 'Homme de main'}
-                      {p.unique && ' · Unique'}
-                      {!p.unique && p.max ? ` · Max ${p.max}` : ''}
+                      {p.type === 'heros' ? t('creation.hero') : t('creation.henchman')}
+                      {p.unique && ` · ${t('creation.unique')}`}
+                      {!p.unique && p.max ? ` · ${t('creation.max')} ${p.max}` : ''}
                       {' · '}
-                      {p.cout != null ? `${p.cout} po` : 'coût ?'}
+                      {p.cout != null ? `${p.cout} ${t('creation.gc')}` : t('creation.costUnknown')}
                     </div>
                   </div>
                   <button className="btn btn--sm" disabled={!check.ok} onClick={() => setProfilEnRecrutement(p)}>
-                    + Ajouter
+                    {t('creation.add')}
                   </button>
                 </div>
               );
@@ -233,7 +240,9 @@ export function CreationBandeScreen() {
 
       {membres.length > 0 && (
         <div className="card">
-          <h3>Membres recrutés ({membres.length})</h3>
+          <h3>
+            {t('creation.recruitedMembers')} ({membres.length})
+          </h3>
           {membres.map((m) => (
             <div key={m.instance_id} className="list-item" style={{ marginBottom: '0.5rem' }}>
               <div className="list-item__main">
@@ -255,7 +264,7 @@ export function CreationBandeScreen() {
                 </div>
               </div>
               <button className="btn btn--sm btn--danger" onClick={() => retirerMembre(m.instance_id)}>
-                Retirer
+                {t('creation.remove')}
               </button>
             </div>
           ))}
@@ -264,10 +273,9 @@ export function CreationBandeScreen() {
 
       {catalogue?.leader_libre && herosRecrutes.length > 0 && (
         <div className="card">
-          <h3>Chef de bande</h3>
+          <h3>{t('creation.leaderTitle')}</h3>
           <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-            Cette bande n'a pas de chef fixe : choisis-le parmi les héros recrutés (facultatif ici, modifiable
-            depuis la fiche de bande).
+            {t('creation.leaderBody')}
           </p>
           <div className="flex flex-col gap-sm">
             {herosRecrutes.map((m) => (
@@ -286,7 +294,7 @@ export function CreationBandeScreen() {
       )}
 
       <button className="btn btn--primary btn--block" disabled={!peutCreer} onClick={handleCreer}>
-        Créer la bande
+        {t('creation.createBand')}
       </button>
 
       {profilEnRecrutement && (
@@ -340,6 +348,7 @@ function RecrutementDraftModal({
   onClose,
   onConfirm,
 }: RecrutementDraftModalProps) {
+  const { t } = useLanguage();
   const [nom, setNom] = useState('');
   const [xpDepartSaisie, setXpDepartSaisie] = useState(String(profil.xp_depart ?? 0));
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
@@ -393,11 +402,12 @@ function RecrutementDraftModal({
 
   return (
     <Modal onClose={onClose}>
-      <h3>Recruter — {profil.nom}</h3>
+      <h3>
+        {t('creation.modal.recruitTitle')} — {profil.nom}
+      </h3>
       {!gagneExperience && (
         <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-          Traité comme une créature/objet d'équipement (recrutement, prix et rareté comme au shop), pas comme un
-          combattant normal de la bande.
+          {t('creation.modal.notCombatant')}
         </p>
       )}
       {profil.stats && (
@@ -421,40 +431,46 @@ function RecrutementDraftModal({
       ))}
       {profil.rarete && (
         <p className="text-sm text-danger" style={{ marginTop: '0.6rem' }}>
-          Rare {profil.rarete} : un jet de disponibilité est requis sur table papier avant de pouvoir recruter ce
-          profil. Purement indicatif — n'empêche pas de recruter.
+          Rare {profil.rarete} : {t('creation.modal.rareWarning')}
         </p>
       )}
       {coutManuelRequis && (
         <div className="field">
           <label>
-            Coût (po){' '}
-            {profil.cout_notation && <span className="text-muted">— notation : {profil.cout_notation}</span>}
+            {t('creation.modal.costLabel')}{' '}
+            {profil.cout_notation && (
+              <span className="text-muted">
+                {t('creation.modal.costNotation')} {profil.cout_notation}
+              </span>
+            )}
           </label>
           <input
             type="number"
             min={0}
             value={coutManuelSaisi}
             onChange={(e) => setCoutManuelSaisi(e.target.value)}
-            placeholder={profil.cout_notation ? `Résultat du jet, ex : 32` : undefined}
+            placeholder={profil.cout_notation ? t('creation.modal.costPlaceholder') : undefined}
           />
         </div>
       )}
       <div className="field">
-        <label>Nom du personnage{estGroupable && quantite > 1 ? ' (groupe)' : ''}</label>
+        <label>
+          {t('creation.modal.charNameLabel')}
+          {estGroupable && quantite > 1 ? t('creation.modal.charNameGroupSuffix') : ''}
+        </label>
         <input value={nom} onChange={(e) => setNom(e.target.value)} placeholder={profil.nom} />
       </div>
       {estGroupable && (
         <div className="field">
-          <label>Nombre de figurines (groupe identique)</label>
+          <label>{t('creation.modal.figurineCount')}</label>
           <input type="number" min={1} value={quantiteSaisie} onChange={(e) => setQuantiteSaisie(e.target.value)} />
         </div>
       )}
       {marqueRequise && (
         <div className="field">
-          <label>Marque des Dieux Sombres</label>
+          <label>{t('creation.modal.markLabel')}</label>
           <select value={marqueChoisie} onChange={(e) => setMarqueChoisie(e.target.value)}>
-            <option value="">— Choisir —</option>
+            <option value="">{t('creation.modal.choose')}</option>
             {catalogue?.marques?.map((m) => (
               <option key={m.id} value={m.id}>
                 {m.nom}
@@ -470,7 +486,7 @@ function RecrutementDraftModal({
       )}
       {premierSortRequis && profil.sorts_fixes_depart && profil.sorts_fixes_depart.length > 0 && (
         <p className="text-sm text-muted">
-          Connaît automatiquement : <strong>{profil.sorts_fixes_depart.join(', ')}</strong>.
+          {t('creation.modal.knowsAutomatically')} <strong>{profil.sorts_fixes_depart.join(', ')}</strong>.
         </p>
       )}
       {premierSortRequis &&
@@ -480,7 +496,11 @@ function RecrutementDraftModal({
           );
           return (
             <div className="field" key={i}>
-              <label>{nombreSortsRequis > 1 ? `Sort connu (${i + 1}/${nombreSortsRequis})` : 'Premier sort connu'}</label>
+              <label>
+                {nombreSortsRequis > 1
+                  ? `${t('creation.modal.spellKnownLabel')} (${i + 1}/${nombreSortsRequis})`
+                  : t('creation.modal.firstSpellLabel')}
+              </label>
               <select
                 value={sortsChoisis[i] ?? ''}
                 onChange={(e) => {
@@ -489,7 +509,7 @@ function RecrutementDraftModal({
                   setSortsChoisis(copie);
                 }}
               >
-                <option value="">— Choisir —</option>
+                <option value="">{t('creation.modal.choose')}</option>
                 {sortsRestants.map((s) => (
                   <option key={s.nom} value={s.nom}>
                     {s.resultat} — {s.nom}
@@ -497,29 +517,30 @@ function RecrutementDraftModal({
                 ))}
               </select>
               {i === nombreSortsRequis - 1 && (
-                <p className="text-sm text-muted mb-0">Obligatoire pour un profil sorcier.</p>
+                <p className="text-sm text-muted mb-0">{t('creation.modal.spellRequired')}</p>
               )}
             </div>
           );
         })}
       {gagneExperience ? (
         <div className="field">
-          <label>Expérience de départ</label>
+          <label>{t('creation.modal.startingXp')}</label>
           <input type="number" value={xpDepartSaisie} onChange={(e) => setXpDepartSaisie(e.target.value)} />
-          <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
+          <p className="text-sm text-muted mb-0">{t('creation.modal.noAdvanceTriggered')}</p>
         </div>
       ) : (
-        <p className="text-sm text-muted">Ce profil ne gagne jamais d'expérience.</p>
+        <p className="text-sm text-muted">{t('creation.modal.neverGainsXp')}</p>
       )}
       {!check.ok && <p className="text-danger text-sm">{check.raison}</p>}
       {check.ok && !budgetSuffisant && (
         <p className="text-danger text-sm">
-          Budget insuffisant ({budgetDisponible} po restantes, {coutTotal} po requis).
+          {t('creation.modal.insufficientBudgetPrefix')}
+          {budgetDisponible} {t('creation.modal.remaining')} {coutTotal} {t('creation.modal.required')}
         </p>
       )}
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
         <button className="btn" onClick={onClose}>
-          Annuler
+          {t('creation.modal.cancel')}
         </button>
         <button
           className="btn btn--primary"
@@ -531,7 +552,8 @@ function RecrutementDraftModal({
           }
           onClick={confirmer}
         >
-          Ajouter pour {coutTotal} po{!budgetSuffisant ? ' quand même' : ''}
+          {t('creation.modal.addFor')} {coutTotal} {t('creation.gc')}
+          {!budgetSuffisant ? ` ${t('creation.modal.anyway')}` : ''}
         </button>
       </div>
     </Modal>
