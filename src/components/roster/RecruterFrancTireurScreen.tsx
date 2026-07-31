@@ -9,11 +9,13 @@ import {
 } from '../../data/hiredSwords';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { sortsMagieMineureDisponibles } from '../../utils/magie';
+import { useLanguage } from '../../state/useLanguage';
 
 export function RecruterFrancTireurScreen() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
+  const { t } = useLanguage();
   const roster = getRosterById(id ?? '');
   const [recherche, setRecherche] = useState('');
   const [voirIndisponibles, setVoirIndisponibles] = useState(false);
@@ -42,8 +44,8 @@ export function RecruterFrancTireurScreen() {
 
   if (!roster) {
     return (
-      <Screen title="Bande introuvable" back="/">
-        <p className="text-muted">Ce roster n'existe pas (ou plus).</p>
+      <Screen title={t('roster.notFoundTitle')} back="/">
+        <p className="text-muted">{t('francTireur.notFoundBody')}</p>
       </Screen>
     );
   }
@@ -96,18 +98,15 @@ export function RecruterFrancTireurScreen() {
   };
 
   return (
-    <Screen title="Engager un franc-tireur" back={`/roster/${roster.id}`}>
+    <Screen title={t('francTireur.title')} back={`/roster/${roster.id}`}>
       <div className="card">
-        <p className="text-sm text-muted">
-          Choisis le franc-tireur que tu souhaites engager. Chaque franc-tireur ne peut être engagé qu’une seule
-          fois ; les francs-tireurs incompatibles avec cette bande sont masqués par défaut.
-        </p>
+        <p className="text-sm text-muted">{t('francTireur.intro')}</p>
         <div className="field">
-          <label>Rechercher</label>
+          <label>{t('francTireur.search')}</label>
           <input
             value={recherche}
             onChange={(e) => setRecherche(e.target.value)}
-            placeholder="Ogre, assassin, guide…"
+            placeholder={t('francTireur.searchPlaceholder')}
           />
         </div>
         <label className="flex items-center gap-sm text-sm" style={{ cursor: 'pointer' }}>
@@ -116,29 +115,29 @@ export function RecruterFrancTireurScreen() {
             checked={voirIndisponibles}
             onChange={(e) => setVoirIndisponibles(e.target.checked)}
           />
-          Voir aussi les profils indisponibles
+          {t('francTireur.showUnavailable')}
         </label>
       </div>
 
       <div className="card">
         <div className="flex items-center justify-between gap-sm">
-          <h3 className="mb-0">Catalogue</h3>
+          <h3 className="mb-0">{t('francTireur.catalog')}</h3>
           <button
             className="btn btn--sm"
             onClick={() => setCatalogueOuvert((ouvert) => !ouvert)}
             aria-expanded={catalogueOuvert}
           >
-            {catalogueOuvert ? 'Replier' : 'Afficher'}
+            {catalogueOuvert ? t('francTireur.collapse') : t('francTireur.show')}
           </button>
         </div>
         {!catalogueOuvert && selection && (
           <p className="text-sm text-muted mb-0" style={{ marginTop: '0.5rem' }}>
-            Sélection actuelle : <strong>{selection.nom}</strong>
+            {t('francTireur.currentSelection')} <strong>{selection.nom}</strong>
           </p>
         )}
         {catalogueOuvert && (
           <>
-            {profils.length === 0 && <p className="text-muted text-sm">Aucun profil ne correspond à ce filtre.</p>}
+            {profils.length === 0 && <p className="text-muted text-sm">{t('francTireur.noMatch')}</p>}
             <div className="skill-list" style={{ marginTop: '0.6rem' }}>
               {profils.map(({ profil, disponibilite }) => (
                 <button
@@ -150,12 +149,13 @@ export function RecruterFrancTireurScreen() {
                   <div className="list-item__main">
                     <div className="list-item__title">{profil.nom}</div>
                     <div className="list-item__subtitle">
-                      Engagement : {profil.recrutement.cout ?? profil.recrutement.notation} CO · Entretien :{' '}
+                      {t('francTireur.hireCost')} {profil.recrutement.cout ?? profil.recrutement.notation}{' '}
+                      {t('francTireur.gc')} · {t('francTireur.upkeep')}{' '}
                       {profil.entretien.type === 'or'
-                        ? `${profil.entretien.cout} CO`
+                        ? `${profil.entretien.cout} ${t('francTireur.gc')}`
                         : profil.entretien.type === 'malepierre'
-                          ? `${profil.entretien.cout} fragment de malepierre`
-                          : 'aucun'}
+                          ? `${profil.entretien.cout} ${t('francTireur.wyrdstoneFragment')}`
+                          : t('francTireur.none')}
                     </div>
                     {!disponibilite.disponible && (
                       <div className="text-danger text-sm" style={{ marginTop: '0.2rem' }}>
@@ -175,12 +175,12 @@ export function RecruterFrancTireurScreen() {
           <div className="card">
             <h3>{selection.nom}</h3>
             <p className="text-sm text-muted">
-              <strong>Employeurs :</strong> {selection.employeurs.texte}
+              <strong>{t('francTireur.employers')}</strong> {selection.employeurs.texte}
               <br />
-              <strong>Valeur de bande :</strong> +{selection.valeur} points
+              <strong>{t('francTireur.bandValue')}</strong> +{selection.valeur} {t('francTireur.points')}
               {selection.gagne_experience !== false ? ' + XP' : ''}
               <br />
-              <strong>Source :</strong> page {selection.page_source} du PDF
+              <strong>{t('francTireur.source')}</strong> page {selection.page_source} {t('francTireur.sourcePdfSuffix')}
             </p>
             <div className="stat-grid">
               {STAT_KEYS.map((k) => (
@@ -212,30 +212,28 @@ export function RecruterFrancTireurScreen() {
                   ))}
                 </div>
                 {secondaire.equipement && (
-                  <p className="text-sm text-muted">Équipement : {secondaire.equipement.join(', ')}</p>
+                  <p className="text-sm text-muted">{t('francTireur.equipmentProvided')} {secondaire.equipement.join(', ')}</p>
                 )}
               </div>
             ))}
           </div>
 
           <div className="card">
-            <h3>Équipement et progression</h3>
+            <h3>{t('francTireur.equipmentAndProgress')}</h3>
             <p className="text-sm">
-              <strong>Équipement fourni :</strong> {selection.equipement.join(', ')}
+              <strong>{t('francTireur.equipmentProvided')}</strong> {selection.equipement.join(', ')}
             </p>
             <p className="text-sm">
-              <strong>Tables de compétences :</strong>{' '}
+              <strong>{t('francTireur.skillTables')}</strong>{' '}
               {selection.acces_competences
                 .map((id) => SKILL_CATEGORIES.find((categorie) => categorie.id === id)?.label ?? id)
-                .join(', ') || 'Aucune'}
+                .join(', ') || t('francTireur.noneFem')}
             </p>
-            <p className="text-sm text-muted mb-0">
-              L’équipement d’un franc-tireur est inclus dans son contrat et ne peut être acheté, revendu ou transféré.
-            </p>
+            <p className="text-sm text-muted mb-0">{t('francTireur.equipmentNote')}</p>
           </div>
 
           <div className="card">
-            <h3>Règles</h3>
+            <h3>{t('francTireur.rules')}</h3>
             {selection.regles_speciales.map((regle) => (
               <p key={regle.nom} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
                 <strong>{regle.nom}</strong> — {regle.texte}
@@ -249,14 +247,14 @@ export function RecruterFrancTireurScreen() {
           </div>
 
           <div className="card">
-            <h3>Contrat</h3>
+            <h3>{t('francTireur.contract')}</h3>
             <div className="field">
-              <label>Nom sur la feuille de bande</label>
+              <label>{t('francTireur.nameOnSheet')}</label>
               <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} />
             </div>
             {selection.recrutement.cout == null && (
               <div className="field">
-                <label>Coût réellement obtenu ({selection.recrutement.notation} CO)</label>
+                <label>{t('francTireur.actualCostObtained', { notation: selection.recrutement.notation ?? '' })}</label>
                 <input
                   type="number"
                   min={1}
@@ -267,7 +265,7 @@ export function RecruterFrancTireurScreen() {
             )}
             {selection.sacrifice_liche && (
               <div className="field">
-                <label>Résultat du D3 : PV retirés à la Liche (minimum 1 PV restant)</label>
+                <label>{t('francTireur.d3Result')}</label>
                 <select value={sacrificeLiche} onChange={(e) => setSacrificeLiche(Number(e.target.value))}>
                   <option value={1}>1 PV</option>
                   <option value={2}>2 PV</option>
@@ -277,7 +275,7 @@ export function RecruterFrancTireurScreen() {
             )}
             {nombreSortsRequis > 0 && (
               <div className="field">
-                <label>Sorts de Magie mineure ({nombreSortsRequis} différents requis)</label>
+                <label>{t('francTireur.minorMagicSpells', { n: nombreSortsRequis })}</label>
                 {Array.from({ length: nombreSortsRequis }, (_, index) => (
                   <select
                     key={index}
@@ -292,24 +290,22 @@ export function RecruterFrancTireurScreen() {
                     }}
                     style={{ marginTop: index > 0 ? '0.45rem' : undefined }}
                   >
-                    <option value="">— Choisir le sort {index + 1} —</option>
+                    <option value="">{t('francTireur.chooseSpell', { n: index + 1 })}</option>
                     {sortsMagieMineureDisponibles(
                       sortsChoisis.filter((_, sortIndex) => sortIndex !== index)
                     ).map((sort) => (
                       <option key={sort.nom} value={sort.nom}>
-                        {sort.resultat} — {sort.nom} (diff. {sort.difficulte})
+                        {sort.resultat} — {sort.nom} ({t('francTireur.diffAbbrev')} {sort.difficulte})
                       </option>
                     ))}
                   </select>
                 ))}
-                <p className="text-sm text-muted mb-0">
-                  Le Mage commence avec deux sorts de Magie mineure, choisis ici.
-                </p>
+                <p className="text-sm text-muted mb-0">{t('francTireur.mageStartNote')}</p>
               </div>
             )}
             <p className={budgetSuffisant ? 'text-sm text-muted' : 'text-sm text-danger'}>
-              {coutRecrutement} CO seront déduites de la trésorerie ({roster.tresorerie} CO disponibles).
-              {!budgetSuffisant && ' Trésorerie insuffisante.'}
+              {t('francTireur.treasuryDeduction', { cout: coutRecrutement, dispo: roster.tresorerie })}
+              {!budgetSuffisant && t('francTireur.insufficientTreasurySuffix')}
             </p>
             {disponibiliteSelection && !disponibiliteSelection.disponible && (
               <p className="text-sm text-danger">{disponibiliteSelection.raison}</p>
@@ -318,10 +314,10 @@ export function RecruterFrancTireurScreen() {
 
           <div className="flex gap-sm">
             <button className="btn" onClick={() => navigate(`/roster/${roster.id}`)}>
-              Annuler
+              {t('francTireur.cancel')}
             </button>
             <button className="btn btn--primary" disabled={!peutEngager} onClick={recruter}>
-              Engager pour {coutRecrutement || '…'} CO
+              {t('francTireur.hireForPrefix')} {coutRecrutement || '…'} {t('francTireur.gc')}
             </button>
           </div>
         </>
