@@ -20,6 +20,7 @@ type EtapeResumeProps = {
   francsTireursPartants: string[];
   blessuresResume: { nom: string; blessure: string }[];
   docteurResultats: { nom: string; jet: number; titre: string }[];
+  rechercheRareResultats: { nom: string; objetNom: string; rarete: number; reussi: boolean; achete: boolean }[];
   horsDeCombatIndividuel: Member[];
   xpDraftDe: (m: Member, xpParDefaut: number) => XpDraft;
   groupesHC: Member[];
@@ -44,6 +45,7 @@ export function EtapeResume({
   francsTireursPartants,
   blessuresResume,
   docteurResultats,
+  rechercheRareResultats,
   horsDeCombatIndividuel,
   xpDraftDe,
   groupesHC,
@@ -101,6 +103,19 @@ export function EtapeResume({
             {docteurResultats.map((d, i) => (
               <li key={`${d.nom}-${i}`}>
                 {d.nom} — 2D6 = {d.jet} : <strong>{d.titre}</strong>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {rechercheRareResultats.length > 0 && (
+        <div className="text-sm">
+          <p className="mb-0">Recherches d'objet rare :</p>
+          <ul style={{ margin: '0.2rem 0 0.6rem', paddingLeft: '1.2rem' }}>
+            {rechercheRareResultats.map((r, i) => (
+              <li key={`${r.nom}-${i}`} className={r.reussi ? 'text-success' : 'text-danger'}>
+                {r.nom} — {r.objetNom} (Rare {r.rarete}) :{' '}
+                {r.reussi ? (r.achete ? 'réussie, achetée' : 'réussie, non achetée') : 'ratée'}
               </li>
             ))}
           </ul>

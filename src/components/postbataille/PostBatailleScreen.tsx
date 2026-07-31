@@ -327,6 +327,13 @@ export function PostBatailleScreen() {
     const nom = roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?';
     return [{ nom, jet: draft.jet, titre: draft.resultatTitre }];
   });
+  // Recherches d'objet rare (étape Commerce), pour affichage nominatif dans
+  // le résumé final — qui a cherché quoi, et avec quel résultat.
+  const rechercheRareResultats = Object.entries(commerceDrafts).flatMap(([instanceId, draft]) => {
+    if (draft.action !== 'rare') return [];
+    const nom = roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?';
+    return [{ nom, objetNom: draft.objetNom, rarete: draft.rarete, reussi: draft.reussi, achete: !!draft.achat }];
+  });
   // Blessures graves enregistrées cette bataille, pour affichage nominatif
   // dans le résumé final — qui a été touché et par quelle blessure.
   const blessuresResume = Object.entries(blessureDrafts)
@@ -956,6 +963,7 @@ export function PostBatailleScreen() {
           avancesResolues={avancesResolues}
           blessuresResume={blessuresResume}
           docteurResultats={docteurResultats}
+          rechercheRareResultats={rechercheRareResultats}
           horsDeCombatIndividuel={horsDeCombatIndividuel}
           xpDraftDe={xpDraftDe}
           groupesHC={groupesHC}
