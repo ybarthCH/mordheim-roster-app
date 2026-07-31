@@ -364,6 +364,7 @@ export function PersonnageScreen() {
           membre={membre}
           profil={profil}
           catalogue={catalogue}
+          roster={roster}
           onMajMembre={majMembre}
           grimoireDisponible={!!(grimoireMembre || grimoireStock)}
           onUtiliserGrimoire={utiliserGrimoire}

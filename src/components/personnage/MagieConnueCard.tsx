@@ -4,16 +4,17 @@ import { CollapsibleCard } from '../common/CollapsibleCard';
 import {
   magieDuProfil,
   resolveSort,
-  sortsDisponibles,
+  sortsDisponiblesPourRoster,
   sortsMagieMineureDisponibles,
 } from '../../utils/magie';
-import type { Member } from '../../types/roster';
+import type { Member, RosterInstance } from '../../types/roster';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
 
 type MagieConnueCardProps = {
   membre: Member;
   profil: Profile;
   catalogue: WarbandCatalog;
+  roster: RosterInstance;
   onMajMembre: (partial: Partial<Member>) => void;
   grimoireDisponible: boolean;
   onUtiliserGrimoire: (nomSort: string) => void;
@@ -27,6 +28,7 @@ export function MagieConnueCard({
   membre,
   profil,
   catalogue,
+  roster,
   onMajMembre,
   grimoireDisponible,
   onUtiliserGrimoire,
@@ -36,12 +38,9 @@ export function MagieConnueCard({
   const [sourceGrimoire, setSourceGrimoire] = useState<'propre' | 'mineure'>('propre');
   const [sortGrimoire, setSortGrimoire] = useState('');
   const magiePropre = magieDuProfil(catalogue, profil, membre.marque);
-  const disponibles = sortsDisponibles(catalogue, membre.sorts_connus, profil, membre.marque);
+  const disponibles = sortsDisponiblesPourRoster(catalogue, roster, membre.sorts_connus, profil, membre.marque);
   const magieMineureEstPropre = magiePropre?.nom === 'Magie mineure';
-  const sortsGrimoire =
-    sourceGrimoire === 'propre'
-      ? disponibles
-      : sortsMagieMineureDisponibles(membre.sorts_connus);
+  const sortsGrimoire = sourceGrimoire === 'propre' ? disponibles : sortsMagieMineureDisponibles(membre.sorts_connus);
 
   const utiliserGrimoire = () => {
     if (!sortGrimoire) return;
