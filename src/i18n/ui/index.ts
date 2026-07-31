@@ -4,6 +4,7 @@ import { listeBandesScreen } from './listeBandesScreen';
 import { reglagesScreen } from './reglagesScreen';
 import { creationBandeScreen } from './creationBandeScreen';
 import { rosterScreen } from './rosterScreen';
+import { recruterFrancTireurScreen } from './recruterFrancTireurScreen';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -14,4 +15,5 @@ export const uiDictionary: UiDictionary = {
   ...reglagesScreen,
   ...creationBandeScreen,
   ...rosterScreen,
+  ...recruterFrancTireurScreen,
 };
