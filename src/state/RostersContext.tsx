@@ -63,11 +63,23 @@ export function RostersProvider({ children }: { children: ReactNode }) {
         idsRemappes.set(m.instance_id, instance_id);
         return { ...m, instance_id };
       });
+      // Un effet persistant ciblant un membre précis (ex : exemption d'entretien
+      // "Débiteur reconnaissant") doit suivre le remappage des instance_id ci-
+      // dessus, sinon il continue de viser le membre de la bande source et ne
+      // s'applique plus jamais dans la copie. Un effet devenu orphelin (cible
+      // qui n'existe plus, ex : membre déjà mort avant la duplication) est
+      // abandonné plutôt que recopié sans cible valide.
+      const effets_persistants = (original.effets_persistants ?? []).flatMap((e) => {
+        if (!e.cible) return [{ ...e, id: uuidv4() }];
+        const cibleRemappee = idsRemappes.get(e.cible);
+        return cibleRemappee ? [{ ...e, id: uuidv4(), cible: cibleRemappee }] : [];
+      });
       const copy: RosterInstance = {
         ...original,
         id: uuidv4(),
         nom_bande: `${original.nom_bande} (copie)`,
         membres,
+        effets_persistants,
         leader_instance_id: original.leader_instance_id
           ? idsRemappes.get(original.leader_instance_id)
           : undefined,
