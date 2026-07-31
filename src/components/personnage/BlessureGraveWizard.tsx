@@ -9,6 +9,7 @@ import {
 import { getFrancTireur } from '../../data/hiredSwords';
 import { Icon, type IconName } from '../common/Icon';
 import type { SeriousInjuryEffect } from '../../types/roster';
+import { useLanguage } from '../../state/useLanguage';
 
 // Profil de l'adversaire dans les fosses de combat (résultat "Gladiateur") —
 // c'est le franc-tireur "Gladiateur" (Pit Fighter, hiredSwords.ts) que l'on
@@ -27,6 +28,7 @@ function BlocStats({
   equipement?: string[];
   reglesSpeciales?: { nom: string; texte: string }[];
 }) {
+  const { t } = useLanguage();
   return (
     <div className="card card--tight" style={{ marginBottom: '0.5rem' }}>
       <p className="text-sm mb-0" style={{ fontWeight: 'bold' }}>
@@ -46,12 +48,12 @@ function BlocStats({
       </div>
       {!!equipement?.length && (
         <p className="text-sm mb-0" style={{ marginTop: '0.4rem' }}>
-          <strong>Équipement :</strong> {equipement.join(', ')}
+          <strong>{t('blessureGraveWizard.equipmentLabel')}</strong> {equipement.join(', ')}
         </p>
       )}
       {!!reglesSpeciales?.length && (
         <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-          <strong>Règles spéciales :</strong>{' '}
+          <strong>{t('blessureGraveWizard.specialRulesLabel')}</strong>{' '}
           {reglesSpeciales.map((r) => `${r.nom} — ${r.texte}`).join(' · ')}
         </p>
       )}
@@ -177,6 +179,7 @@ export function BlessureGraveWizard({
   onAppliquer,
   onAnnuler,
 }: Props) {
+  const { t } = useLanguage();
   const [mode, setMode] = useState<Mode>('liste');
   const [contexte, setContexte] = useState<'racine' | 'boucle'>('racine');
   const [selectionActuelle, setSelectionActuelle] = useState<ResultatBlessureGrave | null>(null);
@@ -497,26 +500,24 @@ export function BlessureGraveWizard({
       <div>
         {enCoursDansBoucle && (
           <p className="text-sm text-muted" style={{ marginTop: 0 }}>
-            Blessures multiples — résultat {iterationActuelleIndex}/{multiplesCount}. Les résultats Mort, Capturé et
-            Blessures multiples doivent être relancés : ils ne sont pas proposés ci-dessous.
+            {t('blessureGraveWizard.loopIntro', { index: iterationActuelleIndex, count: multiplesCount ?? 0 })}
           </p>
         )}
         {enChoixGladiateurPerdu && (
           <p className="text-sm text-muted" style={{ marginTop: 0 }}>
-            Il perd le combat et est jeté hors des fosses sans arme ni armure. Relance sur la table complète pour
-            savoir ce qu'il devient — Mort y compris si le sort s'y prête, et même un nouveau Gladiateur.
+            {t('blessureGraveWizard.gladiatorLostIntro')}
           </p>
         )}
         {!enCoursDansBoucle && !enChoixGladiateurPerdu && (
           <p className="text-sm text-muted" style={{ marginTop: 0 }}>
-            Lance 2D6 sur ta table papier, puis sélectionne le résultat obtenu pour {nomPersonnage}.
+            {t('blessureGraveWizard.rollInstruction', { nom: nomPersonnage })}
           </p>
         )}
         <div className="field">
-          <label>Résultat obtenu</label>
+          <label>{t('blessureGraveWizard.resultObtained')}</label>
           <select value={selectionEnAttente} onChange={(e) => setSelectionEnAttente(e.target.value)}>
             <option value="" disabled>
-              Choisis un résultat…
+              {t('blessureGraveWizard.chooseResult')}
             </option>
             {disponibles.map((r) => (
               <option key={r.id} value={r.id}>
@@ -528,11 +529,11 @@ export function BlessureGraveWizard({
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           {onAnnuler && (
             <button className="btn" onClick={onAnnuler}>
-              Annuler
+              {t('blessureGraveWizard.cancel')}
             </button>
           )}
           <button className="btn btn--primary" disabled={!selectionEnAttente} onClick={validerSelection}>
-            Continuer
+            {t('blessureGraveWizard.continue')}
           </button>
         </div>
       </div>
@@ -560,7 +561,7 @@ export function BlessureGraveWizard({
         </div>
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={() => setMode('liste')}>
-            ‹ Retour
+            {t('blessureGraveWizard.back')}
           </button>
         </div>
       </div>
@@ -574,7 +575,7 @@ export function BlessureGraveWizard({
           <Icon name={iconePourBlessure(selectionActuelle)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
           {selectionActuelle.nom}
         </h4>
-        <p className="text-sm text-muted">Lance 1D3 : combien de parties le guerrier doit-il manquer ?</p>
+        <p className="text-sm text-muted">{t('blessureGraveWizard.d3DurationQuestion')}</p>
         <div className="flex flex-wrap gap-sm">
           {[1, 2, 3].map((n) => (
             <button key={n} className="btn" onClick={() => choisirDureeD3(n)}>
@@ -584,7 +585,7 @@ export function BlessureGraveWizard({
         </div>
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={() => setMode('liste')}>
-            ‹ Retour
+            {t('blessureGraveWizard.back')}
           </button>
         </div>
       </div>
@@ -596,9 +597,9 @@ export function BlessureGraveWizard({
       <div>
         <h4 style={{ marginTop: 0 }}>
           <Icon name="goutte" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
-          Blessures multiples
+          {t('blessureGraveWizard.multipleInjuriesTitle')}
         </h4>
-        <p className="text-sm text-muted">Lance 1D6 : combien de fois faut-il relancer sur la table ?</p>
+        <p className="text-sm text-muted">{t('blessureGraveWizard.multipleInjuriesCountQuestion')}</p>
         <div className="flex flex-wrap gap-sm">
           {[1, 2, 3, 4, 5, 6].map((n) => (
             <button key={n} className="btn" onClick={() => choisirMultiplesCount(n)}>
@@ -608,7 +609,7 @@ export function BlessureGraveWizard({
         </div>
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={() => setMode('liste')}>
-            ‹ Retour
+            {t('blessureGraveWizard.back')}
           </button>
         </div>
       </div>
@@ -622,18 +623,13 @@ export function BlessureGraveWizard({
           <Icon name={iconePourBlessure(selectionActuelle)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
           {selectionActuelle.nom}
         </h4>
-        <p className="text-sm text-muted">
-          Le guerrier affronte un gladiateur dans les fosses de combat du Repaire des Coupe-Jarrets. A-t-il gagné le
-          combat ?
-        </p>
+        <p className="text-sm text-muted">{t('blessureGraveWizard.gladiatorFightQuestion')}</p>
         {(FRANC_TIREUR_GLADIATEUR_ADVERSAIRE?.stats || statsPersonnage) && (
-          <p className="text-sm text-muted mb-0">
-            Profils l'un au-dessus de l'autre, pour résoudre le duel sans quitter cet écran :
-          </p>
+          <p className="text-sm text-muted mb-0">{t('blessureGraveWizard.stackedProfilesNote')}</p>
         )}
         {FRANC_TIREUR_GLADIATEUR_ADVERSAIRE?.stats && (
           <BlocStats
-            titre="Gladiateur adverse (franc-tireur)"
+            titre={t('blessureGraveWizard.opposingGladiatorTitle')}
             stats={FRANC_TIREUR_GLADIATEUR_ADVERSAIRE.stats}
             equipement={FRANC_TIREUR_GLADIATEUR_ADVERSAIRE.equipement}
             reglesSpeciales={FRANC_TIREUR_GLADIATEUR_ADVERSAIRE.regles_speciales}
@@ -649,15 +645,15 @@ export function BlessureGraveWizard({
         )}
         <div className="flex flex-wrap gap-sm">
           <button className="btn btn--primary" onClick={() => choisirGladiateurIssue(true)}>
-            Oui
+            {t('blessureGraveWizard.yes')}
           </button>
           <button className="btn" onClick={() => choisirGladiateurIssue(false)}>
-            Non
+            {t('blessureGraveWizard.no')}
           </button>
         </div>
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={() => setMode('liste')}>
-            ‹ Retour
+            {t('blessureGraveWizard.back')}
           </button>
         </div>
       </div>
@@ -675,23 +671,23 @@ export function BlessureGraveWizard({
         <p className="text-sm text-muted">{selectionActuelle.texte}</p>
         {typeof tresorerieDisponible === 'number' && (
           <p className="text-sm">
-            Trésorerie actuelle de la bande : <strong>{tresorerieDisponible} po</strong>.
+            {t('blessureGraveWizard.currentTreasury', { n: tresorerieDisponible })}
           </p>
         )}
         {captureChoix !== 'rancon' && (
           <div className="flex flex-wrap gap-sm">
             <button className="btn" onClick={choisirCapturePerdu}>
-              Héros perdu
+              {t('blessureGraveWizard.heroLost')}
             </button>
             <button className="btn btn--primary" onClick={() => setCaptureChoix('rancon')}>
-              Récupéré contre rançon
+              {t('blessureGraveWizard.ransomedBack')}
             </button>
           </div>
         )}
         {captureChoix === 'rancon' && (
           <>
             <div className="field">
-              <label>Montant de la rançon (po)</label>
+              <label>{t('blessureGraveWizard.ransomAmountLabel')}</label>
               <input
                 type="number"
                 min={0}
@@ -702,15 +698,15 @@ export function BlessureGraveWizard({
             </div>
             {typeof tresorerieDisponible === 'number' && (
               <p className="text-sm text-muted">
-                Trésorerie après paiement : {Math.max(0, tresorerieDisponible - montantRancon)} po.
+                {t('blessureGraveWizard.treasuryAfterPayment', { n: Math.max(0, tresorerieDisponible - montantRancon) })}
               </p>
             )}
             <div className="flex flex-wrap gap-sm">
               <button className="btn" onClick={() => setCaptureChoix(null)}>
-                ‹ Retour
+                {t('blessureGraveWizard.back')}
               </button>
               <button className="btn btn--primary" onClick={choisirCaptureRancon}>
-                Confirmer la rançon
+                {t('blessureGraveWizard.confirmRansom')}
               </button>
             </div>
           </>
@@ -718,7 +714,7 @@ export function BlessureGraveWizard({
         {captureChoix !== 'rancon' && (
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={() => setMode('liste')}>
-              ‹ Retour
+              {t('blessureGraveWizard.back')}
             </button>
           </div>
         )}
@@ -733,7 +729,7 @@ export function BlessureGraveWizard({
     <div>
       <h4 style={{ marginTop: 0 }}>
         {racine && <Icon name={iconePourBlessure(racine.resultat)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />}
-        Résumé
+        {t('blessureGraveWizard.summary')}
       </h4>
       <p className="text-sm" style={{ whiteSpace: 'pre-wrap' }}>
         {racine ? `${prefixeGladiateur}${texteIteration(racine)}` : ''}
@@ -748,8 +744,7 @@ export function BlessureGraveWizard({
       {estEternelle && racine?.resultat.id === 'mort' && (
         <div className="card card--tight" style={{ margin: '0.6rem 0', borderColor: 'var(--accent)' }}>
           <p className="text-sm mb-0">
-            <strong>Éternelle</strong> — un résultat Tué inflige à la place une perte permanente de -D3 Points de
-            Vie. Lance 1D3 sur ta table papier.
+            <strong>{t('blessureGraveWizard.eternalLabel')}</strong> — {t('blessureGraveWizard.eternalDeathNote')}
           </p>
           <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.5rem' }}>
             {[1, 2, 3].map((n) => (
@@ -773,13 +768,13 @@ export function BlessureGraveWizard({
             onChange={(e) => setEternelleIgnorer(e.target.checked)}
           />
           <span className="skill-check__name">
-            Éternelle : ignorer ce résultat, -1 PV permanent à la place (PV actuels : {pvActuelProfil})
+            {t('blessureGraveWizard.eternalIgnoreOption', { pv: pvActuelProfil ?? 0 })}
           </span>
         </label>
       )}
       {statsListe.length > 0 && (
         <p className="text-sm">
-          <strong>Caractéristiques modifiées :</strong>{' '}
+          <strong>{t('blessureGraveWizard.modifiedCharacteristics')}</strong>{' '}
           {statsListe.map(([k, v], i) => (
             <span key={k}>
               {i > 0 && ', '}
@@ -793,52 +788,46 @@ export function BlessureGraveWizard({
       )}
       {resultatFinal.notes.length > 0 && (
         <p className="text-sm">
-          <strong>À ajouter aux notes :</strong> {resultatFinal.notes.join(' · ')}
+          <strong>{t('blessureGraveWizard.notesToAdd')}</strong> {resultatFinal.notes.join(' · ')}
         </p>
       )}
       {resultatFinal.xpBonus > 0 && (
         <p className="text-sm">
-          <strong>Expérience :</strong> +{resultatFinal.xpBonus}
+          <strong>{t('blessureGraveWizard.experienceLabel')}</strong> +{resultatFinal.xpBonus}
         </p>
       )}
       {resultatFinal.tresorerieBonus !== 0 && (
         <p className="text-sm">
-          <strong>Trésorerie de la bande :</strong> {resultatFinal.tresorerieBonus > 0 ? '+' : ''}
-          {resultatFinal.tresorerieBonus} po
+          <strong>{t('blessureGraveWizard.warbandTreasury')}</strong> {resultatFinal.tresorerieBonus > 0 ? '+' : ''}
+          {resultatFinal.tresorerieBonus} {t('blessureGraveWizard.gcSuffix')}
         </p>
       )}
-      {resultatFinal.statutMort && <p className="text-danger">⚠ Ce guerrier sera marqué Mort.</p>}
+      {resultatFinal.statutMort && <p className="text-danger">{t('blessureGraveWizard.willBeMarkedDead')}</p>}
       {resultatFinal.perteEquipement && (
-        <p className="text-danger">
-          ⚠ Cette blessure entraîne la perte de tout l'équipement (armes, armures, objets) — il sera vidé de la
-          fiche en cliquant sur Appliquer.
-        </p>
+        <p className="text-danger">{t('blessureGraveWizard.equipmentLossWarning')}</p>
       )}
       {racine?.resultat.informatifSeulement && (
-        <p className="text-sm text-muted">
-          Ce résultat n'est pas automatisable (négociation avec l'adversaire, combat annexe...) : note l'issue
-          ci-dessous, puis applique manuellement les conséquences sur la fiche si besoin.
-        </p>
+        <p className="text-sm text-muted">{t('blessureGraveWizard.notAutomatableNote')}</p>
       )}
       <div className="field">
-        <label>Précision (optionnel)</label>
+        <label>{t('blessureGraveWizard.precisionLabel')}</label>
         <textarea
           value={precision}
           onChange={(e) => setPrecision(e.target.value)}
           placeholder={
             racine?.resultat.id === 'capture'
-              ? "Ex : nom de la bande ou du guerrier qui l'a capturé..."
-              : "Ex : nom de l'adversaire responsable, issue de la négociation..."
+              ? t('blessureGraveWizard.precisionPlaceholderCapture')
+              : t('blessureGraveWizard.precisionPlaceholderDefault')
           }
         />
       </div>
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
         <button className="btn" onClick={reinitialiser}>
-          Recommencer
+          {t('blessureGraveWizard.restart')}
         </button>
         {onAnnuler && (
           <button className="btn" onClick={onAnnuler}>
-            Annuler
+            {t('blessureGraveWizard.cancel')}
           </button>
         )}
         <button
@@ -846,7 +835,7 @@ export function BlessureGraveWizard({
           disabled={estEternelle && racine?.resultat.id === 'mort' && !eternelleDeD3Saisi}
           onClick={() => onAppliquer(resultatFinal)}
         >
-          Appliquer
+          {t('blessureGraveWizard.apply')}
         </button>
       </div>
     </div>
