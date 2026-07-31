@@ -33,8 +33,8 @@ export default defineConfig(({ command }) => ({
       includeAssets: ['icons/icon-32.png', 'icons/icon-192.png', 'icons/icon-512.png'],
       manifest: {
         id: base,
-        name: 'Mordheim Roster',
-        short_name: 'Mordheim',
+        name: 'Musterheim',
+        short_name: 'Musterheim',
         description: "Gestion de rosters de bandes Mordheim, 100% locale et hors-ligne.",
         theme_color: '#7a1414',
         background_color: '#17130f',

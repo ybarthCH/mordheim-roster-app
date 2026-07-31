@@ -78,7 +78,7 @@ export function ListeBandesScreen() {
       }
     >
       <div className="home-hero">
-        <h1 className="home-hero__title">Mordheim</h1>
+        <h1 className="home-hero__title">Musterheim</h1>
         <div className="home-hero__rule" />
         <p className="home-hero__subtitle">Gestionnaire de bandes</p>
       </div>
@@ -201,6 +201,10 @@ export function ListeBandesScreen() {
 
       <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '2rem' }}>
         {__APP_VERSION__} · {__APP_BUILD_DATE__.slice(0, 10)} · {heureBuildCET(__APP_BUILD_DATE__)}
+      </p>
+      <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '0.4rem' }}>
+        Musterheim saves your data locally on this device. Clearing your browser's site data may permanently delete
+        your saved rosters. We strongly recommend exporting regular backups.
       </p>
       <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '0.4rem' }}>
         This app is a free community project not associated with Games Workshop. All original content is

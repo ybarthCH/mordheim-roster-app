@@ -906,8 +906,8 @@ button {
   font-size: 0.68rem;
 }
 .xp-box--leader {
-  background: var(--warning);
-  border-color: var(--warning);
+  background: var(--success);
+  border-color: var(--success);
   color: var(--accent-contrast);
   cursor: default;
 }

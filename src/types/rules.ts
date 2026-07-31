@@ -3,6 +3,7 @@ export type GameRules = {
   armuresLozheim: boolean;
   trinketsLimites: boolean;
   sawbonesDocteur: boolean;
+  dramatisPersonae: boolean;
 };
 
 export const DEFAULT_GAME_RULES: GameRules = {
@@ -10,4 +11,5 @@ export const DEFAULT_GAME_RULES: GameRules = {
   armuresLozheim: false,
   trinketsLimites: false,
   sawbonesDocteur: false,
+  dramatisPersonae: false,
 };

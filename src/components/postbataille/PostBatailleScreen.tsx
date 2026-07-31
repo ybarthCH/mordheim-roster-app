@@ -953,6 +953,7 @@ export function PostBatailleScreen() {
           drafts={commerceDrafts}
           tresorerieDisponible={orDisponibleAvantCommerce - coutCommerce}
           docteurActif={rules.sawbonesDocteur}
+          dramatisPersonaeActif={rules.dramatisPersonae}
           onChanger={(instanceId, draft) =>
             setCommerceDrafts((precedents) => {
               if (draft) return { ...precedents, [instanceId]: draft };
