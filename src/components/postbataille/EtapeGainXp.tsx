@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, isPalierHenchman, isPalierHero, peutGagnerExperience } from '../../utils/xp';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import { estFrancTireur } from '../../data/hiredSwords';
@@ -42,8 +43,23 @@ function XpBarCompacte({
     else if (xpActuel >= moitie) onChange(plein);
     else onChange(moitie);
   };
+  // Bonus chef de bande : plutôt qu'ajoutée en toute fin de grille (après la
+  // case 90, hors de vue de la progression réelle), la case "V" s'insère
+  // juste après la dernière case déjà remplie — là où l'XP actuel de ce
+  // guerrier s'arrête vraiment.
+  const boiteBonusLeader = (
+    <span
+      key="bonus-leader"
+      className="xp-box xp-box--compact xp-box--leader"
+      title="Bonus chef de bande : +1 XP automatique à la victoire"
+    >
+      V
+    </span>
+  );
+
   return (
     <div className="xp-grid">
+      {bonusLeader && xpActuel <= 0 && boiteBonusLeader}
       {boxes.map((box) => {
         const seuilPlein = demiXp ? box * 2 : box;
         const seuilMoitie = demiXp ? box * 2 - 1 : box;
@@ -52,29 +68,23 @@ function XpBarCompacte({
         const estDepart = xpDepart >= seuilPlein;
         const estSession = xpInitial < seuilPlein && xpActuel >= seuilPlein;
         return (
-          <button
-            key={box}
-            type="button"
-            className={`xp-box xp-box--compact ${isPalier(box) ? 'xp-box--palier' : ''} ${
-              estPleine ? 'xp-box--checked' : ''
-            } ${estMoitie ? 'xp-box--demi' : ''} ${estDepart ? 'xp-box--depart' : ''} ${
-              estSession ? 'xp-box--session' : ''
-            }`}
-            onClick={() => toggle(box)}
-            aria-label={`Case XP ${box}`}
-          >
-            {isPalier(box) ? box : ''}
-          </button>
+          <Fragment key={box}>
+            <button
+              type="button"
+              className={`xp-box xp-box--compact ${isPalier(box) ? 'xp-box--palier' : ''} ${
+                estPleine ? 'xp-box--checked' : ''
+              } ${estMoitie ? 'xp-box--demi' : ''} ${estDepart ? 'xp-box--depart' : ''} ${
+                estSession ? 'xp-box--session' : ''
+              }`}
+              onClick={() => toggle(box)}
+              aria-label={`Case XP ${box}`}
+            >
+              {isPalier(box) ? box : ''}
+            </button>
+            {bonusLeader && box === xpActuel && boiteBonusLeader}
+          </Fragment>
         );
       })}
-      {bonusLeader && (
-        <span
-          className="xp-box xp-box--compact xp-box--leader"
-          title="Bonus chef de bande : +1 XP automatique à la victoire"
-        >
-          +1
-        </span>
-      )}
     </div>
   );
 }

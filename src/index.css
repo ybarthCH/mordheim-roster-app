@@ -901,9 +901,9 @@ button {
   border-color: var(--success);
 }
 .xp-box--compact {
-  width: 20px;
-  height: 20px;
-  font-size: 0.55rem;
+  width: 26px;
+  height: 26px;
+  font-size: 0.68rem;
 }
 .xp-box--leader {
   background: var(--warning);
