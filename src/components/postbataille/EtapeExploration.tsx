@@ -15,6 +15,7 @@ import { inventaireComplet } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { ResumeExploration } from '../../utils/exploration';
 import { EvenementExploration } from './EvenementExploration';
+import { useLanguage } from '../../state/useLanguage';
 
 type EtapeExplorationProps = {
   roster: RosterInstance;
@@ -62,6 +63,7 @@ export function EtapeExploration({
   onMajRoster,
   resumeExploration,
 }: EtapeExplorationProps) {
+  const { t } = useLanguage();
   const [modalAchat, setModalAchat] = useState(false);
 
   const ajouterAuJournalExploration = (texte: string) => {
@@ -88,23 +90,22 @@ export function EtapeExploration({
 
   return (
     <div className="card">
-      <h3>Exploration &amp; wyrdstone</h3>
+      <h3>{t('exploration.title')}</h3>
       <div className="card card--tight" style={{ marginBottom: '0.8rem' }}>
         <p className="mb-0">
-          Lance <strong>{resumeExploration.totalDesALancer}D6</strong> :
-          {' '}{resumeExploration.desHeros} pour les Héros ayant participé sans être mis Hors de combat
-          {resumeExploration.bonusVictoire > 0 ? ' + 1 pour la victoire' : ''}
-          {resumeExploration.bonusFixes > 0
-            ? ` + ${resumeExploration.bonusFixes} dû aux règles de la bande`
-            : ''}.
+          {t('exploration.rollLine', {
+            total: resumeExploration.totalDesALancer,
+            heros: resumeExploration.desHeros,
+            victoire: resumeExploration.bonusVictoire > 0 ? t('exploration.victorySuffix') : '',
+            bonus: resumeExploration.bonusFixes > 0 ? t('exploration.bandRulesSuffix', { n: resumeExploration.bonusFixes }) : '',
+          })}
         </p>
         <p className="text-sm text-muted mb-0" style={{ marginTop: '0.35rem' }}>
-          Tu peux lancer plus de six dés, mais tu dois en choisir au maximum six pour former le résultat
-          d'exploration.
+          {t('exploration.moreThanSixDiceNote')}
         </p>
         {resumeExploration.herosEligibles.length > 0 && (
           <p className="text-sm mb-0" style={{ marginTop: '0.35rem' }}>
-            <strong>Héros qui fournissent un dé :</strong>{' '}
+            <strong>{t('exploration.heroesProvidingDie')}</strong>{' '}
             {resumeExploration.herosEligibles.map((membre) => membre.nom_perso).join(', ')}.
           </p>
         )}
@@ -112,28 +113,25 @@ export function EtapeExploration({
 
       {resumeExploration.aides.length > 0 && (
         <div className="card card--tight" style={{ marginBottom: '0.8rem', borderColor: 'var(--warning)' }}>
-          <strong>Aides à l'exploration détectées</strong>
+          <strong>{t('exploration.aidsDetected')}</strong>
           {resumeExploration.aides.map((aide) => (
             <p key={`${aide.source}-${aide.texte}`} className="text-sm mb-0" style={{ marginTop: '0.35rem' }}>
               <strong>{aide.source}</strong> — {aide.texte}
             </p>
           ))}
           <p className="text-sm text-muted mb-0" style={{ marginTop: '0.45rem' }}>
-            Ces règles ne lancent aucun dé automatiquement.
+            {t('exploration.aidsNoAutoRoll')}
           </p>
         </div>
       )}
 
-      <p className="text-sm text-muted">
-        Reporte ici le résultat de tes jets d'exploration effectués sur table papier : touche la ligne obtenue
-        ci-dessous.
-      </p>
+      <p className="text-sm text-muted">{t('exploration.reportRollsIntro')}</p>
       <div className="table-scroll">
         <table className="table-reference table-reference--clickable">
           <thead>
             <tr>
-              <th>Résultat des dés</th>
-              <th>Fragments trouvés</th>
+              <th>{t('exploration.diceResultHeader')}</th>
+              <th>{t('exploration.fragmentsFoundHeader')}</th>
             </tr>
           </thead>
           <tbody>
@@ -153,10 +151,10 @@ export function EtapeExploration({
         </table>
       </div>
       <p className="text-sm text-muted">
-        Wyrdstone trouvé : <strong>{wyrdstoneTrouve}</strong> fragment{wyrdstoneTrouve > 1 ? 's' : ''}.
+        {t('exploration.wyrdstoneFound', { n: wyrdstoneTrouve, s: wyrdstoneTrouve > 1 ? 's' : '' })}
       </p>
 
-      <h3>Événement d'exploration</h3>
+      <h3>{t('exploration.eventTitle')}</h3>
 
       {catalogue && (
         <EvenementExploration
@@ -172,20 +170,19 @@ export function EtapeExploration({
       )}
 
       <div className="field">
-        <label>Journal d'exploration</label>
+        <label>{t('exploration.journalLabel')}</label>
         <textarea value={notesExploration} onChange={(e) => onNotesExplorationChange(e.target.value)} />
       </div>
 
-      <h3>Vente de wyrdstone</h3>
+      <h3>{t('exploration.saleTitle')}</h3>
       <p className="text-sm text-muted">
-        Prix de vente selon le nombre de fragments vendus ensemble et la taille de la bande ({nbGuerriers} guerrier
-        {nbGuerriers > 1 ? 's' : ''}).
+        {t('exploration.salePriceIntro', { n: nbGuerriers, s: nbGuerriers > 1 ? 's' : '' })}
       </p>
       <div className="table-scroll">
         <table className="table-reference">
           <thead>
             <tr>
-              <th>Fragments vendus</th>
+              <th>{t('exploration.fragmentsSoldHeader')}</th>
               {COLONNES_GUERRIERS.map((c, i) => (
                 <th key={c.label} className={i === colonneActive ? 'table-reference__col-active' : undefined}>
                   {c.label}
@@ -214,12 +211,12 @@ export function EtapeExploration({
         </table>
       </div>
       <div className="field">
-        <label>Quantité vendue</label>
+        <label>{t('exploration.quantitySoldLabel')}</label>
         <div className="quantity-stepper">
           <button
             type="button"
             className="btn quantity-stepper__button"
-            aria-label="Retirer un fragment de la vente"
+            aria-label={t('exploration.removeFragmentAria')}
             disabled={quantiteVendue <= 0}
             onClick={() => changerQuantiteVendue(quantiteVendue - 1)}
           >
@@ -230,14 +227,14 @@ export function EtapeExploration({
             min={0}
             max={fragmentsDisponibles}
             inputMode="numeric"
-            aria-label="Nombre de fragments à vendre"
+            aria-label={t('exploration.fragmentCountAria')}
             value={quantiteVendue}
             onChange={(e) => changerQuantiteVendue(Number(e.target.value) || 0)}
           />
           <button
             type="button"
             className="btn quantity-stepper__button"
-            aria-label="Ajouter un fragment à la vente"
+            aria-label={t('exploration.addFragmentAria')}
             disabled={quantiteVendue >= fragmentsDisponibles}
             onClick={() => changerQuantiteVendue(quantiteVendue + 1)}
           >
@@ -245,27 +242,24 @@ export function EtapeExploration({
           </button>
         </div>
         <span className="text-sm text-muted">
-          {fragmentsDisponibles} fragment{fragmentsDisponibles > 1 ? 's' : ''} disponible
-          {fragmentsDisponibles > 1 ? 's' : ''}.
+          {t('exploration.fragmentsAvailable', { n: fragmentsDisponibles, s: fragmentsDisponibles > 1 ? 's' : '' })}
         </span>
       </div>
       <div className="price-highlight">
         <span className="price-highlight__value">{prixSuggere} po</span>
         <span className="price-highlight__label">
-          pour {quantiteVendue} fragment{quantiteVendue > 1 ? 's' : ''} vendu{quantiteVendue > 1 ? 's' : ''}
+          {t('exploration.forFragmentsSold', { n: quantiteVendue, s: quantiteVendue > 1 ? 's' : '' })}
         </span>
       </div>
       <p className="text-sm text-muted">
-        Wyrdstone en réserve après cette étape : {fragmentsDisponibles - quantiteVendue} ·
-        Trésorerie : {roster.tresorerie + prixSuggere} po
+        {t('exploration.reserveAfterStep', { n: fragmentsDisponibles - quantiteVendue, po: roster.tresorerie + prixSuggere })}
       </p>
-      <h3>Nombre de points vétéran disponibles</h3>
+      <h3>{t('exploration.veteranPointsTitle')}</h3>
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-        Jet de 2D6 effectué sur table papier — saisis le résultat ici pour qu'il apparaisse dans le journal de la
-        bataille.
+        {t('exploration.veteranPointsNote')}
       </p>
       <div className="field">
-        <label>Points vétéran</label>
+        <label>{t('exploration.veteranPointsLabel')}</label>
         <input type="number" value={pointsVeteran} onChange={(e) => onPointsVeteranChange(Number(e.target.value) || 0)} />
       </div>
 
