@@ -144,6 +144,7 @@
       "id": "roulotte_de_la_peste",
       "nom": "Roulotte de la Peste",
       "type": "homme_de_main",
+      "gagne_experience": false,
       "unique": true,
       "min": 0,
       "max": 1,

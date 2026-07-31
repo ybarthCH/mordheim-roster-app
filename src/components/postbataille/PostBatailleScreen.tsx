@@ -34,6 +34,7 @@ import {
 } from '../../data/hiredSwords';
 import { useGameRules } from '../../state/useGameRules';
 import { resumeExploration } from '../../utils/exploration';
+import { peutGagnerExperience } from '../../utils/xp';
 import { COUT_DOCTEUR } from '../../utils/docteur';
 import { effectifTotal } from '../../utils/bandeValue';
 import { prixVenteWyrdstone } from '../../data/tableVenteWyrdstone';
@@ -228,7 +229,7 @@ export function PostBatailleScreen() {
           m.statut !== 'blesse' &&
           !m.franc_tireur_impaye &&
           !hcIds.has(m.instance_id) &&
-          resolveProfil(roster, m)?.type !== 'animal' &&
+          peutGagnerExperience(resolveProfil(roster, m)) &&
           getFrancTireur(m.franc_tireur_id)?.gagne_experience !== false &&
           (!participantsInitiaux || participantsInitiaux.has(m.instance_id))
       ) ?? []
@@ -598,8 +599,9 @@ export function PostBatailleScreen() {
         } else if (estAnimal) {
           membre = { ...membre, statut: 'actif' };
         } else {
-          let xp = profilFrancTireur?.gagne_experience === false ? m.xp : d.xp;
-          if (estLeaderVictoire) xp += 1;
+          const gagneXp = profilFrancTireur?.gagne_experience !== false && peutGagnerExperience(profil);
+          let xp = gagneXp ? d.xp : m.xp;
+          if (estLeaderVictoire && gagneXp) xp += 1;
           membre =
             membre.statut === 'blesse'
               ? { ...membre, xp }
@@ -618,8 +620,9 @@ export function PostBatailleScreen() {
         } else if (estAnimal) {
           membre = { ...membre, statut: 'actif', taille_groupe: survivants, hors_combat: 0 };
         } else {
-          let xp = m.xp + 1;
-          if (estLeaderVictoire) xp += 1;
+          const gagneXp = peutGagnerExperience(profil);
+          let xp = gagneXp ? m.xp + 1 : m.xp;
+          if (estLeaderVictoire && gagneXp) xp += 1;
           membre = { ...membre, statut: 'actif', taille_groupe: survivants, hors_combat: 0, xp };
         }
         return membre;
@@ -637,7 +640,7 @@ export function PostBatailleScreen() {
         return membre;
       }
 
-      if (profilFrancTireur?.gagne_experience === false) {
+      if (profilFrancTireur?.gagne_experience === false || !peutGagnerExperience(profil)) {
         if (decision === 'impaye') membre = { ...membre, franc_tireur_impaye: true };
         return membre;
       }

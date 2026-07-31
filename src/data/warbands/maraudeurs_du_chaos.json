@@ -176,6 +176,7 @@
       "id": "enfant_du_chaos",
       "nom": "Enfant du Chaos",
       "type": "homme_de_main",
+      "gagne_experience": false,
       "groupe_caracteristiques": "maraudeur",
       "min": 0,
       "max": 1,

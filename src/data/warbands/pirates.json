@@ -118,6 +118,7 @@
       "id": "enrole",
       "nom": "Enrôlé",
       "type": "homme_de_main",
+      "gagne_experience": false,
       "groupe_caracteristiques": "humain",
       "min": 0,
       "max": 5,

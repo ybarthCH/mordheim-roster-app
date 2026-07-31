@@ -25,7 +25,7 @@ import { Modal } from '../common/Modal';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
 import { MagieReference } from '../common/CatalogueReference';
-import { avancesDues } from '../../utils/xp';
+import { avancesDues, peutGagnerExperience } from '../../utils/xp';
 import { ratingMembre } from '../../utils/rating';
 import { succederApresMorts } from '../../utils/leader';
 import { estSorcier } from '../../utils/magie';
@@ -247,7 +247,7 @@ export function PersonnageScreen() {
 
   const demiXp = !!catalogue.xp_demi;
   const dues =
-    francTireur?.gagne_experience === false
+    francTireur?.gagne_experience === false || !peutGagnerExperience(profil)
       ? 0
       : avancesDues(grilleXpDuProfil(profil), membre.xp_depart, membre.xp, demiXp);
   const obtenues = membre.historique_avancees.filter((a) => !a.bonus).length;
@@ -345,7 +345,7 @@ export function PersonnageScreen() {
         onChangeXp={(xp) => majMembre({ xp })}
         onOpenAvancee={() => setModalAvancee(true)}
         onModifierAvancee={setAvanceeAModifier}
-        gagneExperience={francTireur?.gagne_experience !== false}
+        gagneExperience={francTireur?.gagne_experience !== false && peutGagnerExperience(profil)}
       />
 
       <EquipementCard
