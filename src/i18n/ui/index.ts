@@ -6,6 +6,7 @@ import { creationBandeScreen } from './creationBandeScreen';
 import { rosterScreen } from './rosterScreen';
 import { recruterFrancTireurScreen } from './recruterFrancTireurScreen';
 import { personnageScreen } from './personnageScreen';
+import { personnageCards } from './personnageCards';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -18,4 +19,5 @@ export const uiDictionary: UiDictionary = {
   ...rosterScreen,
   ...recruterFrancTireurScreen,
   ...personnageScreen,
+  ...personnageCards,
 };

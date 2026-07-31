@@ -3,6 +3,7 @@ import { iconeCategorie, inventaireGroupeMismatch, libelleCategorie, prixVente }
 import { getItem } from '../../data/items';
 import type { InventoryEntry, Member } from '../../types/roster';
 import { CollapsibleCard } from '../common/CollapsibleCard';
+import { useLanguage } from '../../state/useLanguage';
 
 type EquipementCardProps = {
   membre: Member;
@@ -25,40 +26,37 @@ export function EquipementCard({
   onRetirer,
   verrouille = false,
 }: EquipementCardProps) {
+  const { t } = useLanguage();
   return (
     <CollapsibleCard
       preferenceKey="ui.personnage.equipement.ouvert"
       title={
         <>
           <Icon name="epee" style={{ marginRight: '0.35em' }} />
-          Équipement
+          {t('equipementCard.title')}
         </>
       }
       actions={
         !verrouille && (
           <button className="btn btn--sm btn--primary" onClick={onOpenAchat}>
-            + Acheter
+            {t('equipementCard.buy')}
           </button>
         )
       }
     >
       {verrouille && (
         <p className="text-sm">
-          {membre.equipement || 'Aucun équipement'}
+          {membre.equipement || t('equipementCard.noEquipment')}
           <br />
-          <span className="text-muted">
-            Équipement fourni avec le contrat : il ne peut être ni complété, ni revendu, ni transféré.
-          </span>
+          <span className="text-muted">{t('equipementCard.contractEquipmentNote')}</span>
         </p>
       )}
       {inventaireGroupeMismatch(membre) && (
         <p className="text-sm text-danger" style={{ marginTop: 0 }}>
-          ⚠ Équipement dépareillé : ce groupe de {membre.taille_groupe} figurines ne possède pas les mêmes objets en
-          nombre égal pour chacune (probablement un objet donné depuis l'armurerie à une seule figurine). Complète les
-          exemplaires manquants ou renvoie les objets en trop au stock.
+          ⚠ {t('equipementCard.mismatchWarning', { taille: membre.taille_groupe })}
         </p>
       )}
-      {!verrouille && inventaireGroupe.length === 0 && <p className="text-muted text-sm">Aucun objet acheté.</p>}
+      {!verrouille && inventaireGroupe.length === 0 && <p className="text-muted text-sm">{t('equipementCard.noItemsBought')}</p>}
       {!verrouille && inventaireGroupe.map(({ entree, quantite }) => {
         // Une mutation/bénédiction modifie les caractéristiques à l'achat de
         // façon permanente (voir ShopItem.stats_delta) : elle ne peut ni être
@@ -77,9 +75,9 @@ export function EquipementCard({
               {iconeCategorie(entree.categorie) && (
                 <Icon name={iconeCategorie(entree.categorie)!} style={{ marginRight: '0.35em' }} />
               )}
-              {libelleCategorie(entree.categorie)} · {entree.cout} po
-              {quantite > 1 ? ` /figurine (${entree.cout * quantite} po au total)` : ''}
-              {entree.cout_notation ? ` (jet : ${entree.cout_notation})` : ''}
+              {libelleCategorie(entree.categorie)} · {entree.cout} {t('creation.gc')}
+              {quantite > 1 ? ` ${t('equipementCard.perModelSuffix')} (${entree.cout * quantite} ${t('equipementCard.totalSuffix')})` : ''}
+              {entree.cout_notation ? ` (${t('equipementCard.rollNotationPrefix')} ${entree.cout_notation})` : ''}
             </div>
           </div>
           <div className="flex gap-sm">
@@ -88,7 +86,7 @@ export function EquipementCard({
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
                 onClick={() => onRenvoyer(entree.instance_id)}
-                title={quantite > 1 ? `Renvoyer les ${quantite} exemplaires au stock de la bande` : 'Renvoyer au stock de la bande'}
+                title={quantite > 1 ? t('equipementCard.returnToStockManyTitle', { n: quantite }) : t('equipementCard.returnToStockOneTitle')}
               >
                 ↩
               </button>
@@ -98,9 +96,9 @@ export function EquipementCard({
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
                 onClick={() => onVendre(entree)}
-                title={`Vendre (+${prixVente(entree.cout) * quantite} po à la trésorerie)`}
+                title={t('equipementCard.sellTitle', { prix: prixVente(entree.cout) * quantite })}
               >
-                Vendre
+                {t('equipementCard.sell')}
               </button>
             )}
             <button
@@ -109,8 +107,8 @@ export function EquipementCard({
               onClick={() => onRetirer(entree.instance_id)}
               title={
                 quantite > 1
-                  ? `Supprimer les ${quantite} exemplaires sans contrepartie (perdu, détruit…)`
-                  : 'Supprimer sans contrepartie (perdu, détruit…)'
+                  ? t('equipementCard.removeManyTitle', { n: quantite })
+                  : t('equipementCard.removeOneTitle')
               }
             >
               ✕

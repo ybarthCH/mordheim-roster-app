@@ -5,6 +5,7 @@ import { STATUTS } from '../../types/roster';
 import type { Member, Statut } from '../../types/roster';
 import type { Profile } from '../../types/catalog';
 import { Modal } from '../common/Modal';
+import { useLanguage } from '../../state/useLanguage';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
@@ -40,6 +41,7 @@ export function StatutCard({
   onChangerStatut,
   onOpenRecruterGroupe,
 }: StatutCardProps) {
+  const { t } = useLanguage();
   const estFrancTireur = !!(membre.franc_tireur_id || membre.profil_custom);
   // Saisie gardée en texte brut : un input contrôlé par un number forcerait
   // la valeur dès l'effacement (impossible de vider le champ pour retaper un
@@ -89,18 +91,18 @@ export function StatutCard({
           <p className="text-muted text-sm mb-0">
             {profil.nom} ·{' '}
             {estFrancTireur
-              ? 'Franc-tireur'
+              ? t('statutCard.hiredSword')
               : profil.type === 'heros'
-                ? 'Héros'
+                ? t('statutCard.hero')
                 : profil.type === 'animal'
-                  ? 'Animal'
-                  : 'Homme de main'}
-            {membre.promu_heros && ' (promu)'}
+                  ? t('statutCard.animal')
+                  : t('statutCard.henchman')}
+            {membre.promu_heros && t('statutCard.promoted')}
           </p>
         </div>
         <span className={`badge ${STATUT_BADGE[membre.statut]}`}>
           {STATUT_ICONE[membre.statut] && <Icon name={STATUT_ICONE[membre.statut]!} style={{ marginRight: '0.35em' }} />}
-          {STATUTS.find((s) => s.id === membre.statut)?.label}
+          {t(`statut.${membre.statut}`)}
           {membre.statut === 'mort' && membre.date_mort ? ` (${membre.date_mort})` : ''}
         </span>
       </div>
@@ -112,14 +114,14 @@ export function StatutCard({
             className={`status-pill ${membre.statut === s.id ? 'status-pill--active' : ''}`}
             onClick={() => cliquerStatut(s.id)}
           >
-            {s.label}
+            {t(`statut.${s.id}`)}
           </button>
         ))}
       </div>
 
       {membre.statut === 'blesse' && (
         <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
-          <span className="text-sm text-muted">Blessé :</span>
+          <span className="text-sm text-muted">{t('statutCard.injured')}</span>
           <input
             type="number"
             className="stat-grid__input stat-grid__input--pv"
@@ -133,17 +135,17 @@ export function StatutCard({
             value={membre.blesse_tour_total}
             onChange={(e) => onMajMembre({ blesse_tour_total: Number(e.target.value) || 0 })}
           />
-          <span className="text-sm text-muted">tour(s)</span>
+          <span className="text-sm text-muted">{t('statutCard.turns')}</span>
         </div>
       )}
 
       <div className="flex items-center gap-sm" style={{ marginTop: '0.7rem' }}>
-        <span className="badge badge--info">Rating {rating}</span>
+        <span className="badge badge--info">{t('statutCard.rating')} {rating}</span>
       </div>
 
       {estGroupeSimplifie && (
         <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
-          <span className="text-sm text-muted">Groupe :</span>
+          <span className="text-sm text-muted">{t('statutCard.group')}</span>
           <input
             type="number"
             min={1}
@@ -158,7 +160,9 @@ export function StatutCard({
             onBlur={() => setTailleGroupeSaisie(String(membre.taille_groupe))}
           />
           <span className="text-sm text-muted">
-            figurine{membre.taille_groupe > 1 ? 's' : ''} identique{membre.taille_groupe > 1 ? 's' : ''}
+            {t('statutCard.model')}
+            {membre.taille_groupe > 1 ? 's' : ''} {t('statutCard.identicalModels')}
+            {membre.taille_groupe > 1 ? 's' : ''}
           </span>
         </div>
       )}
@@ -166,14 +170,14 @@ export function StatutCard({
       {estGroupeSimplifie && (
         <div style={{ marginTop: '0.6rem' }}>
           <button className="btn btn--sm" onClick={onOpenRecruterGroupe}>
-            + Recruter un nouveau membre dans ce groupe
+            {t('statutCard.recruitInGroup')}
           </button>
         </div>
       )}
 
       {estGroupeSimplifie && (
         <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
-          <span className="text-sm text-muted">Hors de combat :</span>
+          <span className="text-sm text-muted">{t('statutCard.outOfAction')}</span>
           <button className="btn btn--sm" onClick={() => onMajMembre({ hors_combat: Math.max(0, membre.hors_combat - 1) })}>
             −
           </button>
@@ -186,20 +190,18 @@ export function StatutCard({
           >
             +
           </button>
-          {membre.hors_combat > 0 && <span className="text-sm text-muted">à résoudre au prochain post-bataille</span>}
+          {membre.hors_combat > 0 && <span className="text-sm text-muted">{t('statutCard.toResolveNextPostBattle')}</span>}
         </div>
       )}
 
       {modalBlesseOuvert && (
         <Modal onClose={() => setModalBlesseOuvert(false)}>
-          <h3>Blessé — combien de tours ?</h3>
+          <h3>{t('statutCard.injuredModalTitle')}</h3>
           <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-            Nombre de post-batailles avant rétablissement. Le guerrier ne gagnera pas d'expérience tant qu'il est
-            blessé (il n'a pas participé à la bataille), mais le compteur avancera automatiquement à la fin de
-            chaque assistant post-bataille.
+            {t('statutCard.injuredModalBody')}
           </p>
           <div className="field">
-            <label>Tours blessé</label>
+            <label>{t('statutCard.turnsInjuredLabel')}</label>
             <input
               type="number"
               min={1}
@@ -210,10 +212,10 @@ export function StatutCard({
           </div>
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={() => setModalBlesseOuvert(false)}>
-              Annuler
+              {t('statutCard.cancel')}
             </button>
             <button className="btn btn--primary" onClick={confirmerBlesse}>
-              Confirmer
+              {t('statutCard.confirm')}
             </button>
           </div>
         </Modal>

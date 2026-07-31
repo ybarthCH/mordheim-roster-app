@@ -2,6 +2,7 @@ import { Icon } from '../common/Icon';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { injuryLabel, nomCourtBlessure } from '../../utils/blessures';
 import type { Member } from '../../types/roster';
+import { useLanguage } from '../../state/useLanguage';
 
 type BlessuresGravesCardProps = {
   membre: Member;
@@ -14,22 +15,23 @@ export function BlessuresGravesCard({
   onOpenAjout,
   onSupprimer,
 }: BlessuresGravesCardProps) {
+  const { t } = useLanguage();
   return (
     <CollapsibleCard
       preferenceKey="ui.personnage.blessures_graves.ouvert"
       title={
         <>
           <Icon name="goutte" style={{ marginRight: '0.35em' }} />
-          Blessures graves
+          {t('blessuresGravesCard.title')}
         </>
       }
       actions={
         <button className="btn btn--sm btn--primary" onClick={onOpenAjout}>
-          + Enregistrer un résultat
+          {t('blessuresGravesCard.record')}
         </button>
       }
     >
-      {membre.blessures_graves.length === 0 && <p className="text-muted text-sm">Aucune.</p>}
+      {membre.blessures_graves.length === 0 && <p className="text-muted text-sm">{t('blessuresGravesCard.none')}</p>}
       {membre.blessures_graves.map((b) => (
         <div key={b.id} className="list-item" style={{ alignItems: 'flex-start' }}>
           <div
@@ -42,7 +44,7 @@ export function BlessuresGravesCard({
             </div>
             <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.35rem' }}>
               {(b.soignee || b.effets?.some((effet) => effet.traitee)) && (
-                <span className="badge badge--success">Traitée</span>
+                <span className="badge badge--success">{t('blessuresGravesCard.treated')}</span>
               )}
             </div>
           </div>
@@ -50,7 +52,7 @@ export function BlessuresGravesCard({
             className="btn--ghost"
             style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)', flexShrink: 0 }}
             onClick={() => onSupprimer(b.id)}
-            title="Supprimer cette entrée de l'historique"
+            title={t('blessuresGravesCard.removeTitle')}
           >
             ✕
           </button>
