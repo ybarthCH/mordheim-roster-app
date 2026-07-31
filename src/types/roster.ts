@@ -201,7 +201,7 @@ export type JournalPostBataille = {
   }[];
   commerce?: {
     nom: string;
-    action: 'aucune' | 'recherche_rare' | 'docteur';
+    action: 'aucune' | 'recherche_rare' | 'docteur' | 'dramatis_personae';
     detail: string;
     cout: number;
   }[];

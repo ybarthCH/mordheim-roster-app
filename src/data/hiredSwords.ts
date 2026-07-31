@@ -1,77 +1,22 @@
 import type { Profile } from '../types/catalog';
 import type { FrancTireurCatalog } from '../types/hiredSword';
 import type { Member, RosterInstance } from '../types/roster';
+import {
+  TOUTES_LES_BANDES,
+  SKAVENS,
+  MORTS_VIVANTS,
+  PEAUX_VERTES,
+  CHAOS,
+  MERCENAIRES,
+  HUMAINS,
+  BIEN,
+  MALEFIQUES,
+  toutesSauf,
+  uniques,
+} from './bandeCategories';
+import { DRAMATIS_PERSONAE } from './dramatisPersonae';
 
-const TOUTES_LES_BANDES = [
-  'artilleurs_de_nuln',
-  'averlanders',
-  'beastmen_raiders',
-  'carnival_of_chaos',
-  'cult_of_the_possessed',
-  'dwarf_treasure_hunters',
-  'gardiens_de_chapelle_bretonniens',
-  'gladiateurs',
-  'gobelins_de_la_nuit',
-  'kislevites',
-  'lustrian_reavers',
-  'maneaters',
-  'maraudeurs_du_chaos',
-  'marienburgers',
-  'middenheimers',
-  'morts_sans_repos',
-  'nains_du_chaos',
-  'norses',
-  'orc_mob',
-  'orques_noirs',
-  'ostlanders',
-  'reiklanders',
-  'sisters_of_sigmar',
-  'skaven',
-  'skavens_pestilens',
-  'undead',
-  'witch_hunters',
-] as const;
-
-const SKAVENS = ['skaven', 'skavens_pestilens'];
-const MORTS_VIVANTS = ['undead', 'morts_sans_repos'];
-const PEAUX_VERTES = ['orc_mob', 'orques_noirs', 'gobelins_de_la_nuit'];
-const CHAOS = [
-  'beastmen_raiders',
-  'carnival_of_chaos',
-  'cult_of_the_possessed',
-  'maraudeurs_du_chaos',
-  'nains_du_chaos',
-];
-const MERCENAIRES = [
-  'reiklanders',
-  'marienburgers',
-  'middenheimers',
-  'averlanders',
-  'ostlanders',
-  'artilleurs_de_nuln',
-];
-const HUMAINS = [
-  ...MERCENAIRES,
-  'witch_hunters',
-  'sisters_of_sigmar',
-  'kislevites',
-  'norses',
-  'gladiateurs',
-  'gardiens_de_chapelle_bretonniens',
-  'lustrian_reavers',
-];
-const BIEN = [
-  ...MERCENAIRES,
-  'witch_hunters',
-  'sisters_of_sigmar',
-  'kislevites',
-  'gardiens_de_chapelle_bretonniens',
-  'dwarf_treasure_hunters',
-];
-const MALEFIQUES = [...MORTS_VIVANTS, ...SKAVENS, ...PEAUX_VERTES, ...CHAOS];
-
-const toutesSauf = (...ids: string[]) => TOUTES_LES_BANDES.filter((id) => !ids.includes(id));
-const uniques = (ids: string[]) => [...new Set(ids)];
+export { SKAVENS, MORTS_VIVANTS, toutesSauf };
 
 const brutesDuBien = uniques([...MERCENAIRES, 'witch_hunters']);
 
@@ -1487,7 +1432,19 @@ function appliquerRestrictionsDeBande(profil: FrancTireurCatalog): FrancTireurCa
   return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };
 }
 
-export const FRANCS_TIREURS: FrancTireurCatalog[] = PROFILS_BRUTS.map(appliquerRestrictionsDeBande);
+// Le chapitre Dramatis Personae (dramatisPersonae.ts) rejoint le même
+// catalogue : recrutement différent (recherche post-bataille dédiée plutôt
+// que l'écran de recrutement), mais mécanique de jeu identique (resolveProfil,
+// entretien, valeur de bande...) — voir FrancTireurCatalog.est_dramatis_personae.
+// RESTRICTIONS_ABSOLUES ne s'applique volontairement qu'aux francs-tireurs
+// bruts : c'est une liste blanche par bande spécifique à ce système (ex :
+// l'Horde Orque exclut Gladiateur/Ogre/Mage), sans équivalent documenté pour
+// les Dramatis Personae — la leur appliquer les rendrait accidentellement
+// indisponibles partout où une bande a une liste blanche.
+export const FRANCS_TIREURS: FrancTireurCatalog[] = [
+  ...PROFILS_BRUTS.map(appliquerRestrictionsDeBande),
+  ...DRAMATIS_PERSONAE,
+];
 
 export function getFrancTireur(id: string | undefined): FrancTireurCatalog | undefined {
   return id ? FRANCS_TIREURS.find((profil) => profil.id === id) : undefined;
@@ -1506,7 +1463,7 @@ export function profilDeFrancTireur(francTireur: FrancTireurCatalog): Profile {
     grille_xp: 'homme_de_main',
     table_avancement: 'heros',
     acces_equitation_automatique: false,
-    peut_lancer_sorts: !!francTireur.magie,
+    peut_lancer_sorts: !!francTireur.magie || !!francTireur.sorts_domaine_bande,
     categorie_magie: francTireur.magie?.categorie,
     regles_speciales: francTireur.regles_speciales,
     competences_speciales: francTireur.competences_speciales,

@@ -14,6 +14,11 @@ import {
   RechercheObjetRareModal,
   type ResultatRechercheRare,
 } from './RechercheObjetRareModal';
+import {
+  RechercheDramatisPersonaeModal,
+  type ResultatRechercheDramatisPersonae,
+} from './RechercheDramatisPersonaeModal';
+import { dramatisPersonaeDisponibles } from '../../data/dramatisPersonae';
 
 export type HerosCommerce = {
   membre: Member;
@@ -30,6 +35,15 @@ export type CommerceDraft =
       objetNom: string;
       reussi: boolean;
       achat?: InventoryEntry;
+    }
+  | {
+      action: 'dramatis_personae';
+      statut: 'termine';
+      dramatisPersonaeId: string;
+      nom: string;
+      reussi: boolean;
+      recrute: boolean;
+      cout: number;
     }
   | {
       action: 'docteur';
@@ -78,10 +92,23 @@ export function EtapeCommerce({
   onChanger,
 }: Props) {
   const [rechercheHeroId, setRechercheHeroId] = useState<string | null>(null);
+  const [rechercheDPHeroId, setRechercheDPHeroId] = useState<string | null>(null);
   const [docteurHeroId, setDocteurHeroId] = useState<string | null>(null);
   const [blessureChoisieId, setBlessureChoisieId] = useState<string | null>(null);
 
   const herosRecherche = heros.find((item) => item.membre.instance_id === rechercheHeroId);
+  const herosRechercheDP = heros.find((item) => item.membre.instance_id === rechercheDPHeroId);
+  // Dramatis Personae déjà ciblés avec succès par un autre Héros dans cette
+  // même étape (brouillons non encore appliqués au roster) : à exclure pour
+  // éviter que deux Héros ne "trouvent" le même personnage le même soir.
+  const dpDejaCibles = new Set(
+    Object.entries(drafts).flatMap(([instanceId, draft]) =>
+      draft.action === 'dramatis_personae' && draft.recrute && instanceId !== rechercheDPHeroId
+        ? [draft.dramatisPersonaeId]
+        : []
+    )
+  );
+  const dpDisponibles = dramatisPersonaeDisponibles(roster).filter((dp) => !dpDejaCibles.has(dp.id));
   const herosDocteur = heros.find((item) => item.membre.instance_id === docteurHeroId);
   const draftDocteur = herosDocteur ? drafts[herosDocteur.membre.instance_id] : undefined;
   const membreDocteur =
@@ -126,9 +153,10 @@ export function EtapeCommerce({
         </p>
         <p className="text-sm text-muted">
           Chaque Héros dispose d'une seule action de commerce. S'il n'a pas été mis Hors de combat, il peut effectuer
-          un jet de rareté pour tenter d'acheter un seul objet rare.
+          un jet de rareté pour tenter d'acheter un seul objet rare, ou tenter à la place de retrouver un Dramatis
+          Personae.
           {docteurActif &&
-            " À la place, il peut consulter le docteur pour 20 po. Un Héros mis Hors de combat ne peut pas chercher un objet rare, mais peut aller chez le docteur en urgence."}
+            " À la place, il peut aussi consulter le docteur pour 20 po. Un Héros mis Hors de combat ne peut pas chercher un objet rare ni un Dramatis Personae, mais peut aller chez le docteur en urgence."}
         </p>
         <p className="text-sm text-muted">
           L'app ne lance aucun dé : tous les résultats de 2D6 sont saisis manuellement.
@@ -165,6 +193,13 @@ export function EtapeCommerce({
                   >
                     Rechercher un objet rare
                   </button>
+                  <button
+                    className="btn btn--sm"
+                    disabled={hero.horsDeCombat || dpDisponibles.length === 0}
+                    onClick={() => setRechercheDPHeroId(id)}
+                  >
+                    Rechercher un Dramatis Personae
+                  </button>
                   {docteurActif && (
                     <button
                       className="btn btn--sm"
@@ -185,6 +220,16 @@ export function EtapeCommerce({
                     ? draft.achat
                       ? `réussie, acheté pour ${draft.achat.cout} po et placé dans le stock.`
                       : 'réussie, mais non acheté.'
+                    : 'ratée.'}
+                </p>
+              )}
+              {draft?.action === 'dramatis_personae' && (
+                <p className={`text-sm mb-0 ${draft.reussi ? 'text-success' : 'text-danger'}`}>
+                  Recherche de {draft.nom} :{' '}
+                  {draft.reussi
+                    ? draft.recrute
+                      ? `réussie, recruté pour ${draft.cout} po.`
+                      : 'réussie, mais non recruté.'
                     : 'ratée.'}
                 </p>
               )}
@@ -232,6 +277,23 @@ export function EtapeCommerce({
               ...resultat,
             });
             setRechercheHeroId(null);
+          }}
+        />
+      )}
+
+      {herosRechercheDP && (
+        <RechercheDramatisPersonaeModal
+          membre={herosRechercheDP.membre}
+          dpDisponibles={dpDisponibles}
+          tresorerieDisponible={tresorerieDisponible}
+          onClose={() => setRechercheDPHeroId(null)}
+          onTerminer={(resultat: ResultatRechercheDramatisPersonae) => {
+            onChanger(herosRechercheDP.membre.instance_id, {
+              action: 'dramatis_personae',
+              statut: 'termine',
+              ...resultat,
+            });
+            setRechercheDPHeroId(null);
           }}
         />
       )}

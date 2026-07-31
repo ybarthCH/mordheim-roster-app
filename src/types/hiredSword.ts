@@ -59,4 +59,24 @@ export type FrancTireurCatalog = {
   // Construction du Goliath d'Os : nécessite une Liche et lui retire 1D3 PV
   // de départ (minimum 1).
   sacrifice_liche?: boolean;
+  // Personnage spécial (chapitre Dramatis Personae) plutôt que franc-tireur
+  // ordinaire : recruté via une recherche post-bataille dédiée (voir
+  // dramatisPersonae.ts) plutôt que directement depuis l'écran de
+  // recrutement, jamais renommable, et ne peut être obtenu qu'une seule fois
+  // par bande même après sa mort. Partage sinon toute la mécanique des
+  // francs-tireurs (entretien, valeur de bande, XP figée à zéro).
+  est_dramatis_personae?: boolean;
+  // Compétences déjà acquises dès le recrutement (ids de skills.json) — un
+  // Dramatis Personae ne gagnant jamais d'expérience, ses compétences fixes
+  // décrites dans son profil doivent être pré-inscrites sur la fiche plutôt
+  // que choisies via le tableau d'avancement, qu'il ne consultera jamais.
+  competences_departs?: string[];
+  // Sorts/prières déjà connus dès le recrutement (noms exacts du domaine de
+  // la bande, ex : les six prières de Sigmar de Bertha Bestraufrung) — même
+  // logique que competences_departs, appliquée à Member.sorts_connus.
+  sorts_departs?: string[];
+  // Personnage utilisant le domaine de sorts propre de la bande qui le
+  // recrute (ex : les prières de Sigmar) plutôt qu'un domaine externe fixe
+  // comme la Magie mineure du Mage franc-tireur (voir Profile.magie).
+  sorts_domaine_bande?: boolean;
 };

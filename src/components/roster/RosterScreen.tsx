@@ -33,6 +33,7 @@ import {
 import type { ShopItem } from '../../utils/shop';
 import { Icon } from '../common/Icon';
 import { estFrancTireur } from '../../data/hiredSwords';
+import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import { useGameRules } from '../../state/useGameRules';
 
 export function RosterScreen() {
@@ -60,7 +61,8 @@ export function RosterScreen() {
   const violations = validerComposition(roster);
   const violationsEffectif = validerEffectif(roster);
   const effectifDepasse = violationsEffectif.find((v) => v.type === 'max');
-  const francsTireurs = roster.membres.filter(estFrancTireur);
+  const francsTireurs = roster.membres.filter((m) => estFrancTireur(m) && !estDramatisPersonae(m));
+  const dramatisPersonae = roster.membres.filter(estDramatisPersonae);
   const heros = roster.membres.filter((m) => !estFrancTireur(m) && resolveProfil(roster, m)?.type === 'heros');
   const hommesDeMain = roster.membres.filter((m) => !estFrancTireur(m) && resolveProfil(roster, m)?.type !== 'heros');
   const herosVivants = heros.filter((m) => m.statut !== 'mort');
@@ -351,6 +353,18 @@ export function RosterScreen() {
           titre="Francs-tireurs"
           preferenceKey="ui.roster.groupe_francs_tireurs.ouvert"
           membres={francsTireurs}
+          roster={roster}
+          catalogue={catalogue}
+          onReordonner={reordonnerSection}
+          onBasculerHorsCombat={basculerHorsCombat}
+          onSupprimer={setMembreASupprimer}
+        />
+      )}
+      {dramatisPersonae.length > 0 && (
+        <MemberGroupCard
+          titre="Dramatis Personae"
+          preferenceKey="ui.roster.groupe_dramatis_personae.ouvert"
+          membres={dramatisPersonae}
           roster={roster}
           catalogue={catalogue}
           onReordonner={reordonnerSection}

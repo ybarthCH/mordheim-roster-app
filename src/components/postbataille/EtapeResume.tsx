@@ -21,6 +21,7 @@ type EtapeResumeProps = {
   blessuresResume: { nom: string; blessure: string }[];
   docteurResultats: { nom: string; jet: number; titre: string }[];
   rechercheRareResultats: { nom: string; objetNom: string; rarete: number; reussi: boolean; achete: boolean }[];
+  dramatisPersonaeResultats: { nom: string; dpNom: string; reussi: boolean; recrute: boolean }[];
   horsDeCombatIndividuel: Member[];
   xpDraftDe: (m: Member, xpParDefaut: number) => XpDraft;
   groupesHC: Member[];
@@ -46,6 +47,7 @@ export function EtapeResume({
   blessuresResume,
   docteurResultats,
   rechercheRareResultats,
+  dramatisPersonaeResultats,
   horsDeCombatIndividuel,
   xpDraftDe,
   groupesHC,
@@ -116,6 +118,19 @@ export function EtapeResume({
               <li key={`${r.nom}-${i}`} className={r.reussi ? 'text-success' : 'text-danger'}>
                 {r.nom} — {r.objetNom} (Rare {r.rarete}) :{' '}
                 {r.reussi ? (r.achete ? 'réussie, achetée' : 'réussie, non achetée') : 'ratée'}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {dramatisPersonaeResultats.length > 0 && (
+        <div className="text-sm">
+          <p className="mb-0">Recherches de Dramatis Personae :</p>
+          <ul style={{ margin: '0.2rem 0 0.6rem', paddingLeft: '1.2rem' }}>
+            {dramatisPersonaeResultats.map((r, i) => (
+              <li key={`${r.nom}-${i}`} className={r.reussi ? 'text-success' : 'text-danger'}>
+                {r.nom} — {r.dpNom} :{' '}
+                {r.reussi ? (r.recrute ? 'réussie, recruté' : 'réussie, non recruté') : 'ratée'}
               </li>
             ))}
           </ul>
