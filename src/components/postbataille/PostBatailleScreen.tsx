@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
@@ -122,6 +122,21 @@ export function PostBatailleScreen() {
   const catalogue = roster ? getCatalogue(roster.bande_id) : undefined;
   const demiXp = !!catalogue?.xp_demi;
 
+  // Photographie des membres et effets persistants présents à l'ouverture de
+  // l'assistant — capturée une seule fois (roster mute en direct pendant la
+  // session, ex : nouvelle recrue via un événement d'exploration). Sert à
+  // distinguer qui a réellement participé à CETTE bataille de ce qui vient
+  // d'être ajouté pendant l'exploration qui la suit (voir participantsAuto,
+  // francTireursParticipants, terminer() et resumeExploration).
+  const participantsInitiauxRef = useRef<Set<string> | null>(null);
+  if (participantsInitiauxRef.current === null && roster) {
+    participantsInitiauxRef.current = new Set(roster.membres.map((m) => m.instance_id));
+  }
+  const effetsInitiauxRef = useRef<Set<string> | null>(null);
+  if (effetsInitiauxRef.current === null && roster) {
+    effetsInitiauxRef.current = new Set((roster.effets_persistants ?? []).map((e) => e.id));
+  }
+
   const [etape, setEtape] = useState(0);
 
   // ScrollToTop (common/ScrollToTop.tsx) ne réagit qu'aux changements de
@@ -205,6 +220,7 @@ export function PostBatailleScreen() {
   // (voir terminer(), qui avance seulement son compteur de tours blessé).
   const participantsAuto = useMemo(() => {
     const hcIds = new Set([...horsDeCombatIndividuel, ...groupesHC].map((m) => m.instance_id));
+    const participantsInitiaux = participantsInitiauxRef.current;
     return (
       roster?.membres.filter(
         (m) =>
@@ -213,25 +229,31 @@ export function PostBatailleScreen() {
           !m.franc_tireur_impaye &&
           !hcIds.has(m.instance_id) &&
           resolveProfil(roster, m)?.type !== 'animal' &&
-          getFrancTireur(m.franc_tireur_id)?.gagne_experience !== false
+          getFrancTireur(m.franc_tireur_id)?.gagne_experience !== false &&
+          (!participantsInitiaux || participantsInitiaux.has(m.instance_id))
       ) ?? []
     );
   }, [roster, horsDeCombatIndividuel, groupesHC]);
 
-  const francTireursParticipants = useMemo(
-    () =>
+  // Un Franc-tireur engagé pendant l'exploration qui suit cette bataille
+  // (ex : Débiteur reconnaissant) n'y a pas participé : ni entretien à régler
+  // ni exemption à consommer avant la bataille suivante (voir terminer()).
+  const francTireursParticipants = useMemo(() => {
+    const participantsInitiaux = participantsInitiauxRef.current;
+    return (
       roster?.membres.filter((m) => {
         if (!estFrancTireur(m) || m.statut === 'mort' || m.statut === 'blesse' || m.franc_tireur_impaye) return false;
         if (m.statut === 'hors_de_combat' && xpDrafts[m.instance_id]?.survecu === 'non') return false;
+        if (participantsInitiaux && !participantsInitiaux.has(m.instance_id)) return false;
         return true;
-      }) ?? [],
-    [roster, xpDrafts]
-  );
+      }) ?? []
+    );
+  }, [roster, xpDrafts]);
 
   const exploration = useMemo(
     () =>
       roster
-        ? resumeExploration(roster, catalogue, resultat, rules)
+        ? resumeExploration(roster, catalogue, resultat, rules, effetsInitiauxRef.current ?? undefined)
         : {
             herosEligibles: [],
             desHeros: 0,
@@ -634,10 +656,13 @@ export function PostBatailleScreen() {
       }
 
       // Reste du roster : XP de participation automatique (+1), ajustable
-      // via la barre pendant l'assistant.
+      // via la barre pendant l'assistant. Une recrue obtenue pendant
+      // l'exploration qui suit cette bataille n'y a pas participé : aucune
+      // XP de participation (voir participantsInitiauxRef).
+      const aParticipe = participantsInitiauxRef.current?.has(m.instance_id) ?? true;
       const d = xpDrafts[m.instance_id];
-      let xp = d ? d.xp : m.xp + 1;
-      if (estLeaderVictoire) xp += 1;
+      let xp = d ? d.xp : aParticipe ? m.xp + 1 : m.xp;
+      if (estLeaderVictoire && aParticipe) xp += 1;
       membre = { ...membre, xp };
       if (decision === 'impaye') membre = { ...membre, franc_tireur_impaye: true };
       return membre;
@@ -753,12 +778,18 @@ export function PostBatailleScreen() {
         ? `${roster.equipement_reserve}${roster.equipement_reserve ? '\n' : ''}${notesExploration.trim()}`
         : roster.equipement_reserve,
       historique_batailles: [...roster.historique_batailles, bataille],
-      // Le bonus de dé(s) d'exploration en attente (ex : Vagabond interrogé)
-      // vient d'être utilisé pour cette phase d'exploration — consommé.
+      // Le bonus de dé(s) d'exploration en attente (ex : Vagabond interrogé
+      // lors d'une session précédente) vient d'être utilisé pour cette phase
+      // d'exploration — consommé. Un bonus tout juste créé PENDANT cette même
+      // session (absent du snapshot pris à l'ouverture) ne comptait pas pour
+      // cette phase (voir resumeExploration) : il reste en attente pour la
+      // prochaine.
       effets_persistants: (roster.effets_persistants ?? []).filter(
         (e) =>
-          e.cle !== CLE_DE_SUPPLEMENTAIRE_EXPLORATION &&
-          !(e.cle === CLE_FRANC_TIREUR_GRATUIT && e.cible && idsEntretienResolu.has(e.cible))
+          !(
+            e.cle === CLE_DE_SUPPLEMENTAIRE_EXPLORATION &&
+            (!effetsInitiauxRef.current || effetsInitiauxRef.current.has(e.id))
+          ) && !(e.cle === CLE_FRANC_TIREUR_GRATUIT && e.cible && idsEntretienResolu.has(e.cible))
       ),
     });
     navigate(`/roster/${roster.id}`);
