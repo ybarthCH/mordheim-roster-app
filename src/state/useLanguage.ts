@@ -5,7 +5,7 @@ export type Language = 'fr' | 'en';
 export type LanguageContextValue = {
   language: Language;
   setLanguage: (l: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, params?: Record<string, string | number>) => string;
 };
 
 export const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);

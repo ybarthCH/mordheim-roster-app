@@ -13,6 +13,7 @@ import type { SkillCategory, WarbandCatalog } from '../../types/catalog';
 import { SKILL_CATEGORIES } from '../../types/catalog';
 import { formatEquipementAffiche } from '../../utils/shop';
 import { Modal } from '../common/Modal';
+import { useLanguage } from '../../state/useLanguage';
 
 const CATEGORIES_ARMES_ARMURES = new Set(['armes_cac', 'armes_tir', 'armes_poudre_noire', 'munitions', 'armures']);
 
@@ -29,6 +30,7 @@ type Props = {
 };
 
 export function PromotionHerosDechuModal({ roster, catalogue, rolesVacants, prospects, onClose, onConfirm }: Props) {
+  const { t } = useLanguage();
   const [profilId, setProfilId] = useState(rolesVacants.length === 1 ? rolesVacants[0] : '');
   const [prospectId, setProspectId] = useState(prospects.length === 1 ? prospects[0].instance_id : '');
   const [categories, setCategories] = useState<SkillCategory[]>([]);
@@ -89,18 +91,16 @@ export function PromotionHerosDechuModal({ roster, catalogue, rolesVacants, pros
 
   return (
     <Modal onClose={onClose}>
-      <h3>Promouvoir un Prospect — rôle vacant</h3>
+      <h3>{t('promotion.title')}</h3>
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-        Un héros unique tombé ne peut plus jamais être racheté, mais un Prospect vivant peut reprendre son rôle —
-        comme s'il avait réussi « Ce gars est doué » — et hérite de ses armes et armures (pas du reste de son
-        équipement).
+        {t('promotion.body')}
       </p>
 
       {rolesVacants.length > 1 && (
         <div className="field">
-          <label>Rôle à pourvoir</label>
+          <label>{t('promotion.roleToFill')}</label>
           <select value={profilId} onChange={(e) => setProfilId(e.target.value)}>
-            <option value="">— Choisir —</option>
+            <option value="">{t('promotion.choose')}</option>
             {rolesVacants.map((id) => (
               <option key={id} value={id}>
                 {catalogue.profils.find((p) => p.id === id)?.nom ?? id}
@@ -112,9 +112,9 @@ export function PromotionHerosDechuModal({ roster, catalogue, rolesVacants, pros
 
       {prospects.length > 1 && (
         <div className="field">
-          <label>Prospect promu</label>
+          <label>{t('promotion.promotedProspect')}</label>
           <select value={prospectId} onChange={(e) => setProspectId(e.target.value)}>
-            <option value="">— Choisir —</option>
+            <option value="">{t('promotion.choose')}</option>
             {prospects.map((m) => (
               <option key={m.instance_id} value={m.instance_id}>
                 {m.nom_perso} ({m.xp} XP)
@@ -127,7 +127,7 @@ export function PromotionHerosDechuModal({ roster, catalogue, rolesVacants, pros
       {profilVacant && prospect && (
         <>
           <p className="text-sm text-muted" style={{ marginBottom: '0.3rem' }}>
-            Choisis au moins 2 tables de compétences accessibles à ce nouveau héros.
+            {t('promotion.chooseTablesNote')}
           </p>
           <div className="skill-list">
             {SKILL_CATEGORIES.map((c) => (
@@ -146,14 +146,14 @@ export function PromotionHerosDechuModal({ roster, catalogue, rolesVacants, pros
 
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
         <button className="btn" onClick={onClose}>
-          Annuler
+          {t('promotion.cancel')}
         </button>
         <button
           className="btn btn--primary"
           disabled={!profilVacant || !prospect || categories.length < 2}
           onClick={confirmer}
         >
-          Confirmer la promotion et lancer sur la table héros
+          {t('promotion.confirm')}
         </button>
       </div>
     </Modal>

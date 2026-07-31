@@ -9,10 +9,10 @@ import { nomCourtBlessure } from '../../utils/blessures';
 import { inventaireGroupeMismatch } from '../../utils/shop';
 import { useDragReorder } from '../../utils/useDragReorder';
 import { estLeaderActuel } from '../../utils/leader';
-import { STATUTS } from '../../types/roster';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { getFrancTireur } from '../../data/hiredSwords';
+import { useLanguage } from '../../state/useLanguage';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
@@ -27,30 +27,13 @@ const STATUT_ICONE: Partial<Record<string, IconName>> = {
   blesse: 'goutte',
 };
 
-// Synopsis discret de l'équipement d'un membre (ou de son groupe, toujours
-// identique entre figurines) pour l'aperçu du roster global. Affiché sur
-// toute la largeur du tableau (voir la ligne dédiée sous chaque membre) :
-// la limite ici n'est qu'un filet de sécurité contre un inventaire
-// interminable, pas la contrainte principale.
-function resumeEquipement(m: Member): string {
-  if (m.inventaire.length === 0) return m.equipement || 'Sans équipement';
-  const noms = m.inventaire.map((e) => e.nom).join(', ');
-  return noms.length > 160 ? `${noms.slice(0, 160).trimEnd()}…` : noms;
-}
-
-// Idem pour les blessures graves accumulées : juste les titres, pas les
-// descriptions complètes (disponibles sur la fiche personnage).
-function resumeBlessures(m: Member): string | null {
-  if (m.blessures_graves.length === 0) return null;
-  return `Blessures : ${m.blessures_graves.map((b) => nomCourtBlessure(b)).join(' - ')}`;
-}
-
 function estHorsCombat(m: Member) {
   return m.statut === 'hors_de_combat' || m.hors_combat > 0;
 }
 
 type MemberGroupCardProps = {
   titre: string;
+  icone: IconName;
   preferenceKey: string;
   membres: Member[];
   roster: RosterInstance;
@@ -66,6 +49,7 @@ type MemberGroupCardProps = {
 
 export function MemberGroupCard({
   titre,
+  icone,
   preferenceKey,
   membres,
   roster,
@@ -76,7 +60,26 @@ export function MemberGroupCard({
   masquerProfil,
 }: MemberGroupCardProps) {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const { elements, refItem, demarrerDrag, idEnCours, pointerPos } = useDragReorder(membres, onReordonner);
+
+  // Synopsis discret de l'équipement d'un membre (ou de son groupe, toujours
+  // identique entre figurines) pour l'aperçu du roster global. Affiché sur
+  // toute la largeur du tableau (voir la ligne dédiée sous chaque membre) :
+  // la limite ici n'est qu'un filet de sécurité contre un inventaire
+  // interminable, pas la contrainte principale.
+  const resumeEquipement = (m: Member): string => {
+    if (m.inventaire.length === 0) return m.equipement || t('memberGroup.noEquipment');
+    const noms = m.inventaire.map((e) => e.nom).join(', ');
+    return noms.length > 160 ? `${noms.slice(0, 160).trimEnd()}…` : noms;
+  };
+
+  // Idem pour les blessures graves accumulées : juste les titres, pas les
+  // descriptions complètes (disponibles sur la fiche personnage).
+  const resumeBlessures = (m: Member): string | null => {
+    if (m.blessures_graves.length === 0) return null;
+    return `${t('memberGroup.injuries')} ${m.blessures_graves.map((b) => nomCourtBlessure(b)).join(' - ')}`;
+  };
 
   const avanceEnAttente = (m: Member) => {
     const profil = resolveProfil(roster, m);
@@ -96,8 +99,8 @@ export function MemberGroupCard({
     const profil = resolveProfil(roster, m);
     const estGroupeSimplifie = (profil?.type === 'homme_de_main' || profil?.type === 'animal') && !m.promu_heros;
     return estGroupeSimplifie
-      ? `Marquer une figurine Hors de combat (${m.hors_combat}/${m.taille_groupe})`
-      : 'Basculer Hors de combat';
+      ? t('memberGroup.hcMarkTitle', { hc: m.hors_combat, taille: m.taille_groupe })
+      : t('memberGroup.hcToggleTitle');
   };
 
   return (
@@ -105,7 +108,7 @@ export function MemberGroupCard({
       preferenceKey={preferenceKey}
       title={
         <>
-          <Icon name={titre === 'Héros' ? 'etoile' : 'bouclier'} style={{ marginRight: '0.35em' }} />
+          <Icon name={icone} style={{ marginRight: '0.35em' }} />
           {titre}
         </>
       }
@@ -115,8 +118,8 @@ export function MemberGroupCard({
           <thead>
             <tr>
               <th style={{ width: '1.6rem' }}></th>
-              <th>Nom</th>
-              {!masquerProfil && <th>Profil</th>}
+              <th>{t('memberGroup.name')}</th>
+              {!masquerProfil && <th>{t('memberGroup.profile')}</th>}
               <th>M</th>
               <th>CC</th>
               <th>CT</th>
@@ -127,7 +130,7 @@ export function MemberGroupCard({
               <th>A</th>
               <th>Cd</th>
               <th>XP</th>
-              <th>Statut</th>
+              <th>{t('memberGroup.status')}</th>
               <th></th>
             </tr>
           </thead>
@@ -147,7 +150,7 @@ export function MemberGroupCard({
                         className="drag-handle drag-handle--discret"
                         onPointerDown={demarrerDrag(m.instance_id)}
                         onClick={(e) => e.stopPropagation()}
-                        title="Glisser pour réordonner"
+                        title={t('memberGroup.dragHandle')}
                       >
                         <Icon name="poignee" size="0.85em" />
                       </span>
@@ -155,13 +158,13 @@ export function MemberGroupCard({
                     <td>
                       {nomAffiche(m)}
                       {estLeaderActuel(roster, catalogue, m) && (
-                        <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title="Chef de bande">
-                          <Icon name="etoile" style={{ marginRight: '0.3em' }} /> Leader
+                        <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
+                          <Icon name="etoile" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
                         </span>
                       )}
                       {avanceEnAttente(m) && (
-                        <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title="Avancée en attente">
-                          Avancée en attente
+                        <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
+                          {t('memberGroup.pendingAdvance')}
                         </span>
                       )}
                     </td>
@@ -181,25 +184,25 @@ export function MemberGroupCard({
                         {STATUT_ICONE[m.statut] && (
                           <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.35em' }} />
                         )}
-                        {STATUTS.find((s) => s.id === m.statut)?.label}
+                        {t(`statut.${m.statut}`)}
                       </span>
                       {m.hors_combat > 0 && (
                         <span className="badge badge--warning" style={{ marginLeft: '0.3rem' }}>
-                          {m.hors_combat}/{m.taille_groupe} HC
+                          {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
                         </span>
                       )}
                       {inventaireGroupeMismatch(m) && (
                         <span
                           className="badge badge--danger"
                           style={{ marginLeft: '0.3rem' }}
-                          title="Équipement dépareillé entre les figurines du groupe"
+                          title={t('memberGroup.equipmentMismatchTitle')}
                         >
-                          ⚠ Équipement
+                          ⚠ {t('memberGroup.equipmentMismatchBadge')}
                         </span>
                       )}
                       {m.franc_tireur_impaye && (
                         <span className="badge badge--warning" style={{ marginLeft: '0.3rem' }}>
-                          Absent — solde impayée
+                          {t('memberGroup.absentUnpaid')}
                         </span>
                       )}
                     </td>
@@ -219,7 +222,7 @@ export function MemberGroupCard({
                           }}
                           title={titreHorsCombat(m)}
                         >
-                          HC
+                          {t('memberGroup.hc')}
                         </button>
                         <button
                           className="btn--ghost"
@@ -228,7 +231,7 @@ export function MemberGroupCard({
                             e.stopPropagation();
                             onSupprimer(m);
                           }}
-                          title="Retirer de la bande"
+                          title={t('memberGroup.removeTitle')}
                         >
                           ✕
                         </button>
@@ -269,7 +272,7 @@ export function MemberGroupCard({
                 className="drag-handle drag-handle--discret"
                 onPointerDown={demarrerDrag(m.instance_id)}
                 onClick={(e) => e.stopPropagation()}
-                title="Glisser pour réordonner"
+                title={t('memberGroup.dragHandle')}
               >
                 <Icon name="poignee" size="0.85em" />
               </span>
@@ -277,8 +280,8 @@ export function MemberGroupCard({
                 <div className="list-item__title">
                   {nomAffiche(m)}
                   {estLeaderActuel(roster, catalogue, m) && (
-                    <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title="Chef de bande">
-                      <Icon name="etoile" style={{ marginRight: '0.3em' }} /> Leader
+                    <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
+                      <Icon name="etoile" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
                     </span>
                   )}
                 </div>
@@ -291,22 +294,22 @@ export function MemberGroupCard({
                 {resumeBlessures(m) && <div className="text-sm text-danger">{resumeBlessures(m)}</div>}
               </div>
               {avanceEnAttente(m) && (
-                <span className="badge badge--warning" title="Avancée en attente">
-                  Avancée en attente
+                <span className="badge badge--warning" title={t('memberGroup.pendingAdvance')}>
+                  {t('memberGroup.pendingAdvance')}
                 </span>
               )}
               <span className={`badge ${STATUT_BADGE[m.statut]}`}>
                 {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.35em' }} />}
-                {STATUTS.find((s) => s.id === m.statut)?.label}
+                {t(`statut.${m.statut}`)}
               </span>
               {m.hors_combat > 0 && (
                 <span className="badge badge--warning">
-                  {m.hors_combat}/{m.taille_groupe} HC
+                  {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
                 </span>
               )}
               {inventaireGroupeMismatch(m) && (
-                <span className="badge badge--danger" title="Équipement dépareillé entre les figurines du groupe">
-                  ⚠ Équipement
+                <span className="badge badge--danger" title={t('memberGroup.equipmentMismatchTitle')}>
+                  ⚠ {t('memberGroup.equipmentMismatchBadge')}
                 </span>
               )}
               <button
@@ -323,7 +326,7 @@ export function MemberGroupCard({
                 }}
                 title={titreHorsCombat(m)}
               >
-                HC
+                {t('memberGroup.hc')}
               </button>
               <button
                 className="btn--ghost"
@@ -332,7 +335,7 @@ export function MemberGroupCard({
                   e.stopPropagation();
                   onSupprimer(m);
                 }}
-                title="Retirer de la bande"
+                title={t('memberGroup.removeTitle')}
               >
                 ✕
               </button>
@@ -341,7 +344,7 @@ export function MemberGroupCard({
         })}
       </div>
 
-      {membres.length === 0 && <p className="text-muted">Aucun membre recruté.</p>}
+      {membres.length === 0 && <p className="text-muted">{t('memberGroup.noMembers')}</p>}
 
       {idEnCours &&
         pointerPos &&

@@ -4,6 +4,7 @@ import { Icon } from '../common/Icon';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { AjouterBatailleModal } from './AjouterBatailleModal';
 import type { BattleRecord } from '../../types/roster';
+import { useLanguage } from '../../state/useLanguage';
 
 type HistoriqueBataillesSectionProps = {
   historique: BattleRecord[];
@@ -18,6 +19,7 @@ export function HistoriqueBataillesSection({
   onModifier,
   onSupprimer,
 }: HistoriqueBataillesSectionProps) {
+  const { t } = useLanguage();
   const [modalAjout, setModalAjout] = useState(false);
   const [enEdition, setEnEdition] = useState<BattleRecord | null>(null);
   const [aSupprimer, setASupprimer] = useState<BattleRecord | null>(null);
@@ -29,16 +31,16 @@ export function HistoriqueBataillesSection({
       title={
         <>
           <Icon name="epee" style={{ marginRight: '0.35em' }} />
-          Historique des batailles
+          {t('historique.title')}
         </>
       }
       actions={
         <button className="btn btn--sm btn--primary" onClick={() => setModalAjout(true)}>
-          + Ajouter
+          {t('historique.add')}
         </button>
       }
     >
-      {historique.length === 0 && <p className="text-muted text-sm">Aucune bataille enregistrée.</p>}
+      {historique.length === 0 && <p className="text-muted text-sm">{t('historique.empty')}</p>}
       {historique
         .slice()
         .reverse()
@@ -58,11 +60,11 @@ export function HistoriqueBataillesSection({
                 >
                   {b.resultat === 'victoire' && <Icon name="banniere" style={{ marginRight: '0.3em' }} />}
                   {b.resultat === 'defaite' && <Icon name="crane" style={{ marginRight: '0.3em' }} />}
-                  {b.resultat}
+                  {t(`historique.resultLabel.${b.resultat}`)}
                 </span>
               </div>
               <div className="list-item__subtitle">
-                {b.adversaires.length > 0 && `vs ${b.adversaires.join(', ')}`} {b.notes}
+                {b.adversaires.length > 0 && `${t('historique.vsPrefix')} ${b.adversaires.join(', ')}`} {b.notes}
               </div>
             </div>
             <button
@@ -72,7 +74,7 @@ export function HistoriqueBataillesSection({
                 e.stopPropagation();
                 setASupprimer(b);
               }}
-              title="Supprimer cette bataille"
+              title={t('historique.deleteTitle')}
             >
               ✕
             </button>
@@ -105,11 +107,13 @@ export function HistoriqueBataillesSection({
       )}
       {aSupprimer && (
         <Modal onClose={() => setASupprimer(null)}>
-          <h3>Supprimer la bataille du {aSupprimer.date} ?</h3>
-          <p className="text-muted">Cette action supprime définitivement cette entrée de l'historique.</p>
+          <h3>
+            {t('historique.deleteConfirmTitlePrefix')} {aSupprimer.date} ?
+          </h3>
+          <p className="text-muted">{t('historique.deleteConfirmBody')}</p>
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={() => setASupprimer(null)}>
-              Annuler
+              {t('historique.cancel')}
             </button>
             <button
               className="btn btn--danger"
@@ -118,7 +122,7 @@ export function HistoriqueBataillesSection({
                 setASupprimer(null);
               }}
             >
-              Supprimer
+              {t('historique.delete')}
             </button>
           </div>
         </Modal>
