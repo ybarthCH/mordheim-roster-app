@@ -46,6 +46,11 @@ export function EtapeResultat({
 }: EtapeResultatProps) {
   const [modalRecompense, setModalRecompense] = useState(false);
   const [argentSaisi, setArgentSaisi] = useState('');
+  const [objetsRecompense, setObjetsRecompense] = useState<{ nom: string; valeur: number }[]>([]);
+  const ajouterObjetRecompense = (item: ShopItem, coutPaye: number) => {
+    onAchatStock(item, coutPaye);
+    setObjetsRecompense((prev) => [...prev, { nom: item.nom, valeur: coutPaye }]);
+  };
   const ajouterAdversaire = () => {
     const nom = nouvelAdversaire.trim();
     if (!nom || adversaires.includes(nom)) return;
@@ -120,6 +125,15 @@ export function EtapeResultat({
         Certains scénarios accordent un objet gratuit ou une somme d'or à l'issue de la partie (victoire, défaite ou
         règle spéciale) : ajoute-les ici, ils rejoignent directement l'armurerie et la trésorerie de la bande.
       </p>
+      {objetsRecompense.length > 0 && (
+        <ul className="text-sm" style={{ margin: '0 0 0.6rem', paddingLeft: '1.1rem' }}>
+          {objetsRecompense.map((o, i) => (
+            <li key={i}>
+              {o.nom} <span className="text-muted">({o.valeur} po)</span>
+            </li>
+          ))}
+        </ul>
+      )}
       <div className="flex flex-wrap gap-sm items-end">
         <button className="btn btn--primary" onClick={() => setModalRecompense(true)}>
           + Objet
@@ -151,7 +165,7 @@ export function EtapeResultat({
           inventaireBande={inventaireComplet(roster)}
           gratuit
           onClose={() => setModalRecompense(false)}
-          onAchat={onAchatStock}
+          onAchat={ajouterObjetRecompense}
         />
       )}
     </div>
