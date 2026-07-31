@@ -79,6 +79,8 @@ export function EtapeBlessuresGraves({
             estEternelle={!!profilEnCours?.eternelle}
             pvActuelProfil={membreEnCours.stats_actuels.PV}
             statsPersonnage={membreEnCours.stats_actuels}
+            equipementPersonnage={membreEnCours.inventaire.map((e) => e.nom)}
+            reglesSpecialesPersonnage={profilEnCours?.regles_speciales}
             onAppliquer={(resultat) => {
               onAppliquer(membreEnCours, resultat);
               setBlessureEnCours(null);

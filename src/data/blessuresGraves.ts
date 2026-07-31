@@ -47,9 +47,9 @@ export type ResultatBlessureGrave = {
   // n'est pas possible d'automatiser mécaniquement.
   informatifSeulement?: boolean;
   // Cas spécial "Gladiateur" : combat dans les fosses, résolu par l'assistant
-  // via une question Oui/Non (victoire ?) puis, en cas de défaite, Mort ou
-  // Vivant (et dans ce dernier cas une relance filtrée sur les résultats
-  // 16-35), plutôt que via `sousJet`.
+  // via une question Oui/Non (victoire ?) puis, en cas de défaite, une
+  // relance sur la table complète pour savoir ce qu'il devient, plutôt que
+  // via `sousJet`.
   combatGladiateur?: boolean;
   // Cas spécial "Capturé" : résolu par l'assistant via deux issues (héros
   // perdu ou libéré contre rançon, avec montant saisi) plutôt que laissé
@@ -286,7 +286,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
     code: '65',
     nom: 'Gladiateur',
     texte:
-      "Le guerrier se réveille dans les tristement célèbres fosses de combat du Repaire des Coupe-Jarrets et doit affronter un gladiateur. Déterminez qui charge, puis résolvez le combat normalement. S'il perd, relance sur cette table (Mort à Blessure profonde, soit 11-35) pour savoir s'il meurt ou est blessé ; s'il survit, il est jeté hors des fosses sans son armure ni ses armes et peut rejoindre sa bande. S'il gagne, il empoche 50 po, gagne +2 Expérience et est libre de rejoindre sa bande avec tout son équipement.",
+      "Le guerrier se réveille dans les tristement célèbres fosses de combat du Repaire des Coupe-Jarrets et doit affronter un gladiateur. Déterminez qui charge, puis résolvez le combat normalement. S'il perd, il est jeté hors des fosses sans son armure ni ses armes et relance sur la table complète pour savoir ce qu'il devient. S'il gagne, il empoche 50 po, gagne +2 Expérience et est libre de rejoindre sa bande avec tout son équipement.",
     combatGladiateur: true,
   },
   {
@@ -310,22 +310,3 @@ export function estRetablissementIsole(effets: { resultat_id: string }[]): boole
   return effets.length === 1 && effets[0].resultat_id === 'retablissement_complet';
 }
 
-// Résultat "Gladiateur" perdu : la table papier précise de relancer sur la
-// plage 11-35 (Mort à Blessure profonde) pour savoir ce qu'il devient — Mort
-// est un résultat possible de CETTE relance comme un autre, pas une
-// question à part : le personnage n'est déclaré mort (statut, tag, perte
-// d'équipement...) que si la relance tombe elle-même sur 11-15.
-export const IDS_GLADIATEUR_PERDU = [
-  'mort',
-  'blessures_multiples',
-  'blessure_jambe',
-  'blessure_bras',
-  'folie',
-  'jambe_brisee',
-  'blessure_poitrine',
-  'aveugle_oeil',
-  'vieille_blessure',
-  'trouble_nerveux',
-  'blessure_main',
-  'blessure_profonde',
-];
