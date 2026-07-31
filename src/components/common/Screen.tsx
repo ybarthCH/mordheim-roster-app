@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LanguageToggle } from './LanguageToggle';
+import { useLanguage } from '../../state/useLanguage';
 
 type ScreenProps = {
   title: string;
@@ -11,6 +12,7 @@ type ScreenProps = {
 
 export function Screen({ title, back, actions, children }: ScreenProps) {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const handleBack = () => {
     if (typeof back === 'string') navigate(back);
     else navigate(-1);
@@ -19,7 +21,7 @@ export function Screen({ title, back, actions, children }: ScreenProps) {
     <div className="app-shell">
       <header className="app-header">
         {back && (
-          <button className="app-header__back" onClick={handleBack} aria-label="Retour">
+          <button className="app-header__back" onClick={handleBack} aria-label={t('common.back')}>
             ‹
           </button>
         )}
