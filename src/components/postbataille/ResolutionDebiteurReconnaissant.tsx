@@ -3,6 +3,7 @@ import type { RosterInstance } from '../../types/roster';
 import { FRANCS_TIREURS, disponibiliteFrancTireur } from '../../data/hiredSwords';
 import { creerMembreFrancTireurCatalogue } from '../../utils/factory';
 import { ajouterEffetPersistant, CLE_FRANC_TIREUR_GRATUIT } from '../../utils/effetsPersistants';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   roster: RosterInstance;
@@ -17,6 +18,7 @@ type Props = {
 // pour rester une action en un clic — ces cas restent à engager depuis
 // l'écran de recrutement habituel si besoin.
 export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouterAuJournal }: Props) {
+  const { t } = useLanguage();
   const [francTireurId, setFrancTireurId] = useState('');
   // Se verrouille une fois un Franc-tireur engagé : l'événement n'en accorde
   // qu'un seul gratuitement, mais rien n'empêchait de resélectionner un
@@ -42,13 +44,13 @@ export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouter
     onAjouterAuJournal(
       `Débiteur reconnaissant : ${francTireur.nom} rejoint la bande gratuitement pour la prochaine bataille.`
     );
-    setResolu(`${francTireur.nom} rejoint la bande gratuitement.`);
+    setResolu(francTireur.nom);
   };
 
   if (resolu) {
     return (
       <p className="text-sm text-success" style={{ marginTop: '0.6rem' }}>
-        ✓ Débiteur reconnaissant : {resolu}
+        {t('postBataille.debtor.hiredForFree', { nom: resolu })}
       </p>
     );
   }
@@ -56,9 +58,9 @@ export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouter
   return (
     <div style={{ marginTop: '0.6rem' }}>
       <div className="field">
-        <label>Franc-tireur engagé gratuitement</label>
+        <label>{t('postBataille.debtor.freeRecruitLabel')}</label>
         <select value={francTireurId} onChange={(e) => setFrancTireurId(e.target.value)}>
-          <option value="">— Choisir —</option>
+          <option value="">{t('postBataille.chooseEllipsis')}</option>
           {disponibles.map((f) => (
             <option key={f.id} value={f.id}>
               {f.nom}
@@ -67,10 +69,10 @@ export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouter
         </select>
       </div>
       {disponibles.length === 0 && (
-        <p className="text-sm text-muted">Aucun Franc-tireur disponible pour cette bande pour l'instant.</p>
+        <p className="text-sm text-muted">{t('postBataille.debtor.noneAvailable')}</p>
       )}
       <button type="button" className="btn btn--sm btn--primary" disabled={!francTireurId} onClick={engager}>
-        Engager gratuitement
+        {t('postBataille.debtor.hireForFree')}
       </button>
     </div>
   );

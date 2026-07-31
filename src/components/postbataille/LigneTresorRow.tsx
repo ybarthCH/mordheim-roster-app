@@ -3,6 +3,7 @@ import type { LigneTresorConditionnel } from '../../data/tableExplorationEveneme
 import type { ShopItem } from '../../utils/shop';
 import { JetOrButton } from './JetOrButton';
 import { AjouterObjetTrouveButton } from './AjouterObjetTrouveButton';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   ligne: LigneTresorConditionnel;
@@ -27,6 +28,7 @@ export function LigneTresorRow({
   onAjouterFragments,
   onOuvrirArtefacts,
 }: Props) {
+  const { t } = useLanguage();
   const [reussi, setReussi] = useState(ligne.seuil.trim().toLowerCase() === 'auto');
 
   return (
@@ -36,21 +38,21 @@ export function LigneTresorRow({
       <td>
         {!reussi ? (
           <button type="button" className="btn btn--sm" onClick={() => setReussi(true)}>
-            Jet réussi
+            {t('postBataille.rollSucceeded')}
           </button>
         ) : (
           <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap' }}>
             {ligne.or && (
               <JetOrButton
-                label={`Jet (${ligne.or}) :`}
-                boutonLabel="Ajouter"
+                label={t('postBataille.rollNotation', { notation: ligne.or })}
+                boutonLabel={t('postBataille.add')}
                 onValider={(valeur) => onAjouterOr(ligne.element, ligne.or!, valeur)}
               />
             )}
             {ligne.fragments && (
               <JetOrButton
-                label={`Jet (${ligne.fragments}) :`}
-                boutonLabel="Ajouter en wyrdstone"
+                label={t('postBataille.rollNotation', { notation: ligne.fragments })}
+                boutonLabel={t('postBataille.addAsWyrdstone')}
                 onValider={(valeur) => onAjouterFragments(ligne.element, ligne.fragments!, valeur)}
               />
             )}
@@ -64,7 +66,7 @@ export function LigneTresorRow({
             ))}
             {ligne.artefactMagique && (
               <button type="button" className="btn btn--sm" onClick={onOuvrirArtefacts}>
-                Ouvrir le Tableau des artefacts magiques
+                {t('postBataille.openMagicArtefactsTable')}
               </button>
             )}
           </div>

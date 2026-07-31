@@ -4,6 +4,7 @@ import type { WarbandCatalog } from '../../types/catalog';
 import { resolveLeader, succederApresMorts } from '../../utils/leader';
 import { creerMembre } from '../../utils/factory';
 import { nomAffiche } from '../../utils/profil';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   roster: RosterInstance;
@@ -41,6 +42,7 @@ export function ResolutionOeilDesDieuxSombres({
   onMajRoster,
   onResolu,
 }: Props) {
+  const { t } = useLanguage();
   const [marqueChoisie, setMarqueChoisie] = useState('');
   const [succesDeclare, setSuccesDeclare] = useState(false);
   const [resolu, setResolu] = useState<string | null>(null);
@@ -105,8 +107,10 @@ export function ResolutionOeilDesDieuxSombres({
       <h3 className="mt-0">Œil des Dieux Sombres</h3>
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
         {resultat === 'defaite'
-          ? `Défaite : 2D6 + 1 par Héros hors de combat (${nbHerosHorsDeCombat} ici) ≥ ${seuil}+ → ${nomAffiche(chef)} devient un Enfant du Chaos.`
-          : `Victoire : 2D6 + 1 par ennemi mis hors de combat par ${nomAffiche(chef)} ≥ ${seuil}+ → il reçoit une Marque des Dieux Sombres au choix.`}
+          ? t('postBataille.eyeOfDarkGods.defeatPrefix') +
+            t('postBataille.eyeOfDarkGods.defeatDescription', { n: nbHerosHorsDeCombat, seuil, chef: nomAffiche(chef) })
+          : t('postBataille.eyeOfDarkGods.victoryPrefix') +
+            t('postBataille.eyeOfDarkGods.victoryDescription', { seuil, chef: nomAffiche(chef) })}
       </p>
 
       {!succesDeclare && (
@@ -116,10 +120,10 @@ export function ResolutionOeilDesDieuxSombres({
             className="btn btn--sm btn--primary"
             onClick={resultat === 'defaite' ? appliquerDefaite : () => setSuccesDeclare(true)}
           >
-            Réussi
+            {t('postBataille.success')}
           </button>
           <button type="button" className="btn btn--sm" onClick={enregistrerEchec}>
-            Raté
+            {t('postBataille.failure')}
           </button>
         </div>
       )}
@@ -127,9 +131,9 @@ export function ResolutionOeilDesDieuxSombres({
       {succesDeclare && resultat === 'victoire' && (
         <div style={{ marginTop: '0.4rem' }}>
           <div className="field">
-            <label>Marque des Dieux Sombres</label>
+            <label>{t('postBataille.eyeOfDarkGods.markLabel')}</label>
             <select value={marqueChoisie} onChange={(e) => setMarqueChoisie(e.target.value)}>
-              <option value="">— Choisir —</option>
+              <option value="">{t('postBataille.chooseEllipsis')}</option>
               {catalogue.marques?.map((m) => (
                 <option key={m.id} value={m.id}>
                   {m.nom}
@@ -138,7 +142,7 @@ export function ResolutionOeilDesDieuxSombres({
             </select>
           </div>
           <button type="button" className="btn btn--sm btn--primary" disabled={!marqueChoisie} onClick={appliquerVictoire}>
-            Attribuer la Marque
+            {t('postBataille.eyeOfDarkGods.assignMark')}
           </button>
         </div>
       )}

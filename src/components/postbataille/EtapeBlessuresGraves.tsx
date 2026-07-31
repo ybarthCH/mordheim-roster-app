@@ -5,6 +5,7 @@ import { trouverBlessure } from '../../data/blessuresGraves';
 import type { Member, RosterInstance } from '../../types/roster';
 import { resolveProfil } from '../../utils/profil';
 import type { BlessureDraft } from './PostBatailleScreen';
+import { useLanguage } from '../../state/useLanguage';
 
 const NOM_AVEUGLE_OEIL = trouverBlessure('aveugle_oeil')?.nom;
 
@@ -25,6 +26,7 @@ export function EtapeBlessuresGraves({
   onAppliquer,
   onReinitialiser,
 }: EtapeBlessuresGravesProps) {
+  const { t } = useLanguage();
   const [blessureEnCours, setBlessureEnCours] = useState<string | null>(null);
   const membreEnCours = horsDeCombatHeros.find((h) => h.instance_id === blessureEnCours);
   const profilEnCours = membreEnCours ? resolveProfil(roster, membreEnCours) : undefined;
@@ -32,14 +34,9 @@ export function EtapeBlessuresGraves({
   return (
     <>
       <div className="card">
-        <h3>Blessures graves</h3>
-        <p className="text-sm text-muted">
-          Pour chaque héros Hors de Combat, lance sur ta table papier puis résous le résultat obtenu : les effets
-          (caractéristiques, équipement, notes) sont appliqués automatiquement, et le choix Oui/Non « A survécu » de
-          l'étape suivante est pré-rempli en fonction du résultat. Les hommes de main utilisent la table simple
-          mort-ou-survivant à l'étape suivante.
-        </p>
-        {horsDeCombatHeros.length === 0 && <p className="text-muted">Aucun héros Hors de Combat.</p>}
+        <h3>{t('postBataille.injuries.title')}</h3>
+        <p className="text-sm text-muted">{t('postBataille.injuries.intro')}</p>
+        {horsDeCombatHeros.length === 0 && <p className="text-muted">{t('postBataille.injuries.noneOutOfAction')}</p>}
         {horsDeCombatHeros.map((m) => {
           const d = blessureDrafts[m.instance_id];
           return (
@@ -48,7 +45,7 @@ export function EtapeBlessuresGraves({
               {!d && (
                 <div style={{ marginTop: '0.5rem' }}>
                   <button className="btn btn--primary btn--sm" onClick={() => setBlessureEnCours(m.instance_id)}>
-                    Résoudre la blessure grave
+                    {t('postBataille.injuries.resolveInjury')}
                   </button>
                 </div>
               )}
@@ -57,10 +54,10 @@ export function EtapeBlessuresGraves({
                   <p className="text-sm" style={{ whiteSpace: 'pre-wrap' }}>
                     {d.description}
                   </p>
-                  {d.statutMort && <p className="text-danger mb-0">⚠ Marqué Mort.</p>}
-                  {d.perteEquipement && <p className="text-danger mb-0">⚠ Équipement perdu.</p>}
+                  {d.statutMort && <p className="text-danger mb-0">{t('postBataille.injuries.markedDead')}</p>}
+                  {d.perteEquipement && <p className="text-danger mb-0">{t('postBataille.injuries.equipmentLost')}</p>}
                   <button className="btn btn--sm" style={{ marginTop: '0.5rem' }} onClick={() => onReinitialiser(m)}>
-                    Modifier
+                    {t('postBataille.injuries.modify')}
                   </button>
                 </div>
               )}
@@ -71,7 +68,7 @@ export function EtapeBlessuresGraves({
 
       {membreEnCours && (
         <Modal onClose={() => setBlessureEnCours(null)}>
-          <h3>Blessure grave — {membreEnCours.nom_perso}</h3>
+          <h3>{t('postBataille.injuries.modalTitle', { nom: membreEnCours.nom_perso })}</h3>
           <BlessureGraveWizard
             nomPersonnage={membreEnCours.nom_perso}
             dejaAveugle={membreEnCours.blessures_graves.some((b) => b.nom === NOM_AVEUGLE_OEIL)}

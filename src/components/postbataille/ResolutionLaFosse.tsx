@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { RosterInstance } from '../../types/roster';
 import { resolveProfil } from '../../utils/profil';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   roster: RosterInstance;
@@ -13,6 +14,7 @@ type Props = {
 // héros ne revient pas) et le gain de fragments est variable (D6+1, à
 // reporter depuis la table papier) au lieu d'un fragment fixe.
 export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJournal }: Props) {
+  const { t } = useLanguage();
   const [heroId, setHeroId] = useState('');
   const [jetFragments, setJetFragments] = useState('');
   // Se verrouille une fois le jet résolu : côté échec le héros passe au
@@ -32,7 +34,9 @@ export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJourna
     onAjouterAuJournal(
       `La Fosse : ${hero.nom_perso} revient avec ${valeurFragments} fragment${valeurFragments > 1 ? 's' : ''} de pierre magique (D6+1).`
     );
-    setResolu(`${hero.nom_perso} revient avec ${valeurFragments} fragment${valeurFragments > 1 ? 's' : ''}.`);
+    setResolu(
+      t('postBataille.pit.returnedWithFragments', { nom: hero.nom_perso, n: valeurFragments, s: valeurFragments > 1 ? 's' : '' })
+    );
   };
 
   const appliquerEchec = () => {
@@ -43,13 +47,13 @@ export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJourna
       ),
     });
     onAjouterAuJournal(`La Fosse : ${hero.nom_perso} est dévoré par les gardiens de la Fosse — mort.`);
-    setResolu(`${hero.nom_perso} est dévoré par les gardiens de la Fosse — mort.`);
+    setResolu(`${hero.nom_perso} ${t('postBataille.pit.devoured')}`);
   };
 
   if (resolu) {
     return (
       <p className="text-sm text-success" style={{ marginTop: '0.6rem' }}>
-        ✓ La Fosse : {resolu}
+        {t('postBataille.pit.result', { texte: resolu })}
       </p>
     );
   }
@@ -57,9 +61,9 @@ export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJourna
   return (
     <div style={{ marginTop: '0.6rem' }}>
       <div className="field">
-        <label>Héros envoyé dans la Fosse</label>
+        <label>{t('postBataille.pit.heroLabel')}</label>
         <select value={heroId} onChange={(e) => setHeroId(e.target.value)}>
-          <option value="">— Choisir —</option>
+          <option value="">{t('postBataille.chooseEllipsis')}</option>
           {heros.map((m) => (
             <option key={m.instance_id} value={m.instance_id}>
               {m.nom_perso}
@@ -70,11 +74,10 @@ export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJourna
       {hero && (
         <>
           <p className="text-sm text-muted" style={{ marginBottom: '0.4rem' }}>
-            Jet de 1D6 : sur un 1, {hero.nom_perso} est dévoré et ne revient pas. Sur 2+, il revient avec D6+1
-            fragments de pierre magique.
+            {t('postBataille.pit.rollInstruction', { nom: hero.nom_perso })}
           </p>
           <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap', marginBottom: '0.4rem' }}>
-            <span className="text-sm text-muted">Fragments obtenus (D6+1) :</span>
+            <span className="text-sm text-muted">{t('postBataille.pit.fragmentsObtained')}</span>
             <input
               type="number"
               min={1}
@@ -85,10 +88,10 @@ export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJourna
           </div>
           <div className="flex gap-sm">
             <button type="button" className="btn btn--sm btn--primary" disabled={!jetValide} onClick={appliquerReussite}>
-              Réussi
+              {t('postBataille.success')}
             </button>
             <button type="button" className="btn btn--sm" onClick={appliquerEchec}>
-              Raté
+              {t('postBataille.failure')}
             </button>
           </div>
         </>
