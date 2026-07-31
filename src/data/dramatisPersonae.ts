@@ -1,6 +1,6 @@
 import type { FrancTireurCatalog } from '../types/hiredSword';
 import type { Member, RosterInstance } from '../types/roster';
-import { toutesSauf, SKAVENS, MORTS_VIVANTS } from './bandeCategories';
+import { toutesSauf, SKAVENS, MORTS_VIVANTS, HUMAINS, TOUTES_LES_BANDES } from './bandeCategories';
 
 // Chapitre Dramatis Personae (Livre des Règles, 1a) : personnages spéciaux
 // trouvés via une recherche post-bataille dédiée (voir
@@ -145,6 +145,274 @@ export const DRAMATIS_PERSONAE: FrancTireurCatalog[] = [
     gagne_experience: false,
     est_dramatis_personae: true,
   },
+  {
+    id: 'marianna_chevaux',
+    nom: 'Comtesse Marianna Chevaux, Vampire Assassin',
+    page_source: 0,
+    recrutement: { cout: 150 },
+    entretien: { type: 'or', cout: 75, texte: '75 CO après chaque bataille à laquelle elle participe.' },
+    valeur: 90,
+    employeurs: {
+      bande_ids: toutesSauf('witch_hunters', 'sisters_of_sigmar', ...MORTS_VIVANTS),
+      texte:
+        'Toutes les bandes sauf les Répurgateurs, les Sœurs de Sigmar, les Morts-Vivants, les bandes elfes et les bandes affiliées à Sigmar (les Mercenaires ne comptent pas comme affiliés).',
+    },
+    stats: { M: 6, CC: 6, CT: 6, F: 4, E: 4, PV: 2, I: 9, A: 3, Cd: 9 },
+    equipement: ['Rapière', 'Dague', 'Couteaux de lancer', 'Arbalète de poing', 'Robe de soie bretonnienne'],
+    acces_competences: [],
+    regles_speciales: [
+      {
+        nom: 'Immunité à la Psychologie',
+        texte: 'Étant un vampire, Marianna est immunisée à la psychologie et n’abandonnera jamais le combat.',
+      },
+      { nom: 'Immunité aux Poisons', texte: 'Marianna n’est affectée par aucun poison.' },
+      {
+        nom: 'Insensible',
+        texte:
+          'Marianna remplace les résultats sonné par à terre. Sa compétence Rétablissement l’empêchant d’être mise à terre, le seul moyen de la stopper est de la mettre hors de combat.',
+      },
+      { nom: 'Provoque la Peur', texte: 'Marianna est terrifiante, davantage à cause de sa réputation que de sa condition vampirique.' },
+      { nom: 'Tueuse de vampires', texte: 'Tous les vampires haïssent Marianna, car elle a juré leur perte.' },
+      {
+        nom: 'Le Noctu',
+        texte:
+          'La gemme volée dans le repaire de Serutat possède des capacités magiques latentes. L’ombre qu’elle projette inflige une pénalité de -1 au toucher à tous les tirs dirigés contre Marianna.',
+      },
+      {
+        nom: 'Ail sur les armes',
+        texte: 'Les carreaux de son arbalète et sa rapière sont enduits d’ail, qui compte comme du Lotus Noir contre les vampires.',
+      },
+      {
+        nom: 'Rapière : +1 Sauvegarde ennemie, Barrage, Parade',
+        texte:
+          'Une figurine blessée obtient +1 à sa sauvegarde d’armure (ou 6+ si elle n’en a pas). Barrage : en cas de touche sans blessure, une attaque supplémentaire est possible (cumulable, malus -1 pour toucher à chaque fois). Parade : contre un jet pour toucher, 1D6 supérieur au meilleur jet adverse annule l’attaque (sauf Force double ou plus).',
+      },
+      {
+        nom: 'Tu n’échapperas pas à ton destin…',
+        texte:
+          'Au dernier tour de partie (si Marianna est présente) ou dès qu’une bande déroute, lancez 1D6 sur table papier : 1-3 elle quitte la bande à la fin de la partie ; 4-5 elle reste, contre solde, pour la bataille suivante ; 6 des serviteurs de Serutat interviennent (à résoudre sur table).',
+      },
+    ],
+    competences_departs: ['vitesse_06', 'combat_02', 'combat_06', 'vitesse_01', 'vitesse_04', 'vitesse_05', 'vitesse_07'],
+    groupe_caracteristiques: 'morts_vivants_vampire',
+    gagne_experience: false,
+    est_dramatis_personae: true,
+  },
+  {
+    id: 'dijin_katal',
+    nom: 'Dijin Katal, l’Assassin Renégat',
+    page_source: 0,
+    recrutement: { cout: 85 },
+    entretien: { type: 'or', cout: 40, texte: '40 CO après chaque bataille à laquelle il participe.' },
+    valeur: 70,
+    employeurs: {
+      bande_ids: [...TOUTES_LES_BANDES],
+      texte:
+        'Toutes les bandes, sauf celles qui n’acceptent pas les assassins et toute bande qui compte déjà un elfe parmi ses membres (Elfes Noirs exclus dans tous les cas).',
+    },
+    stats: { M: 5, CC: 7, CT: 5, F: 4, E: 3, PV: 2, I: 7, A: 2, Cd: 8 },
+    equipement: ['Cape d’assassin druchii (cape elfique)', 'Deux épées enduites de venin fuligineux', 'Arbalète à répétition'],
+    acces_competences: [],
+    regles_speciales: [
+      {
+        nom: 'Haine fratricide',
+        texte: 'Tout Elfe Noir (y compris un franc-tireur Haut Elfe) ressent de la haine envers Dijin Katal, et réciproquement.',
+      },
+      {
+        nom: 'Tueur parfait',
+        texte: 'Toutes les attaques de Dijin Katal, corps à corps ou tir, infligent un malus de -1 à la sauvegarde d’armure adverse.',
+      },
+      {
+        nom: 'Drapé d’ombre',
+        texte:
+          'À couvert, Dijin ne peut être chargé qu’à une distance maximale égale à son Initiative ; les tirs contre lui à couvert subissent -1 pour toucher en plus du malus habituel.',
+      },
+      {
+        nom: 'Vue excellente',
+        texte: 'Détecte les ennemis cachés à une distance égale au double de son Initiative.',
+      },
+      { nom: 'Renégat', texte: 'Ayant commis un fratricide, Dijin est haï par tout Elfe Noir qui le combat.' },
+      {
+        nom: 'Vagabond',
+        texte:
+          'Dijin Katal ne reste jamais plus d’une bataille d’affilée avec la même bande : une bande doit livrer la suivante sans lui avant de pouvoir le rechercher de nouveau.',
+      },
+    ],
+    competences_departs: ['combat_01', 'vitesse_04', 'tir_01', 'vitesse_06', 'tir_06'],
+    groupe_caracteristiques: 'elfe',
+    tags: ['elfe'],
+    gagne_experience: false,
+    depart_apres_bataille: true,
+    est_dramatis_personae: true,
+  },
+  {
+    id: 'luthor_lame_pourpre',
+    nom: 'Luthor, la Lame Pourpre du Reikland',
+    page_source: 0,
+    recrutement: { cout: 60 },
+    entretien: { type: 'or', cout: 25, texte: '25 CO après chaque bataille à laquelle il participe.' },
+    valeur: 35,
+    employeurs: {
+      bande_ids: HUMAINS.filter((id) => id !== 'middenheimers'),
+      texte: 'Toutes les bandes humaines sauf les Middenheimers (qui ne chercheraient jamais l’aide d’un Reiklander).',
+    },
+    stats: { M: 4, CC: 4, CT: 4, F: 4, E: 4, PV: 2, I: 4, A: 2, Cd: 8 },
+    equipement: ['Épée', 'Poignard', 'Armure lourde', 'Casque'],
+    acces_competences: [],
+    regles_speciales: [
+      {
+        nom: 'Mauvais Œil',
+        texte: 'Luthor est immunisé contre toutes les blessures oculaires (ignorez pour lui le résultat 31 sur la table des Blessures permanentes).',
+      },
+      {
+        nom: 'Je suis partout',
+        texte: 'Deux bandes qui se battent l’une contre l’autre peuvent toutes deux utiliser Luthor le temps d’une bataille (à gérer manuellement).',
+      },
+      {
+        nom: 'La Lame Pourpre',
+        texte: 'Contre un ennemi déjà engagé au corps à corps, Luthor gagne +1 pour toucher, +1 pour blesser et +1 pour les jets de blessures.',
+      },
+      {
+        nom: 'Désengagement',
+        texte:
+          'Pendant sa phase de mouvement, Luthor peut s’éloigner de tout corps à corps sans que l’ennemi ne puisse faire d’attaques, et peut même charger un autre ennemi de cette façon.',
+      },
+    ],
+    competences_departs: ['combat_06', 'vitesse_06', 'combat_05', 'vitesse_02', 'tir_01'],
+    groupe_caracteristiques: 'humain',
+    gagne_experience: false,
+    est_dramatis_personae: true,
+    groupe_exclusif: 'luthor',
+  },
+  {
+    id: 'luthor_sorcier_tenebreux',
+    nom: 'Luthor, le Sorcier Ténébreux Extraordinaire',
+    page_source: 0,
+    recrutement: { cout: 60 },
+    entretien: { type: 'or', cout: 25, texte: '25 CO après chaque bataille à laquelle il participe.' },
+    valeur: 35,
+    employeurs: {
+      bande_ids: toutesSauf('witch_hunters', 'reiklanders', 'sisters_of_sigmar'),
+      texte: 'N’importe quelle bande, à l’exception des Répurgateurs, des Reiklanders et des Sœurs de Sigmar.',
+    },
+    stats: { M: 4, CC: 4, CT: 4, F: 4, E: 4, PV: 2, I: 4, A: 2, Cd: 8 },
+    equipement: [
+      'Bâton (considéré comme une masse)',
+      'Armure lourde dissimulée',
+      'Porte-bonheur',
+      'Ail',
+      'Flasque de Bière de Bugman (immunise contre la peur)',
+      'Orbes d’argile de Feu Tiléen',
+    ],
+    acces_competences: [],
+    regles_speciales: [
+      {
+        nom: 'Mauvais Œil',
+        texte: 'Luthor est immunisé contre toutes les blessures oculaires (ignorez pour lui le résultat 31 sur la table des Blessures permanentes).',
+      },
+      {
+        nom: 'Je suis partout',
+        texte: 'Deux bandes qui se battent l’une contre l’autre peuvent toutes deux utiliser Luthor le temps d’une bataille (à gérer manuellement).',
+      },
+      {
+        nom: 'Boules de Feu',
+        texte:
+          'Lors de sa phase de tir, même engagé au corps à corps, portée 8ps sans pénalité à longue portée : 1 touche de Force 2 si elle atteint sa cible, qui doit ensuite réussir un test d’Initiative ou ne peut ni charger ni tirer au tour suivant.',
+      },
+      {
+        nom: 'Danse Frétillante du Poisson',
+        texte: 'Au corps à corps, sur un résultat de 6 pour toucher avec son bâton, résolvez le coup à Force x2 (8 au lieu de 4).',
+      },
+    ],
+    competences_departs: ['combat_06', 'vitesse_06', 'combat_05', 'vitesse_02', 'tir_01'],
+    groupe_caracteristiques: 'humain',
+    gagne_experience: false,
+    est_dramatis_personae: true,
+    groupe_exclusif: 'luthor',
+  },
+  {
+    id: 'luthor_maitre_archer',
+    nom: 'Luthor, le Maître-Archer de la Drakwald',
+    page_source: 0,
+    recrutement: { cout: 60 },
+    entretien: { type: 'or', cout: 25, texte: '25 CO après chaque bataille à laquelle il participe.' },
+    valeur: 35,
+    employeurs: {
+      bande_ids: [...HUMAINS, 'dwarf_treasure_hunters'].filter((id) => id !== 'reiklanders'),
+      texte: 'N’importe quelle bande humaine, elfe ou naine, à l’exception des Reiklanders (où il est trop connu sous le nom de Lame Pourpre).',
+    },
+    stats: { M: 4, CC: 4, CT: 4, F: 4, E: 4, PV: 2, I: 4, A: 2, Cd: 8 },
+    equipement: ['Arc long', 'Poignard', 'Flèches de chasse', 'Armure lourde', 'Venin noir (sur ses flèches)'],
+    acces_competences: [],
+    regles_speciales: [
+      {
+        nom: 'Mauvais Œil',
+        texte: 'Luthor est immunisé contre toutes les blessures oculaires (ignorez pour lui le résultat 31 sur la table des Blessures permanentes).',
+      },
+      {
+        nom: 'Je suis partout',
+        texte: 'Deux bandes qui se battent l’une contre l’autre peuvent toutes deux utiliser Luthor le temps d’une bataille (à gérer manuellement).',
+      },
+      {
+        nom: 'Vantardise',
+        texte:
+          'Avant de tirer, Luthor peut se vanter d’atteindre sa cible : s’il touche, la bande reçoit +1D6 à un futur jet de corps à corps, de tir ou de Commandement. S’il rate, la bande subit -1 Cd cumulatif jusqu’à ce qu’il touche une autre cible.',
+      },
+      {
+        nom: 'Tu te sens chanceux fiston ?',
+        texte:
+          'En début de phase de tir, Luthor désigne une figurine adverse comme cible de ses menaces : elle subit -1 CC et -1 CT (sauf morts-vivants, démons, animaux et guerriers immunisés à la psychologie).',
+      },
+    ],
+    competences_departs: ['combat_06', 'vitesse_06', 'combat_05', 'vitesse_02', 'tir_01'],
+    groupe_caracteristiques: 'humain',
+    gagne_experience: false,
+    est_dramatis_personae: true,
+    groupe_exclusif: 'luthor',
+  },
+  {
+    id: 'thrud_le_barbare',
+    nom: 'Thrud le Barbare',
+    page_source: 0,
+    recrutement: { cout: 0 },
+    entretien: {
+      type: 'aucun',
+      cout: 0,
+      texte:
+        'Thrud ne demande aucune solde, seulement de quoi boire — sa règle d’origine (jet d’Initiative avant chaque bataille pour attirer son attention, uniquement si l’adversaire a une valeur de bande supérieure) est simplifiée ici en recrutement classique via une recherche post-bataille.',
+    },
+    valeur: 110,
+    employeurs: {
+      bande_ids: [...TOUTES_LES_BANDES],
+      texte: 'N’importe quelle bande, à l’exception d’une bande dont le chef est un jeteur de sorts.',
+    },
+    stats: { M: 4, CC: 6, CT: 2, F: 5, E: 4, PV: 3, I: 3, A: 2, Cd: 6 },
+    equipement: ['Hache de guerre', 'Casque'],
+    acces_competences: [],
+    regles_speciales: [
+      {
+        nom: 'Peau épaisse et Tête dure',
+        texte:
+          'Sauvegarde d’armure de 6+, jamais améliorable par des modificateurs de Force. Ignore les règles spéciales des masses/gourdins et est immunisé à la psychologie.',
+      },
+      {
+        nom: 'Esprit insondable',
+        texte: 'Sauvegarde de 4+ contre tous les sorts et effets magiques qui ciblent Thrud (le sort est alors ignoré).',
+      },
+      {
+        nom: 'Boit sans soif & Digestion trollesque',
+        texte: 'Immunisé aux poisons et aux effets de l’alcool ; peut manger ou boire n’importe quoi sans effet néfaste.',
+      },
+      {
+        nom: 'Barbare imprévisible (règle de jeu sur table, non simulée ici)',
+        texte:
+          'Au début de chacun de ses tours, 2D6 détermine son état jusqu’au tour suivant : 2 confusion totale (contrôlé par l’adversaire) ; 3-4 Stupidité ; 5 fonce vers "de la bière" dans une direction aléatoire ; 6 ne peut être pris par surprise ; 7-8 +1 Mouvement et +1 Initiative ; 9-10 +1 Force au premier coup d’une charge ; 11-12 Frénésie.',
+      },
+    ],
+    competences_departs: ['combat_02', 'force_05'],
+    gagne_experience: false,
+    est_dramatis_personae: true,
+  },
 ];
 
 export function estDramatisPersonae(membre: Member): boolean {
@@ -163,7 +431,15 @@ export function dramatisPersonaeDisponibles(roster: RosterInstance): FrancTireur
   const dejaPresents = new Set(
     roster.membres.filter((m) => m.franc_tireur_id).map((m) => m.franc_tireur_id as string)
   );
+  const groupesExclusifsPresents = new Set(
+    [...dejaPresents]
+      .map((id) => getDramatisPersonae(id)?.groupe_exclusif)
+      .filter((g): g is string => !!g)
+  );
   return DRAMATIS_PERSONAE.filter(
-    (dp) => dp.employeurs.bande_ids.includes(roster.bande_id) && !dejaPresents.has(dp.id)
+    (dp) =>
+      dp.employeurs.bande_ids.includes(roster.bande_id) &&
+      !dejaPresents.has(dp.id) &&
+      !(dp.groupe_exclusif && groupesExclusifsPresents.has(dp.groupe_exclusif))
   );
 }

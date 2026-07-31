@@ -79,4 +79,10 @@ export type FrancTireurCatalog = {
   // recrute (ex : les prières de Sigmar) plutôt qu'un domaine externe fixe
   // comme la Magie mineure du Mage franc-tireur (voir Profile.magie).
   sorts_domaine_bande?: boolean;
+  // Regroupe plusieurs profils de Dramatis Personae qui ne sont en réalité
+  // qu'un seul et même personnage sous des identités différentes (ex : les
+  // 3 personæ de Luthor Wulfenbaum) : dès qu'une bande a recruté (vivant ou
+  // mort) l'un des profils partageant cette valeur, les autres deviennent
+  // indisponibles pour elle — voir dramatisPersonaeDisponibles.
+  groupe_exclusif?: string;
 };
