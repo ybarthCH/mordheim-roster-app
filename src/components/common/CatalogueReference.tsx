@@ -3,6 +3,7 @@ import { getItem } from '../../data/items';
 import { estAccesGenerique, iconeCategorie, prixAvecRegles } from '../../utils/shop';
 import { magieDuProfil } from '../../utils/magie';
 import { useGameRules } from '../../state/useGameRules';
+import { useLanguage } from '../../state/useLanguage';
 import { Icon } from './Icon';
 import { CollapsibleCard } from './CollapsibleCard';
 
@@ -77,6 +78,7 @@ function libelleListe(cle: string): string {
 // accessibles via le shop intégré et n'ont plus leur place ici.
 export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }) {
   const { rules } = useGameRules();
+  const { t } = useLanguage();
   const listesFiltrees = Object.entries(catalogue.equipement ?? {})
     .map(([liste, groupes]) => {
       const parCategorie = LISTES_EQUIPEMENT.map((cat) => ({
@@ -97,11 +99,10 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
   return (
     <CollapsibleCard
       preferenceKey="ui.roster.equipement_reference.ouvert"
-      title="Équipement de la bande (référence)"
+      title={t('catalogueReference.equipmentTitle')}
     >
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-        Objets propres à cette bande uniquement — texte libre, à titre indicatif. Les objets courants s'achètent
-        directement depuis la fiche personnage.
+        {t('catalogueReference.equipmentIntro')}
       </p>
       {listesFiltrees.map(({ liste, parCategorie }) => (
         <div key={liste} style={{ marginBottom: '0.6rem' }}>
@@ -116,7 +117,7 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
                   const ref = getItem(it.item_id);
                   const nom = ref?.nom ?? it.item_id;
                   const cout = prixAvecRegles(it.item_id, it.cout, catalogue.id, rules, 'bande');
-                  return `${nom} (${cout}${typeof cout === 'number' ? ' po' : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`;
+                  return `${nom} (${cout}${typeof cout === 'number' ? ` ${t('catalogueReference.gc')}` : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`;
                 })
                 .join(' · ')}
             </p>
@@ -126,7 +127,7 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
       {aObjetsRares && (
         <div>
           <p className="text-sm mb-0">
-            <strong>Objets rares</strong>
+            <strong>{t('catalogueReference.rareItems')}</strong>
           </p>
           {catalogue.equipement_special!.map((it) => {
             const ref = getItem(it.item_id);
@@ -135,7 +136,7 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
               <p key={it.item_id} className="text-sm mb-0">
                 <Icon name="etoile" style={{ marginRight: '0.35em', color: 'var(--accent)' }} />
                 <strong>{ref?.nom ?? it.item_id}</strong> ({cout}
-                {typeof cout === 'number' ? ' po' : ''}
+                {typeof cout === 'number' ? ` ${t('catalogueReference.gc')}` : ''}
                 {it.disponibilite ? ` — ${it.disponibilite}` : ''}) — {ref?.texte}
                 {ref?.regles_speciales?.map((r) => ` ${r.nom} : ${r.texte}`).join(' ')}
               </p>
@@ -161,24 +162,25 @@ export function MagieReference({
   // bon domaine de sorts quand la bande en propose plusieurs.
   marqueId?: string;
 }) {
+  const { t } = useLanguage();
   const magie = profil ? magieDuProfil(catalogue, profil, marqueId) : catalogue.magie;
   if (!magie) return null;
 
   const titre = (
     <>
       <Icon name="parchemin" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
-      {magie.nom} (référence)
+      {magie.nom} {t('catalogueReference.magieReferenceSuffix')}
     </>
   );
 
   const contenu = (
     <>
       <p className="text-sm text-muted">
-        {magie.type} · dé {magie.de}
+        {magie.type} · {t('catalogueReference.die')} {magie.de}
         {!profil && magie.utilisateurs.length > 0 && (
           <>
             {' '}
-            · utilisateurs :{' '}
+            · {t('catalogueReference.users')}{' '}
             {magie.utilisateurs.map((id) => catalogue.profils.find((p) => p.id === id)?.nom ?? id).join(', ')}
           </>
         )}
