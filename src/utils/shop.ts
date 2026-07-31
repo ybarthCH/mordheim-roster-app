@@ -119,6 +119,13 @@ const CATALOGUES_HUMAINS = new Set([
   'norses',
   'gardiens_de_chapelle_bretonniens',
   'sisters_of_sigmar',
+  'bandits_du_hochland',
+  'chasseurs_cornus',
+  'chevaliers_bretonniens',
+  'escorteurs_imperiaux',
+  'hors_la_loi_de_stirwood',
+  'pirates',
+  'tileens',
 ]);
 
 // Un objet "commun_<bande>" (restreint à un groupe précis, donc exclu du
