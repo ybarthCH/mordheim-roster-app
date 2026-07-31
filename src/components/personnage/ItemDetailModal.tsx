@@ -3,6 +3,7 @@ import { libelleCategorie, iconeCategorie, classeRarete, formatCoutItem } from '
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   item: ShopItem;
@@ -13,6 +14,7 @@ type Props = {
 // au clic depuis le récapitulatif "en un coup d'œil" ou la liste
 // d'équipement de la fiche personnage/armurerie.
 export function ItemDetailModal({ item, onClose }: Props) {
+  const { t } = useLanguage();
   return (
     <Modal onClose={onClose}>
       <h3 className="mt-0 mb-0">
@@ -41,9 +43,9 @@ export function ItemDetailModal({ item, onClose }: Props) {
       )}
       {(item.portee || item.force || item.sauvegarde) && (
         <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
-          {item.portee && <span className="badge badge--info">Portée {item.portee}</span>}
-          {item.force && <span className="badge badge--info">Force {item.force}</span>}
-          {item.sauvegarde && <span className="badge badge--info">Save {item.sauvegarde}</span>}
+          {item.portee && <span className="badge badge--info">{t('itemDetail.range')} {item.portee}</span>}
+          {item.force && <span className="badge badge--info">{t('itemDetail.strength')} {item.force}</span>}
+          {item.sauvegarde && <span className="badge badge--info">{t('itemDetail.save')} {item.sauvegarde}</span>}
         </div>
       )}
       {classeRarete(item.rarete) && (
@@ -65,7 +67,7 @@ export function ItemDetailModal({ item, onClose }: Props) {
 
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
         <button className="btn" onClick={onClose}>
-          Fermer
+          {t('itemDetail.close')}
         </button>
       </div>
     </Modal>

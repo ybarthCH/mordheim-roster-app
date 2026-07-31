@@ -10,6 +10,7 @@ import {
 import { injuryLabel } from '../../utils/blessures';
 import { Modal } from '../common/Modal';
 import { Icon } from '../common/Icon';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   nomPersonnage: string;
@@ -30,6 +31,7 @@ export function DocteurModal({
   onPayer,
   onAppliquer,
 }: Props) {
+  const { t } = useLanguage();
   const effets = effetsTraitablesDocteur(blessure);
   const [effetChoisi, setEffetChoisi] = useState(
     blessure.docteur_effet_en_attente ?? effets[0]?.id ?? ''
@@ -54,7 +56,7 @@ export function DocteurModal({
     <Modal onClose={onClose}>
       <h3 className="mt-0">
         <Icon name="goutte" style={{ marginRight: '0.4em' }} />
-        Quoi de neuf, Docteur ?
+        {t('docteurModal.title')}
       </h3>
       <p className="text-sm text-muted" style={{ whiteSpace: 'pre-line' }}>
         <strong>{nomPersonnage}</strong>
@@ -70,26 +72,26 @@ export function DocteurModal({
               {applique.texte}
             </p>
           </div>
-          <p className="text-success text-sm">Le résultat et ses effets ont été appliqués.</p>
+          <p className="text-success text-sm">{t('docteurModal.appliedNote')}</p>
           <button className="btn btn--primary btn--block" onClick={onClose}>
-            Fermer
+            {t('docteurModal.close')}
           </button>
         </>
       ) : !estHeros ? (
         <>
-          <p className="text-muted">Seuls les Héros peuvent être envoyés chez le docteur.</p>
+          <p className="text-muted">{t('docteurModal.onlyHeroes')}</p>
           <button className="btn btn--block" onClick={onClose}>
-            Fermer
+            {t('docteurModal.close')}
           </button>
         </>
       ) : effets.length === 0 ? (
         <>
           <p className="text-muted">
             {estBlessureExplicitementIncurable(blessure)
-              ? "Cette blessure fait partie des handicaps que le docteur ne peut pas traiter : ses effets sont permanents."
+              ? t('docteurModal.incurable')
               : blessure.soignee || blessure.effets?.some((effet) => effet.traitee)
-                ? 'Cette blessure a déjà été traitée et ne présente plus aucun effet soignable.'
-                : "Cette blessure ne figure pas parmi les traitements prévus par les règles du docteur."}
+                ? t('docteurModal.alreadyTreated')
+                : t('docteurModal.notCovered')}
           </p>
           {blessure.historique_docteur?.map((tentative, index) => (
             <p key={`${tentative.date}-${index}`} className="text-sm mb-0">
@@ -97,23 +99,19 @@ export function DocteurModal({
             </p>
           ))}
           <button className="btn btn--block" style={{ marginTop: '1rem' }} onClick={onClose}>
-            Fermer
+            {t('docteurModal.close')}
           </button>
         </>
       ) : (
         <>
           <p className="text-sm">
-            Une consultation coûte <strong>{COUT_DOCTEUR} po</strong>, payées avant le jet. Elle remplace la recherche
-            d'un objet rare de ce Héros et ne peut viser qu'une seule blessure pendant cette séquence
-            d'après-bataille.
+            {t('docteurModal.consultationCostPrefix')} <strong>{COUT_DOCTEUR} {t('creation.gc')}</strong>{t('docteurModal.consultationCostSuffix')}
           </p>
-          <p className="text-sm text-muted">
-            L'application ne lance aucun dé : saisis le total de tes 2D6, puis elle appliquera le résultat.
-          </p>
+          <p className="text-sm text-muted">{t('docteurModal.rollInputNote')}</p>
 
           {effets.length > 1 && (
             <div className="field">
-              <label>Blessure à traiter</label>
+              <label>{t('docteurModal.injuryToTreat')}</label>
               <select
                 value={blessure.docteur_effet_en_attente ?? effetChoisi}
                 disabled={consultationPayee}
@@ -130,30 +128,32 @@ export function DocteurModal({
 
           {!consultationPayee ? (
             <>
-              <p className="text-sm text-muted">Trésorerie disponible : {tresorerie} po.</p>
+              <p className="text-sm text-muted">{t('docteurModal.treasuryAvailable')} {tresorerie} {t('creation.gc')}.</p>
               {tresorerie < COUT_DOCTEUR && (
-                <p className="text-danger text-sm">Il manque {COUT_DOCTEUR - tresorerie} po pour payer le docteur.</p>
+                <p className="text-danger text-sm">
+                  {t('docteurModal.missingFundsPrefix')} {COUT_DOCTEUR - tresorerie} {t('docteurModal.missingFundsSuffix')}
+                </p>
               )}
               <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
                 <button className="btn" onClick={onClose}>
-                  Annuler
+                  {t('docteurModal.cancel')}
                 </button>
                 <button
                   className="btn btn--primary"
                   disabled={!effetActif || tresorerie < COUT_DOCTEUR}
                   onClick={() => effetActif && onPayer(effetActif.id)}
                 >
-                  Payer {COUT_DOCTEUR} po et commencer
+                  {t('docteurModal.payAndStartPrefix')} {COUT_DOCTEUR} {t('creation.gc')} {t('docteurModal.payAndStartSuffix')}
                 </button>
               </div>
             </>
           ) : (
             <>
-              <p className="text-success text-sm">Consultation payée. Le résultat peut être saisi maintenant ou plus tard.</p>
+              <p className="text-success text-sm">{t('docteurModal.paidNote')}</p>
               <div className="field">
-                <label>Résultat total des 2D6</label>
+                <label>{t('docteurModal.totalRollLabel')}</label>
                 <select value={jetSaisi} onChange={(e) => setJetSaisi(e.target.value)}>
-                  <option value="">Choisis le résultat obtenu…</option>
+                  <option value="">{t('docteurModal.chooseResult')}</option>
                   {[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((valeur) => (
                     <option key={valeur} value={valeur}>
                       {valeur}
@@ -173,10 +173,10 @@ export function DocteurModal({
 
               <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
                 <button className="btn" onClick={onClose}>
-                  Fermer et saisir plus tard
+                  {t('docteurModal.closeEnterLater')}
                 </button>
                 <button className="btn btn--primary" disabled={!resultat} onClick={appliquer}>
-                  Appliquer le résultat
+                  {t('docteurModal.applyResult')}
                 </button>
               </div>
             </>

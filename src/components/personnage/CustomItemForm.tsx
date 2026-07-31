@@ -3,6 +3,7 @@ import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import type { CustomItem } from '../../types/roster';
 import { CATEGORIE_ORDRE, libelleCategorie } from '../../utils/shop';
+import { useLanguage } from '../../state/useLanguage';
 
 type CustomItemFormValue = Omit<CustomItem, 'id'>;
 
@@ -29,6 +30,7 @@ const VIDE: CustomItemFormValue = {
 };
 
 export function CustomItemForm({ titre, initial, onEnregistrer, onAnnuler, onRevert }: Props) {
+  const { t } = useLanguage();
   const depart = initial ?? VIDE;
   const [nom, setNom] = useState(depart.nom);
   const [categorie, setCategorie] = useState(depart.categorie);
@@ -69,12 +71,12 @@ export function CustomItemForm({ titre, initial, onEnregistrer, onAnnuler, onRev
       <h3 className="mt-0">{titre}</h3>
 
       <div className="field">
-        <label>Nom</label>
-        <input value={nom} onChange={(e) => setNom(e.target.value)} placeholder="Nom de l'objet" />
+        <label>{t('customItemForm.name')}</label>
+        <input value={nom} onChange={(e) => setNom(e.target.value)} placeholder={t('customItemForm.namePlaceholder')} />
       </div>
 
       <div className="field">
-        <label>Catégorie</label>
+        <label>{t('customItemForm.category')}</label>
         <select value={categorie} onChange={(e) => setCategorie(e.target.value)}>
           {CATEGORIE_ORDRE.map((c) => (
             <option key={c} value={c}>
@@ -85,21 +87,21 @@ export function CustomItemForm({ titre, initial, onEnregistrer, onAnnuler, onRev
       </div>
 
       <div className="field">
-        <label>Coût</label>
+        <label>{t('customItemForm.cost')}</label>
         <div className="flex gap-sm" style={{ marginBottom: '0.4rem' }}>
           <button
             type="button"
             className={`btn btn--sm ${coutFixe ? 'btn--primary' : ''}`}
             onClick={() => setCoutFixe(true)}
           >
-            Prix fixe
+            {t('customItemForm.fixedPrice')}
           </button>
           <button
             type="button"
             className={`btn btn--sm ${!coutFixe ? 'btn--primary' : ''}`}
             onClick={() => setCoutFixe(false)}
           >
-            Notation (dés)
+            {t('customItemForm.diceNotation')}
           </button>
         </div>
         <input
@@ -107,31 +109,31 @@ export function CustomItemForm({ titre, initial, onEnregistrer, onAnnuler, onRev
           min={coutFixe ? 0 : undefined}
           value={coutSaisi}
           onChange={(e) => setCoutSaisi(e.target.value)}
-          placeholder={coutFixe ? 'ex : 25' : 'ex : 2D6+10'}
+          placeholder={coutFixe ? t('customItemForm.costPlaceholderFixed') : t('customItemForm.costPlaceholderDice')}
         />
       </div>
 
       <div className="field">
-        <label>Rareté (optionnel)</label>
-        <input value={rarete} onChange={(e) => setRarete(e.target.value)} placeholder="ex : 8" />
+        <label>{t('customItemForm.rarity')}</label>
+        <input value={rarete} onChange={(e) => setRarete(e.target.value)} placeholder={t('customItemForm.rarityPlaceholder')} />
       </div>
 
       <div className="field">
-        <label>Disponibilité (optionnel)</label>
+        <label>{t('customItemForm.availability')}</label>
         <input
           value={disponibilite}
           onChange={(e) => setDisponibilite(e.target.value)}
-          placeholder="ex : Rare 8, jeteurs de sorts uniquement"
+          placeholder={t('customItemForm.availabilityPlaceholder')}
         />
       </div>
 
       <div className="field">
-        <label>Effet / description (optionnel)</label>
+        <label>{t('customItemForm.effectDescription')}</label>
         <textarea value={texte} onChange={(e) => setTexte(e.target.value)} rows={3} />
       </div>
 
       <div className="field">
-        <label>Modification permanente des caractéristiques (optionnel)</label>
+        <label>{t('customItemForm.permanentStatsMod')}</label>
         <div className="stat-grid">
           {STAT_KEYS.map((k) => (
             <div key={k} className="stat-grid__cell stat-grid__cell--label">
@@ -153,15 +155,15 @@ export function CustomItemForm({ titre, initial, onEnregistrer, onAnnuler, onRev
 
       <div className="flex gap-sm" style={{ marginTop: '1rem', flexWrap: 'wrap' }}>
         <button className="btn" onClick={onAnnuler}>
-          Annuler
+          {t('customItemForm.cancel')}
         </button>
         {onRevert && (
           <button className="btn btn--danger" onClick={onRevert}>
-            Revenir aux valeurs du catalogue
+            {t('customItemForm.revertToCatalog')}
           </button>
         )}
         <button className="btn btn--primary" disabled={!nomValide || !coutValide} onClick={enregistrer}>
-          Enregistrer
+          {t('customItemForm.save')}
         </button>
       </div>
     </div>
