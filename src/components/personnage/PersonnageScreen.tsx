@@ -60,7 +60,7 @@ export function PersonnageScreen() {
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
   const { rules } = useGameRules();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const roster = getRosterById(id ?? '');
   const [modalAvancee, setModalAvancee] = useState(false);
   const [modalBlessure, setModalBlessure] = useState(false);
@@ -78,8 +78,8 @@ export function PersonnageScreen() {
 
   if (!roster || !membre || !profil || !catalogue) {
     return (
-      <Screen title="Personnage introuvable" back={id ? `/roster/${id}` : '/'}>
-        <p className="text-muted">Ce personnage n'existe pas (ou plus).</p>
+      <Screen title={t('personnage.notFoundTitle')} back={id ? `/roster/${id}` : '/'}>
+        <p className="text-muted">{t('personnage.notFoundBody')}</p>
       </Screen>
     );
   }
@@ -317,7 +317,7 @@ export function PersonnageScreen() {
           title={
             <>
               <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
-              Règles spéciales du profil
+              {t('personnage.profileSpecialRules')}
             </>
           }
         >
@@ -384,7 +384,7 @@ export function PersonnageScreen() {
       />
 
       {profil.type === 'heros' && (
-        <CollapsibleCard preferenceKey="ui.personnage.competences.ouvert" title="Compétences">
+        <CollapsibleCard preferenceKey="ui.personnage.competences.ouvert" title={t('personnage.skills')}>
           <CompetencesPanel
             member={membre}
             profil={profil}
@@ -399,7 +399,7 @@ export function PersonnageScreen() {
         </CollapsibleCard>
       )}
 
-      <CollapsibleCard preferenceKey="ui.personnage.notes.ouvert" title="Notes">
+      <CollapsibleCard preferenceKey="ui.personnage.notes.ouvert" title={t('personnage.notes')}>
         <textarea
           value={membre.notes}
           onChange={(e) => majMembre({ notes: e.target.value })}
@@ -425,10 +425,10 @@ export function PersonnageScreen() {
             <span>
               <strong>
                 <Icon name="cible" style={{ marginRight: '0.35em' }} />
-                Grande Cible
+                {t('personnage.bigTarget')}
               </strong>
               <br />
-              <span className="text-sm text-muted">Case manuelle — ajoute +20 au rating de ce personnage.</span>
+              <span className="text-sm text-muted">{t('personnage.bigTargetNote')}</span>
             </span>
           </label>
         </div>
@@ -437,7 +437,7 @@ export function PersonnageScreen() {
       <MagieReference catalogue={catalogue} profil={profil} marqueId={membre.marque} />
 
       <button className="btn btn--danger btn--block" onClick={() => setModalSuppression(true)}>
-        Retirer ce personnage de la bande
+        {t('personnage.removeButton')}
       </button>
 
       {modalAvancee && (
@@ -510,18 +510,18 @@ export function PersonnageScreen() {
             return (
               <>
                 <h3>
-                  Vendre {venteEnCours.nom}
+                  {t('personnage.sellTitlePrefix')} {venteEnCours.nom}
                   {quantiteVente > 1 ? ` ×${quantiteVente}` : ''} ?
                 </h3>
                 <p className="text-muted">
                   {quantiteVente > 1
-                    ? `Les ${quantiteVente} exemplaires seront retirés de l'inventaire du groupe et`
-                    : "L'objet sera retiré de l'inventaire et"}{' '}
-                  {total} po seront ajoutées à la trésorerie de la bande.
+                    ? t('personnage.sellBodyMultiplePrefix', { n: quantiteVente })
+                    : t('personnage.sellBodySingle')}{' '}
+                  {t('personnage.sellBodySuffix', { total })}
                 </p>
                 <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
                   <button className="btn" onClick={() => setVenteEnCours(null)}>
-                    Annuler
+                    {t('personnage.cancel')}
                   </button>
                   <button
                     className="btn btn--primary"
@@ -530,7 +530,7 @@ export function PersonnageScreen() {
                       setVenteEnCours(null);
                     }}
                   >
-                    Vendre pour {total} po
+                    {t('personnage.sellForPrefix')} {total} {t('creation.gc')}
                   </button>
                 </div>
               </>
@@ -540,49 +540,44 @@ export function PersonnageScreen() {
       )}
       {modalSuppression && (
         <Modal onClose={() => setModalSuppression(false)}>
-          <h3>Retirer {membre.nom_perso} ?</h3>
-          <p className="text-muted">Cette action supprime définitivement ce personnage du roster.</p>
+          <h3>
+            {t('personnage.removeConfirmTitlePrefix')} {membre.nom_perso} ?
+          </h3>
+          <p className="text-muted">{t('personnage.removeConfirmBody')}</p>
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={() => setModalSuppression(false)}>
-              Annuler
+              {t('personnage.cancel')}
             </button>
             <button className="btn btn--danger" onClick={supprimerMembre}>
-              Retirer
+              {t('personnage.remove')}
             </button>
           </div>
         </Modal>
       )}
       {avanceeAModifier && (
         <Modal onClose={() => setAvanceeAModifier(null)}>
-          <h3>Modifier cette avancée ?</h3>
+          <h3>{t('personnage.editAdvanceTitle')}</h3>
           <p className="text-muted">
-            {avanceeAModifier.date} (jet {avanceeAModifier.roll}) — {avanceeAModifier.detail}
+            {avanceeAModifier.date} ({t('personnage.editAdvanceRollPrefix')} {avanceeAModifier.roll}) — {avanceeAModifier.detail}
           </p>
           {avanceeReversible(avanceeAModifier) ? (
             <>
-              <p className="text-sm text-muted">
-                Cela annule l'effet de cette avancée (caractéristique, compétence ou sort) et la retire de
-                l'historique. Elle redeviendra disponible sous « Résoudre une avancée » pour être relancée.
-              </p>
+              <p className="text-sm text-muted">{t('personnage.editAdvanceReversibleBody')}</p>
               <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
                 <button className="btn" onClick={() => setAvanceeAModifier(null)}>
-                  Annuler
+                  {t('personnage.cancel')}
                 </button>
                 <button className="btn btn--danger" onClick={() => supprimerAvancee(avanceeAModifier)}>
-                  Annuler cette avancée
+                  {t('personnage.cancelAdvance')}
                 </button>
               </div>
             </>
           ) : (
             <>
-              <p className="text-sm text-muted">
-                Ce type d'avancée (promotion en héros ou récompense du Seigneur des Ombres) a des effets trop
-                étendus pour être annulé automatiquement. Contacte-moi si tu as besoin d'aide pour corriger ça à la
-                main.
-              </p>
+              <p className="text-sm text-muted">{t('personnage.editAdvanceIrreversibleBody')}</p>
               <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
                 <button className="btn" onClick={() => setAvanceeAModifier(null)}>
-                  Fermer
+                  {t('personnage.close')}
                 </button>
               </div>
             </>
