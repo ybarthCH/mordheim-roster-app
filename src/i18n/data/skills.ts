@@ -144,9 +144,9 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       'Only a Leader may have this skill. Whatever the scenario, he may reposition three of his fighters (able to gain experience) within a piece of terrain (ruined building, woods...). It must be located more than 12" from any enemy model and outside the enemy\'s initial Deployment zone.',
   },
   academique_10: {
-    nom: 'Animal Handler',
+    nom: 'Beast Handler',
     texte:
-      'This skill is very useful if the warband includes combat animals. It must be taken for a specific animal species and can be taken multiple times, each time for a different species. It represents knowledge of animals\' needs and the techniques suited to training them. A warrior with this skill passes it on to the animals in his charge. Any animal within 6" of a model with the appropriate Animal Handler skill may use its Leadership instead of its own. If the warband Leader is also in range, the player chooses which Leadership is used, unless the animal is Stupid, in which case it may only use the handler\'s Leadership. In addition, Stubborn (or equivalent) animals in contact with the handler ignore the effects of this rule.',
+      'This skill is highly beneficial if non-ridden animals are to be included in a warband. This skill must be taken for specific animals and may be taken multiple times for different animals. It represents knowledge of the general care and well being of the animal as well as training techniques. A warrior with this skill has a beneficial effect on the animals under his care. If a warrior has the Animal Handling skill for a particular animal, any such animals may use his Leadership provided he is within 6". If the warband\'s leader is also nearby, a player may choose which of the warriors\' Leadership to use unless the animal is stupid, in which case only the Handler\'s Leadership may be used. In addition, stubborn animals with a Handler in base contact ignore the effects of stubbornness. This counts as an Academic skill.',
   },
   academique_11: {
     nom: 'Concentration',
@@ -198,49 +198,49 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       'A warrior with this skill can scale even the highest wall or fence with ease. He can climb up or down a height equal to twice his normal Movement, and does not need to make Initiative tests when doing so.',
   },
   equitation_01: {
-    nom: 'Riding',
+    nom: 'Ride',
     texte:
-      "This skill is vital for riding a mount into combat. It is specific to a given animal and must be learned again if the model wants to be able to ride another type of animal. For example, a model with the Riding – Horse skill would need to learn Riding – Warhorse to ride a mount with such a fiery temperament. Special Riding skills can be used by models with a mount, but only after first acquiring the Riding skill. Warriors equipped with a mount as standard equipment are considered to already have the Riding skill.",
+      "This skill is vital if a rider wishes to ride an animal into combat. The skill is specific to a type of animal and must be gained again if the warrior wishes to be able to ride a different kind of animal. For instance, a warrior with the skill Ride Horse would need to gain the skill Ride Warhorse if he wanted to be able to ride such a spirited mount. Special Riding Skills may be used by warriors who have a riding animal, but only after the skill Ride has been gained; warriors which come provided with a riding animal are assumed to possess the Ride skill already.",
   },
   equitation_02: {
-    nom: 'Commanding Presence',
+    nom: 'Cavalry Commander',
     texte:
-      "The sight of a Leader perched on his mount is inspiring to the troops. From this elevated vantage point, the Hero can see (and be seen) far more easily. A mounted warband Leader with this skill may add 6\" to the distance at which other members of his warband can use his Leadership, in addition to any other bonus the model already enjoys.",
+      "Mounted Heroes are an impressive sight. With a good vantage point, they can see (and be seen) far more readily than if they were on foot. If the warband's leader has this skill and is mounted, he may add an extra 6\" to the distance within which other warriors in the warband may use his Leadership. This is in addition to any other bonuses that increase the range of the leader's influence.",
   },
   equitation_03: {
-    nom: 'Vault into the Saddle',
+    nom: 'Athletic Mount',
     texte:
-      "Without stopping, the warrior is able to vault into his mount's saddle before immediately spurring it into a triple gallop! Once the warrior is in the saddle, he may make a charge or a run with his mount normally. The model must be within 2\" of its mount to use this skill.",
+      "Without breaking stride, the warrior is able to leap onto the back of his mount and immediately spur it into a full gallop. Once the warrior is on board, the mount may make a run or charge move as normal. The warrior must be within half his full move distance of his steed to use this skill.",
   },
   equitation_04: {
-    nom: 'Trotting Dismount',
+    nom: 'Running Dismount',
     texte:
-      "The rider is able to jump off his mount while it advances at a moderate pace. He may move a distance equal to his mount's normal Movement and dismount. No further movement or shooting is allowed afterwards. This skill can be used to reach base contact with the enemy. It then counts as a diving charge from a height of 2\" (all diving charge rules apply). Note that the rider then counts as being on foot and gains no benefit linked to his mount.",
+      "The rider is able to dismount from his mount at speed. The rider may ride up the mount's normal move distance and then dismount immediately. No further movement or shooting is possible. This skill may be used to move into contact with the enemy, counting as a diving charge from a height of 2\" – all the usual rules for diving charges apply. Note that the rider then counts as dismounted, gaining no further assistance from his mount. Warriors without Ride may not use this skill.",
   },
   equitation_05: {
     nom: 'Horse Archer',
     texte:
-      'The rider has learned to shoot from the saddle from the nomads of the steppes and can do so from a mount at full gallop. The rider has a 360° firing arc while mounted and may fire even if his mount has moved up to double its normal Movement. However, this shot suffers a -1 to hit penalty in addition to any other modifier.',
+      'The rider has learned the skills of the steppe nomads and can shoot from a running mount. The rider may shoot in a 360 degree arc whilst mounted, and may shoot while his mount is running; however, the shot suffers a -1 to hit penalty in addition to all other normal modifiers. Warriors without Ride may not use this skill.',
   },
   equitation_06: {
     nom: 'Trick Riding',
     texte:
-      "The warrior can hang from his saddle and lean against his mount's flank, making him hard to hit. While using this skill, all shots against him suffer a -1 to hit penalty. He must declare he is using it before moving and must then take an Initiative test. On a success, he may move normally. On a failure, he must roll on the Whoa There! table. This skill cannot be used with heavy armour. It also requires both hands, so the Hero cannot use a shield or a missile weapon while using it.",
+      "By athletically hanging off the side of his mount, a rider makes himself harder to hit. While a rider is trick riding all missile attacks against him suffer -1 to hit in addition to all other normal modifiers. The rider must declare that he is trick riding before moving. He must then make an Initiative test and, if successful, may move full distance. If he fails he loses control of his mount and must roll immediately on the Whoa Boy! table. This skill may not be used with heavy armour because of the agility required. In addition, trick riding requires both hands, so the model may not use a shield or missile weapons whilst using the skill. Warriors without Ride may not use this skill.",
   },
   equitation_07: {
-    nom: 'Feint',
+    nom: 'Evade',
     texte:
-      'The rider has trained his mount to manoeuvre in combat. A model with this skill always strikes first against opponents on foot. When charged, or when facing an enemy with the ability to always strike first, Attacks are resolved by Initiative. In case of a tie, whoever has more Experience strikes first.',
+      'The rider has trained his mount to swerve from side to side in combat, wrong-footing his opponent. A rider with this skill always strikes first in close combat against dismounted opponents. When charged by an opponent, or otherwise fighting an enemy also entitled to strike first, attacks are carried out in order of Initiative. If Initiative is equal, the model with greater Experience strikes first. Warriors without Ride may not use this skill.',
   },
   equitation_08: {
-    nom: 'Trample',
+    nom: 'Combat Riding',
     texte:
-      'The rider has trained his mount to trample its opponents. A model with this skill may make an additional Strength 4 Attack when it charges an enemy on foot. In subsequent turns, or if it is the one being charged, it fights normally.',
+      'The rider has trained his mount to use its bulk to trample any un-mounted enemy before him. A warrior with this skill may make a single additional Strength 4 attack when charging an unmounted opponent. In subsequent rounds of combat, or if charged by enemy warriors, the mounted warrior fights as normal.',
   },
   equitation_09: {
-    nom: 'Mounted Combat Expert',
+    nom: 'Mounted Combat Master',
     texte:
-      "The model is formidable against enemy riders. If the model is mounted, fights an opponent who is also mounted, and manages to Wound him, his opponent must add +1 to the result of his roll on the Whoa There! table.",
+      "The rider is especially skilled at combat against a mounted opponent. If the model is fighting mounted against a mounted opponent and successfully wounds the enemy, the wounded model must add +1 to his roll on the Whoa Boy! table. Warriors without Ride may not use this skill.",
   },
 };
 
