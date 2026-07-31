@@ -205,9 +205,8 @@ export function MagieReference({
   }
 
   return (
-    <div className="card card--tight">
-      <h3>{titre}</h3>
+    <CollapsibleCard preferenceKey="ui.personnage.magie_reference.ouvert" title={titre}>
       {contenu}
-    </div>
+    </CollapsibleCard>
   );
 }

@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
 import type { IconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
@@ -50,6 +51,7 @@ function estHorsCombat(m: Member) {
 
 type MemberGroupCardProps = {
   titre: string;
+  preferenceKey: string;
   membres: Member[];
   roster: RosterInstance;
   catalogue: WarbandCatalog | undefined;
@@ -60,6 +62,7 @@ type MemberGroupCardProps = {
 
 export function MemberGroupCard({
   titre,
+  preferenceKey,
   membres,
   roster,
   catalogue,
@@ -93,11 +96,15 @@ export function MemberGroupCard({
   };
 
   return (
-    <div className="card">
-      <h3>
-        <Icon name={titre === 'Héros' ? 'etoile' : 'bouclier'} style={{ marginRight: '0.35em' }} />
-        {titre}
-      </h3>
+    <CollapsibleCard
+      preferenceKey={preferenceKey}
+      title={
+        <>
+          <Icon name={titre === 'Héros' ? 'etoile' : 'bouclier'} style={{ marginRight: '0.35em' }} />
+          {titre}
+        </>
+      }
+    >
       <div className="roster-table-wrap">
         <table className="roster-table">
           <thead>
@@ -345,6 +352,6 @@ export function MemberGroupCard({
             </div>
           );
         })()}
-    </div>
+    </CollapsibleCard>
   );
 }
