@@ -5,9 +5,9 @@ import type { Language } from '../../state/useLanguage';
 // dictionnaire retombe simplement sur le texte français.
 export const skillsEn: Record<string, { nom: string; texte: string }> = {
   combat_01: {
-    nom: 'Precise Strike',
+    nom: 'Strike to Injure',
     texte:
-      'The warrior strikes with great precision. Add +1 to all damage rolls caused by the model in hand-to-hand combat.',
+      'The warrior can land his blows with uncanny accuracy. Add +1 to all injury rolls caused by the model in hand-to-hand combat.',
   },
   combat_02: {
     nom: 'Combat Master',
@@ -20,9 +20,9 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       'The warrior knows how to wield many different weapons perfectly. He may use any hand-to-hand weapon, not just those among his equipment options.',
   },
   combat_04: {
-    nom: 'Wall of Steel',
+    nom: 'Web of Steel',
     texte:
-      'This warrior has few equals. He wields his weapon with great skill and surrounds himself with a veritable wall of steel. The model gains +1 to all his rolls on the Critical Hits Tables in hand-to-hand combat.',
+      'Few can match the ability of this warrior. He fights with great skill, weaving a web of steel around him. The model gains +1 to all his rolls on Critical Hit tables in hand-to-hand combat.',
   },
   combat_05: {
     nom: 'Expert Swordsman',
@@ -53,13 +53,13 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       'The warrior has learned to use some of the strangest weapons in the Old World. He may use any missile weapon, not just those among his equipment options.',
   },
   tir_05: {
-    nom: 'Moving Shot',
+    nom: 'Nimble',
     texte:
-      'The warrior may move and fire weapons that can normally only be used if the shooter is stationary. Note that this skill cannot be combined with Quick Shot.',
+      'The warrior may move and fire with weapons that are normally only used if the firer has not moved. Note that this skill cannot be combined with the Quick Shot skill.',
   },
   tir_06: {
-    nom: 'Sharpshooter',
-    texte: 'The warrior can fire through the smallest gaps without it affecting his shot. He ignores all cover penalties when using a missile weapon.',
+    nom: 'Trick Shooter',
+    texte: 'The warrior can shoot through the tiniest gap without it affecting his aim. He ignores all modifiers for cover when using missile weapons.',
   },
   tir_07: {
     nom: 'Hunter',
@@ -67,9 +67,9 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       'The warrior is perfectly trained at loading and priming his weapon. He may fire every turn even with an arquebus or a Hochland long rifle.',
   },
   tir_08: {
-    nom: 'Knife-thrower',
+    nom: 'Knife-Fighter',
     texte:
-      'The warrior is an unrivalled expert at throwing stars and throwing knives. He may throw up to a maximum of three per shooting phase, and may split his shots between several targets within range of his choice. Note that this skill cannot be combined with Quick Shot.',
+      'The warrior is an unrivalled expert at using throwing knives and throwing stars. He can throw a maximum of three of these missiles in his shooting phase and may divide his shots between any targets within range as he wishes. Note that this skill cannot be combined with the Quick Shot skill.',
   },
   force_01: {
     nom: 'Mighty Blow',
@@ -82,9 +82,9 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       'The warrior learned to fight in confined spaces while wrestling in the arenas of the Empire. He gains +1 Weapon Skill and +1 Attack if he fights in a building or ruins. We recommend clearly defining before the battle which terrain features fall into this category.',
   },
   force_03: {
-    nom: 'Hard as Nails',
+    nom: 'Resilient',
     texte:
-      'The warrior is covered in scars. The Strength of all hits received in hand-to-hand combat is reduced by -1, without however affecting the armour save modifier.',
+      'The warrior is covered in battle scars. Deduct -1 Strength from all hits against him in close combat. This does not affect armour save modifiers.',
   },
   force_04: {
     nom: 'Fearsome',
@@ -96,8 +96,8 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       'The warrior has great physical strength and can wield a two-handed weapon without having to strike last. Determine strike order as with other weapons.',
   },
   force_06: {
-    nom: 'Berserk Charge',
-    texte: "The warrior's charges are almost impossible to stop. He gains +1 Weapon Skill when he charges.",
+    nom: 'Unstoppable Charge',
+    texte: 'When he charges, the warrior is almost impossible to halt. He adds +1 to his Weapon Skill when charging.',
   },
   academique_01: {
     nom: 'Battle Tongue',
@@ -105,14 +105,14 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       "Only a leader may choose this skill. He gives his orders through brief shouts his warband understands. This increases the range of his leadership ability (lending his Leadership) by 6\". Undead cannot use this skill.",
   },
   academique_02: {
-    nom: 'Spell Mastery',
+    nom: 'Sorcery',
     texte:
-      'This skill may only be chosen by a hero able to cast spells, who then gains +1 to his rolls to see whether he manages to cast one. Sisters of Sigmar and Warrior Priests cannot choose this skill.',
+      'This skill may only be taken by Heroes capable of casting spells. A warrior with this skill gains +1 to his rolls to see whether he can cast spells successfully or not. Note that Sisters of Sigmar and Warrior Priests may not have this skill.',
   },
   academique_03: {
-    nom: 'Street Wise',
+    nom: 'Streetwise',
     texte:
-      'The warrior has good contacts and knows where to buy rare items. He may add +2 to the roll that determines whether he manages to find one (see the Trading chapter).',
+      'A warrior with this skill has good contacts and knows where to purchase rare items. He may add +2 to the roll that determines his chances of finding such items (see the Trading section).',
   },
   academique_04: {
     nom: 'Haggle',
@@ -120,14 +120,14 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       'The warrior knows all about bargaining and haggling. He may deduct 2D6 gold crowns from the price of a single item once per post-battle sequence (down to a minimum of 1 gold crown).',
   },
   academique_05: {
-    nom: 'Sorcery',
+    nom: 'Arcane Lore',
     texte:
-      'Witch Hunters, Sisters of Sigmar and Warrior Priests cannot choose this skill. Whoever has it may learn minor magic if he owns a grimoire.',
+      'Witch Hunters, Sisters of Sigmar or Warrior Priests may not have this skill. Any Hero with this skill may learn Lesser Magic if he owns a Tome of Magic.',
   },
   academique_06: {
-    nom: 'Treasure Hunter',
+    nom: 'Wyrdstone Hunter',
     texte:
-      'The warrior has a gift for finding fragments of wyrdstone, and lets you re-roll one die when rolling on the Exploration Table if he searches the ruins after the battle. You must accept the second result.',
+      'The warrior has an uncanny ability to find hidden shards of wyrdstone. If a Hero with this skill is searching the ruins in the exploration phase, you may re-roll one die when rolling on the Exploration chart. The second result stands.',
   },
   academique_07: {
     nom: 'Warrior Wizard',
@@ -169,8 +169,8 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       "The warrior may leap D6\" during his movement phase in addition to his normal move. He may move and leap, run and leap, or charge and leap, but in every case he may only leap once per turn. The warrior may leap without penalty over obstacles up to 1\" high and over human-sized models, even enemy ones. A leap may also clear gaps, but in that case you must declare the attempt before rolling the die for how far he jumps. If he fails to reach the other side, he falls.",
   },
   vitesse_02: {
-    nom: 'Sprinter',
-    texte: 'The warrior is an excellent runner. He may triple his Movement when running or charging instead of doubling it.',
+    nom: 'Sprint',
+    texte: 'The warrior may triple his Movement rate when running or charging, rather than doubling it as normal.',
   },
   vitesse_03: {
     nom: 'Acrobat',
@@ -183,9 +183,9 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       'If the warrior is charged, he strikes first against the enemies who charged him. Since those enemies also strike first (because of their charge), the strike order between charger and charged is determined by their respective Initiatives.',
   },
   vitesse_05: {
-    nom: 'Quick Recovery',
+    nom: 'Jump Up',
     texte:
-      'The warrior can get back on his feet in an instant if knocked down. He may ignore any Knocked Down result on damage rolls, unless it results from a save due to wearing a helmet or he has the Unfeeling special rule.',
+      'The warrior can regain his footing in an instant, springing to his feet immediately if he is knocked down. The warrior may ignore knocked down results when rolling for injuries, unless he is knocked down because of a successful save from wearing a helmet or because he has the No Pain special rule.',
   },
   vitesse_06: {
     nom: 'Dodge',
@@ -193,9 +193,9 @@ export const skillsEn: Record<string, { nom: string; texte: string }> = {
       "The warrior is agile and quick as quicksilver. He can avoid a shot on a 5+ on 1D6. Note that this roll is made as soon as a hit is scored, before rolling to wound and before determining the effects of other skills or equipment (such as Lucky Charms).",
   },
   vitesse_07: {
-    nom: 'Climber',
+    nom: 'Scale Sheer Surfaces',
     texte:
-      'The warrior can scale fences and walls with great ease. He may climb, up or down, a distance of up to twice his normal Movement, without needing to take an Initiative test.',
+      'A warrior with this skill can scale even the highest wall or fence with ease. He can climb up or down a height equal to twice his normal Movement, and does not need to make Initiative tests when doing so.',
   },
   equitation_01: {
     nom: 'Riding',
