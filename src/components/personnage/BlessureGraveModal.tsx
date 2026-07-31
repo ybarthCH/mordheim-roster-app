@@ -6,6 +6,7 @@ import { Modal } from '../common/Modal';
 import { BlessureGraveWizard, type BlessureGraveResultat } from './BlessureGraveWizard';
 import { estRetablissementIsole, trouverBlessure } from '../../data/blessuresGraves';
 import { appliquerDeltaStats } from '../../utils/blessures';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   member: Member;
@@ -18,6 +19,7 @@ type Props = {
 const NOM_AVEUGLE_OEIL = trouverBlessure('aveugle_oeil')?.nom;
 
 export function BlessureGraveModal({ member, profil, tresorerieDisponible, onClose, onApply }: Props) {
+  const { t } = useLanguage();
   const [applique, setApplique] = useState(false);
   const dejaAveugle = member.blessures_graves.some((b) => b.nom === NOM_AVEUGLE_OEIL);
 
@@ -58,7 +60,9 @@ export function BlessureGraveModal({ member, profil, tresorerieDisponible, onClo
 
   return (
     <Modal onClose={onClose}>
-      <h3>Blessure grave — {member.nom_perso}</h3>
+      <h3>
+        {t('blessureGraveModal.titlePrefix')} {member.nom_perso}
+      </h3>
       {!applique && (
         <BlessureGraveWizard
           nomPersonnage={member.nom_perso}
@@ -75,9 +79,9 @@ export function BlessureGraveModal({ member, profil, tresorerieDisponible, onClo
       )}
       {applique && (
         <>
-          <p className="text-success">Blessure enregistrée dans l'historique.</p>
+          <p className="text-success">{t('blessureGraveModal.recorded')}</p>
           <button className="btn btn--primary btn--block" onClick={onClose}>
-            Fermer
+            {t('blessureGraveModal.close')}
           </button>
         </>
       )}

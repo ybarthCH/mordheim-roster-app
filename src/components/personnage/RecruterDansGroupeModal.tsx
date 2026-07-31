@@ -3,6 +3,7 @@ import type { Member, RosterInstance } from '../../types/roster';
 import { calculerCoutRejoindreGroupe, rejoindreGroupe, TRINKETS_LIMITES } from '../../utils/shop';
 import { useGameRules } from '../../state/useGameRules';
 import { Modal } from '../common/Modal';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   roster: RosterInstance;
@@ -16,6 +17,7 @@ type Props = {
 // depuis sa propre fiche, sans repasser par le recrutement global du roster.
 export function RecruterDansGroupeModal({ roster, groupe, coutUnitaire, onClose, onConfirm }: Props) {
   const { rules } = useGameRules();
+  const { t } = useLanguage();
   // Saisie gardée en texte brut : un input contrôlé par un number forcerait
   // la valeur dès l'effacement (impossible de vider le champ pour retaper
   // un chiffre) — le plancher ne s'applique qu'à l'usage.
@@ -35,47 +37,46 @@ export function RecruterDansGroupeModal({ roster, groupe, coutUnitaire, onClose,
 
   return (
     <Modal onClose={onClose}>
-      <h3>Recruter dans « {groupe.nom_perso} »</h3>
+      <h3>
+        {t('recruterDansGroupe.titlePrefix')} « {groupe.nom_perso} »
+      </h3>
       <div className="field">
-        <label>Nombre de figurines rejoignant le groupe</label>
+        <label>{t('recruterDansGroupe.figurineCount')}</label>
         <input type="number" min={1} value={quantiteSaisie} onChange={(e) => setQuantiteSaisie(e.target.value)} />
       </div>
       <div className="card card--tight" style={{ margin: '0.6rem 0' }}>
         <p className="text-sm text-muted mb-0">
-          Le groupe a {cout.xpGroupe} XP : chaque nouvelle figurine coûte {coutUnitaire} po
-          {cout.xpGroupe > 0 && ` + ${cout.surtaxeXpUnitaire} po (2 × XP du groupe)`}, et doit être équipée à
-          l'identique du reste du groupe.
+          {t('recruterDansGroupe.groupHasXpPrefix')} {cout.xpGroupe} {t('recruterDansGroupe.eachModelCosts')} {coutUnitaire} {t('creation.gc')}
+          {cout.xpGroupe > 0 && ` + ${cout.surtaxeXpUnitaire} ${t('creation.gc')} ${t('recruterDansGroupe.plusSurtax')}`}, {t('recruterDansGroupe.equipEquallyNote')}
         </p>
         {groupe.inventaire.length > 0 && (
           <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-            Équipement forcé : {[...new Set(groupe.inventaire.map((e) => e.nom))].join(', ')} (
-            {cout.coutEquipementForce} po au total pour {quantite} figurine{quantite > 1 ? 's' : ''}).
+            {t('recruterDansGroupe.forcedEquipmentPrefix')} {[...new Set(groupe.inventaire.map((e) => e.nom))].join(', ')} (
+            {cout.coutEquipementForce} {t('recruterDansGroupe.totalForPrefix')} {quantite} {t('recruterDansGroupe.model')}
+            {quantite > 1 ? 's' : ''}).
           </p>
         )}
         {cout.xpGroupe > 0 && (
           <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-            Coût indicatif en points vétéran : {cout.vetPointsIndicatifs} (non contrôlé — libre à toi de recruter
-            même sans les points suffisants).
+            {t('recruterDansGroupe.vetPointsIndicative', { points: cout.vetPointsIndicatifs })}
           </p>
         )}
         {dupliqueraitTrinket && (
-          <p className="text-danger text-sm">
-            Recrutement bloqué : l'équipement du groupe contient un objet limité à un exemplaire par bande et serait
-            automatiquement dupliqué.
-          </p>
+          <p className="text-danger text-sm">{t('recruterDansGroupe.trinketBlocked')}</p>
         )}
       </div>
       {!budgetSuffisant && (
         <p className="text-danger text-sm">
-          Trésorerie insuffisante ({roster.tresorerie} po disponibles, {cout.coutTotal} po requis).
+          {t('recruterDansGroupe.insufficientTreasury', { disponible: roster.tresorerie, requis: cout.coutTotal })}
         </p>
       )}
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
         <button className="btn" onClick={onClose}>
-          Annuler
+          {t('recruterDansGroupe.cancel')}
         </button>
         <button className="btn btn--primary" disabled={dupliqueraitTrinket} onClick={confirmer}>
-          Recruter pour {cout.coutTotal} po{!budgetSuffisant ? ' quand même' : ''}
+          {t('recruterDansGroupe.recruitForPrefix')} {cout.coutTotal} {t('creation.gc')}
+          {!budgetSuffisant ? ` ${t('creation.modal.anyway')}` : ''}
         </button>
       </div>
     </Modal>
