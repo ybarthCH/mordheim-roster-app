@@ -8,6 +8,7 @@ import {
 import { getItem } from '../../data/items';
 import { STAT_KEYS } from '../../types/catalog';
 import { Icon, type IconName } from '../common/Icon';
+import { useLanguage } from '../../state/useLanguage';
 
 const ICONE: Partial<Record<string, IconName>> = {
   colere: 'crane',
@@ -62,6 +63,7 @@ export function RecompenseSeigneurDesOmbresWizard({
   onAppliquer,
   onAnnuler,
 }: Props) {
+  const { t } = useLanguage();
   const [mode, setMode] = useState<Mode>('liste');
   const [selectionId, setSelectionId] = useState('');
   const [resultatFinal, setResultatFinal] = useState<RecompenseResultat | null>(null);
@@ -167,13 +169,13 @@ export function RecompenseSeigneurDesOmbresWizard({
     return (
       <div>
         <p className="text-sm text-muted" style={{ marginTop: 0 }}>
-          Lance 2D6 sur ta table papier, puis sélectionne le résultat obtenu pour {nomPersonnage}.
+          {t('seigneurOmbres.rollInstruction', { nom: nomPersonnage })}
         </p>
         <div className="field">
-          <label>Résultat obtenu</label>
+          <label>{t('seigneurOmbres.resultObtained')}</label>
           <select value={selectionId} onChange={(e) => setSelectionId(e.target.value)}>
             <option value="" disabled>
-              Choisis un résultat…
+              {t('seigneurOmbres.chooseResult')}
             </option>
             {RECOMPENSES_SEIGNEUR_DES_OMBRES.map((r) => (
               <option key={r.id} value={r.id}>
@@ -186,11 +188,11 @@ export function RecompenseSeigneurDesOmbresWizard({
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           {onAnnuler && (
             <button className="btn" onClick={onAnnuler}>
-              Annuler
+              {t('seigneurOmbres.cancel')}
             </button>
           )}
           <button className="btn btn--primary" disabled={!selection} onClick={validerSelection}>
-            Continuer
+            {t('seigneurOmbres.continue')}
           </button>
         </div>
       </div>
@@ -202,11 +204,9 @@ export function RecompenseSeigneurDesOmbresWizard({
       <div>
         <h4 style={{ marginTop: 0 }}>
           <Icon name="goutte" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
-          Mutation
+          {t('seigneurOmbres.mutation')}
         </h4>
-        <p className="text-sm text-muted">
-          Lance 1D6 : sur un 1, une caractéristique diminue ; sur 2 ou plus, choisis une mutation.
-        </p>
+        <p className="text-sm text-muted">{t('seigneurOmbres.mutationD6Note')}</p>
         <div className="flex flex-wrap gap-sm">
           {[1, 2, 3, 4, 5, 6].map((n) => (
             <button key={n} className="btn" onClick={() => choisirGraviteMutation(n)}>
@@ -216,7 +216,7 @@ export function RecompenseSeigneurDesOmbresWizard({
         </div>
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={() => setMode('liste')}>
-            ‹ Retour
+            {t('seigneurOmbres.back')}
           </button>
         </div>
       </div>
@@ -226,8 +226,8 @@ export function RecompenseSeigneurDesOmbresWizard({
   if (mode === 'perte_carac') {
     return (
       <div>
-        <h4 style={{ marginTop: 0 }}>Atrophie</h4>
-        <p className="text-sm text-muted">Choisis la caractéristique qui perd 1 point.</p>
+        <h4 style={{ marginTop: 0 }}>{t('seigneurOmbres.atrophy')}</h4>
+        <p className="text-sm text-muted">{t('seigneurOmbres.atrophyChoose')}</p>
         <div className="flex flex-wrap gap-sm">
           {STAT_KEYS.map((k) => (
             <button key={k} className="btn" onClick={() => choisirPerteCarac(k)}>
@@ -237,7 +237,7 @@ export function RecompenseSeigneurDesOmbresWizard({
         </div>
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={() => setMode('mutation_d6')}>
-            ‹ Retour
+            {t('seigneurOmbres.back')}
           </button>
         </div>
       </div>
@@ -247,7 +247,7 @@ export function RecompenseSeigneurDesOmbresWizard({
   if (mode === 'choix_mutation') {
     return (
       <div>
-        <h4 style={{ marginTop: 0 }}>Choisis une mutation (gratuite)</h4>
+        <h4 style={{ marginTop: 0 }}>{t('seigneurOmbres.chooseMutationFree')}</h4>
         <div className="skill-list">
           {TABLE_MUTATIONS_ITEM_IDS.map((itemId) => {
             const item = getItem(itemId);
@@ -268,7 +268,7 @@ export function RecompenseSeigneurDesOmbresWizard({
         </div>
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={() => setMode('mutation_d6')}>
-            ‹ Retour
+            {t('seigneurOmbres.back')}
           </button>
         </div>
       </div>
@@ -280,27 +280,24 @@ export function RecompenseSeigneurDesOmbresWizard({
       <div>
         <h4 style={{ marginTop: 0 }}>
           <Icon name="epee" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
-          Arme démon
+          {t('seigneurOmbres.demonWeapon')}
         </h4>
-        <p className="text-sm text-muted">
-          +1 en Force au corps à corps et +1 pour toucher avec cette arme. Choisis-en la forme (épée, hache…) — sans
-          effet mécanique, juste pour le nom.
-        </p>
+        <p className="text-sm text-muted">{t('seigneurOmbres.demonWeaponNote')}</p>
         <div className="field">
-          <label>Nom de l'arme</label>
+          <label>{t('seigneurOmbres.weaponNameLabel')}</label>
           <input
             value={nomArmeSaisi}
             onChange={(e) => setNomArmeSaisi(e.target.value)}
-            placeholder="ex : Épée démoniaque"
+            placeholder={t('seigneurOmbres.weaponNamePlaceholder')}
             autoFocus
           />
         </div>
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={() => setMode('liste')}>
-            ‹ Retour
+            {t('seigneurOmbres.back')}
           </button>
           <button className="btn btn--primary" onClick={confirmerNomArme}>
-            Confirmer
+            {t('seigneurOmbres.confirm')}
           </button>
         </div>
       </div>
@@ -312,12 +309,9 @@ export function RecompenseSeigneurDesOmbresWizard({
       <div>
         <h4 style={{ marginTop: 0 }}>
           <Icon name="etoile" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
-          Possédé !
+          {t('seigneurOmbres.possessed')}
         </h4>
-        <p className="text-sm text-muted">
-          +1 CC, +1 F, +1 Attaque, +1 PV (au-delà des maximums). Lance 1D3 : combien de compétences le guerrier
-          perd-il ?
-        </p>
+        <p className="text-sm text-muted">{t('seigneurOmbres.possessedNote')}</p>
         <div className="flex flex-wrap gap-sm">
           {[1, 2, 3].map((n) => (
             <button key={n} className="btn" onClick={() => choisirD3(n)}>
@@ -327,7 +321,7 @@ export function RecompenseSeigneurDesOmbresWizard({
         </div>
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={() => setMode('liste')}>
-            ‹ Retour
+            {t('seigneurOmbres.back')}
           </button>
         </div>
       </div>
@@ -338,10 +332,11 @@ export function RecompenseSeigneurDesOmbresWizard({
     return (
       <div>
         <h4 style={{ marginTop: 0 }}>
-          Choisis {nombreCompetencesAPerdre} compétence{nombreCompetencesAPerdre > 1 ? 's' : ''} à perdre
+          {t('seigneurOmbres.chooseSkillsToLosePrefix')} {nombreCompetencesAPerdre} {t('seigneurOmbres.skill')}
+          {nombreCompetencesAPerdre > 1 ? 's' : ''} {t('seigneurOmbres.skillsToLoseSuffix')}
         </h4>
         {competencesAcquises.length === 0 ? (
-          <p className="text-sm text-muted">Ce guerrier n'a aucune compétence à perdre.</p>
+          <p className="text-sm text-muted">{t('seigneurOmbres.noSkillsToLose')}</p>
         ) : (
           <div className="skill-list">
             {competencesAcquises.map((id) => (
@@ -359,10 +354,10 @@ export function RecompenseSeigneurDesOmbresWizard({
         )}
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={() => setMode('roll_d3')}>
-            ‹ Retour
+            {t('seigneurOmbres.back')}
           </button>
           <button className="btn btn--primary" onClick={confirmerPossede}>
-            Confirmer
+            {t('seigneurOmbres.confirm')}
           </button>
         </div>
       </div>
@@ -379,27 +374,27 @@ export function RecompenseSeigneurDesOmbresWizard({
         <p className="text-sm text-muted">{resultatFinal.texte}</p>
         {Object.entries(resultatFinal.statsDelta).length > 0 && (
           <p className="text-sm mb-0">
-            <strong>Caractéristiques :</strong>{' '}
+            <strong>{t('seigneurOmbres.characteristicsLabel')}</strong>{' '}
             {Object.entries(resultatFinal.statsDelta)
               .map(([k, v]) => `${v! > 0 ? '+' : ''}${v} ${k}`)
               .join(', ')}
-            {resultatFinal.ignorePlafond && ' (au-delà des maximums)'}
+            {resultatFinal.ignorePlafond && t('seigneurOmbres.beyondMaximums')}
           </p>
         )}
         {resultatFinal.objetGratuit && (
           <p className="text-sm mb-0">
-            <strong>Objet obtenu :</strong> {resultatFinal.objetGratuit.nom}
+            <strong>{t('seigneurOmbres.itemObtainedLabel')}</strong> {resultatFinal.objetGratuit.nom}
           </p>
         )}
         {resultatFinal.competencesRetirees.length > 0 && (
           <p className="text-sm mb-0">
-            <strong>Compétences perdues :</strong>{' '}
+            <strong>{t('seigneurOmbres.skillsLostLabel')}</strong>{' '}
             {resultatFinal.competencesRetirees.map((id) => nomCompetence(id)).join(', ')}
           </p>
         )}
-        {resultatFinal.statutMort && <p className="text-danger">⚠ Ce guerrier sera retiré de la bande (Mort).</p>}
+        {resultatFinal.statutMort && <p className="text-danger">{t('seigneurOmbres.willBeRemoved')}</p>}
         <button className="btn btn--primary btn--block" style={{ marginTop: '0.8rem' }} onClick={() => onAppliquer(resultatFinal)}>
-          Appliquer
+          {t('seigneurOmbres.apply')}
         </button>
       </div>
     );
