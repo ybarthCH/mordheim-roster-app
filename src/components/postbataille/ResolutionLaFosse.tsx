@@ -15,6 +15,11 @@ type Props = {
 export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJournal }: Props) {
   const [heroId, setHeroId] = useState('');
   const [jetFragments, setJetFragments] = useState('');
+  // Se verrouille une fois le jet résolu : côté échec le héros passe au
+  // statut mort et disparaît naturellement de la liste, mais côté réussite
+  // rien n'empêchait de rester sur le même héros (toujours vivant) et de
+  // recliquer « Réussi » pour empocher plusieurs fois les fragments.
+  const [resolu, setResolu] = useState<string | null>(null);
 
   const heros = roster.membres.filter((m) => m.statut !== 'mort' && resolveProfil(roster, m)?.type === 'heros');
   const hero = heros.find((m) => m.instance_id === heroId);
@@ -27,8 +32,7 @@ export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJourna
     onAjouterAuJournal(
       `La Fosse : ${hero.nom_perso} revient avec ${valeurFragments} fragment${valeurFragments > 1 ? 's' : ''} de pierre magique (D6+1).`
     );
-    setHeroId('');
-    setJetFragments('');
+    setResolu(`${hero.nom_perso} revient avec ${valeurFragments} fragment${valeurFragments > 1 ? 's' : ''}.`);
   };
 
   const appliquerEchec = () => {
@@ -39,9 +43,16 @@ export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJourna
       ),
     });
     onAjouterAuJournal(`La Fosse : ${hero.nom_perso} est dévoré par les gardiens de la Fosse — mort.`);
-    setHeroId('');
-    setJetFragments('');
+    setResolu(`${hero.nom_perso} est dévoré par les gardiens de la Fosse — mort.`);
   };
+
+  if (resolu) {
+    return (
+      <p className="text-sm text-success" style={{ marginTop: '0.6rem' }}>
+        ✓ La Fosse : {resolu}
+      </p>
+    );
+  }
 
   return (
     <div style={{ marginTop: '0.6rem' }}>

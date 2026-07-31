@@ -17,20 +17,32 @@ const BANDES_REUSSITE_AUTOMATIQUE = new Set(['undead', 'morts_sans_repos', 'witc
 // pour les bandes que l'alcool n'intéresse pas.
 export function ResolutionTaverne({ roster, catalogue, onAjouterOr, onAjouterAuJournal }: Props) {
   const [resultat, setResultat] = useState<'reussi' | 'rate' | null>(null);
+  // Se verrouille une fois le gain appliqué : les boutons Réussi/Raté
+  // restaient cliquables indéfiniment après coup, permettant de rouvrir un
+  // JetOrButton vierge et d'appliquer un second gain sur le même événement.
+  const [resolu, setResolu] = useState<string | null>(null);
   const chef = resolveLeader(roster, catalogue);
   const automatique = BANDES_REUSSITE_AUTOMATIQUE.has(catalogue.id);
 
   const vendu = (valeur: number) => {
     onAjouterOr(valeur);
     onAjouterAuJournal(`Taverne : tonneaux vendus — +${valeur} po (4D6).`);
-    setResultat(null);
+    setResolu(`Tonneaux vendus — +${valeur} po.`);
   };
 
   const perdu = (valeur: number) => {
     onAjouterOr(valeur);
     onAjouterAuJournal(`Taverne : la plupart des tonneaux sont vidés — +${valeur} po (D6).`);
-    setResultat(null);
+    setResolu(`Tonneaux vidés — +${valeur} po.`);
   };
+
+  if (resolu) {
+    return (
+      <p className="text-sm text-success" style={{ marginTop: '0.6rem' }}>
+        ✓ Taverne : {resolu}
+      </p>
+    );
+  }
 
   if (automatique) {
     return (
@@ -49,10 +61,18 @@ export function ResolutionTaverne({ roster, catalogue, onAjouterOr, onAjouterAuJ
         Test de Commandement du chef{chef ? ` (${chef.nom_perso})` : ''} :
       </p>
       <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
-        <button type="button" className="btn btn--sm btn--primary" onClick={() => setResultat('reussi')}>
+        <button
+          type="button"
+          className={`btn btn--sm ${resultat === 'reussi' ? 'btn--primary' : ''}`}
+          onClick={() => setResultat('reussi')}
+        >
           Réussi
         </button>
-        <button type="button" className="btn btn--sm" onClick={() => setResultat('rate')}>
+        <button
+          type="button"
+          className={`btn btn--sm ${resultat === 'rate' ? 'btn--primary' : ''}`}
+          onClick={() => setResultat('rate')}
+        >
           Raté
         </button>
       </div>

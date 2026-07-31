@@ -18,6 +18,10 @@ type Props = {
 // l'écran de recrutement habituel si besoin.
 export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouterAuJournal }: Props) {
   const [francTireurId, setFrancTireurId] = useState('');
+  // Se verrouille une fois un Franc-tireur engagé : l'événement n'en accorde
+  // qu'un seul gratuitement, mais rien n'empêchait de resélectionner un
+  // autre profil dans la liste et de recliquer pour en engager plusieurs.
+  const [resolu, setResolu] = useState<string | null>(null);
 
   const disponibles = FRANCS_TIREURS.filter(
     (f) => !f.magie?.sorts_depart && !f.sacrifice_liche && disponibiliteFrancTireur(f, roster).disponible
@@ -38,8 +42,16 @@ export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouter
     onAjouterAuJournal(
       `Débiteur reconnaissant : ${francTireur.nom} rejoint la bande gratuitement pour la prochaine bataille.`
     );
-    setFrancTireurId('');
+    setResolu(`${francTireur.nom} rejoint la bande gratuitement.`);
   };
+
+  if (resolu) {
+    return (
+      <p className="text-sm text-success" style={{ marginTop: '0.6rem' }}>
+        ✓ Débiteur reconnaissant : {resolu}
+      </p>
+    );
+  }
 
   return (
     <div style={{ marginTop: '0.6rem' }}>

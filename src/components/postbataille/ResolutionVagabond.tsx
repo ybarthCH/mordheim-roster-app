@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { resolveLeader } from '../../utils/leader';
@@ -17,11 +18,16 @@ type Props = {
 export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr, onAjouterAuJournal }: Props) {
   const chef = resolveLeader(roster, catalogue);
   const zombieProfil = catalogue.profils.find((p) => p.id === 'zombie');
+  // Se verrouille une fois une option choisie : ces trois boutons n'avaient
+  // aucun état, ils restaient cliquables indéfiniment — chaque clic
+  // supplémentaire rappliquait le gain (XP, zombie, dé bonus) en double.
+  const [resolu, setResolu] = useState<string | null>(null);
 
   const sacrifierPourXp = () => {
     if (!chef) return;
     onMajRoster({ membres: roster.membres.map((m) => (m.instance_id === chef.instance_id ? { ...m, xp: m.xp + 1 } : m)) });
     onAjouterAuJournal(`Vagabond : sacrifié aux dieux du Chaos — ${chef.nom_perso} gagne +1pt d'expérience.`);
+    setResolu(`Sacrifié — ${chef.nom_perso} gagne +1 XP.`);
   };
 
   const tuerPourZombie = () => {
@@ -29,6 +35,7 @@ export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr
     const zombie = creerMembre(zombieProfil, 0);
     onMajRoster({ membres: [...roster.membres, zombie] });
     onAjouterAuJournal('Vagabond : tué et transformé en zombie, rejoint la bande gratuitement.');
+    setResolu('Tué et transformé — un zombie rejoint la bande.');
   };
 
   const interroger = () => {
@@ -42,12 +49,22 @@ export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr
     onAjouterAuJournal(
       "Vagabond : interrogé sur la ville — +1 dé (avec annulation d'un résultat au choix) au prochain jet d'exploration."
     );
+    setResolu('Interrogé — +1 dé au prochain jet d\'exploration.');
   };
 
   const venduPourOr = (valeur: number) => {
     onAjouterOr(valeur);
     onAjouterAuJournal(`Vagabond : vendu aux agents du clan Eshin — +${valeur} po (2D6).`);
+    setResolu(`Vendu aux agents du clan Eshin — +${valeur} po.`);
   };
+
+  if (resolu) {
+    return (
+      <p className="text-sm text-success" style={{ marginTop: '0.6rem' }}>
+        ✓ Vagabond : {resolu}
+      </p>
+    );
+  }
 
   return (
     <div style={{ marginTop: '0.6rem' }}>

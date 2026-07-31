@@ -9,10 +9,22 @@ type Props = {
 // Saisie d'un jet physique (fait sur table papier) suivie d'un bouton
 // d'application — motif partagé par tous les gains d'or automatisables des
 // événements d'exploration (voir EvenementExploration/ResolutionVagabond).
+// Se verrouille après application (confirmation affichée à la place des
+// contrôles) : sans ça, rien n'empêchait de re-saisir un jet et de recliquer
+// pour appliquer le même gain une seconde fois, sans même s'en apercevoir.
 export function JetOrButton({ label, onValider, boutonLabel = 'Ajouter à la trésorerie' }: Props) {
   const [jet, setJet] = useState('');
+  const [applique, setApplique] = useState(false);
   const valeur = Number(jet);
   const valide = jet.trim() !== '' && Number.isFinite(valeur) && valeur > 0;
+
+  if (applique) {
+    return (
+      <p className="text-sm text-success" style={{ marginTop: '0.5rem' }}>
+        ✓ Appliqué — voir le journal d'exploration ci-dessous.
+      </p>
+    );
+  }
 
   return (
     <div className="flex gap-sm items-center" style={{ marginTop: '0.5rem', flexWrap: 'wrap' }}>
@@ -24,7 +36,7 @@ export function JetOrButton({ label, onValider, boutonLabel = 'Ajouter à la tr�
         disabled={!valide}
         onClick={() => {
           onValider(valeur);
-          setJet('');
+          setApplique(true);
         }}
       >
         {boutonLabel}

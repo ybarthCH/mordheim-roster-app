@@ -11,6 +11,10 @@ type Props = {
 // (1 1) Puits — un héros au choix teste son Endurance contre un jet de 1D6.
 export function ResolutionPuits({ roster, onMajRoster, onAjouterAuJournal }: Props) {
   const [heroId, setHeroId] = useState('');
+  // Se verrouille une fois le test résolu : sans ça, le héros envoyé au
+  // puits restait sélectionnable et « Réussi » recliquable, permettant de
+  // trouver plusieurs fragments de pierre magique pour un seul événement.
+  const [resolu, setResolu] = useState<string | null>(null);
 
   const heros = roster.membres.filter((m) => m.statut !== 'mort' && resolveProfil(roster, m)?.type === 'heros');
   const hero = heros.find((m) => m.instance_id === heroId);
@@ -19,7 +23,7 @@ export function ResolutionPuits({ roster, onMajRoster, onAjouterAuJournal }: Pro
     if (!hero) return;
     onMajRoster({ wyrdstone: roster.wyrdstone + 1 });
     onAjouterAuJournal(`Puits : ${hero.nom_perso} trouve un fragment de pierre magique.`);
-    setHeroId('');
+    setResolu(`${hero.nom_perso} trouve un fragment de pierre magique.`);
   };
 
   const appliquerEchec = () => {
@@ -30,8 +34,16 @@ export function ResolutionPuits({ roster, onMajRoster, onAjouterAuJournal }: Pro
       ),
     });
     onAjouterAuJournal(`Puits : ${hero.nom_perso} avale de l'eau impure — Blessé, rate la prochaine bataille.`);
-    setHeroId('');
+    setResolu(`${hero.nom_perso} avale de l'eau impure — Blessé.`);
   };
+
+  if (resolu) {
+    return (
+      <p className="text-sm text-success" style={{ marginTop: '0.6rem' }}>
+        ✓ Puits : {resolu}
+      </p>
+    );
+  }
 
   return (
     <div style={{ marginTop: '0.6rem' }}>
