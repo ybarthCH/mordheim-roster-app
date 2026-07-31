@@ -413,6 +413,51 @@ export const DRAMATIS_PERSONAE: FrancTireurCatalog[] = [
     gagne_experience: false,
     est_dramatis_personae: true,
   },
+  {
+    id: 'nicodemus',
+    nom: 'Nicodemus, l’Éternel Vagabond',
+    page_source: 0,
+    recrutement: { cout: 0 },
+    entretien: {
+      type: 'malepierre',
+      cout: 1,
+      texte:
+        '1 fragment de pierre magique après chaque bataille à laquelle il participe, y compris la première. S’il n’y en a pas (ou si vous préférez le vendre), Nicodemus quitte la bande.',
+    },
+    valeur: 85,
+    employeurs: {
+      bande_ids: toutesSauf(...SKAVENS, 'cult_of_the_possessed', ...MORTS_VIVANTS, 'witch_hunters'),
+      texte: 'Toute bande sauf les Skavens, les Morts-Vivants, les Possédés et les Répurgateurs.',
+    },
+    stats: { M: 4, CC: 3, CT: 3, F: 4, E: 4, PV: 2, I: 3, A: 1, Cd: 8 },
+    equipement: ['Bâton de sorcier (massue à deux mains avec parade de rondache, ou massue à une main en gardant la Lame de Rehebel dans l’autre)'],
+    acces_competences: [],
+    regles_speciales: [
+      {
+        nom: 'Maudit',
+        texte:
+          'Victime d’un vœu mal formulé auprès d’un démon, Nicodemus grandit sans cesse et ne s’intéresse qu’à la pierre magique, jamais à l’or.',
+      },
+      {
+        nom: 'Bâton de Sorcier',
+        texte:
+          'À deux mains, considéré comme une massue permettant en plus de parer comme une rondache. À une main, massue normale tout en gardant la Lame de Rehebel dans l’autre main (un sort, pas une arme : ne peut pas parer).',
+      },
+    ],
+    competences_departs: ['academique_02', 'force_04'],
+    magie: { categorie: 'magie_mineure', sorts_depart: 6 },
+    sorts_departs: [
+      'Flammes de U’Zhul',
+      'Vol de Zimmeran',
+      'Frayeur d’Aramar',
+      'Flèches Argentées d’Arha',
+      'Chance de Shemtek',
+      'Lame de Rehebel',
+    ],
+    groupe_caracteristiques: 'humain',
+    gagne_experience: false,
+    est_dramatis_personae: true,
+  },
 ];
 
 export function estDramatisPersonae(membre: Member): boolean {
