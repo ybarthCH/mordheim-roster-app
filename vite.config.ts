@@ -3,10 +3,14 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// Served under https://musterheim.app/ in production (GitHub Pages, custom
-// domain via public/CNAME) as well as in local dev, so everything is
-// rooted at "/".
-const base = '/';
+// Deux cibles de déploiement possibles :
+// - GitHub Pages (dev/staging) sert le projet sous /mordheim-roster-app/,
+//   d'où le base path par défaut.
+// - Le build de prod pour Infomaniak (musterheim.app, servi à la racine
+//   de son propre domaine) est produit via `npm run build:prod`, qui met
+//   DEPLOY_TARGET=root pour forcer base à "/".
+// En dev (`npm run dev`), toujours servi à la racine.
+const base = process.env.DEPLOY_TARGET === 'root' ? '/' : '/mordheim-roster-app/';
 
 // Identifiant de build affiché sur l'écran d'accueil, pour distinguer un
 // service worker resté sur un ancien cache d'un vrai dernier déploiement.
