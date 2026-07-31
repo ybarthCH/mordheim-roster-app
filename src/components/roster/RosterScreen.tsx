@@ -328,6 +328,7 @@ export function RosterScreen() {
 
       <MemberGroupCard
         titre="Héros"
+        preferenceKey="ui.roster.groupe_heros.ouvert"
         membres={heros}
         roster={roster}
         catalogue={catalogue}
@@ -337,6 +338,7 @@ export function RosterScreen() {
       />
       <MemberGroupCard
         titre="Hommes de main"
+        preferenceKey="ui.roster.groupe_hommes_de_main.ouvert"
         membres={hommesDeMain}
         roster={roster}
         catalogue={catalogue}
@@ -347,6 +349,7 @@ export function RosterScreen() {
       {francsTireurs.length > 0 && (
         <MemberGroupCard
           titre="Francs-tireurs"
+          preferenceKey="ui.roster.groupe_francs_tireurs.ouvert"
           membres={francsTireurs}
           roster={roster}
           catalogue={catalogue}
