@@ -370,6 +370,7 @@ export function RosterScreen() {
           onReordonner={reordonnerSection}
           onBasculerHorsCombat={basculerHorsCombat}
           onSupprimer={setMembreASupprimer}
+          masquerProfil
         />
       )}
 
