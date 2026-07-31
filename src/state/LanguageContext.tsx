@@ -19,10 +19,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     setSetting('language', l);
   };
 
-  const t = (key: string) => {
+  const t = (key: string, params?: Record<string, string | number>) => {
     const entry = uiDictionary[key];
-    if (!entry) return key;
-    return entry[language] ?? entry.fr;
+    const raw = entry ? (entry[language] ?? entry.fr) : key;
+    if (!params) return raw;
+    return raw.replace(/\{(\w+)\}/g, (match, token) => (token in params ? String(params[token]) : match));
   };
 
   return <LanguageContext.Provider value={{ language, setLanguage, t }}>{children}</LanguageContext.Provider>;

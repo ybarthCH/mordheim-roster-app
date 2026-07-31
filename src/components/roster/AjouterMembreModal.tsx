@@ -10,6 +10,7 @@ import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu
 import { peutGagnerExperience } from '../../utils/xp';
 import { Modal } from '../common/Modal';
 import { useGameRules } from '../../state/useGameRules';
+import { useLanguage } from '../../state/useLanguage';
 
 const FRANC_TIREUR = '__franc_tireur__';
 
@@ -22,6 +23,7 @@ type Props = {
 export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const navigate = useNavigate();
   const { rules } = useGameRules();
+  const { t } = useLanguage();
   const catalogue = getCatalogue(roster.bande_id);
   const [profilId, setProfilId] = useState('');
   const [nomPerso, setNomPerso] = useState('');
@@ -137,13 +139,13 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
 
   return (
     <Modal onClose={onClose}>
-      <h3>Recruter un nouveau membre</h3>
+      <h3>{t('ajouterMembre.title')}</h3>
       <div className="field">
-        <label>Profil</label>
+        <label>{t('ajouterMembre.profile')}</label>
         <select value={profilId} onChange={(e) => choisirProfil(e.target.value)}>
-          <option value="">— Choisir —</option>
+          <option value="">{t('ajouterMembre.choose')}</option>
           {profilsHeros.length > 0 && (
-            <optgroup label="Héros">
+            <optgroup label={t('ajouterMembre.heroes')}>
               {profilsHeros.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.nom} ({formatCoutProfil(p.cout, p.cout_notation)})
@@ -152,7 +154,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
             </optgroup>
           )}
           {profilsHommesDeMain.length > 0 && (
-            <optgroup label="Hommes de main">
+            <optgroup label={t('ajouterMembre.henchmen')}>
               {profilsHommesDeMain.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.nom} ({formatCoutProfil(p.cout, p.cout_notation)})
@@ -160,8 +162,8 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
               ))}
             </optgroup>
           )}
-          <optgroup label="Autres">
-            <option value={FRANC_TIREUR}>Franc-tireur…</option>
+          <optgroup label={t('ajouterMembre.other')}>
+            <option value={FRANC_TIREUR}>{t('ajouterMembre.hiredSword')}</option>
           </optgroup>
         </select>
       </div>
@@ -169,28 +171,31 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
         <>
           {profil.rarete && (
             <p className="text-sm text-danger">
-              Rare {profil.rarete} : un jet de disponibilité est requis sur table papier avant de pouvoir recruter ce
-              profil. Purement indicatif — n'empêche pas de recruter.
+              Rare {profil.rarete} : {t('creation.modal.rareWarning')}
             </p>
           )}
           {coutManuelRequis && (
             <div className="field">
               <label>
-                Coût (po){' '}
-                {profil.cout_notation && <span className="text-muted">— notation : {profil.cout_notation}</span>}
+                {t('creation.modal.costLabel')}{' '}
+                {profil.cout_notation && (
+                  <span className="text-muted">
+                    {t('creation.modal.costNotation')} {profil.cout_notation}
+                  </span>
+                )}
               </label>
               <input
                 type="number"
                 min={0}
                 value={coutManuelSaisi}
                 onChange={(e) => setCoutManuelSaisi(e.target.value)}
-                placeholder={profil.cout_notation ? `Résultat du jet, ex : 32` : undefined}
+                placeholder={profil.cout_notation ? t('creation.modal.costPlaceholder') : undefined}
               />
             </div>
           )}
           {groupesExistants.length > 0 && (
             <div className="field">
-              <label>Groupe</label>
+              <label>{t('ajouterMembre.group')}</label>
               <select
                 value={groupeCibleId ?? ''}
                 onChange={(e) => {
@@ -198,10 +203,10 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                   setQuantiteSaisie('1');
                 }}
               >
-                <option value="">Nouveau groupe</option>
+                <option value="">{t('ajouterMembre.newGroup')}</option>
                 {groupesExistants.map((g) => (
                   <option key={g.instance_id} value={g.instance_id}>
-                    Rejoindre « {g.nom_perso} » (×{g.taille_groupe}, {g.xp} XP)
+                    {t('ajouterMembre.joinGroupPrefix')} « {g.nom_perso} » (×{g.taille_groupe}, {g.xp} XP)
                   </option>
                 ))}
               </select>
@@ -209,13 +214,16 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
           )}
           {!groupeCible && (
             <div className="field">
-              <label>Nom du personnage{estGroupable && quantite > 1 ? ' (groupe)' : ''}</label>
+              <label>
+                {t('creation.modal.charNameLabel')}
+                {estGroupable && quantite > 1 ? t('creation.modal.charNameGroupSuffix') : ''}
+              </label>
               <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} placeholder={profil.nom} />
             </div>
           )}
           {marqueRequise && !groupeCible && (
             <div className="field">
-              <label>Marque des Dieux Sombres</label>
+              <label>{t('creation.modal.markLabel')}</label>
               <select
                 value={marqueChoisie}
                 onChange={(e) => {
@@ -223,7 +231,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                   setSortsChoisis(Array(profil.nombre_sorts_choisis_depart ?? 1).fill(''));
                 }}
               >
-                <option value="">— Choisir —</option>
+                <option value="">{t('creation.modal.choose')}</option>
                 {catalogue?.marques?.map((m) => (
                   <option key={m.id} value={m.id}>
                     {m.nom}
@@ -239,7 +247,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
           )}
           {premierSortRequis && profil.sorts_fixes_depart && profil.sorts_fixes_depart.length > 0 && (
             <p className="text-sm text-muted">
-              Connaît automatiquement : <strong>{profil.sorts_fixes_depart.join(', ')}</strong>.
+              {t('creation.modal.knowsAutomatically')} <strong>{profil.sorts_fixes_depart.join(', ')}</strong>.
             </p>
           )}
           {premierSortRequis &&
@@ -249,7 +257,11 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
               );
               return (
                 <div className="field" key={i}>
-                  <label>{nombreSortsRequis > 1 ? `Sort connu (${i + 1}/${nombreSortsRequis})` : 'Premier sort connu'}</label>
+                  <label>
+                    {nombreSortsRequis > 1
+                      ? `${t('creation.modal.spellKnownLabel')} (${i + 1}/${nombreSortsRequis})`
+                      : t('creation.modal.firstSpellLabel')}
+                  </label>
                   <select
                     value={sortsChoisis[i] ?? ''}
                     onChange={(e) => {
@@ -258,7 +270,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                       setSortsChoisis(copie);
                     }}
                   >
-                    <option value="">— Choisir —</option>
+                    <option value="">{t('creation.modal.choose')}</option>
                     {sortsRestants.map((s) => (
                       <option key={s.nom} value={s.nom}>
                         {s.resultat} — {s.nom}
@@ -266,19 +278,20 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                     ))}
                   </select>
                   {i === nombreSortsRequis - 1 && (
-                    <p className="text-sm text-muted mb-0">Obligatoire pour un profil sorcier.</p>
+                    <p className="text-sm text-muted mb-0">{t('creation.modal.spellRequired')}</p>
                   )}
                 </div>
               );
             })}
           {marqueChoisieValide && !estSorcierProfil && marqueRequise && !groupeCible && (
-            <p className="text-sm text-muted">
-              Cette Marque retire tout accès aux sorts (voir son détail ci-dessus).
-            </p>
+            <p className="text-sm text-muted">{t('ajouterMembre.markNoSpellAccess')}</p>
           )}
           {(estGroupable || groupeCible) && (
             <div className="field">
-              <label>Nombre de figurines {groupeCible ? 'rejoignant le groupe' : '(groupe identique)'}</label>
+              <label>
+                {t('ajouterMembre.figurineCountLabelPrefix')}{' '}
+                {groupeCible ? t('ajouterMembre.figurineCountJoining') : t('ajouterMembre.figurineCountIdentical')}
+              </label>
               <input
                 type="number"
                 min={1}
@@ -290,49 +303,50 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
           {groupeCible && coutRejoindre ? (
             <div className="card card--tight" style={{ margin: '0.6rem 0' }}>
               <p className="text-sm mb-0">
-                <strong>Recrutement dans un groupe expérimenté</strong>
+                <strong>{t('ajouterMembre.experiencedGroupTitle')}</strong>
               </p>
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-                Le groupe a {coutRejoindre.xpGroupe} XP : chaque nouvelle figurine coûte +{coutRejoindre.surtaxeXpUnitaire}{' '}
-                po (2 × XP du groupe) en plus du prix normal, et doit être équipée à l'identique du reste du groupe.
+                {t('ajouterMembre.experiencedGroupBody', {
+                  xp: coutRejoindre.xpGroupe,
+                  surtaxe: coutRejoindre.surtaxeXpUnitaire,
+                })}
               </p>
               {groupeCible.inventaire.length > 0 && (
                 <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-                  Équipement forcé : {[...new Set(groupeCible.inventaire.map((e) => e.nom))].join(', ')} (
-                  {coutRejoindre.coutEquipementForce} po au total pour {quantite} figurine{quantite > 1 ? 's' : ''}).
+                  {t('ajouterMembre.forcedEquipmentPrefix')} {[...new Set(groupeCible.inventaire.map((e) => e.nom))].join(', ')} (
+                  {coutRejoindre.coutEquipementForce} {t('ajouterMembre.totalForPrefix')} {quantite} {t('ajouterMembre.model')}
+                  {quantite > 1 ? 's' : ''}).
                 </p>
               )}
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-                Coût indicatif en points vétéran : {coutRejoindre.vetPointsIndicatifs} (non contrôlé — libre à toi de
-                recruter même sans les points suffisants).
+                {t('ajouterMembre.vetPointsIndicative', { points: coutRejoindre.vetPointsIndicatifs })}
               </p>
               {dupliqueraitTrinket && (
                 <p className="text-danger text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-                  Recrutement bloqué : l'équipement du groupe contient un objet limité à un exemplaire par bande et
-                  serait automatiquement dupliqué.
+                  {t('ajouterMembre.trinketBlocked')}
                 </p>
               )}
             </div>
           ) : gagneExperience ? (
             <div className="field">
-              <label>Expérience de départ</label>
+              <label>{t('creation.modal.startingXp')}</label>
               <input type="number" value={xpDepartSaisie} onChange={(e) => setXpDepartSaisie(e.target.value)} />
-              <p className="text-sm text-muted mb-0">Ne déclenche aucune avancée due.</p>
+              <p className="text-sm text-muted mb-0">{t('creation.modal.noAdvanceTriggered')}</p>
             </div>
           ) : (
-            <p className="text-sm text-muted">Ce profil ne gagne jamais d'expérience.</p>
+            <p className="text-sm text-muted">{t('creation.modal.neverGainsXp')}</p>
           )}
         </>
       )}
       {profilId && !check.ok && <p className="text-danger text-sm">{check.raison}</p>}
       {profil && !budgetSuffisant && (
         <p className="text-danger text-sm">
-          Trésorerie insuffisante ({roster.tresorerie} po disponibles, {coutTotal} po requis).
+          {t('ajouterMembre.insufficientTreasury', { disponible: roster.tresorerie, requis: coutTotal })}
         </p>
       )}
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
         <button className="btn" onClick={onClose}>
-          Annuler
+          {t('creation.modal.cancel')}
         </button>
         <button
           className="btn btn--primary"
@@ -346,7 +360,8 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
           }
           onClick={confirmer}
         >
-          Recruter pour {coutTotal} po{profil && !budgetSuffisant ? ' quand même' : ''}
+          {t('ajouterMembre.recruitForPrefix')} {coutTotal} {t('creation.gc')}
+          {profil && !budgetSuffisant ? ` ${t('creation.modal.anyway')}` : ''}
         </button>
       </div>
     </Modal>

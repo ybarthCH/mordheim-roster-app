@@ -3,6 +3,7 @@ import { ratingTotal } from '../../utils/rating';
 import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { effectifMaxAutorise } from '../../utils/validation';
+import { useLanguage } from '../../state/useLanguage';
 
 type RosterSummaryCardProps = {
   roster: RosterInstance;
@@ -11,6 +12,7 @@ type RosterSummaryCardProps = {
 };
 
 export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryCardProps) {
+  const { t } = useLanguage();
   const effectif = effectifTotal(roster);
   const effectifMax = catalogue ? effectifMaxAutorise(roster) : undefined;
   const effectifPlein = effectifMax != null && effectif >= effectifMax;
@@ -22,7 +24,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
         onChange={(e) => onPatch({ nom_bande: e.target.value })}
         className="input--heading"
         style={{ fontSize: '1.6rem' }}
-        placeholder="Nom de la bande"
+        placeholder={t('rosterSummary.bandNamePlaceholder')}
       />
       <p className="text-sm text-muted" style={{ margin: '0 0 0.3rem' }}>
         {catalogue?.nom ?? roster.bande_id}
@@ -32,11 +34,11 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           <div className="summary-tile__value" style={effectifPlein ? { color: 'var(--warning)' } : undefined}>
             {effectifMax != null ? `${effectif}/${effectifMax}` : effectif}
           </div>
-          <div className="summary-tile__label">Membres</div>
+          <div className="summary-tile__label">{t('rosterSummary.members')}</div>
         </div>
         <div className="summary-tile">
           <div className="summary-tile__value">{ratingTotal(roster)}</div>
-          <div className="summary-tile__label">Rating</div>
+          <div className="summary-tile__label">{t('rosterSummary.rating')}</div>
         </div>
         <div className="summary-tile">
           <input
@@ -54,7 +56,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
               color: roster.tresorerie < 0 ? 'var(--danger)' : 'inherit',
             }}
           />
-          <div className="summary-tile__label">Trésorerie (po)</div>
+          <div className="summary-tile__label">{t('rosterSummary.treasury')}</div>
         </div>
         <div className="summary-tile">
           <input
@@ -72,15 +74,15 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
               color: 'inherit',
             }}
           />
-          <div className="summary-tile__label">Wyrdstone</div>
+          <div className="summary-tile__label">{t('rosterSummary.wyrdstone')}</div>
         </div>
       </div>
       <div className="field" style={{ marginTop: '0.7rem' }}>
-        <label>Notes</label>
+        <label>{t('rosterSummary.notes')}</label>
         <textarea
           value={roster.equipement_reserve}
           onChange={(e) => onPatch({ equipement_reserve: e.target.value })}
-          placeholder="Notes libres sur la bande…"
+          placeholder={t('rosterSummary.notesPlaceholder')}
         />
       </div>
     </div>

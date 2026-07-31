@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { BattleRecord } from '../../types/roster';
 import { Modal } from '../common/Modal';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   bataille?: BattleRecord;
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }: Props) {
+  const { t } = useLanguage();
   const [date, setDate] = useState(() => bataille?.date ?? new Date().toISOString().slice(0, 10));
   const [resultat, setResultat] = useState<BattleRecord['resultat']>(bataille?.resultat ?? 'victoire');
   const [adversaires, setAdversaires] = useState<string[]>(bataille?.adversaires ?? []);
@@ -34,23 +36,23 @@ export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }:
 
   return (
     <Modal onClose={onClose}>
-      <h3>{bataille ? 'Modifier la bataille' : 'Nouvelle bataille'}</h3>
+      <h3>{bataille ? t('bataille.editTitle') : t('bataille.newTitle')}</h3>
       <div className="field-row">
         <div className="field">
-          <label>Date</label>
+          <label>{t('bataille.date')}</label>
           <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
         </div>
         <div className="field">
-          <label>Résultat</label>
+          <label>{t('bataille.result')}</label>
           <select value={resultat} onChange={(e) => setResultat(e.target.value as BattleRecord['resultat'])}>
-            <option value="victoire">Victoire</option>
-            <option value="defaite">Défaite</option>
-            <option value="nul">Match nul</option>
+            <option value="victoire">{t('bataille.victory')}</option>
+            <option value="defaite">{t('bataille.defeat')}</option>
+            <option value="nul">{t('bataille.draw')}</option>
           </select>
         </div>
       </div>
       <div className="field">
-        <label>Bande(s) adverse(s)</label>
+        <label>{t('bataille.opponentBands')}</label>
         <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
           {adversaires.map((nom, i) => (
             <span key={i} className="badge badge--info">
@@ -64,7 +66,7 @@ export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }:
               </button>
             </span>
           ))}
-          {adversaires.length === 0 && <span className="text-muted text-sm">Aucune</span>}
+          {adversaires.length === 0 && <span className="text-muted text-sm">{t('bataille.none')}</span>}
         </div>
         <div className="flex gap-sm">
           <input
@@ -76,68 +78,70 @@ export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }:
                 ajouterAdversaire();
               }
             }}
-            placeholder="Nom d'une bande adverse"
+            placeholder={t('bataille.opponentPlaceholder')}
           />
           <button className="btn" onClick={ajouterAdversaire}>
-            Ajouter
+            {t('bataille.add')}
           </button>
         </div>
       </div>
       <div className="field">
-        <label>Notes</label>
+        <label>{t('bataille.notes')}</label>
         <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
       </div>
 
       {bataille?.journal && (
         <div className="card card--tight" style={{ marginBottom: '0.7rem' }}>
           <p className="text-sm mb-0">
-            <strong>Journal de l'assistant post-bataille</strong>
+            <strong>{t('bataille.journalTitle')}</strong>
           </p>
           <p className="text-sm mb-0" style={{ marginTop: '0.4rem' }}>
-            Wyrdstone trouvé : {bataille.journal.wyrdstoneTrouve} · Vendu : {bataille.journal.quantiteVendue} pour{' '}
-            {bataille.journal.prixVente} po
+            {t('bataille.wyrdstoneFound')} {bataille.journal.wyrdstoneTrouve} · {t('bataille.sold')}{' '}
+            {bataille.journal.quantiteVendue} {t('bataille.for')} {bataille.journal.prixVente} {t('creation.gc')}
           </p>
           <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-            Trésorerie de la bande après cette bataille : {bataille.journal.tresorerieApres} po
+            {t('bataille.treasuryAfter')} {bataille.journal.tresorerieApres} {t('creation.gc')}
           </p>
           {bataille.journal.notesExploration && (
             <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-              Exploration : {bataille.journal.notesExploration}
+              {t('bataille.exploration')} {bataille.journal.notesExploration}
             </p>
           )}
           {bataille.journal.soldeFrancsTireurs > 0 && (
             <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-              Solde des francs-tireurs payée : {bataille.journal.soldeFrancsTireurs} po
+              {t('bataille.hiredSwordBalance')} {bataille.journal.soldeFrancsTireurs} {t('creation.gc')}
             </p>
           )}
           {bataille.journal.blessures.length > 0 && (
             <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-              <strong>Blessures graves :</strong>{' '}
+              <strong>{t('bataille.seriousInjuries')}</strong>{' '}
               {bataille.journal.blessures.map((b) => `${b.nom} — ${b.description}`).join(' · ')}
             </p>
           )}
           {bataille.journal.survie.length > 0 && (
             <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-              <strong>Survie :</strong>{' '}
-              {bataille.journal.survie.map((s) => `${s.nom} (${s.survecu ? 'a survécu' : "n'a pas survécu"})`).join(', ')}
+              <strong>{t('bataille.survival')}</strong>{' '}
+              {bataille.journal.survie
+                .map((s) => `${s.nom} (${s.survecu ? t('bataille.survived') : t('bataille.notSurvived')})`)
+                .join(', ')}
             </p>
           )}
           {bataille.journal.pointsVeteran > 0 && (
             <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-              <strong>Points vétéran disponibles :</strong> {bataille.journal.pointsVeteran}
+              <strong>{t('bataille.veteranPoints')}</strong> {bataille.journal.pointsVeteran}
             </p>
           )}
           {bataille.journal.avancesResolues && bataille.journal.avancesResolues.length > 0 && (
             <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-              <strong>Avancées résolues :</strong>{' '}
+              <strong>{t('bataille.advancesResolved')}</strong>{' '}
               {bataille.journal.avancesResolues.map((a) => `${a.nom} — ${a.detail}`).join(' · ')}
             </p>
           )}
           {bataille.journal.blesses && bataille.journal.blesses.length > 0 && (
             <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-              <strong>Restés au camp (Blessé) :</strong>{' '}
+              <strong>{t('bataille.stayedAtCamp')}</strong>{' '}
               {bataille.journal.blesses
-                .map((b) => `${b.nom} a passé un tour blessé au camp${b.retabli ? ' (rétabli)' : ''}.`)
+                .map((b) => `${b.nom} ${t('bataille.spentTurnInjured')}${b.retabli ? t('bataille.recovered') : ''}.`)
                 .join(' ')}
             </p>
           )}
@@ -146,15 +150,15 @@ export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }:
 
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
         <button className="btn" onClick={onClose}>
-          Annuler
+          {t('bataille.cancel')}
         </button>
         {onDelete && (
           <button className="btn btn--danger" onClick={onDelete}>
-            Supprimer
+            {t('bataille.delete')}
           </button>
         )}
         <button className="btn btn--primary" onClick={confirmer}>
-          {bataille ? 'Enregistrer' : 'Ajouter'}
+          {bataille ? t('bataille.save') : t('bataille.add')}
         </button>
       </div>
     </Modal>

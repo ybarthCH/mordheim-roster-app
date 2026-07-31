@@ -35,12 +35,14 @@ import { Icon } from '../common/Icon';
 import { estFrancTireur } from '../../data/hiredSwords';
 import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import { useGameRules } from '../../state/useGameRules';
+import { useLanguage } from '../../state/useLanguage';
 
 export function RosterScreen() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
   const { rules } = useGameRules();
+  const { t } = useLanguage();
   const roster = getRosterById(id ?? '');
   const [modalMembre, setModalMembre] = useState(false);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
@@ -50,8 +52,8 @@ export function RosterScreen() {
 
   if (!roster) {
     return (
-      <Screen title="Bande introuvable" back="/">
-        <p className="text-muted">Ce roster n'existe pas (ou plus) dans le stockage local.</p>
+      <Screen title={t('roster.notFoundTitle')} back="/">
+        <p className="text-muted">{t('roster.notFoundBody')}</p>
       </Screen>
     );
   }
@@ -99,7 +101,7 @@ export function RosterScreen() {
     } catch (e) {
       if (e instanceof Error && e.name === 'AbortError') return;
       const detail = e instanceof Error ? e.message : String(e);
-      alert(`Partage indisponible sur cet appareil (${detail}). Export JSON classique utilisé à la place.`);
+      alert(t('roster.shareUnavailable', { detail }));
       exporterRoster(roster);
     }
   };
@@ -174,19 +176,19 @@ export function RosterScreen() {
       actions={
         <div className="flex gap-sm">
           {partageDisponible() && (
-            <button className="icon-btn" onClick={partager} title="Partager (Drive, mail, Dropbox…)">
-              Partager
+            <button className="icon-btn" onClick={partager} title={t('roster.shareTitle')}>
+              {t('roster.share')}
             </button>
           )}
-          <button className="icon-btn" onClick={() => exporterRoster(roster)} title="Export JSON">
-            JSON
+          <button className="icon-btn" onClick={() => exporterRoster(roster)} title={t('roster.exportJsonTitle')}>
+            {t('roster.exportJson')}
           </button>
           <button
             className="icon-btn"
             onClick={() => import('../../utils/pdfExport').then((m) => m.exporterRosterPDF(roster))}
-            title="Export PDF"
+            title={t('roster.exportPdfTitle')}
           >
-            PDF
+            {t('roster.exportPdf')}
           </button>
         </div>
       }
@@ -197,7 +199,7 @@ export function RosterScreen() {
             ⚠
           </span>
           <span>
-            Effectif dépassé : {effectifDepasse.actuel} guerriers pour un maximum de {effectifDepasse.limite}.
+            {t('roster.effectifDepasse', { actuel: effectifDepasse.actuel, limite: effectifDepasse.limite })}
           </span>
         </div>
       )}
@@ -207,9 +209,9 @@ export function RosterScreen() {
           <span className="banner-danger__icon" aria-hidden="true">
             <Icon name="couronne" />
           </span>
-          <span style={{ flex: 1 }}>Aucun chef n'est désigné pour cette bande.</span>
+          <span style={{ flex: 1 }}>{t('roster.noLeader')}</span>
           <button className="btn btn--sm" onClick={() => setModalLeader(true)}>
-            Choisir un chef
+            {t('roster.chooseLeader')}
           </button>
         </div>
       )}
@@ -220,9 +222,8 @@ export function RosterScreen() {
             ⚠
           </span>
           <span>
-            Règle « Trinket limité » non respectée :{' '}
-            {trinketsLimitesEnTrop.map(({ nom, quantite }) => `${nom} ×${quantite}`).join(', ')}. Un seul exemplaire
-            de chaque objet est autorisé dans toute la bande.
+            {t('roster.trinketRulePrefix')}{' '}
+            {trinketsLimitesEnTrop.map(({ nom, quantite }) => `${nom} ×${quantite}`).join(', ')}. {t('roster.trinketRuleSuffix')}
           </span>
         </div>
       )}
@@ -233,14 +234,12 @@ export function RosterScreen() {
             <div>
               <strong>
                 <Icon name="etoile" style={{ marginRight: '0.35em' }} />
-                Rôle de héros vacant
+                {t('roster.vacantHeroRole')}
               </strong>
-              <p className="text-sm text-muted mb-0">
-                Un Prospect peut être promu pour reprendre le rôle d'un héros unique tombé (« Ce gars est doué »).
-              </p>
+              <p className="text-sm text-muted mb-0">{t('roster.vacantHeroRoleBody')}</p>
             </div>
             <button className="btn btn--sm" onClick={() => setModalPromotion(true)}>
-              Promouvoir
+              {t('roster.promote')}
             </button>
           </div>
         </div>
@@ -263,20 +262,20 @@ export function RosterScreen() {
 
       {(violations.length > 0 || violationsEffectif.some((v) => v.type === 'min')) && (
         <div className="card" style={{ borderColor: 'var(--warning)' }}>
-          <h3 style={{ color: 'var(--warning)' }}>Composition — à vérifier</h3>
+          <h3 style={{ color: 'var(--warning)' }}>{t('roster.compositionTitle')}</h3>
           <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-            Purement indicatif, n'empêche rien.
+            {t('roster.compositionNote')}
           </p>
           {violationsEffectif
             .filter((v) => v.type === 'min')
             .map((v) => (
               <p key={`effectif-${v.type}`} className="text-sm mb-0">
-                Effectif de la bande : {v.actuel} (min {v.limite})
+                {t('roster.bandSize', { actuel: v.actuel, limite: v.limite })}
               </p>
             ))}
           {violations.map((v) => (
             <p key={`${v.profilId}-${v.type}`} className="text-sm mb-0">
-              {v.nomProfil} : {v.actuel}/{v.limite} {v.type === 'max' ? 'autorisés' : 'requis (minimum)'}
+              {v.nomProfil} : {v.actuel}/{v.limite} {v.type === 'max' ? t('roster.allowed') : t('roster.requiredMin')}
             </p>
           ))}
         </div>
@@ -288,7 +287,7 @@ export function RosterScreen() {
           title={
             <>
               <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
-              Règles spéciales
+              {t('roster.specialRules')}
             </>
           }
         >
@@ -301,16 +300,18 @@ export function RosterScreen() {
           {catalogue.tribus && catalogue.tribus.length > 0 && (
             <div style={{ marginTop: '0.8rem', paddingTop: '0.6rem', borderTop: '1px solid var(--border)' }}>
               <p className="text-sm mb-0">
-                <strong>Tribu {tribu ? tribu.nom : '— non renseignée'}</strong>
+                <strong>
+                  {t('roster.tribe')} {tribu ? tribu.nom : t('roster.tribeNotSet')}
+                </strong>
               </p>
               {tribu ? (
                 <p className="text-sm" style={{ whiteSpace: 'pre-line' }}>
                   {tribu.texte}
                 </p>
               ) : (
-                catalogue.tribus.map((t) => (
-                  <p key={t.id} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
-                    <strong>{t.nom}</strong> — {t.texte}
+                catalogue.tribus.map((tr) => (
+                  <p key={tr.id} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
+                    <strong>{tr.nom}</strong> — {tr.texte}
                   </p>
                 ))
               )}
@@ -321,15 +322,16 @@ export function RosterScreen() {
 
       <div className="top-actions">
         <button className="btn btn--primary" onClick={() => setModalMembre(true)}>
-          + Recruter
+          {t('roster.recruit')}
         </button>
         <button className="btn" onClick={() => navigate(`/roster/${roster.id}/post-bataille`)}>
-          Assistant post-bataille
+          {t('roster.postBattleWizard')}
         </button>
       </div>
 
       <MemberGroupCard
-        titre="Héros"
+        titre={t('roster.heroes')}
+        icone="etoile"
         preferenceKey="ui.roster.groupe_heros.ouvert"
         membres={heros}
         roster={roster}
@@ -339,7 +341,8 @@ export function RosterScreen() {
         onSupprimer={setMembreASupprimer}
       />
       <MemberGroupCard
-        titre="Hommes de main"
+        titre={t('roster.henchmen')}
+        icone="bouclier"
         preferenceKey="ui.roster.groupe_hommes_de_main.ouvert"
         membres={hommesDeMain}
         roster={roster}
@@ -350,7 +353,8 @@ export function RosterScreen() {
       />
       {francsTireurs.length > 0 && (
         <MemberGroupCard
-          titre="Francs-tireurs"
+          titre={t('roster.hiredSwordsGroup')}
+          icone="bouclier"
           preferenceKey="ui.roster.groupe_francs_tireurs.ouvert"
           membres={francsTireurs}
           roster={roster}
@@ -362,7 +366,8 @@ export function RosterScreen() {
       )}
       {dramatisPersonae.length > 0 && (
         <MemberGroupCard
-          titre="Dramatis Personae"
+          titre={t('roster.dramatisPersonae')}
+          icone="bouclier"
           preferenceKey="ui.roster.groupe_dramatis_personae.ouvert"
           membres={dramatisPersonae}
           roster={roster}
@@ -412,12 +417,12 @@ export function RosterScreen() {
       )}
       {modalLeader && (
         <Modal onClose={() => setModalLeader(false)}>
-          <h3>Choisir un chef de bande</h3>
+          <h3>{t('roster.chooseLeaderTitle')}</h3>
           <p className="text-muted text-sm" style={{ marginTop: '-0.4rem' }}>
-            Choisis parmi les héros vivants celui qui prend (ou reprend) le commandement.
+            {t('roster.chooseLeaderBody')}
           </p>
           {herosVivants.length === 0 ? (
-            <p className="text-muted">Aucun héros vivant dans la bande.</p>
+            <p className="text-muted">{t('roster.noLivingHero')}</p>
           ) : (
             <div className="flex flex-col gap-sm">
               {herosVivants
@@ -441,7 +446,7 @@ export function RosterScreen() {
           )}
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={() => setModalLeader(false)}>
-              Annuler
+              {t('roster.cancel')}
             </button>
           </div>
         </Modal>
@@ -489,11 +494,13 @@ export function RosterScreen() {
         })()}
       {membreASupprimer && (
         <Modal onClose={() => setMembreASupprimer(null)}>
-          <h3>Retirer {membreASupprimer.nom_perso} ?</h3>
-          <p className="text-muted">Cette action supprime définitivement ce personnage (ou groupe) du roster.</p>
+          <h3>
+            {t('roster.removeConfirmTitlePrefix')} {membreASupprimer.nom_perso} ?
+          </h3>
+          <p className="text-muted">{t('roster.removeConfirmBody')}</p>
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={() => setMembreASupprimer(null)}>
-              Annuler
+              {t('roster.cancel')}
             </button>
             <button
               className="btn btn--danger"
@@ -502,7 +509,7 @@ export function RosterScreen() {
                 setMembreASupprimer(null);
               }}
             >
-              Retirer
+              {t('roster.remove')}
             </button>
           </div>
         </Modal>
