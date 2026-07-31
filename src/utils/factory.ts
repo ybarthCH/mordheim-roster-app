@@ -61,6 +61,8 @@ export function creerMembreFrancTireurCatalogue(francTireur: FrancTireurCatalog)
     ...membre,
     franc_tireur_id: francTireur.id,
     equipement: francTireur.equipement.join(', '),
+    competences_acquises: francTireur.competences_departs ?? membre.competences_acquises,
+    sorts_connus: francTireur.sorts_departs ?? membre.sorts_connus,
   };
 }
 

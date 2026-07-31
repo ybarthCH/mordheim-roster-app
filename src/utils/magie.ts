@@ -29,7 +29,12 @@ export function magieDuProfil(
     if (marque?.magie_variante) return catalogue?.magie_variantes?.[marque.magie_variante];
   }
   const profilId = typeof profil === 'string' ? profil : profil.id;
-  return catalogue?.magie?.utilisateurs.includes(profilId) ? catalogue.magie : undefined;
+  if (catalogue?.magie?.utilisateurs.includes(profilId)) return catalogue.magie;
+  // Profil externe (Dramatis Personae, ex : Bertha Bestraufrung) déclarant
+  // explicitement l'accès au domaine propre de la bande sans figurer dans sa
+  // liste d'utilisateurs (laquelle ne référence que les profils du catalogue).
+  if (typeof profil !== 'string' && profil.peut_lancer_sorts && !profil.categorie_magie) return catalogue?.magie;
+  return undefined;
 }
 
 /** Vrai si ce profil (avec cette Marque le cas échéant) dispose d'un domaine

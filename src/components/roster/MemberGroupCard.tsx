@@ -58,6 +58,10 @@ type MemberGroupCardProps = {
   onReordonner: (nouvelOrdre: Member[]) => void;
   onBasculerHorsCombat: (m: Member) => void;
   onSupprimer: (m: Member) => void;
+  // Masque la colonne "Profil" : superflue quand le nom du membre est
+  // toujours identique à celui de son profil (ex : Dramatis Personae, jamais
+  // renommables).
+  masquerProfil?: boolean;
 };
 
 export function MemberGroupCard({
@@ -69,6 +73,7 @@ export function MemberGroupCard({
   onReordonner,
   onBasculerHorsCombat,
   onSupprimer,
+  masquerProfil,
 }: MemberGroupCardProps) {
   const navigate = useNavigate();
   const { elements, refItem, demarrerDrag, idEnCours, pointerPos } = useDragReorder(membres, onReordonner);
@@ -111,7 +116,7 @@ export function MemberGroupCard({
             <tr>
               <th style={{ width: '1.6rem' }}></th>
               <th>Nom</th>
-              <th>Profil</th>
+              {!masquerProfil && <th>Profil</th>}
               <th>M</th>
               <th>CC</th>
               <th>CT</th>
@@ -160,7 +165,7 @@ export function MemberGroupCard({
                         </span>
                       )}
                     </td>
-                    <td>{profil?.nom ?? m.profil_id}</td>
+                    {!masquerProfil && <td>{profil?.nom ?? m.profil_id}</td>}
                     <td>{m.stats_variables?.M ?? m.stats_actuels.M}</td>
                     <td>{m.stats_variables?.CC ?? m.stats_actuels.CC}</td>
                     <td>{m.stats_variables?.CT ?? m.stats_actuels.CT}</td>
@@ -231,7 +236,7 @@ export function MemberGroupCard({
                     </td>
                   </tr>
                   <tr className="roster-table__row-synopsis" onClick={versPersonnage}>
-                    <td colSpan={15} className="roster-table__synopsis-cell">
+                    <td colSpan={masquerProfil ? 14 : 15} className="roster-table__synopsis-cell">
                       <div className="text-sm text-muted roster-table__synopsis" style={{ fontStyle: 'italic' }}>
                         {resumeEquipement(m)}
                       </div>
@@ -278,7 +283,7 @@ export function MemberGroupCard({
                   )}
                 </div>
                 <div className="list-item__subtitle">
-                  {profil?.nom} · XP {m.xp} · PV {m.stats_actuels.PV}
+                  {!masquerProfil && profil?.nom ? `${profil.nom} · ` : ''}XP {m.xp} · PV {m.stats_actuels.PV}
                 </div>
                 <div className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
                   {resumeEquipement(m)}

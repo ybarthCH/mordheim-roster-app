@@ -32,6 +32,8 @@ import {
   estFrancTireur,
   getFrancTireur,
 } from '../../data/hiredSwords';
+import { getDramatisPersonae } from '../../data/dramatisPersonae';
+import { creerMembreFrancTireurCatalogue } from '../../utils/factory';
 import { useGameRules } from '../../state/useGameRules';
 import { resumeExploration } from '../../utils/exploration';
 import { peutGagnerExperience } from '../../utils/xp';
@@ -309,8 +311,16 @@ export function PostBatailleScreen() {
   const coutCommerce = Object.values(commerceDrafts).reduce((total, draft) => {
     if (draft.action === 'docteur') return total + COUT_DOCTEUR;
     if (draft.action === 'rare' && draft.achat) return total + draft.achat.cout;
+    if (draft.action === 'dramatis_personae' && draft.recrute) return total + draft.cout;
     return total;
   }, 0);
+  // Dramatis Personae dont la recherche a réussi et qui vient d'être recruté
+  // (étape Commerce) : nouveaux membres à ajouter au roster dans terminer(),
+  // distinct de stockCommerce/coutCommerce qui ne touchent pas la liste des
+  // membres.
+  const dramatisPersonaeARecruter = Object.values(commerceDrafts).flatMap((draft) =>
+    draft.action === 'dramatis_personae' && draft.recrute ? [draft] : []
+  );
   const stockCommerce = Object.values(commerceDrafts).flatMap((draft) => {
     if (draft.action === 'rare' && draft.achat) return [draft.achat];
     if (draft.action === 'docteur' && draft.statut === 'termine') return draft.equipementConserve;
@@ -333,6 +343,13 @@ export function PostBatailleScreen() {
     if (draft.action !== 'rare') return [];
     const nom = roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?';
     return [{ nom, objetNom: draft.objetNom, rarete: draft.rarete, reussi: draft.reussi, achete: !!draft.achat }];
+  });
+  // Recherches de Dramatis Personae (étape Commerce), pour affichage
+  // nominatif dans le résumé final — qui a cherché qui, et avec quel résultat.
+  const dramatisPersonaeResultats = Object.entries(commerceDrafts).flatMap(([instanceId, draft]) => {
+    if (draft.action !== 'dramatis_personae') return [];
+    const nom = roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?';
+    return [{ nom, dpNom: draft.nom, reussi: draft.reussi, recrute: draft.recrute }];
   });
   // Blessures graves enregistrées cette bataille, pour affichage nominatif
   // dans le résumé final — qui a été touché et par quelle blessure.
@@ -746,6 +763,16 @@ export function PostBatailleScreen() {
             cout: draft.achat?.cout ?? 0,
           };
         }
+        if (draft.action === 'dramatis_personae') {
+          return {
+            nom: membre.nom_perso,
+            action: 'dramatis_personae' as const,
+            detail: `${draft.nom} — ${
+              draft.reussi ? (draft.recrute ? 'réussie, recruté' : 'réussie, non recruté') : 'ratée'
+            }.`,
+            cout: draft.recrute ? draft.cout : 0,
+          };
+        }
         return {
           nom: membre.nom_perso,
           action: 'docteur' as const,
@@ -790,6 +817,20 @@ export function PostBatailleScreen() {
 
     const succession = succederApresMorts(roster, catalogue, membresConserves);
 
+    // Dramatis Personae recrutés à l'étape Commerce : nouveaux membres, sans
+    // rapport avec le Héros qui a effectué la recherche (voir
+    // dramatisPersonaeARecruter ci-dessus). Un duo inséparable (ex : Ulli et
+    // Marquand, voir FrancTireurCatalog.recrue_avec) rejoint la bande en
+    // même temps que le profil recherché, pour le même prix.
+    const nouveauxDramatisPersonae = dramatisPersonaeARecruter.flatMap((draft) => {
+      const profil = getDramatisPersonae(draft.dramatisPersonaeId);
+      if (!profil) return [];
+      const coequipier = profil.recrue_avec ? getDramatisPersonae(profil.recrue_avec) : undefined;
+      return coequipier
+        ? [creerMembreFrancTireurCatalogue(profil), creerMembreFrancTireurCatalogue(coequipier)]
+        : [creerMembreFrancTireurCatalogue(profil)];
+    });
+
     // Francs-tireurs dont l'exemption "Débiteur reconnaissant" vient d'être
     // proposée à l'entretien de cette bataille — consommée qu'elle ait été
     // choisie ou non (la gratuité ne couvrait qu'une seule bataille).
@@ -798,7 +839,7 @@ export function PostBatailleScreen() {
     await updateRoster({
       ...roster,
       ...succession,
-      membres: membresConserves,
+      membres: [...membresConserves, ...nouveauxDramatisPersonae],
       stock: [...roster.stock, ...stockCommerce],
       wyrdstone: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre),
       tresorerie: tresorerieApres,
@@ -964,6 +1005,7 @@ export function PostBatailleScreen() {
           blessuresResume={blessuresResume}
           docteurResultats={docteurResultats}
           rechercheRareResultats={rechercheRareResultats}
+          dramatisPersonaeResultats={dramatisPersonaeResultats}
           horsDeCombatIndividuel={horsDeCombatIndividuel}
           xpDraftDe={xpDraftDe}
           groupesHC={groupesHC}
