@@ -1,6 +1,7 @@
 import type { UiDictionary } from './types';
 import { common } from './common';
 import { listeBandesScreen } from './listeBandesScreen';
+import { reglagesScreen } from './reglagesScreen';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -8,4 +9,5 @@ import { listeBandesScreen } from './listeBandesScreen';
 export const uiDictionary: UiDictionary = {
   ...common,
   ...listeBandesScreen,
+  ...reglagesScreen,
 };

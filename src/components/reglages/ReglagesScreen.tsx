@@ -3,46 +3,48 @@ import { useTheme } from '../../state/useTheme';
 import type { Palette } from '../../state/useTheme';
 import { useGameRules } from '../../state/useGameRules';
 import { useWakeLock } from '../../state/useWakeLock';
+import { useLanguage } from '../../state/useLanguage';
 
 const THEMES = [
-  { value: 'light', label: 'Clair' },
-  { value: 'dark', label: 'Sombre' },
-  { value: 'system', label: 'Système' },
+  { value: 'light', key: 'reglages.theme.light' },
+  { value: 'dark', key: 'reglages.theme.dark' },
+  { value: 'system', key: 'reglages.theme.system' },
 ] as const;
 
-const PALETTES: { value: Palette; label: string }[] = [
-  { value: 'rouge', label: 'Rouge' },
-  { value: 'noir', label: 'Noir & Gris' },
+const PALETTES: { value: Palette; key: string }[] = [
+  { value: 'rouge', key: 'reglages.palette.rouge' },
+  { value: 'noir', key: 'reglages.palette.noir' },
 ];
 
 export function ReglagesScreen() {
   const { theme, setTheme, palette, setPalette } = useTheme();
   const { rules, setRule } = useGameRules();
   const { actif: ecranActif, setActif: setEcranActif, supporte: ecranActifSupporte } = useWakeLock();
+  const { t } = useLanguage();
 
   return (
-    <Screen title="Réglages" back>
+    <Screen title={t('reglages.title')} back>
       <div className="card">
-        <h3 className="mt-0">Apparence</h3>
+        <h3 className="mt-0">{t('reglages.appearance')}</h3>
 
         <div className="field">
-          <label>Thème</label>
+          <label>{t('reglages.theme')}</label>
           <div className="status-select">
-            {THEMES.map((t) => (
+            {THEMES.map((th) => (
               <button
-                key={t.value}
+                key={th.value}
                 type="button"
-                className={`status-pill ${theme === t.value ? 'status-pill--active' : ''}`}
-                onClick={() => setTheme(t.value)}
+                className={`status-pill ${theme === th.value ? 'status-pill--active' : ''}`}
+                onClick={() => setTheme(th.value)}
               >
-                {t.label}
+                {t(th.key)}
               </button>
             ))}
           </div>
         </div>
 
         <div className="field" style={{ marginTop: '1rem' }}>
-          <label>Couleur d'accent</label>
+          <label>{t('reglages.accentColor')}</label>
           <div className="status-select">
             {PALETTES.map((p) => (
               <button
@@ -51,7 +53,7 @@ export function ReglagesScreen() {
                 className={`status-pill ${palette === p.value ? 'status-pill--active' : ''}`}
                 onClick={() => setPalette(p.value)}
               >
-                {p.label}
+                {t(p.key)}
               </button>
             ))}
           </div>
@@ -64,21 +66,19 @@ export function ReglagesScreen() {
             onChange={(e) => setEcranActif(e.target.checked)}
           />
           <span>
-            <strong>Garder l'écran allumé</strong>
+            <strong>{t('reglages.wakeLock.title')}</strong>
             <br />
             <span className="text-sm text-muted">
-              Empêche l'appareil de se mettre en veille tant que l'appli est ouverte — pratique en table de jeu.
-              {!ecranActifSupporte && ' Non pris en charge par ce navigateur.'}
+              {t('reglages.wakeLock.body')}
+              {!ecranActifSupporte && t('reglages.wakeLock.unsupported')}
             </span>
           </span>
         </label>
       </div>
 
       <div className="card">
-        <h3 className="mt-0">Règles optionnelles</h3>
-        <p className="text-sm text-muted">
-          Ces choix sont mémorisés sur cet appareil et s'appliquent à toutes les bandes.
-        </p>
+        <h3 className="mt-0">{t('reglages.optionalRules')}</h3>
+        <p className="text-sm text-muted">{t('reglages.optionalRules.intro')}</p>
 
         <label className="flex items-start gap-sm" style={{ cursor: 'pointer' }}>
           <input
@@ -87,12 +87,9 @@ export function ReglagesScreen() {
             onChange={(e) => setRule('poudreNoireAvancee', e.target.checked)}
           />
           <span>
-            <strong>Règles avancées de poudre noire</strong>
+            <strong>{t('reglages.poudreNoire.title')}</strong>
             <br />
-            <span className="text-sm text-muted">
-              Réduit d'environ 33 % le prix des armes à poudre noire, arrondi au multiple de 5 le plus proche. Les
-              Artilleurs de Nuln utilisent toujours ces prix réduits, même si cette option est désactivée.
-            </span>
+            <span className="text-sm text-muted">{t('reglages.poudreNoire.body')}</span>
           </span>
         </label>
 
@@ -103,12 +100,9 @@ export function ReglagesScreen() {
             onChange={(e) => setRule('armuresLozheim', e.target.checked)}
           />
           <span>
-            <strong>Règle Maison Lozheim</strong>
+            <strong>{t('reglages.lozheim.title')}</strong>
             <br />
-            <span className="text-sm text-muted">
-              Les armures sont à 50 % du prix normal et donnent +1 à la sauvegarde d'armure. Les boucliers, casques,
-              cuirs durcis, pavois et rondaches ne sont pas concernés ; les caparaçons le sont.
-            </span>
+            <span className="text-sm text-muted">{t('reglages.lozheim.body')}</span>
           </span>
         </label>
 
@@ -119,13 +113,9 @@ export function ReglagesScreen() {
             onChange={(e) => setRule('trinketsLimites', e.target.checked)}
           />
           <span>
-            <strong>Règle Maison Trinket limité</strong>
+            <strong>{t('reglages.trinkets.title')}</strong>
             <br />
-            <span className="text-sm text-muted">
-              Porte-bonheur, Herbes de soin, Patte de lapin et leurs variantes, Familiers et Reliques sacrées ou
-              impies sont limités à un exemplaire de chaque par bande, afin que les relances et sécurités restent
-              rares et que les échecs conservent leur poids.
-            </span>
+            <span className="text-sm text-muted">{t('reglages.trinkets.body')}</span>
           </span>
         </label>
 
@@ -136,12 +126,9 @@ export function ReglagesScreen() {
             onChange={(e) => setRule('sawbonesDocteur', e.target.checked)}
           />
           <span>
-            <strong>Quoi de neuf, docteur ? (Sawbones)</strong>
+            <strong>{t('reglages.sawbones.title')}</strong>
             <br />
-            <span className="text-sm text-muted">
-              Active le supplément du médecin pendant l'étape Commerce de la séquence post-bataille. Un Héros peut
-              payer 20 po pour tenter de soigner une blessure au lieu de rechercher un objet rare.
-            </span>
+            <span className="text-sm text-muted">{t('reglages.sawbones.body')}</span>
           </span>
         </label>
 
@@ -152,12 +139,9 @@ export function ReglagesScreen() {
             onChange={(e) => setRule('dramatisPersonae', e.target.checked)}
           />
           <span>
-            <strong>Dramatis Personae</strong>
+            <strong>{t('reglages.dramatisPersonae.title')}</strong>
             <br />
-            <span className="text-sm text-muted">
-              Active la recherche de Dramatis Personae pendant l'étape Commerce de la séquence post-bataille. Un
-              Héros peut tenter de retrouver l'un de ces personnages spéciaux au lieu de rechercher un objet rare.
-            </span>
+            <span className="text-sm text-muted">{t('reglages.dramatisPersonae.body')}</span>
           </span>
         </label>
       </div>
