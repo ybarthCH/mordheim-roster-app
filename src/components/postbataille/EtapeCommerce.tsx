@@ -19,6 +19,7 @@ import {
   type ResultatRechercheDramatisPersonae,
 } from './RechercheDramatisPersonaeModal';
 import { dramatisPersonaeDisponibles, DRAMATIS_PERSONAE } from '../../data/dramatisPersonae';
+import { useLanguage } from '../../state/useLanguage';
 
 export type HerosCommerce = {
   membre: Member;
@@ -93,6 +94,7 @@ export function EtapeCommerce({
   dramatisPersonaeActif,
   onChanger,
 }: Props) {
+  const { t } = useLanguage();
   const [rechercheHeroId, setRechercheHeroId] = useState<string | null>(null);
   const [rechercheDPHeroId, setRechercheDPHeroId] = useState<string | null>(null);
   const [docteurHeroId, setDocteurHeroId] = useState<string | null>(null);
@@ -157,24 +159,28 @@ export function EtapeCommerce({
     <>
       <div className="card">
         <h3>
-          Commerce : objets rares{dramatisPersonaeActif ? ', Dramatis Personae' : ''}
-          {docteurActif ? ' ou docteur' : ''}
+          {t('commerce.title', {
+            dp: dramatisPersonaeActif ? t('commerce.dpSuffix') : '',
+            docteur: docteurActif ? t('commerce.doctorSuffix') : '',
+          })}
         </h3>
         <p className="text-sm">
-          Trésorerie disponible : <strong>{tresorerieDisponible} po</strong>.
+          {t('commerce.treasuryAvailable', { n: tresorerieDisponible })}
         </p>
         <p className="text-sm text-muted">
-          Chaque Héros dispose d'une seule action de commerce. S'il n'a pas été mis Hors de combat, il peut effectuer
-          un jet de rareté pour tenter d'acheter un seul objet rare
-          {dramatisPersonaeActif && ', ou tenter à la place de retrouver un Dramatis Personae'}.
-          {docteurActif &&
-            ` À la place, il peut aussi consulter le docteur pour 20 po. Un Héros mis Hors de combat ne peut pas chercher un objet rare${dramatisPersonaeActif ? ' ni un Dramatis Personae' : ''}, mais peut aller chez le docteur en urgence.`}
+          {t('commerce.intro', {
+            dp: dramatisPersonaeActif ? t('commerce.introDpSuffix') : '',
+            docteur: docteurActif
+              ? t('commerce.introDoctorSuffix', {
+                  cout: COUT_DOCTEUR,
+                  dp: dramatisPersonaeActif ? t('commerce.introDoctorDpSuffix') : '',
+                })
+              : '',
+          })}
         </p>
-        <p className="text-sm text-muted">
-          L'app ne lance aucun dé : tous les résultats de 2D6 sont saisis manuellement.
-        </p>
+        <p className="text-sm text-muted">{t('commerce.noAutoRolls')}</p>
 
-        {heros.length === 0 && <p className="text-muted">Aucun Héros disponible pour le commerce.</p>}
+        {heros.length === 0 && <p className="text-muted">{t('commerce.noHeroAvailable')}</p>}
         {heros.map((hero) => {
           const id = hero.membre.instance_id;
           const draft = drafts[id];
@@ -184,11 +190,11 @@ export function EtapeCommerce({
               <div className="flex justify-between items-center gap-sm">
                 <div>
                   <strong>{hero.membre.nom_perso}</strong>
-                  {hero.horsDeCombat && <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }}>Hors de combat</span>}
+                  {hero.horsDeCombat && <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }}>{t('commerce.outOfAction')}</span>}
                 </div>
                 {draft && (
                   <button className="btn btn--sm" onClick={() => onChanger(id, null)}>
-                    Modifier
+                    {t('commerce.modify')}
                   </button>
                 )}
               </div>
@@ -196,14 +202,14 @@ export function EtapeCommerce({
               {!draft && (
                 <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.6rem' }}>
                   <button className="btn btn--sm" onClick={() => onChanger(id, { action: 'aucune', statut: 'termine' })}>
-                    Passer
+                    {t('commerce.skip')}
                   </button>
                   <button
                     className="btn btn--primary btn--sm"
                     disabled={hero.horsDeCombat}
                     onClick={() => setRechercheHeroId(id)}
                   >
-                    Rechercher un objet rare
+                    {t('commerce.searchRareItem')}
                   </button>
                   {dramatisPersonaeActif && (
                     <button
@@ -211,7 +217,7 @@ export function EtapeCommerce({
                       disabled={hero.horsDeCombat || dpDisponibles.length === 0}
                       onClick={() => setRechercheDPHeroId(id)}
                     >
-                      Rechercher un Dramatis Personae
+                      {t('commerce.searchDramatisPersonae')}
                     </button>
                   )}
                   {docteurActif && (
@@ -220,55 +226,60 @@ export function EtapeCommerce({
                       disabled={effetsSoignables.length === 0 || tresorerieDisponible < COUT_DOCTEUR}
                       onClick={() => ouvrirDocteur(hero)}
                     >
-                      Consulter le docteur ({COUT_DOCTEUR} po)
+                      {t('commerce.seeDoctor', { cout: COUT_DOCTEUR })}
                     </button>
                   )}
                 </div>
               )}
 
-              {draft?.action === 'aucune' && <p className="text-sm text-muted mb-0">Aucune action de commerce.</p>}
+              {draft?.action === 'aucune' && <p className="text-sm text-muted mb-0">{t('commerce.noAction')}</p>}
               {draft?.action === 'rare' && (
                 <p className={`text-sm mb-0 ${draft.reussi ? 'text-success' : 'text-danger'}`}>
-                  Recherche de {draft.objetNom} (Rare {draft.rarete}) :{' '}
-                  {draft.reussi
-                    ? draft.achat
-                      ? `réussie, acheté pour ${draft.achat.cout} po et placé dans le stock.`
-                      : 'réussie, mais non acheté.'
-                    : 'ratée.'}
+                  {t('commerce.rareSearchLine', {
+                    nom: draft.objetNom,
+                    rarete: draft.rarete,
+                    issue: draft.reussi
+                      ? draft.achat
+                        ? t('commerce.rareSucceededBought', { cout: draft.achat.cout })
+                        : t('commerce.rareSucceededNotBought')
+                      : t('commerce.searchFailed'),
+                  })}
                 </p>
               )}
               {draft?.action === 'dramatis_personae' && (
                 <p className={`text-sm mb-0 ${draft.reussi ? 'text-success' : 'text-danger'}`}>
-                  Recherche de {draft.nom} :{' '}
-                  {draft.reussi
-                    ? draft.recrute
-                      ? `réussie, recruté pour ${draft.cout} po.`
-                      : 'réussie, mais non recruté.'
-                    : 'ratée.'}
+                  {t('commerce.dpSearchLine', {
+                    nom: draft.nom,
+                    issue: draft.reussi
+                      ? draft.recrute
+                        ? t('commerce.dpSucceededRecruited', { cout: draft.cout })
+                        : t('commerce.dpSucceededNotRecruited')
+                      : t('commerce.searchFailed'),
+                  })}
                 </p>
               )}
               {draft?.action === 'docteur' && draft.statut === 'paye' && (
                 <div style={{ marginTop: '0.5rem' }}>
-                  <p className="text-sm text-warning mb-0">Consultation payée : le résultat 2D6 reste à saisir.</p>
+                  <p className="text-sm text-warning mb-0">{t('commerce.consultationPaid')}</p>
                   <button className="btn btn--primary btn--sm" style={{ marginTop: '0.4rem' }} onClick={() => ouvrirDocteur(hero)}>
-                    Reprendre la consultation
+                    {t('commerce.resumeConsultation')}
                   </button>
                 </div>
               )}
               {draft?.action === 'docteur' && draft.statut === 'termine' && (
                 <p className="text-sm mb-0">
-                  Docteur : 2D6 = {draft.jet} — <strong>{draft.resultatTitre}</strong>
+                  {t('commerce.doctorRoll', { jet: draft.jet, titre: draft.resultatTitre })}
                 </p>
               )}
 
               {!draft && hero.horsDeCombat && docteurActif && (
                 <p className="text-sm text-muted mb-0" style={{ marginTop: '0.45rem' }}>
-                  La recherche rare est interdite, mais la consultation d'urgence reste autorisée.
+                  {t('commerce.rareSearchForbidden')}
                 </p>
               )}
               {!draft && docteurActif && effetsSoignables.length === 0 && (
                 <p className="text-sm text-muted mb-0" style={{ marginTop: '0.35rem' }}>
-                  Aucune blessure traitable par le docteur.
+                  {t('commerce.noTreatableInjury')}
                 </p>
               )}
             </div>
@@ -314,10 +325,8 @@ export function EtapeCommerce({
 
       {herosDocteur && membreDocteur && !blessureAffiche && (
         <Modal onClose={fermerDocteur}>
-          <h3>Choisir la blessure à traiter — {herosDocteur.membre.nom_perso}</h3>
-          <p className="text-sm text-muted">
-            Une seule blessure peut être traitée pendant cette consultation.
-          </p>
+          <h3>{t('commerce.chooseInjuryTitle', { nom: herosDocteur.membre.nom_perso })}</h3>
+          <p className="text-sm text-muted">{t('commerce.chooseInjuryNote')}</p>
           {membreDocteur.blessures_graves.map((blessure) => {
             const traitable = effetsTraitablesDocteur(blessure).length > 0;
             return (
@@ -332,12 +341,12 @@ export function EtapeCommerce({
                 <div className="list-item__main">
                   <div className="list-item__title">{nomCourtBlessure(blessure)}</div>
                   <div className="list-item__subtitle">{injuryLabel(blessure)}</div>
-                  {!traitable && <div className="list-item__subtitle">Non traitable par le docteur.</div>}
+                  {!traitable && <div className="list-item__subtitle">{t('commerce.notTreatableByDoctor')}</div>}
                 </div>
               </button>
             );
           })}
-          <button className="btn btn--block" onClick={fermerDocteur}>Annuler</button>
+          <button className="btn btn--block" onClick={fermerDocteur}>{t('commerce.cancel')}</button>
         </Modal>
       )}
 
