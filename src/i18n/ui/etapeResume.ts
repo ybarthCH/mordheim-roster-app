@@ -1,0 +1,48 @@
+import type { UiDictionary } from './types';
+
+export const etapeResume: UiDictionary = {
+  'resume.title': { fr: 'Résumé', en: 'Summary' },
+  'resume.vsOpponents': { fr: 'vs {noms}', en: 'vs {noms}' },
+  'resume.wyrdstoneLine': { fr: 'Wyrdstone : {avant} → {apres}', en: 'Wyrdstone: {avant} → {apres}' },
+  'resume.treasuryLine': { fr: 'Trésorerie : {avant} → ', en: 'Treasury: {avant} → ' },
+  'resume.treasuryAfter': { fr: '{n} po', en: '{n} gc' },
+  'resume.wyrdstoneSale': { fr: 'Vente de wyrdstone', en: 'Wyrdstone sale' },
+  'resume.injuryGains': { fr: 'Gains des blessures graves résolues', en: 'Gains from resolved serious injuries' },
+  'resume.tradeExpenses': { fr: 'Dépenses de commerce', en: 'Trade expenses' },
+  'resume.hiredSwordWages': { fr: 'Solde des francs-tireurs ({n})', en: 'Hired sword wages ({n})' },
+  'resume.ledgerLine': { fr: '{label} : {sign}{montant} po', en: '{label}: {sign}{montant} gc' },
+  'resume.warpstoneUpkeep': { fr: 'Entretien en malepierre : {n} fragment(s).', en: 'Upkeep paid in warpstone: {n} fragment(s).' },
+  'resume.departuresLine': { fr: 'Départ de la bande : {noms}.', en: 'Left the warband: {noms}.' },
+  'resume.experienceLostSingular': { fr: 'Son expérience est perdue.', en: 'Their experience is lost.' },
+  'resume.experienceLostPlural': { fr: 'Leur expérience est perdue.', en: 'Their experience is lost.' },
+  'resume.doctorResultsTitle': { fr: 'Résultats du docteur :', en: "Doctor's results:" },
+  'resume.rareSearchTitle': { fr: "Recherches d'objet rare :", en: 'Rare item searches:' },
+  'resume.rareSearchSucceededBought': { fr: 'réussie, achetée', en: 'succeeded, bought' },
+  'resume.rareSearchSucceededNotBought': { fr: 'réussie, non achetée', en: 'succeeded, not bought' },
+  'resume.searchFailed': { fr: 'ratée', en: 'failed' },
+  'resume.dramatisPersonaeTitle': { fr: 'Recherches de Dramatis Personae :', en: 'Dramatis Personae searches:' },
+  'resume.dpSucceededRecruited': { fr: 'réussie, recruté', en: 'succeeded, recruited' },
+  'resume.dpSucceededNotRecruited': { fr: 'réussie, non recruté', en: 'succeeded, not recruited' },
+  'resume.injuriesRecordedNone': { fr: '{n} blessure(s) grave(s) enregistrée(s).', en: '{n} serious injury(ies) recorded.' },
+  'resume.injuriesRecordedSome': { fr: '{n} blessure(s) grave(s) enregistrée(s) :', en: '{n} serious injury(ies) recorded:' },
+  'resume.outOfAction': {
+    fr: 'Hors de combat : {survivants} survivant(s), {morts} mort(s).',
+    en: 'Out of Action: {survivants} survivor(s), {morts} dead.',
+  },
+  'resume.partialGroupsResolved': {
+    fr: ' {n} groupe(s) partiellement hors de combat résolu(s).',
+    en: ' {n} group(s) partially Out of Action resolved.',
+  },
+  'resume.participationXp': {
+    fr: '{n} membre(s) du reste du roster gagnent leur XP de participation.',
+    en: '{n} member(s) of the rest of the roster gain their participation XP.',
+  },
+  'resume.advancesResolved': {
+    fr: '{n} avancée(s) résolue(s) pendant cette bataille : {liste}',
+    en: '{n} advance(s) resolved during this battle: {liste}',
+  },
+  'resume.leaderVictoryBonus': {
+    fr: 'Le chef de bande gagne en plus son bonus de +1 XP pour la victoire.',
+    en: 'The warband leader also gains their +1 XP bonus for the victory.',
+  },
+};

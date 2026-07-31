@@ -2,6 +2,7 @@ import { resolveLeader } from '../../utils/leader';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import type { XpDraft } from './PostBatailleScreen';
+import { useLanguage } from '../../state/useLanguage';
 
 type EtapeResumeProps = {
   roster: RosterInstance;
@@ -54,53 +55,56 @@ export function EtapeResume({
   participantsAuto,
   avancesResolues,
 }: EtapeResumeProps) {
+  const { t } = useLanguage();
   const tresorerieApres = roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus - coutCommerce;
   const lignesTresorerie = [
-    prixVente > 0 && { label: 'Vente de wyrdstone', montant: prixVente },
-    blessuresTresorerieBonus > 0 && { label: 'Gains des blessures graves résolues', montant: blessuresTresorerieBonus },
-    coutCommerce > 0 && { label: 'Dépenses de commerce', montant: -coutCommerce },
-    soldeTotal > 0 && { label: `Solde des francs-tireurs (${francTireursPayesCount})`, montant: -soldeTotal },
+    prixVente > 0 && { label: t('resume.wyrdstoneSale'), montant: prixVente },
+    blessuresTresorerieBonus > 0 && { label: t('resume.injuryGains'), montant: blessuresTresorerieBonus },
+    coutCommerce > 0 && { label: t('resume.tradeExpenses'), montant: -coutCommerce },
+    soldeTotal > 0 && { label: t('resume.hiredSwordWages', { n: francTireursPayesCount }), montant: -soldeTotal },
   ].filter((l): l is { label: string; montant: number } => !!l);
+  const resultatLabel =
+    resultat === 'victoire' ? t('resultat.victory') : resultat === 'defaite' ? t('resultat.defeat') : t('resultat.draw');
 
   return (
     <div className="card">
-      <h3>Résumé</h3>
+      <h3>{t('resume.title')}</h3>
       <p>
-        {date} — {resultat} {adversaires.length > 0 && `vs ${adversaires.join(', ')}`}
+        {date} — {resultatLabel} {adversaires.length > 0 && t('resume.vsOpponents', { noms: adversaires.join(', ') })}
       </p>
       <p className="text-sm mb-0">
-        Wyrdstone : {roster.wyrdstone} →{' '}
-        {Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre)}
+        {t('resume.wyrdstoneLine', {
+          avant: roster.wyrdstone,
+          apres: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre),
+        })}
       </p>
       <div className="text-sm" style={{ marginTop: '0.3rem' }}>
         <p className="mb-0">
-          Trésorerie : {roster.tresorerie} → <strong>{tresorerieApres} po</strong>
+          {t('resume.treasuryLine', { avant: roster.tresorerie })}
+          <strong>{t('resume.treasuryAfter', { n: tresorerieApres })}</strong>
         </p>
         {lignesTresorerie.length > 0 && (
           <ul style={{ margin: '0.2rem 0 0', paddingLeft: '1.2rem' }}>
             {lignesTresorerie.map((l) => (
               <li key={l.label}>
-                {l.label} : {l.montant > 0 ? '+' : ''}
-                {l.montant} po
+                {t('resume.ledgerLine', { label: l.label, sign: l.montant > 0 ? '+' : '', montant: l.montant })}
               </li>
             ))}
           </ul>
         )}
       </div>
       {entretienMalepierre > 0 && (
-        <p className="text-sm">
-          Entretien en malepierre : {entretienMalepierre} fragment(s).
-        </p>
+        <p className="text-sm">{t('resume.warpstoneUpkeep', { n: entretienMalepierre })}</p>
       )}
       {francsTireursPartants.length > 0 && (
         <p className="text-sm">
-          Départ de la bande : {francsTireursPartants.join(', ')}.{' '}
-          {francsTireursPartants.length === 1 ? 'Son expérience est perdue.' : 'Leur expérience est perdue.'}
+          {t('resume.departuresLine', { noms: francsTireursPartants.join(', ') })}{' '}
+          {francsTireursPartants.length === 1 ? t('resume.experienceLostSingular') : t('resume.experienceLostPlural')}
         </p>
       )}
       {docteurResultats.length > 0 && (
         <div className="text-sm">
-          <p className="mb-0">Résultats du docteur :</p>
+          <p className="mb-0">{t('resume.doctorResultsTitle')}</p>
           <ul style={{ margin: '0.2rem 0 0.6rem', paddingLeft: '1.2rem' }}>
             {docteurResultats.map((d, i) => (
               <li key={`${d.nom}-${i}`}>
@@ -112,12 +116,12 @@ export function EtapeResume({
       )}
       {rechercheRareResultats.length > 0 && (
         <div className="text-sm">
-          <p className="mb-0">Recherches d'objet rare :</p>
+          <p className="mb-0">{t('resume.rareSearchTitle')}</p>
           <ul style={{ margin: '0.2rem 0 0.6rem', paddingLeft: '1.2rem' }}>
             {rechercheRareResultats.map((r, i) => (
               <li key={`${r.nom}-${i}`} className={r.reussi ? 'text-success' : 'text-danger'}>
                 {r.nom} — {r.objetNom} (Rare {r.rarete}) :{' '}
-                {r.reussi ? (r.achete ? 'réussie, achetée' : 'réussie, non achetée') : 'ratée'}
+                {r.reussi ? (r.achete ? t('resume.rareSearchSucceededBought') : t('resume.rareSearchSucceededNotBought')) : t('resume.searchFailed')}
               </li>
             ))}
           </ul>
@@ -125,20 +129,21 @@ export function EtapeResume({
       )}
       {dramatisPersonaeResultats.length > 0 && (
         <div className="text-sm">
-          <p className="mb-0">Recherches de Dramatis Personae :</p>
+          <p className="mb-0">{t('resume.dramatisPersonaeTitle')}</p>
           <ul style={{ margin: '0.2rem 0 0.6rem', paddingLeft: '1.2rem' }}>
             {dramatisPersonaeResultats.map((r, i) => (
               <li key={`${r.nom}-${i}`} className={r.reussi ? 'text-success' : 'text-danger'}>
                 {r.nom} — {r.dpNom} :{' '}
-                {r.reussi ? (r.recrute ? 'réussie, recruté' : 'réussie, non recruté') : 'ratée'}
+                {r.reussi ? (r.recrute ? t('resume.dpSucceededRecruited') : t('resume.dpSucceededNotRecruited')) : t('resume.searchFailed')}
               </li>
             ))}
           </ul>
         </div>
       )}
       <p className="text-sm mb-0">
-        {blessuresResume.length} blessure(s) grave(s) enregistrée(s)
-        {blessuresResume.length > 0 ? ' :' : '.'}
+        {blessuresResume.length > 0
+          ? t('resume.injuriesRecordedSome', { n: blessuresResume.length })
+          : t('resume.injuriesRecordedNone', { n: blessuresResume.length })}
       </p>
       {blessuresResume.length > 0 && (
         <ul className="text-sm" style={{ margin: '0.2rem 0 0.6rem', paddingLeft: '1.2rem' }}>
@@ -150,19 +155,23 @@ export function EtapeResume({
         </ul>
       )}
       <p className="text-sm">
-        Hors de combat : {horsDeCombatIndividuel.filter((m) => xpDraftDe(m, m.xp).survecu === 'oui').length} survivant(s),{' '}
-        {horsDeCombatIndividuel.filter((m) => xpDraftDe(m, m.xp).survecu === 'non').length} mort(s).
-        {groupesHC.length > 0 && ` ${groupesHC.length} groupe(s) partiellement hors de combat résolu(s).`}
+        {t('resume.outOfAction', {
+          survivants: horsDeCombatIndividuel.filter((m) => xpDraftDe(m, m.xp).survecu === 'oui').length,
+          morts: horsDeCombatIndividuel.filter((m) => xpDraftDe(m, m.xp).survecu === 'non').length,
+        })}
+        {groupesHC.length > 0 && t('resume.partialGroupsResolved', { n: groupesHC.length })}
       </p>
-      <p className="text-sm">{participantsAuto.length} membre(s) du reste du roster gagnent leur XP de participation.</p>
+      <p className="text-sm">{t('resume.participationXp', { n: participantsAuto.length })}</p>
       {avancesResolues.length > 0 && (
         <p className="text-sm">
-          {avancesResolues.length} avancée(s) résolue(s) pendant cette bataille :{' '}
-          {avancesResolues.map((a) => `${a.nom} (${a.detail})`).join(', ')}
+          {t('resume.advancesResolved', {
+            n: avancesResolues.length,
+            liste: avancesResolues.map((a) => `${a.nom} (${a.detail})`).join(', '),
+          })}
         </p>
       )}
       {resultat === 'victoire' && !!resolveLeader(roster, catalogue) && (
-        <p className="text-sm">Le chef de bande gagne en plus son bonus de +1 XP pour la victoire.</p>
+        <p className="text-sm">{t('resume.leaderVictoryBonus')}</p>
       )}
     </div>
   );

@@ -4,6 +4,7 @@ import type { WarbandCatalog } from '../../types/catalog';
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
 import { inventaireComplet } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
+import { useLanguage } from '../../state/useLanguage';
 
 type EtapeResultatProps = {
   roster: RosterInstance;
@@ -44,6 +45,7 @@ export function EtapeResultat({
   onAchatStock,
   onArgentGagne,
 }: EtapeResultatProps) {
+  const { t } = useLanguage();
   const [modalRecompense, setModalRecompense] = useState(false);
   const [argentSaisi, setArgentSaisi] = useState('');
   const [objetsRecompense, setObjetsRecompense] = useState<{ nom: string; valeur: number }[]>([]);
@@ -66,23 +68,23 @@ export function EtapeResultat({
 
   return (
     <div className="card">
-      <h3>Résultat de la bataille</h3>
+      <h3>{t('resultat.title')}</h3>
       <div className="field-row">
         <div className="field">
-          <label>Date</label>
+          <label>{t('resultat.dateLabel')}</label>
           <input type="date" value={date} onChange={(e) => onDateChange(e.target.value)} />
         </div>
         <div className="field">
-          <label>Résultat</label>
+          <label>{t('resultat.resultLabel')}</label>
           <select value={resultat} onChange={(e) => onResultatChange(e.target.value as BattleRecord['resultat'])}>
-            <option value="victoire">Victoire</option>
-            <option value="defaite">Défaite</option>
-            <option value="nul">Match nul</option>
+            <option value="victoire">{t('resultat.victory')}</option>
+            <option value="defaite">{t('resultat.defeat')}</option>
+            <option value="nul">{t('resultat.draw')}</option>
           </select>
         </div>
       </div>
       <div className="field">
-        <label>Bande(s) adverse(s)</label>
+        <label>{t('resultat.opponentBands')}</label>
         <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
           {adversaires.map((nom, i) => (
             <span key={i} className="badge badge--info">
@@ -96,7 +98,7 @@ export function EtapeResultat({
               </button>
             </span>
           ))}
-          {adversaires.length === 0 && <span className="text-muted text-sm">Aucune</span>}
+          {adversaires.length === 0 && <span className="text-muted text-sm">{t('resultat.none')}</span>}
         </div>
         <div className="flex gap-sm">
           <input
@@ -108,38 +110,35 @@ export function EtapeResultat({
                 ajouterAdversaire();
               }
             }}
-            placeholder="Nom d'une bande adverse"
+            placeholder={t('resultat.opponentNamePlaceholder')}
           />
           <button className="btn" onClick={ajouterAdversaire}>
-            Ajouter
+            {t('resultat.add')}
           </button>
         </div>
       </div>
       <div className="field">
-        <label>Notes</label>
+        <label>{t('resultat.notesLabel')}</label>
         <textarea value={notesBataille} onChange={(e) => onNotesBatailleChange(e.target.value)} />
       </div>
 
-      <h3>Récompense du scénario</h3>
-      <p className="text-sm text-muted">
-        Certains scénarios accordent un objet gratuit ou une somme d'or à l'issue de la partie (victoire, défaite ou
-        règle spéciale) : ajoute-les ici, ils rejoignent directement l'armurerie et la trésorerie de la bande.
-      </p>
+      <h3>{t('resultat.scenarioRewardTitle')}</h3>
+      <p className="text-sm text-muted">{t('resultat.scenarioRewardIntro')}</p>
       {objetsRecompense.length > 0 && (
         <ul className="text-sm" style={{ margin: '0 0 0.6rem', paddingLeft: '1.1rem' }}>
           {objetsRecompense.map((o, i) => (
             <li key={i}>
-              {o.nom} <span className="text-muted">({o.valeur} po)</span>
+              {o.nom} <span className="text-muted">({t('resultat.goldPo', { n: o.valeur })})</span>
             </li>
           ))}
         </ul>
       )}
       <div className="flex flex-wrap gap-sm items-end">
         <button className="btn btn--primary" onClick={() => setModalRecompense(true)}>
-          + Objet
+          {t('resultat.itemButton')}
         </button>
         <div className="field" style={{ marginBottom: 0 }}>
-          <label>Or gagné (po)</label>
+          <label>{t('resultat.goldEarnedLabel')}</label>
           <div className="flex gap-sm">
             <input
               type="number"
@@ -150,12 +149,12 @@ export function EtapeResultat({
               style={{ maxWidth: '8rem' }}
             />
             <button className="btn" disabled={!argentSaisi.trim()} onClick={ajouterArgent}>
-              Ajouter
+              {t('resultat.add')}
             </button>
           </div>
         </div>
       </div>
-      <p className="text-sm text-muted mb-0">Trésorerie actuelle de la bande : {roster.tresorerie} po.</p>
+      <p className="text-sm text-muted mb-0">{t('resultat.currentTreasury', { n: roster.tresorerie })}</p>
 
       {modalRecompense && catalogue && (
         <AchatEquipementModal

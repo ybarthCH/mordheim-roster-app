@@ -13,6 +13,9 @@ import { achatEquipementModal } from './achatEquipementModal';
 import { avanceeModal } from './avanceeModal';
 import { blessureGraveWizard } from './blessureGraveWizard';
 import { postBatailleShared } from './postBatailleShared';
+import { etapeEntretien } from './etapeEntretien';
+import { etapeResultat } from './etapeResultat';
+import { etapeResume } from './etapeResume';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -32,4 +35,7 @@ export const uiDictionary: UiDictionary = {
   ...avanceeModal,
   ...blessureGraveWizard,
   ...postBatailleShared,
+  ...etapeEntretien,
+  ...etapeResultat,
+  ...etapeResume,
 };

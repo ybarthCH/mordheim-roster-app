@@ -1,4 +1,5 @@
 import type { Member } from '../../types/roster';
+import { useLanguage } from '../../state/useLanguage';
 
 export type DecisionEntretien =
   | 'payer'
@@ -38,19 +39,17 @@ export function EtapeEntretien({
   orDisponible,
   malepierreDisponible,
 }: Props) {
+  const { t } = useLanguage();
   const insuffisant = totalOr > orDisponible || totalMalepierre > malepierreDisponible;
 
   return (
     <>
       <div className="card">
-        <h3>Entretien des francs-tireurs</h3>
+        <h3>{t('entretien.title')}</h3>
         {lignes.length === 0 ? (
-          <p className="text-sm text-muted mb-0">Aucun franc-tireur engagé, aucune solde à payer.</p>
+          <p className="text-sm text-muted mb-0">{t('entretien.noneHired')}</p>
         ) : (
-          <p className="text-sm text-muted mb-0">
-            La prime d’engagement couvrait le recrutement, pas cette solde. Choisis qui reste sous contrat ; un
-            franc-tireur renvoyé quitte immédiatement la bande et perd son expérience.
-          </p>
+          <p className="text-sm text-muted mb-0">{t('entretien.intro')}</p>
         )}
       </div>
 
@@ -64,20 +63,20 @@ export function EtapeEntretien({
               <strong>{ligne.nom}</strong>
               <span className="badge badge--info">
                 {ligne.type === 'or'
-                  ? `${ligne.cout} CO`
+                  ? t('entretien.goldCoins', { n: ligne.cout })
                   : ligne.type === 'malepierre'
-                    ? `${ligne.cout} fragment${ligne.cout > 1 ? 's' : ''}`
-                    : 'Sans entretien'}
+                    ? t('entretien.fragments', { n: ligne.cout, s: ligne.cout > 1 ? 's' : '' })
+                    : t('entretien.noUpkeep')}
               </span>
             </div>
             <p className="text-sm text-muted">{ligne.texte}</p>
 
             {ligne.departAutomatique ? (
               <p className="text-sm mb-0">
-                <strong>Départ automatique :</strong> ce contrat ne couvrait qu’une seule bataille.
+                <strong>{t('entretien.automaticDeparture')}</strong> {t('entretien.oneBattleOnly')}
               </p>
             ) : ligne.type === 'aucun' ? (
-              <p className="text-sm mb-0">Le profil reste dans la bande sans paiement.</p>
+              <p className="text-sm mb-0">{t('entretien.staysWithoutPayment')}</p>
             ) : (
               <div className="skill-list">
                 <label className="skill-check" style={{ cursor: 'pointer' }}>
@@ -88,7 +87,7 @@ export function EtapeEntretien({
                     onChange={() => onDecision(ligne.membre.instance_id, 'payer')}
                   />
                   <span>
-                    <span className="skill-check__name">Payer et conserver</span>
+                    <span className="skill-check__name">{t('entretien.payAndKeep')}</span>
                   </span>
                 </label>
                 <label className="skill-check" style={{ cursor: 'pointer' }}>
@@ -99,7 +98,7 @@ export function EtapeEntretien({
                     onChange={() => onDecision(ligne.membre.instance_id, 'renvoyer')}
                   />
                   <span>
-                    <span className="skill-check__name">Ne pas payer — renvoyer</span>
+                    <span className="skill-check__name">{t('entretien.dontPayDismiss')}</span>
                   </span>
                 </label>
                 {ligne.exemption && (
@@ -111,7 +110,7 @@ export function EtapeEntretien({
                       onChange={() => onDecision(ligne.membre.instance_id, 'exempter')}
                     />
                     <span>
-                      <span className="skill-check__name">Exemption : {ligne.exemption.label}</span>
+                      <span className="skill-check__name">{t('entretien.exemptionLabel', { label: ligne.exemption.label })}</span>
                       <br />
                       <span className="skill-check__text">{ligne.exemption.texte}</span>
                     </span>
@@ -126,7 +125,7 @@ export function EtapeEntretien({
                       onChange={() => onDecision(ligne.membre.instance_id, 'impaye')}
                     />
                     <span>
-                      <span className="skill-check__name">Conserver sans payer</span>
+                      <span className="skill-check__name">{t('entretien.keepWithoutPaying')}</span>
                       <br />
                       <span className="skill-check__text">{ligne.maintienSansPaiement}</span>
                     </span>
@@ -140,16 +139,14 @@ export function EtapeEntretien({
 
       <div className="card">
         <p className={insuffisant ? 'text-danger mb-0' : 'mb-0'}>
-          Total : {totalOr} CO
-          {totalMalepierre > 0 ? ` et ${totalMalepierre} fragment(s) de malepierre` : ''}.
+          {t('entretien.totalLine', {
+            or: totalOr,
+            malepierre: totalMalepierre > 0 ? t('entretien.andFragments', { n: totalMalepierre }) : '',
+          })}
           <br />
-          Disponibles après exploration : {orDisponible} CO et {malepierreDisponible} fragment(s).
+          {t('entretien.availableAfterExploration', { or: orDisponible, malepierre: malepierreDisponible })}
         </p>
-        {insuffisant && (
-          <p className="text-sm text-danger mb-0">
-            Ressources insuffisantes : renvoie un ou plusieurs francs-tireurs, ou applique une exemption valide.
-          </p>
-        )}
+        {insuffisant && <p className="text-sm text-danger mb-0">{t('entretien.insufficientResources')}</p>}
       </div>
     </>
   );
