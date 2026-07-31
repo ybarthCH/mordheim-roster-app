@@ -59,13 +59,14 @@ Deux environnements :
   sur `main`, via `.github/workflows/deploy-pages.yml` (`npm run build`,
   base path `/mordheim-roster-app/`) :
   https://ybarthCH.github.io/mordheim-roster-app/
-- **Production (Infomaniak, musterheim.app)** : hébergé sur le storage
-  Infomaniak existant, sous le domaine `musterheim.app` déjà configuré
-  chez Infomaniak. Déploiement manuel :
-  1. `npm run build:prod`
-  2. Uploader tout le **contenu** du dossier `dist/` (pas le dossier
-     lui-même) à la racine du storage web Infomaniak, en écrasant les
-     fichiers existants.
+- **Production (Infomaniak, musterheim.app)** : publié automatiquement à
+  chaque push sur `main`, via `.github/workflows/deploy-infomaniak.yml`
+  (`npm run build:prod` puis upload FTP du contenu de `dist/` à la
+  racine du storage web Infomaniak).
+
+Secrets requis pour `deploy-infomaniak.yml`, à créer une seule fois dans
+Settings → Secrets and variables → Actions → New repository secret :
+`INFOMANIAK_FTP_HOST`, `INFOMANIAK_FTP_USERNAME`, `INFOMANIAK_FTP_PASSWORD`.
 
 ## Structure
 
