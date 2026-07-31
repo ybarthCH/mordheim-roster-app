@@ -70,6 +70,7 @@ type Props = {
   drafts: Record<string, CommerceDraft>;
   tresorerieDisponible: number;
   docteurActif: boolean;
+  dramatisPersonaeActif: boolean;
   onChanger: (instanceId: string, draft: CommerceDraft | null) => void;
 };
 
@@ -89,6 +90,7 @@ export function EtapeCommerce({
   drafts,
   tresorerieDisponible,
   docteurActif,
+  dramatisPersonaeActif,
   onChanger,
 }: Props) {
   const [rechercheHeroId, setRechercheHeroId] = useState<string | null>(null);
@@ -154,16 +156,19 @@ export function EtapeCommerce({
   return (
     <>
       <div className="card">
-        <h3>Commerce : objets rares{docteurActif ? ' ou docteur' : ''}</h3>
+        <h3>
+          Commerce : objets rares{dramatisPersonaeActif ? ', Dramatis Personae' : ''}
+          {docteurActif ? ' ou docteur' : ''}
+        </h3>
         <p className="text-sm">
           Trésorerie disponible : <strong>{tresorerieDisponible} po</strong>.
         </p>
         <p className="text-sm text-muted">
           Chaque Héros dispose d'une seule action de commerce. S'il n'a pas été mis Hors de combat, il peut effectuer
-          un jet de rareté pour tenter d'acheter un seul objet rare, ou tenter à la place de retrouver un Dramatis
-          Personae.
+          un jet de rareté pour tenter d'acheter un seul objet rare
+          {dramatisPersonaeActif && ', ou tenter à la place de retrouver un Dramatis Personae'}.
           {docteurActif &&
-            " À la place, il peut aussi consulter le docteur pour 20 po. Un Héros mis Hors de combat ne peut pas chercher un objet rare ni un Dramatis Personae, mais peut aller chez le docteur en urgence."}
+            ` À la place, il peut aussi consulter le docteur pour 20 po. Un Héros mis Hors de combat ne peut pas chercher un objet rare${dramatisPersonaeActif ? ' ni un Dramatis Personae' : ''}, mais peut aller chez le docteur en urgence.`}
         </p>
         <p className="text-sm text-muted">
           L'app ne lance aucun dé : tous les résultats de 2D6 sont saisis manuellement.
@@ -200,13 +205,15 @@ export function EtapeCommerce({
                   >
                     Rechercher un objet rare
                   </button>
-                  <button
-                    className="btn btn--sm"
-                    disabled={hero.horsDeCombat || dpDisponibles.length === 0}
-                    onClick={() => setRechercheDPHeroId(id)}
-                  >
-                    Rechercher un Dramatis Personae
-                  </button>
+                  {dramatisPersonaeActif && (
+                    <button
+                      className="btn btn--sm"
+                      disabled={hero.horsDeCombat || dpDisponibles.length === 0}
+                      onClick={() => setRechercheDPHeroId(id)}
+                    >
+                      Rechercher un Dramatis Personae
+                    </button>
+                  )}
                   {docteurActif && (
                     <button
                       className="btn btn--sm"

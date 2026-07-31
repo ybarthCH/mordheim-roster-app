@@ -144,6 +144,22 @@ export function ReglagesScreen() {
             </span>
           </span>
         </label>
+
+        <label className="flex items-start gap-sm" style={{ cursor: 'pointer', marginTop: '1rem' }}>
+          <input
+            type="checkbox"
+            checked={rules.dramatisPersonae}
+            onChange={(e) => setRule('dramatisPersonae', e.target.checked)}
+          />
+          <span>
+            <strong>Dramatis Personae</strong>
+            <br />
+            <span className="text-sm text-muted">
+              Active la recherche de Dramatis Personae pendant l'étape Commerce de la séquence post-bataille. Un
+              Héros peut tenter de retrouver l'un de ces personnages spéciaux au lieu de rechercher un objet rare.
+            </span>
+          </span>
+        </label>
       </div>
     </Screen>
   );
