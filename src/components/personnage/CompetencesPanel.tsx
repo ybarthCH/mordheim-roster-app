@@ -15,7 +15,7 @@ type Props = {
 };
 
 export function CompetencesPanel({ member, profil, catalogue, onToggleSkill }: Props) {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const categories: SkillCategory[] = categoriesAccessibles(profil);
 
   const [ongletActif, setOngletActif] = useState<SkillCategory>(categories[0]);
@@ -27,10 +27,7 @@ export function CompetencesPanel({ member, profil, catalogue, onToggleSkill }: P
   return (
     <div>
       {profil.acces_competences_a_verifier && (
-        <p className="text-sm text-danger">
-          ⚠ Accès aux tables de compétences non confirmé dans les données source — toutes les tables sont affichées par
-          précaution.
-        </p>
+        <p className="text-sm text-danger">{t('competencesPanel.unconfirmedAccessWarning')}</p>
       )}
       <div className="tabs">
         {categories.map((cat) => (
@@ -62,9 +59,7 @@ export function CompetencesPanel({ member, profil, catalogue, onToggleSkill }: P
           );
         })}
         {ongletActif === 'special' && competencesSpeciales.length === 0 && (
-          <p className="text-muted text-sm">
-            Aucune compétence spéciale renseignée pour cette bande pour l'instant.
-          </p>
+          <p className="text-muted text-sm">{t('competencesPanel.noSpecialSkills')}</p>
         )}
       </div>
     </div>

@@ -9,6 +9,7 @@ import {
 } from '../../utils/magie';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
+import { useLanguage } from '../../state/useLanguage';
 
 type MagieConnueCardProps = {
   membre: Member;
@@ -33,6 +34,7 @@ export function MagieConnueCard({
   grimoireDisponible,
   onUtiliserGrimoire,
 }: MagieConnueCardProps) {
+  const { t } = useLanguage();
   const [sortAAjouter, setSortAAjouter] = useState('');
   const [grimoireOuvert, setGrimoireOuvert] = useState(false);
   const [sourceGrimoire, setSourceGrimoire] = useState<'propre' | 'mineure'>('propre');
@@ -55,7 +57,7 @@ export function MagieConnueCard({
       title={
         <>
           <Icon name="flamme" style={{ marginRight: '0.35em' }} />
-          Magie — Sort connu
+          {t('magieConnue.title')}
         </>
       }
     >
@@ -65,12 +67,12 @@ export function MagieConnueCard({
           return (
             <p key={i} className="text-sm mb-0" style={{ marginTop: i > 0 ? '0.4rem' : 0 }}>
               <strong>{sort ? `${sort.resultat} — ${sort.nom}` : nom}</strong>
-              {sort && <span className="text-muted"> (diff. {sort.difficulte}) : {sort.texte}</span>}
+              {sort && <span className="text-muted"> ({t('magieConnue.diffAbbrev')} {sort.difficulte}) : {sort.texte}</span>}
               <button
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', marginLeft: '0.4rem', padding: 0, color: 'var(--danger)' }}
                 onClick={() => onMajMembre({ sorts_connus: membre.sorts_connus.filter((_, j) => j !== i) })}
-                title="Retirer ce sort"
+                title={t('magieConnue.removeSpellTitle')}
               >
                 ✕
               </button>
@@ -78,12 +80,12 @@ export function MagieConnueCard({
           );
         })
       ) : (
-        <p className="text-sm text-muted mb-0">Aucun</p>
+        <p className="text-sm text-muted mb-0">{t('magieConnue.none')}</p>
       )}
       {disponibles.length > 0 && (
         <div className="flex gap-sm" style={{ marginTop: '0.7rem' }}>
           <select value={sortAAjouter} onChange={(e) => setSortAAjouter(e.target.value)} style={{ flex: 1 }}>
-            <option value="">— Ajouter un sort —</option>
+            <option value="">{t('magieConnue.addSpellPlaceholder')}</option>
             {disponibles.map((s) => (
               <option key={s.nom} value={s.nom}>
                 {s.resultat} — {s.nom}
@@ -99,24 +101,21 @@ export function MagieConnueCard({
               setSortAAjouter('');
             }}
           >
-            Ajouter
+            {t('magieConnue.add')}
           </button>
         </div>
       )}
       {grimoireDisponible && (
         <div style={{ marginTop: '0.8rem', paddingTop: '0.7rem', borderTop: '1px solid var(--border)' }}>
           <button className="btn btn--sm" onClick={() => setGrimoireOuvert((ouvert) => !ouvert)}>
-            {grimoireOuvert ? 'Annuler' : 'Utiliser un Grimoire de magie'}
+            {grimoireOuvert ? t('magieConnue.cancel') : t('magieConnue.useGrimoire')}
           </button>
           {grimoireOuvert && (
             <div style={{ marginTop: '0.6rem' }}>
-              <p className="text-sm text-muted">
-                Le grimoire sera consommé. Choisis un sort permanent dans la liste propre du sorcier ou dans celle
-                de Magie mineure.
-              </p>
+              <p className="text-sm text-muted">{t('magieConnue.grimoireBody')}</p>
               {!magieMineureEstPropre && (
                 <div className="field">
-                  <label>Liste de sorts</label>
+                  <label>{t('magieConnue.spellListLabel')}</label>
                   <select
                     value={sourceGrimoire}
                     onChange={(e) => {
@@ -124,27 +123,27 @@ export function MagieConnueCard({
                       setSortGrimoire('');
                     }}
                   >
-                    <option value="propre">{magiePropre?.nom ?? 'Liste propre du sorcier'}</option>
-                    <option value="mineure">Magie mineure</option>
+                    <option value="propre">{magiePropre?.nom ?? t('magieConnue.ownListFallback')}</option>
+                    <option value="mineure">{t('magieConnue.pettyMagic')}</option>
                   </select>
                 </div>
               )}
               <div className="field">
-                <label>Nouveau sort</label>
+                <label>{t('magieConnue.newSpellLabel')}</label>
                 <select value={sortGrimoire} onChange={(e) => setSortGrimoire(e.target.value)}>
-                  <option value="">— Choisir —</option>
+                  <option value="">{t('magieConnue.choose')}</option>
                   {sortsGrimoire.map((sort) => (
                     <option key={sort.nom} value={sort.nom}>
-                      {sort.resultat} — {sort.nom} (diff. {sort.difficulte})
+                      {sort.resultat} — {sort.nom} ({t('magieConnue.diffAbbrev')} {sort.difficulte})
                     </option>
                   ))}
                 </select>
                 {sortsGrimoire.length === 0 && (
-                  <p className="text-sm text-muted mb-0">Tous les sorts de cette liste sont déjà connus.</p>
+                  <p className="text-sm text-muted mb-0">{t('magieConnue.allKnown')}</p>
                 )}
               </div>
               <button className="btn btn--primary" disabled={!sortGrimoire} onClick={utiliserGrimoire}>
-                Consommer le grimoire et apprendre ce sort
+                {t('magieConnue.consumeGrimoire')}
               </button>
             </div>
           )}

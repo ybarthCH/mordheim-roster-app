@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Icon } from '../common/Icon';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import type { Member } from '../../types/roster';
+import { useLanguage } from '../../state/useLanguage';
 
 type ReglesSpecialesCardProps = {
   membre: Member;
@@ -13,6 +14,7 @@ type ReglesSpecialesCardProps = {
 // ont leur propre carte (voir MagieConnueCard), ce champ ne sert donc plus
 // qu'à ce qui ne rentre dans aucune des deux.
 export function ReglesSpecialesCard({ membre, onMajMembre }: ReglesSpecialesCardProps) {
+  const { t } = useLanguage();
   const [nouvelleNote, setNouvelleNote] = useState('');
 
   return (
@@ -21,7 +23,7 @@ export function ReglesSpecialesCard({ membre, onMajMembre }: ReglesSpecialesCard
       title={
         <>
           <Icon name="flamme" style={{ marginRight: '0.35em' }} />
-          Règles spéciales
+          {t('reglesSpecialesCard.title')}
         </>
       }
     >
@@ -40,13 +42,13 @@ export function ReglesSpecialesCard({ membre, onMajMembre }: ReglesSpecialesCard
             </button>
           </span>
         ))}
-        {membre.regles_speciales_notes.length === 0 && <span className="text-muted text-sm">Aucune</span>}
+        {membre.regles_speciales_notes.length === 0 && <span className="text-muted text-sm">{t('reglesSpecialesCard.none')}</span>}
       </div>
       <div className="flex gap-sm">
         <input
           value={nouvelleNote}
           onChange={(e) => setNouvelleNote(e.target.value)}
-          placeholder="Ex : Nuages de mouches : -1 pour être touché au corps à corps"
+          placeholder={t('reglesSpecialesCard.placeholder')}
           style={{
             flex: 1,
             background: 'var(--bg-inset)',
@@ -63,7 +65,7 @@ export function ReglesSpecialesCard({ membre, onMajMembre }: ReglesSpecialesCard
             setNouvelleNote('');
           }}
         >
-          Ajouter
+          {t('reglesSpecialesCard.add')}
         </button>
       </div>
     </CollapsibleCard>

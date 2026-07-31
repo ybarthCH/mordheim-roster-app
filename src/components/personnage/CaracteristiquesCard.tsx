@@ -2,6 +2,7 @@ import { STAT_KEYS } from '../../types/catalog';
 import type { Profile, Stats } from '../../types/catalog';
 import type { Member } from '../../types/roster';
 import { plafondPour, estStatAuPlafond } from '../../utils/plafond';
+import { useLanguage } from '../../state/useLanguage';
 
 type CaracteristiquesCardProps = {
   membre: Member;
@@ -10,10 +11,11 @@ type CaracteristiquesCardProps = {
 };
 
 export function CaracteristiquesCard({ membre, profil, onEditerStat }: CaracteristiquesCardProps) {
+  const { t } = useLanguage();
   const plafond = plafondPour(profil, membre.competences_acquises);
   return (
     <div className="card">
-      <h3>Caractéristiques</h3>
+      <h3>{t('caracteristiques.title')}</h3>
       <div className="stat-grid">
         {STAT_KEYS.map((k) => (
           <div key={k} className="stat-grid__cell stat-grid__cell--label">
@@ -27,7 +29,7 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
               <div
                 key={k}
                 className="stat-grid__cell stat-grid__cell--value"
-                title="Caractéristique variable — se fixe via une avancée d'expérience"
+                title={t('caracteristiques.variableTitle')}
               >
                 <span className="stat-grid__input stat-grid__input--variable">{variable}</span>
               </div>
@@ -40,7 +42,7 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
               className={`stat-grid__cell stat-grid__cell--value ${
                 membre.stats_modifiees.includes(k) ? 'stat-grid__cell--modified' : ''
               }`}
-              title={auPlafond ? 'Caractéristique au plafond racial' : undefined}
+              title={auPlafond ? t('caracteristiques.capTitle') : undefined}
             >
               <input
                 type="number"
@@ -54,14 +56,14 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
       </div>
       {plafond && (
         <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
-          Plafond de caractéristiques ({plafond.label}) :{' '}
+          {t('caracteristiques.capLabel')} ({plafond.label}) :{' '}
           {STAT_KEYS.map((k) => `${k} ${plafond[k]}`).join(' · ')}
           {plafond.note && <> — {plafond.note}</>}
         </p>
       )}
       {profil.type === 'homme_de_main' && (
         <p className="text-sm text-muted" style={{ marginTop: '0.3rem', marginBottom: 0 }}>
-          Un homme de main ne peut jamais augmenter une même caractéristique de plus de +1.
+          {t('caracteristiques.henchmanCapNote')}
         </p>
       )}
     </div>
