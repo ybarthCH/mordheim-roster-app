@@ -85,4 +85,9 @@ export type FrancTireurCatalog = {
   // mort) l'un des profils partageant cette valeur, les autres deviennent
   // indisponibles pour elle — voir dramatisPersonaeDisponibles.
   groupe_exclusif?: string;
+  // Duo de Dramatis Personae inséparables (ex : Ulli et Marquand) : recruter
+  // ce profil recrute automatiquement aussi celui désigné ici (id d'une
+  // autre entrée DRAMATIS_PERSONAE), pour le même prix — le coéquipier n'est
+  // jamais proposé seul à la recherche (voir dramatisPersonaeDisponibles).
+  recrue_avec?: string;
 };

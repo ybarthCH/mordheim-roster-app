@@ -3,6 +3,7 @@ import type { FrancTireurCatalog } from '../../types/hiredSword';
 import type { Member } from '../../types/roster';
 import { STAT_KEYS } from '../../types/catalog';
 import { Modal } from '../common/Modal';
+import { getDramatisPersonae } from '../../data/dramatisPersonae';
 
 export type ResultatRechercheDramatisPersonae = {
   dramatisPersonaeId: string;
@@ -116,6 +117,12 @@ export function RechercheDramatisPersonaeModal({
 
             <div className="achat-equipement__contenu achat-equipement__detail">
               <p className="text-sm text-muted">{dp.employeurs.texte}</p>
+              {dp.recrue_avec && (
+                <p className="text-sm">
+                  <strong>Recruté avec {getDramatisPersonae(dp.recrue_avec)?.nom ?? dp.recrue_avec}</strong>{' '}
+                  — les deux rejoignent la bande ensemble pour ce prix, et la quittent ensemble.
+                </p>
+              )}
               <div className="stat-grid">
                 {STAT_KEYS.map((k) => (
                   <div key={k} className="stat-grid__cell stat-grid__cell--label">

@@ -27,13 +27,17 @@ export function RecruterFrancTireurScreen() {
   const profils = useMemo(() => {
     if (!roster) return [];
     const terme = recherche.trim().toLocaleLowerCase('fr');
-    return FRANCS_TIREURS.map((profil) => ({
-      profil,
-      disponibilite: disponibiliteFrancTireur(profil, roster),
-    })).filter(({ profil, disponibilite }) => {
-      if (!voirIndisponibles && !disponibilite.disponible) return false;
-      return !terme || `${profil.nom} ${profil.nom_original ?? ''}`.toLocaleLowerCase('fr').includes(terme);
-    });
+    // Les Dramatis Personae ont leur propre flux de recrutement (recherche
+    // post-bataille dédiée, jamais renommables) — exclus de cet écran.
+    return FRANCS_TIREURS.filter((profil) => !profil.est_dramatis_personae)
+      .map((profil) => ({
+        profil,
+        disponibilite: disponibiliteFrancTireur(profil, roster),
+      }))
+      .filter(({ profil, disponibilite }) => {
+        if (!voirIndisponibles && !disponibilite.disponible) return false;
+        return !terme || `${profil.nom} ${profil.nom_original ?? ''}`.toLocaleLowerCase('fr').includes(terme);
+      });
   }, [recherche, roster, voirIndisponibles]);
 
   if (!roster) {

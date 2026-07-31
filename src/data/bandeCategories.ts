@@ -17,15 +17,27 @@
 // - Toute bande possédant un Vampire, un Nécromancien ou une Liche est
 //   considérée comme une bande de Morts-Vivants.
 export const TOUTES_LES_BANDES = [
+  'amazones_lustrie',
+  'amazones_mordheim',
   'artilleurs_de_nuln',
   'averlanders',
+  'bandits_du_hochland',
   'beastmen_raiders',
   'carnival_of_chaos',
+  'chasseurs_cornus',
+  'chevaliers_bretonniens',
   'cult_of_the_possessed',
   'dwarf_treasure_hunters',
+  'elfes_noirs',
+  'escorteurs_imperiaux',
+  'expedition_runique',
   'gardiens_de_chapelle_bretonniens',
   'gladiateurs',
   'gobelins_de_la_nuit',
+  'gobelins_des_forets',
+  'guerriers_fantomes',
+  'hommes_lezards',
+  'hors_la_loi_de_stirwood',
   'kislevites',
   'lustrian_reavers',
   'maneaters',
@@ -38,17 +50,21 @@ export const TOUTES_LES_BANDES = [
   'orc_mob',
   'orques_noirs',
   'ostlanders',
+  'pirates',
   'reiklanders',
   'sisters_of_sigmar',
   'skaven',
   'skavens_pestilens',
+  'tileens',
   'undead',
   'witch_hunters',
 ] as const;
 
 export const SKAVENS = ['skaven', 'skavens_pestilens'];
 export const MORTS_VIVANTS = ['undead', 'morts_sans_repos'];
-export const PEAUX_VERTES = ['orc_mob', 'orques_noirs', 'gobelins_de_la_nuit'];
+export const PEAUX_VERTES = ['orc_mob', 'orques_noirs', 'gobelins_de_la_nuit', 'gobelins_des_forets'];
+export const ELFES = ['elfes_noirs', 'guerriers_fantomes'];
+export const NAINS = ['dwarf_treasure_hunters', 'expedition_runique'];
 export const CHAOS = [
   'beastmen_raiders',
   'carnival_of_chaos',
@@ -73,6 +89,15 @@ export const HUMAINS = [
   'gladiateurs',
   'gardiens_de_chapelle_bretonniens',
   'lustrian_reavers',
+  'amazones_lustrie',
+  'amazones_mordheim',
+  'bandits_du_hochland',
+  'chasseurs_cornus',
+  'chevaliers_bretonniens',
+  'escorteurs_imperiaux',
+  'hors_la_loi_de_stirwood',
+  'pirates',
+  'tileens',
 ];
 export const BIEN = [
   ...MERCENAIRES,

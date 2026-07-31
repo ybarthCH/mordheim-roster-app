@@ -819,10 +819,16 @@ export function PostBatailleScreen() {
 
     // Dramatis Personae recrutés à l'étape Commerce : nouveaux membres, sans
     // rapport avec le Héros qui a effectué la recherche (voir
-    // dramatisPersonaeARecruter ci-dessus).
+    // dramatisPersonaeARecruter ci-dessus). Un duo inséparable (ex : Ulli et
+    // Marquand, voir FrancTireurCatalog.recrue_avec) rejoint la bande en
+    // même temps que le profil recherché, pour le même prix.
     const nouveauxDramatisPersonae = dramatisPersonaeARecruter.flatMap((draft) => {
       const profil = getDramatisPersonae(draft.dramatisPersonaeId);
-      return profil ? [creerMembreFrancTireurCatalogue(profil)] : [];
+      if (!profil) return [];
+      const coequipier = profil.recrue_avec ? getDramatisPersonae(profil.recrue_avec) : undefined;
+      return coequipier
+        ? [creerMembreFrancTireurCatalogue(profil), creerMembreFrancTireurCatalogue(coequipier)]
+        : [creerMembreFrancTireurCatalogue(profil)];
     });
 
     // Francs-tireurs dont l'exemption "Débiteur reconnaissant" vient d'être

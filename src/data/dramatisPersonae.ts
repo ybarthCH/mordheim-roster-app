@@ -1,6 +1,6 @@
 import type { FrancTireurCatalog } from '../types/hiredSword';
 import type { Member, RosterInstance } from '../types/roster';
-import { toutesSauf, SKAVENS, MORTS_VIVANTS, HUMAINS, TOUTES_LES_BANDES } from './bandeCategories';
+import { toutesSauf, SKAVENS, MORTS_VIVANTS, HUMAINS, TOUTES_LES_BANDES, ELFES, NAINS } from './bandeCategories';
 
 // Chapitre Dramatis Personae (Livre des Règles, 1a) : personnages spéciaux
 // trouvés via une recherche post-bataille dédiée (voir
@@ -206,9 +206,9 @@ export const DRAMATIS_PERSONAE: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 40, texte: '40 CO après chaque bataille à laquelle il participe.' },
     valeur: 70,
     employeurs: {
-      bande_ids: [...TOUTES_LES_BANDES],
+      bande_ids: toutesSauf(...ELFES),
       texte:
-        'Toutes les bandes, sauf celles qui n’acceptent pas les assassins et toute bande qui compte déjà un elfe parmi ses membres (Elfes Noirs exclus dans tous les cas).',
+        'Toutes les bandes, sauf les bandes elfes (dont les Elfes Noirs, exclus dans tous les cas) et toute bande qui compte déjà un elfe parmi ses membres.',
     },
     stats: { M: 5, CC: 7, CT: 5, F: 4, E: 3, PV: 2, I: 7, A: 2, Cd: 8 },
     equipement: ['Cape d’assassin druchii (cape elfique)', 'Deux épées enduites de venin fuligineux', 'Arbalète à répétition'],
@@ -338,7 +338,7 @@ export const DRAMATIS_PERSONAE: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 25, texte: '25 CO après chaque bataille à laquelle il participe.' },
     valeur: 35,
     employeurs: {
-      bande_ids: [...HUMAINS, 'dwarf_treasure_hunters'].filter((id) => id !== 'reiklanders'),
+      bande_ids: [...HUMAINS, ...NAINS, ...ELFES].filter((id) => id !== 'reiklanders'),
       texte: 'N’importe quelle bande humaine, elfe ou naine, à l’exception des Reiklanders (où il est trop connu sous le nom de Lame Pourpre).',
     },
     stats: { M: 4, CC: 4, CT: 4, F: 4, E: 4, PV: 2, I: 4, A: 2, Cd: 8 },
@@ -458,6 +458,133 @@ export const DRAMATIS_PERSONAE: FrancTireurCatalog[] = [
     gagne_experience: false,
     est_dramatis_personae: true,
   },
+  {
+    id: 'penthesilee',
+    nom: 'Penthesilée, l’Élue du Dieu Serpent',
+    page_source: 0,
+    recrutement: { cout: 0 },
+    entretien: { type: 'aucun', cout: 0, texte: 'Penthesilée ne demande aucune solde.' },
+    valeur: 70,
+    employeurs: {
+      bande_ids: ['amazones_lustrie', 'amazones_mordheim'],
+      texte:
+        'Penthesilée ne se joindra qu’à une bande d’Amazones, et seulement si l’adversaire de la prochaine bataille a une valeur de bande supérieure (0-49 : impossible ; 50-99 : 6+ ; 100-149 : 5+ ; 150-199 : 4+ ; 200+ : 3+ sur 1D6, à vérifier sur table papier avant la recherche).',
+    },
+    stats: { M: 5, CC: 5, CT: 4, F: 4, E: 4, PV: 2, I: 5, A: 2, Cd: 8 },
+    equipement: ['Épée des étoiles', 'Lame des étoiles', 'Amulette lunaire', 'Peaux enchantées (équipement des Amazones)'],
+    acces_competences: [],
+    regles_speciales: [
+      { nom: 'Amazone', texte: 'Penthesilée est une Amazone et suit donc toutes les règles spéciales les concernant.' },
+      {
+        nom: 'Marque du Serpent',
+        texte: 'Déjà incluse dans son profil : +1 Mouvement et +1 Initiative par rapport à une Amazone ordinaire.',
+      },
+      {
+        nom: 'Haine des hommes',
+        texte: 'Ayant vu nombre de ses sœurs se faire capturer ou tuer par des pillards, Penthesilée est sujette à la haine envers tous les mâles humains.',
+      },
+    ],
+    competences_departs: ['combat_02'],
+    competences_speciales: [
+      {
+        id: 'elixir_de_vie',
+        nom: 'Élixir de Vie',
+        texte:
+          'Après la bataille, si Penthesilée a été mise hors de combat, relancez son jet de Dégâts : sur 1-4, elle ne subit pas les conséquences du statut hors de combat et participe normalement à la séquence d’après-bataille.',
+      },
+      {
+        id: 'dissimulation',
+        nom: 'Dissimulation',
+        texte: 'Cachée dans un terrain de type jungle, la portée nécessaire pour la détecter est divisée par deux.',
+      },
+      {
+        id: 'danse_hypnotique',
+        nom: 'Danse Hypnotique',
+        texte:
+          'Tout combattant engagé au corps à corps contre Penthesilée doit réussir un test de Commandement en début de tour ou ne peut pas attaquer ce tour (mais peut se défendre). Sans effet contre les Hommes-Lézards et les Morts-Vivants.',
+      },
+      {
+        id: 'fureur_sauvage',
+        nom: 'Fureur Sauvage',
+        texte: '+1 Attaque lorsqu’elle charge ; immunisée aux effets de charme ou de peur.',
+      },
+    ],
+    gagne_experience: false,
+    est_dramatis_personae: true,
+  },
+  {
+    id: 'marquand_volker',
+    nom: 'Marquand Volker',
+    page_source: 0,
+    recrutement: { cout: 30 },
+    entretien: { type: 'aucun', cout: 0, texte: 'Aucune solde : Ulli et Marquand quittent la bande après chaque bataille (Vagabonds) et sont à re-recruter à chaque fois.' },
+    valeur: 30,
+    employeurs: {
+      bande_ids: toutesSauf('sisters_of_sigmar', 'witch_hunters'),
+      texte: 'Toutes les bandes sauf les Sœurs de Sigmar et les Répurgateurs.',
+    },
+    stats: { M: 4, CC: 5, CT: 4, F: 3, E: 3, PV: 2, I: 5, A: 2, Cd: 8 },
+    equipement: ['Épée', 'Armure légère', 'Couteaux de lancer'],
+    acces_competences: [],
+    regles_speciales: [
+      {
+        nom: 'Vagabonds',
+        texte: 'Ulli et Marquand ne restent jamais plus d’une bataille d’affilée avec la même bande : celle-ci doit livrer la suivante sans eux avant de pouvoir les engager de nouveau.',
+      },
+      {
+        nom: 'Pour une poignée de couronnes',
+        texte:
+          'En cours de partie, l’adversaire peut tenter de les acheter pour qu’ils changent de camp (offres secrètes en début de partie, révélées au choix de l’ennemi ; l’offre la plus haute l’emporte) — à gérer manuellement sur table.',
+      },
+      {
+        nom: 'C’est l’heure de payer !',
+        texte:
+          'Si la bande ne peut régler leurs frais supplémentaires, ils se payent en équipement ou, à défaut, se retournent contre le chef de bande (corps à corps à mort, sans les hommes de main) — à gérer manuellement.',
+      },
+      {
+        nom: 'Inséparables',
+        texte:
+          'Ulli et Marquand doivent rester à 4ps ou moins l’un de l’autre ; si l’un est mis hors de combat, l’autre tente de le mettre à l’abri — à gérer manuellement sur table.',
+      },
+    ],
+    competences_departs: ['tir_08', 'combat_06', 'vitesse_04'],
+    groupe_caracteristiques: 'humain',
+    gagne_experience: false,
+    depart_apres_bataille: true,
+    est_dramatis_personae: true,
+    recrue_avec: 'ulli_leitpold',
+  },
+  {
+    id: 'ulli_leitpold',
+    nom: 'Ulli Leitpold',
+    page_source: 0,
+    recrutement: { cout: 30 },
+    entretien: { type: 'aucun', cout: 0, texte: 'Aucune solde : Ulli et Marquand quittent la bande après chaque bataille (Vagabonds) et sont à re-recruter à chaque fois.' },
+    valeur: 30,
+    employeurs: {
+      bande_ids: toutesSauf('sisters_of_sigmar', 'witch_hunters'),
+      texte: 'Toutes les bandes sauf les Sœurs de Sigmar et les Répurgateurs.',
+    },
+    stats: { M: 4, CC: 4, CT: 4, F: 4, E: 3, PV: 3, I: 4, A: 2, Cd: 7 },
+    equipement: ['Marteau de guerre à deux mains', 'Armure légère'],
+    acces_competences: [],
+    regles_speciales: [
+      {
+        nom: 'Vagabonds',
+        texte: 'Ulli et Marquand ne restent jamais plus d’une bataille d’affilée avec la même bande : celle-ci doit livrer la suivante sans eux avant de pouvoir les engager de nouveau.',
+      },
+      {
+        nom: 'Inséparables',
+        texte:
+          'Ulli et Marquand doivent rester à 4ps ou moins l’un de l’autre ; si l’un est mis hors de combat, l’autre tente de le mettre à l’abri — à gérer manuellement sur table.',
+      },
+    ],
+    competences_departs: ['force_05', 'force_06', 'combat_02'],
+    groupe_caracteristiques: 'humain',
+    gagne_experience: false,
+    depart_apres_bataille: true,
+    est_dramatis_personae: true,
+  },
 ];
 
 export function estDramatisPersonae(membre: Member): boolean {
@@ -472,6 +599,13 @@ export function getDramatisPersonae(id: string | undefined): FrancTireurCatalog 
 // à ses employeurs habituels, et jamais déjà présents dans le roster (mort
 // ou vivant) — sauf s'ils l'ont quitté automatiquement (depart_apres_bataille,
 // ex : Aenur), auquel cas ils redeviennent recherchables.
+// Un DP "coéquipier" (voir FrancTireurCatalog.recrue_avec) n'est jamais
+// proposé seul à la recherche : il rejoint automatiquement la bande en même
+// temps que celui qui le désigne.
+const IDS_COEQUIPIERS = new Set(
+  DRAMATIS_PERSONAE.flatMap((dp) => (dp.recrue_avec ? [dp.recrue_avec] : []))
+);
+
 export function dramatisPersonaeDisponibles(roster: RosterInstance): FrancTireurCatalog[] {
   const dejaPresents = new Set(
     roster.membres.filter((m) => m.franc_tireur_id).map((m) => m.franc_tireur_id as string)
@@ -485,6 +619,8 @@ export function dramatisPersonaeDisponibles(roster: RosterInstance): FrancTireur
     (dp) =>
       dp.employeurs.bande_ids.includes(roster.bande_id) &&
       !dejaPresents.has(dp.id) &&
+      !(dp.recrue_avec && dejaPresents.has(dp.recrue_avec)) &&
+      !IDS_COEQUIPIERS.has(dp.id) &&
       !(dp.groupe_exclusif && groupesExclusifsPresents.has(dp.groupe_exclusif))
   );
 }
