@@ -4,6 +4,7 @@ import type { WarbandCatalog } from '../../types/catalog';
 import { resolveProfil } from '../../utils/profil';
 import { creerMembre } from '../../utils/factory';
 import { JetOrButton } from './JetOrButton';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   roster: RosterInstance;
@@ -17,6 +18,7 @@ type Branche = 'possedes' | 'morts_vivants' | 'skaven' | 'autres';
 
 // (3 3 3) Prisonniers — l'action possible dépend de la nature de la bande.
 export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjouterOr, onAjouterAuJournal }: Props) {
+  const { t } = useLanguage();
   const [branche, setBranche] = useState<Branche | null>(null);
   const [heroId, setHeroId] = useState('');
   const [jetXp, setJetXp] = useState('');
@@ -37,7 +39,7 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
     if (!hero || !Number.isFinite(valeur) || valeur <= 0) return;
     onMajRoster({ membres: roster.membres.map((m) => (m.instance_id === hero.instance_id ? { ...m, xp: m.xp + valeur } : m)) });
     onAjouterAuJournal(`Prisonniers : sacrifiés aux dieux du Chaos — ${hero.nom_perso} gagne +${valeur} XP (D3, réparti à ta discrétion).`);
-    setResolu(`Sacrifiés — ${hero.nom_perso} gagne +${valeur} XP.`);
+    setResolu(t('postBataille.prisoners.sacrificed', { nom: hero.nom_perso, n: valeur }));
   };
 
   const appliquerZombies = () => {
@@ -46,13 +48,13 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
     const zombies = Array.from({ length: valeur }, () => creerMembre(zombieProfil, 0));
     onMajRoster({ membres: [...roster.membres, ...zombies] });
     onAjouterAuJournal(`Prisonniers : tués et transformés — ${valeur} zombie(s) (D3) rejoignent la bande gratuitement.`);
-    setResolu(`Tués et transformés — ${valeur} zombie(s) rejoignent la bande.`);
+    setResolu(t('postBataille.prisoners.turnedZombies', { n: valeur }));
   };
 
   const vendus = (valeur: number) => {
     onAjouterOr(valeur);
     onAjouterAuJournal(`Prisonniers : vendus comme esclaves — +${valeur} po (3D6).`);
-    setResolu(`Vendus comme esclaves — +${valeur} po.`);
+    setResolu(t('postBataille.prisoners.soldAsSlaves', { n: valeur }));
   };
 
   const escortes = (valeur: number) => {
@@ -60,13 +62,13 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
     onAjouterAuJournal(
       `Prisonniers : escortés hors de la cité — +${valeur} po (2D6). Un captif peut rejoindre un groupe d'hommes de main humain existant si tu as le matériel pour l'équiper (à faire manuellement).`
     );
-    setResolu(`Escortés hors de la cité — +${valeur} po.`);
+    setResolu(t('postBataille.prisoners.escorted', { n: valeur }));
   };
 
   if (resolu) {
     return (
       <p className="text-sm text-success" style={{ marginTop: '0.6rem' }}>
-        ✓ Prisonniers : {resolu}
+        {t('postBataille.prisoners.result', { texte: resolu })}
       </p>
     );
   }
@@ -78,28 +80,28 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
           type="button"
           className={`btn btn--sm ${branche === 'possedes' ? 'btn--primary' : ''}`}
           disabled={catalogue.id !== 'cult_of_the_possessed'}
-          title={catalogue.id !== 'cult_of_the_possessed' ? 'Réservé aux Possédés' : undefined}
+          title={catalogue.id !== 'cult_of_the_possessed' ? t('postBataille.vagrant.reservedFor', { faction: 'Possédés' }) : undefined}
           onClick={() => setBranche('possedes')}
         >
-          Sacrifier — D3 XP
+          {t('postBataille.prisoners.sacrificeForXp')}
         </button>
         <button
           type="button"
           className={`btn btn--sm ${branche === 'morts_vivants' ? 'btn--primary' : ''}`}
           disabled={!estMortsVivants || !zombieProfil}
-          title={!estMortsVivants ? 'Réservé aux Morts-vivants' : undefined}
+          title={!estMortsVivants ? t('postBataille.vagrant.reservedFor', { faction: 'Morts-vivants' }) : undefined}
           onClick={() => setBranche('morts_vivants')}
         >
-          Tuer — D3 zombies gratuits
+          {t('postBataille.prisoners.killForZombies')}
         </button>
         <button
           type="button"
           className={`btn btn--sm ${branche === 'skaven' ? 'btn--primary' : ''}`}
           disabled={catalogue.id !== 'skaven'}
-          title={catalogue.id !== 'skaven' ? 'Réservé aux Skavens' : undefined}
+          title={catalogue.id !== 'skaven' ? t('postBataille.vagrant.reservedFor', { faction: 'Skavens' }) : undefined}
           onClick={() => setBranche('skaven')}
         >
-          Vendre pour 3D6 CO
+          {t('postBataille.prisoners.sellFor3d6')}
         </button>
         <button
           type="button"
@@ -107,21 +109,21 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
           disabled={['cult_of_the_possessed', 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)}
           title={
             ['cult_of_the_possessed', 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)
-              ? 'Cette bande a une meilleure option ci-dessus'
+              ? t('postBataille.vagrant.betterOptionAbove')
               : undefined
           }
           onClick={() => setBranche('autres')}
         >
-          Escorter — 2D6 CO + recrue
+          {t('postBataille.prisoners.escort')}
         </button>
       </div>
 
       {branche === 'possedes' && (
         <div style={{ marginTop: '0.5rem' }}>
           <div className="field">
-            <label>Héros bénéficiaire de l'XP</label>
+            <label>{t('postBataille.prisoners.heroXpLabel')}</label>
             <select value={heroId} onChange={(e) => setHeroId(e.target.value)}>
-              <option value="">— Choisir —</option>
+              <option value="">{t('postBataille.chooseEllipsis')}</option>
               {heros.map((m) => (
                 <option key={m.instance_id} value={m.instance_id}>
                   {m.nom_perso}
@@ -130,10 +132,10 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
             </select>
           </div>
           <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap' }}>
-            <span className="text-sm text-muted">Jet obtenu (D3) :</span>
+            <span className="text-sm text-muted">{t('postBataille.prisoners.rollObtainedD3')}</span>
             <input type="number" min={0} style={{ width: '5rem' }} value={jetXp} onChange={(e) => setJetXp(e.target.value)} />
             <button type="button" className="btn btn--sm btn--primary" disabled={!heroId || !jetXp} onClick={appliquerXp}>
-              Ajouter l'XP
+              {t('postBataille.prisoners.addXp')}
             </button>
           </div>
         </div>
@@ -141,7 +143,7 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
 
       {branche === 'morts_vivants' && (
         <div className="flex gap-sm items-center" style={{ marginTop: '0.5rem', flexWrap: 'wrap' }}>
-          <span className="text-sm text-muted">Jet obtenu (D3) :</span>
+          <span className="text-sm text-muted">{t('postBataille.prisoners.rollObtainedD3')}</span>
           <input
             type="number"
             min={0}
@@ -150,15 +152,21 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
             onChange={(e) => setJetZombies(e.target.value)}
           />
           <button type="button" className="btn btn--sm btn--primary" disabled={!jetZombies} onClick={appliquerZombies}>
-            Ajouter les zombies
+            {t('postBataille.prisoners.addZombies')}
           </button>
         </div>
       )}
 
-      {branche === 'skaven' && <JetOrButton label="Jet obtenu (3D6) :" onValider={vendus} boutonLabel="Vendre — ajouter à la trésorerie" />}
+      {branche === 'skaven' && (
+        <JetOrButton
+          label={t('postBataille.prisoners.rollObtained3d6')}
+          onValider={vendus}
+          boutonLabel={t('postBataille.vagrant.sellAddTreasury')}
+        />
+      )}
 
       {branche === 'autres' && (
-        <JetOrButton label="Jet obtenu (2D6) :" onValider={escortes} boutonLabel="Ajouter à la trésorerie" />
+        <JetOrButton label={t('postBataille.vagrant.rollObtained2d6')} onValider={escortes} boutonLabel={t('postBataille.addToTreasury')} />
       )}
     </div>
   );

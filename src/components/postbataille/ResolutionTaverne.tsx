@@ -3,6 +3,7 @@ import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { resolveLeader } from '../../utils/leader';
 import { JetOrButton } from './JetOrButton';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   roster: RosterInstance;
@@ -16,6 +17,7 @@ const BANDES_REUSSITE_AUTOMATIQUE = new Set(['undead', 'morts_sans_repos', 'witc
 // (1 1 1) Taverne — test de Commandement du chef, sauf réussite automatique
 // pour les bandes que l'alcool n'intéresse pas.
 export function ResolutionTaverne({ roster, catalogue, onAjouterOr, onAjouterAuJournal }: Props) {
+  const { t } = useLanguage();
   const [resultat, setResultat] = useState<'reussi' | 'rate' | null>(null);
   // Se verrouille une fois le gain appliqué : les boutons Réussi/Raté
   // restaient cliquables indéfiniment après coup, permettant de rouvrir un
@@ -27,19 +29,19 @@ export function ResolutionTaverne({ roster, catalogue, onAjouterOr, onAjouterAuJ
   const vendu = (valeur: number) => {
     onAjouterOr(valeur);
     onAjouterAuJournal(`Taverne : tonneaux vendus — +${valeur} po (4D6).`);
-    setResolu(`Tonneaux vendus — +${valeur} po.`);
+    setResolu(t('postBataille.tavern.barrelsSold', { n: valeur }));
   };
 
   const perdu = (valeur: number) => {
     onAjouterOr(valeur);
     onAjouterAuJournal(`Taverne : la plupart des tonneaux sont vidés — +${valeur} po (D6).`);
-    setResolu(`Tonneaux vidés — +${valeur} po.`);
+    setResolu(t('postBataille.tavern.barrelsEmptied', { n: valeur }));
   };
 
   if (resolu) {
     return (
       <p className="text-sm text-success" style={{ marginTop: '0.6rem' }}>
-        ✓ Taverne : {resolu}
+        {t('postBataille.tavern.result', { texte: resolu })}
       </p>
     );
   }
@@ -47,10 +49,8 @@ export function ResolutionTaverne({ roster, catalogue, onAjouterOr, onAjouterAuJ
   if (automatique) {
     return (
       <div style={{ marginTop: '0.6rem' }}>
-        <p className="text-sm text-success">
-          Réussite automatique — un vulgaire breuvage alcoolisé n'intéresse pas cette bande.
-        </p>
-        <JetOrButton label="Jet obtenu (4D6) :" onValider={vendu} />
+        <p className="text-sm text-success">{t('postBataille.tavern.autoSuccess')}</p>
+        <JetOrButton label={t('postBataille.tavern.rollObtained4d6')} onValider={vendu} />
       </div>
     );
   }
@@ -58,7 +58,7 @@ export function ResolutionTaverne({ roster, catalogue, onAjouterOr, onAjouterAuJ
   return (
     <div style={{ marginTop: '0.6rem' }}>
       <p className="text-sm text-muted" style={{ marginBottom: '0.4rem' }}>
-        Test de Commandement du chef{chef ? ` (${chef.nom_perso})` : ''} :
+        {t('postBataille.tavern.leaderCommandTest', { chef: chef ? ` (${chef.nom_perso})` : '' })}
       </p>
       <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
         <button
@@ -66,18 +66,18 @@ export function ResolutionTaverne({ roster, catalogue, onAjouterOr, onAjouterAuJ
           className={`btn btn--sm ${resultat === 'reussi' ? 'btn--primary' : ''}`}
           onClick={() => setResultat('reussi')}
         >
-          Réussi
+          {t('postBataille.success')}
         </button>
         <button
           type="button"
           className={`btn btn--sm ${resultat === 'rate' ? 'btn--primary' : ''}`}
           onClick={() => setResultat('rate')}
         >
-          Raté
+          {t('postBataille.failure')}
         </button>
       </div>
-      {resultat === 'reussi' && <JetOrButton label="Jet obtenu (4D6) :" onValider={vendu} />}
-      {resultat === 'rate' && <JetOrButton label="Jet obtenu (D6) :" onValider={perdu} />}
+      {resultat === 'reussi' && <JetOrButton label={t('postBataille.tavern.rollObtained4d6')} onValider={vendu} />}
+      {resultat === 'rate' && <JetOrButton label={t('postBataille.tavern.rollObtainedD6')} onValider={perdu} />}
     </div>
   );
 }

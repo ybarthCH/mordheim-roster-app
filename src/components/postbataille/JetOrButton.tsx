@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   label: string;
@@ -12,7 +13,8 @@ type Props = {
 // Se verrouille après application (confirmation affichée à la place des
 // contrôles) : sans ça, rien n'empêchait de re-saisir un jet et de recliquer
 // pour appliquer le même gain une seconde fois, sans même s'en apercevoir.
-export function JetOrButton({ label, onValider, boutonLabel = 'Ajouter à la trésorerie' }: Props) {
+export function JetOrButton({ label, onValider, boutonLabel }: Props) {
+  const { t } = useLanguage();
   const [jet, setJet] = useState('');
   const [applique, setApplique] = useState(false);
   const valeur = Number(jet);
@@ -21,7 +23,7 @@ export function JetOrButton({ label, onValider, boutonLabel = 'Ajouter à la tr�
   if (applique) {
     return (
       <p className="text-sm text-success" style={{ marginTop: '0.5rem' }}>
-        ✓ Appliqué — voir le journal d'exploration ci-dessous.
+        {t('postBataille.appliedSeeJournal')}
       </p>
     );
   }
@@ -39,7 +41,7 @@ export function JetOrButton({ label, onValider, boutonLabel = 'Ajouter à la tr�
           setApplique(true);
         }}
       >
-        {boutonLabel}
+        {boutonLabel ?? t('postBataille.addToTreasury')}
       </button>
     </div>
   );

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { itemVersShopItem } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { LigneObjetTrouve } from '../../data/tableExplorationEvenements';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   ligneObjet: LigneObjetTrouve;
@@ -15,6 +16,7 @@ type Props = {
 // Quantité fixe : un clic suffit. Quantité en dés (ex : "D3") : reprend le
 // motif de JetOrButton (jet fait sur table papier, jamais lancé par l'app).
 export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }: Props) {
+  const { t } = useLanguage();
   const item = itemVersShopItem(ligneObjet.item_id, catalogueId);
   const [jet, setJet] = useState('');
   // Se verrouille après ajout, comme JetOrButton : sans ça rien n'empêchait
@@ -26,7 +28,7 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
   if (ajoute) {
     return (
       <p className="text-sm text-success" style={{ marginTop: '0.5rem' }}>
-        ✓ {item.nom} ajouté(e) au stock.
+        {t('postBataille.itemAddedToStock', { nom: item.nom })}
       </p>
     );
   }
@@ -43,8 +45,7 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
           setAjoute(true);
         }}
       >
-        + Ajouter {item.nom}
-        {quantite > 1 ? ` ×${quantite}` : ''} au stock
+        {t('postBataille.addItemToStock', { nom: item.nom, suffix: quantite > 1 ? ` ×${quantite}` : '' })}
       </button>
     );
   }
@@ -55,7 +56,7 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
   return (
     <div className="flex gap-sm items-center" style={{ marginTop: '0.5rem', flexWrap: 'wrap' }}>
       <span className="text-sm text-muted">
-        Jet ({ligneObjet.quantite}) pour {item.nom} :
+        {t('postBataille.rollForItem', { notation: ligneObjet.quantite, nom: item.nom })}
       </span>
       <input type="number" min={1} style={{ width: '4rem' }} value={jet} onChange={(e) => setJet(e.target.value)} />
       <button
@@ -67,7 +68,7 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
           setAjoute(true);
         }}
       >
-        Ajouter au stock
+        {t('postBataille.addToStock')}
       </button>
     </div>
   );

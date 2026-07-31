@@ -5,6 +5,7 @@ import { resolveLeader } from '../../utils/leader';
 import { creerMembre } from '../../utils/factory';
 import { ajouterEffetPersistant, CLE_DE_SUPPLEMENTAIRE_EXPLORATION } from '../../utils/effetsPersistants';
 import { JetOrButton } from './JetOrButton';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   roster: RosterInstance;
@@ -16,6 +17,7 @@ type Props = {
 
 // (4 4) Vagabond — l'action possible dépend de la nature de la bande.
 export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr, onAjouterAuJournal }: Props) {
+  const { t } = useLanguage();
   const chef = resolveLeader(roster, catalogue);
   const zombieProfil = catalogue.profils.find((p) => p.id === 'zombie');
   // Se verrouille une fois une option choisie : ces trois boutons n'avaient
@@ -27,7 +29,7 @@ export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr
     if (!chef) return;
     onMajRoster({ membres: roster.membres.map((m) => (m.instance_id === chef.instance_id ? { ...m, xp: m.xp + 1 } : m)) });
     onAjouterAuJournal(`Vagabond : sacrifié aux dieux du Chaos — ${chef.nom_perso} gagne +1pt d'expérience.`);
-    setResolu(`Sacrifié — ${chef.nom_perso} gagne +1 XP.`);
+    setResolu(t('postBataille.vagrant.sacrificed', { nom: chef.nom_perso }));
   };
 
   const tuerPourZombie = () => {
@@ -35,7 +37,7 @@ export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr
     const zombie = creerMembre(zombieProfil, 0);
     onMajRoster({ membres: [...roster.membres, zombie] });
     onAjouterAuJournal('Vagabond : tué et transformé en zombie, rejoint la bande gratuitement.');
-    setResolu('Tué et transformé — un zombie rejoint la bande.');
+    setResolu(t('postBataille.vagrant.turnedZombie'));
   };
 
   const interroger = () => {
@@ -49,19 +51,19 @@ export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr
     onAjouterAuJournal(
       "Vagabond : interrogé sur la ville — +1 dé (avec annulation d'un résultat au choix) au prochain jet d'exploration."
     );
-    setResolu('Interrogé — +1 dé au prochain jet d\'exploration.');
+    setResolu(t('postBataille.vagrant.questioned'));
   };
 
   const venduPourOr = (valeur: number) => {
     onAjouterOr(valeur);
     onAjouterAuJournal(`Vagabond : vendu aux agents du clan Eshin — +${valeur} po (2D6).`);
-    setResolu(`Vendu aux agents du clan Eshin — +${valeur} po.`);
+    setResolu(t('postBataille.vagrant.soldTo', { n: valeur }));
   };
 
   if (resolu) {
     return (
       <p className="text-sm text-success" style={{ marginTop: '0.6rem' }}>
-        ✓ Vagabond : {resolu}
+        {t('postBataille.vagrant.result', { texte: resolu })}
       </p>
     );
   }
@@ -73,29 +75,31 @@ export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr
           type="button"
           className="btn btn--sm"
           disabled={catalogue.id !== 'skaven'}
-          title={catalogue.id !== 'skaven' ? 'Réservé aux Skavens' : undefined}
+          title={catalogue.id !== 'skaven' ? t('postBataille.vagrant.reservedFor', { faction: 'Skavens' }) : undefined}
         >
-          Vendre pour 2D6 CO
+          {t('postBataille.vagrant.sellFor2d6')}
         </button>
         <button
           type="button"
           className="btn btn--sm"
           disabled={catalogue.id !== 'cult_of_the_possessed' || !chef}
-          title={catalogue.id !== 'cult_of_the_possessed' ? 'Réservé aux Possédés' : undefined}
+          title={catalogue.id !== 'cult_of_the_possessed' ? t('postBataille.vagrant.reservedFor', { faction: 'Possédés' }) : undefined}
           onClick={sacrifierPourXp}
         >
-          Sacrifier — chef +1 XP
+          {t('postBataille.vagrant.sacrificeForXp')}
         </button>
         <button
           type="button"
           className="btn btn--sm"
           disabled={(catalogue.id !== 'undead' && catalogue.id !== 'morts_sans_repos') || !zombieProfil}
           title={
-            catalogue.id !== 'undead' && catalogue.id !== 'morts_sans_repos' ? 'Réservé aux Morts-vivants' : undefined
+            catalogue.id !== 'undead' && catalogue.id !== 'morts_sans_repos'
+              ? t('postBataille.vagrant.reservedFor', { faction: 'Morts-vivants' })
+              : undefined
           }
           onClick={tuerPourZombie}
         >
-          Tuer — zombie gratuit
+          {t('postBataille.vagrant.killForZombie')}
         </button>
         <button
           type="button"
@@ -103,16 +107,20 @@ export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr
           disabled={['skaven', 'cult_of_the_possessed', 'undead', 'morts_sans_repos'].includes(catalogue.id)}
           title={
             ['skaven', 'cult_of_the_possessed', 'undead', 'morts_sans_repos'].includes(catalogue.id)
-              ? 'Cette bande a une meilleure option ci-dessus'
+              ? t('postBataille.vagrant.betterOptionAbove')
               : undefined
           }
           onClick={interroger}
         >
-          Interroger — dé bonus prochaine exploration
+          {t('postBataille.vagrant.questionForDie')}
         </button>
       </div>
       {catalogue.id === 'skaven' && (
-        <JetOrButton label="Jet obtenu (2D6) :" onValider={venduPourOr} boutonLabel="Vendre — ajouter à la trésorerie" />
+        <JetOrButton
+          label={t('postBataille.vagrant.rollObtained2d6')}
+          onValider={venduPourOr}
+          boutonLabel={t('postBataille.vagrant.sellAddTreasury')}
+        />
       )}
     </div>
   );
