@@ -804,18 +804,25 @@ export function resumeInventaireParItem(inventaire: InventoryEntry[]): { entree:
   return [...parItem.values()];
 }
 
-// Nouveaux exemplaires (un par objet distinct déjà possédé par le groupe, ×
-// quantiteNouvelle) à offrir aux figurines qui rejoignent un groupe d'hommes
-// de main déjà équipé — l'équipement doit rester identique entre toutes les
-// figurines du groupe.
+// Nouveaux exemplaires à offrir aux figurines qui rejoignent un groupe
+// d'hommes de main déjà équipé — l'équipement doit rester identique entre
+// toutes les figurines du groupe. `resumeInventaireParItem` donne la
+// quantité TOTALE de chaque objet pour tout le groupe actuel : il faut la
+// diviser par sa taille actuelle pour obtenir la quantité par figurine avant
+// de la multiplier par le nombre de nouvelles recrues (ex : groupe de 2 avec
+// 4 Dagues au total = 2 Dagues/figurine ; un 3e guerrier doit en recevoir 2,
+// pas 1).
 export function clonerEquipementPourNouvellesFigurines(
   inventaireExistant: InventoryEntry[],
-  quantiteNouvelle: number
+  quantiteNouvelle: number,
+  tailleGroupeActuelle: number
 ): InventoryEntry[] {
+  const diviseur = Math.max(1, tailleGroupeActuelle);
   const distincts = resumeInventaireParItem(inventaireExistant);
   const clones: InventoryEntry[] = [];
-  for (const { entree } of distincts) {
-    for (let i = 0; i < quantiteNouvelle; i++) {
+  for (const { entree, quantite } of distincts) {
+    const quantiteParFigurine = Math.floor(quantite / diviseur);
+    for (let i = 0; i < quantiteParFigurine * quantiteNouvelle; i++) {
       clones.push({
         ...entree,
         instance_id: uuidv4(),
@@ -827,9 +834,19 @@ export function clonerEquipementPourNouvellesFigurines(
 }
 
 // Coût total pour équiper `quantiteNouvelle` nouvelles figurines à
-// l'identique de l'équipement déjà possédé par le groupe.
-export function coutEquipementNouvellesFigurines(inventaireExistant: InventoryEntry[], quantiteNouvelle: number): number {
-  return resumeInventaireParItem(inventaireExistant).reduce((acc, { entree }) => acc + entree.cout * quantiteNouvelle, 0);
+// l'identique de l'équipement déjà possédé par le groupe (voir
+// clonerEquipementPourNouvellesFigurines ci-dessus pour le calcul par
+// figurine).
+export function coutEquipementNouvellesFigurines(
+  inventaireExistant: InventoryEntry[],
+  quantiteNouvelle: number,
+  tailleGroupeActuelle: number
+): number {
+  const diviseur = Math.max(1, tailleGroupeActuelle);
+  return resumeInventaireParItem(inventaireExistant).reduce((acc, { entree, quantite }) => {
+    const quantiteParFigurine = Math.floor(quantite / diviseur);
+    return acc + entree.cout * quantiteParFigurine * quantiteNouvelle;
+  }, 0);
 }
 
 export type CoutRejoindreGroupe = {
@@ -848,7 +865,7 @@ export type CoutRejoindreGroupe = {
 export function calculerCoutRejoindreGroupe(groupe: Member, coutUnitaire: number, quantite: number): CoutRejoindreGroupe {
   const xpGroupe = groupe.xp;
   const surtaxeXpUnitaire = 2 * xpGroupe;
-  const coutEquipementForce = coutEquipementNouvellesFigurines(groupe.inventaire, quantite);
+  const coutEquipementForce = coutEquipementNouvellesFigurines(groupe.inventaire, quantite, groupe.taille_groupe);
   const coutTotal = (coutUnitaire + surtaxeXpUnitaire) * quantite + coutEquipementForce;
   const vetPointsIndicatifs = xpGroupe * quantite;
   return { xpGroupe, surtaxeXpUnitaire, coutEquipementForce, coutTotal, vetPointsIndicatifs };
@@ -862,7 +879,7 @@ export function rejoindreGroupe(
   quantite: number,
   coutTotal: number
 ): RosterInstance {
-  const nouvellesEntrees = clonerEquipementPourNouvellesFigurines(groupe.inventaire, quantite);
+  const nouvellesEntrees = clonerEquipementPourNouvellesFigurines(groupe.inventaire, quantite, groupe.taille_groupe);
   return {
     ...roster,
     tresorerie: roster.tresorerie - coutTotal,
