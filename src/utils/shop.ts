@@ -715,6 +715,7 @@ export function acheterPourMembre(
 ): RosterInstance {
   const liste = Array.isArray(entrees) ? entrees : [entrees];
   const coutTotal = liste.reduce((acc, e) => acc + e.cout, 0);
+  if (coutTotal > roster.tresorerie) return roster;
   return {
     ...roster,
     tresorerie: roster.tresorerie - coutTotal,
@@ -725,6 +726,7 @@ export function acheterPourMembre(
 }
 
 export function acheterPourStock(roster: RosterInstance, entree: InventoryEntry): RosterInstance {
+  if (entree.cout > roster.tresorerie) return roster;
   return { ...roster, tresorerie: roster.tresorerie - entree.cout, stock: [...roster.stock, entree] };
 }
 

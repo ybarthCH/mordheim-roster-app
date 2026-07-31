@@ -203,6 +203,8 @@ export function AchatEquipementModal({
     materiauSelectionne && baseMateriauChoisie && coutBaseValide
       ? construireObjetMateriau(baseMateriauChoisie, materiauSelectionne, coutBase)
       : null;
+  const coutTotalMateriau = objetMateriauCombine ? (objetMateriauCombine.cout as number) * tailleGroupe : 0;
+  const budgetMateriauSuffisant = gratuit || coutTotalMateriau <= tresorerie;
 
   const choisirBaseMateriau = (base: ShopItem) => {
     setBaseMateriauId(base.id);
@@ -210,7 +212,7 @@ export function AchatEquipementModal({
   };
 
   const confirmerMateriau = () => {
-    if (!objetMateriauCombine) return;
+    if (!objetMateriauCombine || !budgetMateriauSuffisant) return;
     onAchat(objetMateriauCombine, objetMateriauCombine.cout as number);
     onClose();
   };
@@ -225,7 +227,7 @@ export function AchatEquipementModal({
     (inventaireBande.some((entree) => entree.item_id === itemSelectionne.id) || tailleGroupe > 1);
 
   const confirmer = () => {
-    if (!itemSelectionne || !coutValide || trinketLimite) return;
+    if (!itemSelectionne || !coutValide || trinketLimite || (!gratuit && coutTotal > tresorerie)) return;
     onAchat(itemSelectionne, cout);
     onClose();
   };
@@ -459,9 +461,16 @@ export function AchatEquipementModal({
                     return spec?.mode === 'addition' ? `${coutBase} po + ${spec.montant}` : `${coutBase} po × ${spec?.multiplicateur}`;
                   })()}
                   ) : <strong>{objetMateriauCombine?.cout} po</strong>
+                  {tailleGroupe > 1 ? ` / figurine` : ''}
                 </p>
               )}
-              {!gratuit && coutBaseValide && (objetMateriauCombine?.cout as number) > tresorerie && (
+              {!gratuit && tailleGroupe > 1 && coutBaseValide && (
+                <p className="text-sm">
+                  Groupe de {tailleGroupe} figurines identiques : {tailleGroupe} exemplaires achetés pour{' '}
+                  {coutTotalMateriau} po
+                </p>
+              )}
+              {!gratuit && coutBaseValide && !budgetMateriauSuffisant && (
                 <p className="text-danger text-sm">Trésorerie insuffisante ({tresorerie} po disponibles).</p>
               )}
             </div>
@@ -471,10 +480,10 @@ export function AchatEquipementModal({
               </button>
               <button
                 className="btn btn--primary"
-                disabled={!objetMateriauCombine || (!gratuit && (objetMateriauCombine.cout as number) > tresorerie)}
+                disabled={!objetMateriauCombine || !budgetMateriauSuffisant}
                 onClick={confirmerMateriau}
               >
-                {gratuit ? 'Ajouter' : `Acheter pour ${objetMateriauCombine?.cout ?? 0} po`}
+                {gratuit ? 'Ajouter' : `Acheter pour ${coutTotalMateriau} po`}
               </button>
             </footer>
           </>
@@ -720,7 +729,7 @@ export function AchatEquipementModal({
               </button>
               <button
                 className="btn btn--primary"
-                disabled={!coutValide || trinketLimite}
+                disabled={!coutValide || trinketLimite || (!gratuit && coutTotal > tresorerie)}
                 onClick={confirmer}
               >
                 {gratuit ? 'Ajouter' : 'Acheter'}
