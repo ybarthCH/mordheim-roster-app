@@ -21,6 +21,7 @@ export const postBatailleShared: UiDictionary = {
   'postBataille.failure': { fr: 'Raté', en: 'Failed' },
   'postBataille.chooseEllipsis': { fr: '— Choisir —', en: '— Choose —' },
   'postBataille.rollNotation': { fr: 'Jet ({notation}) :', en: 'Roll ({notation}):' },
+  'postBataille.rollObtainedNotation': { fr: 'Jet obtenu ({notation}) :', en: 'Roll obtained ({notation}):' },
 
   // Débiteur reconnaissant
   'postBataille.debtor.hiredForFree': { fr: '✓ Débiteur reconnaissant : {nom} rejoint la bande gratuitement.', en: '✓ Grateful Debtor: {nom} joins the warband for free.' },
