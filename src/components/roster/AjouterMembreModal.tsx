@@ -7,6 +7,7 @@ import { creerMembre } from '../../utils/factory';
 import { calculerCoutRejoindreGroupe, formatCoutProfil, rejoindreGroupe, TRINKETS_LIMITES } from '../../utils/shop';
 import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
+import { peutGagnerExperience } from '../../utils/xp';
 import { Modal } from '../common/Modal';
 import { useGameRules } from '../../state/useGameRules';
 
@@ -53,7 +54,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const estGroupable = profil?.type === 'homme_de_main' || profil?.type === 'animal';
   // Un profil "animal" ne gagne jamais d'expérience (voir utils/xp.ts) : lui
   // demander une expérience de départ n'aurait aucun sens.
-  const gagneExperience = profil?.type !== 'animal';
+  const gagneExperience = peutGagnerExperience(profil);
   const marqueRequise = !!profil?.marque_requise;
   const marqueChoisieValide = !marqueRequise || marqueChoisie !== '';
   const estSorcierProfil = !!profil && estSorcier(catalogue, profil.id, marqueChoisie || undefined);

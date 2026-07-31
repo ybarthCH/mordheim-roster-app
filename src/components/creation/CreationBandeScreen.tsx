@@ -9,6 +9,7 @@ import type { Member, RosterInstance } from '../../types/roster';
 import { creerMembre, creerRoster } from '../../utils/factory';
 import { peutAjouterMembre } from '../../utils/validation';
 import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
+import { peutGagnerExperience } from '../../utils/xp';
 import { useRosters } from '../../state/useRosters';
 
 const BUDGET_PAR_DEFAUT = 500;
@@ -356,7 +357,7 @@ function RecrutementDraftModal({
   const estGroupable = profil.type === 'homme_de_main';
   // Un animal (chien de guerre, guerrier gnoblar...) ne gagne jamais
   // d'expérience — inutile et trompeur de proposer un XP de départ.
-  const gagneExperience = profil.type !== 'animal';
+  const gagneExperience = peutGagnerExperience(profil);
   const marqueRequise = !!profil.marque_requise;
   const premierSortRequis =
     estSorcier(catalogue, profil.id, marqueChoisie || undefined) && (!marqueRequise || marqueChoisie !== '');

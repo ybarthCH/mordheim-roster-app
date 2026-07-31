@@ -56,6 +56,12 @@ export type Profile = {
   // 'animal' : suivi comme un groupe d'hommes de main (statut simplifié,
   // compteur Hors de combat) mais ne gagne jamais d'expérience.
   type: 'heros' | 'homme_de_main' | 'animal';
+  // Profil 'homme_de_main' ou 'heros' explicitement exclu de l'expérience
+  // par ses propres règles (ex : Zombie, Squelette, Enfant du Chaos) malgré
+  // un type qui la permettrait normalement — voir peutGagnerExperience()
+  // dans utils/xp.ts. Les profils 'animal' n'en gagnent déjà jamais, quelle
+  // que soit la valeur de ce champ.
+  gagne_experience?: boolean;
   unique?: boolean;
   // Minimum requis dans la composition de bande (ex : chef obligatoire).
   // Informatif seulement — n'empêche pas de recruter/jouer sans.

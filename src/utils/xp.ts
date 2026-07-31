@@ -11,6 +11,23 @@ export const HERO_XP_PALIERS = [
 export const HENCHMAN_XP_MAX = 14;
 export const HENCHMAN_XP_PALIERS = [2, 5, 9, 14];
 
+/**
+ * Un profil 'animal' ne gagne jamais d'expérience, quel que soit
+ * `gagne_experience`. Un profil 'heros'/'homme_de_main' peut aussi en être
+ * explicitement exclu par ses propres règles (ex : Zombie, Squelette,
+ * Enfant du Chaos) via `gagne_experience: false` dans les données de bande —
+ * distinct de l'exclusion équivalente portée par les francs-tireurs
+ * (voir `HiredSword.gagne_experience` dans data/hiredSwords.ts, vérifié
+ * séparément par les appelants).
+ */
+export function peutGagnerExperience(
+  profil: { type: 'heros' | 'homme_de_main' | 'animal'; gagne_experience?: boolean } | null | undefined
+): boolean {
+  if (!profil) return true;
+  if (profil.type === 'animal') return false;
+  return profil.gagne_experience !== false;
+}
+
 export function isPalierHero(box: number): boolean {
   return HERO_XP_PALIERS.includes(box);
 }

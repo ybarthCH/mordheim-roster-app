@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Icon } from '../common/Icon';
 import type { IconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
-import { avancesDues } from '../../utils/xp';
+import { avancesDues, peutGagnerExperience } from '../../utils/xp';
 import { nomCourtBlessure } from '../../utils/blessures';
 import { inventaireGroupeMismatch } from '../../utils/shop';
 import { useDragReorder } from '../../utils/useDragReorder';
@@ -72,7 +72,7 @@ export function MemberGroupCard({
 
   const avanceEnAttente = (m: Member) => {
     const profil = resolveProfil(roster, m);
-    if (!profil) return false;
+    if (!profil || !peutGagnerExperience(profil)) return false;
     if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return false;
     return (
       avancesDues(grilleXpDuProfil(profil), m.xp_depart, m.xp, !!catalogue?.xp_demi) >

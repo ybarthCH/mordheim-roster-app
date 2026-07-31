@@ -172,6 +172,7 @@
       "id": "snotling",
       "nom": "Snotling",
       "type": "homme_de_main",
+      "gagne_experience": false,
       "groupe_caracteristiques": "peaux_vertes_gobelin",
       "min": 0,
       "max": 5,

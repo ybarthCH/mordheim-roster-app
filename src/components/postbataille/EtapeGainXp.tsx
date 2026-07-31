@@ -1,4 +1,4 @@
-import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, isPalierHenchman, isPalierHero } from '../../utils/xp';
+import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, isPalierHenchman, isPalierHero, peutGagnerExperience } from '../../utils/xp';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import { estFrancTireur } from '../../data/hiredSwords';
 import { estLeaderActuel } from '../../utils/leader';
@@ -117,7 +117,7 @@ function BlocAvanceeDue({
   onOuvrirAvancee: (m: Member) => void;
 }) {
   const profil = resolveProfil(roster, membre);
-  if (!profil || profil.type === 'animal') return null;
+  if (!profil || !peutGagnerExperience(profil)) return null;
   const dues = avancesDues(grilleXpDuProfil(profil), membre.xp_depart, xpActuel, demiXp);
   const enAttente = Math.max(0, dues - membre.historique_avancees.filter((a) => !a.bonus).length);
   if (enAttente === 0) return null;
@@ -165,7 +165,7 @@ export function EtapeGainXp({
         )}
         {horsDeCombatIndividuel.map((m) => {
           const profil = resolveProfil(roster, m);
-          const estAnimal = profil?.type === 'animal';
+          const sansXp = !peutGagnerExperience(profil);
           const francTireur = estFrancTireur(m);
           const d = xpDraftDe(m, m.xp);
           const estLeader = estLeaderActuel(roster, catalogue, m);
@@ -183,7 +183,7 @@ export function EtapeGainXp({
                 </strong>
                 <span className="text-sm text-muted">Hors de combat</span>
               </div>
-              {estAnimal ? (
+              {sansXp ? (
                 <p className="text-sm text-muted mb-0">Ne gagne jamais d'expérience.</p>
               ) : (
                 <XpBarCompacte
@@ -206,7 +206,7 @@ export function EtapeGainXp({
                   className={`status-pill ${d.survecu === 'oui' ? 'status-pill--active' : ''}`}
                   onClick={() => definirSurvie(m, 'oui')}
                 >
-                  A survécu{estAnimal ? '' : ' (+1 XP)'}
+                  A survécu{sansXp ? '' : ' (+1 XP)'}
                 </button>
                 <button
                   className={`status-pill ${d.survecu === 'non' ? 'status-pill--active' : ''}`}
@@ -220,7 +220,7 @@ export function EtapeGainXp({
           );
         })}
         {groupesHC.map((m) => {
-          const estAnimal = resolveProfil(roster, m)?.type === 'animal';
+          const sansXp = !peutGagnerExperience(resolveProfil(roster, m));
           const slots = slotsDe(m);
           const morts = slots.filter((s) => s === 'non').length;
           const enAttente = slots.filter((s) => s === null).length;
@@ -250,7 +250,7 @@ export function EtapeGainXp({
                 {enAttente > 0
                   ? `${enAttente} figurine(s) à résoudre.`
                   : survivants > 0
-                    ? `Résolu — le groupe garde ${survivants} figurine(s)${estAnimal ? '.' : ' et gagne +1 XP.'}`
+                    ? `Résolu — le groupe garde ${survivants} figurine(s)${sansXp ? '.' : ' et gagne +1 XP.'}`
                     : "Résolu — le groupe est entièrement éliminé (passera au statut Mort)."}
               </p>
               <BlocAvanceeDue roster={roster} membre={m} xpActuel={m.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
