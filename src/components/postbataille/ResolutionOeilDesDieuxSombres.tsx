@@ -12,6 +12,10 @@ type Props = {
   date: string;
   nbHerosHorsDeCombat: number;
   onMajRoster: (patch: Partial<RosterInstance>) => void;
+  // Notifie PostBatailleScreen que le test a été résolu (Réussi ou Raté),
+  // pour débloquer la validation finale de l'assistant — voir oeilApplicable
+  // et oeilResolu dans PostBatailleScreen.
+  onResolu: () => void;
 };
 
 // Seuil de déclenchement : 12+ de base, 13+ pour la tribu Norse (Panthéon),
@@ -35,6 +39,7 @@ export function ResolutionOeilDesDieuxSombres({
   date,
   nbHerosHorsDeCombat,
   onMajRoster,
+  onResolu,
 }: Props) {
   const [marqueChoisie, setMarqueChoisie] = useState('');
   const [succesDeclare, setSuccesDeclare] = useState(false);
@@ -75,6 +80,7 @@ export function ResolutionOeilDesDieuxSombres({
       equipement_reserve: `${roster.equipement_reserve}${roster.equipement_reserve ? '\n' : ''}${note}`,
     });
     setResolu(note);
+    onResolu();
   };
 
   const appliquerVictoire = () => {
@@ -86,10 +92,12 @@ export function ResolutionOeilDesDieuxSombres({
       equipement_reserve: `${roster.equipement_reserve}${roster.equipement_reserve ? '\n' : ''}${note}`,
     });
     setResolu(note);
+    onResolu();
   };
 
   const enregistrerEchec = () => {
     setResolu(`Œil des Dieux Sombres : test raté pour ${nomAffiche(chef)} — aucun effet.`);
+    onResolu();
   };
 
   return (

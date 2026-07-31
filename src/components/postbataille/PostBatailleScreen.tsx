@@ -12,7 +12,7 @@ import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 import { estRetablissementIsole } from '../../data/blessuresGraves';
 import { appliquerDeltaStats } from '../../utils/blessures';
 import { creerEntreeInventaire, creerEntreesInventaire } from '../../utils/shop';
-import { estLeaderActuel, succederApresMorts } from '../../utils/leader';
+import { estLeaderActuel, resolveLeader, succederApresMorts } from '../../utils/leader';
 import type { ShopItem } from '../../utils/shop';
 import { AvanceeModal } from '../personnage/AvanceeModal';
 import { EtapeBlessuresGraves } from './EtapeBlessuresGraves';
@@ -171,6 +171,13 @@ export function PostBatailleScreen() {
   const [membreEnAvancee, setMembreEnAvancee] = useState<Member | null>(null);
   const [avancesResolues, setAvancesResolues] = useState<{ nom: string; detail: string }[]>([]);
 
+  // Test obligatoire "Œil des Dieux Sombres" (Maraudeurs du Chaos, étape
+  // Résumé) : sa résolution (Réussi/Raté) était un état purement local au
+  // composant, jamais vérifié avant validation finale — l'assistant pouvait
+  // se terminer sans déclarer de résultat. Remonté ici pour bloquer "Valider
+  // et enregistrer" tant que le test applicable n'est pas résolu.
+  const [oeilResolu, setOeilResolu] = useState(false);
+
   // Blessures graves : réservé aux héros Hors de Combat — seuls les héros
   // roulent sur la table complète des blessures. Les hommes de main utilisent
   // la table simple mort-ou-survivant à l'étape suivante.
@@ -198,6 +205,17 @@ export function PostBatailleScreen() {
     () => (roster ? horsDeCombatIndividuel.filter((m) => resolveProfil(roster, m)?.type === 'heros').length : 0),
     [horsDeCombatIndividuel, roster]
   );
+
+  // Le test n'est réellement à résoudre que dans les mêmes conditions que
+  // celles vérifiées par ResolutionOeilDesDieuxSombres avant de s'afficher
+  // (bande Maraudeurs, bataille non nulle, chef existant et pas déjà marqué)
+  // — dupliqué ici pour pouvoir bloquer la validation finale sans lever cet
+  // état hors du composant qui le gère.
+  const oeilApplicable = useMemo(() => {
+    if (!roster || catalogue?.id !== 'maraudeurs_du_chaos' || resultat === 'nul') return false;
+    const chef = resolveLeader(roster, catalogue);
+    return !!chef && !chef.marque;
+  }, [roster, catalogue, resultat]);
 
   // Gain d'expérience, section « à résoudre » : hommes de main et animaux
   // (seuls ou en groupe) marqués Hors de combat via le compteur dédié —
@@ -953,6 +971,7 @@ export function PostBatailleScreen() {
           date={date}
           nbHerosHorsDeCombat={nbHerosHorsDeCombat}
           onMajRoster={majRosterExploration}
+          onResolu={() => setOeilResolu(true)}
         />
       )}
 
@@ -975,11 +994,16 @@ export function PostBatailleScreen() {
           </button>
         )}
         {etape === ETAPES.length - 1 && (
-          <button className="btn btn--primary" onClick={terminer}>
+          <button className="btn btn--primary" disabled={oeilApplicable && !oeilResolu} onClick={terminer}>
             Valider et enregistrer
           </button>
         )}
       </div>
+      {etape === ETAPES.length - 1 && oeilApplicable && !oeilResolu && (
+        <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
+          Résous le test Œil des Dieux Sombres (Réussi / Raté) avant de valider.
+        </p>
+      )}
       {etape === indexBlessures && blessuresIncompletes && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
           Résous la blessure grave de chaque Héros Hors de combat avant de continuer.
