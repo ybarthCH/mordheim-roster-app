@@ -6,6 +6,7 @@ import { estLeaderActuel } from '../../utils/leader';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import type { XpDraft, SlotDraft } from './PostBatailleScreen';
+import { useLanguage } from '../../state/useLanguage';
 
 // Mini grille XP utilisée dans l'assistant post-bataille : distingue l'XP de
 // départ (ne comptait pas), l'XP déjà acquise avant cette bataille, et l'XP
@@ -29,6 +30,7 @@ function XpBarCompacte({
   bonusLeader?: boolean;
   demiXp?: boolean;
 }) {
+  const { t } = useLanguage();
   const max = type === 'heros' ? HERO_XP_MAX : HENCHMAN_XP_MAX;
   const isPalier = type === 'heros' ? isPalierHero : isPalierHenchman;
   const boxes = Array.from({ length: max }, (_, i) => i + 1);
@@ -51,7 +53,7 @@ function XpBarCompacte({
     <span
       key="bonus-leader"
       className="xp-box xp-box--compact xp-box--leader"
-      title="Bonus chef de bande : +1 XP automatique à la victoire"
+      title={t('gainXp.leaderBonusTitle')}
     >
       V
     </span>
@@ -77,7 +79,7 @@ function XpBarCompacte({
                 estSession ? 'xp-box--session' : ''
               }`}
               onClick={() => toggle(box)}
-              aria-label={`Case XP ${box}`}
+              aria-label={t('gainXp.xpBoxLabel', { n: box })}
             >
               {isPalier(box) ? box : ''}
             </button>
@@ -126,6 +128,7 @@ function BlocAvanceeDue({
   demiXp: boolean;
   onOuvrirAvancee: (m: Member) => void;
 }) {
+  const { t } = useLanguage();
   const profil = resolveProfil(roster, membre);
   if (!profil || !peutGagnerExperience(profil)) return null;
   const dues = avancesDues(grilleXpDuProfil(profil), membre.xp_depart, xpActuel, demiXp);
@@ -133,9 +136,9 @@ function BlocAvanceeDue({
   if (enAttente === 0) return null;
   return (
     <div className="flex items-center gap-sm" style={{ marginTop: '0.5rem' }}>
-      <span className="badge badge--warning">{enAttente} avancée(s) en attente</span>
+      <span className="badge badge--warning">{enAttente} {t('experience.pendingAdvances')}</span>
       <button type="button" className="btn btn--sm" onClick={() => onOuvrirAvancee(membre)}>
-        Résoudre une avancée
+        {t('experience.resolveAdvance')}
       </button>
     </div>
   );
@@ -157,18 +160,14 @@ export function EtapeGainXp({
   onOuvrirAvancee,
   avancesResolues,
 }: EtapeGainXpProps) {
+  const { t } = useLanguage();
   const membres = [...horsDeCombatIndividuel, ...participantsAuto];
   return (
     <>
       <div className="card">
-        <h3>Gain d'expérience</h3>
-        <p className="text-sm text-muted">
-          Chaque participant gagne 1 XP automatiquement (couleur dédiée ci-dessous) — y compris un héros Hors de
-          combat, dont la survie ressort déjà de la table des blessures graves résolue à l'étape précédente. Pour un
-          homme de main ou un franc-tireur seul Hors de combat, lance 1D6 sur table papier — 1–2, il meurt ; 3–6, il
-          se rétablit complètement — et indique le résultat.
-        </p>
-        {membres.length === 0 && groupesHC.length === 0 && <p className="text-muted">Aucun membre dans la bande.</p>}
+        <h3>{t('gainXp.title')}</h3>
+        <p className="text-sm text-muted">{t('gainXp.intro')}</p>
+        {membres.length === 0 && groupesHC.length === 0 && <p className="text-muted">{t('gainXp.noMembers')}</p>}
         {membres.map((m) => {
           const profil = resolveProfil(roster, m);
           const sansXp = !peutGagnerExperience(profil);
@@ -190,24 +189,24 @@ export function EtapeGainXp({
                   {nomAffiche(m)}
                   {estLeader && (
                     <span className="badge badge--info" style={{ marginLeft: '0.4rem' }}>
-                      ★ Leader
+                      ★ {t('gainXp.leaderBadge')}
                     </span>
                   )}
                 </strong>
                 <span className="text-sm text-muted">
                   {resoluParBlessureGrave
                     ? d.survecu === 'non'
-                      ? 'Mort (blessure grave)'
-                      : 'Hors de combat — a survécu'
+                      ? t('gainXp.statusDeadInjury')
+                      : t('gainXp.statusOoaSurvived')
                     : estHorsDeCombat
-                      ? 'Hors de combat'
+                      ? t('gainXp.statusOoa')
                       : m.statut === 'blesse'
-                        ? 'Blessé'
-                        : 'Actif'}
+                        ? t('gainXp.statusInjured')
+                        : t('gainXp.statusActive')}
                 </span>
               </div>
               {sansXp ? (
-                <p className="text-sm text-muted mb-0">Ne gagne jamais d'expérience.</p>
+                <p className="text-sm text-muted mb-0">{t('gainXp.neverGainsXp')}</p>
               ) : (
                 <XpBarCompacte
                   type={profil ? grilleXpDuProfil(profil) : 'homme_de_main'}
@@ -222,20 +221,20 @@ export function EtapeGainXp({
               {estHorsDeCombat && !resoluParBlessureGrave && (
                 <>
                   <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
-                    Lance 1D6{francTireur ? ' pour ce franc-tireur' : ''} : 1–2, il meurt ; 3–6, il survit.
+                    {t('gainXp.rollInstruction', { suffix: francTireur ? t('gainXp.rollForHiredSword') : '' })}
                   </p>
                   <div className="status-select" style={{ marginTop: '0.5rem' }}>
                     <button
                       className={`status-pill ${d.survecu === 'oui' ? 'status-pill--active' : ''}`}
                       onClick={() => definirSurvie(m, 'oui')}
                     >
-                      A survécu{sansXp ? '' : ' (+1 XP)'}
+                      {t('gainXp.survived', { xp: sansXp ? '' : t('gainXp.survivedXpSuffix') })}
                     </button>
                     <button
                       className={`status-pill ${d.survecu === 'non' ? 'status-pill--active' : ''}`}
                       onClick={() => definirSurvie(m, 'non')}
                     >
-                      N'a pas survécu
+                      {t('gainXp.didNotSurvive')}
                     </button>
                   </div>
                 </>
@@ -255,7 +254,7 @@ export function EtapeGainXp({
               <div className="flex justify-between items-center" style={{ marginBottom: '0.4rem' }}>
                 <strong>{nomAffiche(m)}</strong>
                 <span className="text-sm text-muted">
-                  {m.hors_combat} / {m.taille_groupe} hors de combat
+                  {t('gainXp.outOfActionCount', { hc: m.hors_combat, total: m.taille_groupe })}
                 </span>
               </div>
               <div className="flex flex-wrap gap-sm">
@@ -263,20 +262,23 @@ export function EtapeGainXp({
                   <div key={i} className="flex items-center gap-sm">
                     <span className="text-sm text-muted">#{i + 1}</span>
                     <button className={`btn btn--sm ${s === 'oui' ? 'btn--primary' : ''}`} onClick={() => definirSlot(m, i, 'oui')}>
-                      Survécu
+                      {t('gainXp.survivedShort')}
                     </button>
                     <button className={`btn btn--sm ${s === 'non' ? 'btn--danger' : ''}`} onClick={() => definirSlot(m, i, 'non')}>
-                      Mort
+                      {t('gainXp.deadShort')}
                     </button>
                   </div>
                 ))}
               </div>
               <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
                 {enAttente > 0
-                  ? `${enAttente} figurine(s) à résoudre.`
+                  ? t('gainXp.modelsToResolve', { n: enAttente })
                   : survivants > 0
-                    ? `Résolu — le groupe garde ${survivants} figurine(s)${sansXp ? '.' : ' et gagne +1 XP.'}`
-                    : "Résolu — le groupe est entièrement éliminé (passera au statut Mort)."}
+                    ? t('gainXp.resolvedKeeps', {
+                        n: survivants,
+                        xp: sansXp ? t('gainXp.resolvedKeepsNoXpSuffix') : t('gainXp.resolvedKeepsXpSuffix'),
+                      })
+                    : t('gainXp.resolvedWiped')}
               </p>
               <BlocAvanceeDue roster={roster} membre={m} xpActuel={m.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
@@ -286,7 +288,7 @@ export function EtapeGainXp({
 
       {avancesResolues.length > 0 && (
         <div className="card card--tight">
-          <h3>Avancées résolues pendant cette bataille</h3>
+          <h3>{t('gainXp.advancesResolvedTitle')}</h3>
           {avancesResolues.map((a, i) => (
             <p key={i} className="text-sm mb-0">
               {a.nom} — {a.detail}
