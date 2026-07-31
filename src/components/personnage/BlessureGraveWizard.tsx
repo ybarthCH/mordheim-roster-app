@@ -3,21 +3,30 @@ import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import {
   BLESSURES_GRAVES,
-  IDS_GLADIATEUR_PERDU,
   type ResultatBlessureGrave,
   type SousJetOption,
 } from '../../data/blessuresGraves';
-import { getCatalogue } from '../../data/warbands';
+import { getFrancTireur } from '../../data/hiredSwords';
 import { Icon, type IconName } from '../common/Icon';
 import type { SeriousInjuryEffect } from '../../types/roster';
 
-// Profil générique de l'adversaire dans les fosses de combat (résultat
-// "Gladiateur", spécifique à la bande Gladiateurs) — affiché à côté du
-// profil du combattant blessé pour permettre de résoudre le duel sans avoir
-// à quitter l'assistant pour consulter sa fiche.
-const PROFIL_GLADIATEUR_ADVERSAIRE = getCatalogue('gladiateurs')?.profils.find((p) => p.id === 'gladiateur');
+// Profil de l'adversaire dans les fosses de combat (résultat "Gladiateur") —
+// c'est le franc-tireur "Gladiateur" (Pit Fighter, hiredSwords.ts) que l'on
+// affronte, pas le profil homonyme recrutable dans la bande Gladiateurs
+// (mêmes stats de base mais équipement/règles différents).
+const FRANC_TIREUR_GLADIATEUR_ADVERSAIRE = getFrancTireur('gladiateur');
 
-function BlocStats({ titre, stats }: { titre: string; stats: Stats }) {
+function BlocStats({
+  titre,
+  stats,
+  equipement,
+  reglesSpeciales,
+}: {
+  titre: string;
+  stats: Stats;
+  equipement?: string[];
+  reglesSpeciales?: { nom: string; texte: string }[];
+}) {
   return (
     <div className="card card--tight" style={{ marginBottom: '0.5rem' }}>
       <p className="text-sm mb-0" style={{ fontWeight: 'bold' }}>
@@ -35,6 +44,17 @@ function BlocStats({ titre, stats }: { titre: string; stats: Stats }) {
           </div>
         ))}
       </div>
+      {!!equipement?.length && (
+        <p className="text-sm mb-0" style={{ marginTop: '0.4rem' }}>
+          <strong>Équipement :</strong> {equipement.join(', ')}
+        </p>
+      )}
+      {!!reglesSpeciales?.length && (
+        <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+          <strong>Règles spéciales :</strong>{' '}
+          {reglesSpeciales.map((r) => `${r.nom} — ${r.texte}`).join(' · ')}
+        </p>
+      )}
     </div>
   );
 }
@@ -132,10 +152,13 @@ type Props = {
   // PV actuels du profil (Member.stats_actuels.PV) — nécessaire pour
   // appliquer/vérifier la règle Éternelle ci-dessus.
   pvActuelProfil?: number;
-  // Caractéristiques actuelles du combattant — affichées à côté du profil
-  // générique de l'adversaire pendant la résolution du résultat "Gladiateur"
-  // (voir BlocStats), pour éviter d'avoir à quitter l'assistant.
+  // Caractéristiques, équipement et règles spéciales actuels du combattant —
+  // affichés à côté du profil du franc-tireur Gladiateur adverse pendant la
+  // résolution du résultat "Gladiateur" (voir BlocStats), pour résoudre le
+  // duel sans avoir à quitter l'assistant.
   statsPersonnage?: Stats;
+  equipementPersonnage?: string[];
+  reglesSpecialesPersonnage?: { nom: string; texte: string }[];
   onAppliquer: (resultat: BlessureGraveResultat) => void;
   onAnnuler?: () => void;
 };
@@ -149,6 +172,8 @@ export function BlessureGraveWizard({
   estEternelle = false,
   pvActuelProfil,
   statsPersonnage,
+  equipementPersonnage,
+  reglesSpecialesPersonnage,
   onAppliquer,
   onAnnuler,
 }: Props) {
@@ -160,13 +185,13 @@ export function BlessureGraveWizard({
   const [multiplesCount, setMultiplesCount] = useState<number | null>(null);
   const [multiplesResultats, setMultiplesResultats] = useState<IterationResolue[]>([]);
   const [precision, setPrecision] = useState('');
-  // Cas spécial "Gladiateur" perdu : la relance suivante est filtrée sur la
-  // plage 11-35 (voir IDS_GLADIATEUR_PERDU, Mort inclus) et entraîne
-  // toujours la perte d'équipement, quel que soit le résultat tiré — ce
-  // second point ne se déduit pas des données de la table elle-même, d'où ce
-  // drapeau appliqué à part dans construireResultatFinal. Si la relance tombe
-  // sur Mort, ce résultat porte déjà son propre statutMort/perteEquipement :
-  // aucun cas particulier à gérer ici.
+  // Cas spécial "Gladiateur" perdu : la relance suivante porte sur la table
+  // complète (y compris un nouveau "Gladiateur", auquel cas un autre combat
+  // s'enchaîne) et entraîne toujours la perte d'équipement, quel que soit le
+  // résultat tiré — ce second point ne se déduit pas des données de la table
+  // elle-même, d'où ce drapeau appliqué à part dans construireResultatFinal.
+  // Si la relance tombe sur Mort, ce résultat porte déjà son propre
+  // statutMort/perteEquipement : aucun cas particulier à gérer ici.
   const [enChoixGladiateurPerdu, setEnChoixGladiateurPerdu] = useState(false);
   const [gladiateurForcePerte, setGladiateurForcePerte] = useState(false);
   // Cas spécial "Capturé" : deux issues possibles, la seconde nécessitant un
@@ -467,9 +492,7 @@ export function BlessureGraveWizard({
   if (mode === 'liste') {
     const disponibles = enCoursDansBoucle
       ? BLESSURES_GRAVES.filter((r) => !ID_INTERDITS_BOUCLE.includes(r.id))
-      : enChoixGladiateurPerdu
-        ? BLESSURES_GRAVES.filter((r) => IDS_GLADIATEUR_PERDU.includes(r.id))
-        : BLESSURES_GRAVES;
+      : BLESSURES_GRAVES;
     return (
       <div>
         {enCoursDansBoucle && (
@@ -480,8 +503,8 @@ export function BlessureGraveWizard({
         )}
         {enChoixGladiateurPerdu && (
           <p className="text-sm text-muted" style={{ marginTop: 0 }}>
-            Il perd le combat et est jeté hors des fosses sans arme ni armure. Relance sur la table (résultats 11 à
-            35 uniquement) pour savoir ce qu'il devient — Mort y compris si le sort s'y prête.
+            Il perd le combat et est jeté hors des fosses sans arme ni armure. Relance sur la table complète pour
+            savoir ce qu'il devient — Mort y compris si le sort s'y prête, et même un nouveau Gladiateur.
           </p>
         )}
         {!enCoursDansBoucle && !enChoixGladiateurPerdu && (
@@ -603,15 +626,27 @@ export function BlessureGraveWizard({
           Le guerrier affronte un gladiateur dans les fosses de combat du Repaire des Coupe-Jarrets. A-t-il gagné le
           combat ?
         </p>
-        {(PROFIL_GLADIATEUR_ADVERSAIRE?.stats || statsPersonnage) && (
+        {(FRANC_TIREUR_GLADIATEUR_ADVERSAIRE?.stats || statsPersonnage) && (
           <p className="text-sm text-muted mb-0">
             Profils l'un au-dessus de l'autre, pour résoudre le duel sans quitter cet écran :
           </p>
         )}
-        {PROFIL_GLADIATEUR_ADVERSAIRE?.stats && (
-          <BlocStats titre="Gladiateur adverse (profil générique)" stats={PROFIL_GLADIATEUR_ADVERSAIRE.stats} />
+        {FRANC_TIREUR_GLADIATEUR_ADVERSAIRE?.stats && (
+          <BlocStats
+            titre="Gladiateur adverse (franc-tireur)"
+            stats={FRANC_TIREUR_GLADIATEUR_ADVERSAIRE.stats}
+            equipement={FRANC_TIREUR_GLADIATEUR_ADVERSAIRE.equipement}
+            reglesSpeciales={FRANC_TIREUR_GLADIATEUR_ADVERSAIRE.regles_speciales}
+          />
         )}
-        {statsPersonnage && <BlocStats titre={nomPersonnage} stats={statsPersonnage} />}
+        {statsPersonnage && (
+          <BlocStats
+            titre={nomPersonnage}
+            stats={statsPersonnage}
+            equipement={equipementPersonnage}
+            reglesSpeciales={reglesSpecialesPersonnage}
+          />
+        )}
         <div className="flex flex-wrap gap-sm">
           <button className="btn btn--primary" onClick={() => choisirGladiateurIssue(true)}>
             Oui

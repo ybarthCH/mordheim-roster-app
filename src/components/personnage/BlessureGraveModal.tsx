@@ -67,6 +67,8 @@ export function BlessureGraveModal({ member, profil, tresorerieDisponible, onClo
           estEternelle={!!profil?.eternelle}
           pvActuelProfil={member.stats_actuels.PV}
           statsPersonnage={member.stats_actuels}
+          equipementPersonnage={member.inventaire.map((e) => e.nom)}
+          reglesSpecialesPersonnage={profil?.regles_speciales}
           onAppliquer={appliquer}
           onAnnuler={onClose}
         />
