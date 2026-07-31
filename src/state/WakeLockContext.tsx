@@ -27,6 +27,14 @@ export function WakeLockProvider({ children }: { children: ReactNode }) {
           return;
         }
         sentinelRef.current = sentinel;
+        // Le navigateur peut relâcher le verrou de son propre chef (pas
+        // seulement via visibilitychange, ex : bascule automatique en mode
+        // économie d'énergie) — sans cet écouteur, la référence resterait
+        // pointée sur un sentinel déjà mort et onVisibilite ne redemanderait
+        // plus jamais de nouveau verrou.
+        sentinel.addEventListener('release', () => {
+          if (sentinelRef.current === sentinel) sentinelRef.current = null;
+        });
       } catch {
         // Refus du navigateur (ex : onglet en arrière-plan) — sans
         // conséquence, on retentera au prochain retour au premier plan.
@@ -37,7 +45,9 @@ export function WakeLockProvider({ children }: { children: ReactNode }) {
     // Le verrou est automatiquement relâché quand l'onglet passe en
     // arrière-plan : il faut le redemander explicitement au retour.
     const onVisibilite = () => {
-      if (document.visibilityState === 'visible' && !sentinelRef.current) demander();
+      if (document.visibilityState === 'visible' && (!sentinelRef.current || sentinelRef.current.released)) {
+        demander();
+      }
     };
     document.addEventListener('visibilitychange', onVisibilite);
 
