@@ -147,27 +147,30 @@ export function EtapeGainXp({
   onOuvrirAvancee,
   avancesResolues,
 }: EtapeGainXpProps) {
+  const membres = [...horsDeCombatIndividuel, ...participantsAuto];
   return (
     <>
       <div className="card">
-        <h3>Hors de combat — à résoudre</h3>
+        <h3>Gain d'expérience</h3>
         <p className="text-sm text-muted">
-          Pour chaque héros ou homme de main seul Hors de combat, et pour chaque figurine d'un groupe partiellement
-          Hors de combat, indique si elle a survécu ou non. Un survivant gagne 1 XP automatiquement (couleur
-          dédiée). Un groupe ne perd son XP que s'il est entièrement éliminé.
+          Chaque participant gagne 1 XP automatiquement (couleur dédiée ci-dessous) — y compris un héros Hors de
+          combat, dont la survie ressort déjà de la table des blessures graves résolue à l'étape précédente. Pour un
+          homme de main ou un franc-tireur seul Hors de combat, lance 1D6 sur table papier — 1–2, il meurt ; 3–6, il
+          se rétablit complètement — et indique le résultat.
         </p>
-        <p className="text-sm text-muted">
-          Pour un homme de main ou un animal (les héros passent par la table complète des blessures graves) : lance
-          1D6 — 1–2, il meurt ; 3–6, il se rétablit complètement.
-        </p>
-        {horsDeCombatIndividuel.length === 0 && groupesHC.length === 0 && (
-          <p className="text-muted">Personne à résoudre — aucun Hors de combat en attente.</p>
-        )}
-        {horsDeCombatIndividuel.map((m) => {
+        {membres.length === 0 && groupesHC.length === 0 && <p className="text-muted">Aucun membre dans la bande.</p>}
+        {membres.map((m) => {
           const profil = resolveProfil(roster, m);
           const sansXp = !peutGagnerExperience(profil);
           const francTireur = estFrancTireur(m);
-          const d = xpDraftDe(m, m.xp);
+          const estHorsDeCombat = m.statut === 'hors_de_combat';
+          // Un héros (hors franc-tireur) Hors de combat passe par la table des
+          // blessures graves à l'étape précédente : sa survie en découle déjà
+          // (voir appliquerBlessureWizard dans PostBatailleScreen), inutile de
+          // la faire recliquer ici. Seuls les hommes de main et francs-tireurs
+          // seuls reposent sur un vrai jet de dé que l'app ne peut pas connaître.
+          const resoluParBlessureGrave = estHorsDeCombat && profil?.type === 'heros' && !francTireur;
+          const d = xpDraftDe(m, estHorsDeCombat ? m.xp : m.xp + 1);
           const estLeader = estLeaderActuel(roster, catalogue, m);
           const bonusLeader = estLeader && resultat === 'victoire' && d.survecu !== 'non';
           return (
@@ -181,7 +184,17 @@ export function EtapeGainXp({
                     </span>
                   )}
                 </strong>
-                <span className="text-sm text-muted">Hors de combat</span>
+                <span className="text-sm text-muted">
+                  {resoluParBlessureGrave
+                    ? d.survecu === 'non'
+                      ? 'Mort (blessure grave)'
+                      : 'Hors de combat — a survécu'
+                    : estHorsDeCombat
+                      ? 'Hors de combat'
+                      : m.statut === 'blesse'
+                        ? 'Blessé'
+                        : 'Actif'}
+                </span>
               </div>
               {sansXp ? (
                 <p className="text-sm text-muted mb-0">Ne gagne jamais d'expérience.</p>
@@ -191,30 +204,32 @@ export function EtapeGainXp({
                   xpDepart={m.xp_depart}
                   xpInitial={m.xp}
                   xpActuel={d.xp}
-                  onChange={(xp) => changerXp(m, xp, m.xp)}
+                  onChange={(xp) => changerXp(m, xp, estHorsDeCombat ? m.xp : m.xp + 1)}
                   bonusLeader={bonusLeader}
                   demiXp={demiXp}
                 />
               )}
-              {francTireur && (
-                <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
-                  Lance 1D6 pour ce franc-tireur : 1–2, il meurt ; 3–6, il survit.
-                </p>
+              {estHorsDeCombat && !resoluParBlessureGrave && (
+                <>
+                  <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+                    Lance 1D6{francTireur ? ' pour ce franc-tireur' : ''} : 1–2, il meurt ; 3–6, il survit.
+                  </p>
+                  <div className="status-select" style={{ marginTop: '0.5rem' }}>
+                    <button
+                      className={`status-pill ${d.survecu === 'oui' ? 'status-pill--active' : ''}`}
+                      onClick={() => definirSurvie(m, 'oui')}
+                    >
+                      A survécu{sansXp ? '' : ' (+1 XP)'}
+                    </button>
+                    <button
+                      className={`status-pill ${d.survecu === 'non' ? 'status-pill--active' : ''}`}
+                      onClick={() => definirSurvie(m, 'non')}
+                    >
+                      N'a pas survécu
+                    </button>
+                  </div>
+                </>
               )}
-              <div className="status-select" style={{ marginTop: '0.5rem' }}>
-                <button
-                  className={`status-pill ${d.survecu === 'oui' ? 'status-pill--active' : ''}`}
-                  onClick={() => definirSurvie(m, 'oui')}
-                >
-                  A survécu{sansXp ? '' : ' (+1 XP)'}
-                </button>
-                <button
-                  className={`status-pill ${d.survecu === 'non' ? 'status-pill--active' : ''}`}
-                  onClick={() => definirSurvie(m, 'non')}
-                >
-                  N'a pas survécu
-                </button>
-              </div>
               <BlocAvanceeDue roster={roster} membre={m} xpActuel={d.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
           );
@@ -254,46 +269,6 @@ export function EtapeGainXp({
                     : "Résolu — le groupe est entièrement éliminé (passera au statut Mort)."}
               </p>
               <BlocAvanceeDue roster={roster} membre={m} xpActuel={m.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="card">
-        <h3>Reste du roster</h3>
-        <p className="text-sm text-muted">
-          Chaque participant qui n'était pas Hors de combat gagne 1 XP automatiquement (couleur dédiée ci-dessous).
-          Ajuste la barre si besoin.
-        </p>
-        {participantsAuto.length === 0 && <p className="text-muted">Aucun autre membre dans la bande.</p>}
-        {participantsAuto.map((m) => {
-          const profil = resolveProfil(roster, m);
-          const d = xpDraftDe(m, m.xp + 1);
-          const estLeader = estLeaderActuel(roster, catalogue, m);
-          const bonusLeader = estLeader && resultat === 'victoire';
-          return (
-            <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
-              <div className="flex justify-between items-center" style={{ marginBottom: '0.4rem' }}>
-                <strong>
-                  {nomAffiche(m)}
-                  {estLeader && (
-                    <span className="badge badge--info" style={{ marginLeft: '0.4rem' }}>
-                      ★ Leader
-                    </span>
-                  )}
-                </strong>
-                <span className="text-sm text-muted">{m.statut === 'blesse' ? 'Blessé' : 'Actif'}</span>
-              </div>
-              <XpBarCompacte
-                type={profil ? grilleXpDuProfil(profil) : 'homme_de_main'}
-                xpDepart={m.xp_depart}
-                xpInitial={m.xp}
-                xpActuel={d.xp}
-                onChange={(xp) => changerXp(m, xp, m.xp + 1)}
-                bonusLeader={bonusLeader}
-                demiXp={demiXp}
-              />
-              <BlocAvanceeDue roster={roster} membre={m} xpActuel={d.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
           );
         })}
