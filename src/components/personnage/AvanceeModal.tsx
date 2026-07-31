@@ -50,7 +50,7 @@ type Etape =
   | 'resultat';
 
 export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equitationGratuite, onClose, onApply }: Props) {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const limiteHerosAtteinte = heroCount >= LIMITE_HEROS;
   // État local de travail : on accumule les mutations ici plutôt que de se
   // fier à la prop `member` (qui ne se met à jour qu'au prochain rendu du
@@ -138,7 +138,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
           detail: label,
           stat,
         },
-        `Caractéristique augmentée : ${label}`
+        t('avanceeModal.resultCharacteristicIncreased', { label })
       );
     } else if (entreeAvancement.type === 'caracteristique_choix') {
       setEtape('choix_carac');
@@ -178,7 +178,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
         detail: `+1 ${label}`,
         stat,
       },
-      `Caractéristique augmentée : +1 ${label}`
+      t('avanceeModal.resultCharacteristicIncreased', { label: `+1 ${label}` })
     );
   };
 
@@ -249,7 +249,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
         type: 'seigneur_des_ombres',
         detail: resultat.nom,
       },
-      `Seigneur des Ombres : ${resultat.nom}`
+      t('avanceeModal.resultShadowLord', { nom: resultat.nom })
     );
   };
 
@@ -274,7 +274,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
         detail: skill.nom,
         competenceId: skillId,
       },
-      `Nouvelle compétence : ${skill.nom}`
+      t('avanceeModal.resultNewSkill', { nom: translateSkill(skill, language).nom })
     );
   };
 
@@ -301,8 +301,8 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
         competenceId: SKILL_EQUITATION,
       },
       nomMonture
-        ? `Nouvelle compétence : ${skill.nom} — ${nomMonture}`
-        : `Nouvelle compétence : ${skill.nom}`
+        ? t('avanceeModal.resultNewSkillMount', { nom: translateSkill(skill, language).nom, monture: nomMonture })
+        : t('avanceeModal.resultNewSkill', { nom: translateSkill(skill, language).nom })
     );
   };
 
@@ -317,7 +317,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
         type: 'sort',
         detail: `Nouveau sort : ${nomSort}`,
       },
-      `Nouveau sort appris : ${nomSort}`
+      t('avanceeModal.resultNewSpell', { nom: nomSort })
     );
   };
 
@@ -427,7 +427,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
         detail: `${label} fixée à ${valeur}`,
         stat,
       },
-      `Caractéristique fixée : ${label} = ${valeur}`
+      t('avanceeModal.resultCharacteristicFixed', { label, valeur })
     );
   };
 
@@ -446,39 +446,38 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
         detail: `Jet de ${label} (${notation}) non concluant — reste variable`,
         stat,
       },
-      `${label} reste variable (jet non concluant).`
+      t('avanceeModal.resultCharacteristicRemainsVariable', { label })
     );
   };
 
   return (
     <Modal onClose={onClose}>
-      <h3>Avancée d'expérience — {travail.nom_perso}</h3>
+      <h3>{t('avanceeModal.title', { nom: travail.nom_perso })}</h3>
 
       {etape === 'depart' && (
         <>
           {tableForcee === 'heros' && profil.type !== 'heros' && (
-            <p className="text-success text-sm">
-              Promu héros ! Jet immédiat sur la table de progression des héros.
-            </p>
+            <p className="text-success text-sm">{t('avanceeModal.promotedImmediateRoll')}</p>
           )}
           {resolutionGroupeRestant && !tableForcee && (
             <p className="text-success text-sm">
-              Avancée du groupe restant ({travail.taille_groupe} figurine{travail.taille_groupe > 1 ? 's' : ''}).
+              {t('avanceeModal.remainingGroupAdvance', {
+                n: travail.taille_groupe,
+                s: travail.taille_groupe > 1 ? 's' : '',
+              })}
             </p>
           )}
-          <p className="text-muted text-sm">
-            Lance 2D6 sur ta table papier, puis choisis la ligne correspondante.
-          </p>
+          <p className="text-muted text-sm">{t('avanceeModal.rollInstruction')}</p>
           <div className="field">
-            <label>Résultat du jet (2D6)</label>
+            <label>{t('avanceeModal.rollResultLabel2D6')}</label>
             <select value={indexAvancement} onChange={(e) => setIndexAvancement(e.target.value)}>
-              <option value="">— Choisir le résultat obtenu —</option>
+              <option value="">{t('avanceeModal.chooseResultObtained')}</option>
               {table.map((entry, i) => {
                 const bloquee = entry.type === 'promotion' && limiteHerosAtteinte;
                 return (
                   <option key={i} value={i} disabled={bloquee}>
                     {entry.min === entry.max ? entry.min : `${entry.min}-${entry.max}`} — {entry.label}
-                    {bloquee ? ' (indisponible — 6 héros déjà atteints)' : ''}
+                    {bloquee ? t('avanceeModal.unavailableHeroLimitSuffix') : ''}
                   </option>
                 );
               })}
@@ -486,26 +485,24 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
           </div>
           {limiteHerosAtteinte && table.some((e) => e.type === 'promotion') && (
             <p className="text-sm text-muted">
-              La bande compte déjà {LIMITE_HEROS} héros (maximum autorisé) : « Ce gars est doué » ne peut pas
-              promouvoir ce membre pour l'instant.
+              {t('avanceeModal.heroLimitReachedNote', { n: LIMITE_HEROS })}
             </p>
           )}
           {verdictFixe && !verdictFixe.ok && (
             <p className="text-sm text-danger">
-              Impossible d'appliquer ce résultat : {verdictFixe.raison} Relance sur ta table papier pour obtenir un
-              autre résultat.
+              {t('avanceeModal.cannotApplyResult', { raison: verdictFixe.raison ?? '' })}
             </p>
           )}
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={onClose}>
-              Annuler
+              {t('avanceeModal.cancel')}
             </button>
             <button
               className="btn btn--primary"
               disabled={!entreeAvancement || (!!verdictFixe && !verdictFixe.ok)}
               onClick={validerJetAvancement}
             >
-              Valider
+              {t('avanceeModal.validate')}
             </button>
           </div>
         </>
@@ -521,7 +518,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
             : [];
           return (
             <>
-              <p className="text-sm text-muted">Choisis laquelle des deux caractéristiques augmenter.</p>
+              <p className="text-sm text-muted">{t('avanceeModal.chooseWhichCharacteristic')}</p>
               <div className="flex gap-sm">
                 {options.map((o) => (
                   <button
@@ -538,8 +535,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
               {toutesBloquees && (
                 <>
                   <p className="text-sm text-danger" style={{ marginTop: '0.75rem' }}>
-                    Les deux caractéristiques proposées sont déjà au maximum. Augmente n'importe quelle autre
-                    caractéristique disponible de +1 à la place.
+                    {t('avanceeModal.bothCappedNote')}
                   </p>
                   {autresDisponibles.length > 0 ? (
                     <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
@@ -550,9 +546,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
                       ))}
                     </div>
                   ) : (
-                    <p className="text-sm text-muted">
-                      Toutes les caractéristiques de ce profil sont déjà au plafond racial.
-                    </p>
+                    <p className="text-sm text-muted">{t('avanceeModal.allCappedNote')}</p>
                   )}
                 </>
               )}
@@ -563,13 +557,13 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       {etape === 'jet_caracteristique_variable' && statVariableCiblee && (
         <>
           <p className="text-sm">
-            <strong>{statVariableCiblee.label}</strong> est une caractéristique variable (
-            {travail.stats_variables?.[statVariableCiblee.stat]}) : lance ce dé sur ta table papier. Si tu es
-            satisfait du résultat, fixe-le définitivement — sinon la caractéristique reste variable et l'avancée
-            est perdue.
+            <strong>{statVariableCiblee.label}</strong>{' '}
+            {t('avanceeModal.variableStatIntro', {
+              notation: travail.stats_variables?.[statVariableCiblee.stat] ?? '',
+            })}
           </p>
           <div className="field">
-            <label>Résultat du jet</label>
+            <label>{t('avanceeModal.rollResultLabel')}</label>
             <input
               type="number"
               min={0}
@@ -579,14 +573,14 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
           </div>
           <div className="flex gap-sm" style={{ marginTop: '1rem', flexWrap: 'wrap' }}>
             <button className="btn" onClick={laisserCaracteristiqueVariable}>
-              Laisser variable (jet perdu)
+              {t('avanceeModal.leaveVariable')}
             </button>
             <button
               className="btn btn--primary"
               disabled={jetVariableSaisi.trim() === '' || Number.isNaN(Number(jetVariableSaisi))}
               onClick={fixerCaracteristiqueVariable}
             >
-              Fixer à ce résultat
+              {t('avanceeModal.fixToResult')}
             </button>
           </div>
         </>
@@ -595,16 +589,12 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       {etape === 'promotion_categories' && (
         <>
           <p className="text-sm">
-            <strong>Ce gars est doué !</strong>{' '}
+            <strong>{t('avanceeModal.talentTitle')}</strong>{' '}
             {(travail.taille_groupe || 1) > 1
-              ? `Une figurine du groupe devient héros (le groupe continue avec ${
-                  (travail.taille_groupe || 1) - 1
-                } figurine(s)) : elle conserve le profil et l'expérience du groupe, mais accède désormais à la grille XP et à la table d'avancement des héros.`
-              : "Ce membre devient un héros : il conserve son profil et son expérience, mais accède désormais à la grille XP et à la table d'avancement des héros."}
+              ? t('avanceeModal.groupBecomesHero', { n: (travail.taille_groupe || 1) - 1 })
+              : t('avanceeModal.memberBecomesHero')}
           </p>
-          <p className="text-sm text-muted">
-            Choisis au moins 2 tables de compétences accessibles à ce nouveau héros.
-          </p>
+          <p className="text-sm text-muted">{t('avanceeModal.chooseTwoTables')}</p>
           <div className="skill-list">
             {SKILL_CATEGORIES.map((c) => (
               <label key={c.id} className="skill-check" style={{ cursor: 'pointer' }}>
@@ -619,14 +609,14 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
           </div>
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={onClose}>
-              Annuler
+              {t('avanceeModal.cancel')}
             </button>
             <button
               className="btn btn--primary"
               disabled={categoriesPromotion.length < 2}
               onClick={confirmerPromotion}
             >
-              Confirmer la promotion et lancer sur la table héros
+              {t('avanceeModal.confirmPromotionRoll')}
             </button>
           </div>
         </>
@@ -635,18 +625,17 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       {etape === 'choix_voie_competence' && (
         <>
           <p className="text-sm text-muted" style={{ marginTop: 0 }}>
-            {travail.nom_perso} peut choisir une compétence normale, ou tenter un pèlerinage à la Fosse pour une
-            récompense du Seigneur des Ombres (règle optionnelle).
+            {travail.nom_perso} {t('avanceeModal.skillOrShadowLordIntro')}
           </p>
           <div className="flex gap-sm" style={{ marginTop: '1rem', flexWrap: 'wrap' }}>
             <button className="btn" onClick={onClose}>
-              Annuler
+              {t('avanceeModal.cancel')}
             </button>
             <button className="btn btn--primary" onClick={() => setEtape('competence')}>
-              Choisir une compétence
+              {t('avanceeModal.chooseSkill')}
             </button>
             <button className="btn" onClick={() => setEtape('seigneur_des_ombres')}>
-              Récompenses du Seigneur des Ombres
+              {t('avanceeModal.shadowLordRewards')}
             </button>
           </div>
         </>
@@ -655,17 +644,17 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       {etape === 'choix_voie_sort' && (
         <>
           <p className="text-sm text-muted" style={{ marginTop: 0 }}>
-            {travail.nom_perso} peut choisir une compétence normale, ou apprendre un nouveau sort à la place.
+            {travail.nom_perso} {t('avanceeModal.skillOrSpellIntro')}
           </p>
           <div className="flex gap-sm" style={{ marginTop: '1rem', flexWrap: 'wrap' }}>
             <button className="btn" onClick={onClose}>
-              Annuler
+              {t('avanceeModal.cancel')}
             </button>
             <button className="btn btn--primary" onClick={() => setEtape('competence')}>
-              Choisir une compétence
+              {t('avanceeModal.chooseSkill')}
             </button>
             <button className="btn" onClick={() => setEtape('sort')}>
-              Apprendre un nouveau sort
+              {t('avanceeModal.learnNewSpell')}
             </button>
           </div>
         </>
@@ -676,9 +665,13 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
           const disponibles = sortsDisponiblesPourRoster(catalogue, roster, travail.sorts_connus, profil, travail.marque);
           return (
             <>
-              {entreeAvancement && <p className="text-sm text-muted">Résultat {entreeAvancement.label}.</p>}
+              {entreeAvancement && (
+                <p className="text-sm text-muted">
+                  {t('avanceeModal.resultLabelPrefix', { label: entreeAvancement.label })}
+                </p>
+              )}
               {disponibles.length === 0 ? (
-                <p className="text-sm text-muted">Tous les sorts de cette bande sont déjà connus.</p>
+                <p className="text-sm text-muted">{t('avanceeModal.allSpellsKnown')}</p>
               ) : (
                 <div className="skill-list">
                   {disponibles.map((s) => (
@@ -711,11 +704,15 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
 
       {etape === 'competence' && (
         <>
-          {entreeAvancement && <p className="text-sm text-muted">Résultat {entreeAvancement.label}.</p>}
+          {entreeAvancement && (
+            <p className="text-sm text-muted">
+              {t('avanceeModal.resultLabelPrefix', { label: entreeAvancement.label })}
+            </p>
+          )}
           <div className="field">
-            <label>Table de compétence</label>
+            <label>{t('avanceeModal.skillTableLabel')}</label>
             <select value={categorie} onChange={(e) => setCategorie(e.target.value as SkillCategory)}>
-              <option value="">— Choisir —</option>
+              <option value="">{t('avanceeModal.chooseEllipsis')}</option>
               {categoriesDisponibles.map((catId) => (
                 <option key={catId} value={catId}>
                   {SKILL_CATEGORIES.find((c) => c.id === catId)?.label}
@@ -750,14 +747,11 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
           const montures = monturesDisponibles(catalogue, profil, travail.competences_acquises);
           return (
             <>
-              <p className="text-sm text-muted">
-                Équitation est une compétence propre à une monture précise (règle imprimée : elle doit être
-                réapprise pour en chevaucher une autre) — choisis celle à laquelle elle est liée.
-              </p>
+              <p className="text-sm text-muted">{t('avanceeModal.equitationMountIntro')}</p>
               <div className="field">
-                <label>Monture</label>
+                <label>{t('avanceeModal.mountLabel')}</label>
                 <select value={monture} onChange={(e) => setMonture(e.target.value)}>
-                  <option value="">— Non précisée pour l'instant —</option>
+                  <option value="">{t('avanceeModal.mountUnspecified')}</option>
                   {montures.map((m) => (
                     <option key={m.id} value={m.nom}>
                       {m.nom}
@@ -766,13 +760,10 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
                 </select>
               </div>
               {montures.length === 0 && (
-                <p className="text-sm text-muted">
-                  Aucune monture répertoriée dans le shop de cette bande — la compétence peut être acquise sans
-                  monture précisée pour l'instant.
-                </p>
+                <p className="text-sm text-muted">{t('avanceeModal.noMountAvailable')}</p>
               )}
               <button className="btn btn--primary" onClick={confirmerMonture}>
-                Confirmer
+                {t('avanceeModal.confirm')}
               </button>
             </>
           );
@@ -783,12 +774,14 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
           <p className="text-success">{texteResultat}</p>
           {groupeRestantEnAttente ? (
             <button className="btn btn--primary btn--block" onClick={poursuivreAvecGroupeRestant}>
-              Continuer — avancée du groupe restant ({groupeRestantEnAttente.taille_groupe} figurine
-              {groupeRestantEnAttente.taille_groupe > 1 ? 's' : ''})
+              {t('avanceeModal.continueRemainingGroup', {
+                n: groupeRestantEnAttente.taille_groupe,
+                s: groupeRestantEnAttente.taille_groupe > 1 ? 's' : '',
+              })}
             </button>
           ) : (
             <button className="btn btn--primary btn--block" onClick={onClose}>
-              Terminer
+              {t('avanceeModal.finish')}
             </button>
           )}
         </>
@@ -802,7 +795,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
         etape !== 'seigneur_des_ombres' && (
         <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
           <button className="btn" onClick={onClose}>
-            Annuler
+            {t('avanceeModal.cancel')}
           </button>
         </div>
       )}

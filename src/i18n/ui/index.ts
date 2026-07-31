@@ -10,6 +10,7 @@ import { personnageCards } from './personnageCards';
 import { personnageModalsSmall } from './personnageModalsSmall';
 import { recompenseSeigneurDesOmbres } from './recompenseSeigneurDesOmbres';
 import { achatEquipementModal } from './achatEquipementModal';
+import { avanceeModal } from './avanceeModal';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -26,4 +27,5 @@ export const uiDictionary: UiDictionary = {
   ...personnageModalsSmall,
   ...recompenseSeigneurDesOmbres,
   ...achatEquipementModal,
+  ...avanceeModal,
 };
