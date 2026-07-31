@@ -3,10 +3,10 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// Served under https://ybarthCH.github.io/mordheim-roster-app/ in production
-// (GitHub Pages project site); kept at "/" for local dev so `npm run dev`
-// still serves from the root as usual.
-const base = '/mordheim-roster-app/';
+// Served under https://musterheim.app/ in production (GitHub Pages, custom
+// domain via public/CNAME) as well as in local dev, so everything is
+// rooted at "/".
+const base = '/';
 
 // Identifiant de build affiché sur l'écran d'accueil, pour distinguer un
 // service worker resté sur un ancien cache d'un vrai dernier déploiement.
