@@ -54,14 +54,18 @@ npm run lint       # oxlint
 
 L'app est publiée automatiquement sur GitHub Pages à chaque push sur
 `main`, via le workflow `.github/workflows/deploy-pages.yml` (build Vite +
-`actions/deploy-pages`) : https://ybarthCH.github.io/mordheim-roster-app/
+`actions/deploy-pages`) : https://musterheim.app/
 
-Le base path (`/mordheim-roster-app/`) est configuré dans `vite.config.ts`
-(uniquement en build, `npm run dev` reste servi à la racine) et propagé au
-manifest PWA et au service worker.
+Domaine personnalisé configuré via `public/CNAME` (copié tel quel dans
+`dist/` au build). Le site est servi à la racine (`base: '/'` dans
+`vite.config.ts`), propagé au manifest PWA et au service worker.
 
-À activer une seule fois côté dépôt : Settings → Pages → Build and
-deployment → Source = **GitHub Actions**.
+À activer une seule fois côté dépôt :
+- Settings → Pages → Build and deployment → Source = **GitHub Actions**.
+- Settings → Pages → Custom domain = `musterheim.app`, puis cocher
+  **Enforce HTTPS** une fois le certificat émis.
+- Chez le registrar du domaine, ajouter les enregistrements DNS pointant
+  vers GitHub Pages (voir section ci-dessous).
 
 ## Structure
 
