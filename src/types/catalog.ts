@@ -20,7 +20,7 @@ export const SKILL_CATEGORIES: { id: SkillCategory; label: string }[] = [
   { id: 'combat', label: 'Combat' },
   { id: 'tir', label: 'Tir' },
   { id: 'force', label: 'Force' },
-  { id: 'academique', label: 'Académique' },
+  { id: 'academique', label: 'Érudition' },
   { id: 'vitesse', label: 'Vitesse' },
   { id: 'equitation', label: 'Équitation' },
   { id: 'special', label: 'Spécial' },
