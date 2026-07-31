@@ -17,8 +17,19 @@ type Props = {
 export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }: Props) {
   const item = itemVersShopItem(ligneObjet.item_id, catalogueId);
   const [jet, setJet] = useState('');
+  // Se verrouille après ajout, comme JetOrButton : sans ça rien n'empêchait
+  // de recliquer et d'ajouter le même objet trouvé plusieurs fois au stock.
+  const [ajoute, setAjoute] = useState(false);
 
   if (!item) return null;
+
+  if (ajoute) {
+    return (
+      <p className="text-sm text-success" style={{ marginTop: '0.5rem' }}>
+        ✓ {item.nom} ajouté(e) au stock.
+      </p>
+    );
+  }
 
   if (typeof ligneObjet.quantite !== 'string') {
     const quantite = ligneObjet.quantite ?? 1;
@@ -27,7 +38,10 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
         type="button"
         className="btn btn--sm btn--primary"
         style={{ marginTop: '0.5rem', marginRight: '0.5rem' }}
-        onClick={() => onAjouter(item, quantite)}
+        onClick={() => {
+          onAjouter(item, quantite);
+          setAjoute(true);
+        }}
       >
         + Ajouter {item.nom}
         {quantite > 1 ? ` ×${quantite}` : ''} au stock
@@ -50,7 +64,7 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
         disabled={!valide}
         onClick={() => {
           onAjouter(item, valeur);
-          setJet('');
+          setAjoute(true);
         }}
       >
         Ajouter au stock

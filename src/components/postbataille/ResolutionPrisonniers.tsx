@@ -21,6 +21,11 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
   const [heroId, setHeroId] = useState('');
   const [jetXp, setJetXp] = useState('');
   const [jetZombies, setJetZombies] = useState('');
+  // Se verrouille une fois une branche résolue : sans ça, rien n'indiquait
+  // qu'un clic sur « Escorter » (ou une autre branche) avait bien été pris en
+  // compte, et rien n'empêchait de recliquer pour appliquer le gain une
+  // deuxième fois.
+  const [resolu, setResolu] = useState<string | null>(null);
 
   const heros = roster.membres.filter((m) => m.statut !== 'mort' && resolveProfil(roster, m)?.type === 'heros');
   const zombieProfil = catalogue.profils.find((p) => p.id === 'zombie');
@@ -32,9 +37,7 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
     if (!hero || !Number.isFinite(valeur) || valeur <= 0) return;
     onMajRoster({ membres: roster.membres.map((m) => (m.instance_id === hero.instance_id ? { ...m, xp: m.xp + valeur } : m)) });
     onAjouterAuJournal(`Prisonniers : sacrifiés aux dieux du Chaos — ${hero.nom_perso} gagne +${valeur} XP (D3, réparti à ta discrétion).`);
-    setBranche(null);
-    setHeroId('');
-    setJetXp('');
+    setResolu(`Sacrifiés — ${hero.nom_perso} gagne +${valeur} XP.`);
   };
 
   const appliquerZombies = () => {
@@ -43,14 +46,13 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
     const zombies = Array.from({ length: valeur }, () => creerMembre(zombieProfil, 0));
     onMajRoster({ membres: [...roster.membres, ...zombies] });
     onAjouterAuJournal(`Prisonniers : tués et transformés — ${valeur} zombie(s) (D3) rejoignent la bande gratuitement.`);
-    setBranche(null);
-    setJetZombies('');
+    setResolu(`Tués et transformés — ${valeur} zombie(s) rejoignent la bande.`);
   };
 
   const vendus = (valeur: number) => {
     onAjouterOr(valeur);
     onAjouterAuJournal(`Prisonniers : vendus comme esclaves — +${valeur} po (3D6).`);
-    setBranche(null);
+    setResolu(`Vendus comme esclaves — +${valeur} po.`);
   };
 
   const escortes = (valeur: number) => {
@@ -58,8 +60,16 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
     onAjouterAuJournal(
       `Prisonniers : escortés hors de la cité — +${valeur} po (2D6). Un captif peut rejoindre un groupe d'hommes de main humain existant si tu as le matériel pour l'équiper (à faire manuellement).`
     );
-    setBranche(null);
+    setResolu(`Escortés hors de la cité — +${valeur} po.`);
   };
+
+  if (resolu) {
+    return (
+      <p className="text-sm text-success" style={{ marginTop: '0.6rem' }}>
+        ✓ Prisonniers : {resolu}
+      </p>
+    );
+  }
 
   return (
     <div style={{ marginTop: '0.6rem' }}>
