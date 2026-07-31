@@ -17,6 +17,7 @@ import { ResolutionVagabond } from './ResolutionVagabond';
 import { ResolutionTaverne } from './ResolutionTaverne';
 import { ResolutionPrisonniers } from './ResolutionPrisonniers';
 import { ResolutionDebiteurReconnaissant } from './ResolutionDebiteurReconnaissant';
+import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   roster: RosterInstance;
@@ -62,6 +63,7 @@ export function EvenementExploration({
   onAjouterAuJournal,
   onOuvrirArtefacts,
 }: Props) {
+  const { t } = useLanguage();
   const [palierId, setPalierId] = useState<PalierExploration['id'] | ''>('');
   const [face, setFace] = useState<number | ''>('');
   const [jetSousTable, setJetSousTable] = useState('');
@@ -128,10 +130,9 @@ export function EvenementExploration({
 
   return (
     <div className="card card--tight" style={{ marginBottom: '0.8rem' }}>
-      <h3 className="mt-0">Résoudre un événement (double, triple…)</h3>
+      <h3 className="mt-0">{t('evenement.resolveTitle')}</h3>
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-        Si ton jet d'exploration comporte un double, triple, quadruple, quintuple ou sextuple, sélectionne-le ici
-        pour consulter l'événement correspondant sans rouvrir le livret.
+        {t('evenement.intro')}
       </p>
       <div className="flex gap-sm" style={{ flexWrap: 'wrap', marginBottom: '0.6rem' }}>
         {TABLE_EXPLORATION_EVENEMENTS.map((p) => (
@@ -178,7 +179,7 @@ export function EvenementExploration({
 
           {evenement.or && (
             <JetOrButton
-              label={`Jet obtenu (${evenement.or}) :`}
+              label={t('postBataille.rollObtainedNotation', { notation: evenement.or })}
               onValider={(valeur) => ajouterOr(evenement.or!, '', valeur)}
             />
           )}
@@ -235,14 +236,14 @@ export function EvenementExploration({
 
           {evenement.artefactMagique && (
             <button className="btn btn--sm" style={{ marginTop: '0.5rem' }} onClick={onOuvrirArtefacts}>
-              Ouvrir le Tableau des artefacts magiques
+              {t('postBataille.openMagicArtefactsTable')}
             </button>
           )}
 
           {evenement.sousTable && (
             <div style={{ marginTop: '0.6rem' }}>
               <p className="text-sm text-muted" style={{ marginBottom: '0.4rem' }}>
-                Sélectionne le résultat obtenu sur le D6 :
+                {t('evenement.selectD6Result')}
               </p>
               <div className="table-scroll">
                 <table className="table-reference table-reference--clickable">
@@ -262,7 +263,7 @@ export function EvenementExploration({
               </div>
               {ligneSousTable?.or && (
                 <JetOrButton
-                  label={`Jet or (${ligneSousTable.or}) :`}
+                  label={t('evenement.goldRollNotation', { notation: ligneSousTable.or })}
                   onValider={(valeur) => ajouterOr(ligneSousTable.or!, ligneSousTable.resultat, valeur)}
                 />
               )}
@@ -286,9 +287,9 @@ export function EvenementExploration({
               <table className="table-reference">
                 <thead>
                   <tr>
-                    <th>Élément</th>
-                    <th>Résultat requis</th>
-                    <th>Action</th>
+                    <th>{t('evenement.elementHeader')}</th>
+                    <th>{t('evenement.resultRequiredHeader')}</th>
+                    <th>{t('evenement.actionHeader')}</th>
                   </tr>
                 </thead>
                 <tbody>
