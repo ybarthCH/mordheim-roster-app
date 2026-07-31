@@ -16,6 +16,8 @@ import { postBatailleShared } from './postBatailleShared';
 import { etapeEntretien } from './etapeEntretien';
 import { etapeResultat } from './etapeResultat';
 import { etapeResume } from './etapeResume';
+import { rechercheDramatisPersonaeModal } from './rechercheDramatisPersonaeModal';
+import { rechercheObjetRareModal } from './rechercheObjetRareModal';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -38,4 +40,6 @@ export const uiDictionary: UiDictionary = {
   ...etapeEntretien,
   ...etapeResultat,
   ...etapeResume,
+  ...rechercheDramatisPersonaeModal,
+  ...rechercheObjetRareModal,
 };

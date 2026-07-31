@@ -4,6 +4,7 @@ import type { Member } from '../../types/roster';
 import { STAT_KEYS } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { getDramatisPersonae } from '../../data/dramatisPersonae';
+import { useLanguage } from '../../state/useLanguage';
 
 export type ResultatRechercheDramatisPersonae = {
   dramatisPersonaeId: string;
@@ -28,6 +29,7 @@ export function RechercheDramatisPersonaeModal({
   onClose,
   onTerminer,
 }: Props) {
+  const { t } = useLanguage();
   const [dpId, setDpId] = useState('');
   const [succesDeclare, setSuccesDeclare] = useState(false);
 
@@ -62,21 +64,19 @@ export function RechercheDramatisPersonaeModal({
           <>
             <header className="achat-equipement__header">
               <div className="achat-equipement__header-ligne">
-                <h3 className="mt-0 mb-0">Recherche d'un Dramatis Personae — {membre.nom_perso}</h3>
-                <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                <h3 className="mt-0 mb-0">{t('dpModal.title', { nom: membre.nom_perso })}</h3>
+                <button className="btn btn--sm" aria-label={t('dpModal.close')} onClick={onClose}>
                   ✕
                 </button>
               </div>
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.25rem' }}>
-                À la place d'un objet rare, ce Héros peut tenter de retrouver la trace d'un personnage spécial.
-                Consulte la table de recherche de ta règle papier, puis déclare si le test est réussi ou raté. Ce
-                Héros ne dispose que d'un seul jet pendant cette séquence.
+                {t('dpModal.intro')}
               </p>
             </header>
             <div className="achat-equipement__contenu">
               <div className="achat-equipement__catalogue">
                 {dpDisponibles.length === 0 && (
-                  <p className="text-muted">Aucun Dramatis Personae disponible pour cette bande en ce moment.</p>
+                  <p className="text-muted">{t('dpModal.noneAvailable')}</p>
                 )}
                 {dpDisponibles.map((candidat) => (
                   <button
@@ -90,8 +90,10 @@ export function RechercheDramatisPersonaeModal({
                         <span className="list-item__title">{candidat.nom}</span>
                       </div>
                       <div className="list-item__subtitle">
-                        Recrutement : {candidat.recrutement.cout ?? candidat.recrutement.notation} CO · Valeur de
-                        bande : +{candidat.valeur}
+                        {t('dpModal.recruitmentSubtitle', {
+                          cout: candidat.recrutement.cout ?? candidat.recrutement.notation ?? '',
+                          valeur: candidat.valeur,
+                        })}
                       </div>
                     </div>
                   </button>
@@ -104,9 +106,9 @@ export function RechercheDramatisPersonaeModal({
             <header className="achat-equipement__header achat-equipement__header--selection">
               <div className="achat-equipement__header-ligne">
                 <button className="btn btn--sm" onClick={() => setDpId('')}>
-                  ← Liste
+                  {t('dpModal.backToList')}
                 </button>
-                <button className="btn btn--sm" aria-label="Fermer" onClick={onClose}>
+                <button className="btn btn--sm" aria-label={t('dpModal.close')} onClick={onClose}>
                   ✕
                 </button>
               </div>
@@ -119,8 +121,8 @@ export function RechercheDramatisPersonaeModal({
               <p className="text-sm text-muted">{dp.employeurs.texte}</p>
               {dp.recrue_avec && (
                 <p className="text-sm">
-                  <strong>Recruté avec {getDramatisPersonae(dp.recrue_avec)?.nom ?? dp.recrue_avec}</strong>{' '}
-                  — les deux rejoignent la bande ensemble pour ce prix, et la quittent ensemble.
+                  <strong>{t('dpModal.recruitedWith', { nom: getDramatisPersonae(dp.recrue_avec)?.nom ?? dp.recrue_avec })}</strong>{' '}
+                  — {t('dpModal.recruitedWithNote')}
                 </p>
               )}
               <div className="stat-grid">
@@ -136,7 +138,7 @@ export function RechercheDramatisPersonaeModal({
                 ))}
               </div>
               <p className="text-sm">
-                <strong>Équipement :</strong> {dp.equipement.join(', ')}
+                <strong>{t('dpModal.equipmentLabel')}</strong> {dp.equipement.join(', ')}
               </p>
               {dp.regles_speciales.map((regle) => (
                 <p key={regle.nom} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
@@ -148,34 +150,32 @@ export function RechercheDramatisPersonaeModal({
               {!succesDeclare && (
                 <div className="flex gap-sm" style={{ marginTop: '0.4rem' }}>
                   <button type="button" className="btn btn--primary" onClick={() => setSuccesDeclare(true)}>
-                    Réussi
+                    {t('dpModal.success')}
                   </button>
                   <button type="button" className="btn" onClick={enregistrerEchec}>
-                    Raté
+                    {t('dpModal.failure')}
                   </button>
                 </div>
               )}
 
               {succesDeclare && (
                 <>
-                  <p className="text-sm">
-                    Coût de recrutement : <strong>{cout} CO</strong>.
-                  </p>
-                  <p className="text-sm text-muted">Trésorerie disponible : {tresorerieDisponible} po.</p>
-                  {!budgetSuffisant && <p className="text-sm text-danger">Trésorerie insuffisante.</p>}
+                  <p className="text-sm">{t('dpModal.recruitmentCost', { cout })}</p>
+                  <p className="text-sm text-muted">{t('dpModal.treasuryAvailable', { n: tresorerieDisponible })}</p>
+                  {!budgetSuffisant && <p className="text-sm text-danger">{t('dpModal.insufficientTreasury')}</p>}
                 </>
               )}
             </div>
 
             <footer className="achat-equipement__actions">
-              <button className="btn" onClick={onClose}>Annuler</button>
+              <button className="btn" onClick={onClose}>{t('dpModal.cancel')}</button>
               {succesDeclare && (
                 <>
                   <button className="btn" onClick={nePasRecruter}>
-                    Ne pas recruter
+                    {t('dpModal.dontRecruit')}
                   </button>
                   <button className="btn btn--primary" disabled={!budgetSuffisant} onClick={recruter}>
-                    Recruter et terminer
+                    {t('dpModal.recruitAndFinish')}
                   </button>
                 </>
               )}
