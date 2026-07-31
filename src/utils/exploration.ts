@@ -61,7 +61,13 @@ export function resumeExploration(
   roster: RosterInstance,
   catalogue: WarbandCatalog | undefined,
   resultat: BattleRecord['resultat'],
-  rules: GameRules
+  rules: GameRules,
+  // Identifiants des effets persistants déjà présents à l'ouverture de
+  // l'assistant post-bataille (voir PostBatailleScreen) : un bonus de dé
+  // d'exploration tout juste créé pendant cette même session (ex : Vagabond
+  // "Interroger") ne doit compter que pour la PROCHAINE phase d'exploration,
+  // pas celle en cours. Omis (undefined), tous les effets présents comptent.
+  effetsInitiauxIds?: Set<string>
 ): ResumeExploration {
   const herosEligibles = roster.membres.filter((membre) => {
     if (
@@ -125,10 +131,9 @@ export function resumeExploration(
   // Bonus de dé(s) obtenu lors d'un précédent jet d'exploration (ex :
   // Vagabond interrogé) — consommé une fois cette bataille terminée, voir
   // PostBatailleScreen.terminer().
-  const desSupplementairesPersistants = effetsPersistantsAvecCle(roster, CLE_DE_SUPPLEMENTAIRE_EXPLORATION).reduce(
-    (total, effet) => total + (effet.valeur ?? 1),
-    0
-  );
+  const desSupplementairesPersistants = effetsPersistantsAvecCle(roster, CLE_DE_SUPPLEMENTAIRE_EXPLORATION)
+    .filter((effet) => !effetsInitiauxIds || effetsInitiauxIds.has(effet.id))
+    .reduce((total, effet) => total + (effet.valeur ?? 1), 0);
   if (desSupplementairesPersistants > 0) {
     bonusFixes += desSupplementairesPersistants;
     ajouterAide(
