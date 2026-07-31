@@ -22,6 +22,7 @@ import { etapeGainXp } from './etapeGainXp';
 import { etapeExploration } from './etapeExploration';
 import { evenementExploration } from './evenementExploration';
 import { etapeCommerce } from './etapeCommerce';
+import { postBatailleScreen } from './postBatailleScreen';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -50,4 +51,5 @@ export const uiDictionary: UiDictionary = {
   ...etapeExploration,
   ...evenementExploration,
   ...etapeCommerce,
+  ...postBatailleScreen,
 };

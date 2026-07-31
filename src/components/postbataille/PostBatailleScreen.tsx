@@ -35,6 +35,7 @@ import {
 import { getDramatisPersonae } from '../../data/dramatisPersonae';
 import { creerMembreFrancTireurCatalogue } from '../../utils/factory';
 import { useGameRules } from '../../state/useGameRules';
+import { useLanguage } from '../../state/useLanguage';
 import { resumeExploration } from '../../utils/exploration';
 import { peutGagnerExperience } from '../../utils/xp';
 import { COUT_DOCTEUR } from '../../utils/docteur';
@@ -54,6 +55,16 @@ const ETAPES = [
   'Commerce',
   'Entretien',
   'Résumé',
+];
+
+const ETAPE_LABEL_KEYS = [
+  'postBatailleScreen.step.battle',
+  'postBatailleScreen.step.injuries',
+  'postBatailleScreen.step.xpGain',
+  'postBatailleScreen.step.exploration',
+  'postBatailleScreen.step.commerce',
+  'postBatailleScreen.step.upkeep',
+  'postBatailleScreen.step.summary',
 ];
 
 export type BlessureDraft = {
@@ -121,6 +132,7 @@ export function PostBatailleScreen() {
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
   const { rules } = useGameRules();
+  const { t } = useLanguage();
   const roster = getRosterById(id ?? '');
   const catalogue = roster ? getCatalogue(roster.bande_id) : undefined;
   const demiXp = !!catalogue?.xp_demi;
@@ -417,8 +429,8 @@ export function PostBatailleScreen() {
 
   if (!roster) {
     return (
-      <Screen title="Bande introuvable" back="/">
-        <p className="text-muted">Ce roster n'existe pas (ou plus).</p>
+      <Screen title={t('postBatailleScreen.bandNotFoundTitle')} back="/">
+        <p className="text-muted">{t('postBatailleScreen.bandNotFoundBody')}</p>
       </Screen>
     );
   }
@@ -865,14 +877,18 @@ export function PostBatailleScreen() {
   };
 
   return (
-    <Screen title="Assistant post-bataille" back={`/roster/${roster.id}`}>
+    <Screen title={t('postBatailleScreen.wizardTitle')} back={`/roster/${roster.id}`}>
       <div className="wizard-steps">
         {ETAPES.map((_, i) => (
           <div key={i} className={`wizard-steps__step ${i <= etape ? 'wizard-steps__step--done' : ''}`} />
         ))}
       </div>
       <p className="text-muted text-sm">
-        Étape {etape + 1}/{ETAPES.length} — {ETAPES[etape]}
+        {t('postBatailleScreen.stepCounter', {
+          n: etape + 1,
+          total: ETAPES.length,
+          nom: t(ETAPE_LABEL_KEYS[etape]),
+        })}
       </p>
 
       {etape === 0 && (
@@ -1028,7 +1044,7 @@ export function PostBatailleScreen() {
 
       <div className="flex gap-sm">
         <button className="btn" disabled={etape === 0} onClick={precedent}>
-          Précédent
+          {t('postBatailleScreen.previous')}
         </button>
         {etape < ETAPES.length - 1 && (
           <button
@@ -1041,38 +1057,38 @@ export function PostBatailleScreen() {
             }
             onClick={suivant}
           >
-            Suivant
+            {t('postBatailleScreen.next')}
           </button>
         )}
         {etape === ETAPES.length - 1 && (
           <button className="btn btn--primary" disabled={oeilApplicable && !oeilResolu} onClick={terminer}>
-            Valider et enregistrer
+            {t('postBatailleScreen.validateAndSave')}
           </button>
         )}
       </div>
       {etape === ETAPES.length - 1 && oeilApplicable && !oeilResolu && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
-          Résous le test Œil des Dieux Sombres (Réussi / Raté) avant de valider.
+          {t('postBatailleScreen.resolveEyeOfDarkGods')}
         </p>
       )}
       {etape === indexBlessures && blessuresIncompletes && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
-          Résous la blessure grave de chaque Héros Hors de combat avant de continuer.
+          {t('postBatailleScreen.resolveInjuriesFirst')}
         </p>
       )}
       {etape === indexGainXp && hcIncomplete && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
-          Résous d'abord le statut (survécu / n'a pas survécu) de tous les Hors de combat avant de continuer.
+          {t('postBatailleScreen.resolveSurvivalFirst')}
         </p>
       )}
       {etape === indexCommerce && commerceIncomplet && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
-          Choisis une action de commerce pour chaque Héros et termine toute consultation payée avant de continuer.
+          {t('postBatailleScreen.resolveCommerceFirst')}
         </p>
       )}
       {etape === indexEntretien && entretienInsuffisant && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
-          Les ressources disponibles ne couvrent pas les contrats conservés.
+          {t('postBatailleScreen.insufficientUpkeepResources')}
         </p>
       )}
 
