@@ -9,6 +9,7 @@ import { bilanBatailles, effectifTotal, nomCatalogue } from '../../utils/bandeVa
 import { ratingTotal } from '../../utils/rating';
 import { exporterRoster, lireFichierRoster } from '../../utils/importExport';
 import type { RosterInstance } from '../../types/roster';
+import { useLanguage } from '../../state/useLanguage';
 
 // Code horaire compact (ex : "1847 CEST") sur le fuseau Europe/Paris —
 // affiché à côté du hash de build pour repérer d'un coup d'œil un service
@@ -38,6 +39,7 @@ function heureBuildCET(isoDate: string): string {
 export function ListeBandesScreen() {
   const { rosters, loading, removeRoster, duplicateRoster, importRoster } = useRosters();
   const navigate = useNavigate();
+  const { language, t } = useLanguage();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [aSupprimer, setASupprimer] = useState<RosterInstance | null>(null);
   const [erreurImport, setErreurImport] = useState<string | null>(null);
@@ -45,6 +47,10 @@ export function ListeBandesScreen() {
   const classement = useMemo(() => {
     return [...rosters].sort((a, b) => ratingTotal(b) - ratingTotal(a));
   }, [rosters]);
+
+  const winLabel = language === 'en' ? 'W' : 'V';
+  const lossLabel = language === 'en' ? 'L' : 'D';
+  const drawLabel = language === 'en' ? 'D' : 'N';
 
   const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -55,21 +61,21 @@ export function ListeBandesScreen() {
       const imported = await importRoster(roster);
       navigate(`/roster/${imported.id}`);
     } catch (err) {
-      setErreurImport(err instanceof Error ? err.message : "Échec de l'import.");
+      setErreurImport(err instanceof Error ? err.message : t('home.importFailed'));
     }
   };
 
   return (
     <Screen
-      title="Mes bandes"
+      title={t('home.title')}
       actions={
         <>
           <button
             type="button"
             className="icon-btn"
             onClick={() => navigate('/reglages')}
-            aria-label="Réglages"
-            title="Réglages"
+            aria-label={t('home.settings')}
+            title={t('home.settings')}
           >
             ⚙
           </button>
@@ -80,15 +86,15 @@ export function ListeBandesScreen() {
       <div className="home-hero">
         <h1 className="home-hero__title">Musterheim</h1>
         <div className="home-hero__rule" />
-        <p className="home-hero__subtitle">Gestionnaire de bandes</p>
+        <p className="home-hero__subtitle">{t('home.subtitle')}</p>
       </div>
 
       <div className="top-actions">
         <button className="btn btn--primary" onClick={() => navigate('/creer')}>
-          + Nouvelle bande
+          {t('home.newBand')}
         </button>
         <button className="btn" onClick={() => fileInputRef.current?.click()}>
-          Importer JSON
+          {t('home.importJson')}
         </button>
         <input
           ref={fileInputRef}
@@ -105,13 +111,13 @@ export function ListeBandesScreen() {
         </div>
       )}
 
-      {loading && <p className="text-muted">Chargement…</p>}
+      {loading && <p className="text-muted">{t('home.loading')}</p>}
 
       {!loading && rosters.length === 0 && (
         <div className="empty-state">
           <Icon name="parchemin" size="2.4em" style={{ opacity: 0.5, marginBottom: '0.4rem' }} />
-          <p>Aucune bande enregistrée pour l'instant.</p>
-          <p className="text-sm">Crée ta première bande ou importe un fichier JSON.</p>
+          <p>{t('home.emptyTitle')}</p>
+          <p className="text-sm">{t('home.emptySubtitle')}</p>
         </div>
       )}
 
@@ -122,23 +128,24 @@ export function ListeBandesScreen() {
             <div className="list-item__main">
               <div className="list-item__title">{roster.nom_bande}</div>
               <div className="list-item__subtitle">
-                {nomCatalogue(roster.bande_id)} · {effectifTotal(roster)} membres · Rating {ratingTotal(roster)}
+                {nomCatalogue(roster.bande_id)} · {effectifTotal(roster)} {t('home.members')} · Rating{' '}
+                {ratingTotal(roster)}
               </div>
               <div className="list-item__subtitle">
                 {bilan.total > 0
-                  ? `${bilan.victoires}V / ${bilan.defaites}D / ${bilan.nuls}N`
-                  : 'Aucune bataille enregistrée'}
+                  ? `${bilan.victoires}${winLabel} / ${bilan.defaites}${lossLabel} / ${bilan.nuls}${drawLabel}`
+                  : t('home.noBattles')}
               </div>
             </div>
             <div className="flex flex-col gap-sm" onClick={(e) => e.stopPropagation()}>
               <button className="btn btn--sm" onClick={() => exporterRoster(roster)}>
-                Export
+                {t('home.export')}
               </button>
               <button className="btn btn--sm" onClick={() => duplicateRoster(roster.id)}>
-                Dupliquer
+                {t('home.duplicate')}
               </button>
               <button className="btn btn--sm btn--danger" onClick={() => setASupprimer(roster)}>
-                Suppr.
+                {t('home.deleteShort')}
               </button>
             </div>
           </div>
@@ -147,15 +154,15 @@ export function ListeBandesScreen() {
 
       {rosters.length > 1 && (
         <div className="card">
-          <h3>Classement de campagne</h3>
+          <h3>{t('home.rankingsTitle')}</h3>
           <div className="roster-table-wrap">
             <table className="roster-table">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Bande</th>
-                  <th>Rating</th>
-                  <th>V/D/N</th>
+                  <th>{t('home.tableRank')}</th>
+                  <th>{t('home.tableBand')}</th>
+                  <th>{t('home.tableRating')}</th>
+                  <th>{t('home.tableWLD')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -180,11 +187,13 @@ export function ListeBandesScreen() {
 
       {aSupprimer && (
         <Modal onClose={() => setASupprimer(null)}>
-          <h3>Supprimer « {aSupprimer.nom_bande} » ?</h3>
-          <p className="text-muted">Cette action est irréversible. Pense à exporter un JSON avant si besoin.</p>
+          <h3>
+            {t('home.delete')} « {aSupprimer.nom_bande} » ?
+          </h3>
+          <p className="text-muted">{t('home.deleteConfirmBody')}</p>
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={() => setASupprimer(null)}>
-              Annuler
+              {t('home.cancel')}
             </button>
             <button
               className="btn btn--danger"
@@ -193,7 +202,7 @@ export function ListeBandesScreen() {
                 setASupprimer(null);
               }}
             >
-              Supprimer
+              {t('home.delete')}
             </button>
           </div>
         </Modal>
