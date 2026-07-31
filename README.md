@@ -45,27 +45,27 @@ utilisée en cours de partie.
 
 ```bash
 npm install
-npm run dev       # serveur de dev
-npm run build     # build de production (tsc + vite build)
-npm run lint       # oxlint
+npm run dev        # serveur de dev
+npm run build      # build de dev/staging (servi sous /mordheim-roster-app/)
+npm run build:prod # build de prod pour Infomaniak (servi à la racine du domaine)
+npm run lint        # oxlint
 ```
 
 ## Déploiement
 
-L'app est publiée automatiquement sur GitHub Pages à chaque push sur
-`main`, via le workflow `.github/workflows/deploy-pages.yml` (build Vite +
-`actions/deploy-pages`) : https://musterheim.app/
+Deux environnements :
 
-Domaine personnalisé configuré via `public/CNAME` (copié tel quel dans
-`dist/` au build). Le site est servi à la racine (`base: '/'` dans
-`vite.config.ts`), propagé au manifest PWA et au service worker.
-
-À activer une seule fois côté dépôt :
-- Settings → Pages → Build and deployment → Source = **GitHub Actions**.
-- Settings → Pages → Custom domain = `musterheim.app`, puis cocher
-  **Enforce HTTPS** une fois le certificat émis.
-- Chez le registrar du domaine, ajouter les enregistrements DNS pointant
-  vers GitHub Pages (voir section ci-dessous).
+- **Dev/staging (GitHub Pages)** : publié automatiquement à chaque push
+  sur `main`, via `.github/workflows/deploy-pages.yml` (`npm run build`,
+  base path `/mordheim-roster-app/`) :
+  https://ybarthCH.github.io/mordheim-roster-app/
+- **Production (Infomaniak, musterheim.app)** : hébergé sur le storage
+  Infomaniak existant, sous le domaine `musterheim.app` déjà configuré
+  chez Infomaniak. Déploiement manuel :
+  1. `npm run build:prod`
+  2. Uploader tout le **contenu** du dossier `dist/` (pas le dossier
+     lui-même) à la racine du storage web Infomaniak, en écrasant les
+     fichiers existants.
 
 ## Structure
 
