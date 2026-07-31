@@ -10,6 +10,8 @@ import { peutAugmenterStat } from '../../utils/plafond';
 import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { monturesDisponibles } from '../../utils/shop';
 import { SKILL_EQUITATION } from '../../utils/tribu';
+import { useLanguage } from '../../state/useLanguage';
+import { translateSkill } from '../../i18n/data/skills';
 import {
   RecompenseSeigneurDesOmbresWizard,
   type RecompenseResultat,
@@ -48,6 +50,7 @@ type Etape =
   | 'resultat';
 
 export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equitationGratuite, onClose, onApply }: Props) {
+  const { language } = useLanguage();
   const limiteHerosAtteinte = heroCount >= LIMITE_HEROS;
   // État local de travail : on accumule les mutations ici plutôt que de se
   // fier à la prop `member` (qui ne se met à jour qu'au prochain rendu du
@@ -182,11 +185,13 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
   const skillsDeLaCategorie = (cat: SkillCategory) =>
     cat === 'special' ? (profil.competences_speciales ?? catalogue.competences_speciales) : SKILLS[cat];
 
-  const nomCompetence = (skillId: string) =>
-    [...Object.values(SKILLS).flat(), ...(profil.competences_speciales ?? catalogue.competences_speciales)].find(
-      (s) => s.id === skillId
-    )?.nom ??
-    skillId;
+  const nomCompetence = (skillId: string) => {
+    const found = [
+      ...Object.values(SKILLS).flat(),
+      ...(profil.competences_speciales ?? catalogue.competences_speciales),
+    ].find((s) => s.id === skillId);
+    return (found && translateSkill(found, language).nom) ?? skillId;
+  };
 
   const appliquerSeigneurDesOmbres = (resultat: RecompenseResultat) => {
     const statsActuels = { ...travail.stats_actuels };
@@ -722,16 +727,19 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
             <div className="skill-list">
               {skillsDeLaCategorie(categorie)
                 .filter((s) => !travail.competences_acquises.includes(s.id) || ('repetable' in s && s.repetable))
-                .map((s) => (
-                  <label key={s.id} className="skill-check" style={{ cursor: 'pointer' }}>
-                    <input type="radio" name="competence" onChange={() => choisirCompetence(s.id)} />
-                    <span>
-                      <span className="skill-check__name">{s.nom}</span>
-                      <br />
-                      <span className="skill-check__text">{s.texte}</span>
-                    </span>
-                  </label>
-                ))}
+                .map((sOriginal) => {
+                  const s = translateSkill(sOriginal, language);
+                  return (
+                    <label key={s.id} className="skill-check" style={{ cursor: 'pointer' }}>
+                      <input type="radio" name="competence" onChange={() => choisirCompetence(s.id)} />
+                      <span>
+                        <span className="skill-check__name">{s.nom}</span>
+                        <br />
+                        <span className="skill-check__text">{s.texte}</span>
+                      </span>
+                    </label>
+                  );
+                })}
             </div>
           )}
         </>

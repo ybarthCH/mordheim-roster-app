@@ -31,6 +31,8 @@ import { succederApresMorts } from '../../utils/leader';
 import { estSorcier } from '../../utils/magie';
 import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
 import { skillById } from '../../data/gameData';
+import { useLanguage } from '../../state/useLanguage';
+import { translateSkill } from '../../i18n/data/skills';
 import {
   acheterPourMembre,
   retirerDeMembre,
@@ -58,6 +60,7 @@ export function PersonnageScreen() {
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
   const { rules } = useGameRules();
+  const { language } = useLanguage();
   const roster = getRosterById(id ?? '');
   const [modalAvancee, setModalAvancee] = useState(false);
   const [modalBlessure, setModalBlessure] = useState(false);
@@ -229,10 +232,11 @@ export function PersonnageScreen() {
   };
 
   const nomCompetence = (skillId: string) => {
-    const base =
+    const found =
       skillById(skillId) ??
       profil.competences_speciales?.find((s) => s.id === skillId) ??
       catalogue.competences_speciales.find((s) => s.id === skillId);
+    const base = found && translateSkill(found, language);
     if (base && skillId === SKILL_EQUITATION && membre.monture_equitation) {
       return { ...base, nom: `${base.nom} — ${membre.monture_equitation}` };
     }
