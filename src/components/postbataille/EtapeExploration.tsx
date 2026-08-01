@@ -246,7 +246,7 @@ export function EtapeExploration({
         </span>
       </div>
       <div className="price-highlight">
-        <span className="price-highlight__value">{prixSuggere} po</span>
+        <span className="price-highlight__value">{prixSuggere} {t('creation.gc')}</span>
         <span className="price-highlight__label">
           {t('exploration.forFragmentsSold', { n: quantiteVendue, s: quantiteVendue > 1 ? 's' : '' })}
         </span>
