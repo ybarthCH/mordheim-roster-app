@@ -50,7 +50,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Eye of the Dark Gods',
         texte:
-          "After each battle, roll 2D6. If you lost, add +1 for each Hero taken Out of Action; on a 12+, the leader becomes a Chaos Spawn (losing experience, skills, wounds, and equipment). If you won, add +1 for each enemy taken Out of Action by the leader; on a 12+, the leader receives a Mark of the Dark Gods of his choice (see the Marks of the Dark Gods special rule). Once a leader has received a Mark through this rule, he is no longer subject to it (unless he dies, in which case the new leader is tested in turn). If the warband already has a Chaos Spawn, a leader who would get this result is simply removed from the warband instead of being transformed.",
+          "After each battle, roll 2D6. If you lost, add +1 for each Hero taken Out of Action; on a 12+, the leader becomes a Spawn of Chaos (losing experience, skills, wounds, and equipment). If you won, add +1 for each enemy taken Out of Action by the leader; on a 12+, the leader receives a Mark of the Dark Gods of his choice (see the Marks of the Dark Gods special rule). Once a leader has received a Mark through this rule, he is no longer subject to it (unless he dies, in which case the new leader is tested in turn). If the warband already has a Spawn of Chaos, a leader who would get this result is simply removed from the warband instead of being transformed.",
       },
       {
         nom: 'Hired Swords',
@@ -87,12 +87,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       norses: {
         nom: 'Norse',
         texte:
-          'Raiders: due to their proximity to the Empire and the frequency of their raids, the Norse excel at finding the best equipment and supplies quickly — they gain +1 to their rarity rolls when searching for rare items (for reference only, apply on your tabletop). Pantheon: the Norse worship a myriad of gods, spirits, and ancestors; because of their broad pantheon, the effect of the Eye of the Dark Gods special rule (becoming a Chaos Spawn or receiving a Mark) triggers on a result of 13+ instead of 12+.',
+          'Raiders: due to their proximity to the Empire and the frequency of their raids, the Norse excel at finding the best equipment and supplies quickly — they gain +1 to their rarity rolls when searching for rare items (for reference only, apply on your tabletop). Pantheon: the Norse worship a myriad of gods, spirits, and ancestors; because of their broad pantheon, the effect of the Eye of the Dark Gods special rule (becoming a Spawn of Chaos or receiving a Mark) triggers on a result of 13+ instead of 12+.',
       },
       kurgans: {
         nom: 'Kurgans',
         texte:
-          'Pedigree: a Kurgan warband may include as many Chaos Hounds as desired, not just five. Bone Bows: Marauder Heroes and Henchmen may use bows (10 gc, Common — for reference only, not automatically filtered in the shop). Difficult Customers: while the Norse and the Hung trade with the south, the Kurgans live far from civilisation and are not welcome there — -1 penalty on rarity rolls when searching for rare items, except for Chaos Great Axes and Barbed Whips (for reference only, apply on your tabletop).',
+          'Pedigree: a Kurgan warband may include as many Warhounds of Chaos as desired, not just five. Bone Bows: Marauder Heroes and Henchmen may use bows (10 gc, Common — for reference only, not automatically filtered in the shop). Difficult Customers: while the Norse and the Hung trade with the south, the Kurgans live far from civilisation and are not welcome there — -1 penalty on rarity rolls when searching for rare items, except for Chaos Great Axes and Barbed Whips (for reference only, apply on your tabletop).',
       },
       hungs: {
         nom: 'Hung',
@@ -123,7 +123,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       champion: { nom: 'Champion' },
       damne: {
-        nom: 'Doomed One',
+        nom: 'Condemned',
         regles_speciales: [
           {
             nom: 'Inconstancy',
@@ -134,7 +134,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Fate',
             texte:
-              'Once all variable characteristics are locked in, uses weapons/armour/items normally. If he reaches 90 experience points while still having variable characteristics, he becomes a Chaos Spawn (or leaves the warband to wander the wastes if it already has one).',
+              'Once all variable characteristics are locked in, uses weapons/armour/items normally. If he reaches 90 experience points while still having variable characteristics, he becomes a Spawn of Chaos (or leaves the warband to wander the wastes if it already has one).',
           },
           { nom: 'Equipment', texte: 'Uses no equipment but fights without penalty (see Fate).' },
         ],
@@ -144,7 +144,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
       },
       chien_du_chaos: {
-        nom: 'Chaos Hound',
+        nom: 'Warhound of Chaos',
         regles_speciales: [
           { nom: 'Animals', texte: 'Never gains experience.' },
           { nom: 'Recruitment', texte: 'Unlimited for a Kurgan tribe warband (see the Tribes special rule), otherwise maximum 5.' },
@@ -152,7 +152,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       enfant_du_chaos: {
-        nom: 'Chaos Spawn',
+        nom: 'Spawn of Chaos',
         regles_speciales: [
           {
             nom: 'Special Movement',
