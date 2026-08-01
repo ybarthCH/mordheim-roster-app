@@ -860,6 +860,265 @@ export const itemsEn: Record<string, ItemTraduit> = {
       },
     ],
   },
+
+  // --- Armures ---
+  amulette_lunaire: {
+    nom: 'Lunar Amulet',
+    texte: 'Once activated, this ancient object creates a luminescent aura around its wearer, making it harder for the enemy to make out.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Any missile aimed at the model wearing the amulet suffers a -1 penalty to hit. The amulet also grants its wearer a special 5+ save against shooting.',
+      },
+    ],
+  },
+  armure_cathayenne_soie_matelassee: {
+    nom: 'Cathayan Quilted Silk Armour',
+    texte:
+      "Caravans from the distant lands of the East sometimes bring fabulous quilted silk armour, light as a feather and tough as steel. It is often worn beneath the armour or clothing of Imperial nobles to protect against assassins' arrows.",
+    regles_speciales: [
+      { nom: 'Layering', texte: 'Cathayan quilted silk armour can be combined with any other type of armour.' },
+    ],
+  },
+  armure_du_chaos_market: {
+    nom: 'Chaos Armour',
+    texte:
+      'Chaos armour is armour wrought from a strange and unnatural metal. It is a manifestation of the favour of a Dark God of Chaos. Most Chaos armour is obtained as a reward from a Hellforger. However, it may also be acquired from the Chaos Dwarfs in exchange for numerous slaves, or following an extraordinary act serving their interests.',
+    regles_speciales: [
+      { nom: 'Cost', texte: 'The cost of Chaos armour is reduced by 1 gold crown for every experience point the Hero possesses.' },
+      {
+        nom: 'Gift of Chaos',
+        texte:
+          "Chaos armour is a gift from the Dark Gods to the deserving warrior. A Hero who has acquired it will never give it to another member of his warband, and will equip it immediately. The armour then fuses with its wearer's body and can never be removed.",
+      },
+      {
+        nom: 'Spellcasters',
+        texte:
+          'Chaos armour does not prevent its wearer from casting spells or performing rituals. It may be worn by spellcasters, but cannot be combined with a shield or buckler.',
+      },
+      {
+        nom: 'Rarity',
+        texte: 'When searching for Chaos armour, a warrior gains +1 to his search roll result for each enemy he took Out of Action in the previous battle.',
+      },
+    ],
+  },
+  armure_en_gromril_market: {
+    nom: 'Gromril Armour',
+    texte:
+      'Gromril is the rarest and hardest metal in the Old World. Only a handful of dwarf craftsmen know how to work gromril, and the armour they forge fetches astronomical prices. Gromril armour costs four times the price of ordinary armour of the same type. You may choose which type of armour is offered to you.',
+    regles_speciales: [
+      {
+        nom: 'Gromril Armour',
+        texte:
+          'Base armour price x4. Improves its armour save by +1 (a 6+ light armour becomes 5+, a 5+ heavy armour becomes 4+) and does not slow its wearer down if he also wears a shield.',
+      },
+    ],
+  },
+  armure_en_ithilmar_market: {
+    nom: 'Ithilmar Armour',
+    texte:
+      'Ithilmar is a silvery metal as light as silk and harder than steel. Elves are experts at crafting weapons and armour from ithilmar, and the elven realm of Caledor is the only place in the world where this metal can be found. Ithilmar armour costs three times the price of ordinary armour of the same type. You may choose which type of armour is offered to you.',
+    regles_speciales: [
+      {
+        nom: 'Ithilmar Armour',
+        texte:
+          'Base armour price x3. Improves its armour save by +1 (a 6+ light armour becomes 5+, a 5+ heavy armour becomes 4+) and does not slow its wearer down if he also wears a shield.',
+      },
+    ],
+  },
+  armure_lamellaire: {
+    nom: 'Lamellar Armour',
+    texte:
+      "Smiths created this heavy armour for the noble Cathayan knights who guard the farms. This armour is common, particularly among the palace guard of the Emperor of Cathay. It covers not only the wearer's torso, but also the upper arms and thighs. Lamellar armour counts as heavy armour.",
+    regles_speciales: [
+      { nom: 'Movement', texte: 'A fighter wearing both this armour and a shield suffers a -1 Movement penalty.' },
+    ],
+  },
+  armure_legere: {
+    nom: 'Light Armour',
+    texte:
+      "A wide variety of materials are used to make light armour, ranging from boiled leather tunics to mail shirts. They don't provide complete protection against arrows or swords, but are still better than nothing. Light armour does not hinder movement.",
+  },
+  armure_lourde: {
+    nom: 'Heavy Armour',
+    texte:
+      'Typical heavy armour is made of metal rings and is called mail armour. Forging mail armour is very long and tedious, as the armourer must assemble thousands of metal rings. The cost reflects this, but this type of armour provides excellent protection to those who can afford it. There are also other types of heavy armour, the most well-known being the steel breastplate and tassets worn by the foot knights of the Templar orders.',
+    regles_speciales: [
+      { nom: 'Movement', texte: 'A fighter wearing both this armour and a shield suffers a -1 Movement penalty.' },
+    ],
+  },
+  armure_lourde_de_maitre: {
+    nom: "Master's Heavy Armour",
+    texte:
+      'A legacy brought back from Tilea, where the art of forging extremely ornate and nearly impenetrable heavy armour is taught.',
+    regles_speciales: [
+      { nom: 'Hindered Movement', texte: 'A fighter wearing this armour suffers a -1 Movement penalty, even without a shield.' },
+    ],
+  },
+  bouclier: {
+    nom: 'Shield',
+    texte:
+      "There are two types of shields used in Mordheim: the first is made of wood, sometimes reinforced with metal plates. This basic type of shield, while relatively sturdy, tends to split, but this can sometimes save its bearer's life, as an opponent's weapon can get stuck in it. The opponent is then easy prey while he struggles to free his weapon. Metal shields are heavy and cumbersome, but resist blows for much longer. A typical Imperial shield is round or triangular, and bears the emblem of its owner's province or city.",
+  },
+  caparacon_bretonnien: {
+    nom: 'Bretonnian Barding',
+    texte:
+      "Barding is armour for a horse, similar to the light armour worn by humans. It covers the animal's body and sometimes its head as well. This special armour is blessed by the Bretonnians, and is normally only available to Bretonnian knights.",
+    regles_speciales: [
+      {
+        nom: 'Shell',
+        texte:
+          'A model mounted on a barded charger receives an additional +1 save bonus (so +2 in total). In addition, a mount fitted with barding that is taken Out of Action will only be killed on a result of 1 on 1D6 at the end of the game (instead of 1-2).',
+      },
+    ],
+  },
+  caparacon: {
+    nom: 'Barding',
+    texte:
+      "Barding is armour for a horse, similar to the light armour worn by humans. It covers the animal's body and sometimes its head as well.",
+    regles_speciales: [
+      {
+        nom: 'Shell',
+        texte:
+          'A model mounted on a barded charger receives an additional +1 save bonus (so +2 in total). In addition, a mount fitted with barding that is taken Out of Action will only be killed on a result of 1 on 1D6 at the end of the game (instead of 1-2).',
+      },
+      { nom: 'Movement Penalty', texte: 'A mount wearing barding suffers a -1 Movement penalty.' },
+    ],
+  },
+  cape_en_peau_de_dragon_des_mers: {
+    nom: 'Sea Dragon Skin Cloak',
+    texte:
+      'Dark elf corsairs wear cloaks cut from the hide of sea monsters. These cloaks are tough and offer excellent protection.',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'A sea dragon skin cloak provides a 5+ armour save in hand-to-hand combat, 4+ against shooting.' },
+      { nom: 'Movement', texte: 'A fighter wearing both this armour and a shield suffers a -1 Movement penalty.' },
+    ],
+  },
+  cape_en_peau_de_loup: {
+    nom: 'Wolf Skin Cloak',
+    texte:
+      'In Middenheim, it is still considered that one must kill a great wolf with one\'s bare hands to be a true man. Warriors who accomplish such a feat earn the respect of their peers, and their cloaks are blessed by the high priest of the cult of Ulric, god of winter, war, and wolves. To acquire a wolf skin cloak, the Hero must pay 10 gold crowns (this represents the cost of travelling to Middenheim and taking part in a hunt). In addition, the Hero must roll equal to or less than his Strength on 1D6 to succeed in finding and killing the wolf. He can then make a cloak from its skin as a mark of skill and courage. Note that Middenheimers may buy wolf skin cloaks when creating the warband without making an availability test.',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'A model wearing a wolf skin cloak gains +1 to its saves against all shooting attacks.' },
+    ],
+  },
+  cape_en_peau_des_hommes_lezards: {
+    nom: 'Lizardmen Skin Cloak',
+  },
+  casque_marmite: {
+    nom: 'Pot Helm',
+    texte:
+      'Any self-respecting Master Cook will trade his ridiculous white toque for an even more ridiculous cooking pot to protect himself when a fight is brewing. It may seem incredibly foolish, but it often lets the Halfling keep his head intact after the battle.',
+    regles_speciales: [
+      {
+        nom: 'Avoid Stunning',
+        texte:
+          "A Master Cook fitted with a pot helm gets a special 5+ save against a Stunned result. This save is not modified by the opponent's Strength.",
+      },
+    ],
+  },
+  cuir_durci: {
+    nom: 'Hardened Leather',
+    texte:
+      'The best tanners can turn (out-of-fashion) leather coats into armour, and the less wealthy often turn to such protection since other kinds are so costly. Covered with crusts of salt, alcohol, and other less appetising substances, hardened leather is hard to pierce and offers some protection in combat.',
+    regles_speciales: [
+      {
+        nom: 'Restricted Combinations',
+        texte:
+          'Hardened leather armour gives a 6+ save, like light armour, except that it cannot be combined with any other type of armour, other than helmets and bucklers.',
+      },
+      {
+        nom: 'Unsellable',
+        texte: 'Hardened leather armour cannot be resold, as the stench it gives off is enough to drive away even the most desperate buyers.',
+      },
+      {
+        nom: 'Spellcasting',
+        texte:
+          "Although hardened leather is miscellaneous equipment and does not need to be on the warband's equipment list to be used, it is nonetheless armour, which prevents casting spells.",
+      },
+    ],
+  },
+  ecu: {
+    nom: 'Great Shield',
+    regles_speciales: [
+      {
+        nom: 'Save',
+        texte:
+          'A fighter fitted with a great shield gets a 5+ armour save on foot, and 6+ if mounted (or, if he already wears armour, a bonus of +2 on foot and +1 when mounted). The armour save can never go below 1+.',
+      },
+    ],
+  },
+  exosquelette: {
+    nom: 'Exoskeleton',
+    texte:
+      'The Curse of Stone falls upon all Chaos Dwarf Hierogrammates, gradually turning them to rock, starting with their feet. Engineers have designed machines that can carry their priests once they begin to pay the price of their dark rituals.',
+    regles_speciales: [
+      { nom: 'Ready to Roll', texte: 'A wizard fitted with an exoskeleton gets +3 Movement.' },
+      { nom: 'Chaos Armour', texte: 'An exoskeleton counts as Chaos armour and the following rules apply.' },
+      { nom: 'Cost', texte: 'The cost of the exoskeleton is reduced by 1 gold crown for every experience point the Hero possesses.' },
+      {
+        nom: 'Gift of Chaos',
+        texte:
+          'A Hero who has acquired an exoskeleton will never give it to another member of his warband, and will equip it immediately. It can never be removed.',
+      },
+      {
+        nom: 'Spellcasters',
+        texte: 'The exoskeleton does not prevent its wearer from casting spells or performing rituals, but cannot be combined with a shield or buckler.',
+      },
+      {
+        nom: 'Rarity',
+        texte: 'When searching for an exoskeleton, a warrior gains +1 to his search roll result for each enemy he took Out of Action in the previous battle.',
+      },
+    ],
+  },
+  pavois: {
+    nom: 'Pavise',
+    texte:
+      'A pavise is a huge shield commonly used by soldiers on the battlefield to defend themselves against enemy arrows. It is heavy equipment, rarely used in hand-to-hand combat, but very effective against shooting.',
+    regles_speciales: [
+      {
+        nom: 'Cover / Save',
+        texte:
+          'A warrior using a pavise is considered to be under cover against missile fire (-1 to hit). In hand-to-hand combat, the pavise counts as a shield (+1 armour save) but only if the warrior was charged from the front. The Pavise is so heavy and cumbersome that its bearer moves at half speed.',
+      },
+    ],
+  },
+  peaux_enchantees: {
+    nom: 'Enchanted Skins',
+    texte: 'The animal skins and amulets worn by the Amazons are imbued with protective magic.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Any model wearing enchanted skins gets a special 6+ save against any Wound inflicted. In addition, the wearer of enchanted skins is unaffected by enemy magic on a result of 5+.',
+      },
+    ],
+  },
+  rondache: {
+    nom: 'Buckler',
+    texte:
+      'Bucklers are small round shields designed to parry and deflect blows. They are often made of steel, as they must be very sturdy to withstand furious blows in hand-to-hand combat. Wielding one takes great skill, but an agile warrior can protect himself from blows that would otherwise maim him for certain.',
+    regles_speciales: [
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+    ],
+  },
+  casque: {
+    nom: 'Helmet',
+    texte:
+      'From Bretonnian knights with their gleaming helms to Skaven wearing leather hoods, all sensible warriors try to protect the most vulnerable part of their body: their head. Even the most vain wear helmets, whether adorned with feathers, horns, or other decorations. A helmet\'s shape and size may vary, but its function always remains the same.',
+    regles_speciales: [
+      {
+        nom: 'Protection',
+        texte:
+          "The fighter gets a special 4+ save against a Stunned result. If the save succeeds, turn the Stunned result into Knocked Down. This save is not modified by the opponent's Strength.",
+      },
+    ],
+  },
 };
 
 const DISPONIBILITE_ARTEFACT_EN =
