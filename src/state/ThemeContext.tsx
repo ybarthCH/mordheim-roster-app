@@ -8,6 +8,16 @@ function systemPrefersDark() {
   return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
 }
 
+// Miroir des couleurs --accent définies dans index.css pour chaque
+// combinaison thème/palette — la barre de statut mobile (theme-color) lit
+// une balise <meta> statique, indépendante du CSS, donc on la met à jour à
+// la main pour qu'elle suive la sélection de l'utilisateur au lieu de
+// rester bloquée sur le rouge par défaut.
+const ACCENT_COLORS: Record<'light' | 'dark', Record<Palette, string>> = {
+  light: { rouge: '#7a1414', noir: '#3a4149' },
+  dark: { rouge: '#c94f4f', noir: '#7b8590' },
+};
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('system');
   const [systemDark, setSystemDark] = useState(systemPrefersDark());
@@ -36,6 +46,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.dataset.palette = palette;
   }, [palette]);
+
+  useEffect(() => {
+    const meta = document.getElementById('meta-theme-color');
+    meta?.setAttribute('content', ACCENT_COLORS[effectiveTheme][palette]);
+  }, [effectiveTheme, palette]);
 
   const setTheme = (t: Theme) => {
     setThemeState(t);

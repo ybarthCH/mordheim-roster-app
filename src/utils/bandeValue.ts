@@ -2,6 +2,8 @@ import type { RosterInstance } from '../types/roster';
 import { getCatalogue } from '../data/warbands';
 import { resolveProfil } from './profil';
 import { estFrancTireur } from '../data/hiredSwords';
+import { translateWarbandCatalog } from '../i18n/data/warbands';
+import type { Language } from '../state/useLanguage';
 
 /** Valeur de bande = coût de recrutement des membres encore actifs (hors morts), par figurine. */
 export function valeurBande(roster: RosterInstance): number {
@@ -20,8 +22,10 @@ export function effectifTotal(roster: RosterInstance): number {
     .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
 }
 
-export function nomCatalogue(bandeId: string): string {
-  return getCatalogue(bandeId)?.nom ?? bandeId;
+export function nomCatalogue(bandeId: string, language: Language = 'fr'): string {
+  const catalogue = getCatalogue(bandeId);
+  if (!catalogue) return bandeId;
+  return translateWarbandCatalog(catalogue, language).nom;
 }
 
 export function bilanBatailles(roster: RosterInstance) {
