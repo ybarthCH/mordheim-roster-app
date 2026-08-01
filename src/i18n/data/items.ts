@@ -662,6 +662,204 @@ export const itemsEn: Record<string, ItemTraduit> = {
       },
     ],
   },
+
+  // --- Montures ---
+  araignee_geante: {
+    nom: 'Giant Spider',
+    texte:
+      'Giant spiders are hairy monstrosities 3 to 3.5 metres long that inhabit the forests of the Old World. They are highly prized as mounts by forest goblins. It gives me the shivers just thinking about it...',
+    regles_speciales: [
+      {
+        nom: 'Poisoned Attacks',
+        texte: "A giant spider's Attacks are Strength 4, but do not inflict an armour save modifier.",
+      },
+      {
+        nom: 'Wall Climbing',
+        texte:
+          'Giant spiders and their rider can move across walls without taking an Initiative test. They can only jump 2" vertically or horizontally, but this counts as a diving charge. When a spider jumps, its rider must make an Initiative test. If failed, he must then roll on the Whoa Boy! chart. Note that if the rider has the trotting jump skill, his maximum diving charge distance remains 2".',
+      },
+      { nom: 'Note', texte: 'Giant spiders cannot be taken by a warband that has giant wolves.' },
+    ],
+  },
+  cauchemar: {
+    nom: 'Nightmare',
+    texte: "Vampire counts sometimes need a mount to move quickly. After all, even dead, a horse keeps its four legs, doesn't it?",
+    regles_speciales: [
+      { nom: 'Cannot Run', texte: 'As Undead, a Nightmare cannot run, but may charge normally.' },
+      { nom: 'Immune to Poison', texte: 'Nightmares are immune to poisons.' },
+      {
+        nom: 'Immune to Psychology',
+        texte:
+          'As Undead, Nightmares are immune to psychology, never need to take Leadership tests, and will always remain motionless if they have no leader. However, if the rider loses his last Wound, he will normally have to make a roll on the Whoa Boy! chart.',
+      },
+    ],
+  },
+  coursier_elfique: {
+    nom: 'Elven Steed',
+    texte:
+      "Elven steeds are graceful animals that hide a very aggressive temperament in battle. Dark elves breed their own strain of steeds. High elves' steeds are usually dappled grey, wood elves' are chestnut, while the Druchii's are jet black.",
+    regles_speciales: [
+      {
+        nom: 'Trained',
+        texte: 'The animal is trained to fight. The rider may re-roll any failed control test. Only one re-roll may be made per test.',
+      },
+    ],
+  },
+  cheval: {
+    nom: 'Horse',
+    texte:
+      'Horses are not trained for war and do not attack the enemy. They remain very useful nonetheless for moving quickly across the battlefield.',
+  },
+  destriers: {
+    nom: 'Warhorses',
+    texte: 'Warhorses are powerfully built horses trained for combat. They are mainly used by human warbands.',
+    regles_speciales: [
+      {
+        nom: 'Trained',
+        texte: 'The animal is trained to fight. The rider may re-roll any failed control test. Only one re-roll may be made per test.',
+      },
+    ],
+  },
+  destrier_du_chaos_market: {
+    nom: 'Chaos Steed',
+    texte: "Chaos steeds are twisted parodies of the Empire's magnificent chargers. They are ridden into battle by Chaos warbands.",
+    regles_speciales: [
+      {
+        nom: 'Cannot Be Ridden by Possessed',
+        texte: 'Even Chaos steeds refuse to be ridden by abominations such as the Possessed.',
+      },
+      {
+        nom: 'Trained',
+        texte: 'The animal is trained to fight. The rider may re-roll any failed control test. Only one re-roll may be made per test.',
+      },
+    ],
+  },
+  lion_de_pierre: {
+    nom: 'Stone Lion',
+    texte:
+      'Works of a magical nature, carved from enchanted stone, these statues remain motionless, guarding temples. On closer inspection, these avatars are indistinguishable from an ordinary statue, only stirring when certain rules are violated within the temple grounds. The vast majority of these sculptures are heavily weathered by time, suggesting they may date from an ancient era and that the arcane knowledge used in their creation has been lost or remains unknown. Rumour has it that they hide within secret sanctuaries whose priests have been slaughtered by defilers. Ruins watched over by vigilant guardians who will resist all attempts to send them back to stillness, repelling those who dare uncover the mystery.',
+    regles_speciales: [
+      { nom: 'Fear', texte: 'Stone lions are supernaturally animated sculptures that cause fear.' },
+      {
+        nom: 'Save',
+        texte:
+          'Due to their stone-like skin, stone lions have a 5+ armour save that cannot be modified by Strength (or by other save modifiers).',
+      },
+      { nom: 'Ferocious Charge', texte: 'Stone lions attack at Strength+1 when charging, due to their mass.' },
+      {
+        nom: 'Magical Attacks',
+        texte: "All of the stone lion's Attacks are considered magical, the same as Daemon Attacks.",
+      },
+      { nom: 'Immune to Poison', texte: 'Stone lions are unaffected by any poison.' },
+    ],
+  },
+  loup_geant: {
+    nom: 'Giant Wolf',
+    texte:
+      'The giant wolf is common in most of the mountains of the Known World. However, capturing a wolf cub to train is far from easy, especially for a frail goblin.',
+    regles_speciales: [{ nom: 'Note', texte: 'Giant wolves cannot be taken by a warband that has giant spiders.' }],
+  },
+  mule_market: {
+    nom: 'Mule',
+    texte:
+      'Their stubbornness is legendary. And yet? That doesn\'t stop halflings, dwarfs, and portly clerics from using them as mounts!',
+    regles_speciales: [
+      { nom: 'Slow', texte: 'A mule only moves 2D6" when uncontrollable.' },
+      {
+        nom: 'Mule-headed!',
+        texte:
+          'If a warrior rides a mule, or is in base contact with the mule, he must pass a Leadership test each turn or the animal will refuse to move forward.',
+      },
+      {
+        nom: 'Pig-headed!',
+        texte:
+          'If it has no rider or handler, the mule moves in a randomly determined direction. If combat is taking place within 6", the mule moves away in the opposite direction.',
+      },
+      {
+        nom: 'Peaceful',
+        texte:
+          'Mules do not fight and cannot charge in hand-to-hand combat: they refuse to move forward. If an enemy warrior charges a mounted mule, immediately roll on the Whoa Boy! chart. If an unmounted mule is charged, it becomes uncontrollable and moves directly away from its opponent.',
+      },
+    ],
+  },
+  rhinox: {
+    nom: 'Rhinox',
+    texte:
+      'Beneath the ruined realm of the Mountains of Mourn Titans lie the ice fields where herds of rhinox graze. Rhinox have become a cultural cornerstone of the savage realms. Taming these ill-tempered beasts of burden is truly a feat of strength.',
+    regles_speciales: [
+      {
+        nom: 'Availability',
+        texte:
+          'A Hero searching for a rhinox adds +1 to his rarity roll result for each point of Strength he has. If a rhinox is found, the Hero must make a Strength test. If the test fails, he is injured by the rhinox while trying to capture and tame it. Immediately roll on the Serious Injury table.',
+      },
+      { nom: 'Fear', texte: 'Rhinox are large and dangerous cave beasts, with horns as long as a grown man. They cause fear.' },
+      {
+        nom: 'Bad Temper',
+        texte:
+          "Even rhinox tamed by their rider have a temper as short as a pygmy's thumb. When declaring charges, if an enemy fighter is eligible for a charge by the rhinox's rider, he must pass a Leadership test or be forced to declare a charge (if there is a choice between several targets, the player controlling the rhinox may choose freely among them).",
+      },
+      {
+        nom: 'Crushing Charge',
+        texte:
+          'A charging rhinox rider remains a terrifying sight, the ground trembling as the cave beast crashes into enemy ranks. Whenever a rhinox rider charges more than 7", he inflicts 1D3 impact hits based on the rhinox\'s base Strength.',
+      },
+    ],
+  },
+  sang_froid: {
+    nom: 'Cold One',
+    texte: 'These scaly creatures native to the New World are stupid and aggressive, but make excellent combat mounts.',
+    regles_speciales: [
+      { nom: 'Fear', texte: 'Cold ones cause fear.' },
+      {
+        nom: 'Stupid',
+        texte:
+          "Make a test against the rider's Leadership each turn. If the test is failed, apply the rules for stupidity. Otherwise, the model may act normally.",
+      },
+      { nom: 'Scaly Skin', texte: "Cold ones add +2 instead of +1 to their rider's armour save." },
+    ],
+  },
+  sanglier_de_guerre_market: {
+    nom: 'War Boar',
+    texte:
+      'Huge, ferocious, and hot-tempered: what more could an orc leader want? Orc warbands sometimes use these animals in the ruins of Mordheim or to travel through the surrounding countryside. They remain uncommon, however, as the biggest orcs invariably claim the right to ride them.',
+    regles_speciales: [
+      {
+        nom: 'Furious Charge',
+        texte:
+          "Thanks to their bulk, war boars gain a +2 Strength bonus when charging. Note that this bonus only applies to the boar, not its rider.",
+      },
+      {
+        nom: 'Thick Skin',
+        texte: "The boar's thick skin and hide make it hard to wound. Boars add +2 instead of +1 to their rider's armour save.",
+      },
+    ],
+  },
+  tapis_volant: {
+    nom: 'Flying Carpet',
+    texte:
+      'These wondrous objects from ancient times are even rarer than magic lamps. They are thought to originate from the far-off Isles of the Sorcerers, lost long ago.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'A flying carpet counts as an ordinary mount and allows 16" of movement, with no penalty for terrain. It can also be used to reach the upper floors of a building without being slowed down. The carpet can carry up to three human-sized creatures, or one large creature and one human-sized creature. One of the occupants must be a Hero. Due to its magical nature, the flying carpet is indestructible.',
+      },
+    ],
+  },
+  molosse_estalien: {
+    nom: 'Estalian Mastiff',
+    texte: 'An Estalian war dog, livelier and better trained for hunting than Old World mastiffs.',
+  },
+  singe_de_barbarie: {
+    nom: 'Barbary Ape',
+    texte: 'A small, cunning monkey, capable of scavenging through rubble and pilfering small items during battle.',
+    regles_speciales: [
+      {
+        nom: 'Pilferer',
+        texte: 'At the end of the game, if its owner survived, roll 1D6: on a 6, the ape brings back 1D6 gold crowns pilfered during the battle.',
+      },
+    ],
+  },
 };
 
 const DISPONIBILITE_ARTEFACT_EN =
