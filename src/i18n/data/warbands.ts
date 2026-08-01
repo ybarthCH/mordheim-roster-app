@@ -3122,7 +3122,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       demi_grand: {
-        nom: 'Half-Grand',
+        nom: 'Half-grown',
         regles_speciales: [
           { nom: 'Equipment', texte: 'Ogres have no free dagger and never fight with a dagger in hand-to-hand combat.' },
         ],

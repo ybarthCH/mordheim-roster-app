@@ -5,6 +5,7 @@ import { STAT_KEYS } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { getDramatisPersonae } from '../../data/dramatisPersonae';
 import { useLanguage } from '../../state/useLanguage';
+import { libelleCaracteristique } from '../../utils/stats';
 
 export type ResultatRechercheDramatisPersonae = {
   dramatisPersonaeId: string;
@@ -29,7 +30,7 @@ export function RechercheDramatisPersonaeModal({
   onClose,
   onTerminer,
 }: Props) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [dpId, setDpId] = useState('');
   const [succesDeclare, setSuccesDeclare] = useState(false);
 
@@ -128,7 +129,7 @@ export function RechercheDramatisPersonaeModal({
               <div className="stat-grid">
                 {STAT_KEYS.map((k) => (
                   <div key={k} className="stat-grid__cell stat-grid__cell--label">
-                    {k}
+                    {libelleCaracteristique(k, language)}
                   </div>
                 ))}
                 {STAT_KEYS.map((k) => (

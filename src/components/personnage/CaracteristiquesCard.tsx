@@ -3,6 +3,7 @@ import type { Profile, Stats } from '../../types/catalog';
 import type { Member } from '../../types/roster';
 import { plafondPour, estStatAuPlafond } from '../../utils/plafond';
 import { useLanguage } from '../../state/useLanguage';
+import { libelleCaracteristique } from '../../utils/stats';
 
 type CaracteristiquesCardProps = {
   membre: Member;
@@ -11,7 +12,7 @@ type CaracteristiquesCardProps = {
 };
 
 export function CaracteristiquesCard({ membre, profil, onEditerStat }: CaracteristiquesCardProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const plafond = plafondPour(profil, membre.competences_acquises);
   return (
     <div className="card">
@@ -19,7 +20,7 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
       <div className="stat-grid">
         {STAT_KEYS.map((k) => (
           <div key={k} className="stat-grid__cell stat-grid__cell--label">
-            {k}
+            {libelleCaracteristique(k, language)}
           </div>
         ))}
         {STAT_KEYS.map((k) => {
@@ -57,7 +58,7 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
       {plafond && (
         <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
           {t('caracteristiques.capLabel')} ({plafond.label}) :{' '}
-          {STAT_KEYS.map((k) => `${k} ${plafond[k]}`).join(' · ')}
+          {STAT_KEYS.map((k) => `${libelleCaracteristique(k, language)} ${plafond[k]}`).join(' · ')}
           {plafond.note && <> — {plafond.note}</>}
         </p>
       )}

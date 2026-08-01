@@ -13,6 +13,7 @@ import { peutGagnerExperience } from '../../utils/xp';
 import { useRosters } from '../../state/useRosters';
 import { useLanguage } from '../../state/useLanguage';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
+import { libelleCaracteristique } from '../../utils/stats';
 
 const BUDGET_PAR_DEFAUT = 500;
 
@@ -351,7 +352,7 @@ function RecrutementDraftModal({
   onClose,
   onConfirm,
 }: RecrutementDraftModalProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [nom, setNom] = useState('');
   const [xpDepartSaisie, setXpDepartSaisie] = useState(String(profil.xp_depart ?? 0));
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
@@ -417,7 +418,7 @@ function RecrutementDraftModal({
         <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
           {STAT_KEYS.map((k) => (
             <div key={k} className="stat-grid__cell stat-grid__cell--label">
-              {k}
+              {libelleCaracteristique(k, language)}
             </div>
           ))}
           {STAT_KEYS.map((k) => (

@@ -9,6 +9,7 @@ import { getItem } from '../../data/items';
 import { STAT_KEYS } from '../../types/catalog';
 import { Icon, type IconName } from '../common/Icon';
 import { useLanguage } from '../../state/useLanguage';
+import { libelleCaracteristique } from '../../utils/stats';
 
 const ICONE: Partial<Record<string, IconName>> = {
   colere: 'crane',
@@ -63,7 +64,7 @@ export function RecompenseSeigneurDesOmbresWizard({
   onAppliquer,
   onAnnuler,
 }: Props) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [mode, setMode] = useState<Mode>('liste');
   const [selectionId, setSelectionId] = useState('');
   const [resultatFinal, setResultatFinal] = useState<RecompenseResultat | null>(null);
@@ -231,7 +232,7 @@ export function RecompenseSeigneurDesOmbresWizard({
         <div className="flex flex-wrap gap-sm">
           {STAT_KEYS.map((k) => (
             <button key={k} className="btn" onClick={() => choisirPerteCarac(k)}>
-              -1 {k}
+              -1 {libelleCaracteristique(k, language)}
             </button>
           ))}
         </div>
@@ -376,7 +377,7 @@ export function RecompenseSeigneurDesOmbresWizard({
           <p className="text-sm mb-0">
             <strong>{t('seigneurOmbres.characteristicsLabel')}</strong>{' '}
             {Object.entries(resultatFinal.statsDelta)
-              .map(([k, v]) => `${v! > 0 ? '+' : ''}${v} ${k}`)
+              .map(([k, v]) => `${v! > 0 ? '+' : ''}${v} ${libelleCaracteristique(k as keyof Stats, language)}`)
               .join(', ')}
             {resultatFinal.ignorePlafond && t('seigneurOmbres.beyondMaximums')}
           </p>

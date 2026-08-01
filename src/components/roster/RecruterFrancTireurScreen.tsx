@@ -10,12 +10,13 @@ import {
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { sortsMagieMineureDisponibles } from '../../utils/magie';
 import { useLanguage } from '../../state/useLanguage';
+import { libelleCaracteristique } from '../../utils/stats';
 
 export function RecruterFrancTireurScreen() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const roster = getRosterById(id ?? '');
   const [recherche, setRecherche] = useState('');
   const [voirIndisponibles, setVoirIndisponibles] = useState(false);
@@ -185,7 +186,7 @@ export function RecruterFrancTireurScreen() {
             <div className="stat-grid">
               {STAT_KEYS.map((k) => (
                 <div key={k} className="stat-grid__cell stat-grid__cell--label">
-                  {k}
+                  {libelleCaracteristique(k, language)}
                 </div>
               ))}
               {STAT_KEYS.map((k) => (
@@ -202,7 +203,7 @@ export function RecruterFrancTireurScreen() {
                 <div className="stat-grid">
                   {STAT_KEYS.map((k) => (
                     <div key={k} className="stat-grid__cell stat-grid__cell--label">
-                      {k}
+                      {libelleCaracteristique(k, language)}
                     </div>
                   ))}
                   {STAT_KEYS.map((k) => (

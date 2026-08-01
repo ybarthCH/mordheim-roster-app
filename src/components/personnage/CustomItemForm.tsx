@@ -4,6 +4,7 @@ import type { Stats } from '../../types/catalog';
 import type { CustomItem } from '../../types/roster';
 import { CATEGORIE_ORDRE, libelleCategorie } from '../../utils/shop';
 import { useLanguage } from '../../state/useLanguage';
+import { libelleCaracteristique } from '../../utils/stats';
 
 type CustomItemFormValue = Omit<CustomItem, 'id'>;
 
@@ -137,7 +138,7 @@ export function CustomItemForm({ titre, initial, onEnregistrer, onAnnuler, onRev
         <div className="stat-grid">
           {STAT_KEYS.map((k) => (
             <div key={k} className="stat-grid__cell stat-grid__cell--label">
-              {k}
+              {libelleCaracteristique(k, language)}
             </div>
           ))}
           {STAT_KEYS.map((k) => (

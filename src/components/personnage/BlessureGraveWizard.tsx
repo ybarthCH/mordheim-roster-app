@@ -13,6 +13,7 @@ import type { SeriousInjuryEffect } from '../../types/roster';
 import { useLanguage } from '../../state/useLanguage';
 import type { Language } from '../../state/useLanguage';
 import { translateBlessure } from '../../i18n/data/blessuresGraves';
+import { libelleCaracteristique } from '../../utils/stats';
 
 // Profil de l'adversaire dans les fosses de combat (résultat "Gladiateur") —
 // c'est le franc-tireur "Gladiateur" (Pit Fighter, hiredSwords.ts) que l'on
@@ -31,7 +32,7 @@ function BlocStats({
   equipement?: string[];
   reglesSpeciales?: { nom: string; texte: string }[];
 }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   return (
     <div className="card card--tight" style={{ marginBottom: '0.5rem' }}>
       <p className="text-sm mb-0" style={{ fontWeight: 'bold' }}>
@@ -40,7 +41,7 @@ function BlocStats({
       <div className="stat-grid" style={{ marginTop: '0.3rem' }}>
         {STAT_KEYS.map((k) => (
           <div key={k} className="stat-grid__cell stat-grid__cell--label">
-            {k}
+            {libelleCaracteristique(k, language)}
           </div>
         ))}
         {STAT_KEYS.map((k) => (

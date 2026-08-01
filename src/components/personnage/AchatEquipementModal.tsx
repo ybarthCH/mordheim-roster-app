@@ -27,6 +27,7 @@ import { useGameRules } from '../../state/useGameRules';
 import { CustomItemForm } from './CustomItemForm';
 import { useLanguage } from '../../state/useLanguage';
 import { translateItem } from '../../i18n/data/items';
+import { libelleCaracteristique } from '../../utils/stats';
 
 type Props = {
   catalogue: WarbandCatalog;
@@ -649,7 +650,7 @@ export function AchatEquipementModal({
                 <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
                   {STAT_KEYS.map((k) => (
                     <div key={k} className="stat-grid__cell stat-grid__cell--label">
-                      {k}
+                      {libelleCaracteristique(k, language)}
                     </div>
                   ))}
                   {STAT_KEYS.map((k) => (
