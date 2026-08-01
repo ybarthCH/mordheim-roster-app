@@ -3753,6 +3753,836 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
     },
   },
+  nains_du_chaos: {
+    nom: 'Chaos Dwarfs (1c)',
+    regles_speciales: [
+      {
+        nom: 'Hard to Kill',
+        texte:
+          'Like their uncorrupted kin, Chaos Dwarfs are tough, resilient individuals who can only be taken Out of Action on a roll of 6 instead of 5-6 on the Injury table. Treat a roll of 1-2 as Knocked Down, 3-5 as Stunned, and 6 as Out of Action.',
+        exception: 'Does not apply to Snitches',
+      },
+      {
+        nom: 'Hard Head',
+        texte: 'Chaos Dwarfs ignore the special rules of maces, hammers, and other such weapons. They too are not easy to knock silly!',
+        exception: 'Does not apply to Snitches',
+      },
+      {
+        nom: 'Armour',
+        texte: 'Chaos Dwarfs suffer no Movement penalty for wearing armour.',
+        exception: 'Does not apply to Snitches',
+      },
+      {
+        nom: 'Hired Swords',
+        texte:
+          'A Chaos Dwarf warband may hire the following Hired Swords: Ogre Bodyguard, Gladiator, Wizard, Imperial Assassin, and Hobgoblin Scout. They may also hire any Hired Sword available to all warbands, as well as those available to Orc and Chaos warbands. They may never hire any Elf Hired Sword, whoever they are!',
+        exception: 'Does not apply to Snitches',
+      },
+    ],
+    profils: {
+      hierogrammate: {
+        nom: 'Hierogrammate',
+        regles_speciales: [
+          { nom: 'Leader', texte: "Any warrior within 6\" of the Hierogrammate may use the latter's Leadership for their tests." },
+          { nom: 'Sorcerer', texte: 'The Hierogrammate is a spellcaster who uses the Rituals of Hashut (see Magic).' },
+          {
+            nom: 'Priest',
+            texte: 'The Hierogrammate starts with two rituals. One of them is the Sacrificial Ritual. The other spell is determined as usual from the Rituals of Hashut.',
+          },
+        ],
+      },
+      geolier: {
+        nom: 'Jailer',
+        regles_speciales: [
+          { nom: 'Bad Reputation', texte: 'Jailers are known for their brutality. The mere thought of being captured by one of them strikes fear into Humans.' },
+        ],
+      },
+      centaure_taureau: {
+        nom: 'Bull Centaur',
+        regles_speciales: [
+          {
+            nom: 'Large Target',
+            texte:
+              "Bull Centaurs are large creatures and therefore make prime targets for archers. They are Large Targets, as defined in the Mordheim shooting rules. As a Large Target, the Bull Centaur adds an extra +20 to the warband's rating.",
+          },
+          { nom: 'No Missile Weapons', texte: 'May never be equipped with missile weapons.' },
+        ],
+      },
+      delateur: {
+        nom: 'Snitch',
+        regles_speciales: [
+          {
+            nom: 'The Grind',
+            texte: "The will of Snitches has been broken by their masters. Snitches will never become Heroes. Re-roll any 'Lad's Got Talent' result.",
+          },
+        ],
+      },
+      nain_du_chaos: { nom: 'Chaos Dwarf' },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+      guerrier_gnoblar: {
+        nom: 'Gnoblar Fighter',
+        regles_speciales: [
+          { nom: 'Weapons/armour', texte: 'Equipped with a dagger and shrapnel (counts as a throwing weapon, range 8", Strength 2, and double shot).' },
+          {
+            nom: 'Utterly Insignificant',
+            texte: "Counts towards the warband's warrior count, but is not counted for Rout tests (neither for determining the warband's starting size nor for casualties).",
+          },
+          {
+            nom: 'Squabbles',
+            texte: 'Roll 1D6 at the start of the turn for each Gnoblar not engaged in hand-to-hand combat, within 2" of another Gnoblar. On a roll of 1, the Gnoblar insults, curses, and/or threatens the other Gnoblar and can do nothing else this turn.',
+          },
+          {
+            nom: 'Like a War Dog',
+            texte:
+              'Does not count as an animal in the fiction (counts as a Greenskin, not subject to Animosity), but follows the same rules as a war dog: never gains experience, recovery 1-2 Dead/3-6 Alive, counts towards the maximum warband size.',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      increvable: {
+        nom: 'Unstoppable',
+        texte:
+          'A Chaos Dwarf with this skill is renowned for surviving wounds that would fell a lesser warrior. After a game in which this Hero was taken Out of Action, when you roll on the Serious Injury table, the dice may be re-rolled once. The result of this second roll must be accepted, even if the consequences are worse.',
+      },
+      ingenieur_du_chaos: {
+        nom: 'Chaos Engineer',
+        texte:
+          'The Hero has extensive technical knowledge which he can put to use crafting fell weapons and armour. Whenever a Hero with this skill searches for Chaos armour (including an exoskeleton) or obsidian weapons, he gains a +3 bonus to the roll. This bonus represents the engineer\'s ability to craft these items himself, and therefore ignores the special rules on rarity and the Gift of Chaos. This skill does not grant the ability to wear Chaos armour.',
+      },
+      crane_epais: {
+        nom: 'Thick Skull',
+        texte:
+          "The Hero has a thick skull, even for a Chaos Dwarf. The Hero has a special 3+ save to avoid being Stunned. If the save is successful, the Hero is treated as Knocked Down instead. If the Chaos Dwarf also wears a helmet, this save is 2+ instead of 3+ (which replaces the helmet's usual special rule).",
+      },
+      chasseur_de_ressources: {
+        nom: 'Resource Hunter',
+        texte: 'This Chaos Dwarf is particularly skilled at locating valuable resources. When he rolls on the Exploration table at the end of the game, the Hero may modify one die roll by +1/-1.',
+      },
+      tres_coriace: {
+        nom: 'Extremely Tough',
+        texte: 'Chaos Dwarfs are sturdy creatures, and this Hero is determined, even for a Chaos Dwarf! On the Injury table, a roll of 1-3 is treated as Knocked Down, 4-5 as Stunned, and 6 as Out of Action.',
+      },
+      tyran: {
+        nom: 'Tyrant',
+        reserve_a: 'Leader (Hierogrammate) only',
+        texte:
+          "This priest of Hashut is renowned for his tyranny. His word is absolute, and his own warband fears his cruelty more than the enemy's. During a Rout test, if the warband is led by a Leader with this skill, he may rally his warband to hold their ground. This skill allows the Leader to re-roll a failed Rout test as long as the Leader is not Knocked Down or Stunned. If the test is re-rolled, the new result applies, even if it is worse. If the Leader is taken Out of Action, the warband must immediately take a Rout test.",
+      },
+    },
+    equipement: {
+      nains_du_chaos: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_tir: ['30gc per pair', undefined, undefined],
+      },
+      delateurs: {
+        armes_cac: ['first free', undefined, undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Rituals of Hashut',
+      type: 'sorcery',
+      sorts: [
+        {
+          nom: 'Sacrificial Ritual',
+          texte:
+            "The Hierogrammate must be in contact with a Chaos Machine to cast this ritual. Remove a captive from the machine and from his original warband's roster. The Hierogrammate may sacrifice additional captives to reduce the difficulty by -1 per extra sacrifice (before the test). On a success, +1D3 XP.",
+          note: 'Mandatory spell known from the start',
+        },
+        { nom: 'Spirit of Hashut', texte: 'Draw an 18" line from the Hierogrammate. All fighters along the line suffer a Strength 4 hit.' },
+        { nom: 'Bellow of Doom', texte: 'All fighters in base contact with the Hierogrammate must pass a Leadership test or break off combat and flee.' },
+        { nom: 'Fumes of Azgorh', texte: 'Range 8", hits all fighters in its path on a 4+. Strength 4 hit, no armour save allowed.' },
+        {
+          nom: 'Glittering Skin',
+          texte:
+            "Can be cast on the Hierogrammate himself or any fighter within 6\". Negates any Wound suffered on a 4+. In hand-to-hand combat, any fighter who hits the target suffers a Strength 3 hit for each blow landed. Lasts until the start of the Hierogrammate's next Shooting phase.",
+        },
+        { nom: 'Lava Flow', texte: 'The Hierogrammate moves 12" in any direction, even to charge, but may only reappear on or beneath the ground.' },
+        { nom: 'Earthquake', texte: 'All fighters (friend or foe) within 3" of the Hierogrammate must pass an Initiative test or suffer 1D3 Strength 4 hits.' },
+      ],
+    },
+  },
+  gladiateurs: {
+    nom: 'Gladiators (1b)',
+    regles_speciales: [
+      {
+        nom: 'Gladiator',
+        texte: 'All models in the warband gain +1 WS and +1 Attack if the fight takes place inside a building, in ruins, or in an arena (to be clearly defined before the game).',
+      },
+      { nom: 'Free the Slaves!', texte: 'Gladiators despise all slavers and will never sell a captured opponent to one of them.' },
+      {
+        nom: 'Into the Arena!',
+        texte:
+          "A captured prisoner can be sent to fight in the arenas of Cutthroat's Haven (full rules in Town Cryer #14): if the Gladiator sent wins, he gains +2 XP and the warband receives the prisoner's weapons/armour plus 50 gc; if he loses, roll a restricted Serious Injury (Stripped/Captured/Hardened/Sold to the Arena/Miraculous Survival results excluded) with no loss of equipment, and the winning prisoner then gains +50 gc and +2 XP. The crowd then decides (4+ on 1D6) whether the prisoner is freed; otherwise he remains captive and can be sent back into the arena after future games.",
+      },
+      {
+        nom: 'Fighting Styles',
+        texte:
+          'Except for Ogre Gladiators and Troll Slayers (separate restricted list), each model chooses a fighting style from the corresponding list (matching weapons and armour); a Hero may mix styles if he has Weapons Training and/or Weapons Expert. The warband may switch styles between games (swapping equipment or buying the missing pieces) and Henchmen may have different styles within the same group. Official price for the complete style, to be applied manually instead of the itemised total if the whole style is bought at once: Orc 20 gc, Undead 35 gc, Empire 45 gc, Chaos 50 gc, Skink Netsman 25 gc, Fury Netsman 30 gc.',
+      },
+      { nom: 'Hired Swords', texte: 'The warband may hire any available Hired Sword, except the Elf Scout.' },
+    ],
+    profils: {
+      roi_de_larene: {
+        nom: 'King of the Arena',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any model within 6" of the King of the Arena may use his Leadership for their tests.' },
+        ],
+      },
+      veteran_de_larene: { nom: 'Arena Veteran' },
+      gladiateur_tueur_de_trolls: {
+        nom: 'Gladiator Troll Slayer',
+        regles_speciales: [
+          {
+            nom: 'Hard to Kill',
+            texte: 'Only taken Out of Action on a roll of 6 (instead of 5-6) on the Injury table: 1-2 Knocked Down, 3-5 Stunned, 6 Out of Action.',
+          },
+          { nom: 'Hard Head', texte: 'Ignores the special rules of maces, hammers, and other blunt weapons.' },
+          { nom: 'Hatred of Orcs and Goblins', texte: 'Like all Dwarfs, hates Orcs and Goblins (see Psychology).' },
+          { nom: 'Grudge-Bearer', texte: 'If the warband hires an Elf Hired Sword, the Gladiator Troll Slayer immediately leaves the warband.' },
+          { nom: 'Death Wish', texte: 'Immune to Psychology and never takes a test when fighting alone.' },
+        ],
+      },
+      gladiateur: { nom: 'Gladiator' },
+      retiaire: {
+        nom: 'Netsman',
+        regles_speciales: [
+          {
+            nom: 'Dodge',
+            texte: 'If targeted by a charge, may attempt to dodge by passing an Initiative test: on a success, the charge is considered to have failed.',
+          },
+        ],
+      },
+      gladiateur_ogre: {
+        nom: 'Ogre Gladiator',
+        regles_speciales: [
+          { nom: 'Fear', texte: 'A large creature that causes Fear (see Psychology).' },
+          { nom: 'Large', texte: 'Large Target, as explained in the Shooting chapter.' },
+          {
+            nom: 'Slow Witted',
+            texte: 'Only ticks off half a box for each experience point earned; therefore needs double the usual XP to advance.',
+          },
+          {
+            nom: 'Skills',
+            texte:
+              "If he becomes a Hero on a 'Lad's Got Talent' result, chooses his skills from the Combat and Strength lists, plus the Gladiators' special skills (Bowl Over, Iron Will, Big Arms, Weapons Master, Old Campaigner).",
+          },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      renversement: {
+        nom: 'Bowl Over',
+        texte:
+          'Instead of a normal charge, attempts a single attack with +1 to hit and +1 Strength, without weapon or Weapon Skill bonus; scores a Critical Hit on a 5+.',
+      },
+      volonte_de_fer: {
+        nom: 'Iron Will',
+        texte:
+          'Taken Out of Action, tests his Toughness to get back up and keep fighting; at the start of each following turn, he repeats the test with a cumulative -1 penalty, until he fails again (removed from the battlefield).',
+      },
+      gros_bras: {
+        nom: 'Big Arms',
+        texte: "Ignores Fatigue penalties; his weapon's Strength bonus applies during every round of hand-to-hand combat, not just the first.",
+      },
+      maitre_darmes: {
+        nom: 'Weapons Master',
+        texte:
+          'Ignores the restrictions of the Difficult to Handle rule, allowing him to combine, for example, a morning star and a shield, or even a pair of morning stars.',
+      },
+      vieux_de_la_vieille: { nom: 'Old Campaigner', texte: 'Immune to Psychology.' },
+      berserk_gladiateur: {
+        nom: 'Berserk',
+        reserve_a: 'Gladiator Troll Slayer only',
+        texte: '+1 to hit in hand-to-hand combat during the turn he charges (not cumulative with Furious Charge).',
+      },
+      charge_furieuse_gladiateur: {
+        nom: 'Furious Charge',
+        reserve_a: 'Gladiator Troll Slayer only',
+        texte: 'May double his number of Attacks during the turn he charges, with a -1 penalty to hit.',
+      },
+      tueur_de_monstres: {
+        nom: 'Monster Slayer',
+        reserve_a: 'Gladiator Troll Slayer only',
+        texte: 'Always wounds his opponent on a 4+ regardless of Toughness, unless his Strength already allows him to wound more easily.',
+      },
+    },
+    equipement: {
+      style_skink: {
+        armes_tir: ['or Javelins', 'or Trident'],
+        armures: [undefined, 'or Net'],
+        divers: ['or Buckler'],
+      },
+      style_furie: {
+        armes_cac: [undefined, 'bought as a pair, or Spear and Net', 'or pair of Swords'],
+        divers: ['with Spear, or pair of Swords'],
+      },
+      ogres_trolls: {
+        armes_cac: ['first free', 'Hammer or Mace', undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+    },
+  },
+  kislevites: {
+    nom: 'Kislevites (1a)',
+    regles_speciales: [
+      {
+        nom: 'Hired Swords',
+        texte: 'A Kislevite warband may hire the same Hired Swords as the human Mercenary warbands described in the Mordheim rulebook.',
+      },
+      {
+        nom: 'Old Enemies',
+        texte:
+          'Kislevites may never ally with any Chaos warband of any kind. This restriction extends to the following warbands: Possessed, Beastmen, Skaven, Dark Elves, Chaos Dwarfs, and any other warband deemed too chaotic by the players.',
+      },
+    ],
+    profils: {
+      capitaine_de_druzhina: {
+        nom: 'Druzhina Captain',
+        regles_speciales: [
+          { nom: 'Leader', texte: "Any warrior within 6\" of the Druzhina Captain may use the latter's Ld for all his Leadership tests." },
+          {
+            nom: 'Heirloom',
+            texte:
+              "When the warband is created, the Captain may buy one item from the Kislevite Warriors' equipment list at half price (family heirloom). If he loses this item (for example, a 'Stripped' result on the Injury table), he must replace it as soon as possible with a good-quality substitute by rebuying the same item at 150% of its usual price. Until the item is replaced, the Captain suffers a -1 penalty on all his tests and to-hit rolls.",
+          },
+        ],
+      },
+      dompteur_dours: {
+        nom: 'Bear Tamer',
+        regles_speciales: [
+          {
+            nom: 'Bear Tamer',
+            texte:
+              "A Kislevite warband that includes a Bear Tamer may recruit a Tamed Bear as a Henchman. This animal has been trained to follow the Tamer's instructions: it automatically passes its Stupidity tests when within 6\" of the Bear Tamer (even if the latter is Knocked Down or Stunned).",
+          },
+        ],
+      },
+      esaul: { nom: 'Esaul' },
+      recrue: { nom: 'Recruit' },
+      guerrier_kislevite: {
+        nom: 'Warrior',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Any number. Bought in groups of 1 to 5.' }],
+      },
+      cosaque: {
+        nom: 'Cossack',
+        regles_speciales: [
+          {
+            nom: 'Hatred of Chaos',
+            texte: 'Cossacks are subject to Hatred of the forces of Chaos, i.e. the members of any warband to which the Old Enemies rule applies.',
+          },
+          { nom: 'Recruitment', texte: 'Any number. Bought in groups of 1 to 5.' },
+        ],
+      },
+      streltsi: {
+        nom: 'Streltsi',
+        regles_speciales: [
+          {
+            nom: 'Support',
+            texte:
+              'A Streltsi armed with a halberd and an arquebus may use the halberd to rest his firearm on: he then gains a +1 bonus to hit with his arquebus as long as he does not move during the Movement phase (even if he has a skill that allows him to move and shoot).',
+          },
+          { nom: 'Recruitment', texte: 'Only Kislevite warriors trained in the use of arquebuses. Bought in groups of 1 to 5.' },
+        ],
+      },
+      ours_apprivoise: {
+        nom: 'Tamed Bear',
+        regles_speciales: [
+          { nom: 'Recruitment', texte: 'May only be included if the warband already has a Bear Tamer.' },
+          {
+            nom: 'Tamed',
+            texte:
+              "The Bear simply obeys its tamer. It is subject to Stupidity, but automatically passes its Stupidity tests if it is within 6\" of the Tamer. The Bear never uses the warband leader's Ld, but may use the Tamer's if it is within 6\" of him. The warband cannot control the Bear without its tamer present: if the warband loses the Tamer, the Bear stays in its cage until the warband recruits another one.",
+          },
+          { nom: 'Frightening', texte: 'A charging bear is a fearsome sight. A Tamed Bear causes Fear.' },
+          {
+            nom: 'Bear Hug',
+            texte:
+              "If the Bear hits an enemy model with both its Attacks in the same round of combat, the player may have it make a single bear hug hit instead of the two ordinary hits. Both players roll 1D6 + their model's Strength: if the bear's total is equal to or higher, the enemy automatically loses 1 Wound with no armour save; otherwise it breaks free unharmed.",
+          },
+          {
+            nom: 'Fiercely Loyal',
+            texte:
+              'If, at the end of a game, the Bear has not been taken Out of Action, the Tamer may ignore Stripped, Captured, and Sold to the Arena results (and their equivalents) on the Serious Injury table: treat them instead as Full Recovery.',
+          },
+          { nom: 'Animal', texte: 'Bears are animals and therefore never gain experience points.' },
+          { nom: 'Large Target', texte: 'See the rulebook, Shooting chapter.' },
+          { nom: 'Equipment', texte: 'Fangs and claws!' },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    equipement: {
+      guerriers_kislevites: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, undefined, undefined, undefined, '30gc per pair', '50gc per pair'],
+      },
+      streltsi: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, undefined, '30gc per pair', '50gc per pair', undefined],
+      },
+    },
+  },
+  pirates: {
+    nom: 'Pirates (1b)',
+    regles_speciales: [
+      {
+        nom: 'Hired Swords',
+        texte:
+          "Unless stated otherwise, Pirate warbands have access to the same Hired Swords and items as a human Mercenary warband. The same applies to the usual rules. Pirates must, however, pay an extra +20 gc in wages if their warband includes both Dwarfs and Elves at the same time (the ship isn't that big, and the cramped space makes them more irritable than usual!).",
+      },
+      { nom: 'Press-Ganged in a One-off Game', texte: 'In a one-off game, a Pirate warband starts with 2 free Press-Ganged Men!' },
+      { nom: 'Succession', texte: 'If the Captain is killed, one of the Quartermasters takes over in the same way a Champion would take command of a Mercenary warband.' },
+      {
+        nom: 'Press-Ganging',
+        texte:
+          "Pirate warbands can 'recruit' new members to join the exciting life of piracy, sometimes of their own free will, but more often as an alternative to the plank! Only human Heroes or Henchmen can be recruited this way. Any human Hero from a warband fighting the Pirates who suffers the Captured (61) result on the Serious Injury table may be 'offered' a place in the crew (usually at the point of a cutlass!). Each player rolls 2D6, the Pirate player adding his Captain's Leadership and the opponent adding the captured Hero's Ld. If one side won the game, it may add +1 to its result. If the Pirate player scores the higher result, the Hero abandons his old life and becomes a Deckhand (skills and characteristics changed to match those of a basic Deckhand, or those of his new crewmates if he joins an existing group). If the Hero scores the higher result, he resists the sirens' song and becomes a Press-Ganged Man (stripped of his equipment and weapons, but keeps his original skills and characteristics). Enemy human Henchmen taken Out of Action in a game won by the Pirates (a 1-2 result on the Serious Injury roll) also have a chance to join the crew, following a similar procedure. This rule is not automated in the app: it is resolved entirely on the tabletop, by agreement with the opponent, and the new member must be added manually to the warband (as a Press-Ganged Man or Deckhand, depending on the result).",
+      },
+      {
+        nom: 'Vagabonds and Prisoners',
+        texte:
+          'On the Exploration table, if the Pirates roll the (4.4) Vagabonds or (3.3.3) Prisoners result during their search, they may agree to come aboard the Jolly Roger and join the crew as a Press-Ganged Man or Deckhand, following a procedure similar to that used to recruit an ordinary Hired Sword. Not automated — resolve on the tabletop.',
+      },
+    ],
+    profils: {
+      capitaine_pirate: {
+        nom: 'Pirate Captain',
+        regles_speciales: [
+          { nom: 'Leader', texte: "Any Pirate within 6\" of the Pirate Captain may use the latter's Ld for his Leadership tests." },
+        ],
+      },
+      quartier_maitre: { nom: 'Quartermaster' },
+      mousse: { nom: 'Cabin Boy' },
+      matelot: { nom: 'Deckhand' },
+      artilleur: {
+        nom: 'Gunner',
+        regles_speciales: [
+          {
+            nom: "Swivel Guns are Dangerous, Lad!",
+            texte:
+              "Gunners are known to be among the bravest pirates thanks to their familiarity with black powder weapons. But even among their own, they admire those who dare to bring a swivel gun into battle. Generally, they keep a safe distance, because even they can never be sure when it's going to go off. If a Pirate warband includes a swivel gun, the Gunner wielding it will always be treated as a one-man Henchman group and can never have anyone else with him. As a Pirate warband can only have a single swivel gun, if a Gunner is equipped with one, he must either be a new recruit or be split off from an existing Henchman group. In the latter case, he keeps all the experience and skills he had already gained.",
+          },
+        ],
+      },
+      bosco: {
+        nom: 'Bosun',
+        regles_speciales: [
+          {
+            nom: 'Expert Riggers',
+            texte:
+              "Bosuns are highly skilled with ropes, since they maintain the ship's complex web of rigging. They may re-roll failed Initiative tests when jumping over a gap, making a diving charge, or when climbing up or down a rope.",
+          },
+          {
+            nom: 'Rope & Grapnel',
+            texte: "Bosuns start with a rope & grapnel and may be equipped with weapons and armour chosen from the Pirates' equipment list. Note that they can never sell or give away their rope & grapnel!",
+          },
+        ],
+      },
+      enrole: {
+        nom: 'Press-Ganged Man',
+        regles_speciales: [
+          {
+            nom: 'Not Recruited',
+            texte:
+              "Press-Ganged Men are not recruited for Gold Crowns: they join the warband through the Press-Ganging special rule (a captured enemy Hero or Henchman) or through the Vagabonds/Prisoners results on the Exploration table — see the Pirates' special rules. This profile is provided here so it can be recorded manually in the warband once the procedure has been resolved on the tabletop.",
+          },
+          {
+            nom: 'Never Gains Experience',
+            texte: 'Generally speaking, Press-Ganged Men have no desire to prove their worth to the crew. They are only interested in surviving and, if possible, escaping!',
+          },
+          {
+            nom: 'Riff-Raff',
+            texte:
+              "Press-Ganged Men need not all be armed the same way. Each of them may be given different equipment, as long as it appears on the Press-Ganged Men's equipment list. Press-Ganged Men can never use magic or cast spells in any way, whatever their background or original abilities.",
+          },
+          {
+            nom: "Shiver Me Timbers, They've Taken to the Sails!",
+            texte:
+              'If the Pirate warband is Routed, any Press-Ganged Men who left the table in previous turns are assumed to have successfully escaped and are never seen again. Remove them from your warband roster as if they were dead.',
+          },
+          {
+            nom: "Don't Mind Them, Lads, They Ain't Real Pirates!",
+            texte:
+              "The rest of the crew will barely notice if a Press-Ganged Man flees or is put out of action; they know they'll catch up with him sooner or later and give him 30 lashes if he's lucky! Press-Ganged Men who flee or are taken Out of Action are not counted when working out the Rout test threshold.",
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      interprete_de_chants_marins: {
+        nom: 'Sea Shanty Singer',
+        reserve_a: 'Pirate Heroes only',
+        texte:
+          "In every sea, the pirate is renowned as one of the finest singers to ever tread a ship's boards, able to lift the spirits of any crew with a rousing rendition of pirate songs. At the start of his hand-to-hand combat phase, the Hero may suddenly burst into song, distracting an enemy of his choice in base contact. That enemy must pass a Leadership test or lose 1 Attack for that turn. Does not affect Undead or other non-living creatures, such as the Possessed.",
+      },
+      constitution_solide: {
+        nom: 'Iron Constitution',
+        reserve_a: 'Pirate Heroes only',
+        texte:
+          "Many months spent at sea eating ship's biscuit have hardened the pirate's body where a less hardy man would have collapsed. During battle, the Pirate may ignore any Critical Hit on a 5+ roll of 1D6 (on a success, the Wound is treated normally). If the roll fails, the Critical Hit applies.",
+      },
+      voix_tonitruante: {
+        nom: 'Thundering Voice',
+        reserve_a: 'Pirate Captain only',
+        texte:
+          "The captain has fought in many battles, bellowing orders to his crew, roaring over the din of cannon fire and enemy cries. Once per turn, the Pirate Captain may shout encouragement (or threats) at one of his Pirates within 8\" who has just failed a test resulting in fleeing combat, or a Rally test. That Pirate may then re-take his test. This can only be done if the Pirate Captain is standing and not engaged in hand-to-hand combat.",
+      },
+      pied_marin: {
+        nom: 'Sea Legs',
+        reserve_a: 'Pirate Heroes only',
+        texte:
+          'Even on the roughest seas, the pirate has learned to keep his footing and his balance. During a fight, if the Hero falls, he may ignore the 1D3 hits on a roll of 4+ on 1D6 (make a single roll for all the hits). In addition, if he is Knocked Down or Stunned within 1" of a drop, he may re-roll his Initiative test to determine whether he falls into the void.',
+      },
+      maitre_du_sabre_dabordage: {
+        nom: 'Cutlass Master',
+        reserve_a: 'Pirate Heroes only',
+        texte:
+          'These short-bladed swords are the standard weapon of any pirate crew, and in the hands of a trained sailor they are formidable close-combat weapons. If the Pirate is equipped with a sword, this skill grants him the ability to succeed a parry on a roll equal to or higher than the attacker\'s result, instead of strictly higher. This ability only applies if the Pirate is under cover, inside a building, or within 2" of a terrain feature such as a wall, tree, etc.',
+      },
+      bretteur: {
+        nom: 'Swashbuckler',
+        reserve_a: 'Pirate Heroes only',
+        texte:
+          "This pirate stands out in combat with his dashing style, blending dazzling swordplay and acrobatic feats with charm and witty remarks. Even Mordheim's vilest scoundrels respect (and curse) his ability to always seem to slip effortlessly from their grasp. The Pirate may make a Leadership test at the end of a hand-to-hand combat phase (his turn or the enemy's) if he is still in base contact with enemy fighters. If successful, he may make a normal Move to get away from the enemy (he may not run or charge), without the enemy striking him. If he fails the test, he remains in combat and must fight normally next turn.",
+      },
+    },
+    equipement: {
+      pirates: {
+        armes_cac: ['first free', 'Hammer or Mace', undefined, undefined, undefined, 'Cutlass', undefined],
+        armes_tir: [undefined, undefined, undefined, '30gc per pair', '60gc per pair'],
+      },
+      artilleurs: {
+        armes_cac: ['first free', 'Hammer or Mace', undefined, 'Cutlass'],
+        armes_tir: ['30gc per pair', '60gc per pair', undefined, undefined, 'one per warband'],
+      },
+      enroles: {
+        armes_cac: ['first free', 'Hammer or Mace', undefined, 'Hook', 'Cutlass', undefined],
+      },
+    },
+  },
+  marienburgers: {
+    nom: 'Marienburg Mercenaries (1a)',
+    regles_speciales: [
+      {
+        nom: 'Rare +1 Bonus',
+        texte: 'Thanks to their ties with the merchant guilds of Marienburg, warbands receive a +1 bonus on rare item rolls (see the Trading section).',
+      },
+      {
+        nom: 'Wealth',
+        texte:
+          'To reflect their financial comfort, Marienburgers start a campaign with 600 gc instead of 500. In a one-off game, they receive a 20% increase to the sum allotted for recruitment (for example 1200 gc instead of 1000 gc for a 1000 gc game).',
+      },
+    ],
+    profils: {
+      capitaine_mercenaire: {
+        nom: 'Mercenary Captain',
+        regles_speciales: [
+          { nom: 'Leader', texte: "Any warrior within 6\" of the Mercenary Captain may use the latter's Leadership for his Leadership tests." },
+        ],
+      },
+      champion: { nom: 'Champion' },
+      recrue: { nom: 'Recruit' },
+      guerrier: {
+        nom: 'Warrior',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'As many as you like. Bought in groups of 1 to 5.' }],
+      },
+      tireur: {
+        nom: 'Marksman',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      bretteur: {
+        nom: 'Fencer',
+        regles_speciales: [
+          {
+            nom: 'Sword Expert',
+            texte:
+              'Fencers are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This only applies when they are equipped with ordinary swords, not two-handed swords or other weapons.',
+          },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    equipement: {
+      mercenaires: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, '30gc per pair', '50gc per pair', undefined],
+      },
+      tireur: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, '30gc per pair', undefined, undefined, undefined, undefined, undefined],
+      },
+    },
+  },
+  chevaliers_bretonniens: {
+    nom: 'Bretonnian Knights (1b)',
+    regles_speciales: [
+      {
+        nom: 'Lady of the Lake',
+        texte:
+          'Before engaging in battle, Bretonnian Knights kneel and pray to the Lady of the Lake, swearing to fight to the death for honour and justice. Before starting the game, make a Leadership test using the warband Leader\'s Ld. If the test is successful, the Lady of the Lake has granted her blessing to the warband. It takes the form of a powerful curse that falls upon the enemies of chivalry, and especially upon those who make use of foul, dishonourable weapons of mass destruction. Any enemy model wishing to use a firearm must roll 4+ on 1D6 to overcome the curse. On a failure, it may not shoot. The test must be made every time an enemy wishes to use one of these weapons. Models armed with other missile weapons, such as bows or crossbows, do not need to make this test, unless they are targeting a Bretonnian Knight (Knight of the Quest and Errant Knights only).',
+      },
+      {
+        nom: 'Horsemanship',
+        texte:
+          'Any model equipped from the start with a mount is considered to already have the riding skill specific to its mount. Thus, at warband creation, any Knight with a warhorse or Squire with a horse gains the Ride (Warhorse) or Ride (Horse) skill, as appropriate.',
+      },
+    ],
+    profils: {
+      chevalier_de_la_quete: {
+        nom: 'Knight of the Quest',
+        regles_speciales: [
+          { nom: 'Leader', texte: "Any model within 6\" of the Knight of the Quest may use the latter's Leadership to make his tests." },
+          {
+            nom: 'Knightly Virtue',
+            texte: 'A Knight of the Quest is a chivalrous warrior, far above the ordinary fighter. He never panics and never flees combat. He therefore does not need to take All Alone tests.',
+          },
+        ],
+      },
+      chevalier_errant: {
+        nom: 'Errant Knight',
+        regles_speciales: [
+          {
+            nom: 'Knightly Virtue',
+            texte: 'A Knight of the Quest is a chivalrous warrior, far above the ordinary fighter. He never panics and never flees combat. He therefore does not need to take All Alone tests.',
+          },
+          { nom: 'Mount', texte: 'An Errant Knight may not ride a warhorse if the Knight of the Quest does not already have one.' },
+        ],
+      },
+      ecuyer: {
+        nom: 'Squire',
+        regles_speciales: [
+          { nom: 'Numbers', texte: 'You may not have more Squires than Knights in your warband.' },
+          {
+            nom: 'Mount',
+            texte: 'A Squire may not ride a horse unless the Knight of the Quest and all the Errant Knights in the warband already ride a warhorse.',
+          },
+        ],
+      },
+      homme_darme_bretonnien: { nom: 'Man-at-Arms' },
+      archer_bretonnien: { nom: 'Archer' },
+    },
+    competences_speciales: {
+      vertu_discipline: {
+        nom: 'Virtue of Discipline',
+        reserve_a: 'Bretonnian Knight Heroes only, instead of a normal skill',
+        texte:
+          'The knight has total faith in the code of chivalry: he keeps his cool in the face of adversity and shows complete confidence whatever the situation. Once per battle, if the Hero is not Knocked Down, Stunned, or Out of Action, you may re-roll a failed Rout test.',
+      },
+      vertu_impetuosite: {
+        nom: 'Virtue of Impetuousness',
+        reserve_a: 'Bretonnian Knight Heroes only, instead of a normal skill',
+        texte: 'The knight is eager to clash with his enemies and charges with reckless enthusiasm. When he charges, the Hero adds +1D3" to his Movement. Roll the die before moving the model.',
+      },
+      vertu_purete: {
+        nom: 'Virtue of Purity',
+        reserve_a: 'Bretonnian Knight Heroes only, instead of a normal skill',
+        texte:
+          "The knight's only goal is to serve the Lady of the Lake. The purity of his heart and his discipline grant him a strength of mind that lets him resist his enemies' magic. Any spell cast against the Hero is dispelled on a 4+ on 1D6. This is a natural dispelling caused by the Hero's piety.",
+      },
+      vertu_bravoure: {
+        nom: 'Virtue of Bravery',
+        reserve_a: 'Bretonnian Knight Heroes only, instead of a normal skill',
+        texte:
+          "The knight has sworn to fight the greatest and most powerful opponents. The mightier the enemy, the more valiant the knight's efforts. If he fights a model with a Strength higher than his own, the Hero may re-roll failed to-hit rolls in hand-to-hand combat.",
+      },
+      vertu_noble_dedain: {
+        nom: 'Virtue of Noble Disdain',
+        reserve_a: 'Bretonnian Knight Heroes only, instead of a normal skill',
+        texte: "The knight feels nothing but contempt for enemies who hide behind dishonourable weapons. The Hero is subject to Hatred of all enemies equipped with missile weapons.",
+      },
+    },
+    equipement: {
+      chevaliers: {
+        armes_cac: ['first free', 'Mace', undefined, undefined, undefined, undefined, undefined],
+      },
+      ecuyers: {
+        armes_cac: ['first free', 'Hammer', undefined, undefined, undefined],
+      },
+      hommes_darmes: {
+        armes_cac: ['first free', 'Hammer', undefined, undefined, undefined, undefined, undefined],
+      },
+      archers: {
+        armes_cac: ['first free', undefined, undefined],
+      },
+    },
+  },
+  guerriers_fantomes: {
+    nom: 'Ghost Warriors (1b)',
+    regles_speciales: [
+      {
+        nom: 'Aversion to Poison',
+        texte:
+          'The use of poisons and other drugs is a speciality of the dark elves. Ghost Warriors disapprove of their use even more strongly than the High Elves do. Members of a Ghost Warrior warband never use any type of poison.',
+      },
+      {
+        nom: 'Merciless',
+        texte:
+          'In addition to their hatred of their corrupted cousins, the people of Nagarythe have long fought against Chaos. In a multiplayer game, a Ghost Warrior warband may never ally with any warband of a chaotic nature (Possessed, Skaven, Beastmen, Dark Elves, etc.).',
+      },
+      {
+        nom: 'Tolerant',
+        texte:
+          "Due to their status as outcasts among their own people, the elves of Nagarythe have learned to suppress their contempt for the 'lesser races', and sometimes even work for them. A Ghost Warrior warband may therefore hire any non-chaotic or non-evil Hired Sword (so no Skaven, Possessed, Dark Elves, Undead, etc.). They also avoid anyone who makes use of poisons (so no Assassins).",
+      },
+    ],
+    profils: {
+      maitre_des_ombres: {
+        nom: 'Shadow Master',
+        regles_speciales: [
+          { nom: 'Leader', texte: "Any warrior within 6\" of the Shadow Master may use the latter's Leadership value for his Leadership tests." },
+        ],
+      },
+      rodeur_des_ombres: { nom: 'Shadow Ranger' },
+      tisseur_dombres: {
+        nom: 'Shadow Weaver',
+        regles_speciales: [
+          { nom: 'Sorcerer', texte: 'The Shadow Weaver is a spellcaster who uses the Shadow Magic spell list. He cannot cast spells if he wears armour.' },
+        ],
+      },
+      guerrier_fantome: { nom: 'Ghost Warrior' },
+      novice: { nom: 'Novice' },
+    },
+    competences_speciales: {
+      infiltration_fantome: {
+        nom: 'Infiltration',
+        reserve_a: 'Ghost Warrior Heroes only',
+        texte:
+          'This skill is identical to the Skaven skill of the same name: at the start of the game, you may place him anywhere on the table, provided he is hidden and more than 12" from any enemy.',
+      },
+      voir_dans_les_tenebres: {
+        nom: 'See in the Dark',
+        reserve_a: 'Ghost Warrior Heroes only',
+        texte:
+          'The warrior\'s senses have been sharpened after years spent moving through the shadows. As long as his Movement allows him to reach them, the warrior may always roll the dice to charge enemies he cannot see (instead of the usual 4").',
+      },
+      se_cacher_parmi_les_ombres: {
+        nom: 'Hide Among the Shadows',
+        reserve_a: 'Ghost Warrior Heroes only',
+        texte:
+          "Ghost Warriors have learned to stay perfectly still and become undetectable, even to the keen senses of their Dark Elf cousins. An enemy warrior attempting to detect this warrior while he is hidden must halve his Initiative before measuring the distance.",
+      },
+      tir_silencieux: {
+        nom: 'Silent Shot',
+        reserve_a: 'Ghost Warrior Heroes only',
+        texte:
+          'Long years of guerrilla warfare against the Dark Elves have taught Ghost Warriors how to strike from the shadows without being seen. If hidden, a warrior with this skill may shoot or cast spells while remaining hidden. If his target is not immediately taken Out of Action, it must pass a test against its Initiative to spot him. A success means the shooter is spotted and can no longer remain hidden.',
+      },
+      solide_carrure_fantome: {
+        nom: 'Sturdy Build',
+        reserve_a: 'Ghost Warrior Heroes only, except the Shadow Weaver, maximum two models per warband',
+        texte:
+          'For an elf, the warrior is solidly built, capable of physical feats rare among the inhabitants of Ulthuan. A warrior with this skill may choose his skills from the Strength skills table. This skill cannot be taken by a Shadow Weaver. There may never be more than two elves with this skill in a warband at the same time.',
+      },
+      maitre_des_runes: {
+        nom: 'Master of Runes',
+        reserve_a: 'Shadow Weaver only',
+        texte:
+          'The Shadow Weaver has learned to channel the power of elven runes (see Elven Rune Stones) to an unmatched degree. When using Elven Rune Stones, the sorcerer adds +1 to his dispel roll. In addition, the sorcerer may inscribe elven runes on the weapons and armour of one of his companions. A warband member may re-roll a single armour save or parry roll per battle. After a battle, the rune loses its power and must be re-inscribed.',
+      },
+    },
+    equipement: {
+      guerriers_fantomes: {
+        armes_cac: ['first free', undefined, undefined, undefined, 'Heroes only'],
+        armures: ['Helm', undefined, undefined, 'Heroes only'],
+        divers: ['Heroes only', 'Heroes only', 'Heroes only', 'Heroes only', 'Heroes only'],
+      },
+    },
+    magie: {
+      nom: 'Shadow Magic',
+      type: 'sorcery',
+      note:
+        "The magic wielded by Shadow Weavers differs greatly from the traditional High Magic taught at the Tower of Hoeth. Some spells specify that the target must be near a 'wall': this includes any terrain feature that casts a man-sized shadow.",
+      sorts: [
+        {
+          nom: 'Well of Darkness',
+          texte:
+            'The area around the sorcerer is suddenly filled with shadows concealing everything within it. This spell allows the sorcerer and everyone within 6" of him to hide, exactly as if a wall stood between them and their opponents. They may hide even after running. The effect ends if an enemy enters the area of effect. In addition, those affected count as being under cover against enemy shooting. This spell lasts until the start of the Shadow Weaver\'s next turn.',
+        },
+        {
+          nom: 'Living Shadows',
+          texte:
+            'The shadows around the victim come alive and move to strike her. The Shadow Weaver may cast this spell on any enemy model within 12" of him, and within 2" of a wall. The target suffers a single Strength 4 hit with no armour save allowed.',
+        },
+        {
+          nom: 'Wings of Night',
+          texte:
+            "Dark wings unfurl from the Shadow Weaver's back. He vanishes, reappearing amid the nearby shadows. This spell can only be cast if the sorcerer is within 2\" of a wall. He is immediately moved up to 12\" away, to a spot that is also within 2\" of a wall. If he ends in contact with an enemy model, the Shadow Weaver counts as having charged during the first round of combat.",
+        },
+        {
+          nom: 'Cloak of Darkness',
+          texte:
+            'The Shadow Weaver seems to be swallowed by impenetrable darkness. The Shadow Weaver hides from the enemy\'s sight. As long as he does not attack an enemy model (by casting spells, shooting, or engaging the enemy in hand-to-hand combat), he cannot be attacked. He may intercept normally, but is not obliged to (and if he does not, enemy warriors may of course move past him when they charge). The effect lasts until the Shadow Weaver attacks an enemy model. A model engaged in hand-to-hand combat can never choose not to attack.',
+        },
+        {
+          nom: 'Theatre of Shadows',
+          texte:
+            'Tentacles as black as night burst from the darkness to seize an enemy warrior, placing him at the sorcerer\'s mercy. The Shadow Weaver may cast this spell against any enemy model within 24" of him and within 2" of a wall. The target cannot move unless he passes a Strength test on 2D6 at the start of his turn (before the Recovery phase). This spell lasts until the Shadow Weaver suffers a wound or attempts to cast another spell. If attacked while under the effect of the spell, the victim is treated exactly as if he were Stunned.',
+        },
+        {
+          nom: 'Shield of Shadows',
+          texte:
+            "Shadows form a protective barrier in front of the sorcerer or one of his companions. The Shadow Weaver may cast this spell on himself or a warband member within 12\" of him. The target gains a 5+ armour save unmodified by the attacker's Strength. The spell lasts until the start of the Shadow Weaver's next turn.",
+        },
+      ],
+    },
+  },
 };
 
 function translateRegles(regles: SpecialRule[], en: RegleTraduite[] | undefined): SpecialRule[] {
