@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { RosterInstance } from '../../types/roster';
 import { getCatalogue } from '../../data/warbands';
+import { translateWarbandCatalog } from '../../i18n/data/warbands';
 import { peutAjouterMembre } from '../../utils/validation';
 import { creerMembre } from '../../utils/factory';
 import { calculerCoutRejoindreGroupe, formatCoutProfil, rejoindreGroupe, TRINKETS_LIMITES } from '../../utils/shop';
@@ -24,7 +25,8 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const navigate = useNavigate();
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
-  const catalogue = getCatalogue(roster.bande_id);
+  const catalogueBrut = getCatalogue(roster.bande_id);
+  const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
   const [profilId, setProfilId] = useState('');
   const [nomPerso, setNomPerso] = useState('');
   // Saisies gardées en texte brut (pas en number) : un input contrôlé par un

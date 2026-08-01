@@ -33,6 +33,7 @@ import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu
 import { skillById } from '../../data/gameData';
 import { useLanguage } from '../../state/useLanguage';
 import { translateSkill } from '../../i18n/data/skills';
+import { translateWarbandCatalog } from '../../i18n/data/warbands';
 import {
   acheterPourMembre,
   retirerDeMembre,
@@ -72,8 +73,9 @@ export function PersonnageScreen() {
   const [avanceeAModifier, setAvanceeAModifier] = useState<AdvanceRecord | null>(null);
 
   const membre = roster?.membres.find((m) => m.instance_id === instanceId);
-  const profil = roster && membre ? resolveProfil(roster, membre) : undefined;
-  const catalogue = roster ? getCatalogue(roster.bande_id) : undefined;
+  const catalogueBrut = roster ? getCatalogue(roster.bande_id) : undefined;
+  const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
+  const profil = roster && membre ? resolveProfil(roster, membre, catalogue) : undefined;
   const francTireur = getFrancTireur(membre?.franc_tireur_id);
 
   if (!roster || !membre || !profil || !catalogue) {

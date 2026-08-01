@@ -36,13 +36,14 @@ import { estFrancTireur } from '../../data/hiredSwords';
 import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
+import { translateWarbandCatalog } from '../../i18n/data/warbands';
 
 export function RosterScreen() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
   const { rules } = useGameRules();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const roster = getRosterById(id ?? '');
   const [modalMembre, setModalMembre] = useState(false);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
@@ -58,7 +59,8 @@ export function RosterScreen() {
     );
   }
 
-  const catalogue = getCatalogue(roster.bande_id);
+  const catalogueBrut = getCatalogue(roster.bande_id);
+  const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
   const tribu = tribuChoisie(catalogue, roster);
   const violations = validerComposition(roster);
   const violationsEffectif = validerEffectif(roster);
@@ -401,7 +403,7 @@ export function RosterScreen() {
           // a déjà été recruté, la référence de magie de la bande se cale
           // sur sa Marque plutôt que d'afficher le domaine par défaut.
           const membreMarque = roster.membres.find((m) => resolveProfil(roster, m)?.marque_requise);
-          const profilMarque = membreMarque ? resolveProfil(roster, membreMarque) : undefined;
+          const profilMarque = membreMarque ? resolveProfil(roster, membreMarque, catalogue) : undefined;
           return <MagieReference catalogue={catalogue} profil={profilMarque} marqueId={membreMarque?.marque} />;
         })()}
 
@@ -468,7 +470,7 @@ export function RosterScreen() {
       {heroPromuEnAttente &&
         catalogue &&
         (() => {
-          const profilPromu = resolveProfil(roster, heroPromuEnAttente);
+          const profilPromu = resolveProfil(roster, heroPromuEnAttente, catalogue);
           return (
             profilPromu && (
               <AvanceeModal
