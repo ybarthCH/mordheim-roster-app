@@ -1871,6 +1871,783 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
     },
   },
+  bandits_du_hochland: {
+    nom: 'Hochland Bandits (1b)',
+    regles_speciales: [
+      {
+        nom: 'Powder Is Expensive!',
+        texte:
+          'Bandits are often too poor to buy or maintain costly equipment such as black powder weapons. Only Heroes may buy them (black powder weapons available only via the Scrapper equipment list); Henchmen may never buy them.',
+      },
+      {
+        nom: 'Penny-Pinchers',
+        texte:
+          "Hochland Bandits know how to save their gold: when determining the warband's Income, shift the warband size one column to the left (a warband of 1 to 3 members always uses the first column). For reference only, not automated.",
+      },
+      {
+        nom: 'Fence',
+        texte:
+          "In addition to half the base price of the item, when a Hochland Bandit sells equipment, he also receives half of the variable part of the item's price. For reference only, not automated.",
+      },
+      {
+        nom: 'Hired Swords',
+        texte: 'Bandits may hire any Hired Sword available to a human Mercenary warband.',
+      },
+    ],
+    profils: {
+      prince_des_bandits: {
+        nom: 'Bandit Chief',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior within 6" of the Bandit Chief may use the latter\'s Leadership for their Leadership tests.' },
+        ],
+      },
+      brigand: {
+        nom: 'Brigand',
+        regles_speciales: [
+          {
+            nom: 'Concealment',
+            texte:
+              "Enemies of a Brigand find him extremely difficult to detect before he strikes. If an enemy warrior wishes to charge a Brigand he cannot see (and who has not been declared hidden), he must subtract 1 from his Initiative before making his Initiative test (a roll of 6 is always a failure). In addition, the detection range for a hidden Brigand is halved.",
+          },
+        ],
+      },
+      ferrailleur: {
+        nom: 'Scrapper',
+        regles_speciales: [
+          {
+            nom: 'Master Swordsman',
+            texte:
+              "If equipped with a weapon or piece of armour that grants a parry, the Scrapper succeeds in parrying an enemy blow on a result equal to or higher than the opponent's to-hit roll, not only on a strictly higher result as with a normal parry.",
+          },
+          {
+            nom: 'Weapon Lore',
+            texte:
+              "The weapons on the Scrapper's equipment list only represent those he can start with. A Scrapper may use any hand-to-hand or missile weapon that warband members can find.",
+          },
+        ],
+      },
+      demagogue: {
+        nom: 'Demagogue',
+        regles_speciales: [
+          {
+            nom: 'Persuasive Manner',
+            texte:
+              'When an enemy warrior attempts to charge a member of the Demagogue\'s warband within 12" of him, the enemy must first pass a Leadership test, or the charge fails (as if he had failed to charge an enemy that causes Fear). Creatures subject to Stupidity and animals (as well as the Undead) are immune.',
+          },
+          {
+            nom: 'Shrewd Manager',
+            texte:
+              'Between games, the player may call on the Demagogue to swindle the local populace. Roll 1D6. On a 2-6, the scam succeeds and the warband gains 2D6 Gold Crowns. On a 1, the Demagogue must flee: he misses the next game and does not take part in the Exploration phase. For reference only, not automated.',
+          },
+        ],
+      },
+      malfrat: {
+        nom: 'Thug',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 5.' }],
+      },
+      braconnier: {
+        nom: 'Poacher',
+        regles_speciales: [
+          { nom: 'Trailblazers', texte: 'Allows the warband to re-roll, for each Poacher, 1D6 during the Exploration phase.' },
+        ],
+      },
+      detrousseur: {
+        nom: 'Looter',
+        regles_speciales: [
+          {
+            nom: 'Looting the Dead',
+            texte:
+              'At the end of a battle, for each friendly or enemy warrior who died and must be removed from the warband rosters, roll 1D6 per Looter in the warband. On a 4+, all of the dead warrior\'s equipment is recovered for the warband (limited to one corpse per Looter). For reference only, not automated.',
+          },
+        ],
+      },
+      sans_coeur: {
+        nom: 'Heartless',
+        regles_speciales: [
+          { nom: 'Hardened', texte: 'Immune to Fear and never has to take an all alone test.' },
+        ],
+      },
+      racaille: {
+        nom: 'Rabble',
+        regles_speciales: [
+          { nom: 'Totally Unskilled', texte: 'Rabble never gain experience.' },
+          { nom: 'Recruitment', texte: 'Bought in groups of 5.' },
+        ],
+      },
+    },
+    competences_speciales: {
+      banditisme: {
+        nom: 'Banditry',
+        texte:
+          "Instead of searching for Rare equipment, the Hero may engage in banditry. Roll 1D6. On a 2-6, the banditry succeeds and the Hero adds 1D6+1 Gold Crowns to the warband's pool. On a 1, roll on the Serious Injury table for the Hero, as if he had been taken Out of Action. Cannot be combined with Shrewd Manager.",
+      },
+      cache_dans_lombre: {
+        nom: 'Hidden in the Shadows',
+        texte: 'An enemy warrior attempting to detect the hidden Hero must halve his Initiative (rounding up) before measuring the detection range.',
+      },
+      bond_arriere: {
+        nom: 'Backward Leap',
+        texte:
+          'If the warrior is engaged in hand-to-hand combat at the start of his Movement phase and is neither Knocked Down nor Stunned, he may attempt a leap to break off combat via an Initiative test. On a failure, he automatically strikes last this turn. On a success, he is moved 1" away from the enemy warrior and may act normally (and may even charge again).',
+      },
+      tir_silencieux: {
+        nom: 'Silent Shot',
+        texte:
+          "If hidden, the Hero may shoot or cast spells while remaining hidden. If his target is not immediately taken Out of Action, it must make an Initiative test to spot him. Does not work with a black powder weapon.",
+      },
+      ventriloque: {
+        nom: 'Ventriloquist',
+        texte: 'If an enemy warrior attempts to detect the hidden Hero, roll 1D6. On a 4+, the Hero is not spotted and remains hidden.',
+      },
+    },
+    equipement: {
+      bandits: {
+        armes_cac: ['first free', 'Hammer', undefined, undefined, undefined, undefined],
+        armes_tir: ['Throwing Axe, counted as a throwing knife'],
+      },
+      pleutres: {
+        armes_cac: ['first free', undefined],
+      },
+      ferrailleurs: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined],
+        armes_tir: ['40gc per pair', '60gc per pair'],
+      },
+      braconniers: {
+        armes_cac: ['first free', undefined],
+      },
+    },
+  },
+  orc_mob: {
+    nom: 'Orc Mob (1a)',
+    regles_speciales: [
+      {
+        nom: 'Disreputable Sorts',
+        texte:
+          'Many Hired Swords would refuse to work for Orcs, knowing the orcs could turn on them at any moment. An Orc warband may therefore only hire the following Hired Swords: Gladiators, Ogre Bodyguards, or Wizards.',
+      },
+      {
+        nom: 'Animosity',
+        texte:
+          'Orcs and Goblins love to fight, but do not always know exactly who against. At the start of each Orc player\'s turn, roll 1D6 for each Henchman (Orc or Goblin) not engaged in hand-to-hand combat. On a result of 1, roll 1D6 on the following table. 1 "Say that again!" — the warrior immediately charges the nearest Henchman, Orc, Goblin, or Hired Sword within charge range and fights a round of hand-to-hand combat; at the end of the turn, the models are moved 1" apart and are no longer engaged (unless this same result comes up again on a later failure). If no one is within charge range and the model has a missile weapon, it shoots at the nearest target; otherwise, or if the nearest model is a Hero, it acts as per the 2-5 result. In all cases it defends itself normally if engaged in hand-to-hand combat. 2-5 "Wot did \'e say?" — the warrior spends the whole turn grumbling at everyone and does nothing else (he defends himself normally if engaged in hand-to-hand combat). 6 "I\'ll show \'em!" — the model must advance as fast as possible towards the nearest enemy and charge if possible; if no enemy is visible, it makes an additional normal Move, and if this brings it within charge range, it must charge on the following Movement phase.',
+      },
+    ],
+    profils: {
+      chef_orque: {
+        nom: 'Orc Boss',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warband member within 6" of the Orc Boss may use the latter\'s Leadership for their tests.' },
+        ],
+      },
+      chamane_orque: {
+        nom: 'Orc Shaman',
+        regles_speciales: [
+          { nom: 'Sorcerer', texte: 'A Shaman is a spellcaster who uses Waaagh! Magic (see Magic).' },
+          { nom: 'No Armour', texte: 'A Shaman may be equipped with weapons chosen from the Orc equipment list. He never wears armour.' },
+        ],
+      },
+      kosto: { nom: 'Bruiser' },
+      boyz_orque: {
+        nom: 'Orc Boyz',
+        regles_speciales: [
+          { nom: 'Animosity', texte: "Orc Boyz are subject to animosity (see the warband's special rules)." },
+          { nom: 'Recruitment', texte: 'Any number. Bought in groups of 1 to 5.' },
+        ],
+      },
+      guerrier_gobelin: {
+        nom: 'Goblin Warrior',
+        regles_speciales: [
+          {
+            nom: 'Animosity',
+            texte: 'Goblin Warriors are subject to animosity. A Goblin who fails his Animosity test and rolls a 1 on the table will never charge an Orc: he will use his missile weapon if he has one.',
+          },
+          {
+            nom: 'Not Like Orcs',
+            texte: 'When determining whether an Orc warband must take a Rout test, each Goblin or Squig taken Out of Action counts as half a model.',
+          },
+          {
+            nom: 'Less Than Nothing',
+            texte: "If a Goblin Warrior rolls the Lad's Got Talent result, the Boss kills him on the spot. Remove him from the warband roster.",
+          },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5. Can never outnumber the Orcs (Heroes included) by more than two to one.' },
+        ],
+      },
+      squig_des_cavernes: {
+        nom: 'Cave Squig',
+        regles_speciales: [
+          {
+            nom: 'Movement',
+            texte:
+              'The Squig\'s Movement characteristic is not fixed (M=0 above is only a placeholder): roll 2D6 whenever you want to move a Squig. They never run and never declare a charge normally; they may use their 2D6" move to reach base contact with an opponent, and are then considered to have charged for the following Combat phase.',
+          },
+          {
+            nom: 'Heel!',
+            texte:
+              'Each Squig must stay within 6" of a Goblin Warrior model at all times. If it finds itself more than 6" from any Goblin at the start of the Movement phase, it goes wild: from then on, move it 2D6" in a random direction during each following Movement phase; if it touches a model (friend or foe), it engages it in hand-to-hand combat. It is no longer controlled by the Orc player for the rest of the game.',
+          },
+          { nom: 'Not Like Orcs', texte: "Each Goblin or Squig taken Out of Action counts as half a model for the warband's Rout tests." },
+          { nom: 'Animals', texte: 'Squigs are animals (well, almost...) and therefore never gain experience.' },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5. Never more numerous than the Goblin Warriors.' },
+          { nom: 'Equipment', texte: 'Squigs carry no weapons or armour.' },
+        ],
+      },
+      troll: {
+        nom: 'Troll',
+        regles_speciales: [
+          { nom: 'Fear', texte: 'Trolls are frightening creatures and cause Fear.' },
+          { nom: 'Stupidity', texte: 'Trolls are subject to the Stupidity rules.' },
+          {
+            nom: 'Regeneration',
+            texte:
+              'Whenever a Troll suffers a Wound, of any kind, roll 1D6: on a 4+, the Wound is ignored. Trolls cannot regenerate wounds caused by fire or fire-based spells. They do not roll on the Serious Injury table at the end of the game.',
+          },
+          { nom: 'Zero IQ', texte: 'Trolls never gain experience.' },
+          {
+            nom: 'Always Hungry',
+            texte: 'The warband must spend 15gc after each battle to feed the Troll, or sacrifice 2 Goblins or Squigs. If the Troll is not fed enough, it leaves the warband permanently.',
+          },
+          {
+            nom: 'Vomit',
+            texte: "Instead of his normal attacks, a Troll may regurgitate his stomach fluids: a single attack that hits automatically, resolved at Strength 5, ignoring armour saves.",
+          },
+          { nom: 'Large Target', texte: 'Trolls are Large Targets, as defined in the Shooting rules.' },
+          { nom: 'Equipment', texte: 'May never be given weapons or armour (sometimes carries a large club with no effect on the game).' },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      tetdure: {
+        nom: 'Thick Skull',
+        texte:
+          "The Hero benefits from a special 3+ save on 1D6 to avoid being Stunned. If the save is successful, the model is simply Knocked Down instead. If the Orc also wears a helmet, this save becomes 2+ instead of 3+ (replacing the helmet's usual special rule).",
+      },
+      waaagh: { nom: 'Waaagh!', texte: 'The warrior adds +1D3" to his charge range.' },
+      dur_a_cuire: { nom: 'Tough as Nails', texte: "Increases the model's armour save by +1." },
+      coup_dboule: { nom: 'Headbutt', texte: 'Any model Knocked Down in hand-to-hand combat by this warrior is treated as Stunned.' },
+      on_y_va: { nom: "Let's Go!", texte: 'The model does not have to take a Fear test when charging.' },
+      revnez_ici: {
+        nom: "Come Back 'Ere!",
+        reserve_a: 'Orc Boss only',
+        texte: 'The warband may re-roll any failed Rout test as long as the Orc Boss has not been taken Out of Action.',
+      },
+    },
+    equipement: {
+      orques: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+      gobelins: {
+        armes_cac: ['first free', undefined, undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Waaagh! Magic',
+      type: 'sorcery',
+      note: 'Spells invoked through rituals resembling bellowed hollers, calling out to the Orc gods, Gork and Mork.',
+      sorts: [
+        {
+          nom: "Get 'Im!",
+          texte: "Any Orc or Goblin within 4\" of the Shaman strikes automatically first in hand-to-hand combat, regardless of circumstances. Lasts until the Shaman is Knocked Down, Stunned, or taken Out of Action.",
+        },
+        {
+          nom: 'Move It!',
+          texte: 'Range 8". Move an enemy model 1D6" in the direction away from the Shaman. If it collides with another model or a building, both suffer a Strength 3 hit. Cannot be used against models engaged in hand-to-hand combat.',
+        },
+        {
+          nom: 'Zzzap!',
+          texte: 'Range 12". Inflicts 1D3 Strength 4 hits on the nearest enemy model, no armour save allowed.',
+        },
+        {
+          nom: 'Get Lost!',
+          texte: 'No enemy may charge the Shaman during the next turn. If the Shaman was engaged in hand-to-hand combat, he may immediately be moved 4".',
+        },
+        {
+          nom: "Bring It 'Ere!",
+          texte: "A ghostly club appears in the Shaman's hand: counts as an ordinary club, adds +2 Strength and +1 Attack. Lasts until the Shaman suffers a Wound.",
+        },
+        {
+          nom: "Gork's Fire",
+          texte: 'Range 12". Two bolts of green flame burst from the Shaman\'s nostrils towards the nearest enemy model. Each bolt inflicts 1D3 Strength 3 hits; both bolts may strike the same target or be split between the two nearest enemy models.',
+        },
+      ],
+    },
+  },
+  norses: {
+    nom: 'Norses (1b)',
+    regles_speciales: [
+      {
+        nom: 'Sailors',
+        texte:
+          "Norses are excellent navigators. All gain +2 Strength when rowing (see The Script of Sigmar scenario rule, Town Cryer #9; otherwise, apply this bonus to the boat's Movement).",
+      },
+    ],
+    profils: {
+      jarl: {
+        nom: 'Jarl',
+        regles_speciales: [{ nom: 'Leader', texte: 'Any model within 6" of the Jarl may use his Leadership for their tests.' }],
+      },
+      berserk: {
+        nom: 'Berserker',
+        regles_speciales: [
+          { nom: 'Berserker', texte: 'Subject to Frenzy (see Psychology).' },
+          { nom: 'Equipment', texte: 'May never wear armour.' },
+        ],
+      },
+      wulfen: {
+        nom: 'Wulfen',
+        regles_speciales: [
+          { nom: 'Fear', texte: 'A terrifying creature that causes Fear.' },
+          { nom: 'Bestial', texte: 'Immune to Psychology; too uncontrollable to become warband Leader.' },
+          {
+            nom: 'Equipment',
+            texte: 'A mass of claws and fangs, never uses weapons or armour. Suffers no penalty for fighting unarmed.',
+          },
+        ],
+      },
+      bondis: { nom: 'Bóndis' },
+      maraudeur_norse: { nom: 'Norse Marauder' },
+      chasseur_norse: { nom: 'Norse Hunter' },
+      loup: {
+        nom: 'Wolf',
+        regles_speciales: [
+          { nom: 'Animals', texte: 'Wolves never gain experience.' },
+          {
+            nom: 'Pack Leader',
+            texte: 'Submit to the Wulfen; without a Wulfen in the warband, Wolves cannot be fielded until he is replaced.',
+          },
+          { nom: 'Equipment', texte: 'Never use weapons.' },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      expert_du_bouclier: {
+        nom: 'Shield Expert',
+        texte: 'Equipped with a shield, may perform a parry in addition to the 6+ armour save.',
+      },
+      frappe_destructrice: { nom: 'Crushing Blow', texte: "This Hero's attacks cannot be parried." },
+      charge_berserk: {
+        nom: 'Berserk Charge',
+        texte: 'Armed with an axe or a two-handed weapon, may re-roll any failed to-hit roll when charging.',
+      },
+      jargon_des_batailles: {
+        nom: 'Battle Cant',
+        reserve_a: 'Warband Leader only',
+        texte: 'The range within which allies may use his Leadership increases from 6" to 12".',
+      },
+      intrepidite: {
+        nom: 'Fearlessness',
+        texte: 'Never has to take an all alone test and may re-roll failed Fear tests.',
+      },
+    },
+    equipement: {
+      heros_armes: {
+        armes_cac: ['first free', 'Hammer', undefined, undefined, undefined, undefined],
+        armes_tir: ['Throwing axes, counted as throwing knives'],
+        divers: [
+          'Mount — see the Mounted Warriors article',
+          'Mount — see the Mounted Warriors article',
+          'Mount — see the Mounted Warriors article',
+        ],
+      },
+      hommes_de_main: {
+        armes_cac: ['first free', 'Hammer', undefined, undefined, undefined, undefined],
+        armes_tir: ['Throwing axes, counted as throwing knives'],
+      },
+      chasseurs_norses: {
+        armes_cac: ['first free', 'Hammer', undefined, undefined, undefined, undefined],
+      },
+    },
+  },
+  cult_of_the_possessed: {
+    nom: 'Cult of the Possessed (1a)',
+    regles_speciales: [
+      {
+        nom: 'Mutation Table',
+        texte:
+          'Reserved for Mutants and Possessed, purchasable only at recruitment (cannot be bought afterwards). The first mutation is bought at normal price; subsequent mutations for the same model cost double — see his Equipment list.',
+      },
+      {
+        nom: 'Rewards of the Lord of Shadows',
+        texte:
+          'Optional rule: a Magister or Mutant who has accumulated enough experience may roll 2D6 on this table instead of choosing a skill, representing a pilgrimage to the Pit. 2: Wrath of the Lord of Shadows! The warrior suffers so many mutations that he loses all trace of humanity and disappears. 3-6: Nothing happens. 7-8: Major Mutation (roll 1D6: on a 1, lose 1 point in a characteristic of choice; on a 2+, choose a mutation from the Mutation Table). 9-10: Armour of Chaos — base 4+ save with no effect on Movement, and does not prevent casting spells. 11: Daemon Weapon — +1 Strength in hand-to-hand combat and +1 to hit with it, taking whatever form the bearer chooses. 12: Possessed! A daemon takes possession of the warrior: +1 WS, +1 S, +1 Attack, and +1 Wound (beyond the normal maximums), but he loses D3 skills of the player\'s choice and can no longer use any weapon or armour other than Chaos Armour or Daemon Weapons.',
+      },
+    ],
+    profils: {
+      magister: {
+        nom: 'Magister',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any model within 6" of the Magister may use the latter\'s Leadership for their tests.' },
+          { nom: 'Sorcerer', texte: 'The Magister is a sorcerer who uses the Rituals of Chaos (see Magic).' },
+        ],
+      },
+      possede: {
+        nom: 'Possessed',
+        regles_speciales: [
+          { nom: 'Fear', texte: 'The Possessed are hideous, formless creatures that cause Fear.' },
+          {
+            nom: 'Mutations',
+            texte: 'The Possessed may start the game with one or more mutations (see the Mutation Table special rule). Cost: 90gc + the cost of mutations bought at recruitment.',
+          },
+          { nom: 'Equipment', texte: 'None. The Possessed never use weapons or armour.' },
+        ],
+      },
+      mutant: {
+        nom: 'Mutant',
+        regles_speciales: [
+          {
+            nom: 'Mutations',
+            texte: 'Each Mutant must start the game with one or more mutations (see the Mutation Table special rule). Cost: 25gc + the cost of the mutations.',
+          },
+        ],
+      },
+      initie: {
+        nom: 'Initiate',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Your warband may include as many Initiates as you like.' }],
+      },
+      damne: {
+        nom: 'The Damned',
+        regles_speciales: [
+          {
+            nom: 'Deranged',
+            texte: 'The Damned have been driven mad by possession and know no fear. They automatically pass all Leadership tests they might have to take.',
+          },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+        ],
+      },
+      homme_bete: {
+        nom: 'Beastman',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    equipement: {
+      culte_des_possedes: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+      damnes: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Rituals of Chaos',
+      type: 'sorcery',
+      sorts: [
+        {
+          nom: 'Vision of Horror',
+          texte:
+            'Range 6", cast on the nearest enemy (a model in base contact if the sorcerer is engaged in hand-to-hand combat). The victim is immediately Stunned; if it cannot be Stunned, it is Knocked Down instead.',
+        },
+        {
+          nom: 'Divine Eye',
+          texte:
+            'Usable once per battle. Choose any model within 6", friend or foe, and roll 1D6: 1 = the model is immediately taken Out of Action (no roll on the Serious Injury table); 2-5 = +1 to a characteristic of the caster\'s choice for the battle; 6 = +1 to all characteristics for the duration of the battle.',
+        },
+        {
+          nom: 'Black Blood',
+          texte:
+            "Range 8\", causes D3 Strength 5 hits on the first model in its path. The sorcerer must then roll on the Injury table for his own Wound (an Out of Action result is treated as Stunned).",
+        },
+        {
+          nom: 'Temptation of Chaos',
+          texte:
+            "Range 12\", cast on the nearest enemy model. Compare 1D6+Ld of the sorcerer to 1D6+Ld of the target; if the sorcerer wins, he takes control of his victim until it passes a Leadership test during the opponent's Recovery phase. The controlled model cannot commit suicide but may attack its own side, and will not fight the sorcerer's warband.",
+        },
+        {
+          nom: 'Dark Wings',
+          texte:
+            'The sorcerer may immediately move anywhere within 12", even into contact with the enemy (counts as having charged). If he engages a fleeing enemy, he inflicts an automatic hit during the hand-to-hand combat phase, and the opponent then flees again if it survives.',
+        },
+        {
+          nom: 'Word of Suffering',
+          texte: 'All models within 3" of the sorcerer, friend or foe, suffer a Strength 3 hit with no armour save.',
+        },
+      ],
+    },
+  },
+  reiklanders: {
+    nom: 'Reiklander Mercenaries (1a)',
+    regles_speciales: [
+      {
+        nom: 'Leader at 12"',
+        texte:
+          'Reiklander mercenaries are accustomed to the demands of military discipline and develop strong loyalty towards their officers. Warriors may use their captain\'s Leadership if he is within 12" instead of the usual 6".',
+      },
+      {
+        nom: 'Marksmen +1 BS',
+        texte:
+          'A strong tradition of martial training is responsible for the high degree of accuracy of Reiklander archers. All Marksmen add +1 to their Ballistic Skill, whether hired at warband creation or afterwards.',
+      },
+    ],
+    profils: {
+      capitaine_mercenaire: {
+        nom: 'Mercenary Captain',
+        regles_speciales: [
+          {
+            nom: 'Leader',
+            texte:
+              'Any warrior within 12" of the Mercenary Captain (instead of 6", thanks to the Reiklanders\' Leader at 12" rule) may use the latter\'s Leadership for their Leadership tests.',
+          },
+        ],
+      },
+      champion: { nom: 'Champion' },
+      recrue: { nom: 'Recruit' },
+      guerrier: {
+        nom: 'Warrior',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'As many as you like. Bought in groups of 1 to 5.' }],
+      },
+      tireur: {
+        nom: 'Marksman',
+        regles_speciales: [
+          {
+            nom: 'Marksmen +1 BS',
+            texte: "This Marksman benefits from the Reiklander racial bonus of +1 Ballistic Skill (already included in his Ballistic Skill above).",
+          },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+        ],
+      },
+      bretteur: {
+        nom: 'Fencer',
+        regles_speciales: [
+          {
+            nom: 'Expert Swordsman',
+            texte:
+              'Fencers are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This applies only when equipped with ordinary swords, not two-handed swords or other weapons.',
+          },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    equipement: {
+      mercenaires: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, '30gc per pair', '50gc per pair', undefined],
+      },
+      tireur: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, '30gc per pair', undefined, undefined, undefined, undefined, undefined],
+      },
+    },
+  },
+  escorteurs_imperiaux: {
+    nom: 'Imperial Escorts (1b)',
+    regles_speciales: [
+      {
+        nom: 'Hired Swords',
+        texte: 'Imperial Escorts may only be accompanied by mounted Hired Swords (Errant Knights and Roadwardens). Highwaymen may not be hired.',
+      },
+      {
+        nom: 'Dense Terrain',
+        texte: 'Imperial Escorts may ignore the normal limit of two mounts per warband within areas of dense terrain.',
+      },
+      {
+        nom: 'Two-Weapon Fighting',
+        texte:
+          'Mounted warriors may not fight with two weapons, although a shield or buckler may be used normally. Two-handed weapons are not allowed. Using a pistol during the first round of hand-to-hand combat replaces the model\'s usual weapon.',
+      },
+      {
+        nom: 'Mounts',
+        texte:
+          'All warband members are automatically mounted on a Horse (included in their recruitment cost). The Horse may be upgraded to a Warhorse for an additional cost where indicated. See the Cavalry rules (Mounted Warriors article) for the full rules on mounted warriors.',
+      },
+    ],
+    profils: {
+      chevalier: {
+        nom: 'Knight',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warband member within 6" of the Knight may use the latter\'s Leadership for their tests.' },
+          { nom: 'Mount', texte: 'The Knight rides a Horse (included in his cost). May be upgraded to a Warhorse for +40gc.' },
+        ],
+      },
+      escorteur: {
+        nom: 'Escort',
+        regles_speciales: [
+          { nom: 'Mount', texte: 'An Escort rides a Horse (included in his cost). May be upgraded to a Warhorse for +40gc.' },
+        ],
+      },
+      eclaireur: {
+        nom: 'Scout',
+        regles_speciales: [{ nom: 'Mount', texte: 'A Scout rides a Horse (included in his cost).' }],
+      },
+      pistolier: {
+        nom: 'Pistolier',
+        regles_speciales: [
+          { nom: 'Ride', texte: 'Pistoliers already have the Ride skill.' },
+          { nom: 'Mount', texte: 'Pistoliers ride Horses (included in their cost).' },
+        ],
+      },
+      hussard: {
+        nom: 'Hussar',
+        regles_speciales: [
+          { nom: 'Ride', texte: 'Hussars already have the Ride skill.' },
+          {
+            nom: 'Trample',
+            texte: 'Hussars already have the Trample skill: they make an additional Strength 4 Attack when they charge an enemy on foot.',
+          },
+          { nom: 'Mount', texte: 'Hussars ride Horses (included in their cost). May be upgraded to Warhorses for +40gc.' },
+        ],
+      },
+      palefrenier: {
+        nom: 'Groom',
+        regles_speciales: [
+          { nom: 'Ride', texte: 'Grooms already have the Ride skill.' },
+          {
+            nom: 'Horse Trainer',
+            texte:
+              'Any animal within 6" of the Groom may use his Leadership instead of its own (the player chooses if the Leader is also in range). Stubborn animals in contact with him ignore the effects of the Stubborn rule.',
+          },
+          { nom: 'Mount', texte: 'Grooms ride Horses (included in their cost).' },
+        ],
+      },
+    },
+    equipement: {
+      base: {
+        armes_cac: ['first free', 'Hammer', undefined, undefined, undefined, undefined, undefined],
+      },
+      armes_tir_escorteurs: {
+        armes_tir: ['30gc per pair', undefined, undefined, undefined],
+      },
+      armes_tir_eclaireurs: {
+        armes_tir: ['Throwing knives'],
+      },
+    },
+  },
+  hors_la_loi_de_stirwood: {
+    nom: 'Outlaws of Stirwood Forest (1b)',
+    regles_speciales: [
+      {
+        nom: 'Archers',
+        texte:
+          'All warriors in a Stirwood Forest Outlaws warband must be equipped with a bow. However, they may never carry or use any other missile weapon. So even if an Outlaw gains skills that would allow him to use additional missile weapons, he may not use them. The only exception to this rule is the Monk, who may choose to carry a bow, but is not required to do so.',
+      },
+      {
+        nom: 'Hired Swords',
+        texte: 'The following Hired Swords are not available to the Outlaws: Bounty Hunters, Priests of Ulric, Norse Shamans, and Dark Elf Assassins.',
+      },
+    ],
+    profils: {
+      chef_hors_la_loi: {
+        nom: 'Outlaw Chief',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any model within 6" of the Outlaw Chief may use the latter\'s Leadership to make their tests.' },
+        ],
+      },
+      moine_stirwood: {
+        nom: 'Monk',
+        regles_speciales: [
+          { nom: 'Recruitment', texte: 'The warband may include one Monk, but he must replace a Stirwood Champion or a Petty Thief.' },
+          {
+            nom: 'Disciple of Sigmar',
+            texte:
+              'The Monk has devoted his life to the service of Sigmar and may use the Prayers of Sigmar. Like a Warrior Priest of the Repurgators, he is also subject to certain restrictions applicable to disciples of Sigmar, and therefore cannot learn Sorcery or Magic. Since Prayers are not considered spells, a Monk may wear armour if he wishes.',
+          },
+        ],
+      },
+      champion_de_stirwood: { nom: 'Stirwood Champion' },
+      petit_voleur: { nom: 'Petty Thief' },
+      hors_la_loi: { nom: 'Outlaw' },
+      tireur: { nom: 'Marksman' },
+    },
+    equipement: {
+      hors_la_loi: {
+        armes_cac: ['first free', 'Hammer, Mace, or Staff', undefined, undefined, undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Prayers of Sigmar',
+      type: 'prayer',
+      note:
+        'Priests of Sigmar can perform many miracles: healing wounds, encouraging their comrades, or banishing daemonic creatures and the Undead. Prayers are not considered spells: an armoured warrior may therefore use them, and special protections against spells do not affect them.',
+      sorts: [
+        {
+          nom: 'The Hammer of Sigmar',
+          texte:
+            "This weapon of faith, holding the almighty power of Sigmar's divine justice, shines with an intense golden light. The bearer gains +2 Strength in hand-to-hand combat, and all hits he causes deal double damage (1 Wound = 2 Wounds lost, for example). The priest must test at every Shooting phase if he wishes to use the Hammer.",
+        },
+        {
+          nom: 'Heart of Steel',
+          texte:
+            "As the three words of power are spoken, an aura of glory emanates from Sigmar's servant. The courage of the faithful is strengthened by the presence of the God of War. Every allied warrior within 8\" of the caster becomes immune to Fear and all alone tests. In addition, the whole warband gains +1 to all its Rout tests. The effects of this prayer cannot be stacked if cast multiple times. Its effects last until the caster is taken Out of Action.",
+        },
+        {
+          nom: 'Soul Fire',
+          texte:
+            "Sigmar's wrath is made manifest. Purifying flames surround the priest and sweep away those who resist the furious justice of the God-Emperor! Every enemy model within 4\" of the priest suffers a Strength 3 hit with no armour save. Worshippers of darkness and Chaos are especially vulnerable to Sigmar's sacred power: the hit suffered by the Undead and the Possessed is Strength 5 instead.",
+        },
+        {
+          nom: 'Shield of Sigmar',
+          texte:
+            'A shield of pure white light appears before the priest of Sigmar, protecting him for as long as his faith remains unshaken. The priest is immune to all spells. Roll 1D6 at the start of each turn during the Recovery phase. On a 1 or 2, the shield dissipates.',
+        },
+        {
+          nom: 'Laying On of Hands',
+          texte:
+            "Placing his hands upon a wounded comrade, Sigmar's servant implores his Lord to heal the warrior's wounds. Any model within 2\" of the priest (himself included) may be healed and recovers all lost Wounds. In addition, friendly models within 2\" who are Stunned or Knocked Down immediately regain their senses, get back up, and continue fighting normally.",
+        },
+        {
+          nom: 'Armour of the Righteous',
+          texte:
+            "Impenetrable armour covers the priest, and the blazing image of a two-tailed comet burns above his head. The priest gains a 2+ save that replaces his normal armour save. In addition, he causes Fear in his enemies and is himself immune to it. The power of the Armour of the Righteous lasts until the start of the priest's next Shooting phase.",
+        },
+      ],
+    },
+  },
 };
 
 function translateRegles(regles: SpecialRule[], en: RegleTraduite[] | undefined): SpecialRule[] {
