@@ -15,8 +15,8 @@
   "backgroundColorDark": "#17130f",
   "enableNotifications": false,
   "startUrl": "/",
-  "iconUrl": "https://musterheim.app/icons/icon-512.png",
-  "maskableIconUrl": "https://musterheim.app/icons/icon-512-maskable.png",
+  "iconUrl": "https://musterheim.app/app-icons/icon-512.png",
+  "maskableIconUrl": "https://musterheim.app/app-icons/icon-512-maskable.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "./android.keystore",
