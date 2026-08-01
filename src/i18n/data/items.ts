@@ -2683,6 +2683,956 @@ export const itemsEn: Record<string, ItemTraduit> = {
       { nom: 'Strikes Last', texte: 'The weapon is so heavy that its wielder always strikes last, even when charging.' },
     ],
   },
+
+  // --- Objets divers (1/2) ---
+  amulette_de_malepierre: {
+    nom: 'Warpstone Amulet',
+    texte:
+      "A warpstone amulet allows its bearer to re-roll one die during the battle. If this ability was not used during the battle, it may instead be used for the Exploration roll, provided the Hero is fit to search the ruins. This item is used by the Clan Pestilens Skaven in place of the rabbit's foot.",
+  },
+  anneau_du_scorpion: {
+    nom: 'Ring of the Scorpion',
+    texte:
+      'At the start of the battle, if the bearer passes a Leadership test, he may summon a Tomb Scorpion that will fight alongside the warband. The summoned Scorpion will only fight for the duration of one battle. Tomb Scorpion profile: M5 WS2 BS0 S2* T1 W4 I1 A4 Ld(-).',
+    regles_speciales: [
+      {
+        nom: 'Living',
+        texte:
+          'Scorpions are living creatures and are therefore affected normally by Psychology. However, they are small desert creatures and do not need water.',
+      },
+      { nom: 'Animals', texte: 'Scorpions are animals and therefore do not gain experience.' },
+      {
+        nom: 'Scorpion Sting',
+        texte:
+          'Scorpions attack using the venomous stinger on their tail. The effects are similar to those of black lotus (if you roll a 6 to hit, the target is automatically Wounded).',
+      },
+    ],
+  },
+  anneau_venimeux: {
+    nom: 'Venomous Ring',
+    texte: 'The venomous ring makes its bearer immune to the effects of all poisons.',
+  },
+  gnoblar_longue_vue: {
+    nom: 'Spyglass Gnoblar',
+    texte:
+      "Ogres take great delight in the quarrels between gnoblars, and some claim to keep one as a pet purely for entertainment. A cunning gnoblar will use his cunning to do the right thing at the right moment in order to win his master's favour. Treated in every respect as miscellaneous equipment (these are not models and do not take up a base!). If the Ogre is taken Out of Action, roll 1D6 for each gnoblar: on a 1-2, he is dead and removed from his master's equipment. Ogres may have up to two different gnoblar assistants.",
+    regles_speciales: [
+      { nom: 'Effect', texte: 'An Ogre with a spyglass gnoblar gains the dodge skill from the Speed skills list.' },
+    ],
+  },
+  gnoblar_porte_bonheur: {
+    nom: 'Lucky Gnoblar',
+    texte:
+      'Treated in every respect as miscellaneous equipment (these are not models and do not take up a base!). Ogres may have up to two different gnoblar assistants.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'An Ogre with a lucky gnoblar may re-roll one die per game. Remember that you can never re-roll a die that has already been re-rolled.',
+      },
+    ],
+  },
+  gnoblar_porte_epee: {
+    nom: 'Sword-Bearer Gnoblar',
+    texte:
+      'Treated in every respect as miscellaneous equipment (these are not models and do not take up a base!). Ogres may have up to two different gnoblar assistants.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "An Ogre with a sword-bearer gnoblar gains an additional Strength 2 attack in hand-to-hand combat, using his owner's Weapon Skill. This attack is made at the same time as the Hero's other attacks and must be directed against the same opponent.",
+      },
+    ],
+  },
+  attirail_tribal_dent_rouj: {
+    nom: 'Redfang Tribal Garb',
+    texte:
+      'Only proof of martial prowess can catch the attention of this circle of warriors. Once inducted into the tribe, to symbolise his feats, the warrior gets pierced from head to toe!',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'These piercings cannot be removed. The warrior is now subject to the frenzy rules as described in the Mordheim Rulebook.',
+      },
+    ],
+  },
+  banniere: {
+    nom: 'Banner',
+    texte:
+      'Well-established warbands often carry a banner or flag to announce their presence, but also to have a rallying point during battle.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "The banner must be carried in one hand by a Hero of the warband. Friendly warriors within 12\" of the bearer may re-roll all failed All Alone tests (but you cannot re-roll a failed re-roll).",
+      },
+    ],
+  },
+  banniere_de_la_maison_noble: {
+    nom: 'Noble House Banner',
+    texte:
+      "Burnt and torn like the rest of the Cavalcade's finery, the banner represents the noble house of the aristocrat leading the warband, even though it is often decorated with a red mask symbolising allegiance to the Cavalcade. Although their city has fallen and their power reduced to nothing, the aristocrats of the Doomed Cavalcade still cling in vain to the symbols of their lost glory.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "The pride of carrying the banner and never abandoning it to the enemy increases the bearer's Leadership by 1, up to a maximum of 10. The model carrying the banner must use one of its hands to hold it aloft and cannot carry a shield, buckler, two-handed weapon, or additional weapon.",
+      },
+    ],
+  },
+  banniere_de_nagarythe: {
+    nom: 'Banner of Nagarythe',
+    texte:
+      "While many Ghost Warriors are simple vagabonds, others are in fact groups sent by Ulthuan to carry out a mission for the Phoenix King. Such bands are closer to military units and tend to keep their insignia and other symbols, such as the unit's standard. Their colours can have many meanings, especially when the unit's warriors no longer have a true homeland. Ghost Warriors make their own banner; the cost and rarity represent the difficulty of finding the appropriate materials (fine silk and gold thread, for example).",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "A Banner of Nagarythe can serve as a second rallying point for the unit (the Shadow Master being the first, thanks to his Leader skill). All members of the Ghost Warriors warband within 12\" of their banner may re-roll failed Leadership tests. In addition, if the banner is captured by the enemy (if the model carrying it is taken Out of Action), all members of the warband are subject to hatred for the rest of the game, and cannot voluntarily go into Rout. Note that these effects do not affect the warband's irregulars, but only apply to the Ghost Warriors (and Ghost Warrior Heroes). A model carrying a banner needs a free hand to hold it. No weapon or shield can be held in the hand carrying the banner, and the model carrying it cannot have a two-handed weapon. In hand-to-hand combat, a banner may be used as an improvised spear (use the spear rules, but with a -1 penalty to hit).",
+      },
+    ],
+  },
+  banniere_du_clan_pestilens: {
+    nom: 'Clan Pestilens Banner',
+    texte:
+      "A model within 12\" of the banner's bearer, usually a Plague Monk or Plague Initiate, may re-roll one failed All Alone test. This item is used by the Clan Pestilens Skaven in place of the banner.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'In addition, the shaft of the Clan Pestilens banner counts as a two-handed weapon in hand-to-hand combat. A warband may only have one Clan Pestilens banner at a time.',
+      },
+    ],
+  },
+  bidules_magiques: {
+    nom: 'Magic Trinkets',
+    texte:
+      'Magic trinkets are objects of all kinds that allow the shaman to focus his powers. Most of the time these are bat claws, lizard jaws, and other similar items, but they nonetheless seem to bring benefits to their owner.',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'The Shaman may re-roll a spellcasting roll if he gets a result of 4+ on 1D6.' },
+    ],
+  },
+  boussole: {
+    nom: 'Compass',
+    texte:
+      "A compass can be of great use, on land as at sea, allowing pirates to navigate more quickly and precisely through the seemingly chaotic ruins of the destroyed city.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "In any scenario where players must roll 1D6 to determine which side deploys first, the warband of a compass bearer may re-roll its die. Note that only one re-roll is allowed, even if several Pirates have one. If both sides have one, no re-roll is allowed.",
+      },
+    ],
+  },
+  brouette: {
+    nom: 'Wheelbarrow',
+    texte:
+      "Probably the adventurer's best friend, the wheelbarrow makes it easy to transport all sorts of bulky items such as chests or powder kegs.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "The wheelbarrow must be placed in the Deployment zone, like all the warband's other models. If you do not have a suitable model, use a marker to represent it. A Hero or Henchman, other than animals or Stupid creatures, may push the wheelbarrow if he is in base contact with it. Pushing a wheelbarrow does not affect the fighter's Movement. He cannot charge with it, but may drop it at any time. The wheelbarrow can be used to carry bulky items. First, the item must be placed in the wheelbarrow. Then, a model may push the wheelbarrow and its load. A wheelbarrow cannot hold more than one bulky item at a time, but can hold as many small items as you like (weapons, armour, and small miscellaneous items).",
+      },
+    ],
+  },
+  cape_des_bois: {
+    nom: 'Cloak of the Woods',
+    texte:
+      "Some outlaws use cloaks of the woods to camouflage themselves and slip out of their enemies' sight. Any bearer of such a cloak seems to blend into the surrounding forest, making him almost invisible. Cloaks of the woods are available to Stirwood Outlaw Heroes from their initial recruitment, with no Rarity roll needed. If you wish to acquire one afterwards, use the normal purchase rules during the Trade and Exploration phase.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "As long as the bearer is under cover of a tree, bush, or hedge, any enemy wishing to use a missile weapon against him suffers an additional -1 penalty to hit (in addition to any other modifier). Likewise, if a spellcaster wishes to target an Outlaw camouflaged in this way with a magical attack, he may only do so on a roll of 4+ on 1D6. If the warrior or spellcaster is within a distance in inches equal to or less than his Initiative, this rule is cancelled.",
+      },
+    ],
+  },
+  cape_elfique: {
+    nom: 'Elven Cloak',
+    texte:
+      "Woven from the hair of young elf maidens interwoven with living tree leaves, elven cloaks are pure marvels. A warrior wearing one will blend into the shadows and be very difficult to target with missile weapons. These cloaks are rarely offered for sale, but are sometimes taken from dead warriors or given by the elves to reward humans who have provided them with some form of aid.",
+    regles_speciales: [
+      { nom: 'Effect', texte: 'An elven cloak inflicts a -1 penalty to hit on anyone wishing to shoot at its bearer.' },
+    ],
+  },
+  carte_au_tresor: {
+    nom: 'Treasure Map',
+    texte:
+      'Pirates may use a treasure map instead of Exploring the city ruins normally. It indicates the (possible) location of a treasure that another band of Pirates was forced to bury before putting it somewhere safe. Roll 1D6 after the game to determine where the map leads you (note that the Gold Crowns earned represent the gain after the loot has been divided among the crew). When you buy a map, roll 1D6.',
+    regles_speciales: [
+      {
+        nom: '1. Fake (but a refund)',
+        texte:
+          'The map turns out to be fake! However, you manage to track down and rough up the filthy bilge-drinking swine who sold it to you, and he offers your warband 1D6x5 Gold Crowns to make amends (and avoid walking the plank!).',
+      },
+      {
+        nom: '2. Small Hideout',
+        texte:
+          'The map leads your crew to a small hideout. After a few hours of searching, you find a chest containing a shard of wyrdstone and jewellery worth 2D6x10 Gold Crowns.',
+      },
+      {
+        nom: "3. Long Drong Silver's Stash",
+        texte:
+          "The map reveals one of the legendary beer stashes of Long Drong Silver himself! You discover several barrels of rum, beer, and other spirits. One of them is a barrel of BugmanXXXX, which can be drunk (apply the rules for Bugman's Ale). After 'sampling' many a barrel, the remainder is sold for 2D6x10 Gold Crowns (once the crew has sobered up, of course).",
+      },
+      {
+        nom: "4. Facio's Hideout",
+        texte:
+          "Buried in the ruins of a modest little hovel, you find several chests filled with precious garments, along with notebooks containing compromising information on numerous local merchants. You realise this must be one of the hideouts left by Facio, the great Tilean swindler. Newly clothed and armed with the information gathered, on your next visit to the trading posts you may buy any item listed in the price table as if it were a common item (with the exception of items specific to Pirates, such as swivel guns or treasure maps), provided you have the necessary money. Once the transaction is complete, you may sell the notebooks to his competitors for 2D6x10 GC, and continue shopping normally at the other trading posts. In addition, if in your next game your warband captures someone, finds the Vagrants (result 4-4 on the Exploration table) or Prisoners (3-3-3), they will be impressed by fine clothes! The Captain's Leadership is increased by +1 for the Recruitment test.",
+      },
+      {
+        nom: '5. Trapped Chest',
+        texte:
+          'The treasure chest is cunningly trapped! One of your Heroes must venture into the maze protecting the chest and try to avoid poisoned darts and collapsing ceilings by passing an Initiative test. If he succeeds, his skill allows him to discover a lucky charm near the chest (which he claims for himself!), and 3D6x10 GC in the chest. If he fails the test, he must spend the next game recovering. However, now that the traps have been triggered, the crew manages to open the chest and gains the gold as above. Unfortunately, they do not find the lucky charm, which awaits discovery by a more careful adventurer.',
+      },
+      {
+        nom: "6. Black-Wyrd's Cache",
+        texte:
+          'Your crew bows their heads in reverent silence. The map leads them to one of the legendary secret caches used by Black-Wyrd, the Pirate King. The first and greatest pirate ever to have plundered Mordheim. Known for tying shards of wyrdstone into his hair and beard and then setting them alight so they threw off sparks of unholy fire, he was rightly feared by every warband, on land as at sea. Although only a small chest is found at the site, once opened it reveals 1D3+2 shards of wyrdstone, plus a Map of Mordheim!',
+      },
+    ],
+  },
+  carte_de_cathay: {
+    nom: 'Map of Cathay',
+    texte:
+      'Many maps of the provinces of Cathay and its border regions circulate. Most of them are unreliable, but from time to time, a warband manages to get its hands on an interesting map. When you buy a map, roll 1D6.',
+    regles_speciales: [
+      { nom: '1. Fake', texte: 'The map is fake and utterly useless!' },
+      {
+        nom: '2-3. The Old Hag',
+        texte:
+          "The map indicates the way to a mysterious lady. If the warband follows the described route, the first Random Event that occurs during the next battle will automatically be (56) 'The Old Hag' (see the Border Town Burning Random Encounters table).",
+      },
+      {
+        nom: '4-5. Campaign Progress',
+        texte:
+          'The next time a 4+ is rolled on the Progress table (see Border Town Burning), the warband possessing a Map of Cathay automatically counts as having the most campaign points. It may therefore choose the next scenario. If both warbands have a Map of Cathay, compare campaign points as usual.',
+      },
+      {
+        nom: "6. Belandysh's Hideout",
+        texte:
+          "This map leads to Belandysh's hideout! When a warband possessing this map rolls a 1 for a Random Event roll, it may choose to automatically land on the event (42-43) 'Belandysh Arrives!'.",
+      },
+    ],
+  },
+  carte_de_mordheim: {
+    nom: 'Map of Mordheim',
+    texte:
+      'A few survivors of the cataclysm still live in the camps around Mordheim, and earn their living by drawing maps of the city from memory. Many of these maps are fake, and even the genuine ones are often crude and inaccurate. A map can help a warband find its way through the maze of alleys to the places where the rich buildings brimming with loot are found. Roll 1D6 when you buy a map.',
+    regles_speciales: [
+      {
+        nom: '1. Fake',
+        texte:
+          'The map is fake and worthless. It leads you around in circles, and your opponent may automatically choose the next scenario you play.',
+      },
+      {
+        nom: '2-3. Vague',
+        texte:
+          'Although crude, this map is relatively accurate (well... partly... maybe!). You may re-roll one die of your choice during the next Exploration phase if you wish, but you must accept the result of the second roll.',
+      },
+      {
+        nom: '4. Catacomb Map',
+        texte: 'The map shows access to the city through the catacombs. You automatically choose the scenario for your next battle.',
+      },
+      {
+        nom: '5. Precise',
+        texte:
+          'The map is recent and highly detailed. You may re-roll up to three dice during the next Exploration phase if you wish. You must accept the results of the second rolls.',
+      },
+      {
+        nom: '6. Original Map',
+        texte:
+          'This is one of the twelve maps drawn for Count Von Steinhardt of Ostermark. From now on, you may always re-roll one die on Exploration table rolls as long as your Hero possesses the map and is not taken Out of Action during a battle.',
+      },
+    ],
+  },
+  carte_de_nehekhara: {
+    nom: 'Map of Nehekhara',
+    texte:
+      'Maps of the realm of the dead are rare. Accurate ones are rarer still. Shifting dunes and dried-up riverbeds can render a map obsolete within a season. Use the rules for the Map of Mordheim from the Rulebook.',
+    regles_speciales: [{ nom: 'Effect', texte: 'See Map of Mordheim (same 1D6 results).' }],
+  },
+  cartes_de_tarot: {
+    nom: 'Tarot Cards',
+    texte:
+      'Although declared blasphemous and illegal by the Grand Theogonist, it is said that the Tarot of the Stars can predict the future for whoever dares consult it.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'A Hero equipped with a deck of tarot cards may consult it before each battle by making a Leadership test. On a success, the Hero gets a glimpse of what is to come. You may therefore modify the result of the die of your choice by -1/+1 during the Exploration phase (even if the Hero carrying the cards is Out of Action). If the Ld test is failed by three points or more, the cards predict misfortune and despair, and the Hero refuses to fight and misses the next battle.',
+      },
+    ],
+  },
+  chapelet: {
+    nom: 'Prayer Beads',
+    texte:
+      'A set of prayer beads is made of stone or ivory beads and other sacred ornaments, strung on a chain. It helps with concentration during prayers or meditation.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'A prayer-caster carrying prayer beads may re-roll a failed difficulty roll if he did nothing this turn other than move (not run) or stand still. Prayer beads cannot be used if the user is engaged in hand-to-hand combat.',
+      },
+    ],
+  },
+  coffre: {
+    nom: 'Chest',
+    texte:
+      'Chests are often used to keep weapons, equipment, or provisions safe, and sometimes even more precious items.',
+    regles_speciales: [
+      {
+        nom: 'Cumbersome',
+        texte:
+          'A chest must be carried by two fighters. The bearers must remain in base contact with the chest, or it will fall to the ground. They cannot use missile weapons or fight in hand-to-hand combat while carrying the chest.',
+      },
+    ],
+  },
+  collet: {
+    nom: 'Snare',
+    texte: 'The Horned Hunters are seasoned trappers.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "A Hero may set a snare if he spends his turn doing nothing else (he cannot set a snare if he has just stood up). Place a marker in contact with the Hero's base. If a model (other than the one who set the snare) moves within 2\" or less, roll 1D6: 1-2 = nothing happens, the model may continue its Movement. 3-6 = the snare is triggered, the model is placed 2\" from the snare and suffers an automatic Strength 4 hit. If the model is not Wounded, it may continue its Movement. The marker is then removed.",
+      },
+    ],
+  },
+  collier_de_griffes_dours_market: {
+    nom: 'Bear Claw Necklace',
+    texte:
+      "In Kislev, bears are sacred, and a necklace made from the teeth (or claws) of this animal is said to have magical powers. A warrior wearing a bear claw necklace gains a portion of the animal's strength and ferocity.",
+    regles_speciales: [{ nom: 'Effect', texte: 'The warrior becomes subject to frenzy.' }],
+  },
+  conque_musicale: {
+    nom: 'Musical Conch',
+    texte: 'The musical conch is used by experienced Piranha Warriors to warn the warband of approaching enemies.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'At the start of the game, a Piranha Warrior may use the conch to re-roll the roll determining who deploys first and who goes first. Even if several models have a conch, it is not possible to make a second re-roll.',
+      },
+    ],
+  },
+  cor_de_guerre: {
+    nom: 'War Horn',
+    texte:
+      'The powerful sound of a war horn is often enough to instil courage into the hearts of fighters. Its warlike blast drives warriors to unheard-of feats of courage and gives them the will to keep fighting despite the odds.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'The war horn may be sounded once per battle, at the start of any of the player\'s turns. Until the start of the next turn, all members of the warband gain a +1 bonus to their Leadership (up to a maximum of 10), the effect ending at the start of the next turn. The horn may be used just before a Rout test.',
+      },
+    ],
+  },
+  cor_de_guerre_de_nagarythe: {
+    nom: 'War Horn of Nagarythe',
+    texte:
+      'As with the Banner of Nagarythe, Mordheim\'s Ghost Warrior units carry a war horn with them. The rules for the War Horn of Nagarythe are the same as for normal war horns (aside from rarity and cost).',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'The War Horn of Nagarythe may be sounded once per game, at the start of any of the player\'s turns. Until the start of the next turn, all members of the warband gain a +1 bonus to their Leadership (up to a maximum of 10), the effect ending at the start of the next turn. The war horn may be used just before the warband makes a Rout test.',
+      },
+    ],
+  },
+  corde_et_grappin: {
+    nom: 'Rope and Grappling Hook',
+    texte: 'A rope combined with a grappling hook makes it easier to move around the ruins of Mordheim.',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'A warrior equipped with a rope and grappling hook may re-roll failed Initiative tests to climb up or down.' },
+    ],
+  },
+  echelle: {
+    nom: 'Ladder (small/large)',
+    texte:
+      'Ladders are handy for reaching higher places, such as rooftops or trees. The ladder is placed on the game board like any other model in the warband. If you do not have the right piece, use a marker to represent it. A ladder requires two models, Henchmen or Heroes, to be carried (or one large creature). However, although a single fighter can carry a ladder alone, he will only be able to move at half speed (a quarter for large ladders).',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Models carrying a ladder cannot run, but may drop it whenever they wish (for example, when charging). A ladder can be set up during the Movement phase and requires a quarter of the models\' Movement (half for large ladders). Note that if one of the bearers has a lower Movement than the other, both move at the lower Movement. Ladders are considered open ground and do not affect models\' Movement. A model in base contact with a ladder may attempt to knock it over during the Hand-to-Hand phase. The model must make a Strength test with a -1 modifier for each model on the ladder beyond the first. If the test succeeds, treat the models as falling from where they were. Small ladders have a maximum length of 3", and large ladders are longer than 3".',
+      },
+    ],
+  },
+  familier: {
+    nom: 'Familiar',
+    texte:
+      "Wizards lead solitary lives, shunned by those who can barely imagine, let alone understand, the powers they possess. They therefore tend to share their existence with pets rather than beings gifted with 'awareness'. It sometimes happens that a magical bond forms between one of these animals and the mage, to the point where he can see through the creature's eyes and guess its thoughts. Wizards favour different types of animals depending on their homeland and environment. Shadow Weavers, for instance, tend to prefer dark-coated animals that can blend easily into the shadows, such as ravens or black cats. Despite their appearance, Familiars are not normal creatures, but rather animals that have become sensitive to the winds of magic. Familiars cannot be taken as normal equipment. Their cost actually represents that of the materials required for the ritual that will summon the Familiar and form a magical bond with it. The rarity level represents the chances of the ritual succeeding. Thus, the cost of a Familiar must always be paid if the rarity roll is attempted, regardless of whether it succeeds or not. In addition, only spellcasters may attempt to 'find' a Familiar. If a Familiar is found, it must be represented on the spellcaster like any other equipment. A Familiar may be placed on a separate base (in fact, this is how most Games Workshop Familiars are presented), but if you decide to do this, the Familiar must always remain in base contact with the wizard, and has no effect in game terms (it cannot attack enemy models or be attacked, and does not increase the size of the wizard's base, other than as detailed below). Spellcasters only (this excludes users of Prayers).",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'A wizard with a Familiar may re-roll one spellcasting roll each turn. The result of this re-roll must always be accepted, even if it is a failure. It is impossible to re-roll a re-roll.',
+      },
+    ],
+  },
+  flute_de_charmeur_de_serpent: {
+    nom: "Snake Charmer's Flute",
+    texte: 'The owner of this item is able to control snakes.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'If the fighter does nothing for an entire turn, he may play the flute. In that case, all snakes within 6" can neither move nor attack during their next turn.',
+      },
+    ],
+  },
+  fragments_de_malepierre_incandescents: {
+    nom: 'Glowing Warpstone Fragments',
+    texte:
+      'Placed in a plague censer, these warpstone fragments have the property of making clouds of pestilent smoke thicker than usual. This item is used by the Clan Pestilens Skaven in place of the elven cloak.',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'The bearer becomes difficult to hit, and shooters wishing to target him suffer a -1 penalty to hit.' },
+    ],
+  },
+  gourde_magique: {
+    nom: 'Magic Water Skin',
+    texte:
+      "The power of the water skin may be used at the end of each battle. It provides 1D3 units of water. Once the water has been used up, roll 1 additional D6. On a 6, the water skin's magic is spent and it breaks.",
+  },
+  grimoire_de_magie: {
+    nom: 'Grimoire of Magic',
+    texte: 'Books containing forbidden knowledge are sometimes offered for sale in the markets and dark alleys of the camps surrounding Mordheim.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'If a warband includes spellcasters, one of them permanently gains a new spell. Roll for it randomly on his own list or on the Lesser Magic list. Refer to the Magic chapter. Can only be used once.',
+      },
+    ],
+  },
+  habits_de_fourrure: {
+    nom: 'Fur Clothing',
+    texte:
+      'Fur clothing includes snowshoes and furs (including boots and gloves). A model wearing fur clothing is immune to the special rules of the following weather effects: biting cold, heavy snow, and harsh winter (see Border Town Burning).',
+    regles_speciales: [
+      {
+        nom: 'Soaked Through',
+        texte:
+          'If fur clothing gets soaked through by water, it becomes useless until the end of the game. Note that, like the overcoat, fur clothing may be used by Henchmen.',
+      },
+    ],
+  },
+  habits_de_nomade: {
+    nom: 'Nomad Robes',
+    texte:
+      'Woven by the natives of the desert, these robes allow their wearer to suffer only half the penalties associated with Weather Effects. These robes affect results on the Weather table as follows. Rain: the robes protect the fighter\'s equipment. Whenever you must roll 1D6 each time you use a black powder weapon, the shot is only lost on a 1. Scorching Heat: a fighter wearing nomad robes suffers only a -1 penalty to his WS and BS and only needs the normal amount of water. Heat: a fighter wearing these robes suffers no penalty to his WS and BS. If at least half the warband is wearing nomad robes, it only needs the normal amount of water. Sandstorm: the robes have no effect. Not even these robes can protect fighters from the ferocity of the storm. Apply the sandstorm rules normally.',
+  },
+  habits_en_soie_de_cathay: {
+    nom: 'Cathayan Silk Garments',
+    texte:
+      'Some wealthy warband leaders like to flaunt their wealth by buying Cathayan silk garments. This is the most expensive fabric in the known world, and wearing such clothes is a surefire way to attract attention, especially from thieves and assassins.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Any Mercenary warband whose leader wears silk garments may re-roll its first failed Rout test. However, roll 1D6 after every battle in which the leader is taken Out of Action. On a result of 1-3, the garments are torn and destroyed.',
+      },
+    ],
+  },
+  crochet: {
+    nom: 'Hook',
+    texte:
+      'Any Pirate who has lost a hand or arm as a result of the Serious Injuries Hand Injury or Arm Injury may have a sharpened metal hook fitted in its place. The bearer of this new, elegant device cannot use two-handed weapons, but will always be considered equipped with a hand-to-hand weapon thanks to this prosthesis. The hook counts as a dagger. A new member of the warband, whether at warband creation or as a new recruit, may also start with a hook.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'If the bearer suffers a Hand Injury or Arm Injury in subsequent battles, these Serious Injuries may be ignored on a roll of 4+, as the blow landed on the hook.',
+      },
+    ],
+  },
+  jambe_de_bois: {
+    nom: 'Wooden Leg',
+    texte:
+      'Any Pirate who has suffered the Serious Injuries Leg Wound or Smashed Leg may choose to have the crippled leg replaced with a sturdy wooden leg. This reduces his Movement (and his maximum Movement characteristic) by -1, but offers a chance that blows received will strike the wooden leg instead. The bearer benefits from a special 6+ save, usable whenever he makes a save roll against a shooting or hand-to-hand attack. This save cannot be modified and may be used even when no save roll would normally be allowed. A new member of the warband, whether at warband creation or as a new recruit, may also start with a wooden leg.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'If the bearer suffers a Leg Wound or Smashed Leg in subsequent battles, these Serious Injuries may be ignored on a roll of 4+, as the blow landed on the wooden leg.',
+      },
+    ],
+  },
+  jolly_roger: {
+    nom: 'Jolly Roger',
+    texte:
+      "The mere sight of the Jolly Roger fluttering in the wind is enough to stir even the most hardened old sea dog. Any Hero may carry the Jolly Roger. The cost represents the effort the ship's craftsmen must put in to create a miniaturised version of the flag, carried on the end of a pole.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Pirates within 12" of the Jolly Roger are never considered to be All Alone. Carrying the banner ties up one hand. This fighter therefore cannot carry or use two-handed weapons for the rest of the game. Note that the Conscripts, lacking true Pirate spirit, gain no benefit from the Jolly Roger.',
+      },
+    ],
+  },
+  lampe_magique: {
+    nom: 'Magic Lamp',
+    texte:
+      'This is an extremely rare item dating back to the time of Sultan Jaffar. It is said that the sultan used dark magic to bind demonic entities to everyday objects in order to benefit from their powers without revealing their true nature. It happens that one or another of these objects ends up in the hands of adventurers brave or foolish enough to call upon the powers of the djinn within. Each time a Hero uses the magic lamp, it grants him three wishes, but for each roll on the Light table, you must make one on the Shadow table.',
+    regles_speciales: [
+      { nom: 'Light D6 — 1', texte: 'Gain 1D6 experience points.' },
+      { nom: 'Light D6 — 2', texte: 'Gain a skill chosen from the appropriate lists.' },
+      { nom: 'Light D6 — 3', texte: 'Gain 1D6x10 Gold Crowns.' },
+      { nom: 'Light D6 — 4', texte: 'Gain an item randomly determined from the equipment list.' },
+      { nom: 'Light D6 — 5', texte: 'Choose an item from the equipment list.' },
+      { nom: 'Light D6 — 6', texte: 'Roll twice on this table.' },
+      { nom: 'Shadow D6 — 1', texte: 'Nothing in particular.' },
+      { nom: 'Shadow D6 — 2', texte: 'Nothing in particular.' },
+      { nom: 'Shadow D6 — 3', texte: 'You lose 1D6x10 GC.' },
+      { nom: 'Shadow D6 — 4', texte: 'You lose 1D6 weapons.' },
+      { nom: 'Shadow D6 — 5', texte: 'You lose the lamp.' },
+      { nom: 'Shadow D6 — 6', texte: 'Roll on the Injury table.' },
+    ],
+  },
+  liber_bubonicus: {
+    nom: 'Liber Bubonicus',
+    texte:
+      "If a Clan Pestilens Skaven warband includes a Plague Preacher, he permanently gains a new spell. Roll for it randomly on the Horned Rat magic spell list. If he has the sorcery skill, a Plague Priest may use the Liber Bubonicus to learn Horned Rat magic. He gains the special rule 'Sorcerer: a sorcerer is a spellcaster who uses Horned Rat magic. See the Magic section.' and permanently learns a spell drawn at random from the Horned Rat magic spell list. The Liber Bubonicus may only be used once, and a warband may only have a single user of the Liber Bubonicus in any given campaign. This item is used by the Clan Pestilens Skaven in place of the grimoire of magic.",
+  },
+  lanterne: {
+    nom: 'Lantern',
+    texte: 'A model carrying a lantern may add +4" to the distance at which it can spot hidden enemies.',
+  },
+  liber_necris: {
+    nom: 'Liber Necris',
+    texte:
+      'This book transcribes some of the writings of Nagash, the Great Necromancer. If he has the sorcery skill, a Vampire may use this book to learn Necromancy. A Necromancer will permanently gain a new spell.',
+  },
+  liturgicus_infectus: {
+    nom: 'Liturgicus Infectus',
+    texte:
+      'A member of Clan Pestilens, usually a Plague Monk, may carry with him a scroll bearing the holy Liturgicus Infectus. This is the Clan Pestilens hymn to the glory of disease and contagion.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'At the start of a turn, or just before making a Rout test, the warband may sing the Liturgicus Infectus and gain a +1 Leadership bonus until the end of the turn.',
+      },
+    ],
+  },
+  livre_de_cuisine_halfling: {
+    nom: 'Halfling Cookbook',
+    texte:
+      'All Halfling cooks have their own secret recipes, compiled in hand-copied grimoires from Mootland, their homeland. Food prepared according to these recipes attracts warriors during hard times.',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'The maximum number of warriors allowed in your warband is increased by +1, regardless of how many cookbooks you possess.' },
+    ],
+  },
+  livre_des_damnes: {
+    nom: 'Book of the Damned',
+    texte:
+      "The pages of this grimoire describe the servants of Chaos, heretics, deviants, mutants, blasphemers, necromancers, sinners, and other enemies of Sigmar in all their infamy. A Hero carrying the Book of the Damned will hate all models from Possessed, Skaven, Sisters of Sigmar, Beastmen, Chaos, Daemon, or Orc and Goblin warbands. Translator's note: these rules were written before many other warbands appeared. Feel free to consider which warbands are affected or not, but Undead and other Chaotic warbands released later seem to be obvious candidates.",
+  },
+  livre_saint: {
+    nom: 'Holy Book',
+    texte:
+      'Books containing prayers and accounts of miracles performed by holy men such as Sigmar Heldenhammer are hand-copied in the scriptoriums of Sigmar and Ulric, then given or sold to the faithful. Of these works, the Deus Sigmar is the most famous and widespread, but other texts, such as the Scriptures of Sigmar, are also sold to believers. A pious man may recite the prayers from such a book to strengthen his faith.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'A Warrior Priest or Sister of Sigmar carrying a holy book adds +1 to the result when determining whether he (or she) successfully casts a prayer.',
+      },
+    ],
+  },
+  longue_vue: {
+    nom: 'Spyglass',
+    texte: 'A pirate may use his trusty spyglass to scan the battlefield and spot sneaks trying to hide!',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'At the start of his turn, the spyglass user may attempt to detect a hidden enemy he has line of sight to. On a roll of 4+, the fighter loses his hidden status. A Pirate using a spyglass may move during that turn, but cannot run or charge.',
+      },
+    ],
+  },
+  lunette_de_visee: {
+    nom: 'Sighting Scope',
+    texte:
+      "The telescope, an essential instrument for Nuln's astronomers and astrologers, is quite rare in the City of the Damned. However, its miniature version is very useful for marksmen and those who wish to keep an eye on their surroundings from a distance.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'A Hero possessing a sighting scope may, each turn, increase the normal range of his missile weapons by 1D6". It also triples the distance at which he can spot hidden models.',
+      },
+    ],
+  },
+  masque_de_crane: {
+    nom: 'Skull Mask',
+    regles_speciales: [{ nom: 'Effect', texte: 'Causes fear.' }],
+  },
+  masque_du_roi_soleil: {
+    nom: 'Mask of the Sun King',
+    texte:
+      "A golden mask depicting the ancient emperors, adorned with a laurel wreath. The mask symbolises House Steinhardt's secret desire to betray the Empire and ascend to Sigmar's throne in Altdorf. No bearer of this mask may be brought to his knees, as befits an emperor. Each mask is unique, so you may only have one copy of each mask in your warband. You may freely distribute the masks among your Heroes before the battle if you wish.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'The bearer of the Mask of the Sun King cannot be Knocked Down or Stunned, and results shown on the Injury table have no effect on him. The only way to remove him from the table is to roll an Injury result of Out of Action.',
+      },
+    ],
+  },
+  masque_de_mort_en_argent: {
+    nom: 'Silver Death Mask',
+    texte: 'This mask resembles a richly decorated skull, but moves like living human skin, reflecting the expressions of whoever wears it.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'If the bearer of the silver mask is taken Out of Action, he may re-roll any result on a Serious Injury table. He must accept the second result even if it is worse than the first.',
+      },
+    ],
+  },
+  masque_de_tete_de_poisson: {
+    nom: 'Fish-Head Mask',
+    texte:
+      'A strange silvery mask, inlaid with gemstone eyes, resembling that of a deep-sea fish. It is whispered that these masks were once used by worshippers of forgotten evil deities slumbering at the bottom of the sea, dreaming of the day they will rise from the depths to sow ruin among men. A man wearing this mask can swallow a human whole, as a snake swallows a rat.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Whenever the bearer of the fish-head mask takes an opponent Out of Action, he temporarily gains +1 Wound (up to a maximum of 5) until the end of the battle. After that, his number of Wounds returns to normal.',
+      },
+    ],
+  },
+  masque_sans_visage: {
+    nom: 'Faceless Mask',
+    texte:
+      'This mask has almost no human features, except for two eye slits filled with blackness. The bearer can move with such determination that no one dares stop him.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Once per game, the bearer of the faceless mask may prevent an opponent from intercepting his charge. Fighters immune to psychology, such as the Undead and Flagellants, are not affected.',
+      },
+    ],
+  },
+  masque_de_medecin_de_peste: {
+    nom: 'Plague Doctor Mask',
+    texte:
+      "A silver mask fitted with a long beak resembling that of a bird, itself a symbol of death for the people of the Old World, ravaged by countless diseases. In combat, a cloud of black death seeps from the mask's empty eye sockets.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Once per game, during the Shooting phase, the bearer may release the black cloud contained within the mask, burning those who are not part of the Cavalcade. The longer the power is held within the mask, the more powerful it becomes. On the first turn, it hits any enemy model within 3" of the bearer with a Strength of 1. The range and Strength of the effect increase by +1 at the start of each of the Cavalcade\'s turns, up to a range of 7" and a Strength of 5 (if you wait 4 turns before releasing the cloud). Roll to hit (with no penalty for range or cover) and to Wound as usual. The cloud never causes Critical Hits.',
+      },
+    ],
+  },
+  masque_de_bouffon_malefique: {
+    nom: 'Wicked Jester Mask',
+    texte:
+      'Erratic and unpredictable, the face of the wicked jester mask twists from a demented grin to a look of pure hatred or terrifying rage before every fight.',
+    regles_speciales: [
+      {
+        nom: 'Effect (D6 at the start of combat)',
+        texte:
+          '1: the bearer is subject to stupidity for the duration of the fight. 2-5: the bearer hates all his enemies for the duration of the fight. 6: the bearer is subject to frenzy.',
+      },
+    ],
+  },
+  outils_de_crochetage: {
+    nom: 'Lockpicks',
+    texte: 'An essential tool for those without scruples. These tools allow finesse rather than brute force to be used to open a locked door.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'A model equipped with lockpicks may make a test under his Initiative instead of Strength to open a door. Make the roll at the end of his Movement phase as if the model were attempting to force the door open, but without the Strength penalty. In addition, a door opened this way is not damaged and may be closed again later.',
+      },
+    ],
+  },
+  outre: {
+    nom: 'Waterskin',
+    texte: 'Like wineskins, it allows its owner to carry one additional unit of water. Each model may only have one waterskin.',
+  },
+  parchemin_de_rat_familier: {
+    nom: 'Familiar Rat Scroll',
+    texte:
+      'This scroll bears a spell that a Plague Preacher may use as many times as he wishes. If the warband includes at least one Giant Rat, this spell may be cast on it before the start of the battle, transforming it into a Familiar Rat. If his Familiar Rat is within 6", the Plague Preacher may re-roll one spellcasting roll once per game. The result of this re-roll must be accepted, even if it is a failure. A Plague Preacher may only have one Familiar Rat at a time. It remains a Henchman and counts towards the warband\'s maximum number of members. If the Plague Preacher dies, his Familiar Rat reverts to its Giant Rat form. Familiar Rat profile: M6 WS2 BS0 S3 T3 W1 I4 A1 Ld4. Weapons/armour: None.',
+    regles_speciales: [
+      {
+        nom: 'Enchanted Animal',
+        texte:
+          "The Familiar Rat gains experience as a Henchman. On the Henchmen advance table, the result of 10-12 'This One's Got Talent' is replaced by 'Improved Spellcasting: if the Plague Preacher is within 6\" of the Familiar Rat, he gains a +1 bonus to his spellcasting roll. This ability is cumulative.'",
+      },
+    ],
+  },
+  pardessus: {
+    nom: 'Overcoat',
+    texte:
+      'This coat or cloak protects its wearer, and especially his equipment, from the soaked-through effect (see the Weather Effects of the Setting used). Note that this miscellaneous item is an exception to the rule and may be used by Henchmen.',
+  },
+  patte_de_lapin: {
+    nom: "Rabbit's Foot",
+    texte: 'This lucky charm is often worn around the neck on a leather cord by the most superstitious fighters.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "A rabbit's foot allows its bearer to re-roll one die during the battle. If this ability was not used during the battle, it may instead be used for the Exploration roll, provided the Hero is fit to search the ruins. The Clan Pestilens Skaven use the warpstone amulet, which has the same effects.",
+      },
+    ],
+  },
+  patte_de_singe: {
+    nom: "Monkey's Paw",
+    texte:
+      'Crafted during a strange ritual by nomadic tribes roaming the desert, this item, as powerful as the magic lamp, does not always bring luck to its bearer. Each time a Hero uses the paw, he is granted three wishes (on the Light table) and must make a roll on the Shadow table. It is impossible to get rid of the paw, but it will disappear after three uses, or if you roll a result of 6 on the Shadow table. After the third use, the monkey\'s paw disappears. If the Hero goes two games without using the paw, he must make a roll on the Shadow table.',
+    regles_speciales: [
+      { nom: 'Light D6 — 1', texte: 'Gain 1D6 experience points.' },
+      { nom: 'Light D6 — 2', texte: 'Gain a skill chosen from the appropriate lists.' },
+      { nom: 'Light D6 — 3', texte: 'Gain 1D6x10 Gold Crowns.' },
+      { nom: 'Light D6 — 4', texte: 'Gain an additional Hero, even if you are already at your maximum.' },
+      { nom: 'Light D6 — 5', texte: 'Gain an additional Henchman, even if you are already at your maximum.' },
+      { nom: 'Light D6 — 6', texte: 'Roll twice on this table.' },
+      { nom: 'Shadow D6 — 1', texte: 'Lose 1D6 experience points.' },
+      { nom: 'Shadow D6 — 2', texte: 'Lose a randomly determined skill.' },
+      { nom: 'Shadow D6 — 3', texte: 'Lose 1D6x10 GC.' },
+      { nom: 'Shadow D6 — 4', texte: 'Lose a Hero.' },
+      { nom: 'Shadow D6 — 5', texte: 'Lose a Henchman.' },
+      { nom: 'Shadow D6 — 6', texte: "Lose the monkey's paw." },
+    ],
+  },
+  peau_de_cerf_benie: {
+    nom: 'Blessed Deer Skin',
+    texte: 'This animal skin, worn as a cloak, is a mark of honour once blessed by the clergy of Taal.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte: 'A blessed skin grants unmistakable grace to its wearer, allowing him to re-roll a failed Initiative test once per turn.',
+      },
+    ],
+  },
+  pendule_en_pierre_magique: {
+    nom: 'Wyrdstone Pendulum',
+    texte: 'Wyrdstone pendulums are used to find even more of this precious ore.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'If not Out of Action, the Hero carrying the pendulum may make a Leadership test after the battle. On a success, you may re-roll one die of your choice during the Exploration phase. This die cannot be re-rolled a second time.',
+      },
+    ],
+  },
+  perroquet: {
+    nom: 'Parrot',
+    texte:
+      'Wyrdstone shards! Wyrdstone shards! A well-trained parrot is excellent at distracting opponents, either by squawking loudly at them or by flapping around to hinder them.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "Any enemy in base contact with the parrot's owner must pass a Leadership test or suffer a -1 penalty to hit during his first turn of hand-to-hand combat against the Pirate.",
+      },
+    ],
+  },
+  pierres_runiques_elfiques: {
+    nom: 'Elven Rune Stones',
+    texte:
+      "High Elf mages are masters of defensive magic. To this end, they have developed many powerful mystical runes, which they often inscribe on semi-precious stones to reinforce a wizard's magical defences.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "A wizard equipped with this item may use it to successfully dispel a spell cast on himself or another member of his warband. To dispel it, the wizard must roll against the spell's difficulty (Sorcery does not work here). If he succeeds, the spell fails. If he fails, the spell works normally.",
+      },
+    ],
+  },
+  porte_bonheur: {
+    nom: 'Lucky Charm',
+    texte: 'Many exist, but the most common are medallions shaped like hammers blessed by a Sigmarite priest, or effigies of ancient dwarf gods.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'The first time a model carrying a lucky charm is hit, it rolls 1D6: on a result of 4+, the hit is cancelled and no damage is suffered. Having several lucky charms brings no further benefit, as the model can only cancel the first hit.',
+      },
+    ],
+  },
+  tonneau_de_poudre: {
+    nom: 'Powder Keg',
+    texte:
+      'A powder keg is treated as a chest, with one exception: it can be blown up! Fighters may attack a powder keg at range with a black powder weapon, Cathayan grenades, fire bombs, or flaming arrows. They may also attack it in hand-to-hand combat with a torch or a fiery staff. Naturally, they may also use any weapon or similar item capable of igniting the powder inside the keg.',
+    regles_speciales: [
+      {
+        nom: 'Explosion',
+        texte:
+          'The fighter must hit and wound normally (the keg having a Toughness of 4). Then roll 1D6. On a 4+, the keg explodes (remove the keg from the game board). If a Critical Hit is scored, the keg automatically explodes. An exploding powder keg automatically inflicts a Strength 6 hit on all models within 1D6+3". If the scenario being played takes place underground or in a cavern (Horrors of the Underworld, available in Border Town Burning, for example), roll one additional D6. On a 4+, the explosion causes the tunnel to collapse, forming a wall of rocks blocking the passage. Place a marker where the keg stood to indicate that the passage is blocked. The rock rubble can be cleared by non-animal fighters. To represent this, during the Hand-to-Hand phase, they must attack the rocks (Toughness 6, 4 Wounds). The wall has a 3+ armour save, affected normally by Strength modifiers.',
+      },
+    ],
+  },
+  trophee_coiffe_sacree_de_slann: {
+    nom: 'Sacred Slann Headdress Trophy',
+    regles_speciales: [{ nom: 'Effect', texte: '+2 armour save.' }],
+  },
+  relique_sacree_bretonnienne: {
+    nom: 'Bretonnian Holy Relic',
+    texte: 'A fragment of a reliquary, a lock of hair from a Lady of the Lake, or a shard of armour from a fallen knight — an object of devotion carried on pilgrimage.',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'The bearer benefits from a special 6+ save against spells and prayers directed at him.' },
+    ],
+  },
+  relique_sacree_sigmarite: {
+    nom: 'Sacred Relic',
+    texte: 'A miniature hammer, a fragment of bone from a holy martyr, or a page torn from the Great Testament — an object of faith carried by the Sisters into battle.',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'The bearer benefits from a special 6+ save against spells and prayers directed at him.' },
+    ],
+  },
+
+  // --- Objets divers (2/2) — Bénédictions de Nurgle / mutations ---
+  gnoblar_combattant: {
+    nom: 'Fighting Gnoblar',
+    texte:
+      'Treated in every respect as miscellaneous equipment (these are not models and do not take up a base!). Ogres may have up to two different gnoblar assistants.',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'An Ogre with a fighting gnoblar gains the Precise Blow skill from the Combat skills list.' },
+    ],
+  },
+  flot_de_corruption: {
+    nom: 'Flood of Corruption (Blessing of Nurgle)',
+    texte: 'A Blessing of Nurgle granted to the Unclean upon recruitment, teeming with worms, bile, and blood.',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'Shooting attack (range 6", Strength 3, no armour save): a spray of worms, bile, and blood.' },
+    ],
+  },
+  pourriture_de_nurgle: {
+    nom: "Nurgle's Rot (Blessing of Nurgle)",
+    texte: "The Unclean is infected with this virulent and incurable disease, contracted in Nurgle's service.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Immunity to poisons. On a 6 to wound in hand-to-hand combat, the bearer transmits the disease to his target (living models only), who tests his Toughness after every subsequent battle (failure = permanent loss of 1 point of Toughness, death at 0; on a 6 on the test, the disease is unwittingly passed on to another member of the warband, determined randomly).',
+      },
+    ],
+  },
+  nuage_de_mouches_benediction: {
+    nom: 'Cloud of Flies (Blessing of Nurgle)',
+    texte: 'A swarm of nauseating flies constantly swirls around the Unclean, hindering his opponents.',
+    regles_speciales: [
+      { nom: 'Effect', texte: "The Unclean's opponents suffer a -1 penalty to hit in hand-to-hand combat." },
+    ],
+  },
+  horreur_enflee: {
+    nom: 'Bloated Horror (Blessing of Nurgle)',
+    texte: "The Unclean's body swells and bloats under the effect of Nurgle's blessing.",
+    regles_speciales: [{ nom: 'Effect', texte: '+1 Wound, +1 Toughness, but -1 Movement.' }],
+  },
+  marque_de_nurgle: {
+    nom: 'Mark of Nurgle (Blessing of Nurgle)',
+    texte: "The Mark of Nurgle is branded into the Unclean's flesh, a sign of the Plague God's favour.",
+    regles_speciales: [{ nom: 'Effect', texte: '+1 Wound and immunity to the effects of all poisons.' }],
+  },
+  hideux: {
+    nom: 'Hideous (Blessing of Nurgle)',
+    texte: 'The Unclean transforms into something so repulsive that the mere sight of his weeping sores freezes the blood.',
+    regles_speciales: [{ nom: 'Effect', texte: 'Causes fear.' }],
+  },
+  ame_demoniaque: {
+    nom: 'Daemonic Soul',
+    regles_speciales: [{ nom: 'Effect', texte: 'Special 4+ save against spells or prayers.' }],
+  },
+  pince_mutation: {
+    nom: 'Claw',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'The mutant does not wield a weapon in this arm, but gains an additional Strength+1 attack in hand-to-hand combat.' },
+    ],
+  },
+  tentacule: {
+    nom: 'Tentacle',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'The mutant may grapple an opponent in hand-to-hand combat, causing him to lose 1 Attack of his choice (minimum 1).' },
+    ],
+  },
+  sabots_fendus: {
+    nom: 'Cloven Hooves',
+    regles_speciales: [{ nom: 'Effect', texte: '+1 Movement.' }],
+  },
+  sang_acide: {
+    nom: 'Acid Blood',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte: 'If the mutant suffers a wound in hand-to-hand combat, models in contact with him suffer a Strength 3 hit (no Critical Hits).',
+      },
+    ],
+  },
+  epines: {
+    nom: 'Thorns',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte: 'Any model in contact suffers a Strength 1 hit at the start of each hand-to-hand phase (never a Critical Hit).',
+      },
+    ],
+  },
+  queue_de_scorpion: {
+    nom: 'Scorpion Tail',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'Additional Strength 5 attack (Strength 2 if the target is immune to poison).' },
+    ],
+  },
+  bras_supplementaire: {
+    nom: 'Extra Arm',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte: 'Additional attack with a one-handed weapon, shield, or buckler (or +1 Attack with no additional weapon).',
+      },
+    ],
+  },
+  hideux_mutation: {
+    nom: 'Hideous',
+    regles_speciales: [{ nom: 'Effect', texte: 'Causes fear.' }],
+  },
+  corps_cristallin: {
+    nom: 'Crystalline Body',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Toughness fixed at 6 and Wounds fixed at 1, no longer modifiable afterwards (re-roll any corresponding advances already obtained).',
+      },
+    ],
+  },
+  brute_epaisse: {
+    nom: 'Thick-Skinned Brute',
+    regles_speciales: [{ nom: 'Effect', texte: '+2 Strength, -4 Leadership.' }],
+  },
+  morsure_venimeuse: {
+    nom: 'Venomous Bite',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'Additional Strength 5 attack (Strength 2 if the target is immune to poison).' },
+    ],
+  },
+  queue_prehensile: {
+    nom: 'Prehensile Tail',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'Additional attack; allows the mutant to hold a one-handed weapon, shield, or buckler.' },
+    ],
+  },
+  peau_ecailleuse: {
+    nom: 'Scaly Skin',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'Natural 5+ armour save, stackable with light armour (+1).' },
+    ],
+  },
+  ailes_mutation: {
+    nom: 'Wings',
+    regles_speciales: [
+      { nom: 'Effect', texte: 'Allows gliding from an elevated position: for every 1" fallen, move 2" horizontally.' },
+    ],
+  },
 };
 
 const DISPONIBILITE_ARTEFACT_EN =
