@@ -15,6 +15,17 @@ import type { Language } from '../../state/useLanguage';
 import { translateBlessure } from '../../i18n/data/blessuresGraves';
 import { libelleCaracteristique } from '../../utils/stats';
 
+// Noms sentinelles des issues spéciales "Gladiateur"/"Capturé", utilisés à la
+// fois pour construire le résultat (texte français persisté, voir
+// choisirGladiateurIssue/choisirCapturePerdu/choisirCaptureRancon) et pour
+// reconnaître ces cas dans l'aperçu de confirmation (voir
+// texteIterationAfficheeAvecSpeciaux) — ces issues ne sont pas dans la table
+// canonique BLESSURES_GRAVES, `estPersonnalise` les exclurait donc à tort de
+// toute traduction sans ce traitement dédié.
+const NOM_GLADIATEUR_VICTOIRE = 'Gladiateur (victoire)';
+const NOM_CAPTURE_PERDU = 'Capturé — héros perdu';
+const NOM_CAPTURE_RANCON = 'Capturé — libéré contre rançon';
+
 // Profil de l'adversaire dans les fosses de combat (résultat "Gladiateur") —
 // c'est le franc-tireur "Gladiateur" (Pit Fighter, hiredSwords.ts) que l'on
 // affronte, pas le profil homonyme recrutable dans la bande Gladiateurs
@@ -319,7 +330,7 @@ export function BlessureGraveWizard({
       terminerIteration({
         resultat: {
           ...selectionActuelle,
-          nom: 'Gladiateur (victoire)',
+          nom: NOM_GLADIATEUR_VICTOIRE,
           texte:
             "Le guerrier remporte son combat dans les fosses du Repaire des Coupe-Jarrets : il empoche 50 pièces d'or, gagne 2 points d'Expérience et rejoint sa bande avec tout son équipement intact.",
           xpBonus: 2,
@@ -345,7 +356,7 @@ export function BlessureGraveWizard({
     terminerIteration({
       resultat: {
         ...selectionActuelle,
-        nom: 'Capturé — héros perdu',
+        nom: NOM_CAPTURE_PERDU,
         texte:
           "Le prisonnier ne revient pas : vendu à des marchands d'esclaves, exécuté ou transformé par ses ravisseurs, il quitte définitivement la bande. Son équipement reste aux mains de ses ravisseurs.",
         captureIssue: false,
@@ -361,7 +372,7 @@ export function BlessureGraveWizard({
     terminerIteration({
       resultat: {
         ...selectionActuelle,
-        nom: 'Capturé — libéré contre rançon',
+        nom: NOM_CAPTURE_RANCON,
         texte: `Le prisonnier est libéré contre une rançon de ${montant} po, payée par la bande. Il conserve tout son équipement et rejoint aussitôt la bande.`,
         captureIssue: false,
         perteEquipement: false,
@@ -756,6 +767,26 @@ export function BlessureGraveWizard({
   // mode === 'confirmation'
   const resultatFinal = construireResultatFinal();
   const statsListe = Object.entries(resultatFinal.statsDelta).filter(([, v]) => v);
+  // Les issues "Gladiateur"/"Capturé" construisent un texte français fixe,
+  // hors de la table canonique (voir NOM_GLADIATEUR_VICTOIRE et alentours) —
+  // `texteIterationAffichee` les laisserait donc en français (estPersonnalise
+  // les traite comme du texte joueur libre). Reconstruites ici depuis les
+  // clés dédiées pour l'aperçu uniquement ; le texte réellement persisté
+  // (construireResultatBase) reste toujours celui-là, en français.
+  const texteIterationAfficheeAvecSpeciaux = (it: IterationResolue): string => {
+    if (it.resultat.nom === NOM_GLADIATEUR_VICTOIRE) {
+      return `${t('blessureGraveWizard.gladiatorVictoryNom')} (${it.resultat.code}) — ${t('blessureGraveWizard.gladiatorVictoryTexte')}`;
+    }
+    if (it.resultat.nom === NOM_CAPTURE_PERDU) {
+      return `${t('blessureGraveWizard.capturedLostNom')} (${it.resultat.code}) — ${t('blessureGraveWizard.capturedLostTexte')}`;
+    }
+    if (it.resultat.nom === NOM_CAPTURE_RANCON) {
+      const montant = Math.max(0, Math.trunc(Number(ranconSaisie) || 0));
+      return `${t('blessureGraveWizard.capturedRansomNom')} (${it.resultat.code}) — ${t('blessureGraveWizard.capturedRansomTexte', { montant })}`;
+    }
+    return texteIterationAffichee(it, language);
+  };
+  const prefixeGladiateurAffiche = gladiateurForcePerte ? t('blessureGraveWizard.gladiatorDefeatPrefix') : '';
   // Traduction best-effort des notes de l'aperçu (voir texteIterationAffichee
   // pour le même principe) : celles construites directement à partir d'un
   // noteTag de la table canonique se re-traduisent via une correspondance
@@ -784,12 +815,12 @@ export function BlessureGraveWizard({
         {t('blessureGraveWizard.summary')}
       </h4>
       <p className="text-sm" style={{ whiteSpace: 'pre-wrap' }}>
-        {racine ? `${prefixeGladiateur}${texteIterationAffichee(racine, language)}` : ''}
+        {racine ? `${prefixeGladiateurAffiche}${texteIterationAfficheeAvecSpeciaux(racine)}` : ''}
       </p>
       {racine?.resultat.multiplesInjuries && multiplesResultats.length > 0 && (
         <ol className="text-sm">
           {multiplesResultats.map((it, i) => (
-            <li key={i}>{texteIterationAffichee(it, language)}</li>
+            <li key={i}>{texteIterationAfficheeAvecSpeciaux(it)}</li>
           ))}
         </ol>
       )}

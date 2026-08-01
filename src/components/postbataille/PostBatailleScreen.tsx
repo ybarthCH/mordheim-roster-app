@@ -915,6 +915,7 @@ export function PostBatailleScreen() {
       {etape === 1 && (
         <EtapeBlessuresGraves
           roster={roster}
+          catalogue={catalogue}
           horsDeCombatHeros={horsDeCombatHeros}
           blessureDrafts={blessureDrafts}
           tresorerieDisponible={roster.tresorerie + blessuresTresorerieBonus}
