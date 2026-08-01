@@ -1119,6 +1119,412 @@ export const itemsEn: Record<string, ItemTraduit> = {
       },
     ],
   },
+
+  // --- Armes à poudre noire ---
+  arquebuse: {
+    nom: 'Arquebus',
+    texte:
+      'The arquebus is a rudimentary firearm whose manufacturing quality ranges from the crude wooden hackbuts of the Nuln artillery school to the sophisticated dwarf firearms. The latter are fitted with levers and springs that hold the lit match, and triggers that activate the firing mechanism. Arquebuses are not very reliable weapons: the barrel occasionally explodes and the powder sometimes refuses to ignite. But their range is extraordinary and their penetrating power makes a mockery of even the thickest armour. In Mordheim, arquebuses are rare and expensive, but a warband equipped with such weapons will command the respect of all rivals. The arquebus is eligible for the double barrel option for Nuln Artillerists.',
+    regles_speciales: [
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      {
+        nom: 'Move or Shoot',
+        texte: 'It is not possible to move and shoot during the same turn, except to turn on the spot or stand up.',
+      },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon, so it can only fire every other turn.' },
+    ],
+  },
+  arquebuse_a_repetition: {
+    nom: 'Repeater Arquebus',
+    texte:
+      "These represent the next stage in the evolution of multi-barrelled arquebuses. This repeating weapon is made up of a number of barrels mounted around a rotating cylinder, each firing in turn. Often prone to malfunction, repeater arquebuses are nonetheless highly sought after, as they can unleash a veritable storm of lead upon the enemy if they don't explode.",
+    regles_speciales: [
+      {
+        nom: 'Experimental',
+        texte:
+          "This weapon is always subject to the optional black powder weapon rules from the Mordheim Rulebook, even if they are not used in your campaign. For any result other than 'BOOM!', the weapon has jammed or run out of ammunition and the barrels must be reloaded.",
+      },
+      { nom: 'Save Modifier', texte: 'See Arquebus.' },
+      { nom: 'Move or Shoot', texte: 'See Arquebus.' },
+      {
+        nom: 'Long Reload',
+        texte:
+          'Reloading a repeater arquebus takes time and requires a fair amount of concentration. The warrior can do nothing else for a full turn in order to reload the weapon (no movement, no shooting, no hand-to-hand combat, etc.).',
+      },
+      {
+        nom: 'Triple Shot',
+        texte:
+          'The repeater arquebus may fire up to 3 times. If more than one shot is made, the shooter suffers a -1 penalty to hit. Resolve each shot individually; each shot may have a different target as long as the next target is within 3" of the previous one. The usual target selection rules apply normally.',
+      },
+    ],
+  },
+  canon_crache_plomb: {
+    nom: 'Lead-Spitter Cannon',
+    texte: 'In the Border Town Burning setting, only the Maneaters have access to the portable mortar, under the name lead-spitter cannon.',
+    regles_speciales: [
+      {
+        nom: 'See Portable Mortar',
+        texte: 'Renamed version of the Portable Mortar for the Maneaters; same rules (Scatter, Experimental, Save Modifier, Move or Shoot, Blast Radius, Reloading).',
+      },
+    ],
+  },
+  long_fusil_du_hochland: {
+    nom: 'Hochland Long Rifle',
+    texte:
+      'Hochland is a province famous for its huntsmen, and the favoured weapon of its nobility for hunting is a long-range rifle. It is a rare and precious weapon that only the most talented armourer can manage to craft. The Hochland long rifle is eligible for the double barrel option for Ostlander Mercenaries.',
+    regles_speciales: [
+      { nom: 'Choice of Target', texte: 'This weapon allows the shooter to target any model in sight, not just the closest one.' },
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      {
+        nom: 'Move or Shoot',
+        texte: 'It is not possible to move and shoot during the same turn, except to turn on the spot or stand up.',
+      },
+      {
+        nom: 'Reloading',
+        texte:
+          'It takes a full turn to reload the weapon, so it can only fire every other turn. If you have a pair of these weapons, you may fire once per turn.',
+      },
+    ],
+  },
+  mortier_portable: {
+    nom: 'Portable Mortar',
+    texte:
+      "With the explosive power of a true mortar, a device small enough to be carried by a single man lets a warrior lob an explosive into the heart of the enemy's ranks, sowing death and confusion.",
+    regles_speciales: [
+      {
+        nom: 'Scatter',
+        texte:
+          'If the fighter fails his roll to hit, the shot lands 2D6" away, in a random direction (determined by a scatter die or any other method agreed upon by the players).',
+      },
+      {
+        nom: 'Experimental',
+        texte:
+          "This weapon is always subject to the optional black powder weapon rules from the Mordheim Rulebook, even if they are not used in your campaign. For any result other than 'BOOM!', the weapon has jammed or run out of ammunition and the barrels must be reloaded.",
+      },
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      {
+        nom: 'Move or Shoot',
+        texte: 'It is not possible to move and shoot during the same turn, except to turn on the spot or stand up.',
+      },
+      {
+        nom: 'Blast Radius',
+        texte:
+          'After determining the point of impact, the explosion created by the bomb will cover a small area. All models within 1.5" of the point of impact are hit by a Strength 4 hit caused by the blast.',
+      },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon, so it can only fire every other turn.' },
+    ],
+  },
+  pierrier: {
+    nom: 'Swivel Gun',
+    texte:
+      'Sometimes, pirate gunners build and carry onto the battlefield a scaled-down version of the actual cannons usually mounted on swivels at the rails or sides of the ship. Although smaller than ordinary cannons, these swivel-mounted guns are so large they must be mounted on a wooden support. They are cumbersome and more prone to jamming than more common black powder weapons, due to imperfect casting or a poor mix of black powder. Even so, most gunners agree that these drawbacks are more than made up for by their power.',
+    regles_speciales: [
+      {
+        nom: 'Massive',
+        texte:
+          'The user has -1 Initiative and -1 Movement for the entire battle. In addition, swivel guns can never fire twice per turn or fire while the user is moving, regardless of the user\'s skills.',
+      },
+      {
+        nom: 'Move or Shoot',
+        texte: 'It is not possible to move and shoot during the same turn, except to turn on the spot or stand up.',
+      },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload a swivel gun, so it can only fire every other turn.' },
+      {
+        nom: 'Only One',
+        texte: "A Pirates warband may only have a single swivel gun, due to the time the ship's craftsmen need to maintain it.",
+      },
+      {
+        nom: 'Black Powder',
+        texte:
+          'Due to the questionable nature of the materials used in their construction, the optional black powder weapon rules on page 184 of the Mordheim Rulebook always apply to swivel guns.',
+      },
+      {
+        nom: 'Special Ammunition',
+        texte:
+          'Swivel guns use unconventional ammunition types that must be purchased for each game. Each type of ammunition only lasts for the duration of one battle. So, if used during a game, it cannot be used again until new ammunition is bought. Before firing, the shooter must declare which type of ammunition is being used if more than one type is available (see special ammunition: Round Shot, Chain Shot, Grapeshot).',
+      },
+    ],
+  },
+  boulet_pierrier: {
+    nom: 'Round Shot (swivel gun ammunition)',
+    texte: 'A swivel gun firing these heavy lead balls can stop an ogre dead in his charge!',
+    regles_speciales: [
+      {
+        nom: 'Blunt Force',
+        texte:
+          'The impact of the heavy lead projectile is enough to stun even the toughest of warriors. A damage roll of 2-4 (instead of the usual 3-4) is treated as Stunned.',
+      },
+      { nom: 'Armour Save -2', texte: 'The armour save suffers a -2 penalty.' },
+    ],
+  },
+  chaines_pierrier: {
+    nom: 'Chain Shot (swivel gun ammunition)',
+    texte: "These metal chains don't cause as much damage, but can entangle an opponent and bring him to his knees.",
+    regles_speciales: [
+      {
+        nom: 'Entangle',
+        texte:
+          'Enemies hit by chain shot fire, but not wounded, are Knocked Down on a roll of 4+ on 1D6, even if they normally cannot be Knocked Down.',
+      },
+      { nom: 'Armour Save -1', texte: 'The armour save suffers a -1 penalty.' },
+    ],
+  },
+  mitraille_pierrier: {
+    nom: 'Grapeshot (swivel gun ammunition)',
+    texte:
+      'Small casks filled with metal balls, pebbles, scrap metal, and even salt crystals are used to reload the gun. It can then fire a cloud of shrapnel.',
+    regles_speciales: [
+      {
+        nom: 'Shrapnel',
+        texte:
+          "If a hit is scored, 1D6 other enemies within 4\" of the target and in the shooter's line of sight automatically suffer a hit. If the initial target was in the open, only targets in the open can be hit (targets in cover can only be hit if the initial target was in cover). Additional targets are hit starting from the fighter closest to the initial target to the farthest. Hidden fighters, if within the shooter's line of sight, are also considered close to the initial target and may therefore be hit. Pirates know to duck for cover when they hear a swivel gun go off, and are therefore never hit by an allied grapeshot shot.",
+      },
+      { nom: 'No Armour Save', texte: 'No armour save is allowed.' },
+    ],
+  },
+  pigeon_explosif: {
+    nom: 'Hersten-Wenkler Explosive Pigeon',
+    texte:
+      "When the Empire became aware of the full potential of black powder, it was only a matter of time before a few enterprising engineers combined explosives and small animals. After initial failures with rats, bats, and dogs, promising results were obtained with pigeons. Although not very accurate, pigeons can quickly reach distant targets and, once launched, are very difficult to intercept. Upon arrival, the pigeon's small metal harness detaches, releasing the bomb to devastate a small area below, while the pigeon calmly flies home...",
+    regles_speciales: [
+      {
+        nom: 'Temperamental',
+        texte:
+          "When launching an explosive pigeon, do not use the fighter's Ballistic Skill. Instead, roll 1D6: 1 = something went wrong and the pigeon explodes in the Hero's hands... he and anyone within 1.5\" suffer a Strength 4 hit. 2-4 = the fuse wasn't cut to the right length and the bomb explodes in mid-flight before reaching its target. 5-6 = the bomb reaches its target.",
+      },
+      {
+        nom: 'Move or Shoot',
+        texte: 'It is not possible to move and shoot during the same turn, except to turn on the spot or stand up.',
+      },
+      {
+        nom: 'Pigeon Loft',
+        texte: 'When a Hero buys explosive pigeons, he has enough for the whole game, and his supply is replenished at the start of each new game.',
+      },
+      {
+        nom: 'Blast Radius',
+        texte:
+          'After determining the point of impact, the explosion created by the explosive pigeon will cover a small area. All models within 1.5" of the point of impact are hit by a Strength 4 hit caused by the blast.',
+      },
+    ],
+  },
+  pistolet: {
+    nom: 'Pistol',
+    texte:
+      'A pistol is a simple black powder weapon, fitted with a spring-loaded firing mechanism. Most pistols are expensive, unreliable, and poorly made. The pistol is eligible for the double barrel option for Nuln Artillerists and Ostlander Mercenaries.',
+    regles_speciales: [
+      {
+        nom: 'Hand-to-Hand',
+        texte:
+          'This weapon may be used once during the first round of hand-to-hand combat. Used alongside another weapon, it grants +1 Attack (+2 Attacks with a pair). These extra attacks are resolved with Weapon Skill and may be parried.',
+      },
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      {
+        nom: 'Reloading',
+        texte:
+          'It takes a full turn to reload the weapon, so it can only fire every other turn. If you have a pair of these weapons, you may fire once per turn.',
+      },
+    ],
+  },
+  pistolet_a_malepierre: {
+    nom: 'Warpstone Pistol',
+    texte:
+      "Warpstone pistols are formidable weapons, testament to Clan Skryre's twisted genius. These pistols fire ammunition made from bewitched warpstone fragments. These bullets cause horrific wounds that often degenerate into terrible infections.",
+    regles_speciales: [
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty (i.e. -3 in total).',
+      },
+      {
+        nom: 'Reloading',
+        texte:
+          'It takes a full turn to reload the weapon, so it can only fire every other turn. If you have a pair of these weapons, you may fire once per turn.',
+      },
+    ],
+  },
+  pistolet_a_repetition: {
+    nom: 'Repeater Pistol',
+    texte:
+      "It didn't take long for Imperial engineers to adapt the repeater arquebus mechanism onto a pistol. Although they too are prone to regular malfunction, they have found their place in the army's armouries. Tales of stone-faced officers firing on hordes of enemies while standing atop a pile of corpses are, in all likelihood, legends. But it could well happen...",
+    regles_speciales: [
+      {
+        nom: 'Experimental',
+        texte:
+          "This weapon is always subject to the optional black powder weapon rules from the Mordheim Rulebook, even if they are not used in your campaign. For any result other than 'BOOM!', the weapon has jammed or run out of ammunition and the barrels must be reloaded.",
+      },
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      {
+        nom: 'Not a Club',
+        texte:
+          'The repeater pistol may be used as a normal pistol during the first round of hand-to-hand combat. After that, it does not count as an additional weapon, as it is too fragile to be used in such a crude manner. Its owner will not willingly part with it during a fight and will have to fight without using an additional weapon.',
+      },
+      {
+        nom: 'Quick Reload',
+        texte:
+          "The repeater pistol's design and number of barrels allow for a quick reload. The repeater pistol will always be able to fire at least one shot. If the weapon is used in triple shot mode, the fighter must spend a full Shooting phase, without being engaged in hand-to-hand combat, to reload the weapon.",
+      },
+      {
+        nom: 'Triple Shot',
+        texte:
+          'The repeater pistol may fire up to 3 times. If more than one shot is made, the shooter suffers a -1 penalty to hit. Resolve each shot individually; each shot may have a different target as long as the next target is within 3" of the previous one. The usual target selection rules apply normally.',
+      },
+    ],
+  },
+  pistolet_de_duel: {
+    nom: 'Duelling Pistol',
+    texte:
+      "A duelling pistol is a true work of art, and an armourer must put in long and meticulous work to craft one. These are weapons of exorbitant cost that the average warrior rarely has the chance to own: even if one manages to steal or buy one, the price of ammunition remains astronomical. Some of Mordheim's wealthiest warriors carry duelling pistols to signal their rank and inspire respect and envy. Duelling pistols are eligible for the double barrel option for Nuln Artillerists.",
+    regles_speciales: [
+      {
+        nom: 'Hand-to-Hand',
+        texte:
+          'This weapon may be used once during the first round of hand-to-hand combat. Used alongside another weapon, it grants +1 Attack (+2 Attacks with a pair). These extra attacks are resolved with Weapon Skill and may be parried.',
+      },
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      { nom: 'Accuracy', texte: 'This weapon is designed for accuracy. Any shot with this weapon gets a +1 bonus to hit.' },
+      {
+        nom: 'Reloading',
+        texte:
+          'It takes a full turn to reload the weapon, so it can only fire every other turn. If you have a pair of these weapons, you may fire once per turn.',
+      },
+    ],
+  },
+  tromblon: {
+    nom: 'Blunderbuss',
+    texte:
+      'A blunderbuss is a rudimentary black powder weapon that fires a hail of lead shot, rusty rivets, bent nails, and other scrap metal. This powerful but hazardous weapon takes an enormous amount of time to reload, so most warriors discard it after the first shot.',
+    regles_speciales: [
+      {
+        nom: 'Discharge',
+        texte: 'When the weapon fires, draw a line 16" long and 1" wide in any direction. All models in its path are automatically hit by a Strength 3 hit.',
+      },
+      { nom: 'Single Shot', texte: 'This weapon takes time to reload and can only be used once per game.' },
+    ],
+  },
+  tromblon_nain_du_chaos: {
+    nom: 'Chaos Dwarf Blunderbuss',
+    texte:
+      'Chaos Dwarfs are renowned for using large numbers of these infamous blunderbusses against enemy infantry. They employ the same tactic in street fights across Mordheim.',
+    regles_speciales: [
+      {
+        nom: 'Discharge',
+        texte: 'When the weapon fires, draw a line 16" long and 1" wide in any direction. All models in its path are automatically hit by a Strength 3 hit.',
+      },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon, so it can only fire every other turn.' },
+      {
+        nom: 'Systematic Misfires',
+        texte:
+          'Unlike other black powder weapons, this blunderbuss always uses the optional misfire rules, even if they are not used in the campaign: before firing, roll 1D6 — on a result of 1, resolve a misfire on the dedicated table.',
+      },
+    ],
+  },
+  double_canon: {
+    nom: 'Double Barrel (option)',
+    texte:
+      'Originally created by an innovative Ostland blacksmith for a vampire hunter, the engineers of the Nuln College of Engineering quickly grasped the concept. The idea is fairly simple: it is simply a black powder weapon with a pair of barrels and a trigger, capable of firing one or both barrels at once, giving it the ability to punch through the thickest armour. The following black powder weapons may benefit from the double barrel option (see each weapon\'s price table for cost and rarity): Arquebus (Nuln Artillerists), Hochland Long Rifle (Ostlander Mercenaries), Pistol (Nuln Artillerists, Ostlander Mercenaries), Duelling Pistol (Nuln Artillerists).',
+    regles_speciales: [
+      {
+        nom: 'Double Barrel',
+        texte:
+          'A double-barrelled weapon is fitted with a delicate mechanism, but proves to be an effective weapon in combat. When firing such a weapon, the shooter must declare whether he is firing with one or both barrels. If firing with a single barrel, treat the shot as you normally would for the weapon\'s ordinary equivalent. If firing with both barrels: To hit, make a single roll, as you normally would — this weapon allows a combined shot. To wound, make a roll for each hit, as each barrel can Wound individually — roll for Critical Hit results.',
+      },
+      {
+        nom: 'Reloading',
+        texte:
+          'After firing both barrels, place 2 tokens next to the model. During your next Shooting phase, remove 1 token. It represents one of the barrels having been reloaded. Removing tokens is the last action taken during your Shooting phase. You therefore cannot reload and fire with the same weapon during the same Shooting phase.',
+      },
+      {
+        nom: 'Reloading a Pair',
+        texte: 'When reloading a pair of pistols, place 4 tokens of 2 different colours (one for each pistol). Each turn, remove one token of each colour.',
+      },
+    ],
+  },
+  pistolet_double_canon: {
+    nom: 'Double-Barrelled Pistol',
+    texte: 'A pistol fitted with two stacked barrels, allowing two shots before needing to reload. Heavier and less reliable than a single pistol.',
+    regles_speciales: [
+      {
+        nom: 'Double Shot',
+        texte: 'This weapon fires two shots before needing to be reloaded (instead of just one for a normal pistol).',
+      },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon after its two shots.' },
+    ],
+  },
+  long_fusil_hochland_double_canon: {
+    nom: 'Double-Barrelled Hochland Long Rifle',
+    texte:
+      'A two-barrelled variant of the famous Hochland long rifle, even rarer and more expensive than the original, but capable of mowing down two targets before needing to reload.',
+    regles_speciales: [
+      { nom: 'Double Shot', texte: 'This weapon fires two shots before needing to be reloaded.' },
+      {
+        nom: 'Move or Shoot',
+        texte: 'It is not possible to move and shoot during the same turn, except to turn on the spot or stand up.',
+      },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon after its two shots.' },
+      { nom: 'Aim', texte: 'A shooter who does not move may re-roll a failed roll to hit.' },
+    ],
+  },
+  pistolet_duel_double_canon: {
+    nom: 'Double-Barrelled Duelling Pistol',
+    texte: 'A two-barrelled variant of the duelling pistol, as precious as it is delicate to maintain. Eligible for the double barrel option.',
+    regles_speciales: [
+      {
+        nom: 'Double Shot',
+        texte: 'This weapon fires two shots before needing to be reloaded (instead of just one for a normal duelling pistol).',
+      },
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      { nom: 'Accuracy', texte: 'This weapon is designed for accuracy. Any shot with this weapon gets a +1 bonus to hit.' },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon after its two shots.' },
+    ],
+  },
+  arquebuse_double_canon: {
+    nom: 'Double-Barrelled Arquebus',
+    texte: 'An arquebus fitted with a pair of barrels, capable of punching through the thickest armour. Eligible for the double barrel option.',
+    regles_speciales: [
+      {
+        nom: 'Double Shot',
+        texte: 'This weapon fires two shots before needing to be reloaded (instead of just one for a normal arquebus).',
+      },
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      {
+        nom: 'Move or Shoot',
+        texte: 'It is not possible to move and shoot during the same turn, except to turn on the spot or stand up.',
+      },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon after its two shots.' },
+    ],
+  },
 };
 
 const DISPONIBILITE_ARTEFACT_EN =
