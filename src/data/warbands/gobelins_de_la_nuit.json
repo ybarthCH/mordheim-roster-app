@@ -322,12 +322,12 @@
     "de": "D6",
     "utilisateurs": ["chaman"],
     "sorts": [
-      { "resultat": 1, "nom": "Vent de Gork", "difficulte": 6, "texte": "Portée 12ps ; la première figurine touchée doit réussir un test d'Endurance ou subir une touche de F2 et être mise à terre automatiquement." },
-      { "resultat": 2, "nom": "Regard de Mork", "difficulte": 8, "texte": "Portée 12ps ; D3 touches de F3 sur la première figurine sur le chemin." },
-      { "resultat": 3, "nom": "Têtechercheuz'", "difficulte": 8, "texte": "Portée 6ps ; tire un nombre d'éclairs égal à l'Attaque de base du Chaman, Force égale à son Endurance, touchant la première figurine sur le chemin. Sur un 1 après résolution, le Chaman s'effondre et est mis hors de combat." },
-      { "resultat": 4, "nom": "Saut de Waaagh !", "difficulte": 7, "texte": "Le Chaman ou un Gobelin dans un rayon de 3ps peut être déplacé jusqu'à 12ps en ignorant le terrain ; si cela amène au corps à corps, cela compte comme une charge." },
-      { "resultat": 5, "nom": "Idole de Gork", "difficulte": 8, "texte": "Le Chaman gagne CC+1, F+1 et A+1 jusqu'à ce qu'il subisse une Blessure." },
-      { "resultat": 6, "nom": "On y va !", "difficulte": 8, "texte": "Les figurines alliées à moins de 6ps du Chaman considèrent les résultats sonné comme à terre, jusqu'à ce que le Chaman subisse une Blessure." }
+      { "resultat": 1, "id": "vent_de_gork", "nom": "Vent de Gork", "difficulte": 6, "texte": "Portée 12ps ; la première figurine touchée doit réussir un test d'Endurance ou subir une touche de F2 et être mise à terre automatiquement." },
+      { "resultat": 2, "id": "regard_de_mork", "nom": "Regard de Mork", "difficulte": 8, "texte": "Portée 12ps ; D3 touches de F3 sur la première figurine sur le chemin." },
+      { "resultat": 3, "id": "tetechercheuz", "nom": "Têtechercheuz'", "difficulte": 8, "texte": "Portée 6ps ; tire un nombre d'éclairs égal à l'Attaque de base du Chaman, Force égale à son Endurance, touchant la première figurine sur le chemin. Sur un 1 après résolution, le Chaman s'effondre et est mis hors de combat." },
+      { "resultat": 4, "id": "saut_de_waaagh", "nom": "Saut de Waaagh !", "difficulte": 7, "texte": "Le Chaman ou un Gobelin dans un rayon de 3ps peut être déplacé jusqu'à 12ps en ignorant le terrain ; si cela amène au corps à corps, cela compte comme une charge." },
+      { "resultat": 5, "id": "idole_de_gork", "nom": "Idole de Gork", "difficulte": 8, "texte": "Le Chaman gagne CC+1, F+1 et A+1 jusqu'à ce qu'il subisse une Blessure." },
+      { "resultat": 6, "id": "on_y_va", "nom": "On y va !", "difficulte": 8, "texte": "Les figurines alliées à moins de 6ps du Chaman considèrent les résultats sonné comme à terre, jusqu'à ce que le Chaman subisse une Blessure." }
     ]
   }
 }

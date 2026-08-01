@@ -162,12 +162,12 @@
     "utilisateurs": ["matriarche_sigmarite"],
     "note": "Les prières de Sigmar peuvent être récitées par les prêtres-guerriers Répurgateurs et les matriarches des Sœurs de Sigmar. Elles ne sont pas considérées comme des sorts : un guerrier en armure peut donc en faire usage et les protections spéciales contre les sorts ne les affectent pas.",
     "sorts": [
-      { "resultat": 1, "nom": "Le Marteau de Sigmar", "difficulte": 7, "texte": "Le porteur gagne +2 en Force au corps à corps, et toutes ses touches causent le double de dommages (1 blessure = 2 PV perdus). Le prêtre doit tester à chaque phase de Tir pour utiliser le Marteau." },
-      { "resultat": 2, "nom": "Cœur d'Acier", "difficulte": 8, "texte": "Tout guerrier allié à moins de 8ps devient immunisé à la Peur et à Seul Contre Tous, et la bande entière gagne +1 à ses tests de Déroute. Non cumulable si lancé plusieurs fois ; dure jusqu'à ce que le lanceur soit mis hors de combat." },
-      { "resultat": 3, "nom": "Feu de l'Âme", "difficulte": 9, "texte": "Toute figurine ennemie à moins de 4ps subit une touche de Force 3 sans sauvegarde d'armure (Force 5 contre les morts-vivants et les possédés)." },
-      { "resultat": 4, "nom": "Bouclier de Sigmar", "difficulte": 6, "texte": "Le prêtre est immunisé à tous les sorts. Sur 1-2 au début de chaque tour (phase de Ralliement), le bouclier se dissipe." },
-      { "resultat": 5, "nom": "Imposition des Mains", "difficulte": 5, "texte": "Toute figurine à moins de 2ps du prêtre (lui-même inclus) récupère tous ses PV perdus ; les figurines amies sonnées ou à terre à 2ps se relèvent immédiatement et continuent le combat normalement." },
-      { "resultat": 6, "nom": "Armure du Juste", "difficulte": 9, "texte": "Le prêtre bénéficie d'une sauvegarde de 2+ qui remplace celle de son armure, cause la peur à ses ennemis et y est lui-même immunisé. Dure jusqu'au début de sa prochaine phase de Tir." }
+      { "resultat": 1, "id": "le_marteau_de_sigmar", "nom": "Le Marteau de Sigmar", "difficulte": 7, "texte": "Le porteur gagne +2 en Force au corps à corps, et toutes ses touches causent le double de dommages (1 blessure = 2 PV perdus). Le prêtre doit tester à chaque phase de Tir pour utiliser le Marteau." },
+      { "resultat": 2, "id": "c_ur_d_acier", "nom": "Cœur d'Acier", "difficulte": 8, "texte": "Tout guerrier allié à moins de 8ps devient immunisé à la Peur et à Seul Contre Tous, et la bande entière gagne +1 à ses tests de Déroute. Non cumulable si lancé plusieurs fois ; dure jusqu'à ce que le lanceur soit mis hors de combat." },
+      { "resultat": 3, "id": "feu_de_l_ame", "nom": "Feu de l'Âme", "difficulte": 9, "texte": "Toute figurine ennemie à moins de 4ps subit une touche de Force 3 sans sauvegarde d'armure (Force 5 contre les morts-vivants et les possédés)." },
+      { "resultat": 4, "id": "bouclier_de_sigmar", "nom": "Bouclier de Sigmar", "difficulte": 6, "texte": "Le prêtre est immunisé à tous les sorts. Sur 1-2 au début de chaque tour (phase de Ralliement), le bouclier se dissipe." },
+      { "resultat": 5, "id": "imposition_des_mains", "nom": "Imposition des Mains", "difficulte": 5, "texte": "Toute figurine à moins de 2ps du prêtre (lui-même inclus) récupère tous ses PV perdus ; les figurines amies sonnées ou à terre à 2ps se relèvent immédiatement et continuent le combat normalement." },
+      { "resultat": 6, "id": "armure_du_juste", "nom": "Armure du Juste", "difficulte": 9, "texte": "Le prêtre bénéficie d'une sauvegarde de 2+ qui remplace celle de son armure, cause la peur à ses ennemis et y est lui-même immunisé. Dure jusqu'au début de sa prochaine phase de Tir." }
     ]
   }
 }

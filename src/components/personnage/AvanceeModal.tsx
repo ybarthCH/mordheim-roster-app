@@ -8,6 +8,7 @@ import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { LIMITE_HEROS, categoriesAccessibles, tableAvancementDuProfil } from '../../utils/profil';
 import { peutAugmenterStat } from '../../utils/plafond';
 import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
+import { magieMineure } from '../../i18n/data/minorMagic';
 import { monturesDisponibles } from '../../utils/shop';
 import { SKILL_EQUITATION } from '../../utils/tribu';
 import { useLanguage } from '../../state/useLanguage';
@@ -306,9 +307,9 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
     );
   };
 
-  const choisirSort = (nomSort: string) => {
+  const choisirSort = (sortId: string, nomSort: string) => {
     appliquer(
-      { sorts_connus: [...travail.sorts_connus, nomSort] },
+      { sorts_connus: [...travail.sorts_connus, sortId] },
       {
         id: uuidv4(),
         date: new Date().toISOString().slice(0, 10),
@@ -316,6 +317,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
         roll: entreeAvancement?.min ?? 0,
         type: 'sort',
         detail: `Nouveau sort : ${nomSort}`,
+        sortId,
       },
       t('avanceeModal.resultNewSpell', { nom: nomSort })
     );
@@ -662,7 +664,14 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
 
       {etape === 'sort' &&
         (() => {
-          const disponibles = sortsDisponiblesPourRoster(catalogue, roster, travail.sorts_connus, profil, travail.marque);
+          const disponibles = sortsDisponiblesPourRoster(
+            catalogue,
+            roster,
+            travail.sorts_connus,
+            profil,
+            travail.marque,
+            magieMineure(language)
+          );
           return (
             <>
               {entreeAvancement && (
@@ -675,8 +684,8 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
               ) : (
                 <div className="skill-list">
                   {disponibles.map((s) => (
-                    <label key={s.nom} className="skill-check" style={{ cursor: 'pointer' }}>
-                      <input type="radio" name="sort" onChange={() => choisirSort(s.nom)} />
+                    <label key={s.id} className="skill-check" style={{ cursor: 'pointer' }}>
+                      <input type="radio" name="sort" onChange={() => choisirSort(s.id, s.nom)} />
                       <span>
                         <span className="skill-check__name">
                           {s.resultat} — {s.nom} (diff. {s.difficulte})

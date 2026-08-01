@@ -20,9 +20,14 @@ import { MAGIE_MINEURE } from '../data/minorMagic';
 export function magieDuProfil(
   catalogue: WarbandCatalog | undefined,
   profil: Profile | string,
-  marqueId?: string
+  marqueId?: string,
+  // Domaine de Magie mineure à utiliser pour l'affichage — déjà traduit si
+  // fourni par l'appelant (voir i18n/data/minorMagic.ts), sinon la donnée
+  // française d'origine. N'affecte que nom/texte : les MagieSort.id restent
+  // identiques dans les deux cas.
+  magieMineureAffichee: Magie = MAGIE_MINEURE
 ): Magie | undefined {
-  if (typeof profil !== 'string' && profil.categorie_magie === 'magie_mineure') return MAGIE_MINEURE;
+  if (typeof profil !== 'string' && profil.categorie_magie === 'magie_mineure') return magieMineureAffichee;
   if (marqueId) {
     const marque = catalogue?.marques?.find((m) => m.id === marqueId);
     if (marque?.pas_de_sorts) return undefined;
@@ -50,19 +55,24 @@ export function estSorcier(
 }
 
 /** Sorts du catalogue pas encore connus par le membre — proposés au choix
- * (premier sort au recrutement, ou nouveau sort via une avancée). */
+ * (premier sort au recrutement, ou nouveau sort via une avancée).
+ * `dejaConnus` contient des `MagieSort.id` (voir Member.sorts_connus). */
 export function sortsDisponibles(
   catalogue: WarbandCatalog | undefined,
   dejaConnus: string[],
   profil?: Profile | string,
-  marqueId?: string
+  marqueId?: string,
+  magieMineureAffichee: Magie = MAGIE_MINEURE
 ): MagieSort[] {
-  const magie = profil ? magieDuProfil(catalogue, profil, marqueId) : catalogue?.magie;
-  return magie?.sorts.filter((s) => !dejaConnus.includes(s.nom)) ?? [];
+  const magie = profil ? magieDuProfil(catalogue, profil, marqueId, magieMineureAffichee) : catalogue?.magie;
+  return magie?.sorts.filter((s) => !dejaConnus.includes(s.id)) ?? [];
 }
 
-export function sortsMagieMineureDisponibles(dejaConnus: string[]): MagieSort[] {
-  return MAGIE_MINEURE.sorts.filter((s) => !dejaConnus.includes(s.nom));
+export function sortsMagieMineureDisponibles(
+  dejaConnus: string[],
+  magieMineureAffichee: Magie = MAGIE_MINEURE
+): MagieSort[] {
+  return magieMineureAffichee.sorts.filter((s) => !dejaConnus.includes(s.id));
 }
 
 /** Sorts connus par un membre vivant du profil `profilId` dans cette bande —
@@ -83,25 +93,55 @@ export function sortsDisponiblesPourRoster(
   roster: RosterInstance,
   dejaConnus: string[],
   profil?: Profile | string,
-  marqueId?: string
+  marqueId?: string,
+  magieMineureAffichee: Magie = MAGIE_MINEURE
 ): MagieSort[] {
-  const base = sortsDisponibles(catalogue, dejaConnus, profil, marqueId);
+  const base = sortsDisponibles(catalogue, dejaConnus, profil, marqueId, magieMineureAffichee);
   const profilRestriction = typeof profil !== 'string' ? profil?.sorts_restreints_a_profil : undefined;
   if (!profilRestriction) return base;
   const connus = sortsConnusParProfil(roster, profilRestriction);
   if (!connus) return base;
-  return base.filter((s) => connus.includes(s.nom));
+  return base.filter((s) => connus.includes(s.id));
 }
 
 /** Synopsis complet d'un sort connu (nom, difficulté, texte) à partir de son
- * nom — undefined si introuvable dans le catalogue actuel (bande changée,
- * ou entrée héritée de l'ancien champ texte libre). */
+ * id (voir MagieSort.id / Member.sorts_connus) — undefined si introuvable
+ * dans le catalogue actuel (bande changée, ou entrée héritée de l'ancien
+ * format texte libre). `catalogue` peut être français ou déjà traduit : la
+ * résolution par id reste valide dans les deux cas, contrairement à une
+ * résolution par nom. */
 export function resolveSort(
   catalogue: WarbandCatalog | undefined,
-  nom: string,
+  id: string,
   profil?: Profile | string,
-  marqueId?: string
+  marqueId?: string,
+  magieMineureAffichee: Magie = MAGIE_MINEURE
 ): MagieSort | undefined {
-  const magie = profil ? magieDuProfil(catalogue, profil, marqueId) : catalogue?.magie;
-  return magie?.sorts.find((s) => s.nom === nom) ?? MAGIE_MINEURE.sorts.find((s) => s.nom === nom);
+  const magie = profil ? magieDuProfil(catalogue, profil, marqueId, magieMineureAffichee) : catalogue?.magie;
+  return magie?.sorts.find((s) => s.id === id) ?? magieMineureAffichee.sorts.find((s) => s.id === id);
+}
+
+/** Réécrit les anciennes entrées de `Member.sorts_connus` stockées comme nom
+ * affiché (avant la migration vers `MagieSort.id`) en id stable, en cherchant
+ * une correspondance parmi les domaines de sorts fournis par l'appelant (ex :
+ * catalogue français + anglais de la bande, Magie mineure dans les deux
+ * langues — voir l'appel dans PersonnageScreen, seul endroit où toutes ces
+ * données sont déjà chargées). Une entrée déjà valide (id connu dans l'un des
+ * domaines) ou sans correspondance trouvée est laissée inchangée (repli sur
+ * l'ancien texte, cf resolveSort). Reste volontairement indépendant de la
+ * langue affichée à l'écran : matche indifféremment sur n'importe quel
+ * domaine fourni. */
+export function migrerSortsConnus(sortsConnus: string[], domaines: Magie[]): string[] {
+  if (sortsConnus.length === 0) return sortsConnus;
+  const idsValides = new Set<string>();
+  const idParNom = new Map<string, string>();
+  domaines.forEach((magie) => {
+    magie.sorts.forEach((s) => {
+      idsValides.add(s.id);
+      idParNom.set(s.nom.trim().toLowerCase(), s.id);
+    });
+  });
+  return sortsConnus.map((entree) =>
+    idsValides.has(entree) ? entree : (idParNom.get(entree.trim().toLowerCase()) ?? entree)
+  );
 }

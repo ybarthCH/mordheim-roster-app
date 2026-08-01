@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
 import { grilleXpDuProfil, resolveProfil, nombreHeros } from '../../utils/profil';
 import { getCatalogue } from '../../data/warbands';
-import type { Stats } from '../../types/catalog';
+import type { Magie, Stats } from '../../types/catalog';
 import { STAT_KEYS } from '../../types/catalog';
 import type { AdvanceRecord, Statut } from '../../types/roster';
 import { StatutCard } from './StatutCard';
@@ -28,12 +28,13 @@ import { MagieReference } from '../common/CatalogueReference';
 import { avancesDues, peutGagnerExperience } from '../../utils/xp';
 import { ratingMembre } from '../../utils/rating';
 import { succederApresMorts } from '../../utils/leader';
-import { estSorcier } from '../../utils/magie';
+import { estSorcier, migrerSortsConnus } from '../../utils/magie';
 import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
 import { skillById } from '../../data/gameData';
 import { useLanguage } from '../../state/useLanguage';
 import { translateSkill } from '../../i18n/data/skills';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
+import { magieMineure } from '../../i18n/data/minorMagic';
 import {
   acheterPourMembre,
   retirerDeMembre,
@@ -77,6 +78,33 @@ export function PersonnageScreen() {
   const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
   const profil = roster && membre ? resolveProfil(roster, membre, catalogue) : undefined;
   const francTireur = getFrancTireur(membre?.franc_tireur_id);
+
+  // sorts_connus stockait autrefois le nom affiché du sort plutôt qu'un id
+  // stable (voir MagieSort.id) : un sort choisi pendant que l'interface était
+  // en anglais restait affiché en anglais même après repassage en français.
+  // À l'ouverture d'une fiche, on tente de réécrire silencieusement toute
+  // entrée héritée vers son id, en cherchant dans le catalogue de la bande
+  // (français et anglais) et la Magie mineure (français et anglais) — seul
+  // endroit où toutes ces données sont déjà chargées sans coût supplémentaire.
+  // Une entrée sans correspondance reste en l'état (repli sur l'ancien texte).
+  useEffect(() => {
+    if (!roster || !membre || !catalogueBrut || membre.sorts_connus.length === 0) return;
+    const catalogueEn = translateWarbandCatalog(catalogueBrut, 'en');
+    const domaines: Magie[] = [];
+    if (catalogueBrut.magie) domaines.push(catalogueBrut.magie);
+    if (catalogueBrut.magie_variantes) domaines.push(...Object.values(catalogueBrut.magie_variantes));
+    if (catalogueEn.magie) domaines.push(catalogueEn.magie);
+    if (catalogueEn.magie_variantes) domaines.push(...Object.values(catalogueEn.magie_variantes));
+    domaines.push(magieMineure('fr'), magieMineure('en'));
+    const migres = migrerSortsConnus(membre.sorts_connus, domaines);
+    if (migres.some((v, i) => v !== membre.sorts_connus[i])) {
+      updateRoster({
+        ...roster,
+        membres: roster.membres.map((m) => (m.instance_id === membre.instance_id ? { ...m, sorts_connus: migres } : m)),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roster?.id, membre?.instance_id, membre?.sorts_connus, catalogueBrut]);
 
   if (!roster || !membre || !profil || !catalogue) {
     return (
@@ -268,8 +296,8 @@ export function PersonnageScreen() {
   // afficher qu'une ligne par objet, suffixée de la quantité.
   const inventaireGroupe = resumeInventaireParItem(membre.inventaire);
 
-  const utiliserGrimoire = (nomSort: string) => {
-    if (membre.sorts_connus.includes(nomSort)) return;
+  const utiliserGrimoire = (idSort: string) => {
+    if (membre.sorts_connus.includes(idSort)) return;
     if (!grimoireMembre && !grimoireStock) return;
 
     const inventaire = grimoireMembre
@@ -288,7 +316,7 @@ export function PersonnageScreen() {
               ...m,
               inventaire,
               equipement: grimoireMembre ? formatEquipementAffiche(inventaire) : m.equipement,
-              sorts_connus: [...m.sorts_connus, nomSort],
+              sorts_connus: [...m.sorts_connus, idSort],
             }
           : m
       ),

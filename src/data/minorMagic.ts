@@ -9,6 +9,7 @@ export const MAGIE_MINEURE: Magie = {
   sorts: [
     {
       resultat: 1,
+      id: 'flammes_de_u_zhul',
       nom: 'Flammes de U’Zhul',
       difficulte: 7,
       texte:
@@ -16,6 +17,7 @@ export const MAGIE_MINEURE: Magie = {
     },
     {
       resultat: 2,
+      id: 'vol_de_zimmeran',
       nom: 'Vol de Zimmeran',
       difficulte: 7,
       texte:
@@ -23,6 +25,7 @@ export const MAGIE_MINEURE: Magie = {
     },
     {
       resultat: 3,
+      id: 'frayeur_d_aramar',
       nom: 'Frayeur d’Aramar',
       difficulte: 7,
       texte:
@@ -30,6 +33,7 @@ export const MAGIE_MINEURE: Magie = {
     },
     {
       resultat: 4,
+      id: 'fleches_argentees_d_arha',
       nom: 'Flèches Argentées d’Arha',
       difficulte: 7,
       texte:
@@ -37,6 +41,7 @@ export const MAGIE_MINEURE: Magie = {
     },
     {
       resultat: 5,
+      id: 'chance_de_shemtek',
       nom: 'Chance de Shemtek',
       difficulte: 6,
       texte:
@@ -44,6 +49,7 @@ export const MAGIE_MINEURE: Magie = {
     },
     {
       resultat: 6,
+      id: 'lame_de_rehebel',
       nom: 'Lame de Rehebel',
       difficulte: 8,
       texte:

@@ -1,6 +1,7 @@
 import { injuryLabel } from '../../utils/blessures';
 import { resolveItemDetail, resumeItem } from '../../utils/shop';
 import { estSorcier, resolveSort } from '../../utils/magie';
+import { magieMineure } from '../../i18n/data/minorMagic';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import type { InventoryEntry, Member } from '../../types/roster';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
@@ -75,11 +76,11 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
         <>
           <span className="resume-section__title">{t('resume.magicKnownSpell')}</span>
           {membre.sorts_connus.length > 0 ? (
-            membre.sorts_connus.map((nom, i) => {
-              const sort = resolveSort(catalogue, nom, profil, membre.marque);
+            membre.sorts_connus.map((id, i) => {
+              const sort = resolveSort(catalogue, id, profil, membre.marque, magieMineure(language));
               return (
                 <p key={i} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-                  <strong>{sort ? sort.nom : nom}</strong>
+                  <strong>{sort ? sort.nom : id}</strong>
                   {sort && <span className="text-muted"> — {sort.texte}</span>}
                 </p>
               );

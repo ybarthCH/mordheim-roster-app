@@ -238,12 +238,12 @@
     "utilisateurs": ["chamane_orque"],
     "note": "Sorts invoqués au cours de rituels ressemblant à des hurlements apostrophant les dieux orques, Gork et Mork.",
     "sorts": [
-      { "resultat": 1, "nom": "Z'y Va !", "difficulte": 9, "texte": "Tout Orque ou Gobelin dans un rayon de 4ps autour du Chamane frappe automatiquement en premier au Corps à Corps, quelles que soient les circonstances. Dure jusqu'à ce que le Chamane soit mis à terre, sonné ou hors de combat." },
-      { "resultat": 2, "nom": "Bouge de Là !", "difficulte": 7, "texte": "Portée 8ps. Déplacez une figurine ennemie d'1D6ps dans la direction opposée au Chamane. Si elle heurte une autre figurine ou un bâtiment, les deux subissent une touche de F3. Ne peut pas être utilisé contre des figurines engagées au Corps à Corps." },
-      { "resultat": 3, "nom": "Zzzap !", "difficulte": 9, "texte": "Portée 12ps. Inflige 1D3 touches de Force 4 à la figurine ennemie la plus proche, aucune sauvegarde d'armure possible." },
-      { "resultat": 4, "nom": "Bouffon, Va !", "difficulte": 6, "texte": "Aucun ennemi ne peut charger le Chamane durant le prochain tour. Si le Chamane était engagé au Corps à Corps, il peut immédiatement être déplacé de 4ps." },
-      { "resultat": 5, "nom": "Ramèn'ta Fraise !", "difficulte": 7, "texte": "Une massue fantomatique apparaît dans la main du Chamane : considérée comme un gourdin ordinaire, ajoute +2 en Force et +1 Attaque. Dure jusqu'à ce que le Chamane subisse une Blessure." },
-      { "resultat": 6, "nom": "Feu de Gork", "difficulte": 8, "texte": "Portée 12ps. Deux éclairs de flammes vertes jaillissent des narines du Chamane vers la figurine ennemie la plus proche. Chaque éclair inflige 1D3 touches de Force 3 ; les éclairs peuvent frapper tous deux la même cible ou être répartis entre les deux figurines ennemies les plus proches." }
+      { "resultat": 1, "id": "z_y_va", "nom": "Z'y Va !", "difficulte": 9, "texte": "Tout Orque ou Gobelin dans un rayon de 4ps autour du Chamane frappe automatiquement en premier au Corps à Corps, quelles que soient les circonstances. Dure jusqu'à ce que le Chamane soit mis à terre, sonné ou hors de combat." },
+      { "resultat": 2, "id": "bouge_de_la", "nom": "Bouge de Là !", "difficulte": 7, "texte": "Portée 8ps. Déplacez une figurine ennemie d'1D6ps dans la direction opposée au Chamane. Si elle heurte une autre figurine ou un bâtiment, les deux subissent une touche de F3. Ne peut pas être utilisé contre des figurines engagées au Corps à Corps." },
+      { "resultat": 3, "id": "zzzap", "nom": "Zzzap !", "difficulte": 9, "texte": "Portée 12ps. Inflige 1D3 touches de Force 4 à la figurine ennemie la plus proche, aucune sauvegarde d'armure possible." },
+      { "resultat": 4, "id": "bouffon_va", "nom": "Bouffon, Va !", "difficulte": 6, "texte": "Aucun ennemi ne peut charger le Chamane durant le prochain tour. Si le Chamane était engagé au Corps à Corps, il peut immédiatement être déplacé de 4ps." },
+      { "resultat": 5, "id": "ramen_ta_fraise", "nom": "Ramèn'ta Fraise !", "difficulte": 7, "texte": "Une massue fantomatique apparaît dans la main du Chamane : considérée comme un gourdin ordinaire, ajoute +2 en Force et +1 Attaque. Dure jusqu'à ce que le Chamane subisse une Blessure." },
+      { "resultat": 6, "id": "feu_de_gork", "nom": "Feu de Gork", "difficulte": 8, "texte": "Portée 12ps. Deux éclairs de flammes vertes jaillissent des narines du Chamane vers la figurine ennemie la plus proche. Chaque éclair inflige 1D3 touches de Force 3 ; les éclairs peuvent frapper tous deux la même cible ou être répartis entre les deux figurines ennemies les plus proches." }
     ]
   }
 }

@@ -11,8 +11,8 @@ import type {
 
 type RegleTraduite = { nom: string; texte: string; exception?: string };
 type CompetenceTraduite = { nom: string; texte: string; reserve_a?: string };
-type SortTraduit = { nom: string; texte: string; note?: string };
-type MagieTraduite = { nom?: string; type?: string; note?: string; sorts?: SortTraduit[] };
+export type SortTraduit = { nom: string; texte: string; note?: string };
+export type MagieTraduite = { nom?: string; type?: string; note?: string; sorts?: SortTraduit[] };
 type MarqueTraduite = { nom: string; texte?: string };
 type TribuTraduite = { nom: string; texte: string };
 type EquipementListeTraduite = {
@@ -5475,7 +5475,7 @@ function translateCompetences(
   });
 }
 
-function translateMagie(magie: Magie, en: MagieTraduite | undefined): Magie {
+export function translateMagie(magie: Magie, en: MagieTraduite | undefined): Magie {
   return {
     ...magie,
     nom: en?.nom ?? magie.nom,

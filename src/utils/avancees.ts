@@ -40,8 +40,8 @@ export function annulerAvancee(
   }
 
   if (record.type === 'sort') {
-    const nomSort = record.detail.replace(/^Nouveau sort\s*:\s*/, '');
-    const index = membre.sorts_connus.indexOf(nomSort);
+    const cible = record.sortId ?? record.detail.replace(/^Nouveau sort\s*:\s*/, '');
+    const index = membre.sorts_connus.indexOf(cible);
     if (index === -1) return { historique_avancees };
     return {
       historique_avancees,

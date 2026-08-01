@@ -8,7 +8,8 @@ import { STAT_KEYS } from '../../types/catalog';
 import type { Member, RosterInstance } from '../../types/roster';
 import { creerMembre, creerRoster } from '../../utils/factory';
 import { peutAjouterMembre } from '../../utils/validation';
-import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
+import { estSorcier, resolveSort, sortsDisponiblesPourRoster } from '../../utils/magie';
+import { magieMineure } from '../../i18n/data/minorMagic';
 import { peutGagnerExperience } from '../../utils/xp';
 import { useRosters } from '../../state/useRosters';
 import { useLanguage } from '../../state/useLanguage';
@@ -374,7 +375,14 @@ function RecrutementDraftModal({
   const marqueRequise = !!profil.marque_requise;
   const premierSortRequis =
     estSorcier(catalogue, profil.id, marqueChoisie || undefined) && (!marqueRequise || marqueChoisie !== '');
-  const sortsPossibles = sortsDisponiblesPourRoster(catalogue, roster, [], profil, marqueChoisie || undefined);
+  const sortsPossibles = sortsDisponiblesPourRoster(
+    catalogue,
+    roster,
+    [],
+    profil,
+    marqueChoisie || undefined,
+    magieMineure(language)
+  );
   const nombreSortsRequis = profil.nombre_sorts_choisis_depart ?? 1;
   const sortsChoisisValides =
     sortsChoisis.length === nombreSortsRequis && sortsChoisis.every((s) => s !== '');
@@ -490,13 +498,22 @@ function RecrutementDraftModal({
       )}
       {premierSortRequis && profil.sorts_fixes_depart && profil.sorts_fixes_depart.length > 0 && (
         <p className="text-sm text-muted">
-          {t('creation.modal.knowsAutomatically')} <strong>{profil.sorts_fixes_depart.join(', ')}</strong>.
+          {t('creation.modal.knowsAutomatically')}{' '}
+          <strong>
+            {profil.sorts_fixes_depart
+              .map(
+                (id) =>
+                  resolveSort(catalogue, id, profil, marqueChoisie || undefined, magieMineure(language))?.nom ?? id
+              )
+              .join(', ')}
+          </strong>
+          .
         </p>
       )}
       {premierSortRequis &&
         Array.from({ length: nombreSortsRequis }, (_, i) => {
           const sortsRestants = sortsPossibles.filter(
-            (s) => !sortsChoisis.some((sel, j) => j !== i && sel === s.nom)
+            (s) => !sortsChoisis.some((sel, j) => j !== i && sel === s.id)
           );
           return (
             <div className="field" key={i}>
@@ -515,7 +532,7 @@ function RecrutementDraftModal({
               >
                 <option value="">{t('creation.modal.choose')}</option>
                 {sortsRestants.map((s) => (
-                  <option key={s.nom} value={s.nom}>
+                  <option key={s.id} value={s.id}>
                     {s.resultat} — {s.nom}
                   </option>
                 ))}

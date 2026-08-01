@@ -214,37 +214,37 @@
     "note": "Les prières de Taal fonctionnent comme les prières de Sigmar, à la différence qu'un prêtre de Taal ne porte jamais d'armure.",
     "sorts": [
       {
-        "resultat": 1,
+        "resultat": 1, "id": "bond_du_cerf",
         "nom": "Bond du Cerf",
         "difficulte": 7,
         "texte": "Le Prêtre de Taal peut immédiatement se déplacer n'importe où dans un rayon de 9ps, y compris au contact d'un ennemi (compte comme une charge avec F+1 lors du premier tour). S'il engage un ennemi en fuite, il fait une touche automatique de F+1, puis son adversaire fuit à nouveau."
       },
       {
-        "resultat": 2,
+        "resultat": 2, "id": "biere_benite",
         "nom": "Bière Bénite",
         "difficulte": 5,
         "texte": "Boire une outre de bière bénie par Taal permet au prêtre de guérir un combattant à moins de 2ps (lui inclus) : il récupère tous ses PV. De plus, tout combattant ennemi en vie (hors Morts-Vivants et Possédés) à moins de 2ps du Prêtre perd A-1 lors du prochain tour de corps à corps."
       },
       {
-        "resultat": 3,
+        "resultat": 3, "id": "patte_d_ours",
         "nom": "Patte d'Ours",
         "difficulte": 7,
         "texte": "Le prêtre invoque la bénédiction de Taal sur un combattant allié ou sur lui-même dans un rayon de 6ps. La cible bénéficie d'un bonus de F+2 jusqu'au prochain tour du Prêtre."
       },
       {
-        "resultat": 4,
+        "resultat": 4, "id": "secousse_tellurique",
         "nom": "Secousse Tellurique",
         "difficulte": 9,
         "texte": "La prière cible un bâtiment dans un rayon de 4ps. Tout combattant ennemi en contact avec le bâtiment subit une touche de F3. De plus, le bâtiment s'effondre et tous les combattants qui s'y trouvent sont considérés comme ayant chuté. Retirez le décor ciblé de la table pour le reste de la partie."
       },
       {
-        "resultat": 5,
+        "resultat": 5, "id": "enchevetrement",
         "nom": "Enchevêtrement",
         "difficulte": 8,
         "texte": "Tous les combattants, ennemis comme alliés (à l'exception des Zélotes), à moins de 12ps du Prêtre, voient leur Mouvement divisé par 2 jusqu'à la prochaine phase de Tir."
       },
       {
-        "resultat": 6,
+        "resultat": 6, "id": "convocation_d_ecureuils",
         "nom": "Convocation d'Écureuils",
         "difficulte": 7,
         "texte": "Le Prêtre en appelle à la colère du Seigneur des Bêtes. La cible, un ennemi à moins de 12ps du Prêtre, subit 2D6 touches de F1, sans sauvegarde d'armure."

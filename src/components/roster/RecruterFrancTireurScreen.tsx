@@ -9,6 +9,7 @@ import {
 } from '../../data/hiredSwords';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { sortsMagieMineureDisponibles } from '../../utils/magie';
+import { magieMineure } from '../../i18n/data/minorMagic';
 import { useLanguage } from '../../state/useLanguage';
 import { libelleCaracteristique } from '../../utils/stats';
 
@@ -293,9 +294,10 @@ export function RecruterFrancTireurScreen() {
                   >
                     <option value="">{t('francTireur.chooseSpell', { n: index + 1 })}</option>
                     {sortsMagieMineureDisponibles(
-                      sortsChoisis.filter((_, sortIndex) => sortIndex !== index)
+                      sortsChoisis.filter((_, sortIndex) => sortIndex !== index),
+                      magieMineure(language)
                     ).map((sort) => (
-                      <option key={sort.nom} value={sort.nom}>
+                      <option key={sort.id} value={sort.id}>
                         {sort.resultat} — {sort.nom} ({t('francTireur.diffAbbrev')} {sort.difficulte})
                       </option>
                     ))}
