@@ -1731,7 +1731,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   lance_harpon: {
-    nom: 'Harpoon Launcher',
+    nom: 'Harpoon Crossbow',
     texte: 'More than just a crude hybrid crossbow, scaled up for a titanic marksman.',
     regles_speciales: [
       {
@@ -2676,11 +2676,15 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   gourdin_ogre: {
-    nom: 'Ogre Cudgel',
+    nom: 'Ogre Club',
     texte: 'A barely-shaped tree trunk, or sometimes the bone of a giant creature, that only an Ogre can wield as a hand-to-hand weapon.',
     regles_speciales: [
+      {
+        nom: 'Crushing Attack',
+        texte:
+          'Ogre clubs can be wielded with impressive force, granting an additional -1 save modifier. When it comes to the defender\'s parry attempts, the attack is treated as being at Strength+1. Thus, a Strength 3 fighter cannot parry the attack of a Strength 5 Ogre wielding an ogre club. The Crushing Attack only works if the Ogre uses the club two-handed.',
+      },
       { nom: 'Blunt', texte: 'A damage roll of 2-4 (instead of the usual 3-4) is treated as Stunned.' },
-      { nom: 'Strikes Last', texte: 'The weapon is so heavy that its wielder always strikes last, even when charging.' },
     ],
   },
 
@@ -2713,7 +2717,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     texte: 'The venomous ring makes its bearer immune to the effects of all poisons.',
   },
   gnoblar_longue_vue: {
-    nom: 'Spyglass Gnoblar',
+    nom: 'Lookout Gnoblar',
     texte:
       "Ogres take great delight in the quarrels between gnoblars, and some claim to keep one as a pet purely for entertainment. A cunning gnoblar will use his cunning to do the right thing at the right moment in order to win his master's favour. Treated in every respect as miscellaneous equipment (these are not models and do not take up a base!). If the Ogre is taken Out of Action, roll 1D6 for each gnoblar: on a 1-2, he is dead and removed from his master's equipment. Ogres may have up to two different gnoblar assistants.",
     regles_speciales: [
@@ -2721,7 +2725,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   gnoblar_porte_bonheur: {
-    nom: 'Lucky Gnoblar',
+    nom: 'Luck Gnoblar',
     texte:
       'Treated in every respect as miscellaneous equipment (these are not models and do not take up a base!). Ogres may have up to two different gnoblar assistants.',
     regles_speciales: [
@@ -2733,7 +2737,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   gnoblar_porte_epee: {
-    nom: 'Sword-Bearer Gnoblar',
+    nom: 'Sword Gnoblar',
     texte:
       'Treated in every respect as miscellaneous equipment (these are not models and do not take up a base!). Ogres may have up to two different gnoblar assistants.',
     regles_speciales: [
@@ -3491,7 +3495,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
 
   // --- Objets divers (2/2) — Bénédictions de Nurgle / mutations ---
   gnoblar_combattant: {
-    nom: 'Fighting Gnoblar',
+    nom: 'Gnoblar Fighter',
     texte:
       'Treated in every respect as miscellaneous equipment (these are not models and do not take up a base!). Ogres may have up to two different gnoblar assistants.',
     regles_speciales: [

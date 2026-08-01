@@ -196,7 +196,7 @@
         { "item_id": "sabre_de_cathay", "cout": 75, "restriction": "Capitaine uniquement" }
       ],
       "armes_tir": [
-        { "item_id": "mortier_portable", "cout": "70 + 2D6", "note": "voir équipement spécial" }
+        { "item_id": "mortier_portable", "cout": "80 + 2D6", "note": "voir équipement spécial" }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
