@@ -14,7 +14,7 @@ import { useLanguage } from '../../state/useLanguage';
 import type { Language } from '../../state/useLanguage';
 import { translateBlessure } from '../../i18n/data/blessuresGraves';
 import { libelleCaracteristique } from '../../utils/stats';
-import { traduireCle } from '../../utils/blessures';
+import { traduireCle, segmentAffiche } from '../../utils/blessures';
 
 // Noms sentinelles des issues spéciales "Gladiateur"/"Capturé", utilisés à la
 // fois pour construire le résultat (texte français persisté, voir
@@ -157,11 +157,12 @@ function estPersonnalise(r: ResultatBlessureGrave): boolean {
   return !original || original.nom !== r.nom;
 }
 
-// Version traduite d'une itération résolue, utilisée pour l'aperçu de
-// confirmation : le résultat réellement consigné dans l'historique du
-// guerrier reste toujours celui construit à partir des données françaises
-// d'origine (voir construireResultatBase), exactement comme translateItem
-// n'affecte jamais l'objet utilisé pour un achat.
+// Version traduite d'une itération résolue — n'a plus qu'un seul usage
+// restant : extraire les noteTag traduits pour le bloc "À ajouter aux
+// notes" de l'aperçu (voir notesTraductionMap plus bas). Le texte affiché de
+// la blessure elle-même passe désormais par segmentAffiche (utils/blessures,
+// voir texteIterationAfficheeAvecSpeciaux) — même logique de traduction que
+// l'affichage persisté, pas de réimplémentation parallèle ici.
 function iterationAffichee(it: IterationResolue, language: Language): IterationResolue {
   if (estPersonnalise(it.resultat)) return it;
   const resultat = translateBlessure(it.resultat, language);
@@ -169,10 +170,6 @@ function iterationAffichee(it: IterationResolue, language: Language): IterationR
   const index = it.resultat.sousJet?.options.indexOf(it.sousJetChoisi) ?? -1;
   const sousJetChoisi = index >= 0 ? (resultat.sousJet?.options[index] ?? it.sousJetChoisi) : it.sousJetChoisi;
   return { ...it, resultat, sousJetChoisi };
-}
-
-function texteIterationAffichee(it: IterationResolue, language: Language): string {
-  return texteIteration(iterationAffichee(it, language), language);
 }
 
 function notesIteration(it: IterationResolue): string[] {
@@ -185,6 +182,21 @@ function notesIteration(it: IterationResolue): string[] {
 
 function statsIteration(it: IterationResolue): Partial<Record<keyof Stats, number>> {
   return fusionnerStats(it.resultat.stat ?? {}, it.sousJetChoisi?.stat ?? {});
+}
+
+// Effet structuré d'une itération résolue — partagé entre construireResultatBase
+// (persisté dans SeriousInjuryRecord.effets) et l'aperçu de confirmation (voir
+// texteIterationAfficheeAvecSpeciaux), qui appelle sur ce même objet le
+// traducteur utils/blessures.segmentAffiche déjà utilisé pour re-traduire
+// l'affichage persisté — une seule logique de reconnaissance/traduction des
+// résultats, plutôt que deux implémentations parallèles.
+function effetDeIteration(it: IterationResolue): Omit<SeriousInjuryEffect, 'id'> {
+  return {
+    resultat_id: it.resultat.id,
+    nom: it.resultat.nom,
+    stats_delta: statsIteration(it),
+    notes_ajoutees: notesIteration(it),
+  };
 }
 
 type Props = {
@@ -451,12 +463,7 @@ export function BlessureGraveWizard({
             : texte,
         statsDelta: stats,
         notes,
-        effets: multiplesResultats.map((it) => ({
-          resultat_id: it.resultat.id,
-          nom: it.resultat.nom,
-          stats_delta: statsIteration(it),
-          notes_ajoutees: notesIteration(it),
-        })),
+        effets: multiplesResultats.map(effetDeIteration),
         perteEquipement: perteEquipement || gladiateurForcePerte,
         statutMort: secondOeilPerdu,
         xpBonus,
@@ -487,14 +494,7 @@ export function BlessureGraveWizard({
           : texte,
       statsDelta: statsIteration(racine),
       notes: secondOeilPerdu ? [...notesIteration(racine), NOTE_SECOND_OEIL] : notesIteration(racine),
-      effets: [
-        {
-          resultat_id: racine.resultat.id,
-          nom: racine.resultat.nom,
-          stats_delta: statsIteration(racine),
-          notes_ajoutees: notesIteration(racine),
-        },
-      ],
+      effets: [effetDeIteration(racine)],
       perteEquipement: !!racine.resultat.perteEquipement || gladiateurForcePerte,
       statutMort: !!racine.resultat.statutMort || secondOeilPerdu,
       xpBonus: racine.resultat.xpBonus ?? 0,
@@ -778,25 +778,15 @@ export function BlessureGraveWizard({
   // mode === 'confirmation'
   const resultatFinal = construireResultatFinal();
   const statsListe = Object.entries(resultatFinal.statsDelta).filter(([, v]) => v);
-  // Les issues "Gladiateur"/"Capturé" construisent un texte français fixe,
-  // hors de la table canonique (voir NOM_GLADIATEUR_VICTOIRE et alentours) —
-  // `texteIterationAffichee` les laisserait donc en français (estPersonnalise
-  // les traite comme du texte joueur libre). Reconstruites ici depuis les
-  // clés dédiées pour l'aperçu uniquement ; le texte réellement persisté
-  // (construireResultatBase) reste toujours celui-là, en français.
-  const texteIterationAfficheeAvecSpeciaux = (it: IterationResolue): string => {
-    if (it.resultat.nom === NOM_GLADIATEUR_VICTOIRE) {
-      return `${t('blessureGraveWizard.gladiatorVictoryNom')} (${it.resultat.code}) — ${t('blessureGraveWizard.gladiatorVictoryTexte')}`;
-    }
-    if (it.resultat.nom === NOM_CAPTURE_PERDU) {
-      return `${t('blessureGraveWizard.capturedLostNom')} (${it.resultat.code}) — ${t('blessureGraveWizard.capturedLostTexte')}`;
-    }
-    if (it.resultat.nom === NOM_CAPTURE_RANCON) {
-      const montant = Math.max(0, Math.trunc(Number(ranconSaisie) || 0));
-      return `${t('blessureGraveWizard.capturedRansomNom')} (${it.resultat.code}) — ${t('blessureGraveWizard.capturedRansomTexte', { montant })}`;
-    }
-    return texteIterationAffichee(it, language);
-  };
+  // Traduit le texte de chaque itération (résultat canonique, issue
+  // spéciale Gladiateur/Capturé, suffixe sous-jet/durée D3...) via
+  // segmentAffiche — la même fonction que utils/blessures.ts utilise pour
+  // re-traduire l'affichage persisté (BlessuresGravesCard, RosterScreen...),
+  // appliquée ici au texte français que construireResultatBase produirait
+  // pour cette itération. Une seule logique de reconnaissance/traduction des
+  // résultats, jamais deux qui pourraient diverger.
+  const texteIterationAfficheeAvecSpeciaux = (it: IterationResolue): string =>
+    segmentAffiche(effetDeIteration(it), texteIteration(it), language);
   const prefixeGladiateurAffiche = gladiateurForcePerte ? t('blessureGraveWizard.gladiatorDefeatPrefix') : '';
   // Traduction best-effort des notes de l'aperçu (voir texteIterationAffichee
   // pour le même principe) : celles construites directement à partir d'un

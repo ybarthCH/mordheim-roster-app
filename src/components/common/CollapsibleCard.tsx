@@ -1,5 +1,6 @@
 import { useId, type ReactNode } from 'react';
 import { usePersistentDisclosure } from '../../state/usePersistentDisclosure';
+import { useLanguage } from '../../state/useLanguage';
 import { Icon } from './Icon';
 
 type Props = {
@@ -23,6 +24,7 @@ export function CollapsibleCard({
 }: Props) {
   const { open, toggle } = usePersistentDisclosure(preferenceKey, defaultOpen);
   const contenuId = useId();
+  const { t } = useLanguage();
 
   return (
     <div className={className}>
@@ -36,8 +38,8 @@ export function CollapsibleCard({
             onClick={toggle}
             aria-expanded={open}
             aria-controls={contenuId}
-            aria-label={open ? 'Replier' : 'Déplier'}
-            title={open ? 'Replier' : 'Déplier'}
+            aria-label={open ? t('common.collapse') : t('common.expand')}
+            title={open ? t('common.collapse') : t('common.expand')}
           >
             <Icon name="chevrons" size="1.1em" />
           </button>

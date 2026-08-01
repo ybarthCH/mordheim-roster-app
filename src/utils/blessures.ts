@@ -26,8 +26,16 @@ export function traduireCle(key: string, language: Language, params?: Record<str
 // résultat canonique de départ.
 const PREFIXE_DEFAITE_GLADIATEUR_FR = 'Défaite face à un gladiateur dans les fosses de combat — ';
 
+// Seuls `resultat_id`/`nom` sont nécessaires pour reconnaître et traduire un
+// effet (voir issueSpecialeAffichee/nomEffetAffiche/segmentAffiche) — cette
+// forme allégée permet de réutiliser ces fonctions à la fois sur un
+// SeriousInjuryEffect persisté et sur l'itération en cours de résolution
+// dans BlessureGraveWizard (voir texteIterationAfficheeAvecSpeciaux là-bas),
+// avant même qu'un `id` lui soit attribué.
+type EffetAffichable = Pick<SeriousInjuryEffect, 'resultat_id' | 'nom'>;
+
 function issueSpecialeAffichee(
-  effet: SeriousInjuryEffect,
+  effet: EffetAffichable,
   language: Language
 ): { nom: string; texte: (segment: string) => string; texteFrancaisAttendu: (segment: string) => string } | undefined {
   if (effet.resultat_id === 'gladiateur' && effet.nom === 'Gladiateur (victoire)') {
@@ -62,7 +70,7 @@ function issueSpecialeAffichee(
 
 /** Titre affiché d'un effet isolé (issue spéciale ou entrée canonique de la
  * table) — inchangé (nom français d'origine) si non reconnu. */
-function nomEffetAffiche(effet: SeriousInjuryEffect, language: Language): string {
+function nomEffetAffiche(effet: EffetAffichable, language: Language): string {
   const special = issueSpecialeAffichee(effet, language);
   if (special) return special.nom;
   const canonique = trouverBlessure(effet.resultat_id);
@@ -79,7 +87,7 @@ function nomEffetAffiche(effet: SeriousInjuryEffect, language: Language): string
  * correspond pas exactement à ce qui serait construit pour cet effet — un
  * texte édité à la main n'existe alors qu'en français, mieux vaut ne pas
  * risquer un mélange incohérent. */
-function segmentAffiche(effet: SeriousInjuryEffect, segment: string, language: Language): string {
+export function segmentAffiche(effet: EffetAffichable, segment: string, language: Language): string {
   const special = issueSpecialeAffichee(effet, language);
   if (special) {
     const code = trouverBlessure(effet.resultat_id)?.code ?? '';

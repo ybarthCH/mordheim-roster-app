@@ -4,7 +4,9 @@ import { estAccesGenerique, iconeCategorie, prixAvecRegles } from '../../utils/s
 import { magieDuProfil } from '../../utils/magie';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
+import type { Language } from '../../state/useLanguage';
 import { translateItem } from '../../i18n/data/items';
+import { uiDictionary } from '../../i18n/ui';
 import { Icon } from './Icon';
 import { CollapsibleCard } from './CollapsibleCard';
 
@@ -12,53 +14,11 @@ const LISTES_EQUIPEMENT = ['armes_cac', 'armes_tir', 'armures', 'divers'] as con
 
 // Libellés lisibles pour les clés internes de `catalogue.equipement` (ex :
 // "artilleurs_de_nuln", "tireurs_delite") — ces clés sont des identifiants
-// de structuration de données, pas du texte destiné à l'affichage. Complété
-// au fil des bandes ; PETITS_MOTS + humaniserCle() servent de repli pour
-// toute clé absente de la liste (nouvelle bande non encore renseignée).
-const LIBELLES_LISTES: Record<string, string> = {
-  artilleurs_de_nuln: 'Artilleurs de Nuln',
-  tireurs_delite: "Tireurs d'élite",
-  montures_nuln: 'Montures',
-  eclaireurs: 'Éclaireurs',
-  gardes_des_montagnes: 'Gardes des montagnes',
-  hommes_betes: 'Hommes-bêtes',
-  kermesse: 'Membres de la Kermesse',
-  culte_des_possedes: 'Culte des Possédés',
-  damnes: 'Damnés',
-  guerriers_nains: 'Guerriers nains',
-  tireurs_nains: 'Tireurs nains',
-  pelerins: 'Pèlerins',
-  paysans_archers: 'Paysans archers',
-  style_orque: 'Style Orque',
-  style_mort_vivant: 'Style Morts-vivants',
-  style_empire: 'Style Empire',
-  style_chaos: 'Style Chaos',
-  style_skink: 'Style Skink',
-  style_furie: 'Style Furie',
-  ogres_trolls: 'Ogres et Trolls',
-  heros: 'Héros',
-  hommes_de_main: 'Hommes de main',
-  guerriers_kislevites: 'Guerriers kislévites',
-  heroes: 'Héros',
-  morts_vivants: 'Morts-vivants',
-  nains_du_chaos: 'Nains du Chaos',
-  delateurs: 'Délateurs',
-  heros_armes: 'Héros (armes)',
-  heros_armures: 'Héros (armures)',
-  chasseurs_norses: 'Chasseurs norses',
-  orques_noirs: 'Orques Noirs',
-  pti_meks: "P'tits Meks",
-  ding_boyz: 'Ding Boyz',
-  jaegers: 'Jägers',
-  soeurs_de_sigmar: 'Sœurs de Sigmar',
-  heros_skavens: 'Héros skavens',
-  hommes_de_main_skavens: 'Hommes de main skavens',
-  heros_pestilens: 'Héros Pestilens',
-  hommes_de_main_pestilens: 'Hommes de main Pestilens',
-  repurgateurs: 'Répurgateurs',
-  seides: 'Séides',
-};
-
+// de structuration de données, pas du texte destiné à l'affichage ; leur
+// traduction vit dans `catalogueReference.list.*` (voir i18n/ui). PETITS_MOTS
+// + humaniserCle() servent de repli français pour toute clé absente du
+// dictionnaire (nouvelle bande non encore renseignée) — pas de repli anglais
+// possible dans ce cas, la clé structurelle elle-même n'étant pas traduite.
 const PETITS_MOTS = new Set(['de', 'du', 'des', 'la', 'le', 'les', 'et', 'en', 'aux']);
 
 function humaniserCle(cle: string): string {
@@ -68,8 +28,10 @@ function humaniserCle(cle: string): string {
     .join(' ');
 }
 
-function libelleListe(cle: string): string {
-  return LIBELLES_LISTES[cle] ?? humaniserCle(cle);
+function libelleListe(cle: string, language: Language): string {
+  const entry = uiDictionary[`catalogueReference.list.${cle}`];
+  if (entry) return entry[language] ?? entry.fr;
+  return humaniserCle(cle);
 }
 
 // Référence libre du catalogue d'équipement d'une bande — texte indicatif
@@ -108,7 +70,7 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
       {listesFiltrees.map(({ liste, parCategorie }) => (
         <div key={liste} style={{ marginBottom: '0.6rem' }}>
           <p className="text-sm mb-0">
-            <strong>{libelleListe(liste)}</strong>
+            <strong>{libelleListe(liste, language)}</strong>
           </p>
           {parCategorie.map(({ cat, items }) => (
             <p key={cat} className="text-sm mb-0">
