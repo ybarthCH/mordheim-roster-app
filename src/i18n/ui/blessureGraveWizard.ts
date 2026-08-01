@@ -18,6 +18,7 @@ export const blessureGraveWizard: UiDictionary = {
   'blessureGraveWizard.cancel': { fr: 'Annuler', en: 'Cancel' },
   'blessureGraveWizard.continue': { fr: 'Continuer', en: 'Continue' },
   'blessureGraveWizard.back': { fr: '‹ Retour', en: '‹ Back' },
+  'blessureGraveWizard.rerollD6Instructions': { fr: 'Relance 1D6 :', en: 'Reroll 1D6:' },
   'blessureGraveWizard.d3DurationQuestion': {
     fr: 'Lance 1D3 : combien de parties le guerrier doit-il manquer ?',
     en: 'Roll 1D3: how many games must the warrior miss?',
