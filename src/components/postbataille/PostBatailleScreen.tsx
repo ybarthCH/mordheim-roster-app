@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { useRosters } from '../../state/useRosters';
 import { getCatalogue } from '../../data/warbands';
+import { translateWarbandCatalog } from '../../i18n/data/warbands';
 import { resolveProfil, nombreHeros, nomAffiche } from '../../utils/profil';
 import { equitationGratuitePourTribu } from '../../utils/tribu';
 import type { Stats } from '../../types/catalog';
@@ -132,9 +133,10 @@ export function PostBatailleScreen() {
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
   const { rules } = useGameRules();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const roster = getRosterById(id ?? '');
-  const catalogue = roster ? getCatalogue(roster.bande_id) : undefined;
+  const catalogueBrut = roster ? getCatalogue(roster.bande_id) : undefined;
+  const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
   const demiXp = !!catalogue?.xp_demi;
 
   // Photographie des membres et effets persistants présents à l'ouverture de
@@ -201,9 +203,9 @@ export function PostBatailleScreen() {
         (m) =>
           m.statut === 'hors_de_combat' &&
           !estFrancTireur(m) &&
-          resolveProfil(roster, m)?.type === 'heros'
+          resolveProfil(roster, m, catalogue)?.type === 'heros'
       ) ?? [],
-    [roster]
+    [roster, catalogue]
   );
 
   // Gain d'expérience, section « à résoudre » : héros ET hommes de main seuls
@@ -216,8 +218,8 @@ export function PostBatailleScreen() {
   // Modificateur automatique de la règle spéciale Œil des Dieux Sombres
   // (Maraudeurs du Chaos) en cas de défaite : +1 par Héros hors de combat.
   const nbHerosHorsDeCombat = useMemo(
-    () => (roster ? horsDeCombatIndividuel.filter((m) => resolveProfil(roster, m)?.type === 'heros').length : 0),
-    [horsDeCombatIndividuel, roster]
+    () => (roster ? horsDeCombatIndividuel.filter((m) => resolveProfil(roster, m, catalogue)?.type === 'heros').length : 0),
+    [horsDeCombatIndividuel, roster, catalogue]
   );
 
   // Le test n'est réellement à résoudre que dans les mêmes conditions que
@@ -240,10 +242,10 @@ export function PostBatailleScreen() {
   const groupesHC = useMemo(
     () =>
       roster?.membres.filter((m) => {
-        const t = resolveProfil(roster, m)?.type;
+        const t = resolveProfil(roster, m, catalogue)?.type;
         return (t === 'homme_de_main' || t === 'animal') && m.hors_combat > 0 && m.statut !== 'hors_de_combat';
       }) ?? [],
-    [roster]
+    [roster, catalogue]
   );
 
   // Gain d'expérience, section « reste du roster » : tout le monde de vivant
@@ -261,12 +263,12 @@ export function PostBatailleScreen() {
           m.statut !== 'blesse' &&
           !m.franc_tireur_impaye &&
           !hcIds.has(m.instance_id) &&
-          peutGagnerExperience(resolveProfil(roster, m)) &&
+          peutGagnerExperience(resolveProfil(roster, m, catalogue)) &&
           getFrancTireur(m.franc_tireur_id)?.gagne_experience !== false &&
           (!participantsInitiaux || participantsInitiaux.has(m.instance_id))
       ) ?? []
     );
-  }, [roster, horsDeCombatIndividuel, groupesHC]);
+  }, [roster, horsDeCombatIndividuel, groupesHC, catalogue]);
 
   // Un Franc-tireur engagé pendant l'exploration qui suit cette bataille
   // (ex : Débiteur reconnaissant) n'y a pas participé : ni entretien à régler
@@ -302,7 +304,7 @@ export function PostBatailleScreen() {
   const herosCommerce: HerosCommerce[] = useMemo(() => {
     if (!roster) return [];
     return roster.membres.flatMap((membre) => {
-      const profil = resolveProfil(roster, membre);
+      const profil = resolveProfil(roster, membre, catalogue);
       if (
         profil?.type !== 'heros' ||
         estFrancTireur(membre) ||
@@ -318,7 +320,7 @@ export function PostBatailleScreen() {
       if (membreApresBlessure.statut === 'mort') return [];
       return [{ membre, membreApresBlessure, horsDeCombat }];
     });
-  }, [roster, xpDrafts, blessureDrafts, date]);
+  }, [roster, xpDrafts, blessureDrafts, date, catalogue]);
 
   const coutCommerce = Object.values(commerceDrafts).reduce((total, draft) => {
     if (draft.action === 'docteur') return total + COUT_DOCTEUR;
@@ -628,7 +630,7 @@ export function PostBatailleScreen() {
         ...(traitementDocteur ?? appliquerBlessureDraft(m, blessureDrafts[m.instance_id], date)),
         franc_tireur_impaye: false,
       };
-      const profil = resolveProfil(roster, m);
+      const profil = resolveProfil(roster, m, catalogue);
       const profilFrancTireur = getFrancTireur(m.franc_tireur_id);
       const decision = lignesEntretien.find((ligne) => ligne.membre.instance_id === m.instance_id)
         ? entretienDrafts[m.instance_id] ??
@@ -1095,7 +1097,7 @@ export function PostBatailleScreen() {
       {membreEnAvancee &&
         catalogue &&
         (() => {
-          const profilAvancee = resolveProfil(roster, membreEnAvancee);
+          const profilAvancee = resolveProfil(roster, membreEnAvancee, catalogue);
           return (
             profilAvancee && (
               <AvanceeModal

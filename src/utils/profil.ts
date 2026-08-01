@@ -1,4 +1,4 @@
-import type { Profile, SkillCategory } from '../types/catalog';
+import type { Profile, SkillCategory, WarbandCatalog } from '../types/catalog';
 import { SKILL_CATEGORIES } from '../types/catalog';
 import type { Member, RosterInstance } from '../types/roster';
 import { getProfil } from '../data/warbands';
@@ -9,8 +9,13 @@ import { estFrancTireur, getFrancTireur, profilDeFrancTireur } from '../data/hir
  * "Franc-tireur" saisi à la main s'il en a un, avec la promotion "Ce gars
  * est doué" appliquée par-dessus le cas échéant (type héros, tables de
  * compétences choisies à la promotion).
+ *
+ * `catalogue`, s'il est fourni, remplace le catalogue résolu automatiquement
+ * (utile pour passer une version déjà traduite depuis un composant d'affichage
+ * — voir translateWarbandCatalog). La logique métier (recherche par id,
+ * comparaisons de type...) reste indifférente à la langue du profil retourné.
  */
-export function resolveProfil(roster: RosterInstance, membre: Member): Profile | undefined {
+export function resolveProfil(roster: RosterInstance, membre: Member, catalogue?: WarbandCatalog): Profile | undefined {
   const francTireur = getFrancTireur(membre.franc_tireur_id);
   const base: Profile | undefined = francTireur
     ? profilDeFrancTireur(francTireur)
@@ -25,6 +30,8 @@ export function resolveProfil(roster: RosterInstance, membre: Member): Profile |
         grille_xp: 'homme_de_main',
         table_avancement: 'heros',
       }
+    : catalogue
+    ? catalogue.profils.find((p) => p.id === membre.profil_id)
     : getProfil(roster.bande_id, membre.profil_id);
 
   if (!base) return undefined;

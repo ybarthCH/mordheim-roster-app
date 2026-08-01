@@ -12,13 +12,16 @@ import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { peutGagnerExperience } from '../../utils/xp';
 import { useRosters } from '../../state/useRosters';
 import { useLanguage } from '../../state/useLanguage';
+import { translateWarbandCatalog } from '../../i18n/data/warbands';
 
 const BUDGET_PAR_DEFAUT = 500;
 
 export function CreationBandeScreen() {
   const navigate = useNavigate();
   const { addRoster } = useRosters();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const catalogues = useMemo(() => CATALOGUES.map((c) => translateWarbandCatalog(c, language)), [language]);
 
   const [bandeId, setBandeId] = useState<string>('');
   const [nomBande, setNomBande] = useState('');
@@ -41,12 +44,12 @@ export function CreationBandeScreen() {
 
   const budget = Number(budgetSaisi) || 0;
 
-  const catalogue = useMemo(() => CATALOGUES.find((c) => c.id === bandeId), [bandeId]);
+  const catalogue = useMemo(() => catalogues.find((c) => c.id === bandeId), [catalogues, bandeId]);
 
   // Groupées par grade (1a, 1b, 1c...) puis triées par nom au sein de chaque groupe.
   const catalauguesParGrade = useMemo(() => {
-    const groupes = new Map<string, typeof CATALOGUES>();
-    for (const c of CATALOGUES) {
+    const groupes = new Map<string, typeof catalogues>();
+    for (const c of catalogues) {
       const liste = groupes.get(c.grade) ?? [];
       liste.push(c);
       groupes.set(c.grade, liste);
@@ -55,7 +58,7 @@ export function CreationBandeScreen() {
       liste.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
     }
     return [...groupes.entries()].sort(([a], [b]) => a.localeCompare(b, 'fr'));
-  }, []);
+  }, [catalogues]);
 
   const coutTotal = membres.reduce((acc, m) => {
     const profil = catalogue?.profils.find((p) => p.id === m.profil_id);

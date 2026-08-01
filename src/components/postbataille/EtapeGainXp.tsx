@@ -117,19 +117,21 @@ type EtapeGainXpProps = {
 // finale de l'assistant.
 function BlocAvanceeDue({
   roster,
+  catalogue,
   membre,
   xpActuel,
   demiXp,
   onOuvrirAvancee,
 }: {
   roster: RosterInstance;
+  catalogue: WarbandCatalog | undefined;
   membre: Member;
   xpActuel: number;
   demiXp: boolean;
   onOuvrirAvancee: (m: Member) => void;
 }) {
   const { t } = useLanguage();
-  const profil = resolveProfil(roster, membre);
+  const profil = resolveProfil(roster, membre, catalogue);
   if (!profil || !peutGagnerExperience(profil)) return null;
   const dues = avancesDues(grilleXpDuProfil(profil), membre.xp_depart, xpActuel, demiXp);
   const enAttente = Math.max(0, dues - membre.historique_avancees.filter((a) => !a.bonus).length);
@@ -169,7 +171,7 @@ export function EtapeGainXp({
         <p className="text-sm text-muted">{t('gainXp.intro')}</p>
         {membres.length === 0 && groupesHC.length === 0 && <p className="text-muted">{t('gainXp.noMembers')}</p>}
         {membres.map((m) => {
-          const profil = resolveProfil(roster, m);
+          const profil = resolveProfil(roster, m, catalogue);
           const sansXp = !peutGagnerExperience(profil);
           const francTireur = estFrancTireur(m);
           const estHorsDeCombat = m.statut === 'hors_de_combat';
@@ -239,12 +241,12 @@ export function EtapeGainXp({
                   </div>
                 </>
               )}
-              <BlocAvanceeDue roster={roster} membre={m} xpActuel={d.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
+              <BlocAvanceeDue roster={roster} catalogue={catalogue} membre={m} xpActuel={d.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
           );
         })}
         {groupesHC.map((m) => {
-          const sansXp = !peutGagnerExperience(resolveProfil(roster, m));
+          const sansXp = !peutGagnerExperience(resolveProfil(roster, m, catalogue));
           const slots = slotsDe(m);
           const morts = slots.filter((s) => s === 'non').length;
           const enAttente = slots.filter((s) => s === null).length;
@@ -280,7 +282,7 @@ export function EtapeGainXp({
                       })
                     : t('gainXp.resolvedWiped')}
               </p>
-              <BlocAvanceeDue roster={roster} membre={m} xpActuel={m.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
+              <BlocAvanceeDue roster={roster} catalogue={catalogue} membre={m} xpActuel={m.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
           );
         })}
