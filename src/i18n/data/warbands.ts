@@ -4583,6 +4583,879 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       ],
     },
   },
+  beastmen_raiders: {
+    nom: 'Beastmen Raiders (1a)',
+    regles_speciales: [
+      {
+        nom: 'Beasts',
+        texte: 'Beastmen are ferocious creatures of Chaos and cannot recruit Hired Swords unless stated otherwise in their description.',
+      },
+      {
+        nom: 'Mutation Table',
+        texte:
+          "Reserved for Heroes with the special skill 'Mutant'. A model's first mutation is bought at normal price; subsequent mutations for the same model cost double — see his Equipment list.",
+      },
+    ],
+    profils: {
+      chef_homme_bete: {
+        nom: 'Beastman Chief',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any model within 6" of the Beastman Chief may use his Leadership for their tests.' },
+        ],
+      },
+      chaman_homme_bete: {
+        nom: 'Beastman Shaman',
+        regles_speciales: [
+          { nom: 'Sorcerer', texte: 'The Beastman Shaman is a spellcaster who uses the Rituals of Chaos (see Magic).' },
+          { nom: 'No Armour', texte: 'May never wear armour under any circumstances.' },
+        ],
+      },
+      bestigor: { nom: 'Bestigor' },
+      centigor: {
+        nom: 'Centigor',
+        regles_speciales: [
+          {
+            nom: 'Drunk',
+            texte:
+              'At the start of each turn, roll 1D6. On a 1, take a Stupidity test (if failed, the effect lasts until the end of the turn). On 2-5, nothing happens. On a 6, he becomes frenzied for the duration of the turn. While stupid or frenzied, the Centigor is immune to psychology.',
+          },
+          { nom: 'Forest Dweller', texte: 'The Centigor suffers no Movement penalty in wooded terrain.' },
+          {
+            nom: 'Stamping',
+            texte:
+              'In addition to his weapons, the Centigor uses his hooves to trample his enemies: he therefore has an extra Attack on his profile, unaffected by weapon bonuses and penalties (1 base Attack, the second in brackets A 1(2) coming from this rule).',
+          },
+        ],
+      },
+      ungor: {
+        nom: 'Ungor',
+        regles_speciales: [
+          {
+            nom: 'Sub-Beasts',
+            texte:
+              "No matter how many experience points he accumulates, an Ungor can never climb the ranks. If, following an advance roll, an Ungor gets the \"Lad's Got Talent\" result, the dice must be re-rolled.",
+          },
+          { nom: 'Recruitment', texte: 'As many as you wish.' },
+        ],
+      },
+      gor: {
+        nom: 'Gor',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      chien_du_chaos: {
+        nom: 'Chaos Hound',
+        regles_speciales: [
+          { nom: 'Animals', texte: 'Chaos Hounds are animals and therefore never gain experience points.' },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+          {
+            nom: 'Equipment',
+            texte:
+              'Apart from their claws, fangs, and — for the most mutated — a few horns, Chaos Hounds have no equipment. They therefore fight without any penalty.',
+          },
+        ],
+      },
+      minotaure: {
+        nom: 'Minotaur',
+        regles_speciales: [
+          { nom: 'Fear', texte: 'The Minotaur is huge and causes Fear.' },
+          {
+            nom: 'Bloodlust',
+            texte: 'If the Minotaur takes all his enemies Out of Action in hand-to-hand combat, he becomes frenzied on a 4+ on 1D6.',
+          },
+          {
+            nom: 'Animal',
+            texte:
+              'The Minotaur is far more bestial than his Beastman brethren; although classed as a Henchman capable of gaining experience, he will never become a Hero or take skills.',
+          },
+          { nom: 'Large Target', texte: 'The Minotaur is a Large Target, as described in the Shooting rules.' },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      cuir_epais: {
+        nom: 'Thick Hide',
+        texte: "The Hero's skin is so thick it acts as armour: 6+ armour save, combinable with other armour.",
+      },
+      mutant: {
+        nom: 'Mutant',
+        texte: 'The Beastman may acquire a Mutation (see the Mutation Table special rule).',
+      },
+      sans_peur: {
+        nom: 'Fearless',
+        texte: 'The Beastman is immune to Fear and does not need to take an All Alone test.',
+      },
+      le_cornu: {
+        nom: 'The Horned One',
+        texte: 'The Beastman has large horns he can use when charging to make an extra Attack resolved at his base Strength.',
+      },
+      mugissement: {
+        nom: 'Bellow',
+        reserve_a: 'Beastman Chief only',
+        texte: 'Allows a failed Rout test to be re-rolled.',
+      },
+      mangeur_dhommes: {
+        nom: 'Man-Eater',
+        texte: 'The bearer of this skill is subject to Hatred when fighting human warbands.',
+      },
+    },
+    equipement: {
+      hommes_betes: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+      ungors: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Rituals of Chaos',
+      type: 'sorcery',
+      sorts: [
+        {
+          nom: 'Vision of Horror',
+          texte:
+            "Range 6\", cast on the nearest enemy (or a target in base contact if the Shaman is engaged in hand-to-hand combat). The victim is immediately Stunned; if it cannot be Stunned, it is Knocked Down instead.",
+        },
+        {
+          nom: 'Divine Eye',
+          texte:
+            'Usable once per battle. Choose any model within 6", friend or foe, and roll 1D6: 1 = immediate Out of Action (no Serious Injury roll); 2-5 = +1 to a characteristic of choice for the battle; 6 = +1 to all characteristics for the duration of the battle.',
+        },
+        {
+          nom: 'Black Blood',
+          texte:
+            'Range 8", causes D3 Strength 5 hits on the first model in its path. The Shaman must then roll on the Injury table for his own Wound (an Out of Action result is treated as Stunned).',
+        },
+        {
+          nom: 'Temptation of Chaos',
+          texte:
+            "Range 12\", cast on the nearest enemy model. Compare 1D6+Ld of the Shaman to 1D6+Ld of the target; if the Shaman wins, he takes control of his victim until it passes a Leadership test during the opponent's Recovery phase.",
+        },
+        {
+          nom: 'Dark Wings',
+          texte:
+            'The Shaman may immediately move anywhere within 12", even into base contact with an enemy (counts as having charged). If he engages a fleeing enemy, he inflicts an automatic hit, and the enemy flees again if it survives.',
+        },
+        {
+          nom: 'Word of Suffering',
+          texte: 'All models within 3" of the Shaman, friend or foe, suffer a Strength 3 hit with no armour save.',
+        },
+      ],
+    },
+  },
+  ostlanders: {
+    nom: 'Ostlander Mercenaries (1a)',
+    regles_speciales: [
+      {
+        nom: 'Self-Reliant',
+        texte:
+          "The Ostlanders have no desire to let their hard-earned gold end up in a stranger's hands. As a result, they may never hire Hired Swords, except Ogres (who are not uncommon in Ostland).",
+      },
+    ],
+    profils: {
+      doyen: {
+        nom: 'Elder',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any model within 6" of the Elder may use his Leadership for their tests.' },
+        ],
+      },
+      pretre_de_taal: {
+        nom: 'Priest of Taal',
+        regles_speciales: [
+          { nom: 'Prayers', texte: 'A Priest of Taal may use the Prayers of Taal (see Magic).' },
+          { nom: 'Frail', texte: 'Priests of Taal may never wear heavy armour.' },
+        ],
+      },
+      freres_de_sang: { nom: 'Blood Brothers' },
+      proche: {
+        nom: 'Kinsman',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      jaeger: {
+        nom: 'Jaeger',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      vaurien: {
+        nom: 'Wastrel',
+        regles_speciales: [
+          {
+            nom: 'Drunk',
+            texte: "Wastrels' minds are addled by rotgut and bad beer. They therefore automatically pass any Leadership tests they must take.",
+          },
+          {
+            nom: 'Disreputable',
+            texte: 'Wastrels provoke mixed feelings among their comrades, a strange blend of pity and fear. They can therefore never become the warband Leader.',
+          },
+        ],
+      },
+      ogre: {
+        nom: 'Ogre',
+        regles_speciales: [
+          { nom: 'Fear', texte: 'Ogres are huge, threatening creatures that cause Fear.' },
+          {
+            nom: 'Large Target',
+            texte: 'Ogres are bulky, massive creatures, making them good targets for archers. They are Large Targets, as defined in the Shooting rules.',
+          },
+          {
+            nom: 'Skills',
+            texte: "An Ogre who becomes a Hero through the \"Lad's Got Talent\" rule may choose from the Combat and Strength skill lists.",
+          },
+          {
+            nom: 'Slow Witted',
+            texte:
+              'Although Ogres are capable of gaining experience and benefiting from advances, they are not the brightest of creatures. Ogres only gain an advance every other time (they must accumulate twice the normal amount of experience to gain an advance).',
+          },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      ruee_du_taureau: {
+        nom: 'Bull Rush',
+        texte:
+          'When he charges, the Hero may attempt to knock down his opponent instead of making normal attacks: roll to score a single hit with a +1 modifier, with no wound roll. If the warrior hits, the target is Knocked Down.',
+      },
+      odeur_nauseabonde: {
+        nom: 'Foul Stench',
+        texte:
+          'All living enemies (not Undead or Possessed) suffer a -1 penalty to hit this warrior in hand-to-hand combat. He may not carry a burning item, and fire attacks against him are resolved at Strength +1 due to his alcohol-soaked clothes.',
+      },
+      serment_de_sang: {
+        nom: 'Blood Oath',
+        reserve_a: 'Warband Leader only',
+        texte: 'Allows one failed Rout test to be re-rolled per game.',
+      },
+      narguer: {
+        nom: 'Taunt',
+        texte:
+          'During the Shooting phase, the warrior may choose to taunt an enemy instead of shooting or casting a spell (follows the normal targeting rules for shooting: the nearest visible enemy, etc.). The enemy must take a Leadership test: if failed, he must spend his next Movement phase engaging the warrior who taunted him in hand-to-hand combat.',
+      },
+      amis_des_betes: {
+        nom: 'Friend of Beasts',
+        texte:
+          "This warrior radiates a charm that affects all \"ordinary\" animals (warhorses, war dogs, etc.): they will never attack him, and up to two War Dogs owned by this model do not count towards the warband's maximum model count.",
+      },
+    },
+    equipement: {
+      ostlanders: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_tir: ['30gc per pair', undefined],
+      },
+      vauriens: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined],
+      },
+      jaegers: {
+        armes_cac: ['first free', undefined, undefined, undefined],
+        armes_tir: [undefined, undefined, undefined, '30gc per pair', '60gc per pair', undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Prayers of Taal',
+      type: 'prayer',
+      note: 'The Prayers of Taal function like the Prayers of Sigmar, though a Priest of Taal rarely wears armour.',
+      sorts: [
+        {
+          nom: "Stag's Leap",
+          texte:
+            'The Priest may immediately move anywhere within 9", including into base contact with an enemy (charging at Strength +1 for the first round). If he makes contact with a fleeing enemy, he inflicts an automatic Strength +1 hit during the hand-to-hand combat phase, and the enemy flees again if it survives.',
+        },
+        {
+          nom: 'Blessed Beer',
+          texte:
+            'The Priest may heal himself or any model within 2" of him, who recovers his full Wounds. In addition, all living enemy models (not Undead or Possessed) within 2" of the Priest lose 1 Attack during the next combat phase, due to the powerful fumes of beer.',
+        },
+        {
+          nom: "Bear's Paw",
+          texte: "The Priest calls upon the blessing of Taal on himself or a friendly model within 6\": the target gains +2 Strength until the Priest's next turn.",
+        },
+        {
+          nom: 'Earthquake',
+          texte:
+            'The spell must be cast on a building within 4". Any enemy model in contact with the building suffers a Strength 3 hit. In addition, the building collapses and models inside it suffer a fall (for every 2" fallen, an Initiative test must be passed to avoid D3 Strength 5 hits). Remove the building from the board for the rest of the game.',
+        },
+        {
+          nom: 'Snares',
+          texte:
+            'Creeping vines and small trees burst from the ground: all friendly or enemy models (except Ostlander Jaegers) within 12" of the Priest may only move at half their Movement until the next Shooting phase.',
+        },
+        {
+          nom: 'Call of the Squirrels',
+          texte:
+            'The Priest summons dozens of enraged squirrels that attack an enemy within 12" of the Priest: the target suffers 2D6 Strength 1 hits, with no save allowed.',
+        },
+      ],
+    },
+  },
+  carnival_of_chaos: {
+    nom: 'Carnival of Chaos (1a)',
+    regles_speciales: [
+      {
+        nom: 'Sinister Reputation',
+        texte: 'Due to its plague-ridden nature, a Carnival of Chaos may not recruit any Hired Swords.',
+      },
+      {
+        nom: 'Corrupted',
+        texte:
+          'The Carnival resembles Possessed warbands (a collection of corrupted mutants): it counts as a Possessed warband for all purposes relating to Exploration and Serious Injuries.',
+      },
+      {
+        nom: 'Blessings of Nurgle',
+        texte: 'Options reserved for the Impure, purchased only at recruitment (none may be added once the Impure is in play) — see his Equipment list.',
+      },
+    ],
+    profils: {
+      maitre_de_ceremonie: {
+        nom: 'Master of Ceremonies',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any member of the Carnival within 6" may use his Ld for Leadership tests.' },
+          { nom: 'Sorcerer', texte: 'Uses the Rituals of Nurgle (see Magic).' },
+        ],
+      },
+      colosse: {
+        nom: 'Colossus',
+        regles_speciales: [
+          { nom: 'Supernatural Strength', texte: 'Starts with the Strongman Strength skill from the rulebook.' },
+        ],
+      },
+      impur: {
+        nom: 'Impure',
+        regles_speciales: [
+          {
+            nom: 'Blessing of Nurgle',
+            texte: 'Must receive one or more Blessings of Nurgle at the time of recruitment (see the dedicated list); none may be added once the Impure is in play.',
+          },
+          { nom: 'Cost', texte: '+ the price of the chosen Blessing(s) of Nurgle.' },
+        ],
+      },
+      portepeste: {
+        nom: 'Plaguebearer',
+        regles_speciales: [
+          { nom: 'Cloud of Flies', texte: "The Plaguebearer's opponents suffer a -1 penalty to hit it in hand-to-hand combat." },
+          { nom: 'Flow of Corruption', texte: 'Shooting attack (range 6", Strength 3, no armour save) consisting of a spray of worms, entrails, and pus.' },
+          { nom: 'Daemon', texte: 'Made of raw Chaos energy; never gains experience.' },
+          { nom: 'Immunity to Poison', texte: 'Completely immune to the effects of poisons and diseases.' },
+          { nom: 'Immunity to Psychology', texte: 'Automatically passes any Leadership test.' },
+          { nom: 'Causes Fear', texte: 'Causes Fear.' },
+          {
+            nom: 'Daemonic Aura',
+            texte: "Special 5+ armour save, modified by the attacker's Strength, but completely negated by magical weapons and spells; its own attacks count as magical attacks.",
+          },
+          {
+            nom: 'Daemonic Instability',
+            texte: 'If taken Out of Action, banished and destroyed on a 1-3 on 1D6 (no roll on the Injury table). If the warband fails a Rout test, each Plaguebearer must immediately pass a Leadership test or be considered destroyed.',
+          },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+        ],
+      },
+      frere: {
+        nom: 'Brother',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      nurgling: {
+        nom: 'Nurgling',
+        regles_speciales: [
+          { nom: 'Cloud of Flies', texte: 'Opponents suffer a -1 penalty to hit in hand-to-hand combat.' },
+          { nom: 'Swarms', texte: 'No limit to the number of Nurglings that may be included, even beyond 5 per Henchman group.' },
+          { nom: 'Daemon', texte: 'Made of raw Chaos energy; never gains experience.' },
+          { nom: 'Immunity to Poison', texte: 'Completely immune to the effects of poisons and diseases.' },
+          { nom: 'Immunity to Psychology', texte: 'Automatically passes any Leadership test.' },
+          {
+            nom: 'Daemonic Aura',
+            texte: "Special 5+ armour save, modified by the attacker's Strength, but completely negated by magical weapons and spells; its own attacks count as magical attacks.",
+          },
+          {
+            nom: 'Daemonic Instability',
+            texte: 'If taken Out of Action, banished and destroyed on a 1-3 on 1D6 (no roll on the Injury table). If the warband fails a Rout test, each Nurgling must immediately pass a Leadership test or be considered destroyed.',
+          },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5, though Swarms allows more than 5 per group.' },
+        ],
+      },
+      roulotte_de_la_peste: {
+        nom: 'Plague Wagon',
+        regles_speciales: [
+          {
+            nom: 'Plague Wagon',
+            texte:
+              "Increases the warband's maximum number of warriors by +2. Reduces daemonic instability: Plaguebearers and Nurglings may re-roll failed Leadership tests caused by instability and gain a +1 bonus when determining the severity of their injuries if taken Out of Action.",
+          },
+          {
+            nom: 'Driver',
+            texte:
+              "Included in the price of the wagon; permanently bound to it (can never dismount), and can only be wounded if the wagon is destroyed (in which case he is too). Counts as a daemonic creature and therefore never gains experience. His attacks transmit Nurgle's Rot (see Blessings of Nurgle).",
+          },
+          {
+            nom: 'Immunity to Psychology',
+            texte: 'The wagon and its driver are utterly untouched by fear and automatically pass any Leadership test.',
+          },
+          {
+            nom: 'Detailed Profiles',
+            texte: 'Wagon: T8, W4. Wheel: T6, W1. Horse: M8, S3, T3, W1, I3. Guard (Driver): WS3, S3, T3, A1, I3.',
+          },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    equipement: {
+      kermesse: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, undefined, '30gc per pair'],
+      },
+    },
+    magie: {
+      nom: 'Rituals of Nurgle',
+      type: 'sorcery',
+      sorts: [
+        {
+          nom: 'Daemonic Vigour',
+          texte: 'Any Plaguebearer or Nurgling within 8" has its daemonic save improved to 4+ until the start of its next turn.',
+        },
+        {
+          nom: 'Buboes',
+          texte: 'Range 8"; an enemy warrior who fails a Toughness test loses 1 Wound, with no armour save allowed.',
+        },
+        {
+          nom: "Nurgle's Miasma",
+          texte: 'Range 6", affects all living creatures, friend or foe; failing a Toughness test means the loss of 1 Attack for the rest of the turn.',
+        },
+        {
+          nom: 'Pestilence',
+          texte: 'Any enemy model within 12" suffers a Strength 3 hit, with no armour save.',
+        },
+        {
+          nom: 'Warty Skin',
+          texte: "The Master gains a 2+ save that replaces his current armour save, until the start of his next Shooting phase.",
+        },
+        {
+          nom: "Nurgle's Rot",
+          texte: "Any enemy model in contact with the Master must immediately pass a Toughness test or catch Nurgle's Rot (see Blessings of Nurgle).",
+        },
+      ],
+    },
+  },
+  averlanders: {
+    nom: 'Averlander Mercenaries (1a)',
+    profils: {
+      capitaine: {
+        nom: 'Captain',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any model within 6" of the Captain may use his Leadership for their tests.' },
+        ],
+      },
+      sergent: { nom: 'Sergeant' },
+      bergjaeger: {
+        nom: 'Bergjaeger',
+        regles_speciales: [
+          {
+            nom: 'Traps',
+            texte:
+              'A Bergjaeger may set a trap if he spends a turn doing nothing else (unless he has just stood back up after being Knocked Down). Place a marker in contact with his base. When a model, friend or foe, comes within 2" of the trap, it risks triggering it: roll 1D6, on a 3+ the trap inflicts a Strength 4 hit (a Bergjaeger never risks triggering his own traps). If the trap did not wound the model or was not triggered, the victim may finish its move; otherwise it ends up Knocked Down or Stunned 2" from the marker. Whether the trap was triggered or not, the marker is removed from play.',
+          },
+        ],
+      },
+      recrue: { nom: 'Recruit' },
+      garde_des_montagnes: {
+        nom: 'Mountain Guard',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      tireur: {
+        nom: 'Marksman',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      eclaireur_halfling: {
+        nom: 'Halfling Scout',
+        regles_speciales: [
+          {
+            nom: 'Promotion',
+            texte:
+              "A Halfling Scout promoted to Hero through the \"Lad's Got Talent\" result may not choose Strength skills as one of his two skill tables. Halflings are not renowned for their athletic build!",
+          },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    equipement: {
+      eclaireurs: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined],
+      },
+      tireurs: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, '30gc per pair', undefined, undefined, undefined, undefined, undefined],
+      },
+      gardes_des_montagnes: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, '30gc per pair', '50gc per pair', undefined],
+      },
+    },
+  },
+  dwarf_treasure_hunters: {
+    nom: 'Dwarf Treasure Hunters (1a)',
+    regles_speciales: [
+      {
+        nom: 'Hard to Kill',
+        texte:
+          'Dwarfs are very tough and resilient. They can therefore only be taken Out of Action on a roll of 6 instead of 5-6 on the Injury table. Treat a roll of 1-2 as Knocked Down, 3-5 as Stunned, and 6 as Out of Action.',
+      },
+      { nom: 'Hard Head', texte: 'Dwarfs ignore the special rules of maces, hammers, etc. They are not easy to knock silly!' },
+      { nom: 'Armour', texte: 'Dwarfs suffer no Movement penalty for wearing armour.' },
+      { nom: 'Hatred of Orcs and Goblins', texte: 'All Dwarfs hate Orcs and Goblins.' },
+      {
+        nom: 'Grudge-Bearers',
+        texte: 'Dwarfs hold an old grudge against elves. A Dwarf warband may never include any Elf Hired Sword, whoever they are.',
+      },
+      {
+        nom: 'Miners Without Equal',
+        texte: 'In the city of Mordheim, Dwarfs put their skills to use searching for Wyrdstone. Add +1 to the number of shards found when rolling to determine the amount of Wyrdstone at the end of the game.',
+      },
+    ],
+    profils: {
+      noble_nain: {
+        nom: 'Dwarf Noble',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warband member within 6" of the Dwarf Noble may use his Leadership instead of his own for his tests.' },
+        ],
+      },
+      ingenieur_nain: {
+        nom: 'Dwarf Engineer',
+        regles_speciales: [
+          {
+            nom: 'Master Armourer',
+            texte:
+              'A Dwarf Engineer can increase the range of the warband\'s missile weapons. Missile weapons bought from the Dwarf Equipment list gain +3" range for Pistols and +6" for Crossbows and Arquebuses. The range increases only apply to battles the Dwarf Engineer takes part in (but they apply even if he has not yet entered the battlefield or has been taken Out of Action). The increase does not apply to Hired Swords\' equipment.',
+          },
+        ],
+      },
+      tueur_de_trolls_nain: {
+        nom: 'Dwarf Troll Slayer',
+        regles_speciales: [
+          {
+            nom: 'Death Wish',
+            texte: 'Troll Slayers seek an honourable death in battle. They are immune to psychology and never take a test when fighting alone.',
+          },
+          {
+            nom: 'Slayer Skills',
+            texte: 'Troll Slayers may choose a skill from the Slayer skills table (see special skills, reserved) instead of the normal skill tables when they gain a new skill.',
+          },
+          { nom: 'No Missile Weapons or Armour', texte: 'Never use missile weapons, nor any form of armour.' },
+        ],
+      },
+      guerrier_nain: {
+        nom: 'Dwarf Warrior',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Any number. Bought in groups of 1 to 5.' }],
+      },
+      tireur_nain: {
+        nom: 'Dwarf Marksman',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      poil_au_menton: {
+        nom: 'Chinbeard',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Any number. Bought in groups of 1 to 5.' }],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      maitre_des_lames: {
+        nom: 'Blademaster',
+        texte:
+          'When using a weapon with the Parry special rule, this Dwarf may parry a blow by rolling equal to or higher than the best enemy to-hit roll, instead of strictly higher. If he wields two weapons with the Parry special rule, he may parry two attacks instead of one (if both his results are equal to or higher than the two best enemy to-hit rolls). If he wields two Dwarf axes, he may re-roll failed parry rolls.',
+      },
+      increvable: {
+        nom: 'Unstoppable',
+        texte: 'When you roll on the Serious Injury table at the end of a game in which this Hero was taken Out of Action, the die may be re-rolled once. The second result must be accepted, even if it is worse than the first.',
+      },
+      prospecteur: {
+        nom: 'Prospector',
+        texte: 'During the Exploration phase at the end of the game, the Hero may modify one die roll by +1/-1.',
+      },
+      tres_coriace: {
+        nom: 'Extremely Tough',
+        texte: 'When rolling for damage affecting this Hero, a roll of 1-3 is treated as Knocked Down, 4-5 as Stunned, and 6 as Out of Action.',
+      },
+      crane_epais: {
+        nom: 'Thick Skull',
+        texte:
+          'The Hero has a 3+ save on 1D6 to avoid being Stunned. If the save is successful, the Stunned result is treated as Knocked Down instead. If the Hero also wears a helmet, this save becomes 2+ instead of 3+ (this replaces the usual special rule for helmets).',
+      },
+      charge_furieuse: {
+        nom: 'Furious Charge',
+        reserve_a: 'Dwarf Troll Slayer only',
+        texte: 'The Slayer may double his number of Attacks in the turn he charges. He then suffers a -1 penalty to hit.',
+      },
+      tueur_de_monstres: {
+        nom: 'Monster Slayer',
+        reserve_a: 'Dwarf Troll Slayer only',
+        texte: 'The Slayer always wounds his opponent on a 4+, regardless of Toughness, unless his Strength (after all weapon modifiers, etc.) already allows him to wound more easily.',
+      },
+      berserk: {
+        nom: 'Berserk',
+        reserve_a: 'Dwarf Troll Slayer only',
+        texte: 'The Slayer may add +1 to his to-hit rolls in hand-to-hand combat in the turn he charges.',
+      },
+    },
+    equipement: {
+      guerriers_nains: {
+        armes_cac: [
+          'first free',
+          undefined,
+          undefined,
+          undefined,
+          'Rare 8 (Dwarfs only)',
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          'Any weapon available to a Dwarf may be bought in Gromril, tripling the cost. Price valid only for a starting warband.',
+        ],
+        armes_tir: ['30gc per pair'],
+        armures: [undefined, undefined, 'Lower price for a starting warband; subsequent purchases use the standard Mordheim price tables.', undefined, undefined],
+      },
+      tireurs_nains: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, undefined, '30gc per pair'],
+      },
+    },
+  },
+  middenheimers: {
+    nom: 'Middenheim Mercenaries (1a)',
+    regles_speciales: [
+      {
+        nom: 'Strength 4',
+        texte: "Middenheim men are famous for their physical strength. Middenheim Champions and Captains start with Strength 4 instead of the average human's Strength 3.",
+      },
+    ],
+    profils: {
+      capitaine_mercenaire: {
+        nom: 'Mercenary Captain',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior within 6" of the Mercenary Captain may use his Leadership for their tests.' },
+        ],
+      },
+      champion: { nom: 'Champion' },
+      recrue: { nom: 'Recruit' },
+      guerrier: {
+        nom: 'Warrior',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'As many as you want. Bought in groups of 1 to 5.' }],
+      },
+      tireur: {
+        nom: 'Marksman',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      bretteur: {
+        nom: 'Swordsman',
+        regles_speciales: [
+          {
+            nom: 'Sword Expert',
+            texte: 'Swordsmen are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This only applies when they are equipped with normal swords, not two-handed swords or other weapons.',
+          },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    equipement: {
+      mercenaires: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, '30gc per pair', '50gc per pair', undefined],
+      },
+      tireur: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, '30gc per pair', undefined, undefined, undefined, undefined, undefined],
+      },
+    },
+  },
+  sisters_of_sigmar: {
+    nom: 'Sisters of Sigmar (1a)',
+    profils: {
+      matriarche_sigmarite: {
+        nom: 'Sigmarite Matriarch',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior within 6" of the Matriarch may use her Ld for Leadership tests.' },
+          { nom: 'Prayers of Sigmar', texte: 'The Matriarch has studied the Prayers of Sigmar (see the Magic section).' },
+        ],
+      },
+      soeur_superieure: { nom: 'Sister Superior' },
+      augure: {
+        nom: 'Augur',
+        regles_speciales: [
+          {
+            nom: 'Sacred Vision',
+            texte:
+              'An Augur may re-roll failed characteristic tests (climbing, resisting spells, or others) and to-hit rolls in hand-to-hand combat or shooting; the second result must always be kept. In addition, if the Augur is not Out of Action, she may use her sacred vision to roll two dice during the Exploration phase when the Sisters search for Wyrdstone in the city.',
+          },
+          { nom: 'No Armour', texte: 'Augurs never wear armour.' },
+        ],
+      },
+      soeur: {
+        nom: 'Sister',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'As many as you wish. Bought in groups of 1 to 5.' }],
+      },
+      novice: {
+        nom: 'Novice',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      signe_de_sigmar: {
+        nom: 'Sign of Sigmar',
+        texte: 'Possessed and Undead opponents lose one Attack against the priestess during the first round of hand-to-hand combat (down to a minimum of 1).',
+      },
+      protection_de_sigmar: {
+        nom: 'Protection of Sigmar',
+        texte: 'Any spell cast on the sister is dispelled on a 4+ on 1D6. If the spell is dispelled, it will not affect any other model.',
+      },
+      farouche_determination: {
+        nom: 'Fierce Determination',
+        reserve_a: 'Matriarch only',
+        texte: 'Allows failed Rout tests to be re-rolled.',
+      },
+      fureur_du_juste: {
+        nom: 'Righteous Fury',
+        texte: 'The model is subject to Hatred against Skaven, Possessed, and Undead warbands.',
+      },
+      foi_inebranlable: {
+        nom: 'Unshakeable Faith',
+        texte: 'May re-roll Fear tests and does not need to take an All Alone test if fighting several opponents at once.',
+      },
+    },
+    equipement: {
+      soeurs_de_sigmar: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Prayers of Sigmar',
+      type: 'prayer',
+      note:
+        'The Prayers of Sigmar may be recited by Witch Hunter Warrior Priests and Sisters of Sigmar Matriarchs. They are not considered spells: an armoured warrior may therefore use them, and special protections against spells do not affect them.',
+      sorts: [
+        {
+          nom: "Sigmar's Hammer",
+          texte:
+            'The bearer gains +2 Strength in hand-to-hand combat, and all his hits cause double damage (1 Wound = 2 Wounds lost). The priest must test at every Shooting phase to use the Hammer.',
+        },
+        {
+          nom: 'Heart of Steel',
+          texte:
+            'Every allied warrior within 8" becomes immune to Fear and All Alone, and the whole warband gains +1 to its Rout tests. Not cumulative if cast multiple times; lasts until the caster is taken Out of Action.',
+        },
+        {
+          nom: 'Soul Fire',
+          texte: 'Any enemy model within 4" of the priest suffers a Strength 3 hit with no armour save (Strength 5 against Undead and Possessed).',
+        },
+        {
+          nom: 'Shield of Sigmar',
+          texte: 'The priest is immune to all spells. On a 1-2 at the start of each turn (Recovery phase), the shield dissipates.',
+        },
+        {
+          nom: 'Laying of Hands',
+          texte:
+            'Any model within 2" of the priest (himself included) recovers all lost Wounds; friendly models Stunned or Knocked Down within 2" immediately get back up and continue fighting normally.',
+        },
+        {
+          nom: 'Armour of Righteousness',
+          texte: 'The priest gains a 2+ save that replaces his armour save, causes Fear in his enemies, and is himself immune to it. Lasts until the start of his next Shooting phase.',
+        },
+      ],
+    },
+  },
 };
 
 function translateRegles(regles: SpecialRule[], en: RegleTraduite[] | undefined): SpecialRule[] {
