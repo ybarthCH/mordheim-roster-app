@@ -225,6 +225,11 @@ export type EquipementSpecialRef = {
 
 export type MagieSort = {
   resultat: number | string;
+  // Identifiant stable dérivé du nom français canonique (jamais du nom
+  // affiché) — seule clé fiable pour référencer un sort dans les données
+  // persistées (Member.sorts_connus), le nom pouvant varier selon la langue
+  // d'affichage. Voir utils/magie.ts.
+  id: string;
   nom: string;
   difficulte: number | string;
   texte: string;

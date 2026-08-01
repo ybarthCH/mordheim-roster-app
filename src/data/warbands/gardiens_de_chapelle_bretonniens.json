@@ -265,12 +265,12 @@
     "de": "D6",
     "utilisateurs": ["damoiselle"],
     "sorts": [
-      { "resultat": 1, "nom": "Faveurs de la Dame", "difficulte": "Automatique", "texte": "Tous les héros comptent comme ayant un porte-bonheur pour la bataille (ignorent la première touche sur 4+) ; ceux qui en ont déjà un peuvent relancer un jet de sauvegarde de porte-bonheur raté en conservant le second résultat." },
-      { "resultat": 2, "nom": "Protection bénie", "difficulte": 8, "texte": "La Damoiselle et les Bretonniens à 6ps ou moins bénéficient d'une sauvegarde spéciale non modifiable de 4+ contre les sorts/prières. Au début de chaque phase de Tir, sur 1-2, le sort se dissipe." },
-      { "resultat": 3, "nom": "Pas vifs", "difficulte": 7, "texte": "Un allié à 12ps ayant chargé ou raté une charge ce tour obtient +1 pour toucher jusqu'à la fin du tour, et peut faire un Mouvement supplémentaire de 1D6ps vers un ennemi (contact = charge) s'il n'est pas engagé." },
-      { "resultat": 4, "nom": "Courroux de la Dame", "difficulte": 5, "texte": "Quiconque tente de tirer sur la Damoiselle doit d'abord réussir un test de Commandement, sinon ne peut pas tirer ce tour (inclut armes à effet de zone sur sa trajectoire). Dure jusqu'à la fin de la partie." },
-      { "resultat": 5, "nom": "Élixir de vie", "difficulte": 7, "texte": "Une figurine à 4ps ou moins (Damoiselle incluse) retrouve tous ses PV ; les alliés sonnés/à terre à 4ps se relèvent immédiatement." },
-      { "resultat": 6, "nom": "Vision inspirante", "difficulte": 6, "texte": "Un allié à 8ps ou moins peut relancer un jet de dé et ajouter +1 ou -1 au résultat, jusqu'au début de la prochaine phase de Tir." }
+      { "resultat": 1, "id": "faveurs_de_la_dame", "nom": "Faveurs de la Dame", "difficulte": "Automatique", "texte": "Tous les héros comptent comme ayant un porte-bonheur pour la bataille (ignorent la première touche sur 4+) ; ceux qui en ont déjà un peuvent relancer un jet de sauvegarde de porte-bonheur raté en conservant le second résultat." },
+      { "resultat": 2, "id": "protection_benie", "nom": "Protection bénie", "difficulte": 8, "texte": "La Damoiselle et les Bretonniens à 6ps ou moins bénéficient d'une sauvegarde spéciale non modifiable de 4+ contre les sorts/prières. Au début de chaque phase de Tir, sur 1-2, le sort se dissipe." },
+      { "resultat": 3, "id": "pas_vifs", "nom": "Pas vifs", "difficulte": 7, "texte": "Un allié à 12ps ayant chargé ou raté une charge ce tour obtient +1 pour toucher jusqu'à la fin du tour, et peut faire un Mouvement supplémentaire de 1D6ps vers un ennemi (contact = charge) s'il n'est pas engagé." },
+      { "resultat": 4, "id": "courroux_de_la_dame", "nom": "Courroux de la Dame", "difficulte": 5, "texte": "Quiconque tente de tirer sur la Damoiselle doit d'abord réussir un test de Commandement, sinon ne peut pas tirer ce tour (inclut armes à effet de zone sur sa trajectoire). Dure jusqu'à la fin de la partie." },
+      { "resultat": 5, "id": "elixir_de_vie", "nom": "Élixir de vie", "difficulte": 7, "texte": "Une figurine à 4ps ou moins (Damoiselle incluse) retrouve tous ses PV ; les alliés sonnés/à terre à 4ps se relèvent immédiatement." },
+      { "resultat": 6, "id": "vision_inspirante", "nom": "Vision inspirante", "difficulte": 6, "texte": "Un allié à 8ps ou moins peut relancer un jet de dé et ajouter +1 ou -1 au résultat, jusqu'au début de la prochaine phase de Tir." }
     ]
   }
 }

@@ -6,7 +6,8 @@ import { translateWarbandCatalog } from '../../i18n/data/warbands';
 import { peutAjouterMembre } from '../../utils/validation';
 import { creerMembre } from '../../utils/factory';
 import { calculerCoutRejoindreGroupe, formatCoutProfil, rejoindreGroupe, TRINKETS_LIMITES } from '../../utils/shop';
-import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
+import { estSorcier, resolveSort, sortsDisponiblesPourRoster } from '../../utils/magie';
+import { magieMineure } from '../../i18n/data/minorMagic';
 import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
 import { peutGagnerExperience } from '../../utils/xp';
 import { Modal } from '../common/Modal';
@@ -62,7 +63,14 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const marqueRequise = !!profil?.marque_requise;
   const marqueChoisieValide = !marqueRequise || marqueChoisie !== '';
   const estSorcierProfil = !!profil && estSorcier(catalogue, profil.id, marqueChoisie || undefined);
-  const sortsPossibles = sortsDisponiblesPourRoster(catalogue, roster, [], profil, marqueChoisie || undefined);
+  const sortsPossibles = sortsDisponiblesPourRoster(
+    catalogue,
+    roster,
+    [],
+    profil,
+    marqueChoisie || undefined,
+    magieMineure(language)
+  );
   const nombreSortsRequis = profil?.nombre_sorts_choisis_depart ?? 1;
   const sortsChoisisValides =
     sortsChoisis.length === nombreSortsRequis && sortsChoisis.every((s) => s !== '');
@@ -249,13 +257,23 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
           )}
           {premierSortRequis && profil.sorts_fixes_depart && profil.sorts_fixes_depart.length > 0 && (
             <p className="text-sm text-muted">
-              {t('creation.modal.knowsAutomatically')} <strong>{profil.sorts_fixes_depart.join(', ')}</strong>.
+              {t('creation.modal.knowsAutomatically')}{' '}
+              <strong>
+                {profil.sorts_fixes_depart
+                  .map(
+                    (id) =>
+                      resolveSort(catalogue, id, profil, marqueChoisie || undefined, magieMineure(language))?.nom ??
+                      id
+                  )
+                  .join(', ')}
+              </strong>
+              .
             </p>
           )}
           {premierSortRequis &&
             Array.from({ length: nombreSortsRequis }, (_, i) => {
               const sortsRestants = sortsPossibles.filter(
-                (s) => !sortsChoisis.some((sel, j) => j !== i && sel === s.nom)
+                (s) => !sortsChoisis.some((sel, j) => j !== i && sel === s.id)
               );
               return (
                 <div className="field" key={i}>
@@ -274,7 +292,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                   >
                     <option value="">{t('creation.modal.choose')}</option>
                     {sortsRestants.map((s) => (
-                      <option key={s.nom} value={s.nom}>
+                      <option key={s.id} value={s.id}>
                         {s.resultat} — {s.nom}
                       </option>
                     ))}

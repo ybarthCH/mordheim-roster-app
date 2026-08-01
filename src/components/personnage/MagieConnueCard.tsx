@@ -7,6 +7,7 @@ import {
   sortsDisponiblesPourRoster,
   sortsMagieMineureDisponibles,
 } from '../../utils/magie';
+import { magieMineure } from '../../i18n/data/minorMagic';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { useLanguage } from '../../state/useLanguage';
@@ -18,7 +19,7 @@ type MagieConnueCardProps = {
   roster: RosterInstance;
   onMajMembre: (partial: Partial<Member>) => void;
   grimoireDisponible: boolean;
-  onUtiliserGrimoire: (nomSort: string) => void;
+  onUtiliserGrimoire: (idSort: string) => void;
 };
 
 // Sorts effectivement appris par ce sorcier — le premier est choisi
@@ -34,15 +35,24 @@ export function MagieConnueCard({
   grimoireDisponible,
   onUtiliserGrimoire,
 }: MagieConnueCardProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [sortAAjouter, setSortAAjouter] = useState('');
   const [grimoireOuvert, setGrimoireOuvert] = useState(false);
   const [sourceGrimoire, setSourceGrimoire] = useState<'propre' | 'mineure'>('propre');
   const [sortGrimoire, setSortGrimoire] = useState('');
-  const magiePropre = magieDuProfil(catalogue, profil, membre.marque);
-  const disponibles = sortsDisponiblesPourRoster(catalogue, roster, membre.sorts_connus, profil, membre.marque);
-  const magieMineureEstPropre = magiePropre?.nom === 'Magie mineure';
-  const sortsGrimoire = sourceGrimoire === 'propre' ? disponibles : sortsMagieMineureDisponibles(membre.sorts_connus);
+  const magieMineureAffichee = magieMineure(language);
+  const magiePropre = magieDuProfil(catalogue, profil, membre.marque, magieMineureAffichee);
+  const disponibles = sortsDisponiblesPourRoster(
+    catalogue,
+    roster,
+    membre.sorts_connus,
+    profil,
+    membre.marque,
+    magieMineureAffichee
+  );
+  const magieMineureEstPropre = profil.categorie_magie === 'magie_mineure';
+  const sortsGrimoire =
+    sourceGrimoire === 'propre' ? disponibles : sortsMagieMineureDisponibles(membre.sorts_connus, magieMineureAffichee);
 
   const utiliserGrimoire = () => {
     if (!sortGrimoire) return;
@@ -62,11 +72,11 @@ export function MagieConnueCard({
       }
     >
       {membre.sorts_connus.length > 0 ? (
-        membre.sorts_connus.map((nom, i) => {
-          const sort = resolveSort(catalogue, nom, profil, membre.marque);
+        membre.sorts_connus.map((id, i) => {
+          const sort = resolveSort(catalogue, id, profil, membre.marque, magieMineureAffichee);
           return (
             <p key={i} className="text-sm mb-0" style={{ marginTop: i > 0 ? '0.4rem' : 0 }}>
-              <strong>{sort ? `${sort.resultat} — ${sort.nom}` : nom}</strong>
+              <strong>{sort ? `${sort.resultat} — ${sort.nom}` : id}</strong>
               {sort && <span className="text-muted"> ({t('magieConnue.diffAbbrev')} {sort.difficulte}) : {sort.texte}</span>}
               <button
                 className="btn--ghost"
@@ -87,7 +97,7 @@ export function MagieConnueCard({
           <select value={sortAAjouter} onChange={(e) => setSortAAjouter(e.target.value)} style={{ flex: 1 }}>
             <option value="">{t('magieConnue.addSpellPlaceholder')}</option>
             {disponibles.map((s) => (
-              <option key={s.nom} value={s.nom}>
+              <option key={s.id} value={s.id}>
                 {s.resultat} — {s.nom}
               </option>
             ))}
@@ -133,7 +143,7 @@ export function MagieConnueCard({
                 <select value={sortGrimoire} onChange={(e) => setSortGrimoire(e.target.value)}>
                   <option value="">{t('magieConnue.choose')}</option>
                   {sortsGrimoire.map((sort) => (
-                    <option key={sort.nom} value={sort.nom}>
+                    <option key={sort.id} value={sort.id}>
                       {sort.resultat} — {sort.nom} ({t('magieConnue.diffAbbrev')} {sort.difficulte})
                     </option>
                   ))}

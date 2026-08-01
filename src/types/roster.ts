@@ -67,6 +67,13 @@ export type AdvanceRecord = {
   // Absent sur les entrées historiques antérieures à l'ajout de ce champ, qui
   // retombent alors sur l'appariement par nom (fragile aux renommages).
   competenceId?: string;
+  // Id du sort appris (MagieSort.id), uniquement pour type: 'sort' — même
+  // principe que competenceId : permet à annulerAvancee() de retrouver et
+  // retirer le sort de façon fiable, indépendamment de la langue d'affichage
+  // au moment de l'avancée. Absent sur les entrées historiques antérieures à
+  // l'ajout de ce champ, qui retombent alors sur l'appariement par nom
+  // extrait de `detail` (fragile si la langue a changé depuis).
+  sortId?: string;
   // Jet immédiat et gratuit sur la table des héros accordé par "Ce gars est
   // doué" (voir AvanceeModal.confirmerPromotion) — ne consomme pas une
   // avancée due au titre de la progression XP normale : à exclure du calcul

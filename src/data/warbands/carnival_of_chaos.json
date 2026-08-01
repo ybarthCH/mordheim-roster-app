@@ -230,12 +230,12 @@
     "de": "D6",
     "utilisateurs": ["maitre_de_ceremonie"],
     "sorts": [
-      { "resultat": 1, "nom": "Vigueur Démoniaque", "difficulte": 8, "texte": "Tout Portepeste ou Nurgling à moins de 8ps voit sa sauvegarde démoniaque passer à 4+ jusqu'au début de son prochain tour." },
-      { "resultat": 2, "nom": "Bubons", "difficulte": 7, "texte": "Portée 8ps ; un guerrier ennemi échouant un test d'Endurance perd 1 PV, sans sauvegarde d'armure autorisée." },
-      { "resultat": 3, "nom": "Miasmes Nurglesques", "difficulte": 8, "texte": "Portée 6ps, affecte toutes les créatures vivantes amies ou ennemies ; échec d'un test d'Endurance = perte d'1 Attaque pour le reste du tour." },
-      { "resultat": 4, "nom": "Pestilence", "difficulte": 10, "texte": "Toute figurine ennemie à moins de 12ps subit une touche de Force 3, sans sauvegarde d'armure." },
-      { "resultat": 5, "nom": "Peau Verruqueuse", "difficulte": 8, "texte": "Le Maître gagne une sauvegarde de 2+ qui remplace sa sauvegarde d'armure actuelle, jusqu'au début de sa prochaine phase de Tir." },
-      { "resultat": 6, "nom": "Pourriture de Nurgle", "difficulte": 9, "texte": "Toute figurine ennemie en contact avec le Maître doit immédiatement réussir un test d'Endurance ou attraper la Pourriture de Nurgle (voir Bénédictions de Nurgle)." }
+      { "resultat": 1, "id": "vigueur_demoniaque", "nom": "Vigueur Démoniaque", "difficulte": 8, "texte": "Tout Portepeste ou Nurgling à moins de 8ps voit sa sauvegarde démoniaque passer à 4+ jusqu'au début de son prochain tour." },
+      { "resultat": 2, "id": "bubons", "nom": "Bubons", "difficulte": 7, "texte": "Portée 8ps ; un guerrier ennemi échouant un test d'Endurance perd 1 PV, sans sauvegarde d'armure autorisée." },
+      { "resultat": 3, "id": "miasmes_nurglesques", "nom": "Miasmes Nurglesques", "difficulte": 8, "texte": "Portée 6ps, affecte toutes les créatures vivantes amies ou ennemies ; échec d'un test d'Endurance = perte d'1 Attaque pour le reste du tour." },
+      { "resultat": 4, "id": "pestilence", "nom": "Pestilence", "difficulte": 10, "texte": "Toute figurine ennemie à moins de 12ps subit une touche de Force 3, sans sauvegarde d'armure." },
+      { "resultat": 5, "id": "peau_verruqueuse", "nom": "Peau Verruqueuse", "difficulte": 8, "texte": "Le Maître gagne une sauvegarde de 2+ qui remplace sa sauvegarde d'armure actuelle, jusqu'au début de sa prochaine phase de Tir." },
+      { "resultat": 6, "id": "pourriture_de_nurgle", "nom": "Pourriture de Nurgle", "difficulte": 9, "texte": "Toute figurine ennemie en contact avec le Maître doit immédiatement réussir un test d'Endurance ou attraper la Pourriture de Nurgle (voir Bénédictions de Nurgle)." }
     ]
   }
 }
