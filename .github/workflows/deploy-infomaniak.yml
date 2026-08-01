@@ -33,3 +33,9 @@ jobs:
           password: ${{ secrets.INFOMANIAK_FTP_PASSWORD }}
           local-dir: dist/
           server-dir: /
+          # Wipes the remote root and re-uploads dist/ in full on every
+          # deploy — the site is small (a few MB) so the extra transfer
+          # time is negligible, and it removes any doubt about stale
+          # hashed assets surviving a broken sync-state file under the
+          # 10 MB Infomaniak hosting quota.
+          dangerous-clean-slate: true

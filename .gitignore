@@ -12,6 +12,21 @@ dist
 dist-ssr
 *.local
 
+# Android TWA (android-twa/) — build output and signing secrets. The
+# upload keystore itself is generated outside the repo entirely; these
+# patterns are defense-in-depth in case anything ends up inside the
+# project directory by mistake. Never committed, never deployed to
+# Infomaniak (only dist/ is, via the FTP workflow).
+android-twa/*.keystore
+android-twa/*.jks
+android-twa/key.properties
+android-twa/local.properties
+android-twa/.gradle/
+android-twa/build/
+android-twa/app/build/
+android-twa/*.apk
+android-twa/*.aab
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
