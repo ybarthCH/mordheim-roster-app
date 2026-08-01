@@ -145,6 +145,13 @@ export function ReglagesScreen() {
           </span>
         </label>
       </div>
+
+      <div className="card">
+        <h3 className="mt-0">{t('reglages.about')}</h3>
+        <a href="/privacy" target="_blank" rel="noopener noreferrer">
+          {t('reglages.privacyPolicy')}
+        </a>
+      </div>
     </Screen>
   );
 }

@@ -49,4 +49,6 @@ export const reglagesScreen: UiDictionary = {
     fr: "Active la recherche de Dramatis Personae pendant l'étape Commerce de la séquence post-bataille. Un Héros peut tenter de retrouver l'un de ces personnages spéciaux au lieu de rechercher un objet rare.",
     en: 'Enables searching for Dramatis Personae during the Trading step of the post-battle sequence. A Hero may attempt to track down one of these special characters instead of searching for a rare item.',
   },
+  'reglages.about': { fr: 'À propos', en: 'About' },
+  'reglages.privacyPolicy': { fr: 'Politique de confidentialité', en: 'Privacy Policy' },
 };
