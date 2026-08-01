@@ -68,6 +68,12 @@ export default defineConfig(({ command }) => ({
         // Links verifier — it's fetched directly by the OS/Chrome, not by the
         // app, so it has no business in the app's own offline cache.
         globIgnores: ['.well-known/**'],
+        // /privacy is a standalone static page, not a client-side route —
+        // without this denylist, Workbox's NavigationRoute intercepts every
+        // navigation request and serves index.html instead, so the page
+        // never renders unless the browser bypasses the service worker
+        // (e.g. a hard reload).
+        navigateFallbackDenylist: [/^\/privacy$/],
       },
     }),
   ],
