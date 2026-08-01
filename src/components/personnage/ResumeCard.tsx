@@ -5,6 +5,7 @@ import { CollapsibleCard } from '../common/CollapsibleCard';
 import type { InventoryEntry, Member } from '../../types/roster';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { useLanguage } from '../../state/useLanguage';
+import { translateItem } from '../../i18n/data/items';
 
 type ResumeCardProps = {
   profil: Profile;
@@ -16,7 +17,7 @@ type ResumeCardProps = {
 };
 
 export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCompetence, onItemClick }: ResumeCardProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   return (
     <CollapsibleCard title={t('resume.title')} preferenceKey="ui.personnage.resume.ouvert" className="card">
       {profil.type === 'heros' && (
@@ -43,12 +44,12 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
       <span className="resume-section__title">{t('resume.equipment')}</span>
       {inventaireGroupe.length > 0 ? (
         inventaireGroupe.map(({ entree, quantite }) => {
-          const detail = resolveItemDetail(entree);
+          const detail = translateItem(resolveItemDetail(entree), language);
           const synopsis = resumeItem(detail);
           return (
             <p key={entree.instance_id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
               <button className="link-inline" onClick={() => onItemClick(entree)}>
-                {entree.nom}
+                {detail.nom}
                 {quantite > 1 ? ` ×${quantite}` : ''}
               </button>
               {synopsis && (

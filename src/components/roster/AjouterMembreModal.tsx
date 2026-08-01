@@ -23,7 +23,7 @@ type Props = {
 export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const navigate = useNavigate();
   const { rules } = useGameRules();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const catalogue = getCatalogue(roster.bande_id);
   const [profilId, setProfilId] = useState('');
   const [nomPerso, setNomPerso] = useState('');
@@ -148,7 +148,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
             <optgroup label={t('ajouterMembre.heroes')}>
               {profilsHeros.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {p.nom} ({formatCoutProfil(p.cout, p.cout_notation)})
+                  {p.nom} ({formatCoutProfil(p.cout, p.cout_notation, language)})
                 </option>
               ))}
             </optgroup>
@@ -157,7 +157,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
             <optgroup label={t('ajouterMembre.henchmen')}>
               {profilsHommesDeMain.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {p.nom} ({formatCoutProfil(p.cout, p.cout_notation)})
+                  {p.nom} ({formatCoutProfil(p.cout, p.cout_notation, language)})
                 </option>
               ))}
             </optgroup>

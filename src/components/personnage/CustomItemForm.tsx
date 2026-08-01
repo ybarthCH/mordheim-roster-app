@@ -30,7 +30,7 @@ const VIDE: CustomItemFormValue = {
 };
 
 export function CustomItemForm({ titre, initial, onEnregistrer, onAnnuler, onRevert }: Props) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const depart = initial ?? VIDE;
   const [nom, setNom] = useState(depart.nom);
   const [categorie, setCategorie] = useState(depart.categorie);
@@ -80,7 +80,7 @@ export function CustomItemForm({ titre, initial, onEnregistrer, onAnnuler, onRev
         <select value={categorie} onChange={(e) => setCategorie(e.target.value)}>
           {CATEGORIE_ORDRE.map((c) => (
             <option key={c} value={c}>
-              {libelleCategorie(c)}
+              {libelleCategorie(c, language)}
             </option>
           ))}
         </select>

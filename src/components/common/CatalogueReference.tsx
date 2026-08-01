@@ -4,6 +4,7 @@ import { estAccesGenerique, iconeCategorie, prixAvecRegles } from '../../utils/s
 import { magieDuProfil } from '../../utils/magie';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
+import { translateItem } from '../../i18n/data/items';
 import { Icon } from './Icon';
 import { CollapsibleCard } from './CollapsibleCard';
 
@@ -78,7 +79,7 @@ function libelleListe(cle: string): string {
 // accessibles via le shop intégré et n'ont plus leur place ici.
 export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }) {
   const { rules } = useGameRules();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const listesFiltrees = Object.entries(catalogue.equipement ?? {})
     .map(([liste, groupes]) => {
       const parCategorie = LISTES_EQUIPEMENT.map((cat) => ({
@@ -115,7 +116,7 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
               {items
                 .map((it) => {
                   const ref = getItem(it.item_id);
-                  const nom = ref?.nom ?? it.item_id;
+                  const nom = ref ? translateItem(ref, language).nom : it.item_id;
                   const cout = prixAvecRegles(it.item_id, it.cout, catalogue.id, rules, 'bande');
                   return `${nom} (${cout}${typeof cout === 'number' ? ` ${t('catalogueReference.gc')}` : ''}${it.note ? `, ${it.note}` : ''}${it.restriction ? `, ${it.restriction}` : ''})`;
                 })
@@ -130,7 +131,8 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
             <strong>{t('catalogueReference.rareItems')}</strong>
           </p>
           {catalogue.equipement_special!.map((it) => {
-            const ref = getItem(it.item_id);
+            const refBrut = getItem(it.item_id);
+            const ref = refBrut ? translateItem(refBrut, language) : undefined;
             const cout = prixAvecRegles(it.item_id, it.cout, catalogue.id, rules, 'bande');
             return (
               <p key={it.item_id} className="text-sm mb-0">

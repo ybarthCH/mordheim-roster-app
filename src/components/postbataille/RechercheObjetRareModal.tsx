@@ -15,6 +15,7 @@ import {
 import { useGameRules } from '../../state/useGameRules';
 import { Modal } from '../common/Modal';
 import { useLanguage } from '../../state/useLanguage';
+import { translateItem } from '../../i18n/data/items';
 
 export type ResultatRechercheRare = {
   rarete: number;
@@ -49,7 +50,7 @@ export function RechercheObjetRareModal({
   onClose,
   onTerminer,
 }: Props) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { rules } = useGameRules();
   const [recherche, setRecherche] = useState('');
   const [itemId, setItemId] = useState('');
@@ -69,6 +70,7 @@ export function RechercheObjetRareModal({
   const q = recherche.trim().toLocaleLowerCase('fr');
   const itemsFiltres = q ? items.filter((item) => item.nom.toLocaleLowerCase('fr').includes(q)) : items;
   const item = items.find((candidat) => candidat.id === itemId) ?? null;
+  const itemAffiche = item ? translateItem(item, language) : null;
   const rarete = item ? niveauRarete(item) : null;
   const cout = Number(coutSaisi);
   const coutValide = coutSaisi.trim() !== '' && Number.isFinite(cout) && cout >= 0;
@@ -135,6 +137,7 @@ export function RechercheObjetRareModal({
                 {itemsFiltres.length === 0 && <p className="text-muted">{t('rareModal.noMatch')}</p>}
                 {itemsFiltres.map((candidat) => {
                   const niveau = niveauRarete(candidat);
+                  const candidatAffiche = translateItem(candidat, language);
                   return (
                     <button
                       key={candidat.id}
@@ -144,15 +147,15 @@ export function RechercheObjetRareModal({
                     >
                       <div className="list-item__main">
                         <div className="achat-equipement__item-titre">
-                          <span className="list-item__title">{candidat.nom}</span>
+                          <span className="list-item__title">{candidatAffiche.nom}</span>
                           <span className={`badge ${classeRarete(String(niveau)) ?? ''}`}>{t('rareModal.rareLevel', { n: niveau ?? 0 })}</span>
                         </div>
                         <div className="list-item__subtitle">
-                          {libelleCategorie(candidat.categorie)} · {formatCoutItem(candidat.cout)}
+                          {libelleCategorie(candidat.categorie, language)} · {formatCoutItem(candidat.cout, language)}
                         </div>
-                        {resumeItem(candidat) && (
+                        {resumeItem(candidatAffiche, language) && (
                           <div className="list-item__subtitle" style={{ marginTop: '0.2rem' }}>
-                            {resumeItem(candidat)}
+                            {resumeItem(candidatAffiche, language)}
                           </div>
                         )}
                       </div>
@@ -174,15 +177,15 @@ export function RechercheObjetRareModal({
                 </button>
               </div>
               <div className="achat-equipement__selection-titre">
-                <h3 className="mt-0 mb-0">{item.nom}</h3>
+                <h3 className="mt-0 mb-0">{itemAffiche!.nom}</h3>
                 <span className={`badge ${classeRarete(String(rarete)) ?? ''}`}>{t('rareModal.rareLevel', { n: rarete ?? 0 })}</span>
               </div>
             </header>
 
             <div className="achat-equipement__contenu achat-equipement__detail">
               <p className="text-sm text-muted">{t('rareModal.succeedsOn', { n: rarete ?? 0 })}</p>
-              {item.disponibilite && <p className="text-sm text-muted">{item.disponibilite}</p>}
-              {resumeItem(item) && <p className="text-sm">{resumeItem(item)}</p>}
+              {itemAffiche!.disponibilite && <p className="text-sm text-muted">{itemAffiche!.disponibilite}</p>}
+              {resumeItem(itemAffiche!, language) && <p className="text-sm">{resumeItem(itemAffiche!, language)}</p>}
 
               {!succesDeclare && (
                 <div className="flex gap-sm" style={{ marginTop: '0.4rem' }}>
