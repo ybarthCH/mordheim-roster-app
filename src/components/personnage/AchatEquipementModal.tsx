@@ -123,6 +123,15 @@ export function AchatEquipementModal({
   const [baseMateriauId, setBaseMateriauId] = useState('');
   const [rechercheMateriau, setRechercheMateriau] = useState('');
   const [coutBaseSaisi, setCoutBaseSaisi] = useState('');
+  // Résultat du sous-jet d'achat (ex : Carte de Mordheim, résolue par 1D6) —
+  // saisi avant de pouvoir finaliser l'achat d'un objet dont l'effet en
+  // dépend (voir ShopItem.sous_jet_achat dans utils/shop.ts).
+  const [resultatSousJetAchat, setResultatSousJetAchat] = useState<{
+    jet: number;
+    optionIndex: number;
+    label: string;
+    texte: string;
+  } | null>(null);
 
   const personnaliseActif = !!(onObjetsPersonnalisesChange && onObjetsSurchargesChange);
 
@@ -175,7 +184,11 @@ export function AchatEquipementModal({
     return [...liste].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
   }, [items, recherche, categorieFiltre]);
 
-  const itemSelectionne = items.find((i) => i.id === itemId) ?? null;
+  const itemSelectionneBrut = items.find((i) => i.id === itemId) ?? null;
+  const itemSelectionne: ShopItem | null =
+    itemSelectionneBrut && resultatSousJetAchat
+      ? { ...itemSelectionneBrut, resultatSousJetAchat }
+      : itemSelectionneBrut;
   const itemSelectionneAffiche = itemSelectionne ? translateItem(itemSelectionne, language) : null;
   const disponibiliteDetail = disponibiliteSansRarete(
     itemSelectionneAffiche?.disponibilite,
@@ -194,6 +207,15 @@ export function AchatEquipementModal({
     setBaseMateriauId('');
     setRechercheMateriau('');
     setCoutBaseSaisi('');
+    setResultatSousJetAchat(null);
+  };
+
+  const choisirResultatSousJetAchat = (jet: number) => {
+    if (!itemSelectionne?.sous_jet_achat) return;
+    const optionIndex = itemSelectionne.sous_jet_achat.options.findIndex((o) => o.valeurs.includes(jet));
+    if (optionIndex < 0) return;
+    const option = itemSelectionne.sous_jet_achat.options[optionIndex];
+    setResultatSousJetAchat({ jet, optionIndex, label: option.label, texte: option.texte });
   };
 
   const materiauSelectionne = itemId && estItemMateriau(itemId) ? items.find((i) => i.id === itemId) : undefined;
@@ -365,6 +387,27 @@ export function AchatEquipementModal({
               itemAEditer.origine !== 'personnalise' && objetsSurcharges[itemAEditer.id] ? revertSurcharge : undefined
             }
           />
+        ) : itemSelectionne?.sous_jet_achat && !resultatSousJetAchat ? (
+          <div className="achat-equipement__contenu">
+            <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
+              <h3 className="mt-0 mb-0">{itemSelectionneAffiche!.nom}</h3>
+              <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={onClose}>
+                ✕
+              </button>
+            </div>
+            <p className="text-sm text-muted">{t('achatEquipement.rollResultNote')}</p>
+            <button className="btn btn--sm" style={{ marginBottom: '0.5rem' }} onClick={() => setItemId('')}>
+              {t('achatEquipement.rollResultBack')}
+            </button>
+            <p className="text-sm" style={{ fontWeight: 600 }}>{t('achatEquipement.rollResultTitle')}</p>
+            <div className="flex flex-wrap gap-sm">
+              {[1, 2, 3, 4, 5, 6].map((valeur) => (
+                <button key={valeur} className="btn" onClick={() => choisirResultatSousJetAchat(valeur)}>
+                  {valeur}
+                </button>
+              ))}
+            </div>
+          </div>
         ) : materiauSelectionne && !baseMateriauChoisie ? (
           <div className="achat-equipement__contenu">
             <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
@@ -683,11 +726,18 @@ export function AchatEquipementModal({
               {disponibiliteDetail && (
                 <p className="text-sm text-muted mb-0">{disponibiliteDetail}</p>
               )}
-              {itemSelectionneAffiche!.regles_speciales?.map((r) => (
-                <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-                  <strong>{r.nom}</strong> — {r.texte}
+              {itemSelectionneAffiche!.resultatSousJetAchat ? (
+                <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                  <strong>{itemSelectionneAffiche!.resultatSousJetAchat.label}</strong> —{' '}
+                  {itemSelectionneAffiche!.resultatSousJetAchat.texte}
                 </p>
-              ))}
+              ) : (
+                itemSelectionneAffiche!.regles_speciales?.map((r) => (
+                  <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                    <strong>{r.nom}</strong> — {r.texte}
+                  </p>
+                ))
+              )}
               {itemSelectionneAffiche!.texte && (
                 <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
                   {itemSelectionneAffiche!.texte}

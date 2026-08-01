@@ -17,6 +17,21 @@ import type { Language } from '../state/useLanguage';
 // restent du texte (ex : Force "3(4)" pour une charge d'araignée géante).
 export type StatsMonture = { [K in keyof Stats]: number | string };
 
+// Sous-résultat déterminé par un jet de dé fait au moment de l'achat (ex :
+// Carte de Mordheim, résolue par 1D6) — même principe que SousJetSpec pour
+// les blessures graves (voir data/blessuresGraves.ts), mais résolu une seule
+// fois à l'achat plutôt qu'au fil d'un assistant multi-étapes.
+export type SousJetAchatOption = {
+  valeurs: number[];
+  label: string;
+  texte: string;
+};
+
+export type SousJetAchatSpec = {
+  de: '1D6';
+  options: SousJetAchatOption[];
+};
+
 export type ShopItem = {
   id: string;
   nom: string;
@@ -33,6 +48,15 @@ export type ShopItem = {
   force?: string | null;
   sauvegarde?: string | null;
   regles_speciales?: SpecialRule[];
+  // Présent uniquement sur les objets dont l'effet dépend d'un jet fait au
+  // moment de l'achat (ex : Carte de Mordheim) — voir SousJetAchatSpec.
+  sous_jet_achat?: SousJetAchatSpec;
+  // Résultat déjà résolu du sous_jet_achat pour UN exemplaire particulier —
+  // uniquement présent sur un ShopItem reconstruit depuis une InventoryEntry
+  // (voir resolveItemDetail), jamais sur l'entrée catalogue brute.
+  // `regles_speciales` reste la liste complète non résolue ; c'est ce champ
+  // qu'il faut afficher partout où l'effet réel de CET exemplaire compte.
+  resultatSousJetAchat?: { jet: number; optionIndex: number; label: string; texte: string };
   // Profil de caractéristiques (montures/créatures) — présent seulement pour
   // la catégorie "montures".
   stats?: StatsMonture;
@@ -56,7 +80,8 @@ export function resumeItem(item: ShopItem, language: Language = 'fr'): string | 
   if (item.portee) parties.push(`${language === 'en' ? 'Range' : 'Portée'} ${item.portee}`);
   if (item.force) parties.push(`${language === 'en' ? 'Strength' : 'Force'} ${item.force}`);
   if (item.sauvegarde) parties.push(`${language === 'en' ? 'Save' : 'Sauvegarde'} ${item.sauvegarde}`);
-  if (item.regles_speciales?.length) parties.push(item.regles_speciales.map((r) => r.nom).join(', '));
+  if (item.resultatSousJetAchat) parties.push(item.resultatSousJetAchat.label);
+  else if (item.regles_speciales?.length) parties.push(item.regles_speciales.map((r) => r.nom).join(', '));
   if (parties.length > 0) return parties.join(' · ');
   return item.texte ?? null;
 }
@@ -513,6 +538,7 @@ function mapperItemVersShopItem(item: (typeof TOUS_LES_ITEMS)[number]): ShopItem
     force: 'force' in item ? (item.force as string | null) : undefined,
     sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
     regles_speciales: item.regles_speciales,
+    sous_jet_achat: 'sous_jet_achat' in item ? (item.sous_jet_achat as SousJetAchatSpec | undefined) : undefined,
     stats: 'stats' in item ? (item.stats as StatsMonture | undefined) : undefined,
     origine: 'commun',
   };
@@ -710,6 +736,7 @@ export function creerEntreeInventaire(item: ShopItem, coutPaye: number): Invento
     cout: coutPaye,
     cout_notation: item.cout_fixe === false ? String(item.cout) : undefined,
     date_achat: new Date().toISOString(),
+    resultat_sous_jet_achat: item.resultatSousJetAchat,
   };
 }
 
@@ -930,6 +957,20 @@ export function resolveItemDetail(
       origine: 'bande',
     }, catalogueId, rules, 'paye');
   }
+  const sousJetAchat = 'sous_jet_achat' in item ? (item.sous_jet_achat as SousJetAchatSpec | undefined) : undefined;
+  const resultatPersiste = entree.resultat_sous_jet_achat;
+  // Rejoue toujours l'option canonique du catalogue plutôt que le seul
+  // instantané persisté, quand elle est encore disponible — l'instantané ne
+  // sert que de repli si l'objet/l'option a depuis disparu du catalogue.
+  const optionCanonique = resultatPersiste ? sousJetAchat?.options[resultatPersiste.optionIndex] : undefined;
+  const resultatSousJetAchat = resultatPersiste
+    ? {
+        jet: resultatPersiste.jet,
+        optionIndex: resultatPersiste.optionIndex,
+        label: optionCanonique?.label ?? resultatPersiste.label,
+        texte: optionCanonique?.texte ?? resultatPersiste.texte,
+      }
+    : undefined;
   return appliquerReglesObjet({
     id: item.id,
     nom: item.nom,
@@ -942,6 +983,8 @@ export function resolveItemDetail(
     force: 'force' in item ? (item.force as string | null) : undefined,
     sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
     regles_speciales: item.regles_speciales,
+    sous_jet_achat: resultatSousJetAchat ? undefined : sousJetAchat,
+    resultatSousJetAchat,
     stats: 'stats' in item ? (item.stats as StatsMonture | undefined) : undefined,
     stats_delta: 'stats_delta' in item ? item.stats_delta : undefined,
     origine: 'bande',

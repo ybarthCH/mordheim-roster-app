@@ -78,4 +78,10 @@ export const achatEquipementModal: UiDictionary = {
   },
   'achatEquipement.return': { fr: 'Retour', en: 'Back' },
   'achatEquipement.buy': { fr: 'Acheter', en: 'Buy' },
+  'achatEquipement.rollResultTitle': { fr: 'Quel résultat as-tu obtenu ?', en: 'What result did you roll?' },
+  'achatEquipement.rollResultNote': {
+    fr: "Lance le dé indiqué sur table papier, puis touche le résultat obtenu ci-dessous.",
+    en: 'Roll the indicated die on your tabletop, then tap the result obtained below.',
+  },
+  'achatEquipement.rollResultBack': { fr: '← Choisir un autre objet', en: '← Choose another item' },
 };
