@@ -2648,6 +2648,1111 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       ],
     },
   },
+  gardiens_de_chapelle_bretonniens: {
+    nom: 'Bretonnian Chapel Guardians (1c)',
+    regles_speciales: [
+      {
+        nom: 'Chivalry',
+        texte: "No Knight may use a missile weapon (except holy water), nor resort to poison, drugs, or spells; prayers remain permitted.",
+      },
+      {
+        nom: "The Lord's Favour",
+        texte:
+          'Upon joining the warband, a Knight may acquire ONE item only from among warhorse / light armour / heavy armour at half price. This item may not be traded, given away, or sold, and is removed from the warband (returned or buried) if the Knight dies.',
+      },
+      {
+        nom: 'Virtue of Purity',
+        texte:
+          'Knights with this virtue may never voluntarily leave combat unless Knocked Down; they are immune to non-magical effects such as All Alone, but spells/magical effects that force them to flee affect them normally.',
+      },
+    ],
+    profils: {
+      chevalier_de_la_quete: {
+        nom: 'Knight of the Quest',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warband member within 6" may use his Leadership for their tests.' },
+          { nom: 'Knight', texte: 'Has the Chivalry, the Lord\'s Favour, and Virtue of Purity rules.' },
+          { nom: 'Horsemanship', texte: 'Starts with the Ride – Warhorse skill.' },
+          { nom: 'Vow of Poverty', texte: 'May never take a cavalry lance.' },
+        ],
+      },
+      damoiselle: {
+        nom: 'Damsel',
+        regles_speciales: [
+          {
+            nom: 'Prayer to the Lady',
+            texte: "Starts with a Prayer randomly drawn from the Prayers of the Lady list and may learn others.",
+          },
+        ],
+      },
+      chevalier_errant: {
+        nom: 'Errant Knight',
+        regles_speciales: [
+          { nom: 'Knight', texte: "Has the Chivalry, the Lord's Favour, and Virtue of Purity rules." },
+          { nom: 'Vain', texte: 'Refuses to wear a helmet.' },
+          {
+            nom: 'Impetuous',
+            texte:
+              "After charges are declared, if he is not already engaged and has not charged this turn, he must charge a standing enemy within range if able (likewise if his original target, now Knocked Down or Stunned, is no longer valid). A Leadership test (usable via the Leader within range) allows choosing his target if passed; otherwise he charges the nearest standing enemy. Automatically ignores fear/psychology tests during a forced charge.",
+          },
+          {
+            nom: 'May Exceed Three',
+            texte: 'May exceed 3 Errant Knights if a Squire promoted to Hero becomes one (see the Knighting rule).',
+          },
+        ],
+      },
+      ecuyer: {
+        nom: 'Squire',
+        regles_speciales: [
+          {
+            nom: 'Knighting',
+            texte:
+              "On 'Lad's Got Talent', two choices: remain a Squire (2 lists among Combat/Academic/Strength/Speed, keeps his equipment list) or become an Errant Knight (immediately gains Knight, Vain, and Impetuous instead of an immediate advance, gains access to Special Skills plus 2 other lists, switches to the Knights' equipment list, may no longer use missile weapons — this is the mechanism that allows exceeding 3 Errant Knights).",
+          },
+          {
+            nom: 'Mount',
+            texte: 'May only ride a horse if the Knight of the Quest and all Errant Knights are themselves mounted on warhorses.',
+          },
+        ],
+      },
+      pelerin: {
+        nom: 'Grail Pilgrim',
+        regles_speciales: [
+          {
+            nom: 'Low Caste',
+            texte: "Gains experience normally, but every 'Lad's Got Talent' result is re-rolled; can never become a Hero.",
+          },
+          { nom: 'Hatred', texte: "Hatred of all enemies, regarded as heretics to the Lady's cause." },
+          { nom: 'Stubborn', texte: 'May re-roll a failed Leadership test once, keeping the second result.' },
+          {
+            nom: 'Bretonnian Sacred Relics',
+            texte:
+              'May receive a sacred relic despite the usual restriction on Henchmen carrying miscellaneous items; it grants frenzy (and therefore immunity to Hatred). If a group does not have enough relics for all its members, the bearer splits off and forms his own group.',
+          },
+        ],
+      },
+      paysan_archer: {
+        nom: 'Peasant Bowman',
+        regles_speciales: [
+          {
+            nom: 'Low Caste',
+            texte: "Gains experience normally, but every 'Lad's Got Talent' result is re-rolled; can never become a Hero.",
+          },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      vertu_de_renommee: {
+        nom: 'Virtue of Renown',
+        texte:
+          "Allows learning a Virtue from Tom Merrigan's original list of Bretonnian Knights. May only be chosen once. Available Virtues — Discipline: once per battle, if the Hero is not Knocked Down, Stunned, or Out of Action, may re-roll a failed Rout test. Impetuousness: adds +1D3\" to Movement when charging (roll before moving the model). Purity: any spell targeting the Hero is dispelled on a 4+ (natural dispelling due to his piety). Bravery: against a model with higher Strength than his own, re-rolls failed to-hit rolls in hand-to-hand combat. Noble Disdain: hatred of all enemies equipped with missile weapons.",
+      },
+      voeu_de_la_quete: {
+        nom: 'Vow of the Quest',
+        reserve_a: 'Knight of the Quest only',
+        texte: 'If he charges, is charged, or fights an enemy that causes fear, may re-roll a Leadership test (including Rout), keeping the second result.',
+      },
+      coup_de_bouclier: {
+        nom: 'Shield Bash',
+        texte: 'Each turn, an extra attack with a shield/buckler at Strength -1, treated as a club blow.',
+      },
+      muscles_saillants: {
+        nom: 'Bulging Muscles',
+        texte: 'Keeps the Strength bonus of flails and morning stars after the first round of combat.',
+      },
+      infatigable: {
+        nom: 'Tireless',
+        texte: 'On foot, ignores Movement penalties from armour; save modifiers (Strength, axe, critical hit) cannot reduce his save below 5+, and it cannot be ignored by non-magical means.',
+      },
+    },
+    equipement: {
+      chevaliers: {
+        armes_cac: ['first free', undefined, undefined, undefined, 'see special equipment', undefined, undefined, undefined],
+        armures: [undefined, undefined, undefined, undefined, 'see special equipment', undefined],
+      },
+      pelerins: {
+        armes_cac: ['first free', undefined, undefined, 'see special equipment', undefined, undefined, undefined, undefined],
+      },
+      paysans_archers: {
+        armes_cac: ['first free', undefined, undefined, 'see special equipment', undefined],
+      },
+    },
+    magie: {
+      nom: 'Prayers of the Lady of the Lake',
+      type: 'prayers',
+      sorts: [
+        {
+          nom: 'Favours of the Lady',
+          texte:
+            'All Heroes count as having a lucky charm for the battle (ignore the first hit on a 4+); those who already have one may re-roll a failed lucky charm save, keeping the second result.',
+        },
+        {
+          nom: 'Blessed Protection',
+          texte:
+            'The Damsel and Bretonnians within 6" benefit from a special, non-modifiable 4+ save against spells/prayers. At the start of each Shooting phase, on a 1-2, the spell is dispelled.',
+        },
+        {
+          nom: 'Swift Steps',
+          texte:
+            'An ally within 12" who charged or failed a charge this turn gains +1 to hit until the end of the turn, and may make an additional Movement of 1D6" towards an enemy (contact = charge) if not engaged.',
+        },
+        {
+          nom: "Wrath of the Lady",
+          texte:
+            'Anyone attempting to shoot the Damsel must first pass a Leadership test, or may not shoot this turn (includes area-effect weapons whose path crosses her). Lasts until the end of the game.',
+        },
+        {
+          nom: 'Elixir of Life',
+          texte: 'A model within 4" (including the Damsel) regains all Wounds; allies Stunned/Knocked Down within 4" immediately stand up.',
+        },
+        {
+          nom: 'Inspiring Vision',
+          texte: 'An ally within 8" may re-roll a die and add +1 or -1 to the result, until the start of the next Shooting phase.',
+        },
+      ],
+    },
+  },
+  morts_sans_repos: {
+    nom: 'The Restless Dead (1c)',
+    profils: {
+      liche: {
+        nom: 'Liche',
+        regles_speciales: [
+          {
+            nom: 'Sorcerer',
+            texte: 'A powerful spellcaster; uses Necromancy and starts with two spells randomly drawn from the Necromancy list.',
+          },
+          { nom: 'Causes Fear', texte: 'A horrifying abomination that causes Fear.' },
+          { nom: 'Immune to Psychology', texte: 'Unaffected by psychology and never leaves combat.' },
+          { nom: 'Unfeeling', texte: 'A Stunned result on the Injury table is treated as Knocked Down.' },
+          { nom: 'Immune to Poisons', texte: 'Unaffected by poisons.' },
+          {
+            nom: 'Undying',
+            texte:
+              'May ignore any Serious Injury result except Dead, suffering instead a permanent loss of -1 Wound (not usable if she has only 1 Wound left). A Dead result instead inflicts -D3 permanent Wounds; if this brings the Liche to 0 Wounds or below, she is killed normally.',
+          },
+          {
+            nom: 'Feeds on Magic',
+            texte:
+              'Between battles, by consuming D3 Treasures, may gain +1 permanent Wound. Cannot be used if the Liche searched for rare items or was taken Out of Action in the previous battle; the Treasures are consumed even if not enough are available.',
+          },
+          { nom: 'Battle Sorceress', texte: 'May wear armour and cast spells.' },
+          {
+            nom: 'Advancement',
+            texte: 'If the Liche rolls a +1 Wound advance result, she may instead choose a new skill from her available tables.',
+          },
+          {
+            nom: 'Equipment',
+            texte: 'May carry no non-magical weapon (without penalty for this), but may wear any armour from the undead equipment list.',
+          },
+        ],
+      },
+      necromancien: {
+        nom: 'Necromancer',
+        regles_speciales: [
+          {
+            nom: 'Sorcerer',
+            texte: "Trained by the Liche in Necromancy; starts knowing one of the Liche's two known spells.",
+          },
+          {
+            nom: 'Apprentice',
+            texte:
+              'May only learn spells already known by the Liche (he does not dare use others out of deference). If the Liche is killed, the Necromancer may continue learning spells like a normal spellcaster, ignoring this rule.',
+          },
+          { nom: 'Scavenger', texte: 'When searching for rare items, rolls 3D6 and keeps the two best results.' },
+        ],
+      },
+      garde_funeraire: {
+        nom: 'Grave Guard',
+        regles_speciales: [
+          {
+            nom: 'Spectral Blades',
+            texte:
+              'Any to-hit roll of 6 in hand-to-hand combat automatically wounds (normal to-wound roll for critical hits; a failed to-wound roll still causes a wound if a 6 was rolled to hit).',
+          },
+          { nom: 'Causes Fear', texte: 'Terrifying undead creatures that cause Fear.' },
+          { nom: 'Immune to Poisons', texte: 'Unaffected by poisons.' },
+          { nom: 'Immune to Psychology', texte: 'Unaffected by psychology and never leaves combat.' },
+          { nom: 'Unfeeling', texte: 'A Stunned result on the Injury table is treated as Knocked Down.' },
+          { nom: 'Cannot Run', texte: 'A slow undead creature; cannot run but may charge normally.' },
+          { nom: 'No Bargaining', texte: 'May not search for rare items.' },
+        ],
+      },
+      zombie: {
+        nom: 'Zombie',
+        regles_speciales: [
+          { nom: 'Causes Fear', texte: 'Horrifying creatures that cause Fear.' },
+          { nom: 'Cannot Run', texte: 'A slow undead creature; cannot run but may charge normally.' },
+          { nom: 'Immune to Psychology', texte: 'Unaffected by psychology and never leaves combat.' },
+          { nom: 'Immune to Poisons', texte: 'Unaffected by poisons.' },
+          { nom: 'Unfeeling', texte: 'A Stunned result on the Injury table is treated as Knocked Down.' },
+          { nom: 'Brainless', texte: 'Never gains experience.' },
+          { nom: 'Equipment', texte: 'May carry no weapons or armour, without penalty for this.' },
+        ],
+      },
+      squelette: {
+        nom: 'Skeleton',
+        regles_speciales: [
+          { nom: 'Causes Fear', texte: 'Terrifying undead monsters that cause Fear.' },
+          { nom: 'Cannot Run', texte: 'A slow undead creature; cannot run but may charge normally.' },
+          { nom: 'Immune to Psychology', texte: 'Unaffected by psychology and never leaves combat.' },
+          { nom: 'Immune to Poisons', texte: 'Unaffected by poisons.' },
+          { nom: 'Unfeeling', texte: 'A Stunned result on the Injury table is treated as Knocked Down.' },
+          { nom: 'Brainless', texte: 'Never gains experience.' },
+        ],
+      },
+      spectre: {
+        nom: 'Spectre',
+        regles_speciales: [
+          { nom: 'Causes Fear', texte: 'Terrifying undead creatures that cause Fear.' },
+          { nom: 'Immune to Poisons', texte: 'Unaffected by poisons.' },
+          { nom: 'Immune to Psychology', texte: 'Unaffected by psychology and never leaves combat.' },
+          { nom: 'Unfeeling', texte: 'A Stunned result on the Injury table is treated as Knocked Down.' },
+          { nom: 'Cannot Run', texte: 'A slow undead creature; cannot run but may charge normally.' },
+          {
+            nom: 'Experience',
+            texte:
+              "May gain experience; if promoted to Hero via 'Lad's Got Talent', may not search for rare items (like Grave Guards), must choose the Combat and Strength skill tables, and gains the Spectral Blades rule.",
+          },
+        ],
+      },
+      epouvantail: {
+        nom: 'Scarecrow',
+        regles_speciales: [
+          { nom: 'Causes Fear', texte: 'A deeply unnatural sight that causes Fear.' },
+          { nom: 'Immune to Psychology', texte: 'Immune to all psychology, never leaves combat.' },
+          { nom: 'Immune to Poisons', texte: 'Immune to all poisons.' },
+          { nom: 'Unfeeling', texte: 'Any Stunned result on the Injury table is treated as Knocked Down.' },
+          { nom: 'Brainless', texte: 'Never gains experience.' },
+          {
+            nom: 'Insubstantial',
+            texte:
+              'Counts as Toughness 6 against any shooting and magic missiles, and is immune to critical hits from shooting (exception: fire-based missile weapons/spells deal normal damage).',
+          },
+          { nom: 'Flammable', texte: 'Counts as flammable and catches fire on a 3+ instead of the usual 4+.' },
+          { nom: 'Construct', texte: 'May re-roll any result on the Injury table, except injuries caused by fire.' },
+          {
+            nom: 'Animated Construct',
+            texte:
+              'Controlled by either the Liche or the Necromancer (noted on the roster sheet), one at a time; a warband needs both a Liche and a Necromancer to field two Scarecrows. If its controller cannot take part in a battle, neither can the Scarecrow. If its controller loses a Wound, an unmodified Leadership test must be passed or the Scarecrow is immediately taken Out of Action.',
+          },
+          { nom: 'Equipment', texte: 'Carries no equipment, without penalty for this.' },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      bombe_cadaverique: {
+        nom: 'Corpse Bomb',
+        texte:
+          'Secretly designate a Zombie at the start of the battle as a Corpse Bomb; if it is charged or charges an enemy, it immediately explodes, inflicting D3 Strength 4 hits on all models within a D6" radius. This Zombie can never be reused. A Corpse Bomb killed by shooting does not explode. Only one Zombie at a time may be a Corpse Bomb; both the Necromancer and the Liche may choose this skill.',
+      },
+      porte_voix_des_morts: {
+        nom: 'Voice of the Dead',
+        texte:
+          "At the start of the battle, may deploy D3 Zombies for free; they do not count towards the warband's maximum model count but do increase the warband's rating. They cannot serve as a Corpse Bomb and last only for the duration of the battle.",
+      },
+      toucher_spectral: {
+        nom: 'Spectral Touch',
+        texte:
+          'The hero may make a single unarmed attack instead of his normal hand-to-hand attacks; if it hits, it automatically wounds. If a Liche uses this skill and wounds, she recovers 1 lost Wound (not exceeding her starting total). Necromancers do not recover Wounds this way. Has no effect on Possessed or undead models.',
+      },
+      rite_interdit: {
+        nom: 'Forbidden Rite',
+        texte:
+          'If the hero did not search for rare items during the last Exploration phase, he starts the next battle with a reserve of D3+1 (+1) modifiers usable on spell-casting rolls, as many at once as desired.',
+      },
+      invocateur: {
+        nom: 'Summoner',
+        texte: "The warband's maximum model count is increased by 1.",
+      },
+    },
+    equipement: {
+      morts_vivants: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Necromancy',
+      type: 'sorcery',
+      sorts: [
+        {
+          nom: 'Awakening Spell',
+          texte:
+            "If an enemy Hero is killed (the opponent rolls 11-15 on the Serious Injury table), the spellcaster may raise him as a Zombie in his service, keeping his characteristics, weapons, and armour but no equipment/skills; he counts as his own Henchman group, cannot run, and no longer gains experience.",
+        },
+        {
+          nom: 'Life Stealer',
+          texte:
+            "Choose a model within 6\". It suffers a wound (no save), and the spellcaster gains an extra Wound for the duration of the battle (may exceed a Necromancer's starting maximum; a Liche can only restore lost Wounds). Has no effect on Possessed or undead models.",
+        },
+        {
+          nom: 'Reanimation',
+          texte:
+            "A Zombie taken Out of Action during the last hand-to-hand combat phase returns to the fight within 6\" of the spellcaster (not directly into contact). May be used on a Grave Guard/Spectre to restore 1 lost Wound if it has more than one; cannot revive Scarecrows, Grave Guards, Spectres, or Skeletons the way it does Zombies.",
+        },
+        {
+          nom: 'Curse Spell',
+          texte:
+            'Choose an enemy model within 12"; it must roll equal to or under its Strength on 1D6 or be seized by the dead — on a failure, roll on the Injury table.',
+        },
+        {
+          nom: "Vanhel's Call",
+          texte:
+            'A single Zombie, Skeleton, Spectre, or Grave Guard within 6" of the spellcaster may move again at its full Movement; a move that brings it into contact counts as a charge, and any Initiative test required during this move is automatically passed.',
+        },
+        {
+          nom: 'Grim Vision',
+          note: 'Necromancers only',
+          texte:
+            'The Necromancer causes fear in his enemies for the duration of the battle and is himself immune to it — the sole exception to the Apprentice rule, available if the Liche knows the Vision of Horror spell.',
+        },
+        {
+          nom: 'Living Horror',
+          note: 'Liche only',
+          texte:
+            'Choose a model within 8" of the Liche and roll D6+3; if the result is equal to or greater than the target\'s Leadership, it suffers a Wound (no armour save). If wounded and it still has Wounds remaining, it may not move, shoot, or cast spells next turn unless it passes a Leadership test. Has no effect on Possessed, undead, or any model immune to fear.',
+        },
+      ],
+    },
+  },
+  maneaters: {
+    nom: 'Maneaters (1c)',
+    regles_speciales: [
+      { nom: 'Fear', texte: 'Ogres are large, threatening creatures that cause fear, except Young Bloods.' },
+      {
+        nom: 'Gluttony',
+        texte:
+          "Each Ogre counts as two models when selling magic stone or treasures. Captured models (via Serious Injuries or Exploration) may be devoured, with the Ogre keeping their possessions and reducing the enemy warband's model count by one (two if the captive is a Large Target). Any warband member or animal may be eaten in the same way. An Ogre Hero who devours captives gains as much experience as models consumed; the consumed comrades are immediately removed from the roster.",
+      },
+      { nom: 'Slow-Witted', texte: 'Ogres advance at half speed: they need twice the usual XP to gain an advance.' },
+      { nom: 'Difficult Customers', texte: 'Ogre Heroes suffer a -1 penalty when rolling to find Rare items not exclusively reserved for Ogres.' },
+      {
+        nom: 'Cannibals',
+        texte:
+          'An Ogre warband may not hire Hired Swords, except Halflings (Scout, Thief, etc.) and the Ogre Bodyguard, or unless stated otherwise — in which case the Ogres may choose to devour him at the end of the contract (see Gluttony).',
+      },
+      {
+        nom: 'Bound Gnoblars',
+        texte:
+          'Treated in every way as miscellaneous equipment (not a model, no base). If the owning Ogre is taken Out of Action during a game, roll 1D6 per Gnoblar: on a 1-2 it is killed and removed. An Ogre may own up to two different Bound Gnoblars (see special equipment).',
+      },
+    ],
+    profils: {
+      capitaine: {
+        nom: 'Captain',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior within 6" of the Captain may use his Leadership for their tests.' },
+          {
+            nom: 'Large Target',
+            texte: 'An immense target for archers; any model may shoot him even if he is not the nearest target, with a +1 bonus to hit.',
+          },
+          {
+            nom: 'Equipment',
+            texte: 'Ogres have no free dagger and never fight with a dagger in hand-to-hand combat, even though they may carry one reserved for their meals.',
+          },
+        ],
+      },
+      guide_de_montagne: {
+        nom: 'Mountain Guide',
+        regles_speciales: [
+          {
+            nom: 'Prowler',
+            texte: 'If he was not taken Out of Action during the battle, may roll two dice during the Exploration phase and choose which to keep (not a re-roll).',
+          },
+          {
+            nom: 'Loner',
+            texte: "Immune to All Alone tests; will never claim a Gnoblar as a pet, and can never become the warband's leader.",
+          },
+          {
+            nom: 'Large Target',
+            texte: 'An immense target for archers; any model may shoot him even if he is not the nearest target, with a +1 bonus to hit.',
+          },
+          { nom: 'Equipment', texte: 'Ogres have no free dagger and never fight with a dagger in hand-to-hand combat.' },
+        ],
+      },
+      jeune_sang: {
+        nom: 'Young Blood',
+        regles_speciales: [
+          { nom: 'Not Yet Fearsome', texte: 'Unlike other Ogres, Young Bloods do not cause fear.' },
+          { nom: 'Equipment', texte: 'Ogres have no free dagger and never fight with a dagger in hand-to-hand combat.' },
+        ],
+      },
+      taureau: {
+        nom: 'Bull',
+        regles_speciales: [
+          {
+            nom: 'Bull Charge',
+            texte: 'When charging, may attempt a single attack with a +1 bonus to hit instead of his normal attacks; if successful, the enemy model is automatically Knocked Down.',
+          },
+          {
+            nom: 'Large Target',
+            texte: 'An immense target for archers; any model may shoot him even if he is not the nearest target, with a +1 bonus to hit.',
+          },
+          { nom: 'Equipment', texte: 'Ogres have no free dagger and never fight with a dagger in hand-to-hand combat.' },
+        ],
+      },
+      demi_grand: {
+        nom: 'Half-Grand',
+        regles_speciales: [
+          { nom: 'Equipment', texte: 'Ogres have no free dagger and never fight with a dagger in hand-to-hand combat.' },
+        ],
+      },
+      tigre_a_sabre: {
+        nom: 'Sabre-tooth Tiger',
+        regles_speciales: [
+          {
+            nom: 'Trained',
+            texte:
+              'May use the Mountain Guide\'s Leadership within 6" of him; cannot be fielded if there is no Mountain Guide in the warband (must remain caged at camp until a Guide is hired).',
+          },
+          {
+            nom: 'Wild Instinct',
+            texte: "At the start of the Ogres' turn, must pass a Leadership test or the opponent may move it this turn; an uncontrolled Sabre-tooth Tiger may charge the Ogres' own models.",
+          },
+          { nom: 'Ignored', texte: 'Sabre-tooth Tigers taken Out of Action do not count towards the number of models Out of Action for Rout tests.' },
+          { nom: 'Causes Fear', texte: 'Immense predatory cats that cause fear.' },
+          { nom: 'Equipment', texte: 'Fangs and primal ferocity — no equipment.' },
+        ],
+      },
+      guerrier_gnoblar: {
+        nom: 'Gnoblar Warrior',
+        regles_speciales: [
+          {
+            nom: 'Weapons/armour',
+            texte: 'Equipped with a dagger and shrapnel (counts as a missile weapon, range 8", Strength 2, and fires twice).',
+          },
+          {
+            nom: 'Utterly Insignificant',
+            texte: "Counts towards the warband's number of warriors, but is not counted for Rout tests (neither for determining the warband's starting size, nor for casualties).",
+          },
+          {
+            nom: 'Squabbling',
+            texte: 'Roll 1D6 at the start of the turn for each Gnoblar not engaged in hand-to-hand combat, within 2" of another Gnoblar. On a 1, the Gnoblar insults, curses, and/or threatens the other Gnoblar and can do nothing else this turn.',
+          },
+          {
+            nom: 'Like a War Dog',
+            texte: 'Does not count as an animal in fiction (counts as a Greenskin, not subject to Animosity), but follows the same rules as a war dog: never gains experience, recovery 1-2 Dead/3-6 Alive, counts towards the maximum model count.',
+          },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      maitre_darmes: {
+        nom: 'Master-at-Arms',
+        texte: 'May wield a Difficult to Use weapon together with a basic weapon, but not two Difficult to Use weapons.',
+      },
+      rot_grossier: {
+        nom: 'Loud Belch',
+        texte:
+          'The hero may unleash thunderous fumes on all enemies engaged in hand-to-hand combat; those who fail a Leadership test suffer -1 to hit for the turn. Must wait for a new enemy to engage before repeating.',
+      },
+      maneater: {
+        nom: 'Maneater',
+        texte: 'Immediately learns a skill from the Shooting or Academic tables (only once; not available to the Guide).',
+      },
+      charge_du_taureau_comp: {
+        nom: 'Bull Charge',
+        texte: 'When charging, may attempt a single attack with a +1 bonus to hit instead of his normal attacks; if successful, the enemy model is automatically Knocked Down.',
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        reserve_a: 'Leader only',
+        texte: 'The warband may hire the Hired Swords available to Mercenary warbands; if the leader dies, all Hired Swords are removed from the warband.',
+      },
+      rugissement_tonitruant: {
+        nom: 'Thunderous Roar',
+        reserve_a: 'Leader only',
+        texte: 'Allows re-rolling the first failed Rout test.',
+      },
+    },
+    equipement: {
+      ogres: {
+        armes_cac: ['counts as an axe', 'see special equipment', undefined, undefined, undefined, undefined, 'see special equipment', undefined],
+        armes_tir: ['see special equipment'],
+      },
+      guide: {
+        armes_cac: ['counts as an axe', undefined, undefined, undefined, undefined],
+        armes_tir: ['see special equipment'],
+      },
+    },
+  },
+  elfes_noirs: {
+    nom: 'Dark Elves (1b)',
+    regles_speciales: [
+      {
+        nom: 'Fratricidal Hatred',
+        texte:
+          'Dark Elves have fought the High Elves for millennia, and the wars between the two peoples have been long and bloody. Dark Elves hate High Elves, including Hired Swords of that race.',
+      },
+      {
+        nom: 'Superhuman Eyesight',
+        texte:
+          'Many legends tell of the excellent eyesight of elves, whether Druchii or High Elves. Elves can detect hidden enemies at twice the normal distance (that is, at a distance equal to twice their Initiative).',
+      },
+      {
+        nom: 'Firearms',
+        texte: 'Dark Elves never use black powder weapons, finding them primitive, noisy, and unreliable.',
+      },
+    ],
+    profils: {
+      dynaste: {
+        nom: 'Dreadlord',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any Dark Elf warband model within 6" of the Dreadlord may use his Leadership for their tests.' },
+        ],
+      },
+      spadassin: {
+        nom: 'Swordsman',
+        regles_speciales: [
+          {
+            nom: 'Melee Specialists',
+            texte: 'Swordsmen adhere to a very strict code of conduct requiring them to fight only in hand-to-hand combat, and they may never be equipped with missile weapons.',
+          },
+        ],
+      },
+      maitre_des_betes: {
+        nom: 'Beastmaster',
+        regles_speciales: [
+          {
+            nom: 'Cold One Hound',
+            texte: 'The Beastmaster may be accompanied by up to two Cold One Hounds, recruited as Henchmen and following the special rules detailed further on.',
+          },
+        ],
+      },
+      sorciere_elfe_noire: {
+        nom: 'Sorceress',
+        regles_speciales: [
+          { nom: 'Magic', texte: 'Dark Elf Sorceresses are spellcasters who use Dark Magic. She cannot cast spells while wearing armour.' },
+        ],
+      },
+      corsaire: {
+        nom: 'Corsair',
+        regles_speciales: [
+          { nom: 'Sea Dragon Cloak', texte: 'Corsairs may receive Sea Dragon Cloaks, even though they are not Heroes.' },
+        ],
+      },
+      ombre: {
+        nom: 'Shade',
+        regles_speciales: [
+          {
+            nom: 'Stealth',
+            texte: 'Above all, Dark Elf scouts learn to move silently. If a Shade is hiding, enemies suffer a -1 penalty to their Initiative when trying to spot her.',
+          },
+        ],
+      },
+      molosse_a_sang_froid: {
+        nom: 'Cold One Hound',
+        regles_speciales: [
+          { nom: 'Weapons/armour', texte: 'Cold One Hounds are animals and need no equipment other than their scales and teeth!' },
+          {
+            nom: 'Animals',
+            texte: 'Cold One Hounds are animals, and all rules relating to animals apply to them. They can never gain experience.',
+          },
+          {
+            nom: 'Beastmaster',
+            texte:
+              'Cold One Hounds are sly, vicious animals, barely controllable. If the Beastmaster dies, the Hounds immediately escape and are struck off the warband roster. If for any reason the Beastmaster cannot take part in a battle, the Cold One Hounds cannot either.',
+          },
+          {
+            nom: 'Submissive',
+            texte:
+              "Cold One Hounds may use the Beastmaster's base Leadership if within 6\" of him. However, they cannot benefit from the warband Leader's Leadership, even if their Beastmaster, within 6\" of him, does.",
+          },
+          {
+            nom: 'Scales',
+            texte:
+              "Cold One Hounds are protected by thick, scaly skin. They therefore count as having a 6+ Armour Save. This save cannot be reduced by the attacker's Strength, but certain Critical Hits ignore it normally.",
+          },
+          { nom: 'Fear', texte: 'Cold One Hounds cause fear.' },
+        ],
+      },
+    },
+    competences_speciales: {
+      infiltration_elfe_noir: {
+        nom: 'Infiltration',
+        reserve_a: 'Dark Elf Heroes only',
+        texte:
+          'A Dark Elf with this skill is always placed on the battlefield after the opposing warband has deployed. He may be placed anywhere on the table, provided he is out of enemy line of sight and more than 12" from any enemy model. If both players have infiltrating models, roll 1D6, the lower result deploys first.',
+      },
+      rapidite_surnaturelle: {
+        nom: 'Supernatural Speed',
+        reserve_a: 'Dark Elf Heroes only',
+        texte:
+          'Few can match the incredible swiftness of elves. An elf with this skill may dodge shooting or hand-to-hand attacks on a roll of 6 on 1D6. If the elf also has the Sidestep or Dodge skill, this save becomes 4+ in the appropriate area. For example, an elf with Supernatural Speed and Sidestep dodges hand-to-hand wounds on a 4+ and shooting on a 6+.',
+      },
+      massif_elfe_noir: {
+        nom: 'Massive',
+        reserve_a: 'Dark Elf Heroes only, except the Sorceress, maximum two models per warband',
+        texte:
+          'The warrior is solidly built (for an elf) and possesses great strength. A warrior with this skill may choose Strength skills. The Sorceress cannot receive this skill, and your warband may not have more than two models with it.',
+      },
+      maitre_des_poisons: {
+        nom: 'Master of Poisons',
+        reserve_a: 'Dark Elf Heroes only',
+        texte:
+          'A Dark Elf knows how to concoct various poisons. If the Hero does not search for rare items, he may instead brew 1D3-1 doses of Sooty Venom. The result may be 0, as the elf may not have access to a proper laboratory. The poison must be used in the next battle and cannot be sold or traded to other warbands, as Dark Elves guard their secrets well.',
+      },
+      fureur_de_khaine: {
+        nom: 'Fury of Khaine',
+        reserve_a: 'Dark Elf Heroes only',
+        texte:
+          "A Dark Elf is a bloodthirsty killing machine. He may make a 4\" pursuit Movement if he takes all his opponents Out of Action. If he makes contact with another enemy, a new combat takes place next turn and he counts as having charged. This Movement cannot be made during the enemy's turn.",
+      },
+    },
+    equipement: {
+      elfes_noirs: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, 'cost of the weapon (dagger or sword) + 20 gc, Heroes only'],
+        armures: [undefined, undefined, undefined, undefined, 'Heroes and Corsairs only'],
+      },
+      ombres: {
+        armes_cac: ['first free', undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Dark Magic',
+      type: 'sorcery',
+      note:
+        'Like the High Elves, Dark Elves are accomplished spellcasters. But where the High Elves use their magic to protect and do good, the Dark Elves wield dark magic to destroy.',
+      sorts: [
+        {
+          nom: 'Black Lightning',
+          texte:
+            'Murmuring an ancient incantation, the Sorceress creates a bolt of pure black energy that she unleashes on her enemies. Black Lightning may be cast against any enemy model in line of sight. Its range is 18" and it hits with Strength 5. If the target is wounded, the nearest model within 6" of it is also hit on a 4+ with Strength one point lower than the previous hit. The lightning continues jumping from model to model in this way until it runs out of targets, misses, or its Strength drops below 1. Each model can only be hit once per turn by this lightning. Armour saves apply normally.',
+        },
+        {
+          nom: 'Word of Pain',
+          texte:
+            'The Sorceress calls down the wrath of the Witch King upon her enemies, blunting their fighting spirit. This spell may be cast on an enemy model within 12". The victim must re-roll all successful to-hit and to-wound rolls, in both shooting and hand-to-hand combat. If the victim wishes to charge, she must first pass a Leadership test. This spell lasts until the start of the next Dark Elf turn.',
+        },
+        {
+          nom: 'Soul Stealer',
+          texte:
+            'By simple touch, the Sorceress drains her enemies of their life essence and absorbs it, strengthening her own energies. Once the spell is successfully cast, the Sorceress must make a to-hit roll against a model in contact. If it hits, its target loses 1 Wound, with no armour save allowed. The Sorceress then feeds on this energy and adds +1 Wound to her profile. Note: the Sorceress can never have more than 1 extra Wound from this spell, and it will be lost at the end of the game.',
+        },
+        {
+          nom: 'Sword of Fire',
+          texte:
+            'Invoking baleful energies, the Sorceress wreathes a blade in black, icy flames. The Sorceress may cast this spell on one of the hand-to-hand weapons of a Dark Elf within 6". A weapon so enchanted still counts as a normal weapon of the appropriate type, but adds +2 to its wielder\'s Strength, and the hits it inflicts ignore armour saves. This spell lasts until the next Dark Elf Shooting phase.',
+        },
+        {
+          nom: 'Death Spasms',
+          texte:
+            'The Sorceress riddles her enemy\'s body with dark magic, inflicting unbearable pain for a mere mortal to endure. This spell has a range of 6" and may be cast on the nearest enemy. The affected model must immediately roll on the Injury table. If the spell is cast successfully, the Sorceress is immediately Knocked Down.',
+        },
+        {
+          nom: "Witches' Flight",
+          texte:
+            'The Sorceress bends the winds of magic to her will and rises into the air. The Sorceress may immediately move anywhere within 12" and may charge an enemy this way. If she charges a fleeing enemy, she inflicts an automatic hit on it, after which it flees again.',
+        },
+      ],
+    },
+  },
+  hommes_lezards: {
+    nom: 'Lizardmen (1b)',
+    regles_speciales: [
+      {
+        nom: 'Scaly Skin',
+        texte:
+          "All Lizardmen have scaly skin that grants an armour save: 6+ for Skinks, 5+ for Saurus, and 4+ for Kroxigors. Penalties to these saves cannot modify them past 6+, but a 'no save' result on the Critical Hits table will negate them. Light armour and shields add a +1 bonus to these saves.",
+      },
+      {
+        nom: 'Armour',
+        texte: 'Armour is rare in Lizardmen societies, so light armour will always cost 50 Gold Crowns, even when bought from the equipment list.',
+      },
+      {
+        nom: 'Bite',
+        texte:
+          'Saurus have powerful jaws and can bite in hand-to-hand combat. They therefore get an extra attack resolved at their profile\'s Strength, which does not suffer the penalty for fighting unarmed. This attack is always made last, whether or not the Saurus charged, and regardless of the weapons used (including two-handed weapons).',
+      },
+      {
+        nom: 'Cold Blood',
+        texte:
+          "All Lizardmen are slow to react. Due to this composure, they may roll 3D6 and keep only the two lowest results for their Psychology or Rout tests. A Lizardmen warband may not use a Saurus's or Kroxigor's Leadership for its Rout tests.",
+      },
+      { nom: 'Aquatic', texte: 'Skinks may move through Water Terrain without penalty and are considered to be in cover in any such terrain.' },
+      { nom: 'Creatures of the Jungle', texte: 'Skinks may move through jungle without penalty.' },
+      {
+        nom: 'Scarcity of Saurus',
+        texte: 'Slann Mage-Priests never include more Saurus Henchmen than Skink Henchmen in a warband. You may not do so either.',
+      },
+    ],
+    profils: {
+      pretre_skink: {
+        nom: 'Skink Priest',
+        regles_speciales: [
+          {
+            nom: 'Leader',
+            texte:
+              "As Leader, the Skink Priest may grant his Leadership to any Lizardman taking a Leadership test within 6\" of him. If the Skink Priest is killed, you may recruit another, but you must play at least one game without a leader while he joins the warband.",
+          },
+          { nom: 'Sorcerer', texte: 'Skink Priests are spellcasters and may use Lizardmen magic.' },
+        ],
+      },
+      guerrier_totem_saurus: {
+        nom: 'Saurus Totem Warrior',
+        regles_speciales: [
+          {
+            nom: 'Totem',
+            texte:
+              'When a Saurus warrior has killed twenty enemies, he is accepted into one of the three Warrior Totems: Eagle, Jaguar, or Alligator. But first he must hunt and kill his totem animal himself to prove his worth. Once part of one of these prestigious groups, he will be chosen by the Skink Priests to help protect the temples.',
+          },
+          {
+            nom: 'Attacks',
+            texte: "His base profile (A1) is increased by +1 due to his Totem Warrior status, printed as A1+1 in the original rules.",
+          },
+        ],
+      },
+      skink_a_grande_crete: { nom: 'High-Crested Skink' },
+      skink: { nom: 'Skink' },
+      saurus: {
+        nom: 'Saurus',
+        regles_speciales: [
+          { nom: 'Scarcity of Saurus', texte: 'It is not possible to have more Saurus Henchmen than Skink Henchmen in a warband.' },
+        ],
+      },
+      kroxigor: {
+        nom: 'Kroxigor',
+        regles_speciales: [
+          {
+            nom: 'Equipment',
+            texte: 'A Kroxigor has access to no equipment list but, unusually, is recruited with a halberd. Attacks made with this weapon are therefore resolved at Strength 6.',
+          },
+          { nom: 'Aquatic', texte: 'The Kroxigor moves through Water Terrain without penalty. While in such terrain, it counts as being in cover.' },
+          { nom: 'Causes Fear', texte: 'Like any self-respecting large monster, a Kroxigor causes fear.' },
+          { nom: 'Large', texte: 'Due to its great size, the Kroxigor may always be targeted by a shooter, even if other targets are closer to him.' },
+          { nom: 'Animal', texte: 'The Kroxigor is so unintelligent that it cannot benefit from any training. It therefore never gains experience points.' },
+        ],
+      },
+    },
+    competences_speciales: {
+      infiltration_skink: {
+        nom: 'Infiltration',
+        reserve_a: 'Skinks only',
+        texte: 'This Skink can sneak up close to his enemies. At the start of the game, you may place him anywhere on the table, provided he is hidden and more than 12" from any enemy.',
+      },
+      grand_chasseur: {
+        nom: 'Great Hunter',
+        reserve_a: 'High-Crested Skink only',
+        texte: 'This High-Crested Skink is an excellent hunter and makes the most effective use of available cover. If in cover, the penalty to hit him with shooting increases from -1 to -2.',
+      },
+      cri_de_guerre_saurus: {
+        nom: 'War Cry',
+        reserve_a: 'Saurus only',
+        texte: "The Saurus's war cry is deafening. Enemies in base-to-base contact with him suffer a -1 penalty to their to-hit rolls in the first round of hand-to-hand combat.",
+      },
+      peau_de_bois: {
+        nom: 'Wooden Skin',
+        reserve_a: 'Saurus only',
+        texte: "Over the years, the Saurus's scaly skin has thickened and hardened. He will only be taken Out of Action on a result of 6+ on 1D6.",
+      },
+      glandes_a_venin: {
+        nom: 'Venom Glands',
+        reserve_a: 'Sacred Mark — Skinks only',
+        texte:
+          "The Skink has sublingual glands that secrete a deadly poison (40 gc). The Skink may make some or all of his attacks by biting instead of using his weapons. These attacks impose a +1 armour save modifier, regardless of the Skink's Strength. However, they do not suffer the penalty for fighting unarmed, and on a Wound, gain a +1 bonus on the Injury table. These attacks are always made last, whether or not the Skink charged, and regardless of the weapons used (including two-handed weapons).",
+      },
+      gueule_enorme: {
+        nom: 'Massive Jaws',
+        reserve_a: 'Sacred Mark — Saurus only',
+        texte: 'The Saurus has enlarged jaws and powerful jaw muscles (40 gc). As a result, his bite attack is resolved with a +1 Strength bonus.',
+      },
+      marque_des_anciens: {
+        nom: 'Mark of the Old Ones',
+        reserve_a: 'Sacred Mark — only acquired when recruiting a Hero born with it',
+        texte:
+          'The most prestigious mark a Lizardman can be born with (50 gc). These albinos have a great destiny in the eyes of their gods and other Lizardmen. The Hero may turn one of his failed die rolls into a success. This mark can only be used once per battle and only on the Hero\'s own actions. You may use this mark on a failed Rout test if you wish.',
+      },
+    },
+    equipement: {
+      skinks: {
+        armes_cac: ['first free', 'Stone axe', undefined, undefined],
+        armes_tir: [undefined, undefined, undefined, 'Throwing knives', undefined],
+        armures: ['Bone helm — Skink Priest only', undefined, undefined],
+      },
+      saurus: {
+        armes_cac: ['first free', 'Stone axe', undefined, undefined, undefined, undefined, undefined],
+        armures: [undefined, 'Bone helm', undefined],
+      },
+    },
+    magie: {
+      nom: 'Lizardmen Magic',
+      type: 'prayers',
+      note: 'Lizardmen magic works like the Prayers of Sigmar, and the Skink Priest may call upon it even while wearing pieces of armour.',
+      sorts: [
+        {
+          nom: 'Wrath of Chotec',
+          texte:
+            'A bolt of lightning falls from the sky and strikes the nearest enemy within 10" of the Skink Priest, inflicting a Strength 5 hit. If the target wears armour (light, heavy, gromril, etc.), increase the Strength by +1 and add +1 to the result on the Injury table.',
+        },
+        {
+          nom: 'Blessing of Sotek',
+          texte:
+            'This spell may be cast on a model within 6" of the Skink Priest or on himself. Roll 1D6 to determine the nature of the blessing (1-2 BS+1 or +1 to hit in hand-to-hand combat; 3-4 Toughness +1; 5-6 Movement and Initiative +1). The effects apply as long as the Skink Priest or the target is not Stunned or taken Out of Action. Only one model at a time may be under the blessing.',
+        },
+        {
+          nom: 'Stealth of Huanchi',
+          texte:
+            'This spell affects all Skinks within 6" of the Skink Priest, including himself. It allows those in cover to hide immediately. A model may hide this way even if it ran or shot this turn.',
+        },
+        {
+          nom: 'Protection of the Old Ones',
+          texte:
+            'The Skink Priest and all Lizardmen within 4" gain a special 4+ save against the effects of spells and prayers. This spell remains active as long as the Priest is not taken Out of Action.',
+        },
+        {
+          nom: 'Fury of Tinci',
+          texte:
+            'The Skink Priest, or a model within 6", is overcome with bloodlust and becomes frenzied. He also gains a +1 Strength bonus. The effects of this spell apply as long as the Skink Priest is not Stunned or taken Out of Action. In addition, at the start of each turn, the Skink Priest must pass a Leadership test to maintain it. Only one model may be under this spell\'s effect at a time, but the Skink Priest may end it at the start of the turn to cast it on another target during the Shooting phase.',
+        },
+        {
+          nom: 'Swiftness of Itzl',
+          texte:
+            'This spell may be cast on a model within 6" of the Skink Priest or on himself. The target may make an additional 4" Movement. This counts as running, and the model cannot move if it has already used a missile weapon this turn. It is not possible to charge using this magical movement.',
+        },
+      ],
+    },
+  },
+  amazones_lustrie: {
+    nom: 'Amazons — Lustria Setting (1b)',
+    regles_speciales: [
+      {
+        nom: 'Isolationists',
+        texte:
+          'Amazons constantly struggle against raids by treasure-hungry Norsemen and Lizardmen. Amazon culture reflects their distrust and wariness of outsiders, and in battle they are particularly savage. Against Norsemen and Lizardmen, Amazons may re-roll all failed attack rolls during the first round of combat.',
+      },
+      {
+        nom: 'Sacrifice',
+        texte:
+          'Amazons are quick to sacrifice their captives to their gods. A captured warrior (result 61 on the Serious Injuries table) may be sacrificed. The warband Leader then gains +1 experience point. Furthermore, if the sacrificed warrior is a Lizardman, the warband gains a free set of Enchanted Skins.',
+      },
+      {
+        nom: 'Norse Enmity',
+        texte:
+          'Against a Norse warband, Amazons will fight to the death. Amazons may re-roll their first failed Rout test against Norsemen. Remember that a failed re-roll cannot be re-rolled. In addition, Amazons may never choose to voluntarily Rout against a Norse warband, unless the warband Leader has been taken Out of Action.',
+      },
+      {
+        nom: 'She Is Not One of Us',
+        texte:
+          'Due to their isolationism and suspicion of other races, Amazons never fight alongside anyone else. For this reason, Amazons do not recruit Hired Swords or Dramatis Personae, unless they are Amazons themselves.',
+      },
+    ],
+    profils: {
+      pretresse_serpent: {
+        nom: 'Serpent Priestess',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior within 6" of the Serpent Priestess may use her Leadership for their Leadership tests.' },
+          {
+            nom: 'Witch',
+            texte: 'The Serpent Priestess is a Witch who uses the Amazon Rituals. She starts with one ritual drawn at random from the list.',
+          },
+        ],
+      },
+      guerriere_aigle: { nom: 'Eagle Warrior' },
+      guerriere_piranha: {
+        nom: 'Piranha Warrior',
+        regles_speciales: [
+          {
+            nom: 'Musical Conch',
+            texte: 'Piranha Warriors are the only Amazons who may use the musical conch, which allows re-rolling the roll that determines who deploys and goes first.',
+          },
+        ],
+      },
+      guerriere_amazone: { nom: 'Amazon Warrior' },
+      guerriere_jaguar: {
+        nom: 'Jaguar Warrior',
+        regles_speciales: [
+          {
+            nom: 'Daughters of the Jungle',
+            texte: 'Jaguar Warriors have spent their lives in the deepest parts of the jungle and may move through jungle terrain without penalty.',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      chasseuse_de_skinks: {
+        nom: 'Skink Hunter',
+        reserve_a: 'Amazon Heroines only, instead of the standard list',
+        texte: 'Through her exploits, the Amazon has proven herself an expert at hunting Lizardmen, particularly Skinks. Against a Skink, an Amazon with this skill will always strike first in the first round of combat.',
+      },
+      danse_hypnotique: {
+        nom: 'Hypnotic Dance',
+        reserve_a: 'Amazon Heroines only, instead of the standard list',
+        texte:
+          'Some Amazons use a graceful dance as a combat technique that can subjugate their enemies. Any fighter engaged in hand-to-hand combat against the Amazon must pass a Leadership test at the start of each turn. On a failure, the fighter cannot attack this turn, but may defend himself. The dance has no effect, however, against Lizardmen or Undead, who are immune to its charms.',
+      },
+      fureur_sauvage: {
+        nom: 'Savage Fury',
+        reserve_a: 'Amazon Heroines only, instead of the standard list',
+        texte:
+          'The Amazon has learned to channel her anger and aggression, becoming a true wild animal when she attacks her enemies. Any Amazon model with this skill gains +1 Attack when charging and is immune to the effects of charm or fear.',
+      },
+      dissimulation: {
+        nom: 'Concealment',
+        reserve_a: 'Amazon Heroines only, instead of the standard list',
+        texte: 'The Amazon specialises in the art of blending into her surroundings. When hiding in jungle terrain, all enemy models halve the range needed to spot her.',
+      },
+      elixir_de_vie: {
+        nom: 'Elixir of Life',
+        reserve_a: 'Amazon Heroines only, instead of the standard list',
+        texte:
+          'After years of service within her tribe, this Amazon has gained access to the springs that produce the Elixir of Life. It is said the Elixir heals wounds and makes Amazons immortal. After the battle, if the Amazon was taken Out of Action, she may re-roll her Injury roll. Thus, on a result of 1-4 on 1D6, the Amazon does not suffer the consequences of being Out of Action and may take part normally in the Post-Battle sequence.',
+      },
+    },
+    equipement: {
+      heroines: {
+        armes_cac: ['first free', 'Club', undefined, undefined, undefined, undefined, undefined],
+        armures: ['Helmet', undefined, undefined],
+      },
+      femmes_de_main: {
+        armes_cac: ['first free', 'Club', undefined, undefined, undefined],
+      },
+      guerrieres_jaguar: {
+        armes_cac: ['first free', 'Club', undefined, undefined],
+        armures: ['Helmet', undefined],
+      },
+    },
+    magie: {
+      nom: 'Amazon Rituals',
+      type: 'sorcery',
+      note: 'Beyond their island, little is known of Amazon magic. It is said that the immortal Amazons learned their magic from the gods themselves.',
+      sorts: [
+        {
+          nom: 'Song of the Wind',
+          texte:
+            'The Priestess calls upon the Wind Goddess Shaekal to join the battle. The Goddess appears as dancing notes of music and light that entrance an enemy model within 10" of the Priestess. Until the start of the Amazon player\'s next turn, the model cannot move, shoot, or cast spells, but may defend itself in hand-to-hand combat. Models affected by this ritual always strike last in hand-to-hand combat.',
+        },
+        {
+          nom: 'Strength of the Serpent',
+          texte:
+            'The Priestess performs this ritual by dancing wildly and shouting forgotten words. All friendly models within 8" of the Priestess (including herself) are filled with powerful energy and gain +1 Strength until the end of the next Amazon turn. The ritual cannot be cast if the Priestess is engaged in hand-to-hand combat during her Shooting phase. However, once the ritual has been cast, its effect persists even if the Priestess becomes engaged in hand-to-hand combat.',
+        },
+        {
+          nom: "Wendala's Maelstrom",
+          texte:
+            'The Priestess summons violent tropical winds to protect the Amazons from enemy shooting. The storm extends within 18" of the Priestess. All enemy shooting attempts suffer a -1 penalty to hit. The ritual lasts until the start of the next Amazon player\'s turn.',
+        },
+        {
+          nom: 'Shield of Thorns',
+          texte:
+            'Moving her hands as if weaving dark patterns in the air, the Priestess calls upon plants for protection. This ritual creates a cocoon of thorns around the Priestess, making her immune to any shooting or magical attack. Any model wishing to charge the Priestess may do so, but the thorns cancel all hits from both the Priestess and her enemies during the first round of hand-to-hand combat. The Priestess cannot cast this ritual while engaged in hand-to-hand combat.',
+        },
+        {
+          nom: 'Living Jungle',
+          texte:
+            'Focusing her will, the Priestess calls upon the aid of the jungle\'s creatures. Choose a model within 12". It is suddenly attacked by a swarm of snakes, spiders, and insects, each more venomous than the last. The victim suffers 1D6 Strength 2 hits, with no armour save allowed other than invulnerable saves. The model cannot use Sidestep against this swarm.',
+        },
+        {
+          nom: "Siren's Dream",
+          texte:
+            'The Priestess intones a sweet melody in a magnificent voice, soon joined by the other Amazons. The song is so beautiful and enchanting that enemy Leadership tests within 12" suffer a -1 penalty until the end of the opposing player\'s turn. Lizardmen and Undead are immune to the effects of this ritual.',
+        },
+      ],
+    },
+  },
+  tileens: {
+    nom: 'Tileans (1b)',
+    regles_speciales: [
+      {
+        nom: 'Hired Swords',
+        texte:
+          'A Tilean warband may use the Hired Swords available to Mercenary warbands from the Mordheim rulebook, including: Ghost Warrior, Big Game Hunter, Tilean Crossbowman. Unless stated otherwise, Hired Swords cannot benefit from the specific rules of the Tilean city-states.',
+      },
+    ],
+    tribus: {
+      miragliano: {
+        nom: 'Miragliano',
+        texte:
+          "Tileans from Miragliano are deadly marksmen thanks to their city's signature weapon: the crossbow. As a result, Heroes from Miragliano get +1 to hit when using crossbows. Marksmen get +1 to hit with any missile weapon. All inhabitants of Miragliano hold a deep aversion to Skaven. This dates back to the Red Pox epidemic of 1812 IC, during which three-quarters of the city's population perished. When a Miragliano warband fights Skaven, it is affected by the rules for Hatred. Hired Swords are not affected by this rule (for reference only, apply on your tabletop).",
+      },
+      remas: {
+        nom: 'Remas',
+        texte:
+          'In 1487 IC, a fleet of Dark Elf ships invaded the coasts of the city of Remas, and ever since, its inhabitants have felt a deep aversion to the Druchii. A warband from Remas will fight to the death against a Dark Elf warband. To represent this, when fighting Dark Elves, a Tilean player from Remas may re-roll a Rout test but must keep the second result. Remas officers are steadfast individuals whose years of training have made them excellent commanders. The Leadership value of a Captain, Champion, or Recruit from Remas is always one point higher, regardless of the opposing warband (for reference only, apply on the paper roster).',
+      },
+      trantio: {
+        nom: 'Trantio',
+        texte:
+          'A warband from Trantio will be the best-equipped and most experienced of the human warbands in Lustria. To represent this, a Trantio warband will always start a one-off game with 100 extra gc, and with a 20% increase to the sum allotted for recruitment during a campaign in Lustria (for reference only, not automated).',
+      },
+    },
+    profils: {
+      capitaine: {
+        nom: 'Captain',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior within 6" of the Captain may use his Leadership for their Leadership tests.' },
+        ],
+      },
+      champion: { nom: 'Champion' },
+      recrue: { nom: 'Recruit' },
+      guerrier_tileen: { nom: 'Warrior' },
+      duelliste: {
+        nom: 'Duellist',
+        regles_speciales: [
+          {
+            nom: 'Cloak & Dagger',
+            texte:
+              'Duellists are skilled fighters who whirl around their enemy, using their flowing cloak to distract and block blows. Duellists are considered to be using a shield, but only in hand-to-hand combat.',
+          },
+        ],
+      },
+      tireur_delite: { nom: 'Marksman' },
+    },
+    equipement: {
+      tileens: {
+        armes_cac: ['first free', 'Hammer or Mace', undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_tir: ['30gc per pair', '50gc per pair', undefined, undefined],
+      },
+      tireurs_delite: {
+        armes_cac: ['first free', 'Hammer or Mace', undefined, undefined],
+        armes_tir: ['30gc per pair', '50gc per pair', undefined, undefined, undefined, undefined],
+      },
+    },
+  },
 };
 
 function translateRegles(regles: SpecialRule[], en: RegleTraduite[] | undefined): SpecialRule[] {
