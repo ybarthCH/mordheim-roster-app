@@ -1,0 +1,98 @@
+name: Build Android app (TWA)
+
+# Manual trigger only — this builds the Android wrapper around the
+# production PWA (musterheim.app) via Bubblewrap. It does not touch the
+# Infomaniak deployment and has no effect unless run explicitly.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install required Android SDK packages
+        run: |
+          set -e
+          sdkmanager --install "platform-tools" "platforms;android-36" "build-tools;36.1.0"
+
+      - name: Point Bubblewrap at the pre-installed JDK/SDK (non-interactive)
+        # Writes ~/.bubblewrap/config.json directly in the exact shape Bubblewrap's
+        # own `Config` class produces (jdkPath/androidSdkPath). This is required
+        # because Bubblewrap's CLI otherwise prompts interactively for JDK/SDK
+        # setup on its very first invocation, which would hang in CI.
+        run: |
+          set -e
+          mkdir -p "$HOME/.bubblewrap"
+          cat > "$HOME/.bubblewrap/config.json" <<EOF
+          {"jdkPath":"${JAVA_HOME}","androidSdkPath":"${ANDROID_HOME}"}
+          EOF
+
+      - name: Restore upload keystore from secret
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          set -e
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$GITHUB_WORKSPACE/android-twa/android.keystore"
+
+      - name: Generate Android project from twa-manifest.json
+        working-directory: android-twa
+        run: |
+          set -e
+          npx --yes @bubblewrap/cli update --skipVersionUpgrade \
+            --directory="$GITHUB_WORKSPACE/android-twa" \
+            --manifest="$GITHUB_WORKSPACE/android-twa/twa-manifest.json"
+
+      - name: Build signed APK and AAB
+        working-directory: android-twa
+        env:
+          BUBBLEWRAP_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          BUBBLEWRAP_KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          set -e
+          npx --yes @bubblewrap/cli build \
+            --directory="$GITHUB_WORKSPACE/android-twa" \
+            --manifest="$GITHUB_WORKSPACE/android-twa/twa-manifest.json" \
+            --signingKeyPath="$GITHUB_WORKSPACE/android-twa/android.keystore" \
+            --signingKeyAlias=musterheim
+
+      - name: Verify build outputs
+        working-directory: android-twa
+        run: |
+          set -e
+          test -f app-release-bundle.aab
+          test -f app-release-signed.apk
+          echo "AAB and APK produced:"
+          ls -la app-release-bundle.aab app-release-signed.apk
+
+      - name: Remove keystore from workspace before upload
+        if: always()
+        run: rm -f "$GITHUB_WORKSPACE/android-twa/android.keystore"
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: musterheim-release-bundle
+          path: android-twa/app-release-bundle.aab
+          retention-days: 30
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: musterheim-release-apk
+          path: android-twa/app-release-signed.apk
+          retention-days: 30

@@ -4,7 +4,9 @@
     "target": {
       "namespace": "android_app",
       "package_name": "app.musterheim",
-      "sha256_cert_fingerprints": []
+      "sha256_cert_fingerprints": [
+        "90:E0:E6:06:C6:BF:5D:1C:45:31:AB:34:4A:57:DF:E3:33:C5:69:D2:50:A2:97:6E:56:AD:A2:64:72:D5:D3:5E"
+      ]
     }
   }
 ]

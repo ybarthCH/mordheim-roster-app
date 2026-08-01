@@ -12,20 +12,14 @@ dist
 dist-ssr
 *.local
 
-# Android TWA (android-twa/) — build output and signing secrets. The
-# upload keystore itself is generated outside the repo entirely; these
-# patterns are defense-in-depth in case anything ends up inside the
-# project directory by mistake. Never committed, never deployed to
-# Infomaniak (only dist/ is, via the FTP workflow).
-android-twa/*.keystore
-android-twa/*.jks
-android-twa/key.properties
-android-twa/local.properties
-android-twa/.gradle/
-android-twa/build/
-android-twa/app/build/
-android-twa/*.apk
-android-twa/*.aab
+# Android TWA (android-twa/) — the Gradle project is generated fresh by
+# GitHub Actions (`bubblewrap update`) from twa-manifest.json on every
+# build, so twa-manifest.json is the only file that belongs in git here.
+# Everything else (generated Gradle project, build output, the signing
+# keystore) is never committed and never deployed to Infomaniak (only
+# dist/ is, via the FTP workflow).
+android-twa/*
+!android-twa/twa-manifest.json
 
 # Editor directories and files
 .vscode/*
