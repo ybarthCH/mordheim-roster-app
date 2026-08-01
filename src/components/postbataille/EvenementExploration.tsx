@@ -18,6 +18,7 @@ import { ResolutionTaverne } from './ResolutionTaverne';
 import { ResolutionPrisonniers } from './ResolutionPrisonniers';
 import { ResolutionDebiteurReconnaissant } from './ResolutionDebiteurReconnaissant';
 import { useLanguage } from '../../state/useLanguage';
+import { translateEvenementExploration } from '../../i18n/data/explorationEvenements';
 
 type Props = {
   roster: RosterInstance;
@@ -63,7 +64,7 @@ export function EvenementExploration({
   onAjouterAuJournal,
   onOuvrirArtefacts,
 }: Props) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [palierId, setPalierId] = useState<PalierExploration['id'] | ''>('');
   const [face, setFace] = useState<number | ''>('');
   const [jetSousTable, setJetSousTable] = useState('');
@@ -71,6 +72,7 @@ export function EvenementExploration({
   const palier = TABLE_EXPLORATION_EVENEMENTS.find((p) => p.id === palierId) ?? null;
   const evenement: Evenement | null =
     palier && face !== '' ? (palier.evenements.find((e) => e.face === face) ?? null) : null;
+  const evenementAffiche = evenement ? translateEvenementExploration(evenement, language) : null;
   const jetSousTableNombre = Number(jetSousTable);
   const ligneSousTable =
     evenement?.sousTable?.find((l) => jetSousTableNombre >= l.min && jetSousTableNombre <= l.max) ?? null;
@@ -142,7 +144,7 @@ export function EvenementExploration({
             className={`btn btn--sm ${palierId === p.id ? 'btn--primary' : ''}`}
             onClick={() => changerPalier(palierId === p.id ? '' : p.id)}
           >
-            {p.label}
+            {t(`evenement.tier.${p.id}`)}
           </button>
         ))}
       </div>
@@ -158,20 +160,20 @@ export function EvenementExploration({
             >
               <span className="dice-choice__range">{Array(palier.nombreDes).fill(e.face).join(' ')}</span>
               <span className="dice-choice__value" style={{ fontSize: '0.8rem' }}>
-                {e.nom}
+                {translateEvenementExploration(e, language).nom}
               </span>
             </button>
           ))}
         </div>
       )}
 
-      {evenement && (
+      {evenement && evenementAffiche && (
         <div className="card" style={{ marginTop: '0.4rem' }}>
-          <h4 className="mt-0 mb-0">{evenement.nom}</h4>
+          <h4 className="mt-0 mb-0">{evenementAffiche.nom}</h4>
           <p className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
-            {evenement.texte}
+            {evenementAffiche.texte}
           </p>
-          {evenement.regle.map((paragraphe, i) => (
+          {evenementAffiche.regle.map((paragraphe, i) => (
             <p key={i} className="text-sm">
               {paragraphe}
             </p>
@@ -255,7 +257,7 @@ export function EvenementExploration({
                         onClick={() => selectionnerLigneSousTable(ligne)}
                       >
                         <td>{ligne.min === ligne.max ? ligne.min : `${ligne.min}-${ligne.max}`}</td>
-                        <td>{ligne.resultat}</td>
+                        <td>{evenementAffiche?.sousTable?.[i]?.resultat ?? ligne.resultat}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -293,10 +295,11 @@ export function EvenementExploration({
                   </tr>
                 </thead>
                 <tbody>
-                  {evenement.sousTableTresor.map((ligne) => (
+                  {evenement.sousTableTresor.map((ligne, i) => (
                     <LigneTresorRow
                       key={ligne.element}
                       ligne={ligne}
+                      elementAffiche={evenementAffiche?.sousTableTresor?.[i]?.element}
                       catalogueId={catalogue.id}
                       onAjouterOr={ajouterOr}
                       onAjouterObjet={ajouterObjet}

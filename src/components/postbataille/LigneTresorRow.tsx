@@ -7,6 +7,11 @@ import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   ligne: LigneTresorConditionnel;
+  // Libellé traduit de `ligne.element` pour l'affichage uniquement — les
+  // callbacks ci-dessous reçoivent toujours `ligne.element` (français), qui
+  // finit consigné dans le journal post-bataille. Absent = affiche
+  // `ligne.element` tel quel (langue française).
+  elementAffiche?: string;
   catalogueId: string;
   onAjouterOr: (nomLigne: string, notation: string, valeur: number) => void;
   onAjouterObjet: (nomLigne: string, item: ShopItem, quantite: number) => void;
@@ -22,6 +27,7 @@ type Props = {
 // autres tableaux d'exploration.
 export function LigneTresorRow({
   ligne,
+  elementAffiche,
   catalogueId,
   onAjouterOr,
   onAjouterObjet,
@@ -33,7 +39,7 @@ export function LigneTresorRow({
 
   return (
     <tr>
-      <td>{ligne.element}</td>
+      <td>{elementAffiche ?? ligne.element}</td>
       <td>{ligne.seuil}</td>
       <td>
         {!reussi ? (

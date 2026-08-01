@@ -11,4 +11,9 @@ export const evenementExploration: UiDictionary = {
   'evenement.resultRequiredHeader': { fr: 'Résultat requis', en: 'Result required' },
   'evenement.actionHeader': { fr: 'Action', en: 'Action' },
   'evenement.goldRollNotation': { fr: 'Jet or ({notation}) :', en: 'Gold roll ({notation}):' },
+  'evenement.tier.doubles': { fr: 'Doubles', en: 'Doubles' },
+  'evenement.tier.triples': { fr: 'Triples', en: 'Triples' },
+  'evenement.tier.quadruples': { fr: 'Quadruples', en: 'Quadruples' },
+  'evenement.tier.quintuples': { fr: 'Quintuples', en: 'Quintuples' },
+  'evenement.tier.sextuples': { fr: 'Sextuples', en: 'Sextuples' },
 };

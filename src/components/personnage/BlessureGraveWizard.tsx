@@ -3,6 +3,7 @@ import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import {
   BLESSURES_GRAVES,
+  trouverBlessure,
   type ResultatBlessureGrave,
   type SousJetOption,
 } from '../../data/blessuresGraves';
@@ -10,6 +11,8 @@ import { getFrancTireur } from '../../data/hiredSwords';
 import { Icon, type IconName } from '../common/Icon';
 import type { SeriousInjuryEffect } from '../../types/roster';
 import { useLanguage } from '../../state/useLanguage';
+import type { Language } from '../../state/useLanguage';
+import { translateBlessure } from '../../i18n/data/blessuresGraves';
 
 // Profil de l'adversaire dans les fosses de combat (résultat "Gladiateur") —
 // c'est le franc-tireur "Gladiateur" (Pit Fighter, hiredSwords.ts) que l'on
@@ -122,6 +125,29 @@ function texteIteration(it: IterationResolue): string {
   return t;
 }
 
+// Un résultat dont le nom diffère de l'entrée d'origine a été personnalisé
+// en cours de résolution (ex : "Capturé — libéré contre rançon", "Gladiateur
+// (victoire)") — son texte n'existe alors que dans cette langue (française)
+// et ne doit pas être écrasé par la traduction générique de son id.
+function estPersonnalise(r: ResultatBlessureGrave): boolean {
+  const original = trouverBlessure(r.id);
+  return !original || original.nom !== r.nom;
+}
+
+// Version affichage seulement de `texteIteration`, utilisée pour l'aperçu de
+// confirmation : le résultat réellement consigné dans l'historique du
+// guerrier reste toujours celui construit à partir des données françaises
+// d'origine (voir construireResultatBase), exactement comme translateItem
+// n'affecte jamais l'objet utilisé pour un achat.
+function texteIterationAffichee(it: IterationResolue, language: Language): string {
+  if (estPersonnalise(it.resultat)) return texteIteration(it);
+  const resultat = translateBlessure(it.resultat, language);
+  if (!it.sousJetChoisi) return texteIteration({ ...it, resultat });
+  const index = it.resultat.sousJet?.options.indexOf(it.sousJetChoisi) ?? -1;
+  const sousJetChoisi = index >= 0 ? (resultat.sousJet?.options[index] ?? it.sousJetChoisi) : it.sousJetChoisi;
+  return texteIteration({ ...it, resultat, sousJetChoisi });
+}
+
 function notesIteration(it: IterationResolue): string[] {
   const notes: string[] = [];
   if (it.resultat.noteTag) notes.push(it.resultat.noteTag);
@@ -179,7 +205,7 @@ export function BlessureGraveWizard({
   onAppliquer,
   onAnnuler,
 }: Props) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [mode, setMode] = useState<Mode>('liste');
   const [contexte, setContexte] = useState<'racine' | 'boucle'>('racine');
   const [selectionActuelle, setSelectionActuelle] = useState<ResultatBlessureGrave | null>(null);
@@ -521,7 +547,7 @@ export function BlessureGraveWizard({
             </option>
             {disponibles.map((r) => (
               <option key={r.id} value={r.id}>
-                {r.code} — {r.nom}
+                {r.code} — {translateBlessure(r, language).nom}
               </option>
             ))}
           </select>
@@ -546,9 +572,9 @@ export function BlessureGraveWizard({
       <div>
         <h4 style={{ marginTop: 0 }}>
           <Icon name={iconePourBlessure(selectionActuelle)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
-          {selectionActuelle.nom}
+          {translateBlessure(selectionActuelle, language).nom}
         </h4>
-        <p className="text-sm text-muted">{spec.instructions}</p>
+        <p className="text-sm text-muted">{t('blessureGraveWizard.rerollD6Instructions')}</p>
         <div className="flex flex-wrap gap-sm">
           {[1, 2, 3, 4, 5, 6].map((valeur) => {
             const option = spec.options.find((o) => o.valeurs.includes(valeur));
@@ -573,7 +599,7 @@ export function BlessureGraveWizard({
       <div>
         <h4 style={{ marginTop: 0 }}>
           <Icon name={iconePourBlessure(selectionActuelle)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
-          {selectionActuelle.nom}
+          {translateBlessure(selectionActuelle, language).nom}
         </h4>
         <p className="text-sm text-muted">{t('blessureGraveWizard.d3DurationQuestion')}</p>
         <div className="flex flex-wrap gap-sm">
@@ -621,7 +647,7 @@ export function BlessureGraveWizard({
       <div>
         <h4 style={{ marginTop: 0 }}>
           <Icon name={iconePourBlessure(selectionActuelle)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
-          {selectionActuelle.nom}
+          {translateBlessure(selectionActuelle, language).nom}
         </h4>
         <p className="text-sm text-muted">{t('blessureGraveWizard.gladiatorFightQuestion')}</p>
         {(FRANC_TIREUR_GLADIATEUR_ADVERSAIRE?.stats || statsPersonnage) && (
@@ -666,9 +692,9 @@ export function BlessureGraveWizard({
       <div>
         <h4 style={{ marginTop: 0 }}>
           <Icon name={iconePourBlessure(selectionActuelle)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
-          {selectionActuelle.nom}
+          {translateBlessure(selectionActuelle, language).nom}
         </h4>
-        <p className="text-sm text-muted">{selectionActuelle.texte}</p>
+        <p className="text-sm text-muted">{translateBlessure(selectionActuelle, language).texte}</p>
         {typeof tresorerieDisponible === 'number' && (
           <p className="text-sm">
             {t('blessureGraveWizard.currentTreasury', { n: tresorerieDisponible })}
@@ -732,12 +758,12 @@ export function BlessureGraveWizard({
         {t('blessureGraveWizard.summary')}
       </h4>
       <p className="text-sm" style={{ whiteSpace: 'pre-wrap' }}>
-        {racine ? `${prefixeGladiateur}${texteIteration(racine)}` : ''}
+        {racine ? `${prefixeGladiateur}${texteIterationAffichee(racine, language)}` : ''}
       </p>
       {racine?.resultat.multiplesInjuries && multiplesResultats.length > 0 && (
         <ol className="text-sm">
           {multiplesResultats.map((it, i) => (
-            <li key={i}>{texteIteration(it)}</li>
+            <li key={i}>{texteIterationAffichee(it, language)}</li>
           ))}
         </ol>
       )}
