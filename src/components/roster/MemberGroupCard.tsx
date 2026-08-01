@@ -13,6 +13,8 @@ import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { getFrancTireur } from '../../data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
+import { getItem } from '../../data/items';
+import { translateItem } from '../../i18n/data/items';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
@@ -60,7 +62,7 @@ export function MemberGroupCard({
   masquerProfil,
 }: MemberGroupCardProps) {
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { elements, refItem, demarrerDrag, idEnCours, pointerPos } = useDragReorder(membres, onReordonner);
 
   // Synopsis discret de l'équipement d'un membre (ou de son groupe, toujours
@@ -70,7 +72,12 @@ export function MemberGroupCard({
   // interminable, pas la contrainte principale.
   const resumeEquipement = (m: Member): string => {
     if (m.inventaire.length === 0) return m.equipement || t('memberGroup.noEquipment');
-    const noms = m.inventaire.map((e) => e.nom).join(', ');
+    const noms = m.inventaire
+      .map((e) => {
+        const ref = getItem(e.item_id);
+        return ref ? translateItem(ref, language).nom : e.nom;
+      })
+      .join(', ');
     return noms.length > 160 ? `${noms.slice(0, 160).trimEnd()}…` : noms;
   };
 

@@ -4,6 +4,7 @@ import { getItem } from '../../data/items';
 import type { InventoryEntry, Member } from '../../types/roster';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { useLanguage } from '../../state/useLanguage';
+import { translateItem } from '../../i18n/data/items';
 
 type EquipementCardProps = {
   membre: Member;
@@ -26,7 +27,7 @@ export function EquipementCard({
   onRetirer,
   verrouille = false,
 }: EquipementCardProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   return (
     <CollapsibleCard
       preferenceKey="ui.personnage.equipement.ouvert"
@@ -64,18 +65,19 @@ export function EquipementCard({
         // (perdue/détruite) sans annuler son effet sur les stats.
         const itemRef = getItem(entree.item_id);
         const modificationPermanente = !!itemRef && 'stats_delta' in itemRef && !!itemRef.stats_delta;
+        const nomAffiche = itemRef ? translateItem(itemRef, language).nom : entree.nom;
         return (
         <div key={entree.instance_id} className="list-item">
           <div className="list-item__main" role="button" style={{ cursor: 'pointer' }} onClick={() => onItemClick(entree)}>
             <div className="list-item__title" style={{ textDecoration: 'underline' }}>
-              {entree.nom}
+              {nomAffiche}
               {quantite > 1 ? ` ×${quantite}` : ''}
             </div>
             <div className="list-item__subtitle">
               {iconeCategorie(entree.categorie) && (
                 <Icon name={iconeCategorie(entree.categorie)!} style={{ marginRight: '0.35em' }} />
               )}
-              {libelleCategorie(entree.categorie)} · {entree.cout} {t('creation.gc')}
+              {libelleCategorie(entree.categorie, language)} · {entree.cout} {t('creation.gc')}
               {quantite > 1 ? ` ${t('equipementCard.perModelSuffix')} (${entree.cout * quantite} ${t('equipementCard.totalSuffix')})` : ''}
               {entree.cout_notation ? ` (${t('equipementCard.rollNotationPrefix')} ${entree.cout_notation})` : ''}
             </div>

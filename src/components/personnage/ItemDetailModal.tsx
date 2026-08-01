@@ -4,6 +4,7 @@ import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
 import { useLanguage } from '../../state/useLanguage';
+import { translateItem } from '../../i18n/data/items';
 
 type Props = {
   item: ShopItem;
@@ -13,8 +14,9 @@ type Props = {
 // Fiche détaillée en lecture seule d'un objet possédé (stats/règles), ouverte
 // au clic depuis le récapitulatif "en un coup d'œil" ou la liste
 // d'équipement de la fiche personnage/armurerie.
-export function ItemDetailModal({ item, onClose }: Props) {
-  const { t } = useLanguage();
+export function ItemDetailModal({ item: itemBrut, onClose }: Props) {
+  const { t, language } = useLanguage();
+  const item = translateItem(itemBrut, language);
   return (
     <Modal onClose={onClose}>
       <h3 className="mt-0 mb-0">
@@ -24,7 +26,7 @@ export function ItemDetailModal({ item, onClose }: Props) {
         {item.nom}
       </h3>
       <p className="text-sm text-muted" style={{ marginTop: '0.2rem' }}>
-        {libelleCategorie(item.categorie)} · {formatCoutItem(item.cout)}
+        {libelleCategorie(item.categorie, language)} · {formatCoutItem(item.cout, language)}
       </p>
 
       {item.stats && (

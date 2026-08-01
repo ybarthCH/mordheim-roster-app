@@ -26,6 +26,7 @@ import type { InventoryEntry, CustomItem, CustomItemOverride } from '../../types
 import { useGameRules } from '../../state/useGameRules';
 import { CustomItemForm } from './CustomItemForm';
 import { useLanguage } from '../../state/useLanguage';
+import { translateItem } from '../../i18n/data/items';
 
 type Props = {
   catalogue: WarbandCatalog;
@@ -106,7 +107,7 @@ export function AchatEquipementModal({
   onAchat,
 }: Props) {
   const { rules } = useGameRules();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [source, setSource] = useState<'bande' | 'commun'>(categorieInitiale ? 'commun' : 'bande');
   const [categorieFiltre, setCategorieFiltre] = useState<string | null>(categorieInitiale ?? null);
   const [recherche, setRecherche] = useState('');
@@ -174,8 +175,9 @@ export function AchatEquipementModal({
   }, [items, recherche, categorieFiltre]);
 
   const itemSelectionne = items.find((i) => i.id === itemId) ?? null;
+  const itemSelectionneAffiche = itemSelectionne ? translateItem(itemSelectionne, language) : null;
   const disponibiliteDetail = disponibiliteSansRarete(
-    itemSelectionne?.disponibilite,
+    itemSelectionneAffiche?.disponibilite,
     itemSelectionne?.rarete
   );
 
@@ -345,7 +347,7 @@ export function AchatEquipementModal({
                       {item.surcharge && <span className="badge badge--warning">{t('achatEquipement.modifiedBadge')}</span>}
                     </div>
                     <div className="list-item__subtitle">
-                      {libelleCategorie(item.categorie)} · {formatCoutItem(item.cout)}
+                      {libelleCategorie(item.categorie, language)} · {formatCoutItem(item.cout, language)}
                     </div>
                   </div>
                 </button>
@@ -366,7 +368,7 @@ export function AchatEquipementModal({
           <div className="achat-equipement__contenu">
             <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
               <h3 className="mt-0 mb-0">
-                {materiauSelectionne.nom} {t('achatEquipement.chooseBaseSuffix')}
+                {translateItem(materiauSelectionne, language).nom} {t('achatEquipement.chooseBaseSuffix')}
               </h3>
               <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={onClose}>
                 ✕
@@ -393,8 +395,8 @@ export function AchatEquipementModal({
                   onClick={() => choisirBaseMateriau(base)}
                 >
                   <div className="list-item__main">
-                    <span className="list-item__title">{base.nom}</span>
-                    <div className="list-item__subtitle">{formatCoutItem(base.cout)}</div>
+                    <span className="list-item__title">{translateItem(base, language).nom}</span>
+                    <div className="list-item__subtitle">{formatCoutItem(base.cout, language)}</div>
                   </div>
                 </button>
               ))}
@@ -546,7 +548,7 @@ export function AchatEquipementModal({
                       onClick={() => setCategorieFiltre(cat)}
                     >
                       {iconeCategorie(cat) && <Icon name={iconeCategorie(cat)!} style={{ marginRight: '0.35em' }} />}
-                      {libelleCategorie(cat)}
+                      {libelleCategorie(cat, language)}
                     </button>
                   ))}
                 </div>
@@ -564,6 +566,7 @@ export function AchatEquipementModal({
                 {itemsFiltres.length === 0 && <p className="text-muted text-sm">{t('achatEquipement.noItem')}</p>}
                 {itemsFiltres.map((item) => {
                   const rareteClasse = classeRarete(item.rarete);
+                  const itemAffiche = translateItem(item, language);
                   return (
                     <button
                       type="button"
@@ -573,7 +576,7 @@ export function AchatEquipementModal({
                     >
                       <div className="list-item__main">
                         <div className="achat-equipement__item-titre">
-                          <span className="list-item__title">{item.nom}</span>
+                          <span className="list-item__title">{itemAffiche.nom}</span>
                           {rareteClasse && (
                             <span className={`badge ${rareteClasse} achat-equipement__rarete`}>
                               Rare {item.rarete}
@@ -586,11 +589,11 @@ export function AchatEquipementModal({
                           {iconeCategorie(item.categorie) && (
                             <Icon name={iconeCategorie(item.categorie)!} style={{ marginRight: '0.35em' }} />
                           )}
-                          {libelleCategorie(item.categorie)} · {formatCoutItem(item.cout)}
+                          {libelleCategorie(item.categorie, language)} · {formatCoutItem(item.cout, language)}
                         </div>
-                        {synopsis(resumeItem(item)) && (
+                        {synopsis(resumeItem(itemAffiche, language)) && (
                           <div className="list-item__subtitle" style={{ marginTop: '0.2rem' }}>
-                            {synopsis(resumeItem(item))}
+                            {synopsis(resumeItem(itemAffiche, language))}
                           </div>
                         )}
                       </div>
@@ -613,7 +616,7 @@ export function AchatEquipementModal({
                 </button>
               </div>
               <div className="achat-equipement__selection-titre">
-                <h3 className="mt-0 mb-0">{itemSelectionne.nom}</h3>
+                <h3 className="mt-0 mb-0">{itemSelectionneAffiche!.nom}</h3>
                 {classeRarete(itemSelectionne.rarete) && (
                   <span className={`badge ${classeRarete(itemSelectionne.rarete)} achat-equipement__rarete`}>
                     Rare {itemSelectionne.rarete}
@@ -679,14 +682,14 @@ export function AchatEquipementModal({
               {disponibiliteDetail && (
                 <p className="text-sm text-muted mb-0">{disponibiliteDetail}</p>
               )}
-              {itemSelectionne.regles_speciales?.map((r) => (
+              {itemSelectionneAffiche!.regles_speciales?.map((r) => (
                 <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
                   <strong>{r.nom}</strong> — {r.texte}
                 </p>
               ))}
-              {itemSelectionne.texte && (
+              {itemSelectionneAffiche!.texte && (
                 <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-                  {itemSelectionne.texte}
+                  {itemSelectionneAffiche!.texte}
                 </p>
               )}
 

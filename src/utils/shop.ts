@@ -10,6 +10,7 @@ import { TOUS_LES_ITEMS, getItem } from '../data/items';
 import type { IconName } from '../components/common/Icon';
 import { DEFAULT_GAME_RULES } from '../types/rules';
 import type { GameRules } from '../types/rules';
+import type { Language } from '../state/useLanguage';
 
 // Profil de caractéristiques d'une monture/créature (items/montures.json) :
 // valeurs habituellement numériques, mais certaines notations spéciales
@@ -50,11 +51,11 @@ export type ShopItem = {
 // des règles spéciales), utilisé comme synopsis dans la liste d'achat. Se
 // rabat sur le texte d'ambiance si l'objet n'a pas de stats structurées
 // (la plupart des objets divers/consommables/poisons).
-export function resumeItem(item: ShopItem): string | null {
+export function resumeItem(item: ShopItem, language: Language = 'fr'): string | null {
   const parties: string[] = [];
-  if (item.portee) parties.push(`Portée ${item.portee}`);
-  if (item.force) parties.push(`Force ${item.force}`);
-  if (item.sauvegarde) parties.push(`Save ${item.sauvegarde}`);
+  if (item.portee) parties.push(`${language === 'en' ? 'Range' : 'Portée'} ${item.portee}`);
+  if (item.force) parties.push(`${language === 'en' ? 'Strength' : 'Force'} ${item.force}`);
+  if (item.sauvegarde) parties.push(`${language === 'en' ? 'Save' : 'Sauvegarde'} ${item.sauvegarde}`);
   if (item.regles_speciales?.length) parties.push(item.regles_speciales.map((r) => r.nom).join(', '));
   if (parties.length > 0) return parties.join(' · ');
   return item.texte ?? null;
@@ -63,16 +64,17 @@ export function resumeItem(item: ShopItem): string | null {
 // "12 po" pour un coût numérique, ou la notation telle quelle (ex : "10+1D6",
 // "x4") sinon — un coût d'objet non fixe reste une formule à résoudre à la
 // main, pas un montant en po.
-export function formatCoutItem(cout: number | string): string {
-  return typeof cout === 'number' ? `${cout} po` : cout;
+export function formatCoutItem(cout: number | string, language: Language = 'fr'): string {
+  return typeof cout === 'number' ? `${cout} ${language === 'en' ? 'gc' : 'po'}` : cout;
 }
 
 // "12 po", "25+2D6 po" ou "coût ?" pour le coût (éventuellement variable)
 // d'un profil de catalogue.
-export function formatCoutProfil(cout: number | null, coutNotation?: string): string {
-  if (cout != null) return `${cout} po`;
-  if (coutNotation) return `${coutNotation} po`;
-  return 'coût ?';
+export function formatCoutProfil(cout: number | null, coutNotation?: string, language: Language = 'fr'): string {
+  const unite = language === 'en' ? 'gc' : 'po';
+  if (cout != null) return `${cout} ${unite}`;
+  if (coutNotation) return `${coutNotation} ${unite}`;
+  return language === 'en' ? 'cost ?' : 'coût ?';
 }
 
 // Tags "acces" considérés comme ouverts à toutes les bandes dans la base
@@ -441,7 +443,23 @@ const CATEGORIE_LABELS: Record<string, string> = {
   special: 'Spécial',
 };
 
-export function libelleCategorie(categorie: string): string {
+const CATEGORIE_LABELS_EN: Record<string, string> = {
+  armes_cac: 'Hand-to-hand',
+  armes_tir: 'Missile',
+  armes_poudre_noire: 'Black powder',
+  munitions: 'Ammunition',
+  armures: 'Armour',
+  divers: 'Miscellaneous',
+  consommables: 'Consumable',
+  poisons_drogues: 'Poison / drug',
+  montures: 'Mount',
+  vehicules: 'Vehicle',
+  artefacts_magiques: 'Magic artefact',
+  special: 'Special',
+};
+
+export function libelleCategorie(categorie: string, language: Language = 'fr'): string {
+  if (language === 'en') return CATEGORIE_LABELS_EN[categorie] ?? CATEGORIE_LABELS[categorie] ?? categorie;
   return CATEGORIE_LABELS[categorie] ?? categorie;
 }
 

@@ -11,6 +11,7 @@ import type { RosterInstance, InventoryEntry, CustomItem, CustomItemOverride } f
 import type { WarbandCatalog } from '../../types/catalog';
 import type { GameRules } from '../../types/rules';
 import { useLanguage } from '../../state/useLanguage';
+import { translateItem } from '../../i18n/data/items';
 
 type ArmurerieSectionProps = {
   roster: RosterInstance;
@@ -37,10 +38,13 @@ export function ArmurerieSection({
   onObjetsPersonnalisesChange,
   onObjetsSurchargesChange,
 }: ArmurerieSectionProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [modalAchat, setModalAchat] = useState(false);
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
   const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
+
+  const nomAfficheItem = (entree: InventoryEntry): string =>
+    catalogue ? translateItem(resolveItemDetail(entree, catalogue.id, rules), language).nom : entree.nom;
 
   return (
     <>
@@ -68,13 +72,13 @@ export function ArmurerieSection({
             onClick={() => setItemDetail(entree)}
           >
             <div className="list-item__title" style={{ textDecoration: 'underline' }}>
-              {entree.nom}
+              {nomAfficheItem(entree)}
             </div>
             <div className="list-item__subtitle">
               {iconeCategorie(entree.categorie) && (
                 <Icon name={iconeCategorie(entree.categorie)!} style={{ marginRight: '0.35em' }} />
               )}
-              {libelleCategorie(entree.categorie)} · {entree.cout} {t('creation.gc')}
+              {libelleCategorie(entree.categorie, language)} · {entree.cout} {t('creation.gc')}
               {entree.cout_notation ? ` (${t('armurerie.rollNotationPrefix')} ${entree.cout_notation})` : ''}
             </div>
           </div>
@@ -131,7 +135,7 @@ export function ArmurerieSection({
       {venteEnCours && (
         <Modal onClose={() => setVenteEnCours(null)}>
           <h3>
-            {t('armurerie.sellConfirmTitlePrefix')} {venteEnCours.nom} ?
+            {t('armurerie.sellConfirmTitlePrefix')} {nomAfficheItem(venteEnCours)} ?
           </h3>
           <p className="text-muted">
             {t('armurerie.sellConfirmBody', { prix: prixVente(venteEnCours.cout) })}

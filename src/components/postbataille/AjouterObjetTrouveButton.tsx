@@ -3,6 +3,7 @@ import { itemVersShopItem } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { LigneObjetTrouve } from '../../data/tableExplorationEvenements';
 import { useLanguage } from '../../state/useLanguage';
+import { translateItem } from '../../i18n/data/items';
 
 type Props = {
   ligneObjet: LigneObjetTrouve;
@@ -16,8 +17,9 @@ type Props = {
 // Quantité fixe : un clic suffit. Quantité en dés (ex : "D3") : reprend le
 // motif de JetOrButton (jet fait sur table papier, jamais lancé par l'app).
 export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }: Props) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const item = itemVersShopItem(ligneObjet.item_id, catalogueId);
+  const itemAffiche = item ? translateItem(item, language) : null;
   const [jet, setJet] = useState('');
   // Se verrouille après ajout, comme JetOrButton : sans ça rien n'empêchait
   // de recliquer et d'ajouter le même objet trouvé plusieurs fois au stock.
@@ -28,7 +30,7 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
   if (ajoute) {
     return (
       <p className="text-sm text-success" style={{ marginTop: '0.5rem' }}>
-        {t('postBataille.itemAddedToStock', { nom: item.nom })}
+        {t('postBataille.itemAddedToStock', { nom: itemAffiche!.nom })}
       </p>
     );
   }
@@ -45,7 +47,7 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
           setAjoute(true);
         }}
       >
-        {t('postBataille.addItemToStock', { nom: item.nom, suffix: quantite > 1 ? ` ×${quantite}` : '' })}
+        {t('postBataille.addItemToStock', { nom: itemAffiche!.nom, suffix: quantite > 1 ? ` ×${quantite}` : '' })}
       </button>
     );
   }
@@ -56,7 +58,7 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
   return (
     <div className="flex gap-sm items-center" style={{ marginTop: '0.5rem', flexWrap: 'wrap' }}>
       <span className="text-sm text-muted">
-        {t('postBataille.rollForItem', { notation: ligneObjet.quantite, nom: item.nom })}
+        {t('postBataille.rollForItem', { notation: ligneObjet.quantite, nom: itemAffiche!.nom })}
       </span>
       <input type="number" min={1} style={{ width: '4rem' }} value={jet} onChange={(e) => setJet(e.target.value)} />
       <button
