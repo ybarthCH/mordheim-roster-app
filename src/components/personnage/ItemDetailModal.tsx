@@ -5,6 +5,7 @@ import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
 import { useLanguage } from '../../state/useLanguage';
 import { translateItem } from '../../i18n/data/items';
+import { libelleCaracteristique } from '../../utils/stats';
 
 type Props = {
   item: ShopItem;
@@ -33,7 +34,7 @@ export function ItemDetailModal({ item: itemBrut, onClose }: Props) {
         <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
           {STAT_KEYS.map((k) => (
             <div key={k} className="stat-grid__cell stat-grid__cell--label">
-              {k}
+              {libelleCaracteristique(k, language)}
             </div>
           ))}
           {STAT_KEYS.map((k) => (

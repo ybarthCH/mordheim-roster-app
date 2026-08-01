@@ -15,6 +15,7 @@ import { getFrancTireur } from '../../data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
 import { getItem } from '../../data/items';
 import { translateItem } from '../../i18n/data/items';
+import { libelleCaracteristique } from '../../utils/stats';
 
 const STATUT_BADGE: Record<string, string> = {
   actif: 'badge--success',
@@ -127,15 +128,15 @@ export function MemberGroupCard({
               <th style={{ width: '1.6rem' }}></th>
               <th>{t('memberGroup.name')}</th>
               {!masquerProfil && <th>{t('memberGroup.profile')}</th>}
-              <th>M</th>
-              <th>CC</th>
-              <th>CT</th>
-              <th>F</th>
-              <th>E</th>
-              <th>PV</th>
-              <th>I</th>
-              <th>A</th>
-              <th>Cd</th>
+              <th>{libelleCaracteristique('M', language)}</th>
+              <th>{libelleCaracteristique('CC', language)}</th>
+              <th>{libelleCaracteristique('CT', language)}</th>
+              <th>{libelleCaracteristique('F', language)}</th>
+              <th>{libelleCaracteristique('E', language)}</th>
+              <th>{libelleCaracteristique('PV', language)}</th>
+              <th>{libelleCaracteristique('I', language)}</th>
+              <th>{libelleCaracteristique('A', language)}</th>
+              <th>{libelleCaracteristique('Cd', language)}</th>
               <th>XP</th>
               <th>{t('memberGroup.status')}</th>
               <th></th>
