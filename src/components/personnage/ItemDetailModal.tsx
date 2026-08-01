@@ -57,11 +57,17 @@ export function ItemDetailModal({ item: itemBrut, onClose }: Props) {
         </span>
       )}
       {item.disponibilite && <p className="text-sm text-muted mb-0">{item.disponibilite}</p>}
-      {item.regles_speciales?.map((r) => (
-        <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-          <strong>{r.nom}</strong> — {r.texte}
+      {item.resultatSousJetAchat ? (
+        <p className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+          <strong>{item.resultatSousJetAchat.label}</strong> — {item.resultatSousJetAchat.texte}
         </p>
-      ))}
+      ) : (
+        item.regles_speciales?.map((r) => (
+          <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+            <strong>{r.nom}</strong> — {r.texte}
+          </p>
+        ))
+      )}
       {item.texte && (
         <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
           {item.texte}

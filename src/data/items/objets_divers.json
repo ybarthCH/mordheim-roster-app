@@ -165,7 +165,16 @@
       { "nom": "2-3. La vieille bique", "texte": "La carte indique la voie qui mène à une dame mystérieuse. Si la bande suit l'itinéraire décrit, le premier Événement Aléatoire qui se produira lors de la prochaine bataille sera automatiquement (56) « La vieille bique » (voir le Tableau des Rencontres Aléatoires de Border Town Burning)." },
       { "nom": "4-5. Progression de campagne", "texte": "La prochaine fois qu'un 4+ est obtenu sur le Tableau de Progression (voir Border Town Burning), la bande possédant une carte de Cathay compte automatiquement comme ayant le plus de points de campagne. Elle peut donc choisir le scénario suivant. Si les deux bandes ont une carte de Cathay, comparez les points de campagne comme d'habitude." },
       { "nom": "6. Cachette de Belandysh", "texte": "Cette carte mène à la cachette de Belandysh ! Lorsqu'une bande possédant cette carte obtient un 1 pour un jet d'Événement Aléatoire, elle peut choisir de tomber automatiquement sur l'événement (42-43) « Belandysh arrive ! »." }
-    ]
+    ],
+    "sous_jet_achat": {
+      "de": "1D6",
+      "options": [
+        { "valeurs": [1], "label": "1. Fausse", "texte": "La carte est fausse et totalement inutile !" },
+        { "valeurs": [2, 3], "label": "2-3. La vieille bique", "texte": "La carte indique la voie qui mène à une dame mystérieuse. Si la bande suit l'itinéraire décrit, le premier Événement Aléatoire qui se produira lors de la prochaine bataille sera automatiquement (56) « La vieille bique » (voir le Tableau des Rencontres Aléatoires de Border Town Burning)." },
+        { "valeurs": [4, 5], "label": "4-5. Progression de campagne", "texte": "La prochaine fois qu'un 4+ est obtenu sur le Tableau de Progression (voir Border Town Burning), la bande possédant une carte de Cathay compte automatiquement comme ayant le plus de points de campagne. Elle peut donc choisir le scénario suivant. Si les deux bandes ont une carte de Cathay, comparez les points de campagne comme d'habitude." },
+        { "valeurs": [6], "label": "6. Cachette de Belandysh", "texte": "Cette carte mène à la cachette de Belandysh ! Lorsqu'une bande possédant cette carte obtient un 1 pour un jet d'Événement Aléatoire, elle peut choisir de tomber automatiquement sur l'événement (42-43) « Belandysh arrive ! »." }
+      ]
+    }
   },
   {
     "id": "carte_de_mordheim", "nom": "Carte de Mordheim", "categorie": "divers",
@@ -178,7 +187,17 @@
       { "nom": "4. Carte des catacombes", "texte": "La carte indique un accès à la cité par les catacombes. Vous choisissez automatiquement le scénario lors de votre prochaine bataille." },
       { "nom": "5. Précise", "texte": "La carte est récente et très détaillée. Vous pouvez relancer jusqu'à trois dés durant la prochaine phase d'Exploration si vous le désirez. Vous devez accepter les résultats des seconds jets." },
       { "nom": "6. Carte originale", "texte": "C'est l'une des douze cartes dessinées pour le comte Von Steinhardt d'Ostermark. Dorénavant, vous pouvez toujours relancer un dé lors des jets sur le tableau d'Exploration tant que votre Héros possède la carte et n'est pas mis hors de combat au cours d'une bataille." }
-    ]
+    ],
+    "sous_jet_achat": {
+      "de": "1D6",
+      "options": [
+        { "valeurs": [1], "label": "1. Fausse", "texte": "La carte est fausse et sans valeur. Elle vous fait tourner en rond et votre adversaire pourra automatiquement choisir le prochain scénario que vous jouerez." },
+        { "valeurs": [2, 3], "label": "2-3. Vague", "texte": "Bien que grossière, cette carte est relativement précise (enfin... en partie... peut-être !). Vous pouvez relancer un dé de votre choix lors de la prochaine phase d'Exploration si vous le désirez, mais vous devez accepter le résultat du second jet." },
+        { "valeurs": [4], "label": "4. Carte des catacombes", "texte": "La carte indique un accès à la cité par les catacombes. Vous choisissez automatiquement le scénario lors de votre prochaine bataille." },
+        { "valeurs": [5], "label": "5. Précise", "texte": "La carte est récente et très détaillée. Vous pouvez relancer jusqu'à trois dés durant la prochaine phase d'Exploration si vous le désirez. Vous devez accepter les résultats des seconds jets." },
+        { "valeurs": [6], "label": "6. Carte originale", "texte": "C'est l'une des douze cartes dessinées pour le comte Von Steinhardt d'Ostermark. Dorénavant, vous pouvez toujours relancer un dé lors des jets sur le tableau d'Exploration tant que votre Héros possède la carte et n'est pas mis hors de combat au cours d'une bataille." }
+      ]
+    }
   },
   {
     "id": "carte_de_nehekhara", "nom": "Carte de Nehekhara", "categorie": "divers",
@@ -187,7 +206,17 @@
     "texte": "Les cartes du royaume des morts sont rares. Celles qui sont précises sont encore plus rares. Les dunes changeantes et les lits de rivières asséchés peuvent rendre une carte obsolète en une saison. Utilisez les règles de la carte de Mordheim du Livre des Règles.",
     "regles_speciales": [
       { "nom": "Effet", "texte": "Voir Carte de Mordheim (mêmes résultats 1D6)." }
-    ]
+    ],
+    "sous_jet_achat": {
+      "de": "1D6",
+      "options": [
+        { "valeurs": [1], "label": "1. Fausse", "texte": "La carte est fausse et sans valeur. Elle vous fait tourner en rond et votre adversaire pourra automatiquement choisir le prochain scénario que vous jouerez." },
+        { "valeurs": [2, 3], "label": "2-3. Vague", "texte": "Bien que grossière, cette carte est relativement précise (enfin... en partie... peut-être !). Vous pouvez relancer un dé de votre choix lors de la prochaine phase d'Exploration si vous le désirez, mais vous devez accepter le résultat du second jet." },
+        { "valeurs": [4], "label": "4. Carte des catacombes", "texte": "La carte indique un accès à la cité par les catacombes. Vous choisissez automatiquement le scénario lors de votre prochaine bataille." },
+        { "valeurs": [5], "label": "5. Précise", "texte": "La carte est récente et très détaillée. Vous pouvez relancer jusqu'à trois dés durant la prochaine phase d'Exploration si vous le désirez. Vous devez accepter les résultats des seconds jets." },
+        { "valeurs": [6], "label": "6. Carte originale", "texte": "C'est l'une des douze cartes dessinées pour le comte Von Steinhardt d'Ostermark. Dorénavant, vous pouvez toujours relancer un dé lors des jets sur le tableau d'Exploration tant que votre Héros possède la carte et n'est pas mis hors de combat au cours d'une bataille." }
+      ]
+    }
   },
   {
     "id": "cartes_de_tarot", "nom": "Cartes de tarot", "categorie": "divers",

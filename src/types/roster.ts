@@ -99,6 +99,12 @@ export type InventoryEntry = {
   // le coût réellement déduit est saisi à la main dans `cout`.
   cout_notation?: string;
   date_achat?: string;
+  // Résultat du jet fait à l'achat pour un objet dont l'effet dépend d'un
+  // sous-jet (ex : Carte de Mordheim — voir ShopItem.sous_jet_achat dans
+  // utils/shop.ts). `optionIndex` pointe dans les options d'origine de
+  // l'objet ; `label`/`texte` sont un instantané français de repli si
+  // l'objet ou l'option a disparu du catalogue depuis.
+  resultat_sous_jet_achat?: { jet: number; optionIndex: number; label: string; texte: string };
 };
 
 export type Member = {

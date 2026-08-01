@@ -1,12 +1,14 @@
 import type { Language } from '../../state/useLanguage';
 
 type RegleTraduite = { nom: string; texte: string };
+type SousJetAchatOptionTraduite = { label: string; texte: string };
 
 type ItemTraduit = {
   nom: string;
   texte?: string;
   disponibilite?: string;
   regles_speciales?: RegleTraduite[];
+  sousJetAchatOptions?: SousJetAchatOptionTraduite[];
 };
 
 // Traductions anglaises du catalogue d'équipement commun (src/data/items/*.json),
@@ -2919,6 +2921,24 @@ export const itemsEn: Record<string, ItemTraduit> = {
           "This map leads to Belandysh's hideout! When a warband possessing this map rolls a 1 for a Random Event roll, it may choose to automatically land on the event (42-43) 'Belandysh Arrives!'.",
       },
     ],
+    sousJetAchatOptions: [
+      { label: '1. Fake', texte: 'The map is fake and utterly useless!' },
+      {
+        label: '2-3. The Old Hag',
+        texte:
+          "The map indicates the way to a mysterious lady. If the warband follows the described route, the first Random Event that occurs during the next battle will automatically be (56) 'The Old Hag' (see the Border Town Burning Random Encounters table).",
+      },
+      {
+        label: '4-5. Campaign Progress',
+        texte:
+          'The next time a 4+ is rolled on the Progress table (see Border Town Burning), the warband possessing a Map of Cathay automatically counts as having the most campaign points. It may therefore choose the next scenario. If both warbands have a Map of Cathay, compare campaign points as usual.',
+      },
+      {
+        label: "6. Belandysh's Hideout",
+        texte:
+          "This map leads to Belandysh's hideout! When a warband possessing this map rolls a 1 for a Random Event roll, it may choose to automatically land on the event (42-43) 'Belandysh Arrives!'.",
+      },
+    ],
   },
   carte_de_mordheim: {
     nom: 'Map of Mordheim',
@@ -2950,12 +2970,64 @@ export const itemsEn: Record<string, ItemTraduit> = {
           'This is one of the twelve maps drawn for Count Von Steinhardt of Ostermark. From now on, you may always re-roll one die on Exploration table rolls as long as your Hero possesses the map and is not taken Out of Action during a battle.',
       },
     ],
+    sousJetAchatOptions: [
+      {
+        label: '1. Fake',
+        texte:
+          'The map is fake and worthless. It leads you around in circles, and your opponent may automatically choose the next scenario you play.',
+      },
+      {
+        label: '2-3. Vague',
+        texte:
+          'Although crude, this map is relatively accurate (well... partly... maybe!). You may re-roll one die of your choice during the next Exploration phase if you wish, but you must accept the result of the second roll.',
+      },
+      {
+        label: '4. Catacomb Map',
+        texte: 'The map shows access to the city through the catacombs. You automatically choose the scenario for your next battle.',
+      },
+      {
+        label: '5. Precise',
+        texte:
+          'The map is recent and highly detailed. You may re-roll up to three dice during the next Exploration phase if you wish. You must accept the results of the second rolls.',
+      },
+      {
+        label: '6. Original Map',
+        texte:
+          'This is one of the twelve maps drawn for Count Von Steinhardt of Ostermark. From now on, you may always re-roll one die on Exploration table rolls as long as your Hero possesses the map and is not taken Out of Action during a battle.',
+      },
+    ],
   },
   carte_de_nehekhara: {
     nom: 'Map of Nehekhara',
     texte:
       'Maps of the realm of the dead are rare. Accurate ones are rarer still. Shifting dunes and dried-up riverbeds can render a map obsolete within a season. Use the rules for the Map of Mordheim from the Rulebook.',
     regles_speciales: [{ nom: 'Effect', texte: 'See Map of Mordheim (same 1D6 results).' }],
+    sousJetAchatOptions: [
+      {
+        label: '1. Fake',
+        texte:
+          'The map is fake and worthless. It leads you around in circles, and your opponent may automatically choose the next scenario you play.',
+      },
+      {
+        label: '2-3. Vague',
+        texte:
+          'Although crude, this map is relatively accurate (well... partly... maybe!). You may re-roll one die of your choice during the next Exploration phase if you wish, but you must accept the result of the second roll.',
+      },
+      {
+        label: '4. Catacomb Map',
+        texte: 'The map shows access to the city through the catacombs. You automatically choose the scenario for your next battle.',
+      },
+      {
+        label: '5. Precise',
+        texte:
+          'The map is recent and highly detailed. You may re-roll up to three dice during the next Exploration phase if you wish. You must accept the results of the second rolls.',
+      },
+      {
+        label: '6. Original Map',
+        texte:
+          'This is one of the twelve maps drawn for Count Von Steinhardt of Ostermark. From now on, you may always re-roll one die on Exploration table rolls as long as your Hero possesses the map and is not taken Out of Action during a battle.',
+      },
+    ],
   },
   cartes_de_tarot: {
     nom: 'Tarot Cards',
@@ -3666,11 +3738,14 @@ export function translateItem<
     texte?: string | null;
     disponibilite?: string;
     regles_speciales?: { nom: string; texte: string; exception?: string }[];
+    sous_jet_achat?: { de: '1D6'; options: { valeurs: number[]; label: string; texte: string }[] };
+    resultatSousJetAchat?: { jet: number; optionIndex: number; label: string; texte: string };
   },
 >(item: T, language: Language): T {
   if (language !== 'en') return item;
   const en = itemsEn[item.id];
   if (!en) return item;
+  const resultatSousJetAchat = item.resultatSousJetAchat;
   return {
     ...item,
     nom: en.nom,
@@ -3680,5 +3755,20 @@ export function translateItem<
       const rEn = en.regles_speciales?.[i];
       return rEn ? { ...r, nom: rEn.nom, texte: rEn.texte } : r;
     }),
+    sous_jet_achat: item.sous_jet_achat
+      ? {
+          ...item.sous_jet_achat,
+          options: item.sous_jet_achat.options.map((o, i) => {
+            const oEn = en.sousJetAchatOptions?.[i];
+            return oEn ? { ...o, label: oEn.label, texte: oEn.texte } : o;
+          }),
+        }
+      : item.sous_jet_achat,
+    resultatSousJetAchat: resultatSousJetAchat
+      ? (() => {
+          const oEn = en.sousJetAchatOptions?.[resultatSousJetAchat.optionIndex];
+          return oEn ? { ...resultatSousJetAchat, label: oEn.label, texte: oEn.texte } : resultatSousJetAchat;
+        })()
+      : resultatSousJetAchat,
   };
 }

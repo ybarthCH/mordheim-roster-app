@@ -164,14 +164,17 @@ export function resumeExploration(
     for (const entree of membre.inventaire) {
       const objetBrut = resolveItemDetail(entree, catalogue?.id ?? roster.bande_id, rules);
       const objetAffiche = translateItem(objetBrut, language);
-      const textesAffiches = [
-        objetAffiche.texte,
-        ...(objetAffiche.regles_speciales ?? []).map((regle) => `${regle.nom} — ${regle.texte}`),
-      ].filter((texte): texte is string => !!texte);
-      const textesDetection = [
-        objetBrut.texte,
-        ...(objetBrut.regles_speciales ?? []).map((regle) => `${regle.nom} — ${regle.texte}`),
-      ].filter((texte): texte is string => !!texte);
+      // Un objet dont le sous-jet d'achat a été résolu (ex : Carte de
+      // Mordheim) n'affiche que le résultat obtenu, pas la liste complète
+      // des résultats possibles.
+      const reglesAffichees = objetAffiche.resultatSousJetAchat
+        ? [`${objetAffiche.resultatSousJetAchat.label} — ${objetAffiche.resultatSousJetAchat.texte}`]
+        : (objetAffiche.regles_speciales ?? []).map((regle) => `${regle.nom} — ${regle.texte}`);
+      const reglesDetection = objetBrut.resultatSousJetAchat
+        ? [`${objetBrut.resultatSousJetAchat.label} — ${objetBrut.resultatSousJetAchat.texte}`]
+        : (objetBrut.regles_speciales ?? []).map((regle) => `${regle.nom} — ${regle.texte}`);
+      const textesAffiches = [objetAffiche.texte, ...reglesAffichees].filter((texte): texte is string => !!texte);
+      const textesDetection = [objetBrut.texte, ...reglesDetection].filter((texte): texte is string => !!texte);
       textesAffiches.forEach((texte, i) => {
         ajouterAide(aides, `${membre.nom_perso} — ${objetAffiche.nom}`, texte, textesDetection[i] ?? texte);
       });
