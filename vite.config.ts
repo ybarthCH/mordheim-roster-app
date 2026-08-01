@@ -34,7 +34,12 @@ export default defineConfig(({ command }) => ({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icons/icon-32.png', 'icons/icon-192.png', 'icons/icon-512.png'],
+      includeAssets: [
+        'icons/icon-32.png',
+        'icons/icon-192.png',
+        'icons/icon-512.png',
+        'icons/icon-512-maskable.png',
+      ],
       manifest: {
         id: base,
         name: 'Musterheim',
@@ -51,10 +56,18 @@ export default defineConfig(({ command }) => ({
           // regardless of the base path it's served under.
           { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
           { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          // Safe-zone variant for Android adaptive-icon masking (TWA) — the
+          // artwork is scaled to ~66% of the canvas so it survives circle/
+          // squircle/rounded-square masks without clipping.
+          { src: 'icons/icon-512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico,json}'],
+        // assetlinks.json proves domain ownership to Android's Digital Asset
+        // Links verifier — it's fetched directly by the OS/Chrome, not by the
+        // app, so it has no business in the app's own offline cache.
+        globIgnores: ['.well-known/**'],
       },
     }),
   ],
