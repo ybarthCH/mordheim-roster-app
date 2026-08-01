@@ -10,7 +10,7 @@ const LONGUEUR_NOM_COURT = 30;
 // Équivalent autonome de useLanguage().t() — utilisable ici car ce module
 // n'est pas un composant (pas d'accès au contexte React), mais la donnée
 // (uiDictionary) et la logique d'interpolation sont les mêmes.
-function traduireCle(key: string, language: Language, params?: Record<string, string | number>): string {
+export function traduireCle(key: string, language: Language, params?: Record<string, string | number>): string {
   const entry = uiDictionary[key];
   const raw = entry ? (entry[language] ?? entry.fr) : key;
   if (!params) return raw;
