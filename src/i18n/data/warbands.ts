@@ -923,6 +923,954 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       ],
     },
   },
+  gobelins_de_la_nuit: {
+    nom: 'Night Goblins (1c)',
+    regles_speciales: [
+      {
+        nom: 'Animosity',
+        texte:
+          'At the start of each Goblin player\'s turn, roll 1D6 for each Goblin Henchman not engaged in hand-to-hand combat. On a 1, the warrior gets annoyed: roll 1D6 on a dedicated table — he may charge the nearest friendly Goblin within charge range, simply rant at everyone and do nothing else, or rush towards the nearest enemy and charge it. He still defends himself normally if already engaged.',
+        exception: 'Does not affect Fanatics',
+      },
+      {
+        nom: "Masters of the Fool's Cap",
+        texte:
+          "Night Goblins ignore the stupidity side effect of Fool's Cap mushrooms while under the frenzy the mushrooms grant; if they are Knocked Down or Stunned, the stupidity takes effect again until the end of the battle.",
+      },
+      {
+        nom: 'Hatred of Dwarfs',
+        texte: 'Night Goblins hold a bitter hatred for Dwarfs.',
+        exception: 'Only affects Night Goblins; Fanatics are not subject to it',
+      },
+      {
+        nom: 'Fear of Elves',
+        texte: 'Night Goblins are subject to fear of Elves.',
+        exception: 'Only affects Night Goblins; Fanatics are not subject to it',
+      },
+      {
+        nom: 'Unsavoury Characters',
+        texte:
+          'A Night Goblin warband may only hire the following Hired Swords: Gladiator, Ogre Bodyguard, Wizard, as well as any Hired Sword whose description specifically allows it.',
+      },
+    ],
+    profils: {
+      boss: {
+        nom: 'Boss',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any model within 6" of the Boss may use his Leadership for their tests.' },
+          {
+            nom: 'Biggest of the Bosses',
+            texte:
+              "Only the current Boss may choose Strength skills; a Boss promoted after the previous one's death gains this right in turn, but no other warband member may access it.",
+          },
+        ],
+      },
+      chaman: {
+        nom: 'Night Goblin Shaman',
+        regles_speciales: [
+          { nom: 'Sorcerer', texte: 'Starts with a spell randomly drawn from the Goblin Magic spell list.' },
+          {
+            nom: 'Mushroom Brew',
+            texte:
+              "Before the battle, may brew a special batch from 1 to 3 Fool's Cap mushrooms plus other harvested mushrooms, affecting a single group of Goblin warriors until the end of the battle. A roll is made on the mushroom brew table for each mushroom used; a duplicate result ruins the batch (just a headache).",
+          },
+        ],
+      },
+      berger_a_squig: {
+        nom: 'Squig Herder',
+        regles_speciales: [
+          {
+            nom: 'Handler — Squigs',
+            texte: 'Any Squig within 6" (12" with a squig prodder) may use his Leadership instead of its own.',
+          },
+          {
+            nom: 'Master Herder',
+            texte:
+              'During the Recovery phase, any out-of-control Cave Squig or Giant Squig within his zone of influence stops wandering and can be controlled on a successful Leadership test.',
+          },
+          {
+            nom: 'Dedicated Skills (instead of the Special list)',
+            texte:
+              "Gaseous Squigs: when an untrained Cave Squig is taken Out of Action, on a 1 it explodes and hits every model within 1D6\" with a Strength 3 hit; that Squig is dead. — Menace: during the Movement phase, on a successful Leadership test, all Cave Squigs and Giant Squigs within range (6\", 12\" with a prodder) may re-roll their Movement die for that turn. — Training: the Herder may train a Squig as a personal bodyguard: it gains experience like a normal Henchman (re-rolling Lad's Got Talent results). Only one trained Squig at a time; it only dies on a 1 after being taken Out of Action and protects its fallen master under certain conditions.",
+          },
+        ],
+      },
+      zbir: { nom: 'Thug' },
+      guerrier_gobelin_de_la_nuit: {
+        nom: 'Night Goblin Warrior',
+        regles_speciales: [
+          { nom: 'Animosity', texte: 'Subject to animosity; a Goblin who becomes a Hero is no longer subject to it.' },
+        ],
+      },
+      fanatique: {
+        nom: 'Night Goblin Fanatic',
+        regles_speciales: [
+          {
+            nom: 'Addiction',
+            texte: "Needs a Fool's Cap mushroom for every game; without one, he stays in his cave and does not take part in the battle.",
+          },
+          { nom: 'Crazed', texte: 'Immune to the animosity rules.' },
+          { nom: 'Mushroom Brain', texte: "Can never become a Hero (re-roll Lad's Got Talent results)." },
+        ],
+      },
+      squig_des_cavernes: {
+        nom: 'Cave Squig',
+        regles_speciales: [
+          {
+            nom: 'Movement',
+            texte:
+              'Variable Movement of 2D6" (M cannot be represented by a single number — see this field); never runs, does not declare a normal charge but counts as having charged if it reaches base contact.',
+          },
+          {
+            nom: 'On a Leash!',
+            texte:
+              "Must stay within 6\" of a Goblin; otherwise it becomes uncontrollable and moves randomly until the end of the game, unless within the Squig Herder's zone of influence.",
+          },
+          { nom: 'Just Squigs', texte: 'Only counts as half a model for Rout tests.' },
+          { nom: 'Animals', texte: 'Never gains experience; may climb using the Climbing rules with a particularly large leap.' },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+        ],
+      },
+      snotling: {
+        nom: 'Snotling',
+        regles_speciales: [
+          { nom: 'Mob', texte: 'The whole group of Snotlings counts as a single model for warband size purposes.' },
+          { nom: 'Puny', texte: 'Knocked Down on a 1, Stunned on 2-3, Out of Action on 4-6.' },
+          { nom: 'Elusive', texte: '-1 penalty to hit for any shooting or hand-to-hand attack targeting a Snotling.' },
+          {
+            nom: 'Insignificant',
+            texte:
+              'The whole group of Snotlings only counts as one model for Rout tests and when selling magic stones; each Snotling only earns half an experience point (rounded down), never gains experience itself, and is not a priority target for shooters.',
+          },
+        ],
+      },
+      squig_geant: {
+        nom: 'Giant Squig',
+        regles_speciales: [
+          { nom: 'Movement', texte: 'As the Cave Squig, but rolls 3D6.' },
+          {
+            nom: 'Wild',
+            texte:
+              'Needs a Goblin to watch over it; on a hit from the scatter die, it moves towards the nearest visible model (friend or foe) and engages it in combat.',
+          },
+          { nom: 'Fear', texte: 'Causes Fear.' },
+          { nom: 'Large Target', texte: 'Large Target under the Shooting rules.' },
+          { nom: 'Animals', texte: 'Never gains experience.' },
+          { nom: 'Ever Heard of a Troll?', texte: 'Mutually exclusive with the Troll — a warband can never have both.' },
+        ],
+      },
+      troll: {
+        nom: 'Troll',
+        regles_speciales: [
+          { nom: 'Fear', texte: 'Causes Fear.' },
+          { nom: 'Stupidity', texte: 'Subject to the Stupidity rules.' },
+          {
+            nom: 'Regeneration',
+            texte:
+              'On a 4+ after a Wound, it is ignored (except wounds from fire or fire-based spells). Does not roll on the Serious Injury table at the end of the game.',
+          },
+          { nom: 'Zero IQ', texte: 'Never gains experience.' },
+          {
+            nom: 'Always Hungry',
+            texte: 'The warband must spend 15 gc after each battle to feed it, or sacrifice 2 Goblins/Squigs; otherwise it leaves the warband.',
+          },
+          {
+            nom: 'Vomit',
+            texte: 'Instead of its normal attacks, may spit a single attack that hits automatically at Strength 5 with no armour save.',
+          },
+          { nom: 'Large Target', texte: 'Large Target under the Shooting rules.' },
+          { nom: 'Exclusivity', texte: 'A warband can never have both a Troll and a Giant Squig.' },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    equipement: {
+      heros: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+      hommes_de_main: {
+        armes_cac: ['first free', undefined, undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Goblin Magic',
+      type: 'sorcery',
+      sorts: [
+        {
+          nom: "Gork's Wind",
+          texte: 'Range 12"; the first model hit must pass a Toughness test or suffer a Strength 2 hit and be automatically Knocked Down.',
+        },
+        { nom: "Mork's Gaze", texte: 'Range 12"; D3 Strength 3 hits on the first model in the path.' },
+        {
+          nom: "'Ead-Seeker",
+          texte:
+            "Range 6\"; fires a number of bolts equal to the Shaman's base Attacks, Strength equal to his Toughness, hitting the first model in the path. On a 1 after resolving, the Shaman collapses and is taken Out of Action.",
+        },
+        {
+          nom: 'Waaagh! Leap',
+          texte: 'The Shaman or a Goblin within 3" may be moved up to 12", ignoring terrain; if this brings him into hand-to-hand combat, it counts as a charge.',
+        },
+        { nom: 'Idol of Gork', texte: 'The Shaman gains WS+1, S+1, and A+1 until he suffers a Wound.' },
+        {
+          nom: "'Ere We Go!",
+          texte: 'Allied models within 6" of the Shaman treat Stunned results as Knocked Down, until the Shaman suffers a Wound.',
+        },
+      ],
+    },
+  },
+
+  chasseurs_cornus: {
+    nom: 'Horned Hunters (1b)',
+    regles_speciales: [
+      {
+        nom: 'Woodsmen',
+        texte: 'Horned Hunters warbands suffer no Movement penalty in difficult terrain.',
+      },
+    ],
+    profils: {
+      chasseur_cornu: {
+        nom: 'Horned Hunter',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior within 6" of the Horned Hunter may use his Leadership for their tests.' },
+          { nom: 'Hang the Bandits!', texte: 'A Horned Hunter hates all Bandits and Outlaws.' },
+        ],
+      },
+      pretre_de_taal: {
+        nom: 'Priest of Taal',
+        regles_speciales: [
+          { nom: 'Prayers', texte: 'A Priest of Taal may use the Prayers of Taal.' },
+          { nom: 'Restrictions', texte: 'Priests of Taal never wear heavy armour.' },
+        ],
+      },
+      initie: {
+        nom: 'Initiate',
+        regles_speciales: [
+          {
+            nom: 'Infiltration',
+            texte:
+              'The Hero is always placed on the battlefield after the opposing warband. He may be placed anywhere on the table as long as he is out of sight and more than 12" from any enemy fighter. If both players have infiltrating fighters, each rolls 1D6; the lower result deploys first.',
+          },
+          { nom: 'Hang the Bandits!', texte: 'An Initiate hates all Bandits and Outlaws.' },
+          { nom: 'Restrictions', texte: 'Initiates never wear armour.' },
+        ],
+      },
+      soiffard: {
+        nom: 'Boozer',
+        regles_speciales: [{ nom: 'Drunkenness', texte: 'Boozers automatically pass all Leadership tests.' }],
+      },
+      zelote: {
+        nom: 'Zealot',
+        regles_speciales: [{ nom: 'Restrictions', texte: 'Zealots never wear armour.' }],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          { nom: 'Weapons/armour', texte: 'Fangs and brute force! War dogs never use weapons or armour.' },
+          { nom: 'Animals', texte: 'War dogs are animals and therefore gain no experience.' },
+        ],
+      },
+    },
+    competences_speciales: {
+      maitre_trappeur: {
+        nom: 'Master Trapper',
+        texte: 'The range of snares set by this Hero is increased to 4". Traps set by a Master Trapper trigger on a 2+ instead of a 3+.',
+      },
+      effluve_nauseabonde: {
+        nom: 'Noxious Reek',
+        texte:
+          'All living enemies (except Undead and Possessed) suffer a -1 penalty to hit this Hero in hand-to-hand combat. In addition, he may carry no flame, and burning attacks that hit him gain a +1 Strength bonus.',
+      },
+      ami_des_betes: {
+        nom: 'Friend of Beasts',
+        texte: "The Hero cannot be attacked by any animal, and up to two war dogs in his possession do not count towards the warband's maximum model count.",
+      },
+      infiltration: {
+        nom: 'Infiltration',
+        texte:
+          'The Hero is always placed on the battlefield after the opposing warband. He may be placed anywhere on the table as long as he is out of sight and more than 12" from any enemy fighter. If both players have infiltrating fighters, each rolls 1D6; the lower result deploys first.',
+      },
+      guide: {
+        nom: 'Guide',
+        texte: 'Roll 1 additional D6 during the Exploration phase. A warband may only have one Hero with the Guide skill.',
+      },
+      cache_dans_les_ombres: {
+        nom: 'Hidden in the Shadows',
+        texte: 'Enemy fighters must halve their Initiative when trying to spot this Hero while he is hidden.',
+      },
+    },
+    equipement: {
+      heros: {
+        armes_cac: ['first free', 'Mace / Hammer', undefined, undefined, undefined, undefined],
+      },
+      hommes_de_main: {
+        armes_cac: ['first free', 'Mace / Hammer', undefined, undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Prayers of Taal',
+      type: 'prayer',
+      note: 'The Prayers of Taal work like the Prayers of Sigmar, except that a Priest of Taal never wears armour.',
+      sorts: [
+        {
+          nom: "Stag's Leap",
+          texte:
+            'The Priest of Taal may immediately move anywhere within 9", including into contact with an enemy (counts as a charge with +1 Strength on the first turn). If he engages a fleeing enemy, he inflicts an automatic hit at +1 Strength, and his opponent flees again.',
+        },
+        {
+          nom: 'Blessed Ale',
+          texte:
+            'Drinking a skin of ale blessed by Taal allows the priest to heal a fighter within 2" (himself included): he recovers all his lost Wounds. In addition, any living enemy fighter (except Undead and Possessed) within 2" of the Priest loses -1 Attack during the next hand-to-hand combat turn.',
+        },
+        {
+          nom: "Bear's Paw",
+          texte: "The priest calls down Taal's blessing on an allied fighter or himself within 6\". The target gains a +2 Strength bonus until the Priest's next turn.",
+        },
+        {
+          nom: 'Earth Tremor',
+          texte:
+            'The prayer targets a building within 4". Any enemy fighter in contact with the building suffers a Strength 3 hit. In addition, the building collapses and all fighters inside it are treated as having fallen. Remove the targeted terrain piece from the table for the rest of the game.',
+        },
+        {
+          nom: 'Entanglement',
+          texte: 'All fighters, enemy and allied alike (except Zealots), within 12" of the Priest have their Movement halved until the next Shooting phase.',
+        },
+        {
+          nom: 'Call of the Squirrels',
+          texte: 'The Priest calls upon the wrath of the Lord of Beasts. The target, an enemy within 12" of the Priest, suffers 2D6 Strength 1 hits, with no armour save.',
+        },
+      ],
+    },
+  },
+
+  lustrian_reavers: {
+    nom: 'Lustrian Reavers (1c)',
+    regles_speciales: [
+      {
+        nom: 'Rare Heroes',
+        texte:
+          "Only one of each type of Hero may ever be bought during the warband's existence. Heroes come with the weapons/armour listed under their entry, which can never be swapped away or given away, though new equipment may be added.",
+      },
+      {
+        nom: 'Promotions',
+        texte:
+          "When a Hero is lost, no replacement of that type may be bought. The warband keeps all of the fallen Hero's equipment, and may promote a Prospect into the vacant role as if it had just rolled 'Lad's Got Talent' on the Henchmen Advancement Table: the player picks two Hero skill lists for the new Hero and makes one immediate roll on the Heroes Advance table. The new Hero gains the fallen Hero's armour and weapons (not equipment) and takes their place in the warband; the Prospect's own equipment goes to the warband stash. If there is no Prospect currently in the warband, the next one hired may be promoted instead.",
+      },
+      {
+        nom: 'Hired Swords',
+        texte: 'Allowed: Ogre Bodyguard, Dwarf Trollslayer, Tilean Marksman, Big Game Hunter.',
+      },
+    ],
+    profils: {
+      conqueror: {
+        nom: 'Conqueror',
+        regles_speciales: [
+          { nom: 'Starting equipment', texte: 'Masterwork Heavy Armour, Bec de Corbin, Helmet (fixed — see Rare Heroes).' },
+          {
+            nom: 'Survivor',
+            texte: 'Cannot be taken Out of Action unless already Knocked Down or Stunned. Treat an Out of Action result as Stunned if the Conqueror was standing when the Wound was received.',
+          },
+          {
+            nom: 'Multiple Injuries (once)',
+            texte: 'The first time the Conqueror suffers a Dead result on the Serious Injury chart, treat it as Multiple Injuries instead. This can only save the Conqueror once.',
+          },
+        ],
+      },
+      saurus_slayer: {
+        nom: 'Saurus Slayer',
+        regles_speciales: [
+          { nom: 'Starting equipment', texte: 'Heavy Armour, Misericordia, two Swords, Helmet (fixed — see Rare Heroes).' },
+          {
+            nom: 'Duellist',
+            texte: 'If engaged with only a single opponent in melee, may re-roll missed hits on the first turn, whether they charged or were charged.',
+          },
+        ],
+      },
+      reaver_beastmaster: {
+        nom: 'Reaver Beastmaster',
+        regles_speciales: [
+          { nom: 'Starting equipment', texte: 'Heavy Armour, Spear, Sword (fixed — see Rare Heroes).' },
+          {
+            nom: 'War Beasts',
+            texte:
+              "If included, the warband may take up to 2 War Beasts from the dedicated list (see equipment reference). They count toward the warband's maximum size, must be bought when the warband is created (but can be replaced if killed), and may use the Beastmaster's Leadership within 6\". If the Beastmaster is killed or lost, War Beasts cannot be used until a Prospect is promoted into a new Beastmaster.",
+          },
+        ],
+      },
+      jungle_shadow: {
+        nom: 'Jungle Shadow',
+        regles_speciales: [
+          { nom: 'Starting equipment', texte: 'Javelins, Light Armour, two Daggers (fixed — see Rare Heroes).' },
+          {
+            nom: 'Silent Hunter',
+            texte:
+              "Always considered Hidden if touching any piece of terrain 1\" high or higher. Shooting does not reveal the Jungle Shadow's position, though spellcasting does; this does not work with Blackpowder weapons.",
+          },
+          {
+            nom: 'Surprise attack',
+            texte: "If attacking an enemy whose back is turned (a shot from within a 180-degree arc behind the target's facing), may re-roll missed to-hit rolls.",
+          },
+          { nom: 'Canopy Walker', texte: 'May re-roll all failed climbing, jumping and falling-off-ledges tests once.' },
+          {
+            nom: 'Wizard option',
+            texte: 'For +30gc, may be made a Wizard using the Lesser Magic list, generating a single spell as standard. If taken, remove the starting Light Armour and generate 1 Lesser Magic spell.',
+          },
+        ],
+      },
+      trap_master: {
+        nom: 'Trap master',
+        regles_speciales: [
+          {
+            nom: 'Starting equipment',
+            texte:
+              'Heavy Armour, Sword, Tilean Hunting Rifle (treat as Hochland Long Rifle), Firepots of Miragliano, Leaf coat (counts as Elven Cloak) (fixed — see Rare Heroes).',
+          },
+          { nom: 'Deadeye', texte: 'Suffers no penalties for shooting at long range.' },
+          {
+            nom: 'Traps',
+            texte:
+              'Starts each game with 1 Trap and may buy up to 5 more before the game at 5gc each; each is one use only. Traps are used in the Shooting Phase instead of shooting (cannot be set if running), one at a time, and cannot be used in melee. When used, place two 1" diameter counters (one false, one real) anywhere within 3" of the Trapmaster but at least 3" from any other model. Any model moving within 2" of a counter must flip it over: a false counter does nothing, a real one inflicts D3 Strength 5 hits (no critical hits). Remove the counters once the trap is sprung.',
+          },
+        ],
+      },
+      prospect: {
+        nom: 'Prospect',
+        regles_speciales: [
+          {
+            nom: 'Promotion Only',
+            texte:
+              "Re-rolls any 'Lad's Got Talent' result on the Henchmen Advancement table (cannot become a Hero directly). When promoted to fill a fallen Hero's role — see the band's Promotions rule — the model no longer counts as a Prospect, so a new Prospect may be hired.",
+          },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    equipement: {
+      heroes: {
+        armes_cac: ['first free', undefined, undefined, 'see special equipment', undefined, undefined],
+        armes_tir: ['see special equipment', undefined, undefined, undefined],
+      },
+      prospects: {
+        armes_cac: ['first free', undefined, undefined, undefined],
+      },
+    },
+  },
+
+  skavens_pestilens: {
+    nom: 'Skaven of Clan Pestilens (1b)',
+    profils: {
+      pretre_de_la_peste: {
+        nom: 'Plague Priest',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any model within 6" of the Plague Priest may use his Leadership for their tests.' },
+        ],
+      },
+      precheur_sorcier_pestilens: {
+        nom: 'Pestilens Preacher-Sorcerer',
+        regles_speciales: [
+          { nom: 'Sorcerer', texte: 'The Pestilens Preacher-Sorcerer is a spellcaster who uses the Magic of the Horned Rat.' },
+        ],
+      },
+      moine_de_la_peste: { nom: 'Plague Monk' },
+      initie_de_la_peste: { nom: 'Plague Initiate' },
+      novice_de_la_peste: {
+        nom: 'Plague Novice',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
+      },
+      rat_geant: {
+        nom: 'Giant Rat',
+        regles_speciales: [
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+          { nom: 'Experience', texte: 'Giant rats are animals and therefore do not gain experience.' },
+          { nom: 'Equipment', texte: 'None. Giant rats carry no weapons or armour.' },
+          {
+            nom: 'Familiar Rat',
+            texte:
+              "If the warband includes a Pestilens Preacher-Sorcerer equipped with a Familiar Rat Scroll, a giant rat may be transformed into a Familiar Rat before the battle (see Special Equipment). Familiar Rat profile: M6 WS2 BS0 S3 T3 W1 I4 A1 Ld4, with no weapons or armour. It gains experience like a Henchman, but its 10-12 \"Lad's Got Talent\" result is replaced by \"Enhanced Spellcasting: if the Pestilens Preacher-Sorcerer is within 6\" of the Familiar Rat, he gains a cumulative +1 bonus to his casting roll.\" If the Pestilens Preacher-Sorcerer dies, the Familiar Rat reverts to its Giant Rat form.",
+          },
+        ],
+      },
+      rat_ogre: {
+        nom: 'Rat Ogre',
+        regles_speciales: [
+          { nom: 'Fear', texte: 'Rat ogres cause Fear.' },
+          { nom: 'Stupidity', texte: 'A rat ogre is subject to Stupidity, unless a Skaven Hero is within 6".' },
+          { nom: 'Experience', texte: 'Rat ogres do not gain experience.' },
+          {
+            nom: 'Large Target',
+            texte: 'Rat ogres are huge creatures that make good targets for archers; they are Large Targets, as defined in the Shooting rules.',
+          },
+          { nom: 'Equipment', texte: 'Fangs, claws, and raw strength! Rat ogres never use weapons or armour.' },
+        ],
+      },
+    },
+    competences_speciales: {
+      insensible_a_la_douleur: {
+        nom: 'Unfeeling to Pain',
+        texte: 'Only a Skaven of Clan Pestilens Hero with the Hard as Nails skill may choose this skill. The Skaven treats Stunned results as Knocked Down.',
+        reserve_a: 'Requires the Hard as Nails skill',
+      },
+      frenesie_mortelle: {
+        nom: 'Deadly Frenzy',
+        texte:
+          'At the start of a turn, the Clan Pestilens Hero may declare that he is using this skill. He gains +1 Attack and 1D3" of Movement for the whole turn. In exchange, at the end of the turn, he suffers 1D3 Strength 3 hits, with no armour save allowed.',
+      },
+      porteur_dencensoir_a_peste: {
+        nom: 'Plague Censer Bearer',
+        texte:
+          'Only a Skaven of Clan Pestilens Hero with the Deadly Frenzy skill may choose this skill. This Skaven is called a censer bearer. He gains the Frenzy special rule and may only use a plague censer as a hand-to-hand weapon.',
+        reserve_a: 'Requires the Deadly Frenzy skill',
+      },
+      corps_putrefie: {
+        nom: 'Rotten Body',
+        texte:
+          'A Clan Pestilens Hero with this skill has grown accustomed to the poisons, infections, and lethal fumes of plague censers. He is now immune to poisons and diseases. If he is taken Out of Action following a failed Toughness test for carrying a plague censer, he does not roll on the Serious Injury table at the end of the game and is simply treated as having been overcome by the fumes.',
+      },
+      contagieux: {
+        nom: 'Contagious',
+        texte:
+          'Only a Clan Pestilens Hero with the Rotten Body skill may choose this skill. Any model that takes the contagious Skaven Out of Action must make a Toughness test. On a failure, the attacker suffers an automatic Wound. A roll of 6 always inflicts a Wound. Undead and Possessed are immune and never make this test.',
+        reserve_a: 'Requires the Rotten Body skill',
+      },
+    },
+    equipement: {
+      heros_pestilens: {
+        armes_cac: ['first free', 'mace', undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+      hommes_de_main_pestilens: {
+        armes_cac: ['first free', 'mace', undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Magic of the Horned Rat',
+      type: 'sorcery',
+      note: 'This sinister form of sorcery used by the skaven comes from their god, an infamous daemonic deity known as the Horned Rat.',
+      sorts: [
+        {
+          nom: 'Warpfire',
+          texte: 'Range 8", hits the first model in its path: D3 Strength 4 hits on the victim and a Strength 3 hit on every model within 2" of it.',
+        },
+        {
+          nom: 'Spawn of the Horned Rat',
+          texte: "Usable once before each game. Summons D3 Giant Rats placed within 6\" of the Preacher-Sorcerer; these rats do not count towards the warband's maximum model count.",
+        },
+        { nom: 'Fleshgnaw', texte: 'Causes 2D6 Strength 1 hits on a single model within 8" of the Preacher-Sorcerer.' },
+        {
+          nom: 'Black Fury',
+          texte: 'The Preacher-Sorcerer may immediately charge an enemy model of his choice within 12" (ignoring terrain and other models). He gains 2 extra Attacks and +1 Strength during the hand-to-hand combat phase of this turn only.',
+        },
+        {
+          nom: 'Eye of the Warp',
+          texte: 'All standing models in contact with the Preacher-Sorcerer must immediately make a Leadership test. Those who fail suffer a Strength 3 hit and must run 2D6" in the direction opposite the Preacher-Sorcerer.',
+        },
+        {
+          nom: "Sorcerer's Curse",
+          texte:
+            'Affects a model within 12": it must re-roll any successful to-hit roll or armour save during the following Skaven of Clan Pestilens hand-to-hand combat phase, as well as during the shooting and hand-to-hand combat phases of its next turn.',
+        },
+      ],
+    },
+  },
+
+  undead: {
+    nom: 'Undead (1a)',
+    profils: {
+      vampire: {
+        nom: 'Vampire',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior within 6" of the Vampire may use his Ld for their Leadership tests.' },
+          { nom: 'Causes Fear', texte: 'Vampires are Undead and cause Fear.' },
+          { nom: 'Immunity to Psychology', texte: 'Vampires are not affected by psychology and never leave combat.' },
+          { nom: 'Immunity to Poisons', texte: 'Vampires are not affected by any poison.' },
+          { nom: 'Unfeeling', texte: 'Vampires treat Stunned results as Knocked Down.' },
+        ],
+      },
+      necromancien: {
+        nom: 'Necromancer',
+        regles_speciales: [
+          { nom: 'Sorcerer', texte: 'Necromancers are spellcasters who use Necromancy (see Magic).' },
+        ],
+      },
+      paria: { nom: 'Dregs' },
+      zombie: {
+        nom: 'Zombie',
+        regles_speciales: [
+          { nom: 'Causes Fear', texte: 'Zombies are terrifying creatures and cause Fear.' },
+          { nom: 'Apathy', texte: 'Zombies have slow reactions and cannot run (but they may charge normally).' },
+          { nom: 'Immunity to Psychology', texte: 'Zombies are not affected by psychology and never leave combat.' },
+          { nom: 'Immunity to Poisons', texte: 'Zombies are not affected by any poison.' },
+          { nom: 'Unfeeling', texte: 'Zombies treat Stunned results as Knocked Down.' },
+          { nom: 'No Brain', texte: 'Zombies do not gain experience. They never learn from their mistakes.' },
+          { nom: 'Recruitment', texte: 'As many as you like.' },
+          { nom: 'Equipment', texte: 'Zombies may have no weapons or armour.' },
+        ],
+      },
+      goule: {
+        nom: 'Ghoul',
+        regles_speciales: [
+          { nom: 'Causes Fear', texte: 'Ghouls are repulsive, misshapen creatures that cause Fear.' },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5 models.' },
+          {
+            nom: 'Equipment',
+            texte: 'Ghouls never carry equipment, except for a few bones they use as blunt objects (no effect on gameplay).',
+          },
+        ],
+      },
+      loup_funeste: {
+        nom: 'Dire Wolf',
+        regles_speciales: [
+          { nom: 'Charge', texte: 'Dire wolves have two Attacks instead of one during the turn they charge.' },
+          { nom: 'Apathy', texte: 'Slow reactions, cannot run (but charge normally).' },
+          { nom: 'Causes Fear', texte: 'Dire wolves are terrifying creatures that cause Fear.' },
+          { nom: 'Immunity to Psychology', texte: 'Not affected by psychology and never leave combat.' },
+          { nom: 'Immunity to Poisons', texte: 'Not affected by any poison.' },
+          { nom: 'Corpses', texte: 'Dire wolves do not gain experience.' },
+          { nom: 'Unfeeling', texte: 'Treat Stunned results as Knocked Down.' },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    equipement: {
+      morts_vivants: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Necromancy',
+      type: 'sorcery',
+      note: 'Necromancy is the magic of the dead: it grants the power to awaken corpses and command spirits, but also to destroy the vitality of the living.',
+      sorts: [
+        {
+          nom: 'Life Drain',
+          texte:
+            'Choose a model within 6". The target suffers a Wound (with no save allowed) and the necromancer gains 1 extra Wound for the duration of the battle (may exceed his starting value). Does not affect Possessed or Undead models.',
+        },
+        {
+          nom: 'Raise Dead',
+          texte: 'A zombie taken Out of Action during the last hand-to-hand combat or shooting phase returns to the fight immediately, placed within 6" of the necromancer (not directly in base contact with an enemy).',
+        },
+        { nom: 'Vision of Death', texte: 'The necromancer causes Fear in his enemies for the duration of the battle.' },
+        {
+          nom: 'Doom',
+          texte: 'Choose an enemy model within 12"; it must roll 1D6 equal to or lower than its Strength to avoid being dragged down by the dead. On a failure, roll on the Injury table.',
+        },
+        {
+          nom: "Vanhel's Danse Macabre",
+          texte: 'A single zombie or dire wolf within 6" of the necromancer may move again with its full Movement; if this movement brings it into base-to-base contact with an enemy, it counts as having charged.',
+        },
+        {
+          nom: 'Awakening Incantation',
+          texte:
+            'If an enemy Hero is killed (result 11-16 on the Serious Injury table after the battle), the necromancer may awaken him and turn him into a servile zombie. The dead Hero follows all the zombie rules (Fear, Unfeeling, etc.) but keeps his characteristics, armour, and weapons; he may use no other equipment or skills, may no longer run, counts as his own Henchmen group, and can no longer gain experience. This spell always succeeds.',
+        },
+      ],
+    },
+  },
+
+  witch_hunters: {
+    nom: 'The Witch Hunters (1a)',
+    profils: {
+      capitaine_repurgateur: {
+        nom: 'Witch Hunter Captain',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior within 6" may use his Ld for Leadership tests.' },
+          { nom: 'To the Stake!', texte: 'The Witch Hunter Captain hates all spellcasters.' },
+        ],
+      },
+      pretre_guerrier: {
+        nom: 'Warrior Priest',
+        regles_speciales: [
+          { nom: 'Prayers', texte: 'A servant of Sigmar, may use the Prayers of Sigmar (see Magic).' },
+        ],
+      },
+      repurgateur: {
+        nom: 'Witch Hunter',
+        regles_speciales: [{ nom: 'To the Stake!', texte: 'Witch Hunters hate all spellcasters.' }],
+      },
+      seide: { nom: 'Warrior' },
+      flagellant: {
+        nom: 'Flagellant',
+        regles_speciales: [
+          {
+            nom: 'Fanatics',
+            texte: "Automatically pass all Leadership tests they might have to take. A Flagellant can never become the warband's leader.",
+          },
+          { nom: 'Equipment', texte: 'No armour allowed; never uses a missile weapon even via a skill that would permit it.' },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          { nom: 'Animals', texte: 'Never gain experience.' },
+          { nom: 'Equipment', texte: 'Fangs and brute force! Never use weapons or armour.' },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+        ],
+      },
+    },
+    equipement: {
+      repurgateurs: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined],
+        armes_tir: [undefined, '30gc per pair', undefined],
+      },
+      seides: {
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+    },
+    magie: {
+      nom: 'Prayers of Sigmar',
+      type: 'prayer',
+      note: 'Prayers are not considered spells: an armoured warrior may use them, and special protections against spells do not affect them.',
+      sorts: [
+        {
+          nom: "Sigmar's Hammer",
+          texte:
+            'The bearer gains +2 Strength in hand-to-hand combat, and all his hits cause double damage (1 Wound = 2 Wounds lost). The priest must test at every Shooting phase to use the Hammer.',
+        },
+        {
+          nom: 'Heart of Steel',
+          texte:
+            'Every allied warrior within 8" becomes immune to Fear and All Alone, and the whole warband gains +1 to its Rout tests. Not cumulative if cast multiple times; lasts until the caster is taken Out of Action.',
+        },
+        {
+          nom: 'Soul Fire',
+          texte: 'Any enemy model within 4" of the priest suffers a Strength 3 hit with no armour save (Strength 5 against Undead and Possessed).',
+        },
+        {
+          nom: 'Shield of Sigmar',
+          texte: 'The priest is immune to all spells. On a 1-2 at the start of each turn (Recovery phase), the shield dissipates.',
+        },
+        {
+          nom: 'Laying of Hands',
+          texte:
+            'Any model within 2" of the priest (himself included) recovers all lost Wounds; friendly models Stunned or Knocked Down within 2" immediately get back up and continue fighting normally.',
+        },
+        {
+          nom: 'Armour of Righteousness',
+          texte: 'The priest gains a 2+ save that replaces his armour save, causes Fear in his enemies, and is himself immune to it. Lasts until the start of his next Shooting phase.',
+        },
+      ],
+    },
+  },
+
+  orques_noirs: {
+    nom: 'Black Orcs (1b)',
+    regles_speciales: [
+      {
+        nom: 'Let the Real Boyz Do the Job',
+        texte:
+          'Black Orcs rely only on themselves to kill their enemies. They may therefore never have any kind of mount. Only common Orcs may ride boars or other mounts.',
+      },
+      {
+        nom: 'The Boss Got Done In!',
+        texte:
+          'If the Boss should be killed, command of the warband must pass to the Black Orc with the most experience, even if an Orc has more experience overall. The replacement automatically gains the special rule You Gonna Calm Down?!.',
+      },
+      {
+        nom: 'Animosity',
+        texte:
+          'Orcs love to fight. Unfortunately for them, they don\'t always tell who against. At the start of each Orc player\'s turn, roll 1D6 for every Orc Henchman not engaged in hand-to-hand combat (those already have something to sink their teeth into!). On a result of 1, the model has been annoyed by something one of his mates said or did. Then roll 1D6 on the following table to determine the result of this offence:\n\n1 — "Say that again!" The warrior decides that his nearest Orc Henchman ally has insulted his ancestors or something of the sort, and that he must pay for it! If an Orc Henchman or Hired Sword is within charge range (if there are several possible targets, choose the closest), the offended model immediately charges him and fights a round of hand-to-hand combat. At the end of the turn, the models are moved 1" apart and are no longer considered engaged in hand-to-hand combat (unless another Animosity test is failed and this result comes up again). If no Orc Henchman or Hired Sword is within charge range, and the affected model is equipped with a missile weapon, it immediately uses it against the nearest Orc Henchman or Hired Sword. If neither of these situations applies, or if the nearest model is a Hero, the affected model acts as if it had rolled the 2-5 "What\'d You Say?" result on this table. In every case, the model does nothing else this turn. However, it defends itself normally if engaged in hand-to-hand combat.\n\n2-5 — "What\'d You Say?" The warrior is convinced that one of his allies insulted him, but isn\'t quite sure which one. He spends the whole turn ranting at everyone and does absolutely nothing else. However, he defends himself normally if engaged in hand-to-hand combat.\n\n6 — "I\'ll Show \'Em!" The warrior imagines that his allies are mocking him behind his back and calling him names. He decides to show them he\'s no coward! The model must advance as fast as possible towards the nearest enemy model and charge it if possible. If no enemy model is visible, the warrior may immediately make a normal Move, in addition to his standard move during the Movement phase. If the first move brings the model within charge range of an enemy, it must charge during its next Movement phase.',
+      },
+    ],
+    profils: {
+      boss_orque_noir: {
+        nom: 'Black Orc Boss',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warband member within 6" of the Black Orc Boss may use his Leadership for their tests.' },
+          {
+            nom: 'Black Orc',
+            texte: 'The model starts with a natural armour save of 6+. It may be combined with any equipment that would improve it.',
+          },
+          {
+            nom: 'You Gonna Calm Down?!',
+            texte:
+              'If an Orc Henchman fails his Animosity test within 6" of the Black Orc Boss, the Black Orc player may choose to have the Boss step in. The Black Orc Boss decides to calm things down by kicking a few backsides… The unruly Orc Henchman suffers an automatic hit of a Strength chosen by the Black Orc player. If the Orc Henchman is still standing after the smack, he adds a number equal to the Strength of the blow received to the result rolled on the Animosity table. For example, the player decides the Black Orc Boss gives an unruly Orc Henchman a Strength 2 clout. If he is not Knocked Down, Stunned, or Out of Action after the beating, the player adds +2 to the result on the Animosity table.',
+          },
+        ],
+      },
+      orque_noir: {
+        nom: 'Black Orcs',
+        regles_speciales: [
+          {
+            nom: 'Black Orc',
+            texte: 'The model starts with a natural armour save of 6+. It may be combined with any equipment that would improve it.',
+          },
+        ],
+      },
+      pti_mek: {
+        nom: "Young'un",
+        regles_speciales: [
+          {
+            nom: 'Black Orc Blood',
+            texte:
+              'Once he has accumulated 25 experience points, a Young\'un may be promoted to "Black Orc Young\'un". He must first undergo a rite of passage to become a Black Orc Young\'un, whose preparations cost 10 Gold Crowns. Once this rite is completed, the next time he is due to choose a new skill, he may instead gain the Black Orc special rule. He then becomes a fully-fledged Black Orc and gains access to their equipment list and the same skills as them.',
+          },
+        ],
+      },
+      kastagneurs_orques: {
+        nom: 'Orc Bruisers',
+        regles_speciales: [
+          { nom: 'Animosity', texte: "Orc Bruisers are subject to animosity (see the warband's special rules)." },
+        ],
+      },
+      chasseurs_orques: {
+        nom: 'Orc Hunters',
+        regles_speciales: [
+          { nom: 'Animosity', texte: "Orc Hunters are subject to animosity (see the warband's special rules)." },
+          {
+            nom: 'Uncommon',
+            texte: 'A warband may never hire more Hunters than Bruisers. If a Bruiser dies and there are more Hunters than Bruisers, the next recruit must be a Bruiser to restore the balance.',
+          },
+        ],
+      },
+      ding_boyz: {
+        nom: "Ding'boyz",
+        regles_speciales: [
+          {
+            nom: 'Unstable',
+            texte: "These Orcs aren't quite right in the head. They don't suffer from Animosity, but from a whole host of other problems.",
+          },
+          {
+            nom: 'Mad',
+            texte:
+              "Ding'boyz automatically pass all Leadership tests. The downside is that their minds are so disturbed that, should they become Heroes following an advance roll, they would be unable to learn even a single Academic skill.",
+          },
+          {
+            nom: 'Savage',
+            texte:
+              "Ding'boyz must always run or charge at full Movement towards the nearest visible enemy. Friendly models do not block line of sight. If there is no visible enemy, the Black Orc player may move them normally. In hand-to-hand combat, they get an extra Attack. This Attack does not appear on their profile and does not count towards the racial maximum. Ding'boyz may not wear armour or carry missile weapons. They are also too unstable for the other Orcs, who will refuse to let one of them become their Boss. Their Leadership may also not be used for Rout tests, unless the Ding'boyz are the only models left in the warband.",
+          },
+        ],
+      },
+      troll: {
+        nom: 'Troll',
+        regles_speciales: [
+          {
+            nom: 'Weapons/Armour',
+            texte: 'Trolls could easily do without weapons, but they carry a big club regardless. In game terms, they may not be given weapons or armour.',
+          },
+          { nom: 'Fear', texte: 'Trolls are frightening creatures and cause Fear.' },
+          { nom: 'Zero IQ', texte: 'Trolls are far too stupid to learn anything. They never gain experience.' },
+          {
+            nom: 'Regeneration',
+            texte:
+              'Trolls have a unique physiology that lets them heal wounds far faster than any other creature. Whenever a Troll suffers a Wound, of any kind, roll 1D6. On a 4+, the Wound is simply ignored. Trolls cannot regenerate wounds caused by fire or by fire-based spells. They do not roll on the Serious Injury table at the end of the game.',
+          },
+          { nom: 'Stupidity', texte: 'Trolls are subject to the Stupidity rules.' },
+          {
+            nom: 'Always Hungry',
+            texte:
+              "A Troll is rather expensive to keep; it must be stuffed with a colossal amount of food to ensure its loyalty to the warband. The warband must spend 20 gc after each battle to feed the Troll. If it cannot afford this, the Boss may choose to count it as 2 members, which reduces the Troll's upkeep cost to 5 gc. However, the maximum number of warriors allowed in the warband then drops to 11. If you still cannot pay, the Troll will leave the warband for good to find its own food.",
+          },
+          {
+            nom: 'Vomit',
+            texte: 'Instead of making its normal attacks, a Troll may regurgitate its highly corrosive stomach fluids onto its unfortunate opponent. This single attack hits automatically, is resolved at Strength 5, and ignores armour saves.',
+          },
+          {
+            nom: 'Large Target',
+            texte: 'Trolls are huge creatures that make good targets for archers. They are Large Targets, as defined in the Shooting rules.',
+          },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: 'Fighting Dog',
+            texte: 'Fights exactly like a warband member, although it is part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never gains experience', texte: 'A war dog stays at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          {
+            nom: 'Versatile profile',
+            texte: 'Can be used to represent more exotic animals (a trained bear, a Chaos familiar, a Southlands fighting monkey...).',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      tet_dure: {
+        nom: 'Thick Skull',
+        texte:
+          "The warrior has a particularly thick skull, even for an Orc. This Orc gets a special 3+ save on 1D6 to avoid being Stunned. If the save is successful, the model is simply Knocked Down instead. If the Orc also wears a helmet, this save becomes 2+ instead of 3+ (replacing the helmet's usual special rule).",
+      },
+      waaagh: {
+        nom: 'Waaagh!',
+        texte: 'Orcs are aggressive creatures who love to charge into the fray. The Hero adds +1D3" to his charge range.',
+      },
+      on_y_va: {
+        nom: "Let's Go!",
+        texte: 'Orcs don\'t hesitate to rush into combat, even against fearsome opponents. The Hero ignores Fear and Terror tests when charging.',
+      },
+      revenez_ici: {
+        nom: "Come Back 'Ere!",
+        texte: 'Only the Boss may take this skill. The warband may re-roll all failed Rout tests as long as the Boss has not been taken Out of Action.',
+        reserve_a: 'Black Orc Boss only',
+      },
+      coup_de_boule: {
+        nom: 'Headbutt',
+        texte: 'Orcs are fairly muscular creatures, and some are used to striking their opponents with great headbutts, with rather conclusive results. Any model Knocked Down in hand-to-hand combat is treated as Stunned.',
+      },
+    },
+    equipement: {
+      orques_noirs: {
+        armes_cac: ['first free', undefined, undefined, 'Choppa (counts as a Morning Star)', undefined, undefined],
+      },
+      pti_meks: {
+        armes_cac: ['first free', undefined, undefined, 'Choppa (counts as a Morning Star)', undefined],
+      },
+      kastagneurs: {
+        armes_cac: ['first free', undefined, undefined, 'Choppa (counts as a Morning Star)', undefined, undefined],
+      },
+      ding_boyz: {
+        armes_cac: ['first free', undefined, undefined, 'Choppa (counts as a Morning Star)', undefined, undefined],
+      },
+      chasseurs: {
+        armes_cac: ['first free', undefined, undefined, 'Choppa (counts as a Morning Star)', undefined],
+      },
+    },
+  },
 };
 
 function translateRegles(regles: SpecialRule[], en: RegleTraduite[] | undefined): SpecialRule[] {

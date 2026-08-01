@@ -128,26 +128,32 @@
   ],
   "competences_speciales": [
     {
+      "id": "maitre_trappeur",
       "nom": "Maître trappeur",
       "texte": "La portée des collets posés par ce Héros est augmentée pour atteindre 4ps. Les pièges posés par un maître trappeur se déclenchent sur un résultat de 2+ au lieu de 3+."
     },
     {
+      "id": "effluve_nauseabonde",
       "nom": "Effluve nauséabonde",
       "texte": "Tous les ennemis vivants (hors Morts-Vivants et Possédés) subissent un malus de -1 au toucher au Corps à corps contre ce Héros. De plus, il ne peut porter aucune flamme, et les attaques enflammées qui le touchent bénéficient d'un bonus de +1 en Force."
     },
     {
+      "id": "ami_des_betes",
       "nom": "Ami des bêtes",
       "texte": "Le Héros ne peut être attaqué par aucun animal et jusqu'à deux chiens de guerre en sa possession ne sont pas comptabilisés dans le nombre maximum de figurines de la bande."
     },
     {
+      "id": "infiltration",
       "nom": "Infiltration",
       "texte": "Le Héros est toujours placé sur le champ de bataille après la bande adverse. Il peut être placé n'importe où sur la table tant qu'il est hors de vue et à plus de 12ps de tout combattant ennemi. Si les deux joueurs ont des combattants qui s'infiltrent, chacun lance 1D6 ; le résultat le plus bas se déploie en premier."
     },
     {
+      "id": "guide",
       "nom": "Guide",
       "texte": "Lancez 1D6 supplémentaire pendant la phase d'Exploration. Une bande ne peut avoir qu'un seul Héros avec la compétence guide."
     },
     {
+      "id": "cache_dans_les_ombres",
       "nom": "Caché dans les ombres",
       "texte": "Les combattants ennemis doivent réduire de moitié leur Initiative lorsqu'ils tentent de détecter ce Héros quand il est caché."
     }
