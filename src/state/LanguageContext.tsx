@@ -6,7 +6,7 @@ import type { Language } from './useLanguage';
 import { uiDictionary } from '../i18n/ui';
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('fr');
+  const [language, setLanguageState] = useState<Language>('en');
 
   useEffect(() => {
     getSetting<Language>('language').then((saved) => {
