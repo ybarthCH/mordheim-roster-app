@@ -24,6 +24,7 @@ import { evenementExploration } from './evenementExploration';
 import { etapeCommerce } from './etapeCommerce';
 import { postBatailleScreen } from './postBatailleScreen';
 import { catalogueReference } from './catalogueReference';
+import { catalogueReferenceLists } from './catalogueReferenceLists';
 import { skillCategories } from './skillCategories';
 import { statFullNames } from './statFullNames';
 
@@ -56,6 +57,7 @@ export const uiDictionary: UiDictionary = {
   ...etapeCommerce,
   ...postBatailleScreen,
   ...catalogueReference,
+  ...catalogueReferenceLists,
   ...skillCategories,
   ...statFullNames,
 };

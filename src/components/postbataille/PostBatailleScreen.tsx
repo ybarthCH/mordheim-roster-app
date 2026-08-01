@@ -11,7 +11,7 @@ import type { Stats } from '../../types/catalog';
 import type { BattleRecord, JournalPostBataille, Member, RosterInstance, SeriousInjuryEffect } from '../../types/roster';
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 import { estRetablissementIsole } from '../../data/blessuresGraves';
-import { appliquerDeltaStats } from '../../utils/blessures';
+import { appliquerDeltaStats, nomCourtBlessureAffiche } from '../../utils/blessures';
 import { creerEntreeInventaire, creerEntreesInventaire } from '../../utils/shop';
 import { estLeaderActuel, resolveLeader, succederApresMorts } from '../../utils/leader';
 import type { ShopItem } from '../../utils/shop';
@@ -371,7 +371,7 @@ export function PostBatailleScreen() {
     .filter(([, d]) => d.description.trim())
     .map(([instanceId, d]) => ({
       nom: roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?',
-      blessure: d.nom,
+      blessure: nomCourtBlessureAffiche(d, language),
     }));
   // Gains de trésorerie issus de résultats de blessure grave automatisés
   // (ex : victoire au combat de Gladiateur, +50 po).

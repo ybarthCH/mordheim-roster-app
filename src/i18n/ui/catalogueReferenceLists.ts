@@ -1,0 +1,50 @@
+import type { UiDictionary } from './types';
+
+// Libellés traduits des clés internes de `catalogue.equipement` (voir
+// LIBELLES_LISTES dans CatalogueReference.tsx) — ces clés structurent les
+// données par groupe de combattants ou par style d'équipement propre à une
+// bande, et n'ont pas d'autre home dans le système de traduction (ce ne
+// sont ni des noms de profil, ni des objets du catalogue commun).
+export const catalogueReferenceLists: UiDictionary = {
+  'catalogueReference.list.artilleurs_de_nuln': { fr: 'Artilleurs de Nuln', en: 'Nuln Gunners' },
+  'catalogueReference.list.tireurs_delite': { fr: "Tireurs d'élite", en: 'Sharpshooters' },
+  'catalogueReference.list.montures_nuln': { fr: 'Montures', en: 'Mounts' },
+  'catalogueReference.list.eclaireurs': { fr: 'Éclaireurs', en: 'Scouts' },
+  'catalogueReference.list.gardes_des_montagnes': { fr: 'Gardes des montagnes', en: 'Mountain Guards' },
+  'catalogueReference.list.hommes_betes': { fr: 'Hommes-bêtes', en: 'Beastmen' },
+  'catalogueReference.list.kermesse': { fr: 'Membres de la Kermesse', en: 'Carnival Members' },
+  'catalogueReference.list.culte_des_possedes': { fr: 'Culte des Possédés', en: 'Cult of the Possessed' },
+  'catalogueReference.list.damnes': { fr: 'Damnés', en: 'Damned' },
+  'catalogueReference.list.guerriers_nains': { fr: 'Guerriers nains', en: 'Dwarf Warriors' },
+  'catalogueReference.list.tireurs_nains': { fr: 'Tireurs nains', en: 'Dwarf Sharpshooters' },
+  'catalogueReference.list.pelerins': { fr: 'Pèlerins', en: 'Pilgrims' },
+  'catalogueReference.list.paysans_archers': { fr: 'Paysans archers', en: 'Peasant Archers' },
+  'catalogueReference.list.style_orque': { fr: 'Style Orque', en: 'Orc Style' },
+  'catalogueReference.list.style_mort_vivant': { fr: 'Style Morts-vivants', en: 'Undead Style' },
+  'catalogueReference.list.style_empire': { fr: 'Style Empire', en: 'Empire Style' },
+  'catalogueReference.list.style_chaos': { fr: 'Style Chaos', en: 'Chaos Style' },
+  'catalogueReference.list.style_skink': { fr: 'Style Skink', en: 'Skink Style' },
+  'catalogueReference.list.style_furie': { fr: 'Style Furie', en: 'Fury Style' },
+  'catalogueReference.list.ogres_trolls': { fr: 'Ogres et Trolls', en: 'Ogres and Trolls' },
+  'catalogueReference.list.heros': { fr: 'Héros', en: 'Heroes' },
+  'catalogueReference.list.hommes_de_main': { fr: 'Hommes de main', en: 'Henchmen' },
+  'catalogueReference.list.guerriers_kislevites': { fr: 'Guerriers kislévites', en: 'Kislevite Warriors' },
+  'catalogueReference.list.heroes': { fr: 'Héros', en: 'Heroes' },
+  'catalogueReference.list.morts_vivants': { fr: 'Morts-vivants', en: 'Undead' },
+  'catalogueReference.list.nains_du_chaos': { fr: 'Nains du Chaos', en: 'Chaos Dwarfs' },
+  'catalogueReference.list.delateurs': { fr: 'Délateurs', en: 'Informers' },
+  'catalogueReference.list.heros_armes': { fr: 'Héros (armes)', en: 'Heroes (weapons)' },
+  'catalogueReference.list.heros_armures': { fr: 'Héros (armures)', en: 'Heroes (armour)' },
+  'catalogueReference.list.chasseurs_norses': { fr: 'Chasseurs norses', en: 'Norse Hunters' },
+  'catalogueReference.list.orques_noirs': { fr: 'Orques Noirs', en: 'Black Orcs' },
+  'catalogueReference.list.pti_meks': { fr: "P'tits Meks", en: 'Little Meks' },
+  'catalogueReference.list.ding_boyz': { fr: 'Ding Boyz', en: 'Ding Boyz' },
+  'catalogueReference.list.jaegers': { fr: 'Jägers', en: 'Jägers' },
+  'catalogueReference.list.soeurs_de_sigmar': { fr: 'Sœurs de Sigmar', en: 'Sisters of Sigmar' },
+  'catalogueReference.list.heros_skavens': { fr: 'Héros skavens', en: 'Skaven Heroes' },
+  'catalogueReference.list.hommes_de_main_skavens': { fr: 'Hommes de main skavens', en: 'Skaven Henchmen' },
+  'catalogueReference.list.heros_pestilens': { fr: 'Héros Pestilens', en: 'Pestilens Heroes' },
+  'catalogueReference.list.hommes_de_main_pestilens': { fr: 'Hommes de main Pestilens', en: 'Pestilens Henchmen' },
+  'catalogueReference.list.repurgateurs': { fr: 'Répurgateurs', en: 'Witch Hunters' },
+  'catalogueReference.list.seides': { fr: 'Séides', en: 'Zealots' },
+};
