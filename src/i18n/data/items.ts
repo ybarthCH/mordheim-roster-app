@@ -1778,6 +1778,911 @@ export const itemsEn: Record<string, ItemTraduit> = {
       },
     ],
   },
+
+  // --- Armes de corps à corps (1/2) ---
+  aiguillon_a_squigs: {
+    nom: 'Squig Prod',
+    texte:
+      "This is a trident fixed to the end of a long pole and used by goblins to push squigs in the right direction. Squigs have learned to recognise a prod and hold a certain respect for whoever carries it!",
+    regles_speciales: [
+      {
+        nom: 'Herder',
+        texte: "A Goblin equipped with a squig prod can control any Squig within 12\" instead of the normal 6\" (see the Squigs' special rule at heel!).",
+      },
+      {
+        nom: 'Cavalry Bonus',
+        texte: 'A rider armed with this weapon gets a +1 Strength bonus when charging. This bonus only applies during the turn he charges.',
+      },
+      { nom: 'Hard to Wield', texte: 'A fighter armed with this weapon may carry a shield or buckler normally, but not an additional weapon.' },
+      {
+        nom: 'Strikes First',
+        texte: 'A fighter equipped with this weapon strikes first during the first round of hand-to-hand combat, even when charged.',
+      },
+    ],
+  },
+  arme_a_deux_mains: {
+    nom: 'Two-Handed Weapon (sword, axe, two-handed hammer)',
+    texte:
+      'A blow from a two-handed sword or axe can cut a man in two and smash through his armour. It takes a long time to learn to use these weapons, and only the strongest can wield them effectively.',
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      { nom: 'Strikes Last', texte: 'The weapon is so heavy that its wielder always strikes last, even when charging.' },
+    ],
+  },
+  arme_contondante_une_main: {
+    nom: 'One-Handed Blunt Weapon (staff, club, mace, hammer)',
+    texte:
+      'These rudimentary, blunt weapons range from primitive clubs to dwarf hammers forged from the finest steel. A blow from a mace can easily crack a skull or knock a man out.',
+    regles_speciales: [
+      { nom: 'Blunt', texte: 'A damage roll of 2-4 (instead of the usual 3-4) is treated as Stunned.' },
+    ],
+  },
+  attendrisseur: {
+    nom: 'Meat Tenderiser',
+    texte: 'Even if other warbands mock your rolling pins and meat tenderisers, they are perfectly capable of crushing a skull or knocking out an opponent.',
+    regles_speciales: [
+      { nom: 'Blunt', texte: 'A damage roll of 2-4 (instead of the usual 3-4) is treated as Stunned.' },
+    ],
+  },
+  baton_dboss: {
+    nom: 'Boss Stick',
+    texte: 'Some influential goblins carry insignia of office, usually in the form of long wooden poles with an icon or a sharp blade at the end.',
+    regles_speciales: [
+      { nom: 'Authority', texte: 'Allows Heroes and all Goblin Henchmen within 6" and in line of sight to ignore animosity.' },
+      {
+        nom: 'Cavalry Bonus',
+        texte: 'A rider armed with this weapon gets a +1 Strength bonus when charging. This bonus only applies during the turn he charges.',
+      },
+      { nom: 'Hard to Wield', texte: 'A fighter armed with this weapon may carry a shield or buckler normally, but not an additional weapon.' },
+      {
+        nom: 'Strikes First',
+        texte: 'A fighter equipped with this weapon strikes first during the first round of hand-to-hand combat, even when charged.',
+      },
+    ],
+  },
+  baton_ardent: {
+    nom: 'Fiery Staff',
+    texte:
+      'The fiery staff is a weapon commonly used by Witch Hunters. It consists of a long shaft topped with a small iron-covered brazier. In combat, the weapon takes on a supernatural quality as the embers light up the night, while enemies catch fire and writhe in an agony of flame.',
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      {
+        nom: 'Fire',
+        texte:
+          'The brazier of burning coals atop the staff is deadly. Whenever you score a hit with the Fiery Staff, roll 1D6. On a 5+, the victim catches fire. If the warrior survives the attack, during the Recovery phase he must roll a 4+ to put out the flames or suffer a Strength 4 hit and be able to do nothing but move until the fire is out. Other members of his warband can help put out the flames. They must move into base contact and roll a 4+ during the Recovery phase.',
+      },
+    ],
+  },
+  baton_de_combat: {
+    nom: 'Fighting Staff',
+    texte: 'Fighting staves are traditional weapons of the warrior monk brotherhoods.',
+    regles_speciales: [
+      { nom: 'Balanced', texte: 'A fighting staff is particularly light and easy to wield. A warrior equipped with a fighting staff gets +1 Initiative in hand-to-hand combat.' },
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+      {
+        nom: 'Free Style',
+        texte:
+          "Although a fighting staff does not always require the use of both hands, it does not allow the use of a shield, buckler, or additional weapon in hand-to-hand combat. However, it can be combined with the Monk's bare-handed attacks. As a result, a Monk always gets the +1 Attack bonus.",
+      },
+    ],
+  },
+  baton_du_serpent: {
+    nom: 'Serpent Staff',
+    texte: "The highest liche priests of their order bear, as the insignia of their office, a staff adorned with a serpent's head.",
+    regles_speciales: [
+      { nom: 'Autonomy', texte: "Once activated, the staff strikes autonomously and uses its own Weapon Skill of 4 instead of its bearer's." },
+      {
+        nom: 'Strikes First',
+        texte:
+          'A fighter equipped with this weapon strikes first during the first round of hand-to-hand combat, even when charged. The Liche Priest may forgo all his attacks and parries for a turn in order to use the power contained within the staff. A single word of power brings to life the serpent that it strikes.',
+      },
+      {
+        nom: 'Parry',
+        texte:
+          'The staff is wielded with both hands and may be used to parry. When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+    ],
+  },
+  bec_de_corbin: {
+    nom: 'Lucerne Hammer',
+    texte: 'A Tilean invention, the Lucerne hammer is a polearm that combines the best aspects of a halberd, a spear, and a war hammer.',
+    regles_speciales: [
+      { nom: 'Reach', texte: 'When charged, a fighter armed with a Lucerne hammer strikes in Initiative order instead of striking last.' },
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      { nom: 'Blunt', texte: 'A damage roll of 2-4 (instead of the usual 3-4) is treated as Stunned, although Dwarfs are immune to this effect.' },
+    ],
+  },
+  chaine_et_boulet_cac: {
+    nom: 'Chain & Ball',
+    texte:
+      'This is a huge ball fixed to the end of a long chain. It is the favourite weapon of the infamous Night Goblin Fanatics. Extremely heavy and hard to wield, this weapon requires the consumption of fool\'s cap mushrooms.',
+    regles_speciales: [
+      {
+        nom: 'Cumbersome',
+        texte:
+          'The chain & ball is so heavy that a model equipped with it cannot carry any other weapon or equipment. In addition, only a model under the influence of fool\'s cap mushrooms has the strength necessary to wield this weapon.',
+      },
+      {
+        nom: 'Colossal Force',
+        texte:
+          'The impact of the enormous ball, boosted by the speed given to it by the chain, renders ordinary armour of little use. No armour save is therefore allowed against Wounds inflicted by this weapon. In addition, any successful hit could well decapitate the victim (or at least break a few limbs!): any Wound suffered inflicts 1D3 Wounds instead of just one.',
+      },
+      {
+        nom: 'Exhausting',
+        texte:
+          "The effort required to wield this weapon can cause muscle damage or even dislocate a shoulder. Under the influence of the fool's cap mushrooms, the warrior feels no pain and won't even notice, but once the effects wear off, it's a different story... To represent this, after the battle, every model that used a chain & ball must make an Injury roll, as if it had been taken Out of Action. If the model was actually taken Out of Action, make only one roll, not two.",
+      },
+      {
+        nom: 'Unpredictable',
+        texte:
+          "The only way to use this weapon is to swing it above your head, using your own body as a counterweight. This is unfortunately not the most reliable way to fight, and once he starts swinging the ball, the warrior loses much control over his fate. On the turn he starts swinging his ball, the warrior is moved 2D6\" in a direction chosen by the player. For subsequent Movement phases, roll 1D6: 1 = the model tangles itself up and strangles itself with its own chain, taken Out of Action (killed on 1-2 instead of 1-3 on the Serious Injury roll). 2-5 = moved 2D6\" in the direction chosen by the player. 6 = moved 2D6\" in a random direction (scatter die: 1 straight ahead, 2-3 to the right, 4-5 to the left, 6 backwards). If it hits a building, wall, or other obstacle, it is immediately taken Out of Action. A model wishing to attack a warrior carrying this weapon suffers a -1 penalty to hit, as it must be careful not to take the ball to the head. A warrior equipped with a chain & ball is not locked into hand-to-hand combat, even if he is in contact with another model at the start of his Movement phase. If the model ends up in contact with a model (friend or foe), it is treated as having charged and remains engaged in hand-to-hand combat until its next Movement phase.",
+      },
+      {
+        nom: 'Deranged',
+        texte: 'The warrior is far too busy controlling his weapon to pay attention to what those around him are saying. He is therefore immune to animosity.',
+      },
+    ],
+  },
+  chat_a_neuf_queues: {
+    nom: "Cat o' Nine Tails",
+    texte:
+      'Aboard ship, order is often kept under threat of the whip. In combat, this long barbed whip is also used, but this time to punish the enemy!',
+    regles_speciales: [
+      { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
+      {
+        nom: 'Crack',
+        texte:
+          "A model armed with a cat o' nine tails gets +1 Attack when charging, in addition to any other bonus. When charged, it also gets +1 Attack that may only be used against the model that charged it. This extra attack strikes first. If the bearer is charged by 2 or more enemies, this bonus remains +1 Attack. If the bearer fights with two whips, he gets +1 Attack for his additional base weapon, but only his first whip benefits from the +1 Attack from Crack.",
+      },
+      { nom: 'Cannot Be Parried', texte: 'Attempts to parry this weapon are useless, whether with a sword or a buckler.' },
+    ],
+  },
+  couteau_de_cuisine: {
+    nom: 'Kitchen Knife',
+    texte: "The ordinary kitchen knife isn't just for cutting vegetables. In the pudgy but expert hands of a Master Cook, it can wreak havoc among the enemy ranks!",
+    regles_speciales: [
+      { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
+    ],
+  },
+  dague: {
+    nom: 'Dagger',
+    texte: "Daggers and knives are very common and can be carried where other weapons are forbidden. In Mordheim, more than one warrior has died with a knife between his shoulder blades.",
+    regles_speciales: [
+      { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
+    ],
+  },
+  dague_de_la_peste: {
+    nom: 'Plague Dagger',
+    texte: 'This dagger is permanently coated with a disgusting substance resembling green mould. Wounds inflicted by this dagger can cause terrible diseases.',
+    regles_speciales: [
+      { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
+      {
+        nom: 'Poison',
+        texte:
+          'A result of 6 on the roll to hit infects the target with disease. It must make a Toughness test. If it fails, the target suffers an automatic Wound in addition to any Wound potentially caused by the dagger. Undead and Possessed are immune to disease and do not need to make this test. If the model uses two plague daggers, it gets an extra attack, with no other effect besides an extra chance of rolling a 6.',
+      },
+    ],
+  },
+  dague_empoisonnee_hobgobeline: {
+    nom: 'Hobgoblin Poisoned Dagger',
+    texte:
+      "Hobgoblins, also called 'cretins', poison the blades of their daggers. Cunning and sly, they are often employed as assassins by their masters, though they are unreliable and vulnerable troops.",
+    regles_speciales: [
+      { nom: '+1 Armour Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
+      {
+        nom: 'Pair',
+        texte: 'These weapons are traditionally used in pairs, one in each hand. A warrior with these weapons gets +1 Attack.',
+      },
+      { nom: 'Fast', texte: 'The weapon grants +1 Initiative when determining combat order.' },
+      {
+        nom: 'Venom',
+        texte: "The venom of the poisoned daggers enters the victim's bloodstream and ravages its organs and muscles. These weapons are equivalent to those coated with black lotus. No other poison may be added to them.",
+      },
+    ],
+  },
+  encensoir_a_peste: {
+    nom: 'Plague Censer',
+    texte:
+      'The plague censer is a hollow, spike-covered metal sphere attached to a long chain that swings like a flail. A fragment of warpstone infected with plague burns at the heart of the ball and gives off a foul smoke. This smoke nauseates opponents and can make the censer bearer a difficult target to hit.',
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      {
+        nom: 'Deadly Mist',
+        texte:
+          'A fighter hit by a plague censer must make a Toughness test. If he fails, he suffers an automatic Wound in addition to any Wound potentially caused by the censer. A result of 6 always inflicts a Wound. In addition, the censer\'s bearer must also make the test and will suffer a Wound on a result of 6. Undead and Possessed are immune to disease and do not need to make this test. If the Skaven wielding the plague censer also has glowing warpstone fragments, he becomes a difficult target to hit, and those aiming at him with missile weapons suffer a -1 penalty to hit.',
+      },
+      {
+        nom: 'Fatigue',
+        texte: 'Wielding this weapon is very tiring, and the Strength bonus only applies during the first round of each hand-to-hand combat.',
+      },
+    ],
+  },
+  epee: {
+    nom: 'Sword',
+    texte:
+      'The sword is often considered the queen of weapons. The most common sword available, the Imperial longsword, is a masterpiece for any blacksmith: four feet of gleaming steel with two razor-sharp edges. Swords are far more effective weapons than crude clubs or axes, though learning to use them is long and difficult.',
+    regles_speciales: [
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+    ],
+  },
+  epee_courte: {
+    nom: 'Short Sword',
+    regles_speciales: [
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+      { nom: '+1 Armour Save', texte: 'Note: for the master swordsman skill, the short sword counts as a sword.' },
+    ],
+  },
+  epee_batarde: {
+    nom: 'Bastard Sword',
+    regles_speciales: [
+      { nom: 'Strikes Last', texte: 'The weapon is so heavy that its wielder always strikes last, even when charging.' },
+      { nom: 'Difficult to Wield', texte: 'A fighter armed with this weapon may carry a shield normally, but not an additional weapon or buckler.' },
+      {
+        nom: 'Note',
+        texte: "Even though the word 'sword' appears in its name, a bastard sword cannot be used to parry. It is nonetheless considered a sword for the master swordsman skill.",
+      },
+    ],
+  },
+  epee_des_etoiles: {
+    nom: 'Blade of the Stars',
+    texte: 'This is an ancient and legendary sword whose edge can cut through armour like butter.',
+    regles_speciales: [
+      {
+        nom: 'No Save',
+        texte: 'The weapon can pass through any material. A fighter Wounded by this weapon gets no armour save, except for magical protections and side-step.',
+      },
+    ],
+  },
+  epee_dragon: {
+    nom: 'Dragon Sword',
+    texte: 'Dragon swords are large swords, typically used by Cathayan soldiers and ronin and occasionally wielded by monks.',
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+    ],
+  },
+  fleau: {
+    nom: 'Flail',
+    texte:
+      'The flail is a heavy weapon wielded with both hands. It usually consists of heavy balls, often covered in spikes, attached to a handle by sturdy chains. Flails are very tiring to wield, but terribly destructive in the hands of a skilled warrior.',
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      { nom: 'Fatigue', texte: 'Wielding this weapon is very tiring, and the Strength bonus only applies during the first round of each hand-to-hand combat.' },
+    ],
+  },
+  fouet_a_betes: {
+    nom: 'Beast Whip',
+    texte: 'Beastmasters use barbed whips to drive their creatures into battle.',
+    regles_speciales: [
+      {
+        nom: 'Bane of Beasts',
+        texte:
+          'A Beastmaster armed with a beast whip causes fear in animals. Any animal charged by, or wishing to charge, a Beastmaster must therefore make a fear test according to the usual rules in the Mordheim Rulebook.',
+      },
+      {
+        nom: 'Crack',
+        texte:
+          'A model armed with the beast whip gets +1 Attack when charging, in addition to any other bonus. When charged, it also gets +1 Attack that may only be used against the model that charged it. This extra attack strikes first. If the bearer is charged by 2 or more enemies, this bonus remains +1 Attack. If the bearer fights with two whips, he gets +1 Attack for his additional base weapon, but only his first whip benefits from the +1 Attack from Crack.',
+      },
+    ],
+  },
+  fouet_barbele: {
+    nom: 'Barbed Whip',
+    texte: 'Originally used to tame wild Chaos hounds, barbed whips have also proven effective in combat.',
+    regles_speciales: [
+      {
+        nom: 'Crack',
+        texte:
+          'A model armed with a barbed whip gets +1 Attack when charging, in addition to any other bonus. When charged, it also gets +1 Attack that may only be used against the model that charged it. This extra attack strikes first. If the bearer is charged by 2 or more enemies, this bonus remains +1 Attack. If the bearer fights with two whips, he gets +1 Attack for his additional base weapon, but only his first whip benefits from the +1 Attack from Crack.',
+      },
+      {
+        nom: 'Enrage',
+        texte: 'The Hero may use his whip to drive the Chaos Hounds into a wild charge. Unless engaged in hand-to-hand combat, all Chaos Hounds within 4" gain +1 Attack.',
+      },
+      { nom: 'Cannot Be Parried', texte: 'Attempts to parry this weapon are useless, whether with a sword or a buckler.' },
+    ],
+  },
+  fouet_dacier: {
+    nom: 'Steel Whip',
+    texte: "Another unique weapon of the Order, made of barbed steel chains.",
+    regles_speciales: [
+      {
+        nom: 'Crack',
+        texte:
+          'A model armed with a steel whip gets +1 Attack when charging, in addition to any other bonus. When charged, it also gets +1 Attack that may only be used against the model that charged it. This extra attack strikes first. If the bearer is charged by 2 or more enemies, this bonus remains +1 Attack. If the bearer fights with two whips, he gets +1 Attack for his additional base weapon, but only his first whip benefits from the +1 Attack from Crack.',
+      },
+      { nom: 'Cannot Be Parried', texte: 'Attempts to parry this weapon are useless, whether with a sword or a buckler.' },
+    ],
+  },
+  fouet_dhedoniste: {
+    nom: "Hedonist's Whip",
+    regles_speciales: [
+      {
+        nom: 'Crack',
+        texte:
+          "A model armed with a hedonist's whip gets +1 Attack when charging, in addition to any other bonus. When charged, it also gets +1 Attack that may only be used against the model that charged it. This extra attack strikes first. If the bearer is charged by 2 or more enemies, this bonus remains +1 Attack. If the bearer fights with two whips, he gets +1 Attack for his additional base weapon, but only his first whip benefits from the +1 Attack from Crack.",
+      },
+      { nom: 'Cannot Be Parried', texte: 'Attempts to parry this weapon are useless, whether with a sword or a buckler.' },
+    ],
+  },
+  gaffe: {
+    nom: 'Boat Hook',
+    texte: 'Boat hooks are usually used to haul up ropes or other objects fallen into the water, but their long reach and fearsome metal hook also make them useful in combat.',
+    regles_speciales: [
+      {
+        nom: 'Strikes First',
+        texte: 'A fighter equipped with this weapon strikes first during the first round of hand-to-hand combat, even when charged.',
+      },
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+    ],
+  },
+  gantelet_a_pointe: {
+    nom: 'Spiked Gauntlet',
+    texte: 'Usually used in the arenas, the spiked gauntlet counts as both a buckler and an additional weapon.',
+    regles_speciales: [
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+      { nom: 'Parry Re-roll', texte: 'Used together with a sword, this weapon allows a failed parry to be re-rolled once per turn.' },
+    ],
+  },
+  grande_hache_du_chaos: {
+    nom: 'Great Chaos Axe',
+    texte: 'These oversized battle axes can only be used by the strongest of warriors.',
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      {
+        nom: 'Strikes Last',
+        texte: 'Great Chaos axes are so heavy that the model always strikes last, even when charging (unless he has the strongman skill).',
+      },
+      {
+        nom: 'Sharp',
+        texte: "A Great Chaos axe has an additional -1 save modifier. A model with Strength 4 using a Great Chaos axe therefore has a save modifier of -4 in hand-to-hand combat.",
+      },
+    ],
+  },
+  griffes_de_combat: {
+    nom: 'Fighting Claws (pair)',
+    texte:
+      'The martial arts of Clan Eshin require exotic weapons. The most famous are fighting claws: sharp blades fixed to the warrior\'s paws. It takes an expert to use them well, but the members of Clan Eshin are exactly that.',
+    regles_speciales: [
+      { nom: 'Cumbersome', texte: 'A fighter equipped with this weapon cannot use any other weapons for the entire game.' },
+      { nom: 'Climber', texte: 'A fighter equipped with this weapon gets +1 Initiative for climbing tests.' },
+      {
+        nom: 'Pair',
+        texte: 'These weapons are traditionally used in pairs, one in each hand. A warrior with these weapons gets +1 Attack.',
+      },
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+    ],
+  },
+  griffes_des_anciens: {
+    nom: 'Claws of the Ancients',
+    texte:
+      'This very ancient weapon is made of an unalterable metal. The powers of this artefact can only be unleashed by a ritual known to a handful of Amazons. The blade of this weapon then appears white-hot and can pass through armour as if it were paper.',
+    regles_speciales: [
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+      {
+        nom: 'No Save',
+        texte: 'The weapon can pass through any material. A fighter Wounded by this weapon gets no armour save, except for magical protections and side-step.',
+      },
+    ],
+  },
+  hache: {
+    nom: 'Axe',
+    texte:
+      'The axe is the traditional weapon of Empire woodcutters, but is also used as a weapon in the poorest rural regions. It has a heavy blade capable of causing a great deal of damage and easily pierces armour when wielded by a strong man. Of all armourers, it is the dwarfs who forge the finest axes. Dwarf axes are highly valued by warriors of the Old World and are among the most sought-after weapons.',
+    regles_speciales: [
+      { nom: 'Sharp', texte: "The weapon gets an additional -1 save modifier (a Strength 4 fighter will reduce the target's save by -2)." },
+    ],
+  },
+  hachoir: {
+    nom: 'Chopper',
+    texte: 'The chopper is one of the best kitchen utensils for fighting. It is fairly light and can cut through almost anything, much like an axe.',
+    regles_speciales: [
+      { nom: 'Sharp', texte: "The weapon gets an additional -1 save modifier (a Strength 4 fighter will reduce the target's save by -2)." },
+    ],
+  },
+  katar: {
+    nom: 'Katar',
+    texte: "The katar is an Arabian-style dagger whose grip is perpendicular to the blade and is used in a way that lets it pierce an opponent.",
+    regles_speciales: [
+      { nom: 'Sharp', texte: "The weapon gets an additional -1 save modifier (a Strength 4 fighter will reduce the target's save by -2)." },
+    ],
+  },
+  hache_naine: {
+    nom: 'Dwarf Axe',
+    texte:
+      'Dwarf axes are short-handled weapons made of lighter (and much sturdier) materials than ordinary axes. Dwarf warriors have used them since time immemorial and wield them as skilfully as a human warrior might wield a sword. It is the dwarf weapon par excellence.',
+    regles_speciales: [
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+      { nom: 'Sharp', texte: "The weapon gets an additional -1 save modifier (a Strength 4 fighter will reduce the target's save by -2)." },
+    ],
+  },
+  hallebarde: {
+    nom: 'Halberd',
+    texte:
+      "The halberd's heavy blade, fitted with a spear point and an axe edge, is mounted on a sturdy oak or steel shaft. This weapon, usable for both thrusting and slashing, is versatile but hard to wield in confined spaces.",
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+    ],
+  },
+  lame_des_etoiles: {
+    nom: 'Star Blade',
+    texte:
+      "Among the many strange weapons possessed by the Amazons, the star blade is a weapon crafted like an Amazon dagger. It is usually painted in exotic colours and has magical properties that enhance the Amazons' martial prowess.",
+    regles_speciales: [
+      { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
+      { nom: 'Defence', texte: 'The star blade allows the first successful hit of any combat to be parried on a 4+.' },
+    ],
+  },
+  lames_suintantes: {
+    nom: 'Weeping Blades (pair)',
+    texte: 'Clan Eshin adepts use weeping blades: swords forged with a small amount of warpstone mixed into their steel. Weeping blades have the property of continuously releasing poison.',
+    regles_speciales: [
+      {
+        nom: 'Pair',
+        texte: 'These weapons are traditionally used in pairs, one in each hand. A warrior with these weapons gets +1 Attack.',
+      },
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+      {
+        nom: 'Venom',
+        texte: "The venom of the weeping blades enters the victim's wound, ravaging its organs and muscles. These weapons are equivalent to those coated with black lotus. No other poison may be added to them.",
+      },
+    ],
+  },
+  lance: {
+    nom: 'Spear',
+    texte: 'Spears include everything from the sharpened sticks used by goblins to the great lances used by elven riders.',
+    regles_speciales: [
+      {
+        nom: 'Cavalry Bonus',
+        texte: 'A rider armed with this weapon gets a +1 Strength bonus when charging. This bonus only applies during the turn he charges.',
+      },
+      { nom: 'Hard to Wield', texte: 'A fighter armed with this weapon may carry a shield or buckler normally, but not an additional weapon.' },
+      {
+        nom: 'Strikes First',
+        texte: 'A fighter equipped with this weapon strikes first during the first round of hand-to-hand combat, even when charged.',
+      },
+    ],
+  },
+  lance_a_sanglier: {
+    nom: 'Boar Spear',
+    texte:
+      'The boar spear is the favoured hunting weapon of Ostermark nobles, designed with a crossguard to stop the charge of a giant boar driven mad with pain. In Mordheim, the nobles of the Doomed Cavalcade use it for far more sinister purposes: hunting desperate men.',
+    regles_speciales: [
+      {
+        nom: 'Strikes First',
+        texte: 'A fighter equipped with this weapon strikes first during the first round of hand-to-hand combat, even when charged.',
+      },
+      {
+        nom: 'Cavalry Bonus',
+        texte: 'A rider armed with this weapon gets a +1 Strength bonus when charging. This bonus only applies during the turn he charges.',
+      },
+      {
+        nom: 'Crossguard',
+        texte:
+          "This weapon was designed to stop a raging boar's charge dead in its tracks. When its bearer is charged, the boar spear reduces the number of Attacks of the first hand-to-hand attacker by -1 (down to a minimum of 1). Attacks from a second weapon or any other source, other than the base characteristic, are unaffected. The boar spear has no effect on large targets such as ogres, other than the charge bonus. The Aristocrat cannot wield two boar spears at once.",
+      },
+    ],
+  },
+  lance_de_cavalerie: {
+    nom: 'Cavalry Lance',
+    texte:
+      'This long lance is used by heavy cavalry to pierce armour and knock the enemy to the ground. It is the weapon of choice for Templar knights and other wealthy warriors. Wielding it requires a great deal of skill and strength, and only the wealthiest can afford the warhorses that give this weapon its full effectiveness.',
+    regles_speciales: [
+      { nom: 'Cavalry Weapon', texte: 'The fighter must be mounted to wield this weapon.' },
+      {
+        nom: 'Cavalry Bonus',
+        texte: 'A rider armed with this weapon gets a +1 Strength bonus when charging. This bonus only applies during the turn he charges.',
+      },
+    ],
+  },
+  louche: {
+    nom: 'Ladle',
+    texte: "A ladle isn't very effective for killing your enemies, but if you aim well, a strike to the knuckles can seriously hamper the combat ability of even the finest warrior.",
+    regles_speciales: [
+      {
+        nom: 'Knuckle Breaker',
+        texte:
+          "If a Master Cook manages to hit an enemy in hand-to-hand combat (a feat in itself), and on top of that rolls a '6', he has struck his opponent square on the knuckles, forcing him to drop his weapon.",
+      },
+      {
+        nom: 'No Save, Except for Shields',
+        texte: 'A Master Cook knows exactly where to aim his ladle. Helmets and breastplates are of no use against a ladle that strikes the hands. The only saves allowed are those from shields or skills.',
+      },
+    ],
+  },
+  main_gauche: {
+    nom: 'Main-Gauche',
+    texte:
+      "A main-gauche is a dagger with a wide guard, often used together with a rapier or another sword. Popular among duellists and minor nobles, the main-gauche is sometimes considered a 'gimmick' weapon. In reality, it lets its user be effective in both attack and defence.",
+    regles_speciales: [
+      { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+      { nom: 'Parry Re-roll', texte: 'Used together with a sword, this weapon allows a failed parry to be re-rolled once per turn.' },
+    ],
+  },
+  marteau_de_cavalerie: {
+    nom: 'Cavalry Hammer',
+    texte:
+      "This is a great hammer such as those used by the Knights of the White Wolf. It is too cumbersome to be used one-handed and is better suited to mounted combat, since the animal's momentum adds to the weapon's power.",
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      {
+        nom: 'Cavalry Charge',
+        texte:
+          "A model armed with a cavalry hammer can use its mount's speed to add more impact to its weapon. A mounted model armed with a cavalry hammer may add an additional +1 Strength bonus when charging (for a total of +2). This additional bonus only applies during the turn it charges.",
+      },
+    ],
+  },
+  marteau_de_guerre_sigmarite_market: {
+    nom: 'Sigmarite War Hammer',
+    texte: "One of the Order's traditional weapons, in memory of Ghal Maraz, the hammer of Sigmar.",
+    regles_speciales: [
+      { nom: 'Blunt', texte: 'A damage roll of 2-4 (instead of the usual 3-4) is treated as Stunned.' },
+      {
+        nom: 'Sacred',
+        texte:
+          'Each hammer was blessed by a Matriarch before being given to a Sister. The hammer grants a +1 bonus to all Wound rolls inflicted in hand-to-hand combat against Possessed and Undead. Note that you will still need a 6 before modifiers to inflict a Critical Hit.',
+      },
+    ],
+  },
+  massue_ogre: {
+    nom: 'Ogre Club',
+    texte:
+      'Ogre clubs are crudely put together with straps, spikes, and nails. The care and size of the club an ogre wields is an indicator of his status. An ogre armed with a simple log is generally considered desperate or extremely poor, while some vagabonds are known to fight with almost any object of appropriate size, such as lampposts, salvaged artillery, or architectural pieces. These clubs are usually used to stun prey so it can be dragged back to the cave without losing too much blood, but they are also perfect for breaking through the enemy\'s defence in a fight.',
+    regles_speciales: [
+      {
+        nom: 'Crushing Attack',
+        texte:
+          'Ogre clubs can be wielded with impressive force, granting an additional -1 save modifier. When it comes to the defender\'s parry attempts, the attack is treated as being at Strength+1. Thus, a Strength 3 fighter cannot parry the attack of a Strength 5 Ogre wielding an ogre club. The Crushing Attack only works if the Ogre uses the ogre club two-handed.',
+      },
+      { nom: 'Blunt', texte: 'A damage roll of 2-4 (instead of the usual 3-4) is treated as Stunned.' },
+    ],
+  },
+  misericordia: {
+    nom: 'Misericordia',
+    texte:
+      'The misericordia is a Tilean dagger with a long, thin blade, designed to end the suffering of wounded warriors. The warriors of the Doomed Cavalcade are experts at striking their opponents\' vital points, and the misericordia can find the smallest gap even in the finest armour. Often, those who wield it choose a spot that causes indescribable pain but does not kill the target outright, so that it can be dragged back to the Throne of Worms.',
+    regles_speciales: [
+      { nom: 'Coup de Grâce', texte: 'The misericordia lets its wielder ignore all armour saves of an opponent who is Knocked Down.' },
+    ],
+  },
+  misericorde: {
+    nom: 'Mercy Blade',
+    texte: 'These long daggers were specially designed to kill downed opponents by piercing gaps in armour and vulnerable spots such as the eyes and throat.',
+    regles_speciales: [
+      { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
+      {
+        nom: 'Fatal Blow',
+        texte: 'When the target of the attack is Knocked Down, roll 2D6 instead of just one for the Wound roll. Choose the higher result.',
+      },
+    ],
+  },
+  morgenstern: {
+    nom: 'Morning Star',
+    texte:
+      'This weapon, as devastating as it is difficult to wield, is a one-handed flail made of a handle to which chains fitted with spiked steel balls are attached.',
+    regles_speciales: [
+      { nom: 'Difficult to Wield', texte: 'A fighter armed with this weapon may carry a shield normally, but not an additional weapon or buckler.' },
+      { nom: 'Fatigue', texte: 'Wielding this weapon is very tiring, and the Strength bonus only applies during the first round of each hand-to-hand combat.' },
+    ],
+  },
+  nunchaku: {
+    nom: 'Nunchaku',
+    texte:
+      'The nunchaku consists of two wooden bars, linked together and reinforced with iron or steel to increase striking power. It is light and gives its user more flexibility than a flail.',
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      {
+        nom: 'Flurry of Blows',
+        texte:
+          'Fighting with two nunchakus lets its user deliver a flurry of blows. A fighter armed with nunchakus gets +2 Attacks. This bonus only applies during the first round of each hand-to-hand combat. For the rest of the combat, the nunchakus count as two normal one-handed weapons.',
+      },
+    ],
+  },
+
+  // --- Armes de corps à corps (2/2) ---
+  pince_market: {
+    nom: 'Tongs',
+    texte:
+      "These are semi-circular teeth mounted on a long handle, ready to capture an enemy with this spike-covered jaw. Popular among Chaos Dwarfs, this device doesn't leave much room for the most violent prisoners to escape its grip.",
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      {
+        nom: 'Capture',
+        texte:
+          'A model taken Out of Action by tongs is captured, unless the warband is Routed. Do not make the Serious Injury roll for the victim. Large targets, such as Ogres, Trolls, and Minotaurs, as well as animals, cannot be captured this way.',
+      },
+    ],
+  },
+  pince_homme_slaaneshi: {
+    nom: 'Slaaneshi Man-Catcher',
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      {
+        nom: 'Restraint',
+        texte:
+          "If the weapon hits and causes an unsaved Wound, do not roll on the Injury table. Instead, the enemy is Knocked Down and cannot get up as long as it is in contact with the bearer. The target cannot leave combat except by magic. The bearer may move (dragging the enemy along with him) as long as he is not engaged by other opponents. The Slaaneshi man-catcher has no effect against large targets (Ogres, mounts, etc.). If you change weapons, the opponent may get up normally during his Recovery phase. At the end of the battle, if the target is still restrained, it is treated as captured (result 61 on the Serious Injury table), even if it is a Henchman.",
+      },
+    ],
+  },
+  pique_market: {
+    nom: 'Pike',
+    texte: 'The pike is a little longer than a spear and is weighted so it can be wielded effectively among the trees and undergrowth so common in the jungle.',
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded with both hands and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield, however, still provides a +1 bonus to the save against shooting.',
+      },
+      {
+        nom: 'Always Strikes First',
+        texte:
+          'A fighter armed with a pike strikes first during the first round of hand-to-hand combat. Thanks to the pike\'s long shaft, he gets a +1 Initiative bonus during the first round of hand-to-hand combat, letting him attack before the enemy can even reach him. Note: since any "reach" mechanic has been removed from Mordheim, we recommend using the Border Town Burning rules, detailed above.',
+      },
+    ],
+  },
+  poignards_empoisonnes: {
+    nom: 'Poisoned Daggers (pair)',
+    texte: 'This pair of daggers is coated with the juice of death cap mushrooms.',
+    regles_speciales: [
+      {
+        nom: 'Pair',
+        texte: 'These weapons are traditionally used in pairs, one in each hand. A warrior with these weapons gets +1 Attack.',
+      },
+      {
+        nom: 'Poisoned',
+        texte:
+          "The daggers are re-coated for free after each game. These mushrooms have the same effect as black lotus: they automatically Wound if you roll a 6 to hit. Note that you must roll a die for each Wound inflicted by these weapons. On a 6, you inflict a Critical Hit. If you don't roll a 6, the Wound is normal. Make armour saves as usual.",
+      },
+    ],
+  },
+  poing: {
+    nom: 'Fist',
+    texte:
+      "In the most desperate situations, when you don't even have a knife, you must fight bare-handed. Needless to say, the chances of survival are comparable to those of a halfling deprived of food for eight hours! Note: the following rule only applies to warriors who have lost their weapons. Creatures such as zombies, animals, and others are unaffected. Warriors fighting bare-handed still only get a single attack.",
+    regles_speciales: [
+      { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
+    ],
+  },
+  poing_de_fer: {
+    nom: 'Iron Fist',
+    texte:
+      "Ogres often protect their left hand with a kind of spiked gauntlet. Such a heavy glove can be used to fend off the most violent attacks, like a giant shield, or to smash an enemy's face to a pulp.",
+    regles_speciales: [
+      {
+        nom: 'Dual Role',
+        texte: 'Iron fists work as both a shield and a melee weapon. This means an iron fist allows failed parry attempts to be re-rolled if combined with a sword or a second iron fist.',
+      },
+      {
+        nom: 'Gauntleted',
+        texte:
+          'A model equipped with an iron fist cannot hold another weapon in that same hand. This means a two-handed weapon cannot be used. With two iron fists, the ogre cannot use any other hand-to-hand weapons for the entire battle.',
+      },
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+    ],
+  },
+  rapiere: {
+    nom: 'Rapier',
+    texte:
+      'The rapier is a long, thin blade commonly used by duellists. It is a formidable weapon, capable of delivering a multitude of blows, but lacks the power of a broadsword.',
+    regles_speciales: [
+      {
+        nom: '+1 Enemy Save',
+        texte:
+          "The rapier is a very light sword that lacks the thick blade of a sword capable of breaking through armour. A model Wounded by a rapier gets +1 to its armour save, or a 6+ save if it has none.",
+      },
+      {
+        nom: 'Barrage',
+        texte:
+          'The rapier is light and flexible, which makes it less powerful than a sabre or an axe, but lets a skilled warrior rain down a flurry of quick attacks on his opponent before he can react. A well-trained swordsman can inflict a multitude of light wounds in a matter of seconds, often enough to put even the toughest of enemies out of action. A warrior armed with a rapier makes his rolls to hit and Wound as usual. However, if you manage to hit your opponent but fail to Wound him, you may attack again as if it were a new attack, but with a -1 penalty to hit (down to a minimum of 6+ to hit). The fighter may thus keep attacking as long as he keeps hitting, and may use this ability as many times as he has Attacks.',
+      },
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+    ],
+  },
+  sabre_de_cathay: {
+    nom: 'Cathayan Sabre',
+    texte:
+      'Ithilmar blades forged by the elves are highly prized. Weapons made by Cathayan blacksmiths are even more prestigious. Known by Estalian merchants as Jintachi blades, Cathayan sabres are true little gems, deadly in the hands of a seasoned fighter. Gold alone is never enough to acquire such a weapon. The few weapons still forged are only given as a reward for a heroic deed performed in the eastern realms.',
+    regles_speciales: [
+      { nom: 'Master Weapon', texte: 'Attacks made with this weapon get a +1 Weapon Skill and +1 Initiative bonus.' },
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+      { nom: 'Sharp', texte: "The weapon gets an additional -1 save modifier (a Strength 4 fighter will reduce the target's save by -2)." },
+    ],
+  },
+  trident: {
+    nom: 'Trident',
+    texte:
+      'The trident used as a gladiator\'s weapon originates in Tilea, in ancient times, when gladiators fought in the great public arenas. This weapon resembles a spear, with all the advantages its length brings, but it also has three prongs allowing a skilled user to deflect blades. Traditionally, the trident is combined with a net, wielded by a lightly-armoured gladiator to face more heavily-armed swordsmen.',
+    regles_speciales: [
+      {
+        nom: 'Strikes First',
+        texte: 'A fighter equipped with this weapon strikes first during the first round of hand-to-hand combat, even when charged.',
+      },
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+    ],
+  },
+  arme_empoisonnee_mod: {
+    nom: 'Poisoned Weapon',
+    texte:
+      'Forest goblins commonly plunge the points of their weapons into the bodies of giant spiders in the hope of coating them with a deadly poison. Once this poison is bought, it is applied to a single weapon and cannot subsequently be exchanged or sold. The weapon in question, once poisoned, adds +1 to all its Wound rolls.',
+    regles_speciales: [
+      {
+        nom: 'Existing Weapon Modifier',
+        texte: 'This is not a standalone weapon but an upgrade (+25 gold crowns) applied to an already-owned hand-to-hand weapon: adds +1 to all of that weapon\'s Wound rolls.',
+      },
+    ],
+  },
+  arme_en_gromril: {
+    nom: 'Gromril Weapon',
+    texte:
+      'Only a dwarf runemaster can forge a weapon from gromril, a rare meteoric ore. A blade made from this metal will not dull for a thousand years. A gromril weapon gives an additional -1 save modifier and costs four times the price of a normal weapon of the same type. You may choose which type of hand-to-hand weapon is offered to you.',
+    regles_speciales: [
+      { nom: 'Gromril Weapon', texte: 'Base weapon price x4. Additional -1 save modifier on the chosen hand-to-hand weapon.' },
+    ],
+  },
+  arme_en_ithilmar: {
+    nom: 'Ithilmar Weapon',
+    texte:
+      'Elf blades are forged from precious ithilmar, a hard but very light metal found only in the elven realms. A few of these weapons occasionally find their way into the Old World, brought back as plunder by Norse raiders who attack the elves\' coastal cities. An ithilmar weapon gives its user +1 Initiative in hand-to-hand combat and costs three times the price of a normal hand-to-hand weapon. You may choose which type of hand-to-hand weapon is offered to you.',
+    regles_speciales: [
+      { nom: 'Ithilmar Weapon', texte: 'Base weapon price x3. +1 Initiative in hand-to-hand combat for the user.' },
+    ],
+  },
+  arme_en_obsidienne_market: {
+    nom: 'Obsidian Weapon',
+    texte:
+      'Obsidian is mined from the Dark Lands by the servants of Chaos. During its skilled extraction, this curious volcanic rock is enchanted by engineers in the furnaces of Zharr-Naggrund. Forging weapons using these vile techniques requires great expertise, which makes it extremely rare. An obsidian weapon gives its user +1 Strength in hand-to-hand combat and costs four times the price of a normal weapon of this type. You may choose which type of hand-to-hand weapon is offered to you.',
+    regles_speciales: [
+      { nom: 'Obsidian Weapon', texte: 'Base weapon price x4. +1 Strength in hand-to-hand combat for the user.' },
+      {
+        nom: 'Corrupted',
+        texte:
+          'Although not strictly corrupted by Chaos, all obsidian items are considered tainted with the dark malevolence associated with their creators. Can never be used by Dwarfs, Elves, Sisters of Sigmar, Witch Hunters, or Priests.',
+      },
+      { nom: 'Strikes Last', texte: 'Obsidian weapons are so heavy that their wielder always strikes last, even when charging.' },
+    ],
+  },
+  lame_elfe_noire: {
+    nom: 'Dark Elf Blade',
+    texte:
+      'These blades are forged in the city of Hag Graef, the Dark Rock, from black iron, a very rare ore found deep in the mountains surrounding the city. The barbs on dark elf blades can inflict severe wounds on their victims. Any dark elf can fit his sword or dagger with a dark elf blade for 20 gold crowns at the time of purchase. Weapons fitted with a dark elf blade keep their usual rules (swords can therefore still parry, and daggers still grant a 6+ armour save).',
+    regles_speciales: [
+      { nom: 'Barbs', texte: 'Dark elf blades are fitted with sharp barbs and hooks with devastating effects. A damage roll of 2-4 counts as a Stunned result.' },
+      {
+        nom: 'Critical Damage',
+        texte: 'Dark elf blades inflict severe damage on their enemies. In the event of a Critical Hit with a weapon of this type, add +1 to the result on the Critical Hit table.',
+      },
+    ],
+  },
+  lame_homme_lezard: {
+    nom: 'Lizardman Blade',
+    regles_speciales: [
+      { nom: 'Upgrade', texte: 'Upgrades a sword into a Lizardman sword (+1 to Wound rolls due to poison).' },
+    ],
+  },
+  couperet: {
+    nom: 'Cleaver',
+    texte: 'A heavy butcher\'s cleaver, crudely cut from a steel plate. Ogres use it just as much for fighting as for carving up their meals.',
+    regles_speciales: [
+      { nom: 'Blunt', texte: 'A damage roll of 2-4 (instead of the usual 3-4) is treated as Stunned.' },
+    ],
+  },
+  gourdin_ogre: {
+    nom: 'Ogre Cudgel',
+    texte: 'A barely-shaped tree trunk, or sometimes the bone of a giant creature, that only an Ogre can wield as a hand-to-hand weapon.',
+    regles_speciales: [
+      { nom: 'Blunt', texte: 'A damage roll of 2-4 (instead of the usual 3-4) is treated as Stunned.' },
+      { nom: 'Strikes Last', texte: 'The weapon is so heavy that its wielder always strikes last, even when charging.' },
+    ],
+  },
 };
 
 const DISPONIBILITE_ARTEFACT_EN =
