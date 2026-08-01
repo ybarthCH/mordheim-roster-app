@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import type { Member } from '../../types/roster';
 import type { Profile, SkillCategory, WarbandCatalog } from '../../types/catalog';
-import { SKILL_CATEGORIES } from '../../types/catalog';
 import { SKILLS } from '../../data/gameData';
 import { categoriesAccessibles } from '../../utils/profil';
 import { useLanguage } from '../../state/useLanguage';
@@ -36,7 +35,7 @@ export function CompetencesPanel({ member, profil, catalogue, onToggleSkill }: P
             className={`tabs__btn ${ongletActif === cat ? 'tabs__btn--active' : ''}`}
             onClick={() => setOngletActif(cat)}
           >
-            {SKILL_CATEGORIES.find((c) => c.id === cat)?.label}
+            {t(`skillCategory.${cat}`)}
           </button>
         ))}
       </div>

@@ -104,4 +104,10 @@ export const avanceeModal: UiDictionary = {
   'avanceeModal.resultNewSpell': { fr: 'Nouveau sort appris : {nom}', en: 'New spell learned: {nom}' },
   'avanceeModal.resultCharacteristicFixed': { fr: 'Caractéristique fixée : {label} = {valeur}', en: 'Characteristic fixed: {label} = {valeur}' },
   'avanceeModal.resultCharacteristicRemainsVariable': { fr: '{label} reste variable (jet non concluant).', en: '{label} stays variable (inconclusive roll).' },
+  'avanceeModal.tableNewSkill': { fr: 'Nouvelle compétence', en: 'New skill' },
+  'avanceeModal.tablePromotion': {
+    fr: 'Ce gars est doué — devient héros (jet immédiat sur la table des héros)',
+    en: "Lad's Got Talent — becomes a Hero (immediate roll on the hero table)",
+  },
+  'avanceeModal.orSeparator': { fr: ' ou ', en: ' or ' },
 };

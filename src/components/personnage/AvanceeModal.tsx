@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { Member, AdvanceRecord, RosterInstance } from '../../types/roster';
 import type { Profile, SkillCategory, Stats, WarbandCatalog } from '../../types/catalog';
+import type { AdvanceEntry } from '../../types/gameData';
 import { Modal } from '../common/Modal';
 import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN, skillById } from '../../data/gameData';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
@@ -49,6 +50,26 @@ type Etape =
   | 'promotion_categories'
   | 'jet_caracteristique_variable'
   | 'resultat';
+
+// La table d'avancement (data/table_avancement_*.json) porte un `label`
+// français pré-composé ("+1 Force ou +1 Attaques") plutôt qu'une référence
+// traduisible — reconstruit ici à partir des champs structurés (`type`,
+// `stat`, `options`) et de statFullNames, seul endroit où ce texte est
+// affiché en direct (pas persisté : AdvanceRecord ne stocke jamais ce champ).
+function libelleEntreeAvancement(entree: AdvanceEntry, t: (key: string) => string): string {
+  switch (entree.type) {
+    case 'competence':
+      return t('avanceeModal.tableNewSkill');
+    case 'promotion':
+      return t('avanceeModal.tablePromotion');
+    case 'caracteristique_fixe':
+      return `+1 ${t(`statFullName.${entree.stat}`)}`;
+    case 'caracteristique_choix':
+      return entree.options
+        .map((o) => `+1 ${t(`statFullName.${o.stat}`)}`)
+        .join(t('avanceeModal.orSeparator'));
+  }
+}
 
 export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equitationGratuite, onClose, onApply }: Props) {
   const { language, t } = useLanguage();
@@ -478,7 +499,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
                 const bloquee = entry.type === 'promotion' && limiteHerosAtteinte;
                 return (
                   <option key={i} value={i} disabled={bloquee}>
-                    {entry.min === entry.max ? entry.min : `${entry.min}-${entry.max}`} — {entry.label}
+                    {entry.min === entry.max ? entry.min : `${entry.min}-${entry.max}`} — {libelleEntreeAvancement(entry, t)}
                     {bloquee ? t('avanceeModal.unavailableHeroLimitSuffix') : ''}
                   </option>
                 );
@@ -530,7 +551,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
                     title={o.verdict.ok ? undefined : o.verdict.raison}
                     onClick={() => choisirCaracteristique(o.stat, o.label)}
                   >
-                    +1 {o.label}
+                    +1 {t(`statFullName.${o.stat}`)}
                   </button>
                 ))}
               </div>
@@ -542,8 +563,8 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
                   {autresDisponibles.length > 0 ? (
                     <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
                       {autresDisponibles.map((k) => (
-                        <button key={k} className="btn" onClick={() => choisirCaracteristique(k, k)}>
-                          +1 {k}
+                        <button key={k} className="btn" onClick={() => choisirCaracteristique(k, t(`statFullName.${k}`))}>
+                          +1 {t(`statFullName.${k}`)}
                         </button>
                       ))}
                     </div>
@@ -559,7 +580,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       {etape === 'jet_caracteristique_variable' && statVariableCiblee && (
         <>
           <p className="text-sm">
-            <strong>{statVariableCiblee.label}</strong>{' '}
+            <strong>{t(`statFullName.${statVariableCiblee.stat}`)}</strong>{' '}
             {t('avanceeModal.variableStatIntro', {
               notation: travail.stats_variables?.[statVariableCiblee.stat] ?? '',
             })}
@@ -605,7 +626,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
                   checked={categoriesPromotion.includes(c.id)}
                   onChange={() => toggleCategoriePromotion(c.id)}
                 />
-                <span className="skill-check__name">{c.label}</span>
+                <span className="skill-check__name">{t(`skillCategory.${c.id}`)}</span>
               </label>
             ))}
           </div>
@@ -676,7 +697,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
             <>
               {entreeAvancement && (
                 <p className="text-sm text-muted">
-                  {t('avanceeModal.resultLabelPrefix', { label: entreeAvancement.label })}
+                  {t('avanceeModal.resultLabelPrefix', { label: libelleEntreeAvancement(entreeAvancement, t) })}
                 </p>
               )}
               {disponibles.length === 0 ? (
@@ -715,7 +736,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
         <>
           {entreeAvancement && (
             <p className="text-sm text-muted">
-              {t('avanceeModal.resultLabelPrefix', { label: entreeAvancement.label })}
+              {t('avanceeModal.resultLabelPrefix', { label: libelleEntreeAvancement(entreeAvancement, t) })}
             </p>
           )}
           <div className="field">
@@ -724,7 +745,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
               <option value="">{t('avanceeModal.chooseEllipsis')}</option>
               {categoriesDisponibles.map((catId) => (
                 <option key={catId} value={catId}>
-                  {SKILL_CATEGORIES.find((c) => c.id === catId)?.label}
+                  {t(`skillCategory.${catId}`)}
                 </option>
               ))}
             </select>

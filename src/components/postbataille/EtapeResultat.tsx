@@ -4,6 +4,8 @@ import type { WarbandCatalog } from '../../types/catalog';
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
 import { inventaireComplet } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
+import { getItem } from '../../data/items';
+import { translateItem } from '../../i18n/data/items';
 import { useLanguage } from '../../state/useLanguage';
 
 type EtapeResultatProps = {
@@ -45,13 +47,21 @@ export function EtapeResultat({
   onAchatStock,
   onArgentGagne,
 }: EtapeResultatProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [modalRecompense, setModalRecompense] = useState(false);
   const [argentSaisi, setArgentSaisi] = useState('');
-  const [objetsRecompense, setObjetsRecompense] = useState<{ nom: string; valeur: number }[]>([]);
+  const [objetsRecompense, setObjetsRecompense] = useState<{ id: string; nom: string; valeur: number }[]>([]);
   const ajouterObjetRecompense = (item: ShopItem, coutPaye: number) => {
     onAchatStock(item, coutPaye);
-    setObjetsRecompense((prev) => [...prev, { nom: item.nom, valeur: coutPaye }]);
+    setObjetsRecompense((prev) => [...prev, { id: item.id, nom: item.nom, valeur: coutPaye }]);
+  };
+  // Un objet du catalogue global se re-traduit à l'affichage (voir
+  // translateItem) ; un objet personnalisé (texte libre saisi par le joueur)
+  // n'existe qu'en français et s'affiche tel quel — même repli que partout
+  // ailleurs dans l'app pour ce genre d'objet.
+  const nomObjetRecompenseAffiche = (o: { id: string; nom: string }): string => {
+    const ref = getItem(o.id);
+    return ref ? translateItem(ref, language).nom : o.nom;
   };
   const ajouterAdversaire = () => {
     const nom = nouvelAdversaire.trim();
@@ -128,7 +138,7 @@ export function EtapeResultat({
         <ul className="text-sm" style={{ margin: '0 0 0.6rem', paddingLeft: '1.1rem' }}>
           {objetsRecompense.map((o, i) => (
             <li key={i}>
-              {o.nom} <span className="text-muted">({t('resultat.goldPo', { n: o.valeur })})</span>
+              {nomObjetRecompenseAffiche(o)} <span className="text-muted">({t('resultat.goldPo', { n: o.valeur })})</span>
             </li>
           ))}
         </ul>
