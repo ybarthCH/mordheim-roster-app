@@ -740,10 +740,10 @@
     "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Ogres uniquement",
     "acces": ["maneaters"], "source": "BTB-MH (Mangeurs d'Hommes)", "page": 18,
     "texte": "Un tronc d'arbre à peine équarri, ou parfois un os de créature géante, que seul un Ogre peut manier comme une arme de corps à corps.",
-    "portee": "C à C", "force": "U+1",
+    "portee": "C à C", "force": "U",
     "regles_speciales": [
-      { "nom": "Contondant", "texte": "Un jet de Dégâts de 2-4 (au lieu de 3-4 habituellement) est considéré comme sonné." },
-      { "nom": "Frappe en dernier", "texte": "L'arme est si lourde que l'on frappe toujours en dernier avec, même en ayant chargé." }
+      { "nom": "Attaque écrasante", "texte": "Les gourdins d'ogre peuvent être maniés avec une force impressionnante, procurant un modificateur de sauvegarde supplémentaire de -1. Concernant les tentatives de parade du défenseur, l'attaque est considérée comme étant de Force+1. Ainsi, un combattant de F3 ne peut pas parer l'attaque d'un Ogre de F5 brandissant un gourdin d'ogre. L'attaque écrasante ne fonctionne que si l'Ogre utilise le gourdin d'ogre à deux mains." },
+      { "nom": "Contondant", "texte": "Un jet de Dégâts de 2-4 (au lieu de 3-4 habituellement) est considéré comme sonné." }
     ]
   }
 ]

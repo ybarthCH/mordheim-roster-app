@@ -3187,7 +3187,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'May wield a Difficult to Use weapon together with a basic weapon, but not two Difficult to Use weapons.',
       },
       rot_grossier: {
-        nom: 'Loud Belch',
+        nom: 'Crude Belch',
         texte:
           'The hero may unleash thunderous fumes on all enemies engaged in hand-to-hand combat; those who fail a Leadership test suffer -1 to hit for the turn. Must wait for a new enemy to engage before repeating.',
       },
@@ -3200,12 +3200,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'When charging, may attempt a single attack with a +1 bonus to hit instead of his normal attacks; if successful, the enemy model is automatically Knocked Down.',
       },
       chien_de_guerre: {
-        nom: 'War Dog',
+        nom: 'Dog of War',
         reserve_a: 'Leader only',
         texte: 'The warband may hire the Hired Swords available to Mercenary warbands; if the leader dies, all Hired Swords are removed from the warband.',
       },
       rugissement_tonitruant: {
-        nom: 'Thunderous Roar',
+        nom: 'Bellowing Roar',
         reserve_a: 'Leader only',
         texte: 'Allows re-rolling the first failed Rout test.',
       },
