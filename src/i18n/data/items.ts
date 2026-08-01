@@ -244,6 +244,424 @@ export const itemsEn: Record<string, ItemTraduit> = {
       { nom: 'Effect', texte: "Adds +1 to the Strength of all the model's black powder weapons." },
     ],
   },
+
+  // --- Véhicules ---
+  chariot_diligence: {
+    nom: 'Cart / Coach',
+    texte: 'This includes carts, coaches, and generally any four-wheeled towed means of transport.',
+    regles_speciales: [
+      {
+        nom: 'See Empire Vehicles and Boat Rules',
+        texte: 'See the rules on carts and coaches in the Empire Vehicles and Boats article.',
+      },
+    ],
+  },
+  chariot_de_marchandises: {
+    nom: "Merchant's Wagon",
+    texte: "Valuable items such as Cathayan jewels, spices, and silk cloth are stored in the merchant's wagon.",
+    regles_speciales: [
+      {
+        nom: 'Cart',
+        texte:
+          "The merchant's wagon is a cart and follows all its rules (see Empire Vehicles and Boats). The cost of the merchant's wagon includes two draught horses. Remember that a warband fighter must be assigned as the driver.",
+      },
+      {
+        nom: 'Storage',
+        texte:
+          "All the warband's equipment and treasure are stored in the merchant's wagon. Note that this does not include the warband's Gold Crowns. If the merchant's wagon is destroyed, all stored equipment and treasure are lost. Until a new merchant's wagon (or a coach, if the player prefers) is bought, no equipment can be stored. All Treasures earned after a battle are lost if not sold before the next game.",
+      },
+      {
+        nom: 'Reputation',
+        texte:
+          "For every five different rare items stored in the merchant's wagon, the Merchant gains a +1 bonus to his rolls to find rare items.",
+      },
+      {
+        nom: 'Abandoned',
+        texte:
+          "If the warband fails its Rout test and no fighter is driving the merchant's wagon, it is then considered abandoned. The wagon falls into the hands of the victorious warband. It may choose to loot its contents, keep the wagon (treat it as a cart or coach), or strike a deal with the Merchant (use the rules for result 61 - Captured on the Heroes' Serious Injury table). A warband capturing a Merchants' Caravan's wagon cannot search for rare items after the battle, unless every fighter in the Merchants' Caravan warband was taken Out of Action. Indeed, if that is not the case, word will spread like wildfire and frightened local traders will prefer to avoid it.",
+      },
+    ],
+  },
+  carrosse_opulent: {
+    nom: 'Opulent Carriage',
+    texte:
+      'Wealthy warband leaders are quick to spend their gold on extravagances such as fine wines, jewel-encrusted weapons and armour, and Cathayan spices. The opulent carriage, used to travel around Mordheim, is the pinnacle of this. Few things impress commoners more, or stir up more jealousy among less fortunate leaders, than an opulent carriage, which gets +3 to all its rolls to find rare items.',
+    regles_speciales: [
+      {
+        nom: 'See Empire Vehicles and Boat Rules',
+        texte: 'See the rules on carts and coaches in the Empire Vehicles and Boats article.',
+      },
+    ],
+  },
+  char_squelette: {
+    nom: 'Skeleton Chariot',
+    texte: "A skeleton chariot is made from the bones of the dead, pulled by two skeletal steeds and driven by a member of the warband.",
+    regles_speciales: [
+      {
+        nom: 'Mounting a Chariot',
+        texte: "The chariot's driver mounts and dismounts the chariot the same way a rider would with his mount.",
+      },
+      {
+        nom: 'Movement',
+        texte: 'A skeleton chariot moves normally at 8" and cannot run. However, it may double its movement when charging.',
+      },
+      {
+        nom: 'Difficult Terrain',
+        texte:
+          'If a chariot moves across difficult terrain, it suffers 1D3 Strength 4 hits. If the chariot ends its charge on difficult terrain, it suffers 2D3 Strength 6 hits.',
+      },
+      {
+        nom: 'Team (rule)',
+        texte:
+          'If one of the steeds dies, the chariot\'s Movement is halved, but it may still charge (also at half its normal charge movement). However, impact hits are then ineffective. If both steeds die, the chariot is immobilised and the driver must fight on foot.',
+      },
+      {
+        nom: 'Combat',
+        texte:
+          "Chariots are feared for their devastating charges, caused by the horrible scythes mounted on their wheels, cutting to pieces any warriors in their path. The driver is allowed to charge any enemy within his line of sight and in open ground. He is not obliged to charge the closest model. If the chariot moves more than half its base Movement, it may make impact hits. Anyone directly in the path of a charging chariot is allowed to make an Initiative test to jump out of the way and avoid being hit. The driver must make a roll to hit, as usual. A successful hit causes a Strength 4 wound with a -2 penalty to the armour save. At the end of the charge, the chariot's driver may fight enemy models in base contact, as if it were a normal charge.",
+      },
+      {
+        nom: 'Shooting',
+        texte:
+          'A chariot is a large target, and a fighter gets a +1 bonus to hit with a missile weapon when aiming at the skeleton chariot. If the chariot is hit, roll 1D6 to see where it is hit: 1-2 = Team. 3-4 = Chariot. 5-6 = Driver.',
+      },
+    ],
+  },
+  machine_du_chaos: {
+    nom: 'Chaos Machine',
+    texte:
+      'The Slavers lock their victims inside a demonic machine, twisted by the industrial madness of Chaos engineers. This vehicle is a living prison on wheels. These armoured machines carry prisoners to the Dark Lands to fuel the furnaces or be sacrificed there.',
+    regles_speciales: [
+      {
+        nom: 'Cart',
+        texte:
+          'The Chaos Machine follows all the rules for Carts (see the Empire Vehicles and Boats article), except where noted otherwise below.',
+      },
+      {
+        nom: 'Daemon',
+        texte:
+          "The Chaos Machine is bound to a daemon that powers it. All references to animals pulling the cart should be treated as references to its daemon. The daemon's Movement is not affected by cargo.",
+      },
+      {
+        nom: 'Passengers',
+        texte:
+          'A Chaos Dwarf must act as driver. Only prisoners may ride on a Chaos Machine as passengers. More than six creatures — large creatures (Ogres, Minotaurs, etc.) count as two — make it uncontrollable.',
+      },
+      {
+        nom: 'Crack the Whip',
+        texte:
+          "The driver may crack the whip! If a Chaos Machine becomes uncontrollable, refer to the loss-of-control chart. If the result is Whoa Boy!, replace result 5 (The shaft of the cart breaks…) with: 'The Daemon has broken free of the sorcery binding it to the Chaos Machine. The machine moves 6\" straight ahead, then stops. The vehicle cannot move again for the rest of this battle.'",
+      },
+      {
+        nom: 'Prisoners',
+        texte:
+          "When fighting a Chaos Dwarf warband with a Chaos Machine, opponents are always treated as prisoners on a Captured result on the Serious Injury table, or if they are taken Out of Action with a pair of tongs. Note that in both cases, their equipment is lost to the Chaos Dwarf warband. Certain results on the Mordheim Exploration table let Chaos Dwarfs acquire prisoners: 4-4: Vagrant (1); 3-3-3: Prisoners (1D3). On the Empire in Flames exploration table: 2-2: Fool (1); 3-3: Lost Children (2); 4-4: Refugees from Mordheim (1D3); 3-3-3: Small Farm (2); 1-1-1-1-1: Large Farm (2); 3-3-3-3-3: The Hanging Tree (1).",
+      },
+      {
+        nom: 'Freeing Prisoners',
+        texte:
+          "Models held captive can be freed by destroying the Chaos Machine or by using the prison keys. If a model takes an Out of Action Chaos Dwarf Slaver, it takes the keys. A model holding the keys can free the prisoners by moving into base contact with the Chaos Machine. If the Chaos Dwarfs are routed before this happens, or if the model holding the keys is taken Out of Action (losing the keys to a new bearer), the prisoners remain captive. Freed prisoners must always move towards the nearest table edge. Prisoners not from the participating warbands use the basic profile or that of Mercenary warriors (see the Mercenaries warband). Rescued prisoners rejoin their former warband.",
+      },
+      {
+        nom: "Hashut's Reward",
+        texte:
+          "After a battle, the Chaos Dwarfs may decide to deport the prisoners to the Dark Lands. If they do, they must all be sacrificed to Hashut. The Chaos Machine plus one Hero will be absent for the next battle. Unless there is another machine, no model can be captured before its return. Once the Hero has returned, consult the following table. Prisoners — Hashut's Reward (1D6): 1-3 = +1 experience point for the Leader. 4-5 = +1D3 experience points to be distributed among the Heroes. 6 = +2D3 experience points to be distributed among the Heroes plus 1D6x5 Gold Crowns.",
+      },
+    ],
+  },
+  pousse_pousse: {
+    nom: 'Rickshaw',
+    texte:
+      'A rickshaw is a two-wheeled cart pulled by a man. Wealthy merchants, influential officials, and other members of the social elite can be seen using this means of transport to get around town. A non-animal member of the warband must be assigned to pull the rickshaw. He may then neither run nor charge. As long as he is pulling the rickshaw, the two models must stay in base contact and move together. The model may stop pulling the rickshaw at any time and move normally in the same turn (including the possibility of making a charge).',
+    regles_speciales: [
+      {
+        nom: 'Seat',
+        texte:
+          'The rickshaw is fitted with a seat, allowing a passenger to sit in it. Mounting or dismounting the rickshaw works the same way as mounting or dismounting a steed.',
+      },
+      {
+        nom: 'Target',
+        texte:
+          "Shooting at a rickshaw gives a +1 bonus to hit. For each hit, roll on the following table to determine which part of the rickshaw or its crew is hit. Then apply the 'to wound' modifiers accordingly. D6: 1-2 = the rickshaw puller. 3-4 = the rickshaw (Toughness 8 - 2 Wounds). 5 = a wheel (Toughness 6 - 1 Wound). 6 = the rickshaw's passenger.",
+      },
+      {
+        nom: 'Hand-to-Hand Contact',
+        texte:
+          'In hand-to-hand combat, as long as they are in contact with the respective parts, attackers may choose to strike the puller, the rickshaw, the wheel, or the passenger. The passenger is only hit on a 6+.',
+      },
+      {
+        nom: 'Destruction',
+        texte:
+          'Note that as soon as one of the wheels is destroyed (when it loses its last Wound), the rickshaw can no longer be pulled. Unless the rickshaw is completely destroyed, it can always be repaired after the battle.',
+      },
+    ],
+  },
+  barge_fluviale: {
+    nom: 'River Barge',
+    texte: 'A river barge can carry twelve human-sized or smaller models, or their equivalent in cargo.',
+    regles_speciales: [
+      {
+        nom: 'See Empire Vehicles and Boat Rules',
+        texte: 'See the rules on boats in the Empire Vehicles and Boats article.',
+      },
+    ],
+  },
+  barque: {
+    nom: 'Rowboat',
+    texte: 'A rowboat can carry six human-sized or smaller models, or their equivalent in cargo.',
+    regles_speciales: [
+      {
+        nom: 'See Empire Vehicles and Boat Rules',
+        texte: 'See the rules on boats in the Empire Vehicles and Boats article.',
+      },
+    ],
+  },
+  gabare: {
+    nom: 'Barge',
+    texte: 'A barge can carry eight human-sized or smaller models, or their equivalent in cargo.',
+    regles_speciales: [
+      {
+        nom: 'See Empire Vehicles and Boat Rules',
+        texte: 'See the rules on boats in the Empire Vehicles and Boats article.',
+      },
+    ],
+  },
+
+  // --- Poisons / drogues ---
+  champignons_bonnets_de_fou_market: {
+    nom: "Fool's Cap Mushrooms",
+    texte:
+      "The dreaded cult of fanatical goblins from the Edge of the World Mountains use these hallucinogenic mushrooms to enter a state of frenzy. The use of poison is almost universally despised, but in the brutal, merciless battles of Mordheim, desperate warbands often use poisoned blades. The poison cannot be used with black powder weapons. When you buy a vial of poison, you always have enough for the duration of one battle. You may only poison a single weapon with one vial of poison.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte: "A warrior consuming fool's cap mushrooms before a battle will be subject to frenzy. These mushrooms have no effect on Possessed and Undead.",
+      },
+      {
+        nom: 'Side Effects',
+        texte: 'After the battle, roll 1D6. On a result of 1, the model permanently becomes stupid.',
+      },
+    ],
+  },
+  lotus_noir: {
+    nom: 'Black Lotus',
+    texte:
+      'Deep in the forests of the Southlands grows an extremely poisonous plant. Black lotus, as its name suggests, is highly sought after by alchemists, assassins, wizards, and weary wives. A weapon coated in black lotus sap automatically Wounds if you roll a 6 to hit. Still roll the die for each Wound inflicted this way. On a 6, you cause a Critical Hit. If you don\'t roll a 6, the Wound is normal. Make armour saves as usual.',
+  },
+  ombre_pourpre: {
+    nom: 'Purple Shade',
+    texte:
+      'Purple shade is the name given by the people of the Old World to the leaves of the Estalian blood oak. This drug is highly addictive, but grants superhuman speed and strength.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'A model that takes purple shade has its Initiative increased by +1D3 points, and its Movement and Strength by +1 (for the duration of the game). It has no effect on Undead such as Vampires and Zombies, nor on Possessed.',
+      },
+      {
+        nom: 'Side Effects',
+        texte:
+          "Roll 2D6 after the battle. On a result of 2-3, the model becomes addicted and you must now buy a dose of purple shade before every battle. If you fail to do so, it leaves the warband. On a result of 12, the model's Initiative is permanently increased by +1.",
+      },
+    ],
+  },
+  poison_de_manticore: {
+    nom: 'Manticore Venom',
+    texte:
+      'This is a soporific substance, as deadly as the creature that secretes it. A wound caused by a blade coated in fresh manticore excretions causes a comatose state, followed by near-certain death.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Any fighter Wounded by a weapon coated in manticore venom must roll 1D6 at the start of each turn. On a result of 1, the victim loses 1 Wound. On a 6, the effects of the poison wear off and he no longer has to make the roll. Multiple Wounds caused by a weapon coated in manticore venom do not require multiple rolls per turn.',
+      },
+    ],
+  },
+  racine_de_mandragore: {
+    nom: 'Mandrake Root',
+    texte:
+      'This human-shaped root grows in the putrid marshes of Sylvania. Highly toxic, it is strongly addictive and slowly kills its users, but also allows them to ignore pain.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'This root renders one almost insensitive to pain. It increases Toughness by +1 for the duration of the battle and turns Stunned results into Knocked Down. It has no effect on Possessed or Undead.',
+      },
+      {
+        nom: 'Side Effects',
+        texte: 'Mandrake root is extremely poisonous. Roll 2D6 at the end of the battle. On a result of 2-3, the model permanently loses 1 point of Toughness.',
+      },
+    ],
+  },
+  toxine_arachneenne: {
+    nom: 'Arachnid Toxin',
+    texte:
+      'Forest goblins commonly plunge their weapons into the bodies of giant spiders in the hope of coating them with a deadly poison. A weapon coated with arachnid toxin gets a +1 bonus to Injury rolls. As soon as the toxin is bought, it is immediately applied to a weapon. It therefore cannot be kept or resold.',
+  },
+  venin_daraignee: {
+    nom: 'Spider Venom',
+    texte:
+      'These paralysing doses are concocted from toxins taken from small animals poisoned by a spider bite. A blade coated with spider venom can be used to paralyse an enemy in hand-to-hand combat.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Any fighter hit by a blade coated with spider venom must immediately pass a Toughness test or be paralysed. A paralysed warrior cannot move or fight and is automatically hit in hand-to-hand combat. The victim remains paralysed until he passes a Toughness test during his Recovery phase.',
+      },
+    ],
+  },
+  venin_de_reptile: {
+    nom: 'Reptile Venom',
+    texte:
+      "Adds +1 to the weapon's Strength, but does not grant the -1 armour save penalty. Remember that all Henchmen in the same group must be equipped identically.",
+  },
+  venin_fuligineux: {
+    nom: 'Sooty Venom',
+    texte:
+      'This poison is drawn from fire dragons, the giant sea serpents that infest the western ocean and the coast of Naggaroth. The slightest scratch infected with sooty venom causes unbearable pain that neutralises even the bravest of men.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "Any hit caused by a weapon coated with sooty venom gets +1 Strength. For example, if a Strength 3 warrior wielding a poisoned sword hits his opponent, his blow will be at Strength 4. Armour saves are modified to account for the attack's increased Strength.",
+      },
+    ],
+  },
+  ombre_cramoisie: {
+    nom: 'Crimson Shade',
+    texte:
+      'An extract drawn from a scarlet orchid that grows only in the jungles of Lustria, prized by treasure hunters for the superhuman stamina it provides.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte: 'A model that takes crimson shade has its Toughness increased by +1 for the duration of the game.',
+      },
+      {
+        nom: 'Side Effects',
+        texte: 'Roll 1D6 after the battle. On a result of 1, the model permanently suffers -1 Strength.',
+      },
+    ],
+  },
+  venin_sombre: {
+    nom: 'Dark Venom',
+    texte:
+      'Extracted from the glands of a Lustrian jungle serpent, this thick, black poison causes painful paralysis in those it touches.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'Any fighter hit by a weapon coated with dark venom must immediately pass a Toughness test or be paralysed until his next Recovery phase.',
+      },
+    ],
+  },
+
+  // --- Consommables ---
+  ail: {
+    nom: 'Garlic',
+    texte:
+      'Garlic, renowned for keeping vampires and other creatures of the night at bay, grows in most vegetable gardens across the Empire. A Vampire must pass a Leadership test to charge a model wearing a garland of garlic. Garlic lasts only for the duration of one battle, whether used or not.',
+  },
+  biere_de_bugman: {
+    nom: "Bugman's Ale",
+    texte:
+      "Of all the dwarf master brewers, Josef Bugman is the most famous. His ale, known throughout the Old World, is generally considered the best of them all. A warband that drinks a barrel of Bugman's Ale before a battle is immune to fear for the entire duration of the game. Elves cannot drink it, as they are too delicate to withstand its effects. The barrel contains enough ale for one battle.",
+  },
+  biscuit_de_mer: {
+    nom: "Ship's Biscuit",
+    texte:
+      "Any pirate can carry a few of these dense blocks with him to eat during battle... something comparable to bread (the ship's cook refuses to reveal the exact recipe).",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'At the start of any of his turns, the Pirate may gorge himself on it if he is not engaged in hand-to-hand combat. His Toughness is temporarily increased by +1 for the duration of that turn and the following enemy turn, after which the effects wear off. Roll 1D6 after that turn. On a result of 1, his biscuits are spoiled and full of maggots (yuck!). Note his name, as the Pirate will have to sit out the next game to recover (and give the cook a few blows!). If the Pirate ends up having to sit out a game due to other effects, the consequences stack and he must sit out the next two games.',
+      },
+    ],
+  },
+  chausse_trappes: {
+    nom: 'Caltrops',
+    texte:
+      'These are three-pronged nails or small spiked spheres, originally designed to hinder cavalry charges. In the alleyways of Mordheim, a full pouch is enough to slow down charges, whether from a rider or a foot soldier, so great is the risk of injury. Caltrops may be used when an opponent decides to charge. A pouch contains just enough caltrops for a single use.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte: 'The defender scatters them in the path of the charge, reducing its distance by 1D6" (and potentially causing it to fail).',
+      },
+    ],
+  },
+  fiole_de_pestilence: {
+    nom: 'Vial of Pestilence',
+    texte:
+      "This small crystal vial contains an extremely virulent pathogen. A single breath is enough to dissolve the victim's airways, who then drowns in his own blood. This poison is however highly volatile and only dangerous for a few seconds, before dissipating into the air. The vial can only be used once.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'The vial can be opened and its contents thrown in the face of a model in base contact who has just taken the Skaven Out of Action. The opponent must then pass a Toughness test or be immediately taken Out of Action, with no save possible. If the opponent succumbs to the poison, he failed to complete his attack and the Skaven is only Stunned instead of Out of Action.',
+      },
+    ],
+  },
+  gourde_dhuile: {
+    nom: 'Oil Flask',
+    texte:
+      'This small leather container holds combustible oil for refilling lamps and lanterns. The oil flask can be used to easily start a fire, provided a flame is brought near it. The flask can only be used once.',
+  },
+  herbes_de_soin: {
+    nom: 'Healing Herbs',
+    texte:
+      'Certain plants that grow on the banks of the River Stir have curative properties. Apothecaries gather their roots and leaves to treat the sick and wounded. A Hero with healing herbs may use them at the start of any of his Recovery phases, as long as he is not engaged in hand-to-hand combat. He then recovers all Wounds lost during the game. Healing herbs can only be used once.',
+  },
+  larmes_de_shallya: {
+    nom: 'Tears of Shallya',
+    texte:
+      'Tears of Shallya are vials of water from the holy spring of the Crown. Shallya is the goddess of healing and mercy, and this water is said to heal and protect against poison. A model that drinks it at the start of the battle will be completely immune to all poisons for the duration of the game. Tears of Shallya can only be used once.',
+  },
+  poudre_eclair: {
+    nom: 'Flash Powder',
+    texte:
+      'Another dwarf creation, this phosphorous preparation is used in mines to light up dark cracks when searching for veins of precious minerals. In Mordheim, pouches of this powder can be used to blind enemies and catch them off guard at the moment of attack. It may be used when an opponent decides to charge. A pouch contains just enough flash powder for a single use.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'The charging model must pass an Initiative test to cover his eyes in time. If he fails, he is temporarily blinded and the charge is considered to have failed.',
+      },
+    ],
+  },
+  torche: {
+    nom: 'Torch',
+    texte:
+      'Warriors who cannot afford a lantern can use torches instead. A torch works exactly like a lantern: it adds 4" to the distance at which the model can spot hidden models, but also follows other special rules. A torch lasts only for the duration of one game.',
+    regles_speciales: [
+      {
+        nom: 'Combat Effect',
+        texte:
+          'A model armed with a torch causes fear in animals (dogs, horses, warhorses, wolves, bears, etc.) and may use it as a weapon. When used in combat, a torch works like a club, but with a -1 penalty to hit. Models with the regeneration skill (such as Trolls) cannot regenerate Wounds caused by a torch. Torches can also be used to set buildings alight if you are using the Fires of Hell rules.',
+      },
+    ],
+  },
+  victuailles: {
+    nom: 'Provisions',
+    texte:
+      'Provisions can be used after a battle. If the warband sells wyrdstone or treasures (see Empire in Flames or Border Town Burning), the number of warriors in the warband is treated as being one column lower (i.e. a warband of 10-12 warriors is treated as 7-9 warriors). A warband may use as many provisions as it wishes, but note that the warband size can never be treated as lower than 1-3 warriors.',
+  },
+  vin_elfique: {
+    nom: 'Elf Wine',
+    texte:
+      'Elven wines are renowned as the finest in the world, and some are even said to have magical properties. A delicate elf wine banishes doubt and fear and fills the drinker with a sense of well-being. A Ghost Warband that drinks elf wine before a battle is immune to fear for the entire duration of the battle. The effect lasts for the duration of one battle.',
+  },
+  vodka: {
+    nom: 'Vodka',
+    texte:
+      "The Kislevites inhabit a hostile land, constantly threatened by invasion. As a result, they tend to be grave and pragmatic, but this has not dampened their love of celebration. One could even say the opposite: the hardships they face daily teach them that life is short and that any opportunity to have fun must be seized. One consequence of this attitude is the creation of an alcoholic drink called vodka. It is also one of the country's most famous exports, though most people of the Old World find the drink a little too strong for their southern tastes. Kislevites, on the other hand, are so fond of this drink that they attribute magical properties to it. Mothers give vodka to their children to ward off illness and to keep them warm during the long winter months. Foreigners remain puzzled by the supposed supernatural qualities of this spirit. Yet it is a proven fact that a Kislevite army well-stocked with vodka fights better and with even greater valour. Single use.",
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'In game terms, a Kislevite Hero may give vodka to his warband before a battle. All members of the warband then gain a +1 Leadership bonus (up to a maximum of 10) for the duration of the game. However, to represent the intoxicating effects of vodka, all members must make a Toughness test before the start of the game, or suffer a -1 Initiative penalty if they fail.',
+      },
+    ],
+  },
 };
 
 const DISPONIBILITE_ARTEFACT_EN =
