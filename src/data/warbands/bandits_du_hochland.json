@@ -191,22 +191,27 @@
   ],
   "competences_speciales": [
     {
+      "id": "banditisme",
       "nom": "Banditisme",
       "texte": "Au lieu de chercher de l'équipement Rare, le Héros peut se livrer au banditisme. Lancez 1D6. Sur 2-6, le banditisme est réussi et le Héros ajoute 1D6+1 Couronnes d'Or à la réserve de la bande. Sur 1, effectuez un jet sur le Tableau des Blessures Graves pour le Héros, comme s'il avait été mis hors de combat. Non cumulable avec Gestionnaire astucieux."
     },
     {
+      "id": "cache_dans_lombre",
       "nom": "Caché dans l'ombre",
       "texte": "Un guerrier ennemi qui tente de détecter le Héros caché doit réduire de moitié son Initiative (arrondi au supérieur) avant de mesurer la distance de détection."
     },
     {
+      "id": "bond_arriere",
       "nom": "Bond arrière",
       "texte": "Si le guerrier est engagé au Corps à corps au début de sa phase de Mouvement et qu'il n'est ni à terre, ni sonné, il peut tenter un saut pour rompre le combat via un test d'Initiative. En cas d'échec, il frappera automatiquement en dernier ce tour. En cas de succès, il est éloigné de 1ps du guerrier ennemi et peut agir normalement (et même charger à nouveau)."
     },
     {
+      "id": "tir_silencieux",
       "nom": "Tir silencieux",
       "texte": "S'il est caché, le Héros peut tirer ou lancer des sorts tout en demeurant caché. Si sa cible n'est pas immédiatement mise hors de combat, elle doit faire un test d'Initiative pour le repérer. Ne fonctionne pas avec une arme à poudre noire."
     },
     {
+      "id": "ventriloque",
       "nom": "Ventriloque",
       "texte": "Si un guerrier ennemi tente de détecter le Héros alors qu'il est caché, lancez 1D6. Sur 4+, le Héros n'est pas repéré et reste caché."
     }
