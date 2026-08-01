@@ -25,17 +25,27 @@ jobs:
         run: npx oxlint
       - name: Build (production, root path)
         run: npm run build:prod
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.INFOMANIAK_FTP_HOST }}
-          username: ${{ secrets.INFOMANIAK_FTP_USERNAME }}
-          password: ${{ secrets.INFOMANIAK_FTP_PASSWORD }}
-          local-dir: dist/
-          server-dir: /
-          # Wipes the remote root and re-uploads dist/ in full on every
-          # deploy — the site is small (a few MB) so the extra transfer
-          # time is negligible, and it removes any doubt about stale
-          # hashed assets surviving a broken sync-state file under the
-          # 10 MB Infomaniak hosting quota.
-          dangerous-clean-slate: true
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+      - name: Deploy via lftp (reverse mirror, delete obsolete files first)
+        # SamKirkland/FTP-Deploy-Action's dangerous-clean-slate wipe was
+        # confirmed to silently no-op (completing in under a second, far
+        # too fast for a real recursive FTP delete of dozens of files),
+        # so every deploy was stacking a full duplicate copy of dist/ on
+        # top of the previous one instead of replacing it — the actual
+        # cause of repeated 10 MB Infomaniak quota exhaustion. lftp's
+        # mirror does a real diff against the live server and deletes
+        # obsolete files before uploading new ones.
+        env:
+          FTP_HOST: ${{ secrets.INFOMANIAK_FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.INFOMANIAK_FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.INFOMANIAK_FTP_PASSWORD }}
+        run: |
+          set -e
+          lftp <<EOF
+          set ftp:ssl-allow no
+          set cmd:fail-exit yes
+          open -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST"
+          mirror --reverse --delete --delete-first --verbose --exclude-glob ftpquota --exclude-glob .ftpquota dist/ .
+          bye
+          EOF
