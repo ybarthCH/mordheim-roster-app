@@ -135,18 +135,22 @@ function estPersonnalise(r: ResultatBlessureGrave): boolean {
   return !original || original.nom !== r.nom;
 }
 
-// Version affichage seulement de `texteIteration`, utilisée pour l'aperçu de
+// Version traduite d'une itération résolue, utilisée pour l'aperçu de
 // confirmation : le résultat réellement consigné dans l'historique du
 // guerrier reste toujours celui construit à partir des données françaises
 // d'origine (voir construireResultatBase), exactement comme translateItem
 // n'affecte jamais l'objet utilisé pour un achat.
-function texteIterationAffichee(it: IterationResolue, language: Language): string {
-  if (estPersonnalise(it.resultat)) return texteIteration(it);
+function iterationAffichee(it: IterationResolue, language: Language): IterationResolue {
+  if (estPersonnalise(it.resultat)) return it;
   const resultat = translateBlessure(it.resultat, language);
-  if (!it.sousJetChoisi) return texteIteration({ ...it, resultat });
+  if (!it.sousJetChoisi) return { ...it, resultat };
   const index = it.resultat.sousJet?.options.indexOf(it.sousJetChoisi) ?? -1;
   const sousJetChoisi = index >= 0 ? (resultat.sousJet?.options[index] ?? it.sousJetChoisi) : it.sousJetChoisi;
-  return texteIteration({ ...it, resultat, sousJetChoisi });
+  return { ...it, resultat, sousJetChoisi };
+}
+
+function texteIterationAffichee(it: IterationResolue, language: Language): string {
+  return texteIteration(iterationAffichee(it, language));
 }
 
 function notesIteration(it: IterationResolue): string[] {
@@ -752,6 +756,27 @@ export function BlessureGraveWizard({
   // mode === 'confirmation'
   const resultatFinal = construireResultatFinal();
   const statsListe = Object.entries(resultatFinal.statsDelta).filter(([, v]) => v);
+  // Traduction best-effort des notes de l'aperçu (voir texteIterationAffichee
+  // pour le même principe) : celles construites directement à partir d'un
+  // noteTag de la table canonique se re-traduisent via une correspondance
+  // texte français -> texte traduit ; le reste (mentions éditoriales fixes
+  // comme "Éternelle" ou le second œil perdu) retombe sur le texte français,
+  // n'existant que dans cette langue.
+  const iterationsPourNotes = racine?.resultat.multiplesInjuries
+    ? multiplesResultats
+    : racine
+      ? [racine]
+      : [];
+  const notesTraductionMap = new Map<string, string>();
+  iterationsPourNotes.forEach((it) => {
+    const notesFr = notesIteration(it);
+    const notesTraduites = notesIteration(iterationAffichee(it, language));
+    notesFr.forEach((noteFr, i) => {
+      const noteTraduite = notesTraduites[i];
+      if (noteTraduite) notesTraductionMap.set(noteFr, noteTraduite);
+    });
+  });
+  const notesAffichees = resultatFinal.notes.map((n) => notesTraductionMap.get(n) ?? n);
   return (
     <div>
       <h4 style={{ marginTop: 0 }}>
@@ -815,7 +840,7 @@ export function BlessureGraveWizard({
       )}
       {resultatFinal.notes.length > 0 && (
         <p className="text-sm">
-          <strong>{t('blessureGraveWizard.notesToAdd')}</strong> {resultatFinal.notes.join(' · ')}
+          <strong>{t('blessureGraveWizard.notesToAdd')}</strong> {notesAffichees.join(' · ')}
         </p>
       )}
       {resultatFinal.xpBonus > 0 && (
