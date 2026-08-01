@@ -88,4 +88,23 @@ export const blessureGraveWizard: UiDictionary = {
   },
   'blessureGraveWizard.restart': { fr: 'Recommencer', en: 'Restart' },
   'blessureGraveWizard.apply': { fr: 'Appliquer', en: 'Apply' },
+  'blessureGraveWizard.gladiatorVictoryNom': { fr: 'Gladiateur (victoire)', en: 'Pit fighter (victory)' },
+  'blessureGraveWizard.gladiatorVictoryTexte': {
+    fr: "Le guerrier remporte son combat dans les fosses du Repaire des Coupe-Jarrets : il empoche 50 pièces d'or, gagne 2 points d'Expérience et rejoint sa bande avec tout son équipement intact.",
+    en: "The warrior wins his fight in the pits of the Cutthroats' Den: he pockets 50 gold crowns, gains 2 Experience points, and rejoins his warband with all his equipment intact.",
+  },
+  'blessureGraveWizard.gladiatorDefeatPrefix': {
+    fr: 'Défaite face à un gladiateur dans les fosses de combat — ',
+    en: 'Defeat against a pit fighter in the fighting pits — ',
+  },
+  'blessureGraveWizard.capturedLostNom': { fr: 'Capturé — héros perdu', en: 'Captured — hero lost' },
+  'blessureGraveWizard.capturedLostTexte': {
+    fr: "Le prisonnier ne revient pas : vendu à des marchands d'esclaves, exécuté ou transformé par ses ravisseurs, il quitte définitivement la bande. Son équipement reste aux mains de ses ravisseurs.",
+    en: 'The captive never returns: sold to slavers, executed, or turned by his captors, he leaves the warband for good. His equipment stays with his captors.',
+  },
+  'blessureGraveWizard.capturedRansomNom': { fr: 'Capturé — libéré contre rançon', en: 'Captured — ransomed' },
+  'blessureGraveWizard.capturedRansomTexte': {
+    fr: 'Le prisonnier est libéré contre une rançon de {montant} po, payée par la bande. Il conserve tout son équipement et rejoint aussitôt la bande.',
+    en: 'The captive is released for a ransom of {montant} gc, paid by the warband. He keeps all his equipment and immediately rejoins the warband.',
+  },
 };

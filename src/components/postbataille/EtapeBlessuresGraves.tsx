@@ -3,7 +3,9 @@ import { Modal } from '../common/Modal';
 import { BlessureGraveWizard, type BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 import { trouverBlessure } from '../../data/blessuresGraves';
 import type { Member, RosterInstance } from '../../types/roster';
+import type { WarbandCatalog } from '../../types/catalog';
 import { resolveProfil } from '../../utils/profil';
+import { injuryLabelAffiche } from '../../utils/blessures';
 import type { BlessureDraft } from './PostBatailleScreen';
 import { useLanguage } from '../../state/useLanguage';
 
@@ -11,6 +13,7 @@ const NOM_AVEUGLE_OEIL = trouverBlessure('aveugle_oeil')?.nom;
 
 type EtapeBlessuresGravesProps = {
   roster: RosterInstance;
+  catalogue: WarbandCatalog | undefined;
   horsDeCombatHeros: Member[];
   blessureDrafts: Record<string, BlessureDraft>;
   tresorerieDisponible: number;
@@ -20,16 +23,17 @@ type EtapeBlessuresGravesProps = {
 
 export function EtapeBlessuresGraves({
   roster,
+  catalogue,
   horsDeCombatHeros,
   blessureDrafts,
   tresorerieDisponible,
   onAppliquer,
   onReinitialiser,
 }: EtapeBlessuresGravesProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [blessureEnCours, setBlessureEnCours] = useState<string | null>(null);
   const membreEnCours = horsDeCombatHeros.find((h) => h.instance_id === blessureEnCours);
-  const profilEnCours = membreEnCours ? resolveProfil(roster, membreEnCours) : undefined;
+  const profilEnCours = membreEnCours ? resolveProfil(roster, membreEnCours, catalogue) : undefined;
 
   return (
     <>
@@ -52,7 +56,7 @@ export function EtapeBlessuresGraves({
               {d && (
                 <div style={{ marginTop: '0.5rem' }}>
                   <p className="text-sm" style={{ whiteSpace: 'pre-wrap' }}>
-                    {d.description}
+                    {injuryLabelAffiche(d, language)}
                   </p>
                   {d.statutMort && <p className="text-danger mb-0">{t('postBataille.injuries.markedDead')}</p>}
                   {d.perteEquipement && <p className="text-danger mb-0">{t('postBataille.injuries.equipmentLost')}</p>}
