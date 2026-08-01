@@ -128,7 +128,7 @@ export function ListeBandesScreen() {
             <div className="list-item__main">
               <div className="list-item__title">{roster.nom_bande}</div>
               <div className="list-item__subtitle">
-                {nomCatalogue(roster.bande_id)} · {effectifTotal(roster)} {t('home.members')} · Rating{' '}
+                {nomCatalogue(roster.bande_id, language)} · {effectifTotal(roster)} {t('home.members')} · Rating{' '}
                 {ratingTotal(roster)}
               </div>
               <div className="list-item__subtitle">
