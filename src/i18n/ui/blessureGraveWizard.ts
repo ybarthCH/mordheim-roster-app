@@ -107,4 +107,13 @@ export const blessureGraveWizard: UiDictionary = {
     fr: 'Le prisonnier est libéré contre une rançon de {montant} po, payée par la bande. Il conserve tout son équipement et rejoint aussitôt la bande.',
     en: 'The captive is released for a ransom of {montant} gc, paid by the warband. He keeps all his equipment and immediately rejoins the warband.',
   },
+  'blessureGraveWizard.subRollResultPrefix': { fr: 'Résultat du sous-jet', en: 'Sub-roll result' },
+  'blessureGraveWizard.missesNextGamesSuffix': {
+    fr: 'Le guerrier manque {n} prochaine(s) partie(s).',
+    en: 'The warrior misses the next {n} game(s).',
+  },
+  'blessureGraveWizard.multipleInjuriesRerollCount': {
+    fr: 'relance de {n} résultat(s) supplémentaire(s)',
+    en: 'reroll {n} additional result(s)',
+  },
 };
