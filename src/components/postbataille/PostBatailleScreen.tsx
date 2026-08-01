@@ -288,7 +288,7 @@ export function PostBatailleScreen() {
   const exploration = useMemo(
     () =>
       roster
-        ? resumeExploration(roster, catalogue, resultat, rules, effetsInitiauxRef.current ?? undefined)
+        ? resumeExploration(roster, catalogue, resultat, rules, effetsInitiauxRef.current ?? undefined, language)
         : {
             herosEligibles: [],
             desHeros: 0,
@@ -298,7 +298,7 @@ export function PostBatailleScreen() {
             maximumAConserver: 6,
             aides: [],
           },
-    [roster, catalogue, resultat, rules]
+    [roster, catalogue, resultat, rules, language]
   );
 
   const herosCommerce: HerosCommerce[] = useMemo(() => {

@@ -52,4 +52,10 @@ export const etapeExploration: UiDictionary = {
     en: "Roll of 2D6 made on your tabletop — enter the result here so it appears in the battle's journal.",
   },
   'exploration.veteranPointsLabel': { fr: 'Points vétéran', en: 'Veteran points' },
+  'exploration.bandSourceLabel': { fr: 'Bande', en: 'Warband' },
+  'exploration.pendingEffectSourceLabel': { fr: 'Effet en attente', en: 'Pending effect' },
+  'exploration.extraDiceNote': {
+    fr: "Vous bénéficiez de {n} dé(s) supplémentaire(s) lors de cette phase d'exploration.",
+    en: 'You get {n} extra {dice} during this exploration phase.',
+  },
 };

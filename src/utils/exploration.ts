@@ -6,6 +6,21 @@ import { resolveProfil } from './profil';
 import type { GameRules } from '../types/rules';
 import { estFrancTireur } from '../data/hiredSwords';
 import { CLE_DE_SUPPLEMENTAIRE_EXPLORATION, effetsPersistantsAvecCle } from './effetsPersistants';
+import type { Language } from '../state/useLanguage';
+import { uiDictionary } from '../i18n/ui';
+import { translateItem } from '../i18n/data/items';
+import { translateSkill } from '../i18n/data/skills';
+
+// Reprise minimale du principe de useLanguage().t(), pour un usage hors
+// composant React : `catalogue` est déjà traduit par l'appelant (voir
+// PostBatailleScreen), mais les quelques libellés propres à cette fonction
+// (préfixes de source, note de dés supplémentaires) ne le sont pas.
+function tr(key: string, language: Language, params?: Record<string, string | number>): string {
+  const entry = uiDictionary[key];
+  const raw = entry ? (entry[language] ?? entry.fr) : key;
+  if (!params) return raw;
+  return raw.replace(/\{(\w+)\}/g, (match, token) => (token in params ? String(params[token]) : match));
+}
 
 export type AideExploration = {
   source: string;
@@ -42,13 +57,18 @@ function bonusDeuxDes(texte: string): boolean {
 function ajouterAide(
   aides: AideExploration[],
   source: string,
-  texte: string,
+  texteAffiche: string,
+  // Texte français d'origine, utilisé uniquement pour détecter si la règle
+  // concerne l'exploration — le mot est identique dans les deux langues,
+  // mais on reste sur le texte canonique pour ne pas dépendre de la
+  // formulation traduite.
+  texteDetection: string,
   desSupplementaires = 0
 ) {
-  if (!concerneExploration(texte)) return;
-  const cle = `${source}\n${texte}`;
+  if (!concerneExploration(texteDetection)) return;
+  const cle = `${source}\n${texteAffiche}`;
   if (aides.some((aide) => `${aide.source}\n${aide.texte}` === cle)) return;
-  aides.push({ source, texte, desSupplementaires });
+  aides.push({ source, texte: texteAffiche, desSupplementaires });
 }
 
 /**
@@ -67,7 +87,8 @@ export function resumeExploration(
   // d'exploration tout juste créé pendant cette même session (ex : Vagabond
   // "Interroger") ne doit compter que pour la PROCHAINE phase d'exploration,
   // pas celle en cours. Omis (undefined), tous les effets présents comptent.
-  effetsInitiauxIds?: Set<string>
+  effetsInitiauxIds?: Set<string>,
+  language: Language = 'fr'
 ): ResumeExploration {
   const herosEligibles = roster.membres.filter((membre) => {
     if (
@@ -94,38 +115,71 @@ export function resumeExploration(
   );
 
   for (const membre of membresPouvantAider) {
+    // `profil` reste toujours la donnée française d'origine (voir
+    // resolveProfil) : sert à détecter de façon fiable les règles fixes
+    // (bonusDeuxDes) quelle que soit la langue d'affichage. `profilAffiche`
+    // est la même donnée passée dans `catalogue`, potentiellement déjà
+    // traduite par l'appelant — utilisé uniquement pour l'affichage, avec
+    // repli sur `profil` si la bande n'a pas encore de traduction.
     const profil = resolveProfil(roster, membre);
-    for (const regle of profil?.regles_speciales ?? []) {
+    const profilAffiche = resolveProfil(roster, membre, catalogue);
+    profil?.regles_speciales?.forEach((regle, i) => {
       const bonus = idsHerosEligibles.has(membre.instance_id) && bonusDeuxDes(regle.texte) ? 1 : 0;
       bonusFixes += bonus;
-      ajouterAide(aides, `${membre.nom_perso} — ${regle.nom}`, regle.texte, bonus);
-    }
+      const regleAffichee = profilAffiche?.regles_speciales?.[i] ?? regle;
+      ajouterAide(aides, `${membre.nom_perso} — ${regleAffichee.nom}`, regleAffichee.texte, regle.texte, bonus);
+    });
 
     for (const competenceId of membre.competences_acquises) {
-      const competence =
-        skillById(competenceId) ??
-        (profil?.competences_speciales ?? catalogue?.competences_speciales ?? []).find(
-          (item) => item.id === competenceId
+      // Compétence générique (catalogue de compétences commun) : traduite
+      // via translateSkill. Compétence spéciale propre à la bande : déjà
+      // traduite dans `profilAffiche`/`catalogue` (voir translateWarbandCatalog).
+      const competenceGenerique = skillById(competenceId);
+      if (competenceGenerique) {
+        const traduite = translateSkill(competenceGenerique, language);
+        ajouterAide(
+          aides,
+          `${membre.nom_perso} — ${traduite.nom}`,
+          traduite.texte,
+          competenceGenerique.texte
         );
-      if (competence) {
-        ajouterAide(aides, `${membre.nom_perso} — ${competence.nom}`, competence.texte);
+        continue;
       }
+      const competenceBrute =
+        (profil?.competences_speciales ?? []).find((item) => item.id === competenceId) ??
+        catalogue?.competences_speciales?.find((item) => item.id === competenceId);
+      if (!competenceBrute) continue;
+      const competenceAffichee =
+        (profilAffiche?.competences_speciales ?? catalogue?.competences_speciales ?? []).find(
+          (item) => item.id === competenceId
+        ) ?? competenceBrute;
+      ajouterAide(
+        aides,
+        `${membre.nom_perso} — ${competenceAffichee.nom}`,
+        competenceAffichee.texte,
+        competenceBrute.texte
+      );
     }
 
     for (const entree of membre.inventaire) {
-      const objet = resolveItemDetail(entree, catalogue?.id ?? roster.bande_id, rules);
-      const textes = [
-        objet.texte,
-        ...(objet.regles_speciales ?? []).map((regle) => `${regle.nom} — ${regle.texte}`),
+      const objetBrut = resolveItemDetail(entree, catalogue?.id ?? roster.bande_id, rules);
+      const objetAffiche = translateItem(objetBrut, language);
+      const textesAffiches = [
+        objetAffiche.texte,
+        ...(objetAffiche.regles_speciales ?? []).map((regle) => `${regle.nom} — ${regle.texte}`),
       ].filter((texte): texte is string => !!texte);
-      for (const texte of textes) {
-        ajouterAide(aides, `${membre.nom_perso} — ${objet.nom}`, texte);
-      }
+      const textesDetection = [
+        objetBrut.texte,
+        ...(objetBrut.regles_speciales ?? []).map((regle) => `${regle.nom} — ${regle.texte}`),
+      ].filter((texte): texte is string => !!texte);
+      textesAffiches.forEach((texte, i) => {
+        ajouterAide(aides, `${membre.nom_perso} — ${objetAffiche.nom}`, texte, textesDetection[i] ?? texte);
+      });
     }
   }
 
   for (const regle of catalogue?.regles_speciales ?? []) {
-    ajouterAide(aides, `Bande — ${regle.nom}`, regle.texte);
+    ajouterAide(aides, `${tr('exploration.bandSourceLabel', language)} — ${regle.nom}`, regle.texte, regle.texte);
   }
 
   // Bonus de dé(s) obtenu lors d'un précédent jet d'exploration (ex :
@@ -136,10 +190,17 @@ export function resumeExploration(
     .reduce((total, effet) => total + (effet.valeur ?? 1), 0);
   if (desSupplementairesPersistants > 0) {
     bonusFixes += desSupplementairesPersistants;
+    const s = desSupplementairesPersistants > 1 ? 's' : '';
+    const texteFrancais = `Vous bénéficiez de ${desSupplementairesPersistants} dé${s} supplémentaire${s} lors de cette phase d'exploration.`;
+    const texteAffiche = tr('exploration.extraDiceNote', language, {
+      n: desSupplementairesPersistants,
+      dice: desSupplementairesPersistants > 1 ? 'dice' : 'die',
+    });
     ajouterAide(
       aides,
-      'Effet en attente',
-      `Vous bénéficiez de ${desSupplementairesPersistants} dé(s) supplémentaire(s) lors de cette phase d'exploration.`,
+      tr('exploration.pendingEffectSourceLabel', language),
+      texteAffiche,
+      texteFrancais,
       desSupplementairesPersistants
     );
   }
