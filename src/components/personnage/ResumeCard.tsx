@@ -1,4 +1,4 @@
-import { injuryLabel } from '../../utils/blessures';
+import { injuryLabelAffiche } from '../../utils/blessures';
 import { resolveItemDetail, resumeItem } from '../../utils/shop';
 import { estSorcier, resolveSort } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
@@ -110,7 +110,7 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
       {membre.blessures_graves.length > 0 ? (
         membre.blessures_graves.map((b) => (
           <p key={b.id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-            {b.date} — {injuryLabel(b)}
+            {b.date} — {injuryLabelAffiche(b, language)}
           </p>
         ))
       ) : (

@@ -5,7 +5,7 @@ import { Icon } from '../common/Icon';
 import type { IconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import { avancesDues, peutGagnerExperience } from '../../utils/xp';
-import { nomCourtBlessure } from '../../utils/blessures';
+import { nomCourtBlessureAffiche } from '../../utils/blessures';
 import { inventaireGroupeMismatch } from '../../utils/shop';
 import { useDragReorder } from '../../utils/useDragReorder';
 import { estLeaderActuel } from '../../utils/leader';
@@ -86,7 +86,7 @@ export function MemberGroupCard({
   // descriptions complètes (disponibles sur la fiche personnage).
   const resumeBlessures = (m: Member): string | null => {
     if (m.blessures_graves.length === 0) return null;
-    return `${t('memberGroup.injuries')} ${m.blessures_graves.map((b) => nomCourtBlessure(b)).join(' - ')}`;
+    return `${t('memberGroup.injuries')} ${m.blessures_graves.map((b) => nomCourtBlessureAffiche(b, language)).join(' - ')}`;
   };
 
   const avanceEnAttente = (m: Member) => {

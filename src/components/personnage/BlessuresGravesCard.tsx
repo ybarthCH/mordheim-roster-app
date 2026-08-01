@@ -1,6 +1,6 @@
 import { Icon } from '../common/Icon';
 import { CollapsibleCard } from '../common/CollapsibleCard';
-import { injuryLabel, nomCourtBlessure } from '../../utils/blessures';
+import { injuryLabelAffiche, nomCourtBlessureAffiche } from '../../utils/blessures';
 import type { Member } from '../../types/roster';
 import { useLanguage } from '../../state/useLanguage';
 
@@ -15,7 +15,7 @@ export function BlessuresGravesCard({
   onOpenAjout,
   onSupprimer,
 }: BlessuresGravesCardProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   return (
     <CollapsibleCard
       preferenceKey="ui.personnage.blessures_graves.ouvert"
@@ -38,9 +38,9 @@ export function BlessuresGravesCard({
             className="list-item__main"
             style={{ padding: 0, textAlign: 'left', color: 'inherit' }}
           >
-            <div className="list-item__title">{nomCourtBlessure(b)}</div>
+            <div className="list-item__title">{nomCourtBlessureAffiche(b, language)}</div>
             <div className="list-item__subtitle" style={{ whiteSpace: 'pre-line' }}>
-              {b.date} — {injuryLabel(b)}
+              {b.date} — {injuryLabelAffiche(b, language)}
             </div>
             <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.35rem' }}>
               {(b.soignee || b.effets?.some((effet) => effet.traitee)) && (

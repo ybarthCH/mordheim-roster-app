@@ -1,5 +1,8 @@
 import type { Member, SeriousInjuryRecord } from '../types/roster';
 import type { Stats } from '../types/catalog';
+import type { Language } from '../state/useLanguage';
+import { trouverBlessure } from '../data/blessuresGraves';
+import { translateBlessure } from '../i18n/data/blessuresGraves';
 
 const LONGUEUR_NOM_COURT = 30;
 
@@ -23,6 +26,45 @@ export function injuryLabel(b: SeriousInjuryRecord): string {
   if (b.description) return b.description;
   const legacy = b as unknown as { resultat?: string; effet?: string };
   return [legacy.resultat, legacy.effet].filter(Boolean).join(' — ') || '(sans description)';
+}
+
+// `SeriousInjuryRecord.nom`/`description` sont un texte français pré-généré
+// à la création (voir BlessureGraveWizard), pas une référence vers la donnée
+// canonique — ils ne se re-traduisent donc pas tout seuls si la langue change
+// ensuite. Repli best-effort : ne s'applique que si la blessure est un effet
+// unique, non personnalisé (son nom correspond exactement à l'entrée
+// canonique désignée par `resultat_id`) — sinon on retombe sur le texte
+// français d'origine plutôt que de risquer un mélange incohérent (une
+// blessure multiple ou un texte édité à la main n'existe qu'en français).
+function effetSeulNonPersonnalise(b: SeriousInjuryRecord) {
+  if (b.effets?.length !== 1) return undefined;
+  const [effet] = b.effets;
+  const canonique = trouverBlessure(effet.resultat_id);
+  if (!canonique || canonique.nom !== effet.nom) return undefined;
+  return canonique;
+}
+
+/** Variante de nomCourtBlessure qui re-traduit le titre court quand c'est
+ * possible sans risque (voir effetSeulNonPersonnalise) — sinon identique à
+ * nomCourtBlessure. */
+export function nomCourtBlessureAffiche(b: SeriousInjuryRecord, language: Language): string {
+  const original = nomCourtBlessure(b);
+  const canonique = effetSeulNonPersonnalise(b);
+  if (!canonique || canonique.nom !== original) return original;
+  return translateBlessure(canonique, language).nom;
+}
+
+/** Variante de injuryLabel qui re-traduit la description complète quand
+ * c'est possible sans risque (voir effetSeulNonPersonnalise) — sinon
+ * identique à injuryLabel. */
+export function injuryLabelAffiche(b: SeriousInjuryRecord, language: Language): string {
+  const original = injuryLabel(b);
+  const canonique = effetSeulNonPersonnalise(b);
+  if (!canonique) return original;
+  const texteCanonique = `${canonique.nom} (${canonique.code}) — ${canonique.texte}`;
+  if (!original.startsWith(texteCanonique)) return original;
+  const traduit = translateBlessure(canonique, language);
+  return `${traduit.nom} (${canonique.code}) — ${traduit.texte}${original.slice(texteCanonique.length)}`;
 }
 
 export type ApplicationDeltaStats = {

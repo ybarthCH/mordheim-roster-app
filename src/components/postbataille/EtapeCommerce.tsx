@@ -7,7 +7,7 @@ import {
   effetsTraitablesDocteur,
 } from '../../utils/docteur';
 import { resolveProfil } from '../../utils/profil';
-import { injuryLabel, nomCourtBlessure } from '../../utils/blessures';
+import { injuryLabelAffiche, nomCourtBlessureAffiche } from '../../utils/blessures';
 import { Modal } from '../common/Modal';
 import { DocteurModal } from '../personnage/DocteurModal';
 import {
@@ -94,7 +94,7 @@ export function EtapeCommerce({
   dramatisPersonaeActif,
   onChanger,
 }: Props) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [rechercheHeroId, setRechercheHeroId] = useState<string | null>(null);
   const [rechercheDPHeroId, setRechercheDPHeroId] = useState<string | null>(null);
   const [docteurHeroId, setDocteurHeroId] = useState<string | null>(null);
@@ -339,8 +339,8 @@ export function EtapeCommerce({
                 onClick={() => setBlessureChoisieId(blessure.id)}
               >
                 <div className="list-item__main">
-                  <div className="list-item__title">{nomCourtBlessure(blessure)}</div>
-                  <div className="list-item__subtitle">{injuryLabel(blessure)}</div>
+                  <div className="list-item__title">{nomCourtBlessureAffiche(blessure, language)}</div>
+                  <div className="list-item__subtitle">{injuryLabelAffiche(blessure, language)}</div>
                   {!traitable && <div className="list-item__subtitle">{t('commerce.notTreatableByDoctor')}</div>}
                 </div>
               </button>

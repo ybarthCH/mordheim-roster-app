@@ -8,7 +8,7 @@ import {
   type EffetTraitableDocteur,
   type ResultatDocteur,
 } from '../../utils/docteur';
-import { injuryLabel } from '../../utils/blessures';
+import { injuryLabelAffiche } from '../../utils/blessures';
 import { trouverBlessure } from '../../data/blessuresGraves';
 import { translateBlessure } from '../../i18n/data/blessuresGraves';
 import { Modal } from '../common/Modal';
@@ -23,25 +23,6 @@ function nomEffetAffiche(effet: EffetTraitableDocteur, language: Language): stri
   const canonique = trouverBlessure(effet.resultatId);
   if (!canonique || canonique.nom !== effet.nom) return effet.nom;
   return translateBlessure(canonique, language).nom;
-}
-
-// Traduction best-effort de la description persistée d'une blessure grave :
-// ne s'applique que si la blessure est un effet unique, non personnalisé, et
-// dont le texte correspond exactement (ou avec un simple suffixe ajouté, ex.
-// une précision libre) à celui construit depuis la donnée canonique — sinon
-// on retombe sur le texte français d'origine plutôt que de risquer un
-// mélange incohérent (voir texteIterationAffichee dans BlessureGraveWizard
-// pour le même principe de repli).
-function injuryLabelAffiche(blessure: SeriousInjuryRecord, language: Language): string {
-  const original = injuryLabel(blessure);
-  if (language !== 'en' || blessure.effets?.length !== 1) return original;
-  const [effet] = blessure.effets;
-  const canonique = trouverBlessure(effet.resultat_id);
-  if (!canonique || canonique.nom !== effet.nom) return original;
-  const texteCanonique = `${canonique.nom} (${canonique.code}) — ${canonique.texte}`;
-  if (!original.startsWith(texteCanonique)) return original;
-  const traduit = translateBlessure(canonique, language);
-  return `${traduit.nom} (${canonique.code}) — ${traduit.texte}${original.slice(texteCanonique.length)}`;
 }
 
 type Props = {
