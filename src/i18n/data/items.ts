@@ -1525,6 +1525,259 @@ export const itemsEn: Record<string, ItemTraduit> = {
       { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon after its two shots.' },
     ],
   },
+
+  // --- Armes de tir ---
+  arbalete: {
+    nom: 'Crossbow',
+    texte:
+      'A crossbow consists of a small, powerful bow mounted on a wooden or steel stock. It takes time to prepare a crossbow to fire, but the bolts it fires have an enormous range and easily pierce armour. Crossbows are much longer to make than bows, and are therefore expensive and quite rare. Many at Mordheim nonetheless prize them for their power and range.',
+    regles_speciales: [
+      {
+        nom: 'Move or Shoot',
+        texte: 'It is not possible to move and shoot during the same turn, except to turn on the spot or stand up.',
+      },
+    ],
+  },
+  arbalete_de_poing: {
+    nom: 'Hand Crossbow',
+    texte:
+      'Hand crossbows are masterpieces crafted by master gunsmiths: miniatures with the power and accuracy of true crossbows. They can be easily concealed under clothing and are highly prized by assassins.',
+    regles_speciales: [
+      {
+        nom: 'Melee Shot',
+        texte:
+          'The fighter may use this weapon during the first round of hand-to-hand combat. This attack is always resolved first, before other attacks, using Ballistic Skill and a -2 penalty to hit. This attack is in addition to normal hand-to-hand attacks.',
+      },
+    ],
+  },
+  arbalete_a_repetition: {
+    nom: 'Repeater Crossbow',
+    texte:
+      'Repeater crossbows are complex, costly, and difficult to make. They are therefore rather rare, but not without their advantages: they can fire a hail of bolts at the enemy, and a warrior can use one while moving at a good pace.',
+    regles_speciales: [
+      { nom: 'Double Shot', texte: 'The weapon may fire twice per turn, with an additional -1 penalty to hit on each shot.' },
+    ],
+  },
+  arc_court: {
+    nom: 'Short Bow',
+    texte:
+      'These are small, short-range bows, cheap and easy to handle. Some riders use these bows, as other models are too long for mounted shooting. Small creatures, too weak to use more powerful bows, must also make do with short bows.',
+  },
+  arc: {
+    nom: 'Bow',
+    texte: 'The bow is used by most races, especially in times of war. It is a simple but powerful weapon, cheap to make and easy to maintain.',
+  },
+  arc_long: {
+    nom: 'Long Bow',
+    texte:
+      "A long bow is made of alternating layers of yew or elm wood. A skilled archer can hit the leaf of his choosing on a tree at three hundred paces with such a weapon. The long bow is the weapon of choice for experienced archers due to its long range and great accuracy.",
+  },
+  arc_elfique: {
+    nom: 'Elf Bow',
+    texte:
+      'Elf bows are the finest of their kind. Made from ithilmar or wood from the elven forests, with strings woven from the hair of elf maidens, elf bows are far superior to the missile weapons of other races. In the hands of an elf archer, the elf bow is fearsomely effective thanks to its long range and great penetrating power.',
+    regles_speciales: [
+      {
+        nom: 'Save Modifier -1',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+    ],
+  },
+  baton_solaire_lustrie: {
+    nom: 'Sun Staff (Lustria Setting)',
+    texte:
+      'The sun staff is a long tube made of multicoloured metal with one hollow end. Strange runes are engraved along its entire length, and a gem is set into its pommel.',
+    regles_speciales: [
+      {
+        nom: 'Sun Shot',
+        texte:
+          "During the Shooting phase, the bearer of the sun staff may unleash a beam of energy resembling the sun's rays. The sun shot has a range of 12\" and a Strength of 4. Except for magical protections and side-step, a sun shot ignores armour saves.",
+      },
+    ],
+  },
+  baton_solaire_mordheim: {
+    nom: 'Sun Staff (Mordheim Setting)',
+    texte:
+      'The sun staff is a long tube of multicoloured metal with one hollow end. Strange runes are engraved along its entire length, and a gem is set into its pommel. Despite its ancient age (the Loremasters of the White Tower of Hoeth claim to have found a similar object over twenty thousand years old — older than the elven race itself!), the sun staff can emit a beam of energy as bright as the sun.',
+    regles_speciales: [
+      { nom: 'Accurate Weapon', texte: 'The sun staff does not suffer the usual -1 penalty to hit at long range.' },
+      {
+        nom: 'No Save',
+        texte: 'The weapon can pass through any material. A fighter Wounded by this weapon gets no armour save, except for magical protections and side-step.',
+      },
+    ],
+  },
+  arme_de_jet: {
+    nom: 'Throwing Weapon (star, knife, etc.)',
+    texte:
+      'Throwing stars are mainly used by assassins of the sinister House of Shadows, or by bandits who specialise in attacking the unwary. A well-balanced knife thrown into the back has ended the lives of many of Mordheim\'s nobles and merchants. Throwing knives are unsuited to hand-to-hand combat, as they are not properly balanced for it.',
+    regles_speciales: [
+      {
+        nom: 'Throwing Weapon',
+        texte: 'This weapon is perfectly balanced for throwing, and the fighter using it suffers no penalties for long range or for having moved. However, it cannot be used in hand-to-hand combat.',
+      },
+    ],
+  },
+  bolas: {
+    nom: 'Bolas',
+    texte:
+      'Bolas are made of three stone or bronze spheres tied together. They are wielded like a sling, but in this case, both the thrower and the projectile are launched. This is a hunting weapon intended to immobilise prey without killing it. They can only be used once per battle, though they are recovered at the end of it.',
+    regles_speciales: [
+      { nom: 'Dangerous', texte: "If the roll to hit results in a 1, the bolas strike their thrower's head and cause a Strength 3 hit." },
+      {
+        nom: 'Entangle',
+        texte:
+          "A model hit by the bolas is not Wounded, but becomes entangled and can no longer move. It also suffers a -2 penalty to its Weapon Skill in hand-to-hand combat. The victim may still shoot and may attempt to free itself during the Recovery phase. If it rolls 4+ on 1D6, it succeeds and may move and fight normally again.",
+      },
+    ],
+  },
+  cabillot: {
+    nom: 'Belaying Pin',
+    texte:
+      'A typical ship contains hundreds of these small carved pieces of wood. They are placed in racks at strategic points around the ship, around which rigging can be secured. They also make good weapons, and pirates quickly become skilled at using them as short-range weapons.',
+    regles_speciales: [
+      {
+        nom: 'Thrown Weapon',
+        texte: 'Fighters using this weapon suffer no penalty for long range, but still suffer a -1 penalty after moving.',
+      },
+      { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
+    ],
+  },
+  fleches_aspic: {
+    nom: 'Asp Arrows',
+    texte: 'Made from the mummified remains of venomous snakes, they are guided through the air by ancient magic.',
+    regles_speciales: [
+      {
+        nom: 'Accuracy',
+        texte: 'This weapon is designed for accuracy. Any shot or hand-to-hand attack with this weapon gets a +1 bonus to hit.',
+      },
+    ],
+  },
+  fronde: {
+    nom: 'Sling',
+    texte:
+      'Slings are rarely used, being no more powerful than bows while having a shorter range. A sling is nothing more than a loop of cloth or leather in which a stone is placed. The slinger whirls his weapon above his head before releasing the stone towards his target. Although many archers look down on this weapon, a skilled slinger can kill a man at a considerable distance, and ammunition can be found everywhere!',
+    regles_speciales: [
+      {
+        nom: 'Double Shot at Half Range',
+        texte:
+          'If he does not move during the Movement phase and is at half range, the user of this weapon may fire twice. However, each shot suffers a -1 penalty to hit.',
+      },
+    ],
+  },
+  gantelet_du_soleil: {
+    nom: 'Sun Gauntlet',
+    texte:
+      'Like many Amazon artefacts, this weapon is made of a strange multicoloured metal that never tarnishes. It is covered in runes and a gem is set into its guard. The gauntlet closely resembles a black powder pistol. It can be held in one hand, and when pointed at an enemy, it releases a beam of blinding light, much like the Sun Staff.',
+    regles_speciales: [
+      { nom: 'Accurate Weapon', texte: 'The sun gauntlet does not suffer the usual -1 penalty to hit at long range.' },
+      {
+        nom: 'Hand-to-Hand',
+        texte:
+          'The sun gauntlet may be used alongside another hand-to-hand weapon, at Strength 4, with no armour save. Note: because it does not need to be reloaded, this weapon may be used during every hand-to-hand phase.',
+      },
+      {
+        nom: 'No Save',
+        texte: 'The weapon can pass through any material. A fighter Wounded by this weapon gets no armour save, except for magical protections and side-step.',
+      },
+    ],
+  },
+  javelots: {
+    nom: 'Javelins',
+    texte:
+      'Javelins are short spears specially designed to reach distant targets. Although their range is shorter than that of an arrow, they can cause terrible damage when wielded by someone of great physical strength. Note: 4 out of 5 sources give a range of 8". This is therefore treated as the standard (only the Gladiators\' javelin had a range of 10").',
+    regles_speciales: [
+      {
+        nom: 'Thrown Weapon',
+        texte: 'This weapon is perfectly balanced for throwing, and the thrower suffers no penalty for shooting if he has moved beforehand.',
+      },
+    ],
+  },
+  javelot_nehekharien: {
+    nom: 'Nehekharan Javelin',
+    texte:
+      'These warriors throw these javelins using a cord wound around the weapon. When thrown, the javelin spins like a bullet, increasing its accuracy.',
+    regles_speciales: [
+      {
+        nom: 'Thrown Weapon',
+        texte: 'This weapon is perfectly balanced for throwing, and the thrower suffers no penalty for shooting if he has moved beforehand.',
+      },
+      {
+        nom: 'Accuracy',
+        texte: 'This weapon is designed for accuracy. Any shot or hand-to-hand attack with this weapon gets a +1 bonus to hit.',
+      },
+    ],
+  },
+  kusarigama: {
+    nom: 'Kusarigama',
+    texte:
+      'The kusarigama is a thin weighted cord or chain with a scythe or fishing hook attached to one end. The monks use the reach of this strange weapon with deadly precision to unbalance sword-armed enemies.',
+    regles_speciales: [
+      {
+        nom: 'Throwing Weapon',
+        texte: 'This weapon is perfectly balanced for throwing, and the fighter using it suffers no penalties for long range or for having moved. However, it cannot be used in hand-to-hand combat.',
+      },
+      {
+        nom: 'Accurate',
+        texte:
+          'A warrior using a kusarigama is so well trained in its use that he may attack an enemy model already engaged in hand-to-hand combat. However, the Monk cannot use this weapon if he is himself engaged in hand-to-hand combat.',
+      },
+      {
+        nom: 'Trip',
+        texte:
+          'The warrior may declare that he wants to knock down an enemy model rather than inflict damage on it. The Monk must make a roll to hit, then a Strength test. If the test succeeds, the target is Knocked Down. Add a +1 modifier to the Strength test against large targets. If a mount is knocked down, its rider falls (see result 3-4 on the Whoa Boy! chart in the Mounted Warriors rules).',
+      },
+    ],
+  },
+  lance_harpon: {
+    nom: 'Harpoon Launcher',
+    texte: 'More than just a crude hybrid crossbow, scaled up for a titanic marksman.',
+    regles_speciales: [
+      {
+        nom: 'Move or Shoot',
+        texte: 'It is not possible to move and shoot during the same turn, except to turn on the spot or stand up.',
+      },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon, so it can only fire every other turn.' },
+    ],
+  },
+  oiseau_de_proie: {
+    nom: 'Bird of Prey',
+    texte: 'A falcon, hawk, or other winged predator trained from birth to hunt and fight for its noble owner.',
+    regles_speciales: [
+      { nom: 'Targeting', texte: 'The bird of prey may attack hidden targets and ignores penalties for cover.' },
+    ],
+  },
+  sarbacane: {
+    nom: 'Blowpipe',
+    texte:
+      'The blowpipe is a tube used to fire poisoned darts. While the darts themselves are too small to cause real damage, Skaven poisons are extremely painful and can even prove fatal. The great advantage of a blowpipe is that it is silent; a well-hidden user can fire his poisoned darts without being spotted.',
+    regles_speciales: [
+      { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
+      {
+        nom: 'Stealth',
+        texte:
+          'A fighter armed with a blowpipe may fire while hidden without revealing his position. The target may make an Initiative test to spot the shooter. If the test succeeds, he is no longer hidden.',
+      },
+      {
+        nom: 'Poison',
+        texte:
+          'The needles fired by the blowpipe are coated with a venom whose effects are similar to those of black lotus (if you roll a 6 to hit, the target is automatically Wounded). A blowpipe cannot cause Critical Hits.',
+      },
+    ],
+  },
+  tufenk: {
+    nom: 'Tufenk',
+    texte: 'This is a blowpipe that projects alchemical fire, causing burns.',
+    regles_speciales: [
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon, so it can only fire every other turn.' },
+      {
+        nom: 'Fire',
+        texte:
+          'Following a hit, roll 1D6. On a result of 4+, the target catches fire. During the Recovery phase, he must roll a 4+ to put out the flames or suffer a Strength 4 hit and be able to do nothing but move until the fire is out. Other members of his warband can help put out the flames. They must move into base contact and roll a 4+ during the Recovery phase. Against dry targets, such as mummies, the Tufenk has a Strength of 3 and the target catches fire on a 2+ on 1D6.',
+      },
+    ],
+  },
 };
 
 const DISPONIBILITE_ARTEFACT_EN =
