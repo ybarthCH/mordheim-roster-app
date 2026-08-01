@@ -1,0 +1,31 @@
+{
+  "packageId": "app.musterheim",
+  "host": "musterheim.app",
+  "name": "Musterheim",
+  "launcherName": "Musterheim",
+  "display": "standalone",
+  "orientation": "any",
+  "themeColor": "#7a1414",
+  "themeColorDark": "#7a1414",
+  "navigationColor": "#17130f",
+  "navigationColorDark": "#17130f",
+  "navigationDividerColor": "#17130f",
+  "navigationDividerColorDark": "#17130f",
+  "backgroundColor": "#17130f",
+  "backgroundColorDark": "#17130f",
+  "enableNotifications": false,
+  "startUrl": "/",
+  "iconUrl": "https://musterheim.app/icons/icon-512.png",
+  "maskableIconUrl": "https://musterheim.app/icons/icon-512-maskable.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "musterheim"
+  },
+  "appVersion": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "webManifestUrl": "https://musterheim.app/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {}
+}
