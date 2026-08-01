@@ -14,6 +14,7 @@ import { useLanguage } from '../../state/useLanguage';
 import type { Language } from '../../state/useLanguage';
 import { translateBlessure } from '../../i18n/data/blessuresGraves';
 import { libelleCaracteristique } from '../../utils/stats';
+import { traduireCle } from '../../utils/blessures';
 
 // Noms sentinelles des issues spéciales "Gladiateur"/"Capturé", utilisés à la
 // fois pour construire le résultat (texte français persisté, voir
@@ -130,10 +131,20 @@ function fusionnerStats(
   return res;
 }
 
-function texteIteration(it: IterationResolue): string {
+// `language` ne sert qu'aux deux phrases de liaison ci-dessous (voir
+// traduireCle) — `it.resultat`/`it.sousJetChoisi` sont déjà dans la bonne
+// langue quand cette fonction est appelée depuis texteIterationAffichee
+// (voir iterationAffichee), ou toujours en français depuis
+// construireResultatBase (texte persisté).
+function texteIteration(it: IterationResolue, language: Language = 'fr'): string {
   let t = `${it.resultat.nom} (${it.resultat.code}) — ${it.resultat.texte}`;
-  if (it.sousJetChoisi) t += ` Résultat du sous-jet (${it.sousJetChoisi.label}) : ${it.sousJetChoisi.texte}`;
-  if (it.dureeD3) t += ` Le guerrier manque ${it.dureeD3} prochaine(s) partie(s).`;
+  if (it.sousJetChoisi) {
+    const prefixe = traduireCle('blessureGraveWizard.subRollResultPrefix', language);
+    t += ` ${prefixe} (${it.sousJetChoisi.label}) : ${it.sousJetChoisi.texte}`;
+  }
+  if (it.dureeD3) {
+    t += ` ${traduireCle('blessureGraveWizard.missesNextGamesSuffix', language, { n: it.dureeD3 })}`;
+  }
   return t;
 }
 
@@ -161,7 +172,7 @@ function iterationAffichee(it: IterationResolue, language: Language): IterationR
 }
 
 function texteIterationAffichee(it: IterationResolue, language: Language): string {
-  return texteIteration(iterationAffichee(it, language));
+  return texteIteration(iterationAffichee(it, language), language);
 }
 
 function notesIteration(it: IterationResolue): string[] {
