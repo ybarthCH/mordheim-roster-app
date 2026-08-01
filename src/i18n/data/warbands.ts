@@ -65,7 +65,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Marks of the Dark Gods',
         texte:
-          "A leader can only bear one Mark at a time (except the Mark of Chaos Undivided, which can coexist with the others); Wise Ones choose their Mark in agreement with the tribe at recruitment, and then use the rituals associated with their Mark instead of the generic Rituals of Chaos (except Chaos Undivided, which keeps the Rituals of Chaos). Mark of Arkhar the Hound — Leader: automatic frenzy, any spell targeting the Hero fails on a 4+. Wise One: becomes a Blood Father, no longer casts spells but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required), and gains access to Strength skills in addition to his normal list. Mark of Shornaal the Serpent — Leader: enemies not Immune to Psychology must pass a Leadership test (3D6, discarding the lowest) to attack the Hero in hand-to-hand combat, or suffer an automatic hit; once passed, no further tests are needed. Wise One: uses the Rituals of Shornaal; may brew a strong drink for the warband (like Bugman's Ale, not for sale) instead of searching for rare items, provided he was not taken Out of Action. Mark of Tchar the Eagle — Leader: immediately learns a random spell from the Rituals of Tchar, with a -1 penalty to difficulty rolls unless he was already a spellcaster. Wise One: starts with two spells from the Rituals of Tchar (one chosen freely, one random). Mark of Onogal the Raven — Leader: +1 Toughness, may re-roll on the Serious Injury table, immune to poisons. Wise One: uses the Rituals of Onogal and benefits from immunity to poisons. Mark of Chaos Undivided — Leader: all warband members within the Leader rule's range may re-roll failed Leadership tests. Wise One: allows the warband to include 0 to 3 Gors (see Beastmen Raiders), counting towards the maximum warband size; uses the standard Rituals of Chaos. The alternative rituals specific to each Mark (Shornaal, Tchar, Onogal) are provided as additional reference; otherwise the Wise One uses the Rituals of Chaos below.",
+          "A leader can only bear one Mark at a time (except the Mark of Chaos Undivided, which can coexist with the others); Seers choose their Mark in agreement with the tribe at recruitment, and then use the rituals associated with their Mark instead of the generic Rituals of Chaos (except Chaos Undivided, which keeps the Rituals of Chaos). Mark of Arkhar the Hound — Leader: automatic frenzy, any spell targeting the Hero fails on a 4+. Seer: becomes a Blood Father, no longer casts spells but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required), and gains access to Strength skills in addition to his normal list. Mark of Shornaal the Serpent — Leader: enemies not Immune to Psychology must pass a Leadership test (3D6, discarding the lowest) to attack the Hero in hand-to-hand combat, or suffer an automatic hit; once passed, no further tests are needed. Seer: uses the Rituals of Shornaal; may brew a strong drink for the warband (like Bugman's Ale, not for sale) instead of searching for rare items, provided he was not taken Out of Action. Mark of Tchar the Eagle — Leader: immediately learns a random spell from the Rituals of Tchar, with a -1 penalty to difficulty rolls unless he was already a spellcaster. Seer: starts with two spells from the Rituals of Tchar (one chosen freely, one random). Mark of Onogal the Raven — Leader: +1 Toughness, may re-roll on the Serious Injury table, immune to poisons. Seer: uses the Rituals of Onogal and benefits from immunity to poisons. Mark of Chaos Undivided — Leader: all warband members within the Leader rule's range may re-roll failed Leadership tests. Seer: allows the warband to include 0 to 3 Gors (see Beastmen Raiders), counting towards the maximum warband size; uses the standard Rituals of Chaos. The alternative rituals specific to each Mark (Shornaal, Tchar, Onogal) are provided as additional reference; otherwise the Seer uses the Rituals of Chaos below.",
       },
       {
         nom: 'Mutation Table',
@@ -108,7 +108,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       devin: {
-        nom: 'Wise One',
+        nom: 'Seer',
         regles_speciales: [
           {
             nom: 'Sorcerer',
@@ -225,11 +225,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       nom: 'Rituals of Chaos',
       type: 'sorcery',
       note:
-        'Base table used by a Wise One with no Mark, or with the Mark of Chaos Undivided. A Wise One marked by Shornaal, Tchar, or Onogal instead uses the rituals specific to his Mark (chosen at recruitment — see marks). A Wise One marked by Arkhar becomes a Blood Father and no longer casts spells.',
+        'Base table used by a Seer with no Mark, or with the Mark of Chaos Undivided. A Seer marked by Shornaal, Tchar, or Onogal instead uses the rituals specific to his Mark (chosen at recruitment — see marks). A Seer marked by Arkhar becomes a Blood Father and no longer casts spells.',
       sorts: [
         {
           nom: 'Vision of Horror',
-          texte: 'Range 6" against the nearest enemy (or a target in contact if the Wise One is engaged); the victim is immediately Stunned, or Knocked Down if it cannot be Stunned.',
+          texte: 'Range 6" against the nearest enemy (or a target in contact if the Seer is engaged); the victim is immediately Stunned, or Knocked Down if it cannot be Stunned.',
         },
         {
           nom: 'Divine Eye',
@@ -237,26 +237,26 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         },
         {
           nom: 'Black Blood',
-          texte: 'Range 8", D3 Strength 5 hits on the first model in the path; the Wise One must then roll on the Injury table for his own wound (an Out of Action result is treated as Stunned).',
+          texte: 'Range 8", D3 Strength 5 hits on the first model in the path; the Seer must then roll on the Injury table for his own wound (an Out of Action result is treated as Stunned).',
         },
         {
           nom: 'Temptation of Chaos',
-          texte: 'Range 12" against the nearest enemy; compares 1D6+Ld of the Wise One against 1D6+Ld of the target. If the Wise One wins, he takes control of the victim until a successful Leadership test during the opponent\'s Recovery phase; it cannot commit suicide but may attack its own side, without fighting the Wise One\'s warband.',
+          texte: 'Range 12" against the nearest enemy; compares 1D6+Ld of the Seer against 1D6+Ld of the target. If the Seer wins, he takes control of the victim until a successful Leadership test during the opponent\'s Recovery phase; it cannot commit suicide but may attack its own side, without fighting the Seer\'s warband.',
         },
         {
           nom: 'Dark Wings',
-          texte: 'The Wise One immediately moves anywhere within 12", even into contact (which then counts as a charge); against a fleeing enemy, inflicts an automatic hit, and if it survives, it flees again.',
+          texte: 'The Seer immediately moves anywhere within 12", even into contact (which then counts as a charge); against a fleeing enemy, inflicts an automatic hit, and if it survives, it flees again.',
         },
         {
           nom: 'Word of Suffering',
-          texte: 'All models within 3" of the Wise One, friend or foe, suffer a Strength 3 hit with no armour save.',
+          texte: 'All models within 3" of the Seer, friend or foe, suffer a Strength 3 hit with no armour save.',
         },
       ],
     },
     marques: {
       arkhar: {
         nom: 'Mark of Arkhar the Hound',
-        texte: 'The Wise One becomes a Blood Father: he no longer casts spells, but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required), and gains access to Strength skills in addition to his normal list.',
+        texte: 'The Seer becomes a Blood Father: he no longer casts spells, but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required), and gains access to Strength skills in addition to his normal list.',
       },
       shornaal: {
         nom: 'Mark of Shornaal the Serpent',
@@ -282,15 +282,15 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         sorts: [
           {
             nom: 'Delicious Suffering',
-            texte: 'All models (friend and foe, except the Wise One) within 3" must pass a Leadership test or be Knocked Down.',
+            texte: 'All models (friend and foe, except the Seer) within 3" must pass a Leadership test or be Knocked Down.',
           },
           {
             nom: "Serpent's Dance",
-            texte: "All enemy models that are not Immune to Psychology suffer a -1 penalty to hit the Wise One in hand-to-hand combat. The Dance lasts until the start of the Wise One's next Shooting phase.",
+            texte: "All enemy models that are not Immune to Psychology suffer a -1 penalty to hit the Seer in hand-to-hand combat. The Dance lasts until the start of the Seer's next Shooting phase.",
           },
           {
             nom: 'Endless Torment',
-            texte: 'Choose an enemy model within 8". From now on, it must make a -1 Injury roll after its Recovery phase. As long as the torment lasts, the Wise One can do nothing else but end the spell, at the start of his turn. If he is attacked in hand-to-hand combat, he is hit automatically and the spell is broken.',
+            texte: 'Choose an enemy model within 8". From now on, it must make a -1 Injury roll after its Recovery phase. As long as the torment lasts, the Seer can do nothing else but end the spell, at the start of his turn. If he is attacked in hand-to-hand combat, he is hit automatically and the spell is broken.',
           },
           {
             nom: 'Consternation',
@@ -298,11 +298,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
           {
             nom: 'A Thousand Voices',
-            texte: 'Choose an enemy model within 12". It reduces its Leadership by D3+1 (minimum 2) if it is not Immune to Psychology. It must pass a Leadership test at the start of its turn to end the spell; the spell also breaks if the Wise One suffers a wound. Can only affect one model at a time.',
+            texte: 'Choose an enemy model within 12". It reduces its Leadership by D3+1 (minimum 2) if it is not Immune to Psychology. It must pass a Leadership test at the start of its turn to end the spell; the spell also breaks if the Seer suffers a wound. Can only affect one model at a time.',
           },
           {
             nom: 'Temptation of Shornaal',
-            texte: 'Choose an enemy model within 8" that is not Immune to Psychology. It must pass a Leadership test, or the Wise One takes control of the target (control may be regained with a Leadership test at Recovery). Can only target one model at a time; if the Wise One is hit in hand-to-hand combat or by shooting, he must pass a Leadership test for the spell not to end.',
+            texte: 'Choose an enemy model within 8" that is not Immune to Psychology. It must pass a Leadership test, or the Seer takes control of the target (control may be regained with a Leadership test at Recovery). Can only target one model at a time; if the Seer is hit in hand-to-hand combat or by shooting, he must pass a Leadership test for the spell not to end.',
           },
         ],
       },
@@ -312,24 +312,24 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         sorts: [
           {
             nom: 'Blessing of Tchar',
-            texte: 'To be used before the game, once only. The Wise One may not cast spells during the battle that follows. After the game, he gains D3 experience points if he was not taken Out of Action.',
+            texte: 'To be used before the game, once only. The Seer may not cast spells during the battle that follows. After the game, he gains D3 experience points if he was not taken Out of Action.',
           },
-          { nom: 'Dispel Magic', texte: 'The Wise One ends all active spell effects.' },
+          { nom: 'Dispel Magic', texte: 'The Seer ends all active spell effects.' },
           {
             nom: 'Clairvoyance',
             texte: 'To be used before the game, once only. Choose a warband; one of its Heroes, determined randomly, cannot take part in the current game. Models capable of casting spells or prayers are immune to this effect.',
           },
           {
             nom: 'Wrath of the Great Eagle',
-            texte: 'Choose an enemy model within 12". It is hit by an attack with a Strength equal to the difference in experience points between the Wise One and the target (max 10), normal armour save. If the victim has more XP than the Wise One, the Wise One is hit instead.',
+            texte: 'Choose an enemy model within 12". It is hit by an attack with a Strength equal to the difference in experience points between the Seer and the target (max 10), normal armour save. If the victim has more XP than the Seer, the Seer is hit instead.',
           },
           {
             nom: 'Reward of Tchar',
-            texte: "The Wise One gains +1 to any characteristic for every 10 experience points earned (each only once by this means). Lasts until the end of the Wise One's next Shooting phase, after which the spell may be discarded.",
+            texte: "The Seer gains +1 to any characteristic for every 10 experience points earned (each only once by this means). Lasts until the end of the Seer's next Shooting phase, after which the spell may be discarded.",
           },
           {
             nom: 'Slave of Chaos',
-            texte: 'Range 12", Strength 2 hit with no armour save. If the model is taken Out of Action, roll immediately on the Serious Injury table; if it dies, it is replaced by a Pink Horror of Tzeentch until the end of the game, under the Wise One\'s control (see Daemonic Bestiary). If the Wise One is Stunned or taken Out of Action, the Horror vanishes into the Realm of Chaos.',
+            texte: 'Range 12", Strength 2 hit with no armour save. If the model is taken Out of Action, roll immediately on the Serious Injury table; if it dies, it is replaced by a Pink Horror of Tzeentch until the end of the game, under the Seer\'s control (see Daemonic Bestiary). If the Seer is Stunned or taken Out of Action, the Horror vanishes into the Realm of Chaos.',
           },
         ],
       },
@@ -339,7 +339,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         sorts: [
           {
             nom: 'Touch of Onogal',
-            texte: "Against an opponent in base contact. If the model is taken Out of Action during the following combat phase, roll immediately on the Serious Injury table; if it dies, it is replaced by a Plaguebearer of Nurgle until the end of the game, under the Wise One's control (see Daemonic Bestiary). If the Wise One is Stunned or taken Out of Action, the Plaguebearer vanishes into the Realm of Chaos.",
+            texte: "Against an opponent in base contact. If the model is taken Out of Action during the following combat phase, roll immediately on the Serious Injury table; if it dies, it is replaced by a Plaguebearer of Nurgle until the end of the game, under the Seer's control (see Daemonic Bestiary). If the Seer is Stunned or taken Out of Action, the Plaguebearer vanishes into the Realm of Chaos.",
           },
           {
             nom: 'Buboes',
@@ -351,15 +351,15 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
           {
             nom: 'Pestilence',
-            texte: 'Any enemy model within 12" of the Wise One suffers a Strength 3 hit, with no armour save.',
+            texte: 'Any enemy model within 12" of the Seer suffers a Strength 3 hit, with no armour save.',
           },
           {
             nom: 'Warty Skin',
-            texte: 'The Wise One gains a 2+ armour save that replaces his current save. Lasts until the start of his next Shooting phase.',
+            texte: 'The Seer gains a 2+ armour save that replaces his current save. Lasts until the start of his next Shooting phase.',
           },
           {
             nom: "Nurgle's Rot",
-            texte: "Any enemy model in contact with the Wise One must immediately pass a Toughness test or catch Nurgle's Rot (an incurable disease: at the start of each following battle, a Toughness test or lose 1 permanent point of Toughness, death if Toughness reaches 0; on a 6 on the Toughness roll, it is involuntarily transmitted to another warband member).",
+            texte: "Any enemy model in contact with the Seer must immediately pass a Toughness test or catch Nurgle's Rot (an incurable disease: at the start of each following battle, a Toughness test or lose 1 permanent point of Toughness, death if Toughness reaches 0; on a 6 on the Toughness roll, it is involuntarily transmitted to another warband member).",
           },
         ],
       },
