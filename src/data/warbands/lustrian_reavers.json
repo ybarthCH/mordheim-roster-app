@@ -1,20 +1,20 @@
 {
   "id": "lustrian_reavers",
-  "nom": "Lustrian Reavers (1c)",
+  "nom": "Reavers de Lustrie (1c)",
   "grade": "1c",
-  "source": "Mordheim Facebook Group / Lustria Team — document fourni par l'utilisateur, V1.2 (non traduit, langue conservée à l'identique)",
+  "source": "Mordheim Facebook Group / Lustria Team — document fourni par l'utilisateur, V1.2 ; traduit en français (texte anglais d'origine disponible via le sélecteur de langue).",
   "regles_speciales": [
     {
-      "nom": "Rare Heroes",
-      "texte": "Only one of each type of Hero may ever be bought during the warband's existence. Heroes come with the weapons/armour listed under their entry, which can never be swapped away or given away, though new equipment may be added."
+      "nom": "Héros rares",
+      "texte": "Chaque type de Héros ne peut être acheté qu'une seule fois au cours de l'existence de la bande, ce qui reflète l'extrême rareté de ces survivants aguerris de Lustrie. Les Héros s'achètent avec les armes et l'armure indiquées dans leur profil, qui ne peuvent jamais être échangées ni données, bien que du nouvel équipement puisse leur être ajouté."
     },
     {
       "nom": "Promotions",
-      "texte": "When a Hero is lost, no replacement of that type may be bought. The warband keeps all of the fallen Hero's equipment, and may promote a Prospect into the vacant role as if it had just rolled 'Lad's Got Talent' on the Henchmen Advancement Table: the player picks two Hero skill lists for the new Hero and makes one immediate roll on the Heroes Advance table. The new Hero gains the fallen Hero's armour and weapons (not equipment) and takes their place in the warband; the Prospect's own equipment goes to the warband stash. If there is no Prospect currently in the warband, the next one hired may be promoted instead."
+      "texte": "Lorsqu'un Héros est perdu pour quelque raison que ce soit, aucun remplaçant du même type ne peut être acheté. La bande conserve tout l'équipement du Héros tombé et peut promouvoir un Prospect au poste vacant, comme s'il venait d'obtenir « Un don pour ça » sur la Table d'avancement des Hommes de main : le joueur choisit alors deux tables de compétences de Héros parmi celles disponibles dans la bande — ce sont les compétences que le nouveau Héros pourra choisir à chaque avancée — puis effectue immédiatement un jet sur la Table d'avancement des Héros. Le nouveau Héros reçoit l'armure et les armes (mais pas l'équipement) du Héros tombé et prend sa place dans la bande ; l'équipement propre du Prospect rejoint la réserve de la bande. S'il n'y a aucun Prospect dans la bande, le prochain recruté pourra être promu à sa place."
     },
     {
-      "nom": "Hired Swords",
-      "texte": "Allowed: Ogre Bodyguard, Dwarf Trollslayer, Tilean Marksman, Big Game Hunter."
+      "nom": "Épées louées",
+      "texte": "Autorisées : Garde du corps Ogre, Tueur de Trolls Nain, Tireur d'élite Tiléen, Chasseur de Grosses Bêtes."
     }
   ],
   "composition": {
@@ -27,7 +27,7 @@
   "profils": [
     {
       "id": "conqueror",
-      "nom": "Conqueror",
+      "nom": "Conquérant",
       "type": "heros",
       "groupe_caracteristiques": "humain",
       "unique": true,
@@ -37,17 +37,17 @@
       "xp_depart": 24,
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 2, "I": 3, "A": 2, "Cd": 7 },
       "regles_speciales": [
-        { "nom": "Starting equipment", "texte": "Masterwork Heavy Armour, Bec de Corbin, Helmet (fixed — see Rare Heroes)." },
-        { "nom": "Survivor", "texte": "Cannot be taken Out of Action unless already Knocked Down or Stunned. Treat an Out of Action result as Stunned if the Conqueror was standing when the Wound was received." },
-        { "nom": "Multiple Injuries (once)", "texte": "The first time the Conqueror suffers a Dead result on the Serious Injury chart, treat it as Multiple Injuries instead. This can only save the Conqueror once." }
+        { "nom": "Équipement de départ", "texte": "Armure lourde de maître, Bec de corbin, Casque (fixe — voir Héros rares)." },
+        { "nom": "Survivant", "texte": "Ne peut être mis Hors de combat que s'il est déjà Étourdi ou Sonné. Si le résultat Hors de combat survient alors que le Conquérant était encore debout, traitez-le comme Sonné." },
+        { "nom": "Blessures multiples (une fois)", "texte": "La première fois que le Conquérant obtient un résultat Mort sur la Table des blessures graves, traitez-le comme Blessures multiples à la place. Cette capacité ne peut sauver le Conquérant qu'une seule fois." }
       ],
       "acces_competences": ["combat", "force"],
-      "acces_equipement": ["heroes"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": false
     },
     {
       "id": "saurus_slayer",
-      "nom": "Saurus Slayer",
+      "nom": "Tueur de Sauriens",
       "type": "heros",
       "groupe_caracteristiques": "humain",
       "unique": true,
@@ -57,16 +57,16 @@
       "xp_depart": 20,
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 2, "Cd": 8 },
       "regles_speciales": [
-        { "nom": "Starting equipment", "texte": "Heavy Armour, Misericordia, two Swords, Helmet (fixed — see Rare Heroes)." },
-        { "nom": "Duellist", "texte": "If engaged with only a single opponent in melee, may re-roll missed hits on the first turn, whether they charged or were charged." }
+        { "nom": "Équipement de départ", "texte": "Armure lourde, Misericordia, deux épées, Casque (fixe — voir Héros rares)." },
+        { "nom": "Duelliste", "texte": "S'il est engagé au corps-à-corps contre un seul adversaire, peut relancer les jets pour toucher manqués au premier tour, qu'il ait chargé ou qu'il ait été chargé." }
       ],
       "acces_competences": ["combat", "force", "vitesse"],
-      "acces_equipement": ["heroes"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": false
     },
     {
       "id": "reaver_beastmaster",
-      "nom": "Reaver Beastmaster",
+      "nom": "Maître des bêtes",
       "type": "heros",
       "groupe_caracteristiques": "humain",
       "unique": true,
@@ -76,16 +76,16 @@
       "xp_depart": 20,
       "stats": { "M": 4, "CC": 4, "CT": 4, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 8 },
       "regles_speciales": [
-        { "nom": "Starting equipment", "texte": "Heavy Armour, Spear, Sword (fixed — see Rare Heroes)." },
-        { "nom": "War Beasts", "texte": "If included, the warband may take up to 2 War Beasts from the dedicated list (see équipement de référence). They count toward the warband's maximum size, must be bought when the warband is created (but can be replaced if killed), and may use the Beastmaster's Leadership within 6\". If the Beastmaster is killed or lost, War Beasts cannot be used until a Prospect is promoted into a new Beastmaster." }
+        { "nom": "Équipement de départ", "texte": "Armure lourde, Lance, Épée (fixe — voir Héros rares)." },
+        { "nom": "Bêtes de guerre", "texte": "S'il est présent, la bande peut compter jusqu'à 2 Bêtes de guerre choisies dans la liste dédiée (voir équipement de référence). Elles comptent dans l'effectif maximum de la bande, doivent être achetées à la création de la bande (mais peuvent être remplacées si tuées), et peuvent utiliser le Commandement du Maître des bêtes à moins de 6ps. Si le Maître des bêtes est tué ou perdu, les Bêtes de guerre ne peuvent plus être utilisées tant qu'un Prospect n'a pas été promu nouveau Maître des bêtes." }
       ],
       "acces_competences": ["tir", "force", "vitesse"],
-      "acces_equipement": ["heroes"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": false
     },
     {
       "id": "jungle_shadow",
-      "nom": "Jungle Shadow",
+      "nom": "Ombre de la Jungle",
       "type": "heros",
       "groupe_caracteristiques": "humain",
       "unique": true,
@@ -95,19 +95,19 @@
       "xp_depart": 20,
       "stats": { "M": 4, "CC": 4, "CT": 4, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
       "regles_speciales": [
-        { "nom": "Starting equipment", "texte": "Javelins, Light Armour, two Daggers (fixed — see Rare Heroes)." },
-        { "nom": "Silent Hunter", "texte": "Always considered Hidden if touching any piece of terrain 1\" high or higher. Shooting does not reveal the Jungle Shadow's position, though spellcasting does; this does not work with Blackpowder weapons." },
-        { "nom": "Surprise attack", "texte": "If attacking an enemy whose back is turned (a shot from within a 180-degree arc behind the target's facing), may re-roll missed to-hit rolls." },
-        { "nom": "Canopy Walker", "texte": "May re-roll all failed climbing, jumping and falling-off-ledges tests once." },
-        { "nom": "Wizard option", "texte": "For +30gc, may be made a Wizard using the Lesser Magic list, generating a single spell as standard. If taken, remove the starting Light Armour and generate 1 Lesser Magic spell." }
+        { "nom": "Équipement de départ", "texte": "Javelots, Armure légère, deux Dagues (fixe — voir Héros rares)." },
+        { "nom": "Chasseur silencieux", "texte": "Toujours considéré comme Caché s'il touche un élément de décor d'au moins 1 pouce de haut. Tirer ne révèle pas la position de l'Ombre de la Jungle, mais lancer un sort le fait ; cela ne fonctionne pas avec les armes à poudre noire." },
+        { "nom": "Attaque surprise", "texte": "S'il attaque un ennemi qui lui tourne le dos (un tir provenant d'un arc de 180° derrière l'orientation de la cible), peut relancer les jets pour toucher manqués." },
+        { "nom": "Marcheur des cimes", "texte": "Peut relancer une fois tous les tests d'escalade, de saut et de chute échoués." },
+        { "nom": "Option Sorcier", "texte": "Pour +30 po, peut devenir Sorcier en utilisant la liste de Magie mineure, en générant un seul sort comme à l'accoutumée. Si cette option est prise, retirez l'Armure légère de départ et générez 1 sort de Magie mineure." }
       ],
       "acces_competences": ["tir", "academique", "vitesse"],
-      "acces_equipement": ["heroes"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": false
     },
     {
       "id": "trap_master",
-      "nom": "Trap master",
+      "nom": "Maître des pièges",
       "type": "heros",
       "groupe_caracteristiques": "humain",
       "unique": true,
@@ -117,12 +117,12 @@
       "xp_depart": 17,
       "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
       "regles_speciales": [
-        { "nom": "Starting equipment", "texte": "Heavy Armour, Sword, Tilean Hunting Rifle (treat as Hochland Long Rifle), Firepots of Miragliano, Leaf coat (counts as Elven Cloak) (fixed — see Rare Heroes)." },
-        { "nom": "Deadeye", "texte": "Suffers no penalties for shooting at long range." },
-        { "nom": "Traps", "texte": "Starts each game with 1 Trap and may buy up to 5 more before the game at 5gc each; each is one use only. Traps are used in the Shooting Phase instead of shooting (cannot be set if running), one at a time, and cannot be used in melee. When used, place two 1\" diameter counters (one false, one real) anywhere within 3\" of the Trapmaster but at least 3\" from any other model. Any model moving within 2\" of a counter must flip it over: a false counter does nothing, a real one inflicts D3 Strength 5 hits (no critical hits). Remove the counters once the trap is sprung." }
+        { "nom": "Équipement de départ", "texte": "Armure lourde, Épée, Carabine de chasse tiléenne (traitée comme une Carabine longue de Hochland), Grenades de Miragliano, Manteau de feuilles (compte comme une Cape elfique) (fixe — voir Héros rares)." },
+        { "nom": "Œil de faucon", "texte": "Ne subit aucune pénalité pour tir à longue portée." },
+        { "nom": "Pièges", "texte": "Commence chaque partie avec 1 Piège et peut en acheter jusqu'à 5 de plus avant la partie, à 5 po chacun ; chacun est à usage unique. Les pièges sont posés pendant la phase de Tir à la place d'un tir (ne peuvent pas être posés en cas de course), un seul à la fois, et ne peuvent pas être utilisés au corps-à-corps. Lorsqu'il est utilisé, placez deux marqueurs de 1 pouce de diamètre (un faux, un vrai) n'importe où à moins de 3ps du Maître des pièges, mais à au moins 3ps de toute autre figurine. Toute figurine se déplaçant à moins de 2ps d'un marqueur doit le retourner : un faux marqueur ne fait rien, un vrai inflige D3 touches de Force 5 (pas de coup critique). Retirez les marqueurs une fois le piège déclenché." }
       ],
       "acces_competences": ["combat", "tir", "academique"],
-      "acces_equipement": ["heroes"],
+      "acces_equipement": ["heros"],
       "acces_competences_a_verifier": false
     },
     {
@@ -136,7 +136,7 @@
       "xp_depart": 0,
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [
-        { "nom": "Promotion Only", "texte": "Re-rolls any 'Lad's Got Talent' result on the Henchmen Advancement table (cannot become a Hero directly). When promoted to fill a fallen Hero's role — see the band's Promotions rule — the model no longer counts as a Prospect, so a new Prospect may be hired." }
+        { "nom": "Promotion uniquement", "texte": "Relance tout résultat « Un don pour ça » sur la Table d'avancement des Hommes de main (ne peut pas devenir Héros directement). Lorsqu'il est promu pour combler le poste d'un Héros tombé — voir la règle Promotions de la bande —, la figurine ne compte plus comme un Prospect, ce qui permet d'en recruter un nouveau." }
       ],
       "acces_competences": [],
       "acces_equipement": ["prospects"],
@@ -165,14 +165,14 @@
   ],
   "competences_speciales": [],
   "equipement": {
-    "heroes": {
+    "heros": {
       "armes_cac": [
-        { "item_id": "dague", "cout": 2, "note": "1st free" },
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
         { "item_id": "epee", "cout": 10 },
         { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "misericordia", "cout": 10, "note": "voir équipement spécial" },
         { "item_id": "arme_a_deux_mains", "cout": 15 },
-        { "item_id": "lance", "cout": 40, "restriction": "Mounted models only" }
+        { "item_id": "lance", "cout": 40, "restriction": "Modèles montés uniquement" }
       ],
       "armes_tir": [
         { "item_id": "javelots", "cout": 10, "note": "voir équipement spécial" },
@@ -196,7 +196,7 @@
     },
     "prospects": {
       "armes_cac": [
-        { "item_id": "dague", "cout": 2, "note": "1st free" },
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
         { "item_id": "epee", "cout": 10 },
         { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "lance", "cout": 10 }
@@ -215,12 +215,12 @@
     { "item_id": "javelots", "cout": 10 },
     { "item_id": "misericordia", "cout": 10 },
     { "item_id": "grenade_de_miragliano", "cout": "—" },
-    { "item_id": "cape_en_peau_des_hommes_lezards", "cout": 10, "disponibilite": "Saurus Slayer uniquement" },
-    { "item_id": "masque_de_crane", "cout": 15, "disponibilite": "Saurus Slayer uniquement" },
-    { "item_id": "lame_homme_lezard", "cout": 30, "disponibilite": "Saurus Slayer uniquement" },
-    { "item_id": "trophee_coiffe_sacree_de_slann", "cout": 35, "disponibilite": "Saurus Slayer uniquement" },
-    { "item_id": "molosse_estalien", "cout": 25, "disponibilite": "Reaver Beastmaster uniquement, max 2" },
-    { "item_id": "singe_de_barbarie", "cout": 40, "disponibilite": "Reaver Beastmaster uniquement, max 1" },
-    { "item_id": "oiseau_de_proie", "cout": 30, "disponibilite": "Reaver Beastmaster uniquement, max 1" }
+    { "item_id": "cape_en_peau_des_hommes_lezards", "cout": 10, "disponibilite": "Tueur de Sauriens uniquement" },
+    { "item_id": "masque_de_crane", "cout": 15, "disponibilite": "Tueur de Sauriens uniquement" },
+    { "item_id": "lame_homme_lezard", "cout": 30, "disponibilite": "Tueur de Sauriens uniquement" },
+    { "item_id": "trophee_coiffe_sacree_de_slann", "cout": 35, "disponibilite": "Tueur de Sauriens uniquement" },
+    { "item_id": "molosse_estalien", "cout": 25, "disponibilite": "Maître des bêtes uniquement, max 2" },
+    { "item_id": "singe_de_barbarie", "cout": 40, "disponibilite": "Maître des bêtes uniquement, max 1" },
+    { "item_id": "faucon_de_chasse_tileen", "cout": 30, "disponibilite": "Maître des bêtes uniquement, max 1" }
   ]
 }
