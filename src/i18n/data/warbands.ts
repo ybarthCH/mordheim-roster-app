@@ -1306,7 +1306,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'War Beasts',
             texte:
-              "If included, the warband may recruit up to 2 War Beasts from the dedicated profiles (Estalian Warhound, Barbary Ape, Tilean Hunting Hawk). They count toward the warband's maximum size, must be bought when the warband is created (but can be replaced if killed), and may use the Beastmaster's Leadership within 6\". If the Beastmaster is killed or lost, War Beasts cannot be used until a Prospect is promoted into a new Beastmaster.",
+              "If included, the warband may own up to 2 War Beasts in total among the Estalian Warhound, the Barbary Ape (dedicated profiles, recruited as models), and the Tilean Hunting Hawk (special equipment for the Beastmaster, not a separate model). Recruited War Beasts count toward the warband's maximum size, must be bought when the warband is created (but can be replaced if killed), and may use the Beastmaster's Leadership within 6\". If the Beastmaster is killed or lost, War Beasts cannot be used until a Prospect is promoted into a new Beastmaster.",
           },
         ],
       },
@@ -1380,7 +1380,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Recruitment',
             texte:
-              "May only be recruited if the warband includes a living Beastmaster. Must be bought when the warband is created (but can be replaced if killed); the warband may not own more than 2 War Beasts in total across all three dedicated profiles (Estalian Warhound, Barbary Ape, Tilean Hunting Hawk).",
+              "May only be recruited if the warband includes a living Beastmaster. Must be bought when the warband is created (but can be replaced if killed); the warband may not own more than 2 War Beasts in total (Estalian Warhound, Barbary Ape, and Tilean Hunting Hawk combined).",
           },
         ],
       },
@@ -1400,24 +1400,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Recruitment',
             texte:
-              "May only be recruited if the warband includes a living Beastmaster. Must be bought when the warband is created (but can be replaced if killed); the warband may not own more than 2 War Beasts in total across all three dedicated profiles (Estalian Warhound, Barbary Ape, Tilean Hunting Hawk).",
-          },
-        ],
-      },
-      faucon_de_chasse_tileen: {
-        nom: 'Tilean Hunting Hawk',
-        regles_speciales: [
-          {
-            nom: 'Part of the Equipment',
-            texte:
-              'Acts at the same time as the Beastmaster. Can attack any enemy within 12" as a melee attack, even those out of line of sight (unless Hidden), and returns to the Beastmaster immediately. The hawk cannot be targeted separately by any attack or spell. It does not attack if the Beastmaster is engaged in hand-to-hand combat, being too busy commanding it!',
-          },
-          { nom: 'Never gains experience', texte: 'Like all War Beasts, the hawk stays at the same level throughout its career.' },
-          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
-          {
-            nom: 'Recruitment',
-            texte:
-              "May only be recruited if the warband includes a living Beastmaster. Must be bought when the warband is created (but can be replaced if killed); the warband may not own more than 2 War Beasts in total across all three dedicated profiles (Estalian Warhound, Barbary Ape, Tilean Hunting Hawk).",
+              "May only be recruited if the warband includes a living Beastmaster. Must be bought when the warband is created (but can be replaced if killed); the warband may not own more than 2 War Beasts in total (Estalian Warhound, Barbary Ape, and Tilean Hunting Hawk combined).",
           },
         ],
       },
