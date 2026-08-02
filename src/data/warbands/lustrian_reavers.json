@@ -77,7 +77,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 4, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 8 },
       "regles_speciales": [
         { "nom": "Équipement de départ", "texte": "Armure lourde, Lance, Épée (fixe — voir Héros rares)." },
-        { "nom": "Bêtes de guerre", "texte": "S'il est présent, la bande peut compter jusqu'à 2 Bêtes de guerre choisies dans la liste dédiée (voir équipement de référence). Elles comptent dans l'effectif maximum de la bande, doivent être achetées à la création de la bande (mais peuvent être remplacées si tuées), et peuvent utiliser le Commandement du Maître des bêtes à moins de 6ps. Si le Maître des bêtes est tué ou perdu, les Bêtes de guerre ne peuvent plus être utilisées tant qu'un Prospect n'a pas été promu nouveau Maître des bêtes." }
+        { "nom": "Bêtes de guerre", "texte": "S'il est présent, la bande peut recruter jusqu'à 2 Bêtes de guerre parmi les profils dédiés (Molosse estalien, Singe de Barbarie, Faucon de chasse tiléen). Elles comptent dans l'effectif maximum de la bande, doivent être achetées à la création de la bande (mais peuvent être remplacées si tuées), et peuvent utiliser le Commandement du Maître des bêtes à moins de 6ps. Si le Maître des bêtes est tué ou perdu, les Bêtes de guerre ne peuvent plus être utilisées tant qu'un Prospect n'a pas été promu nouveau Maître des bêtes." }
       ],
       "acces_competences": ["tir", "force", "vitesse"],
       "acces_equipement": ["heros"],
@@ -161,6 +161,61 @@
       "acces_competences": [],
       "acces_equipement": [],
       "acces_competences_a_verifier": false
+    },
+    {
+      "id": "molosse_estalien",
+      "nom": "Molosse estalien",
+      "type": "animal",
+      "min": 0,
+      "max": 2,
+      "cout": 25,
+      "stats": { "M": 6, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Sauvegarde d'armure 5+", "texte": "Bénéficie d'une sauvegarde d'armure de 5+ grâce à son collier de fer et son armure matelassée." },
+        { "nom": "Ne gagne jamais d'expérience", "texte": "Comme toute Bête de guerre, le molosse reste au même niveau toute sa carrière." },
+        { "nom": "Rétablissement", "texte": "S'il est mis hors de combat : 1-2 Mort, 3-6 Vivant (comme un Homme de main)." },
+        { "nom": "Recrutement", "texte": "Ne peut être recruté que si la bande compte un Maître des bêtes vivant. Doit être acheté à la création de la bande (remplaçable si tué) ; la bande ne peut posséder plus de 2 Bêtes de guerre au total, tous profils confondus (Molosse estalien, Singe de Barbarie, Faucon de chasse tiléen)." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "singe_de_barbarie",
+      "nom": "Singe de Barbarie",
+      "type": "animal",
+      "min": 0,
+      "max": 1,
+      "cout": 40,
+      "stats": { "M": 6, "CC": 4, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 5, "A": 2, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Agile", "texte": "Peut grimper aux surfaces les plus lisses sans test d'Initiative, et relance tous les tests de Charge plongeante ratés. Contrairement aux autres animaux, le singe peut entrer dans les bâtiments." },
+        { "nom": "Sauvegarde spéciale 5+", "texte": "Grâce à son agilité, le singe bénéficie d'une sauvegarde spéciale de 5+ contre toutes les blessures subies au corps-à-corps, au tir, à la magie ou même en cas de chute." },
+        { "nom": "Ne gagne jamais d'expérience", "texte": "Comme toute Bête de guerre, le singe reste au même niveau toute sa carrière." },
+        { "nom": "Rétablissement", "texte": "S'il est mis hors de combat : 1-2 Mort, 3-6 Vivant (comme un Homme de main)." },
+        { "nom": "Recrutement", "texte": "Ne peut être recruté que si la bande compte un Maître des bêtes vivant. Doit être acheté à la création de la bande (remplaçable si tué) ; la bande ne peut posséder plus de 2 Bêtes de guerre au total, tous profils confondus (Molosse estalien, Singe de Barbarie, Faucon de chasse tiléen)." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "faucon_de_chasse_tileen",
+      "nom": "Faucon de chasse tiléen",
+      "type": "animal",
+      "min": 0,
+      "max": 1,
+      "cout": 30,
+      "stats": { "M": 12, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 5, "A": 1, "Cd": 0 },
+      "regles_speciales": [
+        { "nom": "Fait partie de l'équipement", "texte": "Agit en même temps que le Maître des bêtes. Peut attaquer n'importe quel ennemi à moins de 12ps par une attaque de mêlée, même hors de sa ligne de vue (sauf s'il est Caché), puis revient immédiatement auprès du Maître des bêtes. Le faucon ne peut pas être ciblé séparément par une attaque ou un sort. Il n'attaque pas si le Maître des bêtes est engagé au corps-à-corps, trop occupé à le commander !" },
+        { "nom": "Ne gagne jamais d'expérience", "texte": "Comme toute Bête de guerre, le faucon reste au même niveau toute sa carrière." },
+        { "nom": "Rétablissement", "texte": "S'il est mis hors de combat : 1-2 Mort, 3-6 Vivant (comme un Homme de main)." },
+        { "nom": "Recrutement", "texte": "Ne peut être recruté que si la bande compte un Maître des bêtes vivant. Doit être acheté à la création de la bande (remplaçable si tué) ; la bande ne peut posséder plus de 2 Bêtes de guerre au total, tous profils confondus (Molosse estalien, Singe de Barbarie, Faucon de chasse tiléen)." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
     }
   ],
   "competences_speciales": [],
@@ -218,9 +273,6 @@
     { "item_id": "cape_en_peau_des_hommes_lezards", "cout": 10, "disponibilite": "Tueur de Sauriens uniquement" },
     { "item_id": "masque_de_crane", "cout": 15, "disponibilite": "Tueur de Sauriens uniquement" },
     { "item_id": "lame_homme_lezard", "cout": 30, "disponibilite": "Tueur de Sauriens uniquement" },
-    { "item_id": "trophee_coiffe_sacree_de_slann", "cout": 35, "disponibilite": "Tueur de Sauriens uniquement" },
-    { "item_id": "molosse_estalien", "cout": 25, "disponibilite": "Maître des bêtes uniquement, max 2" },
-    { "item_id": "singe_de_barbarie", "cout": 40, "disponibilite": "Maître des bêtes uniquement, max 1" },
-    { "item_id": "faucon_de_chasse_tileen", "cout": 30, "disponibilite": "Maître des bêtes uniquement, max 1" }
+    { "item_id": "trophee_coiffe_sacree_de_slann", "cout": 35, "disponibilite": "Tueur de Sauriens uniquement" }
   ]
 }
