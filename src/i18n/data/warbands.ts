@@ -1373,7 +1373,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
     },
     equipement: {
-      heroes: {
+      heros: {
         armes_cac: ['first free', undefined, undefined, 'see special equipment', undefined, undefined],
         armes_tir: ['see special equipment', undefined, undefined, undefined],
       },
