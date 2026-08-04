@@ -3793,23 +3793,23 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Hard to Kill',
         texte:
           'Like their uncorrupted kin, Chaos Dwarfs are tough, resilient individuals who can only be taken Out of Action on a roll of 6 instead of 5-6 on the Injury table. Treat a roll of 1-2 as Knocked Down, 3-5 as Stunned, and 6 as Out of Action.',
-        exception: 'Does not apply to Snitches',
+        exception: 'Does not apply to Informers',
       },
       {
         nom: 'Hard Head',
         texte: 'Chaos Dwarfs ignore the special rules of maces, hammers, and other such weapons. They too are not easy to knock silly!',
-        exception: 'Does not apply to Snitches',
+        exception: 'Does not apply to Informers',
       },
       {
         nom: 'Armour',
         texte: 'Chaos Dwarfs suffer no Movement penalty for wearing armour.',
-        exception: 'Does not apply to Snitches',
+        exception: 'Does not apply to Informers',
       },
       {
         nom: 'Hired Swords',
         texte:
           'A Chaos Dwarf warband may hire the following Hired Swords: Ogre Bodyguard, Gladiator, Wizard, Imperial Assassin, and Hobgoblin Scout. They may also hire any Hired Sword available to all warbands, as well as those available to Orc and Chaos warbands. They may never hire any Elf Hired Sword, whoever they are!',
-        exception: 'Does not apply to Snitches',
+        exception: 'Does not apply to Informers',
       },
     ],
     profils: {
@@ -3842,11 +3842,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       delateur: {
-        nom: 'Snitch',
+        nom: 'Informer',
         regles_speciales: [
           {
             nom: 'The Grind',
-            texte: "The will of Snitches has been broken by their masters. Snitches will never become Heroes. Re-roll any 'Lad's Got Talent' result.",
+            texte: "The will of Informers has been broken by their masters. Informers will never become Heroes. Re-roll any 'Lad's Got Talent' result.",
           },
         ],
       },
