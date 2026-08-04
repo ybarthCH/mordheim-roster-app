@@ -470,7 +470,7 @@ export function RosterScreen() {
       {heroPromuEnAttente &&
         catalogue &&
         (() => {
-          const profilPromu = resolveProfil(roster, heroPromuEnAttente, catalogue);
+          const profilPromu = resolveProfil(roster, heroPromuEnAttente, catalogue, language);
           return (
             profilPromu && (
               <AvanceeModal

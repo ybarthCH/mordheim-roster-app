@@ -90,7 +90,7 @@ export function MemberGroupCard({
   };
 
   const avanceEnAttente = (m: Member) => {
-    const profil = resolveProfil(roster, m, catalogue);
+    const profil = resolveProfil(roster, m, catalogue, language);
     if (!profil || !peutGagnerExperience(profil)) return false;
     if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return false;
     return (
@@ -104,7 +104,7 @@ export function MemberGroupCard({
   // plus via le compteur dédié, jusqu'à ce que tout le groupe soit à terre.
   // Seuls les héros (et hommes de main promus) basculent le statut lui-même.
   const titreHorsCombat = (m: Member) => {
-    const profil = resolveProfil(roster, m, catalogue);
+    const profil = resolveProfil(roster, m, catalogue, language);
     const estGroupeSimplifie = (profil?.type === 'homme_de_main' || profil?.type === 'animal') && !m.promu_heros;
     return estGroupeSimplifie
       ? t('memberGroup.hcMarkTitle', { hc: m.hors_combat, taille: m.taille_groupe })
@@ -144,7 +144,7 @@ export function MemberGroupCard({
           </thead>
           <tbody>
             {elements.map((m) => {
-              const profil = resolveProfil(roster, m, catalogue);
+              const profil = resolveProfil(roster, m, catalogue, language);
               const versPersonnage = () => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`);
               return (
                 <Fragment key={m.instance_id}>
@@ -267,7 +267,7 @@ export function MemberGroupCard({
 
       <div className="member-cards">
         {elements.map((m) => {
-          const profil = resolveProfil(roster, m, catalogue);
+          const profil = resolveProfil(roster, m, catalogue, language);
           return (
             <div
               key={m.instance_id}
@@ -359,7 +359,7 @@ export function MemberGroupCard({
         (() => {
           const dragged = elements.find((x) => x.instance_id === idEnCours);
           if (!dragged) return null;
-          const profil = resolveProfil(roster, dragged, catalogue);
+          const profil = resolveProfil(roster, dragged, catalogue, language);
           return (
             <div className="drag-ghost" style={{ left: pointerPos.x, top: pointerPos.y }}>
               <Icon name="poignee" size="0.85em" style={{ marginRight: '0.4em', color: 'var(--text-muted)' }} />

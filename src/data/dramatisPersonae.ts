@@ -585,6 +585,43 @@ export const DRAMATIS_PERSONAE: FrancTireurCatalog[] = [
     depart_apres_bataille: true,
     est_dramatis_personae: true,
   },
+  {
+    id: 'simius_gantt',
+    nom: 'Simius Gantt, le Maître aux Corbeaux',
+    nom_original: 'The Crow Master',
+    page_source: 0,
+    recrutement: { cout: 65 },
+    entretien: { type: 'or', cout: 15, texte: '15 CO après chaque bataille à laquelle il participe.' },
+    valeur: 85,
+    employeurs: {
+      bande_ids: toutesSauf(...NAINS, ...ELFES, 'sisters_of_sigmar', 'witch_hunters'),
+      texte: 'Toute bande sauf les Nains, les Elfes, les Sœurs de Sigmar et les Répurgateurs.',
+    },
+    stats: { M: 4, CC: 3, CT: 3, F: 3, E: 4, PV: 3, I: 5, A: 2, Cd: 8 },
+    equipement: ['Manteau aux Corbeaux', 'Bâton', 'Aiguille et fil'],
+    acces_competences: [],
+    regles_speciales: [
+      {
+        nom: 'Manteau aux Corbeaux',
+        texte:
+          'Ce manteau en apparence miteux abrite un pouvoir malin caché : une nuée de corbeaux tourbillonne autour de Simius pour distraire ses adversaires. Toute figurine ennemie au contact socle à socle de Simius subit une touche automatique de Force 2 avant les échanges de coups, au début de chaque phase de Corps à corps.',
+      },
+      {
+        nom: 'Aiguille et fil',
+        texte:
+          'Vestige de ses années de chirurgien, Simius porte toujours une aiguille et du fil. S’il étourdit un adversaire au corps à corps sans qu’aucun autre ennemi ne soit au contact, il recoud la bouche de sa victime : celle-ci ne peut plus utiliser l’aptitude de Chef ni lancer de sorts pour le reste de la bataille.',
+      },
+      {
+        nom: 'Paiement en sang',
+        texte:
+          'Scientifique zélé dont la soif d’expérimentation n’est jamais rassasiée, Simius peut, si la bande qui l’a engagé perd la bataille, décider d’« enlever » un guerrier sans défense. Lancez 1D6 : sur 1, Simius enlève le Héros ou l’Homme de main (jamais un autre franc-tireur) ayant le moins d’expérience ; ce guerrier est retiré du roster de la bande et considéré comme mort. Simius disparaît ensuite sans laisser de trace, sa prime déjà encaissée.',
+      },
+    ],
+    competences_departs: ['academique_05', 'vitesse_06'],
+    groupe_caracteristiques: 'humain',
+    gagne_experience: false,
+    est_dramatis_personae: true,
+  },
 ];
 
 export function estDramatisPersonae(membre: Member): boolean {

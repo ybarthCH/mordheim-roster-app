@@ -4,6 +4,7 @@ import type { Member } from '../../types/roster';
 import { STAT_KEYS } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { getDramatisPersonae } from '../../data/dramatisPersonae';
+import { translateHiredSword } from '../../i18n/data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
 import { libelleCaracteristique } from '../../utils/stats';
 
@@ -122,7 +123,15 @@ export function RechercheDramatisPersonaeModal({
               <p className="text-sm text-muted">{dp.employeurs.texte}</p>
               {dp.recrue_avec && (
                 <p className="text-sm">
-                  <strong>{t('dpModal.recruitedWith', { nom: getDramatisPersonae(dp.recrue_avec)?.nom ?? dp.recrue_avec })}</strong>{' '}
+                  <strong>
+                    {t('dpModal.recruitedWith', {
+                      nom:
+                        (() => {
+                          const coequipier = getDramatisPersonae(dp.recrue_avec);
+                          return coequipier ? translateHiredSword(coequipier, language).nom : dp.recrue_avec;
+                        })(),
+                    })}
+                  </strong>{' '}
                   — {t('dpModal.recruitedWithNote')}
                 </p>
               )}

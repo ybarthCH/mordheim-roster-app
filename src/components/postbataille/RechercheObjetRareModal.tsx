@@ -73,7 +73,7 @@ export function RechercheObjetRareModal({
   const [rechercheMateriau, setRechercheMateriau] = useState('');
   const [coutBaseSaisi, setCoutBaseSaisi] = useState('');
 
-  const profil = useMemo(() => resolveProfil(roster, membre, catalogue) ?? null, [roster, membre, catalogue]);
+  const profil = useMemo(() => resolveProfil(roster, membre, catalogue, language) ?? null, [roster, membre, catalogue, language]);
 
   const items = useMemo(() => {
     const candidats = getShopCommun(catalogue.id, rules, profil, membre.competences_acquises, catalogue);

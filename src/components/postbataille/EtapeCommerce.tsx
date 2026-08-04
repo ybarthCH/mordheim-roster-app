@@ -19,6 +19,7 @@ import {
   type ResultatRechercheDramatisPersonae,
 } from './RechercheDramatisPersonaeModal';
 import { dramatisPersonaeDisponibles, DRAMATIS_PERSONAE } from '../../data/dramatisPersonae';
+import { translateHiredSword } from '../../i18n/data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
 
 export type HerosCommerce = {
@@ -117,9 +118,9 @@ export function EtapeCommerce({
       .map((id) => DRAMATIS_PERSONAE.find((dp) => dp.id === id)?.groupe_exclusif)
       .filter((g): g is string => !!g)
   );
-  const dpDisponibles = dramatisPersonaeDisponibles(roster).filter(
-    (dp) => !dpDejaCibles.has(dp.id) && !(dp.groupe_exclusif && groupesExclusifsDejaCibles.has(dp.groupe_exclusif))
-  );
+  const dpDisponibles = dramatisPersonaeDisponibles(roster)
+    .filter((dp) => !dpDejaCibles.has(dp.id) && !(dp.groupe_exclusif && groupesExclusifsDejaCibles.has(dp.groupe_exclusif)))
+    .map((dp) => translateHiredSword(dp, language));
   const herosDocteur = heros.find((item) => item.membre.instance_id === docteurHeroId);
   const draftDocteur = herosDocteur ? drafts[herosDocteur.membre.instance_id] : undefined;
   const membreDocteur =

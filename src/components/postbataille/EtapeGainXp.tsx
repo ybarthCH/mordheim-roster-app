@@ -127,8 +127,8 @@ function BlocAvanceeDue({
   demiXp: boolean;
   onOuvrirAvancee: (m: Member) => void;
 }) {
-  const { t } = useLanguage();
-  const profil = resolveProfil(roster, membre, catalogue);
+  const { t, language } = useLanguage();
+  const profil = resolveProfil(roster, membre, catalogue, language);
   if (!profil || !peutGagnerExperience(profil)) return null;
   const dues = avancesDues(grilleXpDuProfil(profil), membre.xp_depart, xpActuel, demiXp);
   const enAttente = Math.max(
@@ -160,7 +160,7 @@ export function EtapeGainXp({
   onOuvrirAvancee,
   avancesResolues,
 }: EtapeGainXpProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const membres = [...horsDeCombatIndividuel, ...participantsAuto];
   return (
     <>
@@ -169,7 +169,7 @@ export function EtapeGainXp({
         <p className="text-sm text-muted">{t('gainXp.intro')}</p>
         {membres.length === 0 && groupesHC.length === 0 && <p className="text-muted">{t('gainXp.noMembers')}</p>}
         {membres.map((m) => {
-          const profil = resolveProfil(roster, m, catalogue);
+          const profil = resolveProfil(roster, m, catalogue, language);
           const sansXp = !peutGagnerExperience(profil);
           const estHorsDeCombat = m.statut === 'hors_de_combat';
           // Le sort de chaque Hors de combat (héros via la table des
@@ -223,7 +223,7 @@ export function EtapeGainXp({
           );
         })}
         {groupesHC.map((m) => {
-          const sansXp = !peutGagnerExperience(resolveProfil(roster, m, catalogue));
+          const sansXp = !peutGagnerExperience(resolveProfil(roster, m, catalogue, language));
           const slots = slotsDe(m);
           const morts = slots.filter((s) => s === 'non').length;
           const survivants = m.taille_groupe - morts;

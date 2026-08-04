@@ -48,7 +48,7 @@ export function EtapeBlessuresGraves({
   const { t, language } = useLanguage();
   const [blessureEnCours, setBlessureEnCours] = useState<string | null>(null);
   const membreEnCours = horsDeCombatHeros.find((h) => h.instance_id === blessureEnCours);
-  const profilEnCours = membreEnCours ? resolveProfil(roster, membreEnCours, catalogue) : undefined;
+  const profilEnCours = membreEnCours ? resolveProfil(roster, membreEnCours, catalogue, language) : undefined;
 
   return (
     <>
@@ -92,7 +92,7 @@ export function EtapeBlessuresGraves({
           {horsDeCombatHommesDeMain.map((m) => {
             const d = xpDraftDe(m, m.xp);
             const francTireur = estFrancTireur(m);
-            const sansXp = !peutGagnerExperience(resolveProfil(roster, m, catalogue));
+            const sansXp = !peutGagnerExperience(resolveProfil(roster, m, catalogue, language));
             return (
               <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
                 <strong>{nomAffiche(m)}</strong>
