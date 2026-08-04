@@ -84,7 +84,20 @@ export function RechercheObjetRareModal({
   const choisir = (choisi: ShopItem) => {
     setItemId(choisi.id);
     setSuccesDeclare(false);
-    setCoutSaisi(choisi.cout_fixe && typeof choisi.cout === 'number' ? String(choisi.cout) : '');
+    setCoutSaisi('');
+  };
+
+  // Le prix pré-rempli est calculé au moment de la déclaration de succès (et
+  // non à la sélection dans le catalogue) : entre les deux, le joueur lance
+  // le dé sur table papier, ce qui laisse largement le temps aux règles
+  // optionnelles de finir de se charger (voir GameRulesProvider) — mieux
+  // vaut de toute façon refléter le prix le plus à jour au moment où il
+  // compte réellement, plutôt qu'un instantané pris plus tôt.
+  const declarerSucces = () => {
+    setSuccesDeclare(true);
+    if (item?.cout_fixe && typeof item.cout === 'number') {
+      setCoutSaisi(String(item.cout));
+    }
   };
 
   const enregistrerEchec = () => {
@@ -189,7 +202,7 @@ export function RechercheObjetRareModal({
 
               {!succesDeclare && (
                 <div className="flex gap-sm" style={{ marginTop: '0.4rem' }}>
-                  <button type="button" className="btn btn--primary" onClick={() => setSuccesDeclare(true)}>
+                  <button type="button" className="btn btn--primary" onClick={declarerSucces}>
                     {t('rareModal.success')}
                   </button>
                   <button type="button" className="btn" onClick={enregistrerEchec}>
