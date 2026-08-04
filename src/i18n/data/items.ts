@@ -912,24 +912,30 @@ export const itemsEn: Record<string, ItemTraduit> = {
   armure_en_gromril_market: {
     nom: 'Gromril Armour',
     texte:
-      'Gromril is the rarest and hardest metal in the Old World. Only a handful of dwarf craftsmen know how to work gromril, and the armour they forge fetches astronomical prices. Gromril armour costs four times the price of ordinary armour of the same type. You may choose which type of armour is offered to you.',
+      'Gromril is the rarest and hardest metal in the Old World. Only a handful of dwarf craftsmen know how to work gromril, and the armour they forge fetches astronomical prices. Gromril armour is always heavy armour — four times the price of ordinary heavy armour.',
     regles_speciales: [
       {
-        nom: 'Gromril Armour',
-        texte:
-          'Base armour price x4. Improves its armour save by +1 (a 6+ light armour becomes 5+, a 5+ heavy armour becomes 4+) and does not slow its wearer down if he also wears a shield.',
+        nom: 'Heavy armour',
+        texte: 'Counts as heavy armour: profiles without access to common heavy armour cannot wear it either.',
+      },
+      {
+        nom: 'Lightness',
+        texte: 'Unlike ordinary heavy armour, does not slow its wearer down if he also wears a shield.',
       },
     ],
   },
   armure_en_ithilmar_market: {
     nom: 'Ithilmar Armour',
     texte:
-      'Ithilmar is a silvery metal as light as silk and harder than steel. Elves are experts at crafting weapons and armour from ithilmar, and the elven realm of Caledor is the only place in the world where this metal can be found. Ithilmar armour costs three times the price of ordinary armour of the same type. You may choose which type of armour is offered to you.',
+      'Ithilmar is a silvery metal as light as silk and harder than steel. Elves are experts at crafting weapons and armour from ithilmar, and the elven realm of Caledor is the only place in the world where this metal can be found. Ithilmar armour is always heavy armour — three times the price of ordinary heavy armour.',
     regles_speciales: [
       {
-        nom: 'Ithilmar Armour',
-        texte:
-          'Base armour price x3. Improves its armour save by +1 (a 6+ light armour becomes 5+, a 5+ heavy armour becomes 4+) and does not slow its wearer down if he also wears a shield.',
+        nom: 'Heavy armour',
+        texte: 'Counts as heavy armour: profiles without access to common heavy armour cannot wear it either.',
+      },
+      {
+        nom: 'Lightness',
+        texte: 'Unlike ordinary heavy armour, does not slow its wearer down if he also wears a shield.',
       },
     ],
   },
