@@ -251,7 +251,7 @@
     { "item_id": "bec_de_corbin", "cout": "—" },
     { "item_id": "javelots", "cout": 10 },
     { "item_id": "misericordia", "cout": 10 },
-    { "item_id": "grenade_de_miragliano", "cout": "—" },
+    { "item_id": "grenade_de_miragliano", "cout": "—", "disponibilite": "Héros uniquement", "profils": ["conqueror", "saurus_slayer", "reaver_beastmaster", "jungle_shadow", "trap_master"] },
     { "item_id": "cape_en_peau_des_hommes_lezards", "cout": 10, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },
     { "item_id": "masque_de_crane", "cout": 15, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },
     { "item_id": "lame_homme_lezard", "cout": 30, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },

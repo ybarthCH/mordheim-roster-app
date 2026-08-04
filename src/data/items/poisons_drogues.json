@@ -46,13 +46,6 @@
     ]
   },
   {
-    "id": "toxine_arachneenne", "nom": "Toxine arachnéenne", "categorie": "poisons_drogues",
-    "cout": 25, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Gobelins des Forêts uniquement",
-    "acces": ["gobelins_des_forets"], "source": "GDF", "page": 58,
-    "texte": "Les gobelins des forêts plantent couramment leurs armes dans le corps des araignées géantes dans l'espoir de les enduire d'un poison mortel. Une arme enduite de toxine arachnéenne bénéficie d'un bonus de +1 aux jets de Dégâts. Dès que la toxine est achetée, elle est immédiatement appliquée à une arme. Elle ne peut donc pas être conservée ou revendue.",
-    "regles_speciales": []
-  },
-  {
     "id": "venin_daraignee", "nom": "Venin d'araignée", "categorie": "poisons_drogues",
     "cout": "30+1D6", "cout_fixe": false, "rarete": "7", "disponibilite": "Rare 7",
     "acces": ["rare_7"], "source": "LdR", "page": 58,

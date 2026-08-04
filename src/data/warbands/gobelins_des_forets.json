@@ -190,9 +190,8 @@
     }
   },
   "equipement_special": [
-    { "item_id": "attirail_tribal_dent_rouj", "cout": 40, "disponibilite": "Rare 9, Gobelins des Forêts uniquement" },
+    { "item_id": "attirail_tribal_dent_rouj", "cout": 40, "disponibilite": "Rare 9, Gobelins des Forêts uniquement, Héros uniquement", "profils": ["gran_chef", "chaman", "brav"] },
     { "item_id": "bidules_magiques", "cout": 50, "disponibilite": "Rare 9, Gobelins des Forêts uniquement", "profils": ["chaman"] },
-    { "item_id": "toxine_arachneenne", "cout": 25, "disponibilite": "Commun, Gobelins des Forêts uniquement" },
     { "item_id": "arme_empoisonnee_mod", "cout": "+25", "disponibilite": "Commun, Gobelins des Forêts uniquement" },
     { "item_id": "araignee_geante", "cout": 100, "disponibilite": "Rare 11, Gobelins uniquement", "profils": ["gran_chef"] }
   ],

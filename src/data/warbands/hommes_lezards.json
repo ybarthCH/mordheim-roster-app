@@ -172,9 +172,9 @@
     }
   },
   "equipement_special": [
-    { "item_id": "venin_fuligineux", "cout": 20, "disponibilite": "Héros Skinks uniquement, utilisable seulement avec des armes de tir" },
-    { "item_id": "lotus_noir", "cout": 10, "disponibilite": "Héros Skinks uniquement, utilisable seulement avec des armes de tir" },
-    { "item_id": "venin_de_reptile", "cout": 5, "disponibilite": "Commun pour une bataille, Hommes de main Skinks uniquement — +1 Force, aucun malus de sauvegarde" },
+    { "item_id": "venin_fuligineux", "cout": 20, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete", "saurus"] },
+    { "item_id": "lotus_noir", "cout": 10, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete", "saurus"] },
+    { "item_id": "venin_de_reptile", "cout": 5, "disponibilite": "Commun pour une bataille, Hommes de main Skinks uniquement — +1 Force, aucun malus de sauvegarde", "profils": ["skink"] },
     { "item_id": "sarbacane", "cout": 25, "disponibilite": "Rare 7, Skinks uniquement" },
     { "item_id": "bolas", "cout": 5, "disponibilite": "Commun, Skinks uniquement" }
   ],

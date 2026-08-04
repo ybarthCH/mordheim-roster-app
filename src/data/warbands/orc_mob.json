@@ -231,7 +231,7 @@
   "equipement_special": [
     { "item_id": "chaine_et_boulet_cac", "cout": 15, "disponibilite": "Commune (Gobelins uniquement)" },
     { "item_id": "aiguillon_a_squigs", "cout": 15, "disponibilite": "Commun (Gobelins uniquement)" },
-    { "item_id": "champignons_bonnets_de_fou_market", "cout": 25, "disponibilite": "Commun (si la bande comprend au moins un Gobelin)" }
+    { "item_id": "champignons_bonnets_de_fou_market", "cout": 25, "disponibilite": "Commun, Gobelins uniquement", "profils": ["guerrier_gobelin"] }
   ],
   "magie": {
     "nom": "Magie Waaagh !",
