@@ -2,12 +2,16 @@ import { useMemo, useState } from 'react';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import {
+  basesPourMateriau,
   classeRarete,
+  construireObjetMateriau,
   creerEntreeInventaire,
+  estItemMateriau,
   formatCoutItem,
   getShopCommun,
   inventaireComplet,
   libelleCategorie,
+  MATERIAUX,
   resumeItem,
   TRINKETS_LIMITES,
   type ShopItem,
@@ -56,6 +60,13 @@ export function RechercheObjetRareModal({
   const [itemId, setItemId] = useState('');
   const [succesDeclare, setSuccesDeclare] = useState(false);
   const [coutSaisi, setCoutSaisi] = useState('');
+  // Objet "matériau" (gromril/ithilmar/obsidienne) trouvé : demande de
+  // choisir une arme/armure de base existante avant de connaître le prix
+  // final (voir basesPourMateriau/construireObjetMateriau dans utils/shop.ts,
+  // même mécanique que dans AchatEquipementModal — voir tâche #208).
+  const [baseMateriauId, setBaseMateriauId] = useState('');
+  const [rechercheMateriau, setRechercheMateriau] = useState('');
+  const [coutBaseSaisi, setCoutBaseSaisi] = useState('');
 
   const items = useMemo(() => {
     const candidats = getShopCommun(catalogue.id, rules);
@@ -66,6 +77,10 @@ export function RechercheObjetRareModal({
     }
     return [...uniques.values()].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
   }, [catalogue, rules]);
+
+  // Liste complète (non filtrée par rareté) pour proposer les bases d'un
+  // objet matériau : une arme de base courante n'a elle-même aucune rareté.
+  const itemsCommunTous = useMemo(() => getShopCommun(catalogue.id, rules), [catalogue, rules]);
 
   const q = recherche.trim().toLocaleLowerCase('fr');
   const itemsFiltres = q ? items.filter((item) => item.nom.toLocaleLowerCase('fr').includes(q)) : items;
@@ -81,10 +96,33 @@ export function RechercheObjetRareModal({
     TRINKETS_LIMITES.has(item.id) &&
     inventaireBande.some((entree) => entree.item_id === item.id);
 
+  const materiauSelectionne = item && estItemMateriau(item.id) ? item : undefined;
+  const basesMateriau = materiauSelectionne ? basesPourMateriau(itemsCommunTous, materiauSelectionne.id) : [];
+  const baseMateriauChoisie = basesMateriau.find((b) => b.id === baseMateriauId) ?? null;
+  const baseMateriauFiltrees = rechercheMateriau.trim()
+    ? basesMateriau.filter((b) => b.nom.toLowerCase().includes(rechercheMateriau.trim().toLowerCase()))
+    : basesMateriau;
+  const coutBase = Number(coutBaseSaisi);
+  const coutBaseValide = coutBaseSaisi.trim() !== '' && Number.isFinite(coutBase) && coutBase >= 0;
+  const objetMateriauCombine =
+    materiauSelectionne && baseMateriauChoisie && coutBaseValide
+      ? construireObjetMateriau(baseMateriauChoisie, materiauSelectionne, coutBase)
+      : undefined;
+  const coutFinal = objetMateriauCombine ? (objetMateriauCombine.cout as number) : cout;
+  const coutFinalValide = materiauSelectionne ? !!objetMateriauCombine : coutValide;
+
   const choisir = (choisi: ShopItem) => {
     setItemId(choisi.id);
     setSuccesDeclare(false);
     setCoutSaisi('');
+    setBaseMateriauId('');
+    setRechercheMateriau('');
+    setCoutBaseSaisi('');
+  };
+
+  const choisirBaseMateriau = (base: ShopItem) => {
+    setBaseMateriauId(base.id);
+    setCoutBaseSaisi(base.cout_fixe && typeof base.cout === 'number' ? String(base.cout) : '');
   };
 
   // Le prix pré-rempli est calculé au moment de la déclaration de succès (et
@@ -111,14 +149,15 @@ export function RechercheObjetRareModal({
   };
 
   const acheter = () => {
-    if (!item || rarete === null || !coutValide || cout > tresorerieDisponible || trinketBloque) {
+    if (!item || rarete === null || !coutFinalValide || coutFinal > tresorerieDisponible || trinketBloque) {
       return;
     }
+    const objetAchete = objetMateriauCombine ?? item;
     onTerminer({
       rarete,
-      objetNom: item.nom,
+      objetNom: objetAchete.nom,
       reussi: true,
-      achat: creerEntreeInventaire(item, cout),
+      achat: creerEntreeInventaire(objetAchete, coutFinal),
     });
   };
 
@@ -211,7 +250,84 @@ export function RechercheObjetRareModal({
                 </div>
               )}
 
-              {succesDeclare && (
+              {succesDeclare && materiauSelectionne && !baseMateriauChoisie && (
+                <>
+                  <p className="text-sm text-muted">{t('achatEquipement.chooseBaseNote')}</p>
+                  <div className="field">
+                    <input
+                      value={rechercheMateriau}
+                      onChange={(e) => setRechercheMateriau(e.target.value)}
+                      placeholder={t('achatEquipement.searchBasePlaceholder')}
+                    />
+                  </div>
+                  <div className="achat-equipement__catalogue">
+                    {baseMateriauFiltrees.length === 0 && (
+                      <p className="text-muted text-sm">{t('achatEquipement.noBaseAvailable')}</p>
+                    )}
+                    {baseMateriauFiltrees.map((base) => (
+                      <button
+                        type="button"
+                        key={base.id}
+                        className="list-item achat-equipement__item"
+                        onClick={() => choisirBaseMateriau(base)}
+                      >
+                        <div className="list-item__main">
+                          <span className="list-item__title">{translateItem(base, language).nom}</span>
+                          <div className="list-item__subtitle">{formatCoutItem(base.cout, language)}</div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {succesDeclare && materiauSelectionne && baseMateriauChoisie && (
+                <>
+                  <div className="achat-equipement__header-ligne" style={{ marginTop: '0.4rem' }}>
+                    <span className="list-item__title">
+                      {baseMateriauChoisie.nom} ({materiauSelectionne.nom.replace(/^Arme en |^Armure en /, '')})
+                    </span>
+                    <button className="btn btn--sm" onClick={() => setBaseMateriauId('')}>
+                      {t('achatEquipement.chooseOtherBase')}
+                    </button>
+                  </div>
+                  <div className="field achat-equipement__cout">
+                    <label>
+                      {t('achatEquipement.baseCostLabel')}{' '}
+                      {!baseMateriauChoisie.cout_fixe && (
+                        <span className="text-muted">
+                          {t('achatEquipement.notationPrefix')} {baseMateriauChoisie.cout}
+                        </span>
+                      )}
+                    </label>
+                    <input
+                      type="number"
+                      min={0}
+                      value={coutBaseSaisi}
+                      onChange={(e) => setCoutBaseSaisi(e.target.value)}
+                      placeholder={!baseMateriauChoisie.cout_fixe ? t('achatEquipement.rollResultPlaceholder15') : undefined}
+                    />
+                  </div>
+                  {coutBaseValide && (
+                    <p className="text-sm">
+                      {t('achatEquipement.finalPricePrefix')} (
+                      {(() => {
+                        const spec = MATERIAUX[materiauSelectionne.id];
+                        return spec?.mode === 'addition'
+                          ? `${coutBase} ${t('creation.gc')} + ${spec.montant}`
+                          : `${coutBase} ${t('creation.gc')} × ${spec?.multiplicateur}`;
+                      })()}
+                      ) : <strong>{objetMateriauCombine?.cout} {t('creation.gc')}</strong>
+                    </p>
+                  )}
+                  <p className="text-sm text-muted">{t('rareModal.treasuryAvailable', { n: tresorerieDisponible })}</p>
+                  {coutBaseValide && coutFinal > tresorerieDisponible && (
+                    <p className="text-sm text-danger">{t('rareModal.insufficientTreasury')}</p>
+                  )}
+                </>
+              )}
+
+              {succesDeclare && !materiauSelectionne && (
                 <>
                   <div className="field">
                     <label>
@@ -245,7 +361,7 @@ export function RechercheObjetRareModal({
                   </button>
                   <button
                     className="btn btn--primary"
-                    disabled={!coutValide || cout > tresorerieDisponible || trinketBloque}
+                    disabled={!coutFinalValide || coutFinal > tresorerieDisponible || trinketBloque}
                     onClick={acheter}
                   >
                     {t('rareModal.buyAndFinish')}
