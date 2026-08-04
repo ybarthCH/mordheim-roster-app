@@ -40,7 +40,6 @@ import {
   retirerDeMembre,
   transfererVersStock,
   creerEntreesInventaire,
-  entreesLieesAuGroupe,
   resumeInventaireParItem,
   formatEquipementAffiche,
   inventaireComplet,
@@ -208,34 +207,31 @@ export function PersonnageScreen() {
     });
   };
 
-  // Supprime l'objet sans contrepartie (perdu, détruit...) — pour un groupe,
-  // retire tous les exemplaires identiques (voir entreesLieesAuGroupe).
+  // Supprime un seul exemplaire sans contrepartie (perdu, détruit...) —
+  // toujours un exemplaire à la fois, même dans un groupe d'hommes de main
+  // (voir note sur transfererVersStock dans utils/shop.ts).
   const retirerItem = (instanceId: string) => {
-    const aRetirer = new Set(entreesLieesAuGroupe(membre, instanceId).map((e) => e.instance_id));
     const sansItem = retirerDeMembre(roster, membre.instance_id, instanceId);
-    const inventaire = membre.inventaire.filter((e) => !aRetirer.has(e.instance_id));
+    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
     updateRoster(avecEquipementSynchronise(sansItem, inventaire));
   };
 
-  // Revend l'objet (et tous ses exemplaires identiques pour un groupe) :
-  // moitié du prix payé (arrondi au supérieur), par exemplaire, reversée à
-  // la trésorerie.
+  // Revend un seul exemplaire : moitié du prix payé (arrondi au supérieur)
+  // reversée à la trésorerie.
   const vendreItem = (instanceId: string) => {
-    const aVendre = entreesLieesAuGroupe(membre, instanceId);
-    if (aVendre.length === 0) return;
-    const remboursement = aVendre.reduce((acc, e) => acc + prixVente(e.cout), 0);
-    const aVendreIds = new Set(aVendre.map((e) => e.instance_id));
+    const entree = membre.inventaire.find((e) => e.instance_id === instanceId);
+    if (!entree) return;
+    const remboursement = prixVente(entree.cout);
     const sansItem = retirerDeMembre(roster, membre.instance_id, instanceId);
-    const inventaire = membre.inventaire.filter((e) => !aVendreIds.has(e.instance_id));
+    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
     updateRoster(
       avecEquipementSynchronise({ ...sansItem, tresorerie: sansItem.tresorerie + remboursement }, inventaire)
     );
   };
 
   const renvoyerStockItem = (instanceId: string) => {
-    const aRenvoyer = new Set(entreesLieesAuGroupe(membre, instanceId).map((e) => e.instance_id));
     const nouveauRoster = transfererVersStock(roster, membre, instanceId);
-    const inventaire = membre.inventaire.filter((e) => !aRenvoyer.has(e.instance_id));
+    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
     updateRoster(avecEquipementSynchronise(nouveauRoster, inventaire));
   };
 
@@ -541,19 +537,14 @@ export function PersonnageScreen() {
       {venteEnCours && (
         <Modal onClose={() => setVenteEnCours(null)}>
           {(() => {
-            const quantiteVente = entreesLieesAuGroupe(membre, venteEnCours.instance_id).length;
-            const total = prixVente(venteEnCours.cout) * quantiteVente;
+            const total = prixVente(venteEnCours.cout);
             return (
               <>
                 <h3>
-                  {t('personnage.sellTitlePrefix')} {venteEnCours.nom}
-                  {quantiteVente > 1 ? ` ×${quantiteVente}` : ''} ?
+                  {t('personnage.sellTitlePrefix')} {venteEnCours.nom} ?
                 </h3>
                 <p className="text-muted">
-                  {quantiteVente > 1
-                    ? t('personnage.sellBodyMultiplePrefix', { n: quantiteVente })
-                    : t('personnage.sellBodySingle')}{' '}
-                  {t('personnage.sellBodySuffix', { total })}
+                  {t('personnage.sellBodySingle')} {t('personnage.sellBodySuffix', { total })}
                 </p>
                 <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
                   <button className="btn" onClick={() => setVenteEnCours(null)}>
