@@ -169,6 +169,12 @@ export type Member = {
   blesse_tour_total: number;
   blessures_graves: SeriousInjuryRecord[];
   historique_avancees: AdvanceRecord[];
+  // Vrai quand le jet gratuit "Ce gars est doué" (AdvanceRecord.bonus) a été
+  // annulé via annulerAvancee() — restaure la possibilité de relancer ce jet
+  // bonus depuis "Résoudre une avancée", faute de quoi il serait perdu sans
+  // recours (le compteur enAttente normal l'ignore volontairement, voir
+  // AdvanceRecord.bonus).
+  bonus_avancee_en_attente?: boolean;
   notes: string;
   // Case manuelle "Grande Cible" (+20 au rating), non liée au catalogue.
   grande_cible: boolean;

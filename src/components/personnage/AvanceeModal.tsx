@@ -104,11 +104,13 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
   // true une fois qu'on a basculé sur la résolution de l'avancée du groupe
   // restant (après celle du nouveau héros) — pilote le message affiché.
   const [resolutionGroupeRestant, setResolutionGroupeRestant] = useState(false);
-  // true uniquement pour le jet immédiat et gratuit sur la table des héros
-  // qui suit "Ce gars est doué" (voir confirmerPromotion) — marque le
-  // prochain résultat appliqué comme `bonus` (ne consomme pas une avancée
-  // due au titre de la progression XP normale, voir AdvanceRecord.bonus).
-  const [avanceeGratuiteEnAttente, setAvanceeGratuiteEnAttente] = useState(false);
+  // true pour le jet immédiat et gratuit sur la table des héros qui suit "Ce
+  // gars est doué" (voir confirmerPromotion) — marque le prochain résultat
+  // appliqué comme `bonus` (ne consomme pas une avancée due au titre de la
+  // progression XP normale, voir AdvanceRecord.bonus). Initialisé à vrai
+  // quand ce même jet bonus a été annulé via annulerAvancee() et doit être
+  // rejoué (voir Member.bonus_avancee_en_attente).
+  const [avanceeGratuiteEnAttente, setAvanceeGratuiteEnAttente] = useState(!!member.bonus_avancee_en_attente);
 
   const typeEffectif = tableForcee ?? tableAvancementDuProfil(profil);
   const table = typeEffectif === 'heros' ? TABLE_AVANCEMENT_HEROS : TABLE_AVANCEMENT_HOMMES_DE_MAIN;
@@ -128,6 +130,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
     const updated: Member = {
       ...travail,
       ...partial,
+      ...(avanceeGratuiteEnAttente ? { bonus_avancee_en_attente: false } : {}),
       historique_avancees: [...travail.historique_avancees, enregistrement],
     };
     setTravail(updated);
@@ -374,6 +377,12 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
         instance_id: uuidv4(),
         taille_groupe: 1,
         promu_heros: true,
+        // La table des héros a des paliers bien plus rapprochés que celle des
+        // hommes de main : sans ce recalage, l'XP déjà accumulée avant la
+        // promotion serait réévaluée sur la grille héros et ferait
+        // apparaître à tort des avancées en attente supplémentaires (voir
+        // exclusion du type 'promotion' dans le calcul d'obtenues ci-dessous).
+        xp_depart: travail.xp,
         acces_competences_override: categoriesPromotion,
         historique_avancees: [...travail.historique_avancees, record],
         competences_acquises: equitationGratuite
@@ -391,6 +400,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       const updated: Member = {
         ...travail,
         promu_heros: true,
+        xp_depart: travail.xp,
         acces_competences_override: categoriesPromotion,
         historique_avancees: [...travail.historique_avancees, record],
         competences_acquises: equitationGratuite
@@ -480,14 +490,18 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       {etape === 'depart' && (
         <>
           {tableForcee === 'heros' && profil.type !== 'heros' && (
-            <p className="text-success text-sm">{t('avanceeModal.promotedImmediateRoll')}</p>
+            <p className="text-success text-sm">
+              <strong>{t('avanceeModal.promotedImmediateRoll')}</strong>
+            </p>
           )}
           {resolutionGroupeRestant && !tableForcee && (
             <p className="text-success text-sm">
-              {t('avanceeModal.remainingGroupAdvance', {
-                n: travail.taille_groupe,
-                s: travail.taille_groupe > 1 ? 's' : '',
-              })}
+              <strong>
+                {t('avanceeModal.remainingGroupAdvance', {
+                  n: travail.taille_groupe,
+                  s: travail.taille_groupe > 1 ? 's' : '',
+                })}
+              </strong>
             </p>
           )}
           <p className="text-muted text-sm">{t('avanceeModal.rollInstruction')}</p>

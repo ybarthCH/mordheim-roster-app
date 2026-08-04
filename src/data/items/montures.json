@@ -143,5 +143,16 @@
     "regles_speciales": [
       { "nom": "Effet", "texte": "Un tapis volant compte comme une monture ordinaire et permet des mouvements de 16ps, sans pénalité due au terrain. De plus, il est possible de s'en servir pour accéder aux hauteurs d'un bâtiment sans être ralenti. Le tapis peut transporter jusqu'à trois créatures de taille humaine, ou une grande créature et une de taille humaine. L'un des occupants doit être un Héros. En raison de sa nature magique, le tapis volant est indestructible." }
     ]
+  },
+  {
+    "id": "faucon_de_chasse_tileen", "nom": "Faucon de chasse tiléen", "categorie": "montures",
+    "cout": 30, "cout_fixe": true, "rarete": "-", "disponibilite": "Maître des bêtes uniquement",
+    "acces": ["lustrian_reavers"], "source": "LRV1.2", "page": 5,
+    "texte": "Faucon, épervier ou autre rapace dressé dès sa naissance à chasser et à se battre pour le compte de son maître. Ne combat pas comme une figurine à part : il fait partie de l'équipement du Maître des bêtes.",
+    "stats": { "M": 12, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 5, "A": 1, "Cd": 0 },
+    "regles_speciales": [
+      { "nom": "Fait partie de l'équipement", "texte": "Agit en même temps que le Maître des bêtes. Peut attaquer n'importe quel ennemi à moins de 12ps par une attaque de mêlée, même hors de sa ligne de vue (sauf s'il est Caché), puis revient immédiatement auprès du Maître des bêtes. Le faucon ne peut pas être ciblé séparément par une attaque ou un sort. Il n'attaque pas si le Maître des bêtes est engagé au corps-à-corps, trop occupé à le commander !" },
+      { "nom": "Bête de guerre", "texte": "Comme toutes les Bêtes de guerre, le faucon est soumis aux règles des animaux et ne gagne jamais d'expérience. S'il est mis hors de combat, il est considéré mort sur un résultat de 1-2 sur 1D6 (comme un Homme de main)." }
+    ]
   }
 ]

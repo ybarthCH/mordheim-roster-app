@@ -1306,7 +1306,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'War Beasts',
             texte:
-              "If included, the warband may recruit up to 2 War Beasts from the dedicated profiles (Estalian Warhound, Barbary Ape, Tilean Hunting Hawk). They count toward the warband's maximum size, must be bought when the warband is created (but can be replaced if killed), and may use the Beastmaster's Leadership within 6\". If the Beastmaster is killed or lost, War Beasts cannot be used until a Prospect is promoted into a new Beastmaster.",
+              "If included, the warband may own up to 2 War Beasts in total among the Estalian Warhound, the Barbary Ape (dedicated profiles, recruited as models), and the Tilean Hunting Hawk (special equipment for the Beastmaster, not a separate model). Recruited War Beasts count toward the warband's maximum size, must be bought when the warband is created (but can be replaced if killed), and may use the Beastmaster's Leadership within 6\". If the Beastmaster is killed or lost, War Beasts cannot be used until a Prospect is promoted into a new Beastmaster.",
           },
         ],
       },
@@ -1380,7 +1380,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Recruitment',
             texte:
-              "May only be recruited if the warband includes a living Beastmaster. Must be bought when the warband is created (but can be replaced if killed); the warband may not own more than 2 War Beasts in total across all three dedicated profiles (Estalian Warhound, Barbary Ape, Tilean Hunting Hawk).",
+              "May only be recruited if the warband includes a living Beastmaster. Must be bought when the warband is created (but can be replaced if killed); the warband may not own more than 2 War Beasts in total (Estalian Warhound, Barbary Ape, and Tilean Hunting Hawk combined).",
           },
         ],
       },
@@ -1400,24 +1400,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Recruitment',
             texte:
-              "May only be recruited if the warband includes a living Beastmaster. Must be bought when the warband is created (but can be replaced if killed); the warband may not own more than 2 War Beasts in total across all three dedicated profiles (Estalian Warhound, Barbary Ape, Tilean Hunting Hawk).",
-          },
-        ],
-      },
-      faucon_de_chasse_tileen: {
-        nom: 'Tilean Hunting Hawk',
-        regles_speciales: [
-          {
-            nom: 'Part of the Equipment',
-            texte:
-              'Acts at the same time as the Beastmaster. Can attack any enemy within 12" as a melee attack, even those out of line of sight (unless Hidden), and returns to the Beastmaster immediately. The hawk cannot be targeted separately by any attack or spell. It does not attack if the Beastmaster is engaged in hand-to-hand combat, being too busy commanding it!',
-          },
-          { nom: 'Never gains experience', texte: 'Like all War Beasts, the hawk stays at the same level throughout its career.' },
-          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
-          {
-            nom: 'Recruitment',
-            texte:
-              "May only be recruited if the warband includes a living Beastmaster. Must be bought when the warband is created (but can be replaced if killed); the warband may not own more than 2 War Beasts in total across all three dedicated profiles (Estalian Warhound, Barbary Ape, Tilean Hunting Hawk).",
+              "May only be recruited if the warband includes a living Beastmaster. Must be bought when the warband is created (but can be replaced if killed); the warband may not own more than 2 War Beasts in total (Estalian Warhound, Barbary Ape, and Tilean Hunting Hawk combined).",
           },
         ],
       },
@@ -3810,23 +3793,23 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Hard to Kill',
         texte:
           'Like their uncorrupted kin, Chaos Dwarfs are tough, resilient individuals who can only be taken Out of Action on a roll of 6 instead of 5-6 on the Injury table. Treat a roll of 1-2 as Knocked Down, 3-5 as Stunned, and 6 as Out of Action.',
-        exception: 'Does not apply to Snitches',
+        exception: 'Does not apply to Informers',
       },
       {
         nom: 'Hard Head',
         texte: 'Chaos Dwarfs ignore the special rules of maces, hammers, and other such weapons. They too are not easy to knock silly!',
-        exception: 'Does not apply to Snitches',
+        exception: 'Does not apply to Informers',
       },
       {
         nom: 'Armour',
         texte: 'Chaos Dwarfs suffer no Movement penalty for wearing armour.',
-        exception: 'Does not apply to Snitches',
+        exception: 'Does not apply to Informers',
       },
       {
         nom: 'Hired Swords',
         texte:
           'A Chaos Dwarf warband may hire the following Hired Swords: Ogre Bodyguard, Gladiator, Wizard, Imperial Assassin, and Hobgoblin Scout. They may also hire any Hired Sword available to all warbands, as well as those available to Orc and Chaos warbands. They may never hire any Elf Hired Sword, whoever they are!',
-        exception: 'Does not apply to Snitches',
+        exception: 'Does not apply to Informers',
       },
     ],
     profils: {
@@ -3859,11 +3842,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       delateur: {
-        nom: 'Snitch',
+        nom: 'Informer',
         regles_speciales: [
           {
             nom: 'The Grind',
-            texte: "The will of Snitches has been broken by their masters. Snitches will never become Heroes. Re-roll any 'Lad's Got Talent' result.",
+            texte: "The will of Informers has been broken by their masters. Informers will never become Heroes. Re-roll any 'Lad's Got Talent' result.",
           },
         ],
       },

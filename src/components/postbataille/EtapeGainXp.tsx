@@ -134,7 +134,10 @@ function BlocAvanceeDue({
   const profil = resolveProfil(roster, membre, catalogue);
   if (!profil || !peutGagnerExperience(profil)) return null;
   const dues = avancesDues(grilleXpDuProfil(profil), membre.xp_depart, xpActuel, demiXp);
-  const enAttente = Math.max(0, dues - membre.historique_avancees.filter((a) => !a.bonus).length);
+  const enAttente = Math.max(
+    0,
+    dues - membre.historique_avancees.filter((a) => !a.bonus && a.type !== 'promotion').length
+  );
   if (enAttente === 0) return null;
   return (
     <div className="flex items-center gap-sm" style={{ marginTop: '0.5rem' }}>

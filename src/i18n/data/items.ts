@@ -848,6 +848,24 @@ export const itemsEn: Record<string, ItemTraduit> = {
       },
     ],
   },
+  faucon_de_chasse_tileen: {
+    nom: 'Tilean Hunting Hawk',
+    texte:
+      "A hawk, sparrowhawk or other bird of prey trained from birth to hunt and fight on its master's behalf. Does not fight as a separate model: it is part of the Beastmaster's equipment.",
+    disponibilite: 'Beastmaster only',
+    regles_speciales: [
+      {
+        nom: 'Part of the Equipment',
+        texte:
+          'Acts at the same time as the Beastmaster. Can attack any enemy within 12" as a melee attack, even those out of line of sight (unless Hidden), and returns to the Beastmaster immediately. The hawk cannot be targeted separately by any attack or spell. It does not attack if the Beastmaster is engaged in hand-to-hand combat, being too busy commanding it!',
+      },
+      {
+        nom: 'War Beast',
+        texte:
+          'Like all War Beasts, the hawk is subject to the rules for animals and never gains experience. If taken Out of Action, it is considered dead on a roll of 1-2 on 1D6 (as a Henchman).',
+      },
+    ],
+  },
 
   // --- Armures ---
   amulette_lunaire: {

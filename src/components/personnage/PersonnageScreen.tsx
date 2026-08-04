@@ -284,8 +284,14 @@ export function PersonnageScreen() {
     francTireur?.gagne_experience === false || !peutGagnerExperience(profil)
       ? 0
       : avancesDues(grilleXpDuProfil(profil), membre.xp_depart, membre.xp, demiXp);
-  const obtenues = membre.historique_avancees.filter((a) => !a.bonus).length;
-  const enAttente = Math.max(0, dues - obtenues);
+  // Les jets "promotion" et "bonus" (Ce gars est doué) ne comptent jamais
+  // dans les avancées obtenues au sens du palier XP courant : la promotion
+  // reset le point de départ (voir confirmerPromotion), donc la compter ici
+  // annulerait à tort une vraie avancée due plus tard sur la grille héros.
+  const obtenues = membre.historique_avancees.filter((a) => !a.bonus && a.type !== 'promotion').length;
+  // Le jet gratuit "Ce gars est doué" annulé (voir annulerAvancee) rouvre la
+  // résolution d'avancée même si le compteur XP normal n'a rien à offrir.
+  const enAttente = Math.max(0, dues - obtenues) + (membre.bonus_avancee_en_attente ? 1 : 0);
   const rating = ratingMembre(membre, roster);
   const heroCount = nombreHeros(roster);
   const grimoireMembre = membre.inventaire.find((entree) => entree.item_id === GRIMOIRE_DE_MAGIE_ID);
