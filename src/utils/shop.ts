@@ -690,6 +690,81 @@ export function armeArmureUtilisableSansEntrainement(
   return true;
 }
 
+// Catégories couvertes par le chapitre "Objets Divers" du livre de règles
+// (munitions, poisons/drogues, consommables, artefacts magiques et objets
+// divers au sens strict) — n'inclut ni montures ni véhicules, qui relèvent
+// d'un chapitre séparé et restent toujours accessibles aux hommes de main.
+const CATEGORIES_CHAPITRE_DIVERS = new Set([
+  'divers',
+  'poisons_drogues',
+  'munitions',
+  'consommables',
+  'artefacts_magiques',
+]);
+
+// Exceptions au chapitre "Objets Divers" relevées profil par profil (texte
+// de règle explicite ou kit de combat propre au profil), clé
+// "<bande.id>::<profil.id>::<item.id>". Le préfixe par bande évite toute
+// collision fortuite entre deux profils de bandes différentes partageant le
+// même id (ex : "novice" existe aussi bien chez les Guerriers Fantômes que
+// chez les Sœurs de Sigmar, sans lien entre les deux).
+const EXCEPTIONS_DIVERS_HOMMES_DE_MAIN = new Set([
+  // Gardiens de Chapelle Bretonniens — règle spéciale "Reliques sacrées
+  // bretonniennes" : "peut recevoir une relique sacrée malgré la
+  // restriction habituelle des Hommes de main sur les objets divers".
+  'gardiens_de_chapelle_bretonniens::pelerin::relique_sacree_bretonnienne',
+  // Artilleurs de Nuln — la poudre noire supérieure fait partie du
+  // fonctionnement normal de leurs tireurs, pas un objet divers générique.
+  'artilleurs_de_nuln::pupille_de_nuln::poudre_noire_superieure',
+  'artilleurs_de_nuln::tireur_delite::poudre_noire_superieure',
+  'artilleurs_de_nuln::pistolier::poudre_noire_superieure',
+  // Gladiateurs — le filet est l'arme de combat propre au Rétiaire.
+  'gladiateurs::retiaire::filet',
+  // Gobelins de la Nuit / Horde Orque — filet et champignons bonnets de fou
+  // font partie du kit de combat habituel des gobelins nocturnes.
+  'gobelins_de_la_nuit::guerrier_gobelin_de_la_nuit::filet',
+  'gobelins_de_la_nuit::guerrier_gobelin_de_la_nuit::champignons_bonnets_de_fou_market',
+  'gobelins_de_la_nuit::snotling::filet',
+  'gobelins_de_la_nuit::snotling::champignons_bonnets_de_fou_market',
+  'gobelins_de_la_nuit::fanatique::champignons_bonnets_de_fou_market',
+  'orc_mob::guerrier_gobelin::champignons_bonnets_de_fou_market',
+  // Maneaters — les serviteurs gnoblars sont des figurines/recrues propres
+  // au Taureau et au Demi-Grand, pas de véritables objets divers.
+  'maneaters::taureau::gnoblar_combattant',
+  'maneaters::taureau::gnoblar_longue_vue',
+  'maneaters::taureau::gnoblar_porte_bonheur',
+  'maneaters::taureau::gnoblar_porte_epee',
+  'maneaters::demi_grand::gnoblar_combattant',
+  'maneaters::demi_grand::gnoblar_longue_vue',
+  'maneaters::demi_grand::gnoblar_porte_bonheur',
+  'maneaters::demi_grand::gnoblar_porte_epee',
+]);
+
+// "Seuls les héros peuvent acheter et porter l'équipement décrit dans ce
+// chapitre. Vous ne pouvez pas le fournir à vos hommes de main sauf si les
+// règles le spécifient." (livre de règles, chapitre Objets Divers) — un
+// homme de main promu Héros via "Ce gars est doué" n'est plus concerné
+// (resolveProfil bascule alors `type` à 'heros', voir utils/profil.ts).
+// Contrairement à `armeArmureUtilisableSansEntrainement`, ceci s'applique
+// aussi bien à l'achat (getShopCommun/getEquipementBande) qu'à la réception
+// via "Donner à" (ArmurerieSection) : le livre ne prévoit ici aucune
+// exception pour un objet trouvé mais pas encore utilisable — et un homme
+// de main ne fait de toute façon jamais de recherche d'objet rare
+// post-bataille (réservée aux héros), donc RechercheObjetRareModal n'a pas
+// besoin de ce filtre. `equipement_special` reste volontairement hors
+// périmètre (audit séparé à venir) : ce filtre ne s'applique qu'aux objets
+// venant de la liste d'équipement propre au profil ou du shop commun/rare.
+export function objetAutorisePourHommeDeMain(
+  bandeId: string | undefined,
+  profil: Profile | null | undefined,
+  itemId: string,
+  categorie: string
+): boolean {
+  if (!bandeId || profil?.type !== 'homme_de_main') return true;
+  if (!CATEGORIES_CHAPITRE_DIVERS.has(categorie)) return true;
+  return EXCEPTIONS_DIVERS_HOMMES_DE_MAIN.has(`${bandeId}::${profil.id}::${itemId}`);
+}
+
 // `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
 // cette bande (voir estAccesPourCatalogue) — omis, seul le shop générique
 // (accessible à toutes les bandes) est retourné. `profil`/`competencesAcquises`
@@ -725,7 +800,8 @@ export function getShopCommun(
         'sous_type' in item ? (item.sous_type as string | undefined) : undefined
       ) &&
       (!filtrerAccesEntrainement ||
-        armeArmureUtilisableSansEntrainement(item.id, item.categorie, catalogue, profil, competencesAcquises))
+        armeArmureUtilisableSansEntrainement(item.id, item.categorie, catalogue, profil, competencesAcquises)) &&
+      objetAutorisePourHommeDeMain(catalogueId, profil, item.id, item.categorie)
   ).map(mapperItemVersShopItem);
   return items.map((item) => appliquerReglesObjet(item, catalogueId ?? '', rules, 'commun'));
 }
@@ -805,6 +881,7 @@ export function getEquipementBande(
       for (const ref of liste[categorie] ?? []) {
         const item = getItem(ref.item_id);
         if (!item) continue;
+        if (!objetAutorisePourHommeDeMain(catalogue.id, profil, item.id, item.categorie)) continue;
         items.push({
           id: item.id,
           nom: item.nom,
