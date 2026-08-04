@@ -4,10 +4,10 @@ import { Icon } from '../common/Icon';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
 import { ItemDetailModal } from '../personnage/ItemDetailModal';
-import { iconeCategorie, libelleCategorie, resolveItemDetail, prixVente } from '../../utils/shop';
+import { iconeCategorie, libelleCategorie, resolveItemDetail, prixVente, armeArmureUtilisableSansEntrainement } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
-import { nomAffiche } from '../../utils/profil';
-import type { RosterInstance, InventoryEntry, CustomItem, CustomItemOverride } from '../../types/roster';
+import { nomAffiche, resolveProfil } from '../../utils/profil';
+import type { RosterInstance, InventoryEntry, CustomItem, CustomItemOverride, Member } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import type { GameRules } from '../../types/rules';
 import { useLanguage } from '../../state/useLanguage';
@@ -46,6 +46,24 @@ export function ArmurerieSection({
   const nomAfficheItem = (entree: InventoryEntry): string =>
     catalogue ? translateItem(resolveItemDetail(entree, catalogue.id, rules), language).nom : entree.nom;
 
+  // Un guerrier ne peut recevoir depuis l'armurerie que ce qu'il sait déjà
+  // utiliser (voir armeArmureUtilisableSansEntrainement) : contrairement à
+  // l'achat, transférer un objet déjà en stock équivaut à l'équiper
+  // directement, donc la même restriction de liste de recrutement
+  // s'applique — sans quoi acheter en stock (non restreint, aucun porteur
+  // désigné) puis "Donner à" contournerait le filtre appliqué à l'achat
+  // direct côté personnage.
+  const membresEligibles = (entree: InventoryEntry): Member[] =>
+    roster.membres.filter((m) =>
+      armeArmureUtilisableSansEntrainement(
+        entree.item_id,
+        entree.categorie,
+        catalogue,
+        resolveProfil(roster, m, catalogue) ?? null,
+        m.competences_acquises
+      )
+    );
+
   return (
     <>
     <CollapsibleCard
@@ -83,9 +101,14 @@ export function ArmurerieSection({
             </div>
           </div>
           <div className="flex gap-sm items-center">
-            <select value="" onChange={(e) => e.target.value && onDonner(entree.instance_id, e.target.value)}>
+            <select
+              value=""
+              disabled={membresEligibles(entree).length === 0}
+              title={membresEligibles(entree).length === 0 ? t('armurerie.noEligibleRecipient') : undefined}
+              onChange={(e) => e.target.value && onDonner(entree.instance_id, e.target.value)}
+            >
               <option value="">{t('armurerie.giveTo')}</option>
-              {roster.membres.map((m) => (
+              {membresEligibles(entree).map((m) => (
                 <option key={m.instance_id} value={m.instance_id}>
                   {nomAffiche(m)}
                 </option>

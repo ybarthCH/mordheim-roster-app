@@ -4,12 +4,14 @@ import type { WarbandCatalog } from '../../types/catalog';
 import { resolveProfil } from '../../utils/profil';
 import {
   basesPourMateriau,
+  CATEGORIE_ORDRE,
   classeRarete,
   construireObjetMateriau,
   creerEntreeInventaire,
   estItemMateriau,
   formatCoutItem,
   getShopCommun,
+  iconeCategorie,
   inventaireComplet,
   libelleCategorie,
   MATERIAUX,
@@ -19,6 +21,7 @@ import {
 } from '../../utils/shop';
 import { useGameRules } from '../../state/useGameRules';
 import { Modal } from '../common/Modal';
+import { Icon } from '../common/Icon';
 import { useLanguage } from '../../state/useLanguage';
 import { translateItem } from '../../i18n/data/items';
 
@@ -58,6 +61,7 @@ export function RechercheObjetRareModal({
   const { t, language } = useLanguage();
   const { rules } = useGameRules();
   const [recherche, setRecherche] = useState('');
+  const [categorieFiltre, setCategorieFiltre] = useState<string | null>(null);
   const [itemId, setItemId] = useState('');
   const [succesDeclare, setSuccesDeclare] = useState(false);
   const [coutSaisi, setCoutSaisi] = useState('');
@@ -88,8 +92,16 @@ export function RechercheObjetRareModal({
     [catalogue, rules, profil, membre.competences_acquises]
   );
 
+  const categoriesDisponibles = useMemo(() => {
+    const presentes = new Set(items.map((i) => i.categorie));
+    return CATEGORIE_ORDRE.filter((c) => presentes.has(c));
+  }, [items]);
+
   const q = recherche.trim().toLocaleLowerCase('fr');
-  const itemsFiltres = q ? items.filter((item) => item.nom.toLocaleLowerCase('fr').includes(q)) : items;
+  const itemsFiltresParCategorie = categorieFiltre ? items.filter((i) => i.categorie === categorieFiltre) : items;
+  const itemsFiltres = q
+    ? itemsFiltresParCategorie.filter((item) => item.nom.toLocaleLowerCase('fr').includes(q))
+    : itemsFiltresParCategorie;
   const item = items.find((candidat) => candidat.id === itemId) ?? null;
   const itemAffiche = item ? translateItem(item, language) : null;
   const rarete = item ? niveauRarete(item) : null;
@@ -184,6 +196,26 @@ export function RechercheObjetRareModal({
               </p>
             </header>
             <div className="achat-equipement__contenu">
+              {categoriesDisponibles.length > 1 && (
+                <div className="tabs" style={{ marginBottom: '0.5rem' }}>
+                  <button
+                    className={`tabs__btn ${categorieFiltre === null ? 'tabs__btn--active' : ''}`}
+                    onClick={() => setCategorieFiltre(null)}
+                  >
+                    {t('achatEquipement.all')}
+                  </button>
+                  {categoriesDisponibles.map((cat) => (
+                    <button
+                      key={cat}
+                      className={`tabs__btn ${categorieFiltre === cat ? 'tabs__btn--active' : ''}`}
+                      onClick={() => setCategorieFiltre(cat)}
+                    >
+                      {iconeCategorie(cat) && <Icon name={iconeCategorie(cat)!} style={{ marginRight: '0.35em' }} />}
+                      {libelleCategorie(cat, language)}
+                    </button>
+                  ))}
+                </div>
+              )}
               <div className="field">
                 <input
                   value={recherche}

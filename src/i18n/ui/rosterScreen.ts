@@ -79,6 +79,10 @@ export const rosterScreen: UiDictionary = {
   'armurerie.buy': { fr: '+ Acheter', en: '+ Buy' },
   'armurerie.emptyStock': { fr: 'Stock vide.', en: 'Empty stock.' },
   'armurerie.giveTo': { fr: 'Donner à…', en: 'Give to…' },
+  'armurerie.noEligibleRecipient': {
+    fr: "Aucun guerrier de la bande ne sait utiliser cet objet (liste de recrutement).",
+    en: "No warrior in the warband knows how to use this item (recruitment list).",
+  },
   'armurerie.sell': { fr: 'Vendre', en: 'Sell' },
   'armurerie.sellTitle': { fr: 'Vendre (+{prix} po à la trésorerie)', en: 'Sell (+{prix} gc to treasury)' },
   'armurerie.removeTitle': { fr: 'Supprimer sans contrepartie (perdu, détruit…)', en: 'Remove with no return (lost, destroyed…)' },
