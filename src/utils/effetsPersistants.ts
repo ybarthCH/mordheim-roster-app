@@ -10,10 +10,6 @@ import type { EffetPersistant, RosterInstance } from '../types/roster';
 // "lancez un dé en plus, et annulez un des résultats de votre choix").
 export const CLE_DE_SUPPLEMENTAIRE_EXPLORATION = 'de_supplementaire_exploration';
 
-// Franc-tireur engagé gratuitement pour une seule bataille (ex : Débiteur
-// reconnaissant) — consommé à l'étape Entretien suivante.
-export const CLE_FRANC_TIREUR_GRATUIT = 'franc_tireur_gratuit_une_bataille';
-
 export function ajouterEffetPersistant(
   roster: RosterInstance,
   effet: Omit<EffetPersistant, 'id'>

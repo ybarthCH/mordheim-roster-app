@@ -18,6 +18,7 @@ export const etapeResume: UiDictionary = {
   'resume.experienceLostSingular': { fr: 'Son expérience est perdue.', en: 'Their experience is lost.' },
   'resume.experienceLostPlural': { fr: 'Leur expérience est perdue.', en: 'Their experience is lost.' },
   'resume.doctorResultsTitle': { fr: 'Résultats du docteur :', en: "Doctor's results:" },
+  'resume.doctorConsultationCost': { fr: '-{n} po', en: '-{n} gc' },
   'resume.rareSearchTitle': { fr: "Recherches d'objet rare :", en: 'Rare item searches:' },
   'resume.rareSearchSucceededBought': { fr: 'réussie, achetée', en: 'succeeded, bought' },
   'resume.rareSearchSucceededNotBought': { fr: 'réussie, non achetée', en: 'succeeded, not bought' },

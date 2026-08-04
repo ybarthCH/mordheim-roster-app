@@ -28,8 +28,8 @@ export const postBatailleScreen: UiDictionary = {
     en: 'Resolve the status (survived / did not survive) of everyone Out of Action before continuing.',
   },
   'postBatailleScreen.resolveCommerceFirst': {
-    fr: 'Choisis une action de commerce pour chaque Héros et termine toute consultation payée avant de continuer.',
-    en: 'Choose a trade action for each Hero and finish any paid consultation before continuing.',
+    fr: 'Choisis une action de commerce pour chaque Héros et termine toute consultation payée avant de continuer, ou clique sur « Tout passer ».',
+    en: 'Choose a trade action for each Hero and finish any paid consultation before continuing, or press the Skip all button.',
   },
   'postBatailleScreen.insufficientUpkeepResources': {
     fr: 'Les ressources disponibles ne couvrent pas les contrats conservés.',

@@ -3,6 +3,7 @@ import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import type { XpDraft } from './PostBatailleScreen';
 import { useLanguage } from '../../state/useLanguage';
+import { COUT_DOCTEUR } from '../../utils/docteur';
 
 type EtapeResumeProps = {
   roster: RosterInstance;
@@ -120,7 +121,8 @@ export function EtapeResume({
           <ul style={{ margin: '0.2rem 0 0.6rem', paddingLeft: '1.2rem' }}>
             {docteurResultats.map((d, i) => (
               <li key={`${d.nom}-${i}`}>
-                {d.nom} — 2D6 = {d.jet} : <strong>{d.titre}</strong>
+                {d.nom} — 2D6 = {d.jet} : <strong>{d.titre}</strong> (
+                {t('resume.doctorConsultationCost', { n: COUT_DOCTEUR })})
               </li>
             ))}
           </ul>

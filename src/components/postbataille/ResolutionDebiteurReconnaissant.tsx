@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { RosterInstance } from '../../types/roster';
 import { FRANCS_TIREURS, disponibiliteFrancTireur } from '../../data/hiredSwords';
 import { creerMembreFrancTireurCatalogue } from '../../utils/factory';
-import { ajouterEffetPersistant, CLE_FRANC_TIREUR_GRATUIT } from '../../utils/effetsPersistants';
 import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
@@ -11,9 +10,9 @@ type Props = {
   onAjouterAuJournal: (texte: string) => void;
 };
 
-// (6 6 6) Débiteur reconnaissant — engage gratuitement un Franc-tireur pour
-// la durée de la prochaine bataille (exemption d'entretien consommée à la
-// prochaine résolution d'Entretien, voir PostBatailleScreen.lignesEntretien).
+// (6 6 6) Débiteur reconnaissant — engage un Franc-tireur sans payer son coût
+// de recrutement initial. Son entretien (solde) suit ensuite les règles
+// normales dès la bataille suivante, comme n'importe quel autre engagement.
 // Limité aux profils sans sorts de départ à choisir ni sacrifice de Liche,
 // pour rester une action en un clic — ces cas restent à engager depuis
 // l'écran de recrutement habituel si besoin.
@@ -39,14 +38,9 @@ export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouter
     const membre = creerMembreFrancTireurCatalogue(francTireur);
     onMajRoster({
       membres: [...roster.membres, membre],
-      ...ajouterEffetPersistant(roster, {
-        cle: CLE_FRANC_TIREUR_GRATUIT,
-        label: `${francTireur.nom} engagé gratuitement (Débiteur reconnaissant)`,
-        cible: membre.instance_id,
-      }),
     });
     onAjouterAuJournal(
-      `Débiteur reconnaissant : ${francTireur.nom} rejoint la bande gratuitement pour la prochaine bataille.`
+      `Débiteur reconnaissant : ${francTireur.nom} rejoint la bande sans frais de recrutement.`
     );
     setResolu(francTireur.nom);
   };
