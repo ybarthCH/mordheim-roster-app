@@ -45,7 +45,7 @@ export type WarbandTraduite = {
 // bande (src/data/warbands/*.json).
 export const warbandsEn: Record<string, WarbandTraduite> = {
   maraudeurs_du_chaos: {
-    nom: 'Chaos Marauders (1c)',
+    nom: 'Marauders of Chaos (1c)',
     regles_speciales: [
       {
         nom: 'Eye of the Dark Gods',
@@ -481,7 +481,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
   },
   artilleurs_de_nuln: {
-    nom: 'Nuln Gunners (1b)',
+    nom: 'Gunnery School of Nuln (1b)',
     regles_speciales: [
       {
         nom: 'Impeccable Maintenance',
@@ -2233,7 +2233,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
   },
   norses: {
-    nom: 'Norses (1b)',
+    nom: 'Norse Explorers (1b)',
     regles_speciales: [
       {
         nom: 'Sailors',
@@ -3801,7 +3801,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
   },
   nains_du_chaos: {
-    nom: 'Chaos Dwarfs (1c)',
+    nom: 'Black Dwarfs (1c)',
     regles_speciales: [
       {
         nom: 'Hard to Kill',
@@ -4511,7 +4511,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
   },
   guerriers_fantomes: {
-    nom: 'Ghost Warriors (1b)',
+    nom: 'Shadow Warriors (1b)',
     regles_speciales: [
       {
         nom: 'Aversion to Poison',
