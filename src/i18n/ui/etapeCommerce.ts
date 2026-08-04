@@ -26,6 +26,7 @@ export const etapeCommerce: UiDictionary = {
   'commerce.outOfAction': { fr: 'Hors de combat', en: 'Out of Action' },
   'commerce.modify': { fr: 'Modifier', en: 'Modify' },
   'commerce.skip': { fr: 'Passer', en: 'Skip' },
+  'commerce.skipAll': { fr: 'Tout passer', en: 'Skip all' },
   'commerce.searchRareItem': { fr: 'Rechercher un objet rare', en: 'Search for a rare item' },
   'commerce.searchDramatisPersonae': { fr: 'Rechercher un Dramatis Personae', en: 'Search for a Dramatis Personae' },
   'commerce.seeDoctor': { fr: 'Consulter le docteur ({cout} po)', en: 'See the doctor ({cout} gc)' },
