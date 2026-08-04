@@ -72,7 +72,7 @@ export function RechercheObjetRareModal({
   const profil = useMemo(() => resolveProfil(roster, membre, catalogue) ?? null, [roster, membre, catalogue]);
 
   const items = useMemo(() => {
-    const candidats = getShopCommun(catalogue.id, rules, profil, membre.competences_acquises);
+    const candidats = getShopCommun(catalogue.id, rules, profil, membre.competences_acquises, catalogue);
     const uniques = new Map<string, ShopItem>();
     for (const item of candidats) {
       if (niveauRarete(item) === null || uniques.has(item.id)) continue;
@@ -84,7 +84,7 @@ export function RechercheObjetRareModal({
   // Liste complète (non filtrée par rareté) pour proposer les bases d'un
   // objet matériau : une arme de base courante n'a elle-même aucune rareté.
   const itemsCommunTous = useMemo(
-    () => getShopCommun(catalogue.id, rules, profil, membre.competences_acquises),
+    () => getShopCommun(catalogue.id, rules, profil, membre.competences_acquises, catalogue),
     [catalogue, rules, profil, membre.competences_acquises]
   );
 
