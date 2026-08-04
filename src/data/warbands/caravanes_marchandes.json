@@ -1,0 +1,295 @@
+{
+  "id": "caravanes_marchandes",
+  "nom": "Caravanes Marchandes (1c)",
+  "grade": "1c",
+  "source": "Border Town Burning (BTB) — Caravane des Marchands — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    {
+      "nom": "Marchand",
+      "texte": "Le Marchand est le chef de la bande : toute figurine à moins de 6ps de lui peut utiliser son Commandement pour ses tests. S'il quitte la bande (par exemple s'il meurt suite à une Blessure Grave), un nouveau chef est déterminé normalement. Le nouveau chef gagne la règle spéciale Marchand — ce qui lui permet de choisir de nouvelles compétences dans la liste des compétences spéciales du Marchand — et est considéré comme un Marchand à tous points de vue, comme l'était le précédent. Si aucune figurine de la bande ne peut devenir chef, un Apprenti doit être recruté dès que possible pour assumer ce rôle."
+    },
+    {
+      "nom": "Compétences spéciales du Marchand",
+      "texte": "Le Marchand peut choisir ses compétences dans la liste des compétences spéciales du Marchand (voir compétences spéciales) au lieu des tableaux de compétences Spéciale habituels."
+    },
+    {
+      "nom": "Rareté",
+      "texte": "Tout objet rare ramené à Rare 2 ou moins grâce à la règle Réputation du Chariot de marchandises, à une compétence équivalente, etc., peut être acheté comme un objet Commun."
+    },
+    {
+      "nom": "Chariot de marchandises obligatoire",
+      "texte": "Une bande de Caravane des Marchands doit toujours inclure un Chariot de marchandises dans sa constitution de départ (voir Équipement spécial). Voir les règles du Chariot de marchandises (Stockage, Réputation, Abandon) sur la fiche de l'objet lui-même."
+    },
+    {
+      "nom": "Francs-tireurs",
+      "texte": "Une bande de Caravane des Marchands peut engager n'importe quel Franc-tireur normalement accessible aux bandes de Mercenaires."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 600
+  },
+  "profils": [
+    {
+      "id": "marchand",
+      "nom": "Marchand",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 50,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Le Marchand est toujours le chef de la bande — voir la règle spéciale Marchand." },
+        {
+          "nom": "Commerce",
+          "texte": "Au lieu de chercher un objet rare, le Marchand peut vendre un objet rare stocké dans le Chariot de marchandises lors de la bataille précédente. Cela doit être fait avant que les Héros des deux bandes ne recherchent des objets rares. Lancez 1D6 pour déterminer combien de pièces d'or le Marchand en tire : 1-2 la moitié du prix de base de l'objet ; 3-4 le prix de base complet ; 5-6 le prix de base complet plus la moitié. Le Marchand peut choisir de vendre l'objet à ce prix ou de retenter sa chance après la bataille suivante. Cette règle peut se combiner avec la compétence Vente en gros pour vendre jusqu'à D3+1 objets par bataille."
+        },
+        {
+          "nom": "Ouvert au Commerce",
+          "texte": "Tous les joueurs peuvent choisir d'envoyer n'importe lequel de leurs Héros voir le Marchand au lieu de chercher des objets rares. Un Héros procédant ainsi peut acheter un objet parmi ceux stockés par la bande si les joueurs s'accordent sur un prix (échanges contre objets et Trésors possibles). Au lieu d'acheter un objet, un Héros peut aussi se rendre chez le Marchand pour lui en vendre un (rare, commun, magique, ou un marqueur de Trésor). Si les joueurs ne s'accordent pas sur un prix, aucune transaction n'a lieu et la visite est perdue."
+        }
+      ],
+      "acces_competences": ["tir", "academique", "special"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true,
+      "competences_speciales": [
+        {
+          "id": "corruption",
+          "nom": "Corruption",
+          "texte": "Chaque fois que la bande doit passer un test de Déroute, le Marchand peut convaincre ses hommes de main de rester un peu plus longtemps et d'affronter le danger. Il peut immédiatement payer 5 CO par membre de la bande non-Héros (y compris les Francs-tireurs) encore en jeu. S'il le fait, un membre déjà mis hors de combat ne compte pas pour le test de Déroute. Si un test de Déroute est encore nécessaire après cela, testez normalement. Cette compétence peut être utilisée autant de fois que nécessaire, tant que les caisses ne sont pas vides !"
+        },
+        {
+          "id": "fin_negociateur",
+          "nom": "Fin négociateur",
+          "texte": "Lorsqu'il essaie de vendre un objet via la règle spéciale Commerce, le Marchand bénéficie d'un bonus de +1 au jet déterminant ce que rapporte l'objet."
+        },
+        {
+          "id": "reseau_de_contacts",
+          "nom": "Réseau de contacts",
+          "texte": "Le Marchand connaît de nombreux revendeurs et des moyens d'obtenir des objets rares. Au lieu de chercher des objets rares normalement, il peut visiter le marché noir local et ses receleurs. S'il le fait, il peut chercher un objet sur la table suivante, en appliquant les règles normales : Parchemin de dissipation (50+4D6 CO, Rare 12) ; Artefact mineur (200+D6x15 CO, Rare 16, jet sur la table des Artefacts mineurs) ; Artefact magique (350+D6x25 CO, Rare 18, jet sur la table des Artefacts magiques du livre de règles Mordheim) ; Parchemin magique (100 CO, Rare 14, jet sur la table des Artefacts mineurs). Le Marchand peut acheter des objets via cette table, mais ne pourra jamais les revendre — il devra espérer qu'un autre joueur soit intéressé."
+        },
+        {
+          "id": "revenus_douteux",
+          "nom": "Revenus douteux",
+          "texte": "Le Marchand a monté une affaire souterraine qui s'avère plutôt rentable. Après chaque bataille à l'issue de laquelle il n'a pas été mis hors de combat, il peut choisir d'utiliser cette compétence avant la phase de Commerce (c'est-à-dire avant de dépenser de l'or). S'il le fait, il doit réussir un test de Commandement. En cas de réussite, la bande reçoit une pièce d'or par point d'Expérience du Marchand. En cas d'échec, la bande perd jusqu'au même montant de pièces d'or."
+        },
+        {
+          "id": "vente_en_gros",
+          "nom": "Vente en gros",
+          "texte": "Le Marchand est réputé pour acheter en grande quantité, ce qui le rend particulièrement bienvenu chez les autres marchands. Il peut chercher D3+1 objets rares après chaque bataille au lieu d'un seul, s'il n'a pas été mis hors de combat, bien sûr !"
+        }
+      ]
+    },
+    {
+      "id": "apprenti",
+      "nom": "Apprenti",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        {
+          "nom": "Chef de secours",
+          "texte": "Si aucune figurine de la bande ne peut devenir chef à la mort du Marchand, un Apprenti doit être recruté dès que possible pour assumer ce rôle (voir règle spéciale Marchand)."
+        }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "vitesse"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "chevalier_avant_garde",
+      "nom": "Chevalier d'Avant-garde",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 45,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        {
+          "nom": "Réflexes Foudroyants",
+          "texte": "Si le Chevalier d'Avant-garde est chargé, il « frappe en premier » contre les assaillants de ce tour. Comme le ou les chargeurs « frappent » également en premier (du fait de la charge), l'ordre des attaques entre chargeur(s) et Chevalier d'Avant-garde est déterminé en comparant les valeurs d'Initiative."
+        },
+        {
+          "nom": "Cavalier de Cheval de Guerre",
+          "texte": "Le Chevalier d'Avant-garde est formé à monter des Chevaux de guerre."
+        },
+        {
+          "nom": "Engagé",
+          "texte": "Le Chevalier d'Avant-garde est un mercenaire payé par le Marchand ; il ne peut jamais devenir le chef de la bande."
+        }
+      ],
+      "acces_competences": ["combat", "force", "vitesse"],
+      "acces_equipement": ["heros", "cathayen"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "magicien",
+      "nom": "Magicien",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 40,
+      "xp_depart": 8,
+      "peut_lancer_sorts": true,
+      "categorie_magie": "magie_mineure",
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Le Magicien est un sorcier et utilise la Magie mineure." },
+        { "nom": "Engagé", "texte": "Le Magicien est un mercenaire payé par le Marchand ; il ne peut jamais devenir le chef de la bande." }
+      ],
+      "acces_competences": ["academique", "vitesse"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "epee_a_louer",
+      "nom": "Épée-à-louer",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "tireur_elite",
+      "nom": "Tireur d'élite tiléen",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 5,
+      "cout": 30,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": [],
+      "acces_equipement": ["hommes_de_main"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "reitre_cathayan",
+      "nom": "Reître cathayan",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 3,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        {
+          "nom": "Costaud",
+          "texte": "Les Reîtres cathayans sont capables de prouesses de force peu communes. Ils peuvent utiliser une arme à deux mains sans subir la pénalité habituelle de toujours frapper en dernier. Déterminez l'ordre d'attaque comme pour toute autre arme."
+        },
+        {
+          "nom": "Engagés peu fiables",
+          "texte": "Les Reîtres cathayans sont uniquement engagés par le Marchand pour protéger sa cargaison ; on ne leur accorde ni confiance ni responsabilités. Ils ne peuvent jamais devenir Héros : relancez tout résultat « Ce gars est doué » les concernant."
+        }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["cathayen"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "heros": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "rapiere", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "pistolet_de_duel", "cout": 30, "note": "60 CO la paire" }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
+      ],
+      "divers": [
+        { "item_id": "cape_de_soie_cathayenne", "cout": 40, "note": "Objet non encore présent au catalogue commun — voir rapport de conversion" }
+      ]
+    },
+    "hommes_de_main": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "arbalete", "cout": 25 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
+      ]
+    },
+    "cathayen": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Gourdin" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "epee_dragon", "cout": 20, "note": "Katana" }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "item_id": "chariot_de_marchandises",
+      "cout": 180,
+      "disponibilite": "Commun, Caravane des Marchands uniquement — une bande de départ doit toujours en inclure un (voir règle spéciale Chariot de marchandises obligatoire)."
+    },
+    {
+      "item_id": "cheval",
+      "cout": 40,
+      "disponibilite": "Rare 8, Chevaliers d'Avant-garde uniquement",
+      "profils": ["chevalier_avant_garde"]
+    },
+    {
+      "item_id": "pique_market",
+      "cout": 10,
+      "disponibilite": "Rare 8, Épées-à-louer uniquement",
+      "profils": ["epee_a_louer"]
+    },
+    {
+      "item_id": "hallebarde",
+      "cout": 10,
+      "disponibilite": "Commun, Épées-à-louer uniquement",
+      "profils": ["epee_a_louer"]
+    }
+  ]
+}

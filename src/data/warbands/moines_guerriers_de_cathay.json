@@ -1,0 +1,228 @@
+{
+  "id": "moines_guerriers_de_cathay",
+  "nom": "Moines Guerriers de Cathay (1c)",
+  "grade": "1c",
+  "source": "Border Town Burning (BTB-MGC) — Battle Monks of Cathay — La Grande Librairie de Mordheim",
+  "regles_speciales": [
+    {
+      "nom": "Strictures",
+      "texte": "Un régime strict de méditation est suivi par les moines, qui considèrent que la peau du corps est en elle-même une armure. Les Moines Dragons et les Moines Guerriers ne portent jamais aucune armure, quelle qu'elle soit."
+    },
+    {
+      "nom": "Dégoût du poison",
+      "texte": "L'usage des poisons et autres drogues est l'apanage de combattants sans honneur. Les Moines Dragons et les Moines Guerriers refusent d'utiliser tout poison ou venin, quel qu'il soit."
+    },
+    {
+      "nom": "Étrangers",
+      "texte": "Les étrangers sont généralement considérés comme indésirables par les gardes-frontières de Cathay. La bande des Moines Guerriers ne peut jamais engager de Franc-tireur ou de Personnage Haut en Couleur, sauf mention contraire explicite dans le profil du Franc-tireur/Personnage concerné."
+    },
+    {
+      "nom": "Compétences spéciales des Moines Guerriers",
+      "texte": "Les Moines Guerriers de Cathay peuvent choisir d'utiliser la liste de compétences spéciales ci-dessous (voir compétences spéciales de la bande) à la place des listes de compétences standards, pour n'importe quel Héros ayant accès à la catégorie Spéciale. Notez que l'Émissaire ne peut choisir que la compétence Guerre acharnée dans cette liste alternative."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "emissaire",
+      "nom": "Émissaire",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 60,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout guerrier à moins de 6ps de l'Émissaire peut utiliser le Commandement de ce dernier pour ses tests." },
+        { "nom": "Cavalier", "texte": "L'Émissaire est entraîné à monter à cheval." },
+        { "nom": "Décret", "texte": "Lorsque l'Émissaire meurt, un nouvel Émissaire doit être engagé au plus vite. Tant que cela n'a pas été fait, aucun autre guerrier ni équipement ne peut être acheté. Le nouvel Émissaire reprend alors le commandement de la bande." },
+        { "nom": "Compétences spéciales", "texte": "Peut choisir la liste de compétences spéciales des Moines Guerriers à la place de la liste standard, mais uniquement la compétence Guerre acharnée dans ce cas (voir règle spéciale de bande)." }
+      ],
+      "acces_competences": ["tir", "academique", "vitesse", "special"],
+      "acces_equipement": ["soldats", "emissaire_special"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "officier",
+      "nom": "Officier",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 1,
+      "cout": 40,
+      "xp_depart": 12,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "tir", "force", "vitesse"],
+      "acces_equipement": ["soldats"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "moine_dragon",
+      "nom": "Moine Dragon",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 3,
+      "cout": 55,
+      "xp_depart": 15,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Combat à mains nues", "texte": "Le Moine Dragon ne subit aucune pénalité pour combattre à mains nues et gagne +1 Attaque lorsqu'il le fait." },
+        { "nom": "Art de la mort silencieuse", "texte": "Au corps à corps, lorsqu'il combat à mains nues, le Moine Dragon inflige un coup critique sur un jet pour blesser de 5-6 au lieu de 6 seulement. S'il est équipé d'un bâton de combat, seules ses attaques à mains nues bénéficient de ce bonus." }
+      ],
+      "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
+      "acces_equipement": ["moines"],
+      "categories_interdites": ["armures"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "soldat",
+      "nom": "Soldat",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": [],
+      "acces_equipement": ["soldats"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "moine_guerrier",
+      "nom": "Moine Guerrier",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 5,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Combat à mains nues", "texte": "Le Moine Guerrier ne subit aucune pénalité pour combattre à mains nues et gagne +1 Attaque lorsqu'il le fait." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["moines"],
+      "categories_interdites": ["armures"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "paysan_en_furie",
+      "nom": "Paysan en furie",
+      "type": "homme_de_main",
+      "gagne_experience": false,
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 5,
+      "cout": 10,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Équipement", "texte": "Équipé d'une fourche, d'une torche ou d'un autre outil simple. Combat à mains nues sans aucune pénalité, mais ne peut acheter aucune arme ni armure." },
+        { "nom": "Gens simples", "texte": "Les Paysans ne gagnent jamais d'expérience." },
+        { "nom": "Foule", "texte": "Un Paysan gagne +1 Cd pour chaque autre Paysan allié à moins de 3ps. En raison de leur rage, ils ne bénéficient pas de la règle Chef." },
+        { "nom": "Ignorés", "texte": "Les Paysans mis hors de combat ne comptent pas dans le nombre de figurines hors de combat pour les tests de Déroute." },
+        { "nom": "Bas du peuple", "texte": "Lorsqu'un Paysan est Blessé, ne lancez pas sur la table des Blessures Graves : il est immédiatement mis hors de combat." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armes_de_jet", "armures"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    {
+      "id": "energie_focalisee",
+      "nom": "Énergie focalisée",
+      "texte": "S'il combat à mains nues, le Héros peut choisir de réduire ses Attaques de -1 pour gagner +1 en Force au corps à corps. Le moine peut sacrifier autant d'Attaques qu'il le souhaite de cette façon.",
+      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative)."
+    },
+    {
+      "id": "vitesse_foudroyante",
+      "nom": "Vitesse foudroyante",
+      "texte": "Le moine peut tripler son Mouvement lorsqu'il court ou charge, et peut courir même si des figurines ennemies se trouvent à moins de 8ps.",
+      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative)."
+    },
+    {
+      "id": "saut_de_la_foi",
+      "nom": "Saut de la foi",
+      "texte": "Le Héros ne peut pas être intercepté lorsqu'il charge. Il peut se dégager d'un corps à corps (comme décrit p.161 du livre de règles de Mordheim) en bondissant hors du combat sans avoir à réussir de test de Commandement, et peut déclarer une charge bondissante lors du même tour.",
+      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative)."
+    },
+    {
+      "id": "bouclier_humain",
+      "nom": "Bouclier humain",
+      "texte": "Si deux figurines ennemies ou plus sont engagées au corps à corps contre le moine, il peut choisir d'utiliser l'une d'elles comme bouclier plutôt que de porter ses attaques normales. Pour cela, il doit réussir un test d'Initiative après que la première figurine a attaqué mais avant que la seconde n'attaque. En cas de réussite, le moine saisit la première figurine : la seconde dirige alors toutes ses attaques contre elle. Après la phase de combat, la figurine saisie se dégage et le combat reprend normalement. En cas d'échec, le moine et la seconde figurine effectuent leurs attaques normalement.",
+      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative)."
+    },
+    {
+      "id": "guerre_acharnee",
+      "nom": "Guerre acharnée",
+      "texte": "Avant la bataille, le Héros peut faire un test de Commandement. En cas de réussite, D3+1 Paysans en furie rejoignent la bande pour la partie à venir (ce qui peut dépasser l'effectif maximum autorisé). Chaque Paysan en furie ainsi recruté est sujet à la Haine pour la durée de la bataille."
+    }
+  ],
+  "equipement": {
+    "soldats": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "epee_dragon", "cout": 20, "note": "Katana" }
+      ],
+      "armes_tir": [
+        { "item_id": "pistolet_de_duel", "cout": 30, "note": "60 CO la paire" },
+        { "item_id": "arquebuse", "cout": 35, "note": "Handgun" },
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arbalete", "cout": 25 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
+      ]
+    },
+    "emissaire_special": {
+      "armes_cac": [
+        { "item_id": "epee_longue_cathayenne", "cout": 75, "note": "Cathayan longsword — Émissaire uniquement, objet à créer dans le catalogue commun" }
+      ],
+      "divers": [
+        { "item_id": "cape_de_soie_cathayenne", "cout": 40, "note": "Cathayan silk cloak — Émissaire uniquement, objet à créer dans le catalogue commun" },
+        { "item_id": "cheval", "cout": 30, "note": "Émissaire uniquement" }
+      ]
+    },
+    "moines": {
+      "armes_cac": [
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "baton_de_combat", "cout": 15, "note": "Quarter staff" },
+        { "item_id": "epee_dragon", "cout": 20, "note": "Katana" },
+        { "item_id": "nunchaku", "cout": 20, "note": "Chain sticks" }
+      ],
+      "armes_tir": [
+        { "item_id": "kusarigama", "cout": 10, "note": "Fish-hook shot" },
+        { "item_id": "arme_de_jet", "cout": 15, "note": "Throwing stars" }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "epee_longue_cathayenne", "cout": 75, "disponibilite": "Commun, Émissaire des Moines Guerriers de Cathay uniquement (objet à créer)", "profils": ["emissaire"] },
+    { "item_id": "cape_de_soie_cathayenne", "cout": 40, "disponibilite": "Commun, Émissaire des Moines Guerriers de Cathay uniquement (objet à créer)", "profils": ["emissaire"] },
+    { "item_id": "cheval", "cout": 30, "disponibilite": "Rare 8, Humains uniquement, Émissaire uniquement", "profils": ["emissaire"] },
+    { "item_id": "nunchaku", "cout": 20, "disponibilite": "Rare 7, Moines Guerriers de Cathay uniquement", "profils": ["moine_dragon", "moine_guerrier"] },
+    { "item_id": "kusarigama", "cout": 10, "disponibilite": "Rare 7, Moines Guerriers de Cathay uniquement", "profils": ["moine_dragon", "moine_guerrier"] }
+  ]
+}
