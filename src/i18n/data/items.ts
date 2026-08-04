@@ -3222,6 +3222,18 @@ export const itemsEn: Record<string, ItemTraduit> = {
       },
     ],
   },
+  cape_de_soie_cathayenne: {
+    nom: 'Cathayan Silk Cloak',
+    texte:
+      'Some wealthy warband leaders like to flaunt their wealth by buying clothes made out of silk from distant Cathay. This silk is the most expensive fabric in the known world, and wearing such clothes is a sure way to attract attention – especially thieves and assassins!',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          'A warband whose leader is wearing the Cathayan silk cloak may re-roll the first failed Rout test. However, after each battle in which the leader is taken out of action, roll a D6. On a roll of 1-3 the cloak is ruined and must be discarded.',
+      },
+    ],
+  },
   crochet: {
     nom: 'Hook',
     texte:

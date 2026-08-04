@@ -380,8 +380,10 @@
     "id": "cape_de_soie_cathayenne", "nom": "Cape de soie cathayenne", "categorie": "divers",
     "cout": 40, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Émissaire des Moines Guerriers de Cathay et Héros des Caravanes Marchandes uniquement",
     "acces": ["moines_guerriers_de_cathay", "caravanes_marchandes"], "source": "BTB-MGC/BTB-CM", "page": 3,
-    "texte": "Une cape tissée dans la soie la plus fine de Cathay, portée par les émissaires impériaux et les riches marchands en signe de statut lors de leurs longs voyages.",
-    "regles_speciales": []
+    "texte": "Certains chefs de bande fortunés aiment étaler leur richesse et s'achètent des vêtements en soie de Cathay. C'est le tissu le plus cher du monde connu, et porter de tels vêtements est un moyen infaillible d'attirer l'attention, surtout des voleurs et des assassins.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Une bande dont le Chef porte la cape de soie cathayenne peut relancer son premier test de Déroute raté. Lancez cependant 1D6 après chaque bataille où le Chef est mis hors de combat. Sur un résultat de 1-3, la cape est déchirée et détruite." }
+    ]
   },
   {
     "id": "crochet", "nom": "Crochet", "categorie": "divers",
