@@ -510,6 +510,7 @@ export function PersonnageScreen() {
           marqueId={membre.marque}
           inventaireActuel={membre.inventaire}
           inventaireBande={inventaireComplet(roster)}
+          roster={roster}
           tailleGroupe={membre.taille_groupe || 1}
           objetsPersonnalises={roster.objets_personnalises}
           objetsSurcharges={roster.objets_surcharges}

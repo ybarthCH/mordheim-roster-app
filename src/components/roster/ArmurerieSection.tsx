@@ -152,6 +152,7 @@ export function ArmurerieSection({
           profil={null}
           tresorerie={roster.tresorerie}
           inventaireBande={inventaireBande}
+          roster={roster}
           objetsPersonnalises={roster.objets_personnalises}
           objetsSurcharges={roster.objets_surcharges}
           onObjetsPersonnalisesChange={onObjetsPersonnalisesChange}

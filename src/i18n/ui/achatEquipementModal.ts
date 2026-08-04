@@ -76,6 +76,10 @@ export const achatEquipementModal: UiDictionary = {
     fr: 'et cet achat en ajouterait {n}.',
     en: 'and this purchase would add {n}.',
   },
+  'achatEquipement.groupLimitReached': {
+    fr: 'Limite atteinte : {actuel}/{max} {label} déjà dans la bande.',
+    en: 'Limit reached: {actuel}/{max} {label} already in the warband.',
+  },
   'achatEquipement.return': { fr: 'Retour', en: 'Back' },
   'achatEquipement.buy': { fr: 'Acheter', en: 'Buy' },
   'achatEquipement.rollResultTitle': { fr: 'Quel résultat as-tu obtenu ?', en: 'What result did you roll?' },

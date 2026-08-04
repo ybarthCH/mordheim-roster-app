@@ -15,6 +15,7 @@ import {
   CATEGORIE_ORDRE,
   TRINKETS_LIMITES,
   ITEMS_UNIQUES_BANDE,
+  comptePlafondGroupe,
   estItemMateriau,
   basesPourMateriau,
   construireObjetMateriau,
@@ -23,7 +24,7 @@ import {
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
-import type { InventoryEntry, CustomItem, CustomItemOverride } from '../../types/roster';
+import type { InventoryEntry, CustomItem, CustomItemOverride, RosterInstance } from '../../types/roster';
 import { useGameRules } from '../../state/useGameRules';
 import { CustomItemForm } from './CustomItemForm';
 import { useLanguage } from '../../state/useLanguage';
@@ -48,6 +49,12 @@ type Props = {
   // Ensemble du stock et des inventaires de tous les membres. Sert aux
   // limites qui s'appliquent à l'échelle de la bande entière.
   inventaireBande?: InventoryEntry[];
+  // Roster complet : uniquement nécessaire pour vérifier un
+  // `EquipementSpecialRef.plafond_groupe` (ex : le Faucon de chasse tiléen
+  // des Pillards de Lustrie, compté avec les Bêtes de guerre recrutées) —
+  // voir comptePlafondGroupe dans utils/shop.ts. Omis, ce plafond partagé
+  // n'est simplement pas vérifié.
+  roster?: RosterInstance;
   // Taille du groupe d'hommes de main ciblé (1 pour un héros ou l'armurerie
   // de bande) : l'équipement d'un groupe doit rester identique entre toutes
   // ses figurines, l'achat porte donc automatiquement sur `tailleGroupe`
@@ -98,6 +105,7 @@ export function AchatEquipementModal({
   marqueId,
   inventaireActuel = [],
   inventaireBande = [],
+  roster,
   tailleGroupe = 1,
   gratuit = false,
   objetsPersonnalises = [],
@@ -259,7 +267,14 @@ export function AchatEquipementModal({
     !!itemSelectionne &&
     ITEMS_UNIQUES_BANDE.has(itemSelectionne.id) &&
     (inventaireBande.some((entree) => entree.item_id === itemSelectionne.id) || tailleGroupe > 1);
-  const limiteAtteinte = trinketLimite || limiteUniqueBande;
+  const refPlafondGroupe = itemSelectionne
+    ? catalogue.equipement_special?.find((ref) => ref.item_id === itemSelectionne.id)?.plafond_groupe
+    : undefined;
+  const limitePlafondGroupe =
+    !!refPlafondGroupe &&
+    !!roster &&
+    comptePlafondGroupe(catalogue, roster, refPlafondGroupe.id) + tailleGroupe > refPlafondGroupe.max;
+  const limiteAtteinte = trinketLimite || limiteUniqueBande || limitePlafondGroupe;
 
   const confirmer = () => {
     if (!itemSelectionne || !coutValide || limiteAtteinte || (!gratuit && coutTotal > tresorerie)) return;
@@ -797,7 +812,16 @@ export function AchatEquipementModal({
               {!gratuit && coutValide && coutTotal > tresorerie && (
                 <p className="text-danger text-sm">{t('achatEquipement.insufficientTreasury', { tresorerie })}</p>
               )}
-              {limiteAtteinte && (
+              {limitePlafondGroupe && refPlafondGroupe && roster && (
+                <p className="text-danger text-sm">
+                  {t('achatEquipement.groupLimitReached', {
+                    actuel: comptePlafondGroupe(catalogue, roster, refPlafondGroupe.id),
+                    max: refPlafondGroupe.max,
+                    label: refPlafondGroupe.label ?? itemSelectionneAffiche?.nom ?? '',
+                  })}
+                </p>
+              )}
+              {(trinketLimite || limiteUniqueBande) && (
                 <p className="text-danger text-sm">
                   {t('achatEquipement.trinketLimitPrefix')}{' '}
                   {tailleGroupe > 1 && !inventaireBande.some((entree) => entree.item_id === itemSelectionne.id)
