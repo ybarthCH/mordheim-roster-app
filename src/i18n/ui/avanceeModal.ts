@@ -34,6 +34,10 @@ export const avanceeModal: UiDictionary = {
     fr: 'Choisis laquelle des deux caractéristiques augmenter.',
     en: 'Choose which of the two characteristics to increase.',
   },
+  'avanceeModal.rollWhichCharacteristic': {
+    fr: 'Lance {notation} sur ta table papier, puis choisis la ligne correspondante.',
+    en: 'Roll {notation} on your tabletop, then choose the corresponding line.',
+  },
   'avanceeModal.bothCappedNote': {
     fr: "Les deux caractéristiques proposées sont déjà au maximum. Augmente n'importe quelle autre caractéristique disponible de +1 à la place.",
     en: 'Both proposed characteristics are already at maximum. Increase any other available characteristic by +1 instead.',

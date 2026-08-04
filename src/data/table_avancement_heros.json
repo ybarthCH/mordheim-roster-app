@@ -6,9 +6,10 @@
       "max": 6,
       "type": "caracteristique_choix",
       "label": "+1 Force ou +1 Attaques",
+      "hasard": { "notation": "1D6" },
       "options": [
-        { "stat": "F", "label": "Force" },
-        { "stat": "A", "label": "Attaques" }
+        { "stat": "F", "label": "Force", "plage": "1-3" },
+        { "stat": "A", "label": "Attaques", "plage": "4-6" }
       ]
     },
     {
@@ -26,9 +27,10 @@
       "max": 8,
       "type": "caracteristique_choix",
       "label": "+1 Initiative ou +1 Commandement",
+      "hasard": { "notation": "1D6" },
       "options": [
-        { "stat": "I", "label": "Initiative" },
-        { "stat": "Cd", "label": "Commandement" }
+        { "stat": "I", "label": "Initiative", "plage": "1-3" },
+        { "stat": "Cd", "label": "Commandement", "plage": "4-6" }
       ]
     },
     {
@@ -36,9 +38,10 @@
       "max": 9,
       "type": "caracteristique_choix",
       "label": "+1 Points de Vie ou +1 Endurance",
+      "hasard": { "notation": "1D6" },
       "options": [
-        { "stat": "PV", "label": "Points de Vie" },
-        { "stat": "E", "label": "Endurance" }
+        { "stat": "PV", "label": "Points de Vie", "plage": "1-3" },
+        { "stat": "E", "label": "Endurance", "plage": "4-6" }
       ]
     },
     { "min": 10, "max": 12, "type": "competence", "label": "Nouvelle compétence" }
