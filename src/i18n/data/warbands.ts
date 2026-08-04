@@ -820,6 +820,20 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         armes_cac: ['first free', 'Hammer or Mace', undefined, undefined],
       },
     },
+    magie: {
+      nom: 'Dwarf Runes',
+      type: 'runes',
+      note:
+        "A Runesmith taps into the magic of the Old World by inscribing magical Runes onto items, granting them fantastic powers. Before each battle, he may attempt to inscribe his known Rune onto an item carried by a warband member (two items if the warband includes a Runesmith's Apprentice): roll 2D6, and on a result equal to or higher than the Difficulty, the item gains the listed bonus for that game only. On a roll of 2, the inscription fails completely and the item is destroyed (remove it from the warband's equipment, though it may be replaced before the next battle). Any other failure simply fails with no further consequence. Runic Jealousy: Rune bonuses never stack with each other or with a magic item — a fighter only ever benefits from one bonus of a given kind at a time.",
+      sorts: [
+        { nom: 'Rune of Stone', texte: 'Inscribed on armour, grants +1 to the armour save for the duration of the game.' },
+        { nom: 'Rune of Cutting', texte: "Inscribed on a weapon, inflicts -1 to the armour save of any enemy struck by it." },
+        { nom: 'Rune of Speed', texte: "Inscribed on a weapon, doubles the wielder's Initiative for the duration of the game." },
+        { nom: 'Rune of Warding', texte: 'Inscribed on a belt, armour, or similar item, grants a special 4+ save against spells.' },
+        { nom: 'Rune of Accuracy', texte: 'Inscribed on a weapon, grants +1 to hit with that weapon.' },
+        { nom: 'Rune of Speeding', texte: 'Inscribed on boots, a belt, or similar item, grants +1 Movement for the duration of the game.' },
+      ],
+    },
   },
   amazones_mordheim: {
     nom: 'Amazons — Mordheim Setting (1b)',
