@@ -189,11 +189,21 @@ function normaliserCategorie(categorie: string): string {
   return CATEGORIE_CANONIQUE[categorie] ?? categorie;
 }
 
-// Armes à poudre noire et munitions comptent comme "armes_tir" au sens des
-// interdictions de catégorie (Profile.categories_interdites) : une bande ou
-// un profil qui n'a jamais accès aux "armes de tir" au sens des règles perd
-// aussi bien les armes de tir classiques que les armes à poudre noire.
-const CATEGORIES_ARMES_TIR = new Set(['armes_tir', 'armes_poudre_noire', 'munitions']);
+// `armes_tir` et `armes_poudre_noire` restent deux catégories distinctes
+// (une bande comme les Artilleurs de Nuln n'a le droit qu'à la seconde,
+// les Elfes Noirs bannissent uniquement la première) : un profil qui doit
+// perdre tout accès aux armes de tir au sens large (ex : Flagellant) liste
+// donc explicitement les deux dans `categories_interdites`, plutôt que de
+// s'appuyer sur un regroupement implicite. `munitions` (grenades, flèches
+// spéciales...) suit ce même couple : bloqué seulement si les deux sont
+// interdites, signe qu'un profil n'a plus aucune capacité de tir.
+//
+// `armes_de_jet` cible un sous-type au sein d'`armes_tir` (voir le champ
+// `sous_type` sur les items concernés dans data/items/armes_tir.json) —
+// utilisé par les bandes qui bannissent seulement les armes lancées à la
+// main (ex : la règle Chevalerie des Gardiens de Chapelle Bretonniens) sans
+// toucher aux arcs/arbalètes.
+export type CategorieInterdite = 'armes_cac' | 'armes_tir' | 'armes_poudre_noire' | 'armes_de_jet' | 'armures';
 
 // Un objet appartient-il à une catégorie interdite à ce profil (voir
 // Profile.categories_interdites) ? Ne filtre que l'onglet "commun" du shop
@@ -204,19 +214,22 @@ const CATEGORIES_ARMES_TIR = new Set(['armes_tir', 'armes_poudre_noire', 'muniti
 export function estCategorieInterdite(
   categorie: string,
   profil: Profile | null | undefined,
-  competencesAcquises: string[] = []
+  competencesAcquises: string[] = [],
+  sousType?: string
 ): boolean {
   const interdictions = profil?.categories_interdites;
   if (!interdictions || interdictions.length === 0) return false;
   const c = normaliserCategorie(categorie);
-  for (const interdiction of interdictions) {
-    if (interdiction === 'armes_cac') {
-      if (c === 'armes_cac' && !competencesAcquises.includes(SKILL_TOUTES_ARMES_CAC)) return true;
-    } else if (interdiction === 'armes_tir') {
-      if (CATEGORIES_ARMES_TIR.has(c) && !competencesAcquises.includes(SKILL_TOUTES_ARMES_TIR)) return true;
-    } else if (c === 'armures') {
-      return true;
-    }
+  if (interdictions.includes('armes_cac') && c === 'armes_cac' && !competencesAcquises.includes(SKILL_TOUTES_ARMES_CAC)) {
+    return true;
+  }
+  if (interdictions.includes('armures') && c === 'armures') return true;
+  if (competencesAcquises.includes(SKILL_TOUTES_ARMES_TIR)) return false;
+  if (interdictions.includes('armes_tir') && c === 'armes_tir') return true;
+  if (interdictions.includes('armes_poudre_noire') && c === 'armes_poudre_noire') return true;
+  if (interdictions.includes('armes_de_jet') && sousType === 'jet') return true;
+  if (c === 'munitions' && interdictions.includes('armes_tir') && interdictions.includes('armes_poudre_noire')) {
+    return true;
   }
   return false;
 }
@@ -595,7 +608,12 @@ export function getShopCommun(
   const items: ShopItem[] = TOUS_LES_ITEMS.filter(
     (item) =>
       (catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) &&
-      !estCategorieInterdite(item.categorie, profil, competencesAcquises)
+      !estCategorieInterdite(
+        item.categorie,
+        profil,
+        competencesAcquises,
+        'sous_type' in item ? (item.sous_type as string | undefined) : undefined
+      )
   ).map(mapperItemVersShopItem);
   return items.map((item) => appliquerReglesObjet(item, catalogueId ?? '', rules, 'commun'));
 }

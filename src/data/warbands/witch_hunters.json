@@ -98,7 +98,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["flagellants"],
-      "categories_interdites": ["armes_tir", "armures"],
+      "categories_interdites": ["armes_tir", "armes_poudre_noire", "armures"],
       "acces_competences_a_verifier": false
     },
     {

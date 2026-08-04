@@ -37,7 +37,7 @@
       ],
       "acces_competences": ["academique", "special"],
       "acces_equipement": ["morts_vivants"],
-      "categories_interdites": ["armes_cac", "armes_tir"],
+      "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -108,7 +108,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["morts_vivants"],
-      "categories_interdites": ["armes_cac", "armes_tir", "armures"],
+      "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
       "acces_competences_a_verifier": false
     },
     {

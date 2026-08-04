@@ -118,11 +118,18 @@ export type Profile = {
   // été filtré par profil : voir estCategorieInterdite dans utils/shop.ts.
   // Levé par les compétences "Connaissance des Armes"/"Expert en Armes"
   // pour la catégorie qu'elles couvrent, comme pour acces_equipement.
-  // N'exprime que des interdictions de catégorie entière : les nuances plus
-  // fines (ex : Prêtre de Taal, qui ne peut porter que l'armure lourde en
-  // particulier ; bandes limitées à un sous-type d'arme de tir précis)
-  // restent un texte informatif dans regles_speciales, non automatisées ici.
-  categories_interdites?: ('armes_cac' | 'armes_tir' | 'armures')[];
+  // `armes_tir` et `armes_poudre_noire` sont deux entrées distinctes (une
+  // bande peut n'interdire que l'une des deux, ex : Artilleurs de Nuln vs
+  // Elfes Noirs) — un profil qui doit perdre tout accès au tir liste donc
+  // les deux explicitement plutôt que de compter sur un regroupement
+  // implicite. `armes_de_jet` cible un sous-type au sein d'`armes_tir` (voir
+  // le champ `sous_type` sur les items de data/items/armes_tir.json), pour
+  // les bandes qui ne bannissent que les armes lancées à la main (ex :
+  // Gardiens de Chapelle Bretonniens). Reste une nuance encore hors de
+  // portée : les profils qui n'interdisent qu'un type d'armure précis (ex :
+  // Prêtre de Taal, armure lourde uniquement) — non automatisée, laissée en
+  // texte informatif dans regles_speciales.
+  categories_interdites?: ('armes_cac' | 'armes_tir' | 'armes_poudre_noire' | 'armes_de_jet' | 'armures')[];
   xp_depart?: number;
   peut_lancer_sorts?: boolean;
   categorie_magie?: string;
