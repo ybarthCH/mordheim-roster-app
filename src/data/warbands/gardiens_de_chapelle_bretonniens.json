@@ -42,6 +42,7 @@
       ],
       "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
       "acces_equipement": ["chevaliers", "pelerins", "paysans_archers"],
+      "categories_interdites": ["armes_de_jet"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -82,6 +83,7 @@
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": ["chevaliers", "pelerins", "paysans_archers"],
+      "categories_interdites": ["armes_de_jet"],
       "acces_competences_a_verifier": false
     },
     {

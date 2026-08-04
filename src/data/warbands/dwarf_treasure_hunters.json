@@ -72,7 +72,7 @@
       ],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["guerriers_nains", "tireurs_nains"],
-      "categories_interdites": ["armes_tir", "armures"],
+      "categories_interdites": ["armes_tir", "armes_poudre_noire", "armures"],
       "acces_competences_a_verifier": false
     },
     {

@@ -31,6 +31,7 @@
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
       "acces_equipement": ["artilleurs_de_nuln", "montures_nuln"],
+      "categories_interdites": ["armes_tir"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -50,6 +51,7 @@
       ],
       "acces_competences": ["tir", "academique", "vitesse"],
       "acces_equipement": ["artilleurs_de_nuln", "tireurs_delite", "montures_nuln"],
+      "categories_interdites": ["armes_tir"],
       "acces_competences_a_verifier": false
     },
     {
@@ -65,6 +67,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "acces_competences": ["combat", "tir", "force", "vitesse"],
       "acces_equipement": ["artilleurs_de_nuln", "montures_nuln"],
+      "categories_interdites": ["armes_tir"],
       "acces_competences_a_verifier": false
     },
     {
@@ -94,6 +97,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "acces_competences": [],
       "acces_equipement": ["artilleurs_de_nuln"],
+      "categories_interdites": ["armes_tir"],
       "acces_competences_a_verifier": false
     },
     {
@@ -111,6 +115,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["tireurs_delite"],
+      "categories_interdites": ["armes_tir"],
       "acces_competences_a_verifier": false
     },
     {
@@ -128,6 +133,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["artilleurs_de_nuln"],
+      "categories_interdites": ["armes_tir"],
       "acces_competences_a_verifier": false
     },
     {

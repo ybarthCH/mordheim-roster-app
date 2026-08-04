@@ -30,6 +30,7 @@
       ],
       "acces_competences": ["combat", "tir", "academique", "vitesse", "special"],
       "acces_equipement": ["elfes_noirs"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -49,6 +50,7 @@
       ],
       "acces_competences": ["combat", "vitesse", "special"],
       "acces_equipement": ["elfes_noirs"],
+      "categories_interdites": ["armes_tir", "armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -67,6 +69,7 @@
       ],
       "acces_competences": ["combat", "vitesse", "special"],
       "acces_equipement": ["elfes_noirs"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -85,6 +88,7 @@
       ],
       "acces_competences": ["academique", "vitesse", "special"],
       "acces_equipement": ["elfes_noirs"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -102,6 +106,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["elfes_noirs"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -119,6 +124,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["ombres"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {

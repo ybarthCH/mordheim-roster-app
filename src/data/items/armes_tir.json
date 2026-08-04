@@ -85,7 +85,7 @@
     ]
   },
   {
-    "id": "arme_de_jet", "nom": "Arme de jet (étoile, couteau, etc.)", "categorie": "armes_tir",
+    "id": "arme_de_jet", "nom": "Arme de jet (étoile, couteau, etc.)", "categorie": "armes_tir", "sous_type": "jet",
     "cout": 15, "cout_fixe": true, "rarete": "5", "disponibilite": "Rare 5",
     "acces": ["rare_5"], "source": "LdR", "page": 20,
     "texte": "Les étoiles de jet sont surtout utilisées par les assassins de la sinistre Maison des Ombres ou les bandits qui se spécialisent dans l'attaque des imprudents. Un couteau bien équilibré lancé dans le dos a mis fin à la vie de bien des nobles et marchands de Mordheim. Les couteaux de jet ne conviennent pas au corps à corps car ils ne sont pas correctement équilibrés pour cela.",
@@ -106,7 +106,7 @@
     ]
   },
   {
-    "id": "cabillot", "nom": "Cabillot", "categorie": "armes_tir",
+    "id": "cabillot", "nom": "Cabillot", "categorie": "armes_tir", "sous_type": "jet",
     "cout": 3, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Pirates uniquement",
     "acces": ["commun_pirates"], "source": "P (Pirates)", "page": 21,
     "texte": "Un navire typique contient des centaines de ces petits bouts de bois sculptés. Ils sont placés dans des râteliers, à des points stratégiques du navire, autour desquels des gréements peuvent être attachés. Ils font également de bonnes armes et les pirates deviennent rapidement doués pour ce qui est de les utiliser en tant qu'arme à courte portée.",
@@ -149,7 +149,7 @@
     ]
   },
   {
-    "id": "javelots", "nom": "Javelots", "categorie": "armes_tir",
+    "id": "javelots", "nom": "Javelots", "categorie": "armes_tir", "sous_type": "jet",
     "cout": 5, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
     "acces": ["commun"], "source": "LdR", "page": 22,
     "texte": "Les javelots sont de courtes lances spécialement conçues pour atteindre des cibles éloignées. Bien que leur portée soit moindre que celle d'une flèche, ils peuvent causer de terribles dégâts lorsqu'ils sont maniés par une personne possédant une grande force physique. Note : 4 sources sur 5 appliquent une portée de 8ps. Cette dernière est de ce fait considérée comme la norme (seul le javelot des Gladiateurs avait une portée de 10ps).",
@@ -159,7 +159,7 @@
     ]
   },
   {
-    "id": "javelot_nehekharien", "nom": "Javelot nehekharien", "categorie": "armes_tir",
+    "id": "javelot_nehekharien", "nom": "Javelot nehekharien", "categorie": "armes_tir", "sous_type": "jet",
     "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Rois des Tombes des Gardiens des Tombes uniquement",
     "acces": ["gardiens_des_tombes"], "source": "K-GT (Gardiens des Tombes)", "page": 22,
     "texte": "Ces guerriers lancent ces javelots à l'aide d'une corde enroulée autour de l'arme. Lorsqu'il est lancé, le javelot tournoie comme une balle, augmentant sa précision.",
@@ -170,7 +170,7 @@
     ]
   },
   {
-    "id": "kusarigama", "nom": "Kusarigama", "categorie": "armes_tir",
+    "id": "kusarigama", "nom": "Kusarigama", "categorie": "armes_tir", "sous_type": "jet",
     "cout": 10, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Moines Guerriers de Cathay uniquement",
     "acces": ["moines_cathay"], "source": "BTB-MGC", "page": 22,
     "texte": "Le Kusarigama est une fine corde ou une chaîne lestée à l'extrémité de laquelle est fixée une faux ou un crochet de pêche. Les moines utilisent, avec une précision mortelle, la portée de cette arme étrange pour déséquilibrer les ennemis armés d'une épée.",
