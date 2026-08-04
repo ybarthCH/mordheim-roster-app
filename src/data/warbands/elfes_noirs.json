@@ -199,7 +199,7 @@
     { "item_id": "lame_elfe_noire", "cout": "+20", "disponibilite": "Rare 9, Héros Elfes Noirs uniquement" },
     { "item_id": "fouet_a_betes", "cout": "10+1D6", "disponibilite": "Rare 8, Maître des Bêtes uniquement", "profils": ["maitre_des_betes"] },
     { "item_id": "cape_en_peau_de_dragon_des_mers", "cout": "50+2D6", "disponibilite": "Rare 10, Héros et Corsaires uniquement" },
-    { "item_id": "venin_fuligineux", "cout": 15, "disponibilite": "Rare, Héros uniquement" }
+    { "item_id": "venin_fuligineux", "cout": 15, "disponibilite": "Rare, Héros uniquement", "profils": ["dynaste", "spadassin", "maitre_des_betes", "sorciere_elfe_noire"] }
   ],
   "magie": {
     "nom": "Magie Noire",

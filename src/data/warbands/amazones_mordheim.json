@@ -163,7 +163,7 @@
     { "item_id": "baton_solaire_mordheim", "cout": 50, "disponibilite": "Rare 12" },
     { "item_id": "gantelet_du_soleil", "cout": 40, "disponibilite": "Rare 12" },
     { "item_id": "amulette_lunaire", "cout": 50, "disponibilite": "Rare 12" },
-    { "item_id": "herbes_de_soin", "cout": 35, "disponibilite": "Commune pour les Amazones" }
+    { "item_id": "herbes_de_soin", "cout": 35, "disponibilite": "Commune pour les Amazones, Héros uniquement", "profils": ["pretresse", "championne", "guerriere_totem"] }
   ],
   "magie": {
     "nom": "Rituels Amazones",

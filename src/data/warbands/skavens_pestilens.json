@@ -178,14 +178,14 @@
     }
   },
   "equipement_special": [
-    { "item_id": "dague_de_la_peste", "cout": 15, "disponibilite": "Rare 8, Clan Pestilens uniquement" },
-    { "item_id": "encensoir_a_peste", "cout": 40, "disponibilite": "Rare 9, Clan Pestilens uniquement" },
-    { "item_id": "fragments_de_malepierre_incandescents", "cout": "100+1D6x10", "disponibilite": "Rare 9, Clan Pestilens uniquement" },
-    { "item_id": "amulette_de_malepierre", "cout": 10, "disponibilite": "Rare 5, Clan Pestilens uniquement" },
+    { "item_id": "dague_de_la_peste", "cout": 15, "disponibilite": "Rare 8, Clan Pestilens uniquement, Héros uniquement", "profils": ["pretre_de_la_peste", "precheur_sorcier_pestilens", "moine_de_la_peste", "initie_de_la_peste"] },
+    { "item_id": "encensoir_a_peste", "cout": 40, "disponibilite": "Rare 9, Clan Pestilens uniquement, Héros uniquement", "profils": ["pretre_de_la_peste", "precheur_sorcier_pestilens", "moine_de_la_peste", "initie_de_la_peste"] },
+    { "item_id": "fragments_de_malepierre_incandescents", "cout": "100+1D6x10", "disponibilite": "Rare 9, Clan Pestilens uniquement, Héros uniquement", "profils": ["pretre_de_la_peste", "precheur_sorcier_pestilens", "moine_de_la_peste", "initie_de_la_peste"] },
+    { "item_id": "amulette_de_malepierre", "cout": 10, "disponibilite": "Rare 5, Clan Pestilens uniquement, Héros uniquement", "profils": ["pretre_de_la_peste", "precheur_sorcier_pestilens", "moine_de_la_peste", "initie_de_la_peste"] },
     { "item_id": "parchemin_de_rat_familier", "cout": "25+1D6", "disponibilite": "Rare 8, Clan Pestilens uniquement", "profils": ["precheur_sorcier_pestilens"] },
-    { "item_id": "liber_bubonicus", "cout": "200+1D6x25", "disponibilite": "Rare 12, Clan Pestilens uniquement (un seul utilisateur par campagne)" },
-    { "item_id": "banniere_du_clan_pestilens", "cout": 10, "disponibilite": "Rare 5, Clan Pestilens uniquement" },
-    { "item_id": "liturgicus_infectus", "cout": "30+2D6", "disponibilite": "Rare 8, Clan Pestilens uniquement" }
+    { "item_id": "liber_bubonicus", "cout": "200+1D6x25", "disponibilite": "Rare 12, Clan Pestilens uniquement, Héros uniquement (un seul utilisateur par campagne)", "profils": ["pretre_de_la_peste", "precheur_sorcier_pestilens", "moine_de_la_peste", "initie_de_la_peste"] },
+    { "item_id": "banniere_du_clan_pestilens", "cout": 10, "disponibilite": "Rare 5, Clan Pestilens uniquement, Héros uniquement", "profils": ["pretre_de_la_peste", "precheur_sorcier_pestilens", "moine_de_la_peste", "initie_de_la_peste"] },
+    { "item_id": "liturgicus_infectus", "cout": "30+2D6", "disponibilite": "Rare 8, Clan Pestilens uniquement, Héros uniquement", "profils": ["pretre_de_la_peste", "precheur_sorcier_pestilens", "moine_de_la_peste", "initie_de_la_peste"] }
   ],
   "magie": {
     "nom": "Magie du Rat Cornu",

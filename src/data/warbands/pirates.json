@@ -206,7 +206,7 @@
     { "item_id": "biscuit_de_mer", "cout": 5, "disponibilite": "Commun, un par Héros Pirate, une seule utilisation" },
     { "item_id": "jolly_roger", "cout": "40+2D6", "disponibilite": "Commun, Pirates uniquement, un seul par bande" },
     { "item_id": "boussole", "cout": "45+2D6", "disponibilite": "Rare 9, Pirates uniquement" },
-    { "item_id": "perroquet", "cout": 15, "disponibilite": "Rare 8, Capitaine et Lieutenants Pirates uniquement" },
+    { "item_id": "perroquet", "cout": 15, "disponibilite": "Rare 8, Capitaine et Lieutenants Pirates uniquement", "profils": ["capitaine_pirate", "quartier_maitre"] },
     { "item_id": "longue_vue", "cout": 20, "disponibilite": "Rare 8, Pirates uniquement" },
     { "item_id": "crochet", "cout": 4, "disponibilite": "Commun, Pirates uniquement (un seul par figurine)" },
     { "item_id": "jambe_de_bois", "cout": 8, "disponibilite": "Commun, Pirates uniquement (une seule par figurine)" },

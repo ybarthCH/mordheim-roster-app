@@ -203,9 +203,9 @@
     }
   },
   "equipement_special": [
-    { "item_id": "collet", "cout": 15, "disponibilite": "Commun, Héros Chasseurs Cornus uniquement" },
-    { "item_id": "fleches_de_chasse", "cout": "25+1D6", "disponibilite": "Rare 8" },
-    { "item_id": "peau_de_cerf_benie", "cout": 40, "disponibilite": "Rare 10, Héros Chasseurs Cornus uniquement" }
+    { "item_id": "collet", "cout": 15, "disponibilite": "Commun, Héros Chasseurs Cornus uniquement", "profils": ["chasseur_cornu", "pretre_de_taal", "initie"] },
+    { "item_id": "fleches_de_chasse", "cout": "25+1D6", "disponibilite": "Rare 8, Héros uniquement", "profils": ["chasseur_cornu", "pretre_de_taal", "initie"] },
+    { "item_id": "peau_de_cerf_benie", "cout": 40, "disponibilite": "Rare 10, Héros Chasseurs Cornus uniquement", "profils": ["chasseur_cornu", "pretre_de_taal", "initie"] }
   ],
   "magie": {
     "nom": "Prières de Taal",

@@ -234,7 +234,7 @@
     }
   },
   "equipement_special": [
-    { "item_id": "vodka", "cout": "35+2D6 CO", "disponibilite": "Rare 8" },
-    { "item_id": "collier_de_griffes_dours_market", "cout": "75+3D6 CO", "disponibilite": "Rare 9" }
+    { "item_id": "vodka", "cout": "35+2D6 CO", "disponibilite": "Rare 8, Héros uniquement", "profils": ["capitaine_de_druzhina", "dompteur_dours", "esaul", "recrue"] },
+    { "item_id": "collier_de_griffes_dours_market", "cout": "75+3D6 CO", "disponibilite": "Rare 9, Héros uniquement", "profils": ["capitaine_de_druzhina", "dompteur_dours", "esaul", "recrue"] }
   ]
 }
