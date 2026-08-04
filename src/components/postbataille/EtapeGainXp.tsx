@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, isPalierHenchman, isPalierHero, peutGagnerExperience } from '../../utils/xp';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
-import { estFrancTireur } from '../../data/hiredSwords';
 import { estLeaderActuel } from '../../utils/leader';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
@@ -101,9 +100,7 @@ type EtapeGainXpProps = {
   participantsAuto: Member[];
   xpDraftDe: (m: Member, xpParDefaut: number) => XpDraft;
   changerXp: (m: Member, xp: number, xpParDefaut: number) => void;
-  definirSurvie: (m: Member, valeur: 'oui' | 'non') => void;
   slotsDe: (m: Member) => SlotDraft[];
-  definirSlot: (m: Member, index: number, valeur: 'oui' | 'non') => void;
   onOuvrirAvancee: (m: Member) => void;
   avancesResolues: { nom: string; detail: string }[];
 };
@@ -159,9 +156,7 @@ export function EtapeGainXp({
   participantsAuto,
   xpDraftDe,
   changerXp,
-  definirSurvie,
   slotsDe,
-  definirSlot,
   onOuvrirAvancee,
   avancesResolues,
 }: EtapeGainXpProps) {
@@ -176,15 +171,13 @@ export function EtapeGainXp({
         {membres.map((m) => {
           const profil = resolveProfil(roster, m, catalogue);
           const sansXp = !peutGagnerExperience(profil);
-          const francTireur = estFrancTireur(m);
           const estHorsDeCombat = m.statut === 'hors_de_combat';
-          // Un héros (hors franc-tireur) Hors de combat passe par la table des
-          // blessures graves à l'étape précédente : sa survie en découle déjà
-          // (voir appliquerBlessureWizard dans PostBatailleScreen), inutile de
-          // la faire recliquer ici. Seuls les hommes de main et francs-tireurs
-          // seuls reposent sur un vrai jet de dé que l'app ne peut pas connaître.
-          const resoluParBlessureGrave = estHorsDeCombat && profil?.type === 'heros' && !francTireur;
+          // Le sort de chaque Hors de combat (héros via la table des
+          // blessures graves, homme de main/franc-tireur seul via le jet 1D6)
+          // est déjà résolu à l'étape précédente (voir EtapeBlessuresGraves) :
+          // cette étape se contente d'en refléter le résultat.
           const d = xpDraftDe(m, estHorsDeCombat ? m.xp : m.xp + 1);
+          const estMort = estHorsDeCombat && d.survecu === 'non';
           const estLeader = estLeaderActuel(roster, catalogue, m);
           const bonusLeader = estLeader && resultat === 'victoire' && d.survecu !== 'non';
           return (
@@ -199,18 +192,18 @@ export function EtapeGainXp({
                   )}
                 </strong>
                 <span className="text-sm text-muted">
-                  {resoluParBlessureGrave
-                    ? d.survecu === 'non'
-                      ? t('gainXp.statusDeadInjury')
-                      : t('gainXp.statusOoaSurvived')
+                  {estMort
+                    ? t('gainXp.statusDeadInjury')
                     : estHorsDeCombat
-                      ? t('gainXp.statusOoa')
+                      ? t('gainXp.statusOoaSurvived')
                       : m.statut === 'blesse'
                         ? t('gainXp.statusInjured')
                         : t('gainXp.statusActive')}
                 </span>
               </div>
-              {sansXp ? (
+              {estMort ? (
+                <p className="text-sm text-muted mb-0">{t('gainXp.didNotSurvive')}</p>
+              ) : sansXp ? (
                 <p className="text-sm text-muted mb-0">{t('gainXp.neverGainsXp')}</p>
               ) : (
                 <XpBarCompacte
@@ -223,28 +216,9 @@ export function EtapeGainXp({
                   demiXp={demiXp}
                 />
               )}
-              {estHorsDeCombat && !resoluParBlessureGrave && (
-                <>
-                  <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
-                    {t('gainXp.rollInstruction', { suffix: francTireur ? t('gainXp.rollForHiredSword') : '' })}
-                  </p>
-                  <div className="status-select" style={{ marginTop: '0.5rem' }}>
-                    <button
-                      className={`status-pill ${d.survecu === 'oui' ? 'status-pill--active' : ''}`}
-                      onClick={() => definirSurvie(m, 'oui')}
-                    >
-                      {t('gainXp.survived', { xp: sansXp ? '' : t('gainXp.survivedXpSuffix') })}
-                    </button>
-                    <button
-                      className={`status-pill ${d.survecu === 'non' ? 'status-pill--active' : ''}`}
-                      onClick={() => definirSurvie(m, 'non')}
-                    >
-                      {t('gainXp.didNotSurvive')}
-                    </button>
-                  </div>
-                </>
+              {!estMort && (
+                <BlocAvanceeDue roster={roster} catalogue={catalogue} membre={m} xpActuel={d.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
               )}
-              <BlocAvanceeDue roster={roster} catalogue={catalogue} membre={m} xpActuel={d.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
             </div>
           );
         })}
@@ -252,7 +226,6 @@ export function EtapeGainXp({
           const sansXp = !peutGagnerExperience(resolveProfil(roster, m, catalogue));
           const slots = slotsDe(m);
           const morts = slots.filter((s) => s === 'non').length;
-          const enAttente = slots.filter((s) => s === null).length;
           const survivants = m.taille_groupe - morts;
           return (
             <div key={m.instance_id} className="card card--tight" style={{ marginBottom: '0.7rem' }}>
@@ -262,30 +235,17 @@ export function EtapeGainXp({
                   {t('gainXp.outOfActionCount', { hc: m.hors_combat, total: m.taille_groupe })}
                 </span>
               </div>
-              <div className="flex flex-wrap gap-sm">
-                {slots.map((s, i) => (
-                  <div key={i} className="flex items-center gap-sm">
-                    <span className="text-sm text-muted">#{i + 1}</span>
-                    <button className={`btn btn--sm ${s === 'oui' ? 'btn--primary' : ''}`} onClick={() => definirSlot(m, i, 'oui')}>
-                      {t('gainXp.survivedShort')}
-                    </button>
-                    <button className={`btn btn--sm ${s === 'non' ? 'btn--danger' : ''}`} onClick={() => definirSlot(m, i, 'non')}>
-                      {t('gainXp.deadShort')}
-                    </button>
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>
-                {enAttente > 0
-                  ? t('gainXp.modelsToResolve', { n: enAttente })
-                  : survivants > 0
-                    ? t('gainXp.resolvedKeeps', {
-                        n: survivants,
-                        xp: sansXp ? t('gainXp.resolvedKeepsNoXpSuffix') : t('gainXp.resolvedKeepsXpSuffix'),
-                      })
-                    : t('gainXp.resolvedWiped')}
+              <p className="text-sm text-muted mb-0">
+                {survivants > 0
+                  ? t('gainXp.resolvedKeeps', {
+                      n: survivants,
+                      xp: sansXp ? t('gainXp.resolvedKeepsNoXpSuffix') : t('gainXp.resolvedKeepsXpSuffix'),
+                    })
+                  : t('gainXp.resolvedWiped')}
               </p>
-              <BlocAvanceeDue roster={roster} catalogue={catalogue} membre={m} xpActuel={m.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
+              {survivants > 0 && (
+                <BlocAvanceeDue roster={roster} catalogue={catalogue} membre={m} xpActuel={m.xp} demiXp={demiXp} onOuvrirAvancee={onOuvrirAvancee} />
+              )}
             </div>
           );
         })}

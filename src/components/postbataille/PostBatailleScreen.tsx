@@ -219,6 +219,15 @@ export function PostBatailleScreen() {
     [roster]
   );
 
+  // Complément de horsDeCombatHeros parmi horsDeCombatIndividuel : hommes de
+  // main seuls et francs-tireurs Hors de combat, résolus par un simple jet
+  // 1D6 (voir "Homme de main" à l'étape Blessures graves) plutôt que par la
+  // table complète des blessures graves.
+  const horsDeCombatHommesDeMain = useMemo(() => {
+    const heroIds = new Set(horsDeCombatHeros.map((m) => m.instance_id));
+    return horsDeCombatIndividuel.filter((m) => !heroIds.has(m.instance_id));
+  }, [horsDeCombatIndividuel, horsDeCombatHeros]);
+
   // Modificateur automatique de la règle spéciale Œil des Dieux Sombres
   // (Maraudeurs du Chaos) en cas de défaite : +1 par Héros hors de combat.
   const nbHerosHorsDeCombat = useMemo(
@@ -529,12 +538,14 @@ export function PostBatailleScreen() {
     setGroupeSlotDrafts((prev) => ({ ...prev, [m.instance_id]: slots }));
   };
 
-  // Étape Gain d'expérience : impossible de continuer tant que tous les
-  // Hors de combat (individuels ou en groupe) n'ont pas été résolus.
+  // Étape Blessures graves : impossible de continuer tant que tous les
+  // Hors de combat (héros via la table complète, hommes de main/francs-tireurs
+  // seuls et groupes via le jet 1D6) n'ont pas été résolus.
   const hcIncomplete =
-    horsDeCombatIndividuel.some((m) => xpDraftDe(m, m.xp).survecu === null) ||
+    horsDeCombatHommesDeMain.some((m) => xpDraftDe(m, m.xp).survecu === null) ||
     groupesHC.some((m) => slotsDe(m).some((s) => s === null));
-  const blessuresIncompletes = horsDeCombatHeros.some((m) => !blessureDrafts[m.instance_id]);
+  const blessuresIncompletes =
+    horsDeCombatHeros.some((m) => !blessureDrafts[m.instance_id]) || hcIncomplete;
 
   const indexBlessures = 1;
   const indexGainXp = 2;
@@ -555,7 +566,6 @@ export function PostBatailleScreen() {
 
   const suivant = () => {
     if (etape === indexBlessures && blessuresIncompletes) return;
-    if (etape === indexGainXp && hcIncomplete) return;
     if (etape === indexCommerce && commerceIncomplet) return;
     if (etape === indexEntretien && entretienInsuffisant) return;
     setEtape((e) => Math.min(ETAPES.length - 1, e + 1));
@@ -921,8 +931,14 @@ export function PostBatailleScreen() {
           roster={roster}
           catalogue={catalogue}
           horsDeCombatHeros={horsDeCombatHeros}
+          horsDeCombatHommesDeMain={horsDeCombatHommesDeMain}
+          groupesHC={groupesHC}
           blessureDrafts={blessureDrafts}
           tresorerieDisponible={roster.tresorerie + blessuresTresorerieBonus}
+          xpDraftDe={xpDraftDe}
+          definirSurvie={definirSurvie}
+          slotsDe={slotsDe}
+          definirSlot={definirSlot}
           onAppliquer={appliquerBlessureWizard}
           onReinitialiser={reinitialiserBlessure}
         />
@@ -939,9 +955,7 @@ export function PostBatailleScreen() {
           participantsAuto={participantsAuto}
           xpDraftDe={xpDraftDe}
           changerXp={changerXp}
-          definirSurvie={definirSurvie}
           slotsDe={slotsDe}
-          definirSlot={definirSlot}
           onOuvrirAvancee={setMembreEnAvancee}
           avancesResolues={avancesResolues}
         />
@@ -1058,7 +1072,6 @@ export function PostBatailleScreen() {
             className="btn btn--primary"
             disabled={
               (etape === indexBlessures && blessuresIncompletes) ||
-              (etape === indexGainXp && hcIncomplete) ||
               (etape === indexCommerce && commerceIncomplet) ||
               (etape === indexEntretien && entretienInsuffisant)
             }
@@ -1078,12 +1091,12 @@ export function PostBatailleScreen() {
           {t('postBatailleScreen.resolveEyeOfDarkGods')}
         </p>
       )}
-      {etape === indexBlessures && blessuresIncompletes && (
+      {etape === indexBlessures && horsDeCombatHeros.some((m) => !blessureDrafts[m.instance_id]) && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
           {t('postBatailleScreen.resolveInjuriesFirst')}
         </p>
       )}
-      {etape === indexGainXp && hcIncomplete && (
+      {etape === indexBlessures && hcIncomplete && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
           {t('postBatailleScreen.resolveSurvivalFirst')}
         </p>

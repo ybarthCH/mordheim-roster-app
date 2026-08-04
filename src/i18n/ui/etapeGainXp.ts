@@ -5,8 +5,8 @@ export const etapeGainXp: UiDictionary = {
   'gainXp.xpBoxLabel': { fr: 'Case XP {n}', en: 'XP box {n}' },
   'gainXp.title': { fr: "Gain d'expérience", en: 'Experience gain' },
   'gainXp.intro': {
-    fr: "Chaque participant gagne 1 XP automatiquement (couleur dédiée ci-dessous) — y compris un héros Hors de combat, dont la survie ressort déjà de la table des blessures graves résolue à l'étape précédente. Pour un homme de main ou un franc-tireur seul Hors de combat, lance 1D6 sur table papier — 1–2, il meurt ; 3–6, il se rétablit complètement — et indique le résultat.",
-    en: 'Every participant automatically gains 1 XP (dedicated colour below) — including a Hero Out of Action, whose survival already came out of the serious injury table resolved in the previous step. For a Henchman or a lone hired sword Out of Action, roll 1D6 on your tabletop — 1–2, he dies; 3–6, he makes a full recovery — and indicate the result.',
+    fr: "Chaque participant gagne 1 XP automatiquement (couleur dédiée ci-dessous). Le sort de tous les Hors de combat (héros, hommes de main et groupes) a déjà été résolu à l'étape précédente : cette étape n'affiche plus que le résultat.",
+    en: "Every participant automatically gains 1 XP (dedicated colour below). Everyone's Out of Action outcome (heroes, henchmen, and groups) was already resolved in the previous step: this step only reflects the result.",
   },
   'gainXp.noMembers': { fr: 'Aucun membre dans la bande.', en: 'No members in the warband.' },
   'gainXp.leaderBadge': { fr: 'Leader', en: 'Leader' },

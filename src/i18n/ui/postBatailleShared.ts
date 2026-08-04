@@ -137,8 +137,8 @@ export const postBatailleShared: UiDictionary = {
   // Blessures graves (étape)
   'postBataille.injuries.title': { fr: 'Blessures graves', en: 'Serious injuries' },
   'postBataille.injuries.intro': {
-    fr: "Pour chaque héros Hors de Combat, lance sur ta table papier puis résous le résultat obtenu : les effets (caractéristiques, équipement, notes) sont appliqués automatiquement, et le choix Oui/Non « A survécu » de l'étape suivante est pré-rempli en fonction du résultat. Les hommes de main utilisent la table simple mort-ou-survivant à l'étape suivante.",
-    en: 'For each Hero Out of Action, roll on your tabletop then resolve the result obtained: the effects (characteristics, equipment, notes) are applied automatically, and the "Survived" Yes/No choice on the next step is pre-filled based on the result. Henchmen use the simple dead-or-survived table on the next step.',
+    fr: "Pour chaque héros Hors de Combat, lance sur ta table papier puis résous le résultat obtenu : les effets (caractéristiques, équipement, notes) sont appliqués automatiquement, et le choix Oui/Non « A survécu » de l'étape suivante est pré-rempli en fonction du résultat.",
+    en: 'For each Hero Out of Action, roll on your tabletop then resolve the result obtained: the effects (characteristics, equipment, notes) are applied automatically, and the "Survived" Yes/No choice on the next step is pre-filled based on the result.',
   },
   'postBataille.injuries.noneOutOfAction': { fr: 'Aucun héros Hors de Combat.', en: 'No hero Out of Action.' },
   'postBataille.injuries.resolveInjury': { fr: 'Résoudre la blessure grave', en: 'Resolve the serious injury' },
@@ -146,4 +146,9 @@ export const postBatailleShared: UiDictionary = {
   'postBataille.injuries.equipmentLost': { fr: '⚠ Équipement perdu.', en: '⚠ Equipment lost.' },
   'postBataille.injuries.modify': { fr: 'Modifier', en: 'Modify' },
   'postBataille.injuries.modalTitle': { fr: 'Blessure grave — {nom}', en: 'Serious injury — {nom}' },
+  'postBataille.injuries.henchmenTitle': { fr: 'Homme de main', en: 'Henchman' },
+  'postBataille.injuries.henchmenIntro': {
+    fr: 'Pour un homme de main ou un franc-tireur seul Hors de combat, lance 1D6 sur table papier — 1–2, il meurt ; 3–6, il se rétablit complètement — et indique le résultat. Pour un groupe, résous chaque figurine Hors de combat individuellement de la même façon.',
+    en: 'For a lone henchman or Hired Sword Out of Action, roll 1D6 on your tabletop — 1–2, they die; 3–6, they recover fully — and enter the result. For a group, resolve each model Out of Action individually the same way.',
+  },
 };
