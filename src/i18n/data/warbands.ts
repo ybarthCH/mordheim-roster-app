@@ -688,7 +688,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
   },
   expedition_runique: {
-    nom: 'Runic Expedition (1b)',
+    nom: 'Dwarf Rangers (1b)',
     regles_speciales: [
       {
         nom: 'Hard to Kill',
@@ -2533,7 +2533,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
   },
   escorteurs_imperiaux: {
-    nom: 'Imperial Escorts (1b)',
+    nom: 'Imperial Outriders (1b)',
     regles_speciales: [
       {
         nom: 'Hired Swords',
@@ -3964,7 +3964,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
   },
   gladiateurs: {
-    nom: 'Gladiators (1b)',
+    nom: 'Pit Fighters (1b)',
     regles_speciales: [
       {
         nom: 'Gladiator',
