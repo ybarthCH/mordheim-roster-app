@@ -268,6 +268,17 @@ export const TRINKETS_LIMITES = new Set([
   'relique_maudite',
 ]);
 
+// Objets d'équipement spécial limités à un exemplaire par bande par la
+// règle source elle-même (pas une règle optionnelle comme TRINKETS_LIMITES
+// ci-dessus — toujours appliqué, quel que soit rules.trinketsLimites).
+export const ITEMS_UNIQUES_BANDE = new Set([
+  // Faucon de chasse tiléen (Pillards de Lustrie) : équipement du Maître
+  // des bêtes, max 1 par bande.
+  'faucon_de_chasse_tileen',
+  // Jolly Roger (Pirates) : "un seul par bande".
+  'jolly_roger',
+]);
+
 // Objets "matériau" (gromril, ithilmar, obsidienne, lame elfe noire) : au
 // lieu de s'acheter tels quels, ils demandent de choisir une arme/armure de
 // base existante — son prix est soit multiplié (gromril/ithilmar/

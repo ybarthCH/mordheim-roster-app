@@ -14,6 +14,7 @@ import {
   formatCoutItem,
   CATEGORIE_ORDRE,
   TRINKETS_LIMITES,
+  ITEMS_UNIQUES_BANDE,
   estItemMateriau,
   basesPourMateriau,
   construireObjetMateriau,
@@ -254,9 +255,14 @@ export function AchatEquipementModal({
     rules.trinketsLimites &&
     TRINKETS_LIMITES.has(itemSelectionne.id) &&
     (inventaireBande.some((entree) => entree.item_id === itemSelectionne.id) || tailleGroupe > 1);
+  const limiteUniqueBande =
+    !!itemSelectionne &&
+    ITEMS_UNIQUES_BANDE.has(itemSelectionne.id) &&
+    (inventaireBande.some((entree) => entree.item_id === itemSelectionne.id) || tailleGroupe > 1);
+  const limiteAtteinte = trinketLimite || limiteUniqueBande;
 
   const confirmer = () => {
-    if (!itemSelectionne || !coutValide || trinketLimite || (!gratuit && coutTotal > tresorerie)) return;
+    if (!itemSelectionne || !coutValide || limiteAtteinte || (!gratuit && coutTotal > tresorerie)) return;
     onAchat(itemSelectionne, cout);
     onClose();
   };
@@ -791,7 +797,7 @@ export function AchatEquipementModal({
               {!gratuit && coutValide && coutTotal > tresorerie && (
                 <p className="text-danger text-sm">{t('achatEquipement.insufficientTreasury', { tresorerie })}</p>
               )}
-              {trinketLimite && (
+              {limiteAtteinte && (
                 <p className="text-danger text-sm">
                   {t('achatEquipement.trinketLimitPrefix')}{' '}
                   {tailleGroupe > 1 && !inventaireBande.some((entree) => entree.item_id === itemSelectionne.id)
@@ -807,7 +813,7 @@ export function AchatEquipementModal({
               </button>
               <button
                 className="btn btn--primary"
-                disabled={!coutValide || trinketLimite || (!gratuit && coutTotal > tresorerie)}
+                disabled={!coutValide || limiteAtteinte || (!gratuit && coutTotal > tresorerie)}
                 onClick={confirmer}
               >
                 {gratuit ? t('achatEquipement.add') : t('achatEquipement.buy')}
