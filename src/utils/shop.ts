@@ -593,20 +593,45 @@ function mapperItemVersShopItem(item: (typeof TOUS_LES_ITEMS)[number]): ShopItem
   };
 }
 
+// L'armure en gromril et l'armure en ithilmar du shop commun comptent
+// toutes deux comme une armure lourde par leur propre texte de règle (voir
+// data/items/armures.json, règle spéciale "Armure lourde") : un profil sans
+// accès à l'armure lourde commune dans sa propre liste d'équipement ne peut
+// donc pas non plus les porter. Contrairement à `categories_interdites`
+// (interdiction affirmée à la main par profil), celle-ci se déduit
+// directement de la liste d'équipement de la bande — elle couvre donc aussi
+// les profils dont la liste ne mentionne simplement jamais l'armure lourde,
+// sans qu'un texte de règle dédié n'ait eu besoin d'être relevé pour le dire
+// explicitement (ex : le Séide des Répurgateurs, limité à l'armure légère).
+const ITEMS_EQUIVALENT_ARMURE_LOURDE = new Set(['armure_en_gromril_market', 'armure_en_ithilmar_market']);
+
+export function aAccesArmureLourde(catalogue: WarbandCatalog | undefined, profil: Profile | null | undefined): boolean {
+  if (!catalogue) return true;
+  const listes = catalogue.equipement ?? {};
+  const clesProfil = profil?.acces_equipement ?? Object.keys(listes);
+  return clesProfil.some((cle) => listes[cle]?.armures?.some((ref) => ref.item_id === 'armure_lourde'));
+}
+
 // `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
 // cette bande (voir estAccesPourCatalogue) — omis, seul le shop générique
 // (accessible à toutes les bandes) est retourné. `profil`/`competencesAcquises`
 // appliquent en plus les interdictions de catégorie du profil ciblé (voir
 // estCategorieInterdite) — omis, aucun filtre par profil n'est appliqué
-// (ex : vitrine en lecture seule sans membre précis).
+// (ex : vitrine en lecture seule sans membre précis). `catalogue` (le
+// WarbandCatalog complet, en plus de `catalogueId`) sert uniquement à
+// aAccesArmureLourde — omis, l'armure en gromril/ithilmar reste accessible
+// sans restriction supplémentaire.
 export function getShopCommun(
   catalogueId?: string,
   rules: GameRules = DEFAULT_GAME_RULES,
   profil?: Profile | null,
-  competencesAcquises: string[] = []
+  competencesAcquises: string[] = [],
+  catalogue?: WarbandCatalog
 ): ShopItem[] {
+  const armureLourdeInterdite = !aAccesArmureLourde(catalogue, profil);
   const items: ShopItem[] = TOUS_LES_ITEMS.filter(
     (item) =>
+      !(armureLourdeInterdite && ITEMS_EQUIVALENT_ARMURE_LOURDE.has(item.id)) &&
       (catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) &&
       !estCategorieInterdite(
         item.categorie,
