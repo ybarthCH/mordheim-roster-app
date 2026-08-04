@@ -27,8 +27,8 @@ type EtapeExplorationProps = {
   onNotesExplorationChange: (v: string) => void;
   quantiteVendue: number;
   onQuantiteVendueChange: (v: number) => void;
-  pointsVeteran: number;
-  onPointsVeteranChange: (v: number) => void;
+  pointsVeteranSaisie: string;
+  onPointsVeteranSaisieChange: (v: string) => void;
   onAchatStock: (item: ShopItem, coutPaye: number) => void;
   // Variante à quantité multiple pour un objet trouvé lors d'un événement
   // d'exploration (voir LigneObjetTrouve dans tableExplorationEvenements.ts).
@@ -55,8 +55,8 @@ export function EtapeExploration({
   onNotesExplorationChange,
   quantiteVendue,
   onQuantiteVendueChange,
-  pointsVeteran,
-  onPointsVeteranChange,
+  pointsVeteranSaisie,
+  onPointsVeteranSaisieChange,
   onAchatStock,
   onAchatStockMultiple,
   onAjouterOr,
@@ -260,7 +260,11 @@ export function EtapeExploration({
       </p>
       <div className="field">
         <label>{t('exploration.veteranPointsLabel')}</label>
-        <input type="number" value={pointsVeteran} onChange={(e) => onPointsVeteranChange(Number(e.target.value) || 0)} />
+        <input
+          type="number"
+          value={pointsVeteranSaisie}
+          onChange={(e) => onPointsVeteranSaisieChange(e.target.value)}
+        />
       </div>
 
       {modalAchat && catalogue && (
