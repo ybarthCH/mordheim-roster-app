@@ -231,12 +231,22 @@
   {
     "id": "epee_dragon", "nom": "Épée Dragon", "categorie": "armes_cac",
     "cout": 20, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Moines Guerriers de Cathay et Caravane des Marchands uniquement",
-    "acces": ["moines_cathay", "caravane_des_marchands"], "source": "BTB", "page": 8,
+    "acces": ["moines_guerriers_de_cathay", "caravanes_marchandes"], "source": "BTB", "page": 8,
     "texte": "Les épées dragon sont de grandes épées, utilisées typiquement par les soldats et rônins cathayens et occasionnellement maniées par des moines.",
     "portee": "C à C", "force": "U+1",
     "regles_speciales": [
       { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." },
       { "nom": "Parade", "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante." }
+    ]
+  },
+  {
+    "id": "epee_longue_cathayenne", "nom": "Épée longue cathayenne", "categorie": "armes_cac",
+    "cout": 75, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Émissaire des Moines Guerriers de Cathay uniquement",
+    "acces": ["moines_guerriers_de_cathay"], "source": "BTB-MGC", "page": 3,
+    "texte": "Une lame longue et lourde forgée par les meilleurs armuriers de Cathay, réservée aux plus hauts dignitaires impériaux en poste aux frontières de l'Empire Céleste.",
+    "portee": "C à C", "force": "U+1",
+    "regles_speciales": [
+      { "nom": "Arme à deux mains", "texte": "L'arme se manie à deux mains et interdit l'utilisation simultanée d'un bouclier, d'une rondache ou d'une arme additionnelle. Un bouclier fournit cependant un bonus de +1 à la sauvegarde contre les tirs." }
     ]
   },
   {
@@ -553,7 +563,7 @@
   {
     "id": "nunchaku", "nom": "Nunchaku", "categorie": "armes_cac",
     "cout": 20, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Moines Guerriers de Cathay uniquement",
-    "acces": ["moines_cathay"], "source": "BTB-MGC", "page": 15,
+    "acces": ["moines_guerriers_de_cathay"], "source": "BTB-MGC", "page": 15,
     "texte": "Le nunchaku consiste en deux barres en bois, reliées entre elles et renforcées par du fer ou de l'acier afin d'en augmenter la puissance de frappe. Il est léger et offre plus de souplesse à son utilisateur qu'un fléau.",
     "portee": "C à C", "force": "U",
     "regles_speciales": [
@@ -586,7 +596,7 @@
   {
     "id": "pique_market", "nom": "Pique", "categorie": "armes_cac",
     "cout": 10, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Caravane des Marchands, Tiléens uniquement",
-    "acces": ["caravane_des_marchands", "tileens"], "source": "L-T (Créatures de taille humaine ou plus grandes)", "page": 15,
+    "acces": ["caravanes_marchandes", "tileens"], "source": "L-T (Créatures de taille humaine ou plus grandes)", "page": 15,
     "texte": "La pique est un peu plus longue qu'une lance et est lestée de manière à pouvoir être maniée efficacement entre les arbres et les broussailles si fréquents dans la jungle.",
     "portee": "C à C", "force": "U",
     "regles_speciales": [
@@ -630,7 +640,7 @@
   {
     "id": "rapiere", "nom": "Rapière", "categorie": "armes_cac",
     "cout": 15, "cout_fixe": true, "rarete": "5", "disponibilite": "Rare 5, Reiklanders et Marienburgers, Tiléens, Bandits du Hochland, Caravane des Marchands",
-    "acces": ["reiklanders", "marienburgers", "tileens", "bandits_du_hochland", "caravane_des_marchands"], "source": "VEC/BH/BH/CM", "page": 17,
+    "acces": ["reiklanders", "marienburgers", "tileens", "bandits_du_hochland", "caravanes_marchandes"], "source": "VEC/BH/BH/CM", "page": 17,
     "texte": "La rapière est une longue lame fine couramment utilisée par les duellistes. C'est une arme redoutable, capable de porter une multitude de coups, mais elle n'a pas la puissance d'une épée large.",
     "portee": "C à C", "force": "U",
     "regles_speciales": [

@@ -231,7 +231,7 @@
         { "item_id": "casque", "cout": 10 }
       ],
       "divers": [
-        { "item_id": "cape_de_soie_cathayenne", "cout": 40, "note": "Objet non encore présent au catalogue commun — voir rapport de conversion" }
+        { "item_id": "cape_de_soie_cathayenne", "cout": 40 }
       ]
     },
     "hommes_de_main": {

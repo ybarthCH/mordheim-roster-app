@@ -1,0 +1,399 @@
+{
+  "id": "cavalcade_maudite",
+  "nom": "La Cavalcade Maudite (1c)",
+  "grade": "1c",
+  "source": "The Cursed Cavalcade — contenu non officiel de fan, règles par Tuomas Pirinen, complétées pour le tournoi mondial non officiel Mordheim World Tournament 2025 (MWT2025)",
+  "regles_speciales": [
+    {
+      "nom": "Noblesse ridicule",
+      "texte": "Même si tous les membres non-animaux de la bande sont Humains, le pouvoir corrompu et perverti des dieux sombres a plié le moral et la psyché de ces hommes au-delà de toute limite imaginable, même pour le plus tolérant des mercenaires. Pour cette raison, la Cavalcade Maudite est traitée comme une bande Maléfique pour tous les effets de jeu (par exemple l'effet 333 - Prisonniers du tableau d'Exploration). Elle ne peut engager aucun Franc-tireur ni Personnage Dramatis Personae, à l'exception du Maître Corbeau (Crow Master) et de tout profil qui l'autorise explicitement."
+    },
+    {
+      "nom": "Capture !",
+      "texte": "Si un Héros met hors de combat un Homme de main humain ennemi à l'aide d'une Misericordia, et que la bande possède moins de 5 Serviteurs Capturés, lancez un dé : sur un résultat de 5+, le modèle est capturé. Les Héros ennemis ne peuvent être capturés qu'à la suite d'un résultat de « 61 - Capturé ! » sur le tableau des Blessures Graves. Il n'est pas possible de capturer plus de 2 modèles par partie. Si la bande a déjà capturé 2 hommes de main lors de cette partie, ou possède déjà 5 Serviteurs Capturés, relancez tout résultat de « 61 - Capturé ! » obtenu par un Héros ennemi."
+    },
+    {
+      "nom": "Le Trône des Vers",
+      "texte": "Pour chaque ennemi capturé (voir Capture ! ci-dessus), au lieu de lancer sur le tableau des Blessures Graves après la bataille, lancez 1D6 : 1 — le guerrier est englouti à jamais par le Trône des Vers, retirez-le définitivement du roster de sa bande d'origine. 2-5 — le guerrier perd complètement la raison et se soumet au pouvoir du Trône ; retirez-le du roster de sa bande d'origine, la Cavalcade Maudite gagne un Serviteur Capturé. 6 — le guerrier est sacrifié lors d'un rituel dédié au Trône ; retirez-le du roster de sa bande d'origine et un Héros au hasard de la Cavalcade Maudite gagne 1 point d'Expérience. Ce résultat remplace intégralement toute autre façon de traiter un modèle capturé, y compris le résultat « 61 - Capturé ! » du tableau des Blessures Graves des Héros."
+    },
+    {
+      "nom": "Effectif étendu par les Serviteurs Capturés",
+      "texte": "Les Serviteurs Capturés (voir profil Homme de main dédié) ne comptent pas dans la limite d'effectif normale de la bande (13 au départ), portant la capacité effective jusqu'à 18. Un Serviteur Capturé ne peut jamais être renvoyé de la bande."
+    },
+    {
+      "nom": "Masques maudits",
+      "texte": "Lors de la création de la bande, chaque Héros recruté peut recevoir gratuitement un Masque maudit (voir Équipement spécial). Chaque type de masque est unique : la bande ne peut jamais posséder deux exemplaires du même masque à la fois. Une fois porté, un masque ne peut plus être retiré. Après la création de la bande, tout Héros n'en possédant pas encore peut acheter un masque au prix indiqué, lors de la séquence d'après-bataille."
+    },
+    {
+      "nom": "Compétences spéciales de la Cavalcade",
+      "texte": "Les Héros de la Cavalcade Maudite peuvent choisir leurs compétences Spéciales dans la liste propre à la bande (Noblesse oblige, Tortionnaire, Duelliste — voir Compétences spéciales) à la place de la liste Spéciale standard du livre de règles."
+    },
+    {
+      "nom": "Bannière de la maison noble",
+      "texte": "La Cavalcade Maudite utilise la Bannière de la maison noble à la place de la bannière standard (voir Équipement spécial) ; comme pour toute bannière, la bande ne peut en posséder qu'un seul exemplaire à la fois."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 13,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "aristocrate",
+      "nom": "Aristocrate",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 70,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        {
+          "nom": "Chef",
+          "texte": "Tout guerrier de la Cavalcade Maudite à moins de 6ps de l'Aristocrate peut utiliser son Commandement pour ses tests."
+        },
+        {
+          "nom": "Cavalier hors pair",
+          "texte": "L'Aristocrate possède gratuitement la compétence Équitation (Cauchemar), sans avoir besoin de la choisir lors d'une avancée."
+        }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "vitesse", "special"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "compagnon",
+      "nom": "Compagnon",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 45,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        {
+          "nom": "Expert en escrime",
+          "texte": "En tant que nobles impériaux, les Compagnons ont appris le maniement de l'épée dès leur plus jeune âge. Tous les Compagnons possèdent gratuitement la compétence Expert en escrime."
+        }
+      ],
+      "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "erudit_devoye",
+      "nom": "Érudit Dévoyé",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 25,
+      "xp_depart": 4,
+      "peut_lancer_sorts": true,
+      "categorie_magie": "magie_mineure",
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        {
+          "nom": "Adepte de magie (simplification d'application)",
+          "texte": "Dans les règles originales, l'accès à la Magie mineure est optionnel : au recrutement, contre 10 PO supplémentaires, l'Érudit Dévoyé devient Sorcier et utilise la Magie mineure (il connaît alors 1 sort tiré aléatoirement) ; alternativement, contre 10 PO, il peut devenir Chroniqueur (relance une carte du tableau d'Exploration et choisit laquelle des deux garder, sans devenir Sorcier). Par simplification de modélisation dans cette application (qui ne permet pas de bascule optionnelle à l'achat sur un profil), l'Érudit Dévoyé est ici toujours défini comme Sorcier utilisant la Magie mineure dès son recrutement, sans surcoût — à ajuster manuellement si vous souhaitez appliquer fidèlement la règle d'origine (payante et optionnelle, avec alternative Chroniqueur)."
+        }
+      ],
+      "acces_competences": ["academique", "special"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "flutiste_maudit",
+      "nom": "Flûtiste Maudit",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 40,
+      "xp_depart": 6,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        {
+          "nom": "Équipement restreint",
+          "texte": "Le Flûtiste Maudit doit obligatoirement tenir une flûte ou un autre instrument dans une main. Il ne peut donc jamais utiliser d'arme en main secondaire, d'arme à deux mains, de paire de pistolets, d'arc ou d'arbalète."
+        },
+        {
+          "nom": "Danse Macabre",
+          "texte": "Pendant la phase de Tir, le Flûtiste Maudit peut diriger la mélodie maudite de sa flûte contre un modèle ennemi visible à moins de 6ps. Le modèle ciblé doit réussir un test de Commandement ou tomber sous l'emprise de la Danse Macabre : le Flûtiste peut alors le déplacer dans n'importe quelle direction (y compris hors d'un corps à corps ou pour le faire tomber d'une hauteur). Un guerrier engagé au corps à corps sous cette emprise ne peut pas attaquer (trop occupé à danser !). Un seul ennemi à la fois peut être contrôlé par la Danse Macabre ; si le Flûtiste cible un autre guerrier, le précédent est immédiatement libéré. Au début du tour ennemi suivant, en phase de Récupération, le guerrier contrôlé doit réussir un nouveau test de Commandement ou rester sous l'emprise (incapable d'attaquer ou de tirer) pour ce tour."
+        }
+      ],
+      "acces_competences": ["tir", "special"],
+      "acces_equipement": ["heros"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "thrall",
+      "nom": "Serviteur Marqué (Thrall)",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        {
+          "nom": "Recrutement par groupes",
+          "texte": "Les Serviteurs Marqués sont achetés par groupes de 1 à 5 ; la bande peut en compter un nombre illimité."
+        }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["thralls"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "thrall_capture",
+      "nom": "Serviteur Capturé (Thrall Capturé)",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "gagne_experience": false,
+      "min": 0,
+      "max": 5,
+      "cout": null,
+      "cout_notation": "N/A — non disponible à l'achat",
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        {
+          "nom": "Non disponible à l'achat",
+          "texte": "Un Serviteur Capturé ne s'achète jamais directement au recrutement : il ne rejoint la bande que via la règle spéciale Capture ! / Le Trône des Vers (voir règles spéciales de la bande), à hauteur de 5 maximum."
+        },
+        {
+          "nom": "Serviteurs superflus, mais précieux",
+          "texte": "Les Serviteurs Capturés ne comptent pas dans la limite d'effectif maximum de la bande, portant la capacité effective de 13 à 18."
+        },
+        {
+          "nom": "Pas franchement futés",
+          "texte": "Les Serviteurs Capturés ne peuvent jamais gagner de points d'Expérience ni bénéficier d'avancées. Ils ne peuvent jamais être renvoyés de la bande."
+        }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["thralls"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "grand_ours",
+      "nom": "Grand Ours",
+      "type": "animal",
+      "min": 0,
+      "max": 1,
+      "cout": 140,
+      "stats": { "M": 5, "CC": 3, "CT": 0, "F": 5, "E": 5, "PV": 2, "I": 3, "A": 2, "Cd": 6 },
+      "regles_speciales": [
+        {
+          "nom": "Rendu fou par la douleur",
+          "texte": "Dès que le Grand Ours subit sa première blessure, il gagne une Attaque supplémentaire pour le reste de la bataille."
+        },
+        {
+          "nom": "Grande cible",
+          "texte": "Le Grand Ours est une grande cible au regard des règles de Tir."
+        },
+        {
+          "nom": "Animal",
+          "texte": "Le Grand Ours ne combat pas comme un membre normal de la bande et ne gagne jamais d'Expérience."
+        }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "bete_sauvage",
+      "nom": "Bête Sauvage",
+      "type": "animal",
+      "min": 0,
+      "max": 2,
+      "cout": 45,
+      "stats": { "M": 6, "CC": 3, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 5, "A": 2, "Cd": 5 },
+      "regles_speciales": [
+        {
+          "nom": "Charge",
+          "texte": "Lorsqu'elle charge un ennemi, la Bête Sauvage gagne +1 Attaque pour le premier tour de corps à corps (Attaques de base 2, portées à 3 au tour de charge)."
+        },
+        {
+          "nom": "Animal",
+          "texte": "La Bête Sauvage ne gagne jamais d'Expérience. Elle peut représenter un chat sauvage, un sanglier ou tout autre animal exotique dressé pour le combat."
+        }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "singe_de_combat",
+      "nom": "Singe de Combat",
+      "type": "animal",
+      "min": 0,
+      "max": 1,
+      "cout": 95,
+      "stats": { "M": 6, "CC": 3, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 5, "A": 2, "Cd": 5 },
+      "regles_speciales": [
+        {
+          "nom": "Agile",
+          "texte": "Le Singe de Combat possède gratuitement les compétences Escalade des surfaces lisses, Acrobate et Esquive. Il peut de plus effectuer une charge plongeante depuis une hauteur de 10ps au lieu du maximum normal."
+        },
+        {
+          "nom": "Animal",
+          "texte": "Le Singe de Combat ne gagne jamais d'Expérience, mais peut néanmoins grimper et entrer dans les bâtiments normalement."
+        }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    {
+      "id": "noblesse_oblige",
+      "nom": "Noblesse oblige",
+      "texte": "Le guerrier se sent totalement supérieur à ses adversaires : sa longue lignée et son prestige lui permettent de mépriser ses ennemis ordinaires, qu'il ne considère que comme du bétail à abattre. Le guerrier est immunisé à la Peur et peut piétiner sous ses bottes ferrées les adversaires à terre, ce qui lui confère une Attaque supplémentaire contre les adversaires à terre, résolue à sa propre Force."
+    },
+    {
+      "id": "tortionnaire",
+      "nom": "Tortionnaire",
+      "texte": "Ayant appris l'art de la torture lors du Rituel de la Comète, le guerrier sait infliger un maximum de souffrance et l'utilise de façon sadique et cruelle au combat. Toute figurine blessée avec succès (sans sauvegarde) au corps à corps par ce Héros perd 1 point de Force de façon permanente pour la durée de la bataille, la douleur causant une agonie persistante. L'effet est cumulatif et peut réduire la Force de la cible jusqu'à un minimum de 1. Les Morts-Vivants sont immunisés à cet effet."
+    },
+    {
+      "id": "duelliste",
+      "nom": "Duelliste",
+      "texte": "Le guerrier maîtrise l'art du duel à l'impériale, cher aux aristocrates réputés pour leur habileté en combat singulier. À la fin de chaque phase de Corps à corps, le Duelliste peut forcer tout adversaire non grande cible qu'il affronte en un contre un à réussir un test de Force ou à être repoussé de 2ps dans une direction de son choix. Si cela amène la cible au contact d'une autre figurine, les deux subissent une touche automatique de Force 2. Si cela repousse l'adversaire d'un point élevé, celui-ci tombe et subit les dégâts de chute normaux ; le Duelliste, lui, reste sur la zone élevée."
+    }
+  ],
+  "equipement": {
+    "heros": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "misericordia", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "lance_de_cavalerie", "cout": 20, "note": "« Lance » de la liste d'origine" }
+      ],
+      "armes_tir": [
+        { "item_id": "arc_long", "cout": 15 },
+        { "item_id": "pistolet_de_duel", "cout": 25, "note": "50 PO la paire" },
+        { "item_id": "long_fusil_du_hochland", "cout": 200, "note": "« Fusil de chasse » de la liste d'origine" },
+        { "item_id": "tromblon", "cout": 30, "note": "Un seul par bande" }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "armure_cathayenne_soie_matelassee", "cout": 15 }
+      ],
+      "divers": [
+        { "item_id": "poudre_noire_superieure", "cout": 30 }
+      ]
+    },
+    "thralls": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Masse ou marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10, "note": "« Épieu » de la liste d'origine" },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc_court", "cout": 5 },
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arbalete", "cout": 25, "note": "Max 3 par bande" }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    {
+      "item_id": "lance_a_sanglier",
+      "cout": 30,
+      "disponibilite": "Rare 10, Aristocrate uniquement",
+      "profils": ["aristocrate"]
+    },
+    {
+      "item_id": "oiseau_de_proie",
+      "cout": 30,
+      "disponibilite": "Rare 10, Aristocrate uniquement",
+      "profils": ["aristocrate"]
+    },
+    {
+      "item_id": "cauchemar",
+      "cout": 95,
+      "disponibilite": "Rare 11, Aristocrate uniquement",
+      "profils": ["aristocrate"]
+    },
+    {
+      "item_id": "banniere_de_la_maison_noble",
+      "cout": 25,
+      "disponibilite": "Rare 10, Héros de la Cavalcade Maudite uniquement, un seul exemplaire par bande",
+      "profils": ["aristocrate", "compagnon", "erudit_devoye", "flutiste_maudit"],
+      "plafond_groupe": { "id": "cavalcade_maudite_banniere", "max": 1, "label": "Bannière de la maison noble (unique)" }
+    },
+    {
+      "item_id": "masque_du_roi_soleil",
+      "cout": 70,
+      "disponibilite": "Aristocrate uniquement, un seul exemplaire par bande",
+      "profils": ["aristocrate"],
+      "plafond_groupe": { "id": "cavalcade_maudite_masque_roi_soleil", "max": 1, "label": "Masque du Roi soleil (unique)" }
+    },
+    {
+      "item_id": "masque_de_mort_en_argent",
+      "cout": 50,
+      "disponibilite": "Tout Héros de la Cavalcade Maudite, un seul exemplaire par bande",
+      "profils": ["aristocrate", "compagnon", "erudit_devoye", "flutiste_maudit"],
+      "plafond_groupe": { "id": "cavalcade_maudite_masque_mort_argent", "max": 1, "label": "Masque de mort en argent (unique)" }
+    },
+    {
+      "item_id": "masque_de_tete_de_poisson",
+      "cout": 60,
+      "disponibilite": "Tout Héros de la Cavalcade Maudite, un seul exemplaire par bande",
+      "profils": ["aristocrate", "compagnon", "erudit_devoye", "flutiste_maudit"],
+      "plafond_groupe": { "id": "cavalcade_maudite_masque_tete_poisson", "max": 1, "label": "Masque de tête de poisson (unique)" }
+    },
+    {
+      "item_id": "masque_sans_visage",
+      "cout": 30,
+      "disponibilite": "Tout Héros de la Cavalcade Maudite, un seul exemplaire par bande",
+      "profils": ["aristocrate", "compagnon", "erudit_devoye", "flutiste_maudit"],
+      "plafond_groupe": { "id": "cavalcade_maudite_masque_sans_visage", "max": 1, "label": "Masque sans visage (unique)" }
+    },
+    {
+      "item_id": "masque_de_medecin_de_peste",
+      "cout": 45,
+      "disponibilite": "Érudit Dévoyé uniquement, un seul exemplaire par bande",
+      "profils": ["erudit_devoye"],
+      "plafond_groupe": { "id": "cavalcade_maudite_masque_medecin_peste", "max": 1, "label": "Masque de médecin de peste (unique)" }
+    },
+    {
+      "item_id": "masque_de_bouffon_malefique",
+      "cout": 70,
+      "disponibilite": "Tout Héros de la Cavalcade Maudite, un seul exemplaire par bande",
+      "profils": ["aristocrate", "compagnon", "erudit_devoye", "flutiste_maudit"],
+      "plafond_groupe": { "id": "cavalcade_maudite_masque_bouffon", "max": 1, "label": "Masque de bouffon maléfique (unique)" }
+    },
+    {
+      "item_id": "cymbales_de_singe",
+      "cout": 15,
+      "disponibilite": "Uniquement à l'achat du Singe de Combat",
+      "profils": ["singe_de_combat"]
+    }
+  ]
+}

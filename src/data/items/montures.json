@@ -102,7 +102,7 @@
   {
     "id": "rhinox", "nom": "Rhinox", "categorie": "montures",
     "cout": "200+1D6x10", "cout_fixe": false, "rarete": "15", "disponibilite": "Rare 15, Ogres, Maraudeurs du Chaos, Explorateurs Norses et Caravane des Marchands uniquement",
-    "acces": ["maneaters", "maraudeurs_du_chaos", "caravane_des_marchands"], "source": "BTB", "page": 62,
+    "acces": ["maneaters", "maraudeurs_du_chaos", "caravanes_marchandes"], "source": "BTB", "page": 62,
     "texte": "Sous le royaume en ruines des Titans des Montagnes des Larmes se trouvent les champs de glace où paissent les troupeaux de rhinox. Les rhinox sont devenus la pierre angulaire culturelle des royaumes sauvages. Pour discipliner ces bêtes de somme au mauvais caractère, il faut accomplir un véritable tour de force.",
     "stats": { "M": 7, "CC": 3, "CT": 0, "F": 5, "E": 5, "PV": 2, "I": 2, "A": 3, "Cd": 5 },
     "regles_speciales": [

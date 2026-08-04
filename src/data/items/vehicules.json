@@ -17,7 +17,7 @@
   {
     "id": "chariot_de_marchandises", "nom": "Chariot de marchandises", "categorie": "vehicules",
     "cout": 180, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Caravane des Marchands uniquement",
-    "acces": ["caravane_des_marchands"], "source": "BTB-CM (Caravane des Marchands)", "page": 63,
+    "acces": ["caravanes_marchandes"], "source": "BTB-CM (Caravane des Marchands)", "page": 63,
     "texte": "Les nombreux objets de valeur tels que les bijoux cathayens, les épices et les étoffes de soie sont stockés dans le chariot de marchandises.",
     "composants": [
       { "nom": "Chariot", "stats": { "M": null, "CC": null, "CT": null, "F": null, "E": 8, "PV": 4, "I": null, "A": null, "Cd": null } },

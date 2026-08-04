@@ -71,7 +71,7 @@
   },
   {
     "id": "banniere_de_la_maison_noble", "nom": "Bannière de la maison noble", "categorie": "divers",
-    "cout": 30, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Héros de la Cavalcade Maudite uniquement",
+    "cout": 25, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Héros de la Cavalcade Maudite uniquement",
     "acces": ["cavalcade_maudite"], "source": "CM (Cavalcade Maudite)", "page": 39,
     "texte": "Brûlée et lacérée comme le reste des ornements de la Cavalcade, la bannière représente la maison noble de l'aristocrate à la tête de la bande même si elle est souvent décorée d'un masque rouge symbolisant l'allégeance à la Cavalcade. Bien que leur cité soit tombée et leur pouvoir réduit à néant, les aristocrates de la Cavalcade s'accrochent encore vainement aux symboles de leur gloire perdue.",
     "regles_speciales": [
@@ -377,6 +377,13 @@
     ]
   },
   {
+    "id": "cape_de_soie_cathayenne", "nom": "Cape de soie cathayenne", "categorie": "divers",
+    "cout": 40, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Émissaire des Moines Guerriers de Cathay et Héros des Caravanes Marchandes uniquement",
+    "acces": ["moines_guerriers_de_cathay", "caravanes_marchandes"], "source": "BTB-MGC/BTB-CM", "page": 3,
+    "texte": "Une cape tissée dans la soie la plus fine de Cathay, portée par les émissaires impériaux et les riches marchands en signe de statut lors de leurs longs voyages.",
+    "regles_speciales": []
+  },
+  {
     "id": "crochet", "nom": "Crochet", "categorie": "divers",
     "cout": 4, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Pirates uniquement (un seul par figurine)",
     "acces": ["commun_pirates"], "source": "P (Pirates)", "page": 47,
@@ -516,7 +523,7 @@
   },
   {
     "id": "masque_de_mort_en_argent", "nom": "Masque de mort en argent", "categorie": "divers",
-    "cout": 50, "cout_fixe": true, "rarete": "C", "disponibilite": "Aristocrates uniquement, un seul masque de mort d'argent par bande",
+    "cout": 50, "cout_fixe": true, "rarete": "C", "disponibilite": "Tout Héros, un seul masque de mort d'argent par bande",
     "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 50,
     "texte": "Ce masque ressemble à un crâne richement décoré, mais s'anime comme la peau d'un homme vivant, reflétant les expressions de celui qui le porte.",
     "regles_speciales": [
@@ -525,7 +532,7 @@
   },
   {
     "id": "masque_de_tete_de_poisson", "nom": "Masque de tête de poisson", "categorie": "divers",
-    "cout": 60, "cout_fixe": true, "rarete": "C", "disponibilite": "Aristocrates uniquement",
+    "cout": 60, "cout_fixe": true, "rarete": "C", "disponibilite": "Tout Héros",
     "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 50,
     "texte": "Un étrange masque argenté, incrusté d'yeux de pierres précieuses, semblable à celui d'un poisson des profondeurs de l'océan. On murmure que ces masques étaient autrefois utilisés par les adorateurs de divinités maléfiques oubliées qui sommeillent au fond des mers, rêvant du jour où elles s'élèveront des profondeurs pour semer la ruine parmi les hommes. Un homme portant ce masque peut avaler un humain tout entier, comme un serpent avale un rat.",
     "regles_speciales": [
@@ -534,7 +541,7 @@
   },
   {
     "id": "masque_sans_visage", "nom": "Masque sans visage", "categorie": "divers",
-    "cout": 30, "cout_fixe": true, "rarete": "C", "disponibilite": "Aristocrates uniquement",
+    "cout": 30, "cout_fixe": true, "rarete": "C", "disponibilite": "Tout Héros",
     "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 50,
     "texte": "Ce masque n'a pratiquement aucune caractéristique humaine, à l'exception de deux fentes oculaires remplies de noirceur. Le porteur peut se déplacer avec une détermination telle que personne n'ose l'arrêter.",
     "regles_speciales": [
@@ -543,7 +550,7 @@
   },
   {
     "id": "masque_de_medecin_de_peste", "nom": "Masque de médecin de peste", "categorie": "divers",
-    "cout": 70, "cout_fixe": true, "rarete": "C", "disponibilite": "Érudit Dévoyé uniquement, même s'il est amélioré en Sorcier ou en Chroniqueur",
+    "cout": 45, "cout_fixe": true, "rarete": "C", "disponibilite": "Érudit Dévoyé uniquement",
     "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 50,
     "texte": "Masque argenté doté d'un long bec semblable à celui d'un oiseau, symbole même de la mort pour les peuples de l'Ancien Monde ravagé par de nombreuses maladies. Au combat, un nuage de mort noire s'échappe des orbites vides du masque.",
     "regles_speciales": [
@@ -552,11 +559,20 @@
   },
   {
     "id": "masque_de_bouffon_malefique", "nom": "Masque de bouffon maléfique", "categorie": "divers",
-    "cout": 45, "cout_fixe": true, "rarete": "C", "disponibilite": "Aristocrates uniquement",
+    "cout": 70, "cout_fixe": true, "rarete": "C", "disponibilite": "Tout Héros",
     "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 50,
     "texte": "Erratique et imprévisible, le visage du masque du bouffon maléfique se tord d'un sourire dément à un regard de haine pure ou de rage terrifiante avant chaque combat.",
     "regles_speciales": [
       { "nom": "Effet (D6 au début du combat)", "texte": "1 : le porteur est sujet à la stupidité le temps du combat. 2-5 : le porteur hait tous ses ennemis le temps du combat. 6 : le porteur est sujet à la frénésie." }
+    ]
+  },
+  {
+    "id": "cymbales_de_singe", "nom": "Cymbales", "categorie": "divers",
+    "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Singe de Combat de la Cavalcade Maudite uniquement",
+    "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 51,
+    "texte": "Une paire de cymbales que le Singe de Combat entrechoque frénétiquement, sur l'air lancinant de la Danse Macabre.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Tout ennemi à moins de 6ps du Singe de Combat subit un malus de -1 en CT et -1 en Cd, perturbé par le vacarme." }
     ]
   },
   {

@@ -6,9 +6,12 @@ import artilleurs_de_nuln from './artilleurs_de_nuln.json';
 import averlanders from './averlanders.json';
 import bandits_du_hochland from './bandits_du_hochland.json';
 import beastmen_raiders from './beastmen_raiders.json';
+import caravanes_marchandes from './caravanes_marchandes.json';
 import carnival_of_chaos from './carnival_of_chaos.json';
+import cavalcade_maudite from './cavalcade_maudite.json';
 import chasseurs_cornus from './chasseurs_cornus.json';
 import chevaliers_bretonniens from './chevaliers_bretonniens.json';
+import cour_des_plaisirs_profanes from './cour_des_plaisirs_profanes.json';
 import cult_of_the_possessed from './cult_of_the_possessed.json';
 import dwarf_treasure_hunters from './dwarf_treasure_hunters.json';
 import elfes_noirs from './elfes_noirs.json';
@@ -29,6 +32,7 @@ import maneaters from './maneaters.json';
 import maraudeurs_du_chaos from './maraudeurs_du_chaos.json';
 import marienburgers from './marienburgers.json';
 import middenheimers from './middenheimers.json';
+import moines_guerriers_de_cathay from './moines_guerriers_de_cathay.json';
 import mootlanders from './mootlanders.json';
 import morts_sans_repos from './morts_sans_repos.json';
 import nains_du_chaos from './nains_du_chaos.json';
@@ -54,9 +58,12 @@ export const CATALOGUES: WarbandCatalog[] = [
   averlanders,
   bandits_du_hochland,
   beastmen_raiders,
+  caravanes_marchandes,
   carnival_of_chaos,
+  cavalcade_maudite,
   chasseurs_cornus,
   chevaliers_bretonniens,
+  cour_des_plaisirs_profanes,
   cult_of_the_possessed,
   dwarf_treasure_hunters,
   elfes_noirs,
@@ -77,6 +84,7 @@ export const CATALOGUES: WarbandCatalog[] = [
   maraudeurs_du_chaos,
   marienburgers,
   middenheimers,
+  moines_guerriers_de_cathay,
   mootlanders,
   morts_sans_repos,
   nains_du_chaos,

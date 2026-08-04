@@ -72,8 +72,8 @@
   },
   {
     "id": "ombre_cramoisie", "nom": "Ombre cramoisie", "categorie": "poisons_drogues",
-    "cout": 35, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Lustrian Reavers uniquement",
-    "acces": ["lustrian_reavers"], "source": "BTB", "page": 57,
+    "cout": 35, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Pillards de Lustrie et Cour des Plaisirs Profanes uniquement",
+    "acces": ["lustrian_reavers", "cour_des_plaisirs_profanes"], "source": "BTB", "page": 57,
     "texte": "Un extrait tiré d'une orchidée écarlate qui ne pousse que dans les jungles de Lustrie, prisé des chasseurs de trésors pour l'endurance surhumaine qu'il procure.",
     "regles_speciales": [
       { "nom": "Effet", "texte": "Une figurine qui prend de l'ombre cramoisie voit son Endurance augmenter de +1 pour la durée de la partie." },

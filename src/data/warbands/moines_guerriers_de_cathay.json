@@ -196,10 +196,10 @@
     },
     "emissaire_special": {
       "armes_cac": [
-        { "item_id": "epee_longue_cathayenne", "cout": 75, "note": "Cathayan longsword — Émissaire uniquement, objet à créer dans le catalogue commun" }
+        { "item_id": "epee_longue_cathayenne", "cout": 75, "note": "Cathayan longsword — Émissaire uniquement" }
       ],
       "divers": [
-        { "item_id": "cape_de_soie_cathayenne", "cout": 40, "note": "Cathayan silk cloak — Émissaire uniquement, objet à créer dans le catalogue commun" },
+        { "item_id": "cape_de_soie_cathayenne", "cout": 40, "note": "Cathayan silk cloak — Émissaire uniquement" },
         { "item_id": "cheval", "cout": 30, "note": "Émissaire uniquement" }
       ]
     },
@@ -219,8 +219,8 @@
     }
   },
   "equipement_special": [
-    { "item_id": "epee_longue_cathayenne", "cout": 75, "disponibilite": "Commun, Émissaire des Moines Guerriers de Cathay uniquement (objet à créer)", "profils": ["emissaire"] },
-    { "item_id": "cape_de_soie_cathayenne", "cout": 40, "disponibilite": "Commun, Émissaire des Moines Guerriers de Cathay uniquement (objet à créer)", "profils": ["emissaire"] },
+    { "item_id": "epee_longue_cathayenne", "cout": 75, "disponibilite": "Commun, Émissaire des Moines Guerriers de Cathay uniquement", "profils": ["emissaire"] },
+    { "item_id": "cape_de_soie_cathayenne", "cout": 40, "disponibilite": "Commun, Émissaire des Moines Guerriers de Cathay uniquement", "profils": ["emissaire"] },
     { "item_id": "cheval", "cout": 30, "disponibilite": "Rare 8, Humains uniquement, Émissaire uniquement", "profils": ["emissaire"] },
     { "item_id": "nunchaku", "cout": 20, "disponibilite": "Rare 7, Moines Guerriers de Cathay uniquement", "profils": ["moine_dragon", "moine_guerrier"] },
     { "item_id": "kusarigama", "cout": 10, "disponibilite": "Rare 7, Moines Guerriers de Cathay uniquement", "profils": ["moine_dragon", "moine_guerrier"] }
