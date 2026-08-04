@@ -576,7 +576,11 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
             : [];
           return (
             <>
-              <p className="text-sm text-muted">{t('avanceeModal.chooseWhichCharacteristic')}</p>
+              <p className="text-sm text-muted">
+                {entreeAvancement.hasard
+                  ? t('avanceeModal.rollWhichCharacteristic', { notation: entreeAvancement.hasard.notation })
+                  : t('avanceeModal.chooseWhichCharacteristic')}
+              </p>
               <div className="flex gap-sm">
                 {options.map((o) => (
                   <button
@@ -586,7 +590,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
                     title={o.verdict.ok ? undefined : o.verdict.raison}
                     onClick={() => choisirCaracteristique(o.stat, o.label)}
                   >
-                    +1 {t(`statFullName.${o.stat}`)}
+                    {o.plage ? `${o.plage} — +1 ${t(`statFullName.${o.stat}`)}` : `+1 ${t(`statFullName.${o.stat}`)}`}
                   </button>
                 ))}
               </div>

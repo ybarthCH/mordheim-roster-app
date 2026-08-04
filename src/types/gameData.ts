@@ -28,6 +28,12 @@ export type AdvanceEntry =
       max: number;
       type: 'caracteristique_choix';
       label: string;
-      options: { stat: keyof Stats; label: string }[];
+      // Absent : choix libre du joueur entre les deux options (ex : CC/CT
+      // héros, CT/CC hommes de main). Présent : la répartition est en
+      // réalité déterminée par un jet physique sur cette notation (ex :
+      // "1D6"), reporté sur `options[].plage` — le joueur ne choisit pas,
+      // il indique le résultat de son jet.
+      hasard?: { notation: string };
+      options: { stat: keyof Stats; label: string; plage?: string }[];
     }
   | { min: number; max: number; type: 'promotion'; label: string };
