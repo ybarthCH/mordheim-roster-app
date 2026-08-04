@@ -111,6 +111,18 @@ export type Profile = {
   // bande (repli par défaut, tant que ce champ n'est pas encore rempli
   // partout).
   acces_equipement?: string[];
+  // Catégories entièrement interdites à ce profil par ses propres règles
+  // (ex : Flagellant sans armure ni arme de tir), appliqué en plus de
+  // `acces_equipement` — celui-ci ne filtre que l'onglet "bande" du shop,
+  // alors que l'onglet "commun" (et la recherche d'objet rare) n'a jamais
+  // été filtré par profil : voir estCategorieInterdite dans utils/shop.ts.
+  // Levé par les compétences "Connaissance des Armes"/"Expert en Armes"
+  // pour la catégorie qu'elles couvrent, comme pour acces_equipement.
+  // N'exprime que des interdictions de catégorie entière : les nuances plus
+  // fines (ex : Prêtre de Taal, qui ne peut porter que l'armure lourde en
+  // particulier ; bandes limitées à un sous-type d'arme de tir précis)
+  // restent un texte informatif dans regles_speciales, non automatisées ici.
+  categories_interdites?: ('armes_cac' | 'armes_tir' | 'armures')[];
   xp_depart?: number;
   peut_lancer_sorts?: boolean;
   categorie_magie?: string;

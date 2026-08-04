@@ -88,6 +88,7 @@
       ],
       "acces_competences": ["combat", "force"],
       "acces_equipement": ["nains_du_chaos"],
+      "categories_interdites": ["armes_tir"],
       "acces_competences_a_verifier": false
     },
     {

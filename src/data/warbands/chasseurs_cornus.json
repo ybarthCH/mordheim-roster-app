@@ -106,6 +106,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["hommes_de_main"],
+      "categories_interdites": ["armures"],
       "acces_competences_a_verifier": false
     },
     {

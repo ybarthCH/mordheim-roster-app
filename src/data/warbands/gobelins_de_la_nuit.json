@@ -229,6 +229,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
+      "categories_interdites": ["armes_cac", "armes_tir", "armures"],
       "acces_competences_a_verifier": false
     },
     {

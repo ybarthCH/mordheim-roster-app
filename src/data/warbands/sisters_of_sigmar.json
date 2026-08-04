@@ -63,6 +63,7 @@
       ],
       "acces_competences": ["academique", "vitesse", "special"],
       "acces_equipement": ["soeurs_de_sigmar"],
+      "categories_interdites": ["armures"],
       "acces_competences_a_verifier": false
     },
     {

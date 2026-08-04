@@ -48,6 +48,7 @@
       ],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["heros_armes"],
+      "categories_interdites": ["armures"],
       "acces_competences_a_verifier": false
     },
     {
@@ -68,6 +69,7 @@
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": [],
+      "categories_interdites": ["armes_cac", "armes_tir", "armures"],
       "acces_competences_a_verifier": false
     },
     {
@@ -128,6 +130,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
+      "categories_interdites": ["armes_cac", "armes_tir"],
       "acces_competences_a_verifier": false
     },
     {
