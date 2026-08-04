@@ -6007,6 +6007,483 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       ],
     },
   },
+  caravanes_marchandes: {
+    nom: 'Merchant Caravans (1c)',
+    regles_speciales: [
+      {
+        nom: 'Merchant',
+        texte:
+          "The Merchant is the warband's leader (any warrior within 6\" of him may use his Leadership when taking Ld tests). If he leaves the caravan (e.g. dies permanently through Serious Injuries), a new leader is determined as normal. The new leader gets the Merchant special rule, allowing him to choose new skills from the Merchant's special skills list, and is considered a Merchant for all purposes just as the previous one was. If no model in the warband is allowed to become the leader, an Apprentice must be bought as soon as possible to become the leader.",
+      },
+      {
+        nom: "Merchant's Special Skills",
+        texte: "The Merchant may choose his skills from the Merchant's special skills list (see special skills) instead of the standard Special skill tables.",
+      },
+      {
+        nom: 'Rarity',
+        texte:
+          "Any rare item reduced to Rare 2 or below by the Trade Wagon's Reputation rule, an equivalent skill, etc., can be bought as a Common item.",
+      },
+      {
+        nom: 'Mandatory Trade Wagon',
+        texte: 'A Merchant Caravan warband must always include a Trade Wagon in its starting warband (see Special Equipment). See the Trade Wagon rules (Storage, Reputation, Abandoned) on the item card itself.',
+      },
+      {
+        nom: 'Hired Swords',
+        texte: 'A Merchant Caravan may hire every Hired Sword normally available to Mercenary warbands.',
+      },
+    ],
+    profils: {
+      marchand: {
+        nom: 'Merchant',
+        regles_speciales: [
+          { nom: 'Leader', texte: "The Merchant is always the warband's leader — see the Merchant special rule." },
+          {
+            nom: 'Trade',
+            texte:
+              'Instead of searching for a rare item, the Merchant may sell a rare item stored in the Trade Wagon during the preceding battle. This must be done before Heroes of either warband search for rare items. Roll 1D6 to determine how many gold coins the Merchant gets: 1-2 half the item\'s basic price; 3-4 the item\'s full basic price; 5-6 full plus half the item\'s basic price. The Merchant may choose to sell the item at that price or try again after the next battle. This can be combined with the Wholesale skill to sell up to D3+1 items per game.',
+          },
+          {
+            nom: 'Open for Business',
+            texte:
+              "All players may send any of their Heroes to see the Merchant instead of having them search for rare items. A Hero doing so may buy one item from the warband's stored equipment if the players agree on a price (exchanges for items and Treasures are possible). Instead of buying an item, a Hero may also visit the Merchant to sell him one (rare, common, magical, or a Treasure marker). If the players cannot agree on a price, no deal is closed and the visit is wasted.",
+          },
+        ],
+        competences_speciales: {
+          corruption: {
+            nom: 'Corruption',
+            texte:
+              "Whenever the warband has to take a Rout test, the Merchant may talk his hirelings into staying a little longer and facing the danger. He may immediately pay 5 gc per non-Hero warband member (including Hired Swords!) still in the game. If he does, one member already taken out of action does not count for Rout tests. If a Rout test is still required after that, test as normal. This skill may be used as many times as required so long as the coffers aren't empty!",
+          },
+          fin_negociateur: {
+            nom: 'Sharp Negotiator',
+            texte: 'When trying to sell an item through the Trade special rule, the Merchant gets a +1 bonus on the roll to see what the item fetches.',
+          },
+          reseau_de_contacts: {
+            nom: 'Network of Contacts',
+            texte:
+              'The Merchant knows many retailers and ways of getting hold of rare items. Instead of searching for rare items as normal, he may visit the local black market and its fencers. If he does, he may search for an item from the following table, applying the normal rules: Dispel Scroll (50+4D6 gc, Rare 12); Lesser Artefact (200+D6x15 gc, Rare 16, roll on the Lesser Artefacts table); Magical Artefact (350+D6x25 gc, Rare 18, roll on the Mordheim rulebook\'s Magical Artefact table); Magical Scroll (100 gc, Rare 14, roll on the Lesser Artefacts table). The Merchant may buy items from this table, but can never sell them back — he will have to hope another player is interested.',
+          },
+          revenus_douteux: {
+            nom: 'Dubious Income',
+            texte:
+              "The Merchant has set up an underground business that proves quite profitable. After every battle in which he was not taken out of action, he may choose to use this skill before the trading phase (i.e. before any gold is spent). If he does, he must pass a Leadership test. On a success, the warband receives one gold coin per Experience point the Merchant has. On a failure, the warband loses up to the same amount of gold coins.",
+          },
+          vente_en_gros: {
+            nom: 'Wholesale',
+            texte: 'The Merchant is known for buying items in bulk, making him especially welcome at other merchants. He may search for D3+1 rare items after each battle instead of just one, provided he was not taken out of action, of course!',
+          },
+        },
+      },
+      apprenti: {
+        nom: 'Apprentice',
+        regles_speciales: [
+          {
+            nom: 'Emergency Leader',
+            texte: 'If no model in the warband is allowed to become the leader when the Merchant dies, an Apprentice must be recruited as soon as possible to fill that role (see Merchant special rule).',
+          },
+        ],
+      },
+      chevalier_avant_garde: {
+        nom: 'Knight Vanguard',
+        regles_speciales: [
+          {
+            nom: 'Lightning Reflexes',
+            texte:
+              "If the Knight Vanguard is charged, he 'strikes first' against that turn's attackers. As the charger(s) also 'strike first' (from charging), the order of attacks between charger(s) and Knight Vanguard is determined by comparing Initiative values.",
+          },
+          { nom: 'Warhorse Rider', texte: 'The Knight Vanguard is trained to ride Warhorses.' },
+          { nom: 'Hireling', texte: 'The Knight Vanguard is a mercenary paid by the Merchant; he can never become the warband leader.' },
+        ],
+      },
+      magicien: {
+        nom: 'Magician',
+        regles_speciales: [
+          { nom: 'Wizard', texte: 'The Magician is a Wizard and uses Lesser Magic.' },
+          { nom: 'Hireling', texte: 'The Magician is a mercenary paid by the Merchant; he can never become the warband leader.' },
+        ],
+      },
+      epee_a_louer: { nom: 'Sell-sword', regles_speciales: [] },
+      tireur_elite: { nom: 'Tilean Marksman', regles_speciales: [] },
+      reitre_cathayan: {
+        nom: 'Blackguard',
+        regles_speciales: [
+          {
+            nom: 'Strongman',
+            texte: 'Blackguards are capable of great feats of strength. They may use a double-handed weapon without the usual penalty of always striking last. Work out attack order as with any other weapon.',
+          },
+          {
+            nom: 'Unreliable Hirelings',
+            texte:
+              "Blackguards are only hired by the Merchant to protect his cargo. They are not much trusted or granted any responsibility. They may never become Heroes: re-roll all results of 'The Lad's Got Talent' for them.",
+          },
+        ],
+      },
+    },
+  },
+  moines_guerriers_de_cathay: {
+    nom: 'Battle Monks of Cathay (1c)',
+    regles_speciales: [
+      {
+        nom: 'Strictures',
+        texte: "A strict regime of meditation is followed by the monks, who hold that the skin of one's body is armour in itself. Dragon Monks and Warrior Monks never wear any kind of armour.",
+      },
+      {
+        nom: 'Distaste for Poison',
+        texte: 'The use of poisons and other drugs is the province of dishonourable warriors. Dragon Monks and Warrior Monks refuse to use any kind of poison or venom.',
+      },
+      {
+        nom: 'Outsiders',
+        texte: "Foreigners are generally considered unwelcome by Cathay's border guards. The Battle Monks warband may never hire any Hired Sword or Dramatis Personae, unless specifically stated otherwise on the Hired Sword/Dramatis Personae's own profile.",
+      },
+      {
+        nom: "Battle Monks' Special Skills",
+        texte: 'Battle Monks of Cathay may choose to use the special skill list below (see the warband\'s special skills) instead of the standard skill lists, for any Hero with access to the Special category. Note that the Emissary may only choose the Warmonger skill from this alternate list.',
+      },
+    ],
+    profils: {
+      emissaire: {
+        nom: 'Emissary',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior within 6" of the Emissary may use his Leadership for their tests.' },
+          { nom: 'Rider', texte: 'The Emissary is trained to ride horses.' },
+          {
+            nom: 'Decree',
+            texte: 'When the Emissary dies, a new one must be hired as soon as possible. Until then, no other warrior or equipment may be bought. The new Emissary then takes command of the warband.',
+          },
+          {
+            nom: 'Special Skills',
+            texte: 'May choose the Battle Monks special skill list instead of the standard list, but only the Warmonger skill in that case (see warband special rule).',
+          },
+        ],
+      },
+      officier: { nom: 'Officer', regles_speciales: [] },
+      moine_dragon: {
+        nom: 'Dragon Monk',
+        regles_speciales: [
+          { nom: 'Unarmed Combat', texte: 'The Dragon Monk suffers no penalty for fighting unarmed and gains +1 Attack when doing so.' },
+          {
+            nom: 'Art of Silent Death',
+            texte: 'In hand-to-hand combat, when fighting unarmed, the Dragon Monk causes a critical hit on a to-wound roll of 5-6 instead of 6 only. If armed with a quarter staff, only his unarmed attacks benefit from this bonus.',
+          },
+        ],
+      },
+      soldat: { nom: 'Soldier', regles_speciales: [] },
+      moine_guerrier: {
+        nom: 'Warrior Monk',
+        regles_speciales: [
+          { nom: 'Unarmed Combat', texte: 'The Warrior Monk suffers no penalty for fighting unarmed and gains +1 Attack when doing so.' },
+        ],
+      },
+      paysan_en_furie: {
+        nom: 'Raging Peasant',
+        regles_speciales: [
+          { nom: 'Equipment', texte: 'Equipped with a pitchfork, a torch, or some other simple tool. Fights unarmed with no penalty, but cannot buy any weapon or armour.' },
+          { nom: 'Simple Folk', texte: 'Peasants never gain Experience.' },
+          { nom: 'Mob', texte: 'A Peasant gains +1 Ld for each other allied Peasant within 3". Due to their rage, they do not benefit from the Leader rule.' },
+          { nom: 'Ignored', texte: 'Peasants taken out of action do not count towards the number of out-of-action models for Rout tests.' },
+          { nom: 'Downtrodden', texte: 'When a Peasant is Wounded, do not roll on the Serious Injury table: he is immediately taken out of action.' },
+        ],
+      },
+    },
+    competences_speciales: {
+      energie_focalisee: {
+        nom: 'Focused Energy',
+        texte: 'If fighting unarmed, the Hero may choose to reduce his Attacks by -1 to gain +1 Strength in hand-to-hand combat. The monk may sacrifice any number of Attacks this way.',
+      },
+      vitesse_foudroyante: {
+        nom: 'Lightning Speed',
+        texte: 'The monk may triple his Movement while running or charging, and may run even with enemy models within 8".',
+      },
+      saut_de_la_foi: {
+        nom: 'Leap of Faith',
+        texte:
+          'The Hero cannot be intercepted while charging. He may escape from hand-to-hand combat (as described on p.161 of the Mordheim rulebook) by leaping out of combat without needing a Leadership test, and may declare a leaping charge in the same turn.',
+      },
+      bouclier_humain: {
+        nom: 'Human Shield',
+        texte:
+          'If two or more enemy models are engaged in hand-to-hand combat with the monk, he may choose to use one of them as a shield instead of making his normal attacks. To do so, he must pass an Initiative test after the first model has attacked but before the second attacks. On a success, the monk grabs the first model — the second model directs its full attacks against it. After the combat phase the grabbed model breaks free and the battle continues as usual. On a failure, the monk and the second model make their attacks normally.',
+      },
+      guerre_acharnee: {
+        nom: 'Warmonger',
+        texte: 'The Emissary may make a Leadership test before the battle. On a success, D3+1 Raging Peasants join the warband for the next game (this may exceed the maximum warband size). Each Raging Peasant recruited this way is subject to Hatred for the duration of the battle.',
+      },
+    },
+  },
+  cour_des_plaisirs_profanes: {
+    nom: 'Court of the Profane Pleasures (1c)',
+    regles_speciales: [
+      {
+        nom: 'Corruption of the Mind and Flesh',
+        texte:
+          "Whenever a model dies — an enemy Hero or Henchman, or even one of the warband's own — the warband may choose to perform an obscene ritual grafting a part of the fallen warrior's body (arm, leg, head, strips of muscle...) onto one of its Slaaneshi Beastmen, Cultists, or Chaos Hounds. Choose one characteristic of the fallen warrior and replace the corresponding characteristic of the receiving creature with that value. Players are encouraged to convert the receiving model to represent the creature corrupted by its new body parts. This ritual costs 1 wyrdstone, and prevents 1 Hero from searching for rare items at the market while it is performed.",
+      },
+      {
+        nom: 'Mutations',
+        texte:
+          'Any Hero may buy, only at the time of his recruitment, one of the following mutations (see the Cult of the Possessed Mutation rules): Extra Arm, Tentacle, or Claw (Great Claw) — see Special Equipment. First mutation at normal price, any subsequent mutation on the same model costs double.',
+      },
+      {
+        nom: 'Composition',
+        texte: 'The warband must include at least one Hero acting as Leader; freely choose which of your Heroes benefits from the Leader rules. Each Hero type may only be hired once (0-1 each). The maximum number of warriors is 15, though some items (such as the Halfling Cookbook) may increase it.',
+      },
+    ],
+    profils: {
+      maitre_fouetteur: {
+        nom: 'Whipmaster',
+        regles_speciales: [
+          {
+            nom: 'Agony and Ecstasy',
+            texte:
+              "The Whipmaster, if armed with a Hedonist Whip, may decide to use one of his attacks to scourge a friendly model within 3\". This attack automatically hits and gets +1 on its roll to wound; resolve injuries normally. As a reward for such a pious act of devotion, Slaanesh grants the Whipmaster a surge of ecstasy that makes him nearly invulnerable: his Toughness is doubled. At the start of each new Slaaneshi turn, he must pass a Leadership test; on a failure, the effect ends immediately (it can be reactivated later).",
+          },
+          {
+            nom: 'Pain and Pleasure',
+            texte: 'Whenever the Whipmaster suffers an unsaved wound, he is subject to Frenzy until the end of his next turn — this Frenzy is not negated by being Knocked Down or Stunned.',
+          },
+        ],
+      },
+      danseuse: {
+        nom: 'Slaaneshi Danseuse',
+        regles_speciales: [
+          {
+            nom: 'Strange Allure',
+            texte: 'An enemy wishing to attack the Danseuse in hand-to-hand combat or at range must pass a Leadership test before making his attacks. On a failure, he must re-roll any successful hit against her.',
+          },
+          { nom: 'Equipment', texte: 'The Danseuse may never wear armour.' },
+        ],
+      },
+      marchand_de_chair: {
+        nom: 'Flesh Merchant',
+        regles_speciales: [
+          {
+            nom: 'Pound of Flesh',
+            texte:
+              'Before the battle, you may assign one of the Wretches to the Flesh Merchant, who carries it as a "meat shield" as part of his equipment. Whenever the Flesh Merchant should suffer a wound, you may choose to let the Wretch take the hit instead: it is then immediately taken out of action and removed from the game. The carried Wretch may still make its normal attacks in hand-to-hand combat while alive; it has no base of its own and cannot be targeted by enemy attacks. If the Flesh Merchant dies, the Wretch is lost with him.',
+          },
+          {
+            nom: 'Cruel Fate',
+            texte: 'Any captives the warband gains through combat results or exploration can be turned into Wretches at no cost, through lobotomy, torture and other acts of depravity.',
+          },
+        ],
+      },
+      pretre_de_l_obscene: {
+        nom: 'Priest of Obscene',
+        regles_speciales: [
+          {
+            nom: 'Flesh Reserve',
+            texte:
+              'Before the battle, you may assign one of the Wretches to the Priest, who carries it as a "sacrificial pawn" as part of his equipment. When the Priest fails to cast a spell, he may sacrifice the Wretch to re-roll the casting roll. The carried Wretch may still make its normal attacks in hand-to-hand combat while alive; it has no base of its own and cannot be targeted by enemy attacks. If the Priest dies, the Wretch is lost with him.',
+          },
+          { nom: 'Wizard', texte: 'The Priest of Obscene is a Wizard and uses the Rituals of Chaos (see magic).' },
+        ],
+      },
+      devot: {
+        nom: 'Devout',
+        regles_speciales: [
+          {
+            nom: 'Fluctuating Form',
+            texte:
+              'At the start of the battle, and at each Recovery phase while not engaged in hand-to-hand combat, choose the aspect the Devout manifests for the turn: male aspect (+1 WS, +1 S, +1 A and +1 T) or female aspect (+1 BS, +2 I, +2 Ld and +2 M).',
+          },
+          { nom: 'Immune to Psychology', texte: 'The Devout is immune to Psychology and All Alone tests.' },
+        ],
+      },
+      molosse_de_slaanesh: {
+        nom: 'Slaaneshi Chaos Hound',
+        regles_speciales: [
+          { nom: 'Animal', texte: 'Slaaneshi Chaos Hounds are animals and never gain experience.' },
+          { nom: 'Equipment', texte: 'None. Slaaneshi Chaos Hounds may not use any equipment, weapons, or armour.' },
+        ],
+      },
+      bete_slaaneshi: { nom: 'Slaaneshi Beastman', regles_speciales: [] },
+      souffre_douleur: {
+        nom: 'Slaaneshi Wretch',
+        regles_speciales: [
+          { nom: 'Slaves to Darkness', texte: 'Wretches are immune to all Psychology and All Alone tests while within 6" of a friendly Hero.' },
+          {
+            nom: 'No Future',
+            texte:
+              "Wretches cannot become Heroes the normal way: if a \"The Lad's Got Talent\" result is rolled for a Wretch, re-roll it; if this second roll gives \"The Lad's Got Talent\" again, the model instead suffers an immediate roll on the Serious Injury table, as if it were a Hero.",
+          },
+        ],
+      },
+      cultiste: { nom: 'Cultist', regles_speciales: [] },
+    },
+    magie: {
+      nom: 'Rituals of Chaos',
+      sorts: [
+        {
+          nom: 'Vision of Horror',
+          texte:
+            'Range 6", cast on the nearest enemy (a model in base contact if the sorcerer is engaged in hand-to-hand combat). The victim is immediately Stunned; if it cannot be Stunned, it is Knocked Down instead.',
+        },
+        {
+          nom: 'Divine Eye',
+          texte:
+            'Usable once per battle. Choose any model within 6", friend or foe, and roll 1D6: 1 = the model is immediately taken Out of Action (no roll on the Serious Injury table); 2-5 = +1 to a characteristic of the caster\'s choice for the battle; 6 = +1 to all characteristics for the duration of the battle.',
+        },
+        {
+          nom: 'Black Blood',
+          texte:
+            "Range 8\", causes D3 Strength 5 hits on the first model in its path. The sorcerer must then roll on the Injury table for his own Wound (an Out of Action result is treated as Stunned).",
+        },
+        {
+          nom: 'Temptation of Chaos',
+          texte:
+            "Range 12\", cast on the nearest enemy model. Compare 1D6+Ld of the sorcerer to 1D6+Ld of the target; if the sorcerer wins, he takes control of his victim until it passes a Leadership test during the opponent's Recovery phase. The controlled model cannot commit suicide but may attack its own side, and will not fight the sorcerer's warband.",
+        },
+        {
+          nom: 'Dark Wings',
+          texte:
+            'The sorcerer may immediately move anywhere within 12", even into contact with the enemy (counts as having charged). If he engages a fleeing enemy, he inflicts an automatic hit during the hand-to-hand combat phase, and the opponent then flees again if it survives.',
+        },
+        {
+          nom: 'Word of Suffering',
+          texte: 'All models within 3" of the sorcerer, friend or foe, suffer a Strength 3 hit with no armour save.',
+        },
+      ],
+    },
+  },
+  cavalcade_maudite: {
+    nom: 'The Cursed Cavalcade (1c)',
+    regles_speciales: [
+      {
+        nom: 'Absurd Nobility',
+        texte:
+          "Even though every non-animal member of the warband is Human, the corrupt and perverted power of the Dark Gods has bent the morale and psyche of these men beyond any imaginable level, even for the most tolerant of mercenaries. For this reason, the Cursed Cavalcade is treated as an Evil warband for all game effects (for example, the 333 - Prisoners result on the Exploration chart). It cannot hire any Hired Sword or Dramatis Personae, other than the Crow Master and anyone who specifically allows it.",
+      },
+      {
+        nom: 'Captured!',
+        texte:
+          "If a Hero takes an enemy human Henchman model Out of Action with a Misericordia, and the warband has fewer than 5 Captured Thralls, roll a die: on a 5+ the model is captured. Enemy Heroes can only be captured as a result of a '61 - Captured!' result on the Serious Injuries table. It is not possible to capture more than 2 models per game. If the warband has already captured 2 Henchmen this game, or already has 5 Captured Thralls, re-roll any '61 - Captured!' result rolled against an enemy Hero.",
+      },
+      {
+        nom: 'The Throne of Worms',
+        texte:
+          "For each enemy captured (see Captured! above), instead of rolling on the Serious Injury table after the battle, roll 1D6: 1 — the warrior is swallowed up forever by the Throne of Worms; remove him permanently from his original warband's roster. 2-5 — the warrior completely loses his mind and is submitted to the power of the Throne; remove him from his original warband's roster, and the Cursed Cavalcade gains a Captured Thrall. 6 — the warrior is sacrificed in a ritual to the Throne; remove him from his original warband's roster and a random Hero in the Cursed Cavalcade gains 1 XP. This result entirely replaces any other way a captured model is treated, including the '61 - Captured!' result on the Heroes' Serious Injury table.",
+      },
+      {
+        nom: 'Warband Size Extended by Captured Thralls',
+        texte: 'Captured Thralls (see their dedicated Henchman profile) do not count towards the warband\'s normal size limit (13 to start), effectively raising the capacity up to 18. A Captured Thrall can never be dismissed from the warband.',
+      },
+      {
+        nom: 'Cursed Masks',
+        texte:
+          'At warband creation, each recruited Hero may receive a Cursed Mask for free (see Special Equipment). Each type of mask is unique: the warband may never own two of the same mask at once. Once worn, a mask cannot be removed. After warband creation, any Hero without one may buy a mask at the indicated price during the post-battle sequence.',
+      },
+      {
+        nom: "Cavalcade's Special Skills",
+        texte: "The Cursed Cavalcade's Heroes may choose their Special skills from the warband's own list (Noblesse Oblige, Torturer, Duelist — see special skills) instead of the standard Special skill tables.",
+      },
+      {
+        nom: 'Noble House Banner',
+        texte: 'The Cursed Cavalcade uses the Noble House Banner instead of the standard banner (see Special Equipment); as with any banner, the warband may only own one at a time.',
+      },
+    ],
+    profils: {
+      aristocrate: {
+        nom: 'Aristocrat',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior of the Cursed Cavalcade within 6" of the Aristocrat may use his Leadership for their tests.' },
+          { nom: 'Expert Horseman', texte: 'The Aristocrat gets the Ride (Nightmare) skill for free, without needing to choose it on an advance.' },
+        ],
+      },
+      compagnon: {
+        nom: 'Companion',
+        regles_speciales: [
+          { nom: 'Expert Swordsman', texte: 'As Imperial nobles, Companions have been taught the way of the sword from an early age. All Companions get the Expert Swordsman skill for free.' },
+        ],
+      },
+      erudit_devoye: {
+        nom: 'Twisted Scholar',
+        regles_speciales: [
+          {
+            nom: 'Magical Adept (implementation simplification)',
+            texte:
+              "In the original rules, access to Lesser Magic is optional: at recruitment, for an extra 10 gc, the Twisted Scholar becomes a Wizard using Lesser Magic (knowing 1 randomly-rolled spell); alternatively, for 10 gc, he can become a Chronicler instead (re-rolls an Exploration die and picks which of the two to keep, without becoming a Wizard). As a modelling simplification in this app (which has no mechanism for an optional pay-to-toggle profile trait), the Twisted Scholar is always defined here as a Wizard using Lesser Magic from recruitment, at no extra cost — adjust manually if you want to faithfully apply the original paid, optional rule with the Chronicler alternative.",
+          },
+        ],
+      },
+      flutiste_maudit: {
+        nom: 'Cursed Piper',
+        regles_speciales: [
+          {
+            nom: 'Restricted Equipment',
+            texte: 'The Cursed Piper must hold a flute or other instrument in one hand at all times. He may therefore never use an off-hand weapon, a double-handed weapon, a brace of pistols, a bow, or a crossbow.',
+          },
+          {
+            nom: 'Danse Macabre',
+            texte:
+              "During the Shooting phase, the Cursed Piper may direct the cursed melody of his flute against one visible enemy model within 6\". The targeted model must pass a Leadership test or fall under the sway of the Danse Macabre: the Piper may then move it in any direction (including out of hand-to-hand combat or off a height). A warrior under this effect while engaged in hand-to-hand combat cannot attack (too busy dancing!). Only one enemy at a time can be controlled by the Danse Macabre; if the Piper targets another warrior, the previous one is immediately freed. At the start of the following enemy turn, in the Recovery phase, the controlled warrior must pass another Leadership test or remain under the effect (unable to attack or shoot) for that turn.",
+          },
+        ],
+      },
+      thrall: {
+        nom: 'Thrall',
+        regles_speciales: [
+          { nom: 'Bought in Groups', texte: 'Thralls are bought in groups of 1 to 5; the warband may own an unlimited number of them.' },
+        ],
+      },
+      thrall_capture: {
+        nom: 'Captured Thrall',
+        regles_speciales: [
+          {
+            nom: 'Not Available for Purchase',
+            texte: 'A Captured Thrall is never bought directly at recruitment: it only joins the warband through the Captured!/Throne of Worms special rule (see warband special rules), up to a maximum of 5.',
+          },
+          {
+            nom: 'Extra Servitors, Worthless but Precious',
+            texte: "Captured Thralls do not count towards the warband's maximum size, raising the effective capacity from 13 to 18.",
+          },
+          { nom: 'Not Exactly Clever', texte: 'Captured Thralls can never gain Experience points or benefit from advances. They can never be dismissed from the warband.' },
+        ],
+      },
+      grand_ours: {
+        nom: 'Great Bear',
+        regles_speciales: [
+          { nom: 'Maddened With Pain', texte: 'As soon as the Great Bear suffers its first wound, it gains an additional Attack for the rest of the battle.' },
+          { nom: 'Large Target', texte: 'The Great Bear is a Large Target for Shooting purposes.' },
+          { nom: 'Animal', texte: 'The Great Bear does not fight like a normal warband member and never gains Experience.' },
+        ],
+      },
+      bete_sauvage: {
+        nom: 'Wild Beast',
+        regles_speciales: [
+          { nom: 'Charge', texte: 'When charging an enemy, the Wild Beast gains +1 Attack for the first turn of hand-to-hand combat (base 2 Attacks, raised to 3 on the charging turn).' },
+          { nom: 'Animal', texte: 'The Wild Beast never gains Experience. It can represent a wild cat, a boar, or any other exotic animal trained for combat.' },
+        ],
+      },
+      singe_de_combat: {
+        nom: 'Fighting Ape',
+        regles_speciales: [
+          {
+            nom: 'Agile',
+            texte: 'The Fighting Ape gets the Scale Sheer Surfaces, Acrobat, and Dodge skills for free. It may also make a diving charge from a height of up to 10" instead of the normal maximum.',
+          },
+          { nom: 'Animal', texte: 'The Fighting Ape never gains Experience, but can still climb and enter buildings normally.' },
+        ],
+      },
+    },
+    competences_speciales: {
+      noblesse_oblige: {
+        nom: 'Noblesse Oblige',
+        texte:
+          'The warrior feels utterly superior to his opponents: his long lineage and prestige let him look down on his common enemies, whom he sees as nothing more than cattle to be slaughtered. The warrior is immune to Fear and can stomp knocked-down opponents underfoot, granting him an additional Attack against Knocked Down opponents, resolved at his own Strength.',
+      },
+      tortionnaire: {
+        nom: 'Torturer',
+        texte:
+          'Having learned the art of torture during the Ritual of the Comet, the warrior knows how to inflict maximum pain and does so in a sadistic, cruel way in combat. Any model successfully Wounded (with no save) in hand-to-hand combat by this Hero permanently loses 1 point of Strength for the duration of the battle, the pain causing lasting agony. The effect is cumulative and can reduce the target\'s Strength to a minimum of 1. The Undead are immune to this effect.',
+      },
+      duelliste: {
+        nom: 'Duelist',
+        texte:
+          "The warrior masters the Imperial art of duelling, prized by aristocrats renowned for their skill in single combat. At the end of each Hand-to-Hand Combat phase, the Duelist may force any non-Large opponent he is fighting one-on-one to pass a Strength test or be pushed 2\" in a direction of his choice. If this brings the target into contact with another model, both suffer an automatic Strength 2 hit. If this pushes the opponent off a height, he falls and takes damage as normal; the Duelist himself stays on the elevated area.",
+      },
+    },
+  },
 };
 
 function translateRegles(regles: SpecialRule[], en: RegleTraduite[] | undefined): SpecialRule[] {
