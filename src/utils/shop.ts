@@ -237,12 +237,16 @@ type SpecMateriau = { categorieBase: string; basesAutorisees?: string[] } & (
   | { mode: 'addition'; montant: number }
 );
 
+// Contrairement aux armes en matériau spécial (n'importe quelle arme de
+// corps à corps de base peut être améliorée, donc un vrai choix de base a du
+// sens), les armures en gromril/ithilmar sont TOUJOURS des armures lourdes
+// en pratique — pas un choix parmi les types d'armure. Elles s'achètent donc
+// comme des objets rares autonomes à prix fixe (voir items/armures.json),
+// pas via ce picker matériau+base.
 export const MATERIAUX: Record<string, SpecMateriau> = {
   arme_en_gromril: { mode: 'multiplicateur', multiplicateur: 4, categorieBase: 'armes_cac' },
   arme_en_ithilmar: { mode: 'multiplicateur', multiplicateur: 3, categorieBase: 'armes_cac' },
   arme_en_obsidienne_market: { mode: 'multiplicateur', multiplicateur: 4, categorieBase: 'armes_cac' },
-  armure_en_gromril_market: { mode: 'multiplicateur', multiplicateur: 4, categorieBase: 'armures' },
-  armure_en_ithilmar_market: { mode: 'multiplicateur', multiplicateur: 3, categorieBase: 'armures' },
   lame_elfe_noire: { mode: 'addition', montant: 20, categorieBase: 'armes_cac', basesAutorisees: ['epee', 'dague'] },
 };
 
