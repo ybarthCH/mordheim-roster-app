@@ -5503,6 +5503,474 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       ],
     },
   },
+  gardiens_des_tombes: {
+    nom: 'Tomb Guardians (1b)',
+    regles_speciales: [
+      {
+        nom: 'Home Ground',
+        texte:
+          'Tomb Guardians live in the Necropolises and have no trouble locating hidden tombs in search of weapons and armour to defend their home. A Tomb Guardians warband always rolls an extra die during the Exploration phase.',
+      },
+      {
+        nom: "Doesn't Drink",
+        texte:
+          "The Undead need neither food nor water. Any living animal accompanying the Mummies (such as the Tomb Scorpion) follows the normal water rules as usual, unless stated otherwise on its own profile.",
+      },
+      {
+        nom: 'New Skill: Drive Chariot (Academic)',
+        texte:
+          "Chariots are very difficult to handle. A warrior with access to Academic skills (the Liche Priest or an Acolyte) can learn this skill, essential to pilot the Skeleton Chariot effectively in battle: without it, the driver cannot charge with the chariot.",
+      },
+    ],
+    profils: {
+      roi_des_tombes: {
+        nom: 'Tomb Lord',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'The Tomb Lord is the warband Leader and follows all rules that apply to Leaders.' },
+          { nom: 'Undead', texte: 'The Tomb Lord is Undead and follows all rules that apply to the Undead.' },
+          { nom: 'Causes Fear', texte: 'A terrifying undead monster that causes Fear.' },
+          { nom: 'Immune to Psychology', texte: 'Unaffected by psychology and never flees combat.' },
+          { nom: 'Not Affected by Pain', texte: 'A Stunned result on the injury chart is treated as Knocked Down.' },
+          { nom: "Can't Run", texte: 'A slow undead creature; cannot run but can charge normally.' },
+          { nom: 'Immune to Poison', texte: 'Unaffected by poisons.' },
+          {
+            nom: 'Flammable',
+            texte:
+              'The Tomb Lord is as dry as tinder and wrapped in bandages soaked in highly flammable resins and preservatives. A hit from a fire-based attack inflicts double the normal number of Wounds.',
+          },
+        ],
+      },
+      pretre_liche: {
+        nom: 'Liche Priest',
+        regles_speciales: [
+          {
+            nom: 'Wizard (spell list missing)',
+            texte:
+              'The Liche Priest is meant to cast spells using scrolls of his own, but this list is not detailed in the available source document (Town Cryer #18, "Khemri: The Land of the Dead" extract). This ability is therefore not yet enabled in the app — it can be once a complete spell list is provided.',
+          },
+          { nom: 'Equipment', texte: 'Cannot wear armour, as it interferes with spellcasting.' },
+          { nom: 'Undead', texte: 'The Liche Priest is Undead and follows all rules that apply to the Undead.' },
+          { nom: 'Causes Fear', texte: 'A terrifying undead monster that causes Fear.' },
+          { nom: 'Immune to Psychology', texte: 'Unaffected by psychology and never flees combat.' },
+          { nom: 'Not Affected by Pain', texte: 'A Stunned result on the injury chart is treated as Knocked Down.' },
+          { nom: "Can't Run", texte: 'A slow undead creature; cannot run but can charge normally.' },
+          { nom: 'Immune to Poison', texte: 'Unaffected by poisons.' },
+        ],
+      },
+      acolyte: {
+        nom: 'Acolyte',
+        regles_speciales: [
+          { nom: 'Undead', texte: 'The Acolyte is Undead and follows all rules that apply to the Undead.' },
+          { nom: 'Causes Fear', texte: 'A terrifying undead monster that causes Fear.' },
+          { nom: 'Immune to Psychology', texte: 'Unaffected by psychology and never flees combat.' },
+          { nom: 'Not Affected by Pain', texte: 'A Stunned result on the injury chart is treated as Knocked Down.' },
+          { nom: "Can't Run", texte: 'A slow undead creature; cannot run but can charge normally.' },
+          { nom: 'Immune to Poison', texte: 'Unaffected by poisons.' },
+        ],
+      },
+      squelette: {
+        nom: 'Skeleton Warrior',
+        regles_speciales: [
+          { nom: 'Undead', texte: 'The Skeleton is Undead and follows all rules that apply to the Undead.' },
+          { nom: 'Causes Fear', texte: 'A terrifying undead monster that causes Fear.' },
+          { nom: 'Immune to Psychology', texte: 'Unaffected by psychology and never flees combat.' },
+          { nom: 'Not Affected by Pain', texte: 'A Stunned result on the injury chart is treated as Knocked Down.' },
+          { nom: "Can't Run", texte: 'A slow undead creature; cannot run but can charge normally.' },
+          { nom: 'Immune to Poison', texte: 'Unaffected by poisons.' },
+          { nom: 'No Brain', texte: 'Skeletons are not alive; they therefore never gain experience.' },
+        ],
+      },
+      gardien_des_tombes: {
+        nom: 'Tomb Guard',
+        regles_speciales: [
+          { nom: 'Undead', texte: 'The Tomb Guard is Undead and follows all rules that apply to the Undead.' },
+          { nom: 'Causes Fear', texte: 'A terrifying undead monster that causes Fear.' },
+          { nom: 'Immune to Psychology', texte: 'Unaffected by psychology and never flees combat.' },
+          { nom: 'Not Affected by Pain', texte: 'A Stunned result on the injury chart is treated as Knocked Down.' },
+          { nom: "Can't Run", texte: 'A slow undead creature; cannot run but can charge normally.' },
+          { nom: 'Immune to Poison', texte: 'Unaffected by poisons.' },
+          { nom: 'No Brain', texte: 'Skeletons are not alive; they therefore never gain experience.' },
+        ],
+      },
+      scorpion_des_tombeaux: {
+        nom: 'Tomb Scorpion',
+        regles_speciales: [
+          {
+            nom: 'Alive',
+            texte:
+              'Scorpions are living creatures and are therefore affected by Psychology as normal. However, they are small desert creatures and need no water.',
+          },
+          { nom: 'Animal', texte: 'Scorpions are animals and therefore never gain experience.' },
+          {
+            nom: 'Scorpion Sting',
+            texte:
+              'Scorpions attack using the venomous stinger on their tail. The effects are similar to those of black lotus (if you roll a 6 to hit, the target is automatically Wounded).',
+          },
+          { nom: 'Equipment', texte: 'Scorpions carry no weapons or armour.' },
+        ],
+      },
+    },
+  },
+  pilleurs_de_tombes_arabes: {
+    nom: 'Arabian Tomb Raiders (1b)',
+    regles_speciales: [
+      {
+        nom: 'Hatred of the Undead',
+        texte:
+          "The people of Araby have suffered greatly from the attacks (and claws) of the armies of the Tomb King of the Lands of the Dead. For this reason, Arabian Heroes hate all Undead.",
+        exception: 'Only applies to Heroes (Sheikh, Champion and Mystic); Henchmen are not subject to it.',
+      },
+    ],
+    profils: {
+      cheikh: {
+        nom: 'Sheikh',
+        regles_speciales: [
+          {
+            nom: 'Recruitment',
+            texte: 'Every Arabian Tomb Raiders warband must include a Sheikh: no more, no less! He is the undisputed leader of the warband.',
+          },
+        ],
+      },
+      champion: { nom: 'Champion' },
+      mystique: {
+        nom: 'Mystic',
+        regles_speciales: [
+          {
+            nom: 'Wizard',
+            texte: 'The Mystic is a Wizard. He casts spells from the Arabian Elemental Magic list. He starts with a single spell drawn randomly from this list.',
+          },
+        ],
+      },
+      bedouin: {
+        nom: 'Bedouin',
+        regles_speciales: [
+          {
+            nom: 'Desert Trader',
+            texte: 'Add +1 to the Equipment/Trading search roll. Note that this bonus remains +1 even if the warband has two Bedouins (non-cumulative).',
+          },
+        ],
+      },
+      guerrier_nomade: { nom: 'Nomad Warrior' },
+      esclave: {
+        nom: 'Slave',
+        regles_speciales: [
+          {
+            nom: 'A Life of Slavery',
+            texte:
+              'A Slave can gain experience, but if he rolls "Lad\'s Got Talent" on the Advance table, the leader executes him at once and he is removed from the warband roster. The rest of the group may then re-roll its advance.',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      ver_des_sables: {
+        nom: 'Sand Worm',
+        texte: 'The warrior can bury himself in the sand and become nearly undetectable. The model can hide in open ground. Cannot be used indoors.',
+      },
+      frappe_et_fuite: {
+        nom: 'Hit and Run',
+        texte: 'The warrior may run and shoot, but suffers a -2 penalty to hit instead of the usual -1 for having moved.',
+      },
+      resistant_aux_intemperies: {
+        nom: 'Weather-Hardened',
+        texte: "The warrior has grown so used to the climate that it no longer affects him at all. Weather conditions such as heat and the like have no effect on this model.",
+      },
+    },
+    magie: {
+      nom: 'Arabian Elemental Magic',
+      type: 'spells',
+      note: 'Djinn magic is a rare art, almost lost among men. It is the preserve of the deep desert Djinn and of the unlucky few who have been captured.',
+      sorts: [
+        {
+          nom: 'Ride the Wind',
+          texte:
+            "This spell is cast at the start of the caster's Movement phase. The caster may move up to 12+D6\" anywhere on the table, ignoring any terrain in between; this movement counts as his move for the turn. This spell cannot be used to bring the caster into base contact with an enemy, but he may then shoot normally (with the usual -1 for having moved).",
+        },
+        {
+          nom: 'Skin of Stone',
+          texte:
+            "This spell can be cast on any friendly warrior within 6\". The target gains +2 to his armour save but suffers a -1 penalty to Initiative. The spell can be maintained each turn as long as the affected warrior stays within 6\" of the caster and the caster passes a Difficulty test. If the caster is more than 6\" from the affected warrior during the Recovery phase, the spell cannot be maintained and dissipates at once. Only one warrior can be affected by Skin of Stone at a time, though the caster remains free to cast other spells while maintaining it.",
+        },
+        {
+          nom: 'Burning Hand',
+          texte:
+            'This spell is cast at the start of the Combat phase. The caster may sacrifice all of his normal attacks to make a single close combat attack at Strength 5 causing 2 Wounds. If the enemy warrior is successfully hit, he catches fire on a roll of 4+. This spell lasts only one round.',
+        },
+        {
+          nom: 'Quicksand',
+          texte:
+            "This spell targets any warrior within 6\". Water floods a 3\" area around the targeted warrior. The effect lasts until the start of the caster's next Recovery phase. All warriors caught in the quicksand must pass a Strength test or be unable to move. Warriors engaged in close combat cannot attack but may defend themselves.",
+        },
+        {
+          nom: 'Magic Storm',
+          texte:
+            "The caster may target any warrior within 12\". If the spell is cast successfully, the target is struck by a bolt of pure energy and suffers a Strength 5 hit. Armour saves apply as normal.",
+        },
+        {
+          nom: 'Blessing of the Elements',
+          texte:
+            'During the post-battle sequence, the player may re-roll any one die of his choice or modify a die by +1/-1. If the caster was taken Out of Action during the game, this spell cannot be used.',
+        },
+      ],
+    },
+  },
+  ostermarkers: {
+    nom: 'Ostermark Mercenaries (1b)',
+    regles_speciales: [
+      {
+        nom: 'Against All Odds',
+        texte:
+          'Ostermarkers (Heroes and Henchmen) may re-roll a failed Leadership test if they are All Alone or in a Rout test. The warband or fighter must, however, accept the second roll, whatever the result.',
+      },
+      {
+        nom: 'Free War Dog',
+        texte:
+          "These mercenaries often use dogs to guard their farms and raise the alarm in case of intrusion. Any Captain of an Ostermarkers warband may start with a war dog as part of his starting equipment, in tribute to the beast that once protected his farm and lands from bandits and other vile creatures. This war dog is free at warband creation.",
+      },
+      {
+        nom: 'Skill Choice',
+        texte:
+          'When the warband is created, you must choose one of the following three skill sets for your Ostermark Mercenaries. Once chosen, it can never be changed.\n\nOption 1: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Shooting, Strength; Recruit — Combat, Shooting, Speed.\nOption 2: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Strength, Speed; Recruit — Combat, Strength, Speed.\nOption 3: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Shooting; Recruit — Combat, Shooting, Speed.',
+      },
+    ],
+    profils: {
+      capitaine_mercenaire: {
+        nom: 'Mercenary Captain',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warband member within 6" of the Mercenary Captain may use his Leadership for their tests.' },
+        ],
+      },
+      champion: { nom: 'Champion' },
+      recrue: { nom: 'Recruit' },
+      guerrier: { nom: 'Warrior' },
+      tireur: { nom: 'Marksman' },
+      bretteur: {
+        nom: 'Swashbuckler',
+        regles_speciales: [
+          {
+            nom: 'Sword Expert',
+            texte:
+              'Swashbucklers are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. Note that this applies when they carry normal swords, not two-handed swords or other weapons.',
+          },
+        ],
+      },
+      chien_de_guerre: {
+        nom: 'War Dog',
+        regles_speciales: [
+          {
+            nom: "Captain's First Dog Free",
+            texte: "The Mercenary Captain may start with a war dog as part of his starting equipment, free of charge, at warband creation (see warband special rules).",
+          },
+          {
+            nom: 'War Beast',
+            texte: 'Fights exactly like a warband member, though it is counted as part of the equipment of the Hero who bought it. A model is needed to represent it on the battlefield.',
+          },
+          { nom: 'Never Gains Experience', texte: 'A war dog remains at the same level throughout its career.' },
+          { nom: 'Recovery', texte: 'If taken Out of Action: 1-2 Dead, 3-6 Alive (as a Henchman).' },
+          { nom: 'Versatile Profile', texte: 'Usable to represent more exotic animals (trained bear, Chaos familiar, Southlands fighting monkey...).' },
+        ],
+      },
+    },
+  },
+  mootlanders: {
+    nom: 'Mootlanders (1b)',
+    regles_speciales: [
+      {
+        nom: 'Puny',
+        texte:
+          'Halflings are very weak and puny; even the lightest blows are enough to knock them out. When rolling an Injury for a Halfling, a result of 2 is treated as "Stunned".',
+      },
+    ],
+    profils: {
+      moot_elder: {
+        nom: 'Moot Elder',
+        regles_speciales: [
+          { nom: 'Leader', texte: "Any warrior within 6\" of the Moot Elder may use his Leadership for their Leadership tests." },
+          {
+            nom: 'Family Pistol',
+            texte: 'The Moot Elder may be equipped with a pistol for 15gc (see special equipment), usually an ancient heirloom weapon passed down through his family.',
+          },
+        ],
+      },
+      master_chef: {
+        nom: 'Master Chef',
+        regles_speciales: [
+          {
+            nom: 'Inspired Cooking',
+            texte: "Any Halfling within 6\" of a Master Chef may re-roll one failed to-hit roll in close combat (once per turn).",
+          },
+          {
+            nom: 'Equipment',
+            texte:
+              "The Master Chef may only be equipped from the Master Chef's utensil list (close combat weapons) and the Halfling armour list — not the general close combat or missile weapon lists.",
+          },
+        ],
+      },
+      halfling_thief: {
+        nom: 'Halfling Thief',
+        regles_speciales: [
+          {
+            nom: 'Sneaky',
+            texte: "Halfling Thieves can hide in the smallest shadow or nook. Shots aimed at a Halfling Thief always suffer a -1 penalty to hit, in addition to any other modifier.",
+          },
+        ],
+      },
+      halfling_warrior: {
+        nom: 'Halfling Warrior',
+        regles_speciales: [{ nom: 'Recruitment', texte: 'As many as you like. Bought in groups of 1 to 5.' }],
+      },
+      halfling_scout: {
+        nom: 'Halfling Scout',
+        regles_speciales: [
+          {
+            nom: 'Keen Eyes',
+            texte: 'Halfling Scouts spot hidden enemies up to a distance (in inches) equal to twice their Initiative.',
+          },
+          { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
+        ],
+      },
+    },
+  },
+  fils_dhashut: {
+    nom: 'Sons of Hashut (1c)',
+    regles_speciales: [
+      {
+        nom: 'Hard Head',
+        texte: "Chaos Dwarfs ignore the special rules for maces, hammers, etc. They are not easy to knock silly!",
+        exception: 'Does not apply to Hobgoblins or the Bull Centaur.',
+      },
+      {
+        nom: 'Armour',
+        texte: 'Chaos Dwarfs and the Bull Centaur never suffer a Movement penalty for wearing armour.',
+        exception: 'Does not apply to Hobgoblins.',
+      },
+      {
+        nom: 'Hard to Kill',
+        texte:
+          'Chaos Dwarfs and the Bull Centaur are tough, resilient individuals who can only be taken Out of Action on a roll of 6 instead of 5-6 on the Injury table. Treat a roll of 1-2 as Knocked Down, 3-5 as Stunned, and 6 as Out of Action.',
+        exception: 'Does not apply to Hobgoblins.',
+      },
+      {
+        nom: 'Slavers',
+        texte:
+          "One of the Chaos Dwarfs' main goals in Mordheim is to capture more slaves for their sacrifices and drudgery. As a result, they never release a captured slave. Choose: sacrifice him or put him to work. If sacrificed, the Sorcerer Apprentice gains +1 Experience per sacrificed slave. If put to work, he helps the warband in its quest for wyrdstone: at the end of the game, gain +1 extra wyrdstone per working captive, then roll 1D6. On a result of 2-6, the captive dies (overwork, disease, prolonged exposure to wyrdstone, or similar) and the warband may keep his equipment. On a result of 1, the captive escapes, returns to his original warband with his equipment intact, and gains a bonus of 1D3 Experience (if he is a Henchman, simply add 1 to his total).",
+      },
+      {
+        nom: 'Rarity',
+        texte:
+          "Chaos Dwarfs are rather rare in the settlements of the Old World. For this reason, when making rolls to acquire new recruits, they must spend 1.5 times (rounded up) the amount they would normally spend. This does not apply to Hobgoblins, a much more common race than the Chaos Dwarfs. For example, a Chaos Dwarf warband with 4 Experience points would need at least 6 Experience points to recruit one warrior, 12 to recruit two, and so on.",
+      },
+      {
+        nom: 'Servitude',
+        texte:
+          'A Sons of Hashut warband must start with at least 4 Hobgoblins; if their number drops below 4, the warband cannot recruit any other member until the number of Hobgoblins is back up to four or more.',
+      },
+      {
+        nom: 'Hired Swords',
+        texte:
+          'A Sons of Hashut warband may recruit the following Hired Swords: Ogre Bodyguard, Gladiators, Mages, Imperial Assassins, and Hobgoblin Scouts. It may also hire any Hired Sword available to all warbands, as well as those allowed for Orc and Chaos warbands. It may never recruit any Elf Hired Sword, whoever they are!',
+      },
+    ],
+    profils: {
+      apprenti_sorcier: {
+        nom: 'Sorcerer Apprentice',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any fighter within 6" of the Sorcerer Apprentice may use his Leadership for their tests.' },
+          {
+            nom: 'Rituals of Chaos',
+            texte: 'The Sorcerer Apprentice is a wizard and learns a random spell from the Chaos Dwarf spell list (see magic).',
+          },
+          { nom: 'Concentration', texte: 'If the Sorcerer Apprentice is wearing armour, he cannot cast any spells.' },
+        ],
+      },
+      centaure_taureau: {
+        nom: 'Bull Centaur',
+        regles_speciales: [
+          {
+            nom: 'Large Target',
+            texte:
+              'Bull Centaurs are large creatures and therefore prime targets for archers. Anyone shooting at the Bull Centaur gains a +1 bonus to hit and may target him even if he is not the closest target. As a Large Target, the Bull Centaur adds an extra +20 (instead of +5) to the warband rating.',
+          },
+          {
+            nom: 'Shooting Capped',
+            texte:
+              'The Bull Centaur has a Shooting cap of 3: he can therefore never learn a Shooting skill, though he remains free to carry a missile weapon from the Chaos Dwarf equipment list.',
+          },
+        ],
+      },
+      champion: { nom: 'Chaos Dwarf Champion', regles_speciales: [{ nom: 'Trusted Sergeant', texte: "Champions are the Sorcerer Apprentice's favourite warriors: excellent fighters and trustworthy sergeants." }] },
+      guerrier_nain_du_chaos: { nom: 'Chaos Dwarf' },
+      tromblonnier_nain_du_chaos: { nom: 'Chaos Dwarf Blunderbuss' },
+      hobgobelin: {
+        nom: 'Hobgoblin',
+        regles_speciales: [
+          {
+            nom: 'Cowardly',
+            texte:
+              'Hobgoblins are naturally cowardly creatures, forced to fight by their Chaos Dwarf masters. They take blows poorly and look for any chance to flee. On an Injury roll, a result of 1-3 means the Hobgoblin deserts the warband.',
+          },
+          {
+            nom: 'Little Regard',
+            texte:
+              'Hobgoblins only count as half a model for a Rout test. For example, in a warband of 12 models, if 2 Hobgoblins and 1 Chaos Dwarf are Out of Action, the total to consider is 2 (1/2 + 1/2 + 1 = 2).',
+          },
+          { nom: 'No Future', texte: 'Hobgoblins can never become Heroes: re-roll any "Lad\'s Got Talent" result concerning them.' },
+        ],
+      },
+    },
+    competences_speciales: {
+      tenace: {
+        nom: 'Tenacious',
+        texte: 'On the Injury chart, a roll of 1-3 is treated as Knocked Down, 4-5 as Stunned, and 6 as Out of Action.',
+      },
+      increvable: {
+        nom: 'Unstoppable',
+        texte: 'Allows a single re-roll on the Serious Injury chart after the game. The result of the second roll must be accepted, even if it is worse.',
+      },
+      haine_sans_limites: {
+        nom: 'Boundless Hatred',
+        texte: 'The fighter is subject to the Hatred special rule against absolutely every opponent he faces, regardless of race or warband.',
+      },
+      crane_epais: {
+        nom: 'Thick Skull',
+        texte: 'The fighter gains a special 3+ save to avoid being Stunned. If the save is successful, he is treated as Knocked Down instead.',
+      },
+    },
+    magie: {
+      nom: 'Chaos Dwarf Magic',
+      sorts: [
+        {
+          nom: "Hashut's Spectre",
+          texte: "Designates the closest enemy model to the wizard, within 10\". This model is automatically Stunned.",
+        },
+        {
+          nom: 'Statue of Stone',
+          texte:
+            "Choose an enemy model within 12\" and in the wizard's line of sight. For the rest of the turn and the following turn, this model can do nothing. If attacked in close combat, it automatically suffers a hit. If targeted by shooting, the shooter gains a +1 bonus to hit.",
+        },
+        {
+          nom: 'Fireball',
+          texte: "Range 16\", requires line of sight. The target automatically suffers a Strength 4 hit.",
+        },
+        {
+          nom: 'Vanish',
+          texte:
+            'The wizard may immediately move up to 6" in any direction and may enter or leave combat without penalty. If this brings him into contact with an enemy, this move counts as a charge.',
+        },
+        {
+          nom: 'Eruption',
+          texte:
+            "All models within 4\" of the wizard (friend or foe) automatically suffer a Strength 4 hit. After resolving this hit, the wizard cannot cast any spell until the following turn and suffers a permanent -1 penalty to Toughness for the rest of the game.",
+        },
+        {
+          nom: "Hashut's Eye",
+          texte:
+            'Choose a friendly model within 12" and roll 1D6 (Hobgoblins always subtract 1 from the result): 1 — Hashut is wary of you, the model is immediately taken Out of Action but does not roll on the Serious Injury chart during the post-battle sequence; 2-5 — Hashut trusts you, the model adds +1 to one Characteristic for the rest of the game; 6 — Hashut favours you, the model adds +1 to all Characteristics for the rest of the game.',
+          note: 'Can only be used successfully once per battle.',
+        },
+      ],
+    },
+  },
 };
 
 function translateRegles(regles: SpecialRule[], en: RegleTraduite[] | undefined): SpecialRule[] {

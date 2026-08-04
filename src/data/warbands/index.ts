@@ -14,7 +14,9 @@ import dwarf_treasure_hunters from './dwarf_treasure_hunters.json';
 import elfes_noirs from './elfes_noirs.json';
 import escorteurs_imperiaux from './escorteurs_imperiaux.json';
 import expedition_runique from './expedition_runique.json';
+import fils_dhashut from './fils_dhashut.json';
 import gardiens_de_chapelle_bretonniens from './gardiens_de_chapelle_bretonniens.json';
+import gardiens_des_tombes from './gardiens_des_tombes.json';
 import gladiateurs from './gladiateurs.json';
 import gobelins_de_la_nuit from './gobelins_de_la_nuit.json';
 import gobelins_des_forets from './gobelins_des_forets.json';
@@ -27,12 +29,15 @@ import maneaters from './maneaters.json';
 import maraudeurs_du_chaos from './maraudeurs_du_chaos.json';
 import marienburgers from './marienburgers.json';
 import middenheimers from './middenheimers.json';
+import mootlanders from './mootlanders.json';
 import morts_sans_repos from './morts_sans_repos.json';
 import nains_du_chaos from './nains_du_chaos.json';
 import norses from './norses.json';
 import orc_mob from './orc_mob.json';
 import orques_noirs from './orques_noirs.json';
+import ostermarkers from './ostermarkers.json';
 import ostlanders from './ostlanders.json';
+import pilleurs_de_tombes_arabes from './pilleurs_de_tombes_arabes.json';
 import pirates from './pirates.json';
 import reiklanders from './reiklanders.json';
 import sisters_of_sigmar from './sisters_of_sigmar.json';
@@ -57,7 +62,9 @@ export const CATALOGUES: WarbandCatalog[] = [
   elfes_noirs,
   escorteurs_imperiaux,
   expedition_runique,
+  fils_dhashut,
   gardiens_de_chapelle_bretonniens,
+  gardiens_des_tombes,
   gladiateurs,
   gobelins_de_la_nuit,
   gobelins_des_forets,
@@ -70,12 +77,15 @@ export const CATALOGUES: WarbandCatalog[] = [
   maraudeurs_du_chaos,
   marienburgers,
   middenheimers,
+  mootlanders,
   morts_sans_repos,
   nains_du_chaos,
   norses,
   orc_mob,
   orques_noirs,
+  ostermarkers,
   ostlanders,
+  pilleurs_de_tombes_arabes,
   pirates,
   reiklanders,
   sisters_of_sigmar,

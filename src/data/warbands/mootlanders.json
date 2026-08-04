@@ -1,0 +1,149 @@
+{
+  "id": "mootlanders",
+  "nom": "Mootlanders (1b)",
+  "grade": "1b",
+  "source": "« Knights of the Kitchen Table » — Mootlander Warbands, par Tom Sambles (rubrique House Rules, p.52-55) — La Grande Librairie de Mordheim.",
+  "regles_speciales": [
+    { "nom": "Chétifs", "texte": "Les Halflings sont très faibles et chétifs ; même les coups les plus légers suffisent à les assommer. Lors du jet de blessure d'un Halfling, un résultat de 2 est traité comme « Sonné »." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 20,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "moot_elder",
+      "nom": "Ancien du Moot",
+      "type": "heros",
+      "groupe_caracteristiques": "halfling",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 55,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 3, "CT": 5, "F": 2, "E": 2, "PV": 1, "I": 6, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout guerrier à moins de 6 ps de l'Ancien du Moot peut utiliser son Commandement pour ses tests de Cd." },
+        { "nom": "Pistolet de famille", "texte": "L'Ancien du Moot peut être équipé d'un pistolet pour 15 po (voir équipement spécial), généralement une antique arme héritée de sa famille." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "vitesse"],
+      "acces_equipement": ["halflings"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "master_chef",
+      "nom": "Maître Cuisinier",
+      "type": "heros",
+      "groupe_caracteristiques": "halfling",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 35,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 2, "PV": 1, "I": 5, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Cuisine inspirée", "texte": "Tout Halfling à moins de 6 ps d'un Maître Cuisinier peut relancer un jet pour toucher raté au corps à corps (une fois par tour)." },
+        { "nom": "Équipement", "texte": "Le Maître Cuisinier ne peut être équipé qu'à partir de la liste des ustensiles de Maître Cuisinier (armes de corps à corps) et de la liste d'armures halfling — pas des armes de corps à corps ou de tir générales." }
+      ],
+      "acces_competences": ["combat", "tir", "force", "vitesse"],
+      "acces_equipement": ["maitres_chefs"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "halfling_thief",
+      "nom": "Voleur Halfling",
+      "type": "heros",
+      "groupe_caracteristiques": "halfling",
+      "min": 0,
+      "max": 2,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 4, "F": 2, "E": 2, "PV": 1, "I": 5, "A": 1, "Cd": 9 },
+      "regles_speciales": [
+        { "nom": "Sournois", "texte": "Les Voleurs halflings peuvent se cacher dans la moindre ombre ou le moindre recoin. Les tirs visant un Voleur halfling subissent toujours un malus de -1 pour toucher, qui s'ajoute à tout autre modificateur." }
+      ],
+      "acces_competences": ["tir", "academique", "vitesse"],
+      "acces_equipement": ["halflings"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "halfling_warrior",
+      "nom": "Guerrier Halfling",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "halfling",
+      "min": 0,
+      "max": null,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 4, "F": 2, "E": 2, "PV": 1, "I": 5, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Recrutement", "texte": "Autant que vous voulez. Acheté par groupes de 1 à 5." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["halflings"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "halfling_scout",
+      "nom": "Éclaireur Halfling",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "halfling",
+      "min": 0,
+      "max": 5,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 4, "F": 2, "E": 2, "PV": 1, "I": 5, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Vue perçante", "texte": "Les Éclaireurs halflings repèrent les ennemis cachés jusqu'à une distance (en pouces) égale au double de leur Initiative." },
+        { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["halflings"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "halflings": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "représente le Bâton" }
+      ],
+      "armes_tir": [
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arc_court", "cout": 5 },
+        { "item_id": "fronde", "cout": 2 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque_marmite", "cout": 8 }
+      ]
+    },
+    "maitres_chefs": {
+      "armes_cac": [
+        { "item_id": "couteau_de_cuisine", "cout": 2, "note": "voir équipement spécial" },
+        { "item_id": "hachoir", "cout": 3, "note": "voir équipement spécial" },
+        { "item_id": "louche", "cout": 2, "note": "voir équipement spécial" },
+        { "item_id": "attendrisseur", "cout": 3, "note": "voir équipement spécial" }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "casque_marmite", "cout": 8, "note": "voir équipement spécial" }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "pistolet", "cout": 15, "disponibilite": "Ancien du Moot uniquement, généralement une antique arme de famille", "profils": ["moot_elder"] },
+    { "item_id": "couteau_de_cuisine", "cout": 2, "disponibilite": "Maître Cuisinier uniquement", "profils": ["master_chef"] },
+    { "item_id": "hachoir", "cout": 3, "disponibilite": "Maître Cuisinier uniquement", "profils": ["master_chef"] },
+    { "item_id": "louche", "cout": 2, "disponibilite": "Maître Cuisinier uniquement", "profils": ["master_chef"] },
+    { "item_id": "attendrisseur", "cout": 3, "disponibilite": "Maître Cuisinier uniquement", "profils": ["master_chef"] },
+    { "item_id": "casque_marmite", "cout": 8, "disponibilite": "Achetable par tout Halfling ; le bonus de sauvegarde spéciale contre le Sonné ne bénéficie qu'au Maître Cuisinier qui le porte" }
+  ]
+}

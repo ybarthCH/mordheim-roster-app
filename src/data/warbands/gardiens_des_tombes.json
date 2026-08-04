@@ -50,10 +50,9 @@
       "max": 1,
       "cout": 55,
       "xp_depart": 8,
-      "peut_lancer_sorts": true,
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [
-        { "nom": "Sorcier", "texte": "Le Prêtre-Liche est un Sorcier ; il lance ses sorts à l'aide des parchemins propres aux Prêtres-Liches (liste de sorts non détaillée dans les pages de ce document source)." },
+        { "nom": "Sorcier (liste de sorts absente)", "texte": "Le Prêtre-Liche est censé lancer des sorts à l'aide de parchemins qui lui sont propres, mais cette liste n'est pas détaillée dans le document source disponible (Town Cryer #18, extrait \"Khemri : la Terre des Morts\"). Cette capacité n'est donc pas encore activée dans l'application — elle pourra l'être dès qu'une liste de sorts complète sera fournie." },
         { "nom": "Équipement", "texte": "Ne peut pas porter d'armure, celle-ci interférant avec le lancement de ses sorts." },
         { "nom": "Mort-Vivant", "texte": "Le Prêtre-Liche est Mort-Vivant et suit toutes les règles s'appliquant aux Morts-Vivants." },
         { "nom": "Provoque la Peur", "texte": "Monstre mort-vivant terrifiant qui provoque la peur." },
