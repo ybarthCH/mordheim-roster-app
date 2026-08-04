@@ -154,6 +154,21 @@ export function PostBatailleScreen() {
     effetsInitiauxRef.current = new Set((roster.effets_persistants ?? []).map((e) => e.id));
   }
 
+  // Trésorerie au tout début de l'assistant, avant toute mutation en direct
+  // (récompense du scénario, événements d'exploration...) — sert de vraie
+  // référence de départ pour le journal détaillé de l'étape Résumé, plutôt
+  // que `roster.tresorerie` qui a déjà bougé à ce stade (voir journalOr).
+  const tresorerieInitialeRef = useRef<number | null>(null);
+  if (tresorerieInitialeRef.current === null && roster) {
+    tresorerieInitialeRef.current = roster.tresorerie;
+  }
+
+  // Journal détaillé des mouvements d'or appliqués en direct pendant
+  // l'assistant (hors trésorerie de fin de vente wyrdstone/commerce/blessures,
+  // calculés séparément dans terminer() — voir lignesTresorerie dans
+  // EtapeResume) : récompense de scénario et événements d'exploration.
+  const [journalOr, setJournalOr] = useState<{ label: string; montant: number }[]>([]);
+
   const [etape, setEtape] = useState(0);
 
   // ScrollToTop (common/ScrollToTop.tsx) ne réagit qu'aux changements de
@@ -593,10 +608,17 @@ export function PostBatailleScreen() {
   // Or trouvé lors d'un événement d'exploration (double/triple/etc., voir
   // tableExplorationEvenements.ts) : appliqué immédiatement à la trésorerie,
   // comme ajouterAuStock ci-dessus, indépendamment de la validation finale
-  // de l'assistant.
-  const ajouterOrExploration = (montant: number) => {
+  // de l'assistant. `label` alimente le journal détaillé de l'étape Résumé
+  // (voir journalOr) : chaque point d'appel (récompense de scénario,
+  // événements d'exploration) fournit son propre libellé.
+  const ajouterOrExploration = (montant: number, label: string) => {
     updateRoster({ ...roster, tresorerie: roster.tresorerie + montant });
+    setJournalOr((prev) => [...prev, { label, montant }]);
   };
+  const ajouterOrRecompenseScenario = (montant: number) =>
+    ajouterOrExploration(montant, t('resume.scenarioRewardLabel'));
+  const ajouterOrEvenementExploration = (montant: number) =>
+    ajouterOrExploration(montant, t('resume.explorationEventsLabel'));
 
   // Fusion générique d'un patch dans la bande, appliqué immédiatement — pour
   // les résolutions d'événement d'exploration qui touchent autre chose que
@@ -922,7 +944,7 @@ export function PostBatailleScreen() {
           notesBataille={notesBataille}
           onNotesBatailleChange={setNotesBataille}
           onAchatStock={ajouterAuStock}
-          onArgentGagne={ajouterOrExploration}
+          onArgentGagne={ajouterOrRecompenseScenario}
         />
       )}
 
@@ -976,7 +998,7 @@ export function PostBatailleScreen() {
           onPointsVeteranSaisieChange={setPointsVeteranSaisie}
           onAchatStock={ajouterAuStock}
           onAchatStockMultiple={ajouterAuStockMultiple}
-          onAjouterOr={ajouterOrExploration}
+          onAjouterOr={ajouterOrEvenementExploration}
           onMajRoster={majRosterExploration}
           resumeExploration={exploration}
         />
@@ -1030,6 +1052,8 @@ export function PostBatailleScreen() {
           entretienMalepierre={entretienMalepierre}
           blessuresTresorerieBonus={blessuresTresorerieBonus}
           coutCommerce={coutCommerce}
+          tresorerieInitiale={tresorerieInitialeRef.current ?? roster.tresorerie}
+          journalOr={journalOr}
           francTireursPayesCount={lignesEntretien.filter(
             (ligne) => decisionEntretien(ligne) === 'payer' && ligne.type === 'or'
           ).length}

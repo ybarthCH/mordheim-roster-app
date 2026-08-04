@@ -17,6 +17,15 @@ type EtapeResumeProps = {
   entretienMalepierre: number;
   blessuresTresorerieBonus: number;
   coutCommerce: number;
+  // Trésorerie au tout début de l'assistant (voir tresorerieInitialeRef dans
+  // PostBatailleScreen) — distincte de roster.tresorerie, déjà mutée en
+  // direct par la récompense de scénario et les événements d'exploration à
+  // ce stade.
+  tresorerieInitiale: number;
+  // Mouvements d'or appliqués en direct pendant l'assistant, hors ceux
+  // calculés à la validation finale (wyrdstone/commerce/blessures, voir
+  // lignesTresorerie ci-dessous) — voir journalOr dans PostBatailleScreen.
+  journalOr: { label: string; montant: number }[];
   francTireursPayesCount: number;
   francsTireursPartants: string[];
   blessuresResume: { nom: string; blessure: string }[];
@@ -43,6 +52,8 @@ export function EtapeResume({
   entretienMalepierre,
   blessuresTresorerieBonus,
   coutCommerce,
+  tresorerieInitiale,
+  journalOr,
   francTireursPayesCount,
   francsTireursPartants,
   blessuresResume,
@@ -58,8 +69,9 @@ export function EtapeResume({
   const { t } = useLanguage();
   const tresorerieApres = roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus - coutCommerce;
   const lignesTresorerie = [
+    ...journalOr,
     prixVente > 0 && { label: t('resume.wyrdstoneSale'), montant: prixVente },
-    blessuresTresorerieBonus > 0 && { label: t('resume.injuryGains'), montant: blessuresTresorerieBonus },
+    blessuresTresorerieBonus !== 0 && { label: t('resume.injuryOutcomes'), montant: blessuresTresorerieBonus },
     coutCommerce > 0 && { label: t('resume.tradeExpenses'), montant: -coutCommerce },
     soldeTotal > 0 && { label: t('resume.hiredSwordWages', { n: francTireursPayesCount }), montant: -soldeTotal },
   ].filter((l): l is { label: string; montant: number } => !!l);
@@ -80,13 +92,13 @@ export function EtapeResume({
       </p>
       <div className="text-sm" style={{ marginTop: '0.3rem' }}>
         <p className="mb-0">
-          {t('resume.treasuryLine', { avant: roster.tresorerie })}
+          {t('resume.treasuryLine', { avant: tresorerieInitiale })}
           <strong>{t('resume.treasuryAfter', { n: tresorerieApres })}</strong>
         </p>
         {lignesTresorerie.length > 0 && (
           <ul style={{ margin: '0.2rem 0 0', paddingLeft: '1.2rem' }}>
-            {lignesTresorerie.map((l) => (
-              <li key={l.label}>
+            {lignesTresorerie.map((l, i) => (
+              <li key={`${l.label}-${i}`}>
                 {t('resume.ledgerLine', { label: l.label, sign: l.montant > 0 ? '+' : '', montant: l.montant })}
               </li>
             ))}
