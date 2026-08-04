@@ -69,6 +69,17 @@ export function HistoriqueBataillesSection({
             </div>
             <button
               className="btn--ghost"
+              style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--text-muted)' }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setEnEdition(b);
+              }}
+              title={t('historique.editTitle')}
+            >
+              <Icon name="crayon" size="0.9em" />
+            </button>
+            <button
+              className="btn--ghost"
               style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
               onClick={(e) => {
                 e.stopPropagation();

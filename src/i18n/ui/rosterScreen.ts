@@ -98,6 +98,7 @@ export const rosterScreen: UiDictionary = {
   'historique.add': { fr: '+ Ajouter', en: '+ Add' },
   'historique.empty': { fr: 'Aucune bataille enregistrée.', en: 'No battles recorded.' },
   'historique.vsPrefix': { fr: 'vs', en: 'vs' },
+  'historique.editTitle': { fr: 'Modifier cette bataille', en: 'Edit this battle' },
   'historique.deleteTitle': { fr: 'Supprimer cette bataille', en: 'Delete this battle' },
   'historique.deleteConfirmTitlePrefix': { fr: 'Supprimer la bataille du', en: 'Delete the battle from' },
   'historique.deleteConfirmBody': {

@@ -189,5 +189,20 @@
   },
   "equipement_special": [
     { "item_id": "hache_naine", "cout": 15, "disponibilite": "Rare 8, Nains uniquement" }
-  ]
+  ],
+  "magie": {
+    "nom": "Runes Naines",
+    "type": "runes",
+    "de": "D6",
+    "utilisateurs": ["forgerune"],
+    "note": "Un Forgerune tire profit de la magie du Vieux Monde en inscrivant des Runes magiques sur des objets, ce qui leur confère des pouvoirs fantastiques. Avant chaque bataille, il peut tenter d'inscrire sa Rune connue sur un objet porté par un membre de la bande (deux objets si la bande compte un Apprenti Forgerune) : il lance 2D6, et sur un résultat supérieur ou égal à la Difficulté, l'objet gagne le bonus indiqué pour une seule bataille. Sur un 2, l'inscription échoue totalement et l'objet est détruit (retirez-le de l'équipement de la bande, remplaçable avant la bataille suivante). Tout autre échec ne fait qu'échouer sans autre conséquence. Jalousie des Runes : les bonus des Runes ne se cumulent jamais entre eux ni avec un objet magique — un combattant ne bénéficie que d'un seul bonus à la fois par type d'effet.",
+    "sorts": [
+      { "resultat": 1, "id": "rune_de_pierre", "nom": "Rune de Pierre", "difficulte": 8, "texte": "Inscrite sur une armure, elle confère +1 à la sauvegarde d'armure pour la durée de la partie." },
+      { "resultat": 2, "id": "rune_tranchante", "nom": "Rune Tranchante", "difficulte": 6, "texte": "Inscrite sur une arme, elle inflige -1 à la sauvegarde d'armure de l'ennemi touché." },
+      { "resultat": 3, "id": "rune_de_vitesse", "nom": "Rune de Vitesse", "difficulte": 7, "texte": "Inscrite sur une arme, elle double l'Initiative du porteur pour la durée de la partie." },
+      { "resultat": 4, "id": "rune_de_protection", "nom": "Rune de Protection", "difficulte": 8, "texte": "Inscrite sur une ceinture, une armure ou un objet similaire, elle confère une sauvegarde spéciale de 4+ contre les sorts." },
+      { "resultat": 5, "id": "rune_de_precision", "nom": "Rune de Précision", "difficulte": 9, "texte": "Inscrite sur une arme, elle confère +1 pour toucher avec cette arme." },
+      { "resultat": 6, "id": "rune_de_course", "nom": "Rune de Course", "difficulte": 8, "texte": "Inscrite sur des bottes, une ceinture ou un objet similaire, elle confère +1 en Mouvement pour la durée de la partie." }
+    ]
+  }
 }

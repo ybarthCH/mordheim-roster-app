@@ -268,6 +268,17 @@ export const TRINKETS_LIMITES = new Set([
   'relique_maudite',
 ]);
 
+// Objets d'équipement spécial limités à un exemplaire par bande par la
+// règle source elle-même (pas une règle optionnelle comme TRINKETS_LIMITES
+// ci-dessus — toujours appliqué, quel que soit rules.trinketsLimites).
+export const ITEMS_UNIQUES_BANDE = new Set([
+  // Faucon de chasse tiléen (Pillards de Lustrie) : équipement du Maître
+  // des bêtes, max 1 par bande.
+  'faucon_de_chasse_tileen',
+  // Jolly Roger (Pirates) : "un seul par bande".
+  'jolly_roger',
+]);
+
 // Objets "matériau" (gromril, ithilmar, obsidienne, lame elfe noire) : au
 // lieu de s'acheter tels quels, ils demandent de choisir une arme/armure de
 // base existante — son prix est soit multiplié (gromril/ithilmar/
@@ -454,6 +465,33 @@ function appliquerReglesObjet(
 
 export function inventaireComplet(roster: RosterInstance): InventoryEntry[] {
   return [...roster.stock, ...roster.membres.flatMap((m) => m.inventaire)];
+}
+
+// Compte, à l'échelle de la bande, le nombre de figurines et d'objets
+// d'équipement partageant un même `plafond_groupe.id` (voir Profile et
+// EquipementSpecialRef dans types/catalog.ts) — ex : chez les Pillards de
+// Lustrie, le Molosse estalien et le Singe de Barbarie recrutés, plus le
+// Faucon de chasse tiléen acheté comme équipement, comptent ensemble dans
+// le plafond des 2 Bêtes de guerre.
+export function comptePlafondGroupe(catalogue: WarbandCatalog, roster: RosterInstance, groupeId: string): number {
+  let total = 0;
+  for (const profil of catalogue.profils) {
+    if (profil.plafond_groupe?.id !== groupeId) continue;
+    for (const m of roster.membres) {
+      if (m.profil_id === profil.id && m.statut !== 'mort') {
+        total += m.taille_groupe || 1;
+      }
+    }
+  }
+  const idsGroupe = new Set(
+    (catalogue.equipement_special ?? [])
+      .filter((ref) => ref.plafond_groupe?.id === groupeId)
+      .map((ref) => ref.item_id)
+  );
+  if (idsGroupe.size > 0) {
+    total += inventaireComplet(roster).filter((entree) => idsGroupe.has(entree.item_id)).length;
+  }
+  return total;
 }
 
 export type AvertissementTrinketLimite = {

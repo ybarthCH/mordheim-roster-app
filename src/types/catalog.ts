@@ -67,6 +67,14 @@ export type Profile = {
   // Informatif seulement — n'empêche pas de recruter/jouer sans.
   min?: number;
   max?: number | null;
+  // Plafond partagé entre plusieurs profils (et éventuellement des objets
+  // d'`equipement_special`, voir EquipementSpecialRef ci-dessous) portant le
+  // même `id` — en plus du `max` propre à ce profil. Ex : chez les Pillards
+  // de Lustrie, le Molosse estalien (max 2) et le Singe de Barbarie (max 1)
+  // partagent avec le Faucon de chasse tiléen (équipement du Maître des
+  // bêtes) un plafond combiné de 2 Bêtes de guerre au total — voir
+  // comptePlafondGroupe dans utils/shop.ts.
+  plafond_groupe?: { id: string; max: number; label?: string };
   cout: number | null;
   // Notation de dés affichée quand `cout` est variable (donc null, ex :
   // "25+2D6" pour un chien de guerre) — le montant réel est saisi à la main
@@ -240,6 +248,11 @@ export type EquipementSpecialRef = {
   // Maraudeurs avec la Marque d'Onogal). Absent = pas de restriction par
   // Marque.
   marques?: string[];
+  // Voir Profile.plafond_groupe — un objet peut partager le même plafond
+  // combiné qu'un ou plusieurs profils recrutables (ex : le Faucon de
+  // chasse tiléen des Pillards de Lustrie, compté avec le Molosse estalien
+  // et le Singe de Barbarie dans le plafond des 2 Bêtes de guerre).
+  plafond_groupe?: { id: string; max: number; label?: string };
 };
 
 export type MagieSort = {

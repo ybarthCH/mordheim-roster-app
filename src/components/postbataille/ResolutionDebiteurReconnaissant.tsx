@@ -26,7 +26,11 @@ export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouter
   const [resolu, setResolu] = useState<string | null>(null);
 
   const disponibles = FRANCS_TIREURS.filter(
-    (f) => !f.magie?.sorts_depart && !f.sacrifice_liche && disponibiliteFrancTireur(f, roster).disponible
+    (f) =>
+      !f.est_dramatis_personae &&
+      !f.magie?.sorts_depart &&
+      !f.sacrifice_liche &&
+      disponibiliteFrancTireur(f, roster).disponible
   );
 
   const engager = () => {

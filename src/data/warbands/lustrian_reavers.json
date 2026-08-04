@@ -168,6 +168,7 @@
       "type": "animal",
       "min": 0,
       "max": 2,
+      "plafond_groupe": { "id": "lustrian_reavers_betes_de_guerre", "max": 2, "label": "Bêtes de guerre" },
       "cout": 25,
       "stats": { "M": 6, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
       "regles_speciales": [
@@ -186,6 +187,7 @@
       "type": "animal",
       "min": 0,
       "max": 1,
+      "plafond_groupe": { "id": "lustrian_reavers_betes_de_guerre", "max": 2, "label": "Bêtes de guerre" },
       "cout": 40,
       "stats": { "M": 6, "CC": 4, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 5, "A": 2, "Cd": 6 },
       "regles_speciales": [
@@ -256,6 +258,6 @@
     { "item_id": "masque_de_crane", "cout": 15, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },
     { "item_id": "lame_homme_lezard", "cout": 30, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },
     { "item_id": "trophee_coiffe_sacree_de_slann", "cout": 35, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },
-    { "item_id": "faucon_de_chasse_tileen", "cout": 30, "disponibilite": "Maître des bêtes uniquement, max 1", "profils": ["reaver_beastmaster"] }
+    { "item_id": "faucon_de_chasse_tileen", "cout": 30, "disponibilite": "Maître des bêtes uniquement, max 1", "profils": ["reaver_beastmaster"], "plafond_groupe": { "id": "lustrian_reavers_betes_de_guerre", "max": 2, "label": "Bêtes de guerre" } }
   ]
 }

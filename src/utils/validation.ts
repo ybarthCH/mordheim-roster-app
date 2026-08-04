@@ -3,6 +3,7 @@ import { getCatalogue } from '../data/warbands';
 import { effectifTotal } from './bandeValue';
 import { aUnFrancTireurAvecTag, estFrancTireur } from '../data/hiredSwords';
 import { effectifMaxPourTribu, maxProfilPourTribu } from './tribu';
+import { comptePlafondGroupe } from './shop';
 
 export type ViolationComposition = {
   profilId: string;
@@ -83,7 +84,8 @@ export function peutAjouterMembre(
   quantite = 1
 ): { ok: boolean; raison?: string } {
   const catalogue = getCatalogue(roster.bande_id);
-  const profil = catalogue?.profils.find((p) => p.id === profilId);
+  if (!catalogue) return { ok: false, raison: 'Bande introuvable dans le catalogue.' };
+  const profil = catalogue.profils.find((p) => p.id === profilId);
   if (!profil) return { ok: false, raison: 'Profil introuvable dans le catalogue.' };
   if ((roster.profils_bannis ?? []).includes(profilId)) {
     return {
@@ -101,6 +103,16 @@ export function peutAjouterMembre(
       return {
         ok: false,
         raison: `Limite atteinte pour ${profil.nom} (max ${limite}, ${actuel} déjà présent(s)).`,
+      };
+    }
+  }
+  if (profil.plafond_groupe) {
+    const { id: groupeId, max: limiteGroupe, label } = profil.plafond_groupe;
+    const actuelGroupe = comptePlafondGroupe(catalogue, roster, groupeId);
+    if (actuelGroupe + quantite > limiteGroupe) {
+      return {
+        ok: false,
+        raison: `Limite combinée atteinte pour ${label ?? profil.nom} (max ${limiteGroupe} au total pour la bande, ${actuelGroupe} déjà présent(s)).`,
       };
     }
   }
