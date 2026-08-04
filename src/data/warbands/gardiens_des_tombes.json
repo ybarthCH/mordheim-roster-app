@@ -1,0 +1,197 @@
+{
+  "id": "gardiens_des_tombes",
+  "nom": "Gardiens des Tombes (1b)",
+  "grade": "1b",
+  "source": "Town Cryer #18 — supplément « Khemri: The Land of the Dead » — article Tomb Guardians",
+  "regles_speciales": [
+    { "nom": "Terrain natal", "texte": "Les Gardiens des Tombes vivent dans les Nécropoles et n'ont aucun mal à localiser les tombes cachées à la recherche d'armes et d'armures pour défendre leur demeure. Une bande de Gardiens des Tombes lance toujours un dé supplémentaire lors de la phase d'Exploration." },
+    { "nom": "Ne boit pas", "texte": "Les Morts-Vivants n'ont besoin ni de nourriture ni d'eau. Tout animal vivant accompagnant les Momies (comme le Scorpion des Tombeaux) suit cependant les règles d'eau normalement, sauf mention contraire sur son propre profil." },
+    { "nom": "Nouvelle compétence : Conduire un char (Érudition)", "texte": "Les chars sont très difficiles à manier. Un guerrier ayant accès aux compétences d'Érudition (le Prêtre-Liche ou un Acolyte) peut apprendre cette compétence, indispensable pour piloter efficacement le Char squelette au combat : sans elle, le pilote ne peut pas charger avec le char." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "roi_des_tombes",
+      "nom": "Roi des Tombes",
+      "type": "heros",
+      "groupe_caracteristiques": "morts_vivants_roi_des_tombes",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 150,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 5, "PV": 3, "I": 3, "A": 2, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Le Roi des Tombes est le Chef de la bande et suit toutes les règles s'appliquant aux Chefs." },
+        { "nom": "Mort-Vivant", "texte": "Le Roi des Tombes est Mort-Vivant et suit toutes les règles s'appliquant aux Morts-Vivants." },
+        { "nom": "Provoque la Peur", "texte": "Monstre mort-vivant terrifiant qui provoque la peur." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affecté par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Insensible", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." },
+        { "nom": "Inflammable", "texte": "Le Roi des Tombes est aussi sec que de l'amadou et enveloppé de bandelettes imprégnées de résines et de conservateurs hautement inflammables. Une touche causée par une attaque à base de feu lui inflige le double du nombre normal de blessures." }
+      ],
+      "acces_competences": ["combat", "tir", "force"],
+      "acces_equipement": ["guerriers_morts_vivants"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "pretre_liche",
+      "nom": "Prêtre-Liche",
+      "type": "heros",
+      "groupe_caracteristiques": "morts_vivants_pretre_liche",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 55,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Sorcier (liste de sorts absente)", "texte": "Le Prêtre-Liche est censé lancer des sorts à l'aide de parchemins qui lui sont propres, mais cette liste n'est pas détaillée dans le document source disponible (Town Cryer #18, extrait \"Khemri : la Terre des Morts\"). Cette capacité n'est donc pas encore activée dans l'application — elle pourra l'être dès qu'une liste de sorts complète sera fournie." },
+        { "nom": "Équipement", "texte": "Ne peut pas porter d'armure, celle-ci interférant avec le lancement de ses sorts." },
+        { "nom": "Mort-Vivant", "texte": "Le Prêtre-Liche est Mort-Vivant et suit toutes les règles s'appliquant aux Morts-Vivants." },
+        { "nom": "Provoque la Peur", "texte": "Monstre mort-vivant terrifiant qui provoque la peur." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affecté par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Insensible", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." }
+      ],
+      "acces_competences": ["academique"],
+      "acces_equipement": ["pretre_liche"],
+      "categories_interdites": ["armures"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "acolyte",
+      "nom": "Acolyte",
+      "type": "heros",
+      "groupe_caracteristiques": "morts_vivants_pretre_liche",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Mort-Vivant", "texte": "L'Acolyte est Mort-Vivant et suit toutes les règles s'appliquant aux Morts-Vivants." },
+        { "nom": "Provoque la Peur", "texte": "Monstre mort-vivant terrifiant qui provoque la peur." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affecté par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Insensible", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." }
+      ],
+      "acces_competences": ["combat", "academique"],
+      "acces_equipement": ["pretre_liche"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "squelette",
+      "nom": "Squelette",
+      "type": "homme_de_main",
+      "gagne_experience": false,
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 20,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Mort-Vivant", "texte": "Le Squelette est Mort-Vivant et suit toutes les règles s'appliquant aux Morts-Vivants." },
+        { "nom": "Provoque la Peur", "texte": "Monstre mort-vivant terrifiant qui provoque la peur." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affecté par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Insensible", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." },
+        { "nom": "Sans Cervelle", "texte": "Les squelettes ne sont pas vivants ; ils ne gagnent donc jamais d'expérience." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["guerriers_morts_vivants"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "gardien_des_tombes",
+      "nom": "Gardien des Tombes",
+      "type": "homme_de_main",
+      "gagne_experience": false,
+      "groupe_caracteristiques": "morts_vivants_gardien_des_tombes",
+      "min": 0,
+      "max": 2,
+      "cout": 30,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 2, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Mort-Vivant", "texte": "Le Gardien des Tombes est Mort-Vivant et suit toutes les règles s'appliquant aux Morts-Vivants." },
+        { "nom": "Provoque la Peur", "texte": "Monstre mort-vivant terrifiant qui provoque la peur." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affecté par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Insensible", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." },
+        { "nom": "Sans Cervelle", "texte": "Les squelettes ne sont pas vivants ; ils ne gagnent donc jamais d'expérience." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["guerriers_morts_vivants"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "scorpion_des_tombeaux",
+      "nom": "Scorpion des Tombeaux",
+      "type": "animal",
+      "min": 0,
+      "max": 3,
+      "cout": 15,
+      "stats": { "M": 5, "CC": 2, "CT": 0, "F": 2, "E": 2, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
+      "regles_speciales": [
+        { "nom": "Vivant", "texte": "Les scorpions sont des êtres vivants et sont donc affectés normalement par la Psychologie. Cependant, ce sont de petites créatures du désert et n'ont pas besoin d'eau." },
+        { "nom": "Animaux", "texte": "Les Scorpions sont des animaux et ne gagnent donc pas d'expérience." },
+        { "nom": "Piqûre de scorpion", "texte": "Les Scorpions attaquent en utilisant l'aiguillon venimeux de leur queue. Les effets sont similaires à ceux du lotus noir (si vous faites un 6 pour toucher, la cible est Blessée automatiquement)." },
+        { "nom": "Équipement", "texte": "Les Scorpions ne portent ni armes ni armure." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "guerriers_morts_vivants": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Masse" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "morgenstern", "cout": 15 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "fleau", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc", "cout": 10 }
+      ],
+      "armures": [
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "armure_legere", "cout": 20 }
+      ]
+    },
+    "pretre_liche": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Masse ou Bâton" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "morgenstern", "cout": 15 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "fleches_aspic", "cout": 10, "disponibilite": "Roi des Tombes uniquement", "profils": ["roi_des_tombes"] },
+    { "item_id": "javelot_nehekharien", "cout": 10, "disponibilite": "Roi des Tombes uniquement", "profils": ["roi_des_tombes"] },
+    { "item_id": "baton_du_serpent", "cout": 30, "disponibilite": "Rare 7, Prêtre-Liche uniquement", "profils": ["pretre_liche"] },
+    { "item_id": "char_squelette", "cout": "200+10D6", "disponibilite": "0-1, Rare 10 — piloté par un membre de la bande" }
+  ]
+}

@@ -136,7 +136,7 @@
     "texte": "Le couteau de cuisine ordinaire ne sert pas seulement à couper des légumes. Entre les mains potelées mais expertes d'un Maître Cuisinier, il peut faire un véritable carnage dans les rangs ennemis !",
     "portee": "C à C", "force": "U",
     "regles_speciales": [
-      { "nom": "+1 Sauvegarde ennemie", "texte": "Un ennemi blessé par cette arme obtient +1 à sa sauvegarde d'armure, ou une sauvegarde de 6+ s'il n'en a pas." }
+      { "nom": "-1 Sauvegarde ennemie", "texte": "Un ennemi blessé par cette arme subit un malus de -1 à sa sauvegarde d'armure." }
     ]
   },
   {
@@ -702,6 +702,17 @@
       { "nom": "Arme en obsidienne", "texte": "Prix de l'arme de base x4. +1 en Force au corps à corps pour l'utilisateur." },
       { "nom": "Corrompue", "texte": "Bien qu'ils ne soient pas strictement corrompus par le Chaos, tous les objets en obsidienne sont considérés comme empreints de l'obscure malveillance associée à leurs artisans. Ne peut jamais être utilisée par les Nains, les Elfes, les Sœurs de Sigmar, les Répurgateurs ou les Prêtres." },
       { "nom": "Frappe en dernier", "texte": "Les armes en obsidienne sont si lourdes que l'on frappe toujours en dernier avec, même en ayant chargé." }
+    ]
+  },
+  {
+    "id": "arme_en_obsidienne_fils_dhashut", "nom": "Arme en obsidienne (Fils d'Hashut)", "categorie": "armes_cac",
+    "cout": 60, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Fils d'Hashut uniquement (30 CO pour une bande commençant à 0 XP)",
+    "acces": ["fils_dhashut"], "source": "FH (Fils d'Hashut)",
+    "texte": "Variante propre aux Fils d'Hashut de l'arme en obsidienne — distincte de l'arme en obsidienne x4 des cultes du Chaos (voir arme_en_obsidienne_market), à ne jamais utiliser dans la même campagne que celle-ci sans renommer l'une des deux. Seules les épées, haches et masses peuvent être forgées en obsidienne ; toutes coûtent le même prix fixe, quel que soit le type d'arme choisi.",
+    "portee": null, "force": null,
+    "regles_speciales": [
+      { "nom": "Personnelle", "texte": "L'arme conserve tous les bonus habituels de son type de base (Parade pour une épée, etc.)." },
+      { "nom": "Lourde", "texte": "-1 en Initiative au corps à corps pour le porteur." }
     ]
   },
   {

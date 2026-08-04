@@ -85,6 +85,20 @@ export const CARACTERISTIQUES_MAX: Record<string, PlafondCaracteristiques> = {
     A: 5,
     Cd: 9,
   },
+  // Variante propre aux Fils d'Hashut : plafonds différents des deux
+  // Centaure-Taureau ci-dessus (source : catalogue fils_dhashut.json).
+  centaure_taureau_fils_dhashut: {
+    label: "Centaure-Taureau (Fils d'Hashut)",
+    M: 7,
+    CC: 7,
+    CT: 3,
+    F: 5,
+    E: 5,
+    PV: 4,
+    I: 4,
+    A: 5,
+    Cd: 9,
+  },
 
   ogre_garde_mangeur: {
     label: "Garde du corps & Mangeur d'Homme",
@@ -112,6 +126,9 @@ export const CARACTERISTIQUES_MAX: Record<string, PlafondCaracteristiques> = {
   },
 
   peaux_vertes_gobelin: { label: 'Gobelin', M: 4, CC: 5, CT: 6, F: 4, E: 4, PV: 3, I: 6, A: 4, Cd: 7 },
+  // Plafond propre aux Hobgobelins des Fils d'Hashut (table dédiée dans le
+  // document source, distincte de celle des Gobelins ci-dessus).
+  hobgobelin_fils_dhashut: { label: "Hobgobelin (Fils d'Hashut)", M: 4, CC: 5, CT: 5, F: 4, E: 4, PV: 3, I: 5, A: 3, Cd: 8 },
   peaux_vertes_orque: { label: 'Orque', M: 4, CC: 6, CT: 6, F: 4, E: 5, PV: 3, I: 5, A: 4, Cd: 9 },
   peaux_vertes_orque_noir: { label: 'Orque noir', M: 4, CC: 7, CT: 6, F: 5, E: 6, PV: 3, I: 5, A: 4, Cd: 9 },
 

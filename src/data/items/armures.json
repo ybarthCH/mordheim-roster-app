@@ -152,7 +152,7 @@
   },
   {
     "id": "casque_marmite", "nom": "Casque-marmite", "categorie": "armures",
-    "cout": 10, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Mootlanders",
+    "cout": 8, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, Mootlanders",
     "acces": ["mootlanders"], "source": "M (Mootlanders)", "page": 36,
     "texte": "Tout Maître Cuisinier digne de ce nom troquera sa ridicule toque blanche contre une marmite encore plus ridicule pour se protéger lorsqu'un combat se prépare. Cela peut sembler incroyablement stupide, mais cela permet souvent au Halfling de garder la tête intacte après la bataille.",
     "sauvegarde": null,
