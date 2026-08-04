@@ -10,7 +10,7 @@ import { LIMITE_HEROS, categoriesAccessibles, tableAvancementDuProfil } from '..
 import { peutAugmenterStat } from '../../utils/plafond';
 import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
-import { monturesDisponibles } from '../../utils/shop';
+import { formatEquipementAffiche, monturesDisponibles, resumeInventaireParItem } from '../../utils/shop';
 import { SKILL_EQUITATION } from '../../utils/tribu';
 import { useLanguage } from '../../state/useLanguage';
 import { translateSkill } from '../../i18n/data/skills';
@@ -372,11 +372,30 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       // continue avec son XP et son profil, réduit d'une figurine — et doit
       // encore résoudre sa propre avancée (l'XP due n'est pas consommée par
       // la promotion, qui ne profite qu'à la figurine extraite).
+      //
+      // L'inventaire du groupe contient `taille_groupe` exemplaires de chaque
+      // objet, éventuellement plusieurs par figurine (équipement uniforme,
+      // voir resumeInventaireParItem/clonerEquipementPourNouvellesFigurines) :
+      // la figurine extraite emporte SA part de chaque objet distinct, le
+      // reste du groupe garde tous les autres. Sans ce partage, un simple
+      // `...travail` sur les deux figurants dupliquerait tout l'équipement
+      // (les deux Member se retrouveraient avec les mêmes instance_id).
+      const inventaireHeros: typeof travail.inventaire = [];
+      for (const { entree, quantite } of resumeInventaireParItem(travail.inventaire)) {
+        const parFigurine = Math.floor(quantite / tailleGroupeActuelle);
+        const memeItem = travail.inventaire.filter((e) => e.item_id === entree.item_id);
+        inventaireHeros.push(...memeItem.slice(0, parFigurine));
+      }
+      const idsHeros = new Set(inventaireHeros.map((e) => e.instance_id));
+      const inventaireRestant = travail.inventaire.filter((e) => !idsHeros.has(e.instance_id));
+
       const nouveauHeros: Member = {
         ...travail,
         instance_id: uuidv4(),
         taille_groupe: 1,
         promu_heros: true,
+        inventaire: inventaireHeros,
+        equipement: formatEquipementAffiche(inventaireHeros),
         // La table des héros a des paliers bien plus rapprochés que celle des
         // hommes de main : sans ce recalage, l'XP déjà accumulée avant la
         // promotion serait réévaluée sur la grille héros et ferait
@@ -392,6 +411,8 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       const groupeRestant: Member = {
         ...travail,
         taille_groupe: tailleGroupeActuelle - 1,
+        inventaire: inventaireRestant,
+        equipement: formatEquipementAffiche(inventaireRestant),
       };
       onApply(groupeRestant, nouveauHeros);
       setGroupeRestantEnAttente(groupeRestant);
