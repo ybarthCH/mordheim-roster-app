@@ -612,6 +612,84 @@ export function aAccesArmureLourde(catalogue: WarbandCatalog | undefined, profil
   return clesProfil.some((cle) => listes[cle]?.armures?.some((ref) => ref.item_id === 'armure_lourde'));
 }
 
+// Compétences qui donnent accès à toute arme de la bande dans leur
+// catégorie, au-delà de la liste normalement assignée au profil (cf.
+// src/data/skills.json) : "Connaissance des Armes" (corps à corps) et
+// "Expert en Armes" (tir).
+const SKILL_TOUTES_ARMES_CAC = 'combat_03';
+const SKILL_TOUTES_ARMES_TIR = 'tir_04';
+
+// Ids déjà présents dans la/les liste(s) d'équipement propre(s) au profil
+// pour cette catégorie (mêmes règles que getEquipementBande : repli sur
+// toutes les listes de la bande si `acces_equipement` est absent, extension
+// à toutes les listes par Connaissance des Armes/Expert en Armes pour leur
+// catégorie respective — sans effet sur les armures, qui n'ont pas
+// d'équivalent).
+function idsListeProfil(
+  catalogue: WarbandCatalog,
+  profil: Profile,
+  competencesAcquises: string[],
+  categorie: 'armes_cac' | 'armes_tir' | 'armures'
+): Set<string> {
+  const listes = catalogue.equipement ?? {};
+  const clesProfil = profil.acces_equipement ?? Object.keys(listes);
+  const clesToutes = Object.keys(listes);
+  const skillLeveTout =
+    (categorie === 'armes_cac' && competencesAcquises.includes(SKILL_TOUTES_ARMES_CAC)) ||
+    (categorie === 'armes_tir' && competencesAcquises.includes(SKILL_TOUTES_ARMES_TIR));
+  const cles = skillLeveTout ? clesToutes : clesProfil;
+  const ids = new Set<string>();
+  for (const cle of cles) {
+    for (const ref of listes[cle]?.[categorie] ?? []) ids.add(ref.item_id);
+  }
+  return ids;
+}
+
+// Id de base à vérifier pour l'accès arme/armure : pour un objet composé
+// matériau (voir construireObjetMateriau), c'est l'arme/armure de base qui
+// détermine ce que le profil "sait utiliser", pas l'id combo__ synthétique
+// (qui n'apparaît jamais tel quel dans une liste d'équipement de bande).
+function idBasePourAcces(itemId: string): string {
+  if (!itemId.startsWith(PREFIXE_COMBO)) return itemId;
+  const [baseId] = itemId.slice(PREFIXE_COMBO.length).split('__');
+  return baseId ?? itemId;
+}
+
+// Un profil peut-il utiliser cette arme/armure sans entraînement
+// particulier ? Reflète la règle "vos guerriers ne savent utiliser que les
+// armes de leur liste de recrutement" (livre de règles, Place du Marché) :
+// objet présent dans sa propre liste d'équipement de bande (acces_equipement),
+// ou compétence Connaissance des Armes/Expert en Armes pour sa catégorie
+// (les armures n'ont pas d'équivalent, hors gromril/ithilmar qui suivent
+// aAccesArmureLourde). Ne s'applique qu'aux armes et armures : les autres
+// catégories restent toujours utilisables. Contrairement au filtre d'ACHAT
+// de getShopCommun (voir `filtrerAccesEntrainement`), ceci ne bloque jamais
+// une transaction — le livre de règles autorise explicitement l'achat
+// d'objets rares qu'un guerrier ne sait pas encore utiliser ("ils seront
+// peut-être capables de s'en servir plus tard") : cette fonction sert donc
+// uniquement à décider qui peut RECEVOIR un objet déjà possédé (voir
+// "Donner à" dans ArmurerieSection), pas ce qui peut être acheté.
+export function armeArmureUtilisableSansEntrainement(
+  itemId: string,
+  categorie: string,
+  catalogue: WarbandCatalog | undefined,
+  profil: Profile | null | undefined,
+  competencesAcquises: string[] = []
+): boolean {
+  if (!catalogue || !profil) return true;
+  const c = normaliserCategorie(categorie);
+  const id = idBasePourAcces(itemId);
+  if (c === 'armes_cac') return idsListeProfil(catalogue, profil, competencesAcquises, 'armes_cac').has(id);
+  if (c === 'armes_tir' || c === 'armes_poudre_noire') {
+    return idsListeProfil(catalogue, profil, competencesAcquises, 'armes_tir').has(id);
+  }
+  if (c === 'armures') {
+    if (ITEMS_EQUIVALENT_ARMURE_LOURDE.has(id)) return aAccesArmureLourde(catalogue, profil);
+    return idsListeProfil(catalogue, profil, competencesAcquises, 'armures').has(id);
+  }
+  return true;
+}
+
 // `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
 // cette bande (voir estAccesPourCatalogue) — omis, seul le shop générique
 // (accessible à toutes les bandes) est retourné. `profil`/`competencesAcquises`
@@ -619,14 +697,21 @@ export function aAccesArmureLourde(catalogue: WarbandCatalog | undefined, profil
 // estCategorieInterdite) — omis, aucun filtre par profil n'est appliqué
 // (ex : vitrine en lecture seule sans membre précis). `catalogue` (le
 // WarbandCatalog complet, en plus de `catalogueId`) sert uniquement à
-// aAccesArmureLourde — omis, l'armure en gromril/ithilmar reste accessible
-// sans restriction supplémentaire.
+// aAccesArmureLourde/`filtrerAccesEntrainement` — omis, l'armure en
+// gromril/ithilmar reste accessible sans restriction supplémentaire.
+// `filtrerAccesEntrainement` restreint en plus l'achat des armes/armures à
+// celles déjà connues du profil (voir armeArmureUtilisableSansEntrainement) —
+// réservé à l'achat direct côté personnage (AchatEquipementModal) : la
+// recherche d'objet rare post-bataille reste volontairement ouverte, le
+// livre de règles autorisant explicitement l'achat d'objets pas encore
+// utilisables par le guerrier.
 export function getShopCommun(
   catalogueId?: string,
   rules: GameRules = DEFAULT_GAME_RULES,
   profil?: Profile | null,
   competencesAcquises: string[] = [],
-  catalogue?: WarbandCatalog
+  catalogue?: WarbandCatalog,
+  filtrerAccesEntrainement = false
 ): ShopItem[] {
   const armureLourdeInterdite = !aAccesArmureLourde(catalogue, profil);
   const items: ShopItem[] = TOUS_LES_ITEMS.filter(
@@ -638,7 +723,9 @@ export function getShopCommun(
         profil,
         competencesAcquises,
         'sous_type' in item ? (item.sous_type as string | undefined) : undefined
-      )
+      ) &&
+      (!filtrerAccesEntrainement ||
+        armeArmureUtilisableSansEntrainement(item.id, item.categorie, catalogue, profil, competencesAcquises))
   ).map(mapperItemVersShopItem);
   return items.map((item) => appliquerReglesObjet(item, catalogueId ?? '', rules, 'commun'));
 }
@@ -681,13 +768,6 @@ export function monturesDisponibles(
     return getItem(item.id)?.categorie === 'montures';
   });
 }
-
-// Compétences qui donnent accès à toute arme de la bande dans leur
-// catégorie, au-delà de la liste normalement assignée au profil (cf.
-// src/data/skills.json) : "Connaissance des Armes" (corps à corps) et
-// "Expert en Armes" (tir).
-const SKILL_TOUTES_ARMES_CAC = 'combat_03';
-const SKILL_TOUTES_ARMES_TIR = 'tir_04';
 
 // Objets propres à la bande (catalogue.equipement/equipement_special), déjà
 // utilisés en lecture seule par EquipementReference. Chaque référence pointe
