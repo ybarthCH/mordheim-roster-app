@@ -1,0 +1,252 @@
+{
+  "id": "cour_des_plaisirs_profanes",
+  "nom": "Cour des Plaisirs Profanes (1c)",
+  "grade": "1c",
+  "source": "Contenu non officiel, sans lien avec Games Workshop — créé par Tuomas Pirinen pour le tournoi mondial non officiel de Mordheim 2025 (Mordheim World Tournament / MWT2025), avec l'aide de l'équipe du groupe Facebook Mordheim Italia. Figurines non officielles dédiées à l'événement produites par Grimforge.",
+  "regles_speciales": [
+    {
+      "nom": "Corruption de l'Esprit et de la Chair",
+      "texte": "Chaque fois qu'un modèle meurt — Héros ou Homme de main adverse, ou même un membre de la propre bande — celle-ci peut choisir d'accomplir un rituel obscène consistant à greffer une partie du corps du guerrier tombé (bras, jambe, tête, lambeaux de muscle...) sur l'un de ses Hommes-Bêtes Slaaneshi, Cultistes ou Molosses de Slaanesh. Choisissez une caractéristique du guerrier tombé et remplacez la caractéristique correspondante de la créature receveuse par cette valeur. Les joueurs sont encouragés à convertir la figurine receveuse pour représenter la créature ainsi corrompue par ses nouvelles parties du corps. Ce rituel coûte 1 pierre-sorcière, et empêche 1 Héros de rechercher des objets rares au marché tant qu'il l'accomplit."
+    },
+    {
+      "nom": "Mutations",
+      "texte": "Tout Héros peut acheter, uniquement au moment de son recrutement, l'une des mutations suivantes (voir les règles de Mutations du Culte des Possédés) : Bras supplémentaire, Tentacule ou Pince (Grande Griffe) — voir Équipement spécial. Première mutation au prix normal, toute mutation suivante sur la même figurine coûte le double."
+    },
+    {
+      "nom": "Composition",
+      "texte": "La bande doit compter au moins un Héros faisant office de Chef ; choisissez librement lequel de vos Héros bénéficie des règles de Chef. Chaque type de Héros ne peut être engagé qu'une seule fois (0-1 chacun). Le nombre maximal de guerriers est de 15, bien que certains objets (comme le Livre de cuisine Halfling) puissent l'augmenter."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "leader_libre": true,
+  "profils": [
+    {
+      "id": "maitre_fouetteur",
+      "nom": "Maître Fouetteur",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 70,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Agonie et Extase", "texte": "Le Maître Fouetteur armé d'un Fouet d'hédoniste peut décider d'utiliser l'une de ses attaques pour flageller un modèle ami à moins de 3ps. Cette attaque touche automatiquement et bénéficie de +1 sur le jet pour blesser ; résolvez les blessures normalement. En récompense de cet acte de dévotion, Slaanesh gratifie le Maître Fouetteur d'une extase qui le rend quasiment invulnérable : son Endurance est doublée. Au début de chaque nouveau tour du joueur Slaaneshi, il doit réussir un test de Commandement ; en cas d'échec, l'effet cesse immédiatement (il peut être réactivé plus tard)." },
+        { "nom": "Douleur et Plaisir", "texte": "Chaque fois que le Maître Fouetteur subit une blessure non sauvegardée, il est soumis à la règle de Frénésie jusqu'à la fin de son tour suivant — cette Frénésie n'est pas annulée par le fait d'être Mis à terre ou Sonné." }
+      ],
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["cour_des_plaisirs"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "danseuse",
+      "nom": "Danseuse Slaaneshi",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 70,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Étrange Attirance", "texte": "Un ennemi souhaitant attaquer la Danseuse au corps à corps ou au tir doit réussir un test de Commandement avant de porter ses attaques. En cas d'échec, il doit relancer tout jet pour toucher réussi contre elle." },
+        { "nom": "Équipement", "texte": "La Danseuse ne peut jamais porter d'armure." }
+      ],
+      "acces_competences": ["combat", "vitesse", "special"],
+      "acces_equipement": ["cour_des_plaisirs"],
+      "categories_interdites": ["armures"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "marchand_de_chair",
+      "nom": "Marchand de Chair",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 65,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Livre de Chair", "texte": "Avant la bataille, vous pouvez confier l'un des Souffre-douleurs au Marchand de Chair, qui le porte comme un « bouclier de chair » faisant partie de son équipement. Chaque fois que le Marchand de Chair devrait subir une blessure, vous pouvez choisir de la faire encaisser au Souffre-douleur à sa place : celui-ci est alors immédiatement mis hors de combat et retiré de la partie. Le Souffre-douleur porté peut porter ses attaques normales au corps à corps tant qu'il est vivant ; il n'a pas de socle propre et ne peut pas être ciblé par les attaques ennemies. Si le Marchand de Chair meurt, le Souffre-douleur est perdu avec lui." },
+        { "nom": "Destin Cruel", "texte": "Tout captif obtenu par la bande (résultat de combat ou exploration) peut être transformé en Souffre-douleur sans frais, par lobotomie, torture et autres actes de dépravité." }
+      ],
+      "acces_competences": ["combat", "force", "special"],
+      "acces_equipement": ["cour_des_plaisirs"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "pretre_de_l_obscene",
+      "nom": "Prêtre de l'Obscène",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 50,
+      "xp_depart": 6,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Réserve de Chair", "texte": "Avant la bataille, vous pouvez confier l'un des Souffre-douleurs au Prêtre, qui le porte comme un « pion sacrificiel » faisant partie de son équipement. Lorsque le Prêtre rate un jet pour lancer un sort, il peut sacrifier le Souffre-douleur pour relancer ce jet. Le Souffre-douleur porté peut porter ses attaques normales au corps à corps tant qu'il est vivant ; il n'a pas de socle propre et ne peut pas être ciblé par les attaques ennemies. Si le Prêtre meurt, le Souffre-douleur est perdu avec lui." },
+        { "nom": "Sorcier", "texte": "Le Prêtre de l'Obscène est un sorcier et utilise les Rituels du Chaos (voir magie)." }
+      ],
+      "acces_competences": ["combat", "academique", "special"],
+      "acces_equipement": ["cour_des_plaisirs"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "devot",
+      "nom": "Dévot",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 65,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Forme Fluctuante", "texte": "Au début de la bataille, puis à chaque phase de Ralliement tant qu'il n'est pas engagé au corps à corps, choisissez l'aspect que manifeste le Dévot pour le tour : aspect masculin (+1 CC, +1 F, +1 A et +1 E) ou aspect féminin (+1 CT, +2 I, +2 Cd et +2 M)." },
+        { "nom": "Immunisé à la Psychologie", "texte": "Le Dévot est immunisé à la Psychologie et aux tests Seul contre tous." }
+      ],
+      "acces_competences": ["combat", "vitesse", "special"],
+      "acces_equipement": ["cour_des_plaisirs"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "molosse_de_slaanesh",
+      "nom": "Molosse de Slaanesh",
+      "type": "animal",
+      "min": 0,
+      "max": 3,
+      "cout": 15,
+      "stats": { "M": 7, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 3 },
+      "regles_speciales": [
+        { "nom": "Animal", "texte": "Les Molosses de Slaanesh sont des animaux et ne gagnent jamais d'expérience." },
+        { "nom": "Équipement", "texte": "Aucun. Les Molosses de Slaanesh ne peuvent utiliser ni équipement, ni armes, ni armure." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "bete_slaaneshi",
+      "nom": "Homme-Bête Slaaneshi",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "hommes_betes_gor",
+      "min": 0,
+      "max": 3,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 4, "A": 1, "Cd": 6 },
+      "regles_speciales": [],
+      "acces_competences": [],
+      "acces_equipement": ["cour_des_plaisirs"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "souffre_douleur",
+      "nom": "Souffre-douleur",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 10,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Esclaves des Ténèbres", "texte": "Les Souffre-douleurs sont immunisés à toute Psychologie et aux tests Seul contre tous tant qu'ils se trouvent à moins de 6ps d'un Héros ami." },
+        { "nom": "Sans avenir", "texte": "Les Souffre-douleurs ne peuvent pas devenir Héros par la voie normale : si le résultat « Ce gars est doué » est tiré sur la table d'avancement pour un Souffre-douleur, relancez-le ; si ce second jet donne de nouveau « Ce gars est doué », la figurine subit immédiatement un jet sur la table des Blessures Graves, comme s'il s'agissait d'un Héros." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["souffre_douleurs"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "cultiste",
+      "nom": "Cultiste",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 5,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": [],
+      "acces_equipement": ["cour_des_plaisirs"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "cour_des_plaisirs": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "masse" },
+        { "item_id": "fouet_dhedoniste", "cout": 15, "note": "Héros uniquement" },
+        { "item_id": "pince_homme_slaaneshi", "cout": 30, "note": "voir Équipement spécial ; Rare 10, Maître Fouetteur uniquement" },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc", "cout": 15 },
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "long_fusil_du_hochland", "cout": 200 },
+        { "item_id": "arbalete_de_poing", "cout": 35 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5, "note": "targe" },
+        { "item_id": "casque", "cout": 10 }
+      ],
+      "divers": [
+        { "item_id": "ombre_cramoisie", "cout": 35, "note": "Ombre cramoisie" }
+      ]
+    },
+    "souffre_douleurs": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "jamais gratuite, même la première" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "masse" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc_court", "cout": 10, "note": "arc court" }
+      ],
+      "armures": [
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5, "note": "targe" }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "pince_homme_slaaneshi", "cout": 30, "disponibilite": "Rare 10, Maître Fouetteur uniquement", "profils": ["maitre_fouetteur"] },
+    { "item_id": "bras_supplementaire", "cout": 40, "disponibilite": "Uniquement au recrutement d'un Héros. Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["maitre_fouetteur", "danseuse", "marchand_de_chair", "pretre_de_l_obscene", "devot"], "groupe_prix": "table_mutations" },
+    { "item_id": "tentacule", "cout": 35, "disponibilite": "Uniquement au recrutement d'un Héros. Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["maitre_fouetteur", "danseuse", "marchand_de_chair", "pretre_de_l_obscene", "devot"], "groupe_prix": "table_mutations" },
+    { "item_id": "pince_mutation", "cout": 50, "disponibilite": "Uniquement au recrutement d'un Héros. Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["maitre_fouetteur", "danseuse", "marchand_de_chair", "pretre_de_l_obscene", "devot"], "groupe_prix": "table_mutations" }
+  ],
+  "magie": {
+    "nom": "Rituels du Chaos",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["pretre_de_l_obscene"],
+    "sorts": [
+      { "resultat": 1, "id": "vision_d_horreur", "nom": "Vision d'Horreur", "difficulte": 10, "texte": "Portée 6ps, lancé sur l'ennemi le plus proche (cible en contact socle à socle si le sorcier est au Corps à Corps). La victime est immédiatement sonnée ; si elle ne peut pas être sonnée, elle est mise à terre." },
+      { "resultat": 2, "id": "il_divin", "nom": "Œil Divin", "difficulte": 7, "texte": "Réussissable une seule fois par bataille. Choisissez n'importe quelle figurine à moins de 6ps, amie ou ennemie, et lancez 1D6 : 1 = la figurine est immédiatement mise hors de combat (sans jet sur les Blessures Graves) ; 2-5 = +1 dans une Caractéristique au choix du lanceur pour la bataille ; 6 = +1 à toutes les Caractéristiques pour la durée de la bataille." },
+      { "resultat": 3, "id": "sang_noir", "nom": "Sang Noir", "difficulte": 8, "texte": "Portée 8ps, cause D3 touches de F5 à la première figurine sur sa trajectoire. Le sorcier doit ensuite lancer sur le tableau des Dégâts pour sa propre Blessure (un résultat hors de combat est traité comme sonné)." },
+      { "resultat": 4, "id": "tentation_du_chaos", "nom": "Tentation du Chaos", "difficulte": 9, "texte": "Portée 12ps, jeté sur la figurine ennemie la plus proche. Comparez 1D6+Cd du sorcier à 1D6+Cd de la cible ; si le sorcier gagne, il prend le contrôle de sa victime jusqu'à ce qu'elle réussisse un test de Commandement en phase de Ralliement adverse. La figurine contrôlée ne peut pas se suicider mais peut attaquer son propre camp et ne combattra pas la bande du sorcier." },
+      { "resultat": 5, "id": "ailes_tenebreuses", "nom": "Ailes Ténébreuses", "difficulte": 7, "texte": "Le sorcier peut se déplacer immédiatement n'importe où à 12ps maximum, même au contact de l'ennemi (compte comme ayant chargé). S'il engage un ennemi en fuite, il inflige une touche automatique en phase de Corps à Corps puis l'adversaire fuit à nouveau s'il survit." },
+      { "resultat": 6, "id": "mot_de_souffrance", "nom": "Mot de Souffrance", "difficulte": 7, "texte": "Toutes les figurines à moins de 3ps du sorcier, amies ou ennemies, subissent une touche de F3 sans sauvegarde d'armure." }
+    ]
+  }
+}
