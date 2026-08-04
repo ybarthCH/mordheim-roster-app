@@ -63,7 +63,7 @@ export function ArmurerieSection({
   // à l'achat direct côté personnage.
   const membresEligibles = (entree: InventoryEntry): Member[] =>
     roster.membres.filter((m) => {
-      const profil = resolveProfil(roster, m, catalogue) ?? null;
+      const profil = resolveProfil(roster, m, catalogue, language) ?? null;
       return (
         armeArmureUtilisableSansEntrainement(
           entree.item_id,

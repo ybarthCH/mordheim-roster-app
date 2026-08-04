@@ -10,6 +10,7 @@ import {
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { sortsMagieMineureDisponibles } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
+import { translateHiredSword } from '../../i18n/data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
 import { libelleCaracteristique } from '../../utils/stats';
 
@@ -28,12 +29,21 @@ export function RecruterFrancTireurScreen() {
   const [sacrificeLiche, setSacrificeLiche] = useState(1);
   const [sortsChoisis, setSortsChoisis] = useState<string[]>([]);
 
+  // Le calcul de disponibilité (disponibiliteFrancTireur) reste indifférent à
+  // la langue (comparaisons d'ids), donc la traduction est appliquée après
+  // coup, uniquement pour l'affichage.
+  const francsTireursTraduits = useMemo(
+    () => FRANCS_TIREURS.map((profil) => translateHiredSword(profil, language)),
+    [language]
+  );
+
   const profils = useMemo(() => {
     if (!roster) return [];
     const terme = recherche.trim().toLocaleLowerCase('fr');
     // Les Dramatis Personae ont leur propre flux de recrutement (recherche
     // post-bataille dédiée, jamais renommables) — exclus de cet écran.
-    return FRANCS_TIREURS.filter((profil) => !profil.est_dramatis_personae)
+    return francsTireursTraduits
+      .filter((profil) => !profil.est_dramatis_personae)
       .map((profil) => ({
         profil,
         disponibilite: disponibiliteFrancTireur(profil, roster),
@@ -42,7 +52,7 @@ export function RecruterFrancTireurScreen() {
         if (!voirIndisponibles && !disponibilite.disponible) return false;
         return !terme || `${profil.nom} ${profil.nom_original ?? ''}`.toLocaleLowerCase('fr').includes(terme);
       });
-  }, [recherche, roster, voirIndisponibles]);
+  }, [francsTireursTraduits, recherche, roster, voirIndisponibles]);
 
   if (!roster) {
     return (
@@ -52,7 +62,7 @@ export function RecruterFrancTireurScreen() {
     );
   }
 
-  const selection = FRANCS_TIREURS.find((p) => p.id === selectionId);
+  const selection = francsTireursTraduits.find((p) => p.id === selectionId);
   const disponibiliteSelection = selection ? disponibiliteFrancTireur(selection, roster) : null;
   const coutRecrutement = selection
     ? selection.recrutement.cout ?? Math.max(0, Number(coutVariable) || 0)
@@ -67,7 +77,7 @@ export function RecruterFrancTireurScreen() {
     !!selection && disponibiliteSelection?.disponible && budgetSuffisant && coutVariableValide && sortsValides;
 
   const choisir = (profilId: string) => {
-    const profil = FRANCS_TIREURS.find((p) => p.id === profilId);
+    const profil = francsTireursTraduits.find((p) => p.id === profilId);
     setSelectionId(profilId);
     setNomPerso(profil?.nom ?? '');
     setCoutVariable('');

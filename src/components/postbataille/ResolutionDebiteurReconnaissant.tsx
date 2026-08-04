@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { RosterInstance } from '../../types/roster';
 import { FRANCS_TIREURS, disponibiliteFrancTireur } from '../../data/hiredSwords';
+import { translateHiredSword } from '../../i18n/data/hiredSwords';
 import { creerMembreFrancTireurCatalogue } from '../../utils/factory';
 import { useLanguage } from '../../state/useLanguage';
 
@@ -17,7 +18,7 @@ type Props = {
 // pour rester une action en un clic — ces cas restent à engager depuis
 // l'écran de recrutement habituel si besoin.
 export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouterAuJournal }: Props) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [francTireurId, setFrancTireurId] = useState('');
   // Se verrouille une fois un Franc-tireur engagé : l'événement n'en accorde
   // qu'un seul gratuitement, mais rien n'empêchait de resélectionner un
@@ -30,7 +31,7 @@ export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouter
       !f.magie?.sorts_depart &&
       !f.sacrifice_liche &&
       disponibiliteFrancTireur(f, roster).disponible
-  );
+  ).map((f) => translateHiredSword(f, language));
 
   const engager = () => {
     const francTireur = disponibles.find((f) => f.id === francTireurId);

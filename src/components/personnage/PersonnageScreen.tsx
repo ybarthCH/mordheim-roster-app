@@ -75,7 +75,7 @@ export function PersonnageScreen() {
   const membre = roster?.membres.find((m) => m.instance_id === instanceId);
   const catalogueBrut = roster ? getCatalogue(roster.bande_id) : undefined;
   const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
-  const profil = roster && membre ? resolveProfil(roster, membre, catalogue) : undefined;
+  const profil = roster && membre ? resolveProfil(roster, membre, catalogue, language) : undefined;
   const francTireur = getFrancTireur(membre?.franc_tireur_id);
 
   // sorts_connus stockait autrefois le nom affiché du sort plutôt qu'un id

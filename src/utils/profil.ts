@@ -1,8 +1,10 @@
 import type { Profile, SkillCategory, WarbandCatalog } from '../types/catalog';
 import { SKILL_CATEGORIES } from '../types/catalog';
 import type { Member, RosterInstance } from '../types/roster';
+import type { Language } from '../state/useLanguage';
 import { getProfil } from '../data/warbands';
 import { estFrancTireur, getFrancTireur, profilDeFrancTireur } from '../data/hiredSwords';
+import { translateHiredSword } from '../i18n/data/hiredSwords';
 
 /**
  * Profil effectif d'un membre : celui du catalogue de la bande, ou le profil
@@ -14,9 +16,20 @@ import { estFrancTireur, getFrancTireur, profilDeFrancTireur } from '../data/hir
  * (utile pour passer une version déjà traduite depuis un composant d'affichage
  * — voir translateWarbandCatalog). La logique métier (recherche par id,
  * comparaisons de type...) reste indifférente à la langue du profil retourné.
+ *
+ * `language`, s'il est fourni, traduit également le profil d'un franc-tireur
+ * (voir translateHiredSword) avant sa conversion en Profile — même principe
+ * que `catalogue` pour les profils de bande classiques. Omis par les appels
+ * purement métier (calculs, filtres...), qui restent indifférents à la langue.
  */
-export function resolveProfil(roster: RosterInstance, membre: Member, catalogue?: WarbandCatalog): Profile | undefined {
-  const francTireur = getFrancTireur(membre.franc_tireur_id);
+export function resolveProfil(
+  roster: RosterInstance,
+  membre: Member,
+  catalogue?: WarbandCatalog,
+  language?: Language
+): Profile | undefined {
+  const francTireurBrut = getFrancTireur(membre.franc_tireur_id);
+  const francTireur = francTireurBrut && language ? translateHiredSword(francTireurBrut, language) : francTireurBrut;
   const base: Profile | undefined = francTireur
     ? profilDeFrancTireur(francTireur)
     : membre.profil_custom
