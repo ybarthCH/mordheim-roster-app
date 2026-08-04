@@ -893,9 +893,6 @@ export function PostBatailleScreen() {
       stock: [...roster.stock, ...stockCommerce],
       wyrdstone: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre),
       tresorerie: tresorerieApres,
-      equipement_reserve: notesExploration.trim()
-        ? `${roster.equipement_reserve}${roster.equipement_reserve ? '\n' : ''}${notesExploration.trim()}`
-        : roster.equipement_reserve,
       historique_batailles: [...roster.historique_batailles, bataille],
       // Le bonus de dé(s) d'exploration en attente (ex : Vagabond interrogé
       // lors d'une session précédente) vient d'être utilisé pour cette phase
