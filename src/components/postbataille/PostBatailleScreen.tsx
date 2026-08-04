@@ -173,7 +173,11 @@ export function PostBatailleScreen() {
   const [wyrdstoneTrouve, setWyrdstoneTrouve] = useState(0);
   const [notesExploration, setNotesExploration] = useState('');
   const [quantiteVendue, setQuantiteVendue] = useState(0);
-  const [pointsVeteran, setPointsVeteran] = useState(0);
+  // Saisie gardée en texte brut : un input contrôlé par un number forcerait
+  // la valeur dès l'effacement (impossible de vider le champ pour retaper
+  // un chiffre) — la conversion ne s'applique qu'à l'usage (voir `pointsVeteran`).
+  const [pointsVeteranSaisie, setPointsVeteranSaisie] = useState('0');
+  const pointsVeteran = Number(pointsVeteranSaisie) || 0;
 
   const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
   const [xpDrafts, setXpDrafts] = useState<Record<string, XpDraft>>({});
@@ -954,8 +958,8 @@ export function PostBatailleScreen() {
           onNotesExplorationChange={setNotesExploration}
           quantiteVendue={quantiteVendue}
           onQuantiteVendueChange={setQuantiteVendue}
-          pointsVeteran={pointsVeteran}
-          onPointsVeteranChange={setPointsVeteran}
+          pointsVeteranSaisie={pointsVeteranSaisie}
+          onPointsVeteranSaisieChange={setPointsVeteranSaisie}
           onAchatStock={ajouterAuStock}
           onAchatStockMultiple={ajouterAuStockMultiple}
           onAjouterOr={ajouterOrExploration}
