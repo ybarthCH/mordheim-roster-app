@@ -4,7 +4,14 @@ import { Icon } from '../common/Icon';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
 import { ItemDetailModal } from '../personnage/ItemDetailModal';
-import { iconeCategorie, libelleCategorie, resolveItemDetail, prixVente, armeArmureUtilisableSansEntrainement } from '../../utils/shop';
+import {
+  iconeCategorie,
+  libelleCategorie,
+  resolveItemDetail,
+  prixVente,
+  armeArmureUtilisableSansEntrainement,
+  objetAutorisePourHommeDeMain,
+} from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { nomAffiche, resolveProfil } from '../../utils/profil';
 import type { RosterInstance, InventoryEntry, CustomItem, CustomItemOverride, Member } from '../../types/roster';
@@ -47,22 +54,26 @@ export function ArmurerieSection({
     catalogue ? translateItem(resolveItemDetail(entree, catalogue.id, rules), language).nom : entree.nom;
 
   // Un guerrier ne peut recevoir depuis l'armurerie que ce qu'il sait déjà
-  // utiliser (voir armeArmureUtilisableSansEntrainement) : contrairement à
-  // l'achat, transférer un objet déjà en stock équivaut à l'équiper
-  // directement, donc la même restriction de liste de recrutement
-  // s'applique — sans quoi acheter en stock (non restreint, aucun porteur
-  // désigné) puis "Donner à" contournerait le filtre appliqué à l'achat
-  // direct côté personnage.
+  // utiliser (voir armeArmureUtilisableSansEntrainement) ni un objet du
+  // chapitre "Objets Divers" que son profil ne peut pas porter (voir
+  // objetAutorisePourHommeDeMain) : contrairement à l'achat, transférer un
+  // objet déjà en stock équivaut à l'équiper directement, donc ces mêmes
+  // restrictions s'appliquent — sans quoi acheter en stock (non restreint,
+  // aucun porteur désigné) puis "Donner à" contournerait le filtre appliqué
+  // à l'achat direct côté personnage.
   const membresEligibles = (entree: InventoryEntry): Member[] =>
-    roster.membres.filter((m) =>
-      armeArmureUtilisableSansEntrainement(
-        entree.item_id,
-        entree.categorie,
-        catalogue,
-        resolveProfil(roster, m, catalogue) ?? null,
-        m.competences_acquises
-      )
-    );
+    roster.membres.filter((m) => {
+      const profil = resolveProfil(roster, m, catalogue) ?? null;
+      return (
+        armeArmureUtilisableSansEntrainement(
+          entree.item_id,
+          entree.categorie,
+          catalogue,
+          profil,
+          m.competences_acquises
+        ) && objetAutorisePourHommeDeMain(catalogue?.id, profil, entree.item_id, entree.categorie)
+      );
+    });
 
   return (
     <>
