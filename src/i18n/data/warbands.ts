@@ -5544,9 +5544,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Liche Priest',
         regles_speciales: [
           {
-            nom: 'Wizard (spell list missing)',
-            texte:
-              'The Liche Priest is meant to cast spells using scrolls of his own, but this list is not detailed in the available source document (Town Cryer #18, "Khemri: The Land of the Dead" extract). This ability is therefore not yet enabled in the app — it can be once a complete spell list is provided.',
+            nom: 'Wizard',
+            texte: 'The Liche Priest is a Wizard and uses Mortuary Cult scrolls (see the magic domain below).',
           },
           { nom: 'Equipment', texte: 'Cannot wear armour, as it interferes with spellcasting.' },
           { nom: 'Undead', texte: 'The Liche Priest is Undead and follows all rules that apply to the Undead.' },
@@ -5609,6 +5608,43 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: 'Equipment', texte: 'Scorpions carry no weapons or armour.' },
         ],
       },
+    },
+    magie: {
+      nom: 'Mortuary Cult Scroll',
+      note:
+        "The Mortuary Cult's Liche Priests do not use ordinary Necromancy: their magic is preserved in ancient scrolls dating back to Nagash's time as High Priest of the early Nehekharan civilisation. In game terms, the scrolls work just like normal spells — the Liche Priest must pass a test to read the incantation correctly, no easy task in the middle of a fight.",
+      sorts: [
+        {
+          nom: "Menkare's Scroll of Urgency",
+          texte:
+            'The Liche Priest reaches out to urge an Undead warrior forward. A single Skeleton within 6" may immediately move again up to its maximum Movement distance (4"). If this takes the model into base contact with an enemy model, it counts as charging.',
+        },
+        {
+          nom: "Horrebe's Curse of the Mummy",
+          texte:
+            'The Liche Priest amplifies the curse that all mummies bear and focuses it on a single enemy model. The target must be in base contact with a Mummy and within 18" of the Liche Priest. On a success, the enemy model suffers a -1 penalty to hit, to wound, and to its armour save, until the start of the next Tomb Guardian Shooting phase.',
+        },
+        {
+          nom: "Tawosret's Scroll of Tomb Dust",
+          texte:
+            'The Liche Priest commands the sand around him to assault a single warrior within 12". The warrior is automatically Knocked Down as he chokes on the sand. This spell only affects a living model.',
+        },
+        {
+          nom: "Neferre's Scroll of Quaking Horror",
+          texte:
+            'The Liche Priest selects a warrior within 12" who is beset by terrible, haunting visions of his own death. The model must pass a Leadership test or flee 2D6" directly away from the Liche Priest, continuing to flee each Movement phase until he makes a successful Rally test in the Recovery phase. Has no effect on Undead models or models immune to psychology.',
+        },
+        {
+          nom: "Merneptah's Scroll of the Scarab Song",
+          texte:
+            'With a short, rasping chant, the Liche Priest summons a swarm of scarabs that burrow up through the ground and swarm over an enemy warrior. A single model within 8" of the Liche Priest suffers 2D6 Strength 1 hits. In addition, that model may not be shot at for the rest of the Tomb Guardian Shooting phase, nor may he fight or be fought in hand-to-hand combat; if already in combat, move him 1" away as he staggers in agony. Unless actually injured, he counts as having just stood up next turn.',
+        },
+        {
+          nom: "Djedre's Summoning of the Vengeful Dead",
+          texte:
+            'The Liche Priest may re-animate a Skeleton that went out of action during the last turn. Place the model anywhere within 6" of the Liche Priest, but not directly into hand-to-hand combat with an enemy model.',
+        },
+      ],
     },
   },
   pilleurs_de_tombes_arabes: {

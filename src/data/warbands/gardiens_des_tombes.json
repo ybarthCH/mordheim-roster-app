@@ -52,7 +52,7 @@
       "xp_depart": 8,
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [
-        { "nom": "Sorcier (liste de sorts absente)", "texte": "Le Prêtre-Liche est censé lancer des sorts à l'aide de parchemins qui lui sont propres, mais cette liste n'est pas détaillée dans le document source disponible (Town Cryer #18, extrait \"Khemri : la Terre des Morts\"). Cette capacité n'est donc pas encore activée dans l'application — elle pourra l'être dès qu'une liste de sorts complète sera fournie." },
+        { "nom": "Sorcier", "texte": "Le Prêtre-Liche est un Sorcier et utilise les parchemins de la Secte Mortuaire (voir domaine de magie ci-dessous)." },
         { "nom": "Équipement", "texte": "Ne peut pas porter d'armure, celle-ci interférant avec le lancement de ses sorts." },
         { "nom": "Mort-Vivant", "texte": "Le Prêtre-Liche est Mort-Vivant et suit toutes les règles s'appliquant aux Morts-Vivants." },
         { "nom": "Provoque la Peur", "texte": "Monstre mort-vivant terrifiant qui provoque la peur." },
@@ -193,5 +193,56 @@
     { "item_id": "javelot_nehekharien", "cout": 10, "disponibilite": "Roi des Tombes uniquement", "profils": ["roi_des_tombes"] },
     { "item_id": "baton_du_serpent", "cout": 30, "disponibilite": "Rare 7, Prêtre-Liche uniquement", "profils": ["pretre_liche"] },
     { "item_id": "char_squelette", "cout": "200+10D6", "disponibilite": "0-1, Rare 10 — piloté par un membre de la bande" }
-  ]
+  ],
+  "magie": {
+    "nom": "Parchemins de la Secte Mortuaire",
+    "type": "parchemins",
+    "de": "D6",
+    "utilisateurs": ["pretre_liche"],
+    "note": "Les Prêtres-Liches de la Secte Mortuaire n'utilisent pas la Nécromancie ordinaire : leur magie est conservée dans d'antiques parchemins qui remontent à l'époque de Nagash, Grand Prêtre des débuts de la civilisation néhékharienne. En termes de jeu, ces parchemins fonctionnent exactement comme des sorts normaux : le Prêtre-Liche doit réussir un test pour lire correctement l'incantation, ce qui n'est pas chose aisée en plein combat.",
+    "sorts": [
+      {
+        "resultat": 1,
+        "id": "parchemin_de_l_urgence",
+        "nom": "Parchemin de l'Urgence de Menkaré",
+        "difficulte": 6,
+        "texte": "Le Prêtre-Liche tend son pouvoir pour presser un guerrier Mort-Vivant d'avancer. Un Squelette unique à moins de 6 ps peut immédiatement se déplacer à nouveau jusqu'à sa distance de Mouvement maximale (4 ps). Si cela l'amène au contact socle à socle d'un ennemi, cela compte comme une charge."
+      },
+      {
+        "resultat": 2,
+        "id": "malediction_de_la_momie",
+        "nom": "Malédiction de la Momie d'Horrebe",
+        "difficulte": 8,
+        "texte": "Le Prêtre-Liche amplifie la malédiction que portent toutes les momies et la concentre sur un seul combattant ennemi. La cible doit être au contact socle à socle d'une Momie et à moins de 18 ps du Prêtre-Liche. En cas de réussite, le combattant ennemi subit un malus de -1 à toucher, à blesser et à sa sauvegarde d'armure. Cet effet dure jusqu'au début de la prochaine phase de Tir des Gardiens des Tombes."
+      },
+      {
+        "resultat": 3,
+        "id": "poussiere_des_tombes",
+        "nom": "Parchemin de la Poussière des Tombes de Tawosret",
+        "difficulte": 7,
+        "texte": "Le Prêtre-Liche commande au sable qui l'entoure d'assaillir un guerrier à moins de 12 ps. Le guerrier est automatiquement mis à terre alors qu'il s'étouffe dans le sable. Ce sort n'affecte que les combattants vivants."
+      },
+      {
+        "resultat": 4,
+        "id": "horreur_tremblante",
+        "nom": "Parchemin de l'Horreur Tremblante de Neferré",
+        "difficulte": 7,
+        "texte": "Le Prêtre-Liche désigne un guerrier à moins de 12 ps, assailli par de terrifiantes visions de sa propre mort. Le combattant doit réussir un test de Commandement ou fuir de 2D6 ps directement à l'opposé du Prêtre-Liche. Il continue de fuir à chaque phase de Mouvement jusqu'à réussir un test de Ralliement en phase de Rétablissement. Ce sort n'a aucun effet sur les Morts-Vivants ni sur les combattants immunisés à la psychologie."
+      },
+      {
+        "resultat": 5,
+        "id": "chant_du_scarabee",
+        "nom": "Parchemin du Chant du Scarabée de Merneptah",
+        "difficulte": 7,
+        "texte": "Dans un chant court et rauque, le Prêtre-Liche invoque un essaim de scarabées qui jaillissent du sol et recouvrent un combattant ennemi. Un combattant unique à moins de 8 ps du Prêtre-Liche subit 2D6 touches de Force 1. De plus, ce combattant ne peut pas être pris pour cible de tir pour le reste de la phase de Tir des Gardiens des Tombes, et ne peut ni combattre ni être combattu au corps à corps. S'il est déjà engagé au corps à corps, écartez-le de 1 ps du combat tandis qu'il se débat de douleur. À moins qu'il ne subisse une blessure réelle, il compte comme s'étant relevé au tour suivant."
+      },
+      {
+        "resultat": 6,
+        "id": "invocation_des_morts_vengeurs",
+        "nom": "Invocation des Morts Vengeurs de Djedré",
+        "difficulte": 5,
+        "texte": "Le Prêtre-Liche peut ranimer un Squelette mis hors de combat lors du tour précédent. Placez la figurine n'importe où à moins de 6 ps du Prêtre-Liche, mais pas directement au contact socle à socle d'un ennemi."
+      }
+    ]
+  }
 }
