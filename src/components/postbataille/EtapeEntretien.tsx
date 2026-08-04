@@ -137,17 +137,19 @@ export function EtapeEntretien({
         );
       })}
 
-      <div className="card">
-        <p className={insuffisant ? 'text-danger mb-0' : 'mb-0'}>
-          {t('entretien.totalLine', {
-            or: totalOr,
-            malepierre: totalMalepierre > 0 ? t('entretien.andFragments', { n: totalMalepierre }) : '',
-          })}
-          <br />
-          {t('entretien.availableAfterExploration', { or: orDisponible, malepierre: malepierreDisponible })}
-        </p>
-        {insuffisant && <p className="text-sm text-danger mb-0">{t('entretien.insufficientResources')}</p>}
-      </div>
+      {lignes.length > 0 && (
+        <div className="card">
+          <p className={insuffisant ? 'text-danger mb-0' : 'mb-0'}>
+            {t('entretien.totalLine', {
+              or: totalOr,
+              malepierre: totalMalepierre > 0 ? t('entretien.andFragments', { n: totalMalepierre }) : '',
+            })}
+            <br />
+            {t('entretien.availableAfterExploration', { or: orDisponible, malepierre: malepierreDisponible })}
+          </p>
+          {insuffisant && <p className="text-sm text-danger mb-0">{t('entretien.insufficientResources')}</p>}
+        </div>
+      )}
     </>
   );
 }

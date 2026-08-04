@@ -18,8 +18,8 @@ export const etapeEntretien: UiDictionary = {
   'entretien.exemptionLabel': { fr: 'Exemption : {label}', en: 'Exemption: {label}' },
   'entretien.keepWithoutPaying': { fr: 'Conserver sans payer', en: 'Keep without paying' },
   'entretien.totalLine': {
-    fr: 'Total : {or} CO{malepierre}.',
-    en: 'Total: {or} gc{malepierre}.',
+    fr: 'Total à payer : {or} CO{malepierre}.',
+    en: 'Total to pay: {or} gc{malepierre}.',
   },
   'entretien.andFragments': { fr: ' et {n} fragment(s) de malepierre', en: ' and {n} warpstone fragment(s)' },
   'entretien.availableAfterExploration': {
