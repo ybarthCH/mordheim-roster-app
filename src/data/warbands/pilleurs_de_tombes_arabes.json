@@ -1,0 +1,172 @@
+{
+  "id": "pilleurs_de_tombes_arabes",
+  "nom": "Pilleurs de Tombes Arabes (1b)",
+  "grade": "1b",
+  "source": "Khemri – The Land of the Dead (supplément communautaire Mordheim), p.14-21.",
+  "regles_speciales": [
+    { "nom": "Haine des Morts-vivants", "texte": "Les hommes d'Araby ont durement souffert des attaques (et des griffes) des armées du Roi des Tombes des Terres des Morts. Pour cette raison, les Héros Arabes haïssent tous les Morts-vivants.", "exception": "S'applique uniquement aux Héros (Cheikh, Champion et Mystique) ; les Hommes de main n'y sont pas sujets." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "cheikh",
+      "nom": "Cheikh",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 60,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Recrutement", "texte": "Chaque bande de Pilleurs de Tombes Arabes doit compter un Cheikh : ni plus, ni moins ! Il est le chef incontesté de la bande." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse", "special"],
+      "acces_equipement": ["guerriers"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "champion",
+      "nom": "Champion",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 1,
+      "cout": 40,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_equipement": ["guerriers"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "mystique",
+      "nom": "Mystique",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 40,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "Le Mystique est un Sorcier. Il lance ses sorts à partir de la liste de Magie élémentaire arabe. Il débute avec un unique sort tiré aléatoirement dans cette liste." }
+      ],
+      "acces_competences": ["academique", "vitesse", "special"],
+      "acces_equipement": ["guerriers"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "bedouin",
+      "nom": "Bédouin",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 2,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Marchand du désert", "texte": "Ajoutez +1 au jet de recherche d'Équipement/Négoce. Notez que ce bonus reste de +1 même si la bande compte deux Bédouins (non cumulatif)." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["guerriers"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "guerrier_nomade",
+      "nom": "Guerrier nomade",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "acces_competences": [],
+      "acces_equipement": ["guerriers"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "esclave",
+      "nom": "Esclave",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 5,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Vie d'esclavage", "texte": "Un Esclave peut gagner de l'expérience, mais s'il obtient le résultat « Ce gars est doué » sur la Table d'avancement, le chef l'exécute aussitôt et il est retiré des listes de bande. Le reste du groupe peut alors relancer son avancée." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["esclaves"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    { "id": "ver_des_sables", "nom": "Ver des sables", "texte": "Le guerrier peut s'enterrer dans le sable et devenir presque indétectable. Le modèle peut se cacher en terrain découvert. Ne peut pas être utilisé à l'intérieur des bâtiments." },
+    { "id": "frappe_et_fuite", "nom": "Frappe et fuite", "texte": "Le guerrier peut courir et tirer, mais subit un malus de -2 pour toucher au lieu du -1 habituel pour avoir bougé." },
+    { "id": "resistant_aux_intemperies", "nom": "Résistant aux intempéries", "texte": "Le guerrier s'est tellement habitué aux conditions climatiques qu'elles ne l'affectent plus du tout. Les conditions météorologiques telles que la chaleur et autres n'ont plus aucun effet sur ce modèle." }
+  ],
+  "equipement": {
+    "guerriers": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "Jambiya, première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Masse" },
+        { "item_id": "epee", "cout": 10, "note": "Cimeterre" },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 },
+        { "item_id": "fleau", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc_court", "cout": 5 },
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "tufenk", "cout": 15 },
+        { "item_id": "arquebuse", "cout": 35, "note": "Hand Gun" }
+      ],
+      "armures": [
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5, "note": "Buckler" },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "armure_legere", "cout": 20 }
+      ]
+    },
+    "esclaves": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "Jambiya, première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Gourdin" },
+        { "item_id": "katar", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 }
+      ],
+      "armures": [
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    }
+  },
+  "magie": {
+    "nom": "Magie élémentaire arabe",
+    "type": "sorts",
+    "de": "D6",
+    "utilisateurs": ["mystique"],
+    "note": "La magie des Djinns est un art rare, presque perdu, chez les hommes. Elle est le domaine réservé des Djinns du désert profond et de ceux, malchanceux, qui ont été capturés.",
+    "sorts": [
+      { "resultat": 1, "id": "chevaucher_le_vent", "nom": "Chevaucher le vent", "difficulte": 6, "texte": "Ce sort est lancé au début de la phase de Mouvement du lanceur. Le lanceur peut se déplacer jusqu'à 12+D6 ps n'importe où sur la table, en ignorant tout terrain intercalé ; ce mouvement compte comme son déplacement pour le tour. Ce sort ne peut pas être utilisé pour amener le lanceur au contact socle à socle d'un ennemi, mais il peut ensuite tirer normalement (avec le malus de -1 pour avoir bougé)." },
+      { "resultat": 2, "id": "peau_de_pierre", "nom": "Peau de pierre", "difficulte": 7, "texte": "Ce sort peut être lancé sur n'importe quel guerrier ami à moins de 6ps. La cible gagne +2 à sa sauvegarde d'armure mais subit un malus de -1 en Initiative. Le sort peut être maintenu chaque tour tant que le guerrier affecté reste à moins de 6ps du lanceur et que celui-ci réussit un test de Difficulté. Si le lanceur se trouve à plus de 6ps du guerrier affecté lors de la phase de Récupération, le sort ne peut être maintenu et se dissipe aussitôt. Un seul guerrier peut être affecté par Peau de pierre à la fois, bien que le lanceur reste libre de lancer d'autres sorts en le maintenant." },
+      { "resultat": 3, "id": "main_brulante", "nom": "Main brûlante", "difficulte": 8, "texte": "Ce sort est lancé au début de la phase de Combat. Le lanceur peut sacrifier la totalité de ses attaques normales pour effectuer une seule attaque de corps à corps à Force 5 causant 2 blessures. Si le guerrier ennemi est touché avec succès, il prend feu sur un jet de 4+. Ce sort ne dure qu'un round." },
+      { "resultat": 4, "id": "sables_mouvants", "nom": "Sables mouvants", "difficulte": 6, "texte": "Ce sort cible n'importe quel guerrier à moins de 6ps. L'eau inonde une zone de 3ps autour du guerrier ciblé. L'effet dure jusqu'au début de la prochaine phase de Récupération du lanceur. Tous les guerriers pris dans les sables mouvants doivent réussir un test de Force ou être incapables de se déplacer. Les guerriers engagés au corps à corps ne peuvent pas attaquer mais peuvent se défendre." },
+      { "resultat": 5, "id": "tempete_magique", "nom": "Tempête magique", "difficulte": 9, "texte": "Le lanceur peut cibler n'importe quel guerrier à moins de 12ps. Si le sort est lancé avec succès, la cible est frappée par un éclair d'énergie pure et subit une touche de Force 5. Les sauvegardes d'armure s'appliquent normalement." },
+      { "resultat": 6, "id": "benediction_des_elements", "nom": "Bénédiction des éléments", "difficulte": 6, "texte": "Lors de la séquence d'après-bataille, le joueur peut relancer un dé de son choix ou modifier un dé de +1/-1. Si le lanceur a été mis hors de combat durant la partie, ce sort ne peut pas être utilisé." }
+    ]
+  }
+}

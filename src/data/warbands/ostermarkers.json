@@ -1,0 +1,201 @@
+{
+  "id": "ostermarkers",
+  "nom": "Mercenaires Ostermarkers",
+  "grade": "1b",
+  "source": "Fanatic Online #19 (Nick Kyme) — traduction Kangourax, correction Hlyame — La Grande Librairie de Mordheim, V1dFr (23 avr. 2026), annexe Montures incluse",
+  "regles_speciales": [
+    { "nom": "Seuls contre tous", "texte": "Les Ostermarkers (Héros et Hommes de main) peuvent relancer un test de Commandement raté s'ils sont seuls contre tous ou en cas de Déroute. La bande ou le combattant doit cependant accepter le second jet, quel qu'en soit le résultat." },
+    { "nom": "Chien de guerre gratuit", "texte": "Ces mercenaires utilisent souvent des chiens pour garder leurs fermes et donner l'alerte en cas d'intrusion. Tout Capitaine d'une bande d'Ostermarkers peut commencer avec un chien de guerre dans son équipement de départ, en hommage à la bête qui protégeait jadis sa ferme et ses terres des bandits et autres viles créatures. Ce chien de guerre est gratuit à la création de la bande." },
+    { "nom": "Choix des compétences", "texte": "À la création de la bande, vous devez choisir l'un des trois ensembles de compétences suivants pour vos Mercenaires Ostermarkers. Une fois choisi, il ne sera plus possible de changer d'ensemble de compétences.\n\nOption 1 : Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir, Force ; Recrue — Combat, Tir, Vitesse.\nOption 2 : Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Force, Vitesse ; Recrue — Combat, Force, Vitesse.\nOption 3 : Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir ; Recrue — Combat, Tir, Vitesse." }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 15,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "capitaine_mercenaire",
+      "nom": "Capitaine Mercenaire",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 60,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout membre de la bande à moins de 6ps du Capitaine Mercenaire peut utiliser le Commandement de ce dernier pour ses tests." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
+      "acces_equipement": ["mercenaires", "montures"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "champion",
+      "nom": "Champion",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 35,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "tir", "force", "vitesse"],
+      "acces_equipement": ["mercenaires", "montures"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "recrue",
+      "nom": "Recrue",
+      "type": "heros",
+      "groupe_caracteristiques": "humain",
+      "unique": false,
+      "min": 0,
+      "max": 2,
+      "cout": 15,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [],
+      "acces_competences": ["combat", "tir", "force", "vitesse"],
+      "acces_equipement": ["mercenaires", "montures"],
+      "acces_competences_a_verifier": true
+    },
+    {
+      "id": "guerrier",
+      "nom": "Guerrier",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": null,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": [],
+      "acces_equipement": ["mercenaires"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "tireur",
+      "nom": "Tireur",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 7,
+      "cout": 25,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": [],
+      "acces_equipement": ["tireurs"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "bretteur",
+      "nom": "Bretteur",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "humain",
+      "min": 0,
+      "max": 5,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Expert à l'épée", "texte": "Les bretteurs sont si doués avec leurs armes que, lorsqu'ils chargent, ils peuvent relancer leurs jets pour toucher ratés. Notez que cela s'applique lorsqu'ils ont des épées normales, pas des épées à deux mains ou d'autres armes." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["mercenaires"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "chien_de_guerre",
+      "nom": "Chien de guerre",
+      "type": "animal",
+      "min": 0,
+      "max": null,
+      "cout": null,
+      "cout_notation": "25+2D6",
+      "rarete": "10",
+      "stats": { "M": 6, "CC": 4, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 5 },
+      "regles_speciales": [
+        { "nom": "Premier chien gratuit pour le Capitaine", "texte": "Le Capitaine Mercenaire peut commencer avec un chien de guerre dans son équipement de départ, gratuitement, à la création de la bande (voir règles spéciales de la bande)." },
+        { "nom": "Molosse de combat", "texte": "Se bat exactement comme un membre de la bande, bien qu'il fasse partie de l'équipement du Héros qui l'a acheté. Une figurine est nécessaire pour le représenter sur le champ de bataille." },
+        { "nom": "Ne gagne jamais d'expérience", "texte": "Un chien de guerre reste au même niveau toute sa carrière." },
+        { "nom": "Rétablissement", "texte": "S'il est mis hors de combat : 1-2 Mort, 3-6 Vivant (comme un Homme de main)." },
+        { "nom": "Profil polyvalent", "texte": "Utilisable pour représenter des animaux plus exotiques (ours dressé, familier du Chaos, singe de combat des Terres du Sud...)." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [],
+  "equipement": {
+    "mercenaires": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Masse" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "morgenstern", "cout": 15 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "arbalete", "cout": 25 },
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "pistolet_de_duel", "cout": 25, "note": "50 CO la paire" }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 }
+      ]
+    },
+    "tireurs": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Masse" },
+        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 }
+      ],
+      "armes_tir": [
+        { "item_id": "arbalete", "cout": 25 },
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arc_long", "cout": 15 },
+        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "tromblon", "cout": 30 },
+        { "item_id": "arquebuse", "cout": 35 },
+        { "item_id": "long_fusil_du_hochland", "cout": 200 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
+      ]
+    },
+    "montures": {
+      "divers": [
+        { "item_id": "mule_market", "cout": 30, "note": "voir équipement spécial ; Héros uniquement" },
+        { "item_id": "cheval", "cout": 40, "note": "voir équipement spécial ; Héros uniquement" },
+        { "item_id": "destriers", "cout": 80, "note": "voir équipement spécial ; Héros uniquement" }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "mule_market", "cout": 30, "disponibilite": "Rare 7, Héros uniquement", "profils": ["capitaine_mercenaire", "champion", "recrue"] },
+    { "item_id": "cheval", "cout": 40, "disponibilite": "Rare 8, Humains uniquement, Héros uniquement", "profils": ["capitaine_mercenaire", "champion", "recrue"] },
+    { "item_id": "destriers", "cout": 80, "disponibilite": "Rare 11, Humains uniquement, Héros uniquement", "profils": ["capitaine_mercenaire", "champion", "recrue"] }
+  ]
+}
