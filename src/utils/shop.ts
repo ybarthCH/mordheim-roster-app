@@ -747,19 +747,6 @@ export function creerEntreesInventaire(item: ShopItem, coutPaye: number, quantit
   return Array.from({ length: Math.max(1, quantite) }, () => creerEntreeInventaire(item, coutPaye));
 }
 
-// Toutes les entrées d'inventaire partageant le même item_id qu'une instance
-// donnée. Pour un groupe d'hommes de main (taille_groupe > 1), l'équipement
-// doit rester identique entre toutes les figurines : vendre, retirer ou
-// renvoyer un exemplaire agit donc sur tout le lot. Un héros (taille_groupe
-// = 1, toujours le cas) ne voit agir que l'exemplaire ciblé.
-export function entreesLieesAuGroupe(membre: Member, instanceId: string): InventoryEntry[] {
-  const entree = membre.inventaire.find((e) => e.instance_id === instanceId);
-  if (!entree) return [];
-  return membre.taille_groupe > 1
-    ? membre.inventaire.filter((e) => e.item_id === entree.item_id)
-    : [entree];
-}
-
 export function acheterPourMembre(
   roster: RosterInstance,
   membreId: string,
@@ -783,14 +770,10 @@ export function acheterPourStock(roster: RosterInstance, entree: InventoryEntry)
 }
 
 export function retirerDeMembre(roster: RosterInstance, membreId: string, instanceId: string): RosterInstance {
-  const membre = roster.membres.find((m) => m.instance_id === membreId);
-  const aRetirer = new Set(
-    (membre ? entreesLieesAuGroupe(membre, instanceId) : [{ instance_id: instanceId }]).map((e) => e.instance_id)
-  );
   return {
     ...roster,
     membres: roster.membres.map((m) =>
-      m.instance_id === membreId ? { ...m, inventaire: m.inventaire.filter((e) => !aRetirer.has(e.instance_id)) } : m
+      m.instance_id === membreId ? { ...m, inventaire: m.inventaire.filter((e) => e.instance_id !== instanceId) } : m
     ),
   };
 }
@@ -799,12 +782,18 @@ export function retirerDuStock(roster: RosterInstance, instanceId: string): Rost
   return { ...roster, stock: roster.stock.filter((e) => e.instance_id !== instanceId) };
 }
 
+// Ne transfère qu'un seul exemplaire à la fois, même au sein d'un groupe
+// d'hommes de main : renvoyer/vendre/retirer tout le lot en un clic serait
+// trop facile à déclencher par erreur. Le mismatch d'équipement du groupe
+// (voir inventaireGroupeMismatch) réagit immédiatement si cela déséquilibre
+// la répartition, et reste résolvable en répétant l'action figurine par
+// figurine ou via l'armurerie.
 export function transfererVersStock(roster: RosterInstance, membre: Member, instanceId: string): RosterInstance {
-  const aTransferer = entreesLieesAuGroupe(membre, instanceId);
-  if (aTransferer.length === 0) return roster;
+  const entree = membre.inventaire.find((e) => e.instance_id === instanceId);
+  if (!entree) return roster;
   return {
     ...retirerDeMembre(roster, membre.instance_id, instanceId),
-    stock: [...roster.stock, ...aTransferer],
+    stock: [...roster.stock, entree],
   };
 }
 

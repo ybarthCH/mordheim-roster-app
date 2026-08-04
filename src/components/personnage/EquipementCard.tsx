@@ -88,7 +88,7 @@ export function EquipementCard({
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
                 onClick={() => onRenvoyer(entree.instance_id)}
-                title={quantite > 1 ? t('equipementCard.returnToStockManyTitle', { n: quantite }) : t('equipementCard.returnToStockOneTitle')}
+                title={t('equipementCard.returnToStockOneTitle')}
               >
                 ↩
               </button>
@@ -98,7 +98,7 @@ export function EquipementCard({
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
                 onClick={() => onVendre(entree)}
-                title={t('equipementCard.sellTitle', { prix: prixVente(entree.cout) * quantite })}
+                title={t('equipementCard.sellTitle', { prix: prixVente(entree.cout) })}
               >
                 {t('equipementCard.sell')}
               </button>
@@ -107,11 +107,7 @@ export function EquipementCard({
               className="btn--ghost"
               style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
               onClick={() => onRetirer(entree.instance_id)}
-              title={
-                quantite > 1
-                  ? t('equipementCard.removeManyTitle', { n: quantite })
-                  : t('equipementCard.removeOneTitle')
-              }
+              title={t('equipementCard.removeOneTitle')}
             >
               ✕
             </button>
