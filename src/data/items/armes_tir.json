@@ -172,7 +172,7 @@
   {
     "id": "kusarigama", "nom": "Kusarigama", "categorie": "armes_tir", "sous_type": "jet",
     "cout": 10, "cout_fixe": true, "rarete": "7", "disponibilite": "Rare 7, Moines Guerriers de Cathay uniquement",
-    "acces": ["moines_cathay"], "source": "BTB-MGC", "page": 22,
+    "acces": ["moines_guerriers_de_cathay"], "source": "BTB-MGC", "page": 22,
     "texte": "Le Kusarigama est une fine corde ou une chaîne lestée à l'extrémité de laquelle est fixée une faux ou un crochet de pêche. Les moines utilisent, avec une précision mortelle, la portée de cette arme étrange pour déséquilibrer les ennemis armés d'une épée.",
     "portee": "3ps", "force": "3",
     "regles_speciales": [
@@ -197,9 +197,9 @@
     "cout": 30, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Aristocrates de la Cavalcade Maudite uniquement",
     "acces": ["cavalcade_maudite"], "source": "CMA (Cavalcade Maudite)", "page": 23,
     "texte": "Faucon, épervier ou autre prédateur ailé dressé dès sa naissance pour chasser et combattre pour son noble propriétaire.",
-    "portee": "18ps", "force": "3",
+    "portee": "18ps", "force": "4",
     "regles_speciales": [
-      { "nom": "Ciblage", "texte": "L'oiseau de proie peut attaquer les cibles cachées et ignore les pénalités liées au couvert." }
+      { "nom": "Ciblage", "texte": "L'oiseau de proie n'a pas besoin de ligne de vue (mais ne peut pas être utilisé contre une cible cachée) et ignore les pénalités de mouvement, de longue portée et de couvert. Utilisez la CT du propriétaire pour déterminer s'il touche." }
     ]
   },
   {
