@@ -189,6 +189,38 @@ function normaliserCategorie(categorie: string): string {
   return CATEGORIE_CANONIQUE[categorie] ?? categorie;
 }
 
+// Armes à poudre noire et munitions comptent comme "armes_tir" au sens des
+// interdictions de catégorie (Profile.categories_interdites) : une bande ou
+// un profil qui n'a jamais accès aux "armes de tir" au sens des règles perd
+// aussi bien les armes de tir classiques que les armes à poudre noire.
+const CATEGORIES_ARMES_TIR = new Set(['armes_tir', 'armes_poudre_noire', 'munitions']);
+
+// Un objet appartient-il à une catégorie interdite à ce profil (voir
+// Profile.categories_interdites) ? Ne filtre que l'onglet "commun" du shop
+// et la recherche d'objet rare — l'onglet "bande" (getEquipementBande) est
+// déjà correctement restreint par `acces_equipement`. Comme pour
+// `acces_equipement`, les compétences "Connaissance des Armes"/"Expert en
+// Armes" lèvent l'interdiction pour la catégorie qu'elles couvrent.
+export function estCategorieInterdite(
+  categorie: string,
+  profil: Profile | null | undefined,
+  competencesAcquises: string[] = []
+): boolean {
+  const interdictions = profil?.categories_interdites;
+  if (!interdictions || interdictions.length === 0) return false;
+  const c = normaliserCategorie(categorie);
+  for (const interdiction of interdictions) {
+    if (interdiction === 'armes_cac') {
+      if (c === 'armes_cac' && !competencesAcquises.includes(SKILL_TOUTES_ARMES_CAC)) return true;
+    } else if (interdiction === 'armes_tir') {
+      if (CATEGORIES_ARMES_TIR.has(c) && !competencesAcquises.includes(SKILL_TOUTES_ARMES_TIR)) return true;
+    } else if (c === 'armures') {
+      return true;
+    }
+  }
+  return false;
+}
+
 const CATALOGUE_ARTILLEURS_NULN = 'artilleurs_de_nuln';
 
 // Armures de corps et caparaçons concernés par la règle Lozheim. Les
@@ -550,10 +582,20 @@ function mapperItemVersShopItem(item: (typeof TOUS_LES_ITEMS)[number]): ShopItem
 
 // `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
 // cette bande (voir estAccesPourCatalogue) — omis, seul le shop générique
-// (accessible à toutes les bandes) est retourné.
-export function getShopCommun(catalogueId?: string, rules: GameRules = DEFAULT_GAME_RULES): ShopItem[] {
-  const items: ShopItem[] = TOUS_LES_ITEMS.filter((item) =>
-    catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])
+// (accessible à toutes les bandes) est retourné. `profil`/`competencesAcquises`
+// appliquent en plus les interdictions de catégorie du profil ciblé (voir
+// estCategorieInterdite) — omis, aucun filtre par profil n'est appliqué
+// (ex : vitrine en lecture seule sans membre précis).
+export function getShopCommun(
+  catalogueId?: string,
+  rules: GameRules = DEFAULT_GAME_RULES,
+  profil?: Profile | null,
+  competencesAcquises: string[] = []
+): ShopItem[] {
+  const items: ShopItem[] = TOUS_LES_ITEMS.filter(
+    (item) =>
+      (catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) &&
+      !estCategorieInterdite(item.categorie, profil, competencesAcquises)
   ).map(mapperItemVersShopItem);
   return items.map((item) => appliquerReglesObjet(item, catalogueId ?? '', rules, 'commun'));
 }

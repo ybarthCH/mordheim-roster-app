@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
+import { resolveProfil } from '../../utils/profil';
 import {
   basesPourMateriau,
   classeRarete,
@@ -68,19 +69,24 @@ export function RechercheObjetRareModal({
   const [rechercheMateriau, setRechercheMateriau] = useState('');
   const [coutBaseSaisi, setCoutBaseSaisi] = useState('');
 
+  const profil = useMemo(() => resolveProfil(roster, membre, catalogue) ?? null, [roster, membre, catalogue]);
+
   const items = useMemo(() => {
-    const candidats = getShopCommun(catalogue.id, rules);
+    const candidats = getShopCommun(catalogue.id, rules, profil, membre.competences_acquises);
     const uniques = new Map<string, ShopItem>();
     for (const item of candidats) {
       if (niveauRarete(item) === null || uniques.has(item.id)) continue;
       uniques.set(item.id, item);
     }
     return [...uniques.values()].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
-  }, [catalogue, rules]);
+  }, [catalogue, rules, profil, membre.competences_acquises]);
 
   // Liste complète (non filtrée par rareté) pour proposer les bases d'un
   // objet matériau : une arme de base courante n'a elle-même aucune rareté.
-  const itemsCommunTous = useMemo(() => getShopCommun(catalogue.id, rules), [catalogue, rules]);
+  const itemsCommunTous = useMemo(
+    () => getShopCommun(catalogue.id, rules, profil, membre.competences_acquises),
+    [catalogue, rules, profil, membre.competences_acquises]
+  );
 
   const q = recherche.trim().toLocaleLowerCase('fr');
   const itemsFiltres = q ? items.filter((item) => item.nom.toLocaleLowerCase('fr').includes(q)) : items;

@@ -67,7 +67,7 @@
         {"nom": "Sauvage", "texte": "Les Ding’boyz doivent toujours courir ou charger au maximum de leur Mouvement vers l’ennemi visible le plus proche. Les figurines alliées ne bloquent pas les lignes de vue. S’il n’y a pas d’ennemi visible, le joueur Orque Noir peut les déplacer normalement. Au corps à corps, ils bénéficient d’une attaque supplémentaire. Cette attaque n’apparaît pas sur leur profil et ne compte pas dans le maximum racial. Les Ding’boyz ne peuvent pas porter d’armure, ni d’armes à distance. Ils sont également trop instables pour les autres orques, qui refuseront que l’un d’entre eux devienne leur Chef. Il n’est pas possible non plus d’utiliser leur Commandement pour les tests de Déroute, à moins que les Ding’boyz soient les seules figurines de la bande restantes."}
       ],
       "acces_competences": [], "acces_competences_a_verifier": false,
-      "acces_equipement": ["ding_boyz"], "est_leader": false
+      "acces_equipement": ["ding_boyz"], "categories_interdites": ["armes_tir", "armures"], "est_leader": false
     },
     {
       "id": "troll", "nom": "Troll", "type": "animal", "unique": false, "min": 0, "max": 1, "cout": 200, "xp_depart": 0,
@@ -83,7 +83,7 @@
         {"nom": "Grande cible", "texte": "Les Trolls sont des créatures immenses faisant de bonnes cibles pour les archers. Ce sont des grandes cibles, comme défini dans les règles de Tir."}
       ],
       "acces_competences": [], "acces_competences_a_verifier": false,
-      "acces_equipement": [], "est_leader": false
+      "acces_equipement": [], "categories_interdites": ["armes_cac", "armes_tir", "armures"], "est_leader": false
     },
     {
       "id": "chien_de_guerre",
