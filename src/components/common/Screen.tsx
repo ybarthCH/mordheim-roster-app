@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LanguageToggle } from './LanguageToggle';
 import { ThemeToggle } from './ThemeToggle';
+import { Icon } from './Icon';
 import { useLanguage } from '../../state/useLanguage';
 
 type ScreenProps = {
@@ -56,7 +57,7 @@ export function Screen({ title, back, actions, children }: ScreenProps) {
             aria-label={t('home.settings')}
             title={t('home.settings')}
           >
-            ⚙
+            <Icon name="engrenage" />
           </button>
         )}
         <ThemeToggle />
