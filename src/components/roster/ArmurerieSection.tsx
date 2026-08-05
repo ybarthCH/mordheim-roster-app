@@ -31,6 +31,13 @@ type ArmurerieSectionProps = {
   onRetirer: (instanceId: string) => void;
   onObjetsPersonnalisesChange: (objets: CustomItem[]) => void;
   onObjetsSurchargesChange: (surcharges: Record<string, CustomItemOverride>) => void;
+  // Le bouton d'ouverture ("+ Acheter") a été déplacé à côté de
+  // "Recruter"/"Assistant post-bataille" (voir RosterScreen.top-actions) —
+  // la modale reste ici puisque c'est elle qui connaît le contexte
+  // armurerie (inventaireBande, objets personnalisés...), seul l'état
+  // d'ouverture est piloté par le parent.
+  modalAchatOuvert: boolean;
+  onFermerAchat: () => void;
 };
 
 export function ArmurerieSection({
@@ -44,9 +51,10 @@ export function ArmurerieSection({
   onRetirer,
   onObjetsPersonnalisesChange,
   onObjetsSurchargesChange,
+  modalAchatOuvert,
+  onFermerAchat,
 }: ArmurerieSectionProps) {
   const { t, language } = useLanguage();
-  const [modalAchat, setModalAchat] = useState(false);
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
   const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
 
@@ -84,11 +92,6 @@ export function ArmurerieSection({
           <Icon name="coffre" style={{ marginRight: '0.35em' }} />
           {t('armurerie.title')}
         </>
-      }
-      actions={
-        <button className="btn btn--sm btn--primary" onClick={() => setModalAchat(true)}>
-          {t('armurerie.buy')}
-        </button>
       }
     >
       {roster.stock.length === 0 && <p className="text-muted text-sm">{t('armurerie.emptyStock')}</p>}
@@ -146,7 +149,7 @@ export function ArmurerieSection({
       ))}
     </CollapsibleCard>
 
-      {modalAchat && catalogue && (
+      {modalAchatOuvert && catalogue && (
         <AchatEquipementModal
           catalogue={catalogue}
           profil={null}
@@ -157,7 +160,7 @@ export function ArmurerieSection({
           objetsSurcharges={roster.objets_surcharges}
           onObjetsPersonnalisesChange={onObjetsPersonnalisesChange}
           onObjetsSurchargesChange={onObjetsSurchargesChange}
-          onClose={() => setModalAchat(false)}
+          onClose={onFermerAchat}
           onAchat={onAchat}
         />
       )}

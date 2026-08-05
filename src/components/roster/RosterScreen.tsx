@@ -46,7 +46,15 @@ import { PersonnageScreen } from '../personnage/PersonnageScreen';
 const SPLIT_LIST_WIDTH_KEY = 'ui.roster.splitListWidthPct';
 const SPLIT_LIST_WIDTH_DEFAUT = 0.35;
 const SPLIT_LIST_WIDTH_MIN_PX = 220;
-const SPLIT_LIST_WIDTH_MAX_PCT = 0.6;
+// Le tableau à 9 caractéristiques a besoin d'environ 950px pour s'afficher
+// sans son propre scroll horizontal de secours (voir la container query
+// sur .roster-split__list dans index.css) — un plafond à 60% aurait rendu
+// ce seuil quasi inatteignable (60% de 1600px, la largeur max de .app-main
+// en mode deux volets, ne laisse que 960px, pile à la limite). Relevé à
+// 75% pour que la colonne puisse dépasser franchement les 950px sur un
+// grand écran, quand l'utilisateur choisit délibérément de sacrifier de la
+// largeur au volet détail pour voir le tableau complet.
+const SPLIT_LIST_WIDTH_MAX_PCT = 0.75;
 
 type RosterScreenProps = {
   // Actives le mode deux volets (grands écrans) : le contenu habituel devient
@@ -78,6 +86,10 @@ export function RosterScreen({
   const [modalLeader, setModalLeader] = useState(false);
   const [modalPromotion, setModalPromotion] = useState(false);
   const [heroPromuEnAttente, setHeroPromuEnAttente] = useState<Member | null>(null);
+  // Piloté ici plutôt que dans ArmurerieSection : le bouton d'ouverture
+  // s'affiche maintenant à côté de Recruter/Assistant post-bataille (voir
+  // .top-actions plus bas), pas dans l'en-tête de la carte armurerie.
+  const [modalAchat, setModalAchat] = useState(false);
 
   const splitRef = useRef<HTMLDivElement>(null);
   const [listWidthPct, setListWidthPct] = useState(SPLIT_LIST_WIDTH_DEFAUT);
@@ -346,6 +358,8 @@ export function RosterScreen({
         onRetirer={retirerStock}
         onObjetsPersonnalisesChange={(objets) => patch({ objets_personnalises: objets })}
         onObjetsSurchargesChange={(surcharges) => patch({ objets_surcharges: surcharges })}
+        modalAchatOuvert={modalAchat}
+        onFermerAchat={() => setModalAchat(false)}
       />
 
       {(violations.length > 0 || violationsEffectif.some((v) => v.type === 'min')) && (
@@ -408,11 +422,18 @@ export function RosterScreen({
         </CollapsibleCard>
       )}
 
-      <div className="top-actions">
-        <button className="btn btn--primary" onClick={() => setModalMembre(true)}>
+      <div className="status-segmented" style={{ marginBottom: '0.8rem' }}>
+        <button type="button" className="status-segmented__option" onClick={() => setModalMembre(true)}>
           {t('roster.recruit')}
         </button>
-        <button className="btn" onClick={() => navigate(`/roster/${roster.id}/post-bataille`)}>
+        <button type="button" className="status-segmented__option" onClick={() => setModalAchat(true)}>
+          {t('armurerie.buy')}
+        </button>
+        <button
+          type="button"
+          className="status-segmented__option"
+          onClick={() => navigate(`/roster/${roster.id}/post-bataille`)}
+        >
           {t('roster.postBattleWizard')}
         </button>
       </div>

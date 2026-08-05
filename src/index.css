@@ -697,9 +697,9 @@ button {
    bruts : ceux-ci s'inversent clair/sombre selon le thème (voir
    :root[data-theme]), color-mix vers le noir donne un aplat toujours assez
    sombre pour un texte clair, dans les deux thèmes. Pour la fiche
-   personnage (un seul membre affiché), voir .wax-seal ci-dessous —
-   habillage différent, volontairement plus spectaculaire, pas adapté à une
-   liste dense. */
+   personnage (un seul membre affiché), voir .status-segmented ci-dessous —
+   même logique de couleurs, habillage en segments plutôt qu'en
+   interrupteur unique. */
 .status-switch {
   display: inline-flex;
   align-items: center;
@@ -814,98 +814,6 @@ button {
   pointer-events: none;
 }
 
-/* Sceau de statut : bouton circulaire façon cire embossée, coloré selon le
-   statut courant (mêmes teintes sémantiques que .badge--*). Le clic fait
-   avancer au statut suivant via le même chemin que les .status-pill
-   existants (donc "Blessé" ouvre toujours sa modale de tours) — seul
-   l'habillage change, pas la logique. */
-.wax-seal {
-  flex: none;
-  width: 62px;
-  height: 62px;
-  padding: 0.3rem;
-  border-radius: 50%;
-  position: relative;
-  cursor: pointer;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.15rem;
-  text-align: center;
-  font-family: var(--font-accroche);
-  font-style: italic;
-  font-weight: 700;
-  font-size: 0.6rem;
-  line-height: 1.05;
-  color: var(--accent-contrast);
-  box-shadow:
-    0 3px 6px rgba(0, 0, 0, 0.4),
-    inset 0 2px 3px rgba(255, 255, 255, 0.3),
-    inset 0 -3px 4px rgba(0, 0, 0, 0.35);
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.wax-seal:active {
-  transform: scale(0.94);
-}
-.wax-seal--turn {
-  animation: wax-seal-turn 0.5s ease;
-}
-@keyframes wax-seal-turn {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(150deg);
-  }
-}
-.wax-seal::before {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border-radius: 50%;
-  border: 1px dashed rgba(255, 255, 255, 0.3);
-}
-.wax-seal::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-}
-.wax-seal--success {
-  background: radial-gradient(
-    circle at 35% 28%,
-    var(--success) 0%,
-    color-mix(in srgb, var(--success) 70%, black) 72%,
-    color-mix(in srgb, var(--success) 55%, black) 100%
-  );
-}
-.wax-seal--warning {
-  background: radial-gradient(
-    circle at 35% 28%,
-    var(--warning) 0%,
-    color-mix(in srgb, var(--warning) 70%, black) 72%,
-    color-mix(in srgb, var(--warning) 55%, black) 100%
-  );
-}
-.wax-seal--danger {
-  background: radial-gradient(
-    circle at 35% 28%,
-    var(--danger) 0%,
-    color-mix(in srgb, var(--danger) 70%, black) 72%,
-    color-mix(in srgb, var(--danger) 55%, black) 100%
-  );
-}
-.wax-seal--neutral {
-  background: radial-gradient(
-    circle at 35% 28%,
-    var(--text-muted) 0%,
-    color-mix(in srgb, var(--text-muted) 65%, black) 72%,
-    color-mix(in srgb, var(--text-muted) 50%, black) 100%
-  );
-}
 
 .stat-grid {
   display: grid;
@@ -1459,15 +1367,20 @@ button {
 }
 
 /* La colonne de liste est redimensionnable (voir .roster-split__resizer,
-   jusqu'à 60% du conteneur — RosterScreen.SPLIT_LIST_WIDTH_MAX_PCT) : sur
-   un grand écran, une fois élargie à la main, elle peut largement dépasser
-   les 720px nécessaires au tableau à 9 caractéristiques. Une media query
-   sur la largeur de FENÊTRE ne peut pas le détecter (la fenêtre peut être
+   jusqu'à 75% du conteneur — RosterScreen.SPLIT_LIST_WIDTH_MAX_PCT) : sur
+   un grand écran, une fois élargie à la main, elle peut dépasser la
+   largeur nécessaire au tableau à 9 caractéristiques. Une media query sur
+   la largeur de FENÊTRE ne peut pas le détecter (la fenêtre peut être
    large alors que la colonne, elle, reste étroite) — d'où une container
-   query sur la largeur réelle de la colonne elle-même. Le seuil de 720px
-   reprend celui de la vue normale ci-dessus, pour un comportement
-   cohérent : "table dès qu'il y a assez de place", que cette place vienne
-   de la fenêtre (vue normale) ou de la colonne (vue deux volets). */
+   query sur la largeur réelle de la colonne elle-même.
+   Seuil mesuré empiriquement (Playwright, scrollWidth vs clientWidth du
+   .roster-table-wrap réel, statut le plus long "Hors de combat/Out of
+   action" inclus) : le tableau a besoin d'environ 930px pour tenir sans
+   son propre scroll horizontal de secours. 950px pour une marge de
+   sécurité — sciemment plus haut que le seuil de 720px de la vue normale
+   ci-dessus, qui lui compte sur ce même scroll de secours entre 720 et
+   ~930px plutôt que de l'éviter complètement (comportement préexistant,
+   pas retouché ici). */
 .roster-split__list {
   container-type: inline-size;
 }
@@ -1477,7 +1390,7 @@ button {
 .roster-split__list .member-cards {
   display: block;
 }
-@container (min-width: 720px) {
+@container (min-width: 950px) {
   .roster-split__list .roster-table-wrap {
     display: block;
   }
