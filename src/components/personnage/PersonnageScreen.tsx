@@ -670,13 +670,13 @@ function PersonnageChrome({ embedded, title, backTo, onClose, closeLabel, childr
             ×
           </button>
         </div>
-        <div className="personnage-embedded__body">{children}</div>
+        <div className="personnage-embedded__body personnage-sheet">{children}</div>
       </div>
     );
   }
   return (
     <Screen title={title} back={backTo}>
-      {children}
+      <div className="personnage-sheet">{children}</div>
     </Screen>
   );
 }

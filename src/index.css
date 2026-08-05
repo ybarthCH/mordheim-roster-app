@@ -365,6 +365,14 @@ button {
   pointer-events: none;
 }
 
+/* Filet d'accent sur la tranche gauche des cartes de la fiche de
+   personnage — repris de la maquette DA v3, volontairement scopé à
+   .personnage-sheet pour ne pas déborder sur le reste de l'app (résumé de
+   bande, armurerie...) qui garde son habillage de carte inchangé. */
+.personnage-sheet .card {
+  border-left: 3px solid var(--accent);
+}
+
 .card--tight {
   padding: 0.6rem 0.7rem;
 }
