@@ -439,7 +439,15 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
       />
 
       {profil.type === 'heros' && (
-        <CollapsibleCard preferenceKey="ui.personnage.competences.ouvert" title={t('personnage.skills')}>
+        <CollapsibleCard
+          preferenceKey="ui.personnage.competences.ouvert"
+          title={
+            <>
+              <Icon name="grimoire" style={{ marginRight: '0.35em' }} />
+              {t('personnage.skills')}
+            </>
+          }
+        >
           <CompetencesPanel
             member={membre}
             profil={profil}
@@ -662,13 +670,13 @@ function PersonnageChrome({ embedded, title, backTo, onClose, closeLabel, childr
             ×
           </button>
         </div>
-        <div className="personnage-embedded__body">{children}</div>
+        <div className="personnage-embedded__body personnage-sheet">{children}</div>
       </div>
     );
   }
   return (
     <Screen title={title} back={backTo}>
-      {children}
+      <div className="personnage-sheet">{children}</div>
     </Screen>
   );
 }

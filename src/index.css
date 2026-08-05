@@ -365,6 +365,14 @@ button {
   pointer-events: none;
 }
 
+/* Filet d'accent sur la tranche gauche des cartes de la fiche de
+   personnage — repris de la maquette DA v3, volontairement scopé à
+   .personnage-sheet pour ne pas déborder sur le reste de l'app (résumé de
+   bande, armurerie...) qui garde son habillage de carte inchangé. */
+.personnage-sheet .card {
+  border-left: 3px solid var(--accent);
+}
+
 .card--tight {
   padding: 0.6rem 0.7rem;
 }
@@ -670,6 +678,99 @@ button {
 .badge--neutral {
   background: var(--bg-inset);
   color: var(--text-muted);
+}
+
+/* Sceau de statut : bouton circulaire façon cire embossée, coloré selon le
+   statut courant (mêmes teintes sémantiques que .badge--*). Le clic fait
+   avancer au statut suivant via le même chemin que les .status-pill
+   existants (donc "Blessé" ouvre toujours sa modale de tours) — seul
+   l'habillage change, pas la logique. */
+.wax-seal {
+  flex: none;
+  width: 62px;
+  height: 62px;
+  padding: 0.3rem;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  text-align: center;
+  font-family: var(--font-accroche);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 0.6rem;
+  line-height: 1.05;
+  color: var(--accent-contrast);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.4),
+    inset 0 2px 3px rgba(255, 255, 255, 0.3),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.35);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.wax-seal:active {
+  transform: scale(0.94);
+}
+.wax-seal--turn {
+  animation: wax-seal-turn 0.5s ease;
+}
+@keyframes wax-seal-turn {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(150deg);
+  }
+}
+.wax-seal::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+}
+.wax-seal::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.wax-seal--success {
+  background: radial-gradient(
+    circle at 35% 28%,
+    var(--success) 0%,
+    color-mix(in srgb, var(--success) 70%, black) 72%,
+    color-mix(in srgb, var(--success) 55%, black) 100%
+  );
+}
+.wax-seal--warning {
+  background: radial-gradient(
+    circle at 35% 28%,
+    var(--warning) 0%,
+    color-mix(in srgb, var(--warning) 70%, black) 72%,
+    color-mix(in srgb, var(--warning) 55%, black) 100%
+  );
+}
+.wax-seal--danger {
+  background: radial-gradient(
+    circle at 35% 28%,
+    var(--danger) 0%,
+    color-mix(in srgb, var(--danger) 70%, black) 72%,
+    color-mix(in srgb, var(--danger) 55%, black) 100%
+  );
+}
+.wax-seal--neutral {
+  background: radial-gradient(
+    circle at 35% 28%,
+    var(--text-muted) 0%,
+    color-mix(in srgb, var(--text-muted) 65%, black) 72%,
+    color-mix(in srgb, var(--text-muted) 50%, black) 100%
+  );
 }
 
 .stat-grid {
