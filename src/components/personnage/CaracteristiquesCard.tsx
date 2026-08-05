@@ -4,6 +4,7 @@ import type { Member } from '../../types/roster';
 import { plafondPour, estStatAuPlafond } from '../../utils/plafond';
 import { useLanguage } from '../../state/useLanguage';
 import { libelleCaracteristique } from '../../utils/stats';
+import { Icon } from '../common/Icon';
 
 type CaracteristiquesCardProps = {
   membre: Member;
@@ -16,7 +17,10 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
   const plafond = plafondPour(profil, membre.competences_acquises);
   return (
     <div className="card">
-      <h3>{t('caracteristiques.title')}</h3>
+      <h3>
+        <Icon name="bouclier" style={{ marginRight: '0.35em' }} />
+        {t('caracteristiques.title')}
+      </h3>
       <div className="stat-grid">
         {STAT_KEYS.map((k) => (
           <div key={k} className="stat-grid__cell stat-grid__cell--label">

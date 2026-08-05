@@ -7,11 +7,11 @@ import type { Profile } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { useLanguage } from '../../state/useLanguage';
 
-const STATUT_BADGE: Record<string, string> = {
-  actif: 'badge--success',
-  hors_de_combat: 'badge--warning',
-  mort: 'badge--danger',
-  blesse: 'badge--neutral',
+const STATUT_SEAL: Record<string, string> = {
+  actif: 'wax-seal--success',
+  hors_de_combat: 'wax-seal--warning',
+  mort: 'wax-seal--danger',
+  blesse: 'wax-seal--neutral',
 };
 
 const STATUT_ICONE: Partial<Record<string, IconName>> = {
@@ -63,6 +63,7 @@ export function StatutCard({
   // post-bataille (PostBatailleScreen.terminer).
   const [modalBlesseOuvert, setModalBlesseOuvert] = useState(false);
   const [toursSaisis, setToursSaisis] = useState('2');
+  const [sceauTourne, setSceauTourne] = useState(false);
 
   const cliquerStatut = (s: Statut) => {
     if (s === 'blesse' && membre.statut !== 'blesse') {
@@ -71,6 +72,17 @@ export function StatutCard({
       return;
     }
     onChangerStatut(s);
+  };
+
+  // Sceau de statut : fait avancer au statut suivant dans statutsDisponibles
+  // (même liste, même ordre que les .status-pill ci-dessous) en passant par
+  // le même cliquerStatut — "Blessé" ouvre donc toujours sa modale de tours,
+  // aucune sécurité perdue par rapport aux boutons explicites.
+  const cliquerSceau = () => {
+    const index = statutsDisponibles.findIndex((s) => s.id === membre.statut);
+    const suivant = statutsDisponibles[(index + 1) % statutsDisponibles.length];
+    setSceauTourne(true);
+    cliquerStatut(suivant.id);
   };
 
   const confirmerBlesse = () => {
@@ -100,11 +112,22 @@ export function StatutCard({
             {membre.promu_heros && t('statutCard.promoted')}
           </p>
         </div>
-        <span className={`badge ${STATUT_BADGE[membre.statut]}`}>
-          {STATUT_ICONE[membre.statut] && <Icon name={STATUT_ICONE[membre.statut]!} style={{ marginRight: '0.35em' }} />}
-          {t(`statut.${membre.statut}`)}
-          {membre.statut === 'mort' && membre.date_mort ? ` (${membre.date_mort})` : ''}
-        </span>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.3rem', flexShrink: 0 }}>
+          <button
+            type="button"
+            className={`wax-seal ${STATUT_SEAL[membre.statut]}${sceauTourne ? ' wax-seal--turn' : ''}`}
+            onClick={cliquerSceau}
+            onAnimationEnd={() => setSceauTourne(false)}
+            title={t('statutCard.cycleStatusTitle')}
+            aria-label={`${t(`statut.${membre.statut}`)} — ${t('statutCard.cycleStatusTitle')}`}
+          >
+            {STATUT_ICONE[membre.statut] && <Icon name={STATUT_ICONE[membre.statut]!} size="0.9em" />}
+            {t(`statut.${membre.statut}`)}
+          </button>
+          {membre.statut === 'mort' && membre.date_mort && (
+            <span className="text-sm text-muted">{membre.date_mort}</span>
+          )}
+        </div>
       </div>
 
       <div className="status-select" style={{ marginTop: '0.7rem' }}>

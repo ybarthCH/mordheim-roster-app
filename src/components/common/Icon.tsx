@@ -30,7 +30,8 @@ export type IconName =
   | 'volets'
   | 'partager'
   | 'accolades'
-  | 'document';
+  | 'document'
+  | 'grimoire';
 
 const PATHS: Record<IconName, string> = {
   epee:
@@ -68,6 +69,8 @@ const PATHS: Record<IconName, string> = {
   accolades:
     'M10 4 C8 4 7.5 5 7.5 7 L7.5 9.5 C7.5 10.5 7 11 6 11 C7 11 7.5 11.5 7.5 12.5 L7.5 17 C7.5 19 8 20 10 20 M14 4 C16 4 16.5 5 16.5 7 L16.5 9.5 C16.5 10.5 17 11 18 11 C17 11 16.5 11.5 16.5 12.5 L16.5 17 C16.5 19 16 20 14 20',
   document: 'M6 3 L15 3 L19 7 L19 21 L6 21 Z M15 3 L15 7 L19 7 M9 12 L16 12 M9 15 L16 15 M9 18 L13 18',
+  grimoire:
+    'M4 6 C4 5 5 4.5 6 4.5 L11 5 L11 19 L6 18.5 C5 18.5 4 18 4 17 Z M20 6 C20 5 19 4.5 18 4.5 L13 5 L13 19 L18 18.5 C19 18.5 20 18 20 17 Z M11 5 L13 5 M11 19 L13 19',
 };
 
 const VIEWBOX: Record<IconName, string> = {
@@ -96,6 +99,7 @@ const VIEWBOX: Record<IconName, string> = {
   partager: '0 0 24 24',
   accolades: '0 0 24 24',
   document: '0 0 24 24',
+  grimoire: '0 0 24 24',
 };
 
 type Props = {

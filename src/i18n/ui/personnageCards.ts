@@ -24,6 +24,7 @@ export const personnageCards: UiDictionary = {
   'statutCard.turnsInjuredLabel': { fr: 'Tours blessé', en: 'Turns injured' },
   'statutCard.cancel': { fr: 'Annuler', en: 'Cancel' },
   'statutCard.confirm': { fr: 'Confirmer', en: 'Confirm' },
+  'statutCard.cycleStatusTitle': { fr: 'Cliquer pour passer au statut suivant', en: 'Click to cycle to the next status' },
 
   // CaracteristiquesCard
   'caracteristiques.title': { fr: 'Caractéristiques', en: 'Characteristics' },
