@@ -106,13 +106,15 @@ export function MemberGroupCard({
   // de combat » (voir PersonnageScreen) : chaque clic marque une figurine de
   // plus via le compteur dédié, jusqu'à ce que tout le groupe soit à terre.
   // Seuls les héros (et hommes de main promus) basculent le statut lui-même.
-  const titreHorsCombat = (m: Member) => {
+  const estGroupeSimplifie = (m: Member) => {
     const profil = resolveProfil(roster, m, catalogue, language);
-    const estGroupeSimplifie = (profil?.type === 'homme_de_main' || profil?.type === 'animal') && !m.promu_heros;
-    return estGroupeSimplifie
+    return (profil?.type === 'homme_de_main' || profil?.type === 'animal') && !m.promu_heros;
+  };
+
+  const titreHorsCombat = (m: Member) =>
+    estGroupeSimplifie(m)
       ? t('memberGroup.hcMarkTitle', { hc: m.hors_combat, taille: m.taille_groupe })
       : t('memberGroup.hcToggleTitle');
-  };
 
   return (
     <CollapsibleCard
@@ -191,26 +193,39 @@ export function MemberGroupCard({
                     <td>{m.stats_variables?.Cd ?? m.stats_actuels.Cd}</td>
                     <td>{m.xp}</td>
                     <td>
-                      <button
-                        type="button"
-                        className={`status-switch status-switch--${STATUT_COULEUR[m.statut]}${m.statut === 'actif' ? ' status-switch--on' : ''}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onBasculerHorsCombat(m);
-                        }}
-                        title={titreHorsCombat(m)}
-                        aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
-                      >
-                        {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                        <span className="status-switch__label">{t(`statut.${m.statut}`)}</span>
-                        <span className="status-switch__track">
-                          <span className="status-switch__thumb" />
-                        </span>
-                      </button>
-                      {m.hors_combat > 0 && (
-                        <span className="badge badge--warning" style={{ marginLeft: '0.3rem' }}>
-                          {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
-                        </span>
+                      {estGroupeSimplifie(m) ? (
+                        <button
+                          type="button"
+                          className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onBasculerHorsCombat(m);
+                          }}
+                          title={titreHorsCombat(m)}
+                          aria-label={titreHorsCombat(m)}
+                        >
+                          <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
+                          <span className="status-switch__label">
+                            {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
+                          </span>
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className={`status-switch status-switch--${STATUT_COULEUR[m.statut]}${m.statut === 'actif' ? ' status-switch--on' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onBasculerHorsCombat(m);
+                          }}
+                          title={titreHorsCombat(m)}
+                          aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
+                        >
+                          {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
+                          <span className="status-switch__label">{t(`statut.${m.statut}`)}</span>
+                          <span className="status-switch__track">
+                            <span className="status-switch__thumb" />
+                          </span>
+                        </button>
                       )}
                       {inventaireGroupeMismatch(m) && (
                         <span
@@ -297,22 +312,40 @@ export function MemberGroupCard({
                     )}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className={`status-switch status-switch--${STATUT_COULEUR[m.statut]}${m.statut === 'actif' ? ' status-switch--on' : ''}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onBasculerHorsCombat(m);
-                  }}
-                  title={titreHorsCombat(m)}
-                  aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
-                >
-                  {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                  <span className="status-switch__label">{t(`statut.${m.statut}`)}</span>
-                  <span className="status-switch__track">
-                    <span className="status-switch__thumb" />
-                  </span>
-                </button>
+                {estGroupeSimplifie(m) ? (
+                  <button
+                    type="button"
+                    className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onBasculerHorsCombat(m);
+                    }}
+                    title={titreHorsCombat(m)}
+                    aria-label={titreHorsCombat(m)}
+                  >
+                    <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
+                    <span className="status-switch__label">
+                      {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
+                    </span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className={`status-switch status-switch--${STATUT_COULEUR[m.statut]}${m.statut === 'actif' ? ' status-switch--on' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onBasculerHorsCombat(m);
+                    }}
+                    title={titreHorsCombat(m)}
+                    aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
+                  >
+                    {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
+                    <span className="status-switch__label">{t(`statut.${m.statut}`)}</span>
+                    <span className="status-switch__track">
+                      <span className="status-switch__thumb" />
+                    </span>
+                  </button>
+                )}
                 <button
                   className="btn--ghost"
                   style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
@@ -333,18 +366,11 @@ export function MemberGroupCard({
                   {resumeEquipement(m)}
                 </div>
                 {resumeBlessures(m) && <div className="text-sm text-danger">{resumeBlessures(m)}</div>}
-                {(m.hors_combat > 0 || inventaireGroupeMismatch(m)) && (
+                {inventaireGroupeMismatch(m) && (
                   <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.15rem' }}>
-                    {m.hors_combat > 0 && (
-                      <span className="badge badge--warning">
-                        {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
-                      </span>
-                    )}
-                    {inventaireGroupeMismatch(m) && (
-                      <span className="badge badge--danger" title={t('memberGroup.equipmentMismatchTitle')}>
-                        ⚠ {t('memberGroup.equipmentMismatchBadge')}
-                      </span>
-                    )}
+                    <span className="badge badge--danger" title={t('memberGroup.equipmentMismatchTitle')}>
+                      ⚠ {t('memberGroup.equipmentMismatchBadge')}
+                    </span>
                   </div>
                 )}
               </div>

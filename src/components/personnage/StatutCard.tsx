@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Icon } from '../common/Icon';
-import type { IconName } from '../common/Icon';
 import { Avatar } from '../common/Avatar';
 import { PhotoCropModal } from '../common/PhotoCropModal';
 import { STATUTS } from '../../types/roster';
@@ -8,19 +7,6 @@ import type { Member, Statut } from '../../types/roster';
 import type { Profile } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { useLanguage } from '../../state/useLanguage';
-
-const STATUT_SEAL: Record<string, string> = {
-  actif: 'wax-seal--success',
-  hors_de_combat: 'wax-seal--warning',
-  mort: 'wax-seal--danger',
-  blesse: 'wax-seal--neutral',
-};
-
-const STATUT_ICONE: Partial<Record<string, IconName>> = {
-  hors_de_combat: 'ossements',
-  mort: 'crane',
-  blesse: 'goutte',
-};
 
 type StatutCardProps = {
   membre: Member;
@@ -65,7 +51,6 @@ export function StatutCard({
   // post-bataille (PostBatailleScreen.terminer).
   const [modalBlesseOuvert, setModalBlesseOuvert] = useState(false);
   const [toursSaisis, setToursSaisis] = useState('2');
-  const [sceauTourne, setSceauTourne] = useState(false);
 
   // Photo de la figurine : la modale de gestion (voir plus bas) montre la
   // photo en plus grand avec Changer/Supprimer, ou directement un bouton
@@ -104,17 +89,6 @@ export function StatutCard({
     onChangerStatut(s);
   };
 
-  // Sceau de statut : fait avancer au statut suivant dans statutsDisponibles
-  // (même liste, même ordre que les .status-pill ci-dessous) en passant par
-  // le même cliquerStatut — "Blessé" ouvre donc toujours sa modale de tours,
-  // aucune sécurité perdue par rapport aux boutons explicites.
-  const cliquerSceau = () => {
-    const index = statutsDisponibles.findIndex((s) => s.id === membre.statut);
-    const suivant = statutsDisponibles[(index + 1) % statutsDisponibles.length];
-    setSceauTourne(true);
-    cliquerStatut(suivant.id);
-  };
-
   const confirmerBlesse = () => {
     const n = Math.max(1, parseInt(toursSaisis, 10) || 1);
     onChangerStatut('blesse', n);
@@ -149,22 +123,6 @@ export function StatutCard({
             {membre.promu_heros && t('statutCard.promoted')}
           </p>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.3rem', flexShrink: 0 }}>
-          <button
-            type="button"
-            className={`wax-seal ${STATUT_SEAL[membre.statut]}${sceauTourne ? ' wax-seal--turn' : ''}`}
-            onClick={cliquerSceau}
-            onAnimationEnd={() => setSceauTourne(false)}
-            title={t('statutCard.cycleStatusTitle')}
-            aria-label={`${t(`statut.${membre.statut}`)} — ${t('statutCard.cycleStatusTitle')}`}
-          >
-            {STATUT_ICONE[membre.statut] && <Icon name={STATUT_ICONE[membre.statut]!} size="0.9em" />}
-            {t(`statut.${membre.statut}`)}
-          </button>
-          {membre.statut === 'mort' && membre.date_mort && (
-            <span className="text-sm text-muted">{membre.date_mort}</span>
-          )}
-        </div>
       </div>
 
       <div className="status-segmented" style={{ marginTop: '0.7rem' }}>
@@ -179,6 +137,11 @@ export function StatutCard({
           </button>
         ))}
       </div>
+      {membre.statut === 'mort' && membre.date_mort && (
+        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+          {membre.date_mort}
+        </p>
+      )}
 
       {membre.statut === 'blesse' && (
         <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
