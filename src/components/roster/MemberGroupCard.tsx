@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CollapsibleCard } from '../common/CollapsibleCard';
-import { Avatar } from '../common/Avatar';
 import { Icon } from '../common/Icon';
 import type { IconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
@@ -168,22 +167,17 @@ export function MemberGroupCard({
                       </span>
                     </td>
                     <td>
-                      <div className="flex items-center gap-sm">
-                        <Avatar nom={nomAffiche(m)} photo={m.photo} size={28} />
-                        <span>
-                          {nomAffiche(m)}
-                          {estLeaderActuel(roster, catalogue, m) && (
-                            <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
-                              <Icon name="etoile" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
-                            </span>
-                          )}
-                          {avanceEnAttente(m) && (
-                            <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
-                              {t('memberGroup.pendingAdvance')}
-                            </span>
-                          )}
+                      {nomAffiche(m)}
+                      {estLeaderActuel(roster, catalogue, m) && (
+                        <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
+                          <Icon name="etoile" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
                         </span>
-                      </div>
+                      )}
+                      {avanceEnAttente(m) && (
+                        <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
+                          {t('memberGroup.pendingAdvance')}
+                        </span>
+                      )}
                     </td>
                     {!masquerProfil && <td>{profil?.nom ?? m.profil_id}</td>}
                     <td>{m.stats_variables?.M ?? m.stats_actuels.M}</td>
@@ -287,7 +281,6 @@ export function MemberGroupCard({
               >
                 <Icon name="poignee" size="0.7em" />
               </span>
-              <Avatar nom={nomAffiche(m)} photo={m.photo} size={32} />
               <div className="list-item__row">
                 <div className="list-item__main">
                   <div className="list-item__title">

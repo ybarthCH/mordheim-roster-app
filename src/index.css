@@ -758,14 +758,15 @@ button {
 }
 
 /* Avatar : photo si renseignée, sinon initiales sur un fond coloré dérivé
-   du nom (--avatar-hue, voir Avatar.tsx) — même composant partout (liste
-   du roster, fiche personnage). */
+   du nom (--avatar-hue, voir Avatar.tsx). Réservé à la fiche personnage
+   (StatutCard) — retiré de la liste du roster, où sa taille le rendait
+   illisible et prenait de la place sans réel apport. */
 .avatar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border-radius: 50%;
+  border-radius: 22%;
   overflow: hidden;
   font-family: var(--font-heading);
   font-weight: 700;
@@ -795,7 +796,7 @@ button {
 .photo-crop__viewport {
   position: relative;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 22%;
   background: var(--bg-inset);
   border: 2px solid var(--border);
   touch-action: none;
@@ -1073,7 +1074,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
-  margin-left: calc(1.1rem + 0.7rem + 2rem + 0.7rem);
+  margin-left: calc(1.1rem + 0.7rem);
 }
 .list-item__subtitle {
   font-size: 0.82rem;
@@ -1457,15 +1458,32 @@ button {
   overflow-x: hidden;
 }
 
-/* La colonne de liste reste étroite même sur grand écran : le tableau à 9
-   caractéristiques n'y tiendrait pas. On y force l'affichage carte, quelle
-   que soit la largeur réelle de la fenêtre (le seuil de 720px ci-dessus
-   raisonne en largeur d'écran, pas en largeur de colonne). */
+/* La colonne de liste est redimensionnable (voir .roster-split__resizer,
+   jusqu'à 60% du conteneur — RosterScreen.SPLIT_LIST_WIDTH_MAX_PCT) : sur
+   un grand écran, une fois élargie à la main, elle peut largement dépasser
+   les 720px nécessaires au tableau à 9 caractéristiques. Une media query
+   sur la largeur de FENÊTRE ne peut pas le détecter (la fenêtre peut être
+   large alors que la colonne, elle, reste étroite) — d'où une container
+   query sur la largeur réelle de la colonne elle-même. Le seuil de 720px
+   reprend celui de la vue normale ci-dessus, pour un comportement
+   cohérent : "table dès qu'il y a assez de place", que cette place vienne
+   de la fenêtre (vue normale) ou de la colonne (vue deux volets). */
+.roster-split__list {
+  container-type: inline-size;
+}
 .roster-split__list .roster-table-wrap {
   display: none;
 }
 .roster-split__list .member-cards {
   display: block;
+}
+@container (min-width: 720px) {
+  .roster-split__list .roster-table-wrap {
+    display: block;
+  }
+  .roster-split__list .member-cards {
+    display: none;
+  }
 }
 
 .roster-split__detail {
@@ -1564,6 +1582,41 @@ button {
 }
 .status-pill--active {
   border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* Contrôle segmenté de statut (fiche personnage) : remplace 4 boutons
+   séparés par un seul bloc à 4 segments égaux, pour le même choix direct
+   (contrairement au sceau ci-dessus, qui ne fait qu'avancer d'un cran)
+   mais en une fraction de la largeur/hauteur — utile sur petit écran où
+   les 4 .status-pill prenaient trop de place à côté du sceau. */
+.status-segmented {
+  display: flex;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.status-segmented__option {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  border-right: 1px solid var(--border);
+  background: var(--bg-inset);
+  padding: 0.4rem 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  color: var(--text-muted);
+  text-align: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.status-segmented__option:last-child {
+  border-right: none;
+}
+.status-segmented__option--active {
   background: var(--accent);
   color: var(--accent-contrast);
 }

@@ -167,11 +167,12 @@ export function StatutCard({
         </div>
       </div>
 
-      <div className="status-select" style={{ marginTop: '0.7rem' }}>
+      <div className="status-segmented" style={{ marginTop: '0.7rem' }}>
         {statutsDisponibles.map((s) => (
           <button
             key={s.id}
-            className={`status-pill ${membre.statut === s.id ? 'status-pill--active' : ''}`}
+            type="button"
+            className={`status-segmented__option${membre.statut === s.id ? ' status-segmented__option--active' : ''}`}
             onClick={() => cliquerStatut(s.id)}
           >
             {t(`statut.${s.id}`)}
@@ -296,7 +297,7 @@ export function StatutCard({
             <img
               src={membre.photo}
               alt=""
-              style={{ display: 'block', width: 200, height: 200, borderRadius: '50%', margin: '0 auto', objectFit: 'cover' }}
+              style={{ display: 'block', width: 200, height: 200, borderRadius: '22%', margin: '0 auto', objectFit: 'cover' }}
             />
           ) : (
             <p className="text-sm text-muted">{t('photoModal.emptyHint')}</p>
