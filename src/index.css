@@ -1138,9 +1138,18 @@ button {
 /* ---------- mode deux volets (roster + fiche, grands écrans) ---------- */
 .roster-split {
   display: grid;
-  grid-template-columns: minmax(300px, 420px) 1fr;
+  grid-template-columns: minmax(260px, 420px) 1fr;
   gap: 1rem;
   align-items: start;
+}
+/* Sans ça, un grid item se dimensionne sur la largeur intrinsèque minimale
+   de son contenu (ex : les 9 colonnes de .stat-grid) au lieu de sa piste
+   assignée, poussant toute la page à s'élargir en largeur d'écran réduite
+   (pliable déplié) plutôt que de laisser le contenu se comprimer comme il
+   le fait déjà normalement en plein écran mobile étroit. */
+.roster-split__list,
+.roster-split__detail {
+  min-width: 0;
 }
 
 /* La colonne de liste reste étroite même sur grand écran : le tableau à 9
@@ -1210,12 +1219,6 @@ button {
 }
 .personnage-embedded__close:active {
   background: var(--bg-inset);
-}
-
-@media (max-width: 700px) {
-  .roster-split {
-    grid-template-columns: 1fr;
-  }
 }
 
 .summary-grid {
