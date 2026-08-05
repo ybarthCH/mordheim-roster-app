@@ -689,36 +689,72 @@ button {
 }
 
 /* Contrôle de statut compact pour les lignes du roster global (tableau
-   desktop + cartes mobiles) : fusionne l'ancien badge de statut (lecture
-   seule) et le bouton "HC" séparé en un seul bouton cliquable, avec un
-   chevron pour signaler qu'il fait avancer le statut au clic. Couleurs
-   reprises des .badge--* existants (mêmes classes appliquées ici). Pour la
-   fiche personnage (un seul membre affiché), voir .wax-seal ci-dessous —
+   desktop + cartes mobiles) : fusionne le badge de statut (lecture seule)
+   et le bouton "HC" séparé en un seul bouton cliquable, habillé comme un
+   vrai interrupteur (icône + libellé + mini-piste à curseur) pour bien
+   signaler que c'est actionnable. Fond assombri via color-mix depuis les
+   jetons --success/--warning/--danger existants plutôt que ces jetons
+   bruts : ceux-ci s'inversent clair/sombre selon le thème (voir
+   :root[data-theme]), color-mix vers le noir donne un aplat toujours assez
+   sombre pour un texte clair, dans les deux thèmes. Pour la fiche
+   personnage (un seul membre affiché), voir .wax-seal ci-dessous —
    habillage différent, volontairement plus spectaculaire, pas adapté à une
    liste dense. */
-.status-toggle {
+.status-switch {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  font-size: 0.72rem;
+  gap: 0.4rem;
+  font-family: var(--font-accroche);
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  padding: 0.15rem 0.5rem;
+  padding: 0.3rem 0.5rem;
   border-radius: 999px;
   border: none;
   cursor: pointer;
+  color: #fff6ea;
   transition: filter 0.12s ease, transform 0.1s ease;
 }
-.status-toggle:hover {
+.status-switch:hover {
   filter: brightness(1.1);
 }
-.status-toggle:active {
-  transform: scale(0.95);
+.status-switch:active {
+  transform: scale(0.96);
 }
-.status-toggle__chevron {
-  font-weight: 400;
-  opacity: 0.55;
+.status-switch--success {
+  background: color-mix(in srgb, var(--success) 65%, black);
+}
+.status-switch--warning {
+  background: color-mix(in srgb, var(--warning) 65%, black);
+}
+.status-switch--danger {
+  background: color-mix(in srgb, var(--danger) 65%, black);
+}
+.status-switch--neutral {
+  background: color-mix(in srgb, var(--text-muted) 55%, black);
+}
+.status-switch__track {
+  position: relative;
+  width: 30px;
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+}
+.status-switch__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: transform 0.18s ease;
+}
+.status-switch--on .status-switch__thumb {
+  transform: translateX(14px);
 }
 
 /* Avatar : photo si renseignée, sinon initiales sur un fond coloré dérivé
