@@ -118,6 +118,11 @@ export type Member = {
   instance_id: string;
   profil_id: string;
   nom_perso: string;
+  // Portrait de la figurine, recadré au carré côté client (voir
+  // PhotoCropModal) et stocké en data URL JPEG compressée — aucun
+  // stockage externe, tout reste dans le roster comme le reste de l'état.
+  // Absent : l'avatar retombe sur des initiales colorées (voir Avatar.tsx).
+  photo?: string;
   equipement: string;
   // Équipement possédé sous forme structurée (achats via le shop). Le champ
   // `equipement` ci-dessus reste affiché en lecture seule, recalculé à

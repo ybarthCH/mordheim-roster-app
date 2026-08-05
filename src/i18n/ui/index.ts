@@ -27,6 +27,7 @@ import { catalogueReference } from './catalogueReference';
 import { catalogueReferenceLists } from './catalogueReferenceLists';
 import { skillCategories } from './skillCategories';
 import { statFullNames } from './statFullNames';
+import { photo } from './photo';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -60,4 +61,5 @@ export const uiDictionary: UiDictionary = {
   ...catalogueReferenceLists,
   ...skillCategories,
   ...statFullNames,
+  ...photo,
 };
