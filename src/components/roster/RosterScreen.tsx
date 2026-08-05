@@ -271,7 +271,7 @@ export function RosterScreen({
             title={t('roster.exportJsonTitle')}
             aria-label={t('roster.exportJsonTitle')}
           >
-            <Icon name="accolades" />
+            <Icon name="documentJson" />
           </button>
           <button
             className="icon-btn"
@@ -279,7 +279,7 @@ export function RosterScreen({
             title={t('roster.exportPdfTitle')}
             aria-label={t('roster.exportPdfTitle')}
           >
-            <Icon name="document" />
+            <Icon name="documentPdf" />
           </button>
         </div>
       }

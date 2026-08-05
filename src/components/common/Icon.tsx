@@ -34,7 +34,12 @@ export type IconName =
   | 'grimoire'
   | 'rune'
   | 'photo'
-  | 'coche';
+  | 'coche'
+  | 'engrenage'
+  | 'soleil'
+  | 'lune'
+  | 'documentJson'
+  | 'documentPdf';
 
 const PATHS: Record<IconName, string> = {
   epee:
@@ -68,7 +73,10 @@ const PATHS: Record<IconName, string> = {
     'M17 3 L21 7 L8 20 L3 21 L4 16 Z M14 6 L18 10',
   chevrons: 'M6 8 L12 13 L18 8 M6 15 L12 20 L18 15',
   volets: 'M4 5 L20 5 L20 19 L4 19 Z M9.5 5 L9.5 19',
-  partager: 'M5 13 L5 19 C5 19.5 5.5 20 6 20 L18 20 C18.5 20 19 19.5 19 19 L19 13 M12 15 L12 4 M8 8 L12 4 L16 8',
+  // Trois nœuds reliés (façon "Share2") plutôt qu'une flèche vers une boîte :
+  // cette dernière se lit comme un envoi/export, pas comme un partage.
+  partager:
+    'M18 2 A3 3 0 1 0 18.01 2 M6 9 A3 3 0 1 0 6.01 9 M18 16 A3 3 0 1 0 18.01 16 M8.6 10.5 L15.4 6.5 M8.6 13.5 L15.4 17.5',
   accolades:
     'M10 4 C8 4 7.5 5 7.5 7 L7.5 9.5 C7.5 10.5 7 11 6 11 C7 11 7.5 11.5 7.5 12.5 L7.5 17 C7.5 19 8 20 10 20 M14 4 C16 4 16.5 5 16.5 7 L16.5 9.5 C16.5 10.5 17 11 18 11 C17 11 16.5 11.5 16.5 12.5 L16.5 17 C16.5 19 16 20 14 20',
   document: 'M6 3 L15 3 L19 7 L19 21 L6 21 Z M15 3 L15 7 L19 7 M9 12 L16 12 M9 15 L16 15 M9 18 L13 18',
@@ -78,6 +86,20 @@ const PATHS: Record<IconName, string> = {
   photo:
     'M4 8 L8 8 L9.5 5.5 L14.5 5.5 L16 8 L20 8 C20.5 8 21 8.5 21 9 L21 18 C21 18.5 20.5 19 20 19 L4 19 C3.5 19 3 18.5 3 18 L3 9 C3 8.5 3.5 8 4 8 Z M12 10.5 A4 4 0 1 0 12.01 10.5',
   coche: 'M4 12 L9.5 17.5 L20 5',
+  // Écrou/engrenage simplifié : octogone (corps) + trou central, plus lisible
+  // à petite taille qu'une roue dentée à dents fines.
+  engrenage: 'M8 4 L16 4 L20 8 L20 16 L16 20 L8 20 L4 16 L4 8 Z M12 9 A3 3 0 1 0 12.01 9',
+  soleil:
+    'M12 8 A4 4 0 1 0 12.01 8 M12 4.5 L12 6.5 M15.9 8.1 L17.3 6.7 M17.5 12 L19.5 12 M15.9 15.9 L17.3 17.3 M12 17.5 L12 19.5 M8.1 15.9 L6.7 17.3 M6.5 12 L4.5 12 M8.1 8.1 L6.7 6.7',
+  lune: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z',
+  // Document (coin plié) avec des accolades réduites à l'intérieur — marqueur
+  // JSON sans texte, contrairement au PDF ci-dessous.
+  documentJson:
+    'M6 3 L15 3 L19 7 L19 21 L6 21 Z M15 3 L15 7 L19 7 M11 10 C10 10 9.7 10.5 9.7 11.5 L9.7 13 C9.7 13.5 9.5 13.8 9 13.8 C9.5 13.8 9.7 14.1 9.7 14.6 L9.7 16 C9.7 17 10 17.5 11 17.5 M14 10 C15 10 15.3 10.5 15.3 11.5 L15.3 13 C15.3 13.5 15.5 13.8 16 13.8 C15.5 13.8 15.3 14.1 15.3 14.6 L15.3 16 C15.3 17 15 17.5 14 17.5',
+  // Même corps de document que ci-dessus (voir LABELS plus bas pour le
+  // repère "PDF" surimprimé) — un simple document à lignes ne suffit pas à
+  // le distinguer du JSON une fois les accolades retirées.
+  documentPdf: 'M6 3 L15 3 L19 7 L19 21 L6 21 Z M15 3 L15 7 L19 7 M9 12 L16 12 M9 15 L16 15',
 };
 
 const VIEWBOX: Record<IconName, string> = {
@@ -110,6 +132,19 @@ const VIEWBOX: Record<IconName, string> = {
   rune: '0 0 24 24',
   photo: '0 0 24 24',
   coche: '0 0 24 24',
+  engrenage: '0 0 24 24',
+  soleil: '0 0 24 24',
+  lune: '0 0 24 24',
+  documentJson: '0 0 24 24',
+  documentPdf: '0 0 24 24',
+};
+
+// Petit repère textuel surimprimé sur certaines icônes (ex : "PDF" sur
+// documentPdf) quand le pictogramme seul ne suffit pas à distinguer le type
+// de fichier — le texte reste minuscule et dans currentColor, pas un badge
+// coloré, pour ne pas jurer avec le style trait fin du reste de l'set.
+const LABELS: Partial<Record<IconName, string>> = {
+  documentPdf: 'PDF',
 };
 
 type Props = {
@@ -141,6 +176,20 @@ export function Icon({ name, size = '1em', style, className, title }: Props) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+      {LABELS[name] && (
+        <text
+          x="21"
+          y="19.5"
+          textAnchor="end"
+          fontSize="6.5"
+          fontWeight="700"
+          fontFamily="sans-serif"
+          fill="currentColor"
+          stroke="none"
+        >
+          {LABELS[name]}
+        </text>
+      )}
     </svg>
   );
 }

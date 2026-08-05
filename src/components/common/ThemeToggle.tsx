@@ -1,16 +1,21 @@
+import { Icon } from './Icon';
 import { useTheme } from '../../state/useTheme';
+import { useLanguage } from '../../state/useLanguage';
 
 export function ThemeToggle() {
   const { effectiveTheme, setTheme } = useTheme();
+  const { t } = useLanguage();
+  const toDark = effectiveTheme !== 'dark';
+  const label = t(toDark ? 'common.theme.toDark' : 'common.theme.toLight');
   return (
     <button
       type="button"
       className="icon-btn"
-      onClick={() => setTheme(effectiveTheme === 'dark' ? 'light' : 'dark')}
-      aria-label="Basculer le mode sombre"
-      title="Mode sombre / clair"
+      onClick={() => setTheme(toDark ? 'dark' : 'light')}
+      aria-label={label}
+      title={label}
     >
-      {effectiveTheme === 'dark' ? '☀️' : '🌙'}
+      <Icon name={toDark ? 'lune' : 'soleil'} />
     </button>
   );
 }
