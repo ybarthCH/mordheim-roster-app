@@ -18,14 +18,17 @@ import { getItem } from '../../data/items';
 import { translateItem } from '../../i18n/data/items';
 import { libelleCaracteristique } from '../../utils/stats';
 
-const STATUT_BADGE: Record<string, string> = {
-  actif: 'badge--success',
-  hors_de_combat: 'badge--warning',
-  mort: 'badge--danger',
-  blesse: 'badge--neutral',
+// Couleur du sceau de statut (voir .status-switch) : reprend les mêmes
+// teintes sémantiques que les .badge--* du reste de l'appli.
+const STATUT_COULEUR: Record<string, string> = {
+  actif: 'success',
+  hors_de_combat: 'warning',
+  mort: 'danger',
+  blesse: 'neutral',
 };
 
 const STATUT_ICONE: Partial<Record<string, IconName>> = {
+  actif: 'coche',
   hors_de_combat: 'ossements',
   mort: 'crane',
   blesse: 'goutte',
@@ -196,7 +199,7 @@ export function MemberGroupCard({
                     <td>
                       <button
                         type="button"
-                        className={`status-toggle ${STATUT_BADGE[m.statut]}`}
+                        className={`status-switch status-switch--${STATUT_COULEUR[m.statut]}${m.statut === 'actif' ? ' status-switch--on' : ''}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           onBasculerHorsCombat(m);
@@ -204,11 +207,11 @@ export function MemberGroupCard({
                         title={titreHorsCombat(m)}
                         aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
                       >
-                        {STATUT_ICONE[m.statut] && (
-                          <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.3em' }} />
-                        )}
-                        {t(`statut.${m.statut}`)}
-                        <span className="status-toggle__chevron">»</span>
+                        {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
+                        <span className="status-switch__label">{t(`statut.${m.statut}`)}</span>
+                        <span className="status-switch__track">
+                          <span className="status-switch__thumb" />
+                        </span>
                       </button>
                       {m.hors_combat > 0 && (
                         <span className="badge badge--warning" style={{ marginLeft: '0.3rem' }}>
@@ -303,7 +306,7 @@ export function MemberGroupCard({
                 </div>
                 <button
                   type="button"
-                  className={`status-toggle ${STATUT_BADGE[m.statut]}`}
+                  className={`status-switch status-switch--${STATUT_COULEUR[m.statut]}${m.statut === 'actif' ? ' status-switch--on' : ''}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     onBasculerHorsCombat(m);
@@ -311,9 +314,11 @@ export function MemberGroupCard({
                   title={titreHorsCombat(m)}
                   aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
                 >
-                  {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.3em' }} />}
-                  {t(`statut.${m.statut}`)}
-                  <span className="status-toggle__chevron">»</span>
+                  {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
+                  <span className="status-switch__label">{t(`statut.${m.statut}`)}</span>
+                  <span className="status-switch__track">
+                    <span className="status-switch__thumb" />
+                  </span>
                 </button>
                 <button
                   className="btn--ghost"
@@ -329,7 +334,7 @@ export function MemberGroupCard({
               </div>
               <div className="list-item__details">
                 <div className="list-item__subtitle">
-                  {!masquerProfil && profil?.nom ? `${profil.nom} · ` : ''}XP {m.xp} · PV {m.stats_actuels.PV}
+                  {!masquerProfil && profil?.nom ? `${profil.nom} · ` : ''}XP {m.xp}
                 </div>
                 <div className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
                   {resumeEquipement(m)}

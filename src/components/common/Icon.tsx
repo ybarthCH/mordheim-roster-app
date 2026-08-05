@@ -33,7 +33,8 @@ export type IconName =
   | 'document'
   | 'grimoire'
   | 'rune'
-  | 'photo';
+  | 'photo'
+  | 'coche';
 
 const PATHS: Record<IconName, string> = {
   epee:
@@ -76,6 +77,7 @@ const PATHS: Record<IconName, string> = {
   rune: 'M12 2 L20 7 L20 17 L12 22 L4 17 L4 7 Z M12 8 L12 16 M8.7 10 L15.3 14 M15.3 10 L8.7 14',
   photo:
     'M4 8 L8 8 L9.5 5.5 L14.5 5.5 L16 8 L20 8 C20.5 8 21 8.5 21 9 L21 18 C21 18.5 20.5 19 20 19 L4 19 C3.5 19 3 18.5 3 18 L3 9 C3 8.5 3.5 8 4 8 Z M12 10.5 A4 4 0 1 0 12.01 10.5',
+  coche: 'M4 12 L9.5 17.5 L20 5',
 };
 
 const VIEWBOX: Record<IconName, string> = {
@@ -107,6 +109,7 @@ const VIEWBOX: Record<IconName, string> = {
   grimoire: '0 0 24 24',
   rune: '0 0 24 24',
   photo: '0 0 24 24',
+  coche: '0 0 24 24',
 };
 
 type Props = {
