@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { LanguageToggle } from './LanguageToggle';
+import { ThemeToggle } from './ThemeToggle';
 import { useLanguage } from '../../state/useLanguage';
 
 type ScreenProps = {
@@ -13,6 +14,7 @@ type ScreenProps = {
 
 export function Screen({ title, back, actions, children }: ScreenProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useLanguage();
   const headerRef = useRef<HTMLElement>(null);
   const handleBack = () => {
@@ -46,6 +48,18 @@ export function Screen({ title, back, actions, children }: ScreenProps) {
         )}
         <div className="app-header__title">{title}</div>
         <LanguageToggle />
+        {location.pathname !== '/reglages' && (
+          <button
+            type="button"
+            className="icon-btn"
+            onClick={() => navigate('/reglages')}
+            aria-label={t('home.settings')}
+            title={t('home.settings')}
+          >
+            ⚙
+          </button>
+        )}
+        <ThemeToggle />
         {actions}
       </header>
       <main className="app-main">{children}</main>
