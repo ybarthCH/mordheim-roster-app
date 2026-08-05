@@ -61,8 +61,14 @@ export function StatutCard({
   const [gestionPhotoOuverte, setGestionPhotoOuverte] = useState(false);
   const [fichierACrop, setFichierACrop] = useState<File | null>(null);
   const inputFichierRef = useRef<HTMLInputElement>(null);
+  // Second input dédié à la capture caméra : `capture` force l'ouverture
+  // directe de l'appareil photo sur mobile (au lieu du sélecteur de
+  // fichiers) — inutile de le partager avec inputFichierRef puisque cet
+  // attribut changerait aussi le comportement du bouton "Depuis un fichier".
+  const inputCameraRef = useRef<HTMLInputElement>(null);
 
   const choisirFichier = () => inputFichierRef.current?.click();
+  const prendrePhoto = () => inputCameraRef.current?.click();
   const onFichierChoisi = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
     if (f) {
@@ -265,25 +271,43 @@ export function StatutCard({
           ) : (
             <p className="text-sm text-muted">{t('photoModal.emptyHint')}</p>
           )}
-          <div className="flex gap-sm" style={{ marginTop: '1rem', justifyContent: 'center' }}>
+          <div className="flex gap-sm" style={{ marginTop: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             {membre.photo ? (
               <>
                 <button className="btn" onClick={choisirFichier}>
-                  <Icon name="photo" style={{ marginRight: '0.35em' }} />
                   {t('photoModal.change')}
+                </button>
+                <button className="btn" onClick={prendrePhoto}>
+                  <Icon name="photo" style={{ marginRight: '0.35em' }} />
+                  {t('photoModal.takePhoto')}
                 </button>
                 <button className="btn btn--danger" onClick={supprimerPhoto}>
                   {t('photoModal.remove')}
                 </button>
               </>
             ) : (
-              <button className="btn btn--primary" onClick={choisirFichier}>
-                {t('photoModal.add')}
-              </button>
+              <>
+                <button className="btn btn--primary" onClick={choisirFichier}>
+                  {t('photoModal.add')}
+                </button>
+                <button className="btn" onClick={prendrePhoto}>
+                  <Icon name="photo" style={{ marginRight: '0.35em' }} />
+                  {t('photoModal.takePhoto')}
+                </button>
+              </>
             )}
           </div>
         </Modal>
       )}
+
+      <input
+        ref={inputCameraRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        style={{ display: 'none' }}
+        onChange={onFichierChoisi}
+      />
 
       {fichierACrop && (
         <PhotoCropModal fichier={fichierACrop} onConfirm={confirmerCrop} onCancel={() => setFichierACrop(null)} />
