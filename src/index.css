@@ -393,21 +393,31 @@ button {
   opacity: 0.6;
 }
 
-/* Sous-titre discret pour une sous-section à l'intérieur d'une carte (ex :
-   les rubriques du résumé de personnage) — même taille de corps de texte
-   que le contenu qui suit, mais couleur/casse/espacement pour bien le
-   distinguer d'un simple paragraphe en gras. */
+/* « Eyebrow » discret pour une sous-section à l'intérieur d'une carte (ex :
+   les rubriques du résumé de personnage) — italique condensé, couleur
+   palier, filet ornemental à droite façon cartouche manuscrite. */
 .resume-section__title {
-  display: block;
-  font-size: 0.72rem;
-  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-accroche);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.74rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--accent);
+  letter-spacing: 0.09em;
+  color: var(--palier);
   margin-top: 0.9rem;
 }
 .resume-section__title:first-child {
   margin-top: 0;
+}
+.resume-section__title::after {
+  content: '';
+  flex: 1;
+  align-self: center;
+  height: 1px;
+  background: var(--border);
 }
 
 .btn {
@@ -735,7 +745,7 @@ button {
   border-bottom: 1px dashed transparent;
   padding: 0;
   margin: 0 0 0.2em;
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.3rem;
   font-weight: 700;
   color: inherit;
