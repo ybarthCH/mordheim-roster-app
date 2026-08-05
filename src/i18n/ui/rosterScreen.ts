@@ -57,6 +57,16 @@ export const rosterScreen: UiDictionary = {
     fr: 'Sélectionnez un héros ou un homme de main pour afficher sa fiche ici.',
     en: 'Select a hero or henchman to show their sheet here.',
   },
+  'roster.splitViewOn': { fr: 'Deux volets', en: 'Two panes' },
+  'roster.splitViewOnTitle': {
+    fr: 'Afficher la liste et la fiche du membre côte à côte',
+    en: 'Show the list and member sheet side by side',
+  },
+  'roster.splitViewOff': { fr: 'Vue mobile', en: 'Mobile view' },
+  'roster.splitViewOffTitle': {
+    fr: 'Revenir à la vue simple colonne (comme sur téléphone)',
+    en: 'Switch back to the single-column view (like on phone)',
+  },
   'roster.chooseLeaderTitle': { fr: 'Choisir un chef de bande', en: 'Choose a warband leader' },
   'roster.chooseLeaderBody': {
     fr: 'Choisis parmi les héros vivants celui qui prend (ou reprend) le commandement.',

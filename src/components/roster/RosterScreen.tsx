@@ -45,9 +45,19 @@ type RosterScreenProps = {
   // du membre sélectionné. Voir RosterRoute pour le seuil de largeur.
   splitView?: boolean;
   selectedInstanceId?: string;
+  // Écran assez large pour proposer le bouton de bascule manuel, même si
+  // l'utilisateur a choisi de rester en vue simple colonne (splitView peut
+  // alors être false ici tout en étant proposable).
+  canToggleSplitView?: boolean;
+  onToggleSplitView?: () => void;
 };
 
-export function RosterScreen({ splitView, selectedInstanceId }: RosterScreenProps = {}) {
+export function RosterScreen({
+  splitView,
+  selectedInstanceId,
+  canToggleSplitView,
+  onToggleSplitView,
+}: RosterScreenProps = {}) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
@@ -186,6 +196,15 @@ export function RosterScreen({ splitView, selectedInstanceId }: RosterScreenProp
       back="/"
       actions={
         <div className="flex gap-sm">
+          {canToggleSplitView && (
+            <button
+              className="icon-btn"
+              onClick={onToggleSplitView}
+              title={splitView ? t('roster.splitViewOffTitle') : t('roster.splitViewOnTitle')}
+            >
+              {splitView ? t('roster.splitViewOff') : t('roster.splitViewOn')}
+            </button>
+          )}
           {partageDisponible() && (
             <button className="icon-btn" onClick={partager} title={t('roster.shareTitle')}>
               {t('roster.share')}
