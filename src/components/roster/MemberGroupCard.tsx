@@ -48,6 +48,9 @@ type MemberGroupCardProps = {
   // toujours identique à celui de son profil (ex : Dramatis Personae, jamais
   // renommables).
   masquerProfil?: boolean;
+  // Membre actuellement ouvert dans le volet détail (mode deux volets, grands
+  // écrans) : surligne sa ligne dans la liste. Voir RosterScreen/RosterRoute.
+  selectedInstanceId?: string;
 };
 
 export function MemberGroupCard({
@@ -61,6 +64,7 @@ export function MemberGroupCard({
   onBasculerHorsCombat,
   onSupprimer,
   masquerProfil,
+  selectedInstanceId,
 }: MemberGroupCardProps) {
   const navigate = useNavigate();
   const { t, language } = useLanguage();
@@ -150,7 +154,7 @@ export function MemberGroupCard({
                 <Fragment key={m.instance_id}>
                   <tr
                     ref={refItem('table', m.instance_id)}
-                    className={`roster-table__row-principale${idEnCours === m.instance_id ? ' roster-table__row--fantome' : ''}`}
+                    className={`roster-table__row-principale${idEnCours === m.instance_id ? ' roster-table__row--fantome' : ''}${m.instance_id === selectedInstanceId ? ' roster-table__row--selectionnee' : ''}`}
                     onClick={versPersonnage}
                   >
                     <td className="roster-table__poignee-cell">
@@ -272,7 +276,7 @@ export function MemberGroupCard({
             <div
               key={m.instance_id}
               ref={refItem('card', m.instance_id)}
-              className={`list-item${idEnCours === m.instance_id ? ' list-item--fantome' : ''}`}
+              className={`list-item${idEnCours === m.instance_id ? ' list-item--fantome' : ''}${m.instance_id === selectedInstanceId ? ' list-item--selectionne' : ''}`}
               role="button"
               onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
             >

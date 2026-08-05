@@ -1135,6 +1135,89 @@ button {
   }
 }
 
+/* ---------- mode deux volets (roster + fiche, grands écrans) ---------- */
+.roster-split {
+  display: grid;
+  grid-template-columns: minmax(300px, 420px) 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+/* La colonne de liste reste étroite même sur grand écran : le tableau à 9
+   caractéristiques n'y tiendrait pas. On y force l'affichage carte, quelle
+   que soit la largeur réelle de la fenêtre (le seuil de 720px ci-dessus
+   raisonne en largeur d'écran, pas en largeur de colonne). */
+.roster-split__list .roster-table-wrap {
+  display: none;
+}
+.roster-split__list .member-cards {
+  display: block;
+}
+
+.roster-split__detail {
+  position: relative;
+  background-color: var(--bg-card);
+  background-image: var(--texture-parchemin);
+  background-blend-mode: overlay;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 0.9rem;
+}
+
+.roster-split__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 240px;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 1.5rem;
+}
+
+.list-item--selectionne,
+.roster-table__row--selectionnee {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.personnage-embedded__head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+.personnage-embedded__title {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.personnage-embedded__close {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0.2rem 0.6rem;
+}
+.personnage-embedded__close:active {
+  background: var(--bg-inset);
+}
+
+@media (max-width: 700px) {
+  .roster-split {
+    grid-template-columns: 1fr;
+  }
+}
+
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));

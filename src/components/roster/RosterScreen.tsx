@@ -37,8 +37,17 @@ import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
+import { PersonnageScreen } from '../personnage/PersonnageScreen';
 
-export function RosterScreen() {
+type RosterScreenProps = {
+  // Actives le mode deux volets (grands écrans) : le contenu habituel devient
+  // la colonne de gauche, à côté d'une colonne de droite affichant la fiche
+  // du membre sélectionné. Voir RosterRoute pour le seuil de largeur.
+  splitView?: boolean;
+  selectedInstanceId?: string;
+};
+
+export function RosterScreen({ splitView, selectedInstanceId }: RosterScreenProps = {}) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
@@ -247,6 +256,8 @@ export function RosterScreen() {
         </div>
       )}
 
+      <div className={splitView ? 'roster-split' : undefined}>
+      <div className={splitView ? 'roster-split__list' : undefined}>
       <RosterSummaryCard roster={roster} catalogue={catalogue} onPatch={patch} />
 
       <ArmurerieSection
@@ -341,6 +352,7 @@ export function RosterScreen() {
         onReordonner={reordonnerSection}
         onBasculerHorsCombat={basculerHorsCombat}
         onSupprimer={setMembreASupprimer}
+        selectedInstanceId={selectedInstanceId}
       />
       <MemberGroupCard
         titre={t('roster.henchmen')}
@@ -352,6 +364,7 @@ export function RosterScreen() {
         onReordonner={reordonnerSection}
         onBasculerHorsCombat={basculerHorsCombat}
         onSupprimer={setMembreASupprimer}
+        selectedInstanceId={selectedInstanceId}
       />
       {francsTireurs.length > 0 && (
         <MemberGroupCard
@@ -406,6 +419,20 @@ export function RosterScreen() {
           const profilMarque = membreMarque ? resolveProfil(roster, membreMarque, catalogue) : undefined;
           return <MagieReference catalogue={catalogue} profil={profilMarque} marqueId={membreMarque?.marque} />;
         })()}
+      </div>
+      {splitView && (
+        <div className="roster-split__detail">
+          {selectedInstanceId ? (
+            <PersonnageScreen embedded />
+          ) : (
+            <div className="roster-split__empty">
+              <Icon name="etoile" size="1.6em" />
+              <p>{t('roster.splitEmptyHint')}</p>
+            </div>
+          )}
+        </div>
+      )}
+      </div>
 
       {modalMembre && (
         <AjouterMembreModal

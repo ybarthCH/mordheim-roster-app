@@ -14,14 +14,11 @@ const ListeBandesScreen = lazy(() =>
 const CreationBandeScreen = lazy(() =>
   import('./components/creation/CreationBandeScreen').then((m) => ({ default: m.CreationBandeScreen }))
 );
-const RosterScreen = lazy(() =>
-  import('./components/roster/RosterScreen').then((m) => ({ default: m.RosterScreen }))
+const RosterRoute = lazy(() =>
+  import('./components/roster/RosterRoute').then((m) => ({ default: m.RosterRoute }))
 );
 const RecruterFrancTireurScreen = lazy(() =>
   import('./components/roster/RecruterFrancTireurScreen').then((m) => ({ default: m.RecruterFrancTireurScreen }))
-);
-const PersonnageScreen = lazy(() =>
-  import('./components/personnage/PersonnageScreen').then((m) => ({ default: m.PersonnageScreen }))
 );
 const PostBatailleScreen = lazy(() =>
   import('./components/postbataille/PostBatailleScreen').then((m) => ({ default: m.PostBatailleScreen }))
@@ -44,9 +41,9 @@ function App() {
                     <Routes>
                       <Route path="/" element={<ListeBandesScreen />} />
                       <Route path="/creer" element={<CreationBandeScreen />} />
-                      <Route path="/roster/:id" element={<RosterScreen />} />
+                      <Route path="/roster/:id" element={<RosterRoute />} />
                       <Route path="/roster/:id/recruter-franc-tireur" element={<RecruterFrancTireurScreen />} />
-                      <Route path="/roster/:id/personnage/:instanceId" element={<PersonnageScreen />} />
+                      <Route path="/roster/:id/personnage/:instanceId" element={<RosterRoute />} />
                       <Route path="/roster/:id/post-bataille" element={<PostBatailleScreen />} />
                       <Route path="/reglages" element={<ReglagesScreen />} />
                     </Routes>
