@@ -31,7 +31,8 @@ export type IconName =
   | 'partager'
   | 'accolades'
   | 'document'
-  | 'grimoire';
+  | 'grimoire'
+  | 'rune';
 
 const PATHS: Record<IconName, string> = {
   epee:
@@ -71,6 +72,7 @@ const PATHS: Record<IconName, string> = {
   document: 'M6 3 L15 3 L19 7 L19 21 L6 21 Z M15 3 L15 7 L19 7 M9 12 L16 12 M9 15 L16 15 M9 18 L13 18',
   grimoire:
     'M4 6 C4 5 5 4.5 6 4.5 L11 5 L11 19 L6 18.5 C5 18.5 4 18 4 17 Z M20 6 C20 5 19 4.5 18 4.5 L13 5 L13 19 L18 18.5 C19 18.5 20 18 20 17 Z M11 5 L13 5 M11 19 L13 19',
+  rune: 'M12 2 L20 7 L20 17 L12 22 L4 17 L4 7 Z M12 8 L12 16 M8.7 10 L15.3 14 M15.3 10 L8.7 14',
 };
 
 const VIEWBOX: Record<IconName, string> = {
@@ -100,6 +102,7 @@ const VIEWBOX: Record<IconName, string> = {
   accolades: '0 0 24 24',
   document: '0 0 24 24',
   grimoire: '0 0 24 24',
+  rune: '0 0 24 24',
 };
 
 type Props = {

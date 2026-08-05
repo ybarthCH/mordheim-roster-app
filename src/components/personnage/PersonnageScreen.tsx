@@ -441,6 +441,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
       {profil.type === 'heros' && (
         <CollapsibleCard
           preferenceKey="ui.personnage.competences.ouvert"
+          defaultOpen={false}
           title={
             <>
               <Icon name="grimoire" style={{ marginRight: '0.35em' }} />
