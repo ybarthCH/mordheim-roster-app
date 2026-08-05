@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Icon } from '../common/Icon';
 import type { IconName } from '../common/Icon';
+import { Avatar } from '../common/Avatar';
+import { PhotoCropModal } from '../common/PhotoCropModal';
 import { STATUTS } from '../../types/roster';
 import type { Member, Statut } from '../../types/roster';
 import type { Profile } from '../../types/catalog';
@@ -65,6 +67,34 @@ export function StatutCard({
   const [toursSaisis, setToursSaisis] = useState('2');
   const [sceauTourne, setSceauTourne] = useState(false);
 
+  // Photo de la figurine : la modale de gestion (voir plus bas) montre la
+  // photo en plus grand avec Changer/Supprimer, ou directement un bouton
+  // d'ajout si aucune n'est encore renseignée. Changer déclenche le
+  // sélecteur de fichier natif puis ouvre PhotoCropModal sur le fichier
+  // choisi — la modale de gestion se referme entre-temps pour ne pas
+  // superposer deux modales.
+  const [gestionPhotoOuverte, setGestionPhotoOuverte] = useState(false);
+  const [fichierACrop, setFichierACrop] = useState<File | null>(null);
+  const inputFichierRef = useRef<HTMLInputElement>(null);
+
+  const choisirFichier = () => inputFichierRef.current?.click();
+  const onFichierChoisi = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0];
+    if (f) {
+      setFichierACrop(f);
+      setGestionPhotoOuverte(false);
+    }
+    e.target.value = '';
+  };
+  const confirmerCrop = (dataUrl: string) => {
+    onMajMembre({ photo: dataUrl });
+    setFichierACrop(null);
+  };
+  const supprimerPhoto = () => {
+    onMajMembre({ photo: undefined });
+    setGestionPhotoOuverte(false);
+  };
+
   const cliquerStatut = (s: Statut) => {
     if (s === 'blesse' && membre.statut !== 'blesse') {
       setToursSaisis('2');
@@ -93,7 +123,14 @@ export function StatutCard({
 
   return (
     <div className="card">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center gap-md">
+        <Avatar
+          nom={membre.nom_perso}
+          photo={membre.photo}
+          size={56}
+          onClick={() => setGestionPhotoOuverte(true)}
+          title={t('avatar.viewTitle', { nom: membre.nom_perso })}
+        />
         <div style={{ flex: 1, minWidth: 0 }}>
           <input
             value={membre.nom_perso}
@@ -242,6 +279,50 @@ export function StatutCard({
             </button>
           </div>
         </Modal>
+      )}
+
+      <input
+        ref={inputFichierRef}
+        type="file"
+        accept="image/*"
+        style={{ display: 'none' }}
+        onChange={onFichierChoisi}
+      />
+
+      {gestionPhotoOuverte && (
+        <Modal onClose={() => setGestionPhotoOuverte(false)}>
+          <h3>{t('photoModal.title')}</h3>
+          {membre.photo ? (
+            <img
+              src={membre.photo}
+              alt=""
+              style={{ display: 'block', width: 200, height: 200, borderRadius: '50%', margin: '0 auto', objectFit: 'cover' }}
+            />
+          ) : (
+            <p className="text-sm text-muted">{t('photoModal.emptyHint')}</p>
+          )}
+          <div className="flex gap-sm" style={{ marginTop: '1rem', justifyContent: 'center' }}>
+            {membre.photo ? (
+              <>
+                <button className="btn" onClick={choisirFichier}>
+                  <Icon name="photo" style={{ marginRight: '0.35em' }} />
+                  {t('photoModal.change')}
+                </button>
+                <button className="btn btn--danger" onClick={supprimerPhoto}>
+                  {t('photoModal.remove')}
+                </button>
+              </>
+            ) : (
+              <button className="btn btn--primary" onClick={choisirFichier}>
+                {t('photoModal.add')}
+              </button>
+            )}
+          </div>
+        </Modal>
+      )}
+
+      {fichierACrop && (
+        <PhotoCropModal fichier={fichierACrop} onConfirm={confirmerCrop} onCancel={() => setFichierACrop(null)} />
       )}
     </div>
   );

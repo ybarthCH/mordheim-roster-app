@@ -721,6 +721,62 @@ button {
   opacity: 0.55;
 }
 
+/* Avatar : photo si renseignée, sinon initiales sur un fond coloré dérivé
+   du nom (--avatar-hue, voir Avatar.tsx) — même composant partout (liste
+   du roster, fiche personnage). */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.8em;
+  user-select: none;
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+}
+.avatar__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.avatar--initials {
+  background: hsl(var(--avatar-hue) 42% 40%);
+  color: #fff6ea;
+  border-color: transparent;
+}
+.avatar--clickable {
+  cursor: pointer;
+}
+.avatar--clickable:active {
+  transform: scale(0.94);
+}
+
+.photo-crop__viewport {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--bg-inset);
+  border: 2px solid var(--border);
+  touch-action: none;
+  cursor: grab;
+  margin: 0 auto;
+}
+.photo-crop__viewport:active {
+  cursor: grabbing;
+}
+.photo-crop__viewport img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: none;
+  pointer-events: none;
+}
+
 /* Sceau de statut : bouton circulaire façon cire embossée, coloré selon le
    statut courant (mêmes teintes sémantiques que .badge--*). Le clic fait
    avancer au statut suivant via le même chemin que les .status-pill
@@ -981,7 +1037,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
-  margin-left: calc(1.1rem + 0.7rem);
+  margin-left: calc(1.1rem + 0.7rem + 2rem + 0.7rem);
 }
 .list-item__subtitle {
   font-size: 0.82rem;
