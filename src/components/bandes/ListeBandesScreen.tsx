@@ -1,7 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
-import { ThemeToggle } from '../common/ThemeToggle';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { Icon } from '../common/Icon';
@@ -66,23 +65,7 @@ export function ListeBandesScreen() {
   };
 
   return (
-    <Screen
-      title={t('home.title')}
-      actions={
-        <>
-          <button
-            type="button"
-            className="icon-btn"
-            onClick={() => navigate('/reglages')}
-            aria-label={t('home.settings')}
-            title={t('home.settings')}
-          >
-            ⚙
-          </button>
-          <ThemeToggle />
-        </>
-      }
-    >
+    <Screen title={t('home.title')}>
       <div className="home-hero">
         <h1 className="home-hero__title">Musterheim</h1>
         <div className="home-hero__rule" />

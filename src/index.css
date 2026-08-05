@@ -328,6 +328,10 @@ button {
 .icon-btn:active {
   background: rgba(255, 255, 255, 0.15);
 }
+.icon-btn--actif {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.7);
+}
 
 .app-main {
   flex: 1;
@@ -1133,6 +1137,129 @@ button {
   .member-cards {
     display: block;
   }
+}
+
+/* ---------- mode deux volets (roster + fiche, grands écrans) ---------- */
+.roster-split {
+  display: grid;
+  grid-template-columns: minmax(260px, 420px) 10px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.roster-split__resizer {
+  align-self: stretch;
+  width: 10px;
+  margin: 0 -0.3rem;
+  border-radius: var(--radius);
+  cursor: col-resize;
+  touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.roster-split__resizer::before {
+  content: '';
+  width: 3px;
+  height: 100%;
+  min-height: 2.5rem;
+  border-radius: 2px;
+  background: var(--border);
+}
+.roster-split__resizer:hover::before,
+.roster-split__resizer:active::before {
+  background: var(--accent);
+}
+/* Sans ça, un grid item se dimensionne sur la largeur intrinsèque minimale
+   de son contenu (ex : les 9 colonnes de .stat-grid) au lieu de sa piste
+   assignée, poussant toute la page à s'élargir en largeur d'écran réduite
+   (pliable déplié) plutôt que de laisser le contenu se comprimer comme il
+   le fait déjà normalement en plein écran mobile étroit. */
+.roster-split__list,
+.roster-split__detail {
+  min-width: 0;
+}
+
+/* Chaque volet défile indépendamment sous le bandeau (--app-header-h,
+   mesuré par Screen.tsx), plutôt que de faire défiler toute la page :
+   utile pour comparer la liste et la fiche sans perdre sa place dans
+   l'une en scrollant l'autre. */
+.roster-split__list,
+.roster-split__detail {
+  position: sticky;
+  top: var(--app-header-h, 56px);
+  max-height: calc(100vh - var(--app-header-h, 56px) - 0.8rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* La colonne de liste reste étroite même sur grand écran : le tableau à 9
+   caractéristiques n'y tiendrait pas. On y force l'affichage carte, quelle
+   que soit la largeur réelle de la fenêtre (le seuil de 720px ci-dessus
+   raisonne en largeur d'écran, pas en largeur de colonne). */
+.roster-split__list .roster-table-wrap {
+  display: none;
+}
+.roster-split__list .member-cards {
+  display: block;
+}
+
+.roster-split__detail {
+  position: relative;
+  background-color: var(--bg-card);
+  background-image: var(--texture-parchemin);
+  background-blend-mode: overlay;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 0.9rem;
+}
+
+.roster-split__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 240px;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 1.5rem;
+}
+
+.list-item--selectionne,
+.roster-table__row--selectionnee {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.personnage-embedded__head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+.personnage-embedded__title {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.personnage-embedded__close {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0.2rem 0.6rem;
+}
+.personnage-embedded__close:active {
+  background: var(--bg-inset);
 }
 
 .summary-grid {

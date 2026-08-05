@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
@@ -56,8 +57,21 @@ import { appliquerDeltaSurNotation } from '../../utils/statsVariables';
 
 const GRIMOIRE_DE_MAGIE_ID = 'grimoire_de_magie';
 
-export function PersonnageScreen() {
-  const { id, instanceId } = useParams<{ id: string; instanceId: string }>();
+type PersonnageScreenProps = {
+  // Rendu dans le volet détail du mode deux volets (RosterScreen, grands
+  // écrans) : pas de chrome Screen (bandeau accent + retour) propre, juste un
+  // petit en-tête local avec un bouton de fermeture. Voir RosterRoute.
+  embedded?: boolean;
+  // Fourni explicitement par RosterRoute/RosterScreen plutôt que relu depuis
+  // useParams() : la route est /roster/:id/* (voir App.tsx, nécessaire pour
+  // que React Router ne remonte pas ce sous-arbre à chaque changement de
+  // membre sélectionné en mode deux volets), donc `instanceId` n'existe plus
+  // comme paramètre de route nommé — seul `id` en reste un.
+  instanceId?: string;
+};
+
+export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps = {}) {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
   const { rules } = useGameRules();
@@ -106,9 +120,12 @@ export function PersonnageScreen() {
   }, [roster?.id, membre?.instance_id, membre?.sorts_connus, catalogueBrut]);
 
   if (!roster || !membre || !profil || !catalogue) {
-    return (
+    const corpsIntrouvable = <p className="text-muted">{t('personnage.notFoundBody')}</p>;
+    return embedded ? (
+      <div className="personnage-embedded">{corpsIntrouvable}</div>
+    ) : (
       <Screen title={t('personnage.notFoundTitle')} back={id ? `/roster/${id}` : '/'}>
-        <p className="text-muted">{t('personnage.notFoundBody')}</p>
+        {corpsIntrouvable}
       </Screen>
     );
   }
@@ -331,7 +348,13 @@ export function PersonnageScreen() {
   };
 
   return (
-    <Screen title={membre.nom_perso} back={`/roster/${roster.id}`}>
+    <PersonnageChrome
+      embedded={embedded}
+      title={membre.nom_perso}
+      backTo={`/roster/${roster.id}`}
+      onClose={() => navigate(`/roster/${roster.id}`)}
+      closeLabel={t('common.close')}
+    >
       <StatutCard
         membre={membre}
         profil={profil}
@@ -612,6 +635,40 @@ export function PersonnageScreen() {
           )}
         </Modal>
       )}
+    </PersonnageChrome>
+  );
+}
+
+type PersonnageChromeProps = {
+  embedded?: boolean;
+  title: string;
+  backTo: string;
+  onClose: () => void;
+  closeLabel: string;
+  children: ReactNode;
+};
+
+// Bascule entre le chrome plein écran habituel (Screen : bandeau accent +
+// retour) et un en-tête local léger pour le volet détail du mode deux volets
+// — les données/logique de PersonnageScreen restent identiques dans les deux
+// cas, seul l'habillage change.
+function PersonnageChrome({ embedded, title, backTo, onClose, closeLabel, children }: PersonnageChromeProps) {
+  if (embedded) {
+    return (
+      <div className="personnage-embedded">
+        <div className="personnage-embedded__head">
+          <span className="personnage-embedded__title">{title}</span>
+          <button className="icon-btn personnage-embedded__close" onClick={onClose} aria-label={closeLabel}>
+            ×
+          </button>
+        </div>
+        <div className="personnage-embedded__body">{children}</div>
+      </div>
+    );
+  }
+  return (
+    <Screen title={title} back={backTo}>
+      {children}
     </Screen>
   );
 }
