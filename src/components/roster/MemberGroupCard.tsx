@@ -30,10 +30,6 @@ const STATUT_ICONE: Partial<Record<string, IconName>> = {
   blesse: 'goutte',
 };
 
-function estHorsCombat(m: Member) {
-  return m.statut === 'hors_de_combat' || m.hors_combat > 0;
-}
-
 type MemberGroupCardProps = {
   titre: string;
   icone: IconName;
@@ -164,7 +160,7 @@ export function MemberGroupCard({
                         onClick={(e) => e.stopPropagation()}
                         title={t('memberGroup.dragHandle')}
                       >
-                        <Icon name="poignee" size="0.85em" />
+                        <Icon name="poignee" size="0.7em" />
                       </span>
                     </td>
                     <td>
@@ -192,12 +188,22 @@ export function MemberGroupCard({
                     <td>{m.stats_variables?.Cd ?? m.stats_actuels.Cd}</td>
                     <td>{m.xp}</td>
                     <td>
-                      <span className={`badge ${STATUT_BADGE[m.statut]}`}>
+                      <button
+                        type="button"
+                        className={`status-toggle ${STATUT_BADGE[m.statut]}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onBasculerHorsCombat(m);
+                        }}
+                        title={titreHorsCombat(m)}
+                        aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
+                      >
                         {STATUT_ICONE[m.statut] && (
-                          <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.35em' }} />
+                          <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.3em' }} />
                         )}
                         {t(`statut.${m.statut}`)}
-                      </span>
+                        <span className="status-toggle__chevron">»</span>
+                      </button>
                       {m.hors_combat > 0 && (
                         <span className="badge badge--warning" style={{ marginLeft: '0.3rem' }}>
                           {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
@@ -220,22 +226,6 @@ export function MemberGroupCard({
                     </td>
                     <td>
                       <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
-                        <button
-                          className="btn--ghost"
-                          style={{
-                            border: 'none',
-                            background: 'none',
-                            padding: '0.2rem 0.4rem',
-                            color: estHorsCombat(m) ? 'var(--warning)' : undefined,
-                          }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onBasculerHorsCombat(m);
-                          }}
-                          title={titreHorsCombat(m)}
-                        >
-                          {t('memberGroup.hc')}
-                        </button>
                         <button
                           className="btn--ghost"
                           style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
@@ -286,17 +276,51 @@ export function MemberGroupCard({
                 onClick={(e) => e.stopPropagation()}
                 title={t('memberGroup.dragHandle')}
               >
-                <Icon name="poignee" size="0.85em" />
+                <Icon name="poignee" size="0.7em" />
               </span>
-              <div className="list-item__main">
-                <div className="list-item__title">
-                  {nomAffiche(m)}
-                  {estLeaderActuel(roster, catalogue, m) && (
-                    <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
-                      <Icon name="etoile" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
-                    </span>
-                  )}
+              <div className="list-item__row">
+                <div className="list-item__main">
+                  <div className="list-item__title">
+                    {nomAffiche(m)}
+                    {estLeaderActuel(roster, catalogue, m) && (
+                      <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
+                        <Icon name="etoile" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
+                      </span>
+                    )}
+                    {avanceEnAttente(m) && (
+                      <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
+                        {t('memberGroup.pendingAdvance')}
+                      </span>
+                    )}
+                  </div>
                 </div>
+                <button
+                  type="button"
+                  className={`status-toggle ${STATUT_BADGE[m.statut]}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onBasculerHorsCombat(m);
+                  }}
+                  title={titreHorsCombat(m)}
+                  aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
+                >
+                  {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.3em' }} />}
+                  {t(`statut.${m.statut}`)}
+                  <span className="status-toggle__chevron">»</span>
+                </button>
+                <button
+                  className="btn--ghost"
+                  style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSupprimer(m);
+                  }}
+                  title={t('memberGroup.removeTitle')}
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="list-item__details">
                 <div className="list-item__subtitle">
                   {!masquerProfil && profil?.nom ? `${profil.nom} · ` : ''}XP {m.xp} · PV {m.stats_actuels.PV}
                 </div>
@@ -304,53 +328,21 @@ export function MemberGroupCard({
                   {resumeEquipement(m)}
                 </div>
                 {resumeBlessures(m) && <div className="text-sm text-danger">{resumeBlessures(m)}</div>}
+                {(m.hors_combat > 0 || inventaireGroupeMismatch(m)) && (
+                  <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.15rem' }}>
+                    {m.hors_combat > 0 && (
+                      <span className="badge badge--warning">
+                        {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
+                      </span>
+                    )}
+                    {inventaireGroupeMismatch(m) && (
+                      <span className="badge badge--danger" title={t('memberGroup.equipmentMismatchTitle')}>
+                        ⚠ {t('memberGroup.equipmentMismatchBadge')}
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
-              {avanceEnAttente(m) && (
-                <span className="badge badge--warning" title={t('memberGroup.pendingAdvance')}>
-                  {t('memberGroup.pendingAdvance')}
-                </span>
-              )}
-              <span className={`badge ${STATUT_BADGE[m.statut]}`}>
-                {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} style={{ marginRight: '0.35em' }} />}
-                {t(`statut.${m.statut}`)}
-              </span>
-              {m.hors_combat > 0 && (
-                <span className="badge badge--warning">
-                  {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
-                </span>
-              )}
-              {inventaireGroupeMismatch(m) && (
-                <span className="badge badge--danger" title={t('memberGroup.equipmentMismatchTitle')}>
-                  ⚠ {t('memberGroup.equipmentMismatchBadge')}
-                </span>
-              )}
-              <button
-                className="btn--ghost"
-                style={{
-                  border: 'none',
-                  background: 'none',
-                  padding: '0.2rem 0.4rem',
-                  color: estHorsCombat(m) ? 'var(--warning)' : undefined,
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onBasculerHorsCombat(m);
-                }}
-                title={titreHorsCombat(m)}
-              >
-                {t('memberGroup.hc')}
-              </button>
-              <button
-                className="btn--ghost"
-                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSupprimer(m);
-                }}
-                title={t('memberGroup.removeTitle')}
-              >
-                ✕
-              </button>
             </div>
           );
         })}

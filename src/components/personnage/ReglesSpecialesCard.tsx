@@ -22,7 +22,7 @@ export function ReglesSpecialesCard({ membre, onMajMembre }: ReglesSpecialesCard
       preferenceKey="ui.personnage.regles_speciales.ouvert"
       title={
         <>
-          <Icon name="flamme" style={{ marginRight: '0.35em' }} />
+          <Icon name="rune" style={{ marginRight: '0.35em' }} />
           {t('reglesSpecialesCard.title')}
         </>
       }
