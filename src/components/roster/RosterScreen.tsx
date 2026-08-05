@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
+import { getSetting, setSetting } from '../../db/db';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { getCatalogue } from '../../data/warbands';
@@ -39,6 +40,14 @@ import { useLanguage } from '../../state/useLanguage';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
 import { PersonnageScreen } from '../personnage/PersonnageScreen';
 
+// Largeur de la colonne liste en mode deux volets, mémorisée en fraction de
+// la largeur du conteneur (pas en pixels) pour rester cohérente d'un
+// appareil à l'autre — voir la poignée de redimensionnement plus bas.
+const SPLIT_LIST_WIDTH_KEY = 'ui.roster.splitListWidthPct';
+const SPLIT_LIST_WIDTH_DEFAUT = 0.35;
+const SPLIT_LIST_WIDTH_MIN_PX = 220;
+const SPLIT_LIST_WIDTH_MAX_PCT = 0.6;
+
 type RosterScreenProps = {
   // Actives le mode deux volets (grands écrans) : le contenu habituel devient
   // la colonne de gauche, à côté d'une colonne de droite affichant la fiche
@@ -69,6 +78,39 @@ export function RosterScreen({
   const [modalLeader, setModalLeader] = useState(false);
   const [modalPromotion, setModalPromotion] = useState(false);
   const [heroPromuEnAttente, setHeroPromuEnAttente] = useState<Member | null>(null);
+
+  const splitRef = useRef<HTMLDivElement>(null);
+  const [listWidthPct, setListWidthPct] = useState(SPLIT_LIST_WIDTH_DEFAUT);
+  const [redimensionnementEnCours, setRedimensionnementEnCours] = useState(false);
+
+  useEffect(() => {
+    let actif = true;
+    getSetting<number>(SPLIT_LIST_WIDTH_KEY).then((saved) => {
+      if (actif && typeof saved === 'number') setListWidthPct(saved);
+    });
+    return () => {
+      actif = false;
+    };
+  }, []);
+
+  const demarrerRedimensionnement = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.currentTarget.setPointerCapture(e.pointerId);
+    setRedimensionnementEnCours(true);
+  };
+
+  const redimensionner = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!redimensionnementEnCours || !splitRef.current) return;
+    const rect = splitRef.current.getBoundingClientRect();
+    const pctMin = Math.min(SPLIT_LIST_WIDTH_MIN_PX / rect.width, SPLIT_LIST_WIDTH_MAX_PCT);
+    const pct = Math.min(SPLIT_LIST_WIDTH_MAX_PCT, Math.max(pctMin, (e.clientX - rect.left) / rect.width));
+    setListWidthPct(pct);
+  };
+
+  const terminerRedimensionnement = () => {
+    if (!redimensionnementEnCours) return;
+    setRedimensionnementEnCours(false);
+    void setSetting(SPLIT_LIST_WIDTH_KEY, listWidthPct);
+  };
 
   if (!roster) {
     return (
@@ -198,11 +240,12 @@ export function RosterScreen({
         <div className="flex gap-sm">
           {canToggleSplitView && (
             <button
-              className="icon-btn"
+              className={`icon-btn${splitView ? ' icon-btn--actif' : ''}`}
               onClick={onToggleSplitView}
+              aria-pressed={splitView}
               title={splitView ? t('roster.splitViewOffTitle') : t('roster.splitViewOnTitle')}
             >
-              {splitView ? t('roster.splitViewOff') : t('roster.splitViewOn')}
+              <Icon name="volets" />
             </button>
           )}
           {partageDisponible() && (
@@ -275,7 +318,14 @@ export function RosterScreen({
         </div>
       )}
 
-      <div className={splitView ? 'roster-split' : undefined}>
+      <div
+        className={splitView ? 'roster-split' : undefined}
+        ref={splitRef}
+        style={splitView ? { gridTemplateColumns: `${listWidthPct * 100}% 10px 1fr` } : undefined}
+        onPointerMove={redimensionner}
+        onPointerUp={terminerRedimensionnement}
+        onPointerCancel={terminerRedimensionnement}
+      >
       <div className={splitView ? 'roster-split__list' : undefined}>
       <RosterSummaryCard roster={roster} catalogue={catalogue} onPatch={patch} />
 
@@ -440,9 +490,18 @@ export function RosterScreen({
         })()}
       </div>
       {splitView && (
+        <div
+          className="roster-split__resizer"
+          onPointerDown={demarrerRedimensionnement}
+          role="separator"
+          aria-orientation="vertical"
+          aria-label={t('roster.splitResizerLabel')}
+        />
+      )}
+      {splitView && (
         <div className="roster-split__detail">
           {selectedInstanceId ? (
-            <PersonnageScreen embedded />
+            <PersonnageScreen embedded instanceId={selectedInstanceId} />
           ) : (
             <div className="roster-split__empty">
               <Icon name="etoile" size="1.6em" />

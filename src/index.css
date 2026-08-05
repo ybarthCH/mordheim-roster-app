@@ -328,6 +328,10 @@ button {
 .icon-btn:active {
   background: rgba(255, 255, 255, 0.15);
 }
+.icon-btn--actif {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.7);
+}
 
 .app-main {
   flex: 1;
@@ -1138,9 +1142,33 @@ button {
 /* ---------- mode deux volets (roster + fiche, grands écrans) ---------- */
 .roster-split {
   display: grid;
-  grid-template-columns: minmax(260px, 420px) 1fr;
+  grid-template-columns: minmax(260px, 420px) 10px 1fr;
   gap: 1rem;
   align-items: start;
+}
+
+.roster-split__resizer {
+  align-self: stretch;
+  width: 10px;
+  margin: 0 -0.3rem;
+  border-radius: var(--radius);
+  cursor: col-resize;
+  touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.roster-split__resizer::before {
+  content: '';
+  width: 3px;
+  height: 100%;
+  min-height: 2.5rem;
+  border-radius: 2px;
+  background: var(--border);
+}
+.roster-split__resizer:hover::before,
+.roster-split__resizer:active::before {
+  background: var(--accent);
 }
 /* Sans ça, un grid item se dimensionne sur la largeur intrinsèque minimale
    de son contenu (ex : les 9 colonnes de .stat-grid) au lieu de sa piste
@@ -1150,6 +1178,19 @@ button {
 .roster-split__list,
 .roster-split__detail {
   min-width: 0;
+}
+
+/* Chaque volet défile indépendamment sous le bandeau (--app-header-h,
+   mesuré par Screen.tsx), plutôt que de faire défiler toute la page :
+   utile pour comparer la liste et la fiche sans perdre sa place dans
+   l'une en scrollant l'autre. */
+.roster-split__list,
+.roster-split__detail {
+  position: sticky;
+  top: var(--app-header-h, 56px);
+  max-height: calc(100vh - var(--app-header-h, 56px) - 0.8rem);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* La colonne de liste reste étroite même sur grand écran : le tableau à 9

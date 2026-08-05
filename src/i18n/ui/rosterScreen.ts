@@ -62,6 +62,10 @@ export const rosterScreen: UiDictionary = {
     fr: 'Afficher la liste et la fiche du membre côte à côte',
     en: 'Show the list and member sheet side by side',
   },
+  'roster.splitResizerLabel': {
+    fr: 'Redimensionner les volets liste / fiche',
+    en: 'Resize the list / sheet panes',
+  },
   'roster.splitViewOff': { fr: 'Vue mobile', en: 'Mobile view' },
   'roster.splitViewOffTitle': {
     fr: 'Revenir à la vue simple colonne (comme sur téléphone)',

@@ -62,10 +62,16 @@ type PersonnageScreenProps = {
   // écrans) : pas de chrome Screen (bandeau accent + retour) propre, juste un
   // petit en-tête local avec un bouton de fermeture. Voir RosterRoute.
   embedded?: boolean;
+  // Fourni explicitement par RosterRoute/RosterScreen plutôt que relu depuis
+  // useParams() : la route est /roster/:id/* (voir App.tsx, nécessaire pour
+  // que React Router ne remonte pas ce sous-arbre à chaque changement de
+  // membre sélectionné en mode deux volets), donc `instanceId` n'existe plus
+  // comme paramètre de route nommé — seul `id` en reste un.
+  instanceId?: string;
 };
 
-export function PersonnageScreen({ embedded }: PersonnageScreenProps = {}) {
-  const { id, instanceId } = useParams<{ id: string; instanceId: string }>();
+export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps = {}) {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { getRosterById, updateRoster } = useRosters();
   const { rules } = useGameRules();
