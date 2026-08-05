@@ -37,21 +37,23 @@ export function partageDisponible(): boolean {
   return typeof navigator !== 'undefined' && typeof navigator.share === 'function';
 }
 
+// Android et iOS filtrent tous deux les fichiers partageables via
+// navigator.share() sur une liste fermée d'extensions/types « sûrs »
+// (images, vidéo, audio, pdf, texte brut...) — restriction du système, pas
+// du navigateur. application/json n'y figure pas : canShare({files}) peut
+// répondre `true` pour un fichier .json, mais l'appel à share() le rejette
+// ensuite avec "Permission denied". Aucun contournement possible pour
+// obtenir un fichier .json via le partage natif. On partage donc le même
+// contenu JSON tel quel, mais étiqueté .txt/text-plain — ce type passe le
+// filtre et produit un vrai fichier joignable (Drive, mail...), pas juste
+// du texte collé. L'import Musterheim ne regarde jamais l'extension (voir
+// lireFichierRoster), donc ce fichier .txt se réimporte normalement.
 export async function partagerRoster(roster: RosterInstance): Promise<void> {
   const contenu = JSON.stringify(roster, null, 2);
-  const nomFichier = nomFichierRoster(roster);
+  const nomFichier = nomFichierRoster(roster).replace(/\.json$/, '.txt');
 
-  // Un seul appel à navigator.share() par geste utilisateur : sur au moins
-  // un navigateur observé en conditions réelles (Safari iOS), l'activation
-  // utilisateur est consommée dès le premier appel même s'il échoue — un
-  // deuxième essai échouerait systématiquement avec "Must be handling a
-  // user gesture". `canShare()` en revanche ne consomme pas le geste et
-  // permet donc de choisir file vs texte AVANT cet unique appel à share().
-  // Si le partage fichier choisi ici échoue malgré tout (canShare() accepte
-  // parfois un fichier que share() refuse ensuite), l'appelant (RosterScreen)
-  // se rabat automatiquement sur le téléchargement JSON classique.
   if (typeof navigator.canShare === 'function') {
-    const fichier = new File([contenu], nomFichier, { type: 'application/json' });
+    const fichier = new File([contenu], nomFichier, { type: 'text/plain' });
     if (navigator.canShare({ files: [fichier] })) {
       await navigator.share({ title: roster.nom_bande, files: [fichier] });
       return;

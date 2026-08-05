@@ -27,7 +27,10 @@ export type IconName =
   | 'poignee'
   | 'crayon'
   | 'chevrons'
-  | 'volets';
+  | 'volets'
+  | 'partager'
+  | 'accolades'
+  | 'document';
 
 const PATHS: Record<IconName, string> = {
   epee:
@@ -61,6 +64,10 @@ const PATHS: Record<IconName, string> = {
     'M17 3 L21 7 L8 20 L3 21 L4 16 Z M14 6 L18 10',
   chevrons: 'M6 8 L12 13 L18 8 M6 15 L12 20 L18 15',
   volets: 'M4 5 L20 5 L20 19 L4 19 Z M9.5 5 L9.5 19',
+  partager: 'M5 13 L5 19 C5 19.5 5.5 20 6 20 L18 20 C18.5 20 19 19.5 19 19 L19 13 M12 15 L12 4 M8 8 L12 4 L16 8',
+  accolades:
+    'M10 4 C8 4 7.5 5 7.5 7 L7.5 9.5 C7.5 10.5 7 11 6 11 C7 11 7.5 11.5 7.5 12.5 L7.5 17 C7.5 19 8 20 10 20 M14 4 C16 4 16.5 5 16.5 7 L16.5 9.5 C16.5 10.5 17 11 18 11 C17 11 16.5 11.5 16.5 12.5 L16.5 17 C16.5 19 16 20 14 20',
+  document: 'M6 3 L15 3 L19 7 L19 21 L6 21 Z M15 3 L15 7 L19 7 M9 12 L16 12 M9 15 L16 15 M9 18 L13 18',
 };
 
 const VIEWBOX: Record<IconName, string> = {
@@ -86,6 +93,9 @@ const VIEWBOX: Record<IconName, string> = {
   crayon: '0 0 24 24',
   chevrons: '0 0 24 24',
   volets: '0 0 24 24',
+  partager: '0 0 24 24',
+  accolades: '0 0 24 24',
+  document: '0 0 24 24',
 };
 
 type Props = {

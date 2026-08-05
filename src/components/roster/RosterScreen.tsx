@@ -249,19 +249,25 @@ export function RosterScreen({
             </button>
           )}
           {partageDisponible() && (
-            <button className="icon-btn" onClick={partager} title={t('roster.shareTitle')}>
-              {t('roster.share')}
+            <button className="icon-btn" onClick={partager} title={t('roster.shareTitle')} aria-label={t('roster.shareTitle')}>
+              <Icon name="partager" />
             </button>
           )}
-          <button className="icon-btn" onClick={() => exporterRoster(roster)} title={t('roster.exportJsonTitle')}>
-            {t('roster.exportJson')}
+          <button
+            className="icon-btn"
+            onClick={() => exporterRoster(roster)}
+            title={t('roster.exportJsonTitle')}
+            aria-label={t('roster.exportJsonTitle')}
+          >
+            <Icon name="accolades" />
           </button>
           <button
             className="icon-btn"
             onClick={() => import('../../utils/pdfExport').then((m) => m.exporterRosterPDF(roster))}
             title={t('roster.exportPdfTitle')}
+            aria-label={t('roster.exportPdfTitle')}
           >
-            {t('roster.exportPdf')}
+            <Icon name="document" />
           </button>
         </div>
       }
