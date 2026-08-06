@@ -9,16 +9,22 @@ import { useLanguage } from '../../state/useLanguage';
 type ScreenProps = {
   title: string;
   back?: boolean | string;
+  // Appelé avant toute navigation déclenchée par le bouton retour du bandeau
+  // (ex : confirmation de sortie d'un assistant en cours — voir
+  // PostBatailleScreen). Renvoyer false annule la navigation ; omis, le
+  // bouton retour navigue directement comme avant.
+  onBeforeBack?: () => boolean;
   actions?: ReactNode;
   children: ReactNode;
 };
 
-export function Screen({ title, back, actions, children }: ScreenProps) {
+export function Screen({ title, back, onBeforeBack, actions, children }: ScreenProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useLanguage();
   const headerRef = useRef<HTMLElement>(null);
   const handleBack = () => {
+    if (onBeforeBack && !onBeforeBack()) return;
     if (typeof back === 'string') navigate(back);
     else navigate(-1);
   };

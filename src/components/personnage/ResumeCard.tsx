@@ -4,6 +4,7 @@ import { estSorcier, resolveSort } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { estFrancTireur } from '../../data/hiredSwords';
+import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import type { InventoryEntry, Member } from '../../types/roster';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { useLanguage } from '../../state/useLanguage';
@@ -110,7 +111,7 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
         </p>
       )}
 
-      {profil.type === 'heros' && !estFrancTireur(membre) && (
+      {profil.type === 'heros' && (!estFrancTireur(membre) || estDramatisPersonae(membre)) && (
         <>
           <span className="resume-section__title">{t('resume.seriousInjuries')}</span>
           {membre.blessures_graves.length > 0 ? (

@@ -34,7 +34,7 @@ import {
   estFrancTireur,
   getFrancTireur,
 } from '../../data/hiredSwords';
-import { getDramatisPersonae } from '../../data/dramatisPersonae';
+import { estDramatisPersonae, getDramatisPersonae } from '../../data/dramatisPersonae';
 import { creerMembreFrancTireurCatalogue } from '../../utils/factory';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
@@ -166,6 +166,37 @@ export function PostBatailleScreen() {
   // EtapeResume) : récompense de scénario et événements d'exploration.
   const [journalOr, setJournalOr] = useState<{ label: string; montant: number }[]>([]);
 
+  // Sécurité contre la sortie accidentelle de l'assistant (bouton retour du
+  // navigateur, geste de swipe-back mobile) : certaines étapes appliquent déjà
+  // leurs changements à la bande en direct (avancées résolues à l'étape Gain
+  // d'expérience, blessures graves...) avant la validation finale — sortir
+  // sans valider laisse la bande dans un état à moitié à jour. `valideRef`
+  // désarme la garde une fois "Valider et enregistrer" cliqué avec succès.
+  const valideRef = useRef(false);
+  useEffect(() => {
+    if (!roster) return;
+    window.history.pushState(null, '');
+    const onPopState = () => {
+      if (valideRef.current) return;
+      window.history.pushState(null, '');
+      if (window.confirm(t('postBatailleScreen.confirmLeaveWizard'))) {
+        valideRef.current = true;
+        navigate(`/roster/${roster.id}`, { replace: true });
+      }
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roster?.id]);
+
+  const confirmerAbandon = () => {
+    if (valideRef.current || window.confirm(t('postBatailleScreen.confirmLeaveWizard'))) {
+      valideRef.current = true;
+      return true;
+    }
+    return false;
+  };
+
   const [etape, setEtape] = useState(0);
 
   // ScrollToTop (common/ScrollToTop.tsx) ne réagit qu'aux changements de
@@ -212,13 +243,16 @@ export function PostBatailleScreen() {
 
   // Blessures graves : réservé aux héros Hors de Combat — seuls les héros
   // roulent sur la table complète des blessures. Les hommes de main utilisent
-  // la table simple mort-ou-survivant à l'étape suivante.
+  // la table simple mort-ou-survivant à l'étape suivante. Les francs-tireurs
+  // suivent aussi cette table simple, à l'exception des Dramatis Personae
+  // (chapitre à part mais mécaniquement des héros à part entière, voir
+  // dramatisPersonae.ts) qui roulent sur la table complète comme un héros.
   const horsDeCombatHeros = useMemo(
     () =>
       roster?.membres.filter(
         (m) =>
           m.statut === 'hors_de_combat' &&
-          !estFrancTireur(m) &&
+          (!estFrancTireur(m) || estDramatisPersonae(m)) &&
           resolveProfil(roster, m, catalogue, language)?.type === 'heros'
       ) ?? [],
     [roster, catalogue, language]
@@ -891,11 +925,12 @@ export function PostBatailleScreen() {
           )
       ),
     });
-    navigate(`/roster/${roster.id}`);
+    valideRef.current = true;
+    navigate(`/roster/${roster.id}`, { replace: true });
   };
 
   return (
-    <Screen title={t('postBatailleScreen.wizardTitle')} back={`/roster/${roster.id}`}>
+    <Screen title={t('postBatailleScreen.wizardTitle')} back={`/roster/${roster.id}`} onBeforeBack={confirmerAbandon}>
       <div className="wizard-steps">
         {ETAPES.map((_, i) => (
           <div key={i} className={`wizard-steps__step ${i <= etape ? 'wizard-steps__step--done' : ''}`} />
@@ -1067,7 +1102,7 @@ export function PostBatailleScreen() {
         />
       )}
 
-      <div className="flex gap-sm">
+      <div className="flex gap-sm post-bataille__actions">
         <button className="btn" disabled={etape === 0} onClick={precedent}>
           {t('postBatailleScreen.previous')}
         </button>
