@@ -54,6 +54,9 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
                 {detail.nom}
                 {quantite > 1 ? ` ×${quantite}` : ''}
               </button>
+              {entree.item_id === 'dague' && entree.cout === 0 && (
+                <span className="text-muted"> {t('achatEquipement.freeBadge')}</span>
+              )}
               {synopsis && (
                 <span className="text-muted" style={{ fontStyle: 'italic' }}>
                   {' '}
