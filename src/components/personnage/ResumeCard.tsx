@@ -3,6 +3,7 @@ import { resolveItemDetail, resumeItem } from '../../utils/shop';
 import { estSorcier, resolveSort } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
 import { CollapsibleCard } from '../common/CollapsibleCard';
+import { estFrancTireur } from '../../data/hiredSwords';
 import type { InventoryEntry, Member } from '../../types/roster';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { useLanguage } from '../../state/useLanguage';
@@ -106,17 +107,21 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
         </p>
       )}
 
-      <span className="resume-section__title">{t('resume.seriousInjuries')}</span>
-      {membre.blessures_graves.length > 0 ? (
-        membre.blessures_graves.map((b) => (
-          <p key={b.id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
-            {b.date} — {injuryLabelAffiche(b, language)}
-          </p>
-        ))
-      ) : (
-        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem', fontStyle: 'italic' }}>
-          {t('resume.none')}
-        </p>
+      {profil.type === 'heros' && !estFrancTireur(membre) && (
+        <>
+          <span className="resume-section__title">{t('resume.seriousInjuries')}</span>
+          {membre.blessures_graves.length > 0 ? (
+            membre.blessures_graves.map((b) => (
+              <p key={b.id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                {b.date} — {injuryLabelAffiche(b, language)}
+              </p>
+            ))
+          ) : (
+            <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem', fontStyle: 'italic' }}>
+              {t('resume.none')}
+            </p>
+          )}
+        </>
       )}
     </CollapsibleCard>
   );
