@@ -30,7 +30,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
         {catalogue?.nom ?? roster.bande_id}
       </p>
       <div className="summary-grid" style={{ marginTop: '0.7rem' }}>
-        <div className="summary-tile" style={effectifPlein ? { background: 'var(--warning-bg)' } : undefined}>
+        <div className={`summary-tile${effectifPlein ? ' summary-tile--attention' : ''}`}>
           <div className="summary-tile__value" style={effectifPlein ? { color: 'var(--warning)' } : undefined}>
             {effectifMax != null ? `${effectif}/${effectifMax}` : effectif}
           </div>
@@ -45,16 +45,8 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
             type="number"
             value={roster.tresorerie}
             onChange={(e) => onPatch({ tresorerie: Number(e.target.value) || 0 })}
-            style={{
-              width: '100%',
-              textAlign: 'center',
-              background: 'transparent',
-              border: 'none',
-              fontSize: '1.1rem',
-              fontWeight: 700,
-              fontFamily: 'var(--font-heading)',
-              color: roster.tresorerie < 0 ? 'var(--danger)' : 'inherit',
-            }}
+            className="summary-tile__value summary-tile__input"
+            style={roster.tresorerie < 0 ? { color: 'var(--danger)' } : undefined}
           />
           <div className="summary-tile__label">{t('rosterSummary.treasury')}</div>
         </div>
@@ -63,16 +55,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
             type="number"
             value={roster.wyrdstone}
             onChange={(e) => onPatch({ wyrdstone: Number(e.target.value) || 0 })}
-            style={{
-              width: '100%',
-              textAlign: 'center',
-              background: 'transparent',
-              border: 'none',
-              fontSize: '1.1rem',
-              fontWeight: 700,
-              fontFamily: 'var(--font-heading)',
-              color: 'inherit',
-            }}
+            className="summary-tile__value summary-tile__input"
           />
           <div className="summary-tile__label">{t('rosterSummary.wyrdstone')}</div>
         </div>
