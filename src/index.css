@@ -1493,10 +1493,15 @@ button {
   background: var(--bg-inset);
 }
 
+/* Toujours 4 colonnes égales, y compris sur un téléphone étroit — plutôt
+   qu'un repeat(auto-fit, minmax(...)) qui renvoyait la 4e case (Wyrdstone)
+   à la ligne dès que les 4 cases ne tenaient plus à leur largeur "confort".
+   minmax(0, 1fr) autorise les colonnes à rétrécir sous leur largeur de
+   contenu naturelle sans déborder. */
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.35rem;
 }
 /* Même habillage "gravé" que .xp-box (fond en creux + ombre interne) plutôt
    que les aplats plats d'origine — et même police de titre de section
@@ -1506,9 +1511,10 @@ button {
   background: var(--bg-inset);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 0.55rem 0.4rem 0.5rem;
+  padding: 0.5rem 0.2rem 0.45rem;
   text-align: center;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+  min-width: 0;
 }
 .summary-tile--attention {
   background: var(--warning-bg);
@@ -1522,7 +1528,7 @@ button {
 .summary-tile__value {
   display: block;
   font-family: var(--font-display);
-  font-size: 1.55rem;
+  font-size: 1.3rem;
   font-weight: 700;
   line-height: 1.05;
 }
@@ -1535,10 +1541,10 @@ button {
   padding: 0;
 }
 .summary-tile__label {
-  font-size: 0.62rem;
+  font-size: 0.56rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   margin-top: 0.2rem;
 }
 
