@@ -46,14 +46,8 @@ import { PersonnageScreen } from '../personnage/PersonnageScreen';
 const SPLIT_LIST_WIDTH_KEY = 'ui.roster.splitListWidthPct';
 const SPLIT_LIST_WIDTH_DEFAUT = 0.35;
 const SPLIT_LIST_WIDTH_MIN_PX = 220;
-// Le tableau à 9 caractéristiques a besoin d'environ 950px pour s'afficher
-// sans son propre scroll horizontal de secours (voir la container query
-// sur .roster-split__list dans index.css) — un plafond à 60% aurait rendu
-// ce seuil quasi inatteignable (60% de 1600px, la largeur max de .app-main
-// en mode deux volets, ne laisse que 960px, pile à la limite). Relevé à
-// 75% pour que la colonne puisse dépasser franchement les 950px sur un
-// grand écran, quand l'utilisateur choisit délibérément de sacrifier de la
-// largeur au volet détail pour voir le tableau complet.
+// Laisse l'utilisateur sacrifier délibérément de la largeur au volet détail
+// pour élargir la colonne liste, jusqu'à 75% du conteneur.
 const SPLIT_LIST_WIDTH_MAX_PCT = 0.75;
 
 type RosterScreenProps = {

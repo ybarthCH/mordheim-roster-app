@@ -641,7 +641,12 @@ function mapperItemVersShopItem(item: (typeof TOUS_LES_ITEMS)[number]): ShopItem
 // les profils dont la liste ne mentionne simplement jamais l'armure lourde,
 // sans qu'un texte de règle dédié n'ait eu besoin d'être relevé pour le dire
 // explicitement (ex : le Séide des Répurgateurs, limité à l'armure légère).
-const ITEMS_EQUIVALENT_ARMURE_LOURDE = new Set(['armure_en_gromril_market', 'armure_en_ithilmar_market']);
+const ITEMS_EQUIVALENT_ARMURE_LOURDE = new Set([
+  'armure_en_gromril_market',
+  'armure_en_ithilmar_market',
+  'armure_du_chaos_market',
+  'exosquelette',
+]);
 
 export function aAccesArmureLourde(catalogue: WarbandCatalog | undefined, profil: Profile | null | undefined): boolean {
   if (!catalogue) return true;
