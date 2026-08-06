@@ -432,11 +432,13 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
 
       <ReglesSpecialesCard membre={membre} onMajMembre={majMembre} />
 
-      <BlessuresGravesCard
-        membre={membre}
-        onOpenAjout={() => setModalBlessure(true)}
-        onSupprimer={supprimerBlessure}
-      />
+      {profil.type === 'heros' && !francTireur && (
+        <BlessuresGravesCard
+          membre={membre}
+          onOpenAjout={() => setModalBlessure(true)}
+          onSupprimer={supprimerBlessure}
+        />
+      )}
 
       {profil.type === 'heros' && (
         <CollapsibleCard
