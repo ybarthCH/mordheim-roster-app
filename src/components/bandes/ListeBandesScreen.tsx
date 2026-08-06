@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
@@ -42,10 +42,6 @@ export function ListeBandesScreen() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [aSupprimer, setASupprimer] = useState<RosterInstance | null>(null);
   const [erreurImport, setErreurImport] = useState<string | null>(null);
-
-  const classement = useMemo(() => {
-    return [...rosters].sort((a, b) => ratingTotal(b) - ratingTotal(a));
-  }, [rosters]);
 
   const winLabel = language === 'en' ? 'W' : 'V';
   const lossLabel = language === 'en' ? 'L' : 'D';
@@ -134,39 +130,6 @@ export function ListeBandesScreen() {
           </div>
         );
       })}
-
-      {rosters.length > 1 && (
-        <div className="card">
-          <h3>{t('home.rankingsTitle')}</h3>
-          <div className="roster-table-wrap">
-            <table className="roster-table">
-              <thead>
-                <tr>
-                  <th>{t('home.tableRank')}</th>
-                  <th>{t('home.tableBand')}</th>
-                  <th>{t('home.tableRating')}</th>
-                  <th>{t('home.tableWLD')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {classement.map((r, i) => {
-                  const bilan = bilanBatailles(r);
-                  return (
-                    <tr key={r.id} onClick={() => navigate(`/roster/${r.id}`)}>
-                      <td>{i + 1}</td>
-                      <td>{r.nom_bande}</td>
-                      <td>{ratingTotal(r)}</td>
-                      <td>
-                        {bilan.victoires}/{bilan.defaites}/{bilan.nuls}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
 
       {aSupprimer && (
         <Modal onClose={() => setASupprimer(null)}>

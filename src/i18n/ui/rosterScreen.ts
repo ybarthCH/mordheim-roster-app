@@ -47,7 +47,7 @@ export const rosterScreen: UiDictionary = {
   'roster.specialRules': { fr: 'Règles spéciales', en: 'Special rules' },
   'roster.tribe': { fr: 'Tribu', en: 'Tribe' },
   'roster.tribeNotSet': { fr: '— non renseignée', en: '— not specified' },
-  'roster.recruit': { fr: '+ Recruter', en: '+ Recruit' },
+  'roster.recruit': { fr: 'Recruter', en: 'Recruit' },
   'roster.postBattleWizard': { fr: 'Assistant post-bataille', en: 'Post-battle wizard' },
   'roster.heroes': { fr: 'Héros', en: 'Heroes' },
   'roster.henchmen': { fr: 'Hommes de main', en: 'Henchmen' },
@@ -94,7 +94,7 @@ export const rosterScreen: UiDictionary = {
   'rosterSummary.notesPlaceholder': { fr: 'Notes libres sur la bande…', en: 'Free-form notes about the warband…' },
 
   'armurerie.title': { fr: 'Armurerie de la bande', en: 'Warband armoury' },
-  'armurerie.buy': { fr: '+ Acheter', en: '+ Buy' },
+  'armurerie.buy': { fr: 'Armurerie', en: 'Armoury' },
   'armurerie.emptyStock': { fr: 'Stock vide.', en: 'Empty stock.' },
   'armurerie.giveTo': { fr: 'Donner à…', en: 'Give to…' },
   'armurerie.noEligibleRecipient': {
@@ -164,7 +164,7 @@ export const rosterScreen: UiDictionary = {
   'memberGroup.name': { fr: 'Nom', en: 'Name' },
   'memberGroup.profile': { fr: 'Profil', en: 'Profile' },
   'memberGroup.status': { fr: 'Statut', en: 'Status' },
-  'memberGroup.leader': { fr: 'Leader', en: 'Leader' },
+  'memberGroup.leader': { fr: 'Chef', en: 'Leader' },
   'memberGroup.leaderTitle': { fr: 'Chef de bande', en: 'Warband leader' },
   'memberGroup.pendingAdvance': { fr: 'Avancée en attente', en: 'Advance pending' },
   'memberGroup.dragHandle': { fr: 'Glisser pour réordonner', en: 'Drag to reorder' },

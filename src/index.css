@@ -389,6 +389,37 @@ button {
   border-radius: calc(var(--radius) - 2px);
 }
 
+/* Marque forte "Mort" sur la fiche personnage — la simple date en texte
+   discret passait inaperçue. Plaque crâne/date bien visible en haut à
+   droite, dans le même langage visuel que le sceau de cire
+   (.btn--primary) plutôt qu'une image importée. */
+.card--mort {
+  border-color: color-mix(in srgb, var(--danger) 60%, var(--border));
+  box-shadow: var(--shadow), 0 0 0 1px color-mix(in srgb, var(--danger) 35%, transparent);
+}
+.death-plaque {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.35rem 0.5rem;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--danger) 55%, black) 0%, color-mix(in srgb, var(--danger) 85%, black) 100%);
+  border: 1px solid color-mix(in srgb, var(--danger) 40%, black);
+  border-radius: var(--radius);
+  color: #fff6ea;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+.death-plaque__date {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
 /* Filet ornemental sous le titre de section d'une carte — écho discret du
    `.home-hero__rule` du header, généralisé à toute l'app sans retoucher
    chaque composant. */
@@ -939,6 +970,31 @@ button {
   gap: 0.5rem;
   flex-wrap: wrap;
   margin-bottom: 0.8rem;
+}
+
+/* Rangée d'actions principales du roster (Recruter / Armurerie / Assistant
+   post-bataille), en haut de la vue — trois boutons pleins plutôt qu'un
+   pilule segmentée, pour un poids visuel de vraie action et pas d'un simple
+   sélecteur d'état (voir .status-segmented pour ce dernier usage). */
+.roster-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+.roster-actions__btn {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0.9rem 0.5rem;
+  text-align: center;
+  white-space: normal;
+  line-height: 1.15;
+}
+@media (max-width: 480px) {
+  .roster-actions {
+    flex-direction: column;
+  }
 }
 
 .list-item {

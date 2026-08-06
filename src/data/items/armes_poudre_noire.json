@@ -186,6 +186,45 @@
     ]
   },
   {
+    "id": "pistolet_paire", "nom": "Paire de pistolets", "categorie": "armes_poudre_noire",
+    "cout": 20, "cout_officiel": 30, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8",
+    "note_maison": "Représente l'achat de la paire en un seul objet — un seul jet de recherche rareté, une seule place d'inventaire — plutôt que deux pistolets achetés séparément. Prix doublé par rapport au pistolet seul (officiel 30 CO, réduit à 20 CO avec la règle avancée de poudre noire) ; caractéristiques et règles identiques, voir « pistolet ».",
+    "acces": ["rare_8"], "source": "LdR", "page": 27,
+    "texte": "Un pistolet est une arme à poudre noire simple, dotée d'un mécanisme à ressort pour la mise à feu. La plupart des pistolets sont coûteux, peu fiables et de mauvaise qualité. Le pistolet est éligible à l'option double canon pour les Artilleurs de Nuln et les Mercenaires Ostlanders.",
+    "portee": "C à C/6ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Corps à corps", "texte": "Cette arme peut être utilisée une fois au premier tour de corps à corps. Utilisée avec une autre arme, donne +1A (+2A avec une paire). Ces attaques supplémentaires sont résolues avec la CC et peuvent être parées." },
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux. Si vous avez une paire de ces armes, vous pouvez tirer une fois par tour." }
+    ]
+  },
+  {
+    "id": "pistolet_a_malepierre_paire", "nom": "Paire de pistolets à malepierre", "categorie": "armes_poudre_noire",
+    "cout": 50, "cout_officiel": 70, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Skavens uniquement",
+    "note_maison": "Représente l'achat de la paire en un seul objet — un seul jet de recherche rareté, une seule place d'inventaire — plutôt que deux pistolets achetés séparément. Prix doublé par rapport au pistolet seul (officiel 70 CO, réduit à 50 CO avec la règle avancée de poudre noire) ; caractéristiques et règles identiques, voir « pistolet à malepierre ».",
+    "acces": ["skaven"], "source": "LdR", "page": 27,
+    "texte": "Les pistolets à malepierre sont des armes redoutables, témoignages du génie malsain du clan Skryre. Ces pistolets tirent des munitions faites à partir de fragments de malepierre ensorcelés. Ces balles provoquent d'horribles blessures qui dégénèrent souvent en terribles infections.",
+    "portee": "8ps", "force": "5",
+    "regles_speciales": [
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1 (soit -3 au total)." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux. Si vous avez une paire de ces armes, vous pouvez tirer une fois par tour." }
+    ]
+  },
+  {
+    "id": "pistolet_de_duel_paire", "nom": "Paire de pistolets de duel", "categorie": "armes_poudre_noire",
+    "cout": 40, "cout_officiel": 60, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10",
+    "note_maison": "Représente l'achat de la paire en un seul objet — un seul jet de recherche rareté, une seule place d'inventaire — plutôt que deux pistolets achetés séparément. Prix doublé par rapport au pistolet seul (officiel 60 CO, réduit à 40 CO avec la règle avancée de poudre noire) ; caractéristiques et règles identiques, voir « pistolet de duel ».",
+    "acces": ["rare_10"], "source": "LdR", "page": 28,
+    "texte": "Un pistolet de duel est une véritable œuvre d'art, et un armurier doit fournir un travail long et méticuleux pour en réaliser un. Ce sont des armes au coût exorbitant que le simple guerrier a rarement la chance de posséder : même si l'on parvient à en voler ou à en acheter une, le prix des munitions reste astronomique. Certains des guerriers les plus riches de Mordheim portent des pistolets de duel pour indiquer leur rang et inspirer respect et envie. Les pistolets de duel sont éligibles à l'option double canon pour les Artilleurs de Nuln.",
+    "portee": "C à C/10ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Corps à corps", "texte": "Cette arme peut être utilisée une fois au premier tour de corps à corps. Utilisée avec une autre arme, donne +1A (+2A avec une paire). Ces attaques supplémentaires sont résolues avec la CC et peuvent être parées." },
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Précision", "texte": "L'arme est conçue pour la précision. Tout tir avec cette arme bénéficie d'un bonus de +1 pour toucher." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux. Si vous avez une paire de ces armes, vous pouvez tirer une fois par tour." }
+    ]
+  },
+  {
     "id": "tromblon", "nom": "Tromblon", "categorie": "armes_poudre_noire",
     "cout": 20, "cout_officiel": 30, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, sauf Nains du Chaos (voir Tromblon Nain du Chaos)",
     "note_maison": "Prix officiel 30 CO, réduit à 20 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée. Remplacé par le Tromblon Nain du Chaos pour cette bande.",
@@ -236,6 +275,18 @@
     ]
   },
   {
+    "id": "pistolet_double_canon_paire", "nom": "Paire de pistolets à double canon", "categorie": "armes_poudre_noire",
+    "cout": 40, "cout_officiel": 60, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9",
+    "note_maison": "Représente l'achat de la paire en un seul objet — un seul jet de recherche rareté, une seule place d'inventaire — plutôt que deux pistolets à double canon achetés séparément. Prix doublé par rapport au pistolet seul (officiel 60 CO, réduit à 40 CO avec la règle avancée de poudre noire) ; caractéristiques et règles identiques, voir « pistolet à double canon ».",
+    "acces": ["ostlanders", "artilleurs_de_nuln"], "source": "BTB", "page": 24,
+    "texte": "Un pistolet doté de deux canons superposés, permettant de tirer deux coups avant de devoir recharger. Plus lourd et moins fiable qu'un pistolet simple.",
+    "portee": "6ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Double tir", "texte": "Cette arme tire deux coups avant de devoir être rechargée (au lieu d'un seul pour un pistolet normal)." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme après ses deux tirs." }
+    ]
+  },
+  {
     "id": "long_fusil_hochland_double_canon", "nom": "Long fusil du Hochland à double canon", "categorie": "armes_poudre_noire",
     "cout": 200, "cout_officiel": 300, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11",
     "note_maison": "Prix officiel 300 CO, réduit à 200 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée.",
@@ -252,6 +303,20 @@
   {
     "id": "pistolet_duel_double_canon", "nom": "Pistolet de duel à double canon", "categorie": "armes_poudre_noire",
     "cout": 35, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Artilleurs de Nuln uniquement (65 CO la paire)",
+    "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 28,
+    "texte": "Une variante à deux canons du pistolet de duel, aussi précieuse que délicate à entretenir. Éligible à l'option double canon.",
+    "portee": "C à C/10ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Double tir", "texte": "Cette arme tire deux coups avant de devoir être rechargée (au lieu d'un seul pour un pistolet de duel normal)." },
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Précision", "texte": "L'arme est conçue pour la précision. Tout tir avec cette arme bénéficie d'un bonus de +1 pour toucher." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme après ses deux tirs." }
+    ]
+  },
+  {
+    "id": "pistolet_duel_double_canon_paire", "nom": "Paire de pistolets de duel à double canon", "categorie": "armes_poudre_noire",
+    "cout": 70, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Artilleurs de Nuln uniquement",
+    "note_maison": "Représente l'achat de la paire en un seul objet — un seul jet de recherche rareté, une seule place d'inventaire — plutôt que deux pistolets de duel à double canon achetés séparément. Prix doublé par rapport au pistolet seul (35 CO) ; caractéristiques et règles identiques, voir « pistolet de duel à double canon ».",
     "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 28,
     "texte": "Une variante à deux canons du pistolet de duel, aussi précieuse que délicate à entretenir. Éligible à l'option double canon.",
     "portee": "C à C/10ps", "force": "4",

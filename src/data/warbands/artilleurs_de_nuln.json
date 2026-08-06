@@ -171,12 +171,16 @@
         { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armes_tir": [
-        { "item_id": "pistolet", "cout": 10, "note": "20 CO la paire" },
-        { "item_id": "pistolet_double_canon", "cout": 20, "note": "35 CO la paire" },
-        { "item_id": "pistolet_de_duel", "cout": 20, "note": "35 CO la paire" },
-        { "item_id": "pistolet_duel_double_canon", "cout": 35, "note": "65 CO la paire" },
+        { "item_id": "pistolet", "cout": 10 },
+        { "item_id": "pistolet_double_canon", "cout": 20 },
+        { "item_id": "pistolet_de_duel", "cout": 20 },
+        { "item_id": "pistolet_duel_double_canon", "cout": 35 },
         { "item_id": "arquebuse", "cout": 25 },
-        { "item_id": "arquebuse_double_canon", "cout": 45 }
+        { "item_id": "arquebuse_double_canon", "cout": 45 },
+        { "item_id": "pistolet_paire", "cout": 20 },
+        { "item_id": "pistolet_double_canon_paire", "cout": 40 },
+        { "item_id": "pistolet_de_duel_paire", "cout": 40 },
+        { "item_id": "pistolet_duel_double_canon_paire", "cout": 70 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
@@ -197,8 +201,8 @@
         { "item_id": "epee", "cout": 10 }
       ],
       "armes_tir": [
-        { "item_id": "pistolet", "cout": 10, "note": "20 CO la paire" },
-        { "item_id": "pistolet_double_canon", "cout": 20, "note": "35 CO la paire" },
+        { "item_id": "pistolet", "cout": 10 },
+        { "item_id": "pistolet_double_canon", "cout": 20 },
         { "item_id": "pistolet_a_repetition", "cout": 25 },
         { "item_id": "tromblon", "cout": 20 },
         { "item_id": "arquebuse", "cout": 25 },
@@ -206,7 +210,9 @@
         { "item_id": "long_fusil_du_hochland", "cout": 100 },
         { "item_id": "arquebuse_a_repetition", "cout": 50 },
         { "item_id": "mortier_portable", "cout": 70 },
-        { "item_id": "pigeon_explosif", "cout": 25 }
+        { "item_id": "pigeon_explosif", "cout": 25 },
+        { "item_id": "pistolet_paire", "cout": 20 },
+        { "item_id": "pistolet_double_canon_paire", "cout": 40 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },

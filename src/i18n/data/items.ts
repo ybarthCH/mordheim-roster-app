@@ -1425,6 +1425,68 @@ export const itemsEn: Record<string, ItemTraduit> = {
       },
     ],
   },
+  pistolet_paire: {
+    nom: 'Brace of Pistols',
+    texte:
+      'A pistol is a simple black powder weapon, fitted with a spring-loaded firing mechanism. Most pistols are expensive, unreliable, and poorly made. The pistol is eligible for the double barrel option for Nuln Artillerists and Ostlander Mercenaries.',
+    regles_speciales: [
+      {
+        nom: 'Hand-to-Hand',
+        texte:
+          'This weapon may be used once during the first round of hand-to-hand combat. Used alongside another weapon, it grants +1 Attack (+2 Attacks with a pair). These extra attacks are resolved with Weapon Skill and may be parried.',
+      },
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      {
+        nom: 'Reloading',
+        texte:
+          'It takes a full turn to reload the weapon, so it can only fire every other turn. If you have a pair of these weapons, you may fire once per turn.',
+      },
+    ],
+  },
+  pistolet_a_malepierre_paire: {
+    nom: 'Brace of Warpstone Pistols',
+    texte:
+      "Warpstone pistols are formidable weapons, testament to Clan Skryre's twisted genius. These pistols fire ammunition made from bewitched warpstone fragments. These bullets cause horrific wounds that often degenerate into terrible infections.",
+    regles_speciales: [
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty (i.e. -3 in total).',
+      },
+      {
+        nom: 'Reloading',
+        texte:
+          'It takes a full turn to reload the weapon, so it can only fire every other turn. If you have a pair of these weapons, you may fire once per turn.',
+      },
+    ],
+  },
+  pistolet_de_duel_paire: {
+    nom: 'Brace of Duelling Pistols',
+    texte:
+      "A duelling pistol is a true work of art, and an armourer must put in long and meticulous work to craft one. These are weapons of exorbitant cost that the average warrior rarely has the chance to own: even if one manages to steal or buy one, the price of ammunition remains astronomical. Some of Mordheim's wealthiest warriors carry duelling pistols to signal their rank and inspire respect and envy. Duelling pistols are eligible for the double barrel option for Nuln Artillerists.",
+    regles_speciales: [
+      {
+        nom: 'Hand-to-Hand',
+        texte:
+          'This weapon may be used once during the first round of hand-to-hand combat. Used alongside another weapon, it grants +1 Attack (+2 Attacks with a pair). These extra attacks are resolved with Weapon Skill and may be parried.',
+      },
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      { nom: 'Accuracy', texte: 'This weapon is designed for accuracy. Any shot with this weapon gets a +1 bonus to hit.' },
+      {
+        nom: 'Reloading',
+        texte:
+          'It takes a full turn to reload the weapon, so it can only fire every other turn. If you have a pair of these weapons, you may fire once per turn.',
+      },
+    ],
+  },
   tromblon: {
     nom: 'Blunderbuss',
     texte:
@@ -1486,6 +1548,17 @@ export const itemsEn: Record<string, ItemTraduit> = {
       { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon after its two shots.' },
     ],
   },
+  pistolet_double_canon_paire: {
+    nom: 'Brace of Double-Barrelled Pistols',
+    texte: 'A pistol fitted with two stacked barrels, allowing two shots before needing to reload. Heavier and less reliable than a single pistol.',
+    regles_speciales: [
+      {
+        nom: 'Double Shot',
+        texte: 'This weapon fires two shots before needing to be reloaded (instead of just one for a normal pistol).',
+      },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon after its two shots.' },
+    ],
+  },
   long_fusil_hochland_double_canon: {
     nom: 'Double-Barrelled Hochland Long Rifle',
     texte:
@@ -1502,6 +1575,23 @@ export const itemsEn: Record<string, ItemTraduit> = {
   },
   pistolet_duel_double_canon: {
     nom: 'Double-Barrelled Duelling Pistol',
+    texte: 'A two-barrelled variant of the duelling pistol, as precious as it is delicate to maintain. Eligible for the double barrel option.',
+    regles_speciales: [
+      {
+        nom: 'Double Shot',
+        texte: 'This weapon fires two shots before needing to be reloaded (instead of just one for a normal duelling pistol).',
+      },
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      { nom: 'Accuracy', texte: 'This weapon is designed for accuracy. Any shot with this weapon gets a +1 bonus to hit.' },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon after its two shots.' },
+    ],
+  },
+  pistolet_duel_double_canon_paire: {
+    nom: 'Brace of Double-Barrelled Duelling Pistols',
     texte: 'A two-barrelled variant of the duelling pistol, as precious as it is delicate to maintain. Eligible for the double barrel option.',
     regles_speciales: [
       {

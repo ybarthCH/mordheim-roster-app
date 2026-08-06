@@ -182,10 +182,11 @@
         { "item_id": "epee_dragon", "cout": 20, "note": "Katana" }
       ],
       "armes_tir": [
-        { "item_id": "pistolet_de_duel", "cout": 30, "note": "60 CO la paire" },
+        { "item_id": "pistolet_de_duel", "cout": 30 },
         { "item_id": "arquebuse", "cout": 35, "note": "Handgun" },
         { "item_id": "arc", "cout": 10 },
-        { "item_id": "arbalete", "cout": 25 }
+        { "item_id": "arbalete", "cout": 25 },
+        { "item_id": "pistolet_de_duel_paire", "cout": 60 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },

@@ -6517,7 +6517,7 @@ export function translateMagie(magie: Magie, en: MagieTraduite | undefined): Mag
 }
 
 function translateRefs(refs: EquipementRef[] | undefined, notesEn: (string | undefined)[] | undefined) {
-  return refs?.map((r, i) => (notesEn?.[i] ? { ...r, note: notesEn[i] } : r));
+  return refs?.map((r, i) => (r.note && notesEn?.[i] ? { ...r, note: notesEn[i] } : r));
 }
 
 function translateEquipementListe(liste: EquipementListe, en: EquipementListeTraduite | undefined): EquipementListe {

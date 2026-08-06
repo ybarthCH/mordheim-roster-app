@@ -154,7 +154,8 @@
         { "item_id": "fronde", "cout": 2 },
         { "item_id": "arme_de_jet", "cout": 15 },
         { "item_id": "sarbacane", "cout": 25 },
-        { "item_id": "pistolet_a_malepierre", "cout": 35, "note": "70 CO la paire" }
+        { "item_id": "pistolet_a_malepierre", "cout": 35 },
+        { "item_id": "pistolet_a_malepierre_paire", "cout": 70 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },

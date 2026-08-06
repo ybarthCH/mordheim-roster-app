@@ -165,10 +165,11 @@
     },
     "armes_tir_escorteurs": {
       "armes_tir": [
-        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "pistolet", "cout": 15 },
         { "item_id": "tromblon", "cout": 30 },
         { "item_id": "arquebuse", "cout": 35 },
-        { "item_id": "long_fusil_du_hochland", "cout": 200 }
+        { "item_id": "long_fusil_du_hochland", "cout": 200 },
+        { "item_id": "pistolet_paire", "cout": 30 }
       ]
     },
     "armes_tir_eclaireurs": {
