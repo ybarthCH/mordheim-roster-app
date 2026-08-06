@@ -88,4 +88,5 @@ export const achatEquipementModal: UiDictionary = {
     en: 'Roll the indicated die on your tabletop, then tap the result obtained below.',
   },
   'achatEquipement.rollResultBack': { fr: '← Choisir un autre objet', en: '← Choose another item' },
+  'achatEquipement.freeBadge': { fr: '(gratuite)', en: '(free)' },
 };

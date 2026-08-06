@@ -83,6 +83,12 @@ type Props = {
 
 const LONGUEUR_SYNOPSIS = 110;
 
+// Première dague d'un profil : gratuite (voir FAQ officielle). Ne s'applique
+// qu'à un achat pour un membre précis (profil non nul) — l'armurerie de
+// bande (profil === null) n'est pas concernée. Une fois une dague déjà
+// possédée, les suivantes reprennent leur prix normal.
+const ID_DAGUE = 'dague';
+
 function synopsis(texte: string | null | undefined): string | null {
   if (!texte) return null;
   return texte.length > LONGUEUR_SYNOPSIS ? `${texte.slice(0, LONGUEUR_SYNOPSIS).trimEnd()}…` : texte;
@@ -212,9 +218,19 @@ export function AchatEquipementModal({
     setItemId('');
   };
 
+  const dagueDejaPossedee = inventaireActuel.some((e) => e.item_id === ID_DAGUE);
+  const estPremiereDagueGratuite = (item: Pick<ShopItem, 'id'>) =>
+    !gratuit && !!profil && item.id === ID_DAGUE && !dagueDejaPossedee;
+
   const choisir = (item: ShopItem) => {
     setItemId(item.id);
-    setCoutSaisi(item.cout_fixe && typeof item.cout === 'number' ? String(item.cout) : '');
+    setCoutSaisi(
+      estPremiereDagueGratuite(item)
+        ? '0'
+        : item.cout_fixe && typeof item.cout === 'number'
+          ? String(item.cout)
+          : ''
+    );
     setBaseMateriauId('');
     setRechercheMateriau('');
     setCoutBaseSaisi('');
@@ -651,6 +667,9 @@ export function AchatEquipementModal({
                           )}
                           {item.origine === 'personnalise' && <span className="badge badge--info">{t('achatEquipement.customBadge')}</span>}
                           {item.surcharge && <span className="badge badge--warning">{t('achatEquipement.modifiedBadge')}</span>}
+                          {estPremiereDagueGratuite(item) && (
+                            <span className="badge badge--success">{t('achatEquipement.freeBadge')}</span>
+                          )}
                         </div>
                         <div className="list-item__subtitle">
                           {iconeCategorie(item.categorie) && (
@@ -693,6 +712,9 @@ export function AchatEquipementModal({
                   <span className="badge badge--info">{t('achatEquipement.customBadge')}</span>
                 )}
                 {itemSelectionne.surcharge && <span className="badge badge--warning">{t('achatEquipement.modifiedBadge')}</span>}
+                {estPremiereDagueGratuite(itemSelectionne) && (
+                  <span className="badge badge--success">{t('achatEquipement.freeBadge')}</span>
+                )}
                 {personnaliseActif && (
                   <button
                     className="btn--ghost"

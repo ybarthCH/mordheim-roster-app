@@ -301,6 +301,11 @@ export function CreationBandeScreen() {
       <button className="btn btn--primary btn--block" disabled={!peutCreer} onClick={handleCreer}>
         {t('creation.createBand')}
       </button>
+      {nomBande.trim() === '' && (
+        <p className="text-sm text-danger" style={{ marginTop: '0.4rem' }}>
+          {t('creation.nameRequiredWarning')}
+        </p>
+      )}
 
       {profilEnRecrutement && (
         <RecrutementDraftModal

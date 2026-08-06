@@ -4,7 +4,7 @@ import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
 import type { IconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
-import { avancesDues, peutGagnerExperience } from '../../utils/xp';
+import { avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
 import { nomCourtBlessureAffiche } from '../../utils/blessures';
 import { inventaireGroupeMismatch, resumeInventaireParItem } from '../../utils/shop';
 import { useDragReorder } from '../../utils/useDragReorder';
@@ -113,7 +113,7 @@ export function MemberGroupCard({
     if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return false;
     return (
       avancesDues(grilleXpDuProfil(profil), m.xp_depart, m.xp, !!catalogue?.xp_demi) >
-      m.historique_avancees.filter((a) => !a.bonus && a.type !== 'promotion').length
+      avancesObtenues(m.historique_avancees)
     );
   };
 

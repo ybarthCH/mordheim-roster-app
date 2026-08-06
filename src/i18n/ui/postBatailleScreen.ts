@@ -15,6 +15,10 @@ export const postBatailleScreen: UiDictionary = {
   'postBatailleScreen.previous': { fr: 'Précédent', en: 'Previous' },
   'postBatailleScreen.next': { fr: 'Suivant', en: 'Next' },
   'postBatailleScreen.validateAndSave': { fr: 'Valider et enregistrer', en: 'Validate and save' },
+  'postBatailleScreen.confirmLeaveWizard': {
+    fr: "Quitter le post-bataille sans valider ? Certains changements (blessures, XP, avancées…) ont peut-être déjà été appliqués à la bande — utilise plutôt le bouton « Précédent » pour revenir en arrière sans rien perdre.",
+    en: 'Leave the post-battle wizard without validating? Some changes (injuries, XP, advances…) may already have been applied to the warband — use the "Previous" button instead to go back without losing anything.',
+  },
   'postBatailleScreen.resolveEyeOfDarkGods': {
     fr: 'Résous le test Œil des Dieux Sombres (Réussi / Raté) avant de valider.',
     en: 'Resolve the Eye of the Dark Gods test (Succeeded / Failed) before validating.',

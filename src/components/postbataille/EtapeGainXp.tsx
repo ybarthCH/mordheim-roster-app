@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, isPalierHenchman, isPalierHero, peutGagnerExperience } from '../../utils/xp';
+import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, avancesObtenues, isPalierHenchman, isPalierHero, peutGagnerExperience } from '../../utils/xp';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import { estLeaderActuel } from '../../utils/leader';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
@@ -131,10 +131,7 @@ function BlocAvanceeDue({
   const profil = resolveProfil(roster, membre, catalogue, language);
   if (!profil || !peutGagnerExperience(profil)) return null;
   const dues = avancesDues(grilleXpDuProfil(profil), membre.xp_depart, xpActuel, demiXp);
-  const enAttente = Math.max(
-    0,
-    dues - membre.historique_avancees.filter((a) => !a.bonus && a.type !== 'promotion').length
-  );
+  const enAttente = Math.max(0, dues - avancesObtenues(membre.historique_avancees));
   if (enAttente === 0) return null;
   return (
     <div className="flex items-center gap-sm" style={{ marginTop: '0.5rem' }}>

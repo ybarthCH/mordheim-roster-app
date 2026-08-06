@@ -34,6 +34,10 @@ export const creationBandeScreen: UiDictionary = {
     en: 'This warband has no fixed leader: choose one among the recruited heroes (optional here, editable later from the roster sheet).',
   },
   'creation.createBand': { fr: 'Créer la bande', en: 'Create warband' },
+  'creation.nameRequiredWarning': {
+    fr: 'Entre un nom de bande pour pouvoir la créer.',
+    en: 'Enter a warband name to create it.',
+  },
 
   'creation.modal.recruitTitle': { fr: 'Recruter', en: 'Recruit' },
   'creation.modal.notCombatant': {

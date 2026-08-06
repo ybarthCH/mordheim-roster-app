@@ -26,7 +26,7 @@ import { Modal } from '../common/Modal';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
 import { MagieReference } from '../common/CatalogueReference';
-import { avancesDues, peutGagnerExperience } from '../../utils/xp';
+import { avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
 import { ratingMembre } from '../../utils/rating';
 import { succederApresMorts } from '../../utils/leader';
 import { estSorcier, migrerSortsConnus } from '../../utils/magie';
@@ -50,6 +50,7 @@ import {
 import type { ShopItem } from '../../utils/shop';
 import type { InventoryEntry } from '../../types/roster';
 import { getFrancTireur } from '../../data/hiredSwords';
+import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import { useGameRules } from '../../state/useGameRules';
 import { annulerEffetsBlessure } from '../../utils/blessures';
 import { annulerAvancee, avanceeReversible } from '../../utils/avancees';
@@ -297,11 +298,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
     francTireur?.gagne_experience === false || !peutGagnerExperience(profil)
       ? 0
       : avancesDues(grilleXpDuProfil(profil), membre.xp_depart, membre.xp, demiXp);
-  // Les jets "promotion" et "bonus" (Ce gars est doué) ne comptent jamais
-  // dans les avancées obtenues au sens du palier XP courant : la promotion
-  // reset le point de départ (voir confirmerPromotion), donc la compter ici
-  // annulerait à tort une vraie avancée due plus tard sur la grille héros.
-  const obtenues = membre.historique_avancees.filter((a) => !a.bonus && a.type !== 'promotion').length;
+  const obtenues = avancesObtenues(membre.historique_avancees);
   // Le jet gratuit "Ce gars est doué" annulé (voir annulerAvancee) rouvre la
   // résolution d'avancée même si le compteur XP normal n'a rien à offrir.
   const enAttente = Math.max(0, dues - obtenues) + (membre.bonus_avancee_en_attente ? 1 : 0);
@@ -432,7 +429,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
 
       <ReglesSpecialesCard membre={membre} onMajMembre={majMembre} />
 
-      {profil.type === 'heros' && !francTireur && (
+      {profil.type === 'heros' && (!francTireur || estDramatisPersonae(membre)) && (
         <BlessuresGravesCard
           membre={membre}
           onOpenAjout={() => setModalBlessure(true)}

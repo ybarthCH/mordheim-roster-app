@@ -1648,6 +1648,21 @@ button {
   background: var(--accent);
 }
 
+/* Barre Précédent/Suivant du post-bataille : épinglée en bas de la fenêtre
+   (comme .app-header en haut) pour rester accessible sans avoir à défiler
+   toute une étape — évite de devoir passer par le geste de retour du
+   navigateur (swipe-back), qui quitte l'assistant sans confirmation. */
+.post-bataille__actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  margin: 0.8rem -0.8rem 0;
+  padding: 0.6rem 0.8rem max(0.6rem, var(--safe-bottom));
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;

@@ -115,7 +115,9 @@ export function formatCoutProfil(cout: number | null, coutNotation?: string, lan
 // "commun_pirates", "commun_heros", "commun_pretres_guerriers_soeurs_de_sigmar")
 // signifient l'inverse — l'objet est licite/pas cher UNIQUEMENT pour ce
 // groupe précis, donc restreint, pas générique. Ils restent donc exclus du
-// shop commun ici.
+// shop commun ici ; le cas "commun_heros" (Héros uniquement, ex : Cuir durci)
+// est réintroduit pour les héros directement dans le filtre de
+// getShopCommun() ci-dessous, où le profil ciblé est connu.
 export function estAccesGenerique(acces: string[]): boolean {
   return acces.some(
     (a) =>
@@ -155,6 +157,23 @@ const CATALOGUES_HUMAINS = new Set([
   'tileens',
 ]);
 
+// Les tags "commun_sauf_X_Y" (ex : "commun_sauf_witch_hunters_sisters_of_sigmar")
+// nomment une ou plusieurs bandes exclues d'un objet par ailleurs commun.
+// estAccesGenerique() les traite comme génériques (l'objet reste "commun"
+// pour l'affichage/le shop des autres bandes) — c'est ici, avec l'id de
+// catalogue de la bande consultée, que l'exclusion doit réellement
+// s'appliquer. Les ids de bande contenant eux-mêmes des "_" (ex :
+// "carnival_of_chaos", "cult_of_the_possessed") et ne correspondant pas
+// toujours au fragment du tag (ex : tag "hommes_betes" vs id de catalogue
+// "beastmen_raiders"), chaque tag connu est mappé explicitement plutôt que
+// re-découpé programmatiquement.
+const EXCLUSIONS_COMMUN_SAUF: Record<string, string[]> = {
+  commun_sauf_witch_hunters_sisters_of_sigmar: ['witch_hunters', 'sisters_of_sigmar'],
+  commun_sauf_hommes_betes: ['beastmen_raiders'],
+  commun_sauf_carnival_of_chaos_undead: ['carnival_of_chaos', 'undead'],
+  commun_sauf_cult_of_the_possessed_undead: ['cult_of_the_possessed', 'undead'],
+};
+
 // Un objet "commun_<bande>" (restreint à un groupe précis, donc exclu du
 // shop générique par estAccesGenerique) reste accessible pour la bande
 // concernée : soit l'id du catalogue est listé tel quel dans `acces` (ex :
@@ -163,6 +182,7 @@ const CATALOGUES_HUMAINS = new Set([
 // à accès restreint apparaissent dans le shop commun d'une bande éligible.
 export function estAccesPourCatalogue(acces: string[], catalogueId: string): boolean {
   if (acces.includes(`rare_9_sauf_${catalogueId}`)) return false;
+  if (acces.some((a) => EXCLUSIONS_COMMUN_SAUF[a]?.includes(catalogueId))) return false;
   if (estAccesGenerique(acces)) return true;
   if (acces.includes(catalogueId)) return true;
   if (acces.includes('commun_humains') && CATALOGUES_HUMAINS.has(catalogueId)) return true;
@@ -728,6 +748,11 @@ export function armeArmureUtilisableSansEntrainement(
   }
   if (c === 'armures') {
     if (ITEMS_EQUIVALENT_ARMURE_LOURDE.has(id)) return aAccesArmureLourde(catalogue, profil);
+    // Le cuir durci (tag "commun_heros") précise explicitement dans son texte
+    // de règle qu'il n'a pas besoin de figurer dans la liste d'équipement de
+    // la bande pour être utilisé — contrairement aux autres armures, son
+    // achat n'est donc pas conditionné à la liste d'entraînement du profil.
+    if (getItem(id)?.acces?.includes('commun_heros')) return true;
     return idsListeProfil(catalogue, profil, competencesAcquises, 'armures').has(id);
   }
   return true;
@@ -835,7 +860,8 @@ export function getShopCommun(
   const items: ShopItem[] = TOUS_LES_ITEMS.filter(
     (item) =>
       !(armureLourdeInterdite && ITEMS_EQUIVALENT_ARMURE_LOURDE.has(item.id)) &&
-      (catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) &&
+      ((catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) ||
+        (item.acces?.includes('commun_heros') && profil?.type === 'heros')) &&
       !estCategorieInterdite(
         item.categorie,
         profil,

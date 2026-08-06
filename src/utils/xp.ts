@@ -56,3 +56,19 @@ export function avancesDues(
   const facteur = demiXp ? 2 : 1;
   return paliers.filter((p) => p * facteur > xpDepart && p * facteur <= xpActuel).length;
 }
+
+/**
+ * Nombre d'avancées déjà résolues à comparer à `avancesDues()`. Exclut les
+ * jets "bonus" (Ce gars est doué, hors grille XP normale) et "promotion"
+ * eux-mêmes — mais surtout, ne compte que les entrées POSTÉRIEURES à la
+ * dernière promotion (voir AvanceeModal.confirmerPromotion, qui reset
+ * `xp_depart` à l'XP courante lors d'une promotion Homme de main → Héros).
+ * Les avancées gagnées avant la promotion l'ont été sur l'ancienne grille
+ * (hommes de main) avec un ancien point de départ ; les compter ici
+ * masquerait à tort une avancée pourtant due sur la nouvelle grille héros.
+ */
+export function avancesObtenues(historique: { type: string; bonus?: boolean }[]): number {
+  const indexPromotion = historique.findLastIndex((a) => a.type === 'promotion');
+  const pertinentes = indexPromotion === -1 ? historique : historique.slice(indexPromotion + 1);
+  return pertinentes.filter((a) => !a.bonus && a.type !== 'promotion').length;
+}
