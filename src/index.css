@@ -1520,11 +1520,6 @@ button {
   background: var(--warning-bg);
   border-color: color-mix(in srgb, var(--warning) 45%, var(--border));
 }
-.summary-tile__icon {
-  display: block;
-  margin: 0 auto 0.25rem;
-  opacity: 0.8;
-}
 .summary-tile__value {
   display: block;
   font-family: var(--font-display);
@@ -1539,6 +1534,16 @@ button {
   border: none;
   color: inherit;
   padding: 0;
+  /* Sans ça, les flèches de l'input number décentrent visuellement le
+     chiffre vers la gauche (l'espace qu'elles occupent n'est pas compté
+     par text-align: center). */
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.summary-tile__input::-webkit-outer-spin-button,
+.summary-tile__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 .summary-tile__label {
   font-size: 0.56rem;
