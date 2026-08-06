@@ -1422,37 +1422,17 @@ button {
   overflow-x: hidden;
 }
 
-/* La colonne de liste est redimensionnable (voir .roster-split__resizer,
-   jusqu'à 75% du conteneur — RosterScreen.SPLIT_LIST_WIDTH_MAX_PCT) : sur
-   un grand écran, une fois élargie à la main, elle peut dépasser la
-   largeur nécessaire au tableau à 9 caractéristiques. Une media query sur
-   la largeur de FENÊTRE ne peut pas le détecter (la fenêtre peut être
-   large alors que la colonne, elle, reste étroite) — d'où une container
-   query sur la largeur réelle de la colonne elle-même.
-   Seuil mesuré empiriquement (Playwright, scrollWidth vs clientWidth du
-   .roster-table-wrap réel, statut le plus long "Hors de combat/Out of
-   action" inclus) : le tableau a besoin d'environ 930px pour tenir sans
-   son propre scroll horizontal de secours. 950px pour une marge de
-   sécurité — sciemment plus haut que le seuil de 720px de la vue normale
-   ci-dessus, qui lui compte sur ce même scroll de secours entre 720 et
-   ~930px plutôt que de l'éviter complètement (comportement préexistant,
-   pas retouché ici). */
-.roster-split__list {
-  container-type: inline-size;
-}
+/* La colonne de liste utilise toujours la présentation carte (avec sa
+   grille de caractéristiques) plutôt que le tableau dense à 9 colonnes,
+   quelle que soit sa largeur — y compris redimensionnée en grand sur un
+   écran large (voir .roster-split__resizer,
+   RosterScreen.SPLIT_LIST_WIDTH_MAX_PCT). C'est la présentation demandée
+   pour toutes les tailles d'écran, pas seulement les plus étroites. */
 .roster-split__list .roster-table-wrap {
   display: none;
 }
 .roster-split__list .member-cards {
   display: block;
-}
-@container (min-width: 950px) {
-  .roster-split__list .roster-table-wrap {
-    display: block;
-  }
-  .roster-split__list .member-cards {
-    display: none;
-  }
 }
 
 .roster-split__detail {
