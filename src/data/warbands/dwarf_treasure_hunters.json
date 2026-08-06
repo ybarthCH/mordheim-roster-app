@@ -166,7 +166,8 @@
         { "item_id": "arme_en_gromril", "cout": "3 fois le coût", "note": "Toute arme accessible à un nain peut être achetée en Gromril, en multipliant le coût par 3. Prix valable uniquement pour les bandes débutantes." }
       ],
       "armes_tir": [
-        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" }
+        { "item_id": "pistolet", "cout": 15 },
+        { "item_id": "pistolet_paire", "cout": 30 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
@@ -187,7 +188,8 @@
       "armes_tir": [
         { "item_id": "arbalete", "cout": 25 },
         { "item_id": "arquebuse", "cout": 35 },
-        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" }
+        { "item_id": "pistolet", "cout": 15 },
+        { "item_id": "pistolet_paire", "cout": 30 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },

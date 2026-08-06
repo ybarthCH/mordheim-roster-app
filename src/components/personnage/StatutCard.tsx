@@ -101,8 +101,16 @@ export function StatutCard({
     setModalBlesseOuvert(false);
   };
 
+  const estMort = membre.statut === 'mort';
+
   return (
-    <div className="card">
+    <div className={`card${estMort ? ' card--mort' : ''}`}>
+      {estMort && (
+        <div className="death-plaque" title={membre.date_mort ?? undefined}>
+          <Icon name="crane" size="1.5em" />
+          {membre.date_mort && <span className="death-plaque__date">{membre.date_mort}</span>}
+        </div>
+      )}
       <div className="flex justify-between items-center gap-md">
         <Avatar
           nom={membre.nom_perso}
@@ -111,7 +119,7 @@ export function StatutCard({
           onClick={() => setGestionPhotoOuverte(true)}
           title={t('avatar.viewTitle', { nom: membre.nom_perso })}
         />
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ flex: 1, minWidth: 0, paddingRight: estMort ? '4.2rem' : undefined }}>
           <input
             value={membre.nom_perso}
             onChange={(e) => onMajMembre({ nom_perso: e.target.value })}
@@ -143,11 +151,6 @@ export function StatutCard({
           </button>
         ))}
       </div>
-      {membre.statut === 'mort' && membre.date_mort && (
-        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-          {membre.date_mort}
-        </p>
-      )}
 
       {membre.statut === 'blesse' && (
         <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>

@@ -11,6 +11,7 @@ import { useDragReorder } from '../../utils/useDragReorder';
 import { estLeaderActuel } from '../../utils/leader';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
+import { STAT_KEYS } from '../../types/catalog';
 import { getFrancTireur } from '../../data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
 import { getItem } from '../../data/items';
@@ -361,6 +362,18 @@ export function MemberGroupCard({
               <div className="list-item__details">
                 <div className="list-item__subtitle">
                   {!masquerProfil && profil?.nom ? `${profil.nom} · ` : ''}XP {m.xp}
+                </div>
+                <div className="stat-grid" style={{ margin: '0.5rem 0' }}>
+                  {STAT_KEYS.map((k) => (
+                    <div key={`lbl-${k}`} className="stat-grid__cell stat-grid__cell--label">
+                      {libelleCaracteristique(k, language)}
+                    </div>
+                  ))}
+                  {STAT_KEYS.map((k) => (
+                    <div key={`val-${k}`} className="stat-grid__cell stat-grid__cell--value">
+                      {m.stats_variables?.[k] ?? m.stats_actuels[k]}
+                    </div>
+                  ))}
                 </div>
                 <div className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
                   {resumeEquipement(m)}

@@ -18,11 +18,6 @@ export const listeBandesScreen: UiDictionary = {
   'home.export': { fr: 'Export', en: 'Export' },
   'home.duplicate': { fr: 'Dupliquer', en: 'Duplicate' },
   'home.deleteShort': { fr: 'Suppr.', en: 'Del.' },
-  'home.rankingsTitle': { fr: 'Classement de campagne', en: 'Campaign Rankings' },
-  'home.tableRank': { fr: '#', en: '#' },
-  'home.tableBand': { fr: 'Bande', en: 'Warband' },
-  'home.tableRating': { fr: 'Rating', en: 'Rating' },
-  'home.tableWLD': { fr: 'V/D/N', en: 'W/L/D' },
   'home.deleteConfirmBody': {
     fr: "Cette action est irréversible. Pense à exporter un JSON avant si besoin.",
     en: 'This action is irreversible. Remember to export a JSON backup first if needed.',

@@ -210,9 +210,10 @@
         { "item_id": "pince_market", "cout": 25 }
       ],
       "armes_tir": [
-        { "item_id": "pistolet", "cout": 15, "note": "30 CO la paire" },
+        { "item_id": "pistolet", "cout": 15 },
         { "item_id": "tromblon_nain_du_chaos", "cout": 40 },
-        { "item_id": "arquebuse", "cout": 35 }
+        { "item_id": "arquebuse", "cout": 35 },
+        { "item_id": "pistolet_paire", "cout": 30 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },

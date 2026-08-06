@@ -198,7 +198,8 @@
       "armes_tir": [
         { "item_id": "arc", "cout": 15 },
         { "item_id": "arc_court", "cout": 10 },
-        { "item_id": "pistolet", "cout": 15, "note": "30 pour une paire" }
+        { "item_id": "pistolet", "cout": 15 },
+        { "item_id": "pistolet_paire", "cout": 30 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },

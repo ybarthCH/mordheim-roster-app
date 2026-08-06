@@ -254,8 +254,10 @@
         { "item_id": "lance", "cout": 10 }
       ],
       "armes_tir": [
-        { "item_id": "pistolet", "cout": 20, "note": "40 CO la paire" },
-        { "item_id": "pistolet_de_duel", "cout": 30, "note": "60 CO la paire" }
+        { "item_id": "pistolet", "cout": 20 },
+        { "item_id": "pistolet_de_duel", "cout": 30 },
+        { "item_id": "pistolet_paire", "cout": 40 },
+        { "item_id": "pistolet_de_duel_paire", "cout": 60 }
       ],
       "armures": [
         { "item_id": "bouclier", "cout": 5 },

@@ -347,6 +347,22 @@ export function RosterScreen({
       <div className={splitView ? 'roster-split__list' : undefined}>
       <RosterSummaryCard roster={roster} catalogue={catalogue} onPatch={patch} />
 
+      <div className="roster-actions">
+        <button type="button" className="btn btn--primary roster-actions__btn" onClick={() => setModalMembre(true)}>
+          {t('roster.recruit')}
+        </button>
+        <button type="button" className="btn roster-actions__btn" onClick={() => setModalAchat(true)}>
+          {t('armurerie.buy')}
+        </button>
+        <button
+          type="button"
+          className="btn roster-actions__btn"
+          onClick={() => navigate(`/roster/${roster.id}/post-bataille`)}
+        >
+          {t('roster.postBattleWizard')}
+        </button>
+      </div>
+
       <ArmurerieSection
         roster={roster}
         catalogue={catalogue}
@@ -421,22 +437,6 @@ export function RosterScreen({
           )}
         </CollapsibleCard>
       )}
-
-      <div className="status-segmented" style={{ marginBottom: '0.8rem' }}>
-        <button type="button" className="status-segmented__option" onClick={() => setModalMembre(true)}>
-          {t('roster.recruit')}
-        </button>
-        <button type="button" className="status-segmented__option" onClick={() => setModalAchat(true)}>
-          {t('armurerie.buy')}
-        </button>
-        <button
-          type="button"
-          className="status-segmented__option"
-          onClick={() => navigate(`/roster/${roster.id}/post-bataille`)}
-        >
-          {t('roster.postBattleWizard')}
-        </button>
-      </div>
 
       <MemberGroupCard
         titre={t('roster.heroes')}
