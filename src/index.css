@@ -1495,25 +1495,51 @@ button {
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
-  gap: 0.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  gap: 0.5rem;
 }
+/* Même habillage "gravé" que .xp-box (fond en creux + ombre interne) plutôt
+   que les aplats plats d'origine — et même police de titre de section
+   (--font-display, Caslon Antique) pour le chiffre que pour un <h3> comme
+   "Armurerie de la bande", au lieu de --font-heading (Garamond). */
 .summary-tile {
   background: var(--bg-inset);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 0.4rem 0.3rem;
+  padding: 0.55rem 0.4rem 0.5rem;
   text-align: center;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+.summary-tile--attention {
+  background: var(--warning-bg);
+  border-color: color-mix(in srgb, var(--warning) 45%, var(--border));
+}
+.summary-tile__icon {
+  display: block;
+  margin: 0 auto 0.25rem;
+  opacity: 0.8;
 }
 .summary-tile__value {
-  font-size: 1.1rem;
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
   font-weight: 700;
-  font-family: var(--font-heading);
+  line-height: 1.05;
+}
+.summary-tile__input {
+  width: 100%;
+  text-align: center;
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: 0;
 }
 .summary-tile__label {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  margin-top: 0.2rem;
 }
 
 .status-select {

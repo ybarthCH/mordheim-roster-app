@@ -4,6 +4,7 @@ import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { effectifMaxAutorise } from '../../utils/validation';
 import { useLanguage } from '../../state/useLanguage';
+import { Icon } from '../common/Icon';
 
 type RosterSummaryCardProps = {
   roster: RosterInstance;
@@ -30,49 +31,36 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
         {catalogue?.nom ?? roster.bande_id}
       </p>
       <div className="summary-grid" style={{ marginTop: '0.7rem' }}>
-        <div className="summary-tile" style={effectifPlein ? { background: 'var(--warning-bg)' } : undefined}>
+        <div className={`summary-tile${effectifPlein ? ' summary-tile--attention' : ''}`}>
+          <Icon name="bouclier" className="summary-tile__icon" />
           <div className="summary-tile__value" style={effectifPlein ? { color: 'var(--warning)' } : undefined}>
             {effectifMax != null ? `${effectif}/${effectifMax}` : effectif}
           </div>
           <div className="summary-tile__label">{t('rosterSummary.members')}</div>
         </div>
         <div className="summary-tile">
+          <Icon name="couronne" className="summary-tile__icon" style={{ color: 'var(--palier)' }} />
           <div className="summary-tile__value">{ratingTotal(roster)}</div>
           <div className="summary-tile__label">{t('rosterSummary.rating')}</div>
         </div>
         <div className="summary-tile">
+          <Icon name="coffre" className="summary-tile__icon" style={{ color: 'var(--accent)' }} />
           <input
             type="number"
             value={roster.tresorerie}
             onChange={(e) => onPatch({ tresorerie: Number(e.target.value) || 0 })}
-            style={{
-              width: '100%',
-              textAlign: 'center',
-              background: 'transparent',
-              border: 'none',
-              fontSize: '1.1rem',
-              fontWeight: 700,
-              fontFamily: 'var(--font-heading)',
-              color: roster.tresorerie < 0 ? 'var(--danger)' : 'inherit',
-            }}
+            className="summary-tile__value summary-tile__input"
+            style={roster.tresorerie < 0 ? { color: 'var(--danger)' } : undefined}
           />
           <div className="summary-tile__label">{t('rosterSummary.treasury')}</div>
         </div>
         <div className="summary-tile">
+          <Icon name="gemme" className="summary-tile__icon" style={{ color: 'var(--success)' }} />
           <input
             type="number"
             value={roster.wyrdstone}
             onChange={(e) => onPatch({ wyrdstone: Number(e.target.value) || 0 })}
-            style={{
-              width: '100%',
-              textAlign: 'center',
-              background: 'transparent',
-              border: 'none',
-              fontSize: '1.1rem',
-              fontWeight: 700,
-              fontFamily: 'var(--font-heading)',
-              color: 'inherit',
-            }}
+            className="summary-tile__value summary-tile__input"
           />
           <div className="summary-tile__label">{t('rosterSummary.wyrdstone')}</div>
         </div>
