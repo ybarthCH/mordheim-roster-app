@@ -6,7 +6,7 @@ import type { IconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import { avancesDues, peutGagnerExperience } from '../../utils/xp';
 import { nomCourtBlessureAffiche } from '../../utils/blessures';
-import { inventaireGroupeMismatch } from '../../utils/shop';
+import { inventaireGroupeMismatch, resumeInventaireParItem } from '../../utils/shop';
 import { useDragReorder } from '../../utils/useDragReorder';
 import { estLeaderActuel } from '../../utils/leader';
 import type { Member, RosterInstance } from '../../types/roster';
@@ -77,6 +77,20 @@ export function MemberGroupCard({
   // interminable, pas la contrainte principale.
   const resumeEquipement = (m: Member): string => {
     if (m.inventaire.length === 0) return m.equipement || t('memberGroup.noEquipment');
+    // Groupe d'hommes de main dont l'équipement est bien réparti à parts
+    // égales entre figurines (voir inventaireGroupeMismatch) : n'affiche le
+    // paquetage que d'une seule figurine, suivi d'un "×taille_groupe" global,
+    // plutôt que de lister chaque exemplaire séparément.
+    if (m.taille_groupe > 1 && !inventaireGroupeMismatch(m)) {
+      const parFigurine = resumeInventaireParItem(m.inventaire).map(({ entree, quantite }) => {
+        const ref = getItem(entree.item_id);
+        const nom = ref ? translateItem(ref, language).nom : entree.nom;
+        const quantiteParFigurine = quantite / m.taille_groupe;
+        return quantiteParFigurine > 1 ? `${nom} ×${quantiteParFigurine}` : nom;
+      });
+      const noms = `${parFigurine.join(', ')} ×${m.taille_groupe}`;
+      return noms.length > 160 ? `${noms.slice(0, 160).trimEnd()}…` : noms;
+    }
     const noms = m.inventaire
       .map((e) => {
         const ref = getItem(e.item_id);
