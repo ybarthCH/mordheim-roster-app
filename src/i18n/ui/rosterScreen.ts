@@ -171,6 +171,7 @@ export const rosterScreen: UiDictionary = {
   'memberGroup.dragHandle': { fr: 'Glisser pour réordonner', en: 'Drag to reorder' },
   'memberGroup.hcMarkTitle': { fr: 'Marquer une figurine Hors de combat ({hc}/{taille})', en: 'Mark one model Out of Action ({hc}/{taille})' },
   'memberGroup.hcToggleTitle': { fr: 'Basculer Hors de combat', en: 'Toggle Out of Action' },
+  'memberGroup.deadStatusHint': { fr: 'Modifiable depuis la fiche du personnage', en: 'Change this from the character sheet' },
   'memberGroup.hc': { fr: 'HC', en: 'OOA' },
   'memberGroup.equipmentMismatchTitle': { fr: 'Équipement dépareillé entre les figurines du groupe', en: 'Mismatched equipment between models in the group' },
   'memberGroup.equipmentMismatchBadge': { fr: 'Équipement', en: 'Equipment' },

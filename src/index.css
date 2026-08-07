@@ -787,6 +787,31 @@ button {
 .status-switch--on .status-switch__thumb {
   transform: translateX(14px);
 }
+/* Statut "mort" : plus un vrai interrupteur (le changer depuis la liste du
+   roster resterait toujours possible même dans le Cimetière, et ferait
+   accidentellement "ressusciter" le membre — voir onBasculerHorsCombat).
+   Rendu en <span> non cliquable plutôt qu'en <button>, avec les effets
+   hover/active neutralisés puisqu'ils n'ont plus de sens sans interaction. */
+.status-switch--badge {
+  cursor: default;
+}
+.status-switch--badge:hover {
+  filter: none;
+}
+.status-switch--badge:active {
+  transform: none;
+}
+/* Largeur figée sur le libellé (et non sur tout le bouton) : l'icône et,
+   pour les statuts actionnables, la piste à curseur restent à taille fixe,
+   donc figer seulement le libellé suffit à figer la largeur totale du
+   switch — quel que soit le statut affiché ou la langue active (ex. FR
+   "Hors de combat" vs EN "Out of action"). Calé sur le plus long des deux. */
+.status-switch__label--fixed {
+  width: 9.8em;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* Avatar : photo si renseignée, sinon initiales sur un fond coloré dérivé
    du nom (--avatar-hue, voir Avatar.tsx). Réservé à la fiche personnage

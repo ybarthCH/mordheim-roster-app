@@ -224,6 +224,14 @@ export function MemberGroupCard({
                             {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
                           </span>
                         </button>
+                      ) : m.statut === 'mort' ? (
+                        <span
+                          className={`status-switch status-switch--${STATUT_COULEUR[m.statut]} status-switch--badge`}
+                          title={t('memberGroup.deadStatusHint')}
+                        >
+                          {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
+                          <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
+                        </span>
                       ) : (
                         <button
                           type="button"
@@ -236,7 +244,7 @@ export function MemberGroupCard({
                           aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
                         >
                           {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                          <span className="status-switch__label">{t(`statut.${m.statut}`)}</span>
+                          <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
                           <span className="status-switch__track">
                             <span className="status-switch__thumb" />
                           </span>
@@ -343,6 +351,14 @@ export function MemberGroupCard({
                       {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
                     </span>
                   </button>
+                ) : m.statut === 'mort' ? (
+                  <span
+                    className={`status-switch status-switch--${STATUT_COULEUR[m.statut]} status-switch--badge`}
+                    title={t('memberGroup.deadStatusHint')}
+                  >
+                    {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
+                    <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
+                  </span>
                 ) : (
                   <button
                     type="button"
@@ -355,7 +371,7 @@ export function MemberGroupCard({
                     aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
                   >
                     {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                    <span className="status-switch__label">{t(`statut.${m.statut}`)}</span>
+                    <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
                     <span className="status-switch__track">
                       <span className="status-switch__thumb" />
                     </span>
