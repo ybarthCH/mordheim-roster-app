@@ -22,6 +22,17 @@ export function effectifTotal(roster: RosterInstance): number {
     .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
 }
 
+/**
+ * Nombre de francs-tireurs encore actifs (non-morts) — volontairement
+ * exclus d'effectifTotal (règle imprimée : ne comptent pas dans l'effectif
+ * maximum autorisé de la bande), mais bien présents sur la table de jeu.
+ * Affiché à part pour éviter de laisser croire que la bande n'aligne que
+ * `effectifTotal` figurines au combat.
+ */
+export function nombreFrancsTireursActifs(roster: RosterInstance): number {
+  return roster.membres.filter((m) => m.statut !== 'mort' && estFrancTireur(m)).length;
+}
+
 export function nomCatalogue(bandeId: string, language: Language = 'fr'): string {
   const catalogue = getCatalogue(bandeId);
   if (!catalogue) return bandeId;
