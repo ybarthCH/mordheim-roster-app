@@ -71,13 +71,22 @@ export type ShopItem = {
   surcharge?: boolean;
 };
 
+// "C à C" (corps à corps) est la seule valeur de portée non numérique du
+// catalogue — stockée telle quelle en français faute d'unité universelle,
+// à traduire à l'affichage plutôt que dans chacune des ~60 entrées JSON.
+// Les autres notations ("U", "U+1", distances en pas...) restent
+// inchangées : ce sont des abréviations de jeu, pas du texte français.
+export function traduirePortee(portee: string, language: Language): string {
+  return portee === 'C à C' && language === 'en' ? 'Hand-to-hand' : portee;
+}
+
 // Résumé compact des stats de jeu d'un objet (portée/force/sauvegarde/noms
 // des règles spéciales), utilisé comme synopsis dans la liste d'achat. Se
 // rabat sur le texte d'ambiance si l'objet n'a pas de stats structurées
 // (la plupart des objets divers/consommables/poisons).
 export function resumeItem(item: ShopItem, language: Language = 'fr'): string | null {
   const parties: string[] = [];
-  if (item.portee) parties.push(`${language === 'en' ? 'Range' : 'Portée'} ${item.portee}`);
+  if (item.portee) parties.push(`${language === 'en' ? 'Range' : 'Portée'} ${traduirePortee(item.portee, language)}`);
   if (item.force) parties.push(`${language === 'en' ? 'Strength' : 'Force'} ${item.force}`);
   if (item.sauvegarde) parties.push(`${language === 'en' ? 'Save' : 'Sauvegarde'} ${item.sauvegarde}`);
   if (item.resultatSousJetAchat) parties.push(item.resultatSousJetAchat.label);
