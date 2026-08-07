@@ -28,6 +28,7 @@ import { Icon } from '../common/Icon';
 import { MagieReference } from '../common/CatalogueReference';
 import { avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
 import { ratingAfficheMembre } from '../../utils/displayedRating';
+import { formatPowerValueTooltip, powerValueDetailMembre } from '../../utils/powerValue';
 import { succederApresMorts } from '../../utils/leader';
 import { estSorcier, migrerSortsConnus } from '../../utils/magie';
 import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
@@ -303,6 +304,9 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   // résolution d'avancée même si le compteur XP normal n'a rien à offrir.
   const enAttente = Math.max(0, dues - obtenues) + (membre.bonus_avancee_en_attente ? 1 : 0);
   const rating = ratingAfficheMembre(membre, roster, rules);
+  const ratingTooltip = rules.valeurPuissanceActivee
+    ? formatPowerValueTooltip(powerValueDetailMembre(membre, roster))
+    : undefined;
   const heroCount = nombreHeros(roster);
   const grimoireMembre = membre.inventaire.find((entree) => entree.item_id === GRIMOIRE_DE_MAGIE_ID);
   const grimoireStock = roster.stock.find((entree) => entree.item_id === GRIMOIRE_DE_MAGIE_ID);
@@ -357,6 +361,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         profil={profil}
         rating={rating}
         ratingEstPowerValue={rules.valeurPuissanceActivee}
+        ratingTooltip={ratingTooltip}
         estGroupeSimplifie={estGroupeSimplifie}
         onMajMembre={majMembre}
         onChangerStatut={changerStatut}
