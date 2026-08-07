@@ -194,6 +194,22 @@ body {
   color: var(--text);
   font-family: var(--font-ui);
   -webkit-tap-highlight-color: transparent;
+  /* App-like feel sur mobile : un doigt qui traîne sur un libellé/bouton ne
+     doit pas déclencher la sélection de texte du navigateur (menu
+     copier/traduire/rechercher) — comportement gênant sur une UI d'app,
+     pas un document. Ré-autorisé explicitement dans les champs de saisie
+     ci-dessous, où la sélection reste utile (Notes, etc.). */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input,
+textarea,
+[contenteditable='true'] {
+  -webkit-touch-callout: default;
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 h1,
@@ -807,7 +823,7 @@ button {
    switch — quel que soit le statut affiché ou la langue active (ex. FR
    "Hors de combat" vs EN "Out of action"). Calé sur le plus long des deux. */
 .status-switch__label--fixed {
-  width: 9.8em;
+  width: 5.2em;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;

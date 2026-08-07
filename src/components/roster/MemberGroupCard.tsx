@@ -244,7 +244,7 @@ export function MemberGroupCard({
                           aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
                         >
                           {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                          <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
+                          <span className="status-switch__label status-switch__label--fixed">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
                           <span className="status-switch__track">
                             <span className="status-switch__thumb" />
                           </span>
@@ -371,7 +371,7 @@ export function MemberGroupCard({
                     aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
                   >
                     {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                    <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
+                    <span className="status-switch__label status-switch__label--fixed">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
                     <span className="status-switch__track">
                       <span className="status-switch__thumb" />
                     </span>

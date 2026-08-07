@@ -173,6 +173,12 @@ export const rosterScreen: UiDictionary = {
   'memberGroup.hcToggleTitle': { fr: 'Basculer Hors de combat', en: 'Toggle Out of Action' },
   'memberGroup.deadStatusHint': { fr: 'Modifiable depuis la fiche du personnage', en: 'Change this from the character sheet' },
   'memberGroup.hc': { fr: 'HC', en: 'OOA' },
+  // Libellés abrégés affichés dans le switch de statut de la liste roster
+  // (espace très limité sur mobile) — la version complète reste utilisée
+  // pour l'aria-label et sur la fiche personnage (voir statut.*).
+  'memberGroup.statutCourt.actif': { fr: 'Actif', en: 'Active' },
+  'memberGroup.statutCourt.hors_de_combat': { fr: 'HdC', en: 'OOA' },
+  'memberGroup.statutCourt.blesse': { fr: 'Blessé', en: 'Wounded' },
   'memberGroup.equipmentMismatchTitle': { fr: 'Équipement dépareillé entre les figurines du groupe', en: 'Mismatched equipment between models in the group' },
   'memberGroup.equipmentMismatchBadge': { fr: 'Équipement', en: 'Equipment' },
   'memberGroup.absentUnpaid': { fr: 'Absent — solde impayée', en: 'Absent — balance unpaid' },
