@@ -259,17 +259,20 @@
     {
       "id": "noblesse_oblige",
       "nom": "Noblesse oblige",
-      "texte": "Le guerrier se sent totalement supérieur à ses adversaires : sa longue lignée et son prestige lui permettent de mépriser ses ennemis ordinaires, qu'il ne considère que comme du bétail à abattre. Le guerrier est immunisé à la Peur et peut piétiner sous ses bottes ferrées les adversaires à terre, ce qui lui confère une Attaque supplémentaire contre les adversaires à terre, résolue à sa propre Force."
+      "texte": "Le guerrier se sent totalement supérieur à ses adversaires : sa longue lignée et son prestige lui permettent de mépriser ses ennemis ordinaires, qu'il ne considère que comme du bétail à abattre. Le guerrier est immunisé à la Peur et peut piétiner sous ses bottes ferrées les adversaires à terre, ce qui lui confère une Attaque supplémentaire contre les adversaires à terre, résolue à sa propre Force.",
+      "valeurPuissance": 20
     },
     {
       "id": "tortionnaire",
       "nom": "Tortionnaire",
-      "texte": "Ayant appris l'art de la torture lors du Rituel de la Comète, le guerrier sait infliger un maximum de souffrance et l'utilise de façon sadique et cruelle au combat. Toute figurine blessée avec succès (sans sauvegarde) au corps à corps par ce Héros perd 1 point de Force de façon permanente pour la durée de la bataille, la douleur causant une agonie persistante. L'effet est cumulatif et peut réduire la Force de la cible jusqu'à un minimum de 1. Les Morts-Vivants sont immunisés à cet effet."
+      "texte": "Ayant appris l'art de la torture lors du Rituel de la Comète, le guerrier sait infliger un maximum de souffrance et l'utilise de façon sadique et cruelle au combat. Toute figurine blessée avec succès (sans sauvegarde) au corps à corps par ce Héros perd 1 point de Force de façon permanente pour la durée de la bataille, la douleur causant une agonie persistante. L'effet est cumulatif et peut réduire la Force de la cible jusqu'à un minimum de 1. Les Morts-Vivants sont immunisés à cet effet.",
+      "valeurPuissance": 40
     },
     {
       "id": "duelliste",
       "nom": "Duelliste",
-      "texte": "Le guerrier maîtrise l'art du duel à l'impériale, cher aux aristocrates réputés pour leur habileté en combat singulier. À la fin de chaque phase de Corps à corps, le Duelliste peut forcer tout adversaire non grande cible qu'il affronte en un contre un à réussir un test de Force ou à être repoussé de 2ps dans une direction de son choix. Si cela amène la cible au contact d'une autre figurine, les deux subissent une touche automatique de Force 2. Si cela repousse l'adversaire d'un point élevé, celui-ci tombe et subit les dégâts de chute normaux ; le Duelliste, lui, reste sur la zone élevée."
+      "texte": "Le guerrier maîtrise l'art du duel à l'impériale, cher aux aristocrates réputés pour leur habileté en combat singulier. À la fin de chaque phase de Corps à corps, le Duelliste peut forcer tout adversaire non grande cible qu'il affronte en un contre un à réussir un test de Force ou à être repoussé de 2ps dans une direction de son choix. Si cela amène la cible au contact d'une autre figurine, les deux subissent une touche automatique de Force 2. Si cela repousse l'adversaire d'un point élevé, celui-ci tombe et subit les dégâts de chute normaux ; le Duelliste, lui, reste sur la zone élevée.",
+      "valeurPuissance": 20
     }
   ],
   "equipement": {

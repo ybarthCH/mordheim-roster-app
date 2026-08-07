@@ -144,6 +144,19 @@ export function ReglagesScreen() {
             <span className="text-sm text-muted">{t('reglages.dramatisPersonae.body')}</span>
           </span>
         </label>
+
+        <label className="flex items-start gap-sm" style={{ cursor: 'pointer', marginTop: '1rem' }}>
+          <input
+            type="checkbox"
+            checked={rules.valeurPuissanceActivee}
+            onChange={(e) => setRule('valeurPuissanceActivee', e.target.checked)}
+          />
+          <span>
+            <strong>{t('reglages.powerValue.title')}</strong>
+            <br />
+            <span className="text-sm text-muted">{t('reglages.powerValue.body')}</span>
+          </span>
+        </label>
       </div>
 
       <div className="card">

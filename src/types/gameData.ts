@@ -4,6 +4,13 @@ export type Skill = {
   id: string;
   nom: string;
   texte: string;
+  // Valeur Power Value de cette compétence UNE FOIS ACQUISE en jeu (voir
+  // utils/powerValue.ts) — 0 = compétence de campagne/économique/hors combat,
+  // 20 = bénéfice de combat modéré ou situationnel, 40 = compétence de combat
+  // forte/directe. Absente = pas encore classée manuellement, traitée comme 0
+  // par le calcul (jamais une valeur inventée) — voir la liste des
+  // compétences non classées produite par utils/powerValue.ts.
+  valeurPuissance?: number;
 };
 
 export type SkillsData = Record<SkillCategory, Skill[]>;

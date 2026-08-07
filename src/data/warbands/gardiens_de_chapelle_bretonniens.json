@@ -166,28 +166,33 @@
     {
       "id": "vertu_de_renommee",
       "nom": "Vertu de renommée",
-      "texte": "Permet d'apprendre une Vertu issue de la liste originale des Chevaliers Bretonniens de Tom Merrigan. Ne peut être choisie qu'une seule fois. Vertus disponibles — Discipline : une fois par bataille, si le Héros n'est ni à terre, sonné ni hors de combat, relance possible d'un test de Déroute raté. Impétuosité : ajoute +1D3ps au Mouvement lors d'une charge (jet avant de déplacer la figurine). Pureté : tout sort ciblant le Héros est dissipé sur 4+ (dissipation naturelle due à sa piété). Bravoure : contre une figurine de Force supérieure à la sienne, relance des jets pour toucher ratés au corps à corps. Noble dédain : haine envers tous les ennemis équipés d'armes de tir."
+      "texte": "Permet d'apprendre une Vertu issue de la liste originale des Chevaliers Bretonniens de Tom Merrigan. Ne peut être choisie qu'une seule fois. Vertus disponibles — Discipline : une fois par bataille, si le Héros n'est ni à terre, sonné ni hors de combat, relance possible d'un test de Déroute raté. Impétuosité : ajoute +1D3ps au Mouvement lors d'une charge (jet avant de déplacer la figurine). Pureté : tout sort ciblant le Héros est dissipé sur 4+ (dissipation naturelle due à sa piété). Bravoure : contre une figurine de Force supérieure à la sienne, relance des jets pour toucher ratés au corps à corps. Noble dédain : haine envers tous les ennemis équipés d'armes de tir.",
+      "valeurPuissance": 20
     },
     {
       "id": "voeu_de_la_quete",
       "nom": "Vœu de la Quête",
       "reserve_a": "Chevalier de la Quête uniquement",
-      "texte": "S'il charge, est chargé, ou combat un ennemi provoquant la peur, peut relancer un test de Commandement (dont Déroute) en conservant le second résultat."
+      "texte": "S'il charge, est chargé, ou combat un ennemi provoquant la peur, peut relancer un test de Commandement (dont Déroute) en conservant le second résultat.",
+      "valeurPuissance": 20
     },
     {
       "id": "coup_de_bouclier",
       "nom": "Coup de bouclier",
-      "texte": "Chaque tour, attaque supplémentaire avec un bouclier/écu à Force -1, traitée comme un coup de massue."
+      "texte": "Chaque tour, attaque supplémentaire avec un bouclier/écu à Force -1, traitée comme un coup de massue.",
+      "valeurPuissance": 40
     },
     {
       "id": "muscles_saillants",
       "nom": "Muscles saillants",
-      "texte": "Conserve le bonus de Force des fléaux et morgensterns après le premier tour de combat."
+      "texte": "Conserve le bonus de Force des fléaux et morgensterns après le premier tour de combat.",
+      "valeurPuissance": 20
     },
     {
       "id": "infatigable",
       "nom": "Infatigable",
-      "texte": "À pied, ignore les pénalités de Mouvement dues à l'armure ; les modificateurs de sauvegarde (Force, hache, coup critique) ne peuvent pas réduire sa sauvegarde en dessous de 5+, et celle-ci ne peut être ignorée par un moyen non magique."
+      "texte": "À pied, ignore les pénalités de Mouvement dues à l'armure ; les modificateurs de sauvegarde (Force, hache, coup critique) ne peuvent pas réduire sa sauvegarde en dessous de 5+, et celle-ci ne peut être ignorée par un moyen non magique.",
+      "valeurPuissance": 40
     }
   ],
   "equipement": {

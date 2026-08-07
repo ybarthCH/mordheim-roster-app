@@ -1231,11 +1231,19 @@ export function calculerCoutRejoindreGroupe(groupe: Member, coutUnitaire: number
 
 // Fait rejoindre `quantite` nouvelles figurines à un groupe existant :
 // équipement identique cloné, taille du groupe augmentée, coût déduit.
+// `coutUnitaireRecrutement`, s'il est fourni (profil à prix variable, voir
+// Member.cout_recrutement dans types/roster.ts), met à jour le prix par
+// figurine utilisé par Power Value (utils/powerValue.ts) pour ce groupe —
+// approximation documentée : le modèle ne suit qu'un seul prix par membre,
+// pas un prix par figurine individuelle, donc un groupe dont les lots
+// successifs ont été recrutés à des prix variables différents retombe sur
+// le dernier prix connu.
 export function rejoindreGroupe(
   roster: RosterInstance,
   groupe: Member,
   quantite: number,
-  coutTotal: number
+  coutTotal: number,
+  coutUnitaireRecrutement?: number
 ): RosterInstance {
   const nouvellesEntrees = clonerEquipementPourNouvellesFigurines(groupe.inventaire, quantite, groupe.taille_groupe);
   return {
@@ -1243,7 +1251,12 @@ export function rejoindreGroupe(
     tresorerie: roster.tresorerie - coutTotal,
     membres: roster.membres.map((m) =>
       m.instance_id === groupe.instance_id
-        ? { ...m, taille_groupe: m.taille_groupe + quantite, inventaire: [...m.inventaire, ...nouvellesEntrees] }
+        ? {
+            ...m,
+            taille_groupe: m.taille_groupe + quantite,
+            inventaire: [...m.inventaire, ...nouvellesEntrees],
+            ...(coutUnitaireRecrutement != null ? { cout_recrutement: coutUnitaireRecrutement } : {}),
+          }
         : m
     ),
   };

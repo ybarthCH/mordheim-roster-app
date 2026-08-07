@@ -145,14 +145,14 @@
     }
   ],
   "competences_speciales": [
-    { "id": "renversement", "nom": "Renversement", "texte": "Au lieu d'une charge normale, tente une seule attaque à +1 pour toucher et F+1, sans bonus d'arme ni de capacité ; coup critique sur 5+." },
-    { "id": "volonte_de_fer", "nom": "Volonté de Fer", "texte": "Mis Hors de combat, teste son Endurance pour se relever et continuer à combattre ; à chaque début de tour suivant, refait le test avec un malus de -1 cumulatif, jusqu'à un nouvel échec (retiré du champ de bataille)." },
-    { "id": "gros_bras", "nom": "Gros bras", "texte": "Ignore les pénalités de Fatigue ; le bonus de Force de son arme s'applique à tous les tours de corps à corps, pas seulement au premier." },
-    { "id": "maitre_darmes", "nom": "Maître d'armes", "texte": "Ignore les restrictions liées à la règle Difficile à manier, permettant de combiner par exemple une morgenstern et un bouclier, voire une paire de morgensterns." },
-    { "id": "vieux_de_la_vieille", "nom": "Vieux de la vieille", "texte": "Immunisé à la psychologie." },
-    { "id": "berserk_gladiateur", "nom": "Berserk", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "+1 pour toucher au corps à corps lors du tour où il charge (non cumulable avec Charge furieuse)." },
-    { "id": "charge_furieuse_gladiateur", "nom": "Charge furieuse", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "Peut doubler son nombre d'attaques lors du tour où il charge, avec un malus de -1 pour toucher." },
-    { "id": "tueur_de_monstres", "nom": "Tueur de monstres", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "Blesse toujours son adversaire sur 4+ sans tenir compte de l'Endurance, sauf si sa Force lui permet déjà de blesser plus facilement." }
+    { "id": "renversement", "nom": "Renversement", "texte": "Au lieu d'une charge normale, tente une seule attaque à +1 pour toucher et F+1, sans bonus d'arme ni de capacité ; coup critique sur 5+.", "valeurPuissance": 20 },
+    { "id": "volonte_de_fer", "nom": "Volonté de Fer", "texte": "Mis Hors de combat, teste son Endurance pour se relever et continuer à combattre ; à chaque début de tour suivant, refait le test avec un malus de -1 cumulatif, jusqu'à un nouvel échec (retiré du champ de bataille).", "valeurPuissance": 40 },
+    { "id": "gros_bras", "nom": "Gros bras", "texte": "Ignore les pénalités de Fatigue ; le bonus de Force de son arme s'applique à tous les tours de corps à corps, pas seulement au premier.", "valeurPuissance": 20 },
+    { "id": "maitre_darmes", "nom": "Maître d'armes", "texte": "Ignore les restrictions liées à la règle Difficile à manier, permettant de combiner par exemple une morgenstern et un bouclier, voire une paire de morgensterns.", "valeurPuissance": 20 },
+    { "id": "vieux_de_la_vieille", "nom": "Vieux de la vieille", "texte": "Immunisé à la psychologie.", "valeurPuissance": 40 },
+    { "id": "berserk_gladiateur", "nom": "Berserk", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "+1 pour toucher au corps à corps lors du tour où il charge (non cumulable avec Charge furieuse).", "valeurPuissance": 20 },
+    { "id": "charge_furieuse_gladiateur", "nom": "Charge furieuse", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "Peut doubler son nombre d'attaques lors du tour où il charge, avec un malus de -1 pour toucher.", "valeurPuissance": 40 },
+    { "id": "tueur_de_monstres", "nom": "Tueur de monstres", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "Blesse toujours son adversaire sur 4+ sans tenir compte de l'Endurance, sauf si sa Force lui permet déjà de blesser plus facilement.", "valeurPuissance": 20 }
   ],
   "equipement": {
     "style_orque": {

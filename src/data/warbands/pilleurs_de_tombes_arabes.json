@@ -114,9 +114,9 @@
     }
   ],
   "competences_speciales": [
-    { "id": "ver_des_sables", "nom": "Ver des sables", "texte": "Le guerrier peut s'enterrer dans le sable et devenir presque indétectable. Le modèle peut se cacher en terrain découvert. Ne peut pas être utilisé à l'intérieur des bâtiments." },
-    { "id": "frappe_et_fuite", "nom": "Frappe et fuite", "texte": "Le guerrier peut courir et tirer, mais subit un malus de -2 pour toucher au lieu du -1 habituel pour avoir bougé." },
-    { "id": "resistant_aux_intemperies", "nom": "Résistant aux intempéries", "texte": "Le guerrier s'est tellement habitué aux conditions climatiques qu'elles ne l'affectent plus du tout. Les conditions météorologiques telles que la chaleur et autres n'ont plus aucun effet sur ce modèle." }
+    { "id": "ver_des_sables", "nom": "Ver des sables", "texte": "Le guerrier peut s'enterrer dans le sable et devenir presque indétectable. Le modèle peut se cacher en terrain découvert. Ne peut pas être utilisé à l'intérieur des bâtiments.", "valeurPuissance": 20 },
+    { "id": "frappe_et_fuite", "nom": "Frappe et fuite", "texte": "Le guerrier peut courir et tirer, mais subit un malus de -2 pour toucher au lieu du -1 habituel pour avoir bougé.", "valeurPuissance": 20 },
+    { "id": "resistant_aux_intemperies", "nom": "Résistant aux intempéries", "texte": "Le guerrier s'est tellement habitué aux conditions climatiques qu'elles ne l'affectent plus du tout. Les conditions météorologiques telles que la chaleur et autres n'ont plus aucun effet sur ce modèle.", "valeurPuissance": 20 }
   ],
   "equipement": {
     "guerriers": {

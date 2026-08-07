@@ -61,27 +61,32 @@
         {
           "id": "corruption",
           "nom": "Corruption",
-          "texte": "Chaque fois que la bande doit passer un test de Déroute, le Marchand peut convaincre ses hommes de main de rester un peu plus longtemps et d'affronter le danger. Il peut immédiatement payer 5 CO par membre de la bande non-Héros (y compris les Francs-tireurs) encore en jeu. S'il le fait, un membre déjà mis hors de combat ne compte pas pour le test de Déroute. Si un test de Déroute est encore nécessaire après cela, testez normalement. Cette compétence peut être utilisée autant de fois que nécessaire, tant que les caisses ne sont pas vides !"
+          "texte": "Chaque fois que la bande doit passer un test de Déroute, le Marchand peut convaincre ses hommes de main de rester un peu plus longtemps et d'affronter le danger. Il peut immédiatement payer 5 CO par membre de la bande non-Héros (y compris les Francs-tireurs) encore en jeu. S'il le fait, un membre déjà mis hors de combat ne compte pas pour le test de Déroute. Si un test de Déroute est encore nécessaire après cela, testez normalement. Cette compétence peut être utilisée autant de fois que nécessaire, tant que les caisses ne sont pas vides !",
+          "valeurPuissance": 20
         },
         {
           "id": "fin_negociateur",
           "nom": "Fin négociateur",
-          "texte": "Lorsqu'il essaie de vendre un objet via la règle spéciale Commerce, le Marchand bénéficie d'un bonus de +1 au jet déterminant ce que rapporte l'objet."
+          "texte": "Lorsqu'il essaie de vendre un objet via la règle spéciale Commerce, le Marchand bénéficie d'un bonus de +1 au jet déterminant ce que rapporte l'objet.",
+          "valeurPuissance": 0
         },
         {
           "id": "reseau_de_contacts",
           "nom": "Réseau de contacts",
-          "texte": "Le Marchand connaît de nombreux revendeurs et des moyens d'obtenir des objets rares. Au lieu de chercher des objets rares normalement, il peut visiter le marché noir local et ses receleurs. S'il le fait, il peut chercher un objet sur la table suivante, en appliquant les règles normales : Parchemin de dissipation (50+4D6 CO, Rare 12) ; Artefact mineur (200+D6x15 CO, Rare 16, jet sur la table des Artefacts mineurs) ; Artefact magique (350+D6x25 CO, Rare 18, jet sur la table des Artefacts magiques du livre de règles Mordheim) ; Parchemin magique (100 CO, Rare 14, jet sur la table des Artefacts mineurs). Le Marchand peut acheter des objets via cette table, mais ne pourra jamais les revendre — il devra espérer qu'un autre joueur soit intéressé."
+          "texte": "Le Marchand connaît de nombreux revendeurs et des moyens d'obtenir des objets rares. Au lieu de chercher des objets rares normalement, il peut visiter le marché noir local et ses receleurs. S'il le fait, il peut chercher un objet sur la table suivante, en appliquant les règles normales : Parchemin de dissipation (50+4D6 CO, Rare 12) ; Artefact mineur (200+D6x15 CO, Rare 16, jet sur la table des Artefacts mineurs) ; Artefact magique (350+D6x25 CO, Rare 18, jet sur la table des Artefacts magiques du livre de règles Mordheim) ; Parchemin magique (100 CO, Rare 14, jet sur la table des Artefacts mineurs). Le Marchand peut acheter des objets via cette table, mais ne pourra jamais les revendre — il devra espérer qu'un autre joueur soit intéressé.",
+          "valeurPuissance": 0
         },
         {
           "id": "revenus_douteux",
           "nom": "Revenus douteux",
-          "texte": "Le Marchand a monté une affaire souterraine qui s'avère plutôt rentable. Après chaque bataille à l'issue de laquelle il n'a pas été mis hors de combat, il peut choisir d'utiliser cette compétence avant la phase de Commerce (c'est-à-dire avant de dépenser de l'or). S'il le fait, il doit réussir un test de Commandement. En cas de réussite, la bande reçoit une pièce d'or par point d'Expérience du Marchand. En cas d'échec, la bande perd jusqu'au même montant de pièces d'or."
+          "texte": "Le Marchand a monté une affaire souterraine qui s'avère plutôt rentable. Après chaque bataille à l'issue de laquelle il n'a pas été mis hors de combat, il peut choisir d'utiliser cette compétence avant la phase de Commerce (c'est-à-dire avant de dépenser de l'or). S'il le fait, il doit réussir un test de Commandement. En cas de réussite, la bande reçoit une pièce d'or par point d'Expérience du Marchand. En cas d'échec, la bande perd jusqu'au même montant de pièces d'or.",
+          "valeurPuissance": 0
         },
         {
           "id": "vente_en_gros",
           "nom": "Vente en gros",
-          "texte": "Le Marchand est réputé pour acheter en grande quantité, ce qui le rend particulièrement bienvenu chez les autres marchands. Il peut chercher D3+1 objets rares après chaque bataille au lieu d'un seul, s'il n'a pas été mis hors de combat, bien sûr !"
+          "texte": "Le Marchand est réputé pour acheter en grande quantité, ce qui le rend particulièrement bienvenu chez les autres marchands. Il peut chercher D3+1 objets rares après chaque bataille au lieu d'un seul, s'il n'a pas été mis hors de combat, bien sûr !",
+          "valeurPuissance": 0
         }
       ]
     },

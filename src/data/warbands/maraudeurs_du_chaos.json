@@ -220,11 +220,11 @@
     }
   ],
   "competences_speciales": [
-    { "id": "mutant", "nom": "Mutant", "texte": "Permet d'acheter une mutation (voir règle spéciale Table de Mutations). Les Héros avec la Marque d'Onogal peuvent choisir une Bénédiction de Nurgle à la place (voir règle spéciale Bénédictions de Nurgle). Contrairement aux autres compétences, elle peut être choisie plusieurs fois.", "repetable": true },
-    { "id": "corps_tatoue", "nom": "Corps tatoué", "reserve_a": "Chef de bande uniquement", "texte": "Abaisse le seuil de déclenchement d'Œil des Dieux Sombres à 10+ (11+ pour un Chef Norse) au lieu de 12+." },
-    { "id": "courage_du_guerrier", "nom": "Courage du guerrier", "reserve_a": "Chef de bande uniquement", "texte": "Peut relancer tout test de Déroute raté et est immunisé à la Peur ainsi qu'à Seul contre tous." },
-    { "id": "balayage", "nom": "Balayage", "texte": "Requiert la compétence Homme Fort. Chaque mise hors de combat à l'arme à deux mains permet une attaque supplémentaire immédiate contre une autre figurine en contact socle à socle." },
-    { "id": "choisi_par_le_chaos", "nom": "Choisi par le Chaos", "texte": "Le Héros intègre le rang des Guerriers du Chaos : il utilise leur profil maximal (voir caracteristiques_max) et la liste d'équipement des Héros (si ce n'était pas déjà le cas)." }
+    { "id": "mutant", "nom": "Mutant", "texte": "Permet d'acheter une mutation (voir règle spéciale Table de Mutations). Les Héros avec la Marque d'Onogal peuvent choisir une Bénédiction de Nurgle à la place (voir règle spéciale Bénédictions de Nurgle). Contrairement aux autres compétences, elle peut être choisie plusieurs fois.", "repetable": true, "valeurPuissance": 0 },
+    { "id": "corps_tatoue", "nom": "Corps tatoué", "reserve_a": "Chef de bande uniquement", "texte": "Abaisse le seuil de déclenchement d'Œil des Dieux Sombres à 10+ (11+ pour un Chef Norse) au lieu de 12+.", "valeurPuissance": 0 },
+    { "id": "courage_du_guerrier", "nom": "Courage du guerrier", "reserve_a": "Chef de bande uniquement", "texte": "Peut relancer tout test de Déroute raté et est immunisé à la Peur ainsi qu'à Seul contre tous.", "valeurPuissance": 40 },
+    { "id": "balayage", "nom": "Balayage", "texte": "Requiert la compétence Homme Fort. Chaque mise hors de combat à l'arme à deux mains permet une attaque supplémentaire immédiate contre une autre figurine en contact socle à socle.", "valeurPuissance": 20 },
+    { "id": "choisi_par_le_chaos", "nom": "Choisi par le Chaos", "texte": "Le Héros intègre le rang des Guerriers du Chaos : il utilise leur profil maximal (voir caracteristiques_max) et la liste d'équipement des Héros (si ce n'était pas déjà le cas).", "valeurPuissance": 0 }
   ],
   "equipement": {
     "heros": {

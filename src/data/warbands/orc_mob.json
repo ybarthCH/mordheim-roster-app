@@ -178,12 +178,12 @@
     }
   ],
   "competences_speciales": [
-    { "id": "tetdure", "nom": "Têt'dure", "texte": "Le Héros bénéficie d'une sauvegarde spéciale de 3+ sur 1D6 pour éviter d'être sonné. Si la sauvegarde est réussie, la figurine est juste mise à terre. Si l'Orque porte en plus un casque, cette sauvegarde passe à 2+ (remplaçant les règles normales du casque)." },
-    { "id": "waaagh", "nom": "Waaagh !", "texte": "Le guerrier ajoute +1D3ps à sa portée de charge." },
-    { "id": "dur_a_cuire", "nom": "Dur à cuire", "texte": "Augmente de +1 la sauvegarde d'armure de la figurine." },
-    { "id": "coup_dboule", "nom": "Coup d'boule", "texte": "Toute figurine mise à terre au corps à corps par ce guerrier est considérée comme sonnée." },
-    { "id": "on_y_va", "nom": "On y va !", "texte": "La figurine n'a pas à effectuer de test de peur lorsqu'elle charge." },
-    { "id": "revnez_ici", "nom": "Rev'nez ici !", "reserve_a": "Chef Orque uniquement", "texte": "La bande peut relancer tout test de Déroute raté tant que le Chef Orque n'a pas été mis hors de combat." }
+    { "id": "tetdure", "nom": "Têt'dure", "texte": "Le Héros bénéficie d'une sauvegarde spéciale de 3+ sur 1D6 pour éviter d'être sonné. Si la sauvegarde est réussie, la figurine est juste mise à terre. Si l'Orque porte en plus un casque, cette sauvegarde passe à 2+ (remplaçant les règles normales du casque).", "valeurPuissance": 40 },
+    { "id": "waaagh", "nom": "Waaagh !", "texte": "Le guerrier ajoute +1D3ps à sa portée de charge.", "valeurPuissance": 20 },
+    { "id": "dur_a_cuire", "nom": "Dur à cuire", "texte": "Augmente de +1 la sauvegarde d'armure de la figurine.", "valeurPuissance": 40 },
+    { "id": "coup_dboule", "nom": "Coup d'boule", "texte": "Toute figurine mise à terre au corps à corps par ce guerrier est considérée comme sonnée.", "valeurPuissance": 40 },
+    { "id": "on_y_va", "nom": "On y va !", "texte": "La figurine n'a pas à effectuer de test de peur lorsqu'elle charge.", "valeurPuissance": 20 },
+    { "id": "revnez_ici", "nom": "Rev'nez ici !", "reserve_a": "Chef Orque uniquement", "texte": "La bande peut relancer tout test de Déroute raté tant que le Chef Orque n'a pas été mis hors de combat.", "valeurPuissance": 40 }
   ],
   "equipement": {
     "orques": {

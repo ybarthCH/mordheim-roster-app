@@ -5,10 +5,11 @@ import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { Icon } from '../common/Icon';
 import { bilanBatailles, effectifTotal, nomCatalogue } from '../../utils/bandeValue';
-import { ratingTotal } from '../../utils/rating';
+import { ratingAffiche } from '../../utils/displayedRating';
 import { exporterRoster, lireFichierRoster } from '../../utils/importExport';
 import type { RosterInstance } from '../../types/roster';
 import { useLanguage } from '../../state/useLanguage';
+import { useGameRules } from '../../state/useGameRules';
 
 // Code horaire compact (ex : "1847 CEST") sur le fuseau Europe/Paris —
 // affiché à côté du hash de build pour repérer d'un coup d'œil un service
@@ -39,6 +40,7 @@ export function ListeBandesScreen() {
   const { rosters, loading, removeRoster, duplicateRoster, importRoster } = useRosters();
   const navigate = useNavigate();
   const { language, t } = useLanguage();
+  const { rules } = useGameRules();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [aSupprimer, setASupprimer] = useState<RosterInstance | null>(null);
   const [erreurImport, setErreurImport] = useState<string | null>(null);
@@ -107,8 +109,9 @@ export function ListeBandesScreen() {
             <div className="list-item__main">
               <div className="list-item__title">{roster.nom_bande}</div>
               <div className="list-item__subtitle">
-                {nomCatalogue(roster.bande_id, language)} · {effectifTotal(roster)} {t('home.members')} · Rating{' '}
-                {ratingTotal(roster)}
+                {nomCatalogue(roster.bande_id, language)} · {effectifTotal(roster)} {t('home.members')} ·{' '}
+                {rules.valeurPuissanceActivee ? t('rosterSummary.powerValue') : t('rosterSummary.rating')}{' '}
+                {ratingAffiche(roster, rules)}
               </div>
               <div className="list-item__subtitle">
                 {bilan.total > 0

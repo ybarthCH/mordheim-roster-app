@@ -321,6 +321,7 @@ export function CreationBandeScreen() {
             if (marque) membre.marque = marque;
             if (sortsConnus.length > 0) membre.sorts_connus = sortsConnus;
             if (profilEnRecrutement.cout === null) {
+              membre.cout_recrutement = coutUnitaire;
               setCoutPayeParInstance((prev) => ({ ...prev, [membre.instance_id]: coutUnitaire }));
             }
             setMembres((prev) => [...prev, membre]);

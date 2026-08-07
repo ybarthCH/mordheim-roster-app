@@ -176,12 +176,12 @@
     }
   ],
   "competences_speciales": [
-    { "id": "maitre_darmes", "nom": "Maître d'Armes", "texte": "Peut manier une arme Difficile à Utiliser et une arme de base simultanément, mais pas deux armes Difficiles à Utiliser." },
-    { "id": "rot_grossier", "nom": "Rot Grossier", "texte": "Le Héros peut lâcher des vapeurs tonitruantes sur tous les ennemis engagés au corps à corps ; ceux qui échouent un test de Cd subissent -1 pour toucher pour le tour. Doit attendre qu'un nouvel ennemi s'engage avant de répéter." },
-    { "id": "maneater", "nom": "Maneater", "texte": "Apprend immédiatement une compétence des tableaux Tir ou Érudition (une seule fois ; non disponible pour le Guide)." },
-    { "id": "charge_du_taureau_comp", "nom": "Charge du Taureau", "texte": "En chargeant, peut tenter une seule attaque avec un bonus de +1 pour toucher au lieu de ses attaques normales ; en cas de réussite, la figurine ennemie est automatiquement mise à terre." },
-    { "id": "chien_de_guerre", "nom": "Chien de Guerre", "reserve_a": "Chef uniquement", "texte": "La bande peut engager les Francs-Tireurs disponibles pour les Mercenaires ; si le chef meurt, tous les Francs-Tireurs sont retirés de la bande." },
-    { "id": "rugissement_tonitruant", "nom": "Rugissement Tonitruant", "reserve_a": "Chef uniquement", "texte": "Permet de relancer le premier test de Déroute raté." }
+    { "id": "maitre_darmes", "nom": "Maître d'Armes", "texte": "Peut manier une arme Difficile à Utiliser et une arme de base simultanément, mais pas deux armes Difficiles à Utiliser.", "valeurPuissance": 20 },
+    { "id": "rot_grossier", "nom": "Rot Grossier", "texte": "Le Héros peut lâcher des vapeurs tonitruantes sur tous les ennemis engagés au corps à corps ; ceux qui échouent un test de Cd subissent -1 pour toucher pour le tour. Doit attendre qu'un nouvel ennemi s'engage avant de répéter.", "valeurPuissance": 20 },
+    { "id": "maneater", "nom": "Maneater", "texte": "Apprend immédiatement une compétence des tableaux Tir ou Érudition (une seule fois ; non disponible pour le Guide).", "valeurPuissance": 0 },
+    { "id": "charge_du_taureau_comp", "nom": "Charge du Taureau", "texte": "En chargeant, peut tenter une seule attaque avec un bonus de +1 pour toucher au lieu de ses attaques normales ; en cas de réussite, la figurine ennemie est automatiquement mise à terre.", "valeurPuissance": 20 },
+    { "id": "chien_de_guerre", "nom": "Chien de Guerre", "reserve_a": "Chef uniquement", "texte": "La bande peut engager les Francs-Tireurs disponibles pour les Mercenaires ; si le chef meurt, tous les Francs-Tireurs sont retirés de la bande.", "valeurPuissance": 0 },
+    { "id": "rugissement_tonitruant", "nom": "Rugissement Tonitruant", "reserve_a": "Chef uniquement", "texte": "Permet de relancer le premier test de Déroute raté.", "valeurPuissance": 20 }
   ],
   "equipement": {
     "ogres": {

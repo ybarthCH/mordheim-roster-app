@@ -127,11 +127,14 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
       // Rejoint un groupe existant : la figurine hérite immédiatement de
       // l'XP et de l'équipement du groupe (payé séparément ci-dessus), pas
       // d'XP de départ propre.
-      onConfirm(rejoindreGroupe(roster, groupeCible, quantite, coutTotal));
+      onConfirm(
+        rejoindreGroupe(roster, groupeCible, quantite, coutTotal, coutManuelRequis ? coutUnitaire : undefined)
+      );
       return;
     }
 
     const membre = creerMembre(profil, xpDepart, quantite);
+    if (coutManuelRequis) membre.cout_recrutement = coutUnitaire;
     if (nomPerso.trim()) membre.nom_perso = nomPerso.trim();
     if (marqueRequise && marqueChoisie) membre.marque = marqueChoisie;
     if (premierSortRequis && sortsChoisisValides) {
