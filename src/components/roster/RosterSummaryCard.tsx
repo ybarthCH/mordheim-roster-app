@@ -1,5 +1,6 @@
 import { effectifTotal } from '../../utils/bandeValue';
 import { ratingAffiche } from '../../utils/displayedRating';
+import { formatPowerValueTooltip, powerValueDetailTotal } from '../../utils/powerValue';
 import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { effectifMaxAutorise } from '../../utils/validation';
@@ -39,7 +40,12 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           <div className="summary-tile__label">{t('rosterSummary.members')}</div>
         </div>
         <div className="summary-tile">
-          <div className="summary-tile__value">{ratingAffiche(roster, rules)}</div>
+          <div
+            className="summary-tile__value"
+            title={rules.valeurPuissanceActivee ? formatPowerValueTooltip(powerValueDetailTotal(roster)) : undefined}
+          >
+            {ratingAffiche(roster, rules)}
+          </div>
           <div className="summary-tile__label">
             {rules.valeurPuissanceActivee ? t('rosterSummary.powerValue') : t('rosterSummary.rating')}
           </div>

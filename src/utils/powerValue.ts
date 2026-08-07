@@ -102,16 +102,36 @@ export function coutEquipementMembre(m: Member): number {
  * signification tant qu'elle n'a pas été fixée. Multiplié par la taille du
  * groupe : chaque figurine bénéficiant de la progression compte pour elle-
  * même (ex : 4 hommes de main +1 Attaque = 4 × 25).
+ *
+ * Retourne `progression` (somme des deltas positifs, jamais négative) et
+ * `blessures` (somme des deltas négatifs, jamais positive) séparément —
+ * uniquement pour l'affichage détaillé (voir powerValueDetailMembre) : un
+ * delta donné est TOUJOURS soit positif soit négatif, jamais les deux à la
+ * fois, donc `progression + blessures` redonne exactement la même valeur que
+ * l'ancien calcul combiné, sans aucun risque de double-comptage introduit
+ * par cette séparation.
  */
-export function contributionProfilMembre(m: Member, profil: Profile | undefined): number {
-  if (!profil?.stats) return 0;
-  let total = 0;
+export function contributionProfilDetailMembre(
+  m: Member,
+  profil: Profile | undefined
+): { progression: number; blessures: number } {
+  if (!profil?.stats) return { progression: 0, blessures: 0 };
+  let progression = 0;
+  let blessures = 0;
   for (const stat of STAT_KEYS) {
     if (m.stats_variables?.[stat] !== undefined) continue;
     const delta = m.stats_actuels[stat] - profil.stats[stat];
-    total += valeurDeltaCaracteristique(stat, delta);
+    const valeur = valeurDeltaCaracteristique(stat, delta);
+    if (valeur > 0) progression += valeur;
+    else blessures += valeur;
   }
-  return total * (m.taille_groupe || 1);
+  const taille = m.taille_groupe || 1;
+  return { progression: progression * taille, blessures: blessures * taille };
+}
+
+export function contributionProfilMembre(m: Member, profil: Profile | undefined): number {
+  const { progression, blessures } = contributionProfilDetailMembre(m, profil);
+  return progression + blessures;
 }
 
 function trouverCompetence(
@@ -168,11 +188,25 @@ export function competencesAcquisesValorisees(
   return total;
 }
 
+// Décomposition affichable de la Power Value d'un membre ou d'une bande —
+// R/E/P/S/W (Recrutement / Équipement / Progression du Profil / Skills /
+// Wounds), voir formatPowerValueTooltip. Ces cinq lettres ne sont volontai-
+// rement pas traduites (identiques en français et en anglais).
+export type PowerValueDetail = {
+  recrutement: number;
+  equipement: number;
+  progression: number;
+  competences: number;
+  blessures: number;
+  total: number;
+};
+
 /**
- * Power Value d'un membre (ou groupe d'hommes de main) :
- * Coût de recrutement + Équipement + Progression du profil (Progression et
- * Blessures confondues, voir contributionProfilMembre) + Compétences
- * acquises.
+ * Power Value d'un membre (ou groupe d'hommes de main), décomposée par
+ * terme : Coût de recrutement + Équipement + Progression du profil +
+ * Compétences acquises + Blessures graves permanentes (Progression et
+ * Blessures partagent le même calcul sous-jacent, voir
+ * contributionProfilDetailMembre, pour ne jamais double-compter).
  *
  * Les francs-tireurs (profil_custom ou franc_tireur_id) ne reçoivent AUCUN
  * traitement spécial ici : resolveProfil() résout déjà leur coût de
@@ -184,24 +218,75 @@ export function competencesAcquisesValorisees(
  * d'avancement héros — voir profilDeFrancTireur) : la progression de profil
  * s'applique donc à eux normalement, sans configuration supplémentaire.
  */
-export function powerValueMembre(m: Member, roster: RosterInstance): number {
+export function powerValueDetailMembre(m: Member, roster: RosterInstance): PowerValueDetail {
   const catalogue = getCatalogue(roster.bande_id);
   const profil = resolveProfil(roster, m, catalogue);
-  return (
-    coutRecrutementMembre(m, profil) +
-    coutEquipementMembre(m) +
-    contributionProfilMembre(m, profil) +
-    competencesAcquisesValorisees(m, profil, catalogue)
-  );
+  const recrutement = coutRecrutementMembre(m, profil);
+  const equipement = coutEquipementMembre(m);
+  const { progression, blessures } = contributionProfilDetailMembre(m, profil);
+  const competences = competencesAcquisesValorisees(m, profil, catalogue);
+  return {
+    recrutement,
+    equipement,
+    progression,
+    competences,
+    blessures,
+    total: recrutement + equipement + progression + competences + blessures,
+  };
+}
+
+export function powerValueMembre(m: Member, roster: RosterInstance): number {
+  return powerValueDetailMembre(m, roster).total;
+}
+
+const DETAIL_VIDE: PowerValueDetail = {
+  recrutement: 0,
+  equipement: 0,
+  progression: 0,
+  competences: 0,
+  blessures: 0,
+  total: 0,
+};
+
+/**
+ * Décomposition R/E/P/S/W sommée sur toute la bande — même périmètre que
+ * ratingTotal() (utils/rating.ts) : un membre Mort est exclu, tout autre
+ * statut (Blessé, Hors de combat...) compte normalement.
+ */
+export function powerValueDetailTotal(roster: RosterInstance): PowerValueDetail {
+  return roster.membres
+    .filter((m) => m.statut !== 'mort')
+    .reduce((acc, m) => {
+      const d = powerValueDetailMembre(m, roster);
+      return {
+        recrutement: acc.recrutement + d.recrutement,
+        equipement: acc.equipement + d.equipement,
+        progression: acc.progression + d.progression,
+        competences: acc.competences + d.competences,
+        blessures: acc.blessures + d.blessures,
+        total: acc.total + d.total,
+      };
+    }, DETAIL_VIDE);
+}
+
+export function powerValueTotal(roster: RosterInstance): number {
+  return powerValueDetailTotal(roster).total;
 }
 
 /**
- * Somme des Power Value des membres encore dans la bande — même périmètre
- * que ratingTotal() (utils/rating.ts) : un membre Mort est exclu, tout autre
- * statut (Blessé, Hors de combat...) compte normalement.
+ * Tooltip texte multi-lignes (survol souris) : R/E/P/S/W volontairement non
+ * traduits (abréviations identiques en français et en anglais, voir
+ * PowerValueDetail). Format brut adapté à un attribut `title` natif —
+ * `\n` y est bien rendu comme un saut de ligne par tous les navigateurs.
  */
-export function powerValueTotal(roster: RosterInstance): number {
-  return roster.membres.filter((m) => m.statut !== 'mort').reduce((acc, m) => acc + powerValueMembre(m, roster), 0);
+export function formatPowerValueTooltip(d: PowerValueDetail): string {
+  return [
+    `R ${d.recrutement}`,
+    `E ${d.equipement}`,
+    `P ${d.progression}`,
+    `S ${d.competences}`,
+    `W ${d.blessures}`,
+  ].join('\n');
 }
 
 /**
