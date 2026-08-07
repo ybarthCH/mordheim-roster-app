@@ -3821,6 +3821,35 @@ export const itemsEn: Record<string, ItemTraduit> = {
       { nom: 'Effect', texte: 'Allows gliding from an elevated position: for every 1" fallen, move 2" horizontally.' },
     ],
   },
+  cymbales_de_singe: {
+    nom: 'Cymbals',
+    texte:
+      "A pair of cymbals the Fighting Ape clashes frantically together, to the haunting tune of the Danse Macabre.",
+    regles_speciales: [
+      { nom: 'Effect', texte: 'Any enemy within 6" of the Fighting Ape suffers a -1 BS and -1 Ld penalty, unsettled by the racket.' },
+    ],
+  },
+  epee_longue_cathayenne: {
+    nom: 'Cathayan Longsword',
+    texte:
+      'A long, heavy blade forged by the finest armourers of Cathay, reserved for the highest-ranking Imperial dignitaries posted on the borders of the Celestial Empire.',
+    regles_speciales: [
+      {
+        nom: 'Two-Handed Weapon',
+        texte:
+          'The weapon is wielded two-handed and prevents the simultaneous use of a shield, buckler, or additional weapon. A shield still grants a +1 bonus to the armour save against shooting.',
+      },
+    ],
+  },
+  arme_en_obsidienne_fils_dhashut: {
+    nom: 'Obsidian Weapon (Sons of Hashut)',
+    texte:
+      "The Sons of Hashut's own variant of the obsidian weapon — distinct from the Chaos cults' x4 obsidian weapon (see arme_en_obsidienne_market), never to be used in the same campaign as that one without renaming one of the two. Only swords, axes, and maces can be forged in obsidian; all cost the same fixed price, regardless of the weapon type chosen.",
+    regles_speciales: [
+      { nom: 'Personal', texte: "The weapon keeps all the usual bonuses of its base type (Parry for a sword, etc.)." },
+      { nom: 'Heavy', texte: '-1 Initiative in hand-to-hand combat for the wielder.' },
+    ],
+  },
 };
 
 const DISPONIBILITE_ARTEFACT_EN =
@@ -3835,6 +3864,451 @@ for (const id of [
   'oeil_omniscient_de_numas',
 ]) {
   itemsEn[id].disponibilite = DISPONIBILITE_ARTEFACT_EN;
+}
+
+// Notes de disponibilité (rareté/restriction de bande) traduites en anglais —
+// remplissage systématique de la trentaine d'items sans note dédiée jusque-là,
+// suivant le même principe de repli progressif que le reste de ce fichier.
+for (const id of ['masque_du_roi_soleil']) {
+  itemsEn[id].disponibilite = 'Aristocrats only, one per warband';
+}
+for (const id of ['double_canon']) {
+  itemsEn[id].disponibilite = 'Gunnery School of Nuln and Ostlander Mercenaries only';
+}
+for (const id of ['coffre', 'corde_et_grappin', 'lanterne', 'outre', 'pardessus', 'ail', 'torche', 'victuailles', 'armure_legere', 'armure_lourde', 'bouclier', 'rondache', 'casque', 'arme_a_deux_mains', 'arme_contondante_une_main', 'dague', 'epee', 'fleau', 'hache', 'hallebarde', 'lance', 'morgenstern', 'poing', 'arbalete', 'arc_court', 'arc', 'arc_long', 'fronde', 'javelots', 'filet']) {
+  itemsEn[id].disponibilite = 'Common';
+}
+for (const id of ['echelle']) {
+  itemsEn[id].disponibilite = 'Common / Rare 5';
+}
+for (const id of ['boulet_pierrier', 'chaines_pierrier', 'mitraille_pierrier']) {
+  itemsEn[id].disponibilite = 'Common, Pirate Gunners only';
+}
+for (const id of ['chariot_de_marchandises']) {
+  itemsEn[id].disponibilite = 'Common, Merchant Caravans only';
+}
+for (const id of ['collet']) {
+  itemsEn[id].disponibilite = 'Common, Horned Hunters only';
+}
+for (const id of ['ecu']) {
+  itemsEn[id].disponibilite = 'Common, Knights of the Bretonnian Chapel Guard only';
+}
+for (const id of ['epee_batarde']) {
+  itemsEn[id].disponibilite = 'Common, Bretonnian Chapel Guardian Knights only';
+}
+for (const id of ['relique_sacree_bretonnienne', 'epee_courte']) {
+  itemsEn[id].disponibilite = 'Common, Bretonnian Chapel Guardians only';
+}
+for (const id of ['poignards_empoisonnes']) {
+  itemsEn[id].disponibilite = 'Common, Night Goblins only';
+}
+for (const id of ['arme_empoisonnee_mod']) {
+  itemsEn[id].disponibilite = 'Common, Forest Goblins only';
+}
+for (const id of ['aiguillon_a_squigs', 'baton_dboss', 'chaine_et_boulet_cac']) {
+  itemsEn[id].disponibilite = 'Common, Goblins only';
+}
+for (const id of ['chat_a_neuf_queues']) {
+  itemsEn[id].disponibilite = 'Common, Pirate Heroes only';
+}
+for (const id of ['cuir_durci', 'fouet_dhedoniste']) {
+  itemsEn[id].disponibilite = 'Common, Heroes only';
+}
+for (const id of ['baton_de_combat']) {
+  itemsEn[id].disponibilite = 'Common, Battle Monks of Cathay only';
+}
+for (const id of ['casque_marmite']) {
+  itemsEn[id].disponibilite = 'Common, Mootlanders';
+}
+for (const id of ['attendrisseur', 'couteau_de_cuisine', 'hachoir', 'louche']) {
+  itemsEn[id].disponibilite = 'Common, Mootlanders only';
+}
+for (const id of ['massue_ogre', 'poing_de_fer', 'couperet', 'gourdin_ogre']) {
+  itemsEn[id].disponibilite = 'Common, Ogres only';
+}
+for (const id of ['gaffe', 'cabillot']) {
+  itemsEn[id].disponibilite = 'Common, Pirates only';
+}
+for (const id of ['biscuit_de_mer']) {
+  itemsEn[id].disponibilite = 'Common, Pirates only (one per Pirate Hero, single use)';
+}
+for (const id of ['crochet']) {
+  itemsEn[id].disponibilite = 'Common, Pirates only (one per model)';
+}
+for (const id of ['jambe_de_bois']) {
+  itemsEn[id].disponibilite = 'Common, Pirates only (one per model)';
+}
+for (const id of ['jolly_roger']) {
+  itemsEn[id].disponibilite = 'Common, Pirates only, one per warband';
+}
+for (const id of ['misericorde']) {
+  itemsEn[id].disponibilite = 'Common, Lustrian Reavers only';
+}
+for (const id of ['fleches_aspic', 'javelot_nehekharien']) {
+  itemsEn[id].disponibilite = 'Common, Tomb Guardians\' Tomb Lords only';
+}
+for (const id of ['cymbales_de_singe']) {
+  itemsEn[id].disponibilite = 'Common, The Cursed Cavalcade\'s Fighting Ape only';
+}
+for (const id of ['bolas']) {
+  itemsEn[id].disponibilite = 'Common, Skinks only';
+}
+for (const id of ['relique_sacree_sigmarite']) {
+  itemsEn[id].disponibilite = 'Common, Sisters of Sigmar only';
+}
+for (const id of ['fouet_dacier']) {
+  itemsEn[id].disponibilite = 'Common, Sisters of Sigmar and Black Dwarfs only';
+}
+for (const id of ['masque_de_crane', 'trophee_coiffe_sacree_de_slann', 'cape_en_peau_des_hommes_lezards', 'lame_homme_lezard']) {
+  itemsEn[id].disponibilite = 'Common, Saurus Slayer only';
+}
+for (const id of ['venin_de_reptile']) {
+  itemsEn[id].disponibilite = 'Common, Skink thrown weapons only (Heroes and Henchmen)';
+}
+for (const id of ['habits_de_fourrure']) {
+  itemsEn[id].disponibilite = 'Common, unavailable to Beastmen';
+}
+for (const id of ['cape_de_soie_cathayenne']) {
+  itemsEn[id].disponibilite = 'Common, Battle Monks of Cathay Emissary and Merchant Caravans Heroes only';
+}
+for (const id of ['epee_longue_cathayenne']) {
+  itemsEn[id].disponibilite = 'Common, Battle Monks of Cathay Emissary only';
+}
+for (const id of ['marteau_de_guerre_sigmarite_market']) {
+  itemsEn[id].disponibilite = 'Common, Sisters of Sigmar Sigmarite Matriarchs and Sister Superiors only';
+}
+for (const id of ['armure_lourde_de_maitre', 'bec_de_corbin']) {
+  itemsEn[id].disponibilite = 'Lustrian Reavers Conqueror only';
+}
+for (const id of ['flot_de_corruption', 'pourriture_de_nurgle', 'nuage_de_mouches_benediction', 'horreur_enflee', 'marque_de_nurgle', 'hideux']) {
+  itemsEn[id].disponibilite = 'Impure (Carnival of Chaos) only, at recruitment';
+}
+for (const id of ['faucon_de_chasse_tileen']) {
+  itemsEn[id].disponibilite = 'Beastmaster only';
+}
+for (const id of ['grenade_de_miragliano']) {
+  itemsEn[id].disponibilite = 'Lustrian Reavers Trap Master only';
+}
+for (const id of ['pistolet_de_duel']) {
+  itemsEn[id].disponibilite = 'Rare 10 (60 gc per pair)';
+}
+for (const id of ['carrosse_opulent']) {
+  itemsEn[id].disponibilite = 'Rare 10 (price includes 2 horses)';
+}
+for (const id of ['epee_des_etoiles', 'baton_solaire_lustrie']) {
+  itemsEn[id].disponibilite = 'Rare 10, Amazons — Lustria Setting only';
+}
+for (const id of ['oiseau_de_proie']) {
+  itemsEn[id].disponibilite = 'Rare 10, The Cursed Cavalcade Aristocrats only';
+}
+for (const id of ['armure_cathayenne_soie_matelassee', 'lance_a_sanglier']) {
+  itemsEn[id].disponibilite = 'Rare 10, Aristocrats only';
+}
+for (const id of ['pistolet_duel_double_canon_paire']) {
+  itemsEn[id].disponibilite = 'Rare 10, Gunnery School of Nuln only';
+}
+for (const id of ['pistolet_duel_double_canon']) {
+  itemsEn[id].disponibilite = 'Rare 10, Gunnery School of Nuln only (65 gc per pair)';
+}
+for (const id of ['peau_de_cerf_benie']) {
+  itemsEn[id].disponibilite = 'Rare 10, Horned Hunters only';
+}
+for (const id of ['coursier_elfique']) {
+  itemsEn[id].disponibilite = 'Rare 10, Elves only';
+}
+for (const id of ['arme_en_obsidienne_fils_dhashut']) {
+  itemsEn[id].disponibilite = 'Rare 10, Sons of Hashut only (30 gc for a warband starting at 0 XP)';
+}
+for (const id of ['pince_homme_slaaneshi']) {
+  itemsEn[id].disponibilite = 'Rare 10, Whipmaster only';
+}
+for (const id of ['char_squelette']) {
+  itemsEn[id].disponibilite = 'Rare 10, Tomb Guardians only';
+}
+for (const id of ['pince_market']) {
+  itemsEn[id].disponibilite = 'Rare 10, Black Dwarf Jailers only';
+}
+for (const id of ['loup_geant']) {
+  itemsEn[id].disponibilite = 'Rare 10, Goblins only';
+}
+for (const id of ['vin_elfique']) {
+  itemsEn[id].disponibilite = 'Rare 10, Shadow Warriors only';
+}
+for (const id of ['cape_des_bois']) {
+  itemsEn[id].disponibilite = 'Rare 10, Outlaws of Stirwood Forest only';
+}
+for (const id of ['banniere_de_la_maison_noble']) {
+  itemsEn[id].disponibilite = 'Rare 10, The Cursed Cavalcade Heroes only';
+}
+for (const id of ['cape_en_peau_de_dragon_des_mers']) {
+  itemsEn[id].disponibilite = 'Rare 10, Dark Elf Heroes and Corsairs only';
+}
+for (const id of ['epee_dragon']) {
+  itemsEn[id].disponibilite = 'Rare 10, Battle Monks of Cathay and Merchant Caravans only';
+}
+for (const id of ['machine_du_chaos']) {
+  itemsEn[id].disponibilite = 'Rare 10, Black Dwarfs only';
+}
+for (const id of ['gnoblar_porte_epee', 'lance_harpon']) {
+  itemsEn[id].disponibilite = 'Rare 10, Ogres only';
+}
+for (const id of ['carte_au_tresor']) {
+  itemsEn[id].disponibilite = 'Rare 10, Pirates only';
+}
+for (const id of ['livre_des_damnes']) {
+  itemsEn[id].disponibilite = 'Rare 10, The Witch Hunters only';
+}
+for (const id of ['arquebuse_a_repetition']) {
+  itemsEn[id].disponibilite = 'Rare 11, Gunnery School of Nuln only';
+}
+for (const id of ['destrier_du_chaos_market']) {
+  itemsEn[id].disponibilite = 'Rare 11, Cult of the Possessed, Black Dwarfs, Carnival of Chaos, Marauders of Chaos, Norse and Beastmen Raiders only';
+}
+for (const id of ['caparacon_bretonnien']) {
+  itemsEn[id].disponibilite = 'Rare 11, Bretonnian Knights\' Warhorses only';
+}
+for (const id of ['sang_froid']) {
+  itemsEn[id].disponibilite = 'Rare 11, Dark Elves and Skinks only';
+}
+for (const id of ['araignee_geante']) {
+  itemsEn[id].disponibilite = 'Rare 11, Goblins only';
+}
+for (const id of ['destriers']) {
+  itemsEn[id].disponibilite = 'Rare 11, Humans only';
+}
+for (const id of ['sanglier_de_guerre_market']) {
+  itemsEn[id].disponibilite = 'Rare 11, Orcs only';
+}
+for (const id of ['pistolet_a_malepierre_paire']) {
+  itemsEn[id].disponibilite = 'Rare 11, Skaven only';
+}
+for (const id of ['pistolet_a_malepierre']) {
+  itemsEn[id].disponibilite = 'Rare 11, Skaven only (70 gc per pair)';
+}
+for (const id of ['pierres_runiques_elfiques']) {
+  itemsEn[id].disponibilite = 'Rare 11, Shadow Warriors\' Shadow Weavers only';
+}
+for (const id of ['cauchemar']) {
+  itemsEn[id].disponibilite = 'Rare 11, Vampires and Necromancers only';
+}
+for (const id of ['cape_elfique']) {
+  itemsEn[id].disponibilite = 'Rare 12 (75+1D6x10 gc for Shadow Warriors)';
+}
+for (const id of ['griffes_des_anciens', 'baton_solaire_mordheim', 'gantelet_du_soleil']) {
+  itemsEn[id].disponibilite = 'Rare 12, Amazons — Mordheim Setting only';
+}
+for (const id of ['amulette_lunaire']) {
+  itemsEn[id].disponibilite = 'Rare 12, Amazons — Mordheim Setting only (Rare 11 for Amazons — Lustria Setting)';
+}
+for (const id of ['mortier_portable']) {
+  itemsEn[id].disponibilite = 'Rare 12, Gunnery School of Nuln only';
+}
+for (const id of ['arme_en_obsidienne_market']) {
+  itemsEn[id].disponibilite = 'Rare 12, Cult of the Possessed, Black Dwarfs, Carnival of Chaos, Marauders of Chaos, Norse and Beastmen Raiders only';
+}
+for (const id of ['liber_necris']) {
+  itemsEn[id].disponibilite = 'Rare 12, Undead and Vampires only';
+}
+for (const id of ['liber_bubonicus']) {
+  itemsEn[id].disponibilite = 'Rare 12, Skaven of Clan Pestilens only';
+}
+for (const id of ['grimoire_de_magie']) {
+  itemsEn[id].disponibilite = 'Rare 12, unavailable to The Witch Hunters and Sisters of Sigmar';
+}
+for (const id of ['armure_du_chaos_market']) {
+  itemsEn[id].disponibilite = 'Rare 13, Cult of the Possessed, Black Dwarfs, Carnival of Chaos, Marauders of Chaos, Norse and Beastmen Raiders only';
+}
+for (const id of ['lion_de_pierre']) {
+  itemsEn[id].disponibilite = 'Rare 13, Dragon Monks, Sisters of Sigmar and Priests only, unavailable to Skaven, Undead and Black Dwarfs';
+}
+for (const id of ['exosquelette']) {
+  itemsEn[id].disponibilite = 'Rare 14, Black Dwarfs only';
+}
+for (const id of ['rhinox']) {
+  itemsEn[id].disponibilite = 'Rare 15, Ogres, Marauders of Chaos, Norse Explorers and Merchant Caravans only';
+}
+for (const id of ['rapiere']) {
+  itemsEn[id].disponibilite = 'Rare 5, Reiklander Mercenaries and Marienburg Mercenaries, Tileans, Hochland Bandits, Merchant Caravans';
+}
+for (const id of ['amulette_de_malepierre', 'banniere_du_clan_pestilens']) {
+  itemsEn[id].disponibilite = 'Rare 5, Skaven of Clan Pestilens only';
+}
+for (const id of ['peaux_enchantees']) {
+  itemsEn[id].disponibilite = 'Rare 6, Amazons — Lustria Setting only';
+}
+for (const id of ['cor_de_guerre_de_nagarythe']) {
+  itemsEn[id].disponibilite = 'Rare 6, Shadow Warriors only';
+}
+for (const id of ['eau_benite']) {
+  itemsEn[id].disponibilite = 'Rare 6, unavailable to the Possessed and Undead (Common for Warrior Priests and Sisters of Sigmar)';
+}
+for (const id of ['cartes_de_tarot']) {
+  itemsEn[id].disponibilite = 'Rare 7 (unavailable to The Witch Hunters and Sisters of Sigmar)';
+}
+for (const id of ['chariot_diligence']) {
+  itemsEn[id].disponibilite = 'Rare 7 (price does not include animals)';
+}
+for (const id of ['lame_des_etoiles']) {
+  itemsEn[id].disponibilite = 'Rare 7, Amazons — Lustria Setting only';
+}
+for (const id of ['gantelet_a_pointe', 'trident']) {
+  itemsEn[id].disponibilite = 'Rare 7, Pit Fighters only';
+}
+for (const id of ['sarbacane']) {
+  itemsEn[id].disponibilite = 'Rare 7, Forest Goblins, Skaven and Skinks only (Common for Forest Goblins)';
+}
+for (const id of ['nunchaku', 'kusarigama']) {
+  itemsEn[id].disponibilite = 'Rare 7, Battle Monks of Cathay only';
+}
+for (const id of ['baton_du_serpent']) {
+  itemsEn[id].disponibilite = 'Rare 7, Tomb Guardians\' Liche Priest only';
+}
+for (const id of ['baton_ardent']) {
+  itemsEn[id].disponibilite = 'Rare 7, The Witch Hunters only';
+}
+for (const id of ['griffes_de_combat']) {
+  itemsEn[id].disponibilite = 'Rare 7, Skaven only';
+}
+for (const id of ['main_gauche']) {
+  itemsEn[id].disponibilite = 'Rare 7, Hochland Bandits Duelist only';
+}
+for (const id of ['larmes_de_shallya']) {
+  itemsEn[id].disponibilite = 'Rare 7, unavailable to the Possessed and Undead';
+}
+for (const id of ['livre_de_cuisine_halfling']) {
+  itemsEn[id].disponibilite = 'Rare 7, unavailable to Carnival of Chaos and Undead';
+}
+for (const id of ['venin_fuligineux']) {
+  itemsEn[id].disponibilite = 'Rare 8 (20 gc for Lizardmen Skink Heroes\' missile weapons, Common for Lizardmen)';
+}
+for (const id of ['pistolet']) {
+  itemsEn[id].disponibilite = 'Rare 8 (30 gc per pair)';
+}
+for (const id of ['herbes_de_soin']) {
+  itemsEn[id].disponibilite = 'Rare 8, 35 gc (Common) for Amazons — Mordheim and Lustria Settings';
+}
+for (const id of ['pigeon_explosif']) {
+  itemsEn[id].disponibilite = 'Rare 8, Gunnery School of Nuln only';
+}
+for (const id of ['pierrier']) {
+  itemsEn[id].disponibilite = 'Rare 8, Pirate Gunners only';
+}
+for (const id of ['perroquet']) {
+  itemsEn[id].disponibilite = 'Rare 8, Pirate Captain and Lieutenants only';
+}
+for (const id of ['pique_market']) {
+  itemsEn[id].disponibilite = 'Rare 8, Merchant Caravans and Tileans only';
+}
+for (const id of ['caparacon']) {
+  itemsEn[id].disponibilite = 'Rare 8, Warhorses, Nightmares, Elven Steeds and Chaos Steeds only';
+}
+for (const id of ['conque_musicale']) {
+  itemsEn[id].disponibilite = 'Rare 8, Amazons — Lustria Setting Piranha Warriors only';
+}
+for (const id of ['cheval', 'pousse_pousse']) {
+  itemsEn[id].disponibilite = 'Rare 8, Humans only';
+}
+for (const id of ['grande_hache_du_chaos']) {
+  itemsEn[id].disponibilite = 'Rare 8, Chaos Heroes with the Chosen by Chaos skill';
+}
+for (const id of ['vodka']) {
+  itemsEn[id].disponibilite = 'Rare 8, Kislevites only';
+}
+for (const id of ['venin_sombre']) {
+  itemsEn[id].disponibilite = 'Rare 8, Lustrian Reavers only';
+}
+for (const id of ['fouet_a_betes']) {
+  itemsEn[id].disponibilite = 'Rare 8, Dark Elf Beastmasters only';
+}
+for (const id of ['hache_naine']) {
+  itemsEn[id].disponibilite = 'Rare 8, Dwarfs only';
+}
+for (const id of ['gnoblar_longue_vue', 'gnoblar_combattant']) {
+  itemsEn[id].disponibilite = 'Rare 8, Ogres only';
+}
+for (const id of ['ombre_cramoisie']) {
+  itemsEn[id].disponibilite = 'Rare 8, Lustrian Reavers and Court of the Profane Pleasures only';
+}
+for (const id of ['longue_vue']) {
+  itemsEn[id].disponibilite = 'Rare 8, Pirates only';
+}
+for (const id of ['livre_saint']) {
+  itemsEn[id].disponibilite = 'Rare 8, Warrior Priests and Sisters of Sigmar only';
+}
+for (const id of ['liturgicus_infectus', 'parchemin_de_rat_familier', 'dague_de_la_peste']) {
+  itemsEn[id].disponibilite = 'Rare 8, Skaven of Clan Pestilens only';
+}
+for (const id of ['familier']) {
+  itemsEn[id].disponibilite = 'Rare 8, spellcasters only';
+}
+for (const id of ['champignons_bonnets_de_fou_market']) {
+  itemsEn[id].disponibilite = 'Rare 9 (Common, 25 gc if the warband includes Night Goblins)';
+}
+for (const id of ['pistolet_a_repetition', 'arquebuse_double_canon']) {
+  itemsEn[id].disponibilite = 'Rare 9, Gunnery School of Nuln only';
+}
+for (const id of ['lame_elfe_noire']) {
+  itemsEn[id].disponibilite = 'Rare 9, Dark Elves only';
+}
+for (const id of ['attirail_tribal_dent_rouj', 'bidules_magiques']) {
+  itemsEn[id].disponibilite = 'Rare 9, Forest Goblins only';
+}
+for (const id of ['banniere_de_nagarythe']) {
+  itemsEn[id].disponibilite = 'Rare 9, Shadow Warriors only';
+}
+for (const id of ['dague_empoisonnee_hobgobeline']) {
+  itemsEn[id].disponibilite = 'Rare 9, Hobgoblins only';
+}
+for (const id of ['misericordia']) {
+  itemsEn[id].disponibilite = 'Rare 9, The Cursed Cavalcade Heroes only';
+}
+for (const id of ['collier_de_griffes_dours_market']) {
+  itemsEn[id].disponibilite = 'Rare 9, Kislevites only';
+}
+for (const id of ['habits_en_soie_de_cathay']) {
+  itemsEn[id].disponibilite = 'Rare 9, Mercenaries only';
+}
+for (const id of ['tromblon_nain_du_chaos']) {
+  itemsEn[id].disponibilite = 'Rare 9, Black Dwarfs only';
+}
+for (const id of ['gnoblar_porte_bonheur']) {
+  itemsEn[id].disponibilite = 'Rare 9, Ogres only';
+}
+for (const id of ['boussole']) {
+  itemsEn[id].disponibilite = 'Rare 9, Pirates only';
+}
+for (const id of ['fragments_de_malepierre_incandescents', 'encensoir_a_peste']) {
+  itemsEn[id].disponibilite = 'Rare 9, Skaven of Clan Pestilens only';
+}
+for (const id of ['fiole_de_pestilence']) {
+  itemsEn[id].disponibilite = 'Rare 9, Skaven only';
+}
+for (const id of ['lames_suintantes']) {
+  itemsEn[id].disponibilite = 'Rare 9, Skaven only (per pair)';
+}
+for (const id of ['lotus_noir']) {
+  itemsEn[id].disponibilite = 'Rare 9, unavailable to The Witch Hunters and Sisters of Sigmar (Rare 7 for Skaven, Common for Lizardmen; 10 gc for Lizardmen Skinks\' missile weapons)';
+}
+for (const id of ['tromblon']) {
+  itemsEn[id].disponibilite = 'Rare 9, except Black Dwarfs (see Chaos Dwarf Blunderbuss)';
+}
+for (const id of ['fouet_barbele']) {
+  itemsEn[id].disponibilite = 'Rare 9, one Marauders of Chaos Hero only';
+}
+for (const id of ['ame_demoniaque', 'pince_mutation', 'tentacule', 'sabots_fendus', 'sang_acide', 'epines', 'queue_de_scorpion', 'bras_supplementaire', 'hideux_mutation', 'corps_cristallin', 'brute_epaisse', 'morsure_venimeuse', 'queue_prehensile', 'peau_ecailleuse', 'ailes_mutation']) {
+  itemsEn[id].disponibilite = 'Reserved for Mutants/Possessed, or heroes who have taken the special \'Mutant\' skill (depending on the warband) — first mutation at normal price, subsequent ones on the same model cost double.';
+}
+for (const id of ['cape_en_peau_de_loup']) {
+  itemsEn[id].disponibilite = 'Special, Middenheim Mercenaries, Norse Explorers and Marauders of Chaos only';
+}
+for (const id of ['masque_de_tete_de_poisson', 'masque_sans_visage', 'masque_de_bouffon_malefique']) {
+  itemsEn[id].disponibilite = 'Any Hero';
+}
+for (const id of ['masque_de_mort_en_argent']) {
+  itemsEn[id].disponibilite = 'Any Hero, one silver death mask per warband';
+}
+for (const id of ['masque_de_medecin_de_peste']) {
+  itemsEn[id].disponibilite = 'Twisted Scholar only';
 }
 
 // Traduit un objet { id, nom, texte?, disponibilite?, regles_speciales? } quand
