@@ -807,7 +807,7 @@ button {
    switch — quel que soit le statut affiché ou la langue active (ex. FR
    "Hors de combat" vs EN "Out of action"). Calé sur le plus long des deux. */
 .status-switch__label--fixed {
-  width: 9.8em;
+  width: 4.4em;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
