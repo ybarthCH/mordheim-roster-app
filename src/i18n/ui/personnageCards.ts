@@ -10,6 +10,7 @@ export const personnageCards: UiDictionary = {
   'statutCard.injured': { fr: 'Blessé :', en: 'Injured:' },
   'statutCard.turns': { fr: 'tour(s)', en: 'turn(s)' },
   'statutCard.rating': { fr: 'Rating', en: 'Rating' },
+  'statutCard.powerValue': { fr: 'Power Value', en: 'Power Value' },
   'statutCard.group': { fr: 'Groupe :', en: 'Group:' },
   'statutCard.identicalModels': { fr: 'identique', en: 'identical' },
   'statutCard.model': { fr: 'figurine', en: 'model' },

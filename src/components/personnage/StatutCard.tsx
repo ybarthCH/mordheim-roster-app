@@ -12,6 +12,7 @@ type StatutCardProps = {
   membre: Member;
   profil: Profile;
   rating: number;
+  ratingEstPowerValue?: boolean;
   estGroupeSimplifie: boolean;
   onMajMembre: (partial: Partial<Member>) => void;
   // toursBlesse n'est renseigné que pour le statut "blesse" (voir dialog
@@ -24,6 +25,7 @@ export function StatutCard({
   membre,
   profil,
   rating,
+  ratingEstPowerValue,
   estGroupeSimplifie,
   onMajMembre,
   onChangerStatut,
@@ -173,7 +175,9 @@ export function StatutCard({
       )}
 
       <div className="flex items-center gap-sm" style={{ marginTop: '0.7rem' }}>
-        <span className="badge badge--info">{t('statutCard.rating')} {rating}</span>
+        <span className="badge badge--info">
+          {ratingEstPowerValue ? t('statutCard.powerValue') : t('statutCard.rating')} {rating}
+        </span>
       </div>
 
       {estGroupeSimplifie && (

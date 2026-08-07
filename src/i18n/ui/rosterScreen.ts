@@ -89,6 +89,7 @@ export const rosterScreen: UiDictionary = {
   'rosterSummary.bandNamePlaceholder': { fr: 'Nom de la bande', en: 'Warband name' },
   'rosterSummary.members': { fr: 'Membres', en: 'Members' },
   'rosterSummary.rating': { fr: 'Rating', en: 'Rating' },
+  'rosterSummary.powerValue': { fr: 'Power Value', en: 'Power Value' },
   'rosterSummary.treasury': { fr: 'Trésorerie (po)', en: 'Treasury (gc)' },
   'rosterSummary.wyrdstone': { fr: 'Wyrdstone', en: 'Wyrdstone' },
   'rosterSummary.notes': { fr: 'Notes', en: 'Notes' },

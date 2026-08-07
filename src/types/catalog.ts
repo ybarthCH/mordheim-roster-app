@@ -48,6 +48,10 @@ export type CompetenceSpeciale = {
   // prix croissant) — reste proposée après un premier choix, contrairement
   // aux autres compétences.
   repetable?: boolean;
+  // Voir Skill.valeurPuissance (types/gameData.ts) — même métadonnée Power
+  // Value, dupliquée ici pour les mêmes raisons que le reste de ce type
+  // (éviter un import circulaire catalog.ts <-> gameData.ts).
+  valeurPuissance?: number;
 };
 
 export type Profile = {

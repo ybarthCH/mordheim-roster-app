@@ -15,7 +15,9 @@ import { STAT_KEYS, SKILL_CATEGORIES } from '../types/catalog';
 import { getCatalogue } from '../data/warbands';
 import { resolveProfil, categoriesAccessibles } from './profil';
 import { valeurBande, bilanBatailles } from './bandeValue';
-import { ratingTotal } from './rating';
+import { ratingAffiche } from './displayedRating';
+import type { GameRules } from '../types/rules';
+import { DEFAULT_GAME_RULES } from '../types/rules';
 import { plafondPour } from './plafond';
 import { skillById } from '../data/gameData';
 import { resolveSort } from './magie';
@@ -414,13 +416,14 @@ function dessinerBoiteResume(
   }
 }
 
-function dessinerResume(doc: jsPDF, roster: RosterInstance, y: number): number {
+function dessinerResume(doc: jsPDF, roster: RosterInstance, y: number, rules: GameRules): number {
   const largeurBoite = (LARGEUR_CONTENU - 4) / 3;
   const hauteurBoite = 16.5;
   const bilan = bilanBatailles(roster);
   const totalXp = roster.membres.reduce((acc, m) => acc + m.xp, 0);
   const heros = roster.membres.filter((m) => resolveProfil(roster, m)?.type === 'heros' && m.statut !== 'mort').length;
   const autres = roster.membres.filter((m) => resolveProfil(roster, m)?.type !== 'heros' && m.statut !== 'mort').length;
+  const libelleRating = rules.valeurPuissanceActivee ? 'Power Value' : 'Rating';
 
   dessinerBoiteResume(doc, MARGE, y, largeurBoite, hauteurBoite, 'TRÉSORERIE', [
     `${roster.tresorerie} po · ${roster.wyrdstone} wyrdstone`,
@@ -429,7 +432,7 @@ function dessinerResume(doc: jsPDF, roster: RosterInstance, y: number): number {
   ]);
 
   dessinerBoiteResume(doc, MARGE + largeurBoite + 2, y, largeurBoite, hauteurBoite, 'CLASSEMENT DE BANDE', [
-    `XP cumulé : ${totalXp} · Rating : ${ratingTotal(roster)}`,
+    `XP cumulé : ${totalXp} · ${libelleRating} : ${ratingAffiche(roster, rules)}`,
     `${heros} héros, ${autres} suivant(s)`,
   ]);
 
@@ -468,13 +471,13 @@ function dessinerPiedDePage(doc: jsPDF, roster: RosterInstance) {
   }
 }
 
-export function exporterRosterPDF(roster: RosterInstance) {
+export function exporterRosterPDF(roster: RosterInstance, rules: GameRules = DEFAULT_GAME_RULES) {
   const catalogue = getCatalogue(roster.bande_id);
   const doc = new jsPDF();
   let y = MARGE;
 
   y = dessinerEntete(doc, roster, catalogue, y);
-  y = dessinerResume(doc, roster, y);
+  y = dessinerResume(doc, roster, y, rules);
 
   const actifs = roster.membres.filter((m) => m.statut !== 'mort');
   const morts = roster.membres.filter((m) => m.statut === 'mort');

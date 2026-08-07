@@ -49,6 +49,11 @@ export const reglagesScreen: UiDictionary = {
     fr: "Active la recherche de Dramatis Personae pendant l'étape Commerce de la séquence post-bataille. Un Héros peut tenter de retrouver l'un de ces personnages spéciaux au lieu de rechercher un objet rare.",
     en: 'Enables searching for Dramatis Personae during the Trading step of the post-battle sequence. A Hero may attempt to track down one of these special characters instead of searching for a rare item.',
   },
+  'reglages.powerValue.title': { fr: 'Power Value', en: 'Power Value' },
+  'reglages.powerValue.body': {
+    fr: "Utilise la Power Value à la place du Rating officiel Mordheim partout où celui-ci est affiché — une estimation de la force actuelle sur table (coût de recrutement + équipement + progression du profil + compétences - blessures). N'affecte que l'affichage : le Rating officiel reste calculé normalement et continue de régir XP, avancées et légalité de bande.",
+    en: "Uses Power Value instead of the official Mordheim Rating everywhere it's displayed — an estimate of current on-table strength (recruitment cost + equipment + profile improvements + skills - injuries). Display only: the official Rating is still computed as normal and still governs XP, advances, and warband legality.",
+  },
   'reglages.about': { fr: 'À propos', en: 'About' },
   'reglages.privacyPolicy': { fr: 'Politique de confidentialité', en: 'Privacy Policy' },
 };

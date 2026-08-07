@@ -206,6 +206,15 @@ export type Member = {
   // taille_groupe), en attente de résolution à l'assistant post-bataille.
   // Sans objet pour taille_groupe = 1 : le statut "Hors de combat" suffit.
   hors_combat: number;
+  // Coût de recrutement réellement payé PAR FIGURINE (même convention que
+  // Profile.cout), utilisé par le calcul de Power Value (voir
+  // utils/powerValue.ts). Renseigné uniquement quand le profil n'a pas de
+  // prix fixe (Profile.cout === null, ex : "25+2D6") — pour un profil à prix
+  // fixe, Power Value relit directement Profile.cout, qui reste toujours la
+  // source de vérité. Absent sur les membres à prix variable recrutés avant
+  // l'introduction de ce champ : Power Value retombe alors sur 0 plutôt que
+  // d'inventer un montant.
+  cout_recrutement?: number;
 };
 
 // Journal de la session post-bataille associée, pour ne pas perdre ces

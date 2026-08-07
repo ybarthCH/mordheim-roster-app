@@ -278,7 +278,7 @@ export function RosterScreen({
           </button>
           <button
             className="icon-btn"
-            onClick={() => import('../../utils/pdfExport').then((m) => m.exporterRosterPDF(roster))}
+            onClick={() => import('../../utils/pdfExport').then((m) => m.exporterRosterPDF(roster, rules))}
             title={t('roster.exportPdfTitle')}
             aria-label={t('roster.exportPdfTitle')}
           >

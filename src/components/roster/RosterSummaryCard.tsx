@@ -1,9 +1,10 @@
 import { effectifTotal } from '../../utils/bandeValue';
-import { ratingTotal } from '../../utils/rating';
+import { ratingAffiche } from '../../utils/displayedRating';
 import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { effectifMaxAutorise } from '../../utils/validation';
 import { useLanguage } from '../../state/useLanguage';
+import { useGameRules } from '../../state/useGameRules';
 
 type RosterSummaryCardProps = {
   roster: RosterInstance;
@@ -13,6 +14,7 @@ type RosterSummaryCardProps = {
 
 export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryCardProps) {
   const { t } = useLanguage();
+  const { rules } = useGameRules();
   const effectif = effectifTotal(roster);
   const effectifMax = catalogue ? effectifMaxAutorise(roster) : undefined;
   const effectifPlein = effectifMax != null && effectif >= effectifMax;
@@ -37,8 +39,10 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           <div className="summary-tile__label">{t('rosterSummary.members')}</div>
         </div>
         <div className="summary-tile">
-          <div className="summary-tile__value">{ratingTotal(roster)}</div>
-          <div className="summary-tile__label">{t('rosterSummary.rating')}</div>
+          <div className="summary-tile__value">{ratingAffiche(roster, rules)}</div>
+          <div className="summary-tile__label">
+            {rules.valeurPuissanceActivee ? t('rosterSummary.powerValue') : t('rosterSummary.rating')}
+          </div>
         </div>
         <div className="summary-tile">
           <input

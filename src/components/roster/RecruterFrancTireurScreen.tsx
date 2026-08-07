@@ -91,6 +91,7 @@ export function RecruterFrancTireurScreen() {
     const membre = creerMembreFrancTireurCatalogue(selection);
     membre.nom_perso = nomPerso.trim() || selection.nom;
     membre.sorts_connus = [...sortsRenseignes];
+    if (selection.recrutement.cout == null) membre.cout_recrutement = coutRecrutement;
 
     const membres = roster.membres.map((m) => {
       if (!selection.sacrifice_liche || m.profil_id !== 'liche' || m.statut === 'mort') return m;
