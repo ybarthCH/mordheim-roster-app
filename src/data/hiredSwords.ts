@@ -203,11 +203,13 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         id: 'eclaireur_elfe_sagesse',
         nom: 'Sagesse',
         texte: 'Les sorts hostiles ne l’affectent pas sur 4+ sur 1D6.',
+        valeurPuissance: 0,
       },
       {
         id: 'eclaireur_elfe_chance',
         nom: 'Chance',
         texte: 'Une fois par partie, peut relancer l’un de ses propres jets de dé.',
+        valeurPuissance: 20,
       },
     ],
     groupe_caracteristiques: 'elfe',
@@ -251,17 +253,20 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         id: 'tueur_charge_furieuse',
         nom: 'Charge furieuse',
         texte: 'Double ses Attaques le tour où il charge, mais subit -1 pour toucher pendant ce tour.',
+        valeurPuissance: 40,
       },
       {
         id: 'tueur_monstres',
         nom: 'Tueur de monstres',
         texte:
           'Blesse toujours sur 4+, sans tenir compte de l’Endurance, sauf si sa Force permet de blesser plus facilement.',
+        valeurPuissance: 20,
       },
       {
         id: 'tueur_berserk',
         nom: 'Berserk',
         texte: 'Ajoute +1 à ses jets pour toucher pendant le tour où il charge.',
+        valeurPuissance: 20,
       },
     ],
     groupe_caracteristiques: 'nain',
@@ -465,17 +470,20 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Frappe dans le dos',
         texte:
           'Peut charger un adversaire invisible à portée. Après cette charge : +1 pour toucher et +1 au jet de dégâts pendant la première phase de corps à corps.',
+        valeurPuissance: 40,
       },
       {
         id: 'assassin_homme_ombre',
         nom: 'Homme de l’ombre',
         texte:
           'À 1ps d’un mur ou obstacle linéaire, un ennemi doit réussir un test d’Initiative avant de le charger ou de le prendre pour cible.',
+        valeurPuissance: 20,
       },
       {
         id: 'assassin_charge_furieuse',
         nom: 'Charge furieuse',
         texte: 'Peut choisir Charge furieuse dans la liste de Force.',
+        valeurPuissance: 0,
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -630,12 +638,14 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         id: 'muletier_adresse_fouet',
         nom: 'Adresse au fouet',
         texte: 'Peut relancer ses jets pour toucher avec un fouet ; le second résultat est obligatoire.',
+        valeurPuissance: 20,
       },
-      { id: 'muletier_baratin', nom: 'Baratin', texte: 'Peut apprendre la compétence Baratin.' },
+      { id: 'muletier_baratin', nom: 'Baratin', texte: 'Peut apprendre la compétence Baratin.', valeurPuissance: 0, },
       {
         id: 'muletier_connaissance_rue',
         nom: 'Connaissance de la rue',
         texte: 'Peut apprendre la compétence Connaissance de la rue.',
+        valeurPuissance: 0,
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -729,12 +739,14 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Cri d’animal',
         texte:
           'Caché, peut viser à 18ps une figurine ne pouvant pas charger : elle teste le Cd avant de bouger ; en cas d’échec, le Ranger choisit son déplacement.',
+        valeurPuissance: 20,
       },
       {
         id: 'ranger_herboristerie',
         nom: 'Herboristerie',
         texte:
           'Au début de la Récupération, lui-même ou une figurine au contact récupère 1 PV sur 4+. Le Ranger ne bouge pas ce tour.',
+        valeurPuissance: 20,
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -830,6 +842,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         id: 'supervizork_competences_orques',
         nom: 'Compétences spéciales des Orques',
         texte: 'Peut choisir dans les compétences spéciales de la Horde Orque.',
+        valeurPuissance: 0,
       },
     ],
     groupe_caracteristiques: 'peaux_vertes_orque_noir',
@@ -962,6 +975,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         id: 'centaure_mutation',
         nom: 'Nouvelle mutation',
         texte: 'Peut acheter une nouvelle mutation au lieu d’une compétence.',
+        valeurPuissance: 0,
       },
     ],
     groupe_caracteristiques: 'hommes_betes_centigor',
@@ -1001,12 +1015,14 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         id: 'pyromane_science_fusees',
         nom: 'Science des fusées',
         texte: 'Peut modifier le résultat du dé d’artillerie de +1 ou -1.',
+        valeurPuissance: 20,
       },
       {
         id: 'pyromane_artiste',
         nom: 'Artiste du spectacle',
         texte:
           'Peut tester l’Initiative au lieu de lancer le dé d’artillerie ; en cas de réussite, la fusée explose immédiatement.',
+        valeurPuissance: 20,
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -1089,12 +1105,14 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Affûtage',
         texte:
           'S’il n’a pas été mis hors de combat, peut donner Coupe tranchante à jusqu’à trois épées ou armes semblables pour la prochaine bataille.',
+        valeurPuissance: 20,
       },
       {
         id: 'forgeron_marechal_ferrant',
         nom: 'Maréchal-ferrant',
         texte:
           'Entre les batailles, rechausse les montures. Si un cheval de guerre, destrier elfique ou centaure du Chaos est mis hors de combat, il n’est retiré du roster que sur 1-2 au lieu du résultat normal.',
+        valeurPuissance: 0,
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -1190,6 +1208,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Tailleur de pierre',
         texte:
           'Lors d’une vente de malepierre, lance 1D6 : 1-2 perd 2D6 CO, 3-5 gagne 2D6 CO, 6 gagne 3D6 CO.',
+        valeurPuissance: 0,
       },
     ],
     profils_secondaires: [
@@ -1247,11 +1266,13 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Espion',
         texte:
           'Après le déploiement, peut redéployer 1D3 figurines autres que lui. Sinon, peut être placé hors du plateau à plus de 18ps de tout ennemi.',
+        valeurPuissance: 40,
       },
       {
         id: 'hobgobelin_tir_potshot',
         nom: 'Tir au galop',
         texte: 'Peut tirer avec un arc en courant, avec -2 pour toucher.',
+        valeurPuissance: 20,
       },
     ],
     profils_secondaires: [
@@ -1351,6 +1372,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         id: 'skink_grand_chasseur',
         nom: 'Grand chasseur',
         texte: 'S’il est à couvert, le malus pour le toucher au tir passe de -1 à -2.',
+        valeurPuissance: 20,
       },
     ],
     groupe_caracteristiques: 'hommes_lezards_skinks',
@@ -1415,12 +1437,14 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Attention !',
         texte:
           'Une fois par bataille, sur 4+, annule l’effet d’un piège ou d’un danger aléatoire.',
+        valeurPuissance: 20,
       },
       {
         id: 'guide_par_la',
         nom: 'Par-là !',
         texte:
           'Au contact d’une figurine au début du tour, peut lui faire traverser avec lui un terrain infranchissable ; si le contact est rompu avant la sortie, elle est mise hors de combat.',
+        valeurPuissance: 20,
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -1477,22 +1501,26 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Voir dans les ténèbres',
         texte:
           'Pour charger un ennemi invisible, n’est pas limité à 4ps mais doit réussir un test d’Initiative.',
+        valeurPuissance: 20,
       },
       {
         id: 'fantome_ombres',
         nom: 'Se cacher parmi les ombres',
         texte: 'L’Initiative d’un ennemi tentant de le détecter caché est divisée par deux.',
+        valeurPuissance: 20,
       },
       {
         id: 'fantome_tir_silencieux',
         nom: 'Tir silencieux',
         texte:
           'Peut tirer en restant caché ; si la cible survit, elle le repère en réussissant un test d’Initiative.',
+        valeurPuissance: 40,
       },
       {
         id: 'fantome_solide',
         nom: 'Solide carrure',
         texte: 'Donne accès aux compétences de Force.',
+        valeurPuissance: 0,
       },
     ],
     groupe_caracteristiques: 'elfe',
@@ -1540,22 +1568,26 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Fureur de Khaine',
         texte:
           'Après avoir mis tous ses adversaires hors de combat, peut poursuivre de 4ps et engager un nouveau combat au tour suivant en comptant comme ayant chargé.',
+        valeurPuissance: 20,
       },
       {
         id: 'assassin_elfe_infiltration',
         nom: 'Infiltration',
         texte: 'Se déploie après l’adversaire, hors de vue et à plus de 12ps de toute figurine ennemie.',
+        valeurPuissance: 40,
       },
       {
         id: 'assassin_elfe_massif',
         nom: 'Massif',
         texte: 'Donne accès aux compétences de Force.',
+        valeurPuissance: 0,
       },
       {
         id: 'assassin_elfe_rapidite',
         nom: 'Rapidité surnaturelle',
         texte:
           'Évite une attaque de tir ou de corps à corps sur 6+. Avec Esquive ou Saut de côté, cette sauvegarde passe à 4+ dans le domaine concerné.',
+        valeurPuissance: 20,
       },
     ],
     groupe_caracteristiques: 'elfe',
@@ -1681,6 +1713,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Sauteur de toits expert',
         texte:
           'Peut sauter jusqu’à 4ps au lieu de 3ps, et relancer un test d’Initiative raté lors d’un saut ou d’une charge en plongée.',
+        valeurPuissance: 20,
       },
     ],
     groupe_caracteristiques: 'peaux_vertes_gobelin',
@@ -1924,12 +1957,12 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       },
     ],
     competences_speciales: [
-      { id: 'sorciere_scry', nom: 'Divination', texte: 'Difficulté 6 — Pendant ce tour, un héros ou homme de main allié peut relancer 1D3 dés et modifier le résultat de +1 ou -1.' },
-      { id: 'sorciere_curse', nom: 'Malédiction', texte: 'Difficulté 6 — Une figurine ennemie à 12ps doit relancer tous ses jets réussis pour ce tour et le suivant.' },
-      { id: 'sorciere_dust_of_the_blind', nom: 'Poussière Aveuglante', texte: 'Difficulté 9 — Une figurine ennemie à 16ps est aveuglée : elle ne peut ni tirer, ni charger, ni courir, combat à CC divisée par deux et se déplace aléatoirement au début de son tour, jusqu’à ce que la Sorcière relance un sort ou bouge.' },
-      { id: 'sorciere_age_of_stone', nom: 'Âge de Pierre', texte: 'Difficulté 8 — Une figurine ennemie à 12ps voit toutes ses caractéristiques réduites de -1 pour ce tour et le suivant.' },
-      { id: 'sorciere_warriors_bane', nom: 'Fléau du Guerrier', texte: 'Difficulté 7 — Une figurine ennemie à 18ps ne peut plus utiliser ses armes (elle ne peut ni tirer, ni faire autre chose que se battre à mains nues) pour ce tour et le suivant.' },
-      { id: 'sorciere_cure', nom: 'Guérison', texte: 'Difficulté 6 — Toutes les figurines amies à 6ps récupèrent un Point de Vie perdu ; celles Sonnées ou À terre peuvent immédiatement se relever.' },
+      { id: 'sorciere_scry', nom: 'Divination', texte: 'Difficulté 6 — Pendant ce tour, un héros ou homme de main allié peut relancer 1D3 dés et modifier le résultat de +1 ou -1.', valeurPuissance: 40, },
+      { id: 'sorciere_curse', nom: 'Malédiction', texte: 'Difficulté 6 — Une figurine ennemie à 12ps doit relancer tous ses jets réussis pour ce tour et le suivant.', valeurPuissance: 40, },
+      { id: 'sorciere_dust_of_the_blind', nom: 'Poussière Aveuglante', texte: 'Difficulté 9 — Une figurine ennemie à 16ps est aveuglée : elle ne peut ni tirer, ni charger, ni courir, combat à CC divisée par deux et se déplace aléatoirement au début de son tour, jusqu’à ce que la Sorcière relance un sort ou bouge.', valeurPuissance: 40, },
+      { id: 'sorciere_age_of_stone', nom: 'Âge de Pierre', texte: 'Difficulté 8 — Une figurine ennemie à 12ps voit toutes ses caractéristiques réduites de -1 pour ce tour et le suivant.', valeurPuissance: 40, },
+      { id: 'sorciere_warriors_bane', nom: 'Fléau du Guerrier', texte: 'Difficulté 7 — Une figurine ennemie à 18ps ne peut plus utiliser ses armes (elle ne peut ni tirer, ni faire autre chose que se battre à mains nues) pour ce tour et le suivant.', valeurPuissance: 40, },
+      { id: 'sorciere_cure', nom: 'Guérison', texte: 'Difficulté 6 — Toutes les figurines amies à 6ps récupèrent un Point de Vie perdu ; celles Sonnées ou À terre peuvent immédiatement se relever.', valeurPuissance: 40, },
     ],
     groupe_caracteristiques: 'humain',
   },
@@ -1964,12 +1997,12 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       },
     ],
     competences_speciales: [
-      { id: 'mage_elfe_divination_de_shirath', nom: 'Divination de Shirath', texte: 'Difficulté 6 — Le Mage peut relancer tous ses jets ratés jusqu’au début de son prochain tour ; le second résultat est définitif.' },
-      { id: 'mage_elfe_bouclier_chatoyant', nom: 'Bouclier Chatoyant', texte: 'Difficulté 7 — Sauvegarde supplémentaire non modifiée de 5+ contre toute attaque, jusqu’au début du prochain tour du Mage.' },
-      { id: 'mage_elfe_statue_de_lumiere', nom: 'Statue de Lumière', texte: 'Difficulté 8 — Une figurine ennemie visible est figée sur place tant que le Mage reste immobile et vivant ; les deux peuvent lancer des sorts normalement, mais combattent à CC-1 (minimum 1) s’ils se retrouvent au corps à corps.' },
-      { id: 'mage_elfe_ombres_fugaces', nom: 'Ombres Fugaces', texte: 'Difficulté 8 — La première fois que le Mage est touché (tir ou corps à corps), la touche est ignorée et il est déplacé de 2ps dans une direction aléatoire ; le sort reste actif jusqu’à ce qu’il protège ainsi le Mage, puis se dissipe.' },
-      { id: 'mage_elfe_furie_du_chasseur', nom: 'Furie du Chasseur', texte: 'Difficulté 9 — Invoque 1D3+1 flèches magiques (portée 36ps, CT du Mage, sans pénalité de mouvement ni de couvert) contre une même figurine ennemie ; chacune inflige une touche de Force 3.' },
-      { id: 'mage_elfe_gardien_silencieux', nom: 'Gardien Silencieux', texte: 'Difficulté 9 — Une épée spectrale invisible protège le Mage : si celui-ci est attaqué au corps à corps, elle frappe en premier (CC5, F3) contre chaque assaillant. Elle ne peut être attaquée en retour et disparaît si le Mage lance un autre sort ou meurt.' },
+      { id: 'mage_elfe_divination_de_shirath', nom: 'Divination de Shirath', texte: 'Difficulté 6 — Le Mage peut relancer tous ses jets ratés jusqu’au début de son prochain tour ; le second résultat est définitif.', valeurPuissance: 40, },
+      { id: 'mage_elfe_bouclier_chatoyant', nom: 'Bouclier Chatoyant', texte: 'Difficulté 7 — Sauvegarde supplémentaire non modifiée de 5+ contre toute attaque, jusqu’au début du prochain tour du Mage.', valeurPuissance: 40, },
+      { id: 'mage_elfe_statue_de_lumiere', nom: 'Statue de Lumière', texte: 'Difficulté 8 — Une figurine ennemie visible est figée sur place tant que le Mage reste immobile et vivant ; les deux peuvent lancer des sorts normalement, mais combattent à CC-1 (minimum 1) s’ils se retrouvent au corps à corps.', valeurPuissance: 40, },
+      { id: 'mage_elfe_ombres_fugaces', nom: 'Ombres Fugaces', texte: 'Difficulté 8 — La première fois que le Mage est touché (tir ou corps à corps), la touche est ignorée et il est déplacé de 2ps dans une direction aléatoire ; le sort reste actif jusqu’à ce qu’il protège ainsi le Mage, puis se dissipe.', valeurPuissance: 20, },
+      { id: 'mage_elfe_furie_du_chasseur', nom: 'Furie du Chasseur', texte: 'Difficulté 9 — Invoque 1D3+1 flèches magiques (portée 36ps, CT du Mage, sans pénalité de mouvement ni de couvert) contre une même figurine ennemie ; chacune inflige une touche de Force 3.', valeurPuissance: 40, },
+      { id: 'mage_elfe_gardien_silencieux', nom: 'Gardien Silencieux', texte: 'Difficulté 9 — Une épée spectrale invisible protège le Mage : si celui-ci est attaqué au corps à corps, elle frappe en premier (CC5, F3) contre chaque assaillant. Elle ne peut être attaquée en retour et disparaît si le Mage lance un autre sort ou meurt.', valeurPuissance: 20, },
     ],
     tags: ['elfe'],
     depart_apres_bataille: true,

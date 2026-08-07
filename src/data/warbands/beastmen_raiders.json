@@ -181,12 +181,12 @@
     }
   ],
   "competences_speciales": [
-    { "id": "cuir_epais", "nom": "Cuir épais", "texte": "La peau du Héros est si épaisse qu'elle fait office d'armure : sauvegarde d'armure de 6+ combinable avec d'autres armures." },
-    { "id": "mutant", "nom": "Mutant", "texte": "L'Homme-Bête peut acquérir une Mutation (voir la règle spéciale Table de Mutations)." },
-    { "id": "sans_peur", "nom": "Sans peur", "texte": "L'Homme-Bête est immunisé à la peur et n'a pas à effectuer de test seul contre tous." },
-    { "id": "le_cornu", "nom": "Le cornu", "texte": "L'Homme-Bête a de grandes cornes qu'il peut utiliser lorsqu'il charge pour effectuer une Attaque supplémentaire résolue avec sa Force de base." },
-    { "id": "mugissement", "nom": "Mugissement", "reserve_a": "Chef Homme-Bête uniquement", "texte": "Permet de relancer tout test de Déroute raté." },
-    { "id": "mangeur_dhommes", "nom": "Mangeur d'hommes", "texte": "Le possesseur de cette compétence est sujet à la haine lorsqu'il combat des bandes humaines." }
+    { "id": "cuir_epais", "nom": "Cuir épais", "texte": "La peau du Héros est si épaisse qu'elle fait office d'armure : sauvegarde d'armure de 6+ combinable avec d'autres armures.", "valeurPuissance": 20 },
+    { "id": "mutant", "nom": "Mutant", "texte": "L'Homme-Bête peut acquérir une Mutation (voir la règle spéciale Table de Mutations).", "valeurPuissance": 0 },
+    { "id": "sans_peur", "nom": "Sans peur", "texte": "L'Homme-Bête est immunisé à la peur et n'a pas à effectuer de test seul contre tous.", "valeurPuissance": 20 },
+    { "id": "le_cornu", "nom": "Le cornu", "texte": "L'Homme-Bête a de grandes cornes qu'il peut utiliser lorsqu'il charge pour effectuer une Attaque supplémentaire résolue avec sa Force de base.", "valeurPuissance": 20 },
+    { "id": "mugissement", "nom": "Mugissement", "reserve_a": "Chef Homme-Bête uniquement", "texte": "Permet de relancer tout test de Déroute raté.", "valeurPuissance": 40 },
+    { "id": "mangeur_dhommes", "nom": "Mangeur d'hommes", "texte": "Le possesseur de cette compétence est sujet à la haine lorsqu'il combat des bandes humaines.", "valeurPuissance": 20 }
   ],
   "equipement": {
     "hommes_betes": {

@@ -147,30 +147,35 @@
       "id": "energie_focalisee",
       "nom": "Énergie focalisée",
       "texte": "S'il combat à mains nues, le Héros peut choisir de réduire ses Attaques de -1 pour gagner +1 en Force au corps à corps. Le moine peut sacrifier autant d'Attaques qu'il le souhaite de cette façon.",
-      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative)."
+      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative).",
+      "valeurPuissance": 20
     },
     {
       "id": "vitesse_foudroyante",
       "nom": "Vitesse foudroyante",
       "texte": "Le moine peut tripler son Mouvement lorsqu'il court ou charge, et peut courir même si des figurines ennemies se trouvent à moins de 8ps.",
-      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative)."
+      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative).",
+      "valeurPuissance": 40
     },
     {
       "id": "saut_de_la_foi",
       "nom": "Saut de la foi",
       "texte": "Le Héros ne peut pas être intercepté lorsqu'il charge. Il peut se dégager d'un corps à corps (comme décrit p.161 du livre de règles de Mordheim) en bondissant hors du combat sans avoir à réussir de test de Commandement, et peut déclarer une charge bondissante lors du même tour.",
-      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative)."
+      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative).",
+      "valeurPuissance": 40
     },
     {
       "id": "bouclier_humain",
       "nom": "Bouclier humain",
       "texte": "Si deux figurines ennemies ou plus sont engagées au corps à corps contre le moine, il peut choisir d'utiliser l'une d'elles comme bouclier plutôt que de porter ses attaques normales. Pour cela, il doit réussir un test d'Initiative après que la première figurine a attaqué mais avant que la seconde n'attaque. En cas de réussite, le moine saisit la première figurine : la seconde dirige alors toutes ses attaques contre elle. Après la phase de combat, la figurine saisie se dégage et le combat reprend normalement. En cas d'échec, le moine et la seconde figurine effectuent leurs attaques normalement.",
-      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative)."
+      "reserve_a": "Non disponible pour l'Émissaire (qui ne peut choisir que Guerre acharnée dans cette liste alternative).",
+      "valeurPuissance": 20
     },
     {
       "id": "guerre_acharnee",
       "nom": "Guerre acharnée",
-      "texte": "Avant la bataille, le Héros peut faire un test de Commandement. En cas de réussite, D3+1 Paysans en furie rejoignent la bande pour la partie à venir (ce qui peut dépasser l'effectif maximum autorisé). Chaque Paysan en furie ainsi recruté est sujet à la Haine pour la durée de la bataille."
+      "texte": "Avant la bataille, le Héros peut faire un test de Commandement. En cas de réussite, D3+1 Paysans en furie rejoignent la bande pour la partie à venir (ce qui peut dépasser l'effectif maximum autorisé). Chaque Paysan en furie ainsi recruté est sujet à la Haine pour la durée de la bataille.",
+      "valeurPuissance": 40
     }
   ],
   "equipement": {

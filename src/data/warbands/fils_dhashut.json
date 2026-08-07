@@ -130,22 +130,26 @@
     {
       "id": "tenace",
       "nom": "Tenace",
-      "texte": "Sur le tableau des Dégâts, un jet de 1-3 est considéré comme à terre, 4-5 comme sonné et 6 comme hors de combat."
+      "texte": "Sur le tableau des Dégâts, un jet de 1-3 est considéré comme à terre, 4-5 comme sonné et 6 comme hors de combat.",
+      "valeurPuissance": 40
     },
     {
       "id": "increvable",
       "nom": "Increvable",
-      "texte": "Permet de relancer une fois les dés lors d'un jet sur le tableau des Blessures Graves après la partie. Le résultat du second jet doit être accepté, même s'il est pire."
+      "texte": "Permet de relancer une fois les dés lors d'un jet sur le tableau des Blessures Graves après la partie. Le résultat du second jet doit être accepté, même s'il est pire.",
+      "valeurPuissance": 0
     },
     {
       "id": "haine_sans_limites",
       "nom": "Haine sans limites",
-      "texte": "Le combattant est frappé par la règle spéciale Haine contre absolument tous les adversaires qu'il affronte, sans exception de race ou de bande."
+      "texte": "Le combattant est frappé par la règle spéciale Haine contre absolument tous les adversaires qu'il affronte, sans exception de race ou de bande.",
+      "valeurPuissance": 40
     },
     {
       "id": "crane_epais",
       "nom": "Crâne épais",
-      "texte": "Le combattant bénéficie d'une sauvegarde spéciale de 3+ pour éviter d'être sonné. Si la sauvegarde est réussie, il est considéré à terre à la place."
+      "texte": "Le combattant bénéficie d'une sauvegarde spéciale de 3+ pour éviter d'être sonné. Si la sauvegarde est réussie, il est considéré à terre à la place.",
+      "valeurPuissance": 40
     }
   ],
   "equipement": {

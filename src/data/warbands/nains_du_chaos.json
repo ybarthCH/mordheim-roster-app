@@ -168,33 +168,39 @@
     {
       "id": "increvable",
       "nom": "Increvable",
-      "texte": "Un Nain du Chaos doté de cette compétence est réputé pour sa résistance à des blessures qui emporteraient un guerrier de moindre envergure. Suite à une partie dans laquelle ce Héros a été mis hors de combat, lorsque vous faites un jet sur le tableau des Blessures Graves, les dés peuvent être relancés une fois. Le résultat de ce second jet de dés doit être accepté, même si les conséquences sont pires."
+      "texte": "Un Nain du Chaos doté de cette compétence est réputé pour sa résistance à des blessures qui emporteraient un guerrier de moindre envergure. Suite à une partie dans laquelle ce Héros a été mis hors de combat, lorsque vous faites un jet sur le tableau des Blessures Graves, les dés peuvent être relancés une fois. Le résultat de ce second jet de dés doit être accepté, même si les conséquences sont pires.",
+      "valeurPuissance": 0
     },
     {
       "id": "ingenieur_du_chaos",
       "nom": "Ingénieur du Chaos",
-      "texte": "Le Héros a une grande connaissance technique et peut l'utiliser pour fabriquer des armes et des armures maléfiques. Chaque fois qu'un Héros possédant cette compétence recherche une armure du Chaos (y compris un exosquelette) ou des armes en obsidienne, il bénéficie d'un bonus de +3 sur le jet. Ce bonus représente l'aptitude de l'ingénieur à fabriquer ces objets lui-même et ignore donc les règles spéciales sur la rareté et le don du Chaos. Cette compétence ne permet pas de porter les armures du Chaos."
+      "texte": "Le Héros a une grande connaissance technique et peut l'utiliser pour fabriquer des armes et des armures maléfiques. Chaque fois qu'un Héros possédant cette compétence recherche une armure du Chaos (y compris un exosquelette) ou des armes en obsidienne, il bénéficie d'un bonus de +3 sur le jet. Ce bonus représente l'aptitude de l'ingénieur à fabriquer ces objets lui-même et ignore donc les règles spéciales sur la rareté et le don du Chaos. Cette compétence ne permet pas de porter les armures du Chaos.",
+      "valeurPuissance": 0
     },
     {
       "id": "crane_epais",
       "nom": "Crâne épais",
-      "texte": "Le Héros a un crâne épais, même pour un Nain du Chaos. Le Héros a une sauvegarde spéciale de 3+ pour éviter d'être sonné. Si la sauvegarde est réussie, considérez que le Héros est à terre. Si le Nain du Chaos porte également un casque, cette sauvegarde est de 2+ au lieu de 3+ (ce qui remplace la règle spéciale habituelle du casque)."
+      "texte": "Le Héros a un crâne épais, même pour un Nain du Chaos. Le Héros a une sauvegarde spéciale de 3+ pour éviter d'être sonné. Si la sauvegarde est réussie, considérez que le Héros est à terre. Si le Nain du Chaos porte également un casque, cette sauvegarde est de 2+ au lieu de 3+ (ce qui remplace la règle spéciale habituelle du casque).",
+      "valeurPuissance": 40
     },
     {
       "id": "chasseur_de_ressources",
       "nom": "Chasseur de ressources",
-      "texte": "Ce Nain du Chaos est particulièrement doué pour localiser de précieuses ressources. Lorsqu'il effectue un jet de dé sur le tableau d'Exploration en fin de partie, le Héros peut modifier un jet de dés de +1/-1."
+      "texte": "Ce Nain du Chaos est particulièrement doué pour localiser de précieuses ressources. Lorsqu'il effectue un jet de dé sur le tableau d'Exploration en fin de partie, le Héros peut modifier un jet de dés de +1/-1.",
+      "valeurPuissance": 0
     },
     {
       "id": "tres_coriace",
       "nom": "Très coriace",
-      "texte": "Les Nains du Chaos sont des êtres robustes et ce Héros est déterminé, même pour un Nain du Chaos ! Sur le tableau des Dégâts, un jet de 1-3 est considéré comme à terre, 4-5 comme sonné et 6 comme hors de combat."
+      "texte": "Les Nains du Chaos sont des êtres robustes et ce Héros est déterminé, même pour un Nain du Chaos ! Sur le tableau des Dégâts, un jet de 1-3 est considéré comme à terre, 4-5 comme sonné et 6 comme hors de combat.",
+      "valeurPuissance": 40
     },
     {
       "id": "tyran",
       "nom": "Tyran",
       "reserve_a": "Chef (Hiérogrammate) uniquement",
-      "texte": "Ce prêtre d'Hashut est réputé pour sa tyrannie. Sa parole est absolue et sa propre bande craint davantage sa cruauté que celle de l'ennemi. Lors d'un test de Déroute, si la bande est dirigée par un Chef possédant cette compétence, celui-ci peut encourager sa bande à rester sur place. Cette compétence permet au Chef de refaire un test de Déroute raté tant que le Chef n'est pas à terre ou sonné. En cas de test relancé, le nouveau résultat s'appliquera, même s'il est pire. Si le Chef est mis hors de combat, la bande doit immédiatement faire un test de Déroute."
+      "texte": "Ce prêtre d'Hashut est réputé pour sa tyrannie. Sa parole est absolue et sa propre bande craint davantage sa cruauté que celle de l'ennemi. Lors d'un test de Déroute, si la bande est dirigée par un Chef possédant cette compétence, celui-ci peut encourager sa bande à rester sur place. Cette compétence permet au Chef de refaire un test de Déroute raté tant que le Chef n'est pas à terre ou sonné. En cas de test relancé, le nouveau résultat s'appliquera, même s'il est pire. Si le Chef est mis hors de combat, la bande doit immédiatement faire un test de Déroute.",
+      "valeurPuissance": 40
     }
   ],
   "equipement": {

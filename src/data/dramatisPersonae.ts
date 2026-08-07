@@ -491,22 +491,26 @@ export const DRAMATIS_PERSONAE: FrancTireurCatalog[] = [
         nom: 'Élixir de Vie',
         texte:
           'Après la bataille, si Penthesilée a été mise hors de combat, relancez son jet de Dégâts : sur 1-4, elle ne subit pas les conséquences du statut hors de combat et participe normalement à la séquence d’après-bataille.',
+        valeurPuissance: 0,
       },
       {
         id: 'dissimulation',
         nom: 'Dissimulation',
         texte: 'Cachée dans un terrain de type jungle, la portée nécessaire pour la détecter est divisée par deux.',
+        valeurPuissance: 20,
       },
       {
         id: 'danse_hypnotique',
         nom: 'Danse Hypnotique',
         texte:
           'Tout combattant engagé au corps à corps contre Penthesilée doit réussir un test de Commandement en début de tour ou ne peut pas attaquer ce tour (mais peut se défendre). Sans effet contre les Hommes-Lézards et les Morts-Vivants.',
+        valeurPuissance: 40,
       },
       {
         id: 'fureur_sauvage',
         nom: 'Fureur Sauvage',
         texte: '+1 Attaque lorsqu’elle charge ; immunisée aux effets de charme ou de peur.',
+        valeurPuissance: 40,
       },
     ],
     gagne_experience: false,
