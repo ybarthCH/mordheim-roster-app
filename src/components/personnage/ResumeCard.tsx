@@ -48,7 +48,7 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
       {inventaireGroupe.length > 0 ? (
         inventaireGroupe.map(({ entree, quantite }) => {
           const detail = translateItem(resolveItemDetail(entree), language);
-          const synopsis = resumeItem(detail);
+          const synopsis = resumeItem(detail, language);
           return (
             <p key={entree.instance_id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
               <button className="link-inline" onClick={() => onItemClick(entree)}>

@@ -11,6 +11,7 @@ import {
   iconeCategorie,
   classeRarete,
   resumeItem,
+  traduirePortee,
   formatCoutItem,
   CATEGORIE_ORDRE,
   TRINKETS_LIMITES,
@@ -750,7 +751,7 @@ export function AchatEquipementModal({
               )}
               {(itemSelectionne.portee || itemSelectionne.force || itemSelectionne.sauvegarde) && (
                 <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
-                  {itemSelectionne.portee && <span className="badge badge--info">{t('itemDetail.range')} {itemSelectionne.portee}</span>}
+                  {itemSelectionne.portee && <span className="badge badge--info">{t('itemDetail.range')} {traduirePortee(itemSelectionne.portee, language)}</span>}
                   {itemSelectionne.force && <span className="badge badge--info">{t('itemDetail.strength')} {itemSelectionne.force}</span>}
                   {itemSelectionne.sauvegarde && (
                     <span className="badge badge--info">{t('itemDetail.save')} {itemSelectionne.sauvegarde}</span>

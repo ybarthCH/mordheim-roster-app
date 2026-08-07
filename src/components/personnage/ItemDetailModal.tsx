@@ -1,5 +1,5 @@
 import { Modal } from '../common/Modal';
-import { libelleCategorie, iconeCategorie, classeRarete, formatCoutItem } from '../../utils/shop';
+import { libelleCategorie, iconeCategorie, classeRarete, formatCoutItem, traduirePortee } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
@@ -46,7 +46,7 @@ export function ItemDetailModal({ item: itemBrut, onClose }: Props) {
       )}
       {(item.portee || item.force || item.sauvegarde) && (
         <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
-          {item.portee && <span className="badge badge--info">{t('itemDetail.range')} {item.portee}</span>}
+          {item.portee && <span className="badge badge--info">{t('itemDetail.range')} {traduirePortee(item.portee, language)}</span>}
           {item.force && <span className="badge badge--info">{t('itemDetail.strength')} {item.force}</span>}
           {item.sauvegarde && <span className="badge badge--info">{t('itemDetail.save')} {item.sauvegarde}</span>}
         </div>
