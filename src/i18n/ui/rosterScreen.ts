@@ -178,7 +178,7 @@ export const rosterScreen: UiDictionary = {
   // pour l'aria-label et sur la fiche personnage (voir statut.*).
   'memberGroup.statutCourt.actif': { fr: 'Actif', en: 'Active' },
   'memberGroup.statutCourt.hors_de_combat': { fr: 'HdC', en: 'OOA' },
-  'memberGroup.statutCourt.blesse': { fr: 'Blessé', en: 'Hurt' },
+  'memberGroup.statutCourt.blesse': { fr: 'Blessé', en: 'Wounded' },
   'memberGroup.equipmentMismatchTitle': { fr: 'Équipement dépareillé entre les figurines du groupe', en: 'Mismatched equipment between models in the group' },
   'memberGroup.equipmentMismatchBadge': { fr: 'Équipement', en: 'Equipment' },
   'memberGroup.absentUnpaid': { fr: 'Absent — solde impayée', en: 'Absent — balance unpaid' },
