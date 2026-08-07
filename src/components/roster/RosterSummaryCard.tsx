@@ -1,4 +1,4 @@
-import { effectifTotal } from '../../utils/bandeValue';
+import { effectifTotal, nombreFrancsTireursActifs } from '../../utils/bandeValue';
 import { ratingAffiche } from '../../utils/displayedRating';
 import { formatPowerValueTooltip, powerValueDetailTotal } from '../../utils/powerValue';
 import type { RosterInstance } from '../../types/roster';
@@ -19,6 +19,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
   const effectif = effectifTotal(roster);
   const effectifMax = catalogue ? effectifMaxAutorise(roster) : undefined;
   const effectifPlein = effectifMax != null && effectif >= effectifMax;
+  const francsTireurs = nombreFrancsTireursActifs(roster);
 
   return (
     <div className="card">
@@ -37,6 +38,11 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           <div className="summary-tile__value" style={effectifPlein ? { color: 'var(--warning)' } : undefined}>
             {effectifMax != null ? `${effectif}/${effectifMax}` : effectif}
           </div>
+          {francsTireurs > 0 && (
+            <div className="summary-tile__hint">
+              {francsTireurs} {t('rosterSummary.hiredSwordsAbbrev')}
+            </div>
+          )}
           <div className="summary-tile__label">{t('rosterSummary.members')}</div>
         </div>
         <div className="summary-tile">

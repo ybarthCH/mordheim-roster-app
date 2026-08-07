@@ -4,17 +4,22 @@
 // recalculée à la demande depuis l'état courant du roster — jamais dérivée
 // de l'XP ni persistée.
 //
-// Formule (par figurine, sommée sur la bande) :
-//   Coût de recrutement + Équipement + Progression du profil + Compétences
+// Formule :
+//   Par figurine, sommé sur la bande :
+//     Coût de recrutement + Équipement + Progression du profil
+//     + Compétences acquises + Blessures/effets permanents/indisponibilité
+//   Plus, au niveau de la bande entière (une seule fois, pas par figurine) :
+//     Rout Value (basée sur le seuil de déroute)
 //
 // Voir chaque fonction ci-dessous pour le détail de chaque terme.
-import type { Member, RosterInstance } from '../types/roster';
+import type { Member, RosterInstance, SeriousInjuryEffect } from '../types/roster';
 import type { CompetenceSpeciale, Profile, Stats, WarbandCatalog } from '../types/catalog';
 import type { Skill } from '../types/gameData';
 import { STAT_KEYS } from '../types/catalog';
 import { resolveProfil } from './profil';
 import { skillById } from '../data/gameData';
 import { getCatalogue } from '../data/warbands';
+import { estFrancTireur, getFrancTireur } from '../data/hiredSwords';
 
 // Barème officiel "Fighting Individual Battles" (livre de règles Mordheim) :
 // coût en points pour acheter UN point d'une caractéristique en dehors de la
@@ -71,8 +76,21 @@ export function coutRecrutementUnitaire(m: Member, profil: Profile | undefined):
   return m.cout_recrutement ?? 0;
 }
 
+// Un Dramatis Personae (voir FrancTireurCatalog.est_dramatis_personae) a un
+// prix d'engagement (`recrutement.cout`) qui ne reflète que le coût de sa
+// RECHERCHE post-bataille, sans rapport avec sa puissance réelle sur la
+// table — c'est `valeur` (sa contribution au Rating OFFICIEL, voir
+// utils/rating.ts) qui capture correctement à quel point ce personnage est
+// exceptionnel. Multiplicateur demandé par l'utilisateur : x3 ce rating
+// officiel, en remplacement (et non en plus) du coût de recrutement normal.
+const DRAMATIS_PERSONAE_MULTIPLICATEUR = 3;
+
 /** Coût de recrutement total du membre (groupe compris). */
 export function coutRecrutementMembre(m: Member, profil: Profile | undefined): number {
+  const francTireur = getFrancTireur(m.franc_tireur_id);
+  if (francTireur?.est_dramatis_personae) {
+    return francTireur.valeur * DRAMATIS_PERSONAE_MULTIPLICATEUR * (m.taille_groupe || 1);
+  }
   return coutRecrutementUnitaire(m, profil) * (m.taille_groupe || 1);
 }
 
@@ -86,8 +104,19 @@ export function coutRecrutementMembre(m: Member, profil: Profile | undefined): n
  * (déjà absents de `inventaire`, qui ne reflète que ce qui est possédé
  * aujourd'hui).
  */
+// Un franc-tireur (catalogue commun ou "custom") arrive avec un paquetage de
+// départ décrit en texte libre (FrancTireurCatalog.equipement: string[] /
+// ProfilFrancTireur — jamais des InventoryEntry structurées avec un coût
+// individuel), donc quasi toujours absent de `inventaire[]` : sans ce
+// correctif, coutEquipementMembre() retomberait à 0 pour la plupart des
+// francs-tireurs alors qu'ils possèdent un équipement réel non chiffrable
+// objet par objet. Estimation forfaitaire assumée plutôt qu'un calcul
+// précis impossible avec les données actuelles.
+const EQUIPEMENT_FORFAITAIRE_FRANC_TIREUR = 40;
+
 export function coutEquipementMembre(m: Member): number {
-  return m.inventaire.reduce((acc, e) => acc + (Number(e.cout) || 0), 0);
+  const inventaire = m.inventaire.reduce((acc, e) => acc + (Number(e.cout) || 0), 0);
+  return inventaire + (estFrancTireur(m) ? EQUIPEMENT_FORFAITAIRE_FRANC_TIREUR : 0);
 }
 
 /**
@@ -188,10 +217,122 @@ export function competencesAcquisesValorisees(
   return total;
 }
 
+// Valeur Power Rating des effets permanents NON liés à une caractéristique
+// (Blessures Graves qui ne touchent pas M/CC/CT/E/I — celles-là sont déjà
+// couvertes par contributionProfilDetailMembre via stats_actuels, et ne
+// doivent surtout pas être comptées une seconde fois ici). Barème fourni par
+// l'utilisateur ; tout résultat absent de ces tables (Mort, Rétablissement
+// complet, Survie miraculeuse, Capturé...) vaut 0 — jamais de valeur
+// inventée pour un résultat non explicitement listé.
+const PR_PAR_RESULTAT: Record<string, number> = {
+  vieille_blessure: -10,
+  haine_tenace: 20,
+  endurci: 20,
+  cicatrices_horribles: 20,
+};
+
+// Sous-cas où la valeur diffère selon la branche choisie sous un même
+// résultat parent (ex : Stupidité vs Frénésie sous "Folie") — identifiés par
+// SousJetOption.id (data/blessuresGraves.ts), jamais par le texte affiché.
+const PR_PAR_SOUS_JET: Record<string, number> = {
+  stupidite: -40,
+  frenesie: 40,
+  bras_ampute: -40,
+  jambe_ne_court_plus: -40,
+};
+
+// Repli pour les enregistrements créés avant l'introduction de
+// SeriousInjuryEffect.sous_jet_id : correspondance exacte avec le noteTag
+// figé (constante source française, jamais le texte traduit/affiché) déjà
+// présent dans notes_ajoutees au moment de l'application de l'effet.
+const NOTE_VERS_SOUS_JET: Record<string, string> = {
+  'Sujet à la Stupidité (Blessure grave — Folie)': 'stupidite',
+  'Sujet à la Frénésie (Blessure grave — Folie)': 'frenesie',
+  'Bras amputé — une seule arme à une main utilisable': 'bras_ampute',
+  'Ne peut plus courir (peut toujours charger)': 'jambe_ne_court_plus',
+};
+
+function sousJetIdEffet(effet: SeriousInjuryEffect): string | undefined {
+  if (effet.sous_jet_id) return effet.sous_jet_id;
+  for (const note of effet.notes_ajoutees) {
+    const id = NOTE_VERS_SOUS_JET[note];
+    if (id) return id;
+  }
+  return undefined;
+}
+
+function valeurEffetPermanent(effet: SeriousInjuryEffect): number {
+  const sousJetId = sousJetIdEffet(effet);
+  if (sousJetId && sousJetId in PR_PAR_SOUS_JET) return PR_PAR_SOUS_JET[sousJetId];
+  return PR_PAR_RESULTAT[effet.resultat_id] ?? 0;
+}
+
+/**
+ * Somme des effets permanents non-stat (voir PR_PAR_RESULTAT/PR_PAR_SOUS_JET)
+ * de toutes les Blessures Graves du membre, "Blessures multiples" compris
+ * (chaque relance y pousse son propre SeriousInjuryEffect indépendant, donc
+ * la simple somme sur tous les `effets[]` cumule déjà correctement, sans
+ * traitement spécial). Un effet soigné par le docteur (`traitee`) n'a plus
+ * cours et est ignoré, comme pour les deltas de caractéristiques (voir
+ * annulerEffetsBlessure dans utils/blessures.ts).
+ */
+export function effetsPermanentsMembre(m: Member): number {
+  let total = 0;
+  for (const blessure of m.blessures_graves) {
+    for (const effet of blessure.effets ?? []) {
+      if (effet.traitee) continue;
+      total += valeurEffetPermanent(effet);
+    }
+  }
+  return total;
+}
+
+/** Indisponibilité temporaire (Member.statut === 'blesse') : -20, disparaît
+ * automatiquement au rétablissement (PostBatailleScreen gère déjà le retour
+ * à 'actif'). Seuls les héros/figures individuelles peuvent porter ce statut
+ * (StatutCard restreint les groupes à actif/mort), donc pas de multiplication
+ * par taille_groupe à prévoir ici. */
+export function malusIndisponibiliteMembre(m: Member): number {
+  return m.statut === 'blesse' ? -20 : 0;
+}
+
+/**
+ * Effectif de COMBAT total de la bande (figurines vivantes, francs-tireurs
+ * compris) — distinct de effectifTotal() (utils/bandeValue.ts), qui exclut
+ * volontairement les francs-tireurs pour les règles de composition/recrute-
+ * ment. Le seuil de déroute porte sur qui se bat réellement sur la table,
+ * donc les francs-tireurs actifs comptent bien ici.
+ */
+function effectifCombatTotal(roster: RosterInstance): number {
+  return roster.membres
+    .filter((m) => m.statut !== 'mort')
+    .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
+}
+
+/** Seuil de déroute (règle officielle : 25% de l'effectif, arrondi au supérieur). */
+export function seuilDeroute(roster: RosterInstance): number {
+  return Math.max(1, Math.ceil(effectifCombatTotal(roster) / 4));
+}
+
+/**
+ * Valeur Power Rating du seuil de déroute, par palier de 4 figurines
+ * (1-4 -> +0, 5-8 -> +100, 9-12 -> +200, 13-20 -> +300, plafonné à +300 —
+ * volontairement, pour ne pas sur-pénaliser les bandes "horde" (Skavens,
+ * Gobelins...) qui ont déjà d'autres faiblesses structurelles comme un
+ * Commandement bas). Bande-only : n'apparaît jamais dans le détail d'un
+ * membre individuel.
+ */
+export function routValue(roster: RosterInstance): number {
+  return Math.min(300, Math.max(0, (seuilDeroute(roster) - 1) * 100));
+}
+
 // Décomposition affichable de la Power Value d'un membre ou d'une bande —
-// R/E/P/S/W (Recrutement / Équipement / Progression du Profil / Skills /
-// Wounds), voir formatPowerValueTooltip. Ces cinq lettres ne sont volontai-
-// rement pas traduites (identiques en français et en anglais).
+// R/E/P/S/W/D (Recrutement / Équipement / Progression du Profil / Skills /
+// Wounds / Déroute), voir formatPowerValueTooltip. Ces lettres ne sont
+// volontairement pas traduites (identiques en français et en anglais). `rout`
+// n'est renseigné que sur le total de bande (powerValueDetailTotal) — jamais
+// sur le détail d'un membre individuel (powerValueDetailMembre), la Rout
+// Value étant une propriété de la bande entière, pas d'une figurine.
 export type PowerValueDetail = {
   recrutement: number;
   equipement: number;
@@ -199,6 +340,7 @@ export type PowerValueDetail = {
   competences: number;
   blessures: number;
   total: number;
+  rout?: number;
 };
 
 /**
@@ -208,23 +350,28 @@ export type PowerValueDetail = {
  * Blessures partagent le même calcul sous-jacent, voir
  * contributionProfilDetailMembre, pour ne jamais double-compter).
  *
- * Les francs-tireurs (profil_custom ou franc_tireur_id) ne reçoivent AUCUN
- * traitement spécial ici : resolveProfil() résout déjà leur coût de
- * recrutement (`recrutement.cout`, jamais `valeur`/`solde`, qui sont la
- * contribution au Rating officiel et l'entretien récurrent — deux notions
- * distinctes du coût de recrutement) et leurs statistiques de base de la
- * même façon qu'un profil de catalogue classique, et ils avancent bien via
- * la même table/le même mécanisme (grille XP hommes de main, table
- * d'avancement héros — voir profilDeFrancTireur) : la progression de profil
- * s'applique donc à eux normalement, sans configuration supplémentaire.
+ * Les francs-tireurs (profil_custom ou franc_tireur_id) ne reçoivent aucun
+ * traitement spécial ici en dehors du terme Recrutement : resolveProfil()
+ * résout déjà leurs statistiques de base de la même façon qu'un profil de
+ * catalogue classique, et ils avancent bien via la même table/le même
+ * mécanisme (grille XP hommes de main, table d'avancement héros — voir
+ * profilDeFrancTireur) : la progression de profil s'applique donc à eux
+ * normalement, sans configuration supplémentaire. Seul le terme Recrutement
+ * diffère pour un Dramatis Personae (voir coutRecrutementMembre) : x3 son
+ * rating officiel plutôt que son prix d'engagement.
  */
 export function powerValueDetailMembre(m: Member, roster: RosterInstance): PowerValueDetail {
   const catalogue = getCatalogue(roster.bande_id);
   const profil = resolveProfil(roster, m, catalogue);
   const recrutement = coutRecrutementMembre(m, profil);
   const equipement = coutEquipementMembre(m);
-  const { progression, blessures } = contributionProfilDetailMembre(m, profil);
+  const { progression, blessures: blessuresStats } = contributionProfilDetailMembre(m, profil);
   const competences = competencesAcquisesValorisees(m, profil, catalogue);
+  // W fusionne trois sources : deltas de caractéristiques (toujours <= 0),
+  // effets permanents non-stat (peuvent être positifs, ex : Frénésie +40) et
+  // l'indisponibilité temporaire (-20 si Blessé) — voir effetsPermanentsMembre
+  // et malusIndisponibiliteMembre. W n'est donc plus garanti négatif.
+  const blessures = blessuresStats + effetsPermanentsMembre(m) + malusIndisponibiliteMembre(m);
   return {
     recrutement,
     equipement,
@@ -249,12 +396,14 @@ const DETAIL_VIDE: PowerValueDetail = {
 };
 
 /**
- * Décomposition R/E/P/S/W sommée sur toute la bande — même périmètre que
+ * Décomposition R/E/P/S/W/D sommée sur toute la bande — même périmètre que
  * ratingTotal() (utils/rating.ts) : un membre Mort est exclu, tout autre
- * statut (Blessé, Hors de combat...) compte normalement.
+ * statut (Blessé, Hors de combat...) compte normalement. La Rout Value (D)
+ * est une propriété de la bande entière, calculée une seule fois ici plutôt
+ * que sommée depuis les membres (elle n'existe pas au niveau membre).
  */
 export function powerValueDetailTotal(roster: RosterInstance): PowerValueDetail {
-  return roster.membres
+  const detail = roster.membres
     .filter((m) => m.statut !== 'mort')
     .reduce((acc, m) => {
       const d = powerValueDetailMembre(m, roster);
@@ -267,6 +416,8 @@ export function powerValueDetailTotal(roster: RosterInstance): PowerValueDetail 
         total: acc.total + d.total,
       };
     }, DETAIL_VIDE);
+  const rout = routValue(roster);
+  return { ...detail, total: detail.total + rout, rout };
 }
 
 export function powerValueTotal(roster: RosterInstance): number {
@@ -274,19 +425,23 @@ export function powerValueTotal(roster: RosterInstance): number {
 }
 
 /**
- * Tooltip texte multi-lignes (survol souris) : R/E/P/S/W volontairement non
- * traduits (abréviations identiques en français et en anglais, voir
+ * Tooltip texte multi-lignes (survol souris) : R/E/P/S/W/D volontairement
+ * non traduits (abréviations identiques en français et en anglais, voir
  * PowerValueDetail). Format brut adapté à un attribut `title` natif —
- * `\n` y est bien rendu comme un saut de ligne par tous les navigateurs.
+ * `\n` y est bien rendu comme un saut de ligne par tous les navigateurs. La
+ * ligne D (Rout Value) n'apparaît que si `d.rout` est renseigné, donc
+ * uniquement pour un total de bande (jamais pour un membre individuel).
  */
 export function formatPowerValueTooltip(d: PowerValueDetail): string {
-  return [
+  const lignes = [
     `R ${d.recrutement}`,
     `E ${d.equipement}`,
     `P ${d.progression}`,
     `S ${d.competences}`,
     `W ${d.blessures}`,
-  ].join('\n');
+  ];
+  if (d.rout != null) lignes.push(`D ${d.rout}`);
+  return lignes.join('\n');
 }
 
 /**

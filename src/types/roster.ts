@@ -41,6 +41,13 @@ export type SeriousInjuryEffect = {
   stats_delta: Partial<Record<keyof Stats, number>>;
   notes_ajoutees: string[];
   traitee?: boolean;
+  // Id stable de la branche choisie (sous-jet 1D6), voir SousJetOption.id
+  // dans data/blessuresGraves.ts — uniquement renseigné quand la valeur
+  // Power Rating diffère selon la branche (ex : Stupidité vs Frénésie).
+  // Absent sur les enregistrements créés avant l'introduction de ce champ ;
+  // utils/powerValue.ts retombe alors sur une correspondance exacte avec
+  // le noteTag figé de la branche, déjà présent dans notes_ajoutees.
+  sous_jet_id?: string;
 };
 
 export type DoctorTreatmentRecord = {

@@ -196,6 +196,7 @@ function effetDeIteration(it: IterationResolue): Omit<SeriousInjuryEffect, 'id'>
     nom: it.resultat.nom,
     stats_delta: statsIteration(it),
     notes_ajoutees: notesIteration(it),
+    sous_jet_id: it.sousJetChoisi?.id,
   };
 }
 

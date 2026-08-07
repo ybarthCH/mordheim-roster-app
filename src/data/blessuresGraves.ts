@@ -11,6 +11,12 @@ export type SousJetOption = {
   texte: string;
   stat?: Partial<Record<keyof Stats, number>>;
   noteTag?: string;
+  // Id stable de la branche, uniquement pour les sous-résultats dont le
+  // Power Rating diffère de celui des autres branches du même résultat
+  // parent (ex : Stupidité vs Frénésie sous "Folie") — voir
+  // utils/powerValue.ts. Absent partout ailleurs : la branche n'a alors pas
+  // besoin d'être distinguée pour ce calcul.
+  id?: string;
 };
 
 export type SousJetSpec = {
@@ -98,6 +104,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
           texte:
             "Blessure grave au bras : il doit être amputé. Le guerrier ne peut plus utiliser qu'une seule arme à une main à partir de maintenant.",
           noteTag: 'Bras amputé — une seule arme à une main utilisable',
+          id: 'bras_ampute',
         },
         {
           valeurs: [2, 3, 4, 5, 6],
@@ -122,12 +129,14 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
           label: '1-3',
           texte: 'Le guerrier devient sujet à la Stupidité.',
           noteTag: 'Sujet à la Stupidité (Blessure grave — Folie)',
+          id: 'stupidite',
         },
         {
           valeurs: [4, 5, 6],
           label: '4-6',
           texte: 'Le guerrier est désormais sujet à la Frénésie.',
           noteTag: 'Sujet à la Frénésie (Blessure grave — Folie)',
+          id: 'frenesie',
         },
       ],
     },
@@ -146,6 +155,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
           label: '1',
           texte: 'Le guerrier ne peut plus courir, mais peut toujours charger.',
           noteTag: 'Ne peut plus courir (peut toujours charger)',
+          id: 'jambe_ne_court_plus',
         },
         {
           valeurs: [2, 3, 4, 5, 6],
