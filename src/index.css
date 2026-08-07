@@ -992,8 +992,9 @@ button {
   line-height: 1.15;
 }
 @media (max-width: 480px) {
-  .roster-actions {
-    flex-direction: column;
+  .roster-actions__btn {
+    font-size: 0.82rem;
+    padding: 0.75rem 0.3rem;
   }
 }
 
@@ -1043,6 +1044,18 @@ button {
 .list-item__subtitle {
   font-size: 0.82rem;
   color: var(--text-muted);
+}
+/* Rangée d'actions (donner/vendre/retirer...) d'un .list-item : comme
+   .list-item__details ci-dessus, toujours en pleine largeur plutôt que de
+   se comprimer contre .list-item__main sur la même ligne — un nom d'objet
+   long (ex : "Tromblon Nain du Chaos") écraserait sinon le select "Donner
+   à…" et les boutons dans une colonne étroite au lieu de passer à la ligne. */
+.list-item__actions {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 .tabs {

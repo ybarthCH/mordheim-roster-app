@@ -132,11 +132,20 @@ export function RosterScreen({
   const violations = validerComposition(roster);
   const violationsEffectif = validerEffectif(roster);
   const effectifDepasse = violationsEffectif.find((v) => v.type === 'max');
-  const francsTireurs = roster.membres.filter((m) => estFrancTireur(m) && !estDramatisPersonae(m));
-  const dramatisPersonae = roster.membres.filter(estDramatisPersonae);
-  const heros = roster.membres.filter((m) => !estFrancTireur(m) && resolveProfil(roster, m)?.type === 'heros');
-  const hommesDeMain = roster.membres.filter((m) => !estFrancTireur(m) && resolveProfil(roster, m)?.type !== 'heros');
-  const herosVivants = heros.filter((m) => m.statut !== 'mort');
+  // Les figurines mortes sont retirées de leur section d'origine et
+  // regroupées dans le Cimetière (voir plus bas) — évite d'alourdir/confondre
+  // les sections Héros/Hommes de main d'une bande qui a subi des pertes.
+  const defunts = roster.membres.filter((m) => m.statut === 'mort');
+  const francsTireurs = roster.membres.filter(
+    (m) => m.statut !== 'mort' && estFrancTireur(m) && !estDramatisPersonae(m)
+  );
+  const dramatisPersonae = roster.membres.filter((m) => m.statut !== 'mort' && estDramatisPersonae(m));
+  const heros = roster.membres.filter(
+    (m) => m.statut !== 'mort' && !estFrancTireur(m) && resolveProfil(roster, m)?.type === 'heros'
+  );
+  const hommesDeMain = roster.membres.filter(
+    (m) => m.statut !== 'mort' && !estFrancTireur(m) && resolveProfil(roster, m)?.type !== 'heros'
+  );
   const besoinChoixLeader = choixLeaderRequis(roster, catalogue);
   const trinketsLimitesEnTrop = rules.trinketsLimites ? trouverTrinketsLimitesEnTrop(roster) : [];
 
@@ -483,6 +492,20 @@ export function RosterScreen({
           masquerProfil
         />
       )}
+      {defunts.length > 0 && (
+        <MemberGroupCard
+          titre={t('roster.graveyard')}
+          icone="crane"
+          preferenceKey="ui.roster.groupe_cimetiere.ouvert"
+          membres={defunts}
+          roster={roster}
+          catalogue={catalogue}
+          onReordonner={reordonnerSection}
+          onBasculerHorsCombat={basculerHorsCombat}
+          onSupprimer={setMembreASupprimer}
+          selectedInstanceId={selectedInstanceId}
+        />
+      )}
 
       <HistoriqueBataillesSection
         historique={roster.historique_batailles}
@@ -549,11 +572,11 @@ export function RosterScreen({
           <p className="text-muted text-sm" style={{ marginTop: '-0.4rem' }}>
             {t('roster.chooseLeaderBody')}
           </p>
-          {herosVivants.length === 0 ? (
+          {heros.length === 0 ? (
             <p className="text-muted">{t('roster.noLivingHero')}</p>
           ) : (
             <div className="flex flex-col gap-sm">
-              {herosVivants
+              {heros
                 .slice()
                 .sort((a, b) => b.stats_actuels.Cd - a.stats_actuels.Cd)
                 .map((m) => (

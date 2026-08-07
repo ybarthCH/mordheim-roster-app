@@ -82,7 +82,7 @@ export function EquipementCard({
               {entree.cout_notation ? ` (${t('equipementCard.rollNotationPrefix')} ${entree.cout_notation})` : ''}
             </div>
           </div>
-          <div className="flex gap-sm">
+          <div className="list-item__actions">
             {!modificationPermanente && (
               <button
                 className="btn--ghost"
