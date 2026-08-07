@@ -80,7 +80,15 @@ export function ListeBandesScreen() {
         <input
           ref={fileInputRef}
           type="file"
-          accept="application/json"
+          // .json/application/json couvre l'export direct ; .txt/text/plain
+          // couvre les rosters reçus via le partage natif (voir
+          // partagerRoster dans utils/importExport.ts, qui étiquette
+          // volontairement le même contenu JSON en .txt car les OS mobiles
+          // rejettent le partage de fichiers application/json). Sans ces
+          // deux derniers, le sélecteur de fichier peut filtrer le .txt
+          // avant même que lireFichierRoster (qui ignore l'extension) n'ait
+          // la main.
+          accept="application/json,.json,text/plain,.txt"
           style={{ display: 'none' }}
           onChange={handleImport}
         />
