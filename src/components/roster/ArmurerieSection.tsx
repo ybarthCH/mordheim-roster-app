@@ -114,7 +114,7 @@ export function ArmurerieSection({
               {entree.cout_notation ? ` (${t('armurerie.rollNotationPrefix')} ${entree.cout_notation})` : ''}
             </div>
           </div>
-          <div className="flex gap-sm items-center">
+          <div className="list-item__actions">
             <select
               value=""
               disabled={membresEligibles(entree).length === 0}

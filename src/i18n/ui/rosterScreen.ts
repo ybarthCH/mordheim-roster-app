@@ -53,6 +53,7 @@ export const rosterScreen: UiDictionary = {
   'roster.henchmen': { fr: 'Hommes de main', en: 'Henchmen' },
   'roster.hiredSwordsGroup': { fr: 'Francs-tireurs', en: 'Hired Swords' },
   'roster.dramatisPersonae': { fr: 'Dramatis Personae', en: 'Dramatis Personae' },
+  'roster.graveyard': { fr: 'Cimetière', en: 'Graveyard' },
   'roster.splitEmptyHint': {
     fr: 'Sélectionnez un héros ou un homme de main pour afficher sa fiche ici.',
     en: 'Select a hero or henchman to show their sheet here.',
