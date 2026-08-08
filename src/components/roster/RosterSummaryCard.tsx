@@ -71,7 +71,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           )}
           <div className="summary-tile__label">{t('rosterSummary.members')}</div>
         </div>
-        <div className="summary-tile">
+        <div className="summary-tile summary-tile--anchored">
           <span className="summary-tile__icon summary-tile__icon--rating" aria-hidden="true" />
           <div
             className="summary-tile__value"
@@ -83,7 +83,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
             {rules.valeurPuissanceActivee ? t('rosterSummary.powerValue') : t('rosterSummary.rating')}
           </div>
         </div>
-        <div className="summary-tile">
+        <div className="summary-tile summary-tile--anchored">
           <span className="summary-tile__icon summary-tile__icon--treasury" aria-hidden="true" />
           <input
             type="number"
@@ -94,7 +94,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           />
           <div className="summary-tile__label">{t('rosterSummary.treasury')}</div>
         </div>
-        <div className="summary-tile">
+        <div className="summary-tile summary-tile--anchored">
           <span className="summary-tile__icon summary-tile__icon--wyrdstone" aria-hidden="true" />
           <input
             type="number"
