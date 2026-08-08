@@ -99,6 +99,7 @@
   --info-bg: #dde6ee;
   --palier: #b8860b;
   --shadow: 0 2px 8px rgba(60, 40, 10, 0.12);
+  --status-plaque-fill: rgba(0, 0, 0, 0.08);
 }
 
 :root[data-theme='dark']:not([data-palette]),
@@ -123,6 +124,7 @@
   --info-bg: #1c2733;
   --palier: #d9a441;
   --shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  --status-plaque-fill: rgba(255, 255, 255, 0.06);
 }
 
 :root[data-theme='light'][data-palette='noir'] {
@@ -146,6 +148,7 @@
   --info-bg: #dde6ee;
   --palier: #b8860b;
   --shadow: 0 2px 8px rgba(20, 25, 30, 0.12);
+  --status-plaque-fill: rgba(0, 0, 0, 0.08);
 }
 
 :root[data-theme='dark'][data-palette='noir'] {
@@ -169,6 +172,7 @@
   --info-bg: #1c2733;
   --palier: #d9a441;
   --shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  --status-plaque-fill: rgba(255, 255, 255, 0.06);
 }
 
 * {
@@ -827,6 +831,120 @@ button {
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Plaque Actif/Hors de combat : remplace l'ancien interrupteur "pilule"
+   (.status-switch, toujours utilisé pour le compteur de groupe et le badge
+   Mort ci-dessus) par un cartouche en fer/cuir assorti aux illustrations
+   switch-track.png / switch-knob.png (rail à platines rivetées + gemme à
+   facettes). Fond translucide dérivé du thème actif (--status-plaque-fill,
+   voir les 4 blocs :root[data-theme][data-palette]) plutôt qu'un noir opaque
+   fixe : sur fond parchemin clair un aplat noir plein était trop lourd — un
+   voile sombre à 8% (ou clair à 6% en thème sombre, pour éclaircir un fond
+   déjà très sombre) laisse deviner la surface derrière tout en creusant
+   légèrement le cartouche. */
+.status-plaque {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 6px 10px;
+  background: var(--status-plaque-fill);
+  border: 1px solid #7a6b5d;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+}
+.status-plaque:active {
+  transform: scale(0.97);
+}
+.status-plaque--actif {
+  border-color: #4d9a68;
+}
+.status-plaque__switch {
+  position: relative;
+  width: 52px;
+  aspect-ratio: 420 / 137;
+  flex-shrink: 0;
+}
+/* Le rail reste un métal neutre (jamais teinté par le statut) : seule la
+   gemme mobile porte la couleur sémantique, comme un vrai mécanisme dont le
+   boîtier ne change pas mais dont le voyant s'allume ou s'éteint. */
+.status-plaque__switch-track {
+  position: absolute;
+  inset: 0;
+  background-color: #857a6c;
+  -webkit-mask-image: url('/decor/switch-track.png');
+  mask-image: url('/decor/switch-track.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  mask-mode: alpha;
+}
+/* La gemme déborde légèrement du rail (hauteur ~1.25x la piste, aucun
+   ancêtre n'a overflow:hidden) : à la taille exacte du rail, son détail à
+   facettes serait trop fin pour rester lisible — un léger débordement en
+   haut/bas, comme une pierre sertie qui dépasse un peu de sa monture,
+   garde sa coupe identifiable sans dominer tout le contrôle. Le disque de
+   fond ci-dessous (opaque, non masqué) bloque le rail qui se trouve juste
+   derrière ; la gemme elle-même (masquée, teintée) est peinte par-dessus. */
+.status-plaque__switch-knob {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  height: 125%;
+  aspect-ratio: 1 / 1;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  /* Un aplat de --bg-card pur (quasi blanc en thème clair) jurait trop fort
+     à côté du métal terne du rail — mélangé au même gris-brun que le rail
+     (#857a6c), le disque de fond reste assez clair pour bloquer le rail en
+     dessous tout en restant dans la même famille de teintes ternes. */
+  background: color-mix(in srgb, var(--bg-card) 55%, #857a6c 45%);
+  transition: left 0.18s ease;
+}
+.status-plaque__switch-knob-gem {
+  position: absolute;
+  inset: 0;
+  background-color: #9c7d3a;
+  -webkit-mask-image: url('/decor/switch-knob.png');
+  mask-image: url('/decor/switch-knob.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  mask-mode: alpha;
+  transition: background-color 0.15s ease;
+}
+.status-plaque--actif .status-plaque__switch-knob {
+  left: 48%;
+}
+.status-plaque--actif .status-plaque__switch-knob-gem {
+  background-color: #4d9a68;
+}
+/* Largeur figée sur le libellé plutôt que sur toute la plaque : le rail
+   garde une taille constante quel que soit l'état, donc figer seulement le
+   texte (le plus long des deux entre "Actif"/"Active" et "HdC"/"OOA")
+   suffit à garder la plaque entière à taille fixe, indépendamment du statut
+   affiché ou de la langue active. */
+.status-plaque__label {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  width: 3.4em;
+  text-align: center;
+  color: #9c7d3a;
+  transition: color 0.15s ease;
+}
+.status-plaque--actif .status-plaque__label {
+  color: #4d9a68;
 }
 
 /* Avatar : photo si renseignée, sinon initiales sur un fond coloré dérivé

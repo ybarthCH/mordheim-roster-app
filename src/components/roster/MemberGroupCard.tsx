@@ -255,7 +255,7 @@ export function MemberGroupCard({
                       ) : (
                         <button
                           type="button"
-                          className={`status-switch status-switch--${STATUT_COULEUR[m.statut]}${m.statut === 'actif' ? ' status-switch--on' : ''}`}
+                          className={`status-plaque${m.statut === 'actif' ? ' status-plaque--actif' : ''}`}
                           onClick={(e) => {
                             e.stopPropagation();
                             onBasculerHorsCombat(m);
@@ -263,11 +263,13 @@ export function MemberGroupCard({
                           title={titreHorsCombat(m)}
                           aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
                         >
-                          {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                          <span className="status-switch__label status-switch__label--fixed">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
-                          <span className="status-switch__track">
-                            <span className="status-switch__thumb" />
+                          <span className="status-plaque__switch">
+                            <span className="status-plaque__switch-track" />
+                            <span className="status-plaque__switch-knob">
+                              <span className="status-plaque__switch-knob-gem" />
+                            </span>
                           </span>
+                          <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
                         </button>
                       )}
                       {inventaireGroupeMismatch(m) && (
@@ -382,7 +384,7 @@ export function MemberGroupCard({
                 ) : (
                   <button
                     type="button"
-                    className={`status-switch status-switch--${STATUT_COULEUR[m.statut]}${m.statut === 'actif' ? ' status-switch--on' : ''}`}
+                    className={`status-plaque${m.statut === 'actif' ? ' status-plaque--actif' : ''}`}
                     onClick={(e) => {
                       e.stopPropagation();
                       onBasculerHorsCombat(m);
@@ -390,11 +392,13 @@ export function MemberGroupCard({
                     title={titreHorsCombat(m)}
                     aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
                   >
-                    {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                    <span className="status-switch__label status-switch__label--fixed">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
-                    <span className="status-switch__track">
-                      <span className="status-switch__thumb" />
+                    <span className="status-plaque__switch">
+                      <span className="status-plaque__switch-track" />
+                      <span className="status-plaque__switch-knob">
+                        <span className="status-plaque__switch-knob-gem" />
+                      </span>
                     </span>
+                    <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
                   </button>
                 )}
                 <button
