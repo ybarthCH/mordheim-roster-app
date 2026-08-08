@@ -1637,6 +1637,13 @@ button {
    (--font-display, Caslon Antique) pour le chiffre que pour un <h3> comme
    "Armurerie de la bande", au lieu de --font-heading (Garamond). */
 .summary-tile {
+  position: relative;
+  /* Le filigrane (.summary-tile__icon) est volontairement plus grand que la
+     tuile sur son axe long (voir plus bas) : sans ça, il faudrait le
+     rétrécir sous sa taille naturelle pour tenir dans les deux dimensions,
+     perdant le côté "détail qui déborde légèrement du cadre". overflow
+     hidden fait respecter le contour arrondi de la tuile à la place. */
+  overflow: hidden;
   background: var(--bg-inset);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -1649,12 +1656,65 @@ button {
   background: var(--warning-bg);
   border-color: color-mix(in srgb, var(--warning) 45%, var(--border));
 }
+/* Fait passer chiffre/libellé/indice au-dessus du filigrane : sans ça, un
+   élément position:absolute sans z-index (le filigrane) peint par défaut
+   AU-DESSUS du contenu en flux normal, pas en dessous, quel que soit
+   l'ordre dans le DOM. */
+.summary-tile > *:not(.summary-tile__icon) {
+  position: relative;
+  z-index: 1;
+}
 .summary-tile__value {
   display: block;
   font-family: var(--font-display);
   font-size: 1.3rem;
   font-weight: 700;
   line-height: 1.05;
+}
+/* Filigrane en fond de case, teinté par masque CSS : la source (PNG
+   line-art noir/transparent) ne fournit qu'une silhouette, sa couleur vient
+   de background-color appliquée à travers le masque — elle suit donc le
+   thème actif sans ressource par thème. Grand et discret (opacité réduite)
+   plutôt que petit et plein : un repère visuel en arrière-plan derrière le
+   chiffre/libellé, pas une icône qui rivalise avec eux. Centré, taille fixe
+   relative à la tuile mais jamais étirée/déformée (mask-size: contain
+   respecte le ratio réel de chaque illustration). */
+.summary-tile__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 78%;
+  height: 78%;
+  opacity: 0.22;
+  background-color: var(--palier);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  /* Explicite plutôt que de compter sur le défaut du navigateur : certains
+     moteurs masquent par luminance (le noir de l'encre serait alors traité
+     comme "vide" et effacerait la silhouette au lieu de la révéler). */
+  mask-mode: alpha;
+  pointer-events: none;
+}
+.summary-tile__icon--wyrdstone {
+  -webkit-mask-image: url('/decor/icon-wyrdstone.png');
+  mask-image: url('/decor/icon-wyrdstone.png');
+}
+.summary-tile__icon--treasury {
+  -webkit-mask-image: url('/decor/icon-treasury.png');
+  mask-image: url('/decor/icon-treasury.png');
+}
+.summary-tile__icon--rating {
+  -webkit-mask-image: url('/decor/icon-rating.png');
+  mask-image: url('/decor/icon-rating.png');
+}
+.summary-tile__icon--members {
+  -webkit-mask-image: url('/decor/icon-members.png');
+  mask-image: url('/decor/icon-members.png');
 }
 .summary-tile__input {
   width: 100%;
