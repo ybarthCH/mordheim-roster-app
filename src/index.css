@@ -1235,7 +1235,16 @@ button {
    doit compter les colonnes plutôt que descendre tout droit. Chiffres
    tabulaires (largeur fixe) pour la même raison : rester alignés même quand
    un chiffre passe de 1 à 2 caractères. */
-.roster-table__stat {
+/* Sélecteur qualifié (th/td + classe) volontairement plus spécifique que
+   ".roster-table th, .roster-table td" ci-dessus (élément + classe elle
+   aussi) : un simple ".roster-table__stat { text-align: center }" perd
+   contre cette règle de base à spécificité égale-ou-supérieure et le
+   centrage ne s'applique jamais — bug qui passe inaperçu sur les colonnes à
+   une lettre (M, F, E, I, A) mais saute aux yeux sur celles à deux (CC, CT,
+   PV, Cd), où le chiffre atterrit sous la première lettre au lieu du
+   centre. */
+.roster-table th.roster-table__stat,
+.roster-table td.roster-table__stat {
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
