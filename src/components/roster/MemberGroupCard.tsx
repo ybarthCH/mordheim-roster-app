@@ -148,16 +148,26 @@ export function MemberGroupCard({
               <th style={{ width: '1.6rem' }}></th>
               <th>{t('memberGroup.name')}</th>
               {!masquerProfil && <th>{t('memberGroup.profile')}</th>}
-              <th>{libelleCaracteristique('M', language)}</th>
-              <th>{libelleCaracteristique('CC', language)}</th>
-              <th>{libelleCaracteristique('CT', language)}</th>
-              <th>{libelleCaracteristique('F', language)}</th>
-              <th>{libelleCaracteristique('E', language)}</th>
-              <th>{libelleCaracteristique('PV', language)}</th>
-              <th>{libelleCaracteristique('I', language)}</th>
-              <th>{libelleCaracteristique('A', language)}</th>
-              <th>{libelleCaracteristique('Cd', language)}</th>
-              <th>XP</th>
+              <th className="roster-table__stat roster-table__stat--band roster-table__col-M roster-table__group-start">
+                {libelleCaracteristique('M', language)}
+              </th>
+              <th className="roster-table__stat roster-table__col-CC">{libelleCaracteristique('CC', language)}</th>
+              <th className="roster-table__stat roster-table__stat--band roster-table__col-CT">
+                {libelleCaracteristique('CT', language)}
+              </th>
+              <th className="roster-table__stat roster-table__col-F">{libelleCaracteristique('F', language)}</th>
+              <th className="roster-table__stat roster-table__stat--band roster-table__col-E">
+                {libelleCaracteristique('E', language)}
+              </th>
+              <th className="roster-table__stat roster-table__col-PV">{libelleCaracteristique('PV', language)}</th>
+              <th className="roster-table__stat roster-table__stat--band roster-table__col-I">
+                {libelleCaracteristique('I', language)}
+              </th>
+              <th className="roster-table__stat roster-table__col-A">{libelleCaracteristique('A', language)}</th>
+              <th className="roster-table__stat roster-table__stat--band roster-table__col-Cd">
+                {libelleCaracteristique('Cd', language)}
+              </th>
+              <th className="roster-table__stat roster-table__group-start">XP</th>
               <th>{t('memberGroup.status')}</th>
               <th></th>
             </tr>
@@ -197,16 +207,26 @@ export function MemberGroupCard({
                       )}
                     </td>
                     {!masquerProfil && <td>{profil?.nom ?? m.profil_id}</td>}
-                    <td>{m.stats_variables?.M ?? m.stats_actuels.M}</td>
-                    <td>{m.stats_variables?.CC ?? m.stats_actuels.CC}</td>
-                    <td>{m.stats_variables?.CT ?? m.stats_actuels.CT}</td>
-                    <td>{m.stats_variables?.F ?? m.stats_actuels.F}</td>
-                    <td>{m.stats_variables?.E ?? m.stats_actuels.E}</td>
-                    <td>{m.stats_variables?.PV ?? m.stats_actuels.PV}</td>
-                    <td>{m.stats_variables?.I ?? m.stats_actuels.I}</td>
-                    <td>{m.stats_variables?.A ?? m.stats_actuels.A}</td>
-                    <td>{m.stats_variables?.Cd ?? m.stats_actuels.Cd}</td>
-                    <td>{m.xp}</td>
+                    <td className="roster-table__stat roster-table__stat--band roster-table__col-M roster-table__group-start">
+                      {m.stats_variables?.M ?? m.stats_actuels.M}
+                    </td>
+                    <td className="roster-table__stat roster-table__col-CC">{m.stats_variables?.CC ?? m.stats_actuels.CC}</td>
+                    <td className="roster-table__stat roster-table__stat--band roster-table__col-CT">
+                      {m.stats_variables?.CT ?? m.stats_actuels.CT}
+                    </td>
+                    <td className="roster-table__stat roster-table__col-F">{m.stats_variables?.F ?? m.stats_actuels.F}</td>
+                    <td className="roster-table__stat roster-table__stat--band roster-table__col-E">
+                      {m.stats_variables?.E ?? m.stats_actuels.E}
+                    </td>
+                    <td className="roster-table__stat roster-table__col-PV">{m.stats_variables?.PV ?? m.stats_actuels.PV}</td>
+                    <td className="roster-table__stat roster-table__stat--band roster-table__col-I">
+                      {m.stats_variables?.I ?? m.stats_actuels.I}
+                    </td>
+                    <td className="roster-table__stat roster-table__col-A">{m.stats_variables?.A ?? m.stats_actuels.A}</td>
+                    <td className="roster-table__stat roster-table__stat--band roster-table__col-Cd">
+                      {m.stats_variables?.Cd ?? m.stats_actuels.Cd}
+                    </td>
+                    <td className="roster-table__stat roster-table__group-start">{m.xp}</td>
                     <td>
                       {estGroupeSimplifie(m) ? (
                         <button

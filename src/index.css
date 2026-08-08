@@ -1216,9 +1216,55 @@ button {
 }
 .roster-table th {
   color: var(--text-muted);
+  font-family: var(--font-display);
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+}
+/* En-tête un peu plus marqué que les liserés de ligne (var(--border)) en
+   dessous : ancre visuellement "c'est ici qu'on lit vers le bas" avant le
+   mur de treize colonnes. */
+.roster-table thead th {
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 0.6rem;
+}
+
+/* Colonnes de caractéristiques (M à Cd) et XP : centrées sous leur en-tête
+   plutôt qu'alignées à gauche — sans ça, une CC à deux chiffres et un M à un
+   chiffre ne tombent jamais au même endroit d'une ligne à l'autre, et l'œil
+   doit compter les colonnes plutôt que descendre tout droit. Chiffres
+   tabulaires (largeur fixe) pour la même raison : rester alignés même quand
+   un chiffre passe de 1 à 2 caractères. */
+.roster-table__stat {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+/* Trame alternée très discrète sur les neuf colonnes de caractéristiques
+   seulement (jamais sur XP, hors du groupe) : un repère visuel de plus pour
+   suivre une colonne sans avoir à compter, sans faire ressembler la table à
+   une grille de tableur. */
+.roster-table__stat--band {
+  background: color-mix(in srgb, var(--bg-inset) 55%, transparent);
+}
+/* Un seul liseré discret au début du bloc caractéristiques et un autre au
+   début du bloc XP/Statut : découpe la table en trois zones de lecture
+   (identité / caractéristiques / méta) plutôt qu'un mur continu de colonnes. */
+.roster-table__group-start {
+  border-left: 1px solid var(--border);
+}
+/* Bonus souris/trackpad : survoler une case de caractéristique surligne
+   toute sa colonne (repère "en croix" ligne × colonne). Sans effet au
+   tactile — rien à perdre sur un écran qui ne connaît pas :hover. */
+.roster-table:has(.roster-table__col-M:hover) .roster-table__col-M,
+.roster-table:has(.roster-table__col-CC:hover) .roster-table__col-CC,
+.roster-table:has(.roster-table__col-CT:hover) .roster-table__col-CT,
+.roster-table:has(.roster-table__col-F:hover) .roster-table__col-F,
+.roster-table:has(.roster-table__col-E:hover) .roster-table__col-E,
+.roster-table:has(.roster-table__col-PV:hover) .roster-table__col-PV,
+.roster-table:has(.roster-table__col-I:hover) .roster-table__col-I,
+.roster-table:has(.roster-table__col-A:hover) .roster-table__col-A,
+.roster-table:has(.roster-table__col-Cd:hover) .roster-table__col-Cd {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
 }
 /* Le synopsis d'équipement d'un membre a sa propre ligne (pleine largeur,
    sous la ligne nom+caractéristiques) plutôt que d'être coincé dans la
