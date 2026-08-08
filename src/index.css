@@ -1531,19 +1531,6 @@ button {
   overflow-x: hidden;
 }
 
-/* La colonne de liste utilise toujours la présentation carte (avec sa
-   grille de caractéristiques) plutôt que le tableau dense à 9 colonnes,
-   quelle que soit sa largeur — y compris redimensionnée en grand sur un
-   écran large (voir .roster-split__resizer,
-   RosterScreen.SPLIT_LIST_WIDTH_MAX_PCT). C'est la présentation demandée
-   pour toutes les tailles d'écran, pas seulement les plus étroites. */
-.roster-split__list .roster-table-wrap {
-  display: none;
-}
-.roster-split__list .member-cards {
-  display: block;
-}
-
 .roster-split__detail {
   position: relative;
   background-color: var(--bg-card);
