@@ -75,12 +75,6 @@
      isolation) posé en surimpression sur les cartes pour casser la platitude
      des aplats de couleur — cf. mordheimer.net/docs/rules. */
   --texture-parchemin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-  /* Poignée du séparateur deux volets (.roster-split__resizer) : tuile de
-     deux maillons métalliques (un vertical, un horizontal, comme une vraie
-     chaîne vue de face) répétée à la verticale, et médaillon de crâne doré
-     posé au centre comme repère de préhension. */
-  --texture-chaine: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='28' viewBox='0 0 16 28'%3E%3Cdefs%3E%3ClinearGradient id='m' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2322232a'/%3E%3Cstop offset='0.3' stop-color='%239aa1a9'/%3E%3Cstop offset='0.5' stop-color='%23f4f6f8'/%3E%3Cstop offset='0.7' stop-color='%239aa1a9'/%3E%3Cstop offset='1' stop-color='%2322232a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cellipse cx='8.6' cy='7.6' rx='3.4' ry='6.4' fill='none' stroke='%23000' stroke-opacity='0.35' stroke-width='2.8'/%3E%3Cellipse cx='8' cy='7' rx='3.4' ry='6.4' fill='none' stroke='url(%23m)' stroke-width='2.5'/%3E%3Cellipse cx='8.6' cy='21.6' rx='6.2' ry='3.4' fill='none' stroke='%23000' stroke-opacity='0.35' stroke-width='2.8'/%3E%3Cellipse cx='8' cy='21' rx='6.2' ry='3.4' fill='none' stroke='url(%23m)' stroke-width='2.5'/%3E%3C/svg%3E");
-  --texture-crane-or: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cdefs%3E%3CradialGradient id='g' cx='0.35' cy='0.3' r='0.9'%3E%3Cstop offset='0' stop-color='%23fff3c4'/%3E%3Cstop offset='0.4' stop-color='%23e6b93d'/%3E%3Cstop offset='0.75' stop-color='%23a97a17'/%3E%3Cstop offset='1' stop-color='%236b4d0f'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath fill-rule='evenodd' fill='url(%23g)' stroke='%233a2a08' stroke-width='0.6' d='M12 3 C7 3 4 6.5 4 11 C4 14 5.5 15.8 7 17 L7 20 L9 20 L9 18 L10.5 18 L10.5 20 L13.5 20 L13.5 18 L15 18 L15 20 L17 20 L17 17 C18.5 15.8 20 14 20 11 C20 6.5 17 3 12 3 Z M8.5 11 C8.5 12.1 7.9 13 7.2 13 C6.4 13 6 12.1 6 11 C6 9.9 6.4 9 7.2 9 C7.9 9 8.5 9.9 8.5 11 Z M18 11 C18 12.1 17.6 13 16.8 13 C16.1 13 15.5 12.1 15.5 11 C15.5 9.9 16.1 9 16.8 9 C17.6 9 18 9.9 18 11 Z M11 13 L10 16 L14 16 L13 13 Z'/%3E%3C/svg%3E");
 }
 
 :root[data-theme='light']:not([data-palette]),
@@ -1492,55 +1486,27 @@ button {
 }
 
 .roster-split__resizer {
-  position: relative;
   align-self: stretch;
   width: 10px;
   margin: 0 -0.3rem;
+  border-radius: var(--radius);
   cursor: col-resize;
   touch-action: none;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-/* La chaîne : maillons métalliques tendus sur toute la hauteur (tuile SVG,
-   même convention que --texture-parchemin), à la place d'une simple barre —
-   un objet reconnaissable plutôt qu'un trait abstrait. */
 .roster-split__resizer::before {
   content: '';
-  width: 13px;
+  width: 3px;
   height: 100%;
   min-height: 2.5rem;
-  background-image: var(--texture-chaine);
-  background-repeat: repeat-y;
-  background-position: top center;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
-  opacity: 0.92;
-}
-/* Le crâne doré : repère de préhension posé au centre de la chaîne, par-
-   dessus (médaillon en relief — même esprit que .btn--primary/.death-plaque,
-   sans image importée). */
-.roster-split__resizer::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 22px;
-  height: 22px;
-  transform: translate(-50%, -50%);
-  background-image: var(--texture-crane-or);
-  background-repeat: no-repeat;
-  background-size: contain;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
-  pointer-events: none;
+  border-radius: 2px;
+  background: var(--border);
 }
 .roster-split__resizer:hover::before,
 .roster-split__resizer:active::before {
-  opacity: 1;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 3px var(--accent));
-}
-.roster-split__resizer:hover::after,
-.roster-split__resizer:active::after {
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 4px var(--accent));
+  background: var(--accent);
 }
 /* Sans ça, un grid item se dimensionne sur la largeur intrinsèque minimale
    de son contenu (ex : les 9 colonnes de .stat-grid) au lieu de sa piste
