@@ -1486,27 +1486,54 @@ button {
 }
 
 .roster-split__resizer {
+  position: relative;
   align-self: stretch;
   width: 10px;
   margin: 0 -0.3rem;
-  border-radius: var(--radius);
   cursor: col-resize;
   touch-action: none;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+/* Chaîne peinte (illustration fournie, découpée en une tuile d'un maillon
+   vertical + un maillon horizontal qui se répète sans coupure visible) sur
+   toute la hauteur du séparateur, à la place d'une simple barre. */
 .roster-split__resizer::before {
   content: '';
-  width: 3px;
+  width: 14px;
   height: 100%;
   min-height: 2.5rem;
-  border-radius: 2px;
-  background: var(--border);
+  background-image: url('/decor/resizer-chain-tile.png');
+  background-repeat: repeat-y;
+  background-position: top center;
+  background-size: 14px auto;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+}
+/* Crâne (même illustration, recadré) posé au centre comme repère de
+   préhension. */
+.roster-split__resizer::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 38px;
+  transform: translate(-50%, -50%);
+  background-image: url('/decor/resizer-skull.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+  pointer-events: none;
 }
 .roster-split__resizer:hover::before,
 .roster-split__resizer:active::before {
-  background: var(--accent);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 3px var(--accent));
+}
+.roster-split__resizer:hover::after,
+.roster-split__resizer:active::after {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 4px var(--accent));
 }
 /* Sans ça, un grid item se dimensionne sur la largeur intrinsèque minimale
    de son contenu (ex : les 9 colonnes de .stat-grid) au lieu de sa piste

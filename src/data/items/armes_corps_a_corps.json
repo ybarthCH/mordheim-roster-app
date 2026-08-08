@@ -24,10 +24,10 @@
     ]
   },
   {
-    "id": "arme_contondante_une_main", "nom": "Arme contondante à une main (bâton, gourdin, masse, marteau)", "categorie": "armes_cac",
+    "id": "arme_contondante_une_main", "nom": "Arme contondante à une main", "categorie": "armes_cac",
     "cout": 3, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
     "acces": ["commun"], "source": "LdR", "page": 1,
-    "texte": "Ces armes rudimentaires et contondantes vont des gourdins primitifs aux marteaux nains forgés dans le meilleur acier. Un coup de masse peut facilement briser un crâne ou assommer un homme.",
+    "texte": "(Bâton, gourdin, masse, marteau.) Ces armes rudimentaires et contondantes vont des gourdins primitifs aux marteaux nains forgés dans le meilleur acier. Un coup de masse peut facilement briser un crâne ou assommer un homme.",
     "portee": "C à C", "force": "U",
     "regles_speciales": [
       { "nom": "Contondant", "texte": "Un jet de Dégâts de 2-4 (au lieu de 3-4 habituellement) est considéré comme sonné." }
