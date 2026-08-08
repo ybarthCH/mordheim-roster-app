@@ -105,7 +105,12 @@ export function EvenementExploration({
 
   const ajouterObjet = (nomLigne: string, item: ShopItem, quantite: number) => {
     if (!evenement) return;
-    onAchatStockMultiple(item, 0, quantite);
+    // Valeur de référence pour une revente future (voir ajouterAuStock dans
+    // PostBatailleScreen) : le vrai prix de l'objet (règles optionnelles
+    // déjà appliquées par itemVersShopItem), jamais 0 — l'objet est gratuit
+    // pour la trésorerie (onAchatStockMultiple ne la touche jamais), pas
+    // sans valeur.
+    onAchatStockMultiple(item, typeof item.cout === 'number' ? item.cout : 0, quantite);
     onAjouterAuJournal(
       `${evenement.nom}${nomLigne ? ` — ${nomLigne}` : ''} : ${item.nom}${quantite > 1 ? ` ×${quantite}` : ''} ajouté(e) au stock.`
     );

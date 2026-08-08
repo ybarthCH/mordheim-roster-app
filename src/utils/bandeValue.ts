@@ -2,6 +2,7 @@ import type { RosterInstance } from '../types/roster';
 import { getCatalogue } from '../data/warbands';
 import { resolveProfil } from './profil';
 import { estFrancTireur } from '../data/hiredSwords';
+import { estDramatisPersonae } from '../data/dramatisPersonae';
 import { translateWarbandCatalog } from '../i18n/data/warbands';
 import type { Language } from '../state/useLanguage';
 
@@ -27,10 +28,17 @@ export function effectifTotal(roster: RosterInstance): number {
  * exclus d'effectifTotal (règle imprimée : ne comptent pas dans l'effectif
  * maximum autorisé de la bande), mais bien présents sur la table de jeu.
  * Affiché à part pour éviter de laisser croire que la bande n'aligne que
- * `effectifTotal` figurines au combat.
+ * `effectifTotal` figurines au combat. Exclut les Dramatis Personae (voir
+ * nombreDramatisPersonaeActifs) : même séparation que dans RosterScreen
+ * (groupe "Hired Swords" vs groupe "Dramatis Personae").
  */
 export function nombreFrancsTireursActifs(roster: RosterInstance): number {
-  return roster.membres.filter((m) => m.statut !== 'mort' && estFrancTireur(m)).length;
+  return roster.membres.filter((m) => m.statut !== 'mort' && estFrancTireur(m) && !estDramatisPersonae(m)).length;
+}
+
+/** Nombre de Dramatis Personae encore actifs (non-morts) — voir nombreFrancsTireursActifs. */
+export function nombreDramatisPersonaeActifs(roster: RosterInstance): number {
+  return roster.membres.filter((m) => m.statut !== 'mort' && estDramatisPersonae(m)).length;
 }
 
 export function nomCatalogue(bandeId: string, language: Language = 'fr'): string {
