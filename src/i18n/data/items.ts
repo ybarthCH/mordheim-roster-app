@@ -1916,9 +1916,9 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   arme_contondante_une_main: {
-    nom: 'One-Handed Blunt Weapon (staff, club, mace, hammer)',
+    nom: 'One-Handed Blunt Weapon',
     texte:
-      'These rudimentary, blunt weapons range from primitive clubs to dwarf hammers forged from the finest steel. A blow from a mace can easily crack a skull or knock a man out.',
+      '(Staff, club, mace, hammer.) These rudimentary, blunt weapons range from primitive clubs to dwarf hammers forged from the finest steel. A blow from a mace can easily crack a skull or knock a man out.',
     regles_speciales: [
       { nom: 'Blunt', texte: 'A damage roll of 2-4 (instead of the usual 3-4) is treated as Stunned.' },
     ],
