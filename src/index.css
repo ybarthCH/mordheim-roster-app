@@ -1656,6 +1656,27 @@ button {
   background: var(--warning-bg);
   border-color: color-mix(in srgb, var(--warning) 45%, var(--border));
 }
+/* Rating/Trésorerie/Wyrdstone : chiffre centré dans la hauteur de la tuile
+   (étirée par le grid pour matcher la tuile Membres, plus haute à cause de
+   son indice de déroute + son résumé francs-tireurs/PNJ) plutôt que collé en
+   haut avec du vide en dessous, libellé ancré tout en bas. Marges auto sur
+   le chiffre plutôt qu'un simple justify-content: space-between : ça centre
+   le chiffre dans l'espace libre AU-DESSUS du libellé au lieu de partager
+   l'espace également des deux côtés du libellé lui-même. Fonctionne aussi
+   bien pour un <div> (rating) qu'un <input> (trésorerie/wyrdstone), une
+   marge auto agissant sur la boîte de l'élément flex quel que soit son
+   display interne. */
+.summary-tile--anchored {
+  display: flex;
+  flex-direction: column;
+}
+.summary-tile--anchored .summary-tile__value {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.summary-tile--anchored .summary-tile__label {
+  margin-top: 0;
+}
 /* Fait passer chiffre/libellé/indice au-dessus du filigrane : sans ça, un
    élément position:absolute sans z-index (le filigrane) peint par défaut
    AU-DESSUS du contenu en flux normal, pas en dessous, quel que soit
