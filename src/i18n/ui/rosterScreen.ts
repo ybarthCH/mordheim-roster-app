@@ -89,6 +89,8 @@ export const rosterScreen: UiDictionary = {
   'rosterSummary.bandNamePlaceholder': { fr: 'Nom de la bande', en: 'Warband name' },
   'rosterSummary.members': { fr: 'Membres', en: 'Members' },
   'rosterSummary.hiredSwordsAbbrev': { fr: 'F-T', en: 'H-S' },
+  'rosterSummary.dramatisPersonaeAbbrev': { fr: 'D-P', en: 'D-P' },
+  'rosterSummary.routThreshold': { fr: 'déroute', en: 'rout' },
   'rosterSummary.rating': { fr: 'Rating', en: 'Rating' },
   'rosterSummary.powerValue': { fr: 'Power Value', en: 'Power Value' },
   'rosterSummary.treasury': { fr: 'Trésorerie (po)', en: 'Treasury (gc)' },

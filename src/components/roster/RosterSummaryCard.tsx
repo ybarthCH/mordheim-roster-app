@@ -1,6 +1,6 @@
-import { effectifTotal, nombreFrancsTireursActifs } from '../../utils/bandeValue';
+import { effectifTotal, nombreFrancsTireursActifs, nombreDramatisPersonaeActifs } from '../../utils/bandeValue';
 import { ratingAffiche } from '../../utils/displayedRating';
-import { formatPowerValueTooltip, powerValueDetailTotal } from '../../utils/powerValue';
+import { formatPowerValueTooltip, powerValueDetailTotal, seuilDeroute } from '../../utils/powerValue';
 import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { effectifMaxAutorise } from '../../utils/validation';
@@ -20,6 +20,8 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
   const effectifMax = catalogue ? effectifMaxAutorise(roster) : undefined;
   const effectifPlein = effectifMax != null && effectif >= effectifMax;
   const francsTireurs = nombreFrancsTireursActifs(roster);
+  const dramatisPersonae = nombreDramatisPersonaeActifs(roster);
+  const membreActifPresent = roster.membres.some((m) => m.statut !== 'mort');
 
   return (
     <div className="card">
@@ -37,10 +39,17 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
         <div className={`summary-tile${effectifPlein ? ' summary-tile--attention' : ''}`}>
           <div className="summary-tile__value" style={effectifPlein ? { color: 'var(--warning)' } : undefined}>
             {effectifMax != null ? `${effectif}/${effectifMax}` : effectif}
+            {membreActifPresent && (
+              <span className="summary-tile__value-annotation">
+                ({t('rosterSummary.routThreshold')} {seuilDeroute(roster)})
+              </span>
+            )}
           </div>
-          {francsTireurs > 0 && (
+          {(francsTireurs > 0 || dramatisPersonae > 0) && (
             <div className="summary-tile__hint">
-              {francsTireurs} {t('rosterSummary.hiredSwordsAbbrev')}
+              {francsTireurs > 0 && `${francsTireurs} ${t('rosterSummary.hiredSwordsAbbrev')}`}
+              {francsTireurs > 0 && dramatisPersonae > 0 && ' · '}
+              {dramatisPersonae > 0 && `${dramatisPersonae} ${t('rosterSummary.dramatisPersonaeAbbrev')}`}
             </div>
           )}
           <div className="summary-tile__label">{t('rosterSummary.members')}</div>

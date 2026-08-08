@@ -3,6 +3,7 @@ import { itemVersShopItem } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { LigneObjetTrouve } from '../../data/tableExplorationEvenements';
 import { useLanguage } from '../../state/useLanguage';
+import { useGameRules } from '../../state/useGameRules';
 import { translateItem } from '../../i18n/data/items';
 
 type Props = {
@@ -18,7 +19,8 @@ type Props = {
 // motif de JetOrButton (jet fait sur table papier, jamais lancé par l'app).
 export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }: Props) {
   const { t, language } = useLanguage();
-  const item = itemVersShopItem(ligneObjet.item_id, catalogueId);
+  const { rules } = useGameRules();
+  const item = itemVersShopItem(ligneObjet.item_id, catalogueId, rules);
   const itemAffiche = item ? translateItem(item, language) : null;
   const [jet, setJet] = useState('');
   // Se verrouille après ajout, comme JetOrButton : sans ça rien n'empêchait

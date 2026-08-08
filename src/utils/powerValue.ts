@@ -4,12 +4,9 @@
 // recalculée à la demande depuis l'état courant du roster — jamais dérivée
 // de l'XP ni persistée.
 //
-// Formule :
-//   Par figurine, sommé sur la bande :
-//     Coût de recrutement + Équipement + Progression du profil
-//     + Compétences acquises + Blessures/effets permanents/indisponibilité
-//   Plus, au niveau de la bande entière (une seule fois, pas par figurine) :
-//     Rout Value (basée sur le seuil de déroute)
+// Formule (par figurine, sommée sur la bande) :
+//   Coût de recrutement + Équipement + Progression du profil
+//   + Compétences acquises + Blessures/effets permanents/indisponibilité
 //
 // Voir chaque fonction ci-dessous pour le détail de chaque terme.
 import type { Member, RosterInstance, SeriousInjuryEffect } from '../types/roster';
@@ -309,30 +306,19 @@ function effectifCombatTotal(roster: RosterInstance): number {
     .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
 }
 
-/** Seuil de déroute (règle officielle : 25% de l'effectif, arrondi au supérieur). */
+// Seuil de déroute (règle officielle : 25% de l'effectif, arrondi au
+// supérieur) — n'entre plus dans le calcul de la Power Value elle-même
+// (retiré à la demande de l'utilisateur), mais reste exposé pour un affichage
+// informatif indépendant (voir le "hint" sous la tuile Membres dans
+// RosterSummaryCard).
 export function seuilDeroute(roster: RosterInstance): number {
   return Math.max(1, Math.ceil(effectifCombatTotal(roster) / 4));
 }
 
-/**
- * Valeur Power Rating du seuil de déroute, par palier de 4 figurines
- * (1-4 -> +0, 5-8 -> +100, 9-12 -> +200, 13-20 -> +300, plafonné à +300 —
- * volontairement, pour ne pas sur-pénaliser les bandes "horde" (Skavens,
- * Gobelins...) qui ont déjà d'autres faiblesses structurelles comme un
- * Commandement bas). Bande-only : n'apparaît jamais dans le détail d'un
- * membre individuel.
- */
-export function routValue(roster: RosterInstance): number {
-  return Math.min(300, Math.max(0, (seuilDeroute(roster) - 1) * 100));
-}
-
 // Décomposition affichable de la Power Value d'un membre ou d'une bande —
-// R/E/P/S/W/D (Recrutement / Équipement / Progression du Profil / Skills /
-// Wounds / Déroute), voir formatPowerValueTooltip. Ces lettres ne sont
-// volontairement pas traduites (identiques en français et en anglais). `rout`
-// n'est renseigné que sur le total de bande (powerValueDetailTotal) — jamais
-// sur le détail d'un membre individuel (powerValueDetailMembre), la Rout
-// Value étant une propriété de la bande entière, pas d'une figurine.
+// R/E/P/S/W (Recrutement / Équipement / Progression du Profil / Skills /
+// Wounds), voir formatPowerValueTooltip. Ces cinq lettres ne sont volontai-
+// rement pas traduites (identiques en français et en anglais).
 export type PowerValueDetail = {
   recrutement: number;
   equipement: number;
@@ -340,7 +326,6 @@ export type PowerValueDetail = {
   competences: number;
   blessures: number;
   total: number;
-  rout?: number;
 };
 
 /**
@@ -396,14 +381,12 @@ const DETAIL_VIDE: PowerValueDetail = {
 };
 
 /**
- * Décomposition R/E/P/S/W/D sommée sur toute la bande — même périmètre que
+ * Décomposition R/E/P/S/W sommée sur toute la bande — même périmètre que
  * ratingTotal() (utils/rating.ts) : un membre Mort est exclu, tout autre
- * statut (Blessé, Hors de combat...) compte normalement. La Rout Value (D)
- * est une propriété de la bande entière, calculée une seule fois ici plutôt
- * que sommée depuis les membres (elle n'existe pas au niveau membre).
+ * statut (Blessé, Hors de combat...) compte normalement.
  */
 export function powerValueDetailTotal(roster: RosterInstance): PowerValueDetail {
-  const detail = roster.membres
+  return roster.membres
     .filter((m) => m.statut !== 'mort')
     .reduce((acc, m) => {
       const d = powerValueDetailMembre(m, roster);
@@ -416,8 +399,6 @@ export function powerValueDetailTotal(roster: RosterInstance): PowerValueDetail 
         total: acc.total + d.total,
       };
     }, DETAIL_VIDE);
-  const rout = routValue(roster);
-  return { ...detail, total: detail.total + rout, rout };
 }
 
 export function powerValueTotal(roster: RosterInstance): number {
@@ -425,23 +406,19 @@ export function powerValueTotal(roster: RosterInstance): number {
 }
 
 /**
- * Tooltip texte multi-lignes (survol souris) : R/E/P/S/W/D volontairement
- * non traduits (abréviations identiques en français et en anglais, voir
+ * Tooltip texte multi-lignes (survol souris) : R/E/P/S/W volontairement non
+ * traduits (abréviations identiques en français et en anglais, voir
  * PowerValueDetail). Format brut adapté à un attribut `title` natif —
- * `\n` y est bien rendu comme un saut de ligne par tous les navigateurs. La
- * ligne D (Rout Value) n'apparaît que si `d.rout` est renseigné, donc
- * uniquement pour un total de bande (jamais pour un membre individuel).
+ * `\n` y est bien rendu comme un saut de ligne par tous les navigateurs.
  */
 export function formatPowerValueTooltip(d: PowerValueDetail): string {
-  const lignes = [
+  return [
     `R ${d.recrutement}`,
     `E ${d.equipement}`,
     `P ${d.progression}`,
     `S ${d.competences}`,
     `W ${d.blessures}`,
-  ];
-  if (d.rout != null) lignes.push(`D ${d.rout}`);
-  return lignes.join('\n');
+  ].join('\n');
 }
 
 /**
