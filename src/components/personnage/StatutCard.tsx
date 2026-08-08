@@ -47,6 +47,21 @@ export function StatutCard({
     setTailleGroupeSaisie(String(membre.taille_groupe));
   }, [membre.instance_id, membre.taille_groupe]);
 
+  // Même principe pour le nom : un input contrôlé directement par
+  // `membre.nom_perso` faisait sauter le curseur à chaque frappe, car
+  // onMajMembre passe par updateRoster (écriture IndexedDB asynchrone, voir
+  // RostersContext) — la prop ne se met à jour qu'après ce aller-retour, et
+  // React réaffecte alors `.value` en retard sur ce que le clavier vient
+  // d'insérer, ce qui déplace le curseur. Une saisie locale, synchronisée
+  // uniquement au changement de personnage (jamais sur nom_perso lui-même,
+  // qui n'est modifié que par cet input), garde l'affichage instantané et le
+  // curseur stable tout en continuant à sauvegarder à chaque frappe.
+  const [nomSaisi, setNomSaisi] = useState(membre.nom_perso);
+  useEffect(() => {
+    setNomSaisi(membre.nom_perso);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [membre.instance_id]);
+
   const statutsDisponibles = estGroupeSimplifie ? STATUTS.filter((s) => s.id === 'actif' || s.id === 'mort') : STATUTS;
 
   // Passage au statut Blessé : demande le nombre de tours (post-batailles)
@@ -125,8 +140,11 @@ export function StatutCard({
         />
         <div style={{ flex: 1, minWidth: 0, paddingRight: estMort ? '4.2rem' : undefined }}>
           <input
-            value={membre.nom_perso}
-            onChange={(e) => onMajMembre({ nom_perso: e.target.value })}
+            value={nomSaisi}
+            onChange={(e) => {
+              setNomSaisi(e.target.value);
+              onMajMembre({ nom_perso: e.target.value });
+            }}
             className="input--heading"
           />
           <p className="text-muted text-sm mb-0">

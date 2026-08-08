@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { effectifTotal, nombreFrancsTireursActifs, nombreDramatisPersonaeActifs } from '../../utils/bandeValue';
 import { ratingAffiche } from '../../utils/displayedRating';
 import { formatPowerValueTooltip, powerValueDetailTotal, seuilDeroute } from '../../utils/powerValue';
@@ -23,11 +24,26 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
   const dramatisPersonae = nombreDramatisPersonaeActifs(roster);
   const membreActifPresent = roster.membres.some((m) => m.statut !== 'mort');
 
+  // Saisie locale plutôt que `value={roster.nom_bande}` directement : onPatch
+  // passe par updateRoster (écriture IndexedDB asynchrone, voir
+  // RostersContext), donc la prop ne se met à jour qu'après cet aller-
+  // retour — un input contrôlé directement par elle voit son curseur sauter
+  // à chaque frappe. Resynchronisée uniquement au changement de bande
+  // (jamais sur nom_bande lui-même, qui n'est modifié que par cet input).
+  const [nomSaisi, setNomSaisi] = useState(roster.nom_bande);
+  useEffect(() => {
+    setNomSaisi(roster.nom_bande);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roster.id]);
+
   return (
     <div className="card">
       <input
-        value={roster.nom_bande}
-        onChange={(e) => onPatch({ nom_bande: e.target.value })}
+        value={nomSaisi}
+        onChange={(e) => {
+          setNomSaisi(e.target.value);
+          onPatch({ nom_bande: e.target.value });
+        }}
         className="input--heading"
         style={{ fontSize: '1.6rem' }}
         placeholder={t('rosterSummary.bandNamePlaceholder')}
