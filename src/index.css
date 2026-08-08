@@ -1488,6 +1488,12 @@ button {
 .roster-split__resizer {
   position: relative;
   align-self: stretch;
+  /* Ancre explicitement la boîte à largeur fixe au centre de sa piste de
+     grille : sans ça, l'alignement par défaut ("start") ne fait bouger que
+     le bord gauche via margin-left négatif, la marge droite négative
+     n'ayant rien à compenser — la chaîne se retrouve décalée vers le volet
+     de gauche au lieu d'être centrée dans le couloir. */
+  justify-self: center;
   width: 10px;
   margin: 0 -0.3rem;
   cursor: col-resize;
