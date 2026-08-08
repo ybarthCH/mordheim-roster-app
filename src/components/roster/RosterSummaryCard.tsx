@@ -53,6 +53,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
       </p>
       <div className="summary-grid" style={{ marginTop: '0.7rem' }}>
         <div className={`summary-tile${effectifPlein ? ' summary-tile--attention' : ''}`}>
+          <span className="summary-tile__icon summary-tile__icon--members" aria-hidden="true" />
           <div className="summary-tile__value" style={effectifPlein ? { color: 'var(--warning)' } : undefined}>
             {effectifMax != null ? `${effectif}/${effectifMax}` : effectif}
             {membreActifPresent && (
@@ -71,6 +72,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           <div className="summary-tile__label">{t('rosterSummary.members')}</div>
         </div>
         <div className="summary-tile">
+          <span className="summary-tile__icon summary-tile__icon--rating" aria-hidden="true" />
           <div
             className="summary-tile__value"
             title={rules.valeurPuissanceActivee ? formatPowerValueTooltip(powerValueDetailTotal(roster)) : undefined}
@@ -82,6 +84,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           </div>
         </div>
         <div className="summary-tile">
+          <span className="summary-tile__icon summary-tile__icon--treasury" aria-hidden="true" />
           <input
             type="number"
             value={roster.tresorerie}
@@ -92,6 +95,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           <div className="summary-tile__label">{t('rosterSummary.treasury')}</div>
         </div>
         <div className="summary-tile">
+          <span className="summary-tile__icon summary-tile__icon--wyrdstone" aria-hidden="true" />
           <input
             type="number"
             value={roster.wyrdstone}
