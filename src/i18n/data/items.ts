@@ -1903,7 +1903,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   arme_a_deux_mains: {
-    nom: 'Two-Handed Weapon (sword, axe, two-handed hammer)',
+    nom: 'Two-Handed Weapon',
     texte:
       'A blow from a two-handed sword or axe can cut a man in two and smash through his armour. It takes a long time to learn to use these weapons, and only the strongest can wield them effectively.',
     regles_speciales: [

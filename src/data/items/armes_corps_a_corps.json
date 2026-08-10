@@ -13,7 +13,7 @@
     ]
   },
   {
-    "id": "arme_a_deux_mains", "nom": "Arme à deux mains (épée, hache, marteau à deux mains)", "categorie": "armes_cac",
+    "id": "arme_a_deux_mains", "nom": "Arme à deux mains", "categorie": "armes_cac",
     "cout": 15, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
     "acces": ["commun"], "source": "LdR", "page": 1,
     "texte": "Un coup d'épée ou de hache à deux mains peut couper un homme en deux et défoncer son armure. Il faut beaucoup de temps pour apprendre à utiliser ces armes et seuls les plus forts sont capables de les manier efficacement.",
