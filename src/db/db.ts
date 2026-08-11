@@ -25,38 +25,78 @@ function getDb() {
           db.createObjectStore('settings');
         }
       },
+    }).catch((err) => {
+      // Sans ce catch, un IndexedDB indisponible (navigation privée sur
+      // certains navigateurs, profil corrompu) laisse dbPromise résolu sur
+      // une promesse rejetée en cache : tout appel suivant à getDb() la
+      // réutilise et échoue silencieusement de la même façon. On réinitialise
+      // dbPromise pour qu'un futur appel retente l'ouverture au lieu de
+      // rester bloqué sur le premier échec.
+      dbPromise = null;
+      console.error("IndexedDB : échec de l'ouverture de la base", err);
+      throw err;
     });
   }
   return dbPromise;
 }
 
 export async function listRosters(): Promise<RosterInstance[]> {
-  const db = await getDb();
-  const all = await db.getAll('rosters');
-  return all.sort((a, b) => a.nom_bande.localeCompare(b.nom_bande));
+  try {
+    const db = await getDb();
+    const all = await db.getAll('rosters');
+    return all.sort((a, b) => a.nom_bande.localeCompare(b.nom_bande));
+  } catch (err) {
+    console.error('IndexedDB : échec de la lecture des bandes enregistrées', err);
+    throw err;
+  }
 }
 
 export async function getRoster(id: string): Promise<RosterInstance | undefined> {
-  const db = await getDb();
-  return db.get('rosters', id);
+  try {
+    const db = await getDb();
+    return await db.get('rosters', id);
+  } catch (err) {
+    console.error(`IndexedDB : échec de la lecture de la bande ${id}`, err);
+    throw err;
+  }
 }
 
 export async function saveRoster(roster: RosterInstance): Promise<void> {
-  const db = await getDb();
-  await db.put('rosters', roster);
+  try {
+    const db = await getDb();
+    await db.put('rosters', roster);
+  } catch (err) {
+    console.error(`IndexedDB : échec de l'enregistrement de la bande ${roster.id} (${roster.nom_bande})`, err);
+    throw err;
+  }
 }
 
 export async function deleteRoster(id: string): Promise<void> {
-  const db = await getDb();
-  await db.delete('rosters', id);
+  try {
+    const db = await getDb();
+    await db.delete('rosters', id);
+  } catch (err) {
+    console.error(`IndexedDB : échec de la suppression de la bande ${id}`, err);
+    throw err;
+  }
 }
 
 export async function getSetting<T>(key: string): Promise<T | undefined> {
-  const db = await getDb();
-  return db.get('settings', key) as Promise<T | undefined>;
+  try {
+    const db = await getDb();
+    return (await db.get('settings', key)) as T | undefined;
+  } catch (err) {
+    console.error(`IndexedDB : échec de la lecture du réglage "${key}"`, err);
+    throw err;
+  }
 }
 
 export async function setSetting(key: string, value: unknown): Promise<void> {
-  const db = await getDb();
-  await db.put('settings', value, key);
+  try {
+    const db = await getDb();
+    await db.put('settings', value, key);
+  } catch (err) {
+    console.error(`IndexedDB : échec de l'écriture du réglage "${key}"`, err);
+    throw err;
+  }
 }
