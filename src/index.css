@@ -371,6 +371,7 @@ button {
 
 .card {
   position: relative;
+  container-type: inline-size;
   background-color: var(--bg-card);
   background-image: var(--texture-parchemin);
   background-blend-mode: overlay;
@@ -404,27 +405,66 @@ button {
 /* Panneau de pierre du pack UI acheté, à la place du grain de parchemin
    plat — réservé au thème sombre : les deux panneaux sont peints quasi
    noirs, illisibles sous le texte sombre du thème clair (qui garde donc
-   --texture-parchemin, cf. règle .card de base ci-dessus). */
+   --texture-parchemin, cf. règle .card de base ci-dessus).
+
+   border-image plutôt que background-image + cover : cover recadrait le
+   filet peint tout autour dès que la carte n'avait pas exactement le
+   ratio de l'asset (le haut/bas disparaissait). border-image découpe le
+   PNG en 9 tranches (slice en %, indépendant de la résolution du fichier)
+   et n'étire que le centre — le filet des 4 bords reste toujours entier,
+   quelle que soit la taille de la carte. Le mot-clé fill demande d'aussi
+   peindre la tranche centrale (sinon border-image ne dessine que le
+   cadre et laisse le fond de .card, donc le grain de parchemin, filtrer
+   au milieu). */
+:root[data-theme='dark'][data-palette='rouge'] .card,
+:root[data-theme='dark'][data-palette='noir'] .card {
+  background-image: none;
+  border-style: solid;
+  border-width: 20px;
+  border-image-repeat: stretch;
+  border-image-slice: 10% fill;
+  box-shadow: none;
+}
 :root[data-theme='dark'][data-palette='rouge'] .card {
-  background-image: url('/decor/card-panel-stone.png');
-  background-size: cover;
-  background-position: center;
-  background-blend-mode: normal;
+  border-image-source: url('/decor/card-panel-stone.png');
 }
 :root[data-theme='dark'][data-palette='noir'] .card {
-  background-image: url('/decor/card-panel-ice.png');
-  background-size: cover;
-  background-position: center;
-  background-blend-mode: normal;
+  border-image-source: url('/decor/card-panel-ice.png');
 }
-/* Carte résumé de bande (ressources) : liseré lumineux propre au panel_10
-   du pack, distinct du panel_12 générique ci-dessus — sert de cadre à la
-   première carte comme demandé. */
+/* Le filet peint remplace maintenant le double-liseré CSS — les deux se
+   chevauchaient sinon (voir .card::before plus haut). */
+:root[data-theme='dark'][data-palette='rouge'] .card::before,
+:root[data-theme='dark'][data-palette='noir'] .card::before {
+  content: none;
+}
+/* En dessous d'une certaine largeur de carte (colonne de liste étroite en
+   split-view, mobile...), le grand panneau devient trop fin pour son
+   cadre proportionnellement épais — panel_titlebar_10, plus compact,
+   prend le relais. container-type sur .card permet à .card de réagir à
+   sa PROPRE largeur rendue (pas celle du viewport), ce qui couvre aussi
+   le cas de la colonne étroite en split-view sur grand écran. */
+@container (max-width: 340px) {
+  :root[data-theme='dark'][data-palette='rouge'] .card {
+    border-width: 14px;
+    border-image-slice: 16% fill;
+    border-image-source: url('/decor/card-panel-titlebar-stone.png');
+  }
+  :root[data-theme='dark'][data-palette='noir'] .card {
+    border-width: 14px;
+    border-image-slice: 16% fill;
+    border-image-source: url('/decor/card-panel-titlebar-ice.png');
+  }
+}
+/* Carte résumé de bande (ressources) : asset panel_10 dédié, avec son
+   propre liseré lumineux — toujours affiché à taille pleine (jamais
+   remplacé par panel_titlebar_10), donc redéclaré après la règle @container
+   ci-dessus pour gagner sur la cascade (même spécificité, ordre de
+   déclaration). */
 :root[data-theme='dark'][data-palette='rouge'] .card--summary {
-  background-image: url('/decor/card-panel-summary-stone.png');
+  border-image-source: url('/decor/card-panel-summary-stone.png');
 }
 :root[data-theme='dark'][data-palette='noir'] .card--summary {
-  background-image: url('/decor/card-panel-summary-ice.png');
+  border-image-source: url('/decor/card-panel-summary-ice.png');
 }
 
 /* Cadre carré du pack UI autour de la photo de la fiche personnage —
@@ -765,37 +805,26 @@ button {
   color: var(--warning);
 }
 
+/* Cadre en forme de banderole (asset du pack) : toujours rouge, quelle que
+   soit la palette — c'est un avertissement, sa fonction est d'attirer
+   l'œil, pas de suivre l'accent Ice Metal. Découpe en 3 (border-image avec
+   des tranches haut/bas nulles) plutôt qu'un simple stretch 100% 100% : les
+   pointes effilées gauche/droite gardent leur taille peinte quel que soit
+   le nombre de lignes de texte, au lieu d'être écrasées avec le reste. */
 .banner-danger {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  background: var(--danger);
   color: #fff6ea;
-  border-radius: var(--radius);
-  padding: 0.7rem 0.9rem;
   margin-bottom: 0.8rem;
   font-weight: 700;
-  box-shadow: var(--shadow);
-}
-/* Cadre en forme de banderole (asset du pack, cf. --pack-asset-filter plus
-   bas) qui remplace l'aplat de couleur : la banderole sert de fond ET de
-   cadre au message, d'où le stretch 100% 100% plutôt qu'un simple filet
-   sous le texte. */
-:root:not([data-palette]) .banner-danger,
-:root[data-palette='rouge'] .banner-danger {
-  background: transparent url('/decor/banner-frame-red.png') center / 100% 100% no-repeat;
-  border-radius: 4px;
-  box-shadow: none;
-  padding: 0.85rem 1.5rem;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-  filter: var(--pack-asset-filter, none);
-}
-:root[data-palette='noir'] .banner-danger {
-  background: transparent url('/decor/banner-frame-ice.png') center / 100% 100% no-repeat;
-  border-radius: 4px;
-  box-shadow: none;
-  padding: 0.85rem 1.5rem;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  border-style: solid;
+  border-width: 0 34px;
+  border-image-source: url('/decor/banner-frame-red.png');
+  border-image-slice: 0 16% fill;
+  border-image-repeat: stretch;
+  padding: 0.85rem 0.6rem;
   filter: var(--pack-asset-filter, none);
 }
 .banner-danger__icon {

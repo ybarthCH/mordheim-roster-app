@@ -4,6 +4,26 @@
 // currentColor partout : suit la couleur du texte parent, donc le thème
 // clair/sombre sans configuration supplémentaire.
 import type { CSSProperties } from 'react';
+import { useTheme } from '../../state/useTheme';
+
+// Icônes peintes du pack UI acheté — utilisées ponctuellement là où l'asset
+// colle particulièrement bien (armurerie, héros, règles spéciales, hommes de
+// main, cimetière), à la place du trait fin ci-dessus pour ces cas précis.
+// Chaque nom résout vers un fichier différent selon le thème ou la palette
+// (voir PACK_ICON_SRC) plutôt qu'un seul fichier statique.
+export type PackIconName = 'coffrePack' | 'etoilePack' | 'grimoirePack' | 'drapeauxPack' | 'cranePack';
+
+const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'rouge' | 'noir') => string> = {
+  coffrePack: () => '/decor/icon-armurerie-pack.png',
+  etoilePack: (theme) => (theme === 'dark' ? '/decor/icon-heroes-silver.png' : '/decor/icon-heroes-gold.png'),
+  grimoirePack: (theme) => (theme === 'dark' ? '/decor/icon-rules-silver.png' : '/decor/icon-rules-brown.png'),
+  drapeauxPack: (_theme, palette) => (palette === 'noir' ? '/decor/icon-henchmen-blue.png' : '/decor/icon-henchmen-red.png'),
+  cranePack: (_theme, palette) => (palette === 'noir' ? '/decor/icon-graveyard-ice.png' : '/decor/icon-graveyard-bone.png'),
+};
+
+function isPackIconName(name: IconName | PackIconName): name is PackIconName {
+  return name in PACK_ICON_SRC;
+}
 
 export type IconName =
   | 'epee'
@@ -148,7 +168,7 @@ const LABELS: Partial<Record<IconName, string>> = {
 };
 
 type Props = {
-  name: IconName;
+  name: IconName | PackIconName;
   size?: number | string;
   style?: CSSProperties;
   className?: string;
@@ -156,6 +176,25 @@ type Props = {
 };
 
 export function Icon({ name, size = '1em', style, className, title }: Props) {
+  const { effectiveTheme, palette } = useTheme();
+  if (isPackIconName(name)) {
+    return (
+      <img
+        src={PACK_ICON_SRC[name](effectiveTheme, palette)}
+        alt=""
+        className={className}
+        style={{
+          display: 'inline-block',
+          width: size,
+          height: size,
+          verticalAlign: '-0.15em',
+          flexShrink: 0,
+          objectFit: 'contain',
+          ...style,
+        }}
+      />
+    );
+  }
   return (
     <svg
       viewBox={VIEWBOX[name]}

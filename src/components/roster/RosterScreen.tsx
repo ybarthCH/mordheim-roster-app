@@ -407,7 +407,7 @@ export function RosterScreen({
           preferenceKey="ui.roster.regles_speciales.ouvert"
           title={
             <>
-              <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
+              <Icon name="grimoirePack" style={{ marginRight: '0.35em' }} />
               {t('roster.specialRules')}
             </>
           }
@@ -443,7 +443,7 @@ export function RosterScreen({
 
       <MemberGroupCard
         titre={t('roster.heroes')}
-        icone="etoile"
+        icone="etoilePack"
         preferenceKey="ui.roster.groupe_heros.ouvert"
         membres={heros}
         roster={roster}
@@ -455,7 +455,7 @@ export function RosterScreen({
       />
       <MemberGroupCard
         titre={t('roster.henchmen')}
-        icone="bouclier"
+        icone="drapeauxPack"
         preferenceKey="ui.roster.groupe_hommes_de_main.ouvert"
         membres={hommesDeMain}
         roster={roster}
@@ -495,7 +495,7 @@ export function RosterScreen({
       {defunts.length > 0 && (
         <MemberGroupCard
           titre={t('roster.graveyard')}
-          icone="crane"
+          icone="cranePack"
           preferenceKey="ui.roster.groupe_cimetiere.ouvert"
           membres={defunts}
           roster={roster}

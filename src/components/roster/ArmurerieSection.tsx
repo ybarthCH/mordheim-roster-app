@@ -89,7 +89,7 @@ export function ArmurerieSection({
       preferenceKey="ui.roster.armurerie.ouvert"
       title={
         <>
-          <Icon name="coffre" style={{ marginRight: '0.35em' }} />
+          <Icon name="coffrePack" style={{ marginRight: '0.35em' }} />
           {t('armurerie.title')}
         </>
       }

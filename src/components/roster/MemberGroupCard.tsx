@@ -2,7 +2,7 @@ import { Fragment, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
-import type { IconName } from '../common/Icon';
+import type { IconName, PackIconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import type { Profile } from '../../types/catalog';
 import { avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
@@ -37,7 +37,7 @@ const STATUT_ICONE: Partial<Record<string, IconName>> = {
 
 type MemberGroupCardProps = {
   titre: string;
-  icone: IconName;
+  icone: IconName | PackIconName;
   preferenceKey: string;
   membres: Member[];
   roster: RosterInstance;
