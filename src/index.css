@@ -1151,7 +1151,20 @@ button {
    trois actions partagent maintenant le même fond au lieu de Recruter
    seul en avoir un distinct (voir .btn--primary). Étirement simple, pas
    de découpe 9-slice pour l'instant : à revoir si on valide cette
-   direction visuelle pour de bon. */
+   direction visuelle pour de bon.
+
+   L'asset est peint pour un fond sombre (ombres profondes, pas de
+   variante claire livrée avec le pack) : sur le fond parchemin du thème
+   clair il paraît terne/étouffé. --action-btn-filter compense par thème
+   (voir les blocs :root[data-theme] plus haut pour la même logique
+   appliquée aux couleurs) plutôt que d'exiger un second export du
+   fournisseur — à refaire pour chaque asset du pack qu'on intègre. */
+:root[data-theme='light'] {
+  --action-btn-filter: brightness(1.3) saturate(1.15) contrast(0.95);
+}
+:root[data-theme='dark'] {
+  --action-btn-filter: brightness(1.05) saturate(1.05);
+}
 .roster-actions__btn {
   flex: 1;
   min-width: 0;
@@ -1169,14 +1182,14 @@ button {
   box-shadow: none;
   color: #f1ded1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-  filter: brightness(1);
+  filter: var(--action-btn-filter, none);
   transition: filter 0.15s ease, transform 0.1s ease;
 }
 .roster-actions__btn:hover {
-  filter: brightness(1.15);
+  filter: var(--action-btn-filter, none) brightness(1.15);
 }
 .roster-actions__btn:active {
-  filter: brightness(0.9);
+  filter: var(--action-btn-filter, none) brightness(0.9);
   transform: translateY(1px);
 }
 @media (max-width: 480px) {
