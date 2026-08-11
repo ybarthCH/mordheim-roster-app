@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { getSetting, setSetting } from '../db/db';
 import { WakeLockContext } from './useWakeLock';
@@ -59,12 +59,15 @@ export function WakeLockProvider({ children }: { children: ReactNode }) {
     };
   }, [actif]);
 
-  const setActif = (v: boolean) => {
+  const setActif = useCallback((v: boolean) => {
     setActifState(v);
     setSetting('ecranActif', v);
-  };
+  }, []);
 
-  return (
-    <WakeLockContext.Provider value={{ actif, setActif, supporte }}>{children}</WakeLockContext.Provider>
-  );
+  // value mémoïsé : sans ça, un nouvel objet littéral à chaque rendu de
+  // WakeLockProvider re-rendrait tous les consommateurs de useWakeLock(),
+  // même quand ni actif ni supporte n'ont changé.
+  const value = useMemo(() => ({ actif, setActif, supporte }), [actif, setActif]);
+
+  return <WakeLockContext.Provider value={value}>{children}</WakeLockContext.Provider>;
 }

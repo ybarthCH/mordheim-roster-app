@@ -1,9 +1,10 @@
-import { Fragment } from 'react';
+import { Fragment, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
 import type { IconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
+import type { Profile } from '../../types/catalog';
 import { avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
 import { nomCourtBlessureAffiche } from '../../utils/blessures';
 import { inventaireGroupeMismatch, resumeInventaireParItem } from '../../utils/shop';
@@ -107,8 +108,7 @@ export function MemberGroupCard({
     return `${t('memberGroup.injuries')} ${m.blessures_graves.map((b) => nomCourtBlessureAffiche(b, language)).join(' - ')}`;
   };
 
-  const avanceEnAttente = (m: Member) => {
-    const profil = resolveProfil(roster, m, catalogue, language);
+  const estAvanceEnAttente = (profil: Profile | undefined, m: Member) => {
     if (!profil || !peutGagnerExperience(profil)) return false;
     if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return false;
     return (
@@ -117,19 +117,39 @@ export function MemberGroupCard({
     );
   };
 
-  // Un homme de main ou animal non promu n'utilise jamais le statut « Hors
-  // de combat » (voir PersonnageScreen) : chaque clic marque une figurine de
-  // plus via le compteur dédié, jusqu'à ce que tout le groupe soit à terre.
-  // Seuls les héros (et hommes de main promus) basculent le statut lui-même.
-  const estGroupeSimplifie = (m: Member) => {
-    const profil = resolveProfil(roster, m, catalogue, language);
-    return (profil?.type === 'homme_de_main' || profil?.type === 'animal') && !m.promu_heros;
-  };
-
-  const titreHorsCombat = (m: Member) =>
-    estGroupeSimplifie(m)
+  const titreHorsCombat = (m: Member, groupeSimplifie: boolean) =>
+    groupeSimplifie
       ? t('memberGroup.hcMarkTitle', { hc: m.hors_combat, taille: m.taille_groupe })
       : t('memberGroup.hcToggleTitle');
+
+  // Calculs dérivés par membre (profil, équipement, statut...) partagés
+  // entre le tableau desktop et les cartes mobiles ci-dessous : sans cette
+  // mémoïsation, chacun des deux rendus (l'un masqué en CSS selon la
+  // largeur d'écran, mais tous deux bel et bien montés) refaisait le même
+  // travail indépendamment.
+  const vues = useMemo(
+    () =>
+      elements.map((m) => {
+        const profil = resolveProfil(roster, m, catalogue, language);
+        // Un homme de main ou animal non promu n'utilise jamais le statut
+        // « Hors de combat » (voir PersonnageScreen) : chaque clic marque
+        // une figurine de plus via le compteur dédié, jusqu'à ce que tout
+        // le groupe soit à terre. Seuls les héros (et hommes de main
+        // promus) basculent le statut lui-même.
+        const groupeSimplifie = (profil?.type === 'homme_de_main' || profil?.type === 'animal') && !m.promu_heros;
+        return {
+          m,
+          profil,
+          equipement: resumeEquipement(m),
+          blessures: resumeBlessures(m),
+          groupeSimplifie,
+          leader: estLeaderActuel(roster, catalogue, m),
+          avanceEnAttente: estAvanceEnAttente(profil, m),
+        };
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [elements, roster, catalogue, language]
+  );
 
   return (
     <CollapsibleCard
@@ -173,8 +193,7 @@ export function MemberGroupCard({
             </tr>
           </thead>
           <tbody>
-            {elements.map((m) => {
-              const profil = resolveProfil(roster, m, catalogue, language);
+            {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente }) => {
               const versPersonnage = () => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`);
               return (
                 <Fragment key={m.instance_id}>
@@ -195,12 +214,12 @@ export function MemberGroupCard({
                     </td>
                     <td>
                       {nomAffiche(m)}
-                      {estLeaderActuel(roster, catalogue, m) && (
+                      {leader && (
                         <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
                           <Icon name="etoile" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
                         </span>
                       )}
-                      {avanceEnAttente(m) && (
+                      {avanceEnAttente && (
                         <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
                           {t('memberGroup.pendingAdvance')}
                         </span>
@@ -228,7 +247,7 @@ export function MemberGroupCard({
                     <td className="roster-table__stat roster-table__col-Cd">{m.stats_variables?.Cd ?? m.stats_actuels.Cd}</td>
                     <td className="roster-table__stat roster-table__group-start">{m.xp}</td>
                     <td>
-                      {estGroupeSimplifie(m) ? (
+                      {groupeSimplifie ? (
                         <button
                           type="button"
                           className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
@@ -236,8 +255,8 @@ export function MemberGroupCard({
                             e.stopPropagation();
                             onBasculerHorsCombat(m);
                           }}
-                          title={titreHorsCombat(m)}
-                          aria-label={titreHorsCombat(m)}
+                          title={titreHorsCombat(m, groupeSimplifie)}
+                          aria-label={titreHorsCombat(m, groupeSimplifie)}
                         >
                           <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
                           <span className="status-switch__label">
@@ -260,8 +279,8 @@ export function MemberGroupCard({
                             e.stopPropagation();
                             onBasculerHorsCombat(m);
                           }}
-                          title={titreHorsCombat(m)}
-                          aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
+                          title={titreHorsCombat(m, groupeSimplifie)}
+                          aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m, groupeSimplifie)}`}
                         >
                           <span className="status-plaque__switch">
                             <span className="status-plaque__switch-track" />
@@ -290,8 +309,7 @@ export function MemberGroupCard({
                     <td>
                       <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
                         <button
-                          className="btn--ghost"
-                          style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
+                          className="btn--ghost-danger"
                           onClick={(e) => {
                             e.stopPropagation();
                             onSupprimer(m);
@@ -306,11 +324,11 @@ export function MemberGroupCard({
                   <tr className="roster-table__row-synopsis" onClick={versPersonnage}>
                     <td colSpan={masquerProfil ? 14 : 15} className="roster-table__synopsis-cell">
                       <div className="text-sm text-muted roster-table__synopsis" style={{ fontStyle: 'italic' }}>
-                        {resumeEquipement(m)}
+                        {equipement}
                       </div>
-                      {resumeBlessures(m) && (
+                      {blessures && (
                         <div className="text-sm text-danger roster-table__synopsis" style={{ marginTop: '0.1rem' }}>
-                          {resumeBlessures(m)}
+                          {blessures}
                         </div>
                       )}
                     </td>
@@ -323,8 +341,7 @@ export function MemberGroupCard({
       </div>
 
       <div className="member-cards">
-        {elements.map((m) => {
-          const profil = resolveProfil(roster, m, catalogue, language);
+        {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente }) => {
           return (
             <div
               key={m.instance_id}
@@ -345,19 +362,19 @@ export function MemberGroupCard({
                 <div className="list-item__main">
                   <div className="list-item__title">
                     {nomAffiche(m)}
-                    {estLeaderActuel(roster, catalogue, m) && (
+                    {leader && (
                       <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
                         <Icon name="etoile" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
                       </span>
                     )}
-                    {avanceEnAttente(m) && (
+                    {avanceEnAttente && (
                       <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
                         {t('memberGroup.pendingAdvance')}
                       </span>
                     )}
                   </div>
                 </div>
-                {estGroupeSimplifie(m) ? (
+                {groupeSimplifie ? (
                   <button
                     type="button"
                     className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
@@ -365,8 +382,8 @@ export function MemberGroupCard({
                       e.stopPropagation();
                       onBasculerHorsCombat(m);
                     }}
-                    title={titreHorsCombat(m)}
-                    aria-label={titreHorsCombat(m)}
+                    title={titreHorsCombat(m, groupeSimplifie)}
+                    aria-label={titreHorsCombat(m, groupeSimplifie)}
                   >
                     <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
                     <span className="status-switch__label">
@@ -389,8 +406,8 @@ export function MemberGroupCard({
                       e.stopPropagation();
                       onBasculerHorsCombat(m);
                     }}
-                    title={titreHorsCombat(m)}
-                    aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m)}`}
+                    title={titreHorsCombat(m, groupeSimplifie)}
+                    aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m, groupeSimplifie)}`}
                   >
                     <span className="status-plaque__switch">
                       <span className="status-plaque__switch-track" />
@@ -402,8 +419,7 @@ export function MemberGroupCard({
                   </button>
                 )}
                 <button
-                  className="btn--ghost"
-                  style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
+                  className="btn--ghost-danger"
                   onClick={(e) => {
                     e.stopPropagation();
                     onSupprimer(m);
@@ -430,9 +446,9 @@ export function MemberGroupCard({
                   ))}
                 </div>
                 <div className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
-                  {resumeEquipement(m)}
+                  {equipement}
                 </div>
-                {resumeBlessures(m) && <div className="text-sm text-danger">{resumeBlessures(m)}</div>}
+                {blessures && <div className="text-sm text-danger">{blessures}</div>}
                 {inventaireGroupeMismatch(m) && (
                   <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.15rem' }}>
                     <span className="badge badge--danger" title={t('memberGroup.equipmentMismatchTitle')}>
@@ -451,14 +467,13 @@ export function MemberGroupCard({
       {idEnCours &&
         pointerPos &&
         (() => {
-          const dragged = elements.find((x) => x.instance_id === idEnCours);
+          const dragged = vues.find((v) => v.m.instance_id === idEnCours);
           if (!dragged) return null;
-          const profil = resolveProfil(roster, dragged, catalogue, language);
           return (
             <div className="drag-ghost" style={{ left: pointerPos.x, top: pointerPos.y }}>
               <Icon name="poignee" size="0.85em" style={{ marginRight: '0.4em', color: 'var(--text-muted)' }} />
-              <span className="drag-ghost__nom">{nomAffiche(dragged)}</span>
-              {profil?.nom && <span className="drag-ghost__profil"> · {profil.nom}</span>}
+              <span className="drag-ghost__nom">{nomAffiche(dragged.m)}</span>
+              {dragged.profil?.nom && <span className="drag-ghost__profil"> · {dragged.profil.nom}</span>}
             </div>
           );
         })()}

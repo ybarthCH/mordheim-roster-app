@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { getSetting, setSetting } from '../db/db';
 import { DEFAULT_GAME_RULES } from '../types/rules';
@@ -22,14 +22,23 @@ export function GameRulesProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const setRule = <K extends keyof GameRules>(rule: K, active: GameRules[K]) => {
-    modifiedBeforeLoad.current = true;
-    setRules((current) => {
-      const next = { ...current, [rule]: active };
-      void setSetting(SETTING_KEY, next);
-      return next;
-    });
-  };
+  const setRule = useMemo(
+    () =>
+      <K extends keyof GameRules>(rule: K, active: GameRules[K]) => {
+        modifiedBeforeLoad.current = true;
+        setRules((current) => {
+          const next = { ...current, [rule]: active };
+          void setSetting(SETTING_KEY, next);
+          return next;
+        });
+      },
+    []
+  );
 
-  return <GameRulesContext.Provider value={{ rules, setRule }}>{children}</GameRulesContext.Provider>;
+  // value mémoïsé : sans ça, un nouvel objet littéral à chaque rendu de
+  // GameRulesProvider re-rendrait tous les consommateurs de useGameRules(),
+  // même quand rules n'a pas changé.
+  const value = useMemo(() => ({ rules, setRule }), [rules, setRule]);
+
+  return <GameRulesContext.Provider value={value}>{children}</GameRulesContext.Provider>;
 }
