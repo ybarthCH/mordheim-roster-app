@@ -1146,6 +1146,12 @@ button {
   gap: 0.6rem;
   margin-bottom: 0.8rem;
 }
+/* Essai : plaque "pilule" du pack UI acheté (rouge sang natif, aucune
+   retouche de teinte nécessaire) à la place du sceau de cire CSS — les
+   trois actions partagent maintenant le même fond au lieu de Recruter
+   seul en avoir un distinct (voir .btn--primary). Étirement simple, pas
+   de découpe 9-slice pour l'instant : à revoir si on valide cette
+   direction visuelle pour de bon. */
 .roster-actions__btn {
   flex: 1;
   min-width: 0;
@@ -1155,6 +1161,23 @@ button {
   text-align: center;
   white-space: normal;
   line-height: 1.15;
+  border: none;
+  background-color: transparent;
+  background-image: url('/decor/action-btn-pill-red.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  box-shadow: none;
+  color: #f1ded1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  filter: brightness(1);
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+.roster-actions__btn:hover {
+  filter: brightness(1.15);
+}
+.roster-actions__btn:active {
+  filter: brightness(0.9);
+  transform: translateY(1px);
 }
 @media (max-width: 480px) {
   .roster-actions__btn {
