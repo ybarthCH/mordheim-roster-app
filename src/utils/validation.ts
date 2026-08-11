@@ -13,6 +13,20 @@ export type ViolationComposition = {
   actuel: number;
 };
 
+// Limite de recrutement effective pour un profil : un Héros unique (chef,
+// sorcier...) est toujours plafonné à 1 quel que soit profil.max ; sinon une
+// surcharge de tribu (voir maxProfilPourTribu, ex : Chiens du Chaos
+// illimités chez les Kurgans) prime sur le max du catalogue. `null`
+// ("illimité" côté tribu) est normalisé en `undefined` ici, la convention
+// que les appelants testent via `limite != null`.
+function limiteEffectivePourProfil(
+  profil: { unique?: boolean; max?: number | null },
+  surchargeTribu: number | null | undefined
+): number | undefined {
+  if (profil.unique) return 1;
+  return (surchargeTribu !== undefined ? surchargeTribu : profil.max) ?? undefined;
+}
+
 /**
  * Vérifie les limites de composition (max/min par profil, unique) parmi les
  * membres actifs/capturés (hors morts). Purement informatif — n'empêche rien.
@@ -30,7 +44,7 @@ export function validerComposition(roster: RosterInstance): ViolationComposition
   for (const profil of catalogue.profils) {
     const actuel = comptes.get(profil.id) ?? 0;
     const surchargeTribu = maxProfilPourTribu(catalogue, roster, profil.id);
-    const limiteMax = profil.unique ? 1 : (surchargeTribu !== undefined ? surchargeTribu : profil.max) ?? undefined;
+    const limiteMax = limiteEffectivePourProfil(profil, surchargeTribu);
     if (limiteMax != null && actuel > limiteMax) {
       violations.push({ profilId: profil.id, nomProfil: profil.nom, type: 'max', limite: limiteMax, actuel });
     }
@@ -94,7 +108,7 @@ export function peutAjouterMembre(
     };
   }
   const surchargeTribu = maxProfilPourTribu(catalogue, roster, profilId);
-  const limite = profil.unique ? 1 : (surchargeTribu !== undefined ? surchargeTribu : profil.max) ?? undefined;
+  const limite = limiteEffectivePourProfil(profil, surchargeTribu);
   if (limite != null) {
     const actuel = roster.membres
       .filter((m) => m.profil_id === profilId && m.statut !== 'mort')

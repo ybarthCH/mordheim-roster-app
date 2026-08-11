@@ -49,8 +49,8 @@ export function BlessuresGravesCard({
             </div>
           </div>
           <button
-            className="btn--ghost"
-            style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)', flexShrink: 0 }}
+            className="btn--ghost-danger"
+            style={{ flexShrink: 0 }}
             onClick={() => onSupprimer(b.id)}
             title={t('blessuresGravesCard.removeTitle')}
           >

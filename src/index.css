@@ -529,6 +529,12 @@ button {
   background: transparent;
   border-color: transparent;
 }
+.btn--ghost-danger {
+  border: none;
+  background: none;
+  padding: 0.2rem 0.4rem;
+  color: var(--danger);
+}
 .drag-handle {
   cursor: grab;
   touch-action: none;

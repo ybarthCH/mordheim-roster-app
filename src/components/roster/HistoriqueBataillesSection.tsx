@@ -79,8 +79,7 @@ export function HistoriqueBataillesSection({
               <Icon name="crayon" size="0.9em" />
             </button>
             <button
-              className="btn--ghost"
-              style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
+              className="btn--ghost-danger"
               onClick={(e) => {
                 e.stopPropagation();
                 setASupprimer(b);

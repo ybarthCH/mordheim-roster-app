@@ -104,8 +104,7 @@ export function EquipementCard({
               </button>
             )}
             <button
-              className="btn--ghost"
-              style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem', color: 'var(--danger)' }}
+              className="btn--ghost-danger"
               onClick={() => onRetirer(entree.instance_id)}
               title={t('equipementCard.removeOneTitle')}
             >

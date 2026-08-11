@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { getSetting, setSetting } from '../db/db';
 import { ThemeContext } from './useTheme';
@@ -52,19 +52,23 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     meta?.setAttribute('content', ACCENT_COLORS[effectiveTheme][palette]);
   }, [effectiveTheme, palette]);
 
-  const setTheme = (t: Theme) => {
+  const setTheme = useCallback((t: Theme) => {
     setThemeState(t);
     setSetting('theme', t);
-  };
+  }, []);
 
-  const setPalette = (p: Palette) => {
+  const setPalette = useCallback((p: Palette) => {
     setPaletteState(p);
     setSetting('palette', p);
-  };
+  }, []);
 
-  return (
-    <ThemeContext.Provider value={{ theme, effectiveTheme, setTheme, palette, setPalette }}>
-      {children}
-    </ThemeContext.Provider>
+  // value mémoïsé : sans ça, un nouvel objet littéral à chaque rendu de
+  // ThemeProvider re-rendrait tous les consommateurs de useTheme(), même
+  // quand ni le thème ni la palette n'ont changé.
+  const value = useMemo(
+    () => ({ theme, effectiveTheme, setTheme, palette, setPalette }),
+    [theme, effectiveTheme, setTheme, palette, setPalette]
   );
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
