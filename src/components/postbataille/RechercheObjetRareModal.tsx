@@ -188,7 +188,7 @@ export function RechercheObjetRareModal({
               <div className="achat-equipement__header-ligne">
                 <h3 className="mt-0 mb-0">{t('rareModal.title', { nom: membre.nom_perso })}</h3>
                 <button className="btn btn--sm" aria-label={t('rareModal.close')} onClick={onClose}>
-                  ✕
+                  <Icon name="croixPack" />
                 </button>
               </div>
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.25rem' }}>
@@ -263,7 +263,7 @@ export function RechercheObjetRareModal({
                   {t('rareModal.backToCatalogue')}
                 </button>
                 <button className="btn btn--sm" aria-label={t('rareModal.close')} onClick={onClose}>
-                  ✕
+                  <Icon name="croixPack" />
                 </button>
               </div>
               <div className="achat-equipement__selection-titre">

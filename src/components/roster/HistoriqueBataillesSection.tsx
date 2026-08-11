@@ -30,7 +30,7 @@ export function HistoriqueBataillesSection({
       preferenceKey="ui.roster.historique_batailles.ouvert"
       title={
         <>
-          <Icon name="epee" style={{ marginRight: '0.35em' }} />
+          <Icon name="epeePack" style={{ marginRight: '0.35em' }} />
           {t('historique.title')}
         </>
       }
@@ -86,7 +86,7 @@ export function HistoriqueBataillesSection({
               }}
               title={t('historique.deleteTitle')}
             >
-              ✕
+              <Icon name="croixPack" />
             </button>
           </div>
         ))}

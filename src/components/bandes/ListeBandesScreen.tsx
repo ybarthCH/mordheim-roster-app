@@ -135,6 +135,7 @@ export function ListeBandesScreen() {
                 {t('home.duplicate')}
               </button>
               <button className="btn btn--sm btn--danger" onClick={() => setASupprimer(roster)}>
+                <Icon name="poubellePack" style={{ marginRight: '0.3em' }} />
                 {t('home.deleteShort')}
               </button>
             </div>

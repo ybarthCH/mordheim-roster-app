@@ -141,7 +141,7 @@ export function ArmurerieSection({
               onClick={() => onRetirer(entree.instance_id)}
               title={t('armurerie.removeTitle')}
             >
-              ✕
+              <Icon name="croixPack" />
             </button>
           </div>
         </div>

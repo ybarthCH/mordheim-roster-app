@@ -84,7 +84,7 @@ export function MagieConnueCard({
                 onClick={() => onMajMembre({ sorts_connus: membre.sorts_connus.filter((_, j) => j !== i) })}
                 title={t('magieConnue.removeSpellTitle')}
               >
-                ✕
+                <Icon name="croixPack" />
               </button>
             </p>
           );

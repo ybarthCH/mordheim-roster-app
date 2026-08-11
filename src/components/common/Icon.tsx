@@ -11,7 +11,20 @@ import { useTheme } from '../../state/useTheme';
 // main, cimetière), à la place du trait fin ci-dessus pour ces cas précis.
 // Chaque nom résout vers un fichier différent selon le thème ou la palette
 // (voir PACK_ICON_SRC) plutôt qu'un seul fichier statique.
-export type PackIconName = 'coffrePack' | 'etoilePack' | 'grimoirePack' | 'drapeauxPack' | 'cranePack';
+export type PackIconName =
+  | 'coffrePack'
+  | 'etoilePack'
+  | 'grimoirePack'
+  | 'drapeauxPack'
+  | 'cranePack'
+  | 'soleilPack'
+  | 'lunePack'
+  | 'poubellePack'
+  | 'croixPack'
+  | 'engrenagePack'
+  | 'couronnePack'
+  | 'epeePack'
+  | 'cochePack';
 
 const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'rouge' | 'noir') => string> = {
   coffrePack: () => '/decor/icon-armurerie-pack.png',
@@ -19,6 +32,17 @@ const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'ro
   grimoirePack: (theme) => (theme === 'dark' ? '/decor/icon-rules-silver.png' : '/decor/icon-rules-brown.png'),
   drapeauxPack: (_theme, palette) => (palette === 'noir' ? '/decor/icon-henchmen-blue.png' : '/decor/icon-henchmen-red.png'),
   cranePack: (_theme, palette) => (palette === 'noir' ? '/decor/icon-graveyard-ice.png' : '/decor/icon-graveyard-bone.png'),
+  soleilPack: (theme) => (theme === 'dark' ? '/decor/icon-sun-silver.png' : '/decor/icon-sun-gold.png'),
+  lunePack: (theme) => (theme === 'dark' ? '/decor/icon-moon-silver.png' : '/decor/icon-moon-gold.png'),
+  poubellePack: () => '/decor/icon-trash.png',
+  // Toujours rouge, quel que soit le thème/la palette — même logique que
+  // .banner-danger : un danger reste rouge (cf. --danger, identique dans
+  // les deux palettes), seule la nuance s'ajuste au thème.
+  croixPack: (theme) => (theme === 'dark' ? '/decor/icon-close-red-dark.png' : '/decor/icon-close-red.png'),
+  engrenagePack: () => '/decor/icon-settings.png',
+  couronnePack: (theme) => (theme === 'dark' ? '/decor/icon-crown-silver.png' : '/decor/icon-crown-gold.png'),
+  epeePack: () => '/decor/icon-swords-crossed.png',
+  cochePack: () => '/decor/icon-check-green.png',
 };
 
 function isPackIconName(name: IconName | PackIconName): name is PackIconName {

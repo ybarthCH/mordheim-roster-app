@@ -301,7 +301,7 @@ export function RosterScreen({
       {besoinChoixLeader && (
         <div className="banner-danger">
           <span className="banner-danger__icon" aria-hidden="true">
-            <Icon name="couronne" />
+            <Icon name="couronnePack" />
           </span>
           <span style={{ flex: 1 }}>{t('roster.noLeader')}</span>
           <button className="btn btn--sm" onClick={() => setModalLeader(true)}>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { RosterInstance, BattleRecord } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
+import { Icon } from '../common/Icon';
 import { inventaireComplet } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { getItem } from '../../data/items';
@@ -104,7 +105,7 @@ export function EtapeResultat({
                 style={{ border: 'none', background: 'none', marginLeft: '0.3rem', padding: 0 }}
                 onClick={() => onAdversairesChange(adversaires.filter((_, j) => j !== i))}
               >
-                ✕
+                <Icon name="croixPack" />
               </button>
             </span>
           ))}

@@ -280,7 +280,7 @@ export function RecompenseSeigneurDesOmbresWizard({
     return (
       <div>
         <h4 style={{ marginTop: 0 }}>
-          <Icon name="epee" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
+          <Icon name="epeePack" style={{ marginRight: '0.4em', color: 'var(--accent)' }} />
           {t('seigneurOmbres.demonWeapon')}
         </h4>
         <p className="text-sm text-muted">{t('seigneurOmbres.demonWeaponNote')}</p>

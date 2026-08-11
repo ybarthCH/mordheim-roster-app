@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { BattleRecord } from '../../types/roster';
 import { Modal } from '../common/Modal';
+import { Icon } from '../common/Icon';
 import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
@@ -62,7 +63,7 @@ export function AjouterBatailleModal({ bataille, onClose, onConfirm, onDelete }:
                 style={{ border: 'none', background: 'none', marginLeft: '0.3rem', padding: 0 }}
                 onClick={() => setAdversaires((prev) => prev.filter((_, j) => j !== i))}
               >
-                ✕
+                <Icon name="croixPack" />
               </button>
             </span>
           ))}

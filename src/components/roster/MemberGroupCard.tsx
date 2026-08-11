@@ -28,8 +28,8 @@ const STATUT_COULEUR: Record<string, string> = {
   blesse: 'neutral',
 };
 
-const STATUT_ICONE: Partial<Record<string, IconName>> = {
-  actif: 'coche',
+const STATUT_ICONE: Partial<Record<string, IconName | PackIconName>> = {
+  actif: 'cochePack',
   hors_de_combat: 'ossements',
   mort: 'crane',
   blesse: 'goutte',
@@ -316,7 +316,7 @@ export function MemberGroupCard({
                           }}
                           title={t('memberGroup.removeTitle')}
                         >
-                          ✕
+                          <Icon name="croixPack" />
                         </button>
                       </div>
                     </td>
@@ -426,7 +426,7 @@ export function MemberGroupCard({
                   }}
                   title={t('memberGroup.removeTitle')}
                 >
-                  ✕
+                  <Icon name="croixPack" />
                 </button>
               </div>
               <div className="list-item__details">

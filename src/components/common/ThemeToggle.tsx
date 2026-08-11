@@ -15,7 +15,7 @@ export function ThemeToggle() {
       aria-label={label}
       title={label}
     >
-      <Icon name={toDark ? 'lune' : 'soleil'} />
+      <Icon name={toDark ? 'lunePack' : 'soleilPack'} />
     </button>
   );
 }

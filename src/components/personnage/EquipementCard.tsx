@@ -33,7 +33,7 @@ export function EquipementCard({
       preferenceKey="ui.personnage.equipement.ouvert"
       title={
         <>
-          <Icon name="epee" style={{ marginRight: '0.35em' }} />
+          <Icon name="epeePack" style={{ marginRight: '0.35em' }} />
           {t('equipementCard.title')}
         </>
       }
@@ -108,7 +108,7 @@ export function EquipementCard({
               onClick={() => onRetirer(entree.instance_id)}
               title={t('equipementCard.removeOneTitle')}
             >
-              ✕
+              <Icon name="croixPack" />
             </button>
           </div>
         </div>

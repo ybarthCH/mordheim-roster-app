@@ -63,7 +63,7 @@ export function Screen({ title, back, onBeforeBack, actions, children }: ScreenP
             aria-label={t('home.settings')}
             title={t('home.settings')}
           >
-            <Icon name="engrenage" />
+            <Icon name="engrenagePack" />
           </button>
         )}
         <ThemeToggle />
