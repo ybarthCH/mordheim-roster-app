@@ -37,7 +37,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
   }, [roster.id]);
 
   return (
-    <div className="card">
+    <div className="card card--summary">
       <input
         value={nomSaisi}
         onChange={(e) => {

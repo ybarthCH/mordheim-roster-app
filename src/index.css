@@ -401,6 +401,52 @@ button {
   border-left: 3px solid var(--accent);
 }
 
+/* Panneau de pierre du pack UI acheté, à la place du grain de parchemin
+   plat — réservé au thème sombre : les deux panneaux sont peints quasi
+   noirs, illisibles sous le texte sombre du thème clair (qui garde donc
+   --texture-parchemin, cf. règle .card de base ci-dessus). */
+:root[data-theme='dark'][data-palette='rouge'] .card {
+  background-image: url('/decor/card-panel-stone.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: normal;
+}
+:root[data-theme='dark'][data-palette='noir'] .card {
+  background-image: url('/decor/card-panel-ice.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: normal;
+}
+/* Carte résumé de bande (ressources) : liseré lumineux propre au panel_10
+   du pack, distinct du panel_12 générique ci-dessus — sert de cadre à la
+   première carte comme demandé. */
+:root[data-theme='dark'][data-palette='rouge'] .card--summary {
+  background-image: url('/decor/card-panel-summary-stone.png');
+}
+:root[data-theme='dark'][data-palette='noir'] .card--summary {
+  background-image: url('/decor/card-panel-summary-ice.png');
+}
+
+/* Cadre carré du pack UI autour de la photo de la fiche personnage —
+   dimensionné un cran plus grand que l'avatar lui-même pour que seul le
+   filet peint dépasse tout autour (le cœur de l'asset n'est pas
+   transparent, cf. avatar-frame-*.png : il faut donc que l'avatar le
+   recouvre plutôt que de se poser dessus). */
+.avatar-frame {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 68px;
+  height: 68px;
+  background-image: url('/decor/avatar-frame-red.png');
+  background-size: 100% 100%;
+}
+:root[data-palette='noir'] .avatar-frame {
+  background-image: url('/decor/avatar-frame-ice.png');
+}
+
 .card--tight {
   padding: 0.6rem 0.7rem;
 }
@@ -730,6 +776,27 @@ button {
   margin-bottom: 0.8rem;
   font-weight: 700;
   box-shadow: var(--shadow);
+}
+/* Cadre en forme de banderole (asset du pack, cf. --pack-asset-filter plus
+   bas) qui remplace l'aplat de couleur : la banderole sert de fond ET de
+   cadre au message, d'où le stretch 100% 100% plutôt qu'un simple filet
+   sous le texte. */
+:root:not([data-palette]) .banner-danger,
+:root[data-palette='rouge'] .banner-danger {
+  background: transparent url('/decor/banner-frame-red.png') center / 100% 100% no-repeat;
+  border-radius: 4px;
+  box-shadow: none;
+  padding: 0.85rem 1.5rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  filter: var(--pack-asset-filter, none);
+}
+:root[data-palette='noir'] .banner-danger {
+  background: transparent url('/decor/banner-frame-ice.png') center / 100% 100% no-repeat;
+  border-radius: 4px;
+  box-shadow: none;
+  padding: 0.85rem 1.5rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  filter: var(--pack-asset-filter, none);
 }
 .banner-danger__icon {
   font-size: 1.3rem;
@@ -1146,24 +1213,22 @@ button {
   gap: 0.6rem;
   margin-bottom: 0.8rem;
 }
-/* Essai : plaque "pilule" du pack UI acheté (rouge sang natif, aucune
-   retouche de teinte nécessaire) à la place du sceau de cire CSS — les
-   trois actions partagent maintenant le même fond au lieu de Recruter
-   seul en avoir un distinct (voir .btn--primary). Étirement simple, pas
-   de découpe 9-slice pour l'instant : à revoir si on valide cette
-   direction visuelle pour de bon.
+/* Cadres "skill panel" du pack UI acheté à la place du sceau de cire CSS —
+   un asset différent par bouton (buttons_01/02/03) pour casser la
+   répétition, et une paire rouge sang / ice metal par --data-palette comme
+   pour .card ci-dessus.
 
    L'asset est peint pour un fond sombre (ombres profondes, pas de
    variante claire livrée avec le pack) : sur le fond parchemin du thème
-   clair il paraît terne/étouffé. --action-btn-filter compense par thème
+   clair il paraît terne/étouffé. --pack-asset-filter compense par thème
    (voir les blocs :root[data-theme] plus haut pour la même logique
    appliquée aux couleurs) plutôt que d'exiger un second export du
    fournisseur — à refaire pour chaque asset du pack qu'on intègre. */
 :root[data-theme='light'] {
-  --action-btn-filter: brightness(1.3) saturate(1.15) contrast(0.95);
+  --pack-asset-filter: brightness(1.3) saturate(1.15) contrast(0.95);
 }
 :root[data-theme='dark'] {
-  --action-btn-filter: brightness(1.05) saturate(1.05);
+  --pack-asset-filter: brightness(1.05) saturate(1.05);
 }
 .roster-actions__btn {
   flex: 1;
@@ -1176,20 +1241,35 @@ button {
   line-height: 1.15;
   border: none;
   background-color: transparent;
-  background-image: url('/decor/action-btn-pill-red.png');
+  background-image: url('/decor/action-btn-1-red.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   box-shadow: none;
   color: #f1ded1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-  filter: var(--action-btn-filter, none);
+  filter: var(--pack-asset-filter, none);
   transition: filter 0.15s ease, transform 0.1s ease;
 }
+.roster-actions__btn:nth-child(2) {
+  background-image: url('/decor/action-btn-2-red.png');
+}
+.roster-actions__btn:nth-child(3) {
+  background-image: url('/decor/action-btn-3-red.png');
+}
+:root[data-palette='noir'] .roster-actions__btn {
+  background-image: url('/decor/action-btn-1-ice.png');
+}
+:root[data-palette='noir'] .roster-actions__btn:nth-child(2) {
+  background-image: url('/decor/action-btn-2-ice.png');
+}
+:root[data-palette='noir'] .roster-actions__btn:nth-child(3) {
+  background-image: url('/decor/action-btn-3-ice.png');
+}
 .roster-actions__btn:hover {
-  filter: var(--action-btn-filter, none) brightness(1.15);
+  filter: var(--pack-asset-filter, none) brightness(1.15);
 }
 .roster-actions__btn:active {
-  filter: var(--action-btn-filter, none) brightness(0.9);
+  filter: var(--pack-asset-filter, none) brightness(0.9);
   transform: translateY(1px);
 }
 @media (max-width: 480px) {
