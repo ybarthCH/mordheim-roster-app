@@ -129,9 +129,12 @@
 
 /* Ice Metal est désormais le SEUL thème clair (voir ThemeContext.tsx : la
    palette est dérivée du thème, plus un réglage indépendant) — fond crème
-   repris du thème clair Sang plutôt qu'un gris froid, et accent recalé sur
-   la pierre claire des nouveaux cadres *-clair.png (voir plus bas) au lieu
-   de l'ardoise sombre d'origine, pensée pour un fond noir. */
+   repris du thème clair Sang plutôt qu'un gris froid. Les cadres
+   *-clair.png (voir plus bas) sont recolorés en gris pierre neutre —
+   pendant clair de la pierre sombre du thème Sang — et --accent bascule
+   sur un acier bleu-gris en couleur secondaire, plutôt que de réutiliser
+   la même teinte neutre que les cadres pour les aplats (boutons actifs,
+   xp-box...). */
 :root[data-theme='light'][data-palette='noir'] {
   --bg: #f3ece0;
   --bg-elevated: #fffdf8;
@@ -140,10 +143,10 @@
   --text: #241a12;
   --text-muted: #6b5c48;
   --border: #d8c9ab;
-  --accent: #6b6151;
-  --accent-strong: #4a4335;
+  --accent: #56636d;
+  --accent-strong: #3c4750;
   --accent-contrast: #fff9ef;
-  --accent-soft: #e7e0cf;
+  --accent-soft: #dde3e6;
   --success: #2f6b3a;
   --success-bg: #dcecd9;
   --danger: #a11d1d;
@@ -631,7 +634,7 @@ button {
    le texte crème par défaut n'y est plus lisible, même logique que le
    ruban doré ci-dessous. */
 :root[data-palette='noir'] .badge.badge--leader {
-  color: #3a3120;
+  color: #26282a;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
 }
 /* Toujours dorée, quelle que soit la palette — l'avancée en attente est un
@@ -707,10 +710,10 @@ button {
 :root[data-theme='light'][data-palette='noir'] .app-header,
 :root[data-theme='light'][data-palette='noir'] .app-header__back,
 :root[data-theme='light'][data-palette='noir'] .icon-btn {
-  color: #2b2417;
+  color: #24262a;
 }
 :root[data-theme='light'][data-palette='noir'] .icon-btn--actif {
-  box-shadow: 0 0 0 2px #2b2417 inset;
+  box-shadow: 0 0 0 2px #24262a inset;
 }
 
 .card--tight {
@@ -1571,7 +1574,7 @@ button {
    par défaut illisible dessus, même logique que le ruban de tête de
    groupe et le bandeau/chrome des icônes ci-dessus. */
 :root[data-palette='noir'] .roster-actions__btn {
-  color: #3a3120;
+  color: #26282a;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
 }
 .roster-actions__btn:hover {
@@ -1613,7 +1616,7 @@ button {
 }
 :root[data-palette='noir'] .btn--pack-pill-sm {
   background-image: url('/decor/button-pill-clair.png');
-  color: #3a3120;
+  color: #26282a;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
 }
 .btn--pack-pill-sm:hover {
