@@ -41,9 +41,15 @@ const DECOR_BASE = `${import.meta.env.BASE_URL}decor/`;
 
 const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'rouge' | 'noir') => string> = {
   coffrePack: () => `${DECOR_BASE}icon-armurerie-pack.png`,
-  etoilePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-heroes-silver.png' : 'icon-heroes-gold.png'}`,
+  // Doré en palette Sang quel que soit le thème — l'argent se noyait sur le
+  // fond sombre rouge-brun des cartes ; en Ice Metal le contraste argent
+  // marche déjà bien, donc on garde la logique thème pour cette palette.
+  etoilePack: (theme, palette) => `${DECOR_BASE}${palette === 'rouge' || theme === 'light' ? 'icon-heroes-gold.png' : 'icon-heroes-silver.png'}`,
   grimoirePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-rules-silver.png' : 'icon-rules-brown.png'}`,
-  drapeauxPack: (_theme, palette) => `${DECOR_BASE}${palette === 'noir' ? 'icon-henchmen-blue.png' : 'icon-henchmen-red.png'}`,
+  // Blason doré (bouclier + épée), quelle que soit la palette : plus clair
+  // que les drapeaux croisés rouge/bleu d'origine, qui se distinguaient mal
+  // du fond de carte assorti à la palette.
+  drapeauxPack: () => `${DECOR_BASE}icon-henchmen-gold.png`,
   cranePack: (_theme, palette) => `${DECOR_BASE}${palette === 'noir' ? 'icon-graveyard-ice.png' : 'icon-graveyard-bone.png'}`,
   soleilPack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-sun-silver.png' : 'icon-sun-gold.png'}`,
   lunePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-moon-silver.png' : 'icon-moon-gold.png'}`,

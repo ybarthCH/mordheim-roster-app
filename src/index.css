@@ -109,7 +109,7 @@
   --bg-card: #241d17;
   --bg-inset: #14100c;
   --text: #ecdfc9;
-  --text-muted: #a8967d;
+  --text-muted: #c7b393;
   --border: #3a2f22;
   --accent: #c94f4f;
   --accent-strong: #e06a6a;
@@ -563,8 +563,8 @@ button {
      texte court comme "LEADER". */
   padding-top: 0.15rem;
   padding-bottom: 0.5rem;
-  padding-left: 1.1rem;
-  padding-right: 1.1rem;
+  padding-left: 1.4rem;
+  padding-right: 1.4rem;
   min-width: 4rem;
   justify-content: center;
 }
@@ -625,7 +625,7 @@ button {
   height: 10px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  opacity: 0.85;
+  opacity: 0.95;
   pointer-events: none;
 }
 :root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header::after {
@@ -1439,7 +1439,14 @@ button {
   line-height: 1.15;
   border: none;
   background-color: transparent;
-  background-image: url('/decor/action-btn-1-red.png');
+  /* Bouton "pilule" du pack (biseau brillant + ombre basse) plutôt que le
+     panneau plat utilisé avant : le panneau n'avait ni relief ni surbrillance,
+     donc rien qui le distingue visuellement d'un simple encart — ce bouton a
+     un vrai galbe de bouton cliquable. Même asset pour les 3 actions (plus
+     de variation par bouton) : à 3 boutons identiques dans une même rangée,
+     l'uniformité se lit mieux comme "ce sont les 3 mêmes types d'action" que
+     3 habillages différents. */
+  background-image: url('/decor/button-pill-red.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   box-shadow: none;
@@ -1448,20 +1455,8 @@ button {
   filter: var(--pack-asset-filter, none);
   transition: filter 0.15s ease, transform 0.1s ease;
 }
-.roster-actions__btn:nth-child(2) {
-  background-image: url('/decor/action-btn-2-red.png');
-}
-.roster-actions__btn:nth-child(3) {
-  background-image: url('/decor/action-btn-3-red.png');
-}
 :root[data-palette='noir'] .roster-actions__btn {
-  background-image: url('/decor/action-btn-1-ice.png');
-}
-:root[data-palette='noir'] .roster-actions__btn:nth-child(2) {
-  background-image: url('/decor/action-btn-2-ice.png');
-}
-:root[data-palette='noir'] .roster-actions__btn:nth-child(3) {
-  background-image: url('/decor/action-btn-3-ice.png');
+  background-image: url('/decor/button-pill-ice.png');
 }
 .roster-actions__btn:hover {
   filter: var(--pack-asset-filter, none) brightness(1.15);
