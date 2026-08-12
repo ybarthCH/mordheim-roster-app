@@ -127,18 +127,23 @@
   --status-plaque-fill: rgba(255, 255, 255, 0.06);
 }
 
+/* Ice Metal est désormais le SEUL thème clair (voir ThemeContext.tsx : la
+   palette est dérivée du thème, plus un réglage indépendant) — fond crème
+   repris du thème clair Sang plutôt qu'un gris froid, et accent recalé sur
+   la pierre claire des nouveaux cadres *-clair.png (voir plus bas) au lieu
+   de l'ardoise sombre d'origine, pensée pour un fond noir. */
 :root[data-theme='light'][data-palette='noir'] {
-  --bg: #eceeef;
-  --bg-elevated: #ffffff;
-  --bg-card: #f7f8f9;
-  --bg-inset: #e2e5e7;
-  --text: #1c2023;
-  --text-muted: #5b6268;
-  --border: #cbd1d5;
-  --accent: #3a4149;
-  --accent-strong: #23282d;
-  --accent-contrast: #f5f6f7;
-  --accent-soft: #dde1e4;
+  --bg: #f3ece0;
+  --bg-elevated: #fffdf8;
+  --bg-card: #fffaf1;
+  --bg-inset: #e9dfcc;
+  --text: #241a12;
+  --text-muted: #6b5c48;
+  --border: #d8c9ab;
+  --accent: #6b6151;
+  --accent-strong: #4a4335;
+  --accent-contrast: #fff9ef;
+  --accent-soft: #e7e0cf;
   --success: #2f6b3a;
   --success-bg: #dcecd9;
   --danger: #a11d1d;
@@ -147,7 +152,7 @@
   --warning-bg: #f6e6c6;
   --info-bg: #dde6ee;
   --palier: #b8860b;
-  --shadow: 0 2px 8px rgba(20, 25, 30, 0.12);
+  --shadow: 0 2px 8px rgba(60, 40, 10, 0.12);
   --status-plaque-fill: rgba(0, 0, 0, 0.08);
 }
 
@@ -325,7 +330,7 @@ button {
   filter: var(--pack-asset-filter, none);
 }
 :root[data-palette='noir'] .app-header {
-  background-image: url('/decor/header-bar-ice.png');
+  background-image: url('/decor/header-bar-clair.png');
 }
 
 .app-header__title {
@@ -421,9 +426,14 @@ button {
 }
 
 /* Panneau de pierre du pack UI acheté, à la place du grain de parchemin
-   plat — réservé au thème sombre : les deux panneaux sont peints quasi
-   noirs, illisibles sous le texte sombre du thème clair (qui garde donc
-   --texture-parchemin, cf. règle .card de base ci-dessus).
+   plat. Longtemps réservé au thème sombre (les panneaux Sang/Ice Metal
+   d'origine sont peints quasi noirs, illisibles sous le texte sombre du
+   thème clair) — mais Ice Metal étant maintenant TOUJOURS le thème clair
+   (palette dérivée du thème, voir ThemeContext.tsx), ses cadres ont été
+   redéclinés en pierre claire (*-clair.png) spécifiquement pour ce fond
+   crème, cf. bloc `[data-theme='light'][data-palette='noir']` plus bas.
+   Sang restant toujours sombre, son panneau garde son traitement
+   d'origine et n'a pas besoin d'équivalent clair.
 
    border-image plutôt que background-image + cover : cover recadrait le
    filet peint tout autour dès que la carte n'avait pas exactement le
@@ -435,7 +445,8 @@ button {
    cadre et laisse le fond de .card, donc le grain de parchemin, filtrer
    au milieu). */
 :root[data-theme='dark'][data-palette='rouge'] .card,
-:root[data-theme='dark'][data-palette='noir'] .card {
+:root[data-theme='dark'][data-palette='noir'] .card,
+:root[data-theme='light'][data-palette='noir'] .card {
   background-image: none;
   border-style: solid;
   border-width: 20px;
@@ -449,10 +460,14 @@ button {
 :root[data-theme='dark'][data-palette='noir'] .card {
   border-image-source: url('/decor/card-panel-ice.png');
 }
+:root[data-theme='light'][data-palette='noir'] .card {
+  border-image-source: url('/decor/card-panel-clair.png');
+}
 /* Le filet peint remplace maintenant le double-liseré CSS — les deux se
    chevauchaient sinon (voir .card::before plus haut). */
 :root[data-theme='dark'][data-palette='rouge'] .card::before,
-:root[data-theme='dark'][data-palette='noir'] .card::before {
+:root[data-theme='dark'][data-palette='noir'] .card::before,
+:root[data-theme='light'][data-palette='noir'] .card::before {
   content: none;
 }
 /* En dessous d'une certaine largeur de carte (colonne de liste étroite en
@@ -472,6 +487,11 @@ button {
     border-image-slice: 16% fill;
     border-image-source: url('/decor/card-panel-titlebar-ice.png');
   }
+  :root[data-theme='light'][data-palette='noir'] .card {
+    border-width: 14px;
+    border-image-slice: 16% fill;
+    border-image-source: url('/decor/card-panel-titlebar-clair.png');
+  }
 }
 /* Carte résumé de bande (ressources) : asset panel_10 dédié, avec son
    propre liseré lumineux — toujours affiché à taille pleine (jamais
@@ -483,6 +503,9 @@ button {
 }
 :root[data-theme='dark'][data-palette='noir'] .card--summary {
   border-image-source: url('/decor/card-panel-summary-ice.png');
+}
+:root[data-theme='light'][data-palette='noir'] .card--summary {
+  border-image-source: url('/decor/card-panel-summary-clair.png');
 }
 
 /* Cadre carré du pack UI autour de la photo de la fiche personnage —
@@ -502,7 +525,7 @@ button {
   background-size: 100% 100%;
 }
 :root[data-palette='noir'] .avatar-frame {
-  background-image: url('/decor/avatar-frame-ice.png');
+  background-image: url('/decor/avatar-frame-clair.png');
 }
 
 /* Grand cadre du pack UI autour de la photo agrandie (modale "Changer la
@@ -538,7 +561,7 @@ button {
   content: '';
   position: absolute;
   inset: -18px;
-  background-image: url('/decor/photo-frame-large-ice.png');
+  background-image: url('/decor/photo-frame-large-clair.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   pointer-events: none;
@@ -602,7 +625,14 @@ button {
   background-image: url('/decor/tag-leader-red.png');
 }
 :root[data-palette='noir'] .badge.badge--leader::before {
-  background-image: url('/decor/tag-leader-ice.png');
+  background-image: url('/decor/tag-leader-clair.png');
+}
+/* Ruban pierre claire beaucoup plus pâle que le rouge/l'ancien ice-blue —
+   le texte crème par défaut n'y est plus lisible, même logique que le
+   ruban doré ci-dessous. */
+:root[data-palette='noir'] .badge.badge--leader {
+  color: #3a3120;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
 }
 /* Toujours dorée, quelle que soit la palette — l'avancée en attente est un
    statut "à traiter", pas une teinte d'accent qui doit suivre Sang/Ice
@@ -660,7 +690,7 @@ button {
   border-color: transparent;
 }
 :root[data-palette='noir'] .icon-btn {
-  background-image: url('/decor/chrome-square-ice.png');
+  background-image: url('/decor/chrome-square-clair.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   border-color: transparent;
@@ -668,6 +698,19 @@ button {
 :root[data-palette] .icon-btn--actif {
   background-color: transparent;
   box-shadow: 0 0 0 2px var(--accent-contrast) inset;
+}
+/* Le bandeau et le chrome des boutons-icônes en pierre claire sont bien
+   plus pâles que --accent-contrast (pensé pour les aplats --accent unis,
+   plus soutenus) — texte/anneau actif sombres dédiés pour ces éléments
+   précis plutôt que d'éclaircir --accent-contrast et casser le contraste
+   des aplats (xp-box, status-pill...) ailleurs dans l'appli. */
+:root[data-theme='light'][data-palette='noir'] .app-header,
+:root[data-theme='light'][data-palette='noir'] .app-header__back,
+:root[data-theme='light'][data-palette='noir'] .icon-btn {
+  color: #2b2417;
+}
+:root[data-theme='light'][data-palette='noir'] .icon-btn--actif {
+  box-shadow: 0 0 0 2px #2b2417 inset;
 }
 
 .card--tight {
@@ -1480,18 +1523,17 @@ button {
 }
 /* Cadres "skill panel" du pack UI acheté à la place du sceau de cire CSS —
    un asset différent par bouton (buttons_01/02/03) pour casser la
-   répétition, et une paire rouge sang / ice metal par --data-palette comme
-   pour .card ci-dessus.
+   répétition, et une paire Sang / Ice Metal par --data-palette comme pour
+   .card ci-dessus.
 
-   L'asset est peint pour un fond sombre (ombres profondes, pas de
-   variante claire livrée avec le pack) : sur le fond parchemin du thème
-   clair il paraît terne/étouffé. --pack-asset-filter compense par thème
-   (voir les blocs :root[data-theme] plus haut pour la même logique
-   appliquée aux couleurs) plutôt que d'exiger un second export du
-   fournisseur — à refaire pour chaque asset du pack qu'on intègre. */
-:root[data-theme='light'] {
-  --pack-asset-filter: brightness(1.3) saturate(1.15) contrast(0.95);
-}
+   Sang (rouge) est peint pour un fond sombre (ombres profondes) — léger
+   coup de peps via --pack-asset-filter, historiquement pensé pour
+   compenser ces mêmes assets affichés sur le thème clair du temps où
+   thème et palette étaient indépendants (voir ThemeContext.tsx : Sang est
+   maintenant toujours sombre, ce cas ne se présente plus). Ice Metal a
+   depuis ses propres exports "pierre claire" (*-clair.png, cf. .card et
+   .app-header plus haut), déjà calibrés pour le thème clair : aucune
+   compensation de filtre nécessaire. */
 :root[data-theme='dark'] {
   --pack-asset-filter: brightness(1.05) saturate(1.05);
 }
@@ -1523,7 +1565,14 @@ button {
   transition: filter 0.15s ease, transform 0.1s ease;
 }
 :root[data-palette='noir'] .roster-actions__btn {
-  background-image: url('/decor/button-pill-ice.png');
+  background-image: url('/decor/button-pill-clair.png');
+}
+/* Pilule pierre claire beaucoup plus pâle que le rouge sang — texte crème
+   par défaut illisible dessus, même logique que le ruban de tête de
+   groupe et le bandeau/chrome des icônes ci-dessus. */
+:root[data-palette='noir'] .roster-actions__btn {
+  color: #3a3120;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
 }
 .roster-actions__btn:hover {
   filter: var(--pack-asset-filter, none) brightness(1.15);
@@ -1563,7 +1612,9 @@ button {
   transition: filter 0.15s ease, transform 0.1s ease;
 }
 :root[data-palette='noir'] .btn--pack-pill-sm {
-  background-image: url('/decor/button-pill-ice.png');
+  background-image: url('/decor/button-pill-clair.png');
+  color: #3a3120;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
 }
 .btn--pack-pill-sm:hover {
   filter: var(--pack-asset-filter, none) brightness(1.15);

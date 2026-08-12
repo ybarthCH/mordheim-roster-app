@@ -7,8 +7,11 @@ export type ThemeContextValue = {
   theme: Theme;
   effectiveTheme: 'light' | 'dark';
   setTheme: (t: Theme) => void;
+  // Dérivée de effectiveTheme, plus un réglage indépendant : le thème Sang
+  // est toujours sombre, le thème Ice Metal toujours clair — un seul
+  // sélecteur (thème) au lieu de deux réglages qui pouvaient produire des
+  // combinaisons non maintenues (clair+rouge, sombre+noir).
   palette: Palette;
-  setPalette: (p: Palette) => void;
 };
 
 export const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);

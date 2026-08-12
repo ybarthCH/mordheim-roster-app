@@ -21,14 +21,10 @@ const ACCENT_COLORS: Record<'light' | 'dark', Record<Palette, string>> = {
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('system');
   const [systemDark, setSystemDark] = useState(systemPrefersDark());
-  const [palette, setPaletteState] = useState<Palette>('rouge');
 
   useEffect(() => {
     getSetting<Theme>('theme').then((saved) => {
       if (saved) setThemeState(saved);
-    });
-    getSetting<Palette>('palette').then((saved) => {
-      if (saved) setPaletteState(saved);
     });
     const mql = window.matchMedia('(prefers-color-scheme: dark)');
     const listener = (e: MediaQueryListEvent) => setSystemDark(e.matches);
@@ -38,6 +34,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const effectiveTheme: 'light' | 'dark' =
     theme === 'system' ? (systemDark ? 'dark' : 'light') : theme;
+
+  // Palette dérivée du thème plutôt que réglage indépendant : Sang est
+  // toujours sombre, Ice Metal toujours clair (voir la note dans
+  // useTheme.ts) — deux combinaisons (clair+rouge, sombre+noir) existent
+  // encore dans index.css mais ne sont plus atteignables depuis l'UI.
+  const palette: Palette = effectiveTheme === 'dark' ? 'rouge' : 'noir';
 
   useEffect(() => {
     document.documentElement.dataset.theme = effectiveTheme;
@@ -57,17 +59,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setSetting('theme', t);
   }, []);
 
-  const setPalette = useCallback((p: Palette) => {
-    setPaletteState(p);
-    setSetting('palette', p);
-  }, []);
-
   // value mémoïsé : sans ça, un nouvel objet littéral à chaque rendu de
   // ThemeProvider re-rendrait tous les consommateurs de useTheme(), même
   // quand ni le thème ni la palette n'ont changé.
   const value = useMemo(
-    () => ({ theme, effectiveTheme, setTheme, palette, setPalette }),
-    [theme, effectiveTheme, setTheme, palette, setPalette]
+    () => ({ theme, effectiveTheme, setTheme, palette }),
+    [theme, effectiveTheme, setTheme, palette]
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
