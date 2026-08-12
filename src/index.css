@@ -1002,19 +1002,56 @@ button {
   background-image: url('/decor/banner-ribbon-red.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  padding: 0.85rem 3.5rem;
+  /* Le ruban peint ne remplit que la partie haute du fichier (~78% de la
+     hauteur) — le bas est une marge transparente réservée aux pointes qui
+     pendent plus bas sur les côtés. Un padding haut/bas asymétrique
+     recentre le contenu sur le centre visuel du ruban plutôt que sur le
+     centre géométrique de la boîte. */
+  padding: 0.4rem 3.5rem 1.3rem;
   filter: var(--pack-asset-filter, none);
 }
 @media (max-width: 480px) {
   .banner-danger {
     background-image: url('/decor/banner-ribbon-red-mobile.png');
-    padding: 1.4rem 2.6rem;
+    padding: 0.9rem 2.6rem 1.9rem;
   }
 }
 .banner-danger__icon {
   font-size: 1.3rem;
   line-height: 1;
   flex-shrink: 0;
+}
+/* Bannière "aucun chef" : sous 480px, le texte long ("Aucun chef n'est
+   désigné pour cette bande.") + le bouton ne tiennent plus sur une seule
+   ligne dans une bannière déjà compacte. On bascule vers un texte court et
+   une disposition verticale centrée (icône+texte, puis bouton dessous)
+   plutôt que de laisser le texte s'enrouler autour du bouton. */
+.banner-danger__label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+.banner-danger__short {
+  display: none;
+}
+@media (max-width: 480px) {
+  .banner-danger--leader {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 1.1rem 1.5rem 2.3rem;
+  }
+  .banner-danger--leader .banner-danger__label {
+    flex: none;
+  }
+  .banner-danger--leader .banner-danger__full {
+    display: none;
+  }
+  .banner-danger--leader .banner-danger__short {
+    display: inline;
+  }
 }
 .badge--info {
   background: var(--info-bg);

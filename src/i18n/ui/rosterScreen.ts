@@ -24,6 +24,10 @@ export const rosterScreen: UiDictionary = {
     fr: "Aucun chef n'est désigné pour cette bande.",
     en: 'No leader has been designated for this warband.',
   },
+  'roster.noLeaderShort': {
+    fr: 'Nouveau chef nécessaire',
+    en: 'New leader needed',
+  },
   'roster.chooseLeader': { fr: 'Choisir un chef', en: 'Choose a leader' },
   'roster.trinketRulePrefix': {
     fr: 'Règle « Trinket limité » non respectée :',
