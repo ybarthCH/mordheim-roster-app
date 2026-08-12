@@ -994,6 +994,7 @@ button {
 .banner-danger {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
   color: #fff6ea;
   margin-bottom: 0.8rem;
@@ -1021,16 +1022,19 @@ button {
   line-height: 1;
   flex-shrink: 0;
 }
-/* Bannière "aucun chef" : sous 480px, le texte long ("Aucun chef n'est
-   désigné pour cette bande.") + le bouton ne tiennent plus sur une seule
-   ligne dans une bannière déjà compacte. On bascule vers un texte court et
-   une disposition verticale centrée (icône+texte, puis bouton dessous)
+/* Bannière "aucun chef" : icône+texte+bouton groupés et centrés ensemble
+   (voir justify-content: center ci-dessus) plutôt qu'étirés d'un bord à
+   l'autre — sans le flex:1 d'avant, qui poussait le bouton contre la
+   pointe droite du ruban et le texte contre la pointe gauche.
+   Sous 480px, le texte long ("Aucun chef n'est désigné pour cette
+   bande.") + le bouton ne tiennent plus sur une seule ligne dans une
+   bannière déjà compacte. On bascule vers un texte court et une
+   disposition verticale centrée (icône+texte, puis bouton dessous)
    plutôt que de laisser le texte s'enrouler autour du bouton. */
 .banner-danger__label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  flex: 1;
 }
 .banner-danger__short {
   display: none;
@@ -1042,9 +1046,6 @@ button {
     text-align: center;
     gap: 0.5rem;
     padding: 1.1rem 1.5rem 2.3rem;
-  }
-  .banner-danger--leader .banner-danger__label {
-    flex: none;
   }
   .banner-danger--leader .banner-danger__full {
     display: none;
