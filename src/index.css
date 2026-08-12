@@ -301,6 +301,13 @@ button {
   min-height: 100%;
 }
 
+/* Fond du bandeau : asset du pack (plaque acier + velours, recadrée dans sa
+   zone droite pour éviter le blason central et les embouts arrondis) mis à
+   l'échelle sur la hauteur seulement puis répété horizontalement — jamais
+   d'étirement dans le sens de la largeur, donc aucune perte de détail quelle
+   que soit la largeur réelle de l'écran (contrairement à un
+   background-size:100% 100% qui finit "lissé" façon néon sur un bandeau
+   très large). */
 .app-header {
   position: sticky;
   top: 0;
@@ -309,9 +316,16 @@ button {
   align-items: center;
   gap: 0.6rem;
   padding: calc(0.6rem + var(--safe-top)) 0.8rem 0.6rem;
-  background: var(--accent);
+  background-color: var(--accent);
+  background-image: url('/decor/header-bar-red.png');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
   color: var(--accent-contrast);
   box-shadow: var(--shadow);
+  filter: var(--pack-asset-filter, none);
+}
+:root[data-palette='noir'] .app-header {
+  background-image: url('/decor/header-bar-ice.png');
 }
 
 .app-header__title {
