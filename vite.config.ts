@@ -2,6 +2,7 @@ import { execSync } from 'node:child_process';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
+import type { Declaration, Plugin } from 'postcss';
 
 // Deux cibles de déploiement possibles :
 // - GitHub Pages (dev/staging) sert le projet sous /mordheim-roster-app/,
@@ -11,6 +12,29 @@ import { VitePWA } from 'vite-plugin-pwa';
 //   DEPLOY_TARGET=root pour forcer base à "/".
 // En dev (`npm run dev`), toujours servi à la racine.
 const base = process.env.DEPLOY_TARGET === 'root' ? '/' : '/mordheim-roster-app/';
+
+// Le CSS référence les assets de public/decor (icônes, cadres, bannières du
+// pack) avec des chemins absolus (`url('/decor/...')`) : c'est le chemin
+// final tel que servi une fois déployé à la racine. Vite ne réécrit jamais
+// ces URLs absolues — par design, il laisse le développeur responsable du
+// base path — donc sous GitHub Pages (base `/mordheim-roster-app/`), chaque
+// `url('/decor/...')` résout vers la racine du domaine au lieu du sous-
+// dossier du projet et 404 (icônes/cadres invisibles, quel que soit le
+// navigateur). Ce plugin PostCSS préfixe ces chemins absolus par le base
+// path au moment du build, une seule fois pour toutes les déclarations,
+// plutôt que de réécrire individuellement chaque référence dans le CSS.
+function rewriteRootAssetUrls(basePath: string): Plugin {
+  const prefix = basePath === '/' ? '' : basePath.replace(/\/$/, '');
+  return {
+    postcssPlugin: 'rewrite-root-asset-urls',
+    Declaration(decl: Declaration) {
+      if (!prefix || !decl.value.includes('url(')) return;
+      decl.value = decl.value.replace(/url\((['"]?)(\/[^'")]+)\1\)/g, (_match, quote: string, path: string) => {
+        return `url(${quote}${prefix}${path}${quote})`;
+      });
+    },
+  };
+}
 
 // Identifiant de build affiché sur l'écran d'accueil, pour distinguer un
 // service worker resté sur un ancien cache d'un vrai dernier déploiement.
@@ -26,6 +50,11 @@ function gitShortSha() {
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
   base: command === 'build' ? base : '/',
+  css: {
+    postcss: {
+      plugins: [rewriteRootAssetUrls(command === 'build' ? base : '/')],
+    },
+  },
   define: {
     __APP_VERSION__: JSON.stringify(gitShortSha()),
     __APP_BUILD_DATE__: JSON.stringify(new Date().toISOString()),

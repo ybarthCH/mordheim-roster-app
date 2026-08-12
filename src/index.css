@@ -355,7 +355,11 @@ button {
 
 .app-main {
   flex: 1;
-  padding: 0.8rem 0.8rem calc(1.5rem + var(--safe-bottom));
+  /* Padding horizontal légèrement plus généreux que le vertical : sans ça,
+     la scrollbar native colle quasiment aux cartes sur un viewport large
+     (Edge/Chrome desktop), le 0.8rem d'origine étant à peine plus large
+     qu'elle. */
+  padding: 0.8rem 1.2rem calc(1.5rem + var(--safe-bottom));
   max-width: 1100px;
   width: 100%;
   margin: 0 auto;
@@ -598,26 +602,6 @@ button {
 :root[data-palette] .icon-btn--actif {
   background-color: transparent;
   box-shadow: 0 0 0 2px var(--accent-contrast) inset;
-}
-
-/* Jauge "recrues utilisées / max" sous la tuile Membres du résumé de
-   bande — trait métallique + remplissage or du pack, en complément du
-   chiffre déjà affiché plutôt qu'à sa place. */
-.recruit-meter {
-  height: 6px;
-  margin-top: 0.35rem;
-  background-image: url('/decor/progress-track.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  border-radius: 3px;
-  overflow: hidden;
-}
-.recruit-meter__fill {
-  height: 100%;
-  background-image: url('/decor/progress-fill.png');
-  background-size: auto 100%;
-  background-repeat: repeat-x;
-  transition: width 0.2s ease;
 }
 
 .card--tight {

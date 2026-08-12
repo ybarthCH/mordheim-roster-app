@@ -31,28 +31,36 @@ export type PackIconName =
   | 'zoomAvantPack'
   | 'zoomArrierePack';
 
+// Base des assets décoratifs (public/decor/), préfixée par le base path
+// configuré côté Vite (import.meta.env.BASE_URL) plutôt qu'un simple
+// '/decor/' en dur : sous GitHub Pages, servi depuis un sous-dossier
+// (/mordheim-roster-app/), un chemin absolu commençant par '/' résout vers
+// la racine du domaine et 404 — ce qui rendait ces icônes invisibles quel
+// que soit le navigateur, pas seulement Edge.
+const DECOR_BASE = `${import.meta.env.BASE_URL}decor/`;
+
 const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'rouge' | 'noir') => string> = {
-  coffrePack: () => '/decor/icon-armurerie-pack.png',
-  etoilePack: (theme) => (theme === 'dark' ? '/decor/icon-heroes-silver.png' : '/decor/icon-heroes-gold.png'),
-  grimoirePack: (theme) => (theme === 'dark' ? '/decor/icon-rules-silver.png' : '/decor/icon-rules-brown.png'),
-  drapeauxPack: (_theme, palette) => (palette === 'noir' ? '/decor/icon-henchmen-blue.png' : '/decor/icon-henchmen-red.png'),
-  cranePack: (_theme, palette) => (palette === 'noir' ? '/decor/icon-graveyard-ice.png' : '/decor/icon-graveyard-bone.png'),
-  soleilPack: (theme) => (theme === 'dark' ? '/decor/icon-sun-silver.png' : '/decor/icon-sun-gold.png'),
-  lunePack: (theme) => (theme === 'dark' ? '/decor/icon-moon-silver.png' : '/decor/icon-moon-gold.png'),
-  poubellePack: () => '/decor/icon-trash.png',
+  coffrePack: () => `${DECOR_BASE}icon-armurerie-pack.png`,
+  etoilePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-heroes-silver.png' : 'icon-heroes-gold.png'}`,
+  grimoirePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-rules-silver.png' : 'icon-rules-brown.png'}`,
+  drapeauxPack: (_theme, palette) => `${DECOR_BASE}${palette === 'noir' ? 'icon-henchmen-blue.png' : 'icon-henchmen-red.png'}`,
+  cranePack: (_theme, palette) => `${DECOR_BASE}${palette === 'noir' ? 'icon-graveyard-ice.png' : 'icon-graveyard-bone.png'}`,
+  soleilPack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-sun-silver.png' : 'icon-sun-gold.png'}`,
+  lunePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-moon-silver.png' : 'icon-moon-gold.png'}`,
+  poubellePack: () => `${DECOR_BASE}icon-trash.png`,
   // Toujours rouge, quel que soit le thème/la palette — même logique que
   // .banner-danger : un danger reste rouge (cf. --danger, identique dans
   // les deux palettes), seule la nuance s'ajuste au thème.
-  croixPack: (theme) => (theme === 'dark' ? '/decor/icon-close-red-dark.png' : '/decor/icon-close-red.png'),
-  engrenagePack: () => '/decor/icon-settings.png',
-  couronnePack: (theme) => (theme === 'dark' ? '/decor/icon-crown-silver.png' : '/decor/icon-crown-gold.png'),
-  epeePack: () => '/decor/icon-swords-crossed.png',
-  cochePack: () => '/decor/icon-check-green.png',
-  baguettePack: () => '/decor/icon-wand.png',
-  cadenasPack: () => '/decor/icon-lock.png',
-  sablierPack: () => '/decor/icon-hourglass.png',
-  zoomAvantPack: () => '/decor/icon-zoom-in.png',
-  zoomArrierePack: () => '/decor/icon-zoom-out.png',
+  croixPack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-close-red-dark.png' : 'icon-close-red.png'}`,
+  engrenagePack: () => `${DECOR_BASE}icon-settings.png`,
+  couronnePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-crown-silver.png' : 'icon-crown-gold.png'}`,
+  epeePack: () => `${DECOR_BASE}icon-swords-crossed.png`,
+  cochePack: () => `${DECOR_BASE}icon-check-green.png`,
+  baguettePack: () => `${DECOR_BASE}icon-wand.png`,
+  cadenasPack: () => `${DECOR_BASE}icon-lock.png`,
+  sablierPack: () => `${DECOR_BASE}icon-hourglass.png`,
+  zoomAvantPack: () => `${DECOR_BASE}icon-zoom-in.png`,
+  zoomArrierePack: () => `${DECOR_BASE}icon-zoom-out.png`,
 };
 
 function isPackIconName(name: IconName | PackIconName): name is PackIconName {
