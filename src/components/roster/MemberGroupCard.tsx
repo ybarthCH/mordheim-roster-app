@@ -220,7 +220,7 @@ export function MemberGroupCard({
                         </span>
                       )}
                       {avanceEnAttente && (
-                        <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
+                        <span className="badge badge--pending" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
                           {t('memberGroup.pendingAdvance')}
                         </span>
                       )}
@@ -293,7 +293,7 @@ export function MemberGroupCard({
                       )}
                       {inventaireGroupeMismatch(m) && (
                         <span
-                          className="badge badge--danger"
+                          className="badge badge--equipment-warning"
                           style={{ marginLeft: '0.3rem' }}
                           title={t('memberGroup.equipmentMismatchTitle')}
                         >
@@ -368,7 +368,7 @@ export function MemberGroupCard({
                       </span>
                     )}
                     {avanceEnAttente && (
-                      <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
+                      <span className="badge badge--pending" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
                         {t('memberGroup.pendingAdvance')}
                       </span>
                     )}
@@ -451,7 +451,7 @@ export function MemberGroupCard({
                 {blessures && <div className="text-sm text-danger">{blessures}</div>}
                 {inventaireGroupeMismatch(m) && (
                   <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.15rem' }}>
-                    <span className="badge badge--danger" title={t('memberGroup.equipmentMismatchTitle')}>
+                    <span className="badge badge--equipment-warning" title={t('memberGroup.equipmentMismatchTitle')}>
                       ⚠ {t('memberGroup.equipmentMismatchBadge')}
                     </span>
                   </div>

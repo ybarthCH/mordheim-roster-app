@@ -530,16 +530,24 @@ button {
   pointer-events: none;
 }
 
-/* Étiquette "LEADER" en banderole plutôt qu'un badge pilule plat. */
-.badge--leader {
+/* Badges en banderole (ruban du pack) plutôt qu'en pilule plate : LEADER,
+   avancée en attente, incompatibilité d'équipement dans un groupe — les
+   trois se croisent dans la même ligne de la liste de membres, la
+   banderole se repère mieux qu'un badge pilule discret. */
+.badge--leader,
+.badge--pending,
+.badge--equipment-warning {
   border-radius: 4px;
-  color: #f1ded1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   background: transparent;
-  font-size: 0.68rem;
-  padding: 0.35rem 1.2rem;
-  min-width: 4.5rem;
+  font-size: 0.6rem;
+  padding: 0.3rem 1rem;
+  min-width: 3.8rem;
   justify-content: center;
+}
+.badge--leader,
+.badge--equipment-warning {
+  color: #f1ded1;
 }
 :root:not([data-palette]) .badge--leader,
 :root[data-palette='rouge'] .badge--leader {
@@ -550,6 +558,26 @@ button {
 }
 :root[data-palette='noir'] .badge--leader {
   background-image: url('/decor/tag-leader-ice.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  filter: var(--pack-asset-filter, none);
+}
+/* Toujours dorée, quelle que soit la palette — l'avancée en attente est un
+   statut "à traiter", pas une teinte d'accent qui doit suivre Sang/Ice
+   Metal. Texte sombre : le ruban doré est trop clair pour rester lisible
+   avec le même texte crème que les rubans rouge/glace. */
+.badge--pending {
+  background-image: url('/decor/tag-warning-gold.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  filter: var(--pack-asset-filter, none);
+  color: #2b1a06;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
+}
+/* Toujours rouge, quelle que soit la palette — même logique que
+   .banner-danger : un danger reste rouge. */
+.badge--equipment-warning {
+  background-image: url('/decor/tag-danger-red.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   filter: var(--pack-asset-filter, none);
