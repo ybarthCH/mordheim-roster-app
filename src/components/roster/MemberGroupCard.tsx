@@ -216,7 +216,7 @@ export function MemberGroupCard({
                       {nomAffiche(m)}
                       {leader && (
                         <span className="badge badge--leader" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
-                          <Icon name="etoilePack" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
+                          {t('memberGroup.leader')}
                         </span>
                       )}
                       {avanceEnAttente && (
@@ -364,7 +364,7 @@ export function MemberGroupCard({
                     {nomAffiche(m)}
                     {leader && (
                       <span className="badge badge--leader" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
-                        <Icon name="etoilePack" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
+                        {t('memberGroup.leader')}
                       </span>
                     )}
                     {avanceEnAttente && (
