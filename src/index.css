@@ -984,7 +984,15 @@ button {
    l'œil, pas de suivre l'accent Ice Metal. Découpe en 3 (border-image avec
    des tranches haut/bas nulles) plutôt qu'un simple stretch 100% 100% : les
    pointes effilées gauche/droite gardent leur taille peinte quel que soit
-   le nombre de lignes de texte, au lieu d'être écrasées avec le reste. */
+   le nombre de lignes de texte, au lieu d'être écrasées avec le reste.
+
+   La tranche basse à 22% exclut la marge transparente sous le ruban dans
+   le fichier source (réservée aux pointes des banderoles qui pendent plus
+   bas que le corps du ruban) : sans elle, cette marge vide fait partie de
+   la zone "fill" étirée sur toute la hauteur de l'élément, donc le ruban
+   peint ne remplit qu'~78% de la hauteur réelle — d'où des pointes
+   écrasées et un texte (centré par flex sur 100% de la hauteur) qui
+   paraît décalé par rapport au ruban. */
 .banner-danger {
   display: flex;
   align-items: center;
@@ -996,7 +1004,7 @@ button {
   border-style: solid;
   border-width: 0 34px;
   border-image-source: url('/decor/banner-frame-red.png');
-  border-image-slice: 0 16% fill;
+  border-image-slice: 0 16% 22% 16% fill;
   border-image-repeat: stretch;
   padding: 0.85rem 0.6rem;
   filter: var(--pack-asset-filter, none);

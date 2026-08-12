@@ -61,7 +61,9 @@ const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'ro
   // se noyaient dans les fonds de carte sombres (Sang comme Ice Metal).
   croixPack: () => `${DECOR_BASE}icon-close-bright.png`,
   engrenagePack: () => `${DECOR_BASE}icon-settings.png`,
-  couronnePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-crown-silver.png' : 'icon-crown-gold.png'}`,
+  // Toujours dorée, quel que soit le thème — l'argent se noyait sur le
+  // fond sombre du banner-danger (même logique que etoilePack/drapeauxPack).
+  couronnePack: () => `${DECOR_BASE}icon-crown-gold.png`,
   epeePack: () => `${DECOR_BASE}icon-swords-crossed.png`,
   cochePack: () => `${DECOR_BASE}icon-check-green.png`,
   baguettePack: () => `${DECOR_BASE}icon-wand.png`,
