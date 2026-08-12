@@ -981,26 +981,21 @@ button {
 
 /* Cadre en forme de banderole (asset du pack) : toujours rouge, quelle que
    soit la palette — c'est un avertissement, sa fonction est d'attirer
-   l'œil, pas de suivre l'accent Ice Metal. Découpe en 3 (border-image avec
-   des tranches haut/bas nulles) plutôt qu'un simple stretch 100% 100% : les
-   pointes effilées gauche/droite gardent leur taille peinte quel que soit
-   le nombre de lignes de texte, au lieu d'être écrasées avec le reste.
+   l'œil, pas de suivre l'accent Ice Metal.
 
-   La tranche basse à 22% exclut la marge transparente sous le ruban dans
-   le fichier source (réservée aux pointes des banderoles qui pendent plus
-   bas que le corps du ruban) : sans elle, cette marge vide fait partie de
-   la zone "fill" étirée sur toute la hauteur de l'élément, donc le ruban
-   peint ne remplit qu'~78% de la hauteur réelle — d'où des pointes
-   écrasées et un texte (centré par flex sur 100% de la hauteur) qui
-   paraît décalé par rapport au ruban.
-
-   border-width 70px avec une tranche gauche/droite à 8% (pas 16%) : une
-   tranche large compressée dans un border-width étroit écrase les pointes
-   ondulées du ruban en dents de scie (aliasing) au lieu de plis nets — il
-   faut réduire le ratio compression source/rendu, pas juste exclure la
-   marge basse. Variante mobile plus étroite ci-dessous pour ne pas manger
-   tout l'espace texte sur un petit écran. */
+   border-image (tenté avant) écrasait les pointes en dents de scie : la
+   tranche gauche/droite du fichier source doit être compressée dans un
+   border-width forcément étroit, et l'aliasing qui en résulte reste
+   visible même en élargissant border-width ou en réduisant la tranche —
+   le ratio de compression n'est jamais assez faible pour un motif aussi
+   fin (pointes de ruban ondulées). À la place : deux pointes peintes
+   (gauche/droite) affichées à leur ratio naturel (background-size:
+   auto 100%, jamais étirées horizontalement), superposées sur un fond
+   "corps de ruban" qui lui peut s'étirer sans dégât (texture plate, pas
+   de trait fin). Un padding latéral réserve la place pour ne pas
+   recouvrir le texte. */
 .banner-danger {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -1008,18 +1003,47 @@ button {
   margin-bottom: 0.8rem;
   font-weight: 700;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-  border-style: solid;
-  border-width: 0 70px;
-  border-image-source: url('/decor/banner-frame-red.png');
-  border-image-slice: 0 8% 22% 8% fill;
-  border-image-repeat: stretch;
-  padding: 0.85rem 0.6rem;
+  background-image: url('/decor/banner-body-red.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 0.85rem 4.5rem;
   filter: var(--pack-asset-filter, none);
+}
+.banner-danger::before,
+.banner-danger::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 5.5rem;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  pointer-events: none;
+}
+.banner-danger::before {
+  left: 0;
+  background-image: url('/decor/banner-cap-left-red.png');
+  background-position: left center;
+}
+.banner-danger::after {
+  right: 0;
+  background-image: url('/decor/banner-cap-right-red.png');
+  background-position: right center;
+}
+/* Les pseudo-éléments absolus (z-index auto) peignent après le contenu en
+   flux normal en ordre d'arbre — ::after (pointe droite) se retrouverait
+   donc au-dessus du bouton. On force le contenu réel au-dessus. */
+.banner-danger > * {
+  position: relative;
+  z-index: 1;
 }
 @media (max-width: 480px) {
   .banner-danger {
-    border-width: 0 45px;
-    border-image-slice: 0 6% 22% 6% fill;
+    padding: 0.75rem 3.2rem;
+  }
+  .banner-danger::before,
+  .banner-danger::after {
+    width: 4rem;
   }
 }
 .banner-danger__icon {
