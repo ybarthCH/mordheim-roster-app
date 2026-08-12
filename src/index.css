@@ -532,7 +532,7 @@ button {
   color: #f1ded1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   background: transparent;
-  font-size: 0.85rem;
+  font-size: 0.68rem;
   padding: 0.35rem 1.2rem;
   min-width: 4.5rem;
   justify-content: center;
@@ -2057,6 +2057,25 @@ button {
 .summary-tile--attention {
   background: var(--warning-bg);
   border-color: color-mix(in srgb, var(--warning) 45%, var(--border));
+}
+/* Cadre métallique du pack UI autour des 4 tuiles ressources (membres,
+   cote, trésorerie, wyrdstone) — réservé au thème sombre, même raison que
+   les autres cadres/panneaux du pack. Sans "fill" : seul l'anneau du cadre
+   vient de l'asset, le fond (bg-inset / warning-bg) et l'ombre interne de
+   la tuile restent inchangés derrière. */
+:root[data-theme='dark'][data-palette='rouge'] .summary-tile,
+:root[data-theme='dark'][data-palette='noir'] .summary-tile {
+  border-style: solid;
+  border-width: 6px;
+  border-image-repeat: stretch;
+  border-image-slice: 14%;
+  filter: var(--pack-asset-filter, none);
+}
+:root[data-theme='dark'][data-palette='rouge'] .summary-tile {
+  border-image-source: url('/decor/frame-square-red.png');
+}
+:root[data-theme='dark'][data-palette='noir'] .summary-tile {
+  border-image-source: url('/decor/frame-square-ice.png');
 }
 /* Rating/Trésorerie/Wyrdstone : chiffre centré dans la hauteur de la tuile
    (étirée par le grid pour matcher la tuile Membres, plus haute à cause de
