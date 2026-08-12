@@ -534,29 +534,43 @@ button {
    avancée en attente, incompatibilité d'équipement dans un groupe — les
    trois se croisent dans la même ligne de la liste de membres, la
    banderole se repère mieux qu'un badge pilule discret. */
-.badge--leader,
-.badge--pending,
-.badge--equipment-warning {
+/* .badge.badge--xxx (deux classes) plutôt que .badge--xxx seul : la règle
+   .badge de base définit aussi padding/font-size/border-radius, et vient
+   textuellement après ce bloc dans la feuille de style — à spécificité
+   égale (une seule classe), c'est elle qui gagnerait sur ces propriétés.
+   Le doublage de classe fait grimper la spécificité et règle le conflit
+   sans dépendre de l'ordre des règles. */
+.badge.badge--leader,
+.badge.badge--pending,
+.badge.badge--equipment-warning {
   border-radius: 4px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   background: transparent;
   font-size: 0.6rem;
-  padding: 0.3rem 1rem;
-  min-width: 3.8rem;
+  /* Marge horizontale généreuse : le ruban a des extrémités effilées
+     décoratives (queues de banderole) qui ne doivent jamais toucher le
+     texte, sinon elles paraissent coupées. */
+  padding: 0.3rem 1.8rem;
+  min-width: 5.5rem;
   justify-content: center;
+  /* Le ruban du pack a son "corps" plat légèrement au-dessus du centre
+     géométrique de l'image (la vague décorative occupe plus de place en
+     bas) : sans ce léger décalage, le texte centré par align-items
+     paraît trop bas dans la banderole. */
+  transform: translateY(-1px);
 }
-.badge--leader,
-.badge--equipment-warning {
+.badge.badge--leader,
+.badge.badge--equipment-warning {
   color: #f1ded1;
 }
-:root:not([data-palette]) .badge--leader,
-:root[data-palette='rouge'] .badge--leader {
+:root:not([data-palette]) .badge.badge--leader,
+:root[data-palette='rouge'] .badge.badge--leader {
   background-image: url('/decor/tag-leader-red.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   filter: var(--pack-asset-filter, none);
 }
-:root[data-palette='noir'] .badge--leader {
+:root[data-palette='noir'] .badge.badge--leader {
   background-image: url('/decor/tag-leader-ice.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -566,7 +580,7 @@ button {
    statut "à traiter", pas une teinte d'accent qui doit suivre Sang/Ice
    Metal. Texte sombre : le ruban doré est trop clair pour rester lisible
    avec le même texte crème que les rubans rouge/glace. */
-.badge--pending {
+.badge.badge--pending {
   background-image: url('/decor/tag-warning-gold.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -576,7 +590,7 @@ button {
 }
 /* Toujours rouge, quelle que soit la palette — même logique que
    .banner-danger : un danger reste rouge. */
-.badge--equipment-warning {
+.badge.badge--equipment-warning {
   background-image: url('/decor/tag-danger-red.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
