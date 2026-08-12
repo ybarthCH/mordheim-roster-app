@@ -539,62 +539,72 @@ button {
    textuellement après ce bloc dans la feuille de style — à spécificité
    égale (une seule classe), c'est elle qui gagnerait sur ces propriétés.
    Le doublage de classe fait grimper la spécificité et règle le conflit
-   sans dépendre de l'ordre des règles. */
+   sans dépendre de l'ordre des règles.
+
+   L'image du ruban vit sur un ::before plutôt qu'en background direct de
+   l'élément : un background suit le padding-box (donc le même centrage
+   que le texte, aucun moyen de les désolidariser), alors qu'un ::before
+   en inset:0 peut être étiré sur toute la boîte indépendamment du texte —
+   seul ce découplage permet de remonter le texte SANS déplacer le ruban
+   avec lui (un simple transform sur l'élément aurait déplacé les deux
+   ensemble, sans corriger leur position relative). */
 .badge.badge--leader,
 .badge.badge--pending,
 .badge.badge--equipment-warning {
+  position: relative;
+  z-index: 0;
   border-radius: 4px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   background: transparent;
   font-size: 0.6rem;
-  /* Marge horizontale généreuse : le ruban a des extrémités effilées
-     décoratives (queues de banderole) qui ne doivent jamais toucher le
-     texte, sinon elles paraissent coupées. */
-  padding: 0.3rem 1.8rem;
-  min-width: 5.5rem;
+  /* Marge horizontale : le ruban a des extrémités effilées décoratives
+     (queues de banderole) qui ne doivent jamais toucher le texte, sinon
+     elles paraissent coupées — mais pas au point d'étirer démesurément un
+     texte court comme "LEADER". */
+  padding-top: 0.15rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+  min-width: 4rem;
   justify-content: center;
-  /* Le ruban du pack a son "corps" plat légèrement au-dessus du centre
-     géométrique de l'image (la vague décorative occupe plus de place en
-     bas) : sans ce léger décalage, le texte centré par align-items
-     paraît trop bas dans la banderole. */
-  transform: translateY(-1px);
+}
+.badge.badge--leader::before,
+.badge.badge--pending::before,
+.badge.badge--equipment-warning::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  filter: var(--pack-asset-filter, none);
 }
 .badge.badge--leader,
 .badge.badge--equipment-warning {
   color: #f1ded1;
 }
-:root:not([data-palette]) .badge.badge--leader,
-:root[data-palette='rouge'] .badge.badge--leader {
+:root:not([data-palette]) .badge.badge--leader::before,
+:root[data-palette='rouge'] .badge.badge--leader::before {
   background-image: url('/decor/tag-leader-red.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  filter: var(--pack-asset-filter, none);
 }
-:root[data-palette='noir'] .badge.badge--leader {
+:root[data-palette='noir'] .badge.badge--leader::before {
   background-image: url('/decor/tag-leader-ice.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  filter: var(--pack-asset-filter, none);
 }
 /* Toujours dorée, quelle que soit la palette — l'avancée en attente est un
    statut "à traiter", pas une teinte d'accent qui doit suivre Sang/Ice
    Metal. Texte sombre : le ruban doré est trop clair pour rester lisible
    avec le même texte crème que les rubans rouge/glace. */
-.badge.badge--pending {
+.badge.badge--pending::before {
   background-image: url('/decor/tag-warning-gold.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  filter: var(--pack-asset-filter, none);
+}
+.badge.badge--pending {
   color: #2b1a06;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
 }
 /* Toujours rouge, quelle que soit la palette — même logique que
    .banner-danger : un danger reste rouge. */
-.badge.badge--equipment-warning {
+.badge.badge--equipment-warning::before {
   background-image: url('/decor/tag-danger-red.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  filter: var(--pack-asset-filter, none);
 }
 
 /* Filet ornemental du pack UI sous le titre des cartes repliables
