@@ -881,12 +881,17 @@ button {
   padding: 0;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: var(--bg-elevated);
-  color: var(--text-muted);
+  /* Cadre volontairement plus clair que le fond de carte (--bg-elevated
+     s'y confondait presque, surtout en thème sombre) — une surbrillance
+     translucide reste cohérente dans les deux thèmes plutôt qu'une
+     couleur fixe. L'icône prend --accent (au lieu de --text-muted) pour
+     se colorer selon le thème/la palette actifs et se détacher du cadre. */
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--accent);
   transition: transform 0.15s ease, background-color 0.15s ease;
 }
 .collapse-btn:active {
-  background: var(--bg-card);
+  background: rgba(255, 255, 255, 0.24);
 }
 .collapse-btn--replie {
   transform: rotate(180deg);
@@ -1470,6 +1475,40 @@ button {
     font-size: 0.82rem;
     padding: 0.75rem 0.3rem;
   }
+}
+
+/* Petit bouton pilule du pack, pour des actions ponctuelles dans un
+   header de carte (ex : "+ Ajouter" sur Historique des batailles) — même
+   habillage que .roster-actions__btn mais gabarit compact, sans
+   revendiquer toute la ligne. */
+.btn--pack-pill-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border: none;
+  background-color: transparent;
+  background-image: url('/decor/button-pill-red.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-height: 32px;
+  color: #f1ded1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  filter: var(--pack-asset-filter, none);
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+:root[data-palette='noir'] .btn--pack-pill-sm {
+  background-image: url('/decor/button-pill-ice.png');
+}
+.btn--pack-pill-sm:hover {
+  filter: var(--pack-asset-filter, none) brightness(1.15);
+}
+.btn--pack-pill-sm:active {
+  filter: var(--pack-asset-filter, none) brightness(0.9);
+  transform: translateY(1px);
 }
 
 .list-item {

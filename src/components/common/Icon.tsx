@@ -29,7 +29,9 @@ export type PackIconName =
   | 'cadenasPack'
   | 'sablierPack'
   | 'zoomAvantPack'
-  | 'zoomArrierePack';
+  | 'zoomArrierePack'
+  | 'plusPack'
+  | 'plumePack';
 
 // Base des assets décoratifs (public/decor/), préfixée par le base path
 // configuré côté Vite (import.meta.env.BASE_URL) plutôt qu'un simple
@@ -54,10 +56,10 @@ const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'ro
   soleilPack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-sun-silver.png' : 'icon-sun-gold.png'}`,
   lunePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-moon-silver.png' : 'icon-moon-gold.png'}`,
   poubellePack: () => `${DECOR_BASE}icon-trash.png`,
-  // Toujours rouge, quel que soit le thème/la palette — même logique que
-  // .banner-danger : un danger reste rouge (cf. --danger, identique dans
-  // les deux palettes), seule la nuance s'ajuste au thème.
-  croixPack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-close-red-dark.png' : 'icon-close-red.png'}`,
+  // Toujours rouge très clair, quel que soit le thème/la palette — une seule
+  // variante volontairement lumineuse : les anciennes nuances plus sombres
+  // se noyaient dans les fonds de carte sombres (Sang comme Ice Metal).
+  croixPack: () => `${DECOR_BASE}icon-close-bright.png`,
   engrenagePack: () => `${DECOR_BASE}icon-settings.png`,
   couronnePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-crown-silver.png' : 'icon-crown-gold.png'}`,
   epeePack: () => `${DECOR_BASE}icon-swords-crossed.png`,
@@ -67,6 +69,10 @@ const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'ro
   sablierPack: () => `${DECOR_BASE}icon-hourglass.png`,
   zoomAvantPack: () => `${DECOR_BASE}icon-zoom-in.png`,
   zoomArrierePack: () => `${DECOR_BASE}icon-zoom-out.png`,
+  plusPack: () => `${DECOR_BASE}icon-plus-gold.png`,
+  // Parchemin + plume, substitut le plus proche du pack pour l'action
+  // "modifier" — le pack ne contient pas de crayon littéral.
+  plumePack: () => `${DECOR_BASE}icon-edit-scroll.png`,
 };
 
 function isPackIconName(name: IconName | PackIconName): name is PackIconName {
