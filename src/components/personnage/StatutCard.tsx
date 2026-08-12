@@ -292,11 +292,9 @@ export function StatutCard({
         <Modal onClose={() => setGestionPhotoOuverte(false)}>
           <h3>{t('photoModal.title')}</h3>
           {membre.photo ? (
-            <img
-              src={membre.photo}
-              alt=""
-              style={{ display: 'block', width: 200, height: 200, borderRadius: '22%', margin: '0 auto', objectFit: 'cover' }}
-            />
+            <span className="photo-frame-large">
+              <img src={membre.photo} alt="" className="photo-frame-large__img" />
+            </span>
           ) : (
             <p className="text-sm text-muted">{t('photoModal.emptyHint')}</p>
           )}

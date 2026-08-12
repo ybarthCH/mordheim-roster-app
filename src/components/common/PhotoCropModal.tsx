@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Modal } from './Modal';
+import { Icon } from './Icon';
 import { useLanguage } from '../../state/useLanguage';
 
 // Recadrage carré léger, sans dépendance externe : l'image choisie est
@@ -116,15 +117,19 @@ export function PhotoCropModal({ fichier, onConfirm, onCancel }: PhotoCropModalP
           />
         )}
       </div>
-      <input
-        type="range"
-        min={1}
-        max={3}
-        step={0.01}
-        value={zoom}
-        onChange={(e) => setZoom(Number(e.target.value))}
-        style={{ display: 'block', width: VIEWPORT, margin: '0.8rem auto 0' }}
-      />
+      <div className="flex items-center gap-sm" style={{ width: VIEWPORT, margin: '0.8rem auto 0' }}>
+        <Icon name="zoomArrierePack" style={{ flexShrink: 0 }} />
+        <input
+          type="range"
+          min={1}
+          max={3}
+          step={0.01}
+          value={zoom}
+          onChange={(e) => setZoom(Number(e.target.value))}
+          style={{ display: 'block', flex: 1 }}
+        />
+        <Icon name="zoomAvantPack" style={{ flexShrink: 0 }} />
+      </div>
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
         <button className="btn" onClick={onCancel}>
           {t('photoCrop.cancel')}

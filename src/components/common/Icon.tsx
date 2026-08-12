@@ -24,7 +24,12 @@ export type PackIconName =
   | 'engrenagePack'
   | 'couronnePack'
   | 'epeePack'
-  | 'cochePack';
+  | 'cochePack'
+  | 'baguettePack'
+  | 'cadenasPack'
+  | 'sablierPack'
+  | 'zoomAvantPack'
+  | 'zoomArrierePack';
 
 const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'rouge' | 'noir') => string> = {
   coffrePack: () => '/decor/icon-armurerie-pack.png',
@@ -43,6 +48,11 @@ const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'ro
   couronnePack: (theme) => (theme === 'dark' ? '/decor/icon-crown-silver.png' : '/decor/icon-crown-gold.png'),
   epeePack: () => '/decor/icon-swords-crossed.png',
   cochePack: () => '/decor/icon-check-green.png',
+  baguettePack: () => '/decor/icon-wand.png',
+  cadenasPack: () => '/decor/icon-lock.png',
+  sablierPack: () => '/decor/icon-hourglass.png',
+  zoomAvantPack: () => '/decor/icon-zoom-in.png',
+  zoomArrierePack: () => '/decor/icon-zoom-out.png',
 };
 
 function isPackIconName(name: IconName | PackIconName): name is PackIconName {

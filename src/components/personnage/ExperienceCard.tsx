@@ -50,7 +50,10 @@ export function ExperienceCard({
       <XpGrid type={type} xp={membre.xp} xpDepart={membre.xp_depart} onChange={onChangeXp} demiXp={demiXp} />
       {enAttente > 0 && (
         <div className="flex justify-between items-center" style={{ marginTop: '0.7rem' }}>
-          <span className="badge badge--warning">{enAttente} {t('experience.pendingAdvances')}</span>
+          <span className="badge badge--warning">
+            <Icon name="sablierPack" style={{ marginRight: '0.3em' }} />
+            {enAttente} {t('experience.pendingAdvances')}
+          </span>
           <button className="btn btn--sm btn--primary" onClick={onOpenAvancee}>
             {t('experience.resolveAdvance')}
           </button>

@@ -487,6 +487,136 @@ button {
   background-image: url('/decor/avatar-frame-ice.png');
 }
 
+/* Grand cadre du pack UI autour de la photo agrandie (modale "Changer la
+   photo") — contrairement à avatar-frame-*.png, le centre de cet asset
+   est bien transparent : il se pose donc directement par-dessus la photo,
+   légèrement plus grand qu'elle (inset négatif) pour que le filet peint
+   dépasse tout autour au lieu de recouvrir l'image. */
+.photo-frame-large {
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+.photo-frame-large__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 22%;
+  object-fit: cover;
+}
+:root:not([data-palette]) .photo-frame-large::after,
+:root[data-palette='rouge'] .photo-frame-large::after {
+  content: '';
+  position: absolute;
+  inset: -18px;
+  background-image: url('/decor/photo-frame-large-red.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+:root[data-palette='noir'] .photo-frame-large::after {
+  content: '';
+  position: absolute;
+  inset: -18px;
+  background-image: url('/decor/photo-frame-large-ice.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* Étiquette "LEADER" en banderole plutôt qu'un badge pilule plat. */
+.badge--leader {
+  border-radius: 4px;
+  color: #f1ded1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  background: transparent;
+  padding: 0.2rem 0.8rem;
+}
+:root:not([data-palette]) .badge--leader,
+:root[data-palette='rouge'] .badge--leader {
+  background-image: url('/decor/tag-leader-red.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  filter: var(--pack-asset-filter, none);
+}
+:root[data-palette='noir'] .badge--leader {
+  background-image: url('/decor/tag-leader-ice.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  filter: var(--pack-asset-filter, none);
+}
+
+/* Filet ornemental du pack UI sous le titre des cartes repliables
+   (armurerie, règles spéciales, groupes de membres...) — réservé au thème
+   sombre, même raison que les panneaux de carte plus haut. */
+:root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header,
+:root[data-theme='dark'][data-palette='noir'] .collapsible-card__header {
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+:root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header::after,
+:root[data-theme='dark'][data-palette='noir'] .collapsible-card__header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  opacity: 0.85;
+  pointer-events: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header::after {
+  background-image: url('/decor/divider-title-stone.png');
+}
+:root[data-theme='dark'][data-palette='noir'] .collapsible-card__header::after {
+  background-image: url('/decor/divider-title-ice.png');
+}
+
+/* Chrome des boutons-icônes de l'en-tête (langue, réglages, thème,
+   deux-volets, export...) — même carré peint que les autres éléments du
+   pack, à la place de l'aplat CSS transparent. */
+:root:not([data-palette]) .icon-btn,
+:root[data-palette='rouge'] .icon-btn {
+  background-image: url('/decor/chrome-square-stone.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-color: transparent;
+}
+:root[data-palette='noir'] .icon-btn {
+  background-image: url('/decor/chrome-square-ice.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-color: transparent;
+}
+:root[data-palette] .icon-btn--actif {
+  background-color: transparent;
+  box-shadow: 0 0 0 2px var(--accent-contrast) inset;
+}
+
+/* Jauge "recrues utilisées / max" sous la tuile Membres du résumé de
+   bande — trait métallique + remplissage or du pack, en complément du
+   chiffre déjà affiché plutôt qu'à sa place. */
+.recruit-meter {
+  height: 6px;
+  margin-top: 0.35rem;
+  background-image: url('/decor/progress-track.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.recruit-meter__fill {
+  height: 100%;
+  background-image: url('/decor/progress-fill.png');
+  background-size: auto 100%;
+  background-repeat: repeat-x;
+  transition: width 0.2s ease;
+}
+
 .card--tight {
   padding: 0.6rem 0.7rem;
 }

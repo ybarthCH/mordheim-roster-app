@@ -62,6 +62,11 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
               </span>
             )}
           </div>
+          {effectifMax != null && (
+            <div className="recruit-meter" aria-hidden="true">
+              <div className="recruit-meter__fill" style={{ width: `${Math.min(100, (effectif / effectifMax) * 100)}%` }} />
+            </div>
+          )}
           {(francsTireurs > 0 || dramatisPersonae > 0) && (
             <div className="summary-tile__hint">
               {francsTireurs > 0 && `${francsTireurs} ${t('rosterSummary.hiredSwordsAbbrev')}`}

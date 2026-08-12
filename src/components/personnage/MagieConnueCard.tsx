@@ -66,7 +66,7 @@ export function MagieConnueCard({
       preferenceKey="ui.personnage.magie_connue.ouvert"
       title={
         <>
-          <Icon name="flamme" style={{ marginRight: '0.35em' }} />
+          <Icon name="baguettePack" style={{ marginRight: '0.35em' }} />
           {t('magieConnue.title')}
         </>
       }
