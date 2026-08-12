@@ -1008,6 +1008,40 @@ button {
   background-repeat: no-repeat;
   padding: 0.85rem 4.5rem;
   filter: var(--pack-asset-filter, none);
+  /* Le corps du ruban est un simple crop opaque (pas de vraie découpe
+     alpha en tissu déchiré à cet endroit du fichier source) : sans
+     silhouette non-rectangulaire, la bannière se lisait comme un
+     rectangle plein. Un clip-path ondulé recrée le bord de tissu
+     irrégulier ; les marges de 20% de chaque côté restent rectangulaires
+     pour ne pas rogner les pointes des coins (::before/::after). */
+  clip-path: polygon(
+    0% 0%,
+    20% 0%,
+    26% 3%,
+    32% 0%,
+    38% 3%,
+    44% 0%,
+    50% 3%,
+    56% 0%,
+    62% 3%,
+    68% 0%,
+    74% 3%,
+    80% 0%,
+    100% 0%,
+    100% 100%,
+    80% 100%,
+    74% 97%,
+    68% 100%,
+    62% 97%,
+    56% 100%,
+    50% 97%,
+    44% 100%,
+    38% 97%,
+    32% 100%,
+    26% 97%,
+    20% 100%,
+    0% 100%
+  );
 }
 .banner-danger::before,
 .banner-danger::after {
