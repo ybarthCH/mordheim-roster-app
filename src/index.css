@@ -992,7 +992,14 @@ button {
    la zone "fill" étirée sur toute la hauteur de l'élément, donc le ruban
    peint ne remplit qu'~78% de la hauteur réelle — d'où des pointes
    écrasées et un texte (centré par flex sur 100% de la hauteur) qui
-   paraît décalé par rapport au ruban. */
+   paraît décalé par rapport au ruban.
+
+   border-width 70px avec une tranche gauche/droite à 8% (pas 16%) : une
+   tranche large compressée dans un border-width étroit écrase les pointes
+   ondulées du ruban en dents de scie (aliasing) au lieu de plis nets — il
+   faut réduire le ratio compression source/rendu, pas juste exclure la
+   marge basse. Variante mobile plus étroite ci-dessous pour ne pas manger
+   tout l'espace texte sur un petit écran. */
 .banner-danger {
   display: flex;
   align-items: center;
@@ -1002,12 +1009,18 @@ button {
   font-weight: 700;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
   border-style: solid;
-  border-width: 0 34px;
+  border-width: 0 70px;
   border-image-source: url('/decor/banner-frame-red.png');
-  border-image-slice: 0 16% 22% 16% fill;
+  border-image-slice: 0 8% 22% 8% fill;
   border-image-repeat: stretch;
   padding: 0.85rem 0.6rem;
   filter: var(--pack-asset-filter, none);
+}
+@media (max-width: 480px) {
+  .banner-danger {
+    border-width: 0 45px;
+    border-image-slice: 0 6% 22% 6% fill;
+  }
 }
 .banner-danger__icon {
   font-size: 1.3rem;
