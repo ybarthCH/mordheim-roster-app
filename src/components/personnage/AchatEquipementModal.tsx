@@ -356,7 +356,7 @@ export function AchatEquipementModal({
           <div className="achat-equipement__contenu">
             <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
               <h3 className="mt-0 mb-0">{t('achatEquipement.customItemTitle')}</h3>
-              <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={fermerFlowPersonnalise}>
+              <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={fermerFlowPersonnalise}>
                 <Icon name="croixPack" />
               </button>
             </div>
@@ -431,7 +431,7 @@ export function AchatEquipementModal({
           <div className="achat-equipement__contenu">
             <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
               <h3 className="mt-0 mb-0">{itemSelectionneAffiche!.nom}</h3>
-              <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={onClose}>
+              <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
                 <Icon name="croixPack" />
               </button>
             </div>
@@ -454,7 +454,7 @@ export function AchatEquipementModal({
               <h3 className="mt-0 mb-0">
                 {translateItem(materiauSelectionne, language).nom} {t('achatEquipement.chooseBaseSuffix')}
               </h3>
-              <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={onClose}>
+              <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
                 <Icon name="croixPack" />
               </button>
             </div>
@@ -493,7 +493,7 @@ export function AchatEquipementModal({
                 <button className="btn btn--sm" onClick={() => setBaseMateriauId('')}>
                   {t('achatEquipement.chooseOtherBase')}
                 </button>
-                <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={onClose}>
+                <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
                   <Icon name="croixPack" />
                 </button>
               </div>
@@ -584,11 +584,11 @@ export function AchatEquipementModal({
                 <h3 className="mt-0 mb-0">{gratuit ? t('achatEquipement.addItemTitle') : t('achatEquipement.buyEquipmentTitle')}</h3>
                 <div className="flex gap-sm items-center">
                   {personnaliseActif && (
-                    <button className="btn btn--sm" onClick={() => setVuePersonnalise('menu')}>
+                    <button className="btn--pack-pill-sm" onClick={() => setVuePersonnalise('menu')}>
                       {t('achatEquipement.custom')}
                     </button>
                   )}
-                  <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={onClose}>
+                  <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
                     <Icon name="croixPack" />
                   </button>
                 </div>
@@ -698,7 +698,7 @@ export function AchatEquipementModal({
                 <button className="btn btn--sm" onClick={() => setItemId('')}>
                   {t('achatEquipement.catalogBack')}
                 </button>
-                <button className="btn btn--sm" aria-label={t('achatEquipement.close')} onClick={onClose}>
+                <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
                   <Icon name="croixPack" />
                 </button>
               </div>

@@ -2628,6 +2628,89 @@ button {
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
 }
 
+/* La boutique d'équipement est un vrai écran de contenu (catalogue, détail
+   d'objet), pas une boîte de dialogue ponctuelle — elle reprend donc le
+   cadre en pierre peinte de .card plutôt que le panneau plat de
+   .modal-sheet, pour rester cohérente avec le reste de l'appli (roster,
+   fiche personnage...). Ciblé via :has() sur .modal-sheet plutôt que sur
+   .achat-equipement lui-même : le filet peint doit border le panneau tout
+   entier (jusqu'aux bords de la modale), pas un élément à l'intérieur. */
+:root[data-theme='dark'][data-palette='rouge'] .modal-sheet:has(> .achat-equipement),
+:root[data-theme='dark'][data-palette='noir'] .modal-sheet:has(> .achat-equipement),
+:root[data-theme='light'][data-palette='noir'] .modal-sheet:has(> .achat-equipement) {
+  background-color: var(--bg-card);
+  border-style: solid;
+  border-width: 20px;
+  border-image-repeat: stretch;
+  border-image-slice: 10% fill;
+  box-shadow: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .modal-sheet:has(> .achat-equipement) {
+  border-image-source: url('/decor/card-panel-stone.png');
+}
+:root[data-theme='dark'][data-palette='noir'] .modal-sheet:has(> .achat-equipement) {
+  border-image-source: url('/decor/card-panel-ice.png');
+}
+:root[data-theme='light'][data-palette='noir'] .modal-sheet:has(> .achat-equipement) {
+  border-image-source: url('/decor/card-panel-clair.png');
+}
+/* En-tête/pied collants : même fond que le panneau (au lieu de
+   --bg-elevated, une teinte quasi identique mais qui jurait légèrement
+   contre le cadre en pierre) et filet ornemental du pack à la place de la
+   bordure/ombre plates — même traitement que .collapsible-card__header
+   plus haut. */
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header,
+:root[data-theme='dark'][data-palette='noir'] .achat-equipement__header,
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions,
+:root[data-theme='dark'][data-palette='noir'] .achat-equipement__actions {
+  position: sticky;
+  background: var(--bg-card);
+  border: none;
+  box-shadow: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header,
+:root[data-theme='dark'][data-palette='noir'] .achat-equipement__header {
+  padding-bottom: 1.1rem;
+}
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header::after,
+:root[data-theme='dark'][data-palette='noir'] .achat-equipement__header::after,
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions::before,
+:root[data-theme='dark'][data-palette='noir'] .achat-equipement__actions::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  height: 10px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  opacity: 0.95;
+  pointer-events: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header::after,
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions::before {
+  background-image: url('/decor/divider-title-stone.png');
+}
+:root[data-theme='dark'][data-palette='noir'] .achat-equipement__header::after,
+:root[data-theme='dark'][data-palette='noir'] .achat-equipement__actions::before {
+  background-image: url('/decor/divider-title-ice.png');
+}
+.achat-equipement__header::after {
+  bottom: 0;
+}
+.achat-equipement__actions::before {
+  top: 0;
+  transform: translateY(-50%);
+}
+
+/* Bouton de fermeture "×" en dehors de .app-header : reprend le chrome
+   carré du pack (fond peint hérité de .icon-btn) mais avec une bordure et
+   une couleur de texte adaptées à un fond de carte plutôt qu'au bandeau
+   d'en-tête coloré — même logique que .personnage-embedded__close. */
+.achat-equipement__close {
+  border-color: var(--border);
+  color: var(--text);
+}
+
 @keyframes mordheim-fade-in {
   from {
     opacity: 0;
