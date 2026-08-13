@@ -1,0 +1,107 @@
+# Index des sources de règles
+
+Inventaire des documents de règles Mordheim fournis par Yannick, pour usage par `mordheim-rules-auditor` et par quiconque doit vérifier une règle contre une source.
+
+**Important — ces fichiers ne sont pas conservés dans ce dépôt.** Ils vivent dans le répertoire d'upload de la session Claude Code qui les a reçus, qui est éphémère et n'est ni versionné ni accessible d'une session à l'autre. Cet index ne contient donc **aucun chemin absolu** vers un fichier réel — seulement le nom de fichier "canonique" (préfixe d'upload à 8 caractères hexadécimaux retiré) et l'empreinte SHA-256 du contenu, pour permettre de reconnaître un document déjà catalogué au prochain envoi, quel que soit le nouveau chemin d'upload qui lui sera attribué.
+
+**Quand un audit a besoin d'un document listé ici et qu'il n'est pas trouvable dans la session en cours, il faut le demander à Yannick par son nom exact (colonne "Fichier") plutôt que de deviner son contenu.**
+
+Catalogue établi le 2026-08-13 à partir des fichiers présents dans le répertoire d'upload de la session `8452eb96-f46e-50dc-93f6-3acdd1cd42c0`. 63 fichiers PDF reçus, 59 documents uniques après déduplication par empreinte SHA-256 (`Norses_GLM.pdf` reçu 2 fois, `LustrianReaversV1.2.pdf` reçu 4 fois — contenu identique à chaque fois).
+
+Langue/édition/thèmes marqués « non confirmé » sont déduits du nom de fichier et des métadonnées PDF, pas d'une lecture intégrale du document — à vérifier au moment de l'usage réel.
+
+## Règles officielles (corpus de base)
+
+| Titre | Fichier | Langue | Édition/version | Pages | SHA-256 | Thèmes couverts | Remarques |
+|---|---|---|---|---|---|---|---|
+| Mordheim — Part 1: Background & Rules | `Mordheim__Part_1__Background__Rules.pdf` | EN | Living Rulebook 2 (LRB2), non daté | 45 | `3e52536563ff3d67885278a298b66242e391fad2bb35f968cc6918e2de205b4c` | Règles de base : caractéristiques, combat, mouvement, magie de base, séquence de jeu | Métadonnée PDF : titre interne `mordheimlrb2part1` |
+| Mordheim — Part 2: Warbands | `Mordheim__Part_2__Warbands.pdf` | EN | Living Rulebook 2 (LRB2), non daté | 31 | `69e98a6ff69aad1a79e9023bfb99c21656b5101eb23dbe9085ce6bd69a312225` | Bandes officielles de base, équipement, prix, rareté | Métadonnée PDF : titre interne `mordheimlrb2part2` |
+| Mordheim — Part 3: Campaigns & Optional Rules | `Mordheim__Part_3__Campaigns__Optional_Rules.pdf` | EN | Living Rulebook 2 (LRB2), non daté | 44 | `7f2310546e96e3deaf0a7b22bb3c6e39f387d385eb7ec86c4918f011ae697fb8` | Séquence post-bataille, blessures graves, expérience, avancées, règles optionnelles, campagne | Métadonnée PDF : titre interne `mordheimlrb2part3` |
+| Mordheim — Livre des Règles (Règles condensées) [GLM] | `Mordheim__Livre_des_Regles__Regles_condensees_GLM.pdf` | FR | Compilation communautaire GLM, non datée | 37 | `a31ceb5665a87e7e363e8ae5cabbd1a358e6f1712817ad6eddc925c41b207228` | Résumé condensé de l'ensemble des règles de base en français | Traduction/compilation fan, à recouper avec les 3 fichiers EN officiels en cas de doute |
+| Dramatis Personae (extrait) | `dramatis_personae.pdf` | FR | Non identifiable | 5 | `f7230f51fb98c09bbfb56e8d164d1e9ef7e92d2c4be4eaec29083c3cd8e93dc5` | Section générale « Dramatis Personae » du livre de règles | Métadonnée PDF pointe vers « Livre des Règles de Mordheim (Complet+Errata) [Niels Delacroix] » — probable extrait de cette compilation FR plus large, non fournie en entier |
+| Tableau d'exploration (extrait) | `exploration.pdf` | FR | Non identifiable | 6 | `77bc270156953da672e1e2b502c188e026bce1f41f8595d12e7349bb50aeca47` | Tableau d'exploration post-bataille, table de trésor/wyrdstone | Même source probable que `dramatis_personae.pdf` (métadonnée identique) |
+| Place du marché de Mordheim [GLM] | `Place_du_marche_de_Mordheim_GLM.pdf` | FR | Compilation communautaire GLM, non datée | 78 | `789fde758163021154223e335d378bdf842a181579f16a12f273a571a2ee6da0` | Règles étendues de commerce, shop commun, objets rares | Le plus long document du corpus après les 2 parties du Hired Sword Compendium |
+
+## FAQ
+
+| Titre | Fichier | Langue | Édition/version | Pages | SHA-256 | Thèmes couverts | Remarques |
+|---|---|---|---|---|---|---|---|
+| The Ultimate Mordheim FAQ | `Ultimate_FAQ.pdf` | EN | Compilation communautaire, non datée | 32 | `e10bd0597a24fb1e086f4dcf739e078c089f971b0ea096645d3be29a1071b3ac` | Clarifications/errata toutes catégories (règles, bandes, objets, magie) | Source prioritaire pour trancher une ambiguïté de règle officielle |
+
+## Compendium des Francs-tireurs (Hired Swords)
+
+| Titre | Fichier | Langue | Édition/version | Pages | SHA-256 | Thèmes couverts | Remarques |
+|---|---|---|---|---|---|---|---|
+| Hired Sword Compendium — Part 1 | `Hired_Sword_Compendium_part1.pdf` | EN | Compilation communautaire, non datée | 40 | `aaf0d815b3d6fe888f751622e48f4d8a596b49b3a2c7c64d8c8ae45f8273ac55` | Fiches de francs-tireurs : coût, éligibilité par bande, caractéristiques, équipement, règles spéciales | Source directe pour vérifier `src/data/hiredSwords.ts` |
+| Hired Sword Compendium — Part 2 | `Hired_Sword_Compendium_part2.pdf` | EN | Compilation communautaire, non datée | 37 | `1da14e278dced05dfc12b0a58a3ea2cad33afd220170e571a2857e28bed570a3` | Suite du compendium (autres francs-tireurs) | Idem part 1 |
+
+## Dramatis Personae (fiches individuelles)
+
+| Titre | Fichier | Langue | Édition/version | Pages | SHA-256 | Thèmes couverts | Remarques |
+|---|---|---|---|---|---|---|---|
+| Luthor Wulfenbaum [GLM] | `Luthor_Wulfenbaum_GLM.pdf` | FR | Non identifiable | 6 | `492c34c2aace30081567e2e4247fb44f2c4bc2d6a05904dce8514a013cb8c5c7` | Dramatis Personae : Luthor Wulfenbaum | |
+| Nicodemus l'Éternel Vagabond [Town Cryer 6, trad. FR] | `Nicodemus_l_Eternel_Vagabond_TC6FR.pdf` | FR | Town Cryer #6 (traduction fan) | 1 | `e6ad2f12d2898af9414ea43bb1ba7adfde4f482ec62b795f8c7c8662717d6f3f` | Dramatis Personae : Nicodemus l'Éternel Vagabond | Suffixe `TC6FR` = Town Cryer issue 6, traduction française |
+| Dijin Katal, l'Assassin Renégat [GLM] | `Dijin_Katal_lAssassin_Renegat_GLM.pdf` | FR | Non identifiable | 1 | `6a32ccb1e6b89a8548da00756a31ff69c66fb5f9f5c8d76a004676efe2ec743c` | Dramatis Personae : Dijin Katal | |
+| Thrud le Barbare [Dramatis Personae] | `Mord__DP__Thrud_Le_Barbare.pdf` | FR | Non identifiable | 8 | `f1701b253f31cd4df12f1fcdfc7183bffcfa4b31f4faf72b7031df3245f335ff` | Dramatis Personae : Thrud le Barbare | |
+| Johann le Surin | `Johann_le_Surin_GW.pdf` | FR (confirmé par lecture) | Non identifiable | 1 | `942f14e8abcbc352b8fc3e72864222b1177568b19177f7cae46ad9aa4dd1a985` | Dramatis Personae : Johann le Surin | |
+| Penthésilée, l'Élue du Dieu Serpent [GLM] | `Penthesilee_l_Elue_du_Dieu_Serpent_GLM.pdf` | FR | Non identifiable | 1 | `5a06ee61ec753dbbda94b1de55e0708fe078a610eedcc87138949f998ddc87c2` | Dramatis Personae : Penthésilée | |
+| Ulli et Marquand [GLM] | `Ulli_et_Marquand_GLM.pdf` | FR | Non identifiable | 4 | `ed66632cb1e937bf3b4ffee540cab3c44b344dabb443d9a9d863e6ab339995e1` | Dramatis Personae : Ulli et Marquand | |
+| Comtesse Marianna Chevaux, Vampire Assassin [GLM] | `Comtesse_Marianna_Chevaux_Vampire_Assassin_GLM.pdf` | FR (confirmé par lecture) | Non identifiable | 2 | `ccd197769d38e35c00e092f8008171dcdcc8a386e7a06d5261d3afdd0d07ed99` | Dramatis Personae : Comtesse Marianna Chevaux | |
+| Johanna Heldenhammer, l'Enfant de la Lumière [GLM] | `Johanna_Heldenhammer_lEnfant_de_la_Lumiere_GLM.pdf` | FR | Non identifiable | 5 | `2b5c932091f1ef281c9887791e19f55a10c1513069997248e504a778820f2211` | Dramatis Personae : Johanna Heldenhammer | |
+
+## Bandes (catalogues et suppléments par bande)
+
+| Titre | Fichier | Langue | Édition/version | Pages | SHA-256 | Thèmes couverts | Remarques |
+|---|---|---|---|---|---|---|---|
+| Artilleurs de Nuln [GLM] | `Artilleurs_de_Nuln_GLM.pdf` | FR | Non identifiable | 8 | `bbf00fb576dc971207df85f489dc5928ed5118f8f2c35e106916b65a5aa5887f` | Bande : Artilleurs de Nuln | Version FR ; cf. `Gunnery_School_Of_Nuln.pdf` pour l'équivalent EN |
+| Gunnery School of Nuln | `Gunnery_School_Of_Nuln.pdf` | EN | Non identifiable | 6 | `46615b12e97cf6d323f80cee240fd561357c1920fcd8318aed51980d671e51a4` | Bande : Gunnery School of Nuln | Métadonnée `nc-03-04-nuln` ; version EN, distincte du fichier GLM ci-dessus |
+| Arabian Tomb Raiders | `Arabian_Tomb_Raiders.pdf` | EN (non confirmé) | Non identifiable | 8 | `d137c1005fc4873c194b9a20e06bace271fda11046bfe7825048fdc2484530a8` | Bande : Arabian Tomb Raiders | |
+| Norses [GLM] | `Norses_GLM.pdf` | FR | Non identifiable | 7 | `47968ffc05d05c202bee5ecead0d72de78a3f372ba7158a0b9d3041936ed7b67` | Bande : Norses (Hommes du Nord) | Reçu 2 fois dans la session (contenu identique) |
+| The Sons of Hashut | `Sons_of_Hashut.pdf` | EN (confirmé) | Non identifiable | 5 | `f25cf7d953b3136d2f9919ab410d9e13bbc3939d3b446014999ba0f410ec5d5d` | Bande : Sons of Hashut (Nains du Chaos) | |
+| Gobelins des Forêts [GLM] | `Gobelins_des_Forets_GLM.pdf` | FR (confirmé) | Non identifiable | 8 | `4eac8cf392b36291ef69991ea0f7353b89f276b54c41e2689ef68eb74761c477` | Bande : Gobelins des Forêts | Version FR ; cf. `Forest_Goblins.pdf` pour l'équivalent EN |
+| Forest Goblins | `Forest_Goblins.pdf` | EN | Non identifiable | 5 | `0c745541f06c6e605d2fe03149f224361ed9cade3d9715e17b4ea0084cf88e01` | Bande : Forest Goblins | Métadonnée `nc-03-02-forestgoblins` ; distinct du fichier GLM ci-dessus |
+| Chevaliers Bretonniens [GLM] | `Chevaliers_Bretonniens_GLM.pdf` | FR | Non identifiable | 7 | `adc8b65f7f3f7cfda2e6105d6a1a31220caffefbfc2ce695350ce49dc762757d` | Bande : Chevaliers Bretonniens | |
+| Bretonnian Chapel Guard | `Bretonnian_Chapel_Guard.pdf` | EN | Non identifiable | 6 | `cadbf51aebe4f0ada2cd67ee1d3ceaaf7432b93541ef3dbaa85fceb50ff7b84f` | Bande : Bretonnian Chapel Guard (Gardiens de Chapelle Bretonniens) | |
+| Tomb Guardians (Town Cryer 18) | `Tomb_Guardians.pdf` | EN | Town Cryer #18 | 6 | `843284d3fcf95d12607fffdfbd667962701f17e244d545b4d0e94bf60776b09c` | Bande : Tomb Guardians | Métadonnée `TownCryer18.pdf` ; à ne pas confondre avec le fichier suivant |
+| Tomb Guardians (variante) | `tomb_guardians.pdf` | EN (confirmé) | Non identifiable | 8 | `b38d58b722530a362b7b66476fc615c868a4f590801485fe26dc52f916e7aeff` | Bande : Tomb Guardians | Contenu différent (hash différent) du fichier `Tomb_Guardians.pdf` ci-dessus — probablement une version alternative/étendue |
+| Lustrian Reavers v1.2 | `LustrianReaversV1.2.pdf` | Non confirmé (page de titre sans texte extractible) | v1.2 | 6 | `8a2aa6afce5c223a7192ce3f9ec69215cdbd63d16a3961731fc2bfba0f86d25e` | Bande : Lustrian Reavers / Pillards de Lustrie | Reçu 4 fois dans la session (contenu identique) |
+| Pirates [GLM] | `Pirates_GLM.pdf` | FR | Non identifiable | 12 | `f24e5b1706eb2b61640e65ceeae6c5fd0f72c15107da6ea2099feaaf50885981` | Bande : Pirates | Source pour trancher les entrées `jolly_roger`/`biscuit_de_mer` |
+| Tiléens [GLM] | `Tileens_GLM.pdf` | FR | Non identifiable | 7 | `2c47943ffc543d1eb3b36f320210ff6f7baf2ab7a25f8c68cb6e891d9216c5fe` | Bande : Tiléens | |
+| Empire in Flames | `Empire_In_Flames.pdf` | EN (non confirmé, page de titre sans texte extractible) | Non identifiable | 74 | `035f50c0300d2682524ad9b1c55681e6c2e0ddf4d09ac223da898087afaa0aed` | Supplément de campagne « Empire in Flames » | Métadonnée `EMP_FLA_01` ; document le plus long après le compendium et la Place du marché |
+| Mootlanders | `Mootlanders.pdf` | EN | Non identifiable | 4 | `ad77e8180fbb16b00532ddca64939ca0f8e48fc388ccc28bc97303e1190ccfc2` | Bande : Mootlanders (Halfelins) | |
+| Marauders of Chaos (Town Cryer 10) | `Marauders_of_Chaos.pdf` | EN | Town Cryer #10 | 8 | `6fa4bc137d0532fad5e3046b326a9217a64f421072404c1d4097e05ecce5d700` | Bande : Marauders of Chaos | Version EN ; cf. `Maraudeurs_du_Chaos_GLM.pdf` pour la version FR, plus longue |
+| Maraudeurs du Chaos [GLM] | `Maraudeurs_du_Chaos_GLM.pdf` | FR | Non identifiable | 18 | `970e4a4bd61972c3cc5c276d2d0648a0e87790deee2885f582e0bd1bd0364fa4` | Bande : Maraudeurs du Chaos | Version FR nettement plus longue que l'équivalent EN Town Cryer |
+| Hommes-Lézards [GLM] | `HommesLezards_GLM.pdf` | FR | Non identifiable | 9 | `b7bb14898fae7cfc5224294c72b73dd29f96d940ad5ecd16b0eb130a3c30fe2b` | Bande : Hommes-Lézards | |
+| Elfes Noirs [GLM] | `Elfes_Noirs_GLM.pdf` | FR | Non identifiable | 8 | `cd3c89067ac6f0f6d08df9e8020d57f301896b0d685646d67c13cb39e28ea621` | Bande : Elfes Noirs | Source pour trancher l'entrée `lame_elfe_noire` |
+| Escorteurs Impériaux [GLM] | `Escorteurs_Imperiaux_GLM.pdf` | FR | Non identifiable | 8 | `e2fd825515fb02e8bc91c63369b78359a9897bfd636e1a34ca2276a6905a64cc` | Bande : Escorteurs Impériaux | |
+| Gladiateurs [GLM] | `Gladiateurs_GLM.pdf` | FR | Non identifiable | 9 | `9b44e90a54d83b03a826e3c0a72859ac4acfce5e7140f715c451d3985c8ca4f1` | Bande : Gladiateurs | |
+| The Restless Dead | `The_Restless_Dead.pdf` | EN | Non identifiable | 7 | `00f22af1cd7e46c0e6303bf31952be7757592e6df08ff7b83d60d3e21fa6a433` | Bande : The Restless Dead (Morts sans repos) | |
+| Horslaloi de la forêt de Stirwood [GLM] | `Horslaloi_de_la_foret_de_Stirwood_GLM.pdf` | FR | Non identifiable | 5 | `fa62ba3e5dd3df8c34e751d096e0f5133876365e291b73b7206dc11816cbea19` | Bande : Horslaloi de la forêt de Stirwood | |
+| The Cursed Cavalcade | `The_Cursed_Cavalcade.pdf` | EN | Non identifiable | 11 | `30f2bf879cd0a287978ad673a8c4998a16ddd49bf17f7ed521361f6e72d0d74e` | Bande : The Cursed Cavalcade | |
+| Court of Profane Pleasures | `Court_of_Profane_Pleasures.pdf` | EN | Non identifiable | 6 | `6e91aaf97de5c5d55445b4112c4611087c6a27bd24c0493a2ae49b734fffd45b` | Bande : Court of Profane Pleasures | |
+| Chasseurs cornus [GLM] | `Chasseurs_cornus_GLM.pdf` | FR | Non identifiable | 7 | `1bf37a856e017dbe699e1a02fc8f1120649a38536981170c10593427e2348b15` | Bande : Chasseurs cornus | Version FR ; cf. `Horned_Hunters.pdf` pour l'équivalent EN |
+| The Horned Hunters | `Horned_Hunters.pdf` | EN (confirmé) | Non identifiable | 5 | `dfce0c23e9045fd661692a51628f4938b650edb313638d6a718b28512dd42b5a` | Bande : Horned Hunters | |
+| Skavens du Clan Pestilens [GLM] | `Skavens_du_Clan_Pestilens_GLM.pdf` | FR | Non identifiable | 7 | `490d39e99eeaba7b3c7147315712e3f4dc3b1a8ceccf2e16729e135f95f166ed` | Bande : Skavens du Clan Pestilens | |
+| Bandits du Hochland [GLM] | `Bandits_du_Hochland_GLM.pdf` | FR | Non identifiable | 9 | `9d10d4cc417957cd25e0e56c9d5d56824cf7aa4711d448debdadb74b2652cd12` | Bande : Bandits du Hochland | |
+| Amazones — Setting Mordheim [GW, éd. GLM] | `Amazones__Setting_Mordheim_GW__GLM_edit.pdf` | FR (confirmé) | Non identifiable | 8 | `ebb0ef881cd451438360ae4c5ba10339ab1d73e7a60c611254ab7bed54bfdbb5` | Bande : Amazones (contexte Mordheim) | |
+| Amazones — Setting Lustrie [GLM] | `Amazones__Setting_Lustrie_GLM.pdf` | FR | Non identifiable | 8 | `345479ff1c6039e6edc481d481c1fcc35ca1a194e7c865346e0dcbae120a6c85` | Bande : Amazones (contexte Lustrie) | |
+| Mercenaires Ostermarkers [GLM] | `Mercenaires_Ostermarkers_GLM.pdf` | FR (confirmé) | Non identifiable | 5 | `cb93055c36b8582300bbcd66981e2e40a155708f0812ca7ad407ee493b17dafe` | Bande : Mercenaires Ostermarkers | Métadonnée PDF peu utile (« Mordheim base ») |
+| Orques Noirs [GLM] | `Orques_Noirs_GLM.pdf` | FR | Non identifiable | 7 | `1ffd8ecc892bbbf09ebb31b5dce86225e4251831ea8a270c07bb91a3acb854cb` | Bande : Orques Noirs | |
+| Expédition Runique | `Expedition_Runique.pdf` | FR | Non identifiable | 7 | `345d97318bd81d7042b9ce6dc14b7de5df22a3bae203ae22c8b0278b1d7ff4f1` | Bande : Expédition Runique | |
+| Merchant Caravans | `Merchant_Caravans.pdf` | EN | Non identifiable | 5 | `4a43be0c6d549c8efaa741a479c271abe0a57f583a5bcb0c6a56672b539db8ba` | Bande : Merchant Caravans (Caravanes marchandes) | Pertinent pour trancher l'éligibilité du Pyromane |
+| Battle Monks of Cathay | `Battle_Monks_of_Cathay.pdf` | EN | Non identifiable | 4 | `ff2c41f52d508b9e3a3d590b0e783db1b6c46e12aa0a671b568cad1126fc4777` | Bande : Battle Monks of Cathay (Moines Guerriers de Cathay) | Métadonnée `14 Battle Monks` ; pertinent pour trancher l'éligibilité du Pyromane/Maître-forgeron/Marchand cathayen |
+| Guerriers Fantômes | `Guerriers_Fantomes_GW.pdf` | FR (confirmé) | Non identifiable | 7 | `9edd4a84fe9f16d99fd9ae8186216e5491c18d7e59b1f4d024ed30ef5a2a7f6a` | Bande : Guerriers Fantômes (Fils de Nagarythe) | |
+| Maneaters (Town Cryer 16) | `Maneaters.pdf` | EN | Town Cryer #16 | 5 | `42bc4308a80294c64454582d18e45b72db7bb83f077718ba570c0cc8106f9ad4` | Bande : Maneaters (Ogres) | Métadonnée `16 Maneaters` |
+
+## Hors périmètre (non retenu comme source de règles)
+
+| Titre | Fichier | Langue | Pages | SHA-256 | Remarques |
+|---|---|---|---|---|---|
+| Fiche de bande jouée (Carnival of Chaos, Nurgle) | `Mordheim__Nurgle_Roster_game_5.pdf` | EN | 2 | `2b223cbe2f0f5894db51db26857a6f33ef3e7066cc832f221933fcddce5697e2` | Feuille de suivi d'une partie jouée, pas un document de règles — ne pas utiliser comme source d'audit |
+
+## Convention de mise à jour
+
+Quand un nouveau PDF de règles est envoyé dans une session, `mordheim-rules-auditor` (ou Claude principal) doit :
+1. Calculer son empreinte SHA-256 et vérifier si elle correspond déjà à une ligne de cet index (même document renvoyé sous un autre nom d'upload — cas déjà observé pour `Norses_GLM.pdf` et `LustrianReaversV1.2.pdf`).
+2. Si c'est un nouveau document, ajouter une ligne dans la catégorie appropriée (créer une nouvelle catégorie si besoin), en investiguant page/titre réels plutôt qu'en recopiant seulement le nom de fichier.
+3. Ne jamais inscrire de chemin d'upload absolu dans ce fichier — seulement le nom canonique (préfixe d'upload retiré) et le SHA-256.
