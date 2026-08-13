@@ -2059,8 +2059,17 @@ button {
   .modal-sheet {
     border-radius: var(--radius-lg);
   }
+  /* Au-delà de 600px la modale plein écran n'a plus besoin de couvrir tout
+     le viewport (c'était surtout utile pour maximiser l'espace disponible
+     sur mobile) : on la borne comme une .modal-sheet classique mais en plus
+     large, pour les contenus denses comme la boutique d'équipement. La
+     hauteur reste explicite (pas de stretch) pour l'emporter sur
+     .modal-backdrop--fullscreen { align-items: stretch }. */
   .modal-sheet--fullscreen {
-    border-radius: 0;
+    max-width: 960px;
+    height: 88vh;
+    max-height: 88vh;
+    border-radius: var(--radius-lg);
   }
 }
 
