@@ -110,9 +110,23 @@ export function succederApresMorts(
   const leaderAvant = resolveLeader(rosterAvant, catalogue);
   if (leaderAvant && vientDeMourir(leaderAvant.instance_id)) {
     const profilLeader = catalogue.profils.find((p) => p.id === leaderAvant.profil_id);
+    // Le profil du chef n'est banni à jamais que s'il s'agit du VRAI rôle de
+    // chef de la bande (Profile.est_leader) — pas d'un profil quelconque
+    // simplement désigné chef intérimaire (leader_instance_id) faute de
+    // titulaire à leadership fixe vivant, ex : un Prêtre-guerrier des
+    // Répurgateurs qui hérite du commandement en l'absence de Capitaine
+    // répurgateur. Ce dernier reste soumis à sa limite 0-1 normale
+    // (recrutable de nouveau une fois mort), pas à l'interdiction
+    // définitive du "vrai" chef. Dans les bandes à chef entièrement libre
+    // (leader_libre, aucun profil est_leader — ex : Lustrian Reavers), tout
+    // profil désigné chef EST par définition le rôle de chef : la règle
+    // s'applique alors normalement.
+    const catalogueALeaderFixe = catalogue.profils.some((p) => p.est_leader);
+    const estVraiRoleDeChef = !catalogueALeaderFixe || !!profilLeader?.est_leader;
     if (
       !options?.sansBannirProfilLeader &&
       profilLeader &&
+      estVraiRoleDeChef &&
       !profilLeader.leader_toujours_recrutable &&
       !bannisSet.has(profilLeader.id)
     ) {

@@ -48,12 +48,6 @@ export const rosterScreen: UiDictionary = {
   'roster.bandSize': { fr: 'Effectif de la bande : {actuel} (min {limite})', en: 'Warband size: {actuel} (min {limite})' },
   'roster.allowed': { fr: 'autorisés', en: 'allowed' },
   'roster.requiredMin': { fr: 'requis (minimum)', en: 'required (minimum)' },
-  'roster.bannedProfilesTitle': { fr: 'Profils bannis à jamais', en: 'Permanently banned profiles' },
-  'roster.bannedProfilesNote': {
-    fr: "Un profil est banni définitivement quand le membre qui l'incarnait était chef de bande à sa mort (ou un héros unique tombé, pour les bandes concernées) — même après suppression de sa fiche. Retirer l'interdiction ici si ce n'est pas voulu.",
-    en: "A profile is permanently banned once the member who held it was band leader at death (or a fallen unique hero, for warbands with that rule) — even after their sheet is deleted. Lift the ban here if this wasn't intended.",
-  },
-  'roster.unban': { fr: "Retirer l'interdiction", en: 'Lift the ban' },
   'roster.specialRules': { fr: 'Règles spéciales', en: 'Special rules' },
   'roster.tribe': { fr: 'Tribu', en: 'Tribe' },
   'roster.tribeNotSet': { fr: '— non renseignée', en: '— not specified' },

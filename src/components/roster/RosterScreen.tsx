@@ -77,7 +77,6 @@ export function RosterScreen({
   const roster = getRosterById(id ?? '');
   const [modalMembre, setModalMembre] = useState(false);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
-  const [profilABannirRetrait, setProfilABannirRetrait] = useState<{ id: string; nom: string } | null>(null);
   const [modalLeader, setModalLeader] = useState(false);
   const [modalPromotion, setModalPromotion] = useState(false);
   const [heroPromuEnAttente, setHeroPromuEnAttente] = useState<Member | null>(null);
@@ -406,36 +405,6 @@ export function RosterScreen({
         </div>
       )}
 
-      {(roster.profils_bannis ?? []).length > 0 && (
-        <div className="card" style={{ borderColor: 'var(--warning)' }}>
-          <h3 style={{ color: 'var(--warning)' }}>{t('roster.bannedProfilesTitle')}</h3>
-          <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
-            {t('roster.bannedProfilesNote')}
-          </p>
-          {(roster.profils_bannis ?? []).map((profilId) => {
-            const nomProfil = catalogue?.profils.find((p) => p.id === profilId)?.nom ?? profilId;
-            return (
-              <div
-                key={profilId}
-                className="flex items-center gap-sm"
-                style={{ justifyContent: 'space-between', marginTop: '0.4rem' }}
-              >
-                <span className="text-sm">{nomProfil}</span>
-                <button
-                  type="button"
-                  className="btn--ghost-danger"
-                  onClick={() => setProfilABannirRetrait({ id: profilId, nom: nomProfil })}
-                  aria-label={t('roster.unban')}
-                  title={t('roster.unban')}
-                >
-                  <Icon name="croixPack" />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
       {catalogue && catalogue.regles_speciales.length > 0 && (
         <CollapsibleCard
           preferenceKey="ui.roster.regles_speciales.ouvert"
@@ -695,30 +664,6 @@ export function RosterScreen({
               }}
             >
               {t('roster.remove')}
-            </button>
-          </div>
-        </Modal>
-      )}
-      {profilABannirRetrait && (
-        <Modal onClose={() => setProfilABannirRetrait(null)}>
-          <h3>
-            {t('roster.unban')} — {profilABannirRetrait.nom} ?
-          </h3>
-          <p className="text-muted">{t('roster.bannedProfilesNote')}</p>
-          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
-            <button className="btn" onClick={() => setProfilABannirRetrait(null)}>
-              {t('roster.cancel')}
-            </button>
-            <button
-              className="btn btn--danger"
-              onClick={() => {
-                patch({
-                  profils_bannis: (roster.profils_bannis ?? []).filter((id) => id !== profilABannirRetrait.id),
-                });
-                setProfilABannirRetrait(null);
-              }}
-            >
-              {t('roster.unban')}
             </button>
           </div>
         </Modal>
