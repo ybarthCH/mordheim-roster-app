@@ -666,13 +666,16 @@ button {
 :root[data-theme='dark'][data-palette='noir'] .collapsible-card__header::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
+  /* 75% de la largeur, centré : le filet d'origine (pleine largeur, 10px,
+     quasi opaque) lisait trop épais — resserré et allégé plutôt que de
+     changer d'asset (voir option 6 des 10 propositions). */
+  left: 12.5%;
+  right: 12.5%;
   bottom: 0;
-  height: 10px;
+  height: 4px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  opacity: 0.95;
+  opacity: 0.75;
   pointer-events: none;
 }
 :root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header::after {
@@ -2678,12 +2681,13 @@ button {
 :root[data-theme='dark'][data-palette='noir'] .achat-equipement__actions::before {
   content: '';
   position: absolute;
-  left: 1rem;
-  right: 1rem;
-  height: 10px;
+  /* Même resserrement/allègement que .collapsible-card__header::after. */
+  left: calc(1rem + 12.5%);
+  right: calc(1rem + 12.5%);
+  height: 4px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  opacity: 0.95;
+  opacity: 0.75;
   pointer-events: none;
 }
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header::after,
