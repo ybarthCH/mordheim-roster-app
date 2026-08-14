@@ -476,7 +476,7 @@ function RecrutementDraftModal({
           {t('creation.modal.charNameLabel')}
           {estGroupable && quantite > 1 ? t('creation.modal.charNameGroupSuffix') : ''}
         </label>
-        <input value={nom} onChange={(e) => setNom(e.target.value)} placeholder={profil.nom} />
+        <input value={nom} onChange={(e) => setNom(e.target.value)} placeholder={profil.nom} maxLength={20} />
       </div>
       {estGroupable && (
         <div className="field">

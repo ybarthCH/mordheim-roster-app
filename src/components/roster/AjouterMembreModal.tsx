@@ -233,7 +233,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                 {t('creation.modal.charNameLabel')}
                 {estGroupable && quantite > 1 ? t('creation.modal.charNameGroupSuffix') : ''}
               </label>
-              <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} placeholder={profil.nom} />
+              <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} placeholder={profil.nom} maxLength={20} />
             </div>
           )}
           {marqueRequise && !groupeCible && (

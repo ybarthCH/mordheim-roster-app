@@ -361,14 +361,16 @@ export function MemberGroupCard({
               <div className="list-item__row">
                 <div className="list-item__main">
                   <div className="list-item__title">
-                    {nomAffiche(m)}
+                    <span className="list-item__title-name" title={nomAffiche(m)}>
+                      {nomAffiche(m)}
+                    </span>
                     {leader && (
-                      <span className="badge badge--leader" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
+                      <span className="badge badge--leader" title={t('memberGroup.leaderTitle')}>
                         {t('memberGroup.leader')}
                       </span>
                     )}
                     {avanceEnAttente && (
-                      <span className="badge badge--pending" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
+                      <span className="badge badge--pending" title={t('memberGroup.pendingAdvance')}>
                         {t('memberGroup.pendingAdvance')}
                       </span>
                     )}

@@ -718,6 +718,26 @@ button {
 :root[data-theme='light'][data-palette='noir'] .icon-btn--actif {
   box-shadow: 0 0 0 2px #24262a inset;
 }
+/* Même raisonnement que ci-dessus, dans l'autre sens : le bandeau (pierre
+   peinte header-bar-red.png) et le chrome des boutons-icônes (pierre
+   peinte chrome-square-stone.png) en thème Sang sombre sont beaucoup plus
+   sombres que ce que --accent-contrast suppose (#1a1210, pensé pour
+   l'aplat --accent uni #c94f4f, nettement plus clair que ces textures
+   peintes) — texte/anneau actif clairs dédiés à ce bandeau précis plutôt
+   que d'éclaircir --accent-contrast et casser le contraste voulu des
+   aplats (xp-box, status-pill, .btn--primary...) ailleurs dans l'appli. */
+:root[data-theme='dark']:not([data-palette]) .app-header,
+:root[data-theme='dark']:not([data-palette]) .app-header__back,
+:root[data-theme='dark']:not([data-palette]) .icon-btn,
+:root[data-theme='dark'][data-palette='rouge'] .app-header,
+:root[data-theme='dark'][data-palette='rouge'] .app-header__back,
+:root[data-theme='dark'][data-palette='rouge'] .icon-btn {
+  color: #fff6ea;
+}
+:root[data-theme='dark']:not([data-palette]) .icon-btn--actif,
+:root[data-theme='dark'][data-palette='rouge'] .icon-btn--actif {
+  box-shadow: 0 0 0 2px #fff6ea inset;
+}
 
 .card--tight {
   padding: 0.6rem 0.7rem;
@@ -1587,6 +1607,17 @@ button {
   filter: var(--pack-asset-filter, none) brightness(0.9);
   transform: translateY(1px);
 }
+/* Palier intermédiaire (pliable déplié, ~640-760px) : sans lui, le
+   libellé le plus long des trois boutons (« Assistant post-bataille » /
+   "Post-battle wizard") retombe sur 3 lignes alors que ses deux voisins
+   tiennent sur 1, rendant sa pilule visiblement plus haute et déformée par
+   rapport aux deux autres dans la même rangée. */
+@media (max-width: 760px) {
+  .roster-actions__btn {
+    font-size: 0.92rem;
+    padding: 0.8rem 0.4rem;
+  }
+}
 @media (max-width: 480px) {
   .roster-actions__btn {
     font-size: 0.82rem;
@@ -1652,19 +1683,66 @@ button {
    que de se comprimer contre les boutons d'action sur un format étroit. */
 .list-item__row {
   display: flex;
-  align-items: center;
+  /* flex-wrap, pas nowrap : dans une colonne de liste étroite (volet liste
+     du split-view redimensionné petit, ou fold/tablette avec le split-view
+     actif par défaut), .list-item__main + le bouton de statut à largeur
+     fixe ne tiennent pas toujours ensemble sur une ligne — sans wrap,
+     min-width:0 sur .list-item__main le laisse se comprimer jusqu'à 0px,
+     et le nom déborde visuellement par-dessus le bouton au lieu de passer
+     à la ligne. Avec flex-wrap, le bouton de statut (et celui de
+     suppression) passent proprement sous le nom quand la place manque,
+     au lieu de se superposer. */
+  flex-wrap: wrap;
+  /* flex-start, pas center : un nom long qui wrappe sur plusieurs lignes
+     ferait sinon centrer le bouton de statut (une ligne) sur toute la
+     hauteur du nom, le superposant visuellement au milieu du texte
+     wrappé au lieu de rester aligné avec sa première ligne. */
+  align-items: flex-start;
   gap: 0.5rem;
   flex: 1;
   min-width: 0;
 }
 .list-item__main {
-  flex: 1;
-  min-width: 0;
+  /* flex-basis non nul (au lieu de 0%) : avec un flex-basis auto/explicite,
+     .list-item__main occupe sa largeur de contenu jusqu'au plancher
+     min-width ci-dessous avant de céder la place — sans quoi un
+     flex-basis:0% (implicite via `flex:1`) le laisserait redescendre sous
+     ce plancher avant que le wrap ne se déclenche. */
+  flex: 1 1 auto;
+  /* Plancher de largeur lisible : en dessous, le bouton de statut (largeur
+     fixe, voir flex-shrink:0 ci-dessous sur ses siblings) passe à la ligne
+     suivante plutôt que de comprimer le nom jusqu'à 0px (voir commentaire
+     sur .list-item__row ci-dessus). */
+  min-width: 9em;
+}
+/* Les autres enfants directs de .list-item__row (bouton de statut,
+   suppression) gardent toujours leur taille pleine — jamais comprimés
+   individuellement — quitte à passer sur leur propre ligne sous le nom. */
+.list-item__row > :not(.list-item__main) {
+  flex-shrink: 0;
 }
 .list-item__title {
   font-weight: 700;
   font-family: var(--font-heading);
   font-size: 1.05rem;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.4rem;
+}
+/* Le nom lui-même tronque avec des points de suspension plutôt que de
+   passer sur plusieurs lignes : un nom saisi à la recruitment (limité à 20
+   caractères, voir maxLength des champs de saisie) reste lisible sur une
+   seule ligne même dans une colonne étroite, et les badges (Chef, avancée
+   en attente) — voir .list-item__title ci-dessus — gardent une largeur
+   fixe à côté plutôt que d'être repoussés par un nom qui s'étale sur
+   plusieurs lignes. */
+.list-item__title-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 3em;
+  flex: 1 1 auto;
 }
 .list-item__details {
   flex-basis: 100%;
@@ -2140,6 +2218,45 @@ button {
 .roster-split__list,
 .roster-split__detail {
   min-width: 0;
+}
+
+/* La colonne de liste est redimensionnable (voir .roster-split__resizer,
+   jusqu'à 75% du conteneur — RosterScreen.SPLIT_LIST_WIDTH_MAX_PCT) et sa
+   largeur réelle est déconnectée de celle de la fenêtre : sur un grand
+   écran avec le volet redimensionné petit, la fenêtre peut être large
+   alors que la colonne, elle, reste étroite — une media query sur la
+   largeur de FENÊTRE (voir @media (max-width:720px) ci-dessus) ne peut
+   pas le détecter, d'où une container query sur la largeur réelle de la
+   colonne elle-même plutôt qu'un scroll horizontal de secours qui, en
+   pratique, ne permet jamais de voir le nom et les statistiques en même
+   temps. Seuil mesuré empiriquement (Playwright, scrollWidth vs
+   clientWidth du .roster-table-wrap réel, statut le plus long "Hors de
+   combat/Out of action" inclus) : le tableau a besoin d'environ 930px
+   pour tenir sans son propre scroll horizontal ; 950px pour une marge de
+   sécurité.
+   Conteneur NOMMÉ (pas anonyme) : .card (chaque groupe de membres) déclare
+   elle aussi container-type:inline-size (voir plus haut, pour son propre
+   @container de cadre compact) et se trouve plus près de .roster-table-wrap
+   dans l'arbre — un @container anonyme ici se serait donc résolu contre la
+   largeur de contenu de .card (réduite de sa bordure/padding, ~65px de
+   moins que la colonne réelle) plutôt que celle de .roster-split__list. */
+.roster-split__list {
+  container-type: inline-size;
+  container-name: roster-split-list;
+}
+.roster-split__list .roster-table-wrap {
+  display: none;
+}
+.roster-split__list .member-cards {
+  display: block;
+}
+@container roster-split-list (min-width: 950px) {
+  .roster-split__list .roster-table-wrap {
+    display: block;
+  }
+  .roster-split__list .member-cards {
+    display: none;
+  }
 }
 
 /* Chaque volet défile indépendamment sous le bandeau (--app-header-h,

@@ -53,14 +53,21 @@ const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'ro
   // du fond de carte assorti à la palette.
   drapeauxPack: () => `${DECOR_BASE}icon-henchmen-gold.png`,
   cranePack: (_theme, palette) => `${DECOR_BASE}${palette === 'noir' ? 'icon-graveyard-ice.png' : 'icon-graveyard-bone.png'}`,
-  soleilPack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-sun-silver.png' : 'icon-sun-gold.png'}`,
-  lunePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-moon-silver.png' : 'icon-moon-gold.png'}`,
+  // Doré en palette Sang quel que soit le thème, même logique que
+  // etoilePack ci-dessus : l'argent se noie sur le bandeau/fond sombre
+  // rouge-brun de cette palette.
+  soleilPack: (theme, palette) => `${DECOR_BASE}${palette === 'rouge' || theme === 'light' ? 'icon-sun-gold.png' : 'icon-sun-silver.png'}`,
+  lunePack: (theme, palette) => `${DECOR_BASE}${palette === 'rouge' || theme === 'light' ? 'icon-moon-gold.png' : 'icon-moon-silver.png'}`,
   poubellePack: () => `${DECOR_BASE}icon-trash.png`,
   // Toujours rouge très clair, quel que soit le thème/la palette — une seule
   // variante volontairement lumineuse : les anciennes nuances plus sombres
   // se noyaient dans les fonds de carte sombres (Sang comme Ice Metal).
   croixPack: () => `${DECOR_BASE}icon-close-bright.png`,
-  engrenagePack: () => `${DECOR_BASE}icon-settings.png`,
+  // Même logique que etoilePack/soleilPack/lunePack : l'écrou gris-acier
+  // d'origine se noie sur le bandeau d'en-tête sombre rouge-brun de la
+  // palette Sang — variante dorée dédiée pour ce cas, argent conservé pour
+  // Ice Metal (déjà lisible sur son fond pierre claire).
+  engrenagePack: (theme, palette) => `${DECOR_BASE}${palette === 'rouge' || theme === 'light' ? 'icon-settings-gold.png' : 'icon-settings.png'}`,
   // Toujours dorée, quel que soit le thème — l'argent se noyait sur le
   // fond sombre du banner-danger (même logique que etoilePack/drapeauxPack).
   couronnePack: () => `${DECOR_BASE}icon-crown-gold.png`,
