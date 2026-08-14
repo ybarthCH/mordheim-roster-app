@@ -7,6 +7,7 @@ export const common: UiDictionary = {
   'common.language.ariaLabel': { fr: 'Changer de langue', en: 'Switch language' },
   'common.theme.toDark': { fr: 'Passer en mode sombre', en: 'Switch to dark mode' },
   'common.theme.toLight': { fr: 'Passer en mode clair', en: 'Switch to light mode' },
+  'settingsMenu.title': { fr: 'Options', en: 'Options' },
   'statut.actif': { fr: 'Actif', en: 'Active' },
   'statut.hors_de_combat': { fr: 'Hors de combat', en: 'Out of action' },
   'statut.mort': { fr: 'Mort', en: 'Dead' },

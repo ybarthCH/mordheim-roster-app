@@ -247,46 +247,38 @@ export function RosterScreen({
     });
   };
 
+  const menuItems = [
+    ...(canToggleSplitView
+      ? [
+          {
+            key: 'split-view',
+            icon: 'volets' as const,
+            label: splitView ? t('roster.splitViewOff') : t('roster.splitViewOn'),
+            onClick: () => onToggleSplitView?.(),
+            active: splitView,
+          },
+        ]
+      : []),
+    {
+      key: 'export-json',
+      icon: 'documentJson' as const,
+      label: t('roster.exportJsonMenu'),
+      // Passe par le partage natif (Drive, mail, Dropbox...) quand
+      // disponible sur l'appareil — sinon export JSON classique (voir
+      // partager() ci-dessus, qui se rabat déjà sur exporterRoster en cas
+      // d'échec).
+      onClick: () => (partageDisponible() ? partager() : exporterRoster(roster)),
+    },
+    {
+      key: 'export-pdf',
+      icon: 'documentPdf' as const,
+      label: t('roster.exportPdfMenu'),
+      onClick: () => import('../../utils/pdfExport').then((m) => m.exporterRosterPDF(roster, rules)),
+    },
+  ];
+
   return (
-    <Screen
-      title={roster.nom_bande}
-      back="/"
-      actions={
-        <div className="flex gap-sm">
-          {canToggleSplitView && (
-            <button
-              className="icon-btn"
-              onClick={onToggleSplitView}
-              aria-pressed={splitView}
-              title={splitView ? t('roster.splitViewOffTitle') : t('roster.splitViewOnTitle')}
-            >
-              <Icon name="volets" />
-            </button>
-          )}
-          {partageDisponible() && (
-            <button className="icon-btn" onClick={partager} title={t('roster.shareTitle')} aria-label={t('roster.shareTitle')}>
-              <Icon name="partager" />
-            </button>
-          )}
-          <button
-            className="icon-btn"
-            onClick={() => exporterRoster(roster)}
-            title={t('roster.exportJsonTitle')}
-            aria-label={t('roster.exportJsonTitle')}
-          >
-            <Icon name="documentJson" />
-          </button>
-          <button
-            className="icon-btn"
-            onClick={() => import('../../utils/pdfExport').then((m) => m.exporterRosterPDF(roster, rules))}
-            title={t('roster.exportPdfTitle')}
-            aria-label={t('roster.exportPdfTitle')}
-          >
-            <Icon name="documentPdf" />
-          </button>
-        </div>
-      }
-    >
+    <Screen title={roster.nom_bande} back="/" menuItems={menuItems}>
       {effectifDepasse && (
         <div className="banner-danger">
           <span className="banner-danger__icon" aria-hidden="true">

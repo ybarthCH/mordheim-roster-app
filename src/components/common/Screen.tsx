@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react';
 import { useEffect, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { LanguageToggle } from './LanguageToggle';
-import { ThemeToggle } from './ThemeToggle';
-import { Icon } from './Icon';
+import { SettingsMenu, type SettingsMenuItem } from './SettingsMenu';
 import { useLanguage } from '../../state/useLanguage';
 
 type ScreenProps = {
@@ -14,13 +13,15 @@ type ScreenProps = {
   // PostBatailleScreen). Renvoyer false annule la navigation ; omis, le
   // bouton retour navigue directement comme avant.
   onBeforeBack?: () => boolean;
-  actions?: ReactNode;
+  // Entrées propres à l'écran, ajoutées dans le menu Réglages du bandeau
+  // (ex : deux volets/export JSON/export PDF sur RosterScreen) — voir
+  // SettingsMenu.
+  menuItems?: SettingsMenuItem[];
   children: ReactNode;
 };
 
-export function Screen({ title, back, onBeforeBack, actions, children }: ScreenProps) {
+export function Screen({ title, back, onBeforeBack, menuItems, children }: ScreenProps) {
   const navigate = useNavigate();
-  const location = useLocation();
   const { t } = useLanguage();
   const headerRef = useRef<HTMLElement>(null);
   const handleBack = () => {
@@ -54,20 +55,8 @@ export function Screen({ title, back, onBeforeBack, actions, children }: ScreenP
           </button>
         )}
         <div className="app-header__title">{title}</div>
+        <SettingsMenu extraItems={menuItems} />
         <LanguageToggle />
-        {location.pathname !== '/reglages' && (
-          <button
-            type="button"
-            className="icon-btn"
-            onClick={() => navigate('/reglages')}
-            aria-label={t('home.settings')}
-            title={t('home.settings')}
-          >
-            <Icon name="engrenagePack" />
-          </button>
-        )}
-        <ThemeToggle />
-        {actions}
       </header>
       <main className="app-main">{children}</main>
     </div>

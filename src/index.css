@@ -765,6 +765,110 @@ button {
   box-shadow: 0 0 0 2px #b67827 inset;
 }
 
+/* Menu déroulant "Réglages" du bandeau (SettingsMenu.tsx) — remplace
+   l'ancienne rangée de boutons-icônes séparés (réglages, thème, deux
+   volets, exports) par un seul déclencheur ouvrant un panneau qui reprend
+   l'habillage pierre peinte de .card (voir bloc border-image plus haut).
+   Pas de position:relative ici : .settings-menu n'encadre que le bouton
+   roue crantée, pas toute la largeur du bandeau (le bouton FR/EN vient
+   après lui). Le panneau doit s'ancrer sur .app-header (position:sticky,
+   qui sert de bloc de positionnement pour ses descendants absolus au même
+   titre qu'un position:relative) pour que right:0 vise le vrai bord droit
+   du bandeau — sinon le panneau se cale sur le bord droit du bouton roue
+   crantée lui-même, ce qui le décale d'une largeur de bouton vers la
+   gauche et le fait déborder de l'écran sur les très petits viewports
+   (fold plié). */
+.settings-menu__panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0.8rem;
+  z-index: 30;
+  width: max-content;
+  min-width: 220px;
+  max-width: min(320px, calc(100vw - 1.6rem));
+  padding: 0.7rem 0.6rem 0.5rem;
+  color: var(--text);
+  background-color: var(--bg-card);
+  background-image: var(--texture-parchemin);
+  background-blend-mode: overlay;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+:root[data-theme='dark'][data-palette='rouge'] .settings-menu__panel,
+:root[data-theme='dark'][data-palette='noir'] .settings-menu__panel,
+:root[data-theme='light'][data-palette='noir'] .settings-menu__panel {
+  background-image: none;
+  border-style: solid;
+  border-width: 16px;
+  border-image-repeat: stretch;
+  border-image-slice: 14% fill;
+  box-shadow: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .settings-menu__panel {
+  border-image-source: url('/decor/card-panel-stone.png');
+}
+:root[data-theme='dark'][data-palette='noir'] .settings-menu__panel {
+  border-image-source: url('/decor/card-panel-ice.png');
+}
+:root[data-theme='light'][data-palette='noir'] .settings-menu__panel {
+  border-image-source: url('/decor/card-panel-clair.png');
+}
+.settings-menu__title {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text-muted);
+}
+.settings-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.settings-menu__divider {
+  height: 1px;
+  margin: 0.15rem 0.2rem;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in srgb, var(--accent) 55%, transparent),
+    transparent
+  );
+}
+.settings-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 0.4rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+.settings-menu__item:hover,
+.settings-menu__item:focus-visible {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.settings-menu__item--active {
+  color: var(--accent);
+}
+.settings-menu__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3em;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
 .card--tight {
   padding: 0.6rem 0.7rem;
 }
