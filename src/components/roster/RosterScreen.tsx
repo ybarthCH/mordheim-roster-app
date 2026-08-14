@@ -255,7 +255,7 @@ export function RosterScreen({
         <div className="flex gap-sm">
           {canToggleSplitView && (
             <button
-              className={`icon-btn${splitView ? ' icon-btn--actif' : ''}`}
+              className="icon-btn"
               onClick={onToggleSplitView}
               aria-pressed={splitView}
               title={splitView ? t('roster.splitViewOffTitle') : t('roster.splitViewOnTitle')}

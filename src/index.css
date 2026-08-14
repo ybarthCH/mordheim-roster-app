@@ -360,11 +360,20 @@ button {
 }
 
 .icon-btn {
+  /* flex + padding égal sur les 4 côtés (au lieu d'un padding vertical/
+     horizontal différent) : le chrome carré peint (chrome-square-*.png,
+     background-size:100% 100% ci-dessous) suppose un bouton carré — un
+     padding asymétrique étire la case en rectangle, ce qui distord le
+     cadre peint ET désaligne l'icône qu'il porte, mal centrée dans un
+     cadre lui-même mal proportionné. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.4);
   color: var(--accent-contrast);
   border-radius: var(--radius);
-  padding: 0.35rem 0.6rem;
+  padding: 0.45rem;
   font-size: 1rem;
 }
 .icon-btn:active {
@@ -723,20 +732,37 @@ button {
    peinte chrome-square-stone.png) en thème Sang sombre sont beaucoup plus
    sombres que ce que --accent-contrast suppose (#1a1210, pensé pour
    l'aplat --accent uni #c94f4f, nettement plus clair que ces textures
-   peintes) — texte/anneau actif clairs dédiés à ce bandeau précis plutôt
-   que d'éclaircir --accent-contrast et casser le contraste voulu des
-   aplats (xp-box, status-pill, .btn--primary...) ailleurs dans l'appli. */
+   peintes) — texte clair dédié à ce bandeau précis plutôt que d'éclaircir
+   --accent-contrast et casser le contraste voulu des aplats (xp-box,
+   status-pill, .btn--primary...) ailleurs dans l'appli. Titre en
+   blanc cassé (texte libre, longueur variable — lisibilité avant tout),
+   mais boutons-icônes/retour en doré, assorti aux icônes dorées du pack
+   (engrenage, soleil/lune) plutôt qu'un blanc qui jurerait à côté d'elles. */
 :root[data-theme='dark']:not([data-palette]) .app-header,
-:root[data-theme='dark']:not([data-palette]) .app-header__back,
-:root[data-theme='dark']:not([data-palette]) .icon-btn,
-:root[data-theme='dark'][data-palette='rouge'] .app-header,
-:root[data-theme='dark'][data-palette='rouge'] .app-header__back,
-:root[data-theme='dark'][data-palette='rouge'] .icon-btn {
+:root[data-theme='dark'][data-palette='rouge'] .app-header {
   color: #fff6ea;
 }
+:root[data-theme='dark']:not([data-palette]) .app-header__back,
+:root[data-theme='dark']:not([data-palette]) .icon-btn,
+:root[data-theme='dark'][data-palette='rouge'] .app-header__back,
+:root[data-theme='dark'][data-palette='rouge'] .icon-btn {
+  color: #b67827;
+}
+/* Chrome carré peint (chrome-square-stone.png) sensiblement éclairci pour
+   ce bandeau précis : très sombre à l'état natif (voir l'asset), il
+   n'offrait pas assez de contraste avec les icônes dorées posées dessus. */
+:root[data-theme='dark']:not([data-palette]) .icon-btn,
+:root[data-theme='dark'][data-palette='rouge'] .icon-btn {
+  filter: brightness(1.4);
+}
+/* Anneau actif doré (au lieu de blanc) : cohérent avec la couleur des
+   icônes plutôt qu'un cadre blanc qui jurait par rapport aux boutons
+   voisins non actifs. */
 :root[data-theme='dark']:not([data-palette]) .icon-btn--actif,
 :root[data-theme='dark'][data-palette='rouge'] .icon-btn--actif {
-  box-shadow: 0 0 0 2px #fff6ea inset;
+  background: rgba(182, 120, 39, 0.25);
+  border-color: rgba(182, 120, 39, 0.8);
+  box-shadow: 0 0 0 2px #b67827 inset;
 }
 
 .card--tight {
