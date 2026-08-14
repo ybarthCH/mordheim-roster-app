@@ -1636,13 +1636,31 @@ button {
   padding: 1.4rem 1rem 1.6rem;
   margin-bottom: 0.6rem;
 }
-.home-hero__title {
-  font-family: 'Schoensperger', var(--font-display);
-  font-size: 3.15rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  margin: 0;
-  color: var(--accent);
+/* Bannière logo (remplace l'ancien titre texte "Musterheim" en Schoensperger) :
+   image peinte du pack encadrée par un filet fin "glace" (frame-banner-ice,
+   palette noire) — un seul habillage fixe, pas de variante par thème, sur
+   demande explicite. border-image plutôt que padding+background : le filet
+   du pack (~1-1.5% de l'image source, voir mesure au pixel) doit garder son
+   épaisseur nette quelle que soit la largeur réelle de la bannière, ce que
+   seul border-image (9-slice) garantit — un simple cadre CSS ferait un trait
+   plat sans le liseré lumineux peint. */
+.home-hero__banner {
+  max-width: 640px;
+  margin: 0 auto;
+  aspect-ratio: 1024 / 282;
+  border-style: solid;
+  border-width: 12px;
+  border-image-source: url('/decor/frame-banner-ice.png');
+  border-image-slice: 2% 1.6%;
+  border-image-repeat: stretch;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.home-hero__banner-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .home-hero__rule {
   width: 72px;
@@ -1659,13 +1677,6 @@ button {
   text-transform: uppercase;
   color: var(--text-muted);
   margin: 0;
-}
-
-.top-actions {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.8rem;
 }
 
 /* Rangée d'actions principales du roster (Recruter / Armurerie / Assistant
@@ -1806,6 +1817,33 @@ button {
   touch-action: manipulation;
   transition: background-color 0.1s ease;
 }
+/* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
+   peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de
+   .list-item — même traitement compact que .card en colonne étroite (voir
+   @container plus haut, bloc .card), mais toujours affiché ainsi ici. Padding
+   gauche nettement augmenté : le double liseré peint de l'asset longe tout le
+   bord intérieur du cadre — avec le padding uniforme de .list-item, le nom de
+   la bande démarrait presque au contact de ce liseré. */
+:root[data-theme='dark'][data-palette='rouge'] .list-item--bande,
+:root[data-theme='dark'][data-palette='noir'] .list-item--bande,
+:root[data-theme='light'][data-palette='noir'] .list-item--bande {
+  background-image: none;
+  border-style: solid;
+  border-width: 14px;
+  border-image-repeat: stretch;
+  border-image-slice: 16% fill;
+  box-shadow: none;
+  padding: 0.8rem 0.9rem 0.8rem 1.3rem;
+}
+:root[data-theme='dark'][data-palette='rouge'] .list-item--bande {
+  border-image-source: url('/decor/card-panel-titlebar-stone.png');
+}
+:root[data-theme='dark'][data-palette='noir'] .list-item--bande {
+  border-image-source: url('/decor/card-panel-titlebar-ice.png');
+}
+:root[data-theme='light'][data-palette='noir'] .list-item--bande {
+  border-image-source: url('/decor/card-panel-titlebar-clair.png');
+}
 /* Rangée principale (nom + statut + suppression) : flex sibling du
    drag-handle, elle occupe toute la largeur restante. Le bloc d'infos
    secondaires (.list-item__details, ci-dessous) est un AUTRE flex sibling
@@ -1896,6 +1934,18 @@ button {
   align-items: center;
   justify-content: flex-end;
   gap: 0.5rem;
+}
+/* Cible tactile agrandie pour le bouton de suppression d'une carte de bande
+   (action destructive sur l'écran d'accueil) — scopé à .list-item--bande
+   plutôt que .btn--ghost-danger lui-même, dont les autres usages (lignes de
+   tableau serrées, cartes d'inventaire...) sont déjà calibrés à leur
+   contexte et n'ont pas besoin d'une zone cliquable aussi large. */
+.list-item--bande .btn--ghost-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
 }
 
 .tabs {

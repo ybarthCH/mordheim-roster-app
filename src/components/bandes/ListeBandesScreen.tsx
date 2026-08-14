@@ -65,16 +65,18 @@ export function ListeBandesScreen() {
   return (
     <Screen title={t('home.title')}>
       <div className="home-hero">
-        <h1 className="home-hero__title">Musterheim</h1>
+        <div className="home-hero__banner">
+          <img src={`${import.meta.env.BASE_URL}decor/home-hero-banner.png`} alt="Musterheim" className="home-hero__banner-img" />
+        </div>
         <div className="home-hero__rule" />
         <p className="home-hero__subtitle">{t('home.subtitle')}</p>
       </div>
 
-      <div className="top-actions">
-        <button className="btn btn--primary" onClick={() => navigate('/creer')}>
+      <div className="roster-actions">
+        <button className="btn btn--primary roster-actions__btn" onClick={() => navigate('/creer')}>
           {t('home.newBand')}
         </button>
-        <button className="btn" onClick={() => fileInputRef.current?.click()}>
+        <button className="btn roster-actions__btn" onClick={() => fileInputRef.current?.click()}>
           {t('home.importJson')}
         </button>
         <input
@@ -113,7 +115,12 @@ export function ListeBandesScreen() {
       {rosters.map((roster) => {
         const bilan = bilanBatailles(roster);
         return (
-          <div key={roster.id} className="list-item" role="button" onClick={() => navigate(`/roster/${roster.id}`)}>
+          <div
+            key={roster.id}
+            className="list-item list-item--bande"
+            role="button"
+            onClick={() => navigate(`/roster/${roster.id}`)}
+          >
             <div className="list-item__main">
               <div className="list-item__title">{roster.nom_bande}</div>
               <div className="list-item__subtitle">
@@ -127,16 +134,15 @@ export function ListeBandesScreen() {
                   : t('home.noBattles')}
               </div>
             </div>
-            <div className="flex flex-col gap-sm" onClick={(e) => e.stopPropagation()}>
-              <button className="btn btn--sm" onClick={() => exporterRoster(roster)}>
+            <div className="list-item__actions" onClick={(e) => e.stopPropagation()}>
+              <button className="btn--pack-pill-sm" onClick={() => exporterRoster(roster)}>
                 {t('home.export')}
               </button>
-              <button className="btn btn--sm" onClick={() => duplicateRoster(roster.id)}>
+              <button className="btn--pack-pill-sm" onClick={() => duplicateRoster(roster.id)}>
                 {t('home.duplicate')}
               </button>
-              <button className="btn btn--sm btn--danger" onClick={() => setASupprimer(roster)}>
-                <Icon name="poubellePack" style={{ marginRight: '0.3em' }} />
-                {t('home.deleteShort')}
+              <button className="btn--ghost-danger" onClick={() => setASupprimer(roster)} title={t('home.deleteShort')}>
+                <Icon name="croixPack" />
               </button>
             </div>
           </div>
