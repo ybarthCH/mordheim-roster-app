@@ -3,6 +3,7 @@
   "nom": "Mercenaires Ostermarkers (1b)",
   "grade": "1b",
   "source": "Fanatic Online #19 (Nick Kyme) — traduction Kangourax, correction Hlyame — La Grande Librairie de Mordheim, V1dFr (23 avr. 2026), annexe Montures incluse",
+  "banniere": "bandes/ostermarkers.webp",
   "regles_speciales": [
     { "nom": "Seuls contre tous", "texte": "Les Ostermarkers (Héros et Hommes de main) peuvent relancer un test de Commandement raté s'ils sont seuls contre tous ou en cas de Déroute. La bande ou le combattant doit cependant accepter le second jet, quel qu'en soit le résultat." },
     { "nom": "Chien de guerre gratuit", "texte": "Ces mercenaires utilisent souvent des chiens pour garder leurs fermes et donner l'alerte en cas d'intrusion. Tout Capitaine d'une bande d'Ostermarkers peut commencer avec un chien de guerre dans son équipement de départ, en hommage à la bête qui protégeait jadis sa ferme et ses terres des bandits et autres viles créatures. Ce chien de guerre est gratuit à la création de la bande." },

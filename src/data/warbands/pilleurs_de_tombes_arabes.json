@@ -3,6 +3,7 @@
   "nom": "Pilleurs de Tombes Arabes (1b)",
   "grade": "1b",
   "source": "Khemri – The Land of the Dead (supplément communautaire Mordheim), p.14-21.",
+  "banniere": "bandes/pilleurs_de_tombes_arabes.webp",
   "regles_speciales": [
     { "nom": "Haine des Morts-vivants", "texte": "Les hommes d'Araby ont durement souffert des attaques (et des griffes) des armées du Roi des Tombes des Terres des Morts. Pour cette raison, les Héros Arabes haïssent tous les Morts-vivants.", "exception": "S'applique uniquement aux Héros (Cheikh, Champion et Mystique) ; les Hommes de main n'y sont pas sujets." }
   ],

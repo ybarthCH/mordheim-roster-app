@@ -3,6 +3,7 @@
   "nom": "Amazones — Setting Lustrie (1b)",
   "grade": "1b",
   "source": "Town Cryer #15 — La Grande Librairie de Mordheim",
+  "banniere": "bandes/amazones_lustrie.webp",
   "regles_speciales": [
     { "nom": "Isolationnistes", "texte": "Les Amazones luttent constamment contre les attaques des norses et des hommes-lézards avides de trésors. La culture amazone reflète leur aversion et leur méfiance envers les étrangers, et au combat, elles sont particulièrement sauvages. Face aux Norses et aux Hommes-Lézards, les Amazones peuvent relancer tous les jets d'attaque ratés lors du premier tour de combat." },
     { "nom": "Sacrifice", "texte": "Les amazones sont promptes à sacrifier leurs captifs à leurs dieux. Un combattant capturé (résultat 61 sur le tableau des Blessures Graves) peut être sacrifié. La Chef de bande gagne alors +1 pt d'expérience. De surcroît, si c'est un Homme-Lézard qui est sacrifié, la bande obtient gratuitement une Peau Enchantée." },

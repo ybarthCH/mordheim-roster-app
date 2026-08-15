@@ -3,6 +3,7 @@
   "nom": "Pirates (1b)",
   "grade": "1b",
   "source": "Town Cryer #9 — La Grande Librairie de Mordheim",
+  "banniere": "bandes/pirates.webp",
   "regles_speciales": [
     { "nom": "Francs-Tireurs", "texte": "Sauf indication contraire, les bandes de Pirates ont accès aux mêmes Francs-Tireurs et objets qu'une bande de Mercenaires humains. Il en va de même pour les règles usuelles. Les Pirates doivent cependant payer un supplément de +20 CO de solde si elles comptent à la fois des Nains et des Elfes dans la même bande (le navire n'est pas si grand, et l'espace restreint les rend plus irritables que d'habitude !)." },
     { "nom": "Enrôlés en partie unique", "texte": "Lors d'une partie unique, une bande de Pirates commence avec 2 Enrôlés gratuits !" },

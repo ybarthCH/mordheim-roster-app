@@ -3,6 +3,7 @@
   "nom": "Hommes-Lézards (1b)",
   "grade": "1b",
   "source": "Town Cryer #11 — La Grande Librairie de Mordheim",
+  "banniere": "bandes/hommes_lezards.webp",
   "regles_speciales": [
     { "nom": "Peau écailleuse", "texte": "Tous les Hommes-Lézards ont une peau écailleuse qui leur confère une sauvegarde d'armure : 6+ pour les Skinks, 5+ pour les Saurus et 4+ pour les Kroxigors. Les malus imposés aux sauvegardes ne peuvent pas modifier celles-ci au-delà de 6+, mais un résultat « aucune sauvegarde » sur le Tableau des Coups Critiques les annulera. Les armures légères et les boucliers ajoutent un bonus de +1 à ces sauvegardes." },
     { "nom": "Armure", "texte": "Les armures sont rares dans les sociétés hommes-lézards, une armure légère coûtera donc toujours 50 Couronnes d'Or, même si elle est achetée à partir de la liste d'équipement." },

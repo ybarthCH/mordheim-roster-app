@@ -3,6 +3,7 @@
   "nom": "Gobelins des Forêts (1b)",
   "grade": "1b",
   "source": "Nemesis Crown, Guerriers Montés — La Grande Librairie de Mordheim",
+  "banniere": "bandes/gobelins_des_forets.webp",
   "regles_speciales": [
     {
       "nom": "Natifs",

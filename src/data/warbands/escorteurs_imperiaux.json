@@ -3,6 +3,7 @@
   "nom": "Escorteurs Impériaux (1b)",
   "grade": "1b",
   "source": "Nemesis Crown, Guerriers Montés — La Grande Librairie de Mordheim",
+  "banniere": "bandes/escorteurs_imperiaux.webp",
   "regles_speciales": [
     {
       "nom": "Francs-tireurs",

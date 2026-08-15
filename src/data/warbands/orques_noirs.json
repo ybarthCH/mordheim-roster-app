@@ -3,6 +3,7 @@
   "nom": "Orques Noirs (1b)",
   "grade": "1b",
   "source": "Nemesis Crown, V1hFr [2025-08-07] — La Grande Librairie de Mordheim",
+  "banniere": "bandes/orques_noirs.webp",
   "regles_speciales": [
     {"nom": "Laiss’ lé vrais mecs faire l’boulô’", "texte": "Les Orques Noirs ne comptent que sur eux-mêmes pour tuer leurs ennemis. Ils ne peuvent donc avoir aucune monture d’aucune sorte. Seuls les Orques communs peuvent chevaucher des sangliers ou autres montures."},
     {"nom": "L’chef il a kané !", "texte": "Si le Chef venait à être tué, ce serait obligatoirement l’Orque Noir avec le plus d’expérience qui prendrait le commandement de la bande, même si un Orque est plus expérimenté. Le remplaçant gagne automatiquement la règle spéciale t’vas t’calmer ?!"},

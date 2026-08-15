@@ -3,6 +3,7 @@
   "nom": "Skavens du Clan Pestilens (1b)",
   "grade": "1b",
   "source": "Town Cryer #29, v1e — La Grande Librairie de Mordheim",
+  "banniere": "bandes/skavens_pestilens.webp",
   "regles_speciales": [],
   "composition": {
     "effectif_min": 3,

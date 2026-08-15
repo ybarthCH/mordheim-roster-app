@@ -3,6 +3,7 @@
   "nom": "Mootlanders (1b)",
   "grade": "1b",
   "source": "« Knights of the Kitchen Table » — Mootlander Warbands, par Tom Sambles (rubrique House Rules, p.52-55) — La Grande Librairie de Mordheim.",
+  "banniere": "bandes/mootlanders.webp",
   "regles_speciales": [
     { "nom": "Chétifs", "texte": "Les Halflings sont très faibles et chétifs ; même les coups les plus légers suffisent à les assommer. Lors du jet de blessure d'un Halfling, un résultat de 2 est traité comme « Sonné »." }
   ],

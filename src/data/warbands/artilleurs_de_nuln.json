@@ -3,6 +3,7 @@
   "nom": "Artilleurs de Nuln (1b)",
   "grade": "1b",
   "source": "Nemesis Crown — La Grande Librairie de Mordheim",
+  "banniere": "bandes/artilleurs_de_nuln.webp",
   "regles_speciales": [
     { "nom": "Entretien impeccable", "texte": "Les Artilleurs de Nuln utilisent toujours le coût réduit des armes à poudre noire listées dans leur liste d'équipement, et bénéficient d'un bonus de +2 sur les jets de rareté pour trouver une arme à poudre noire." },
     { "nom": "Bon usage", "texte": "Si vous utilisez les règles d'Incidents de Tir, un résultat de 1 pour toucher est suivi d'une relance : sur 3+, le tir est simplement raté (l'arme n'explose pas)." },

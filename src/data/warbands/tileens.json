@@ -3,6 +3,7 @@
   "nom": "Tiléens (1b)",
   "grade": "1b",
   "source": "Town Cryer #14 — La Grande Librairie de Mordheim",
+  "banniere": "bandes/tileens.webp",
   "regles_speciales": [
     { "nom": "Francs-Tireurs", "texte": "Une bande de Tiléens peut utiliser les Francs-Tireurs disponibles pour les bandes de Mercenaires du Livre des Règles de Mordheim, en incluant ceux-ci : Guerrier Fantôme, Chasseur de gros gibier, Arbalétrier Tiléen. Sauf indication contraire, les Francs-Tireurs ne peuvent pas bénéficier des règles spécifiques des cités-états Tiléennes." }
   ],

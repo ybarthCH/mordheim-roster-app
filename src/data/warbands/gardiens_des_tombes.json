@@ -3,6 +3,7 @@
   "nom": "Gardiens des Tombes (1b)",
   "grade": "1b",
   "source": "Town Cryer #18 — supplément « Khemri: The Land of the Dead » — article Tomb Guardians",
+  "banniere": "bandes/gardiens_des_tombes.webp",
   "regles_speciales": [
     { "nom": "Terrain natal", "texte": "Les Gardiens des Tombes vivent dans les Nécropoles et n'ont aucun mal à localiser les tombes cachées à la recherche d'armes et d'armures pour défendre leur demeure. Une bande de Gardiens des Tombes lance toujours un dé supplémentaire lors de la phase d'Exploration." },
     { "nom": "Ne boit pas", "texte": "Les Morts-Vivants n'ont besoin ni de nourriture ni d'eau. Tout animal vivant accompagnant les Momies (comme le Scorpion des Tombeaux) suit cependant les règles d'eau normalement, sauf mention contraire sur son propre profil." },

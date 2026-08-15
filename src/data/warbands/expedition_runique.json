@@ -3,6 +3,7 @@
   "nom": "Expédition Runique (1b)",
   "grade": "1b",
   "source": "Nemesis Crown — La Grande Librairie de Mordheim",
+  "banniere": "bandes/expedition_runique.webp",
   "regles_speciales": [
     { "nom": "Difficiles à tuer", "texte": "Les nains sont très coriaces et résilients. Ils ne peuvent donc être mis hors de combat que sur un jet de 6 au lieu de 5-6 sur le tableau des Dégâts. Considérez un jet de 1-2 comme à terre, de 3-5 comme sonné, et de 6 comme hors de combat." },
     { "nom": "Tête dure", "texte": "Les nains ignorent les règles spéciales des masses, marteaux, etc. Ils ne sont pas faciles à assommer !" },

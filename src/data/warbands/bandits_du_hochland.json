@@ -3,6 +3,7 @@
   "nom": "Bandits du Hochland (1b)",
   "grade": "1b",
   "source": "Nemesis Crown — La Grande Librairie de Mordheim",
+  "banniere": "bandes/bandits_du_hochland.webp",
   "regles_speciales": [
     {
       "nom": "La poudre, c'est cher !",

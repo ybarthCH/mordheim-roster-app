@@ -3,6 +3,7 @@
   "nom": "Amazones — Setting Mordheim (1b)",
   "grade": "1b",
   "source": "Fanatic Online Mag #33 — La Grande Librairie de Mordheim",
+  "banniere": "bandes/amazones_mordheim.webp",
   "regles_speciales": [
     { "nom": "Sacrifice", "texte": "Les Amazones sont promptes à offrir leurs prisonniers en sacrifice à leurs dieux. Les Amazones suivent les règles des Possédés du livre de règles pour ce qui est des captifs." },
     { "nom": "Il n'est pas des nôtres", "texte": "En raison de leur indépendance et de leur suspicion envers les autres races, les Amazones ne s'allient jamais avec personne. Pour cette raison, elles ne peuvent recruter ni Francs-tireurs ni personnages spéciaux, à moins qu'il ne s'agisse d'Amazones." }

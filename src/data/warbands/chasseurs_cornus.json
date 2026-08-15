@@ -3,6 +3,7 @@
   "nom": "Chasseurs Cornus (1b)",
   "grade": "1b",
   "source": "Nemesis Crown — La Grande Librairie de Mordheim",
+  "banniere": "bandes/chasseurs_cornus.webp",
   "regles_speciales": [
     {
       "nom": "Forestier",

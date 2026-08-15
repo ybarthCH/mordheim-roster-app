@@ -3,6 +3,7 @@
   "nom": "Elfes Noirs (1b)",
   "grade": "1b",
   "source": "Town Cryer #12 — La Grande Librairie de Mordheim",
+  "banniere": "bandes/elfes_noirs.webp",
   "regles_speciales": [
     { "nom": "Haine fratricide", "texte": "Les elfes noirs combattent les hauts elfes depuis des millénaires et les guerres opposant les deux peuples ont été longues et sanglantes. Les Elfes Noirs haïssent les hauts elfes, y compris les francs-tireurs de cette race." },
     { "nom": "Vue surhumaine", "texte": "De nombreuses légendes font état de l'excellente vue des elfes, qu'il s'agisse des druchii ou des hauts elfes. Les elfes peuvent détecter les ennemis cachés deux fois plus loin que les autres guerriers (c'est-à-dire à une distance égale au double de leur Initiative)." },
