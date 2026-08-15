@@ -521,43 +521,60 @@ button {
 }
 
 /* Illustration bannière de la bande, écran de sélection des bandes
-   (ListeBandesScreen) : pleine largeur en tête de chaque .list-item--bande.
-   Le padding qui revenait auparavant à .list-item--bande passe sur
-   .list-item__row — plus simple à caler sur chaque variante de thème
-   (bordure simple 1px du thème parchemin, border-image peinte des packs
-   pierre/glace/clair, padding asymétrique à gauche pour le liseré) qu'une
-   marge négative à recalculer pour chacune. overflow:hidden clippe la
-   bannière selon le border-radius de la carte, qui reste toujours 14px
-   même quand le border-image remplace la bordure CSS classique. */
+   (ListeBandesScreen) : véritable fond de carte (background-image posée en
+   inline style, cf. ListeBandesScreen.tsx), pas une image empilée au-dessus
+   d'une zone de texte séparée — la carte entière est illustrée, et le nom +
+   les boutons flottent par-dessus dans un bandeau semi-transparent ancré en
+   bas (le "cadre" qui garde le texte lisible quel que soit le contenu de
+   l'image). aspect-ratio pilote la hauteur (au lieu d'un min-height fixe) :
+   proportionnel à la largeur de la carte, donc cohérent en split-view
+   comme en pleine largeur mobile. */
 .list-item--bande.list-item--with-banner {
   flex-direction: column;
   align-items: stretch;
+  justify-content: flex-end;
   padding: 0;
   overflow: hidden;
-}
-.list-item--bande.list-item--with-banner .list-item__row {
-  padding: 0.7rem;
+  aspect-ratio: 2.6 / 1;
+  background-size: cover;
+  background-position: center;
 }
 :root[data-theme='dark'][data-palette='rouge'] .list-item--bande.list-item--with-banner,
 :root[data-theme='dark'][data-palette='noir'] .list-item--bande.list-item--with-banner,
 :root[data-theme='light'][data-palette='noir'] .list-item--bande.list-item--with-banner {
   padding: 0;
+  /* border-image-slice de .list-item--bande inclut le mot-clé `fill`, qui
+     peint aussi la tranche centrale de l'asset (pierre/glace) par-dessus
+     tout le fond de la carte — exactement ce qui masquait l'illustration
+     ici. Sans `fill`, seule la bordure peinte des 8 tranches extérieures
+     reste dessinée ; l'intérieur retombe sur le background-image posé en
+     inline style. */
+  border-image-slice: 16%;
 }
-:root[data-theme='dark'][data-palette='rouge'] .list-item--bande.list-item--with-banner .list-item__row,
-:root[data-theme='dark'][data-palette='noir'] .list-item--bande.list-item--with-banner .list-item__row,
-:root[data-theme='light'][data-palette='noir'] .list-item--bande.list-item--with-banner .list-item__row {
-  padding: 0.8rem 0.9rem 0.8rem 1.3rem;
+/* Bandeau ("cadre") du nom + actions, ancré en bas de l'illustration.
+   Dégradé plutôt qu'un bloc plein : la partie haute de l'image reste
+   visible, seule la zone qui porte du texte s'assombrit. */
+.list-item--bande.list-item--with-banner .list-item__row {
+  /* La règle de base .list-item__row pose flex:1 (pensée pour un usage en
+     ligne, à côté d'une drag-handle) — ici la carte est en colonne et ce
+     serait le seul enfant flex, donc flex:1 l'étirerait sur toute la
+     hauteur de la carte et le dégradé couvrirait alors l'image entière au
+     lieu de rester ancré en bas. flex:none le limite à sa hauteur de
+     contenu, laissant le haut de l'illustration visible sans voile. */
+  flex: none;
+  position: relative;
+  z-index: 1;
+  padding: 1.6rem 0.9rem 0.7rem;
+  /* Assombrit seulement la bande de texte elle-même (les stops restent
+     proches de 0%) : le sujet de l'illustration (la bande de guerriers)
+     occupe généralement le bas-centre du cadre, donc un dégradé qui monte
+     trop haut (ex. jusqu'à 55%) le recouvrait presque entièrement. */
+  background: linear-gradient(to top, rgba(12, 8, 6, 0.88) 0%, rgba(12, 8, 6, 0.55) 18%, rgba(12, 8, 6, 0) 42%);
 }
-.list-item__banner {
-  overflow: hidden;
-  line-height: 0;
-}
-.list-item__banner img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 35 / 10;
-  object-fit: cover;
+.list-item--bande.list-item--with-banner .list-item__title,
+.list-item--bande.list-item--with-banner .list-item__subtitle {
+  color: #f5ece0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
 }
 
 /* Cadre carré du pack UI autour de la photo de la fiche personnage —

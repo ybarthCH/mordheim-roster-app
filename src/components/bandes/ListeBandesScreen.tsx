@@ -122,12 +122,8 @@ export function ListeBandesScreen() {
             className={`list-item list-item--bande${banniere ? ' list-item--with-banner' : ''}`}
             role="button"
             onClick={() => navigate(`/roster/${roster.id}`)}
+            style={banniere ? { backgroundImage: `url(${import.meta.env.BASE_URL}${banniere})` } : undefined}
           >
-            {banniere && (
-              <div className="list-item__banner">
-                <img src={`${import.meta.env.BASE_URL}${banniere}`} alt="" aria-hidden="true" />
-              </div>
-            )}
             <div className="list-item__row">
               <div className="list-item__main">
                 <div className="list-item__title">{roster.nom_bande}</div>
