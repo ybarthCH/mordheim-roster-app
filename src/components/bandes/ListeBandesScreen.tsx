@@ -4,6 +4,7 @@ import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { Icon } from '../common/Icon';
+import { getCatalogue } from '../../data/warbands';
 import { bilanBatailles, effectifTotal, nomCatalogue } from '../../utils/bandeValue';
 import { ratingAffiche } from '../../utils/displayedRating';
 import { exporterRoster, lireFichierRoster } from '../../utils/importExport';
@@ -114,36 +115,44 @@ export function ListeBandesScreen() {
 
       {rosters.map((roster) => {
         const bilan = bilanBatailles(roster);
+        const banniere = getCatalogue(roster.bande_id)?.banniere;
         return (
           <div
             key={roster.id}
-            className="list-item list-item--bande"
+            className={`list-item list-item--bande${banniere ? ' list-item--with-banner' : ''}`}
             role="button"
             onClick={() => navigate(`/roster/${roster.id}`)}
           >
-            <div className="list-item__main">
-              <div className="list-item__title">{roster.nom_bande}</div>
-              <div className="list-item__subtitle">
-                {nomCatalogue(roster.bande_id, language)} · {effectifTotal(roster)} {t('home.members')} ·{' '}
-                {rules.valeurPuissanceActivee ? t('rosterSummary.powerValue') : t('rosterSummary.rating')}{' '}
-                {ratingAffiche(roster, rules)}
+            {banniere && (
+              <div className="list-item__banner">
+                <img src={`${import.meta.env.BASE_URL}${banniere}`} alt="" aria-hidden="true" />
               </div>
-              <div className="list-item__subtitle">
-                {bilan.total > 0
-                  ? `${bilan.victoires}${winLabel} / ${bilan.defaites}${lossLabel} / ${bilan.nuls}${drawLabel}`
-                  : t('home.noBattles')}
+            )}
+            <div className="list-item__row">
+              <div className="list-item__main">
+                <div className="list-item__title">{roster.nom_bande}</div>
+                <div className="list-item__subtitle">
+                  {nomCatalogue(roster.bande_id, language)} · {effectifTotal(roster)} {t('home.members')} ·{' '}
+                  {rules.valeurPuissanceActivee ? t('rosterSummary.powerValue') : t('rosterSummary.rating')}{' '}
+                  {ratingAffiche(roster, rules)}
+                </div>
+                <div className="list-item__subtitle">
+                  {bilan.total > 0
+                    ? `${bilan.victoires}${winLabel} / ${bilan.defaites}${lossLabel} / ${bilan.nuls}${drawLabel}`
+                    : t('home.noBattles')}
+                </div>
               </div>
-            </div>
-            <div className="list-item__actions" onClick={(e) => e.stopPropagation()}>
-              <button className="btn--pack-pill-sm" onClick={() => exporterRoster(roster)}>
-                {t('home.export')}
-              </button>
-              <button className="btn--pack-pill-sm" onClick={() => duplicateRoster(roster.id)}>
-                {t('home.duplicate')}
-              </button>
-              <button className="btn--ghost-danger" onClick={() => setASupprimer(roster)} title={t('home.deleteShort')}>
-                <Icon name="croixPack" />
-              </button>
+              <div className="list-item__actions" onClick={(e) => e.stopPropagation()}>
+                <button className="btn--pack-pill-sm" onClick={() => exporterRoster(roster)}>
+                  {t('home.export')}
+                </button>
+                <button className="btn--pack-pill-sm" onClick={() => duplicateRoster(roster.id)}>
+                  {t('home.duplicate')}
+                </button>
+                <button className="btn--ghost-danger" onClick={() => setASupprimer(roster)} title={t('home.deleteShort')}>
+                  <Icon name="croixPack" />
+                </button>
+              </div>
             </div>
           </div>
         );

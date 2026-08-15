@@ -38,11 +38,6 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
 
   return (
     <div className="card card--summary">
-      {catalogue?.banniere && (
-        <div className="roster-summary__banner">
-          <img src={`${import.meta.env.BASE_URL}${catalogue.banniere}`} alt="" aria-hidden="true" />
-        </div>
-      )}
       <input
         value={nomSaisi}
         onChange={(e) => {

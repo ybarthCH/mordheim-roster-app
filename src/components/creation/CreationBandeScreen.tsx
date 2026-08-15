@@ -150,12 +150,6 @@ export function CreationBandeScreen() {
           </select>
         </div>
 
-        {catalogue?.banniere && (
-          <div className="roster-summary__banner roster-summary__banner--inline">
-            <img src={`${import.meta.env.BASE_URL}${catalogue.banniere}`} alt="" aria-hidden="true" />
-          </div>
-        )}
-
         {tribuRequise && (
           <div className="field">
             <label>{t('creation.tribe')}</label>

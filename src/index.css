@@ -520,30 +520,44 @@ button {
   border-image-source: url('/decor/card-panel-summary-clair.png');
 }
 
-/* Illustration bannière de la bande, en tête de la carte résumé. Débordée
-   jusqu'au bord intérieur du cadre via une marge négative égale au padding
-   de .card (fonctionne quel que soit l'habillage : bordure simple 1px du
-   thème parchemin ou border-image peinte 20px des packs pierre/glace). */
-.roster-summary__banner {
-  margin: -0.9rem -0.9rem 0.7rem;
-  border-radius: calc(var(--radius-lg) - 4px) calc(var(--radius-lg) - 4px) 0 0;
+/* Illustration bannière de la bande, écran de sélection des bandes
+   (ListeBandesScreen) : pleine largeur en tête de chaque .list-item--bande.
+   Le padding qui revenait auparavant à .list-item--bande passe sur
+   .list-item__row — plus simple à caler sur chaque variante de thème
+   (bordure simple 1px du thème parchemin, border-image peinte des packs
+   pierre/glace/clair, padding asymétrique à gauche pour le liseré) qu'une
+   marge négative à recalculer pour chacune. overflow:hidden clippe la
+   bannière selon le border-radius de la carte, qui reste toujours 14px
+   même quand le border-image remplace la bordure CSS classique. */
+.list-item--bande.list-item--with-banner {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+}
+.list-item--bande.list-item--with-banner .list-item__row {
+  padding: 0.7rem;
+}
+:root[data-theme='dark'][data-palette='rouge'] .list-item--bande.list-item--with-banner,
+:root[data-theme='dark'][data-palette='noir'] .list-item--bande.list-item--with-banner,
+:root[data-theme='light'][data-palette='noir'] .list-item--bande.list-item--with-banner {
+  padding: 0;
+}
+:root[data-theme='dark'][data-palette='rouge'] .list-item--bande.list-item--with-banner .list-item__row,
+:root[data-theme='dark'][data-palette='noir'] .list-item--bande.list-item--with-banner .list-item__row,
+:root[data-theme='light'][data-palette='noir'] .list-item--bande.list-item--with-banner .list-item__row {
+  padding: 0.8rem 0.9rem 0.8rem 1.3rem;
+}
+.list-item__banner {
   overflow: hidden;
   line-height: 0;
 }
-.roster-summary__banner img {
+.list-item__banner img {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 35 / 10;
   object-fit: cover;
-}
-
-/* Variante utilisée en aperçu au milieu d'une carte (choix de bande à la
-   création) : ne touche pas le haut du cadre, donc débord horizontal
-   seulement et coins arrondis des 4 côtés plutôt que 2. */
-.roster-summary__banner--inline {
-  margin: 0.8rem -0.9rem;
-  border-radius: calc(var(--radius-lg) - 4px);
 }
 
 /* Cadre carré du pack UI autour de la photo de la fiche personnage —
