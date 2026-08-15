@@ -8,6 +8,7 @@ import { getCatalogue } from '../../data/warbands';
 import { bilanBatailles, effectifTotal, nomCatalogue } from '../../utils/bandeValue';
 import { ratingAffiche } from '../../utils/displayedRating';
 import { exporterRoster, lireFichierRoster } from '../../utils/importExport';
+import { useCardDragReorder } from '../../utils/useCardDragReorder';
 import type { RosterInstance } from '../../types/roster';
 import { useLanguage } from '../../state/useLanguage';
 import { useGameRules } from '../../state/useGameRules';
@@ -38,13 +39,17 @@ function heureBuildCET(isoDate: string): string {
 }
 
 export function ListeBandesScreen() {
-  const { rosters, loading, removeRoster, duplicateRoster, importRoster } = useRosters();
+  const { rosters, loading, removeRoster, duplicateRoster, importRoster, reorderRosters } = useRosters();
   const navigate = useNavigate();
   const { language, t } = useLanguage();
   const { rules } = useGameRules();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [aSupprimer, setASupprimer] = useState<RosterInstance | null>(null);
   const [erreurImport, setErreurImport] = useState<string | null>(null);
+  const { elements, refItem, onPointerDown, onCardClick, idEnCours, pointerPos } = useCardDragReorder(
+    rosters,
+    reorderRosters
+  );
 
   const winLabel = language === 'en' ? 'W' : 'V';
   const lossLabel = language === 'en' ? 'L' : 'D';
@@ -113,15 +118,17 @@ export function ListeBandesScreen() {
         </div>
       )}
 
-      {rosters.map((roster) => {
+      {elements.map((roster) => {
         const bilan = bilanBatailles(roster);
         const banniere = getCatalogue(roster.bande_id)?.banniere;
         return (
           <div
             key={roster.id}
-            className={`list-item list-item--bande${banniere ? ' list-item--with-banner' : ''}`}
+            ref={refItem(roster.id)}
+            className={`list-item list-item--bande${banniere ? ' list-item--with-banner' : ''}${idEnCours === roster.id ? ' list-item--fantome' : ''}`}
             role="button"
-            onClick={() => navigate(`/roster/${roster.id}`)}
+            onPointerDown={onPointerDown(roster.id)}
+            onClick={onCardClick(() => navigate(`/roster/${roster.id}`))}
             style={banniere ? { backgroundImage: `url(${import.meta.env.BASE_URL}${banniere})` } : undefined}
           >
             <div className="list-item__row">
@@ -156,6 +163,19 @@ export function ListeBandesScreen() {
           </div>
         );
       })}
+
+      {idEnCours &&
+        pointerPos &&
+        (() => {
+          const glissee = elements.find((r) => r.id === idEnCours);
+          if (!glissee) return null;
+          return (
+            <div className="drag-ghost" style={{ left: pointerPos.x, top: pointerPos.y }}>
+              <span className="drag-ghost__nom">{glissee.nom_bande}</span>
+              <span className="drag-ghost__profil"> · {nomCatalogue(glissee.bande_id, language)}</span>
+            </div>
+          );
+        })()}
 
       {aSupprimer && (
         <Modal onClose={() => setASupprimer(null)}>

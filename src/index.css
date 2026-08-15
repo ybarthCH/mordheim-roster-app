@@ -577,14 +577,29 @@ button {
 .list-item--bande.list-item--with-banner .list-item__row {
   position: relative;
   z-index: 1;
-  justify-content: space-between;
   padding: 0.8rem 0.9rem;
+  /* align-content (pas align-items) pilote l'écart entre les DEUX lignes
+     du flex-wrap quand les actions n'ont pas la place de rester à côté du
+     texte : la 1re ligne (nom + infos) colle au sommet, la 2e (actions)
+     descend au fond — même "coins opposés" qu'avant, mais en repli
+     seulement. Quand tout tient sur une ligne, une seule ligne existe et
+     align-content n'a aucun effet visible. */
+  align-content: space-between;
 }
 .list-item--bande.list-item--with-banner .list-item__main {
   align-self: flex-start;
 }
 .list-item--bande.list-item--with-banner .list-item__actions {
-  align-self: flex-end;
+  /* La règle de base .list-item__actions pose flex-basis:100% (pensée pour
+     forcer les actions sur leur propre ligne pleine largeur dans une liste
+     d'objets) — ici on veut au contraire qu'elles restent à côté du texte
+     tant que la largeur le permet, donc flex-basis:auto. margin-left:auto
+     les pousse au bord droit de leur ligne, que ce soit celle du texte
+     (repli non déclenché) ou leur propre ligne repliée (repli déclenché) —
+     donc toujours "coin droit", sans media query ni container query. */
+  flex-basis: auto;
+  margin-left: auto;
+  align-self: flex-start;
 }
 .list-item--bande.list-item--with-banner .list-item__title {
   font-family: var(--font-display);

@@ -11,6 +11,10 @@ export type RostersContextValue = {
   removeRoster: (id: string) => Promise<void>;
   duplicateRoster: (id: string) => Promise<RosterInstance | undefined>;
   importRoster: (roster: RosterInstance) => Promise<RosterInstance>;
+  // Persiste un nouvel ordre d'affichage (glisser-déposer sur
+  // ListeBandesScreen) : attribue ordre = position dans le tableau reçu à
+  // chaque bande, dans cet ordre exact.
+  reorderRosters: (nouvelOrdre: RosterInstance[]) => Promise<void>;
 };
 
 export const RostersContext = createContext<RostersContextValue | undefined>(undefined);

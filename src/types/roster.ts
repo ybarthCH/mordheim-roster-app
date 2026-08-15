@@ -336,6 +336,11 @@ export type RosterInstance = {
   // état qui doit être retrouvé lors d'un post-bataille ultérieur doit
   // transiter par ce tableau plutôt que par un champ ad hoc.
   effets_persistants?: EffetPersistant[];
+  // Position choisie par glisser-déposer sur l'écran de sélection des
+  // bandes (ListeBandesScreen) — plus petit = affiché en premier. Absent
+  // pour une bande jamais réordonnée manuellement : voir listRosters() dans
+  // db/db.ts pour le tri de repli (alphabétique) appliqué dans ce cas.
+  ordre?: number;
   createdAt: string;
   updatedAt: string;
 };
