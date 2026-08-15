@@ -528,37 +528,26 @@ button {
    .list-item__main / .list-item__actions sont chacun ancrés à un coin via
    align-self.
 
-   aspect-ratio fixe (pas de min-height en cqw) : un essai précédent avec
-   min-height: calc(100cqw / ratio) devait laisser la carte grandir sans
-   jamais rien couper, mais cqw appliqué à une propriété de LA taille du
-   conteneur qui le définit lui-même est un cas mal défini par la spec — sur
-   un écran large sans colonne de liste qui plafonne sa largeur, le
-   navigateur est retombé sur la largeur du viewport entier au lieu de la
-   largeur réelle de la carte, donnant une hauteur démesurée (carte
-   quasi-carrée, image écrasée/zoomée au centre). aspect-ratio est fixe et
-   fiable ; le contenu (nom + 3 lignes + actions) doit tenir dedans à la
-   place — voir la variante @media plus bas qui bascule sur un ratio moins
-   large (donc plus haut) sous ~480px pour laisser assez de place au texte
-   sur mobile. @media sur la largeur du viewport plutôt que @container : cet
-   écran (liste des bandes) n'est jamais en split-view avec une colonne plus
-   étroite que le viewport, donc les deux reviennent au même ici — et
-   @container sur un élément qui interroge SA PROPRE largeur (le cas de
-   min-height en cqw ci-dessus) est justement la source du bug initial ;
-   @media l'évite complètement. */
+   height fixe plutôt qu'aspect-ratio : le contenu (nom + 3 lignes + bouton
+   d'action) a une hauteur naturelle quasiment CONSTANTE quelle que soit la
+   largeur de la carte (~210px, mesuré de 240px à 1350px de large — le texte
+   ne passe jamais à la ligne différemment) alors qu'aspect-ratio fait
+   grandir la hauteur PROPORTIONNELLEMENT à la largeur. Résultat sur un
+   grand écran (colonne large, pas de split-view) : la carte devenait bien
+   plus haute que nécessaire pour son contenu, et l'image se retrouvait
+   écrasée/zoomée au centre au lieu de rester une fine bannière. Une hauteur
+   fixe, choisie avec une marge confortable au-dessus de ce plancher de
+   ~210px, garde la bannière basse (comme prévu) à toutes les largeurs
+   plutôt que de gonfler sur un écran large. */
 .list-item--bande.list-item--with-banner {
   position: relative;
   flex-direction: column;
   align-items: stretch;
   padding: 0;
   overflow: hidden;
-  aspect-ratio: 2.6 / 1;
+  height: 260px;
   background-size: cover;
   background-position: center;
-}
-@media (max-width: 480px) {
-  .list-item--bande.list-item--with-banner {
-    aspect-ratio: 1.7 / 1;
-  }
 }
 /* Voile dégradé en haut de l'illustration seulement (pas plein cadre) :
    garde le nom + infos lisibles quel que soit le contenu de l'image à cet
