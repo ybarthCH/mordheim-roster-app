@@ -522,22 +522,44 @@ button {
 
 /* Illustration bannière de la bande, écran de sélection des bandes
    (ListeBandesScreen) : véritable fond de carte (background-image posée en
-   inline style, cf. ListeBandesScreen.tsx), pas une image empilée au-dessus
-   d'une zone de texte séparée — la carte entière est illustrée, et le nom +
-   les boutons flottent par-dessus dans un bandeau semi-transparent ancré en
-   bas (le "cadre" qui garde le texte lisible quel que soit le contenu de
-   l'image). aspect-ratio pilote la hauteur (au lieu d'un min-height fixe) :
-   proportionnel à la largeur de la carte, donc cohérent en split-view
-   comme en pleine largeur mobile. */
+   inline style, cf. ListeBandesScreen.tsx). Le nom + infos flottent en
+   haut à gauche de l'image, les actions en bas à droite — .list-item__row
+   occupe toute la hauteur de la carte (flex:1, comportement de base) et
+   .list-item__main / .list-item__actions sont chacun ancrés à un coin via
+   align-self.
+
+   min-height en unité de conteneur (cqw, cf. container-type ci-dessous)
+   plutôt qu'aspect-ratio : aspect-ratio fixe une hauteur "cible" que
+   overflow:hidden peut ensuite rogner si le contenu (nom + 3 lignes de
+   sous-titre + boutons qui passent à la ligne sur une carte étroite) a
+   besoin de plus de place — vécu en test sur mobile, où les boutons
+   Export/Dupliquer disparaissaient, coupés par le cadre. min-height ne
+   fixe qu'un PLANCHER : la carte garde son look "bannière large" tant que
+   le contenu tient dedans, mais grandit sans jamais rien couper si une
+   bande a un nom long ou si le split-view réduit sa largeur. */
 .list-item--bande.list-item--with-banner {
+  position: relative;
   flex-direction: column;
   align-items: stretch;
-  justify-content: flex-end;
   padding: 0;
   overflow: hidden;
-  aspect-ratio: 2.6 / 1;
+  container-type: inline-size;
+  min-height: calc(100cqw / 2.6);
   background-size: cover;
   background-position: center;
+}
+/* Voile dégradé en haut de l'illustration seulement (pas plein cadre) :
+   garde le nom + infos lisibles quel que soit le contenu de l'image à cet
+   endroit, sans assombrir le reste — les boutons d'action en bas portent
+   déjà leur propre habillage opaque (pilule peinte / icône claire) et
+   n'ont pas besoin d'un fond supplémentaire. */
+.list-item--bande.list-item--with-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(to bottom, rgba(10, 7, 5, 0.78) 0%, rgba(10, 7, 5, 0.35) 22%, rgba(10, 7, 5, 0) 45%);
+  pointer-events: none;
 }
 :root[data-theme='dark'][data-palette='rouge'] .list-item--bande.list-item--with-banner,
 :root[data-theme='dark'][data-palette='noir'] .list-item--bande.list-item--with-banner,
@@ -551,30 +573,29 @@ button {
      inline style. */
   border-image-slice: 16%;
 }
-/* Bandeau ("cadre") du nom + actions, ancré en bas de l'illustration.
-   Dégradé plutôt qu'un bloc plein : la partie haute de l'image reste
-   visible, seule la zone qui porte du texte s'assombrit. */
 .list-item--bande.list-item--with-banner .list-item__row {
-  /* La règle de base .list-item__row pose flex:1 (pensée pour un usage en
-     ligne, à côté d'une drag-handle) — ici la carte est en colonne et ce
-     serait le seul enfant flex, donc flex:1 l'étirerait sur toute la
-     hauteur de la carte et le dégradé couvrirait alors l'image entière au
-     lieu de rester ancré en bas. flex:none le limite à sa hauteur de
-     contenu, laissant le haut de l'illustration visible sans voile. */
-  flex: none;
   position: relative;
   z-index: 1;
-  padding: 1.6rem 0.9rem 0.7rem;
-  /* Assombrit seulement la bande de texte elle-même (les stops restent
-     proches de 0%) : le sujet de l'illustration (la bande de guerriers)
-     occupe généralement le bas-centre du cadre, donc un dégradé qui monte
-     trop haut (ex. jusqu'à 55%) le recouvrait presque entièrement. */
-  background: linear-gradient(to top, rgba(12, 8, 6, 0.88) 0%, rgba(12, 8, 6, 0.55) 18%, rgba(12, 8, 6, 0) 42%);
+  justify-content: space-between;
+  padding: 0.8rem 0.9rem;
 }
-.list-item--bande.list-item--with-banner .list-item__title,
+.list-item--bande.list-item--with-banner .list-item__main {
+  align-self: flex-start;
+}
+.list-item--bande.list-item--with-banner .list-item__actions {
+  align-self: flex-end;
+}
+.list-item--bande.list-item--with-banner .list-item__title {
+  font-family: var(--font-display);
+  color: #f5ece0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+}
 .list-item--bande.list-item--with-banner .list-item__subtitle {
   color: #f5ece0;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+}
+.list-item--bande.list-item--with-banner .btn--ghost-danger {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8));
 }
 
 /* Cadre carré du pack UI autour de la photo de la fiche personnage —
