@@ -520,6 +520,32 @@ button {
   border-image-source: url('/decor/card-panel-summary-clair.png');
 }
 
+/* Illustration bannière de la bande, en tête de la carte résumé. Débordée
+   jusqu'au bord intérieur du cadre via une marge négative égale au padding
+   de .card (fonctionne quel que soit l'habillage : bordure simple 1px du
+   thème parchemin ou border-image peinte 20px des packs pierre/glace). */
+.roster-summary__banner {
+  margin: -0.9rem -0.9rem 0.7rem;
+  border-radius: calc(var(--radius-lg) - 4px) calc(var(--radius-lg) - 4px) 0 0;
+  overflow: hidden;
+  line-height: 0;
+}
+.roster-summary__banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 35 / 10;
+  object-fit: cover;
+}
+
+/* Variante utilisée en aperçu au milieu d'une carte (choix de bande à la
+   création) : ne touche pas le haut du cadre, donc débord horizontal
+   seulement et coins arrondis des 4 côtés plutôt que 2. */
+.roster-summary__banner--inline {
+  margin: 0.8rem -0.9rem;
+  border-radius: calc(var(--radius-lg) - 4px);
+}
+
 /* Cadre carré du pack UI autour de la photo de la fiche personnage —
    dimensionné un cran plus grand que l'avatar lui-même pour que seul le
    filet peint dépasse tout autour (le cœur de l'asset n'est pas

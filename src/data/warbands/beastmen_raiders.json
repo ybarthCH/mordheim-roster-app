@@ -3,6 +3,7 @@
   "nom": "Pillards Hommes-Bêtes (1a)",
   "grade": "1a",
   "source": "Town Cryer #29 & Rules Review 2005 (GW) + Border Town Burning + Mutiny in Marienburg",
+  "banniere": "bandes/beastmen_raiders.webp",
   "regles_speciales": [
     { "nom": "Bestiaux", "texte": "Les Hommes-Bêtes sont de féroces créatures du Chaos et ne peuvent pas recruter de Francs-Tireurs à moins que le contraire ne soit précisé dans leur description." },
     { "nom": "Table de Mutations", "texte": "Réservée aux Héros ayant la compétence spéciale « Mutant ». La première mutation d'une figurine est achetée au prix normal, les suivantes pour la même figurine coûtent le double — voir la rubrique Équipement de sa fiche." }

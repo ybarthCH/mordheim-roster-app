@@ -3,6 +3,7 @@
   "nom": "Mercenaires Ostlanders (1a)",
   "grade": "1a",
   "source": "Mordheim Annual 2002 / La Grande Librairie de Mordheim",
+  "banniere": "bandes/ostlanders.webp",
   "regles_speciales": [
     {
       "nom": "Autonome",

@@ -3,6 +3,7 @@
   "nom": "Horde Orque (1a)",
   "grade": "1a",
   "source": "Livre de règles Mordheim (GW)",
+  "banniere": "bandes/orc_mob.webp",
   "regles_speciales": [
     {
       "nom": "Des gens peu recommandables",

@@ -3,6 +3,7 @@
   "nom": "Morts-Vivants (1a)",
   "grade": "1a",
   "source": "Livre de règles Mordheim (GW), p.86-89 (bande) + p.58 (nécromancie)",
+  "banniere": "bandes/undead.webp",
   "regles_speciales": [],
   "composition": {
     "effectif_min": 3,

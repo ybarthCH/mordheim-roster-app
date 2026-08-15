@@ -3,6 +3,7 @@
   "nom": "Les Répurgateurs (1a)",
   "grade": "1a",
   "source": "Livre de règles Mordheim (GW)",
+  "banniere": "bandes/witch_hunters.webp",
   "regles_speciales": [],
   "composition": {
     "effectif_min": 3,

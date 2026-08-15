@@ -3,6 +3,7 @@
   "nom": "La Kermesse du Chaos (1a)",
   "grade": "1a",
   "source": "Empire en Flammes (GW)",
+  "banniere": "bandes/carnival_of_chaos.webp",
   "regles_speciales": [
     {
       "nom": "Sinistre Réputation",

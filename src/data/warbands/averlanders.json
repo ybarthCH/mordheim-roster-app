@@ -3,6 +3,7 @@
   "nom": "Mercenaires Averlanders (1a)",
   "grade": "1a",
   "source": "La Grande Librairie de Mordheim",
+  "banniere": "bandes/averlanders.webp",
   "regles_speciales": [],
   "composition": {
     "effectif_min": 3,

@@ -3,6 +3,7 @@
   "nom": "Mercenaires Middenheimers (1a)",
   "grade": "1a",
   "source": "Livre de règles Mordheim (GW), p.68-71",
+  "banniere": "bandes/middenheimers.webp",
   "regles_speciales": [
     {
       "nom": "Force 4",

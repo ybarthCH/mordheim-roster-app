@@ -325,6 +325,10 @@ export type WarbandCatalog = {
   nom: string;
   grade: string;
   source: string;
+  // Chemin vers l'illustration bannière de la bande (relatif à public/, ex.
+  // "bandes/orc_mob.webp"). Optionnel : les bandes sans illustration
+  // n'affichent simplement aucune bannière.
+  banniere?: string;
   regles_speciales: SpecialRule[];
   tribus?: Tribu[];
   profils: Profile[];
