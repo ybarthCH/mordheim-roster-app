@@ -1715,20 +1715,24 @@ button {
   margin-bottom: 0.6rem;
 }
 /* Bannière logo (remplace l'ancien titre texte "Musterheim" en Schoensperger) :
-   image peinte du pack encadrée par un filet fin "glace" (frame-banner-ice,
-   palette noire) — un seul habillage fixe, pas de variante par thème, sur
-   demande explicite. border-image plutôt que padding+background : le filet
-   du pack (~1-1.5% de l'image source, voir mesure au pixel) doit garder son
-   épaisseur nette quelle que soit la largeur réelle de la bannière, ce que
-   seul border-image (9-slice) garantit — un simple cadre CSS ferait un trait
-   plat sans le liseré lumineux peint. */
+   image peinte du pack encadrée par un filet obsidienne aux reflets verre de
+   malpierre (frame-banner-obsidian, dérivé de frame-banner-ice par remap
+   HSV : teinte forcée au vert malpierre, saturation/luminosité proportionnées
+   à la luminosité d'origine pour que le corps sombre devienne noir obsidienne
+   et que seul le liseré peint garde un éclat, désormais vert) — un seul
+   habillage fixe, pas de variante par thème, sur demande explicite.
+   border-image plutôt que padding+background : le filet du pack (~1-1.5% de
+   l'image source, voir mesure au pixel) doit garder son épaisseur nette
+   quelle que soit la largeur réelle de la bannière, ce que seul border-image
+   (9-slice) garantit — un simple cadre CSS ferait un trait plat sans le
+   liseré lumineux peint. */
 .home-hero__banner {
   max-width: 640px;
   margin: 0 auto;
   aspect-ratio: 1024 / 282;
   border-style: solid;
   border-width: 12px;
-  border-image-source: url('/decor/frame-banner-ice.png');
+  border-image-source: url('/decor/frame-banner-obsidian.png');
   border-image-slice: 2% 1.6%;
   border-image-repeat: stretch;
   border-radius: var(--radius-lg);

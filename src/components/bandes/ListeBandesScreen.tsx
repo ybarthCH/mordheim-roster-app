@@ -127,8 +127,9 @@ export function ListeBandesScreen() {
             <div className="list-item__row">
               <div className="list-item__main">
                 <div className="list-item__title">{roster.nom_bande}</div>
+                <div className="list-item__subtitle">{nomCatalogue(roster.bande_id, language)}</div>
                 <div className="list-item__subtitle">
-                  {nomCatalogue(roster.bande_id, language)} · {effectifTotal(roster)} {t('home.members')}
+                  {effectifTotal(roster)} {t('home.members')}
                 </div>
                 <div className="list-item__subtitle">
                   {rules.valeurPuissanceActivee ? t('rosterSummary.powerValue') : t('rosterSummary.rating')}{' '}
