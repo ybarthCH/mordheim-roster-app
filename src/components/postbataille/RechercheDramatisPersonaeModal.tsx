@@ -108,7 +108,7 @@ export function RechercheDramatisPersonaeModal({
           <>
             <header className="achat-equipement__header achat-equipement__header--selection">
               <div className="achat-equipement__header-ligne">
-                <button className="btn btn--sm" onClick={() => setDpId('')}>
+                <button className="btn--pack-pill-sm" onClick={() => setDpId('')}>
                   {t('dpModal.backToList')}
                 </button>
                 <button className="btn btn--sm" aria-label={t('dpModal.close')} onClick={onClose}>
@@ -160,10 +160,10 @@ export function RechercheDramatisPersonaeModal({
 
               {!succesDeclare && (
                 <div className="flex gap-sm" style={{ marginTop: '0.4rem' }}>
-                  <button type="button" className="btn btn--primary" onClick={() => setSuccesDeclare(true)}>
+                  <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" onClick={() => setSuccesDeclare(true)}>
                     {t('dpModal.success')}
                   </button>
-                  <button type="button" className="btn" onClick={enregistrerEchec}>
+                  <button type="button" className="btn--pack-pill-sm" onClick={enregistrerEchec}>
                     {t('dpModal.failure')}
                   </button>
                 </div>
@@ -179,13 +179,13 @@ export function RechercheDramatisPersonaeModal({
             </div>
 
             <footer className="achat-equipement__actions">
-              <button className="btn" onClick={onClose}>{t('dpModal.cancel')}</button>
+              <button className="btn--pack-pill-sm" onClick={onClose}>{t('dpModal.cancel')}</button>
               {succesDeclare && (
                 <>
-                  <button className="btn" onClick={nePasRecruter}>
+                  <button className="btn--pack-pill-sm" onClick={nePasRecruter}>
                     {t('dpModal.dontRecruit')}
                   </button>
-                  <button className="btn btn--primary" disabled={!budgetSuffisant} onClick={recruter}>
+                  <button className="btn--pack-pill-sm btn--pack-pill-sm--primary" disabled={!budgetSuffisant} onClick={recruter}>
                     {t('dpModal.recruitAndFinish')}
                   </button>
                 </>

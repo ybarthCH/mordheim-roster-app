@@ -732,7 +732,10 @@ button {
    ensemble, sans corriger leur position relative). */
 .badge.badge--leader,
 .badge.badge--pending,
-.badge.badge--equipment-warning {
+.badge.badge--equipment-warning,
+.badge.badge--rarete-danger,
+.badge.badge--rarete-warning,
+.badge.badge--rarete-info {
   position: relative;
   z-index: 0;
   border-radius: 4px;
@@ -752,7 +755,10 @@ button {
 }
 .badge.badge--leader::before,
 .badge.badge--pending::before,
-.badge.badge--equipment-warning::before {
+.badge.badge--equipment-warning::before,
+.badge.badge--rarete-danger::before,
+.badge.badge--rarete-warning::before,
+.badge.badge--rarete-info::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -762,7 +768,9 @@ button {
   filter: var(--pack-asset-filter, none);
 }
 .badge.badge--leader,
-.badge.badge--equipment-warning {
+.badge.badge--equipment-warning,
+.badge.badge--rarete-danger,
+.badge.badge--rarete-info {
   color: #f1ded1;
 }
 :root:not([data-palette]) .badge.badge--leader::before,
@@ -783,17 +791,41 @@ button {
    statut "à traiter", pas une teinte d'accent qui doit suivre Sang/Ice
    Metal. Texte sombre : le ruban doré est trop clair pour rester lisible
    avec le même texte crème que les rubans rouge/glace. */
-.badge.badge--pending::before {
+.badge.badge--pending::before,
+.badge.badge--rarete-warning::before {
   background-image: url('/decor/tag-warning-gold.png');
 }
-.badge.badge--pending {
+.badge.badge--pending,
+.badge.badge--rarete-warning {
   color: #2b1a06;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
 }
 /* Toujours rouge, quelle que soit la palette — même logique que
    .banner-danger : un danger reste rouge. */
-.badge.badge--equipment-warning::before {
+.badge.badge--equipment-warning::before,
+.badge.badge--rarete-danger::before {
   background-image: url('/decor/tag-danger-red.png');
+}
+/* Badges de rareté d'objet (utilitaire commun classeRarete()) — même
+   ruban peint que Leader/Avancée en attente/Alerte équipement, recolorés
+   pour suivre l'échelle rouge/or/glace déjà utilisée par les anciens
+   badges plats badge--danger/warning/info. Toujours cette couleur quelle
+   que soit la palette — la rareté est une propriété de l'objet, pas un
+   accent de thème. */
+.badge.badge--rarete-info::before {
+  background-image: url('/decor/tag-leader-ice.png');
+}
+/* Un peu plus de marge horizontale que les autres rubans : le texte
+   "Rare N" est court et collait aux pointes décoratives du ruban. Le
+   texte est aussi décalé 2px plus bas (padding-top/bottom déséquilibré)
+   pour se recentrer verticalement dans la banderole. */
+.badge.badge--rarete-danger,
+.badge.badge--rarete-warning,
+.badge.badge--rarete-info {
+  padding-left: 1.7rem;
+  padding-right: 1.7rem;
+  padding-top: calc(0.15rem + 2px);
+  padding-bottom: calc(0.5rem - 2px);
 }
 
 /* Filet ornemental du pack UI sous le titre des cartes repliables

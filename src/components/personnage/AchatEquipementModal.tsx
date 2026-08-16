@@ -362,10 +362,10 @@ export function AchatEquipementModal({
             </div>
             <p className="text-sm text-muted">{t('achatEquipement.customItemIntro')}</p>
             <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
-              <button className="btn btn--primary" onClick={() => setVuePersonnalise('creer')}>
+              <button className="btn--pack-pill-sm btn--pack-pill-sm--primary" onClick={() => setVuePersonnalise('creer')}>
                 {t('achatEquipement.createItem')}
               </button>
-              <button className="btn" onClick={() => setVuePersonnalise('selection')}>
+              <button className="btn--pack-pill-sm" onClick={() => setVuePersonnalise('selection')}>
                 {t('achatEquipement.editExistingItem')}
               </button>
             </div>
@@ -380,7 +380,7 @@ export function AchatEquipementModal({
           <div className="achat-equipement__contenu">
             <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
               <h3 className="mt-0 mb-0">{t('achatEquipement.chooseItemToEditTitle')}</h3>
-              <button className="btn btn--sm" onClick={() => setVuePersonnalise('menu')}>
+              <button className="btn--pack-pill-sm" onClick={() => setVuePersonnalise('menu')}>
                 {t('achatEquipement.back')}
               </button>
             </div>
@@ -436,13 +436,13 @@ export function AchatEquipementModal({
               </button>
             </div>
             <p className="text-sm text-muted">{t('achatEquipement.rollResultNote')}</p>
-            <button className="btn btn--sm" style={{ marginBottom: '0.5rem' }} onClick={() => setItemId('')}>
+            <button className="btn--pack-pill-sm" style={{ marginBottom: '0.5rem' }} onClick={() => setItemId('')}>
               {t('achatEquipement.rollResultBack')}
             </button>
             <p className="text-sm" style={{ fontWeight: 600 }}>{t('achatEquipement.rollResultTitle')}</p>
             <div className="flex flex-wrap gap-sm">
               {[1, 2, 3, 4, 5, 6].map((valeur) => (
-                <button key={valeur} className="btn" onClick={() => choisirResultatSousJetAchat(valeur)}>
+                <button key={valeur} className="btn--pack-pill-sm" onClick={() => choisirResultatSousJetAchat(valeur)}>
                   {valeur}
                 </button>
               ))}
@@ -459,7 +459,7 @@ export function AchatEquipementModal({
               </button>
             </div>
             <p className="text-sm text-muted">{t('achatEquipement.chooseBaseNote')}</p>
-            <button className="btn btn--sm" style={{ marginBottom: '0.5rem' }} onClick={() => setItemId('')}>
+            <button className="btn--pack-pill-sm" style={{ marginBottom: '0.5rem' }} onClick={() => setItemId('')}>
               {t('achatEquipement.catalogBack')}
             </button>
             <div className="field">
@@ -490,7 +490,7 @@ export function AchatEquipementModal({
           <>
             <header className="achat-equipement__header achat-equipement__header--selection">
               <div className="achat-equipement__header-ligne">
-                <button className="btn btn--sm" onClick={() => setBaseMateriauId('')}>
+                <button className="btn--pack-pill-sm" onClick={() => setBaseMateriauId('')}>
                   {t('achatEquipement.chooseOtherBase')}
                 </button>
                 <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
@@ -565,11 +565,11 @@ export function AchatEquipementModal({
               )}
             </div>
             <footer className="achat-equipement__actions">
-              <button className="btn" onClick={onClose}>
+              <button className="btn--pack-pill-sm" onClick={onClose}>
                 {t('achatEquipement.cancel')}
               </button>
               <button
-                className="btn btn--primary"
+                className="btn--pack-pill-sm btn--pack-pill-sm--primary"
                 disabled={!objetMateriauCombine || !budgetMateriauSuffisant}
                 onClick={confirmerMateriau}
               >
@@ -604,13 +604,13 @@ export function AchatEquipementModal({
             <div className="achat-equipement__contenu">
               <div className="flex gap-sm" style={{ marginBottom: '0.5rem' }}>
                 <button
-                  className={`btn btn--sm ${source === 'bande' ? 'btn--primary' : ''}`}
+                  className={`btn--pack-pill-sm ${source === 'bande' ? 'btn--pack-pill-sm--primary' : ''}`}
                   onClick={() => changerSource('bande')}
                 >
                   {t('achatEquipement.bandEquipment')}
                 </button>
                 <button
-                  className={`btn btn--sm ${source === 'commun' ? 'btn--primary' : ''}`}
+                  className={`btn--pack-pill-sm ${source === 'commun' ? 'btn--pack-pill-sm--primary' : ''}`}
                   onClick={() => changerSource('commun')}
                 >
                   {t('achatEquipement.commonShop')} ({itemsCommun.length})
@@ -695,7 +695,7 @@ export function AchatEquipementModal({
           <>
             <header className="achat-equipement__header achat-equipement__header--selection">
               <div className="achat-equipement__header-ligne">
-                <button className="btn btn--sm" onClick={() => setItemId('')}>
+                <button className="btn--pack-pill-sm" onClick={() => setItemId('')}>
                   {t('achatEquipement.catalogBack')}
                 </button>
                 <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
@@ -855,11 +855,11 @@ export function AchatEquipementModal({
             </div>
 
             <footer className="achat-equipement__actions">
-              <button className="btn" onClick={() => setItemId('')}>
+              <button className="btn--pack-pill-sm" onClick={() => setItemId('')}>
                 {t('achatEquipement.return')}
               </button>
               <button
-                className="btn btn--primary"
+                className="btn--pack-pill-sm btn--pack-pill-sm--primary"
                 disabled={!coutValide || limiteAtteinte || (!gratuit && coutTotal > tresorerie)}
                 onClick={confirmer}
               >
