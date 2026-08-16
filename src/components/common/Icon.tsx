@@ -84,12 +84,12 @@ const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'ro
   // "modifier" — le pack ne contient pas de crayon littéral.
   plumePack: () => `${DECOR_BASE}icon-edit-scroll.png`,
   // Poignée de glisser-déposer des cartes de bande (mobile uniquement, voir
-  // ListeBandesScreen) — argentée en thème clair pour rester assortie aux
-  // boutons Export/Dupliquer (pilule "clair", grise, dans cet état par
-  // défaut) ; dorée seulement en thème sombre + palette Sang, où les mêmes
-  // boutons passent en pilule rouge-brun et l'argent s'y noierait.
-  poigneeCartePack: (theme, palette) =>
-    `${DECOR_BASE}${theme === 'dark' && palette === 'rouge' ? 'icon-drag-handle-gold.png' : 'icon-drag-handle-silver.png'}`,
+  // ListeBandesScreen) — même palette exactement que les boutons
+  // Export/Dupliquer juste à côté (voir .btn--pack-pill-sm dans index.css) :
+  // rouge par défaut (palette Sang, .btn--pack-pill-sm de base), clair en
+  // palette Ice Metal (.btn--pack-pill-sm sous [data-palette='noir']).
+  poigneeCartePack: (_theme, palette) =>
+    `${DECOR_BASE}${palette === 'noir' ? 'icon-drag-handle-clair.png' : 'icon-drag-handle-red.png'}`,
 };
 
 function isPackIconName(name: IconName | PackIconName): name is PackIconName {
