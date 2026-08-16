@@ -1702,8 +1702,10 @@ button {
    malpierre (frame-banner-obsidian, dérivé de frame-banner-ice par remap
    HSV : teinte forcée au vert malpierre, saturation/luminosité proportionnées
    à la luminosité d'origine pour que le corps sombre devienne noir obsidienne
-   et que seul le liseré peint garde un éclat, désormais vert) — un seul
-   habillage fixe, pas de variante par thème, sur demande explicite.
+   et que seul le liseré peint garde un éclat, désormais vert). Réservé au
+   thème sombre depuis la réintroduction du thème clair (voir la section
+   "Thème clair" en fin de fichier) : sous ce thème, plus flat comme le
+   reste de la page.
    border-image plutôt que padding+background : le filet du pack (~1-1.5% de
    l'image source, voir mesure au pixel) doit garder son épaisseur nette
    quelle que soit la largeur réelle de la bannière, ce que seul border-image
@@ -3175,6 +3177,15 @@ button {
   background-image: none;
   border: 3px solid var(--border);
   border-radius: 22%;
+}
+
+/* Bannière logo Musterheim (accueil) : même image, mais liseré peint
+   obsidienne remplacé par un simple cadre plat, cohérent avec le reste de
+   la page en thème clair. */
+:root[data-theme='light'] .home-hero__banner {
+  border-image-source: none;
+  border-color: var(--border);
+  background-color: var(--bg-card);
 }
 
 /* Badges en banderole (leader/avancée en attente/alerte équipement/rareté) :
