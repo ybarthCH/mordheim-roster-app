@@ -1,23 +1,16 @@
-import { createContext, useContext } from 'react';
-
-export type Theme = 'light' | 'dark' | 'system';
-export type Palette = 'rouge' | 'noir';
-
-export type ThemeContextValue = {
-  theme: Theme;
-  effectiveTheme: 'light' | 'dark';
-  setTheme: (t: Theme) => void;
-  // Dérivée de effectiveTheme, plus un réglage indépendant : le thème Sang
-  // est toujours sombre, le thème Ice Metal toujours clair — un seul
-  // sélecteur (thème) au lieu de deux réglages qui pouvaient produire des
-  // combinaisons non maintenues (clair+rouge, sombre+noir).
-  palette: Palette;
+// Thème clair retiré (voir décision projet) : l'application est figée sur
+// le thème Sang (sombre, palette rouge) — plus de sélecteur, plus de
+// détection système. Cette valeur constante remplace l'ancien
+// ThemeContext/ThemeProvider ; conservée sous forme de hook pour que les
+// consommateurs (Icon.tsx notamment) n'aient pas à changer d'API.
+const THEME_VALUE = {
+  theme: 'dark' as const,
+  effectiveTheme: 'dark' as const,
+  palette: 'rouge' as const,
 };
 
-export const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+export type Palette = 'rouge';
 
 export function useTheme() {
-  const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error('useTheme doit être utilisé dans un ThemeProvider');
-  return ctx;
+  return THEME_VALUE;
 }

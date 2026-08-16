@@ -77,31 +77,6 @@
   --texture-parchemin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
-:root[data-theme='light']:not([data-palette]),
-:root[data-theme='light'][data-palette='rouge'] {
-  --bg: #f3ece0;
-  --bg-elevated: #fffdf8;
-  --bg-card: #fffaf1;
-  --bg-inset: #e9dfcc;
-  --text: #241a12;
-  --text-muted: #6b5c48;
-  --border: #d8c9ab;
-  --accent: #7a1414;
-  --accent-strong: #591010;
-  --accent-contrast: #fff6ea;
-  --accent-soft: #f0dcc9;
-  --success: #2f6b3a;
-  --success-bg: #dcecd9;
-  --danger: #a11d1d;
-  --danger-bg: #f7dcdc;
-  --warning: #8a5a10;
-  --warning-bg: #f6e6c6;
-  --info-bg: #dde6ee;
-  --palier: #b8860b;
-  --shadow: 0 2px 8px rgba(60, 40, 10, 0.12);
-  --status-plaque-fill: rgba(0, 0, 0, 0.08);
-}
-
 :root[data-theme='dark']:not([data-palette]),
 :root[data-theme='dark'][data-palette='rouge'] {
   --bg: #17130f;
@@ -124,62 +99,6 @@
   --info-bg: #1c2733;
   --palier: #d9a441;
   --shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  --status-plaque-fill: rgba(255, 255, 255, 0.06);
-}
-
-/* Ice Metal est désormais le SEUL thème clair (voir ThemeContext.tsx : la
-   palette est dérivée du thème, plus un réglage indépendant) — fond crème
-   repris du thème clair Sang plutôt qu'un gris froid. Les cadres
-   *-clair.png (voir plus bas) sont recolorés en gris pierre neutre —
-   pendant clair de la pierre sombre du thème Sang — et --accent bascule
-   sur un acier bleu-gris en couleur secondaire, plutôt que de réutiliser
-   la même teinte neutre que les cadres pour les aplats (boutons actifs,
-   xp-box...). */
-:root[data-theme='light'][data-palette='noir'] {
-  --bg: #f3ece0;
-  --bg-elevated: #fffdf8;
-  --bg-card: #fffaf1;
-  --bg-inset: #e9dfcc;
-  --text: #241a12;
-  --text-muted: #6b5c48;
-  --border: #d8c9ab;
-  --accent: #56636d;
-  --accent-strong: #3c4750;
-  --accent-contrast: #fff9ef;
-  --accent-soft: #dde3e6;
-  --success: #2f6b3a;
-  --success-bg: #dcecd9;
-  --danger: #a11d1d;
-  --danger-bg: #f7dcdc;
-  --warning: #8a5a10;
-  --warning-bg: #f6e6c6;
-  --info-bg: #dde6ee;
-  --palier: #b8860b;
-  --shadow: 0 2px 8px rgba(60, 40, 10, 0.12);
-  --status-plaque-fill: rgba(0, 0, 0, 0.08);
-}
-
-:root[data-theme='dark'][data-palette='noir'] {
-  --bg: #121316;
-  --bg-elevated: #1c1e22;
-  --bg-card: #1e2024;
-  --bg-inset: #0e0f11;
-  --text: #e6e8ea;
-  --text-muted: #9aa0a6;
-  --border: #2c3034;
-  --accent: #7b8590;
-  --accent-strong: #9aa4af;
-  --accent-contrast: #101214;
-  --accent-soft: #2a2e33;
-  --success: #7fbf85;
-  --success-bg: #1c2c1d;
-  --danger: #e06a6a;
-  --danger-bg: #3a1c1c;
-  --warning: #e0b45c;
-  --warning-bg: #3a2c14;
-  --info-bg: #1c2733;
-  --palier: #d9a441;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
   --status-plaque-fill: rgba(255, 255, 255, 0.06);
 }
 
@@ -332,9 +251,6 @@ button {
   box-shadow: var(--shadow);
   filter: var(--pack-asset-filter, none);
 }
-:root[data-palette='noir'] .app-header {
-  background-image: url('/decor/header-bar-clair.png');
-}
 
 .app-header__title {
   flex: 1;
@@ -438,14 +354,7 @@ button {
 }
 
 /* Panneau de pierre du pack UI acheté, à la place du grain de parchemin
-   plat. Longtemps réservé au thème sombre (les panneaux Sang/Ice Metal
-   d'origine sont peints quasi noirs, illisibles sous le texte sombre du
-   thème clair) — mais Ice Metal étant maintenant TOUJOURS le thème clair
-   (palette dérivée du thème, voir ThemeContext.tsx), ses cadres ont été
-   redéclinés en pierre claire (*-clair.png) spécifiquement pour ce fond
-   crème, cf. bloc `[data-theme='light'][data-palette='noir']` plus bas.
-   Sang restant toujours sombre, son panneau garde son traitement
-   d'origine et n'a pas besoin d'équivalent clair.
+   plat.
 
    border-image plutôt que background-image + cover : cover recadrait le
    filet peint tout autour dès que la carte n'avait pas exactement le
@@ -456,9 +365,7 @@ button {
    peindre la tranche centrale (sinon border-image ne dessine que le
    cadre et laisse le fond de .card, donc le grain de parchemin, filtrer
    au milieu). */
-:root[data-theme='dark'][data-palette='rouge'] .card,
-:root[data-theme='dark'][data-palette='noir'] .card,
-:root[data-theme='light'][data-palette='noir'] .card {
+:root[data-theme='dark'][data-palette='rouge'] .card {
   background-image: none;
   border-style: solid;
   border-width: 20px;
@@ -469,17 +376,10 @@ button {
 :root[data-theme='dark'][data-palette='rouge'] .card {
   border-image-source: url('/decor/card-panel-stone.png');
 }
-:root[data-theme='dark'][data-palette='noir'] .card {
-  border-image-source: url('/decor/card-panel-ice.png');
-}
-:root[data-theme='light'][data-palette='noir'] .card {
-  border-image-source: url('/decor/card-panel-clair.png');
-}
+
 /* Le filet peint remplace maintenant le double-liseré CSS — les deux se
    chevauchaient sinon (voir .card::before plus haut). */
-:root[data-theme='dark'][data-palette='rouge'] .card::before,
-:root[data-theme='dark'][data-palette='noir'] .card::before,
-:root[data-theme='light'][data-palette='noir'] .card::before {
+:root[data-theme='dark'][data-palette='rouge'] .card::before {
   content: none;
 }
 /* En dessous d'une certaine largeur de carte (colonne de liste étroite en
@@ -494,16 +394,8 @@ button {
     border-image-slice: 16% fill;
     border-image-source: url('/decor/card-panel-titlebar-stone.png');
   }
-  :root[data-theme='dark'][data-palette='noir'] .card {
-    border-width: 14px;
-    border-image-slice: 16% fill;
-    border-image-source: url('/decor/card-panel-titlebar-ice.png');
-  }
-  :root[data-theme='light'][data-palette='noir'] .card {
-    border-width: 14px;
-    border-image-slice: 16% fill;
-    border-image-source: url('/decor/card-panel-titlebar-clair.png');
-  }
+  
+  
 }
 /* Carte résumé de bande (ressources) : asset panel_10 dédié, avec son
    propre liseré lumineux — toujours affiché à taille pleine (jamais
@@ -512,12 +404,6 @@ button {
    déclaration). */
 :root[data-theme='dark'][data-palette='rouge'] .card--summary {
   border-image-source: url('/decor/card-panel-summary-stone.png');
-}
-:root[data-theme='dark'][data-palette='noir'] .card--summary {
-  border-image-source: url('/decor/card-panel-summary-ice.png');
-}
-:root[data-theme='light'][data-palette='noir'] .card--summary {
-  border-image-source: url('/decor/card-panel-summary-clair.png');
 }
 
 /* Illustration bannière de la bande, écran de sélection des bandes
@@ -562,9 +448,7 @@ button {
   background: linear-gradient(to bottom, rgba(10, 7, 5, 0.78) 0%, rgba(10, 7, 5, 0.35) 22%, rgba(10, 7, 5, 0) 45%);
   pointer-events: none;
 }
-:root[data-theme='dark'][data-palette='rouge'] .list-item--bande.list-item--with-banner,
-:root[data-theme='dark'][data-palette='noir'] .list-item--bande.list-item--with-banner,
-:root[data-theme='light'][data-palette='noir'] .list-item--bande.list-item--with-banner {
+:root[data-theme='dark'][data-palette='rouge'] .list-item--bande.list-item--with-banner {
   padding: 0;
   /* border-image-slice de .list-item--bande inclut le mot-clé `fill`, qui
      peint aussi la tranche centrale de l'asset (pierre/glace) par-dessus
@@ -669,9 +553,6 @@ button {
   background-image: url('/decor/avatar-frame-red.png');
   background-size: 100% 100%;
 }
-:root[data-palette='noir'] .avatar-frame {
-  background-image: url('/decor/avatar-frame-clair.png');
-}
 
 /* Grand cadre du pack UI autour de la photo agrandie (modale "Changer la
    photo") — contrairement à avatar-frame-*.png, le centre de cet asset
@@ -698,15 +579,6 @@ button {
   position: absolute;
   inset: -18px;
   background-image: url('/decor/photo-frame-large-red.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  pointer-events: none;
-}
-:root[data-palette='noir'] .photo-frame-large::after {
-  content: '';
-  position: absolute;
-  inset: -18px;
-  background-image: url('/decor/photo-frame-large-clair.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   pointer-events: none;
@@ -777,16 +649,11 @@ button {
 :root[data-palette='rouge'] .badge.badge--leader::before {
   background-image: url('/decor/tag-leader-red.png');
 }
-:root[data-palette='noir'] .badge.badge--leader::before {
-  background-image: url('/decor/tag-leader-clair.png');
-}
+
 /* Ruban pierre claire beaucoup plus pâle que le rouge/l'ancien ice-blue —
    le texte crème par défaut n'y est plus lisible, même logique que le
    ruban doré ci-dessous. */
-:root[data-palette='noir'] .badge.badge--leader {
-  color: #26282a;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
-}
+
 /* Toujours dorée, quelle que soit la palette — l'avancée en attente est un
    statut "à traiter", pas une teinte d'accent qui doit suivre Sang/Ice
    Metal. Texte sombre : le ruban doré est trop clair pour rester lisible
@@ -831,13 +698,11 @@ button {
 /* Filet ornemental du pack UI sous le titre des cartes repliables
    (armurerie, règles spéciales, groupes de membres...) — réservé au thème
    sombre, même raison que les panneaux de carte plus haut. */
-:root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header,
-:root[data-theme='dark'][data-palette='noir'] .collapsible-card__header {
+:root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header {
   position: relative;
   padding-bottom: 0.5rem;
 }
-:root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header::after,
-:root[data-theme='dark'][data-palette='noir'] .collapsible-card__header::after {
+:root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header::after {
   content: '';
   position: absolute;
   /* Pleine largeur, mais amaigri en hauteur : le filet d'origine (10px,
@@ -855,9 +720,6 @@ button {
 :root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header::after {
   background-image: url('/decor/divider-title-stone.png');
 }
-:root[data-theme='dark'][data-palette='noir'] .collapsible-card__header::after {
-  background-image: url('/decor/divider-title-ice.png');
-}
 
 /* Chrome des boutons-icônes de l'en-tête (langue, réglages, thème,
    deux-volets, export...) — même carré peint que les autres éléments du
@@ -869,12 +731,7 @@ button {
   background-repeat: no-repeat;
   border-color: transparent;
 }
-:root[data-palette='noir'] .icon-btn {
-  background-image: url('/decor/chrome-square-clair.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  border-color: transparent;
-}
+
 :root[data-palette] .icon-btn--actif {
   background-color: transparent;
   box-shadow: 0 0 0 2px var(--accent-contrast) inset;
@@ -884,14 +741,7 @@ button {
    plus soutenus) — texte/anneau actif sombres dédiés pour ces éléments
    précis plutôt que d'éclaircir --accent-contrast et casser le contraste
    des aplats (xp-box, status-pill...) ailleurs dans l'appli. */
-:root[data-theme='light'][data-palette='noir'] .app-header,
-:root[data-theme='light'][data-palette='noir'] .app-header__back,
-:root[data-theme='light'][data-palette='noir'] .icon-btn {
-  color: #24262a;
-}
-:root[data-theme='light'][data-palette='noir'] .icon-btn--actif {
-  box-shadow: 0 0 0 2px #24262a inset;
-}
+
 /* Même raisonnement que ci-dessus, dans l'autre sens : le bandeau (pierre
    peinte header-bar-red.png) et le chrome des boutons-icônes (pierre
    peinte chrome-square-stone.png) en thème Sang sombre sont beaucoup plus
@@ -960,9 +810,7 @@ button {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
 }
-:root[data-theme='dark'][data-palette='rouge'] .settings-menu__panel,
-:root[data-theme='dark'][data-palette='noir'] .settings-menu__panel,
-:root[data-theme='light'][data-palette='noir'] .settings-menu__panel {
+:root[data-theme='dark'][data-palette='rouge'] .settings-menu__panel {
   background-image: none;
   border-style: solid;
   border-width: 16px;
@@ -973,12 +821,7 @@ button {
 :root[data-theme='dark'][data-palette='rouge'] .settings-menu__panel {
   border-image-source: url('/decor/card-panel-stone.png');
 }
-:root[data-theme='dark'][data-palette='noir'] .settings-menu__panel {
-  border-image-source: url('/decor/card-panel-ice.png');
-}
-:root[data-theme='light'][data-palette='noir'] .settings-menu__panel {
-  border-image-source: url('/decor/card-panel-clair.png');
-}
+
 .settings-menu__title {
   margin: 0 0 0.35rem;
   font-size: 0.7rem;
@@ -1728,7 +1571,6 @@ button {
   pointer-events: none;
 }
 
-
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
@@ -1871,17 +1713,8 @@ button {
 }
 /* Cadres "skill panel" du pack UI acheté à la place du sceau de cire CSS —
    un asset différent par bouton (buttons_01/02/03) pour casser la
-   répétition, et une paire Sang / Ice Metal par --data-palette comme pour
-   .card ci-dessus.
-
-   Sang (rouge) est peint pour un fond sombre (ombres profondes) — léger
-   coup de peps via --pack-asset-filter, historiquement pensé pour
-   compenser ces mêmes assets affichés sur le thème clair du temps où
-   thème et palette étaient indépendants (voir ThemeContext.tsx : Sang est
-   maintenant toujours sombre, ce cas ne se présente plus). Ice Metal a
-   depuis ses propres exports "pierre claire" (*-clair.png, cf. .card et
-   .app-header plus haut), déjà calibrés pour le thème clair : aucune
-   compensation de filtre nécessaire. */
+   répétition. Assets peints pour un fond sombre (ombres profondes) — léger
+   coup de peps via --pack-asset-filter. */
 :root[data-theme='dark'] {
   --pack-asset-filter: brightness(1.05) saturate(1.05);
 }
@@ -1912,16 +1745,11 @@ button {
   filter: var(--pack-asset-filter, none);
   transition: filter 0.15s ease, transform 0.1s ease;
 }
-:root[data-palette='noir'] .roster-actions__btn {
-  background-image: url('/decor/button-pill-clair.png');
-}
+
 /* Pilule pierre claire beaucoup plus pâle que le rouge sang — texte crème
    par défaut illisible dessus, même logique que le ruban de tête de
    groupe et le bandeau/chrome des icônes ci-dessus. */
-:root[data-palette='noir'] .roster-actions__btn {
-  color: #26282a;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
-}
+
 .roster-actions__btn:hover {
   filter: var(--pack-asset-filter, none) brightness(1.15);
 }
@@ -1970,11 +1798,7 @@ button {
   filter: var(--pack-asset-filter, none);
   transition: filter 0.15s ease, transform 0.1s ease;
 }
-:root[data-palette='noir'] .btn--pack-pill-sm {
-  background-image: url('/decor/button-pill-clair.png');
-  color: #26282a;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.45);
-}
+
 .btn--pack-pill-sm:hover {
   filter: var(--pack-asset-filter, none) brightness(1.15);
 }
@@ -2012,11 +1836,7 @@ button {
   color: #ffffff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
-:root[data-palette='noir'] .btn--pack-pill-sm--primary {
-  background-image: url('/decor/button-pill-gold.png');
-  color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-}
+
 /* Variante "action secondaire" (ex : "Précédent" du fil d'étapes
    post-bataille) — un ton distinct du bronze/pierre par défaut pour ne
    pas se confondre avec les actions principales de la même rangée. Gris
@@ -2024,11 +1844,6 @@ button {
    les deux cas. */
 .btn--pack-pill-sm--secondaire {
   background-image: url('/decor/button-pill-graphite.png');
-  color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-}
-:root[data-palette='noir'] .btn--pack-pill-sm--secondaire {
-  background-image: url('/decor/button-pill-slate.png');
   color: #ffffff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
@@ -2055,9 +1870,7 @@ button {
    gauche nettement augmenté : le double liseré peint de l'asset longe tout le
    bord intérieur du cadre — avec le padding uniforme de .list-item, le nom de
    la bande démarrait presque au contact de ce liseré. */
-:root[data-theme='dark'][data-palette='rouge'] .list-item--bande,
-:root[data-theme='dark'][data-palette='noir'] .list-item--bande,
-:root[data-theme='light'][data-palette='noir'] .list-item--bande {
+:root[data-theme='dark'][data-palette='rouge'] .list-item--bande {
   background-image: none;
   border-style: solid;
   border-width: 14px;
@@ -2069,12 +1882,7 @@ button {
 :root[data-theme='dark'][data-palette='rouge'] .list-item--bande {
   border-image-source: url('/decor/card-panel-titlebar-stone.png');
 }
-:root[data-theme='dark'][data-palette='noir'] .list-item--bande {
-  border-image-source: url('/decor/card-panel-titlebar-ice.png');
-}
-:root[data-theme='light'][data-palette='noir'] .list-item--bande {
-  border-image-source: url('/decor/card-panel-titlebar-clair.png');
-}
+
 /* Rangée principale (nom + statut + suppression) : flex sibling du
    drag-handle, elle occupe toute la largeur restante. Le bloc d'infos
    secondaires (.list-item__details, ci-dessous) est un AUTRE flex sibling
@@ -2780,8 +2588,7 @@ button {
    les autres cadres/panneaux du pack. Sans "fill" : seul l'anneau du cadre
    vient de l'asset, le fond (bg-inset / warning-bg) et l'ombre interne de
    la tuile restent inchangés derrière. */
-:root[data-theme='dark'][data-palette='rouge'] .summary-tile,
-:root[data-theme='dark'][data-palette='noir'] .summary-tile {
+:root[data-theme='dark'][data-palette='rouge'] .summary-tile {
   border-style: solid;
   border-width: 6px;
   border-image-repeat: stretch;
@@ -2791,9 +2598,7 @@ button {
 :root[data-theme='dark'][data-palette='rouge'] .summary-tile {
   border-image-source: url('/decor/frame-square-red.png');
 }
-:root[data-theme='dark'][data-palette='noir'] .summary-tile {
-  border-image-source: url('/decor/frame-square-ice.png');
-}
+
 /* Rating/Trésorerie/Wyrdstone : chiffre centré dans la hauteur de la tuile
    (étirée par le grid pour matcher la tuile Membres, plus haute à cause de
    son indice de déroute + son résumé francs-tireurs/PNJ) plutôt que collé en
@@ -3166,9 +2971,7 @@ button {
    fiche personnage...). Ciblé via :has() sur .modal-sheet plutôt que sur
    .achat-equipement lui-même : le filet peint doit border le panneau tout
    entier (jusqu'aux bords de la modale), pas un élément à l'intérieur. */
-:root[data-theme='dark'][data-palette='rouge'] .modal-sheet:has(> .achat-equipement),
-:root[data-theme='dark'][data-palette='noir'] .modal-sheet:has(> .achat-equipement),
-:root[data-theme='light'][data-palette='noir'] .modal-sheet:has(> .achat-equipement) {
+:root[data-theme='dark'][data-palette='rouge'] .modal-sheet:has(> .achat-equipement) {
   background-color: var(--bg-card);
   border-style: solid;
   border-width: 20px;
@@ -3179,34 +2982,24 @@ button {
 :root[data-theme='dark'][data-palette='rouge'] .modal-sheet:has(> .achat-equipement) {
   border-image-source: url('/decor/card-panel-stone.png');
 }
-:root[data-theme='dark'][data-palette='noir'] .modal-sheet:has(> .achat-equipement) {
-  border-image-source: url('/decor/card-panel-ice.png');
-}
-:root[data-theme='light'][data-palette='noir'] .modal-sheet:has(> .achat-equipement) {
-  border-image-source: url('/decor/card-panel-clair.png');
-}
+
 /* En-tête/pied collants : même fond que le panneau (au lieu de
    --bg-elevated, une teinte quasi identique mais qui jurait légèrement
    contre le cadre en pierre) et filet ornemental du pack à la place de la
    bordure/ombre plates — même traitement que .collapsible-card__header
    plus haut. */
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header,
-:root[data-theme='dark'][data-palette='noir'] .achat-equipement__header,
-:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions,
-:root[data-theme='dark'][data-palette='noir'] .achat-equipement__actions {
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions {
   position: sticky;
   background: var(--bg-card);
   border: none;
   box-shadow: none;
 }
-:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header,
-:root[data-theme='dark'][data-palette='noir'] .achat-equipement__header {
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header {
   padding-bottom: 1.1rem;
 }
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header::after,
-:root[data-theme='dark'][data-palette='noir'] .achat-equipement__header::after,
-:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions::before,
-:root[data-theme='dark'][data-palette='noir'] .achat-equipement__actions::before {
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions::before {
   content: '';
   position: absolute;
   /* Même allègement que .collapsible-card__header::after. */
@@ -3222,10 +3015,7 @@ button {
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions::before {
   background-image: url('/decor/divider-title-stone.png');
 }
-:root[data-theme='dark'][data-palette='noir'] .achat-equipement__header::after,
-:root[data-theme='dark'][data-palette='noir'] .achat-equipement__actions::before {
-  background-image: url('/decor/divider-title-ice.png');
-}
+
 .achat-equipement__header::after {
   bottom: 0;
 }

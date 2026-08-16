@@ -4,7 +4,6 @@
 // currentColor partout : suit la couleur du texte parent, donc le thème
 // clair/sombre sans configuration supplémentaire.
 import type { CSSProperties } from 'react';
-import { useTheme } from '../../state/useTheme';
 
 // Icônes peintes du pack UI acheté — utilisées ponctuellement là où l'asset
 // colle particulièrement bien (armurerie, héros, règles spéciales, hommes de
@@ -17,8 +16,6 @@ export type PackIconName =
   | 'grimoirePack'
   | 'drapeauxPack'
   | 'cranePack'
-  | 'soleilPack'
-  | 'lunePack'
   | 'poubellePack'
   | 'croixPack'
   | 'engrenagePack'
@@ -42,35 +39,18 @@ export type PackIconName =
 // que soit le navigateur, pas seulement Edge.
 const DECOR_BASE = `${import.meta.env.BASE_URL}decor/`;
 
-const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'rouge' | 'noir') => string> = {
+// Thème clair retiré : l'app est figée en palette Sang (rouge, sombre),
+// donc chaque icône résout désormais vers un unique fichier — plus de
+// variante par thème/palette (voir useTheme.ts).
+const PACK_ICON_SRC: Record<PackIconName, () => string> = {
   coffrePack: () => `${DECOR_BASE}icon-armurerie-pack.png`,
-  // Doré en palette Sang quel que soit le thème — l'argent se noyait sur le
-  // fond sombre rouge-brun des cartes ; en Ice Metal le contraste argent
-  // marche déjà bien, donc on garde la logique thème pour cette palette.
-  etoilePack: (theme, palette) => `${DECOR_BASE}${palette === 'rouge' || theme === 'light' ? 'icon-heroes-gold.png' : 'icon-heroes-silver.png'}`,
-  grimoirePack: (theme) => `${DECOR_BASE}${theme === 'dark' ? 'icon-rules-silver.png' : 'icon-rules-brown.png'}`,
-  // Blason doré (bouclier + épée), quelle que soit la palette : plus clair
-  // que les drapeaux croisés rouge/bleu d'origine, qui se distinguaient mal
-  // du fond de carte assorti à la palette.
+  etoilePack: () => `${DECOR_BASE}icon-heroes-gold.png`,
+  grimoirePack: () => `${DECOR_BASE}icon-rules-silver.png`,
   drapeauxPack: () => `${DECOR_BASE}icon-henchmen-gold.png`,
-  cranePack: (_theme, palette) => `${DECOR_BASE}${palette === 'noir' ? 'icon-graveyard-ice.png' : 'icon-graveyard-bone.png'}`,
-  // Doré en palette Sang quel que soit le thème, même logique que
-  // etoilePack ci-dessus : l'argent se noie sur le bandeau/fond sombre
-  // rouge-brun de cette palette.
-  soleilPack: (theme, palette) => `${DECOR_BASE}${palette === 'rouge' || theme === 'light' ? 'icon-sun-gold.png' : 'icon-sun-silver.png'}`,
-  lunePack: (theme, palette) => `${DECOR_BASE}${palette === 'rouge' || theme === 'light' ? 'icon-moon-gold.png' : 'icon-moon-silver.png'}`,
+  cranePack: () => `${DECOR_BASE}icon-graveyard-bone.png`,
   poubellePack: () => `${DECOR_BASE}icon-trash.png`,
-  // Toujours rouge très clair, quel que soit le thème/la palette — une seule
-  // variante volontairement lumineuse : les anciennes nuances plus sombres
-  // se noyaient dans les fonds de carte sombres (Sang comme Ice Metal).
   croixPack: () => `${DECOR_BASE}icon-close-bright.png`,
-  // Même logique que etoilePack/soleilPack/lunePack : l'écrou gris-acier
-  // d'origine se noie sur le bandeau d'en-tête sombre rouge-brun de la
-  // palette Sang — variante dorée dédiée pour ce cas, argent conservé pour
-  // Ice Metal (déjà lisible sur son fond pierre claire).
-  engrenagePack: (theme, palette) => `${DECOR_BASE}${palette === 'rouge' || theme === 'light' ? 'icon-settings-gold.png' : 'icon-settings.png'}`,
-  // Toujours dorée, quel que soit le thème — l'argent se noyait sur le
-  // fond sombre du banner-danger (même logique que etoilePack/drapeauxPack).
+  engrenagePack: () => `${DECOR_BASE}icon-settings-gold.png`,
   couronnePack: () => `${DECOR_BASE}icon-crown-gold.png`,
   epeePack: () => `${DECOR_BASE}icon-swords-crossed.png`,
   cochePack: () => `${DECOR_BASE}icon-check-green.png`,
@@ -83,13 +63,7 @@ const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'ro
   // Parchemin + plume, substitut le plus proche du pack pour l'action
   // "modifier" — le pack ne contient pas de crayon littéral.
   plumePack: () => `${DECOR_BASE}icon-edit-scroll.png`,
-  // Poignée de glisser-déposer des cartes de bande (mobile uniquement, voir
-  // ListeBandesScreen) — même palette exactement que les boutons
-  // Export/Dupliquer juste à côté (voir .btn--pack-pill-sm dans index.css) :
-  // rouge par défaut (palette Sang, .btn--pack-pill-sm de base), clair en
-  // palette Ice Metal (.btn--pack-pill-sm sous [data-palette='noir']).
-  poigneeCartePack: (_theme, palette) =>
-    `${DECOR_BASE}${palette === 'noir' ? 'icon-drag-handle-clair.png' : 'icon-drag-handle-red.png'}`,
+  poigneeCartePack: () => `${DECOR_BASE}icon-drag-handle-red.png`,
 };
 
 function isPackIconName(name: IconName | PackIconName): name is PackIconName {
@@ -127,8 +101,6 @@ export type IconName =
   | 'photo'
   | 'coche'
   | 'engrenage'
-  | 'soleil'
-  | 'lune'
   | 'documentJson'
   | 'documentPdf';
 
@@ -180,9 +152,6 @@ const PATHS: Record<IconName, string> = {
   // Écrou/engrenage simplifié : octogone (corps) + trou central, plus lisible
   // à petite taille qu'une roue dentée à dents fines.
   engrenage: 'M8 4 L16 4 L20 8 L20 16 L16 20 L8 20 L4 16 L4 8 Z M12 9 A3 3 0 1 0 12.01 9',
-  soleil:
-    'M12 8 A4 4 0 1 0 12.01 8 M12 4.5 L12 6.5 M15.9 8.1 L17.3 6.7 M17.5 12 L19.5 12 M15.9 15.9 L17.3 17.3 M12 17.5 L12 19.5 M8.1 15.9 L6.7 17.3 M6.5 12 L4.5 12 M8.1 8.1 L6.7 6.7',
-  lune: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z',
   // Document (coin plié) avec des accolades réduites à l'intérieur — marqueur
   // JSON sans texte, contrairement au PDF ci-dessous.
   documentJson:
@@ -224,8 +193,6 @@ const VIEWBOX: Record<IconName, string> = {
   photo: '0 0 24 24',
   coche: '0 0 24 24',
   engrenage: '0 0 24 24',
-  soleil: '0 0 24 24',
-  lune: '0 0 24 24',
   documentJson: '0 0 24 24',
   documentPdf: '0 0 24 24',
 };
@@ -247,11 +214,10 @@ type Props = {
 };
 
 export function Icon({ name, size = '1em', style, className, title }: Props) {
-  const { effectiveTheme, palette } = useTheme();
   if (isPackIconName(name)) {
     return (
       <img
-        src={PACK_ICON_SRC[name](effectiveTheme, palette)}
+        src={PACK_ICON_SRC[name]()}
         alt=""
         className={className}
         style={{

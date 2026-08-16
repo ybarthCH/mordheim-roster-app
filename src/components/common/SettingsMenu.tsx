@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Icon, type IconName, type PackIconName } from './Icon';
-import { useTheme } from '../../state/useTheme';
 import { useLanguage } from '../../state/useLanguage';
 
 export type SettingsMenuItem = {
@@ -14,13 +13,13 @@ export type SettingsMenuItem = {
 
 type Props = {
   // Éléments propres à l'écran courant (ex : deux volets/export sur
-  // RosterScreen), ajoutés après les deux entrées communes à tous les
-  // écrans (Réglages, Mode sombre/clair).
+  // RosterScreen), ajoutés après l'entrée Réglages commune à tous les
+  // écrans.
   extraItems?: SettingsMenuItem[];
 };
 
 // Menu déroulant unique remplaçant l'ancienne rangée de boutons-icônes
-// séparés du bandeau (réglages, thème, deux volets, exports...) — un seul
+// séparés du bandeau (réglages, deux volets, exports...) — un seul
 // déclencheur "roue crantée", panneau en pierre peinte du pack UI (même
 // habillage que .card) façon parchemin déroulé.
 export function SettingsMenu({ extraItems = [] }: Props) {
@@ -28,7 +27,6 @@ export function SettingsMenu({ extraItems = [] }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const { effectiveTheme, setTheme } = useTheme();
   const { t } = useLanguage();
 
   useEffect(() => {
@@ -52,8 +50,6 @@ export function SettingsMenu({ extraItems = [] }: Props) {
     setOpen(false);
   }, [location.pathname]);
 
-  const toDark = effectiveTheme !== 'dark';
-
   const items: SettingsMenuItem[] = [
     ...(location.pathname === '/reglages'
       ? []
@@ -65,12 +61,6 @@ export function SettingsMenu({ extraItems = [] }: Props) {
             onClick: () => navigate('/reglages'),
           },
         ]),
-    {
-      key: 'theme',
-      icon: toDark ? 'lunePack' : 'soleilPack',
-      label: t(toDark ? 'common.theme.toDark' : 'common.theme.toLight'),
-      onClick: () => setTheme(toDark ? 'dark' : 'light'),
-    },
     ...extraItems,
   ];
 

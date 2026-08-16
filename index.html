@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-palette="rouge">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" sizes="32x32" href="%BASE_URL%app-icons/icon-32.png" />
@@ -9,23 +9,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content"
     />
-    <meta name="theme-color" content="#7a1414" id="meta-theme-color" />
+    <meta name="theme-color" content="#c94f4f" id="meta-theme-color" />
     <meta name="description" content="Gestion de rosters de bandes Mordheim, 100% locale et hors-ligne." />
     <title>Musterheim</title>
-    <script>
-      (function () {
-        try {
-          var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-          // Devine la couleur d'accent par défaut (palette rouge) avant que
-          // ThemeProvider n'ait chargé la palette réellement enregistrée —
-          // évite que la barre de statut du mobile reste rouge par défaut
-          // le temps que React s'hydrate et applique la vraie palette.
-          var meta = document.getElementById('meta-theme-color');
-          if (meta) meta.setAttribute('content', dark ? '#c94f4f' : '#7a1414');
-        } catch (e) {}
-      })();
-    </script>
   </head>
   <body>
     <div id="root"></div>
