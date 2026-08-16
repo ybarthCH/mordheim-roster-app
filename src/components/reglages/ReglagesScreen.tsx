@@ -1,9 +1,17 @@
 import { Screen } from '../common/Screen';
+import { useTheme } from '../../state/useTheme';
 import { useGameRules } from '../../state/useGameRules';
 import { useWakeLock } from '../../state/useWakeLock';
 import { useLanguage } from '../../state/useLanguage';
 
+const THEMES = [
+  { value: 'light', key: 'reglages.theme.light' },
+  { value: 'dark', key: 'reglages.theme.dark' },
+  { value: 'system', key: 'reglages.theme.system' },
+] as const;
+
 export function ReglagesScreen() {
+  const { theme, setTheme } = useTheme();
   const { rules, setRule } = useGameRules();
   const { actif: ecranActif, setActif: setEcranActif, supporte: ecranActifSupporte } = useWakeLock();
   const { t } = useLanguage();
@@ -13,7 +21,23 @@ export function ReglagesScreen() {
       <div className="card">
         <h3 className="mt-0">{t('reglages.appearance')}</h3>
 
-        <label className="flex items-start gap-sm" style={{ cursor: 'pointer' }}>
+        <div className="field">
+          <label>{t('reglages.theme')}</label>
+          <div className="status-select">
+            {THEMES.map((th) => (
+              <button
+                key={th.value}
+                type="button"
+                className={`status-pill ${theme === th.value ? 'status-pill--active' : ''}`}
+                onClick={() => setTheme(th.value)}
+              >
+                {t(th.key)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <label className="flex items-start gap-sm" style={{ cursor: 'pointer', marginTop: '1rem' }}>
           <input
             type="checkbox"
             checked={ecranActif}

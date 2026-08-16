@@ -3,6 +3,10 @@ import type { UiDictionary } from './types';
 export const reglagesScreen: UiDictionary = {
   'reglages.title': { fr: 'Réglages', en: 'Settings' },
   'reglages.appearance': { fr: 'Apparence', en: 'Appearance' },
+  'reglages.theme': { fr: 'Thème', en: 'Theme' },
+  'reglages.theme.light': { fr: 'Clair', en: 'Light' },
+  'reglages.theme.dark': { fr: 'Sombre', en: 'Dark' },
+  'reglages.theme.system': { fr: 'Système', en: 'System' },
   'reglages.wakeLock.title': { fr: "Garder l'écran allumé", en: 'Keep screen awake' },
   'reglages.wakeLock.body': {
     fr: "Empêche l'appareil de se mettre en veille tant que l'appli est ouverte — pratique en table de jeu.",

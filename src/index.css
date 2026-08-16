@@ -102,6 +102,38 @@
   --status-plaque-fill: rgba(255, 255, 255, 0.06);
 }
 
+/* Thème clair : reprise du thème "Sang" clair de la branche main (avant
+   l'habillage peint du pack UI, jamais adapté à ce thème) — un simple jeu de
+   variables CSS, sans panneau/ruban/bouton peint. Les éléments du pack UI
+   (cartes, badges, boutons, bannières...) restent scopés au thème sombre
+   dans le reste de la feuille et retombent sur leur habillage plat sous ce
+   thème (voir la section "Thème clair : neutralise les décors peints" en
+   fin de fichier). */
+:root[data-theme='light']:not([data-palette]),
+:root[data-theme='light'][data-palette='rouge'] {
+  --bg: #f3ece0;
+  --bg-elevated: #fffdf8;
+  --bg-card: #fffaf1;
+  --bg-inset: #e9dfcc;
+  --text: #241a12;
+  --text-muted: #6b5c48;
+  --border: #d8c9ab;
+  --accent: #7a1414;
+  --accent-strong: #591010;
+  --accent-contrast: #fff6ea;
+  --accent-soft: #f0dcc9;
+  --success: #2f6b3a;
+  --success-bg: #dcecd9;
+  --danger: #a11d1d;
+  --danger-bg: #f7dcdc;
+  --warning: #8a5a10;
+  --warning-bg: #f6e6c6;
+  --info-bg: #dde6ee;
+  --palier: #b8860b;
+  --shadow: 0 2px 8px rgba(60, 40, 10, 0.12);
+  --status-plaque-fill: rgba(0, 0, 0, 0.08);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -3103,4 +3135,165 @@ button {
 }
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Thème clair : neutralise les décors peints du pack UI
+   ==========================================================================
+   La plupart des panneaux/cadres du pack UI (.card, .list-item--bande,
+   .summary-tile, .collapsible-card__header, .achat-equipement__*...) sont
+   déjà scopés à :root[data-theme='dark'] plus haut dans ce fichier — ils
+   retombent d'eux-mêmes sur leur habillage plat (variables CSS) dès que le
+   thème clair est actif, sans rien changer ici.
+
+   Les éléments ci-dessous ont été construits *après* le retrait du thème
+   clair (pendant la session qui a figé l'app en Sang sombre) : leur
+   background/border-image peint n'est donc pas conditionné au thème. On les
+   neutralise ici plutôt qu'à la source, pour garder tout l'habillage "thème
+   clair" regroupé au même endroit. Aucun asset supplémentaire : uniquement
+   des couleurs dérivées des variables --accent/--success/--warning/--danger/
+   --border déjà définies plus haut. */
+
+:root[data-theme='light'] .app-header {
+  background-image: none;
+  filter: none;
+}
+
+:root[data-theme='light'] .icon-btn {
+  background-image: none;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+:root[data-theme='light'] .avatar-frame {
+  background-image: none;
+  background-color: var(--bg-inset);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+}
+
+:root[data-theme='light'] .photo-frame-large::after {
+  background-image: none;
+  border: 3px solid var(--border);
+  border-radius: 22%;
+}
+
+/* Badges en banderole (leader/avancée en attente/alerte équipement/rareté) :
+   pilule plate arrondie, même famille de couleurs que l'ancien thème clair
+   de main (badge--success/--danger/--warning), plutôt que le ruban peint. */
+:root[data-theme='light'] .badge.badge--leader,
+:root[data-theme='light'] .badge.badge--pending,
+:root[data-theme='light'] .badge.badge--equipment-warning,
+:root[data-theme='light'] .badge.badge--rarete-danger,
+:root[data-theme='light'] .badge.badge--rarete-warning,
+:root[data-theme='light'] .badge.badge--rarete-info {
+  border-radius: 999px;
+  text-shadow: none;
+  padding: 0.15rem 0.6rem;
+  min-width: 0;
+}
+:root[data-theme='light'] .badge.badge--leader::before,
+:root[data-theme='light'] .badge.badge--pending::before,
+:root[data-theme='light'] .badge.badge--equipment-warning::before,
+:root[data-theme='light'] .badge.badge--rarete-danger::before,
+:root[data-theme='light'] .badge.badge--rarete-warning::before,
+:root[data-theme='light'] .badge.badge--rarete-info::before {
+  content: none;
+}
+:root[data-theme='light'] .badge.badge--leader {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+:root[data-theme='light'] .badge.badge--pending,
+:root[data-theme='light'] .badge.badge--rarete-warning {
+  background: var(--warning-bg);
+  color: var(--warning);
+  text-shadow: none;
+}
+:root[data-theme='light'] .badge.badge--equipment-warning,
+:root[data-theme='light'] .badge.badge--rarete-danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+:root[data-theme='light'] .badge.badge--rarete-info {
+  background: var(--info-bg);
+  color: var(--text);
+}
+
+/* Bannière d'avertissement (aucun chef, effectif dépassé...) : reste rouge
+   (c'est un danger, pas un accent de thème — voir le commentaire d'origine
+   plus haut), mais en aplat plutôt qu'en ruban peint. */
+:root[data-theme='light'] .banner-danger {
+  background-image: none;
+  background-color: var(--danger);
+  border-radius: var(--radius);
+  padding: 0.7rem 0.9rem;
+  filter: none;
+}
+
+/* Compteur Hors de combat / statut "mort" : même logique de couleurs que
+   l'ancien .status-switch de main (color-mix vers le noir, toujours assez
+   sombre pour un texte clair quel que soit le thème), à la place du ruban
+   peint. */
+:root[data-theme='light'] .status-switch {
+  background: var(--text-muted);
+  padding: 0.3rem 0.7rem;
+  text-shadow: none;
+  color: #fff6ea;
+}
+:root[data-theme='light'] .status-switch::before {
+  content: none;
+}
+:root[data-theme='light'] .status-switch--success {
+  background: color-mix(in srgb, var(--success) 65%, black);
+}
+:root[data-theme='light'] .status-switch--warning {
+  background: color-mix(in srgb, var(--warning) 65%, black);
+  color: #fff6ea;
+}
+:root[data-theme='light'] .status-switch--danger {
+  background: color-mix(in srgb, var(--danger) 65%, black);
+}
+:root[data-theme='light'] .status-switch--neutral {
+  background: color-mix(in srgb, var(--text-muted) 55%, black);
+}
+
+/* Boutons pilule du pack (actions de carte, rangée Recruter/Armurerie/
+   Post-bataille, navigation d'assistant...) : bouton plat classique plutôt
+   que la pilule peinte, même logique que .btn/.btn--primary de main. */
+:root[data-theme='light'] .roster-actions__btn,
+:root[data-theme='light'] .btn--pack-pill-sm {
+  background-image: none;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-shadow: none;
+  filter: none;
+  box-shadow: none;
+}
+:root[data-theme='light'] .btn--pack-pill-sm--primary {
+  background-image: none;
+  background: linear-gradient(160deg, var(--accent) 0%, var(--accent-strong) 100%);
+  border-color: var(--accent-strong);
+  color: var(--accent-contrast);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+:root[data-theme='light'] .btn--pack-pill-sm--secondaire {
+  background-image: none;
+  background-color: var(--bg-inset);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-shadow: none;
+}
+
+/* Poignée de redimensionnement du split-view (chaîne+crâne peints) : simple
+   trait vertical. */
+:root[data-theme='light'] .roster-split__resizer::before {
+  background-image: none;
+  background-color: var(--border);
+  width: 3px;
+  filter: none;
+}
+:root[data-theme='light'] .roster-split__resizer::after {
+  background-image: none;
+  filter: none;
 }

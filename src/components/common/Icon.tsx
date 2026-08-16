@@ -39,9 +39,10 @@ export type PackIconName =
 // que soit le navigateur, pas seulement Edge.
 const DECOR_BASE = `${import.meta.env.BASE_URL}decor/`;
 
-// Thème clair retiré : l'app est figée en palette Sang (rouge, sombre),
-// donc chaque icône résout désormais vers un unique fichier — plus de
-// variante par thème/palette (voir useTheme.ts).
+// Une seule palette (Sang/rouge) — voir useTheme.ts — donc chaque icône
+// résout vers un unique fichier peint, quel que soit le thème clair/sombre.
+// (Le thème clair réintroduit reste un simple jeu de variables CSS, sans
+// habillage peint : voir la section thème clair dans index.css.)
 const PACK_ICON_SRC: Record<PackIconName, () => string> = {
   coffrePack: () => `${DECOR_BASE}icon-armurerie-pack.webp`,
   etoilePack: () => `${DECOR_BASE}icon-heroes-gold.webp`,
@@ -101,6 +102,8 @@ export type IconName =
   | 'photo'
   | 'coche'
   | 'engrenage'
+  | 'soleil'
+  | 'lune'
   | 'documentJson'
   | 'documentPdf';
 
@@ -152,6 +155,9 @@ const PATHS: Record<IconName, string> = {
   // Écrou/engrenage simplifié : octogone (corps) + trou central, plus lisible
   // à petite taille qu'une roue dentée à dents fines.
   engrenage: 'M8 4 L16 4 L20 8 L20 16 L16 20 L8 20 L4 16 L4 8 Z M12 9 A3 3 0 1 0 12.01 9',
+  soleil:
+    'M12 8 A4 4 0 1 0 12.01 8 M12 4.5 L12 6.5 M15.9 8.1 L17.3 6.7 M17.5 12 L19.5 12 M15.9 15.9 L17.3 17.3 M12 17.5 L12 19.5 M8.1 15.9 L6.7 17.3 M6.5 12 L4.5 12 M8.1 8.1 L6.7 6.7',
+  lune: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z',
   // Document (coin plié) avec des accolades réduites à l'intérieur — marqueur
   // JSON sans texte, contrairement au PDF ci-dessous.
   documentJson:
@@ -193,6 +199,8 @@ const VIEWBOX: Record<IconName, string> = {
   photo: '0 0 24 24',
   coche: '0 0 24 24',
   engrenage: '0 0 24 24',
+  soleil: '0 0 24 24',
+  lune: '0 0 24 24',
   documentJson: '0 0 24 24',
   documentPdf: '0 0 24 24',
 };
