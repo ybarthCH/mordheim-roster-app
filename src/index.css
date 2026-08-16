@@ -1446,15 +1446,17 @@ button {
   text-overflow: ellipsis;
 }
 
-/* Plaque Actif/Hors de combat : remplace l'ancien interrupteur "pilule"
-   (.status-switch, toujours utilisé pour le compteur de groupe et le badge
-   Mort ci-dessus) par un cartouche en fer/cuir assorti aux illustrations
-   switch-track.png / switch-knob.png (rail à platines rivetées + gemme à
-   facettes). Fond translucide dérivé du thème actif (--status-plaque-fill,
-   voir les 4 blocs :root[data-theme][data-palette]) plutôt qu'un noir opaque
-   fixe : sur fond parchemin clair un aplat noir plein était trop lourd — un
-   voile sombre à 8% (ou clair à 6% en thème sombre, pour éclaircir un fond
-   déjà très sombre) laisse deviner la surface derrière tout en creusant
+/* Plaque Actif/Hors de combat : cartouche en fer/cuir contenant un rail
+   gravé (medal-slide-rail.webp) et un médaillon crâne qui glisse d'un bord
+   à l'autre (medal-slide-medal-gold.webp / medal-slide-medal-red.webp,
+   superposés et croisés en opacité plutôt que masqués/teintés comme
+   l'ancien couple switch-track/switch-knob : ce sont des illustrations
+   détaillées à couleur figée, pas des silhouettes à teinter). Fond
+   translucide dérivé du thème actif (--status-plaque-fill, voir les 4
+   blocs :root[data-theme][data-palette]) plutôt qu'un noir opaque fixe :
+   sur fond parchemin clair un aplat noir plein était trop lourd — un voile
+   sombre à 8% (ou clair à 6% en thème sombre, pour éclaircir un fond déjà
+   très sombre) laisse deviner la surface derrière tout en creusant
    légèrement le cartouche. */
 .status-plaque {
   display: inline-flex;
@@ -1466,79 +1468,65 @@ button {
   border-radius: 3px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
   cursor: pointer;
-  transition: border-color 0.15s ease, transform 0.1s ease;
+  transition: transform 0.1s ease;
 }
 .status-plaque:active {
   transform: scale(0.97);
 }
-.status-plaque--actif {
-  border-color: #4d9a68;
-}
 .status-plaque__switch {
   position: relative;
-  width: 52px;
-  aspect-ratio: 420 / 137;
+  width: 64px;
+  height: 25px;
   flex-shrink: 0;
+  --sw: 64px;
+  --ms: 30px;
+  --margin: 9px;
 }
-/* Le rail reste un métal neutre (jamais teinté par le statut) : seule la
-   gemme mobile porte la couleur sémantique, comme un vrai mécanisme dont le
-   boîtier ne change pas mais dont le voyant s'allume ou s'éteint. */
 .status-plaque__switch-track {
   position: absolute;
   inset: 0;
-  background-color: #857a6c;
-  -webkit-mask-image: url('/decor/switch-track.webp');
-  mask-image: url('/decor/switch-track.webp');
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  mask-mode: alpha;
+  background-image: url('/decor/medal-slide-rail.webp');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
-/* La gemme déborde légèrement du rail (hauteur ~1.25x la piste, aucun
-   ancêtre n'a overflow:hidden) : à la taille exacte du rail, son détail à
-   facettes serait trop fin pour rester lisible — un léger débordement en
-   haut/bas, comme une pierre sertie qui dépasse un peu de sa monture,
-   garde sa coupe identifiable sans dominer tout le contrôle. Le disque de
-   fond ci-dessous (opaque, non masqué) bloque le rail qui se trouve juste
-   derrière ; la gemme elle-même (masquée, teintée) est peinte par-dessus. */
+/* Marge de glissement : le médaillon s'arrête avant les pointes du rail
+   (visibles à chaque extrémité) plutôt que de les recouvrir. */
 .status-plaque__switch-knob {
   position: absolute;
   top: 50%;
-  left: 10%;
-  height: 125%;
-  aspect-ratio: 1 / 1;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  /* Un aplat de --bg-card pur (quasi blanc en thème clair) jurait trop fort
-     à côté du métal terne du rail — mélangé au même gris-brun que le rail
-     (#857a6c), le disque de fond reste assez clair pour bloquer le rail en
-     dessous tout en restant dans la même famille de teintes ternes. */
-  background: color-mix(in srgb, var(--bg-card) 55%, #857a6c 45%);
-  transition: left 0.18s ease;
+  left: var(--margin);
+  width: var(--ms);
+  height: var(--ms);
+  transform: translate(0, -50%);
+  transition: transform 0.42s cubic-bezier(0.32, 1.4, 0.5, 1);
+}
+.status-plaque--actif .status-plaque__switch-knob {
+  transform: translate(calc(var(--sw) - var(--ms) - 2 * var(--margin)), -50%);
 }
 .status-plaque__switch-knob-gem {
   position: absolute;
   inset: 0;
-  background-color: #9c7d3a;
-  -webkit-mask-image: url('/decor/switch-knob.webp');
-  mask-image: url('/decor/switch-knob.webp');
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  mask-mode: alpha;
-  transition: background-color 0.15s ease;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.42s ease;
 }
-.status-plaque--actif .status-plaque__switch-knob {
-  left: 48%;
+.status-plaque__switch-knob-gem--gold {
+  opacity: 0;
 }
-.status-plaque--actif .status-plaque__switch-knob-gem {
-  background-color: #4d9a68;
+.status-plaque__switch-knob-gem--red {
+  opacity: 1;
+}
+.status-plaque--actif .status-plaque__switch-knob-gem--gold {
+  opacity: 1;
+}
+.status-plaque--actif .status-plaque__switch-knob-gem--red {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .status-plaque__switch-knob,
+  .status-plaque__switch-knob-gem {
+    transition-duration: 0.12s;
+  }
 }
 /* Largeur figée sur le libellé plutôt que sur toute la plaque : le rail
    garde une taille constante quel que soit l'état, donc figer seulement le
@@ -1553,11 +1541,11 @@ button {
   letter-spacing: 0.03em;
   width: 3.4em;
   text-align: center;
-  color: #9c7d3a;
+  color: var(--accent);
   transition: color 0.15s ease;
 }
 .status-plaque--actif .status-plaque__label {
-  color: #4d9a68;
+  color: #9c7d3a;
 }
 
 /* Avatar : photo si renseignée, sinon initiales sur un fond coloré dérivé
