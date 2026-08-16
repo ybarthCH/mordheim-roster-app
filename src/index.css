@@ -1448,7 +1448,7 @@ button {
 
 /* Plaque Actif/Hors de combat : cartouche en fer/cuir contenant un rail
    gravé (medal-slide-rail.webp) et un médaillon crâne qui glisse d'un bord
-   à l'autre (medal-slide-medal-gold.webp / medal-slide-medal-red.webp,
+   à l'autre (medal-slide-medal-green.webp / medal-slide-medal-red.webp,
    superposés et croisés en opacité plutôt que masqués/teintés comme
    l'ancien couple switch-track/switch-knob : ce sont des illustrations
    détaillées à couleur figée, pas des silhouettes à teinter). Fond
@@ -1489,6 +1489,12 @@ button {
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
+/* Rail argenté en thème clair plutôt que le même bronze/or qu'en thème
+   sombre (choix délibéré, pas un aplatissement) : sur fond parchemin clair,
+   le bronze se fondait trop dans le cartouche environnant. */
+:root[data-theme='light'] .status-plaque__switch-track {
+  background-image: url('/decor/medal-slide-rail-argent.webp');
+}
 /* Marge de glissement : le médaillon s'arrête avant l'ornement en éventail
    du rail (visible à chaque extrémité, pas seulement sa pointe) plutôt que
    de le recouvrir. */
@@ -1516,15 +1522,15 @@ button {
   background-repeat: no-repeat;
   transition: opacity 0.42s ease;
 }
-.status-plaque__switch-knob-gem--gold {
-  background-image: url('/decor/medal-slide-medal-gold.webp');
+.status-plaque__switch-knob-gem--green {
+  background-image: url('/decor/medal-slide-medal-green.webp');
   opacity: 0;
 }
 .status-plaque__switch-knob-gem--red {
   background-image: url('/decor/medal-slide-medal-red.webp');
   opacity: 1;
 }
-.status-plaque--actif .status-plaque__switch-knob-gem--gold {
+.status-plaque--actif .status-plaque__switch-knob-gem--green {
   opacity: 1;
 }
 .status-plaque--actif .status-plaque__switch-knob-gem--red {
@@ -1553,7 +1559,7 @@ button {
   transition: color 0.15s ease;
 }
 .status-plaque--actif .status-plaque__label {
-  color: var(--warning);
+  color: var(--success);
 }
 
 /* Avatar : photo si renseignée, sinon initiales sur un fond coloré dérivé
