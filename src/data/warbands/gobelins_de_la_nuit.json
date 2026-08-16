@@ -3,6 +3,7 @@
   "nom": "Gobelins de la Nuit (1c)",
   "grade": "1c",
   "source": "La Grande Librairie de Mordheim (V1.2gFr [2023-01-30])",
+  "banniere": "bandes/gobelins_de_la_nuit.webp",
   "regles_speciales": [
     {
       "nom": "Animosité",

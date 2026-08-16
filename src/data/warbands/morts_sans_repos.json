@@ -3,6 +3,7 @@
   "nom": "Morts Tourmentés (1c)",
   "grade": "1c",
   "source": "Border Town Burning (BTB) — La Grande Librairie de Mordheim",
+  "banniere": "bandes/morts_sans_repos.webp",
   "regles_speciales": [],
   "composition": {
     "effectif_min": 3,

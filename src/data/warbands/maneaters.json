@@ -3,6 +3,7 @@
   "nom": "Mangeurs d'Hommes (1c)",
   "grade": "1c",
   "source": "Border Town Burning (BTB) — La Grande Librairie de Mordheim",
+  "banniere": "bandes/maneaters.webp",
   "xp_demi": true,
   "regles_speciales": [
     { "nom": "Peur", "texte": "Les Ogres sont de grandes créatures menaçantes qui provoquent la peur, sauf les Jeunes Sangs." },

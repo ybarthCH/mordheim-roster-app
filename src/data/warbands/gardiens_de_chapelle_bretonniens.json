@@ -3,6 +3,7 @@
   "nom": "Les Gardiens de Chapelle Bretonniens (1c)",
   "grade": "1c",
   "source": "La Grande Librairie de Mordheim (V1hFr [2026-04-29])",
+  "banniere": "bandes/gardiens_de_chapelle_bretonniens.webp",
   "regles_speciales": [
     {
       "nom": "Chevalerie",

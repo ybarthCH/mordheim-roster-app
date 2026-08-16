@@ -3,6 +3,7 @@
   "nom": "Nains du Chaos (1c)",
   "grade": "1c",
   "source": "Nemesis Crown / La Grande Librairie de Mordheim",
+  "banniere": "bandes/nains_du_chaos.webp",
   "regles_speciales": [
     {
       "nom": "Difficile à tuer",
