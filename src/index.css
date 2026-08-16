@@ -1928,6 +1928,22 @@ button {
   filter: var(--pack-asset-filter, none) brightness(0.9);
   transform: translateY(1px);
 }
+.btn--pack-pill-sm:disabled {
+  opacity: 0.5;
+  filter: var(--pack-asset-filter, none) grayscale(0.4);
+  cursor: not-allowed;
+}
+.btn--pack-pill-sm:disabled:hover {
+  filter: var(--pack-asset-filter, none) grayscale(0.4);
+}
+/* Variante "action recommandée" au sein d'une rangée de choix par ailleurs
+   uniforme (ex : "Rechercher un objet rare" parmi Passer/Dramatis
+   Personae/Docteur) — un halo plutôt qu'un asset différent, pour rester
+   cohérent avec le reste de la rangée tout en gardant l'action principale
+   repérable au premier coup d'œil. */
+.btn--pack-pill-sm--primary {
+  box-shadow: 0 0 0 2px var(--accent-strong);
+}
 
 .list-item {
   display: flex;

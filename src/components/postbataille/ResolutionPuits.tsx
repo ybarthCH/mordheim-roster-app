@@ -66,10 +66,10 @@ export function ResolutionPuits({ roster, onMajRoster, onAjouterAuJournal }: Pro
             {t('postBataille.well.enduranceTest', { e: hero.stats_actuels.E })}
           </p>
           <div className="flex gap-sm">
-            <button type="button" className="btn btn--sm btn--primary" onClick={appliquerReussite}>
+            <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" onClick={appliquerReussite}>
               {t('postBataille.success')}
             </button>
-            <button type="button" className="btn btn--sm" onClick={appliquerEchec}>
+            <button type="button" className="btn--pack-pill-sm" onClick={appliquerEchec}>
               {t('postBataille.failure')}
             </button>
           </div>

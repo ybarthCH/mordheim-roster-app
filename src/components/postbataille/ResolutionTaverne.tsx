@@ -63,14 +63,14 @@ export function ResolutionTaverne({ roster, catalogue, onAjouterOr, onAjouterAuJ
       <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
         <button
           type="button"
-          className={`btn btn--sm ${resultat === 'reussi' ? 'btn--primary' : ''}`}
+          className={`btn--pack-pill-sm ${resultat === 'reussi' ? 'btn--pack-pill-sm--primary' : ''}`}
           onClick={() => setResultat('reussi')}
         >
           {t('postBataille.success')}
         </button>
         <button
           type="button"
-          className={`btn btn--sm ${resultat === 'rate' ? 'btn--primary' : ''}`}
+          className={`btn--pack-pill-sm ${resultat === 'rate' ? 'btn--pack-pill-sm--primary' : ''}`}
           onClick={() => setResultat('rate')}
         >
           {t('postBataille.failure')}

@@ -42,7 +42,7 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
     return (
       <button
         type="button"
-        className="btn btn--sm btn--primary"
+        className="btn--pack-pill-sm btn--pack-pill-sm--primary"
         style={{ marginTop: '0.5rem', marginRight: '0.5rem' }}
         onClick={() => {
           onAjouter(item, quantite);
@@ -65,7 +65,7 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
       <input type="number" min={1} style={{ width: '4rem' }} value={jet} onChange={(e) => setJet(e.target.value)} />
       <button
         type="button"
-        className="btn btn--sm btn--primary"
+        className="btn--pack-pill-sm btn--pack-pill-sm--primary"
         disabled={!valide}
         onClick={() => {
           onAjouter(item, valeur);

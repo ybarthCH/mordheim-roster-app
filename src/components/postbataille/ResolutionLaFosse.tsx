@@ -87,10 +87,10 @@ export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJourna
             />
           </div>
           <div className="flex gap-sm">
-            <button type="button" className="btn btn--sm btn--primary" disabled={!jetValide} onClick={appliquerReussite}>
+            <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" disabled={!jetValide} onClick={appliquerReussite}>
               {t('postBataille.success')}
             </button>
-            <button type="button" className="btn btn--sm" onClick={appliquerEchec}>
+            <button type="button" className="btn--pack-pill-sm" onClick={appliquerEchec}>
               {t('postBataille.failure')}
             </button>
           </div>

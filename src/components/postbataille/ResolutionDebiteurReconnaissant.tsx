@@ -70,7 +70,7 @@ export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouter
       {disponibles.length === 0 && (
         <p className="text-sm text-muted">{t('postBataille.debtor.noneAvailable')}</p>
       )}
-      <button type="button" className="btn btn--sm btn--primary" disabled={!francTireurId} onClick={engager}>
+      <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" disabled={!francTireurId} onClick={engager}>
         {t('postBataille.debtor.hireForFree')}
       </button>
     </div>

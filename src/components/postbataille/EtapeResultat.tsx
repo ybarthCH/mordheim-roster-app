@@ -123,7 +123,7 @@ export function EtapeResultat({
             }}
             placeholder={t('resultat.opponentNamePlaceholder')}
           />
-          <button className="btn" onClick={ajouterAdversaire}>
+          <button className="btn--pack-pill-sm" onClick={ajouterAdversaire}>
             {t('resultat.add')}
           </button>
         </div>
@@ -145,7 +145,7 @@ export function EtapeResultat({
         </ul>
       )}
       <div className="flex flex-wrap gap-sm items-end">
-        <button className="btn btn--primary" onClick={() => setModalRecompense(true)}>
+        <button className="btn--pack-pill-sm btn--pack-pill-sm--primary" onClick={() => setModalRecompense(true)}>
           {t('resultat.itemButton')}
         </button>
         <div className="field" style={{ marginBottom: 0 }}>
@@ -159,7 +159,7 @@ export function EtapeResultat({
               placeholder="0"
               style={{ maxWidth: '8rem' }}
             />
-            <button className="btn" disabled={!argentSaisi.trim()} onClick={ajouterArgent}>
+            <button className="btn--pack-pill-sm" disabled={!argentSaisi.trim()} onClick={ajouterArgent}>
               {t('resultat.add')}
             </button>
           </div>

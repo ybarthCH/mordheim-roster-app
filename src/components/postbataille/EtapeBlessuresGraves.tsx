@@ -63,7 +63,7 @@ export function EtapeBlessuresGraves({
               <strong>{m.nom_perso}</strong>
               {!d && (
                 <div style={{ marginTop: '0.5rem' }}>
-                  <button className="btn btn--primary btn--sm" onClick={() => setBlessureEnCours(m.instance_id)}>
+                  <button className="btn--pack-pill-sm btn--pack-pill-sm--primary" onClick={() => setBlessureEnCours(m.instance_id)}>
                     {t('postBataille.injuries.resolveInjury')}
                   </button>
                 </div>
@@ -75,7 +75,7 @@ export function EtapeBlessuresGraves({
                   </p>
                   {d.statutMort && <p className="text-danger mb-0">{t('postBataille.injuries.markedDead')}</p>}
                   {d.perteEquipement && <p className="text-danger mb-0">{t('postBataille.injuries.equipmentLost')}</p>}
-                  <button className="btn btn--sm" style={{ marginTop: '0.5rem' }} onClick={() => onReinitialiser(m)}>
+                  <button className="btn--pack-pill-sm" style={{ marginTop: '0.5rem' }} onClick={() => onReinitialiser(m)}>
                     {t('postBataille.injuries.modify')}
                   </button>
                 </div>

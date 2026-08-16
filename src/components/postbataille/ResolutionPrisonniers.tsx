@@ -78,7 +78,7 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
       <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
         <button
           type="button"
-          className={`btn btn--sm ${branche === 'possedes' ? 'btn--primary' : ''}`}
+          className={`btn--pack-pill-sm ${branche === 'possedes' ? 'btn--pack-pill-sm--primary' : ''}`}
           disabled={catalogue.id !== 'cult_of_the_possessed'}
           title={catalogue.id !== 'cult_of_the_possessed' ? t('postBataille.vagrant.reservedFor', { faction: 'Possédés' }) : undefined}
           onClick={() => setBranche('possedes')}
@@ -87,7 +87,7 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
         </button>
         <button
           type="button"
-          className={`btn btn--sm ${branche === 'morts_vivants' ? 'btn--primary' : ''}`}
+          className={`btn--pack-pill-sm ${branche === 'morts_vivants' ? 'btn--pack-pill-sm--primary' : ''}`}
           disabled={!estMortsVivants || !zombieProfil}
           title={!estMortsVivants ? t('postBataille.vagrant.reservedFor', { faction: 'Morts-vivants' }) : undefined}
           onClick={() => setBranche('morts_vivants')}
@@ -96,7 +96,7 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
         </button>
         <button
           type="button"
-          className={`btn btn--sm ${branche === 'skaven' ? 'btn--primary' : ''}`}
+          className={`btn--pack-pill-sm ${branche === 'skaven' ? 'btn--pack-pill-sm--primary' : ''}`}
           disabled={catalogue.id !== 'skaven'}
           title={catalogue.id !== 'skaven' ? t('postBataille.vagrant.reservedFor', { faction: 'Skavens' }) : undefined}
           onClick={() => setBranche('skaven')}
@@ -105,7 +105,7 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
         </button>
         <button
           type="button"
-          className={`btn btn--sm ${branche === 'autres' ? 'btn--primary' : ''}`}
+          className={`btn--pack-pill-sm ${branche === 'autres' ? 'btn--pack-pill-sm--primary' : ''}`}
           disabled={['cult_of_the_possessed', 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)}
           title={
             ['cult_of_the_possessed', 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)
@@ -134,7 +134,7 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
           <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap' }}>
             <span className="text-sm text-muted">{t('postBataille.prisoners.rollObtainedD3')}</span>
             <input type="number" min={0} style={{ width: '5rem' }} value={jetXp} onChange={(e) => setJetXp(e.target.value)} />
-            <button type="button" className="btn btn--sm btn--primary" disabled={!heroId || !jetXp} onClick={appliquerXp}>
+            <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" disabled={!heroId || !jetXp} onClick={appliquerXp}>
               {t('postBataille.prisoners.addXp')}
             </button>
           </div>
@@ -151,7 +151,7 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
             value={jetZombies}
             onChange={(e) => setJetZombies(e.target.value)}
           />
-          <button type="button" className="btn btn--sm btn--primary" disabled={!jetZombies} onClick={appliquerZombies}>
+          <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" disabled={!jetZombies} onClick={appliquerZombies}>
             {t('postBataille.prisoners.addZombies')}
           </button>
         </div>
