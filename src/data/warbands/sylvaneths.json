@@ -1,0 +1,315 @@
+{
+  "id": "sylvaneths",
+  "nom": "Sylvaneths (3)",
+  "grade": "3",
+  "source": "Bande non officielle - Draft de playtest V1.7",
+  "banniere": "bandes/sylvaneths.webp",
+  "regles_speciales": [
+    {
+      "nom": "Forme spirituelle",
+      "texte": "L'Archi-revenant, la Sorcière des ronces, les Sylve-revenants, les Fiel-revenants et l'Homme-arbre sont difficiles à assommer. Lorsqu'un tel guerrier subit un résultat Sonné, lancez 1D6. Sur 4+, traitez ce résultat comme À terre à la place."
+    },
+    {
+      "nom": "Haine du métal",
+      "texte": "Les Sylvaneths ne peuvent porter aucune armure corporelle conventionnelle. Les boucliers, rondaches et l'Écorce de fer restent autorisés si leur liste d'équipement le permet."
+    },
+    {
+      "nom": "Marche forestière",
+      "texte": "Les Sylvaneths ignorent les pénalités de Mouvement dues aux bois, forêts, sous-bois et terrains végétaux similaires."
+    },
+    {
+      "nom": "Chant spirituel",
+      "texte": "Les Sylvaneths amis à 6ps de l'Archi-revenant ou de la Sorcière des ronces peuvent relancer leurs tests de Commandement ratés. Les Fiel-revenants n'en bénéficient jamais. Cette règle ne s'applique pas aux tests de Déroute."
+    }
+  ],
+  "composition": {
+    "effectif_min": 3,
+    "effectif_max": 12,
+    "cout_max_constitution": 500
+  },
+  "profils": [
+    {
+      "id": "archi_revenant",
+      "nom": "Archi-revenant",
+      "type": "heros",
+      "groupe_caracteristiques": "sylvaneth_revenant",
+      "unique": true,
+      "min": 1,
+      "max": 1,
+      "cout": 80,
+      "xp_depart": 20,
+      "stats": { "M": 4, "CC": 5, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 4, "A": 2, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Chef", "texte": "Tout guerrier à moins de 6ps de l'Archi-revenant peut utiliser son Commandement." },
+        { "nom": "Chant spirituel", "texte": "L'Archi-revenant projette le Chant spirituel (voir règles spéciales de la bande)." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "vitesse", "special"],
+      "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
+      "acces_competences_a_verifier": false,
+      "est_leader": true
+    },
+    {
+      "id": "sorciere_des_ronces",
+      "nom": "Sorcière des ronces",
+      "type": "heros",
+      "groupe_caracteristiques": "sylvaneth_revenant",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 50,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 8 },
+      "peut_lancer_sorts": true,
+      "categorie_magie": "sylvaneth",
+      "nombre_sorts_choisis_depart": 1,
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "La Sorcière des ronces est une sorcière utilisant les Rituels des Sylvaneths (voir magie). Elle débute avec un sort déterminé au hasard en lançant 1D3." },
+        { "nom": "Chant spirituel", "texte": "La Sorcière des ronces projette le Chant spirituel (voir règles spéciales de la bande)." }
+      ],
+      "acces_competences": ["combat", "tir", "academique", "vitesse", "special"],
+      "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "branchanteresse",
+      "nom": "Branchanteresse",
+      "type": "heros",
+      "groupe_caracteristiques": "sylvaneth_branchanteresse",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 50,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 7 },
+      "peut_lancer_sorts": true,
+      "categorie_magie": "sylvaneth",
+      "nombre_sorts_choisis_depart": 1,
+      "regles_speciales": [
+        { "nom": "Sorcier", "texte": "La Branchanteresse est une sorcière utilisant les Rituels des Sylvaneths (voir magie). Elle débute avec un sort déterminé au hasard en lançant 1D3+3." },
+        { "nom": "Écorce de fer", "texte": "Débute avec Écorce de fer I, comprise dans son coût de recrutement." }
+      ],
+      "acces_competences": ["academique", "special"],
+      "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "shadestalker",
+      "nom": "Shadestalker",
+      "type": "heros",
+      "groupe_caracteristiques": "sylvaneth_revenant",
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 50,
+      "xp_depart": 8,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [
+        { "nom": "Peur", "texte": "Le Shadestalker cause la Peur." },
+        { "nom": "Frénésie", "texte": "Le Shadestalker est sujet à la Frénésie." },
+        { "nom": "Paria", "texte": "Le Shadestalker ne bénéficie jamais du Chant spirituel et ne peut jamais devenir Chef." }
+      ],
+      "acces_competences": ["force", "special"],
+      "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "sylve_revenant",
+      "nom": "Sylve-revenant",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "sylvaneth_revenant",
+      "min": 0,
+      "max": 5,
+      "cout": 40,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
+      "regles_speciales": [],
+      "acces_competences": [],
+      "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "fiel_revenant",
+      "nom": "Fiel-revenant",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "sylvaneth_revenant",
+      "min": 0,
+      "max": 2,
+      "cout": 40,
+      "xp_depart": 0,
+      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Peur", "texte": "Les Fiel-revenants causent la Peur." },
+        { "nom": "Serres cruelles", "texte": "Débute avec deux Serres cruelles, comprises dans son coût. La seconde ne peut jamais être vendue ni transférée." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "dryade",
+      "nom": "Dryade",
+      "type": "animal",
+      "min": 0,
+      "max": 5,
+      "cout": 25,
+      "stats": { "M": 4, "CC": 3, "CT": 0, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Écorce de fer", "texte": "Débute avec Écorce de fer I et ne peut jamais l'améliorer." },
+        { "nom": "Créatures sylvestres", "texte": "Ne gagnent jamais d'expérience ni « Ce gars est doué ! ». Combattent avec griffes et branches sans pénalité de combat sans arme." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "homme_arbre",
+      "nom": "Homme-arbre",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "sylvaneth_revenant",
+      "plafond_ignore": true,
+      "unique": true,
+      "min": 0,
+      "max": 1,
+      "cout": 200,
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 3, "I": 3, "A": 3, "Cd": 8 },
+      "regles_speciales": [
+        { "nom": "Peur", "texte": "L'Homme-arbre cause la Peur." },
+        { "nom": "Grande cible", "texte": "L'Homme-arbre est une Grande cible." },
+        { "nom": "Vétéran monstrueux", "texte": "Gagne de l'expérience mais ne peut jamais devenir Héros. Tout résultat « Ce gars est doué ! » est relancé." },
+        { "nom": "Griffes", "texte": "Combat avec ses armes naturelles sans pénalité." },
+        { "nom": "Plafond de caractéristiques", "texte": "Le document source ne fournit pas de table d'amélioration dédiée pour ce profil : aucun plafond n'est appliqué automatiquement." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["homme_arbre", "divers_sylvaneth"],
+      "acces_competences_a_verifier": false
+    }
+  ],
+  "competences_speciales": [
+    {
+      "id": "voies_secretes",
+      "nom": "Voies secrètes",
+      "texte": "Le Héros est toujours placé après le déploiement adverse. Il peut être placé n'importe où hors de toute ligne de vue adverse et à plus de 12ps de tout ennemi. Si les deux joueurs infiltrent, lancez 1D6 : le résultat le plus faible se déploie en premier.",
+      "valeurPuissance": 0
+    },
+    {
+      "id": "maitrise_spectrale",
+      "nom": "Maîtrise spectrale",
+      "texte": "Lorsqu'un Héros utilise une Arme spectrale au corps à corps, il bénéficie de +1 sur ses jets dans les tableaux de Coups Critiques. Les blessures automatiques causées par un 6 naturel pour toucher n'autorisent aucune sauvegarde d'armure.",
+      "valeurPuissance": 0
+    },
+    {
+      "id": "repousse_perpetuelle",
+      "nom": "Repousse perpétuelle",
+      "texte": "Chaque fois que le Héros subit une blessure non sauvegardée, lancez 1D6. Sur 5+, elle est ignorée. Les blessures causées par des attaques enflammées ne peuvent jamais être régénérées.",
+      "valeurPuissance": 0
+    },
+    {
+      "id": "memoire_des_ages",
+      "nom": "Mémoire des Âges",
+      "texte": "Une fois par bataille, le Héros peut relancer un jet raté qu'il vient d'effectuer. Le second résultat doit être accepté.",
+      "valeurPuissance": 0
+    },
+    {
+      "id": "murmures_des_racines",
+      "nom": "Murmures des racines",
+      "reserve_a": "Un seul Héros de la bande peut posséder cette compétence",
+      "texte": "Lors des jets d'Exploration, ce Héros autorise à modifier le résultat d'un dé de -1/+1.",
+      "valeurPuissance": 0
+    }
+  ],
+  "equipement": {
+    "sylvaneths": {
+      "armes_cac": [
+        { "item_id": "serre_cruelle", "cout": 2, "note": "première gratuite" },
+        { "item_id": "hache", "cout": 5, "note": "ou Faux" },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "lance", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10, "note": "ou Glaive" },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "arc", "cout": 10 },
+        { "item_id": "arc_long", "cout": 15 },
+        { "item_id": "arc_elfique", "cout": 35 }
+      ],
+      "armures": [
+        { "item_id": "bouclier", "cout": 5 },
+        { "item_id": "rondache", "cout": 5 },
+        { "item_id": "ecorce_de_fer", "cout": "30/80/200", "note": "Niveau I/II/III, voir règles spéciales" }
+      ]
+    },
+    "homme_arbre": {
+      "armes_cac": [{ "item_id": "arme_a_deux_mains", "cout": 15 }],
+      "armes_tir": [{ "item_id": "grand_arc_de_kurnoth", "cout": 50 }],
+      "armures": [{ "item_id": "ecorce_de_fer", "cout": "30/80/200", "note": "Niveau I/II/III, voir règles spéciales" }]
+    },
+    "divers_sylvaneth": {
+      "divers": [
+        { "item_id": "arme_spectrale_market", "cout": "x2", "note": "Prix x2 de l'arme de base, sauf dagues — voir règles spéciales" },
+        { "item_id": "familier", "cout": "20+1D6", "restriction": "Sorcière des ronces uniquement" },
+        { "item_id": "lamentiri", "cout": 55, "restriction": "Héros Sylvaneths et Homme-arbre uniquement" },
+        { "item_id": "fouet_barbele", "cout": 10 }
+      ]
+    }
+  },
+  "equipement_special": [
+    { "item_id": "serre_cruelle", "cout": 2, "disponibilite": "Sylvaneths uniquement" },
+    { "item_id": "arme_spectrale_market", "cout": "x2", "disponibilite": "Commune, Sylvaneths uniquement" },
+    { "item_id": "ecorce_de_fer", "cout": "30/80/200", "disponibilite": "Commune (Niveaux I-II), Rare 10 Héros uniquement (Niveau III), Sylvaneths uniquement" },
+    { "item_id": "grand_arc_de_kurnoth", "cout": 50, "disponibilite": "Rare 9, Homme-arbre uniquement" },
+    { "item_id": "lamentiri", "cout": 55, "disponibilite": "Commune, Héros Sylvaneths et Homme-arbre uniquement" },
+    { "item_id": "familier", "cout": "20+1D6", "disponibilite": "Rare 8, Sorcière des ronces uniquement" }
+  ],
+  "magie": {
+    "nom": "Rituels des Sylvaneths",
+    "type": "sorcellerie",
+    "de": "D6",
+    "utilisateurs": ["sorciere_des_ronces", "branchanteresse"],
+    "note": "La Sorcière des ronces détermine son sort de départ en lançant 1D3 ; la Branchanteresse lance 1D3+3. Pour tout nouveau sort, lancez 1D6. Si vous obtenez le même sort deux fois, relancez ou déduisez 1 de sa Difficulté.",
+    "sorts": [
+      {
+        "resultat": 1,
+        "id": "harmonie_verdoyante",
+        "nom": "Harmonie verdoyante",
+        "difficulte": 7,
+        "texte": "Choisissez un Sylvaneth ami à 12ps. Il récupère 1 PV perdu. S'il est À terre ou Sonné, il peut à la place se relever immédiatement."
+      },
+      {
+        "resultat": 2,
+        "id": "arpenter_les_sentiers_caches",
+        "nom": "Arpenter les Sentiers Cachés",
+        "difficulte": 8,
+        "texte": "Choisissez un Sylvaneth ami à 6ps non engagé. Replacez-le jusqu'à 12ps. Il ne peut terminer au contact d'un ennemi et ce déplacement n'est jamais une charge."
+      },
+      {
+        "resultat": 3,
+        "id": "chant_des_arbres",
+        "nom": "Chant des Arbres",
+        "difficulte": 6,
+        "texte": "Choisissez un Sylvaneth ami à 12ps. Jusqu'au début du prochain tour du lanceur, tous les tirs dirigés contre lui subissent -1 pour toucher. Ce modificateur n'est pas un couvert et se cumule avec un couvert réel."
+      },
+      {
+        "resultat": 4,
+        "id": "esprit_colerique",
+        "nom": "Esprit colérique",
+        "difficulte": 7,
+        "texte": "Choisissez un Sylvaneth ami à 6ps. Jusqu'au prochain tour, il peut relancer ses jets pour blesser ratés. Le second résultat est conservé. Le jet déterminant un critique après une blessure automatique d'Arme spectrale ne peut être relancé."
+      },
+      {
+        "resultat": 5,
+        "id": "les_etres_du_dessous",
+        "nom": "Les Êtres du Dessous",
+        "difficulte": 8,
+        "texte": "Choisissez un ennemi à 12ps. La cible et chaque autre ennemi à 2ps d'elle subissent une touche de F3. Les sauvegardes d'armure s'appliquent normalement."
+      },
+      {
+        "resultat": 6,
+        "id": "vegetation_envahissante",
+        "nom": "Végétation envahissante",
+        "difficulte": 8,
+        "texte": "Choisissez un ennemi à 12ps. Jusqu'au prochain tour, son Mouvement est divisé par deux, arrondi au supérieur, et il frappe toujours en dernier, même s'il charge."
+      }
+    ]
+  }
+}
