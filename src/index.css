@@ -614,6 +614,45 @@ button {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8));
 }
 
+/* Poignée de glisser-déposer (écran tactile uniquement, voir tactile dans
+   ListeBandesScreen) : le glisser n'est plus engageable depuis n'importe où
+   sur la carte au doigt (conflit avec le scroll de la page) — seule cette
+   icône, en haut à droite, déclenche le drag désormais. Position absolue,
+   donc .list-item--bande a besoin de position:relative même sans bannière. */
+.list-item--bande {
+  position: relative;
+}
+.list-item--bande__poignee {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  cursor: grab;
+  touch-action: none;
+  opacity: 0.7;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+}
+.list-item--bande__poignee:active {
+  opacity: 1;
+  cursor: grabbing;
+}
+/* En mode tactile, les boutons d'action passent systématiquement sur leur
+   propre ligne (repli forcé, plus seulement quand la largeur manque) pour
+   laisser le coin haut-droite entièrement libre pour la poignée — et le
+   texte principal se réserve la même marge à droite pour ne jamais passer
+   dessous. */
+.list-item--bande.list-item--tactile .list-item__actions {
+  flex-basis: 100%;
+}
+.list-item--bande.list-item--tactile .list-item__row {
+  padding-right: 2.3rem;
+}
+
 /* Cadre carré du pack UI autour de la photo de la fiche personnage —
    dimensionné un cran plus grand que l'avatar lui-même pour que seul le
    filet peint dépasse tout autour (le cœur de l'asset n'est pas

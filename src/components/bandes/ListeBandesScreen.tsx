@@ -12,6 +12,17 @@ import { useCardDragReorder } from '../../utils/useCardDragReorder';
 import type { RosterInstance } from '../../types/roster';
 import { useLanguage } from '../../state/useLanguage';
 import { useGameRules } from '../../state/useGameRules';
+import { useMediaQuery } from '../../state/useMediaQuery';
+
+// Sur écran tactile, le glisser-déposer engagé n'importe où sur la carte
+// entrait en conflit avec le scroll de la page (le doigt qui bouge fait à la
+// fois défiler et glisser) — pénible à l'usage. `pointer: coarse` cible les
+// écrans tactiles indépendamment de la largeur de fenêtre (contrairement aux
+// media queries de largeur utilisées ailleurs dans ce fichier), ce qui est
+// le bon signal ici : c'est le type de pointeur, pas la taille d'écran, qui
+// cause le conflit. En dessous, le glisser ne s'engage plus que depuis une
+// poignée dédiée (voir onHandlePointerDown), qui a touch-action: none.
+const TACTILE_QUERY = '(pointer: coarse)';
 
 // Code horaire compact (ex : "1847 CEST") sur le fuseau Europe/Paris —
 // affiché à côté du hash de build pour repérer d'un coup d'œil un service
@@ -46,10 +57,9 @@ export function ListeBandesScreen() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [aSupprimer, setASupprimer] = useState<RosterInstance | null>(null);
   const [erreurImport, setErreurImport] = useState<string | null>(null);
-  const { elements, refItem, onPointerDown, onCardClick, idEnCours, pointerPos } = useCardDragReorder(
-    rosters,
-    reorderRosters
-  );
+  const { elements, refItem, onPointerDown, onHandlePointerDown, onCardClick, idEnCours, pointerPos } =
+    useCardDragReorder(rosters, reorderRosters);
+  const tactile = useMediaQuery(TACTILE_QUERY);
 
   const winLabel = language === 'en' ? 'W' : 'V';
   const lossLabel = language === 'en' ? 'L' : 'D';
@@ -125,12 +135,22 @@ export function ListeBandesScreen() {
           <div
             key={roster.id}
             ref={refItem(roster.id)}
-            className={`list-item list-item--bande${banniere ? ' list-item--with-banner' : ''}${idEnCours === roster.id ? ' list-item--fantome' : ''}`}
+            className={`list-item list-item--bande${banniere ? ' list-item--with-banner' : ''}${idEnCours === roster.id ? ' list-item--fantome' : ''}${tactile ? ' list-item--tactile' : ''}`}
             role="button"
-            onPointerDown={onPointerDown(roster.id)}
+            onPointerDown={tactile ? undefined : onPointerDown(roster.id)}
             onClick={onCardClick(() => navigate(`/roster/${roster.id}`))}
             style={banniere ? { backgroundImage: `url(${import.meta.env.BASE_URL}${banniere})` } : undefined}
           >
+            {tactile && (
+              <span
+                className="list-item--bande__poignee"
+                onPointerDown={onHandlePointerDown(roster.id)}
+                onClick={(e) => e.stopPropagation()}
+                title={t('home.dragHandle')}
+              >
+                <Icon name="poigneeCartePack" size="1.5rem" />
+              </span>
+            )}
             <div className="list-item__row">
               <div className="list-item__main">
                 <div className="list-item__title">{roster.nom_bande}</div>

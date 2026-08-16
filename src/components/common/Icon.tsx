@@ -31,7 +31,8 @@ export type PackIconName =
   | 'zoomAvantPack'
   | 'zoomArrierePack'
   | 'plusPack'
-  | 'plumePack';
+  | 'plumePack'
+  | 'poigneeCartePack';
 
 // Base des assets décoratifs (public/decor/), préfixée par le base path
 // configuré côté Vite (import.meta.env.BASE_URL) plutôt qu'un simple
@@ -82,6 +83,10 @@ const PACK_ICON_SRC: Record<PackIconName, (theme: 'light' | 'dark', palette: 'ro
   // Parchemin + plume, substitut le plus proche du pack pour l'action
   // "modifier" — le pack ne contient pas de crayon littéral.
   plumePack: () => `${DECOR_BASE}icon-edit-scroll.png`,
+  // Poignée de glisser-déposer des cartes de bande (mobile uniquement, voir
+  // ListeBandesScreen) — même logique dorée/argentée que etoilePack/soleilPack.
+  poigneeCartePack: (theme, palette) =>
+    `${DECOR_BASE}${palette === 'rouge' || theme === 'light' ? 'icon-drag-handle-gold.png' : 'icon-drag-handle-silver.png'}`,
 };
 
 function isPackIconName(name: IconName | PackIconName): name is PackIconName {

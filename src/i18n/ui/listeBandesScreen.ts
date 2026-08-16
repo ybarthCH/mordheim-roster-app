@@ -16,6 +16,7 @@ export const listeBandesScreen: UiDictionary = {
   'home.members': { fr: 'membres', en: 'members' },
   'home.noBattles': { fr: 'Aucune bataille enregistrée', en: 'No battles recorded' },
   'home.export': { fr: 'Export', en: 'Export' },
+  'home.dragHandle': { fr: 'Glisser pour réordonner', en: 'Drag to reorder' },
   'home.duplicate': { fr: 'Dupliquer', en: 'Duplicate' },
   'home.deleteShort': { fr: 'Suppr.', en: 'Del.' },
   'home.deleteConfirmBody': {

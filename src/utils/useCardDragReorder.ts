@@ -43,6 +43,20 @@ export function useCardDragReorder<T extends { id: string }>(
     dragReelRef.current = false;
   };
 
+  // Variante pour une poignée dédiée (voir ListeBandesScreen sur mobile) :
+  // contrairement à onPointerDown ci-dessus, engage le glisser immédiatement,
+  // sans seuil — la poignée n'est pas cliquable pour autre chose (son propre
+  // onClick fait stopPropagation), donc pas besoin de distinguer tap/drag ici.
+  const onHandlePointerDown = (id: string) => (e: React.PointerEvent) => {
+    if (e.button !== 0) return;
+    e.stopPropagation();
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    dragReelRef.current = true;
+    setIdEnCours(id);
+    setOrdreEnCours(items);
+    setPointerPos({ x: e.clientX, y: e.clientY });
+  };
+
   // Détection du seuil : tant qu'aucun drag n'est engagé, surveille les
   // déplacements globaux pour décider si l'intention posée par
   // onPointerDown devient un vrai glisser.
@@ -136,6 +150,7 @@ export function useCardDragReorder<T extends { id: string }>(
     elements: ordreEnCours ?? items,
     refItem,
     onPointerDown,
+    onHandlePointerDown,
     onCardClick,
     idEnCours,
     pointerPos,
