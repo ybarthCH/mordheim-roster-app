@@ -1106,6 +1106,25 @@ export function PostBatailleScreen() {
         <button className="btn" disabled={etape === 0} onClick={precedent}>
           {t('postBatailleScreen.previous')}
         </button>
+        {etape === indexCommerce && herosCommerce.some((hero) => !commerceDrafts[hero.membre.instance_id]) && (
+          <button
+            type="button"
+            className="btn--pack-pill-sm"
+            onClick={() => {
+              setCommerceDrafts((precedents) => {
+                const suivants = { ...precedents };
+                herosCommerce.forEach((hero) => {
+                  if (!suivants[hero.membre.instance_id]) {
+                    suivants[hero.membre.instance_id] = { action: 'aucune', statut: 'termine' };
+                  }
+                });
+                return suivants;
+              });
+            }}
+          >
+            {t('commerce.skipAll')}
+          </button>
+        )}
         {etape < ETAPES.length - 1 && (
           <button
             className="btn btn--primary"

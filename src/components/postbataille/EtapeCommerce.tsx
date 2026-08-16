@@ -286,22 +286,6 @@ export function EtapeCommerce({
             </div>
           );
         })}
-        {heros.some((hero) => !drafts[hero.membre.instance_id]) && (
-          <button
-            type="button"
-            className="btn--pack-pill-sm"
-            style={{ marginTop: '0.3rem' }}
-            onClick={() => {
-              heros.forEach((hero) => {
-                if (!drafts[hero.membre.instance_id]) {
-                  onChanger(hero.membre.instance_id, { action: 'aucune', statut: 'termine' });
-                }
-              });
-            }}
-          >
-            {t('commerce.skipAll')}
-          </button>
-        )}
       </div>
 
       {herosRecherche && (
