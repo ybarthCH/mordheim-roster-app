@@ -1479,8 +1479,8 @@ button {
   height: 25px;
   flex-shrink: 0;
   --sw: 64px;
-  --ms: 30px;
-  --margin: 9px;
+  --ms: 22px;
+  --margin: 15px;
 }
 .status-plaque__switch-track {
   position: absolute;
@@ -1489,8 +1489,9 @@ button {
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
-/* Marge de glissement : le médaillon s'arrête avant les pointes du rail
-   (visibles à chaque extrémité) plutôt que de les recouvrir. */
+/* Marge de glissement : le médaillon s'arrête avant l'ornement en éventail
+   du rail (visible à chaque extrémité, pas seulement sa pointe) plutôt que
+   de le recouvrir. */
 .status-plaque__switch-knob {
   position: absolute;
   top: 50%;
@@ -1503,17 +1504,24 @@ button {
 .status-plaque--actif .status-plaque__switch-knob {
   transform: translate(calc(var(--sw) - var(--ms) - 2 * var(--margin)), -50%);
 }
+/* background-image plutôt qu'un <img> : en cas d'échec de chargement (hors
+   ligne, cache manquant), l'élément reste simplement transparent au lieu
+   d'afficher l'icône « image cassée » du navigateur. */
 .status-plaque__switch-knob-gem {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   transition: opacity 0.42s ease;
 }
 .status-plaque__switch-knob-gem--gold {
+  background-image: url('/decor/medal-slide-medal-gold.webp');
   opacity: 0;
 }
 .status-plaque__switch-knob-gem--red {
+  background-image: url('/decor/medal-slide-medal-red.webp');
   opacity: 1;
 }
 .status-plaque--actif .status-plaque__switch-knob-gem--gold {
@@ -1545,7 +1553,7 @@ button {
   transition: color 0.15s ease;
 }
 .status-plaque--actif .status-plaque__label {
-  color: #9c7d3a;
+  color: var(--warning);
 }
 
 /* Avatar : photo si renseignée, sinon initiales sur un fond coloré dérivé

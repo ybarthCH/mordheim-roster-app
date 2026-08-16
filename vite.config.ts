@@ -92,7 +92,7 @@ export default defineConfig(({ command }) => ({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,json}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,webp,ico,json}'],
         // assetlinks.json proves domain ownership to Android's Digital Asset
         // Links verifier — it's fetched directly by the OS/Chrome, not by the
         // app, so it has no business in the app's own offline cache.
