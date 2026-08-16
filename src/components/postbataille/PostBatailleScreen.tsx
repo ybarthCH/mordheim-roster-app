@@ -1103,7 +1103,12 @@ export function PostBatailleScreen() {
       )}
 
       <div className="flex gap-sm post-bataille__actions">
-        <button className="btn" disabled={etape === 0} onClick={precedent}>
+        <button
+          type="button"
+          className="btn--pack-pill-sm btn--pack-pill-sm--secondaire"
+          disabled={etape === 0}
+          onClick={precedent}
+        >
           {t('postBatailleScreen.previous')}
         </button>
         {etape === indexCommerce && herosCommerce.some((hero) => !commerceDrafts[hero.membre.instance_id]) && (
@@ -1127,7 +1132,8 @@ export function PostBatailleScreen() {
         )}
         {etape < ETAPES.length - 1 && (
           <button
-            className="btn btn--primary"
+            type="button"
+            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
             disabled={
               (etape === indexBlessures && blessuresIncompletes) ||
               (etape === indexCommerce && commerceIncomplet) ||
@@ -1139,7 +1145,12 @@ export function PostBatailleScreen() {
           </button>
         )}
         {etape === ETAPES.length - 1 && (
-          <button className="btn btn--primary" disabled={oeilApplicable && !oeilResolu} onClick={terminer}>
+          <button
+            type="button"
+            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
+            disabled={oeilApplicable && !oeilResolu}
+            onClick={terminer}
+          >
             {t('postBatailleScreen.validateAndSave')}
           </button>
         )}

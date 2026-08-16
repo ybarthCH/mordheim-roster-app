@@ -1968,6 +1968,16 @@ button {
 .btn--pack-pill-sm:disabled:hover {
   filter: var(--pack-asset-filter, none) grayscale(0.4);
 }
+/* Pas d'anneau de focus natif du navigateur sur ce bouton peint — il
+   traversait l'asset sans suivre son relief et restait visible après un
+   simple clic souris. Anneau propre uniquement au clavier. */
+.btn--pack-pill-sm:focus {
+  outline: none;
+}
+.btn--pack-pill-sm:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 /* Variante "action recommandée" au sein d'une rangée de choix par ailleurs
    uniforme (ex : "Rechercher un objet rare" parmi Passer/Dramatis
    Personae/Docteur) — un halo plutôt qu'un asset différent, pour rester
@@ -1975,6 +1985,18 @@ button {
    repérable au premier coup d'œil. */
 .btn--pack-pill-sm--primary {
   box-shadow: 0 0 0 2px var(--accent-strong);
+}
+/* Variante "action secondaire" (ex : "Précédent" du fil d'étapes
+   post-bataille) — un ton distinct du rouge/pierre par défaut pour ne
+   pas se confondre avec les actions principales de la même rangée.
+   Bronze en thème sombre, ardoise en thème clair. */
+.btn--pack-pill-sm--secondaire {
+  background-image: url('/decor/button-pill-bronze.png');
+}
+:root[data-palette='noir'] .btn--pack-pill-sm--secondaire {
+  background-image: url('/decor/button-pill-slate.png');
+  color: #f1ded1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 .list-item {
