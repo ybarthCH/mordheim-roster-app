@@ -1453,21 +1453,39 @@ button {
    personnage (un seul membre affiché), voir .status-segmented ci-dessous —
    même logique de couleurs, habillage en segments plutôt qu'en
    interrupteur unique. */
+/* Ruban peint (même famille que .badge--pending/--leader/--equipment-warning
+   et .badge--rarete-*) plutôt qu'un aplat en pilule : l'image vit sur un
+   ::before en inset:0, le texte est remonté par un padding déséquilibré
+   pour se recentrer dans le corps du ruban, au-dessus des queues
+   décoratives. */
 .status-switch {
+  position: relative;
+  z-index: 0;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
   font-family: var(--font-accroche);
   font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  padding: 0.3rem 0.5rem;
-  border-radius: 999px;
+  padding: calc(0.15rem + 2px) 1.5rem calc(0.5rem - 2px);
+  border-radius: 4px;
   border: none;
+  background: transparent;
   cursor: pointer;
-  color: #fff6ea;
+  color: #f1ded1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   transition: filter 0.12s ease, transform 0.1s ease;
+}
+.status-switch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  filter: var(--pack-asset-filter, none);
 }
 .status-switch:hover {
   filter: brightness(1.1);
@@ -1475,17 +1493,21 @@ button {
 .status-switch:active {
   transform: scale(0.96);
 }
-.status-switch--success {
-  background: color-mix(in srgb, var(--success) 65%, black);
+.status-switch--success::before {
+  background-image: url('/decor/tag-success-green.png');
+}
+.status-switch--warning::before {
+  background-image: url('/decor/tag-warning-gold.png');
 }
 .status-switch--warning {
-  background: color-mix(in srgb, var(--warning) 65%, black);
+  color: #2b1a06;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
 }
-.status-switch--danger {
-  background: color-mix(in srgb, var(--danger) 65%, black);
+.status-switch--danger::before {
+  background-image: url('/decor/tag-danger-red.png');
 }
-.status-switch--neutral {
-  background: color-mix(in srgb, var(--text-muted) 55%, black);
+.status-switch--neutral::before {
+  background-image: url('/decor/tag-leader-ice.png');
 }
 .status-switch__track {
   position: relative;

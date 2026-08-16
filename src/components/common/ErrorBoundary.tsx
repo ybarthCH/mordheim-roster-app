@@ -18,7 +18,7 @@ function ErrorFallback({ onRetourAccueil }: { onRetourAccueil: () => void }) {
           <p className="text-sm">{t('errorBoundary.safetyNote')}</p>
           <button
             type="button"
-            className="btn btn--primary"
+            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
             onClick={onRetourAccueil}
             style={{ marginTop: '0.8rem' }}
           >
