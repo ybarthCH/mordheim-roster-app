@@ -482,13 +482,13 @@ button {
 }
 :root[data-theme='dark'][data-palette='rouge'] .list-item--bande.list-item--with-banner {
   padding: 0;
-  /* border-image-slice de .list-item--bande inclut le mot-clé `fill`, qui
-     peint aussi la tranche centrale de l'asset (pierre/glace) par-dessus
-     tout le fond de la carte — exactement ce qui masquait l'illustration
-     ici. Sans `fill`, seule la bordure peinte des 8 tranches extérieures
-     reste dessinée ; l'intérieur retombe sur le background-image posé en
-     inline style. */
-  border-image-slice: 16%;
+  /* Pas de cadre peint autour de l'illustration : juste l'image, avec les
+     coins arrondis de .list-item pour rester cohérente avec les cartes
+     sans bannière. */
+  border-width: 1px;
+  border-image-source: none;
+  border-color: var(--border);
+  border-radius: var(--radius-lg);
 }
 .list-item--bande.list-item--with-banner .list-item__row {
   position: relative;
@@ -1169,6 +1169,20 @@ button {
   border-radius: var(--radius);
   padding: 0.5rem 0.6rem;
   font-size: 0.95rem;
+}
+
+/* Aperçu de la bannière de la bande choisie (écran de création) : image
+   brute, sans cadre décoratif — juste l'illustration, coins arrondis pour
+   suivre le langage visuel du reste de l'écran. */
+.creation-banniere {
+  margin-bottom: 0.7rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.creation-banniere img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 .field textarea {
   resize: vertical;
