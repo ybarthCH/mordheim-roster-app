@@ -3,6 +3,7 @@
   "nom": "Caravanes Marchandes (1c)",
   "grade": "1c",
   "source": "Border Town Burning (BTB) — Caravane des Marchands — La Grande Librairie de Mordheim",
+  "banniere": "bandes/caravanes_marchandes.webp",
   "regles_speciales": [
     {
       "nom": "Marchand",

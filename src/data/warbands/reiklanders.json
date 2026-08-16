@@ -3,6 +3,7 @@
   "nom": "Mercenaires Reiklanders (1a)",
   "grade": "1a",
   "source": "Livre de règles Mordheim (GW), p.68-71",
+  "banniere": "bandes/reiklanders.webp",
   "regles_speciales": [
     {
       "nom": "Chef à 12ps",

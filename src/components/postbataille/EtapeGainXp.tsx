@@ -135,8 +135,8 @@ function BlocAvanceeDue({
   if (enAttente === 0) return null;
   return (
     <div className="flex items-center gap-sm" style={{ marginTop: '0.5rem' }}>
-      <span className="badge badge--warning">{enAttente} {t('experience.pendingAdvances')}</span>
-      <button type="button" className="btn btn--sm" onClick={() => onOuvrirAvancee(membre)}>
+      <span className="badge badge--pending">{enAttente} {t('experience.pendingAdvances')}</span>
+      <button type="button" className="btn--pack-pill-sm" onClick={() => onOuvrirAvancee(membre)}>
         {t('experience.resolveAdvance')}
       </button>
     </div>

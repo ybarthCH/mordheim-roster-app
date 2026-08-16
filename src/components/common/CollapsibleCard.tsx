@@ -28,7 +28,7 @@ export function CollapsibleCard({
 
   return (
     <div className={className}>
-      <div className="flex items-center justify-between gap-sm">
+      <div className="collapsible-card__header flex items-center justify-between gap-sm">
         <h3 className="mb-0">{title}</h3>
         <div className="flex items-center gap-sm">
           {actions}

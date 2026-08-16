@@ -34,7 +34,7 @@ export function JetOrButton({ label, onValider, boutonLabel }: Props) {
       <input type="number" min={0} style={{ width: '5rem' }} value={jet} onChange={(e) => setJet(e.target.value)} />
       <button
         type="button"
-        className="btn btn--sm btn--primary"
+        className="btn--pack-pill-sm btn--pack-pill-sm--primary"
         disabled={!valide}
         onClick={() => {
           onValider(valeur);

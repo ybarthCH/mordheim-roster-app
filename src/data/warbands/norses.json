@@ -3,6 +3,7 @@
   "nom": "Norses (1b)",
   "grade": "1b",
   "source": "Town Cryer #13, v1.1b — La Grande Librairie de Mordheim",
+  "banniere": "bandes/norses.webp",
   "regles_speciales": [
     { "nom": "Marins", "texte": "Les Norses sont d'excellents navigateurs. Tous gagnent +2 en Force lorsqu'ils rament (règle du scénario The Script of Sigmar, Town Cryer #9 ; à défaut, appliquer ce bonus au Mouvement du bateau)." }
   ],

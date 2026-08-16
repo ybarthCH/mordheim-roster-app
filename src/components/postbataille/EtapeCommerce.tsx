@@ -194,7 +194,7 @@ export function EtapeCommerce({
                   {hero.horsDeCombat && <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }}>{t('commerce.outOfAction')}</span>}
                 </div>
                 {draft && (
-                  <button className="btn btn--sm" onClick={() => onChanger(id, null)}>
+                  <button className="btn--pack-pill-sm" onClick={() => onChanger(id, null)}>
                     {t('commerce.modify')}
                   </button>
                 )}
@@ -202,11 +202,11 @@ export function EtapeCommerce({
 
               {!draft && (
                 <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.6rem' }}>
-                  <button className="btn btn--sm" onClick={() => onChanger(id, { action: 'aucune', statut: 'termine' })}>
+                  <button className="btn--pack-pill-sm" onClick={() => onChanger(id, { action: 'aucune', statut: 'termine' })}>
                     {t('commerce.skip')}
                   </button>
                   <button
-                    className="btn btn--primary btn--sm"
+                    className="btn--pack-pill-sm btn--pack-pill-sm--primary"
                     disabled={hero.horsDeCombat}
                     onClick={() => setRechercheHeroId(id)}
                   >
@@ -214,7 +214,7 @@ export function EtapeCommerce({
                   </button>
                   {dramatisPersonaeActif && (
                     <button
-                      className="btn btn--sm"
+                      className="btn--pack-pill-sm"
                       disabled={hero.horsDeCombat || dpDisponibles.length === 0}
                       onClick={() => setRechercheDPHeroId(id)}
                     >
@@ -223,7 +223,7 @@ export function EtapeCommerce({
                   )}
                   {docteurActif && (
                     <button
-                      className="btn btn--sm"
+                      className="btn--pack-pill-sm"
                       disabled={effetsSoignables.length === 0 || tresorerieDisponible < COUT_DOCTEUR}
                       onClick={() => ouvrirDocteur(hero)}
                     >
@@ -262,7 +262,7 @@ export function EtapeCommerce({
               {draft?.action === 'docteur' && draft.statut === 'paye' && (
                 <div style={{ marginTop: '0.5rem' }}>
                   <p className="text-sm text-warning mb-0">{t('commerce.consultationPaid')}</p>
-                  <button className="btn btn--primary btn--sm" style={{ marginTop: '0.4rem' }} onClick={() => ouvrirDocteur(hero)}>
+                  <button className="btn--pack-pill-sm btn--pack-pill-sm--primary" style={{ marginTop: '0.4rem' }} onClick={() => ouvrirDocteur(hero)}>
                     {t('commerce.resumeConsultation')}
                   </button>
                 </div>
@@ -286,22 +286,6 @@ export function EtapeCommerce({
             </div>
           );
         })}
-        {heros.some((hero) => !drafts[hero.membre.instance_id]) && (
-          <button
-            type="button"
-            className="btn btn--sm"
-            style={{ marginTop: '0.3rem' }}
-            onClick={() => {
-              heros.forEach((hero) => {
-                if (!drafts[hero.membre.instance_id]) {
-                  onChanger(hero.membre.instance_id, { action: 'aucune', statut: 'termine' });
-                }
-              });
-            }}
-          >
-            {t('commerce.skipAll')}
-          </button>
-        )}
       </div>
 
       {herosRecherche && (

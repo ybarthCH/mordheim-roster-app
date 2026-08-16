@@ -2,7 +2,7 @@ import { Fragment, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
-import type { IconName } from '../common/Icon';
+import type { IconName, PackIconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import type { Profile } from '../../types/catalog';
 import { avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
@@ -28,8 +28,8 @@ const STATUT_COULEUR: Record<string, string> = {
   blesse: 'neutral',
 };
 
-const STATUT_ICONE: Partial<Record<string, IconName>> = {
-  actif: 'coche',
+const STATUT_ICONE: Partial<Record<string, IconName | PackIconName>> = {
+  actif: 'cochePack',
   hors_de_combat: 'ossements',
   mort: 'crane',
   blesse: 'goutte',
@@ -37,7 +37,7 @@ const STATUT_ICONE: Partial<Record<string, IconName>> = {
 
 type MemberGroupCardProps = {
   titre: string;
-  icone: IconName;
+  icone: IconName | PackIconName;
   preferenceKey: string;
   membres: Member[];
   roster: RosterInstance;
@@ -215,12 +215,12 @@ export function MemberGroupCard({
                     <td>
                       {nomAffiche(m)}
                       {leader && (
-                        <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
-                          <Icon name="etoile" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
+                        <span className="badge badge--leader" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
+                          {t('memberGroup.leader')}
                         </span>
                       )}
                       {avanceEnAttente && (
-                        <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
+                        <span className="badge badge--pending" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
                           {t('memberGroup.pendingAdvance')}
                         </span>
                       )}
@@ -293,7 +293,7 @@ export function MemberGroupCard({
                       )}
                       {inventaireGroupeMismatch(m) && (
                         <span
-                          className="badge badge--danger"
+                          className="badge badge--equipment-warning"
                           style={{ marginLeft: '0.3rem' }}
                           title={t('memberGroup.equipmentMismatchTitle')}
                         >
@@ -316,7 +316,7 @@ export function MemberGroupCard({
                           }}
                           title={t('memberGroup.removeTitle')}
                         >
-                          ✕
+                          <Icon name="croixPack" />
                         </button>
                       </div>
                     </td>
@@ -361,14 +361,16 @@ export function MemberGroupCard({
               <div className="list-item__row">
                 <div className="list-item__main">
                   <div className="list-item__title">
-                    {nomAffiche(m)}
+                    <span className="list-item__title-name" title={nomAffiche(m)}>
+                      {nomAffiche(m)}
+                    </span>
                     {leader && (
-                      <span className="badge badge--info" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
-                        <Icon name="etoile" style={{ marginRight: '0.3em' }} /> {t('memberGroup.leader')}
+                      <span className="badge badge--leader" title={t('memberGroup.leaderTitle')}>
+                        {t('memberGroup.leader')}
                       </span>
                     )}
                     {avanceEnAttente && (
-                      <span className="badge badge--warning" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.pendingAdvance')}>
+                      <span className="badge badge--pending" title={t('memberGroup.pendingAdvance')}>
                         {t('memberGroup.pendingAdvance')}
                       </span>
                     )}
@@ -426,7 +428,7 @@ export function MemberGroupCard({
                   }}
                   title={t('memberGroup.removeTitle')}
                 >
-                  ✕
+                  <Icon name="croixPack" />
                 </button>
               </div>
               <div className="list-item__details">
@@ -451,7 +453,7 @@ export function MemberGroupCard({
                 {blessures && <div className="text-sm text-danger">{blessures}</div>}
                 {inventaireGroupeMismatch(m) && (
                   <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.15rem' }}>
-                    <span className="badge badge--danger" title={t('memberGroup.equipmentMismatchTitle')}>
+                    <span className="badge badge--equipment-warning" title={t('memberGroup.equipmentMismatchTitle')}>
                       ⚠ {t('memberGroup.equipmentMismatchBadge')}
                     </span>
                   </div>

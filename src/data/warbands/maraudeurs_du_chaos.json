@@ -3,6 +3,7 @@
   "nom": "Maraudeurs du Chaos (1c)",
   "grade": "1c",
   "source": "Border Town Burning (BTB) — La Grande Librairie de Mordheim",
+  "banniere": "bandes/maraudeurs_du_chaos.webp",
   "regles_speciales": [
     {
       "nom": "Œil des Dieux Sombres",

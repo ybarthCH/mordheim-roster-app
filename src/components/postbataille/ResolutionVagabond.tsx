@@ -73,7 +73,7 @@ export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr
       <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
         <button
           type="button"
-          className="btn btn--sm"
+          className="btn--pack-pill-sm"
           disabled={catalogue.id !== 'skaven'}
           title={catalogue.id !== 'skaven' ? t('postBataille.vagrant.reservedFor', { faction: 'Skavens' }) : undefined}
         >
@@ -81,7 +81,7 @@ export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr
         </button>
         <button
           type="button"
-          className="btn btn--sm"
+          className="btn--pack-pill-sm"
           disabled={catalogue.id !== 'cult_of_the_possessed' || !chef}
           title={catalogue.id !== 'cult_of_the_possessed' ? t('postBataille.vagrant.reservedFor', { faction: 'Possédés' }) : undefined}
           onClick={sacrifierPourXp}
@@ -90,7 +90,7 @@ export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr
         </button>
         <button
           type="button"
-          className="btn btn--sm"
+          className="btn--pack-pill-sm"
           disabled={(catalogue.id !== 'undead' && catalogue.id !== 'morts_sans_repos') || !zombieProfil}
           title={
             catalogue.id !== 'undead' && catalogue.id !== 'morts_sans_repos'
@@ -103,7 +103,7 @@ export function ResolutionVagabond({ roster, catalogue, onMajRoster, onAjouterOr
         </button>
         <button
           type="button"
-          className="btn btn--sm"
+          className="btn--pack-pill-sm"
           disabled={['skaven', 'cult_of_the_possessed', 'undead', 'morts_sans_repos'].includes(catalogue.id)}
           title={
             ['skaven', 'cult_of_the_possessed', 'undead', 'morts_sans_repos'].includes(catalogue.id)

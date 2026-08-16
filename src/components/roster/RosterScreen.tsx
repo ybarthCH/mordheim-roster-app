@@ -247,46 +247,38 @@ export function RosterScreen({
     });
   };
 
+  const menuItems = [
+    ...(canToggleSplitView
+      ? [
+          {
+            key: 'split-view',
+            icon: 'volets' as const,
+            label: splitView ? t('roster.splitViewOff') : t('roster.splitViewOn'),
+            onClick: () => onToggleSplitView?.(),
+            active: splitView,
+          },
+        ]
+      : []),
+    {
+      key: 'export-json',
+      icon: 'documentJson' as const,
+      label: t('roster.exportJsonMenu'),
+      // Passe par le partage natif (Drive, mail, Dropbox...) quand
+      // disponible sur l'appareil — sinon export JSON classique (voir
+      // partager() ci-dessus, qui se rabat déjà sur exporterRoster en cas
+      // d'échec).
+      onClick: () => (partageDisponible() ? partager() : exporterRoster(roster)),
+    },
+    {
+      key: 'export-pdf',
+      icon: 'documentPdf' as const,
+      label: t('roster.exportPdfMenu'),
+      onClick: () => import('../../utils/pdfExport').then((m) => m.exporterRosterPDF(roster, rules)),
+    },
+  ];
+
   return (
-    <Screen
-      title={roster.nom_bande}
-      back="/"
-      actions={
-        <div className="flex gap-sm">
-          {canToggleSplitView && (
-            <button
-              className={`icon-btn${splitView ? ' icon-btn--actif' : ''}`}
-              onClick={onToggleSplitView}
-              aria-pressed={splitView}
-              title={splitView ? t('roster.splitViewOffTitle') : t('roster.splitViewOnTitle')}
-            >
-              <Icon name="volets" />
-            </button>
-          )}
-          {partageDisponible() && (
-            <button className="icon-btn" onClick={partager} title={t('roster.shareTitle')} aria-label={t('roster.shareTitle')}>
-              <Icon name="partager" />
-            </button>
-          )}
-          <button
-            className="icon-btn"
-            onClick={() => exporterRoster(roster)}
-            title={t('roster.exportJsonTitle')}
-            aria-label={t('roster.exportJsonTitle')}
-          >
-            <Icon name="documentJson" />
-          </button>
-          <button
-            className="icon-btn"
-            onClick={() => import('../../utils/pdfExport').then((m) => m.exporterRosterPDF(roster, rules))}
-            title={t('roster.exportPdfTitle')}
-            aria-label={t('roster.exportPdfTitle')}
-          >
-            <Icon name="documentPdf" />
-          </button>
-        </div>
-      }
-    >
+    <Screen title={roster.nom_bande} back="/" menuItems={menuItems}>
       {effectifDepasse && (
         <div className="banner-danger">
           <span className="banner-danger__icon" aria-hidden="true">
@@ -299,11 +291,14 @@ export function RosterScreen({
       )}
 
       {besoinChoixLeader && (
-        <div className="banner-danger">
-          <span className="banner-danger__icon" aria-hidden="true">
-            <Icon name="couronne" />
+        <div className="banner-danger banner-danger--leader">
+          <span className="banner-danger__label">
+            <span className="banner-danger__icon" aria-hidden="true">
+              <Icon name="couronnePack" />
+            </span>
+            <span className="banner-danger__full">{t('roster.noLeader')}</span>
+            <span className="banner-danger__short">{t('roster.noLeaderShort')}</span>
           </span>
-          <span style={{ flex: 1 }}>{t('roster.noLeader')}</span>
           <button className="btn btn--sm" onClick={() => setModalLeader(true)}>
             {t('roster.chooseLeader')}
           </button>
@@ -407,7 +402,7 @@ export function RosterScreen({
           preferenceKey="ui.roster.regles_speciales.ouvert"
           title={
             <>
-              <Icon name="parchemin" style={{ marginRight: '0.35em' }} />
+              <Icon name="grimoirePack" style={{ marginRight: '0.35em' }} />
               {t('roster.specialRules')}
             </>
           }
@@ -443,7 +438,7 @@ export function RosterScreen({
 
       <MemberGroupCard
         titre={t('roster.heroes')}
-        icone="etoile"
+        icone="etoilePack"
         preferenceKey="ui.roster.groupe_heros.ouvert"
         membres={heros}
         roster={roster}
@@ -455,7 +450,7 @@ export function RosterScreen({
       />
       <MemberGroupCard
         titre={t('roster.henchmen')}
-        icone="bouclier"
+        icone="drapeauxPack"
         preferenceKey="ui.roster.groupe_hommes_de_main.ouvert"
         membres={hommesDeMain}
         roster={roster}
@@ -495,7 +490,7 @@ export function RosterScreen({
       {defunts.length > 0 && (
         <MemberGroupCard
           titre={t('roster.graveyard')}
-          icone="crane"
+          icone="cranePack"
           preferenceKey="ui.roster.groupe_cimetiere.ouvert"
           membres={defunts}
           roster={roster}

@@ -188,7 +188,7 @@ export function RechercheObjetRareModal({
               <div className="achat-equipement__header-ligne">
                 <h3 className="mt-0 mb-0">{t('rareModal.title', { nom: membre.nom_perso })}</h3>
                 <button className="btn btn--sm" aria-label={t('rareModal.close')} onClick={onClose}>
-                  ✕
+                  <Icon name="croixPack" />
                 </button>
               </div>
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.25rem' }}>
@@ -259,11 +259,11 @@ export function RechercheObjetRareModal({
           <>
             <header className="achat-equipement__header achat-equipement__header--selection">
               <div className="achat-equipement__header-ligne">
-                <button className="btn btn--sm" onClick={() => setItemId('')}>
+                <button className="btn--pack-pill-sm" onClick={() => setItemId('')}>
                   {t('rareModal.backToCatalogue')}
                 </button>
                 <button className="btn btn--sm" aria-label={t('rareModal.close')} onClick={onClose}>
-                  ✕
+                  <Icon name="croixPack" />
                 </button>
               </div>
               <div className="achat-equipement__selection-titre">
@@ -279,10 +279,10 @@ export function RechercheObjetRareModal({
 
               {!succesDeclare && (
                 <div className="flex gap-sm" style={{ marginTop: '0.4rem' }}>
-                  <button type="button" className="btn btn--primary" onClick={declarerSucces}>
+                  <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" onClick={declarerSucces}>
                     {t('rareModal.success')}
                   </button>
-                  <button type="button" className="btn" onClick={enregistrerEchec}>
+                  <button type="button" className="btn--pack-pill-sm" onClick={enregistrerEchec}>
                     {t('rareModal.failure')}
                   </button>
                 </div>
@@ -325,7 +325,7 @@ export function RechercheObjetRareModal({
                     <span className="list-item__title">
                       {baseMateriauChoisie.nom} ({materiauSelectionne.nom.replace(/^Arme en |^Armure en /, '')})
                     </span>
-                    <button className="btn btn--sm" onClick={() => setBaseMateriauId('')}>
+                    <button className="btn--pack-pill-sm" onClick={() => setBaseMateriauId('')}>
                       {t('achatEquipement.chooseOtherBase')}
                     </button>
                   </div>
@@ -391,14 +391,14 @@ export function RechercheObjetRareModal({
             </div>
 
             <footer className="achat-equipement__actions">
-              <button className="btn" onClick={onClose}>{t('rareModal.cancel')}</button>
+              <button className="btn--pack-pill-sm" onClick={onClose}>{t('rareModal.cancel')}</button>
               {succesDeclare && (
                 <>
-                  <button className="btn" onClick={neePasAcheter}>
+                  <button className="btn--pack-pill-sm" onClick={neePasAcheter}>
                     {t('rareModal.dontBuy')}
                   </button>
                   <button
-                    className="btn btn--primary"
+                    className="btn--pack-pill-sm btn--pack-pill-sm--primary"
                     disabled={!coutFinalValide || coutFinal > tresorerieDisponible || trinketBloque}
                     onClick={acheter}
                   >

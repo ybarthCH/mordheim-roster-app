@@ -4,12 +4,25 @@ import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { Icon } from '../common/Icon';
+import { getCatalogue } from '../../data/warbands';
 import { bilanBatailles, effectifTotal, nomCatalogue } from '../../utils/bandeValue';
 import { ratingAffiche } from '../../utils/displayedRating';
 import { exporterRoster, lireFichierRoster } from '../../utils/importExport';
+import { useCardDragReorder } from '../../utils/useCardDragReorder';
 import type { RosterInstance } from '../../types/roster';
 import { useLanguage } from '../../state/useLanguage';
 import { useGameRules } from '../../state/useGameRules';
+import { useMediaQuery } from '../../state/useMediaQuery';
+
+// Sur écran tactile, le glisser-déposer engagé n'importe où sur la carte
+// entrait en conflit avec le scroll de la page (le doigt qui bouge fait à la
+// fois défiler et glisser) — pénible à l'usage. `pointer: coarse` cible les
+// écrans tactiles indépendamment de la largeur de fenêtre (contrairement aux
+// media queries de largeur utilisées ailleurs dans ce fichier), ce qui est
+// le bon signal ici : c'est le type de pointeur, pas la taille d'écran, qui
+// cause le conflit. En dessous, le glisser ne s'engage plus que depuis une
+// poignée dédiée (voir onHandlePointerDown), qui a touch-action: none.
+const TACTILE_QUERY = '(pointer: coarse)';
 
 // Code horaire compact (ex : "1847 CEST") sur le fuseau Europe/Paris —
 // affiché à côté du hash de build pour repérer d'un coup d'œil un service
@@ -37,13 +50,16 @@ function heureBuildCET(isoDate: string): string {
 }
 
 export function ListeBandesScreen() {
-  const { rosters, loading, removeRoster, duplicateRoster, importRoster } = useRosters();
+  const { rosters, loading, removeRoster, duplicateRoster, importRoster, reorderRosters } = useRosters();
   const navigate = useNavigate();
   const { language, t } = useLanguage();
   const { rules } = useGameRules();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [aSupprimer, setASupprimer] = useState<RosterInstance | null>(null);
   const [erreurImport, setErreurImport] = useState<string | null>(null);
+  const { elements, refItem, onPointerDown, onHandlePointerDown, onCardClick, idEnCours, pointerPos } =
+    useCardDragReorder(rosters, reorderRosters);
+  const tactile = useMediaQuery(TACTILE_QUERY);
 
   const winLabel = language === 'en' ? 'W' : 'V';
   const lossLabel = language === 'en' ? 'L' : 'D';
@@ -65,16 +81,17 @@ export function ListeBandesScreen() {
   return (
     <Screen title={t('home.title')}>
       <div className="home-hero">
-        <h1 className="home-hero__title">Musterheim</h1>
+        <div className="home-hero__banner">
+          <img src={`${import.meta.env.BASE_URL}decor/home-hero-banner.webp`} alt="Musterheim" className="home-hero__banner-img" />
+        </div>
         <div className="home-hero__rule" />
-        <p className="home-hero__subtitle">{t('home.subtitle')}</p>
       </div>
 
-      <div className="top-actions">
-        <button className="btn btn--primary" onClick={() => navigate('/creer')}>
+      <div className="roster-actions">
+        <button className="btn btn--primary roster-actions__btn" onClick={() => navigate('/creer')}>
           {t('home.newBand')}
         </button>
-        <button className="btn" onClick={() => fileInputRef.current?.click()}>
+        <button className="btn roster-actions__btn" onClick={() => fileInputRef.current?.click()}>
           {t('home.importJson')}
         </button>
         <input
@@ -110,37 +127,74 @@ export function ListeBandesScreen() {
         </div>
       )}
 
-      {rosters.map((roster) => {
+      {elements.map((roster) => {
         const bilan = bilanBatailles(roster);
+        const banniere = getCatalogue(roster.bande_id)?.banniere;
         return (
-          <div key={roster.id} className="list-item" role="button" onClick={() => navigate(`/roster/${roster.id}`)}>
-            <div className="list-item__main">
-              <div className="list-item__title">{roster.nom_bande}</div>
-              <div className="list-item__subtitle">
-                {nomCatalogue(roster.bande_id, language)} · {effectifTotal(roster)} {t('home.members')} ·{' '}
-                {rules.valeurPuissanceActivee ? t('rosterSummary.powerValue') : t('rosterSummary.rating')}{' '}
-                {ratingAffiche(roster, rules)}
+          <div
+            key={roster.id}
+            ref={refItem(roster.id)}
+            className={`list-item list-item--bande${banniere ? ' list-item--with-banner' : ''}${idEnCours === roster.id ? ' list-item--fantome' : ''}${tactile ? ' list-item--tactile' : ''}`}
+            role="button"
+            onPointerDown={tactile ? undefined : onPointerDown(roster.id)}
+            onClick={onCardClick(() => navigate(`/roster/${roster.id}`))}
+            style={banniere ? { backgroundImage: `url(${import.meta.env.BASE_URL}${banniere})` } : undefined}
+          >
+            {tactile && (
+              <span
+                className="list-item--bande__poignee"
+                onPointerDown={onHandlePointerDown(roster.id)}
+                onClick={(e) => e.stopPropagation()}
+                title={t('home.dragHandle')}
+              >
+                <Icon name="poigneeCartePack" size="1.5rem" />
+              </span>
+            )}
+            <div className="list-item__row">
+              <div className="list-item__main">
+                <div className="list-item__title">{roster.nom_bande}</div>
+                <div className="list-item__subtitle">{nomCatalogue(roster.bande_id, language)}</div>
+                <div className="list-item__subtitle">
+                  {effectifTotal(roster)} {t('home.members')}
+                </div>
+                <div className="list-item__subtitle">
+                  {rules.valeurPuissanceActivee ? t('rosterSummary.powerValue') : t('rosterSummary.rating')}{' '}
+                  {ratingAffiche(roster, rules)}
+                </div>
+                <div className="list-item__subtitle">
+                  {bilan.total > 0
+                    ? `${bilan.victoires}${winLabel} / ${bilan.defaites}${lossLabel} / ${bilan.nuls}${drawLabel}`
+                    : t('home.noBattles')}
+                </div>
               </div>
-              <div className="list-item__subtitle">
-                {bilan.total > 0
-                  ? `${bilan.victoires}${winLabel} / ${bilan.defaites}${lossLabel} / ${bilan.nuls}${drawLabel}`
-                  : t('home.noBattles')}
+              <div className="list-item__actions" onClick={(e) => e.stopPropagation()}>
+                <button className="btn--pack-pill-sm" onClick={() => exporterRoster(roster)}>
+                  {t('home.export')}
+                </button>
+                <button className="btn--pack-pill-sm" onClick={() => duplicateRoster(roster.id)}>
+                  {t('home.duplicate')}
+                </button>
+                <button className="btn--ghost-danger" onClick={() => setASupprimer(roster)} title={t('home.deleteShort')}>
+                  <Icon name="croixPack" />
+                </button>
               </div>
-            </div>
-            <div className="flex flex-col gap-sm" onClick={(e) => e.stopPropagation()}>
-              <button className="btn btn--sm" onClick={() => exporterRoster(roster)}>
-                {t('home.export')}
-              </button>
-              <button className="btn btn--sm" onClick={() => duplicateRoster(roster.id)}>
-                {t('home.duplicate')}
-              </button>
-              <button className="btn btn--sm btn--danger" onClick={() => setASupprimer(roster)}>
-                {t('home.deleteShort')}
-              </button>
             </div>
           </div>
         );
       })}
+
+      {idEnCours &&
+        pointerPos &&
+        (() => {
+          const glissee = elements.find((r) => r.id === idEnCours);
+          if (!glissee) return null;
+          return (
+            <div className="drag-ghost" style={{ left: pointerPos.x, top: pointerPos.y }}>
+              <span className="drag-ghost__nom">{glissee.nom_bande}</span>
+              <span className="drag-ghost__profil"> · {nomCatalogue(glissee.bande_id, language)}</span>
+            </div>
+          );
+        })()}
 
       {aSupprimer && (
         <Modal onClose={() => setASupprimer(null)}>

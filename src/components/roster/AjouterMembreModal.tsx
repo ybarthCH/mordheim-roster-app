@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Icon } from '../common/Icon';
 import type { RosterInstance } from '../../types/roster';
 import { getCatalogue } from '../../data/warbands';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
@@ -184,6 +185,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
         <>
           {profil.rarete && (
             <p className="text-sm text-danger">
+              <Icon name="cadenasPack" style={{ marginRight: '0.3em' }} />
               Rare {profil.rarete} : {t('creation.modal.rareWarning')}
             </p>
           )}
@@ -231,7 +233,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                 {t('creation.modal.charNameLabel')}
                 {estGroupable && quantite > 1 ? t('creation.modal.charNameGroupSuffix') : ''}
               </label>
-              <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} placeholder={profil.nom} />
+              <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} placeholder={profil.nom} maxLength={20} />
             </div>
           )}
           {marqueRequise && !groupeCible && (

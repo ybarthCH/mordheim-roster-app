@@ -83,6 +83,10 @@ export function RostersProvider({ children }: { children: ReactNode }) {
         leader_instance_id: original.leader_instance_id
           ? idsRemappes.get(original.leader_instance_id)
           : undefined,
+        // Pas d'ordre hérité de l'original : la copie retombe dans le repli
+        // alphabétique de listRosters() plutôt que de partager exactement
+        // la même position glissée-déposée que la bande source.
+        ordre: undefined,
         createdAt: now,
         updatedAt: now,
       };
@@ -93,10 +97,38 @@ export function RostersProvider({ children }: { children: ReactNode }) {
     [rosters]
   );
 
+  // Attribue un ordre séquentiel (0, 1, 2...) selon la position dans le
+  // tableau reçu, et ne persiste que les bandes dont l'ordre a réellement
+  // changé — évite une écriture IndexedDB inutile pour chaque bande à
+  // chaque glisser-déposer, y compris ceux qui n'ont rien déplacé (relâché
+  // au même endroit).
+  const reorderRosters = useCallback(async (nouvelOrdre: RosterInstance[]) => {
+    const now = new Date().toISOString();
+    const misesAJour: RosterInstance[] = [];
+    const parId = new Map(nouvelOrdre.map((r, i) => [r.id, i]));
+    for (const roster of nouvelOrdre) {
+      const ordre = parId.get(roster.id);
+      if (ordre !== undefined && roster.ordre !== ordre) {
+        misesAJour.push({ ...roster, ordre, updatedAt: now });
+      }
+    }
+    if (misesAJour.length === 0) return;
+    await Promise.all(misesAJour.map((r) => saveRoster(r)));
+    setRosters((prev) => {
+      const parIdMaj = new Map(misesAJour.map((r) => [r.id, r]));
+      return prev
+        .map((r) => parIdMaj.get(r.id) ?? r)
+        .sort((a, b) => (a.ordre ?? Number.MAX_SAFE_INTEGER) - (b.ordre ?? Number.MAX_SAFE_INTEGER));
+    });
+  }, []);
+
   const importRoster = useCallback(async (roster: RosterInstance) => {
     const imported: RosterInstance = {
       ...normaliserRoster(roster),
       id: uuidv4(),
+      // Un ordre venu d'un fichier exporté par une autre instance n'a aucun
+      // sens ici — repli alphabétique, comme pour une bande dupliquée.
+      ordre: undefined,
       updatedAt: new Date().toISOString(),
     };
     await saveRoster(imported);
@@ -115,8 +147,20 @@ export function RostersProvider({ children }: { children: ReactNode }) {
       removeRoster,
       duplicateRoster,
       importRoster,
+      reorderRosters,
     }),
-    [rosters, loading, refresh, getRosterById, updateRoster, addRoster, removeRoster, duplicateRoster, importRoster]
+    [
+      rosters,
+      loading,
+      refresh,
+      getRosterById,
+      updateRoster,
+      addRoster,
+      removeRoster,
+      duplicateRoster,
+      importRoster,
+      reorderRosters,
+    ]
   );
 
   return <RostersContext.Provider value={value}>{children}</RostersContext.Provider>;

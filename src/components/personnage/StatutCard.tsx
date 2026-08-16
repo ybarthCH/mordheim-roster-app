@@ -131,13 +131,15 @@ export function StatutCard({
         </div>
       )}
       <div className="flex justify-between items-center gap-md">
-        <Avatar
-          nom={membre.nom_perso}
-          photo={membre.photo}
-          size={56}
-          onClick={() => setGestionPhotoOuverte(true)}
-          title={t('avatar.viewTitle', { nom: membre.nom_perso })}
-        />
+        <span className="avatar-frame">
+          <Avatar
+            nom={membre.nom_perso}
+            photo={membre.photo}
+            size={50}
+            onClick={() => setGestionPhotoOuverte(true)}
+            title={t('avatar.viewTitle', { nom: membre.nom_perso })}
+          />
+        </span>
         <div style={{ flex: 1, minWidth: 0, paddingRight: estMort ? '4.2rem' : undefined }}>
           <input
             value={nomSaisi}
@@ -290,11 +292,9 @@ export function StatutCard({
         <Modal onClose={() => setGestionPhotoOuverte(false)}>
           <h3>{t('photoModal.title')}</h3>
           {membre.photo ? (
-            <img
-              src={membre.photo}
-              alt=""
-              style={{ display: 'block', width: 200, height: 200, borderRadius: '22%', margin: '0 auto', objectFit: 'cover' }}
-            />
+            <span className="photo-frame-large">
+              <img src={membre.photo} alt="" className="photo-frame-large__img" />
+            </span>
           ) : (
             <p className="text-sm text-muted">{t('photoModal.emptyHint')}</p>
           )}

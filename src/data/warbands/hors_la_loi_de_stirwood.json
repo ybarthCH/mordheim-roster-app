@@ -3,6 +3,7 @@
   "nom": "Hors-la-loi de la Forêt de Stirwood (1b)",
   "grade": "1b",
   "source": "Fanatic Online Mag — La Grande Librairie de Mordheim",
+  "banniere": "bandes/hors_la_loi_de_stirwood.webp",
   "regles_speciales": [
     { "nom": "Archers", "texte": "Tous les guerriers d'une bande de Hors-la-loi de la Forêt de Stirwood doivent obligatoirement être équipés d'un arc. Cependant, il leur est impossible de porter ou d'utiliser toute autre arme de tir. Donc, même si un Hors-la-loi acquiert des compétences qui lui permettent d'utiliser des armes de tir supplémentaires, il ne peut pas les utiliser. La seule exception à cette règle est le Moine qui peut choisir de porter un arc, mais n'est pas obligé de le faire." },
     { "nom": "Francs-tireurs", "texte": "Les francs-tireurs suivants ne sont pas disponibles aux Hors-la-loi : Chasseurs de primes, Prêtres-loups d'Ulric, Chamans norses et les Assassins elfes noirs." }

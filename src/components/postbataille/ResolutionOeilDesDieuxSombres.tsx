@@ -117,12 +117,12 @@ export function ResolutionOeilDesDieuxSombres({
         <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
           <button
             type="button"
-            className="btn btn--sm btn--primary"
+            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
             onClick={resultat === 'defaite' ? appliquerDefaite : () => setSuccesDeclare(true)}
           >
             {t('postBataille.success')}
           </button>
-          <button type="button" className="btn btn--sm" onClick={enregistrerEchec}>
+          <button type="button" className="btn--pack-pill-sm" onClick={enregistrerEchec}>
             {t('postBataille.failure')}
           </button>
         </div>
@@ -141,7 +141,7 @@ export function ResolutionOeilDesDieuxSombres({
               ))}
             </select>
           </div>
-          <button type="button" className="btn btn--sm btn--primary" disabled={!marqueChoisie} onClick={appliquerVictoire}>
+          <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" disabled={!marqueChoisie} onClick={appliquerVictoire}>
             {t('postBataille.eyeOfDarkGods.assignMark')}
           </button>
         </div>

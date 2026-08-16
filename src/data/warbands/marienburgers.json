@@ -3,6 +3,7 @@
   "nom": "Mercenaires Marienburgers (1a)",
   "grade": "1a",
   "source": "Livre de règles Mordheim (GW), p.68-71",
+  "banniere": "bandes/marienburgers.webp",
   "regles_speciales": [
     {
       "nom": "Bonus Rare +1",

@@ -146,7 +146,7 @@ export function EvenementExploration({
           <button
             key={p.id}
             type="button"
-            className={`btn btn--sm ${palierId === p.id ? 'btn--primary' : ''}`}
+            className={`btn--pack-pill-sm ${palierId === p.id ? 'btn--pack-pill-sm--primary' : ''}`}
             onClick={() => changerPalier(palierId === p.id ? '' : p.id)}
           >
             {t(`evenement.tier.${p.id}`)}
@@ -242,7 +242,7 @@ export function EvenementExploration({
           )}
 
           {evenement.artefactMagique && (
-            <button className="btn btn--sm" style={{ marginTop: '0.5rem' }} onClick={onOuvrirArtefacts}>
+            <button className="btn--pack-pill-sm" style={{ marginTop: '0.5rem' }} onClick={onOuvrirArtefacts}>
               {t('postBataille.openMagicArtefactsTable')}
             </button>
           )}

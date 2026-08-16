@@ -3,6 +3,7 @@
   "nom": "Guerriers Fantômes (1b)",
   "grade": "1b",
   "source": "Town Cryer — La Grande Librairie de Mordheim",
+  "banniere": "bandes/guerriers_fantomes.webp",
   "regles_speciales": [
     { "nom": "Aversion pour le Poison", "texte": "L'usage des poisons et autres drogues est une spécialité des elfes noirs. Les Guerriers Fantômes en désapprouvent l'usage, plus encore que les hauts elfes. Les membres d'une bande de Guerriers Fantômes n'utilisent jamais aucun type de poison." },
     { "nom": "Impitoyables", "texte": "En plus de leur haine envers leurs cousins corrompus, le peuple de Nagarythe combat depuis longtemps le Chaos. Dans une partie multijoueurs, une bande de Guerriers Fantômes ne peut jamais s'allier avec aucune bande de nature chaotique (Possédés, Skavens, Hommes-bêtes, Elfes noirs, etc.)." },

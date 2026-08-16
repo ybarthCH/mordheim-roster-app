@@ -77,6 +77,38 @@
   --texture-parchemin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
+:root[data-theme='dark']:not([data-palette]),
+:root[data-theme='dark'][data-palette='rouge'] {
+  --bg: #17130f;
+  --bg-elevated: #221c16;
+  --bg-card: #241d17;
+  --bg-inset: #14100c;
+  --text: #ecdfc9;
+  --text-muted: #c7b393;
+  --border: #3a2f22;
+  --accent: #c94f4f;
+  --accent-strong: #e06a6a;
+  --accent-contrast: #1a1210;
+  --accent-soft: #3a2018;
+  --success: #7fbf85;
+  --success-bg: #1c2c1d;
+  --danger: #e06a6a;
+  --danger-bg: #3a1c1c;
+  --warning: #e0b45c;
+  --warning-bg: #3a2c14;
+  --info-bg: #1c2733;
+  --palier: #d9a441;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  --status-plaque-fill: rgba(255, 255, 255, 0.06);
+}
+
+/* Thème clair : reprise du thème "Sang" clair de la branche main (avant
+   l'habillage peint du pack UI, jamais adapté à ce thème) — un simple jeu de
+   variables CSS, sans panneau/ruban/bouton peint. Les éléments du pack UI
+   (cartes, badges, boutons, bannières...) restent scopés au thème sombre
+   dans le reste de la feuille et retombent sur leur habillage plat sous ce
+   thème (voir la section "Thème clair : neutralise les décors peints" en
+   fin de fichier). */
 :root[data-theme='light']:not([data-palette]),
 :root[data-theme='light'][data-palette='rouge'] {
   --bg: #f3ece0;
@@ -100,79 +132,6 @@
   --palier: #b8860b;
   --shadow: 0 2px 8px rgba(60, 40, 10, 0.12);
   --status-plaque-fill: rgba(0, 0, 0, 0.08);
-}
-
-:root[data-theme='dark']:not([data-palette]),
-:root[data-theme='dark'][data-palette='rouge'] {
-  --bg: #17130f;
-  --bg-elevated: #221c16;
-  --bg-card: #241d17;
-  --bg-inset: #14100c;
-  --text: #ecdfc9;
-  --text-muted: #a8967d;
-  --border: #3a2f22;
-  --accent: #c94f4f;
-  --accent-strong: #e06a6a;
-  --accent-contrast: #1a1210;
-  --accent-soft: #3a2018;
-  --success: #7fbf85;
-  --success-bg: #1c2c1d;
-  --danger: #e06a6a;
-  --danger-bg: #3a1c1c;
-  --warning: #e0b45c;
-  --warning-bg: #3a2c14;
-  --info-bg: #1c2733;
-  --palier: #d9a441;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  --status-plaque-fill: rgba(255, 255, 255, 0.06);
-}
-
-:root[data-theme='light'][data-palette='noir'] {
-  --bg: #eceeef;
-  --bg-elevated: #ffffff;
-  --bg-card: #f7f8f9;
-  --bg-inset: #e2e5e7;
-  --text: #1c2023;
-  --text-muted: #5b6268;
-  --border: #cbd1d5;
-  --accent: #3a4149;
-  --accent-strong: #23282d;
-  --accent-contrast: #f5f6f7;
-  --accent-soft: #dde1e4;
-  --success: #2f6b3a;
-  --success-bg: #dcecd9;
-  --danger: #a11d1d;
-  --danger-bg: #f7dcdc;
-  --warning: #8a5a10;
-  --warning-bg: #f6e6c6;
-  --info-bg: #dde6ee;
-  --palier: #b8860b;
-  --shadow: 0 2px 8px rgba(20, 25, 30, 0.12);
-  --status-plaque-fill: rgba(0, 0, 0, 0.08);
-}
-
-:root[data-theme='dark'][data-palette='noir'] {
-  --bg: #121316;
-  --bg-elevated: #1c1e22;
-  --bg-card: #1e2024;
-  --bg-inset: #0e0f11;
-  --text: #e6e8ea;
-  --text-muted: #9aa0a6;
-  --border: #2c3034;
-  --accent: #7b8590;
-  --accent-strong: #9aa4af;
-  --accent-contrast: #101214;
-  --accent-soft: #2a2e33;
-  --success: #7fbf85;
-  --success-bg: #1c2c1d;
-  --danger: #e06a6a;
-  --danger-bg: #3a1c1c;
-  --warning: #e0b45c;
-  --warning-bg: #3a2c14;
-  --info-bg: #1c2733;
-  --palier: #d9a441;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-  --status-plaque-fill: rgba(255, 255, 255, 0.06);
 }
 
 * {
@@ -301,6 +260,13 @@ button {
   min-height: 100%;
 }
 
+/* Fond du bandeau : asset du pack (plaque acier + velours, recadrée dans sa
+   zone droite pour éviter le blason central et les embouts arrondis) mis à
+   l'échelle sur la hauteur seulement puis répété horizontalement — jamais
+   d'étirement dans le sens de la largeur, donc aucune perte de détail quelle
+   que soit la largeur réelle de l'écran (contrairement à un
+   background-size:100% 100% qui finit "lissé" façon néon sur un bandeau
+   très large). */
 .app-header {
   position: sticky;
   top: 0;
@@ -309,9 +275,13 @@ button {
   align-items: center;
   gap: 0.6rem;
   padding: calc(0.6rem + var(--safe-top)) 0.8rem 0.6rem;
-  background: var(--accent);
+  background-color: var(--accent);
+  background-image: url('/decor/header-bar-red.webp');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
   color: var(--accent-contrast);
   box-shadow: var(--shadow);
+  filter: var(--pack-asset-filter, none);
 }
 
 .app-header__title {
@@ -338,11 +308,20 @@ button {
 }
 
 .icon-btn {
+  /* flex + padding égal sur les 4 côtés (au lieu d'un padding vertical/
+     horizontal différent) : le chrome carré peint (chrome-square-*.png,
+     background-size:100% 100% ci-dessous) suppose un bouton carré — un
+     padding asymétrique étire la case en rectangle, ce qui distord le
+     cadre peint ET désaligne l'icône qu'il porte, mal centrée dans un
+     cadre lui-même mal proportionné. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.4);
   color: var(--accent-contrast);
   border-radius: var(--radius);
-  padding: 0.35rem 0.6rem;
+  padding: 0.45rem;
   font-size: 1rem;
 }
 .icon-btn:active {
@@ -355,7 +334,11 @@ button {
 
 .app-main {
   flex: 1;
-  padding: 0.8rem 0.8rem calc(1.5rem + var(--safe-bottom));
+  /* Padding horizontal légèrement plus généreux que le vertical : sans ça,
+     la scrollbar native colle quasiment aux cartes sur un viewport large
+     (Edge/Chrome desktop), le 0.8rem d'origine étant à peine plus large
+     qu'elle. */
+  padding: 0.8rem 1.2rem calc(1.5rem + var(--safe-bottom));
   max-width: 1100px;
   width: 100%;
   margin: 0 auto;
@@ -371,6 +354,7 @@ button {
 
 .card {
   position: relative;
+  container-type: inline-size;
   background-color: var(--bg-card);
   background-image: var(--texture-parchemin);
   background-blend-mode: overlay;
@@ -399,6 +383,530 @@ button {
    bande, armurerie...) qui garde son habillage de carte inchangé. */
 .personnage-sheet .card {
   border-left: 3px solid var(--accent);
+}
+
+/* Panneau de pierre du pack UI acheté, à la place du grain de parchemin
+   plat.
+
+   border-image plutôt que background-image + cover : cover recadrait le
+   filet peint tout autour dès que la carte n'avait pas exactement le
+   ratio de l'asset (le haut/bas disparaissait). border-image découpe le
+   PNG en 9 tranches (slice en %, indépendant de la résolution du fichier)
+   et n'étire que le centre — le filet des 4 bords reste toujours entier,
+   quelle que soit la taille de la carte. Le mot-clé fill demande d'aussi
+   peindre la tranche centrale (sinon border-image ne dessine que le
+   cadre et laisse le fond de .card, donc le grain de parchemin, filtrer
+   au milieu). */
+:root[data-theme='dark'][data-palette='rouge'] .card {
+  background-image: none;
+  border-style: solid;
+  border-width: 20px;
+  border-image-repeat: stretch;
+  border-image-slice: 10% fill;
+  box-shadow: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .card {
+  border-image-source: url('/decor/card-panel-stone.webp');
+}
+
+/* Le filet peint remplace maintenant le double-liseré CSS — les deux se
+   chevauchaient sinon (voir .card::before plus haut). */
+:root[data-theme='dark'][data-palette='rouge'] .card::before {
+  content: none;
+}
+/* En dessous d'une certaine largeur de carte (colonne de liste étroite en
+   split-view, mobile...), le grand panneau devient trop fin pour son
+   cadre proportionnellement épais — panel_titlebar_10, plus compact,
+   prend le relais. container-type sur .card permet à .card de réagir à
+   sa PROPRE largeur rendue (pas celle du viewport), ce qui couvre aussi
+   le cas de la colonne étroite en split-view sur grand écran. */
+@container (max-width: 340px) {
+  :root[data-theme='dark'][data-palette='rouge'] .card {
+    border-width: 14px;
+    border-image-slice: 16% fill;
+    border-image-source: url('/decor/card-panel-titlebar-stone.webp');
+  }
+  
+  
+}
+/* Carte résumé de bande (ressources) : asset panel_10 dédié, avec son
+   propre liseré lumineux — toujours affiché à taille pleine (jamais
+   remplacé par panel_titlebar_10), donc redéclaré après la règle @container
+   ci-dessus pour gagner sur la cascade (même spécificité, ordre de
+   déclaration). */
+:root[data-theme='dark'][data-palette='rouge'] .card--summary {
+  border-image-source: url('/decor/card-panel-summary-stone.webp');
+}
+
+/* Illustration bannière de la bande, écran de sélection des bandes
+   (ListeBandesScreen) : véritable fond de carte (background-image posée en
+   inline style, cf. ListeBandesScreen.tsx). Le nom + infos flottent en
+   haut à gauche de l'image, les actions en bas à droite — .list-item__row
+   occupe toute la hauteur de la carte (flex:1, comportement de base) et
+   .list-item__main / .list-item__actions sont chacun ancrés à un coin via
+   align-self.
+
+   height fixe plutôt qu'aspect-ratio : le contenu (nom + 3 lignes + bouton
+   d'action) a une hauteur naturelle quasiment CONSTANTE quelle que soit la
+   largeur de la carte (~210px, mesuré de 240px à 1350px de large — le texte
+   ne passe jamais à la ligne différemment) alors qu'aspect-ratio fait
+   grandir la hauteur PROPORTIONNELLEMENT à la largeur. Résultat sur un
+   grand écran (colonne large, pas de split-view) : la carte devenait bien
+   plus haute que nécessaire pour son contenu, et l'image se retrouvait
+   écrasée/zoomée au centre au lieu de rester une fine bannière. Une hauteur
+   fixe, choisie avec une marge confortable au-dessus de ce plancher de
+   ~210px, garde la bannière basse (comme prévu) à toutes les largeurs
+   plutôt que de gonfler sur un écran large. */
+.list-item--bande.list-item--with-banner {
+  position: relative;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+}
+/* Voile dégradé en haut de l'illustration seulement (pas plein cadre) :
+   garde le nom + infos lisibles quel que soit le contenu de l'image à cet
+   endroit, sans assombrir le reste — les boutons d'action en bas portent
+   déjà leur propre habillage opaque (pilule peinte / icône claire) et
+   n'ont pas besoin d'un fond supplémentaire. */
+.list-item--bande.list-item--with-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(to bottom, rgba(10, 7, 5, 0.78) 0%, rgba(10, 7, 5, 0.35) 22%, rgba(10, 7, 5, 0) 45%);
+  pointer-events: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .list-item--bande.list-item--with-banner {
+  padding: 0;
+  /* Pas de cadre peint autour de l'illustration : juste l'image, avec les
+     coins arrondis de .list-item pour rester cohérente avec les cartes
+     sans bannière. */
+  border-width: 1px;
+  border-image-source: none;
+  border-color: var(--border);
+  border-radius: var(--radius-lg);
+}
+.list-item--bande.list-item--with-banner .list-item__row {
+  position: relative;
+  z-index: 1;
+  padding: 0.8rem 0.9rem;
+  /* align-content (pas align-items) pilote l'écart entre les DEUX lignes
+     du flex-wrap quand les actions n'ont pas la place de rester à côté du
+     texte : la 1re ligne (nom + infos) colle au sommet, la 2e (actions)
+     descend au fond — même "coins opposés" qu'avant, mais en repli
+     seulement. Quand tout tient sur une ligne, une seule ligne existe et
+     align-content n'a aucun effet visible. */
+  align-content: space-between;
+}
+.list-item--bande.list-item--with-banner .list-item__main {
+  align-self: flex-start;
+}
+.list-item--bande.list-item--with-banner .list-item__actions {
+  /* La règle de base .list-item__actions pose flex-basis:100% (pensée pour
+     forcer les actions sur leur propre ligne pleine largeur dans une liste
+     d'objets) — ici on veut au contraire qu'elles restent à côté du texte
+     tant que la largeur le permet, donc flex-basis:auto. margin-left:auto
+     les pousse au bord droit de leur ligne, que ce soit celle du texte
+     (repli non déclenché) ou leur propre ligne repliée (repli déclenché) —
+     donc toujours "coin droit", sans media query ni container query. */
+  flex-basis: auto;
+  margin-left: auto;
+  align-self: flex-start;
+}
+.list-item--bande.list-item--with-banner .list-item__title {
+  font-family: var(--font-display);
+  color: #f5ece0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+}
+.list-item--bande.list-item--with-banner .list-item__subtitle {
+  color: #f5ece0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+}
+.list-item--bande.list-item--with-banner .btn--ghost-danger {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8));
+}
+
+/* Poignée de glisser-déposer (écran tactile uniquement, voir tactile dans
+   ListeBandesScreen) : le glisser n'est plus engageable depuis n'importe où
+   sur la carte au doigt (conflit avec le scroll de la page) — seule cette
+   icône, en haut à droite, déclenche le drag désormais. Position absolue,
+   donc .list-item--bande a besoin de position:relative même sans bannière. */
+.list-item--bande {
+  position: relative;
+}
+.list-item--bande__poignee {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  cursor: grab;
+  touch-action: none;
+  opacity: 0.7;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+}
+.list-item--bande__poignee:active {
+  opacity: 1;
+  cursor: grabbing;
+}
+/* En mode tactile, les boutons d'action passent systématiquement sur leur
+   propre ligne (repli forcé, plus seulement quand la largeur manque) pour
+   laisser le coin haut-droite entièrement libre pour la poignée — et le
+   texte principal se réserve la même marge à droite pour ne jamais passer
+   dessous. */
+.list-item--bande.list-item--tactile .list-item__actions {
+  flex-basis: 100%;
+}
+.list-item--bande.list-item--tactile .list-item__row {
+  padding-right: 2.3rem;
+}
+
+/* Cadre carré du pack UI autour de la photo de la fiche personnage —
+   dimensionné un cran plus grand que l'avatar lui-même pour que seul le
+   filet peint dépasse tout autour (le cœur de l'asset n'est pas
+   transparent, cf. avatar-frame-*.png : il faut donc que l'avatar le
+   recouvre plutôt que de se poser dessus). */
+.avatar-frame {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 68px;
+  height: 68px;
+  background-image: url('/decor/avatar-frame-red.webp');
+  background-size: 100% 100%;
+}
+
+/* Grand cadre du pack UI autour de la photo agrandie (modale "Changer la
+   photo") — contrairement à avatar-frame-*.png, le centre de cet asset
+   est bien transparent : il se pose donc directement par-dessus la photo,
+   légèrement plus grand qu'elle (inset négatif) pour que le filet peint
+   dépasse tout autour au lieu de recouvrir l'image. */
+.photo-frame-large {
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+.photo-frame-large__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 22%;
+  object-fit: cover;
+}
+:root:not([data-palette]) .photo-frame-large::after,
+:root[data-palette='rouge'] .photo-frame-large::after {
+  content: '';
+  position: absolute;
+  inset: -18px;
+  background-image: url('/decor/photo-frame-large-red.webp');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* Badges en banderole (ruban du pack) plutôt qu'en pilule plate : LEADER,
+   avancée en attente, incompatibilité d'équipement dans un groupe — les
+   trois se croisent dans la même ligne de la liste de membres, la
+   banderole se repère mieux qu'un badge pilule discret. */
+/* .badge.badge--xxx (deux classes) plutôt que .badge--xxx seul : la règle
+   .badge de base définit aussi padding/font-size/border-radius, et vient
+   textuellement après ce bloc dans la feuille de style — à spécificité
+   égale (une seule classe), c'est elle qui gagnerait sur ces propriétés.
+   Le doublage de classe fait grimper la spécificité et règle le conflit
+   sans dépendre de l'ordre des règles.
+
+   L'image du ruban vit sur un ::before plutôt qu'en background direct de
+   l'élément : un background suit le padding-box (donc le même centrage
+   que le texte, aucun moyen de les désolidariser), alors qu'un ::before
+   en inset:0 peut être étiré sur toute la boîte indépendamment du texte —
+   seul ce découplage permet de remonter le texte SANS déplacer le ruban
+   avec lui (un simple transform sur l'élément aurait déplacé les deux
+   ensemble, sans corriger leur position relative). */
+.badge.badge--leader,
+.badge.badge--pending,
+.badge.badge--equipment-warning,
+.badge.badge--rarete-danger,
+.badge.badge--rarete-warning,
+.badge.badge--rarete-info {
+  position: relative;
+  z-index: 0;
+  border-radius: 4px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  background: transparent;
+  font-size: 0.6rem;
+  /* Marge horizontale : le ruban a des extrémités effilées décoratives
+     (queues de banderole) qui ne doivent jamais toucher le texte, sinon
+     elles paraissent coupées — mais pas au point d'étirer démesurément un
+     texte court comme "LEADER". */
+  padding-top: 0.15rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.4rem;
+  padding-right: 1.4rem;
+  min-width: 4rem;
+  justify-content: center;
+}
+.badge.badge--leader::before,
+.badge.badge--pending::before,
+.badge.badge--equipment-warning::before,
+.badge.badge--rarete-danger::before,
+.badge.badge--rarete-warning::before,
+.badge.badge--rarete-info::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  filter: var(--pack-asset-filter, none);
+}
+.badge.badge--leader,
+.badge.badge--equipment-warning,
+.badge.badge--rarete-danger,
+.badge.badge--rarete-info {
+  color: #f1ded1;
+}
+:root:not([data-palette]) .badge.badge--leader::before,
+:root[data-palette='rouge'] .badge.badge--leader::before {
+  background-image: url('/decor/tag-leader-red.webp');
+}
+
+/* Ruban pierre claire beaucoup plus pâle que le rouge/l'ancien ice-blue —
+   le texte crème par défaut n'y est plus lisible, même logique que le
+   ruban doré ci-dessous. */
+
+/* Toujours dorée, quelle que soit la palette — l'avancée en attente est un
+   statut "à traiter", pas une teinte d'accent qui doit suivre Sang/Ice
+   Metal. Texte sombre : le ruban doré est trop clair pour rester lisible
+   avec le même texte crème que les rubans rouge/glace. */
+.badge.badge--pending::before,
+.badge.badge--rarete-warning::before {
+  background-image: url('/decor/tag-warning-gold.webp');
+}
+.badge.badge--pending,
+.badge.badge--rarete-warning {
+  color: #2b1a06;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
+}
+/* Toujours rouge, quelle que soit la palette — même logique que
+   .banner-danger : un danger reste rouge. */
+.badge.badge--equipment-warning::before,
+.badge.badge--rarete-danger::before {
+  background-image: url('/decor/tag-danger-red.webp');
+}
+/* Badges de rareté d'objet (utilitaire commun classeRarete()) — même
+   ruban peint que Leader/Avancée en attente/Alerte équipement, recolorés
+   pour suivre l'échelle rouge/or/glace déjà utilisée par les anciens
+   badges plats badge--danger/warning/info. Toujours cette couleur quelle
+   que soit la palette — la rareté est une propriété de l'objet, pas un
+   accent de thème. */
+.badge.badge--rarete-info::before {
+  background-image: url('/decor/tag-leader-ice.webp');
+}
+/* Un peu plus de marge horizontale que les autres rubans : le texte
+   "Rare N" est court et collait aux pointes décoratives du ruban. Le
+   texte est aussi décalé 2px plus bas (padding-top/bottom déséquilibré)
+   pour se recentrer verticalement dans la banderole. */
+.badge.badge--rarete-danger,
+.badge.badge--rarete-warning,
+.badge.badge--rarete-info {
+  padding-left: 1.7rem;
+  padding-right: 1.7rem;
+  padding-top: calc(0.15rem + 2px);
+  padding-bottom: calc(0.5rem - 2px);
+}
+
+/* Filet ornemental du pack UI sous le titre des cartes repliables
+   (armurerie, règles spéciales, groupes de membres...) — réservé au thème
+   sombre, même raison que les panneaux de carte plus haut. */
+:root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header {
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+:root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header::after {
+  content: '';
+  position: absolute;
+  /* Pleine largeur, mais amaigri en hauteur : le filet d'origine (10px,
+     quasi opaque) lisait trop épais — resserré en hauteur et allégé
+     plutôt que de changer d'asset (voir option 6 des 10 propositions). */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  opacity: 0.75;
+  pointer-events: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header::after {
+  background-image: url('/decor/divider-title-stone.webp');
+}
+
+/* Chrome des boutons-icônes de l'en-tête (langue, réglages, thème,
+   deux-volets, export...) — même carré peint que les autres éléments du
+   pack, à la place de l'aplat CSS transparent. */
+:root:not([data-palette]) .icon-btn,
+:root[data-palette='rouge'] .icon-btn {
+  background-image: url('/decor/chrome-square-stone.webp');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-color: transparent;
+}
+
+:root[data-palette] .icon-btn--actif {
+  background-color: transparent;
+  box-shadow: 0 0 0 2px var(--accent-contrast) inset;
+}
+/* Le bandeau et le chrome des boutons-icônes en pierre claire sont bien
+   plus pâles que --accent-contrast (pensé pour les aplats --accent unis,
+   plus soutenus) — texte/anneau actif sombres dédiés pour ces éléments
+   précis plutôt que d'éclaircir --accent-contrast et casser le contraste
+   des aplats (xp-box, status-pill...) ailleurs dans l'appli. */
+
+/* Même raisonnement que ci-dessus, dans l'autre sens : le bandeau (pierre
+   peinte header-bar-red.png) et le chrome des boutons-icônes (pierre
+   peinte chrome-square-stone.png) en thème Sang sombre sont beaucoup plus
+   sombres que ce que --accent-contrast suppose (#1a1210, pensé pour
+   l'aplat --accent uni #c94f4f, nettement plus clair que ces textures
+   peintes) — texte clair dédié à ce bandeau précis plutôt que d'éclaircir
+   --accent-contrast et casser le contraste voulu des aplats (xp-box,
+   status-pill, .btn--primary...) ailleurs dans l'appli. Titre en
+   blanc cassé (texte libre, longueur variable — lisibilité avant tout),
+   mais boutons-icônes/retour en doré, assorti aux icônes dorées du pack
+   (engrenage, soleil/lune) plutôt qu'un blanc qui jurerait à côté d'elles. */
+:root[data-theme='dark']:not([data-palette]) .app-header,
+:root[data-theme='dark'][data-palette='rouge'] .app-header {
+  color: #fff6ea;
+}
+:root[data-theme='dark']:not([data-palette]) .app-header__back,
+:root[data-theme='dark']:not([data-palette]) .icon-btn,
+:root[data-theme='dark'][data-palette='rouge'] .app-header__back,
+:root[data-theme='dark'][data-palette='rouge'] .icon-btn {
+  color: #b67827;
+}
+/* Chrome carré peint (chrome-square-stone.png) sensiblement éclairci pour
+   ce bandeau précis : très sombre à l'état natif (voir l'asset), il
+   n'offrait pas assez de contraste avec les icônes dorées posées dessus. */
+:root[data-theme='dark']:not([data-palette]) .icon-btn,
+:root[data-theme='dark'][data-palette='rouge'] .icon-btn {
+  filter: brightness(1.4);
+}
+/* Anneau actif doré (au lieu de blanc) : cohérent avec la couleur des
+   icônes plutôt qu'un cadre blanc qui jurait par rapport aux boutons
+   voisins non actifs. */
+:root[data-theme='dark']:not([data-palette]) .icon-btn--actif,
+:root[data-theme='dark'][data-palette='rouge'] .icon-btn--actif {
+  background: rgba(182, 120, 39, 0.25);
+  border-color: rgba(182, 120, 39, 0.8);
+  box-shadow: 0 0 0 2px #b67827 inset;
+}
+
+/* Menu déroulant "Réglages" du bandeau (SettingsMenu.tsx) — remplace
+   l'ancienne rangée de boutons-icônes séparés (réglages, thème, deux
+   volets, exports) par un seul déclencheur ouvrant un panneau qui reprend
+   l'habillage pierre peinte de .card (voir bloc border-image plus haut).
+   Pas de position:relative ici : .settings-menu n'encadre que le bouton
+   roue crantée, pas toute la largeur du bandeau (le bouton FR/EN vient
+   après lui). Le panneau doit s'ancrer sur .app-header (position:sticky,
+   qui sert de bloc de positionnement pour ses descendants absolus au même
+   titre qu'un position:relative) pour que right:0 vise le vrai bord droit
+   du bandeau — sinon le panneau se cale sur le bord droit du bouton roue
+   crantée lui-même, ce qui le décale d'une largeur de bouton vers la
+   gauche et le fait déborder de l'écran sur les très petits viewports
+   (fold plié). */
+.settings-menu__panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0.8rem;
+  z-index: 30;
+  width: max-content;
+  min-width: 220px;
+  max-width: min(320px, calc(100vw - 1.6rem));
+  padding: 0.7rem 0.6rem 0.5rem;
+  color: var(--text);
+  background-color: var(--bg-card);
+  background-image: var(--texture-parchemin);
+  background-blend-mode: overlay;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+:root[data-theme='dark'][data-palette='rouge'] .settings-menu__panel {
+  background-image: none;
+  border-style: solid;
+  border-width: 16px;
+  border-image-repeat: stretch;
+  border-image-slice: 14% fill;
+  box-shadow: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .settings-menu__panel {
+  border-image-source: url('/decor/card-panel-stone.webp');
+}
+
+.settings-menu__title {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text-muted);
+}
+.settings-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.settings-menu__divider {
+  height: 1px;
+  margin: 0.15rem 0.2rem;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in srgb, var(--accent) 55%, transparent),
+    transparent
+  );
+}
+.settings-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 0.4rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+.settings-menu__item:hover,
+.settings-menu__item:focus-visible {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.settings-menu__item--active {
+  color: var(--accent);
+}
+.settings-menu__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3em;
+  flex-shrink: 0;
+  font-size: 1.1rem;
 }
 
 .card--tight {
@@ -626,12 +1134,17 @@ button {
   padding: 0;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: var(--bg-elevated);
-  color: var(--text-muted);
+  /* Cadre volontairement plus clair que le fond de carte (--bg-elevated
+     s'y confondait presque, surtout en thème sombre) — une surbrillance
+     translucide reste cohérente dans les deux thèmes plutôt qu'une
+     couleur fixe. L'icône prend --accent (au lieu de --text-muted) pour
+     se colorer selon le thème/la palette actifs et se détacher du cadre. */
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--accent);
   transition: transform 0.15s ease, background-color 0.15s ease;
 }
 .collapse-btn:active {
-  background: var(--bg-card);
+  background: rgba(255, 255, 255, 0.24);
 }
 .collapse-btn--replie {
   transform: rotate(180deg);
@@ -656,6 +1169,20 @@ button {
   border-radius: var(--radius);
   padding: 0.5rem 0.6rem;
   font-size: 0.95rem;
+}
+
+/* Aperçu de la bannière de la bande choisie (écran de création) : image
+   brute, sans cadre décoratif — juste l'illustration, coins arrondis pour
+   suivre le langage visuel du reste de l'écran. */
+.creation-banniere {
+  margin-bottom: 0.7rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.creation-banniere img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 .field textarea {
   resize: vertical;
@@ -719,22 +1246,80 @@ button {
   color: var(--warning);
 }
 
+/* Cadre en forme de banderole (asset du pack) : toujours rouge, quelle que
+   soit la palette — c'est un avertissement, sa fonction est d'attirer
+   l'œil, pas de suivre l'accent Ice Metal.
+
+   Un seul asset, étiré tel quel (background-size: 100% 100%) — pas de
+   découpe en tranches ni de recomposition en plusieurs calques : à ce
+   ratio (banner-ribbon-red ≈ 15:1), la largeur réelle d'une bannière de
+   carte reste proche du ratio natif du fichier, donc l'étirement reste
+   discret. En dessous de 480px, le texte passe sur plusieurs lignes et
+   la bannière devient bien plus haute que large — un ratio aussi extrême
+   écraserait le motif, d'où un second asset au gabarit plus compact
+   (banner-ribbon-red-mobile ≈ 4:1) pour ce cas. */
 .banner-danger {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
-  background: var(--danger);
   color: #fff6ea;
-  border-radius: var(--radius);
-  padding: 0.7rem 0.9rem;
   margin-bottom: 0.8rem;
   font-weight: 700;
-  box-shadow: var(--shadow);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  background-image: url('/decor/banner-ribbon-red.webp');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  /* Le ruban peint ne remplit que la partie haute du fichier (~78% de la
+     hauteur) — le bas est une marge transparente réservée aux pointes qui
+     pendent plus bas sur les côtés. Un padding haut/bas asymétrique
+     recentre le contenu sur le centre visuel du ruban plutôt que sur le
+     centre géométrique de la boîte. */
+  padding: 0.4rem 3.5rem 1.3rem;
+  filter: var(--pack-asset-filter, none);
+}
+@media (max-width: 480px) {
+  .banner-danger {
+    background-image: url('/decor/banner-ribbon-red-mobile.webp');
+    padding: 0.9rem 2.6rem 1.9rem;
+  }
 }
 .banner-danger__icon {
   font-size: 1.3rem;
   line-height: 1;
   flex-shrink: 0;
+}
+/* Bannière "aucun chef" : icône+texte+bouton groupés et centrés ensemble
+   (voir justify-content: center ci-dessus) plutôt qu'étirés d'un bord à
+   l'autre — sans le flex:1 d'avant, qui poussait le bouton contre la
+   pointe droite du ruban et le texte contre la pointe gauche.
+   Sous 480px, le texte long ("Aucun chef n'est désigné pour cette
+   bande.") + le bouton ne tiennent plus sur une seule ligne dans une
+   bannière déjà compacte. On bascule vers un texte court et une
+   disposition verticale centrée (icône+texte, puis bouton dessous)
+   plutôt que de laisser le texte s'enrouler autour du bouton. */
+.banner-danger__label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.banner-danger__short {
+  display: none;
+}
+@media (max-width: 480px) {
+  .banner-danger--leader {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 1.1rem 1.5rem 2.3rem;
+  }
+  .banner-danger--leader .banner-danger__full {
+    display: none;
+  }
+  .banner-danger--leader .banner-danger__short {
+    display: inline;
+  }
 }
 .badge--info {
   background: var(--info-bg);
@@ -757,21 +1342,39 @@ button {
    personnage (un seul membre affiché), voir .status-segmented ci-dessous —
    même logique de couleurs, habillage en segments plutôt qu'en
    interrupteur unique. */
+/* Ruban peint (même famille que .badge--pending/--leader/--equipment-warning
+   et .badge--rarete-*) plutôt qu'un aplat en pilule : l'image vit sur un
+   ::before en inset:0, le texte est remonté par un padding déséquilibré
+   pour se recentrer dans le corps du ruban, au-dessus des queues
+   décoratives. */
 .status-switch {
+  position: relative;
+  z-index: 0;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
   font-family: var(--font-accroche);
   font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  padding: 0.3rem 0.5rem;
-  border-radius: 999px;
+  padding: 0.15rem 1.5rem 0.5rem;
+  border-radius: 4px;
   border: none;
+  background: transparent;
   cursor: pointer;
-  color: #fff6ea;
+  color: #f1ded1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   transition: filter 0.12s ease, transform 0.1s ease;
+}
+.status-switch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  filter: var(--pack-asset-filter, none);
 }
 .status-switch:hover {
   filter: brightness(1.1);
@@ -779,17 +1382,21 @@ button {
 .status-switch:active {
   transform: scale(0.96);
 }
-.status-switch--success {
-  background: color-mix(in srgb, var(--success) 65%, black);
+.status-switch--success::before {
+  background-image: url('/decor/tag-success-green.webp');
+}
+.status-switch--warning::before {
+  background-image: url('/decor/tag-warning-gold.webp');
 }
 .status-switch--warning {
-  background: color-mix(in srgb, var(--warning) 65%, black);
+  color: #2b1a06;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
 }
-.status-switch--danger {
-  background: color-mix(in srgb, var(--danger) 65%, black);
+.status-switch--danger::before {
+  background-image: url('/decor/tag-danger-red.webp');
 }
-.status-switch--neutral {
-  background: color-mix(in srgb, var(--text-muted) 55%, black);
+.status-switch--neutral::before {
+  background-image: url('/decor/tag-leader-ice.webp');
 }
 .status-switch__track {
   position: relative;
@@ -880,8 +1487,8 @@ button {
   position: absolute;
   inset: 0;
   background-color: #857a6c;
-  -webkit-mask-image: url('/decor/switch-track.png');
-  mask-image: url('/decor/switch-track.png');
+  -webkit-mask-image: url('/decor/switch-track.webp');
+  mask-image: url('/decor/switch-track.webp');
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -916,8 +1523,8 @@ button {
   position: absolute;
   inset: 0;
   background-color: #9c7d3a;
-  -webkit-mask-image: url('/decor/switch-knob.png');
-  mask-image: url('/decor/switch-knob.png');
+  -webkit-mask-image: url('/decor/switch-knob.webp');
+  mask-image: url('/decor/switch-knob.webp');
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -1009,7 +1616,6 @@ button {
   max-width: none;
   pointer-events: none;
 }
-
 
 .stat-grid {
   display: grid;
@@ -1105,13 +1711,37 @@ button {
   padding: 1.4rem 1rem 1.6rem;
   margin-bottom: 0.6rem;
 }
-.home-hero__title {
-  font-family: 'Schoensperger', var(--font-display);
-  font-size: 3.15rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  margin: 0;
-  color: var(--accent);
+/* Bannière logo (remplace l'ancien titre texte "Musterheim" en Schoensperger) :
+   image peinte du pack encadrée par un filet obsidienne aux reflets verre de
+   malpierre (frame-banner-obsidian, dérivé de frame-banner-ice par remap
+   HSV : teinte forcée au vert malpierre, saturation/luminosité proportionnées
+   à la luminosité d'origine pour que le corps sombre devienne noir obsidienne
+   et que seul le liseré peint garde un éclat, désormais vert). Réservé au
+   thème sombre depuis la réintroduction du thème clair (voir la section
+   "Thème clair" en fin de fichier) : sous ce thème, plus flat comme le
+   reste de la page.
+   border-image plutôt que padding+background : le filet du pack (~1-1.5% de
+   l'image source, voir mesure au pixel) doit garder son épaisseur nette
+   quelle que soit la largeur réelle de la bannière, ce que seul border-image
+   (9-slice) garantit — un simple cadre CSS ferait un trait plat sans le
+   liseré lumineux peint. */
+.home-hero__banner {
+  max-width: 640px;
+  margin: 0 auto;
+  aspect-ratio: 1024 / 282;
+  border-style: solid;
+  border-width: 12px;
+  border-image-source: url('/decor/frame-banner-obsidian.webp');
+  border-image-slice: 2% 1.6%;
+  border-image-repeat: stretch;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.home-hero__banner-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .home-hero__rule {
   width: 72px;
@@ -1120,23 +1750,6 @@ button {
   background: var(--accent);
   opacity: 0.55;
 }
-.home-hero__subtitle {
-  font-family: var(--font-accroche);
-  font-style: italic;
-  font-size: 1.05rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-.top-actions {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.8rem;
-}
-
 /* Rangée d'actions principales du roster (Recruter / Armurerie / Assistant
    post-bataille), en haut de la vue — trois boutons pleins plutôt qu'un
    pilule segmentée, pour un poids visuel de vraie action et pas d'un simple
@@ -1145,6 +1758,13 @@ button {
   display: flex;
   gap: 0.6rem;
   margin-bottom: 0.8rem;
+}
+/* Cadres "skill panel" du pack UI acheté à la place du sceau de cire CSS —
+   un asset différent par bouton (buttons_01/02/03) pour casser la
+   répétition. Assets peints pour un fond sombre (ombres profondes) — léger
+   coup de peps via --pack-asset-filter. */
+:root[data-theme='dark'] {
+  --pack-asset-filter: brightness(1.05) saturate(1.05);
 }
 .roster-actions__btn {
   flex: 1;
@@ -1155,12 +1775,125 @@ button {
   text-align: center;
   white-space: normal;
   line-height: 1.15;
+  border: none;
+  background-color: transparent;
+  /* Bouton "pilule" du pack (biseau brillant + ombre basse) plutôt que le
+     panneau plat utilisé avant : le panneau n'avait ni relief ni surbrillance,
+     donc rien qui le distingue visuellement d'un simple encart — ce bouton a
+     un vrai galbe de bouton cliquable. Même asset pour les 3 actions (plus
+     de variation par bouton) : à 3 boutons identiques dans une même rangée,
+     l'uniformité se lit mieux comme "ce sont les 3 mêmes types d'action" que
+     3 habillages différents. */
+  background-image: url('/decor/button-pill-red.webp');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  box-shadow: none;
+  color: #f1ded1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  filter: var(--pack-asset-filter, none);
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+/* Pilule pierre claire beaucoup plus pâle que le rouge sang — texte crème
+   par défaut illisible dessus, même logique que le ruban de tête de
+   groupe et le bandeau/chrome des icônes ci-dessus. */
+
+.roster-actions__btn:hover {
+  filter: var(--pack-asset-filter, none) brightness(1.15);
+}
+.roster-actions__btn:active {
+  filter: var(--pack-asset-filter, none) brightness(0.9);
+  transform: translateY(1px);
+}
+/* Palier intermédiaire (pliable déplié, ~640-760px) : sans lui, le
+   libellé le plus long des trois boutons (« Assistant post-bataille » /
+   "Post-battle wizard") retombe sur 3 lignes alors que ses deux voisins
+   tiennent sur 1, rendant sa pilule visiblement plus haute et déformée par
+   rapport aux deux autres dans la même rangée. */
+@media (max-width: 760px) {
+  .roster-actions__btn {
+    font-size: 0.92rem;
+    padding: 0.8rem 0.4rem;
+  }
 }
 @media (max-width: 480px) {
   .roster-actions__btn {
     font-size: 0.82rem;
     padding: 0.75rem 0.3rem;
   }
+}
+
+/* Petit bouton pilule du pack, pour des actions ponctuelles dans un
+   header de carte (ex : "+ Ajouter" sur Historique des batailles) — même
+   habillage que .roster-actions__btn mais gabarit compact, sans
+   revendiquer toute la ligne. */
+.btn--pack-pill-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border: none;
+  background-color: transparent;
+  background-image: url('/decor/button-pill-red.webp');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-height: 32px;
+  color: #f1ded1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  filter: var(--pack-asset-filter, none);
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.btn--pack-pill-sm:hover {
+  filter: var(--pack-asset-filter, none) brightness(1.15);
+}
+.btn--pack-pill-sm:active {
+  filter: var(--pack-asset-filter, none) brightness(0.9);
+  transform: translateY(1px);
+}
+.btn--pack-pill-sm:disabled {
+  opacity: 0.5;
+  filter: var(--pack-asset-filter, none) grayscale(0.4);
+  cursor: not-allowed;
+}
+.btn--pack-pill-sm:disabled:hover {
+  filter: var(--pack-asset-filter, none) grayscale(0.4);
+}
+/* Pas d'anneau de focus natif du navigateur sur ce bouton peint — il
+   traversait l'asset sans suivre son relief et restait visible après un
+   simple clic souris. Anneau propre uniquement au clavier. */
+.btn--pack-pill-sm:focus {
+  outline: none;
+}
+.btn--pack-pill-sm:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+/* Variante "action recommandée" au sein d'une rangée de choix par ailleurs
+   uniforme (ex : "Rechercher un objet rare" parmi Passer/Dramatis
+   Personae/Docteur, "Suivant"/"Terminer" du fil d'étapes post-bataille) —
+   une action principale reste principale quelle que soit la palette,
+   mais le ton diffère : bronze en thème sombre, or en thème clair (plus
+   proche de la teinte dorée déjà utilisée pour les rubans d'avertissement
+   du thème clair). Texte blanc dans les deux cas. */
+.btn--pack-pill-sm--primary {
+  background-image: url('/decor/button-pill-bronze.webp');
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* Variante "action secondaire" (ex : "Précédent" du fil d'étapes
+   post-bataille) — un ton distinct du bronze/pierre par défaut pour ne
+   pas se confondre avec les actions principales de la même rangée. Gris
+   anthracite en thème sombre, ardoise en thème clair ; texte blanc dans
+   les deux cas. */
+.btn--pack-pill-sm--secondaire {
+  background-image: url('/decor/button-pill-graphite.webp');
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 .list-item {
@@ -1178,6 +1911,26 @@ button {
   touch-action: manipulation;
   transition: background-color 0.1s ease;
 }
+/* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
+   peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de
+   .list-item — même traitement compact que .card en colonne étroite (voir
+   @container plus haut, bloc .card), mais toujours affiché ainsi ici. Padding
+   gauche nettement augmenté : le double liseré peint de l'asset longe tout le
+   bord intérieur du cadre — avec le padding uniforme de .list-item, le nom de
+   la bande démarrait presque au contact de ce liseré. */
+:root[data-theme='dark'][data-palette='rouge'] .list-item--bande {
+  background-image: none;
+  border-style: solid;
+  border-width: 14px;
+  border-image-repeat: stretch;
+  border-image-slice: 16% fill;
+  box-shadow: none;
+  padding: 0.8rem 0.9rem 0.8rem 1.3rem;
+}
+:root[data-theme='dark'][data-palette='rouge'] .list-item--bande {
+  border-image-source: url('/decor/card-panel-titlebar-stone.webp');
+}
+
 /* Rangée principale (nom + statut + suppression) : flex sibling du
    drag-handle, elle occupe toute la largeur restante. Le bloc d'infos
    secondaires (.list-item__details, ci-dessous) est un AUTRE flex sibling
@@ -1185,19 +1938,66 @@ button {
    que de se comprimer contre les boutons d'action sur un format étroit. */
 .list-item__row {
   display: flex;
-  align-items: center;
+  /* flex-wrap, pas nowrap : dans une colonne de liste étroite (volet liste
+     du split-view redimensionné petit, ou fold/tablette avec le split-view
+     actif par défaut), .list-item__main + le bouton de statut à largeur
+     fixe ne tiennent pas toujours ensemble sur une ligne — sans wrap,
+     min-width:0 sur .list-item__main le laisse se comprimer jusqu'à 0px,
+     et le nom déborde visuellement par-dessus le bouton au lieu de passer
+     à la ligne. Avec flex-wrap, le bouton de statut (et celui de
+     suppression) passent proprement sous le nom quand la place manque,
+     au lieu de se superposer. */
+  flex-wrap: wrap;
+  /* flex-start, pas center : un nom long qui wrappe sur plusieurs lignes
+     ferait sinon centrer le bouton de statut (une ligne) sur toute la
+     hauteur du nom, le superposant visuellement au milieu du texte
+     wrappé au lieu de rester aligné avec sa première ligne. */
+  align-items: flex-start;
   gap: 0.5rem;
   flex: 1;
   min-width: 0;
 }
 .list-item__main {
-  flex: 1;
-  min-width: 0;
+  /* flex-basis non nul (au lieu de 0%) : avec un flex-basis auto/explicite,
+     .list-item__main occupe sa largeur de contenu jusqu'au plancher
+     min-width ci-dessous avant de céder la place — sans quoi un
+     flex-basis:0% (implicite via `flex:1`) le laisserait redescendre sous
+     ce plancher avant que le wrap ne se déclenche. */
+  flex: 1 1 auto;
+  /* Plancher de largeur lisible : en dessous, le bouton de statut (largeur
+     fixe, voir flex-shrink:0 ci-dessous sur ses siblings) passe à la ligne
+     suivante plutôt que de comprimer le nom jusqu'à 0px (voir commentaire
+     sur .list-item__row ci-dessus). */
+  min-width: 9em;
+}
+/* Les autres enfants directs de .list-item__row (bouton de statut,
+   suppression) gardent toujours leur taille pleine — jamais comprimés
+   individuellement — quitte à passer sur leur propre ligne sous le nom. */
+.list-item__row > :not(.list-item__main) {
+  flex-shrink: 0;
 }
 .list-item__title {
   font-weight: 700;
   font-family: var(--font-heading);
   font-size: 1.05rem;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.4rem;
+}
+/* Le nom lui-même tronque avec des points de suspension plutôt que de
+   passer sur plusieurs lignes : un nom saisi à la recruitment (limité à 20
+   caractères, voir maxLength des champs de saisie) reste lisible sur une
+   seule ligne même dans une colonne étroite, et les badges (Chef, avancée
+   en attente) — voir .list-item__title ci-dessus — gardent une largeur
+   fixe à côté plutôt que d'être repoussés par un nom qui s'étale sur
+   plusieurs lignes. */
+.list-item__title-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 3em;
+  flex: 1 1 auto;
 }
 .list-item__details {
   flex-basis: 100%;
@@ -1221,6 +2021,18 @@ button {
   align-items: center;
   justify-content: flex-end;
   gap: 0.5rem;
+}
+/* Cible tactile agrandie pour le bouton de suppression d'une carte de bande
+   (action destructive sur l'écran d'accueil) — scopé à .list-item--bande
+   plutôt que .btn--ghost-danger lui-même, dont les autres usages (lignes de
+   tableau serrées, cartes d'inventaire...) sont déjà calibrés à leur
+   contexte et n'ont pas besoin d'une zone cliquable aussi large. */
+.list-item--bande .btn--ghost-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
 }
 
 .tabs {
@@ -1634,7 +2446,7 @@ button {
   width: 14px;
   height: 100%;
   min-height: 2.5rem;
-  background-image: url('/decor/resizer-chain-tile.png');
+  background-image: url('/decor/resizer-chain-tile.webp');
   background-repeat: repeat-y;
   background-position: top center;
   background-size: 14px auto;
@@ -1650,7 +2462,7 @@ button {
   width: 30px;
   height: 38px;
   transform: translate(-50%, -50%);
-  background-image: url('/decor/resizer-skull.png');
+  background-image: url('/decor/resizer-skull.webp');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -1673,6 +2485,45 @@ button {
 .roster-split__list,
 .roster-split__detail {
   min-width: 0;
+}
+
+/* La colonne de liste est redimensionnable (voir .roster-split__resizer,
+   jusqu'à 75% du conteneur — RosterScreen.SPLIT_LIST_WIDTH_MAX_PCT) et sa
+   largeur réelle est déconnectée de celle de la fenêtre : sur un grand
+   écran avec le volet redimensionné petit, la fenêtre peut être large
+   alors que la colonne, elle, reste étroite — une media query sur la
+   largeur de FENÊTRE (voir @media (max-width:720px) ci-dessus) ne peut
+   pas le détecter, d'où une container query sur la largeur réelle de la
+   colonne elle-même plutôt qu'un scroll horizontal de secours qui, en
+   pratique, ne permet jamais de voir le nom et les statistiques en même
+   temps. Seuil mesuré empiriquement (Playwright, scrollWidth vs
+   clientWidth du .roster-table-wrap réel, statut le plus long "Hors de
+   combat/Out of action" inclus) : le tableau a besoin d'environ 930px
+   pour tenir sans son propre scroll horizontal ; 950px pour une marge de
+   sécurité.
+   Conteneur NOMMÉ (pas anonyme) : .card (chaque groupe de membres) déclare
+   elle aussi container-type:inline-size (voir plus haut, pour son propre
+   @container de cadre compact) et se trouve plus près de .roster-table-wrap
+   dans l'arbre — un @container anonyme ici se serait donc résolu contre la
+   largeur de contenu de .card (réduite de sa bordure/padding, ~65px de
+   moins que la colonne réelle) plutôt que celle de .roster-split__list. */
+.roster-split__list {
+  container-type: inline-size;
+  container-name: roster-split-list;
+}
+.roster-split__list .roster-table-wrap {
+  display: none;
+}
+.roster-split__list .member-cards {
+  display: block;
+}
+@container roster-split-list (min-width: 950px) {
+  .roster-split__list .roster-table-wrap {
+    display: block;
+  }
+  .roster-split__list .member-cards {
+    display: none;
+  }
 }
 
 /* Chaque volet défile indépendamment sous le bandeau (--app-header-h,
@@ -1780,6 +2631,22 @@ button {
   background: var(--warning-bg);
   border-color: color-mix(in srgb, var(--warning) 45%, var(--border));
 }
+/* Cadre métallique du pack UI autour des 4 tuiles ressources (membres,
+   cote, trésorerie, wyrdstone) — réservé au thème sombre, même raison que
+   les autres cadres/panneaux du pack. Sans "fill" : seul l'anneau du cadre
+   vient de l'asset, le fond (bg-inset / warning-bg) et l'ombre interne de
+   la tuile restent inchangés derrière. */
+:root[data-theme='dark'][data-palette='rouge'] .summary-tile {
+  border-style: solid;
+  border-width: 6px;
+  border-image-repeat: stretch;
+  border-image-slice: 14%;
+  filter: var(--pack-asset-filter, none);
+}
+:root[data-theme='dark'][data-palette='rouge'] .summary-tile {
+  border-image-source: url('/decor/frame-square-red.webp');
+}
+
 /* Rating/Trésorerie/Wyrdstone : chiffre centré dans la hauteur de la tuile
    (étirée par le grid pour matcher la tuile Membres, plus haute à cause de
    son indice de déroute + son résumé francs-tireurs/PNJ) plutôt que collé en
@@ -1846,20 +2713,20 @@ button {
   pointer-events: none;
 }
 .summary-tile__icon--wyrdstone {
-  -webkit-mask-image: url('/decor/icon-wyrdstone.png');
-  mask-image: url('/decor/icon-wyrdstone.png');
+  -webkit-mask-image: url('/decor/icon-wyrdstone.webp');
+  mask-image: url('/decor/icon-wyrdstone.webp');
 }
 .summary-tile__icon--treasury {
-  -webkit-mask-image: url('/decor/icon-treasury.png');
-  mask-image: url('/decor/icon-treasury.png');
+  -webkit-mask-image: url('/decor/icon-treasury.webp');
+  mask-image: url('/decor/icon-treasury.webp');
 }
 .summary-tile__icon--rating {
-  -webkit-mask-image: url('/decor/icon-rating.png');
-  mask-image: url('/decor/icon-rating.png');
+  -webkit-mask-image: url('/decor/icon-rating.webp');
+  mask-image: url('/decor/icon-rating.webp');
 }
 .summary-tile__icon--members {
-  -webkit-mask-image: url('/decor/icon-members.png');
-  mask-image: url('/decor/icon-members.png');
+  -webkit-mask-image: url('/decor/icon-members.webp');
+  mask-image: url('/decor/icon-members.webp');
 }
 .summary-tile__input {
   width: 100%;
@@ -2145,6 +3012,75 @@ button {
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
 }
 
+/* La boutique d'équipement est un vrai écran de contenu (catalogue, détail
+   d'objet), pas une boîte de dialogue ponctuelle — elle reprend donc le
+   cadre en pierre peinte de .card plutôt que le panneau plat de
+   .modal-sheet, pour rester cohérente avec le reste de l'appli (roster,
+   fiche personnage...). Ciblé via :has() sur .modal-sheet plutôt que sur
+   .achat-equipement lui-même : le filet peint doit border le panneau tout
+   entier (jusqu'aux bords de la modale), pas un élément à l'intérieur. */
+:root[data-theme='dark'][data-palette='rouge'] .modal-sheet:has(> .achat-equipement) {
+  background-color: var(--bg-card);
+  border-style: solid;
+  border-width: 20px;
+  border-image-repeat: stretch;
+  border-image-slice: 10% fill;
+  box-shadow: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .modal-sheet:has(> .achat-equipement) {
+  border-image-source: url('/decor/card-panel-stone.webp');
+}
+
+/* En-tête/pied collants : même fond que le panneau (au lieu de
+   --bg-elevated, une teinte quasi identique mais qui jurait légèrement
+   contre le cadre en pierre) et filet ornemental du pack à la place de la
+   bordure/ombre plates — même traitement que .collapsible-card__header
+   plus haut. */
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header,
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions {
+  position: sticky;
+  background: var(--bg-card);
+  border: none;
+  box-shadow: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header {
+  padding-bottom: 1.1rem;
+}
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header::after,
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions::before {
+  content: '';
+  position: absolute;
+  /* Même allègement que .collapsible-card__header::after. */
+  left: 1rem;
+  right: 1rem;
+  height: 3px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  opacity: 0.75;
+  pointer-events: none;
+}
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header::after,
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions::before {
+  background-image: url('/decor/divider-title-stone.webp');
+}
+
+.achat-equipement__header::after {
+  bottom: 0;
+}
+.achat-equipement__actions::before {
+  top: 0;
+  transform: translateY(-50%);
+}
+
+/* Bouton de fermeture "×" en dehors de .app-header : reprend le chrome
+   carré du pack (fond peint hérité de .icon-btn) mais avec une bordure et
+   une couleur de texte adaptées à un fond de carte plutôt qu'au bandeau
+   d'en-tête coloré — même logique que .personnage-embedded__close. */
+.achat-equipement__close {
+  border-color: var(--border);
+  color: var(--text);
+}
+
 @keyframes mordheim-fade-in {
   from {
     opacity: 0;
@@ -2215,4 +3151,174 @@ button {
 }
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Thème clair : neutralise les décors peints du pack UI
+   ==========================================================================
+   La plupart des panneaux/cadres du pack UI (.card, .list-item--bande,
+   .summary-tile, .collapsible-card__header, .achat-equipement__*...) sont
+   déjà scopés à :root[data-theme='dark'] plus haut dans ce fichier — ils
+   retombent d'eux-mêmes sur leur habillage plat (variables CSS) dès que le
+   thème clair est actif, sans rien changer ici.
+
+   Les éléments ci-dessous ont été construits *après* le retrait du thème
+   clair (pendant la session qui a figé l'app en Sang sombre) : leur
+   background/border-image peint n'est donc pas conditionné au thème. On les
+   neutralise ici plutôt qu'à la source, pour garder tout l'habillage "thème
+   clair" regroupé au même endroit. Aucun asset supplémentaire : uniquement
+   des couleurs dérivées des variables --accent/--success/--warning/--danger/
+   --border déjà définies plus haut. */
+
+:root[data-theme='light'] .app-header {
+  background-image: none;
+  filter: none;
+}
+
+:root[data-theme='light'] .icon-btn {
+  background-image: none;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+:root[data-theme='light'] .avatar-frame {
+  background-image: none;
+  background-color: var(--bg-inset);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+}
+
+:root[data-theme='light'] .photo-frame-large::after {
+  background-image: none;
+  border: 3px solid var(--border);
+  border-radius: 22%;
+}
+
+/* Bannière logo Musterheim (accueil) : même image, mais liseré peint
+   obsidienne remplacé par un simple cadre plat, cohérent avec le reste de
+   la page en thème clair. */
+:root[data-theme='light'] .home-hero__banner {
+  border-image-source: none;
+  border-color: var(--border);
+  background-color: var(--bg-card);
+}
+
+/* Badges en banderole (leader/avancée en attente/alerte équipement/rareté) :
+   pilule plate arrondie, même famille de couleurs que l'ancien thème clair
+   de main (badge--success/--danger/--warning), plutôt que le ruban peint. */
+:root[data-theme='light'] .badge.badge--leader,
+:root[data-theme='light'] .badge.badge--pending,
+:root[data-theme='light'] .badge.badge--equipment-warning,
+:root[data-theme='light'] .badge.badge--rarete-danger,
+:root[data-theme='light'] .badge.badge--rarete-warning,
+:root[data-theme='light'] .badge.badge--rarete-info {
+  border-radius: 999px;
+  text-shadow: none;
+  padding: 0.15rem 0.6rem;
+  min-width: 0;
+}
+:root[data-theme='light'] .badge.badge--leader::before,
+:root[data-theme='light'] .badge.badge--pending::before,
+:root[data-theme='light'] .badge.badge--equipment-warning::before,
+:root[data-theme='light'] .badge.badge--rarete-danger::before,
+:root[data-theme='light'] .badge.badge--rarete-warning::before,
+:root[data-theme='light'] .badge.badge--rarete-info::before {
+  content: none;
+}
+:root[data-theme='light'] .badge.badge--leader {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+:root[data-theme='light'] .badge.badge--pending,
+:root[data-theme='light'] .badge.badge--rarete-warning {
+  background: var(--warning-bg);
+  color: var(--warning);
+  text-shadow: none;
+}
+:root[data-theme='light'] .badge.badge--equipment-warning,
+:root[data-theme='light'] .badge.badge--rarete-danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+:root[data-theme='light'] .badge.badge--rarete-info {
+  background: var(--info-bg);
+  color: var(--text);
+}
+
+/* Bannière d'avertissement (aucun chef, effectif dépassé...) : reste rouge
+   (c'est un danger, pas un accent de thème — voir le commentaire d'origine
+   plus haut), mais en aplat plutôt qu'en ruban peint. */
+:root[data-theme='light'] .banner-danger {
+  background-image: none;
+  background-color: var(--danger);
+  border-radius: var(--radius);
+  padding: 0.7rem 0.9rem;
+  filter: none;
+}
+
+/* Compteur Hors de combat / statut "mort" : même logique de couleurs que
+   l'ancien .status-switch de main (color-mix vers le noir, toujours assez
+   sombre pour un texte clair quel que soit le thème), à la place du ruban
+   peint. */
+:root[data-theme='light'] .status-switch {
+  background: var(--text-muted);
+  padding: 0.3rem 0.7rem;
+  text-shadow: none;
+  color: #fff6ea;
+}
+:root[data-theme='light'] .status-switch::before {
+  content: none;
+}
+:root[data-theme='light'] .status-switch--success {
+  background: color-mix(in srgb, var(--success) 65%, black);
+}
+:root[data-theme='light'] .status-switch--warning {
+  background: color-mix(in srgb, var(--warning) 65%, black);
+  color: #fff6ea;
+}
+:root[data-theme='light'] .status-switch--danger {
+  background: color-mix(in srgb, var(--danger) 65%, black);
+}
+:root[data-theme='light'] .status-switch--neutral {
+  background: color-mix(in srgb, var(--text-muted) 55%, black);
+}
+
+/* Boutons pilule du pack (actions de carte, rangée Recruter/Armurerie/
+   Post-bataille, navigation d'assistant...) : bouton plat classique plutôt
+   que la pilule peinte, même logique que .btn/.btn--primary de main. */
+:root[data-theme='light'] .roster-actions__btn,
+:root[data-theme='light'] .btn--pack-pill-sm {
+  background-image: none;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-shadow: none;
+  filter: none;
+  box-shadow: none;
+}
+:root[data-theme='light'] .btn--pack-pill-sm--primary {
+  background-image: none;
+  background: linear-gradient(160deg, var(--accent) 0%, var(--accent-strong) 100%);
+  border-color: var(--accent-strong);
+  color: var(--accent-contrast);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+:root[data-theme='light'] .btn--pack-pill-sm--secondaire {
+  background-image: none;
+  background-color: var(--bg-inset);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-shadow: none;
+}
+
+/* Poignée de redimensionnement du split-view (chaîne+crâne peints) : simple
+   trait vertical. */
+:root[data-theme='light'] .roster-split__resizer::before {
+  background-image: none;
+  background-color: var(--border);
+  width: 3px;
+  filter: none;
+}
+:root[data-theme='light'] .roster-split__resizer::after {
+  background-image: none;
+  filter: none;
 }

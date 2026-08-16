@@ -1,6 +1,5 @@
 import { Screen } from '../common/Screen';
 import { useTheme } from '../../state/useTheme';
-import type { Palette } from '../../state/useTheme';
 import { useGameRules } from '../../state/useGameRules';
 import { useWakeLock } from '../../state/useWakeLock';
 import { useLanguage } from '../../state/useLanguage';
@@ -11,13 +10,8 @@ const THEMES = [
   { value: 'system', key: 'reglages.theme.system' },
 ] as const;
 
-const PALETTES: { value: Palette; key: string }[] = [
-  { value: 'rouge', key: 'reglages.palette.rouge' },
-  { value: 'noir', key: 'reglages.palette.noir' },
-];
-
 export function ReglagesScreen() {
-  const { theme, setTheme, palette, setPalette } = useTheme();
+  const { theme, setTheme } = useTheme();
   const { rules, setRule } = useGameRules();
   const { actif: ecranActif, setActif: setEcranActif, supporte: ecranActifSupporte } = useWakeLock();
   const { t } = useLanguage();
@@ -38,22 +32,6 @@ export function ReglagesScreen() {
                 onClick={() => setTheme(th.value)}
               >
                 {t(th.key)}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="field" style={{ marginTop: '1rem' }}>
-          <label>{t('reglages.accentColor')}</label>
-          <div className="status-select">
-            {PALETTES.map((p) => (
-              <button
-                key={p.value}
-                type="button"
-                className={`status-pill ${palette === p.value ? 'status-pill--active' : ''}`}
-                onClick={() => setPalette(p.value)}
-              >
-                {t(p.key)}
               </button>
             ))}
           </div>

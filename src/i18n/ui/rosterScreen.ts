@@ -10,8 +10,10 @@ export const rosterScreen: UiDictionary = {
   'roster.shareTitle': { fr: 'Partager (Drive, mail, Dropbox…)', en: 'Share (Drive, mail, Dropbox…)' },
   'roster.exportJson': { fr: 'JSON', en: 'JSON' },
   'roster.exportJsonTitle': { fr: 'Export JSON', en: 'Export JSON' },
+  'roster.exportJsonMenu': { fr: 'Exporter en JSON', en: 'Export as JSON' },
   'roster.exportPdf': { fr: 'PDF', en: 'PDF' },
   'roster.exportPdfTitle': { fr: 'Export PDF', en: 'Export PDF' },
+  'roster.exportPdfMenu': { fr: 'Exporter en PDF', en: 'Export as PDF' },
   'roster.shareUnavailable': {
     fr: 'Partage indisponible sur cet appareil ({detail}). Export JSON classique utilisé à la place.',
     en: 'Sharing unavailable on this device ({detail}). Falling back to standard JSON export.',
@@ -23,6 +25,10 @@ export const rosterScreen: UiDictionary = {
   'roster.noLeader': {
     fr: "Aucun chef n'est désigné pour cette bande.",
     en: 'No leader has been designated for this warband.',
+  },
+  'roster.noLeaderShort': {
+    fr: 'Nouveau chef nécessaire',
+    en: 'New leader needed',
   },
   'roster.chooseLeader': { fr: 'Choisir un chef', en: 'Choose a leader' },
   'roster.trinketRulePrefix': {

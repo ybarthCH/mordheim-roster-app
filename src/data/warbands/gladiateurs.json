@@ -3,6 +3,7 @@
   "nom": "Gladiateurs (1b)",
   "grade": "1b",
   "source": "Town Cryer #14, v1.4e — La Grande Librairie de Mordheim",
+  "banniere": "bandes/gladiateurs.webp",
   "regles_speciales": [
     { "nom": "Gladiateur", "texte": "Toutes les figurines de la bande bénéficient de +1 en CC et +1 Attaque si le combat se déroule dans un bâtiment, des ruines ou une arène (à définir clairement avant la partie)." },
     { "nom": "Libérez les esclaves !", "texte": "Les Gladiateurs détestent tous les esclavagistes et ne vendront jamais un adversaire capturé à l'un d'entre eux." },

@@ -54,7 +54,7 @@ export function BlessuresGravesCard({
             onClick={() => onSupprimer(b.id)}
             title={t('blessuresGravesCard.removeTitle')}
           >
-            ✕
+            <Icon name="croixPack" />
           </button>
         </div>
       ))}

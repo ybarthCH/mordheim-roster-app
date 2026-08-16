@@ -7,9 +7,6 @@ export const reglagesScreen: UiDictionary = {
   'reglages.theme.light': { fr: 'Clair', en: 'Light' },
   'reglages.theme.dark': { fr: 'Sombre', en: 'Dark' },
   'reglages.theme.system': { fr: 'Système', en: 'System' },
-  'reglages.accentColor': { fr: "Couleur d'accent", en: 'Accent color' },
-  'reglages.palette.rouge': { fr: 'Rouge', en: 'Red' },
-  'reglages.palette.noir': { fr: 'Noir & Gris', en: 'Black & Grey' },
   'reglages.wakeLock.title': { fr: "Garder l'écran allumé", en: 'Keep screen awake' },
   'reglages.wakeLock.body': {
     fr: "Empêche l'appareil de se mettre en veille tant que l'appli est ouverte — pratique en table de jeu.",

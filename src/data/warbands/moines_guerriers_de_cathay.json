@@ -3,6 +3,7 @@
   "nom": "Moines Guerriers de Cathay (1c)",
   "grade": "1c",
   "source": "Border Town Burning (BTB-MGC) — Battle Monks of Cathay — La Grande Librairie de Mordheim",
+  "banniere": "bandes/moines_guerriers_de_cathay.webp",
   "regles_speciales": [
     {
       "nom": "Strictures",

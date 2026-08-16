@@ -38,7 +38,7 @@ export function ReglesSpecialesCard({ membre, onMajMembre }: ReglesSpecialesCard
                 onMajMembre({ regles_speciales_notes: membre.regles_speciales_notes.filter((_, j) => j !== i) })
               }
             >
-              ✕
+              <Icon name="croixPack" />
             </button>
           </span>
         ))}

@@ -3,6 +3,7 @@
   "nom": "Sœurs de Sigmar (1a)",
   "grade": "1a",
   "source": "Livre de règles Mordheim (GW), p.82-85 (bande) + p.57 (prières de Sigmar)",
+  "banniere": "bandes/sisters_of_sigmar.webp",
   "regles_speciales": [],
   "composition": {
     "effectif_min": 3,

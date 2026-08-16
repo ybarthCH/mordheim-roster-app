@@ -3,6 +3,7 @@
   "nom": "Skavens (1a)",
   "grade": "1a",
   "source": "Livre de règles Mordheim (GW), p.90-95 (bande) + p.61 (magie du Rat Cornu)",
+  "banniere": "bandes/skaven.webp",
   "regles_speciales": [],
   "composition": {
     "effectif_min": 3,

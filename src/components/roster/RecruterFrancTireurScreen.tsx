@@ -263,7 +263,7 @@ export function RecruterFrancTireurScreen() {
             <h3>{t('francTireur.contract')}</h3>
             <div className="field">
               <label>{t('francTireur.nameOnSheet')}</label>
-              <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} />
+              <input value={nomPerso} onChange={(e) => setNomPerso(e.target.value)} maxLength={20} />
             </div>
             {selection.recrutement.cout == null && (
               <div className="field">

@@ -5,6 +5,72 @@
 // clair/sombre sans configuration supplémentaire.
 import type { CSSProperties } from 'react';
 
+// Icônes peintes du pack UI acheté — utilisées ponctuellement là où l'asset
+// colle particulièrement bien (armurerie, héros, règles spéciales, hommes de
+// main, cimetière), à la place du trait fin ci-dessus pour ces cas précis.
+// Chaque nom résout vers un fichier différent selon le thème ou la palette
+// (voir PACK_ICON_SRC) plutôt qu'un seul fichier statique.
+export type PackIconName =
+  | 'coffrePack'
+  | 'etoilePack'
+  | 'grimoirePack'
+  | 'drapeauxPack'
+  | 'cranePack'
+  | 'poubellePack'
+  | 'croixPack'
+  | 'engrenagePack'
+  | 'couronnePack'
+  | 'epeePack'
+  | 'cochePack'
+  | 'baguettePack'
+  | 'cadenasPack'
+  | 'sablierPack'
+  | 'zoomAvantPack'
+  | 'zoomArrierePack'
+  | 'plusPack'
+  | 'plumePack'
+  | 'poigneeCartePack';
+
+// Base des assets décoratifs (public/decor/), préfixée par le base path
+// configuré côté Vite (import.meta.env.BASE_URL) plutôt qu'un simple
+// '/decor/' en dur : sous GitHub Pages, servi depuis un sous-dossier
+// (/mordheim-roster-app/), un chemin absolu commençant par '/' résout vers
+// la racine du domaine et 404 — ce qui rendait ces icônes invisibles quel
+// que soit le navigateur, pas seulement Edge.
+const DECOR_BASE = `${import.meta.env.BASE_URL}decor/`;
+
+// Une seule palette (Sang/rouge) — voir useTheme.ts — donc chaque icône
+// résout vers un unique fichier peint, quel que soit le thème clair/sombre.
+// (Le thème clair réintroduit reste un simple jeu de variables CSS, sans
+// habillage peint : voir la section thème clair dans index.css.)
+const PACK_ICON_SRC: Record<PackIconName, () => string> = {
+  coffrePack: () => `${DECOR_BASE}icon-armurerie-pack.webp`,
+  etoilePack: () => `${DECOR_BASE}icon-heroes-gold.webp`,
+  grimoirePack: () => `${DECOR_BASE}icon-rules-silver.webp`,
+  drapeauxPack: () => `${DECOR_BASE}icon-henchmen-gold.webp`,
+  cranePack: () => `${DECOR_BASE}icon-graveyard-bone.webp`,
+  poubellePack: () => `${DECOR_BASE}icon-trash.webp`,
+  croixPack: () => `${DECOR_BASE}icon-close-bright.webp`,
+  engrenagePack: () => `${DECOR_BASE}icon-settings-gold.webp`,
+  couronnePack: () => `${DECOR_BASE}icon-crown-gold.webp`,
+  epeePack: () => `${DECOR_BASE}icon-swords-crossed.webp`,
+  cochePack: () => `${DECOR_BASE}icon-check-green.webp`,
+  baguettePack: () => `${DECOR_BASE}icon-wand.webp`,
+  cadenasPack: () => `${DECOR_BASE}icon-lock.webp`,
+  sablierPack: () => `${DECOR_BASE}icon-hourglass.webp`,
+  zoomAvantPack: () => `${DECOR_BASE}icon-zoom-in.webp`,
+  zoomArrierePack: () => `${DECOR_BASE}icon-zoom-out.webp`,
+  plusPack: () => `${DECOR_BASE}icon-plus-gold.webp`,
+  // Parchemin + plume, substitut le plus proche du pack pour l'action
+  // "modifier" — le pack ne contient pas de crayon littéral.
+  plumePack: () => `${DECOR_BASE}icon-edit-scroll.webp`,
+  poigneeCartePack: () => `${DECOR_BASE}icon-drag-handle-red.webp`,
+};
+
+function isPackIconName(name: IconName | PackIconName): name is PackIconName {
+  return name in PACK_ICON_SRC;
+}
+
 export type IconName =
   | 'epee'
   | 'arc'
@@ -148,7 +214,7 @@ const LABELS: Partial<Record<IconName, string>> = {
 };
 
 type Props = {
-  name: IconName;
+  name: IconName | PackIconName;
   size?: number | string;
   style?: CSSProperties;
   className?: string;
@@ -156,6 +222,24 @@ type Props = {
 };
 
 export function Icon({ name, size = '1em', style, className, title }: Props) {
+  if (isPackIconName(name)) {
+    return (
+      <img
+        src={PACK_ICON_SRC[name]()}
+        alt=""
+        className={className}
+        style={{
+          display: 'inline-block',
+          width: size,
+          height: size,
+          verticalAlign: '-0.15em',
+          flexShrink: 0,
+          objectFit: 'contain',
+          ...style,
+        }}
+      />
+    );
+  }
   return (
     <svg
       viewBox={VIEWBOX[name]}

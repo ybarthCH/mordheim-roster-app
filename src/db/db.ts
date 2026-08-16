@@ -44,7 +44,15 @@ export async function listRosters(): Promise<RosterInstance[]> {
   try {
     const db = await getDb();
     const all = await db.getAll('rosters');
-    return all.sort((a, b) => a.nom_bande.localeCompare(b.nom_bande));
+    // Une bande jamais glissée manuellement (voir ListeBandesScreen) n'a pas
+    // d'ordre — elle retombe alors en fin de liste, triée alphabétiquement
+    // parmi les autres bandes elles aussi sans ordre explicite.
+    return all.sort((a, b) => {
+      const oa = a.ordre ?? Number.MAX_SAFE_INTEGER;
+      const ob = b.ordre ?? Number.MAX_SAFE_INTEGER;
+      if (oa !== ob) return oa - ob;
+      return a.nom_bande.localeCompare(b.nom_bande);
+    });
   } catch (err) {
     console.error('IndexedDB : échec de la lecture des bandes enregistrées', err);
     throw err;

@@ -3,6 +3,7 @@ import type { FrancTireurCatalog } from '../../types/hiredSword';
 import type { Member } from '../../types/roster';
 import { STAT_KEYS } from '../../types/catalog';
 import { Modal } from '../common/Modal';
+import { Icon } from '../common/Icon';
 import { getDramatisPersonae } from '../../data/dramatisPersonae';
 import { translateHiredSword } from '../../i18n/data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
@@ -68,7 +69,7 @@ export function RechercheDramatisPersonaeModal({
               <div className="achat-equipement__header-ligne">
                 <h3 className="mt-0 mb-0">{t('dpModal.title', { nom: membre.nom_perso })}</h3>
                 <button className="btn btn--sm" aria-label={t('dpModal.close')} onClick={onClose}>
-                  ✕
+                  <Icon name="croixPack" />
                 </button>
               </div>
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.25rem' }}>
@@ -107,11 +108,11 @@ export function RechercheDramatisPersonaeModal({
           <>
             <header className="achat-equipement__header achat-equipement__header--selection">
               <div className="achat-equipement__header-ligne">
-                <button className="btn btn--sm" onClick={() => setDpId('')}>
+                <button className="btn--pack-pill-sm" onClick={() => setDpId('')}>
                   {t('dpModal.backToList')}
                 </button>
                 <button className="btn btn--sm" aria-label={t('dpModal.close')} onClick={onClose}>
-                  ✕
+                  <Icon name="croixPack" />
                 </button>
               </div>
               <div className="achat-equipement__selection-titre">
@@ -159,10 +160,10 @@ export function RechercheDramatisPersonaeModal({
 
               {!succesDeclare && (
                 <div className="flex gap-sm" style={{ marginTop: '0.4rem' }}>
-                  <button type="button" className="btn btn--primary" onClick={() => setSuccesDeclare(true)}>
+                  <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" onClick={() => setSuccesDeclare(true)}>
                     {t('dpModal.success')}
                   </button>
-                  <button type="button" className="btn" onClick={enregistrerEchec}>
+                  <button type="button" className="btn--pack-pill-sm" onClick={enregistrerEchec}>
                     {t('dpModal.failure')}
                   </button>
                 </div>
@@ -178,13 +179,13 @@ export function RechercheDramatisPersonaeModal({
             </div>
 
             <footer className="achat-equipement__actions">
-              <button className="btn" onClick={onClose}>{t('dpModal.cancel')}</button>
+              <button className="btn--pack-pill-sm" onClick={onClose}>{t('dpModal.cancel')}</button>
               {succesDeclare && (
                 <>
-                  <button className="btn" onClick={nePasRecruter}>
+                  <button className="btn--pack-pill-sm" onClick={nePasRecruter}>
                     {t('dpModal.dontRecruit')}
                   </button>
-                  <button className="btn btn--primary" disabled={!budgetSuffisant} onClick={recruter}>
+                  <button className="btn--pack-pill-sm btn--pack-pill-sm--primary" disabled={!budgetSuffisant} onClick={recruter}>
                     {t('dpModal.recruitAndFinish')}
                   </button>
                 </>

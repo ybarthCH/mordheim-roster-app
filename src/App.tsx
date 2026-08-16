@@ -1,8 +1,8 @@
 import { Suspense, lazy } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { RostersProvider } from './state/RostersContext';
-import { ThemeProvider } from './state/ThemeContext';
 import { LanguageProvider } from './state/LanguageContext';
+import { ThemeProvider } from './state/ThemeContext';
 import { GameRulesProvider } from './state/GameRulesContext';
 import { WakeLockProvider } from './state/WakeLockContext';
 import { ErrorBoundary } from './components/common/ErrorBoundary';

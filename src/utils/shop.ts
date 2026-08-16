@@ -630,9 +630,9 @@ export function classeRarete(rarete?: string): string | null {
   if (!rarete) return null;
   const n = Number(rarete);
   if (Number.isNaN(n)) return null;
-  if (n >= 10) return 'badge--danger';
-  if (n >= 7) return 'badge--warning';
-  return 'badge--info';
+  if (n >= 10) return 'badge--rarete-danger';
+  if (n >= 7) return 'badge--rarete-warning';
+  return 'badge--rarete-info';
 }
 
 // Mappe un objet brut (items/*.json) vers un ShopItem "commun", sans

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { RosterInstance, BattleRecord } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
+import { Icon } from '../common/Icon';
 import { inventaireComplet } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { getItem } from '../../data/items';
@@ -104,7 +105,7 @@ export function EtapeResultat({
                 style={{ border: 'none', background: 'none', marginLeft: '0.3rem', padding: 0 }}
                 onClick={() => onAdversairesChange(adversaires.filter((_, j) => j !== i))}
               >
-                ✕
+                <Icon name="croixPack" />
               </button>
             </span>
           ))}
@@ -122,7 +123,7 @@ export function EtapeResultat({
             }}
             placeholder={t('resultat.opponentNamePlaceholder')}
           />
-          <button className="btn" onClick={ajouterAdversaire}>
+          <button className="btn--pack-pill-sm" onClick={ajouterAdversaire}>
             {t('resultat.add')}
           </button>
         </div>
@@ -144,7 +145,7 @@ export function EtapeResultat({
         </ul>
       )}
       <div className="flex flex-wrap gap-sm items-end">
-        <button className="btn btn--primary" onClick={() => setModalRecompense(true)}>
+        <button className="btn--pack-pill-sm btn--pack-pill-sm--primary" onClick={() => setModalRecompense(true)}>
           {t('resultat.itemButton')}
         </button>
         <div className="field" style={{ marginBottom: 0 }}>
@@ -158,7 +159,7 @@ export function EtapeResultat({
               placeholder="0"
               style={{ maxWidth: '8rem' }}
             />
-            <button className="btn" disabled={!argentSaisi.trim()} onClick={ajouterArgent}>
+            <button className="btn--pack-pill-sm" disabled={!argentSaisi.trim()} onClick={ajouterArgent}>
               {t('resultat.add')}
             </button>
           </div>

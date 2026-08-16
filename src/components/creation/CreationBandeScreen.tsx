@@ -150,6 +150,12 @@ export function CreationBandeScreen() {
           </select>
         </div>
 
+        {catalogue?.banniere && (
+          <div className="creation-banniere">
+            <img src={`${import.meta.env.BASE_URL}${catalogue.banniere}`} alt="" aria-hidden="true" />
+          </div>
+        )}
+
         {tribuRequise && (
           <div className="field">
             <label>{t('creation.tribe')}</label>
@@ -476,7 +482,7 @@ function RecrutementDraftModal({
           {t('creation.modal.charNameLabel')}
           {estGroupable && quantite > 1 ? t('creation.modal.charNameGroupSuffix') : ''}
         </label>
-        <input value={nom} onChange={(e) => setNom(e.target.value)} placeholder={profil.nom} />
+        <input value={nom} onChange={(e) => setNom(e.target.value)} placeholder={profil.nom} maxLength={20} />
       </div>
       {estGroupable && (
         <div className="field">

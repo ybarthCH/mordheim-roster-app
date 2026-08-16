@@ -3,6 +3,7 @@
   "nom": "Culte des Possédés (1a)",
   "grade": "1a",
   "source": "Livre de règles Mordheim (GW) + Border Town Burning + Mutiny in Marienburg",
+  "banniere": "bandes/cult_of_the_possessed.webp",
   "regles_speciales": [
     { "nom": "Table de Mutations", "texte": "Réservée aux Mutants et aux Possédés, achetable uniquement lors du recrutement (impossible d'en acheter de nouvelles après). La première mutation est achetée au prix normal, les suivantes pour la même figurine coûtent le double — voir la rubrique Équipement de leur fiche." },
     { "nom": "Récompenses du Seigneur des Ombres", "texte": "Règle optionnelle : un Magister ou un Mutant ayant accumulé suffisamment d'expérience peut lancer 2D6 sur ce tableau au lieu de choisir une compétence, représentant un pèlerinage à la Fosse. 2 : Colère du Seigneur des Ombres ! Le guerrier subit tant de mutations qu'il perd toute trace d'humanité et disparaît. 3-6 : Rien ne se passe. 7-8 : Mutation importante (jetez 1D6 : sur 1, perdez un point dans une caractéristique au choix ; sur 2+, choisissez une mutation dans la Table de Mutations). 9-10 : Armure du Chaos — sauvegarde de base de 4+ sans affecter le mouvement ni empêcher de lancer des sorts. 11 : Arme démon — +1 en Force au corps à corps et +1 pour toucher avec, sous la forme au choix du porteur. 12 : Possédé ! Un démon prend possession du guerrier : +1 CC, +1 F, +1 Attaque et +1 PV (au-delà des maximums), mais il perd D3 compétences au choix du joueur et ne peut plus utiliser ni arme ni armure hormis l'armure du Chaos ou des armes démons." }

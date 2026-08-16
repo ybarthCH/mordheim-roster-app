@@ -89,7 +89,7 @@ export function ArmurerieSection({
       preferenceKey="ui.roster.armurerie.ouvert"
       title={
         <>
-          <Icon name="coffre" style={{ marginRight: '0.35em' }} />
+          <Icon name="coffrePack" style={{ marginRight: '0.35em' }} />
           {t('armurerie.title')}
         </>
       }
@@ -141,7 +141,7 @@ export function ArmurerieSection({
               onClick={() => onRetirer(entree.instance_id)}
               title={t('armurerie.removeTitle')}
             >
-              ✕
+              <Icon name="croixPack" />
             </button>
           </div>
         </div>
