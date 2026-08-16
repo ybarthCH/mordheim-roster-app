@@ -85,7 +85,6 @@ export function ListeBandesScreen() {
           <img src={`${import.meta.env.BASE_URL}decor/home-hero-banner.png`} alt="Musterheim" className="home-hero__banner-img" />
         </div>
         <div className="home-hero__rule" />
-        <p className="home-hero__subtitle">{t('home.subtitle')}</p>
       </div>
 
       <div className="roster-actions">

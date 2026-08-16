@@ -3,7 +3,6 @@ import type { UiDictionary } from './types';
 export const listeBandesScreen: UiDictionary = {
   'home.title': { fr: 'Mes bandes', en: 'My Warbands' },
   'home.settings': { fr: 'Réglages', en: 'Settings' },
-  'home.subtitle': { fr: 'Gestionnaire de bandes', en: 'Warband Manager' },
   'home.newBand': { fr: '+ Nouvelle bande', en: '+ New Warband' },
   'home.importJson': { fr: 'Importer JSON', en: 'Import JSON' },
   'home.importFailed': { fr: "Échec de l'import.", en: 'Import failed.' },

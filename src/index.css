@@ -1806,16 +1806,6 @@ button {
   background: var(--accent);
   opacity: 0.55;
 }
-.home-hero__subtitle {
-  font-family: var(--font-accroche);
-  font-style: italic;
-  font-size: 1.05rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin: 0;
-}
-
 /* Rangée d'actions principales du roster (Recruter / Armurerie / Assistant
    post-bataille), en haut de la vue — trois boutons pleins plutôt qu'un
    pilule segmentée, pour un poids visuel de vraie action et pas d'un simple
