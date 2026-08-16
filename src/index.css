@@ -244,7 +244,7 @@ button {
   gap: 0.6rem;
   padding: calc(0.6rem + var(--safe-top)) 0.8rem 0.6rem;
   background-color: var(--accent);
-  background-image: url('/decor/header-bar-red.png');
+  background-image: url('/decor/header-bar-red.webp');
   background-repeat: repeat-x;
   background-size: auto 100%;
   color: var(--accent-contrast);
@@ -374,7 +374,7 @@ button {
   box-shadow: none;
 }
 :root[data-theme='dark'][data-palette='rouge'] .card {
-  border-image-source: url('/decor/card-panel-stone.png');
+  border-image-source: url('/decor/card-panel-stone.webp');
 }
 
 /* Le filet peint remplace maintenant le double-liseré CSS — les deux se
@@ -392,7 +392,7 @@ button {
   :root[data-theme='dark'][data-palette='rouge'] .card {
     border-width: 14px;
     border-image-slice: 16% fill;
-    border-image-source: url('/decor/card-panel-titlebar-stone.png');
+    border-image-source: url('/decor/card-panel-titlebar-stone.webp');
   }
   
   
@@ -403,7 +403,7 @@ button {
    ci-dessus pour gagner sur la cascade (même spécificité, ordre de
    déclaration). */
 :root[data-theme='dark'][data-palette='rouge'] .card--summary {
-  border-image-source: url('/decor/card-panel-summary-stone.png');
+  border-image-source: url('/decor/card-panel-summary-stone.webp');
 }
 
 /* Illustration bannière de la bande, écran de sélection des bandes
@@ -550,7 +550,7 @@ button {
   flex-shrink: 0;
   width: 68px;
   height: 68px;
-  background-image: url('/decor/avatar-frame-red.png');
+  background-image: url('/decor/avatar-frame-red.webp');
   background-size: 100% 100%;
 }
 
@@ -578,7 +578,7 @@ button {
   content: '';
   position: absolute;
   inset: -18px;
-  background-image: url('/decor/photo-frame-large-red.png');
+  background-image: url('/decor/photo-frame-large-red.webp');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   pointer-events: none;
@@ -647,7 +647,7 @@ button {
 }
 :root:not([data-palette]) .badge.badge--leader::before,
 :root[data-palette='rouge'] .badge.badge--leader::before {
-  background-image: url('/decor/tag-leader-red.png');
+  background-image: url('/decor/tag-leader-red.webp');
 }
 
 /* Ruban pierre claire beaucoup plus pâle que le rouge/l'ancien ice-blue —
@@ -660,7 +660,7 @@ button {
    avec le même texte crème que les rubans rouge/glace. */
 .badge.badge--pending::before,
 .badge.badge--rarete-warning::before {
-  background-image: url('/decor/tag-warning-gold.png');
+  background-image: url('/decor/tag-warning-gold.webp');
 }
 .badge.badge--pending,
 .badge.badge--rarete-warning {
@@ -671,7 +671,7 @@ button {
    .banner-danger : un danger reste rouge. */
 .badge.badge--equipment-warning::before,
 .badge.badge--rarete-danger::before {
-  background-image: url('/decor/tag-danger-red.png');
+  background-image: url('/decor/tag-danger-red.webp');
 }
 /* Badges de rareté d'objet (utilitaire commun classeRarete()) — même
    ruban peint que Leader/Avancée en attente/Alerte équipement, recolorés
@@ -680,7 +680,7 @@ button {
    que soit la palette — la rareté est une propriété de l'objet, pas un
    accent de thème. */
 .badge.badge--rarete-info::before {
-  background-image: url('/decor/tag-leader-ice.png');
+  background-image: url('/decor/tag-leader-ice.webp');
 }
 /* Un peu plus de marge horizontale que les autres rubans : le texte
    "Rare N" est court et collait aux pointes décoratives du ruban. Le
@@ -718,7 +718,7 @@ button {
   pointer-events: none;
 }
 :root[data-theme='dark'][data-palette='rouge'] .collapsible-card__header::after {
-  background-image: url('/decor/divider-title-stone.png');
+  background-image: url('/decor/divider-title-stone.webp');
 }
 
 /* Chrome des boutons-icônes de l'en-tête (langue, réglages, thème,
@@ -726,7 +726,7 @@ button {
    pack, à la place de l'aplat CSS transparent. */
 :root:not([data-palette]) .icon-btn,
 :root[data-palette='rouge'] .icon-btn {
-  background-image: url('/decor/chrome-square-stone.png');
+  background-image: url('/decor/chrome-square-stone.webp');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   border-color: transparent;
@@ -819,7 +819,7 @@ button {
   box-shadow: none;
 }
 :root[data-theme='dark'][data-palette='rouge'] .settings-menu__panel {
-  border-image-source: url('/decor/card-panel-stone.png');
+  border-image-source: url('/decor/card-panel-stone.webp');
 }
 
 .settings-menu__title {
@@ -1221,7 +1221,7 @@ button {
   margin-bottom: 0.8rem;
   font-weight: 700;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-  background-image: url('/decor/banner-ribbon-red.png');
+  background-image: url('/decor/banner-ribbon-red.webp');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   /* Le ruban peint ne remplit que la partie haute du fichier (~78% de la
@@ -1234,7 +1234,7 @@ button {
 }
 @media (max-width: 480px) {
   .banner-danger {
-    background-image: url('/decor/banner-ribbon-red-mobile.png');
+    background-image: url('/decor/banner-ribbon-red-mobile.webp');
     padding: 0.9rem 2.6rem 1.9rem;
   }
 }
@@ -1337,20 +1337,20 @@ button {
   transform: scale(0.96);
 }
 .status-switch--success::before {
-  background-image: url('/decor/tag-success-green.png');
+  background-image: url('/decor/tag-success-green.webp');
 }
 .status-switch--warning::before {
-  background-image: url('/decor/tag-warning-gold.png');
+  background-image: url('/decor/tag-warning-gold.webp');
 }
 .status-switch--warning {
   color: #2b1a06;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
 }
 .status-switch--danger::before {
-  background-image: url('/decor/tag-danger-red.png');
+  background-image: url('/decor/tag-danger-red.webp');
 }
 .status-switch--neutral::before {
-  background-image: url('/decor/tag-leader-ice.png');
+  background-image: url('/decor/tag-leader-ice.webp');
 }
 .status-switch__track {
   position: relative;
@@ -1441,8 +1441,8 @@ button {
   position: absolute;
   inset: 0;
   background-color: #857a6c;
-  -webkit-mask-image: url('/decor/switch-track.png');
-  mask-image: url('/decor/switch-track.png');
+  -webkit-mask-image: url('/decor/switch-track.webp');
+  mask-image: url('/decor/switch-track.webp');
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -1477,8 +1477,8 @@ button {
   position: absolute;
   inset: 0;
   background-color: #9c7d3a;
-  -webkit-mask-image: url('/decor/switch-knob.png');
-  mask-image: url('/decor/switch-knob.png');
+  -webkit-mask-image: url('/decor/switch-knob.webp');
+  mask-image: url('/decor/switch-knob.webp');
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -1683,7 +1683,7 @@ button {
   aspect-ratio: 1024 / 282;
   border-style: solid;
   border-width: 12px;
-  border-image-source: url('/decor/frame-banner-obsidian.png');
+  border-image-source: url('/decor/frame-banner-obsidian.webp');
   border-image-slice: 2% 1.6%;
   border-image-repeat: stretch;
   border-radius: var(--radius-lg);
@@ -1736,7 +1736,7 @@ button {
      de variation par bouton) : à 3 boutons identiques dans une même rangée,
      l'uniformité se lit mieux comme "ce sont les 3 mêmes types d'action" que
      3 habillages différents. */
-  background-image: url('/decor/button-pill-red.png');
+  background-image: url('/decor/button-pill-red.webp');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   box-shadow: none;
@@ -1786,7 +1786,7 @@ button {
   gap: 0.35rem;
   border: none;
   background-color: transparent;
-  background-image: url('/decor/button-pill-red.png');
+  background-image: url('/decor/button-pill-red.webp');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   padding: 0.4rem 0.9rem;
@@ -1832,7 +1832,7 @@ button {
    proche de la teinte dorée déjà utilisée pour les rubans d'avertissement
    du thème clair). Texte blanc dans les deux cas. */
 .btn--pack-pill-sm--primary {
-  background-image: url('/decor/button-pill-bronze.png');
+  background-image: url('/decor/button-pill-bronze.webp');
   color: #ffffff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
@@ -1843,7 +1843,7 @@ button {
    anthracite en thème sombre, ardoise en thème clair ; texte blanc dans
    les deux cas. */
 .btn--pack-pill-sm--secondaire {
-  background-image: url('/decor/button-pill-graphite.png');
+  background-image: url('/decor/button-pill-graphite.webp');
   color: #ffffff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
@@ -1880,7 +1880,7 @@ button {
   padding: 0.8rem 0.9rem 0.8rem 1.3rem;
 }
 :root[data-theme='dark'][data-palette='rouge'] .list-item--bande {
-  border-image-source: url('/decor/card-panel-titlebar-stone.png');
+  border-image-source: url('/decor/card-panel-titlebar-stone.webp');
 }
 
 /* Rangée principale (nom + statut + suppression) : flex sibling du
@@ -2398,7 +2398,7 @@ button {
   width: 14px;
   height: 100%;
   min-height: 2.5rem;
-  background-image: url('/decor/resizer-chain-tile.png');
+  background-image: url('/decor/resizer-chain-tile.webp');
   background-repeat: repeat-y;
   background-position: top center;
   background-size: 14px auto;
@@ -2414,7 +2414,7 @@ button {
   width: 30px;
   height: 38px;
   transform: translate(-50%, -50%);
-  background-image: url('/decor/resizer-skull.png');
+  background-image: url('/decor/resizer-skull.webp');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -2596,7 +2596,7 @@ button {
   filter: var(--pack-asset-filter, none);
 }
 :root[data-theme='dark'][data-palette='rouge'] .summary-tile {
-  border-image-source: url('/decor/frame-square-red.png');
+  border-image-source: url('/decor/frame-square-red.webp');
 }
 
 /* Rating/Trésorerie/Wyrdstone : chiffre centré dans la hauteur de la tuile
@@ -2665,20 +2665,20 @@ button {
   pointer-events: none;
 }
 .summary-tile__icon--wyrdstone {
-  -webkit-mask-image: url('/decor/icon-wyrdstone.png');
-  mask-image: url('/decor/icon-wyrdstone.png');
+  -webkit-mask-image: url('/decor/icon-wyrdstone.webp');
+  mask-image: url('/decor/icon-wyrdstone.webp');
 }
 .summary-tile__icon--treasury {
-  -webkit-mask-image: url('/decor/icon-treasury.png');
-  mask-image: url('/decor/icon-treasury.png');
+  -webkit-mask-image: url('/decor/icon-treasury.webp');
+  mask-image: url('/decor/icon-treasury.webp');
 }
 .summary-tile__icon--rating {
-  -webkit-mask-image: url('/decor/icon-rating.png');
-  mask-image: url('/decor/icon-rating.png');
+  -webkit-mask-image: url('/decor/icon-rating.webp');
+  mask-image: url('/decor/icon-rating.webp');
 }
 .summary-tile__icon--members {
-  -webkit-mask-image: url('/decor/icon-members.png');
-  mask-image: url('/decor/icon-members.png');
+  -webkit-mask-image: url('/decor/icon-members.webp');
+  mask-image: url('/decor/icon-members.webp');
 }
 .summary-tile__input {
   width: 100%;
@@ -2980,7 +2980,7 @@ button {
   box-shadow: none;
 }
 :root[data-theme='dark'][data-palette='rouge'] .modal-sheet:has(> .achat-equipement) {
-  border-image-source: url('/decor/card-panel-stone.png');
+  border-image-source: url('/decor/card-panel-stone.webp');
 }
 
 /* En-tête/pied collants : même fond que le panneau (au lieu de
@@ -3013,7 +3013,7 @@ button {
 }
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header::after,
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions::before {
-  background-image: url('/decor/divider-title-stone.png');
+  background-image: url('/decor/divider-title-stone.webp');
 }
 
 .achat-equipement__header::after {

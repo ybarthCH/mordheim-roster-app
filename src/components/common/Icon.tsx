@@ -43,27 +43,27 @@ const DECOR_BASE = `${import.meta.env.BASE_URL}decor/`;
 // donc chaque icône résout désormais vers un unique fichier — plus de
 // variante par thème/palette (voir useTheme.ts).
 const PACK_ICON_SRC: Record<PackIconName, () => string> = {
-  coffrePack: () => `${DECOR_BASE}icon-armurerie-pack.png`,
-  etoilePack: () => `${DECOR_BASE}icon-heroes-gold.png`,
-  grimoirePack: () => `${DECOR_BASE}icon-rules-silver.png`,
-  drapeauxPack: () => `${DECOR_BASE}icon-henchmen-gold.png`,
-  cranePack: () => `${DECOR_BASE}icon-graveyard-bone.png`,
-  poubellePack: () => `${DECOR_BASE}icon-trash.png`,
-  croixPack: () => `${DECOR_BASE}icon-close-bright.png`,
-  engrenagePack: () => `${DECOR_BASE}icon-settings-gold.png`,
-  couronnePack: () => `${DECOR_BASE}icon-crown-gold.png`,
-  epeePack: () => `${DECOR_BASE}icon-swords-crossed.png`,
-  cochePack: () => `${DECOR_BASE}icon-check-green.png`,
-  baguettePack: () => `${DECOR_BASE}icon-wand.png`,
-  cadenasPack: () => `${DECOR_BASE}icon-lock.png`,
-  sablierPack: () => `${DECOR_BASE}icon-hourglass.png`,
-  zoomAvantPack: () => `${DECOR_BASE}icon-zoom-in.png`,
-  zoomArrierePack: () => `${DECOR_BASE}icon-zoom-out.png`,
-  plusPack: () => `${DECOR_BASE}icon-plus-gold.png`,
+  coffrePack: () => `${DECOR_BASE}icon-armurerie-pack.webp`,
+  etoilePack: () => `${DECOR_BASE}icon-heroes-gold.webp`,
+  grimoirePack: () => `${DECOR_BASE}icon-rules-silver.webp`,
+  drapeauxPack: () => `${DECOR_BASE}icon-henchmen-gold.webp`,
+  cranePack: () => `${DECOR_BASE}icon-graveyard-bone.webp`,
+  poubellePack: () => `${DECOR_BASE}icon-trash.webp`,
+  croixPack: () => `${DECOR_BASE}icon-close-bright.webp`,
+  engrenagePack: () => `${DECOR_BASE}icon-settings-gold.webp`,
+  couronnePack: () => `${DECOR_BASE}icon-crown-gold.webp`,
+  epeePack: () => `${DECOR_BASE}icon-swords-crossed.webp`,
+  cochePack: () => `${DECOR_BASE}icon-check-green.webp`,
+  baguettePack: () => `${DECOR_BASE}icon-wand.webp`,
+  cadenasPack: () => `${DECOR_BASE}icon-lock.webp`,
+  sablierPack: () => `${DECOR_BASE}icon-hourglass.webp`,
+  zoomAvantPack: () => `${DECOR_BASE}icon-zoom-in.webp`,
+  zoomArrierePack: () => `${DECOR_BASE}icon-zoom-out.webp`,
+  plusPack: () => `${DECOR_BASE}icon-plus-gold.webp`,
   // Parchemin + plume, substitut le plus proche du pack pour l'action
   // "modifier" — le pack ne contient pas de crayon littéral.
-  plumePack: () => `${DECOR_BASE}icon-edit-scroll.png`,
-  poigneeCartePack: () => `${DECOR_BASE}icon-drag-handle-red.png`,
+  plumePack: () => `${DECOR_BASE}icon-edit-scroll.webp`,
+  poigneeCartePack: () => `${DECOR_BASE}icon-drag-handle-red.webp`,
 };
 
 function isPackIconName(name: IconName | PackIconName): name is PackIconName {

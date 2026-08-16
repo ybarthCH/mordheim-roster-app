@@ -82,7 +82,7 @@ export function ListeBandesScreen() {
     <Screen title={t('home.title')}>
       <div className="home-hero">
         <div className="home-hero__banner">
-          <img src={`${import.meta.env.BASE_URL}decor/home-hero-banner.png`} alt="Musterheim" className="home-hero__banner-img" />
+          <img src={`${import.meta.env.BASE_URL}decor/home-hero-banner.webp`} alt="Musterheim" className="home-hero__banner-img" />
         </div>
         <div className="home-hero__rule" />
       </div>
