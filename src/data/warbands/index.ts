@@ -47,6 +47,7 @@ import reiklanders from './reiklanders.json';
 import sisters_of_sigmar from './sisters_of_sigmar.json';
 import skaven from './skaven.json';
 import skavens_pestilens from './skavens_pestilens.json';
+import sylvaneths from './sylvaneths.json';
 import tileens from './tileens.json';
 import undead from './undead.json';
 import witch_hunters from './witch_hunters.json';
@@ -99,6 +100,7 @@ export const CATALOGUES: WarbandCatalog[] = [
   sisters_of_sigmar,
   skaven,
   skavens_pestilens,
+  sylvaneths,
   tileens,
   undead,
   witch_hunters,

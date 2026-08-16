@@ -285,7 +285,8 @@ export function MemberGroupCard({
                           <span className="status-plaque__switch">
                             <span className="status-plaque__switch-track" />
                             <span className="status-plaque__switch-knob">
-                              <span className="status-plaque__switch-knob-gem" />
+                              <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--green" />
+                              <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--red" />
                             </span>
                           </span>
                           <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
@@ -414,7 +415,8 @@ export function MemberGroupCard({
                     <span className="status-plaque__switch">
                       <span className="status-plaque__switch-track" />
                       <span className="status-plaque__switch-knob">
-                        <span className="status-plaque__switch-knob-gem" />
+                        <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--green" />
+                        <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--red" />
                       </span>
                     </span>
                     <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>

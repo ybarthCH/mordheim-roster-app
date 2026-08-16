@@ -138,4 +138,12 @@ export const CARACTERISTIQUES_MAX: Record<string, PlafondCaracteristiques> = {
   skaven_pestilens: { label: 'Skaven Clan Pestilens', M: 5, CC: 6, CT: 6, F: 4, E: 5, PV: 3, I: 7, A: 4, Cd: 7 },
 
   garou: { label: 'Garou', M: 8, CC: 6, CT: 0, F: 6, E: 5, PV: 4, I: 7, A: 4, Cd: 9 },
+
+  // Table "Amélioration de caractéristique" propre au document source des
+  // Sylvaneths (bande non officielle, grade 3) : une seule ligne couvre
+  // Sylve-/Fiel-revenants (partagée aussi par l'Archi-revenant, la Sorcière
+  // des ronces et le Shadestalker, qui suivent la même lignée), une seconde
+  // ligne distincte pour la Branchanteresse.
+  sylvaneth_revenant: { label: 'Sylve-/Fiel-revenant', M: 4, CC: 7, CT: 6, F: 4, E: 4, PV: 3, I: 5, A: 4, Cd: 9 },
+  sylvaneth_branchanteresse: { label: 'Branchanteresse', M: 4, CC: 7, CT: 6, F: 4, E: 5, PV: 3, I: 4, A: 4, Cd: 10 },
 };
