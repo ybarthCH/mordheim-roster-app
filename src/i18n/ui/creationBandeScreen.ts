@@ -61,6 +61,7 @@ export const creationBandeScreen: UiDictionary = {
   'creation.modal.firstSpellLabel': { fr: 'Premier sort connu', en: 'First known spell' },
   'creation.modal.spellRequired': { fr: 'Obligatoire pour un profil sorcier.', en: 'Required for a spellcaster profile.' },
   'creation.modal.startingXp': { fr: 'Expérience de départ', en: 'Starting experience' },
+  'creation.modal.startingXpSuffix': { fr: '{xp} XP de départ', en: '{xp} starting XP' },
   'creation.modal.noAdvanceTriggered': { fr: "Ne déclenche aucune avancée due.", en: 'Does not trigger any pending advance.' },
   'creation.modal.neverGainsXp': { fr: "Ce profil ne gagne jamais d'expérience.", en: 'This profile never gains experience.' },
   'creation.modal.insufficientBudgetPrefix': { fr: 'Budget insuffisant (', en: 'Insufficient budget (' },

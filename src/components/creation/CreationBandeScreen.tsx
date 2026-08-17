@@ -367,7 +367,6 @@ function RecrutementDraftModal({
 }: RecrutementDraftModalProps) {
   const { t, language } = useLanguage();
   const [nom, setNom] = useState('');
-  const [xpDepartSaisie, setXpDepartSaisie] = useState(String(profil.xp_depart ?? 0));
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
   // Sort(s) connu(s) choisis librement au recrutement — un seul par défaut,
   // davantage si le profil le précise (voir Profile.nombre_sorts_choisis_depart).
@@ -402,7 +401,7 @@ function RecrutementDraftModal({
   const coutManuelValide =
     !coutManuelRequis || (coutManuelSaisi.trim() !== '' && !Number.isNaN(Number(coutManuelSaisi)) && Number(coutManuelSaisi) >= 0);
 
-  const xpDepart = Number(xpDepartSaisie) || 0;
+  const xpDepart = profil.xp_depart ?? 0;
   const quantite = Math.max(1, parseInt(quantiteSaisie, 10) || 1);
   const coutUnitaire = profil.cout ?? (coutManuelRequis ? Number(coutManuelSaisi) || 0 : 0);
   const coutTotal = coutUnitaire * quantite;
@@ -428,6 +427,7 @@ function RecrutementDraftModal({
     <Modal onClose={onClose}>
       <h3>
         {t('creation.modal.recruitTitle')} — {profil.nom}
+        {gagneExperience && ` — ${t('creation.modal.startingXpSuffix', { xp: xpDepart })}`}
       </h3>
       {!gagneExperience && (
         <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
@@ -555,15 +555,7 @@ function RecrutementDraftModal({
             </div>
           );
         })}
-      {gagneExperience ? (
-        <div className="field">
-          <label>{t('creation.modal.startingXp')}</label>
-          <input type="number" value={xpDepartSaisie} onChange={(e) => setXpDepartSaisie(e.target.value)} />
-          <p className="text-sm text-muted mb-0">{t('creation.modal.noAdvanceTriggered')}</p>
-        </div>
-      ) : (
-        <p className="text-sm text-muted">{t('creation.modal.neverGainsXp')}</p>
-      )}
+      {!gagneExperience && <p className="text-sm text-muted">{t('creation.modal.neverGainsXp')}</p>}
       {!check.ok && <p className="text-danger text-sm">{check.raison}</p>}
       {check.ok && !budgetSuffisant && (
         <p className="text-danger text-sm">

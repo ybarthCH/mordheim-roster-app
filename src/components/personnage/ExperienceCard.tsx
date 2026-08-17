@@ -54,7 +54,7 @@ export function ExperienceCard({
             <Icon name="sablierPack" style={{ marginRight: '0.3em' }} />
             {enAttente} {t('experience.pendingAdvances')}
           </span>
-          <button className="btn btn--sm btn--primary" onClick={onOpenAvancee}>
+          <button className="btn--pack-pill-sm" onClick={onOpenAvancee}>
             {t('experience.resolveAdvance')}
           </button>
         </div>
