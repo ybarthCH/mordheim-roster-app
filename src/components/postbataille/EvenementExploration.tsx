@@ -19,6 +19,7 @@ import { ResolutionPrisonniers } from './ResolutionPrisonniers';
 import { ResolutionDebiteurReconnaissant } from './ResolutionDebiteurReconnaissant';
 import { useLanguage } from '../../state/useLanguage';
 import { translateEvenementExploration } from '../../i18n/data/explorationEvenements';
+import { translateItem } from '../../i18n/data/items';
 
 type Props = {
   roster: RosterInstance;
@@ -83,6 +84,18 @@ export function EvenementExploration({
     setJetSousTable('');
   };
 
+  // Libellé (traduit) d'une ligne de sous-table, pour préfixer une entrée de
+  // journal — même principe que `evenementAffiche` : cherché par index dans
+  // `evenement.sousTable` plutôt que par référence, `ligneSousTable` pouvant
+  // pointer sur l'objet brut (français) trouvé plus haut.
+  const resultatAffiche = (ligne: LigneSousTableD6) => {
+    const index = evenement?.sousTable?.indexOf(ligne) ?? -1;
+    return (index >= 0 ? evenementAffiche?.sousTable?.[index]?.resultat : undefined) ?? ligne.resultat;
+  };
+
+  const prefixeJournal = (nomLigne: string) =>
+    nomLigne ? `${evenementAffiche?.nom ?? ''} — ${nomLigne}` : (evenementAffiche?.nom ?? '');
+
   const changerFace = (f: number) => {
     const nouveau = face === f ? '' : f;
     if (nouveau !== '') {
@@ -91,7 +104,7 @@ export function EvenementExploration({
       // accomplir ensuite (purement narratif) — sinon, c'est cette dernière
       // action qui inscrit l'entrée de journal (voir ajouterOr/ajouterObjet
       // ci-dessous et les composants de résolution dédiés).
-      if (ev && !evenementAUneResolution(ev)) onAjouterAuJournal(ev.nom);
+      if (ev && !evenementAUneResolution(ev)) onAjouterAuJournal(translateEvenementExploration(ev, language).nom);
     }
     setFace(nouveau);
     setJetSousTable('');
@@ -100,7 +113,7 @@ export function EvenementExploration({
   const ajouterOr = (notation: string, nomLigne: string, valeur: number) => {
     if (!evenement) return;
     onAjouterOr(valeur);
-    onAjouterAuJournal(`${evenement.nom}${nomLigne ? ` — ${nomLigne}` : ''} : +${valeur} po (${notation}).`);
+    onAjouterAuJournal(t('evenement.journalGold', { prefix: prefixeJournal(nomLigne), valeur, notation }));
   };
 
   const ajouterObjet = (nomLigne: string, item: ShopItem, quantite: number) => {
@@ -112,7 +125,11 @@ export function EvenementExploration({
     // sans valeur.
     onAchatStockMultiple(item, typeof item.cout === 'number' ? item.cout : 0, quantite);
     onAjouterAuJournal(
-      `${evenement.nom}${nomLigne ? ` — ${nomLigne}` : ''} : ${item.nom}${quantite > 1 ? ` ×${quantite}` : ''} ajouté(e) au stock.`
+      t('evenement.journalItemAdded', {
+        prefix: prefixeJournal(nomLigne),
+        item: translateItem(item, language).nom,
+        quantitySuffix: quantite > 1 ? ` ×${quantite}` : '',
+      })
     );
   };
 
@@ -120,7 +137,12 @@ export function EvenementExploration({
     if (!evenement) return;
     onMajRoster({ wyrdstone: roster.wyrdstone + valeur });
     onAjouterAuJournal(
-      `${evenement.nom}${nomLigne ? ` — ${nomLigne}` : ''} : +${valeur} fragment${valeur > 1 ? 's' : ''} de pierre magique (${notation}).`
+      t('evenement.journalFragments', {
+        prefix: prefixeJournal(nomLigne),
+        valeur,
+        notation,
+        s: valeur > 1 ? 's' : '',
+      })
     );
   };
 
@@ -131,7 +153,7 @@ export function EvenementExploration({
     // un prix spécial) : on consigne au moment de la sélection, faute
     // d'autre occasion de le faire.
     if (!deselection && evenement && !ligne.or && !ligne.objets) {
-      onAjouterAuJournal(`${evenement.nom} — ${ligne.resultat}`);
+      onAjouterAuJournal(`${evenementAffiche?.nom ?? ''} — ${resultatAffiche(ligne)}`);
     }
   };
 
@@ -192,13 +214,19 @@ export function EvenementExploration({
           )}
 
           {evenement.id === 'puits' && (
-            <ResolutionPuits roster={roster} onMajRoster={onMajRoster} onAjouterAuJournal={onAjouterAuJournal} />
+            <ResolutionPuits
+              roster={roster}
+              nomEvenement={evenementAffiche.nom}
+              onMajRoster={onMajRoster}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
           )}
 
           {evenement.id === 'la_fosse' && (
             <ResolutionLaFosse
               roster={roster}
               date={date}
+              nomEvenement={evenementAffiche.nom}
               onMajRoster={onMajRoster}
               onAjouterAuJournal={onAjouterAuJournal}
             />
@@ -208,6 +236,7 @@ export function EvenementExploration({
             <ResolutionVagabond
               roster={roster}
               catalogue={catalogue}
+              nomEvenement={evenementAffiche.nom}
               onMajRoster={onMajRoster}
               onAjouterOr={onAjouterOr}
               onAjouterAuJournal={onAjouterAuJournal}
@@ -218,6 +247,7 @@ export function EvenementExploration({
             <ResolutionTaverne
               roster={roster}
               catalogue={catalogue}
+              nomEvenement={evenementAffiche.nom}
               onAjouterOr={onAjouterOr}
               onAjouterAuJournal={onAjouterAuJournal}
             />
@@ -227,6 +257,7 @@ export function EvenementExploration({
             <ResolutionPrisonniers
               roster={roster}
               catalogue={catalogue}
+              nomEvenement={evenementAffiche.nom}
               onMajRoster={onMajRoster}
               onAjouterOr={onAjouterOr}
               onAjouterAuJournal={onAjouterAuJournal}
@@ -236,6 +267,7 @@ export function EvenementExploration({
           {evenement.id === 'debiteur_reconnaissant' && (
             <ResolutionDebiteurReconnaissant
               roster={roster}
+              nomEvenement={evenementAffiche.nom}
               onMajRoster={onMajRoster}
               onAjouterAuJournal={onAjouterAuJournal}
             />
@@ -271,7 +303,7 @@ export function EvenementExploration({
               {ligneSousTable?.or && (
                 <JetOrButton
                   label={t('evenement.goldRollNotation', { notation: ligneSousTable.or })}
-                  onValider={(valeur) => ajouterOr(ligneSousTable.or!, ligneSousTable.resultat, valeur)}
+                  onValider={(valeur) => ajouterOr(ligneSousTable.or!, resultatAffiche(ligneSousTable), valeur)}
                 />
               )}
               {ligneSousTable?.objets && (
@@ -281,7 +313,7 @@ export function EvenementExploration({
                       key={i}
                       ligneObjet={objet}
                       catalogueId={catalogue.id}
-                      onAjouter={(item, quantite) => ajouterObjet(ligneSousTable.resultat, item, quantite)}
+                      onAjouter={(item, quantite) => ajouterObjet(resultatAffiche(ligneSousTable), item, quantite)}
                     />
                   ))}
                 </div>

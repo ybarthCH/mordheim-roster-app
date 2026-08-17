@@ -1877,12 +1877,12 @@ button {
 /* Variante "action recommandée" au sein d'une rangée de choix par ailleurs
    uniforme (ex : "Rechercher un objet rare" parmi Passer/Dramatis
    Personae/Docteur, "Suivant"/"Terminer" du fil d'étapes post-bataille) —
-   une action principale reste principale quelle que soit la palette,
-   mais le ton diffère : bronze en thème sombre, or en thème clair (plus
-   proche de la teinte dorée déjà utilisée pour les rubans d'avertissement
-   du thème clair). Texte blanc dans les deux cas. */
+   une action principale reste principale quelle que soit la palette. Même
+   asset rouge que le bouton pilule par défaut (pas de bronze/or, jugé hors
+   sujet dans une rangée par ailleurs toute rouge), juste éclairci et plus
+   saturé pour rester repérable au repos. Texte blanc dans les deux cas. */
 .btn--pack-pill-sm--primary {
-  background-image: url('/decor/button-pill-bronze.webp');
+  filter: var(--pack-asset-filter, none) brightness(1.2) saturate(1.6);
   color: #ffffff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }

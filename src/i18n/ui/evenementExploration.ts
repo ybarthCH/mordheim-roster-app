@@ -16,4 +16,13 @@ export const evenementExploration: UiDictionary = {
   'evenement.tier.quadruples': { fr: 'Quadruples', en: 'Quadruples' },
   'evenement.tier.quintuples': { fr: 'Quintuples', en: 'Quintuples' },
   'evenement.tier.sextuples': { fr: 'Sextuples', en: 'Sextuples' },
+  'evenement.journalGold': { fr: '{prefix} : +{valeur} po ({notation}).', en: '{prefix} : +{valeur} gc ({notation}).' },
+  'evenement.journalItemAdded': {
+    fr: '{prefix} : {item}{quantitySuffix} ajouté(e) au stock.',
+    en: '{prefix} : {item}{quantitySuffix} added to stock.',
+  },
+  'evenement.journalFragments': {
+    fr: '{prefix} : +{valeur} fragment{s} de pierre magique ({notation}).',
+    en: '{prefix} : +{valeur} wyrdstone shard{s} ({notation}).',
+  },
 };
