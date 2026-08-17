@@ -6,6 +6,9 @@ import { useLanguage } from '../../state/useLanguage';
 type Props = {
   roster: RosterInstance;
   date: string;
+  // Nom traduit de l'événement (voir evenementAffiche dans EvenementExploration),
+  // utilisé comme préfixe des entrées de journal ci-dessous.
+  nomEvenement: string;
   onMajRoster: (patch: Partial<RosterInstance>) => void;
   onAjouterAuJournal: (texte: string) => void;
 };
@@ -13,7 +16,7 @@ type Props = {
 // (6 1) La Fosse — même principe que Puits, mais l'échec est mortel (le
 // héros ne revient pas) et le gain de fragments est variable (D6+1, à
 // reporter depuis la table papier) au lieu d'un fragment fixe.
-export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJournal }: Props) {
+export function ResolutionLaFosse({ roster, date, nomEvenement, onMajRoster, onAjouterAuJournal }: Props) {
   const { t } = useLanguage();
   const [heroId, setHeroId] = useState('');
   const [jetFragments, setJetFragments] = useState('');
@@ -31,12 +34,13 @@ export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJourna
   const appliquerReussite = () => {
     if (!hero || !jetValide) return;
     onMajRoster({ wyrdstone: roster.wyrdstone + valeurFragments });
-    onAjouterAuJournal(
-      `La Fosse : ${hero.nom_perso} revient avec ${valeurFragments} fragment${valeurFragments > 1 ? 's' : ''} de pierre magique (D6+1).`
-    );
-    setResolu(
-      t('postBataille.pit.returnedWithFragments', { nom: hero.nom_perso, n: valeurFragments, s: valeurFragments > 1 ? 's' : '' })
-    );
+    const texte = t('postBataille.pit.returnedWithFragments', {
+      nom: hero.nom_perso,
+      n: valeurFragments,
+      s: valeurFragments > 1 ? 's' : '',
+    });
+    onAjouterAuJournal(`${nomEvenement} : ${texte}`);
+    setResolu(texte);
   };
 
   const appliquerEchec = () => {
@@ -46,8 +50,9 @@ export function ResolutionLaFosse({ roster, date, onMajRoster, onAjouterAuJourna
         m.instance_id === hero.instance_id ? { ...m, statut: 'mort' as const, date_mort: date } : m
       ),
     });
-    onAjouterAuJournal(`La Fosse : ${hero.nom_perso} est dévoré par les gardiens de la Fosse — mort.`);
-    setResolu(`${hero.nom_perso} ${t('postBataille.pit.devoured')}`);
+    const texte = `${hero.nom_perso} ${t('postBataille.pit.devoured')}`;
+    onAjouterAuJournal(`${nomEvenement} : ${texte}`);
+    setResolu(texte);
   };
 
   if (resolu) {

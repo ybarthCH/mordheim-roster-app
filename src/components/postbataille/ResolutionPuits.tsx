@@ -5,12 +5,15 @@ import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   roster: RosterInstance;
+  // Nom traduit de l'événement (voir evenementAffiche dans EvenementExploration),
+  // utilisé comme préfixe des entrées de journal ci-dessous.
+  nomEvenement: string;
   onMajRoster: (patch: Partial<RosterInstance>) => void;
   onAjouterAuJournal: (texte: string) => void;
 };
 
 // (1 1) Puits — un héros au choix teste son Endurance contre un jet de 1D6.
-export function ResolutionPuits({ roster, onMajRoster, onAjouterAuJournal }: Props) {
+export function ResolutionPuits({ roster, nomEvenement, onMajRoster, onAjouterAuJournal }: Props) {
   const { t } = useLanguage();
   const [heroId, setHeroId] = useState('');
   // Se verrouille une fois le test résolu : sans ça, le héros envoyé au
@@ -24,8 +27,9 @@ export function ResolutionPuits({ roster, onMajRoster, onAjouterAuJournal }: Pro
   const appliquerReussite = () => {
     if (!hero) return;
     onMajRoster({ wyrdstone: roster.wyrdstone + 1 });
-    onAjouterAuJournal(`Puits : ${hero.nom_perso} trouve un fragment de pierre magique.`);
-    setResolu(t('postBataille.well.foundFragment', { nom: hero.nom_perso }));
+    const texte = t('postBataille.well.foundFragment', { nom: hero.nom_perso });
+    onAjouterAuJournal(`${nomEvenement} : ${texte}`);
+    setResolu(texte);
   };
 
   const appliquerEchec = () => {
@@ -35,8 +39,9 @@ export function ResolutionPuits({ roster, onMajRoster, onAjouterAuJournal }: Pro
         m.instance_id === hero.instance_id ? { ...m, statut: 'blesse', blesse_tour_actuel: 0, blesse_tour_total: 1 } : m
       ),
     });
-    onAjouterAuJournal(`Puits : ${hero.nom_perso} avale de l'eau impure — Blessé, rate la prochaine bataille.`);
-    setResolu(t('postBataille.well.tainted', { nom: hero.nom_perso }));
+    const texte = t('postBataille.well.tainted', { nom: hero.nom_perso });
+    onAjouterAuJournal(`${nomEvenement} : ${texte}`);
+    setResolu(texte);
   };
 
   if (resolu) {

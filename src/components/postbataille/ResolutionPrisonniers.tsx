@@ -9,6 +9,9 @@ import { useLanguage } from '../../state/useLanguage';
 type Props = {
   roster: RosterInstance;
   catalogue: WarbandCatalog;
+  // Nom traduit de l'événement (voir evenementAffiche dans EvenementExploration),
+  // utilisé comme préfixe des entrées de journal ci-dessous.
+  nomEvenement: string;
   onMajRoster: (patch: Partial<RosterInstance>) => void;
   onAjouterOr: (montant: number) => void;
   onAjouterAuJournal: (texte: string) => void;
@@ -17,7 +20,14 @@ type Props = {
 type Branche = 'possedes' | 'morts_vivants' | 'skaven' | 'autres';
 
 // (3 3 3) Prisonniers — l'action possible dépend de la nature de la bande.
-export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjouterOr, onAjouterAuJournal }: Props) {
+export function ResolutionPrisonniers({
+  roster,
+  catalogue,
+  nomEvenement,
+  onMajRoster,
+  onAjouterOr,
+  onAjouterAuJournal,
+}: Props) {
   const { t } = useLanguage();
   const [branche, setBranche] = useState<Branche | null>(null);
   const [heroId, setHeroId] = useState('');
@@ -38,8 +48,9 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
     const hero = heros.find((m) => m.instance_id === heroId);
     if (!hero || !Number.isFinite(valeur) || valeur <= 0) return;
     onMajRoster({ membres: roster.membres.map((m) => (m.instance_id === hero.instance_id ? { ...m, xp: m.xp + valeur } : m)) });
-    onAjouterAuJournal(`Prisonniers : sacrifiés aux dieux du Chaos — ${hero.nom_perso} gagne +${valeur} XP (D3, réparti à ta discrétion).`);
-    setResolu(t('postBataille.prisoners.sacrificed', { nom: hero.nom_perso, n: valeur }));
+    const texte = t('postBataille.prisoners.sacrificed', { nom: hero.nom_perso, n: valeur });
+    onAjouterAuJournal(`${nomEvenement} : ${texte}`);
+    setResolu(texte);
   };
 
   const appliquerZombies = () => {
@@ -47,22 +58,23 @@ export function ResolutionPrisonniers({ roster, catalogue, onMajRoster, onAjoute
     if (!zombieProfil || !Number.isFinite(valeur) || valeur <= 0) return;
     const zombies = Array.from({ length: valeur }, () => creerMembre(zombieProfil, 0));
     onMajRoster({ membres: [...roster.membres, ...zombies] });
-    onAjouterAuJournal(`Prisonniers : tués et transformés — ${valeur} zombie(s) (D3) rejoignent la bande gratuitement.`);
-    setResolu(t('postBataille.prisoners.turnedZombies', { n: valeur }));
+    const texte = t('postBataille.prisoners.turnedZombies', { n: valeur });
+    onAjouterAuJournal(`${nomEvenement} : ${texte}`);
+    setResolu(texte);
   };
 
   const vendus = (valeur: number) => {
     onAjouterOr(valeur);
-    onAjouterAuJournal(`Prisonniers : vendus comme esclaves — +${valeur} po (3D6).`);
-    setResolu(t('postBataille.prisoners.soldAsSlaves', { n: valeur }));
+    const texte = t('postBataille.prisoners.soldAsSlaves', { n: valeur });
+    onAjouterAuJournal(`${nomEvenement} : ${texte}`);
+    setResolu(texte);
   };
 
   const escortes = (valeur: number) => {
     onAjouterOr(valeur);
-    onAjouterAuJournal(
-      `Prisonniers : escortés hors de la cité — +${valeur} po (2D6). Un captif peut rejoindre un groupe d'hommes de main humain existant si tu as le matériel pour l'équiper (à faire manuellement).`
-    );
-    setResolu(t('postBataille.prisoners.escorted', { n: valeur }));
+    const texte = t('postBataille.prisoners.escorted', { n: valeur });
+    onAjouterAuJournal(`${nomEvenement} : ${texte}`);
+    setResolu(texte);
   };
 
   if (resolu) {

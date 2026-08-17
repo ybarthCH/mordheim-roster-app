@@ -25,6 +25,10 @@ export const postBatailleShared: UiDictionary = {
 
   // Débiteur reconnaissant
   'postBataille.debtor.hiredForFree': { fr: '✓ Débiteur reconnaissant : {nom} rejoint la bande gratuitement.', en: '✓ Grateful Debtor: {nom} joins the warband for free.' },
+  'postBataille.debtor.joinedFree': {
+    fr: '{nom} rejoint la bande sans frais de recrutement.',
+    en: '{nom} joins the warband without paying a recruitment fee.',
+  },
   'postBataille.debtor.freeRecruitLabel': { fr: 'Franc-tireur engagé gratuitement', en: 'Hired sword recruited for free' },
   'postBataille.debtor.noneAvailable': {
     fr: "Aucun Franc-tireur disponible pour cette bande pour l'instant.",
@@ -35,7 +39,10 @@ export const postBatailleShared: UiDictionary = {
   // Puits
   'postBataille.well.result': { fr: '✓ Puits : {texte}', en: '✓ The Well: {texte}' },
   'postBataille.well.foundFragment': { fr: '{nom} trouve un fragment de pierre magique.', en: '{nom} finds a fragment of warpstone.' },
-  'postBataille.well.tainted': { fr: '{nom} avale de l\'eau impure — Blessé.', en: '{nom} drinks tainted water — Injured.' },
+  'postBataille.well.tainted': {
+    fr: "{nom} avale de l'eau impure — Blessé, rate la prochaine bataille.",
+    en: '{nom} drinks tainted water — Injured, misses the next battle.',
+  },
   'postBataille.well.heroLabel': { fr: 'Héros envoyé au puits', en: 'Hero sent to the well' },
   'postBataille.well.enduranceTest': {
     fr: "Test d'Endurance (1D6, réussi si ≤ E{e}) :",
@@ -109,7 +116,10 @@ export const postBatailleShared: UiDictionary = {
     en: 'Killed and turned — {n} zombie(s) join the warband.',
   },
   'postBataille.prisoners.soldAsSlaves': { fr: 'Vendus comme esclaves — +{n} po.', en: 'Sold as slaves — +{n} gc.' },
-  'postBataille.prisoners.escorted': { fr: 'Escortés hors de la cité — +{n} po.', en: 'Escorted out of the city — +{n} gc.' },
+  'postBataille.prisoners.escorted': {
+    fr: "Escortés hors de la cité — +{n} po. Un captif peut rejoindre un groupe d'hommes de main humain existant si tu as le matériel pour l'équiper (à faire manuellement).",
+    en: 'Escorted out of the city — +{n} gc. A captive may join an existing human henchman group if you have the gear to equip them (to be done manually).',
+  },
   'postBataille.prisoners.sacrificeForXp': { fr: 'Sacrifier — D3 XP', en: 'Sacrifice — D3 XP' },
   'postBataille.prisoners.killForZombies': { fr: 'Tuer — D3 zombies gratuits', en: 'Kill — D3 free zombies' },
   'postBataille.prisoners.sellFor3d6': { fr: 'Vendre pour 3D6 CO', en: 'Sell for 3D6 gc' },

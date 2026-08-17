@@ -7,10 +7,10 @@ import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   ligne: LigneTresorConditionnel;
-  // Libellé traduit de `ligne.element` pour l'affichage uniquement — les
-  // callbacks ci-dessous reçoivent toujours `ligne.element` (français), qui
-  // finit consigné dans le journal post-bataille. Absent = affiche
-  // `ligne.element` tel quel (langue française).
+  // Libellé traduit de `ligne.element`, utilisé pour l'affichage et transmis
+  // aux callbacks ci-dessous (elles finissent consignées dans le journal
+  // post-bataille, qui doit donc rester dans la langue active). Absent =
+  // retombe sur `ligne.element` tel quel (français).
   elementAffiche?: string;
   catalogueId: string;
   onAjouterOr: (nomLigne: string, notation: string, valeur: number) => void;
@@ -36,6 +36,7 @@ export function LigneTresorRow({
 }: Props) {
   const { t } = useLanguage();
   const [reussi, setReussi] = useState(ligne.seuil.trim().toLowerCase() === 'auto');
+  const nomLigne = elementAffiche ?? ligne.element;
 
   return (
     <tr>
@@ -52,14 +53,14 @@ export function LigneTresorRow({
               <JetOrButton
                 label={t('postBataille.rollNotation', { notation: ligne.or })}
                 boutonLabel={t('postBataille.add')}
-                onValider={(valeur) => onAjouterOr(ligne.element, ligne.or!, valeur)}
+                onValider={(valeur) => onAjouterOr(nomLigne, ligne.or!, valeur)}
               />
             )}
             {ligne.fragments && (
               <JetOrButton
                 label={t('postBataille.rollNotation', { notation: ligne.fragments })}
                 boutonLabel={t('postBataille.addAsWyrdstone')}
-                onValider={(valeur) => onAjouterFragments(ligne.element, ligne.fragments!, valeur)}
+                onValider={(valeur) => onAjouterFragments(nomLigne, ligne.fragments!, valeur)}
               />
             )}
             {ligne.objets?.map((objet, i) => (
@@ -67,7 +68,7 @@ export function LigneTresorRow({
                 key={i}
                 ligneObjet={objet}
                 catalogueId={catalogueId}
-                onAjouter={(item, quantite) => onAjouterObjet(ligne.element, item, quantite)}
+                onAjouter={(item, quantite) => onAjouterObjet(nomLigne, item, quantite)}
               />
             ))}
             {ligne.artefactMagique && (

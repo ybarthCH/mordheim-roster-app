@@ -7,6 +7,9 @@ import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
   roster: RosterInstance;
+  // Nom traduit de l'événement (voir evenementAffiche dans EvenementExploration),
+  // utilisé comme préfixe de l'entrée de journal ci-dessous.
+  nomEvenement: string;
   onMajRoster: (patch: Partial<RosterInstance>) => void;
   onAjouterAuJournal: (texte: string) => void;
 };
@@ -17,7 +20,7 @@ type Props = {
 // Limité aux profils sans sorts de départ à choisir ni sacrifice de Liche,
 // pour rester une action en un clic — ces cas restent à engager depuis
 // l'écran de recrutement habituel si besoin.
-export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouterAuJournal }: Props) {
+export function ResolutionDebiteurReconnaissant({ roster, nomEvenement, onMajRoster, onAjouterAuJournal }: Props) {
   const { t, language } = useLanguage();
   const [francTireurId, setFrancTireurId] = useState('');
   // Se verrouille une fois un Franc-tireur engagé : l'événement n'en accorde
@@ -40,9 +43,7 @@ export function ResolutionDebiteurReconnaissant({ roster, onMajRoster, onAjouter
     onMajRoster({
       membres: [...roster.membres, membre],
     });
-    onAjouterAuJournal(
-      `Débiteur reconnaissant : ${francTireur.nom} rejoint la bande sans frais de recrutement.`
-    );
+    onAjouterAuJournal(`${nomEvenement} : ${t('postBataille.debtor.joinedFree', { nom: francTireur.nom })}`);
     setResolu(francTireur.nom);
   };
 
