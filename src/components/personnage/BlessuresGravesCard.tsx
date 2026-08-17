@@ -26,7 +26,7 @@ export function BlessuresGravesCard({
         </>
       }
       actions={
-        <button className="btn btn--sm btn--primary" onClick={onOpenAjout}>
+        <button className="btn--pack-pill-sm" onClick={onOpenAjout}>
           {t('blessuresGravesCard.record')}
         </button>
       }

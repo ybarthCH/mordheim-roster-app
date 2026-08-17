@@ -39,7 +39,7 @@ export function EquipementCard({
       }
       actions={
         !verrouille && (
-          <button className="btn btn--sm btn--primary" onClick={onOpenAchat}>
+          <button className="btn--pack-pill-sm" onClick={onOpenAchat}>
             {t('equipementCard.buy')}
           </button>
         )
