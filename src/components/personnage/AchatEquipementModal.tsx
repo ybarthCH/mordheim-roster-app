@@ -669,7 +669,7 @@ export function AchatEquipementModal({
                           {item.origine === 'personnalise' && <span className="badge badge--info">{t('achatEquipement.customBadge')}</span>}
                           {item.surcharge && <span className="badge badge--warning">{t('achatEquipement.modifiedBadge')}</span>}
                           {estPremiereDagueGratuite(item) && (
-                            <span className="badge badge--success">{t('achatEquipement.freeBadge')}</span>
+                            <span className="badge badge--gratuit achat-equipement__rarete">{t('achatEquipement.freeBadge')}</span>
                           )}
                         </div>
                         <div className="list-item__subtitle">
@@ -714,7 +714,7 @@ export function AchatEquipementModal({
                 )}
                 {itemSelectionne.surcharge && <span className="badge badge--warning">{t('achatEquipement.modifiedBadge')}</span>}
                 {estPremiereDagueGratuite(itemSelectionne) && (
-                  <span className="badge badge--success">{t('achatEquipement.freeBadge')}</span>
+                  <span className="badge badge--gratuit achat-equipement__rarete">{t('achatEquipement.freeBadge')}</span>
                 )}
                 {personnaliseActif && (
                   <button
