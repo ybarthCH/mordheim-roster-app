@@ -23,7 +23,7 @@ import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu
 import { peutGagnerExperience } from '../../utils/xp';
 import { libelleCaracteristique } from '../../utils/stats';
 import { Modal } from '../common/Modal';
-import { AchatEquipementModal } from '../personnage/AchatEquipementModal';
+import { AchatEquipementContenu } from '../personnage/AchatEquipementModal';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
 
@@ -48,11 +48,10 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
   // champ pour retaper un chiffre) — la conversion/le plancher ne s'applique
   // qu'à l'usage (voir quantite ci-dessous).
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
-  // Une fois la recrue créée, on bascule sur l'étape équipement dans cette
-  // même fenêtre modale plutôt que d'en ouvrir une seconde (voir rendu plus
-  // bas) — null tant que le formulaire de recrutement est actif.
+  // Une fois la recrue créée, on affiche son équipement à acheter dans cette
+  // même fenêtre modale (fiche + shop intégré, pas un second écran) — null
+  // tant que le formulaire de recrutement est actif.
   const [membreRecrute, setMembreRecrute] = useState<Member | null>(null);
-  const [achatOuvert, setAchatOuvert] = useState(false);
   const [groupeCibleId, setGroupeCibleId] = useState<string | null>(null);
   // Coût saisi à la main quand le profil n'a pas de prix fixe (ex : chien de
   // guerre, "25+2D6") — jet à faire sur table papier, comme pour un objet.
@@ -183,38 +182,53 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
     // avoir changé après un premier achat.
     const membreActuel = roster.membres.find((m) => m.instance_id === membreRecrute.instance_id) ?? membreRecrute;
 
-    if (achatOuvert && catalogue) {
-      return (
-        <AchatEquipementModal
-          catalogue={catalogue}
-          profil={profil ?? null}
-          tresorerie={roster.tresorerie}
-          competencesAcquises={membreActuel.competences_acquises}
-          marqueId={membreActuel.marque}
-          inventaireActuel={membreActuel.inventaire}
-          inventaireBande={inventaireComplet(roster)}
-          roster={roster}
-          tailleGroupe={membreActuel.taille_groupe || 1}
-          objetsPersonnalises={roster.objets_personnalises}
-          objetsSurcharges={roster.objets_surcharges}
-          onObjetsPersonnalisesChange={(objets) => onUpdateRoster({ ...roster, objets_personnalises: objets })}
-          onObjetsSurchargesChange={(surcharges) => onUpdateRoster({ ...roster, objets_surcharges: surcharges })}
-          onClose={() => setAchatOuvert(false)}
-          onAchat={(item, coutPaye) => onUpdateRoster(appliquerAchatSurMembre(roster, membreActuel, item, coutPaye))}
-        />
-      );
-    }
-
     return (
-      <Modal onClose={onClose}>
-        <h3>{t('recrutementEquipement.title', { nom: membreActuel.nom_perso })}</h3>
-        <p className="text-sm text-muted">{t('recrutementEquipement.hint')}</p>
-        <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
-          <button className="btn" onClick={onClose}>
+      <Modal onClose={onClose} variant="fullscreen">
+        <div style={{ padding: '0.9rem 0.9rem 0' }}>
+          <h3 className="mt-0">{t('recrutementEquipement.title', { nom: membreActuel.nom_perso })}</h3>
+          {profil?.stats && (
+            <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
+              {STAT_KEYS.map((k) => (
+                <div key={k} className="stat-grid__cell stat-grid__cell--label">
+                  {libelleCaracteristique(k, language)}
+                </div>
+              ))}
+              {STAT_KEYS.map((k) => (
+                <div key={k} className="stat-grid__cell stat-grid__cell--value">
+                  {profil.stats![k]}
+                </div>
+              ))}
+            </div>
+          )}
+          {profil?.regles_speciales?.map((r) => (
+            <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              <strong>{r.nom}</strong> — {r.texte}
+            </p>
+          ))}
+        </div>
+        {catalogue && (
+          <AchatEquipementContenu
+            catalogue={catalogue}
+            profil={profil ?? null}
+            tresorerie={roster.tresorerie}
+            competencesAcquises={membreActuel.competences_acquises}
+            marqueId={membreActuel.marque}
+            inventaireActuel={membreActuel.inventaire}
+            inventaireBande={inventaireComplet(roster)}
+            roster={roster}
+            tailleGroupe={membreActuel.taille_groupe || 1}
+            objetsPersonnalises={roster.objets_personnalises}
+            objetsSurcharges={roster.objets_surcharges}
+            onObjetsPersonnalisesChange={(objets) => onUpdateRoster({ ...roster, objets_personnalises: objets })}
+            onObjetsSurchargesChange={(surcharges) => onUpdateRoster({ ...roster, objets_surcharges: surcharges })}
+            resterOuvertApresAchat
+            onClose={onClose}
+            onAchat={(item, coutPaye) => onUpdateRoster(appliquerAchatSurMembre(roster, membreActuel, item, coutPaye))}
+          />
+        )}
+        <div className="flex gap-sm" style={{ padding: '0.9rem' }}>
+          <button className="btn btn--primary" onClick={onClose}>
             {t('recrutementEquipement.finish')}
-          </button>
-          <button className="btn btn--primary" onClick={() => setAchatOuvert(true)}>
-            {t('recrutementEquipement.buyEquipment')}
           </button>
         </div>
       </Modal>
