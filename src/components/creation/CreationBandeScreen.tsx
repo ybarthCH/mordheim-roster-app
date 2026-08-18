@@ -7,6 +7,7 @@ import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Member, RosterInstance } from '../../types/roster';
 import { creerMembre, creerRoster } from '../../utils/factory';
+import { equipementInclusDepart } from '../../utils/shop';
 import { peutAjouterMembre } from '../../utils/validation';
 import { estSorcier, resolveSort, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
@@ -323,6 +324,10 @@ export function CreationBandeScreen() {
           onClose={() => setProfilEnRecrutement(null)}
           onConfirm={({ nom, xpDepart, quantite, sortsConnus, coutUnitaire, marque }) => {
             const membre = creerMembre(profilEnRecrutement, xpDepart, quantite);
+            membre.inventaire = [
+              ...membre.inventaire,
+              ...equipementInclusDepart(catalogue?.id ?? '', profilEnRecrutement.id),
+            ];
             if (nom) membre.nom_perso = nom;
             if (marque) membre.marque = marque;
             if (sortsConnus.length > 0) membre.sorts_connus = sortsConnus;

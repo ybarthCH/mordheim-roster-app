@@ -6,7 +6,13 @@ import { getCatalogue } from '../../data/warbands';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
 import { peutAjouterMembre } from '../../utils/validation';
 import { creerMembre } from '../../utils/factory';
-import { calculerCoutRejoindreGroupe, formatCoutProfil, rejoindreGroupe, TRINKETS_LIMITES } from '../../utils/shop';
+import {
+  calculerCoutRejoindreGroupe,
+  equipementInclusDepart,
+  formatCoutProfil,
+  rejoindreGroupe,
+  TRINKETS_LIMITES,
+} from '../../utils/shop';
 import { estSorcier, resolveSort, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
 import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
@@ -135,6 +141,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     }
 
     const membre = creerMembre(profil, xpDepart, quantite);
+    membre.inventaire = [...membre.inventaire, ...equipementInclusDepart(catalogue?.id ?? '', profil.id)];
     if (coutManuelRequis) membre.cout_recrutement = coutUnitaire;
     if (nomPerso.trim()) membre.nom_perso = nomPerso.trim();
     if (marqueRequise && marqueChoisie) membre.marque = marqueChoisie;

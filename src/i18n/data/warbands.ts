@@ -38,6 +38,10 @@ export type WarbandTraduite = {
   marques?: Record<string, MarqueTraduite>;
   tribus?: Record<string, TribuTraduite>;
   equipement?: Record<string, EquipementListeTraduite>;
+  // Aligné par index sur `WarbandCatalog.equipement_special` — ne traduit que
+  // la mention d'accès (ex : "Sylvaneths uniquement"), le nom/texte de
+  // l'objet lui-même vient déjà de translateItem via son item_id.
+  equipement_special?: { disponibilite?: string }[];
 };
 
 // Traductions des bandes, remplies progressivement bande par bande (voir
@@ -6484,6 +6488,184 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
     },
   },
+  sylvaneths: {
+    nom: 'Sylvaneth (3)',
+    regles_speciales: [
+      {
+        nom: 'Spirit Form',
+        texte:
+          'The Arch-Revenant, Thornwych, Tree-Revenants, Spite-Revenants and Treeman are difficult to stun. Whenever such a warrior suffers a Stunned result, roll a D6. On a 4+, treat the result as Knocked Down instead.',
+      },
+      {
+        nom: 'Hatred of Metal',
+        texte:
+          'Sylvaneth may never wear conventional body armour. Shields, bucklers and Ironbark remain allowed if permitted by their equipment list.',
+      },
+      {
+        nom: 'Forest Walk',
+        texte: 'Sylvaneth ignore Movement penalties caused by woods, forests, undergrowth and similar vegetation terrain.',
+      },
+      {
+        nom: 'Spirit-song',
+        texte:
+          'Friendly Sylvaneth within 6" of the Arch-Revenant or Thornwych may re-roll failed Leadership tests. Spite-Revenants never benefit from this rule. It does not apply to Rout tests.',
+      },
+    ],
+    profils: {
+      archi_revenant: {
+        nom: 'Arch-Revenant',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any warrior within 6" may use his Leadership.' },
+          { nom: 'Spirit-song', texte: 'Projects the Spirit-song.' },
+        ],
+      },
+      sorciere_des_ronces: {
+        nom: 'Thornwych',
+        regles_speciales: [
+          { nom: 'Wizard', texte: 'Starts with one randomly determined spell by rolling D3.' },
+          { nom: 'Spirit-song', texte: 'Projects the Spirit-song.' },
+        ],
+      },
+      branchanteresse: {
+        nom: 'Branchwych',
+        regles_speciales: [
+          { nom: 'Wizard', texte: 'Starts with one randomly determined spell by rolling D3+3.' },
+          { nom: 'Ironbark', texte: 'Starts with Ironbark I, included in her cost.' },
+        ],
+      },
+      shadestalker: {
+        nom: 'Shadestalker',
+        regles_speciales: [
+          { nom: 'Fear', texte: 'Causes Fear.' },
+          { nom: 'Frenzy', texte: 'Is subject to Frenzy.' },
+          { nom: 'Outcast', texte: 'Never benefits from the Spirit-song and can never become the warband leader.' },
+        ],
+      },
+      sylve_revenant: { nom: 'Tree-Revenant' },
+      fiel_revenant: {
+        nom: 'Spite-Revenant',
+        regles_speciales: [
+          { nom: 'Fear', texte: 'Causes Fear.' },
+          {
+            nom: 'Cruel Talons',
+            texte: 'Start with two Cruel Talons, included in their cost. The second can never be sold or transferred.',
+          },
+        ],
+      },
+      dryade: {
+        nom: 'Dryad',
+        regles_speciales: [
+          { nom: 'Ironbark', texte: 'Starts with Ironbark I and may never improve it.' },
+          {
+            nom: 'Forest Creatures',
+            texte:
+              'Never gain Experience or "The Lad\'s Got Talent!". They fight with claws and branches without the penalties for fighting unarmed.',
+          },
+        ],
+      },
+      homme_arbre: {
+        nom: 'Treeman',
+        regles_speciales: [
+          { nom: 'Fear', texte: 'Causes Fear.' },
+          { nom: 'Large Target', texte: 'Is a Large Target.' },
+          {
+            nom: 'Monstrous Veteran',
+            texte: 'Gains Experience but can never become a Hero. Any "The Lad\'s Got Talent!" result is re-rolled.',
+          },
+          { nom: 'Claws', texte: 'Fights with its natural weapons without penalty.' },
+          {
+            nom: 'Characteristic cap',
+            texte:
+              'The source document does not provide a dedicated advancement table for this profile: no cap is automatically applied.',
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      voies_secretes: {
+        nom: 'Hidden Paths',
+        texte:
+          'The Hero is always placed after the opposing warband has deployed. He may be placed anywhere out of sight of all enemy models and more than 12" from any enemy. If both players have infiltrators, roll a D6: the lower result deploys first.',
+      },
+      maitrise_spectrale: {
+        nom: 'Spectral Mastery',
+        texte:
+          'When a Hero uses a Spectral Weapon in close combat, he gains +1 on his rolls on the Critical Hit charts. Automatic wounds caused by a natural 6 to hit allow no armour save.',
+      },
+      repousse_perpetuelle: {
+        nom: 'Endless Growth',
+        texte:
+          'Whenever the Hero suffers an unsaved wound, roll a D6. On a 5+, the wound is ignored. Wounds caused by flaming attacks can never be regenerated.',
+      },
+      memoire_des_ages: {
+        nom: 'Memory of Ages',
+        texte: 'Once per battle, the Hero may re-roll a failed roll he has just made. The second result must be accepted.',
+      },
+      murmures_des_racines: {
+        nom: 'Whispers of the Roots',
+        reserve_a: 'Only one Hero in the warband may have this skill',
+        texte: "During Exploration rolls, this Hero allows you to modify the result of one die by -1/+1.",
+      },
+    },
+    magie: {
+      nom: 'Sylvaneth Sorcery',
+      type: 'sorcery',
+      note:
+        'The Thornwych and Branchwych are Wizards and use the same spell table. The Thornwych determines her starting spell by rolling D3; the Branchwych rolls D3+3. For every new spell, roll D6. If the same spell is rolled twice, re-roll or reduce its Difficulty by 1.',
+      sorts: [
+        {
+          nom: 'Verdurous Harmony',
+          texte:
+            'Choose a friendly Sylvaneth within 12". It recovers 1 lost Wound. If it is Knocked Down or Stunned, it may instead stand up immediately.',
+        },
+        {
+          nom: 'Walk the Hidden Paths',
+          texte:
+            'Choose a friendly Sylvaneth within 6" that is not engaged in close combat. Reposition it up to 12" away. It may not finish in contact with an enemy and this move is never a charge.',
+        },
+        {
+          nom: 'Treesong',
+          texte:
+            "Choose a friendly Sylvaneth within 12\". Until the start of the caster's next turn, all shooting attacks against it suffer -1 to hit. This modifier is not cover and stacks with actual cover.",
+        },
+        {
+          nom: 'Wrathful Spirits',
+          texte:
+            'Choose a friendly Sylvaneth within 6". Until the next turn, it may re-roll failed rolls to wound. The second result stands. The roll used to determine a critical hit after an automatic Spectral Weapon wound may not be re-rolled.',
+        },
+        {
+          nom: 'The Dwellers Below',
+          texte:
+            'Choose an enemy within 12". The target and every other enemy within 2" of it suffer a Strength 3 hit. Armour saves apply normally.',
+        },
+        {
+          nom: 'Creeping Overgrowth',
+          texte:
+            'Choose an enemy within 12". Until the next turn, its Movement is halved, rounding up, and it always strikes last, even if it charges.',
+        },
+      ],
+    },
+    equipement: {
+      sylvaneths: {
+        armes_cac: ['first free', 'or Scythe', undefined, undefined, 'or Glaive', undefined],
+        armures: [undefined, undefined, 'Level I/II/III, see special rules'],
+      },
+      homme_arbre: {
+        armures: ['Level I/II/III, see special rules'],
+      },
+      divers_sylvaneth: {
+        divers: ['Base weapon price x2, except daggers — see special rules', undefined, undefined, undefined],
+      },
+    },
+    equipement_special: [
+      { disponibilite: 'Sylvaneth only' },
+      { disponibilite: 'Common, Sylvaneth only' },
+      { disponibilite: 'Common (Levels I-II), Rare 10 Heroes only (Level III), Sylvaneth only' },
+      { disponibilite: 'Rare 9, Treeman only' },
+      { disponibilite: 'Common, Sylvaneth Heroes and Treeman only' },
+      { disponibilite: 'Rare 8, Thornwych only' },
+    ],
+  },
 };
 
 function translateRegles(regles: SpecialRule[], en: RegleTraduite[] | undefined): SpecialRule[] {
@@ -6574,5 +6756,9 @@ export function translateWarbandCatalog(catalogue: WarbandCatalog, language: Lan
           Object.entries(catalogue.equipement).map(([k, liste]) => [k, translateEquipementListe(liste, en.equipement?.[k])])
         )
       : catalogue.equipement,
+    equipement_special: catalogue.equipement_special?.map((it, i) => {
+      const dispoEn = en.equipement_special?.[i]?.disponibilite;
+      return dispoEn ? { ...it, disponibilite: dispoEn } : it;
+    }),
   };
 }

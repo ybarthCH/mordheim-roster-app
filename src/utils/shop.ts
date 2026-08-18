@@ -496,6 +496,21 @@ export function inventaireComplet(roster: RosterInstance): InventoryEntry[] {
   return [...roster.stock, ...roster.membres.flatMap((m) => m.inventaire)];
 }
 
+// Équipement de départ inclus dans le coût de recrutement d'un profil précis
+// (voir sa règle spéciale), à ajouter à l'inventaire dès la création du
+// membre plutôt qu'à acheter séparément — pour l'instant limité à la
+// Branchanteresse des Sylvaneths (Écorce de fer I). À étendre au cas par cas
+// si d'autres profils l'exigent.
+export function equipementInclusDepart(catalogueId: string, profilId: string): InventoryEntry[] {
+  if (catalogueId === 'sylvaneths' && profilId === 'branchanteresse') {
+    const item = getItem('ecorce_de_fer');
+    if (item) {
+      return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
+  return [];
+}
+
 // Compte, à l'échelle de la bande, le nombre de figurines et d'objets
 // d'équipement partageant un même `plafond_groupe.id` (voir Profile et
 // EquipementSpecialRef dans types/catalog.ts) — ex : chez les Pillards de
