@@ -24,4 +24,9 @@ export const common: UiDictionary = {
     en: "Your warbands are safe in the device's local storage — only the display crashed.",
   },
   'errorBoundary.backHome': { fr: "Retour à l'accueil", en: 'Back to home' },
+  'errorBoundary.staleChunk.title': { fr: 'L\'application a été mise à jour', en: 'The app has been updated' },
+  'errorBoundary.staleChunk.message': {
+    fr: 'Clique ci-dessous pour recharger la page et récupérer la dernière version.',
+    en: 'Click below to reload the page and get the latest version.',
+  },
 };
