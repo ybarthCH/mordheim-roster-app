@@ -3731,7 +3731,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     regles_speciales: [{ nom: 'Effect', texte: 'Special 4+ save against spells or prayers.' }],
   },
   pince_mutation: {
-    nom: 'Claw',
+    nom: 'Great Claw',
     regles_speciales: [
       { nom: 'Effect', texte: 'The mutant does not wield a weapon in this arm, but gains an additional Strength+1 attack in hand-to-hand combat.' },
     ],
@@ -3747,7 +3747,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     regles_speciales: [{ nom: 'Effect', texte: '+1 Movement.' }],
   },
   sang_acide: {
-    nom: 'Acid Blood',
+    nom: 'Black Blood',
     regles_speciales: [
       {
         nom: 'Effect',
@@ -3756,7 +3756,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   epines: {
-    nom: 'Thorns',
+    nom: 'Spines',
     regles_speciales: [
       {
         nom: 'Effect',

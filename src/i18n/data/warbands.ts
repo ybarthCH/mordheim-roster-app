@@ -232,27 +232,27 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         'Base table used by a Seer with no Mark, or with the Mark of Chaos Undivided. A Seer marked by Shornaal, Tchar, or Onogal instead uses the rituals specific to his Mark (chosen at recruitment — see marks). A Seer marked by Arkhar becomes a Blood Father and no longer casts spells.',
       sorts: [
         {
-          nom: 'Vision of Horror',
+          nom: 'Vision of Torment',
           texte: 'Range 6" against the nearest enemy (or a target in contact if the Seer is engaged); the victim is immediately Stunned, or Knocked Down if it cannot be Stunned.',
         },
         {
-          nom: 'Divine Eye',
+          nom: 'Eye of God',
           texte: 'Once per battle. Choose a model within 6", friend or foe, and roll 1D6: 1 = immediate Out of Action (no Serious Injury roll); 2-5 = +1 to a characteristic of choice for the battle; 6 = +1 to all characteristics for the battle.',
         },
         {
-          nom: 'Black Blood',
+          nom: 'Dark Blood',
           texte: 'Range 8", D3 Strength 5 hits on the first model in the path; the Seer must then roll on the Injury table for his own wound (an Out of Action result is treated as Stunned).',
         },
         {
-          nom: 'Temptation of Chaos',
+          nom: 'Lure of Chaos',
           texte: 'Range 12" against the nearest enemy; compares 1D6+Ld of the Seer against 1D6+Ld of the target. If the Seer wins, he takes control of the victim until a successful Leadership test during the opponent\'s Recovery phase; it cannot commit suicide but may attack its own side, without fighting the Seer\'s warband.',
         },
         {
-          nom: 'Dark Wings',
+          nom: 'Wings of Darkness',
           texte: 'The Seer immediately moves anywhere within 12", even into contact (which then counts as a charge); against a fleeing enemy, inflicts an automatic hit, and if it survives, it flees again.',
         },
         {
-          nom: 'Word of Suffering',
+          nom: 'Word of Pain',
           texte: 'All models within 3" of the Seer, friend or foe, suffer a Strength 3 hit with no armour save.',
         },
       ],
@@ -2426,32 +2426,32 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       type: 'sorcery',
       sorts: [
         {
-          nom: 'Vision of Horror',
+          nom: 'Vision of Torment',
           texte:
             'Range 6", cast on the nearest enemy (a model in base contact if the sorcerer is engaged in hand-to-hand combat). The victim is immediately Stunned; if it cannot be Stunned, it is Knocked Down instead.',
         },
         {
-          nom: 'Divine Eye',
+          nom: 'Eye of God',
           texte:
             'Usable once per battle. Choose any model within 6", friend or foe, and roll 1D6: 1 = the model is immediately taken Out of Action (no roll on the Serious Injury table); 2-5 = +1 to a characteristic of the caster\'s choice for the battle; 6 = +1 to all characteristics for the duration of the battle.',
         },
         {
-          nom: 'Black Blood',
+          nom: 'Dark Blood',
           texte:
             "Range 8\", causes D3 Strength 5 hits on the first model in its path. The sorcerer must then roll on the Injury table for his own Wound (an Out of Action result is treated as Stunned).",
         },
         {
-          nom: 'Temptation of Chaos',
+          nom: 'Lure of Chaos',
           texte:
             "Range 12\", cast on the nearest enemy model. Compare 1D6+Ld of the sorcerer to 1D6+Ld of the target; if the sorcerer wins, he takes control of his victim until it passes a Leadership test during the opponent's Recovery phase. The controlled model cannot commit suicide but may attack its own side, and will not fight the sorcerer's warband.",
         },
         {
-          nom: 'Dark Wings',
+          nom: 'Wings of Darkness',
           texte:
             'The sorcerer may immediately move anywhere within 12", even into contact with the enemy (counts as having charged). If he engages a fleeing enemy, he inflicts an automatic hit during the hand-to-hand combat phase, and the opponent then flees again if it survives.',
         },
         {
-          nom: 'Word of Suffering',
+          nom: 'Word of Pain',
           texte: 'All models within 3" of the sorcerer, friend or foe, suffer a Strength 3 hit with no armour save.',
         },
       ],
@@ -3085,7 +3085,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           nom: 'Grim Vision',
           note: 'Necromancers only',
           texte:
-            'The Necromancer causes fear in his enemies for the duration of the battle and is himself immune to it — the sole exception to the Apprentice rule, available if the Liche knows the Vision of Horror spell.',
+            'The Necromancer causes fear in his enemies for the duration of the battle and is himself immune to it — the sole exception to the Apprentice rule, available if the Liche knows the Vision of Death spell.',
         },
         {
           nom: 'Living Horror',
@@ -4777,32 +4777,32 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       type: 'sorcery',
       sorts: [
         {
-          nom: 'Vision of Horror',
+          nom: 'Vision of Torment',
           texte:
             "Range 6\", cast on the nearest enemy (or a target in base contact if the Shaman is engaged in hand-to-hand combat). The victim is immediately Stunned; if it cannot be Stunned, it is Knocked Down instead.",
         },
         {
-          nom: 'Divine Eye',
+          nom: 'Eye of God',
           texte:
             'Usable once per battle. Choose any model within 6", friend or foe, and roll 1D6: 1 = immediate Out of Action (no Serious Injury roll); 2-5 = +1 to a characteristic of choice for the battle; 6 = +1 to all characteristics for the duration of the battle.',
         },
         {
-          nom: 'Black Blood',
+          nom: 'Dark Blood',
           texte:
             'Range 8", causes D3 Strength 5 hits on the first model in its path. The Shaman must then roll on the Injury table for his own Wound (an Out of Action result is treated as Stunned).',
         },
         {
-          nom: 'Temptation of Chaos',
+          nom: 'Lure of Chaos',
           texte:
             "Range 12\", cast on the nearest enemy model. Compare 1D6+Ld of the Shaman to 1D6+Ld of the target; if the Shaman wins, he takes control of his victim until it passes a Leadership test during the opponent's Recovery phase.",
         },
         {
-          nom: 'Dark Wings',
+          nom: 'Wings of Darkness',
           texte:
             'The Shaman may immediately move anywhere within 12", even into base contact with an enemy (counts as having charged). If he engages a fleeing enemy, he inflicts an automatic hit, and the enemy flees again if it survives.',
         },
         {
-          nom: 'Word of Suffering',
+          nom: 'Word of Pain',
           texte: 'All models within 3" of the Shaman, friend or foe, suffer a Strength 3 hit with no armour save.',
         },
       ],
@@ -6226,7 +6226,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Mutations',
         texte:
-          'Any Hero may buy, only at the time of his recruitment, one of the following mutations (see the Cult of the Possessed Mutation rules): Extra Arm, Tentacle, or Claw (Great Claw) — see Special Equipment. First mutation at normal price, any subsequent mutation on the same model costs double.',
+          'Any Hero may buy, only at the time of his recruitment, one of the following mutations (see the Cult of the Possessed Mutation rules): Extra Arm, Tentacle, or Great Claw — see Special Equipment. First mutation at normal price, any subsequent mutation on the same model costs double.',
       },
       {
         nom: 'Composition',
@@ -6319,32 +6319,32 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       nom: 'Rituals of Chaos',
       sorts: [
         {
-          nom: 'Vision of Horror',
+          nom: 'Vision of Torment',
           texte:
             'Range 6", cast on the nearest enemy (a model in base contact if the sorcerer is engaged in hand-to-hand combat). The victim is immediately Stunned; if it cannot be Stunned, it is Knocked Down instead.',
         },
         {
-          nom: 'Divine Eye',
+          nom: 'Eye of God',
           texte:
             'Usable once per battle. Choose any model within 6", friend or foe, and roll 1D6: 1 = the model is immediately taken Out of Action (no roll on the Serious Injury table); 2-5 = +1 to a characteristic of the caster\'s choice for the battle; 6 = +1 to all characteristics for the duration of the battle.',
         },
         {
-          nom: 'Black Blood',
+          nom: 'Dark Blood',
           texte:
             "Range 8\", causes D3 Strength 5 hits on the first model in its path. The sorcerer must then roll on the Injury table for his own Wound (an Out of Action result is treated as Stunned).",
         },
         {
-          nom: 'Temptation of Chaos',
+          nom: 'Lure of Chaos',
           texte:
             "Range 12\", cast on the nearest enemy model. Compare 1D6+Ld of the sorcerer to 1D6+Ld of the target; if the sorcerer wins, he takes control of his victim until it passes a Leadership test during the opponent's Recovery phase. The controlled model cannot commit suicide but may attack its own side, and will not fight the sorcerer's warband.",
         },
         {
-          nom: 'Dark Wings',
+          nom: 'Wings of Darkness',
           texte:
             'The sorcerer may immediately move anywhere within 12", even into contact with the enemy (counts as having charged). If he engages a fleeing enemy, he inflicts an automatic hit during the hand-to-hand combat phase, and the opponent then flees again if it survives.',
         },
         {
-          nom: 'Word of Suffering',
+          nom: 'Word of Pain',
           texte: 'All models within 3" of the sorcerer, friend or foe, suffer a Strength 3 hit with no armour save.',
         },
       ],
