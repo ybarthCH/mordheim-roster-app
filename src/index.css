@@ -639,7 +639,8 @@ button {
 .badge.badge--equipment-warning,
 .badge.badge--rarete-danger,
 .badge.badge--rarete-warning,
-.badge.badge--rarete-info {
+.badge.badge--rarete-info,
+.badge.badge--gratuit {
   position: relative;
   z-index: 0;
   border-radius: 4px;
@@ -662,7 +663,8 @@ button {
 .badge.badge--equipment-warning::before,
 .badge.badge--rarete-danger::before,
 .badge.badge--rarete-warning::before,
-.badge.badge--rarete-info::before {
+.badge.badge--rarete-info::before,
+.badge.badge--gratuit::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -674,7 +676,8 @@ button {
 .badge.badge--leader,
 .badge.badge--equipment-warning,
 .badge.badge--rarete-danger,
-.badge.badge--rarete-info {
+.badge.badge--rarete-info,
+.badge.badge--gratuit {
   color: #f1ded1;
 }
 :root:not([data-palette]) .badge.badge--leader::before,
@@ -713,6 +716,12 @@ button {
    accent de thème. */
 .badge.badge--rarete-info::before {
   background-image: url('/decor/tag-leader-ice.webp');
+}
+/* Même ruban peint que le statut "Actif" (.status-switch--success) —
+   utilisé pour la première dague gratuite d'un profil (voir
+   AchatEquipementModal.tsx / estPremiereDagueGratuite). */
+.badge.badge--gratuit::before {
+  background-image: url('/decor/tag-success-green.webp');
 }
 /* Un peu plus de marge horizontale que les autres rubans : le texte
    "Rare N" est court et collait aux pointes décoratives du ruban. Le
@@ -3235,7 +3244,8 @@ button {
 :root[data-theme='light'] .badge.badge--equipment-warning,
 :root[data-theme='light'] .badge.badge--rarete-danger,
 :root[data-theme='light'] .badge.badge--rarete-warning,
-:root[data-theme='light'] .badge.badge--rarete-info {
+:root[data-theme='light'] .badge.badge--rarete-info,
+:root[data-theme='light'] .badge.badge--gratuit {
   border-radius: 999px;
   text-shadow: none;
   padding: 0.15rem 0.6rem;
@@ -3246,7 +3256,8 @@ button {
 :root[data-theme='light'] .badge.badge--equipment-warning::before,
 :root[data-theme='light'] .badge.badge--rarete-danger::before,
 :root[data-theme='light'] .badge.badge--rarete-warning::before,
-:root[data-theme='light'] .badge.badge--rarete-info::before {
+:root[data-theme='light'] .badge.badge--rarete-info::before,
+:root[data-theme='light'] .badge.badge--gratuit::before {
   content: none;
 }
 :root[data-theme='light'] .badge.badge--leader {
@@ -3267,6 +3278,10 @@ button {
 :root[data-theme='light'] .badge.badge--rarete-info {
   background: var(--info-bg);
   color: var(--text);
+}
+:root[data-theme='light'] .badge.badge--gratuit {
+  background: var(--success-bg);
+  color: var(--success);
 }
 
 /* Bannière d'avertissement (aucun chef, effectif dépassé...) : reste rouge
