@@ -6,6 +6,7 @@ import { creerMembreFrancTireurCatalogue } from '../../utils/factory';
 import {
   disponibiliteFrancTireur,
   FRANCS_TIREURS,
+  libelleOptionEquipementChoix,
 } from '../../data/hiredSwords';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { sortsMagieMineureDisponibles } from '../../utils/magie';
@@ -28,6 +29,9 @@ export function RecruterFrancTireurScreen() {
   const [coutVariable, setCoutVariable] = useState('');
   const [sacrificeLiche, setSacrificeLiche] = useState(1);
   const [sortsChoisis, setSortsChoisis] = useState<string[]>([]);
+  // Choix d'équipement (voir FrancTireurCatalog.equipement_choix) : id de
+  // l'option retenue par ligne d'équipement concernée (clé = ligneIndex).
+  const [choixEquipement, setChoixEquipement] = useState<Record<number, string>>({});
 
   // Le calcul de disponibilité (disponibiliteFrancTireur) reste indifférent à
   // la langue (comparaisons d'ids), donc la traduction est appliquée après
@@ -76,6 +80,20 @@ export function RecruterFrancTireurScreen() {
   const peutEngager =
     !!selection && disponibiliteSelection?.disponible && budgetSuffisant && coutVariableValide && sortsValides;
 
+  // Lignes d'équipement affichées/enregistrées, avec les libellés génériques
+  // ("Sword or axe"...) remplacés par le choix retenu (voir choixEquipement)
+  // — reste du texte d'ambiance, jamais un item d'inventaire structuré.
+  const equipementResolu = (fr: typeof selection) => {
+    if (!fr) return [];
+    const lignes = [...fr.equipement];
+    fr.equipement_choix?.forEach((groupe) => {
+      const optionId = choixEquipement[groupe.ligneIndex] ?? groupe.options[0]?.id;
+      const option = groupe.options.find((o) => o.id === optionId) ?? groupe.options[0];
+      if (option) lignes[groupe.ligneIndex] = libelleOptionEquipementChoix(option.itemIds, language);
+    });
+    return lignes;
+  };
+
   const choisir = (profilId: string) => {
     const profil = francsTireursTraduits.find((p) => p.id === profilId);
     setSelectionId(profilId);
@@ -83,6 +101,7 @@ export function RecruterFrancTireurScreen() {
     setCoutVariable('');
     setSacrificeLiche(1);
     setSortsChoisis([]);
+    setChoixEquipement({});
     setCatalogueOuvert(false);
   };
 
@@ -91,6 +110,7 @@ export function RecruterFrancTireurScreen() {
     const membre = creerMembreFrancTireurCatalogue(selection);
     membre.nom_perso = nomPerso.trim() || selection.nom;
     membre.sorts_connus = [...sortsRenseignes];
+    membre.equipement = equipementResolu(selection).join(', ');
     if (selection.recrutement.cout == null) membre.cout_recrutement = coutRecrutement;
 
     const membres = roster.membres.map((m) => {
@@ -234,8 +254,25 @@ export function RecruterFrancTireurScreen() {
           <div className="card">
             <h3>{t('francTireur.equipmentAndProgress')}</h3>
             <p className="text-sm">
-              <strong>{t('francTireur.equipmentProvided')}</strong> {selection.equipement.join(', ')}
+              <strong>{t('francTireur.equipmentProvided')}</strong> {equipementResolu(selection).join(', ')}
             </p>
+            {selection.equipement_choix?.map((groupe) => (
+              <div className="field" key={groupe.ligneIndex}>
+                <label>{t('francTireur.equipmentChoiceLabel')}</label>
+                <select
+                  value={choixEquipement[groupe.ligneIndex] ?? groupe.options[0]?.id}
+                  onChange={(e) =>
+                    setChoixEquipement((prev) => ({ ...prev, [groupe.ligneIndex]: e.target.value }))
+                  }
+                >
+                  {groupe.options.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {libelleOptionEquipementChoix(option.itemIds, language)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
             <p className="text-sm">
               <strong>{t('francTireur.skillTables')}</strong>{' '}
               {selection.acces_competences

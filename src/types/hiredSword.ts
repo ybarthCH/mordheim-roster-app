@@ -41,6 +41,23 @@ export type FrancTireurCatalog = {
   };
   stats: Stats;
   equipement: string[];
+  // Lignes de `equipement` dont le texte décrit un choix (ex : "Two swords,
+  // axes or clubs... or a double-handed weapon") plutôt qu'un objet fixe.
+  // Résolu au recrutement (voir RecruterFrancTireurScreen) : le libellé
+  // choisi remplace la ligne d'origine dans Member.equipement — reste du
+  // texte d'ambiance, jamais un item d'inventaire structuré (son coût est
+  // déjà inclus dans le prix d'engagement, et l'équipement d'un franc-tireur
+  // ne se vend ni ne se transfère jamais, voir EquipementCard `verrouille`).
+  equipement_choix?: {
+    ligneIndex: number;
+    options: {
+      id: string;
+      // Objets réels du catalogue (data/items) composant cette option,
+      // uniquement pour dériver un libellé traduit à l'affichage — ex :
+      // ['epee', 'epee'] pour « deux épées ».
+      itemIds: string[];
+    }[];
+  }[];
   acces_competences: SkillCategory[];
   regles_speciales: SpecialRule[];
   competences_speciales?: CompetenceSpeciale[];

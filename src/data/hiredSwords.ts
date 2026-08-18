@@ -1,6 +1,9 @@
 import type { Profile } from '../types/catalog';
 import type { FrancTireurCatalog } from '../types/hiredSword';
 import type { Member, RosterInstance } from '../types/roster';
+import type { Language } from '../state/useLanguage';
+import { getItem } from './items';
+import { translateItem } from '../i18n/data/items';
 import {
   TOUTES_LES_BANDES,
   SKAVENS,
@@ -63,6 +66,20 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     equipement: [
       'Deux épées, haches ou gourdins (ou une combinaison), ou une arme à deux mains',
       'Armure légère',
+    ],
+    equipement_choix: [
+      {
+        ligneIndex: 0,
+        options: [
+          { id: 'deux_epees', itemIds: ['epee', 'epee'] },
+          { id: 'deux_haches', itemIds: ['hache', 'hache'] },
+          { id: 'deux_gourdins', itemIds: ['arme_contondante_une_main', 'arme_contondante_une_main'] },
+          { id: 'epee_hache', itemIds: ['epee', 'hache'] },
+          { id: 'epee_gourdin', itemIds: ['epee', 'arme_contondante_une_main'] },
+          { id: 'hache_gourdin', itemIds: ['hache', 'arme_contondante_une_main'] },
+          { id: 'arme_deux_mains', itemIds: ['arme_a_deux_mains'] },
+        ],
+      },
     ],
     acces_competences: ['combat', 'force'],
     regles_speciales: [
@@ -231,6 +248,15 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     employeurs: { bande_ids: brutesDuBien, texte: 'Les bandes de Mercenaires et de Répurgateurs.' },
     stats: { M: 3, CC: 4, CT: 3, F: 3, E: 4, PV: 1, I: 2, A: 1, Cd: 9 },
     equipement: ['Deux haches ou une hache à deux mains'],
+    equipement_choix: [
+      {
+        ligneIndex: 0,
+        options: [
+          { id: 'deux_haches', itemIds: ['hache', 'hache'] },
+          { id: 'arme_deux_mains', itemIds: ['arme_a_deux_mains'] },
+        ],
+      },
+    ],
     acces_competences: ['combat', 'force', 'special'],
     regles_speciales: [
       {
@@ -531,6 +557,15 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     },
     stats: { M: 4, CC: 3, CT: 2, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 8 },
     equipement: ['Bâton runique', 'Épée ou hache'],
+    equipement_choix: [
+      {
+        ligneIndex: 1,
+        options: [
+          { id: 'epee', itemIds: ['epee'] },
+          { id: 'hache', itemIds: ['hache'] },
+        ],
+      },
+    ],
     acces_competences: ['combat', 'academique'],
     regles_speciales: [
       {
@@ -667,6 +702,15 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     employeurs: { bande_ids: ['witch_hunters'], texte: 'Seuls les Répurgateurs.' },
     stats: { M: 4, CC: 3, CT: 2, F: 4, E: 4, PV: 2, I: 3, A: 1, Cd: 7 },
     equipement: ['Lourde chaîne (compte comme un fléau) ou deux marteaux/masses', 'Aucune armure'],
+    equipement_choix: [
+      {
+        ligneIndex: 0,
+        options: [
+          { id: 'fleau', itemIds: ['fleau'] },
+          { id: 'deux_marteaux', itemIds: ['arme_contondante_une_main', 'arme_contondante_une_main'] },
+        ],
+      },
+    ],
     acces_competences: ['combat', 'force'],
     regles_speciales: [
       {
@@ -812,6 +856,15 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     employeurs: { bande_ids: PEAUX_VERTES, texte: 'Toute bande de Peaux-Vertes.' },
     stats: { M: 4, CC: 4, CT: 3, F: 4, E: 4, PV: 1, I: 2, A: 1, Cd: 7 },
     equipement: ['Armure lourde', 'Casque', 'Deux haches ou une arme à deux mains'],
+    equipement_choix: [
+      {
+        ligneIndex: 2,
+        options: [
+          { id: 'deux_haches', itemIds: ['hache', 'hache'] },
+          { id: 'arme_deux_mains', itemIds: ['arme_a_deux_mains'] },
+        ],
+      },
+    ],
     acces_competences: ['combat', 'force', 'special'],
     regles_speciales: [
       {
@@ -945,6 +998,15 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     },
     stats: { M: 8, CC: 4, CT: 3, F: 4, E: 3, PV: 1, I: 3, A: 1, Cd: 7 },
     equipement: ['Haches de jet', 'Bouclier', 'Épée ou lance'],
+    equipement_choix: [
+      {
+        ligneIndex: 2,
+        options: [
+          { id: 'epee', itemIds: ['epee'] },
+          { id: 'lance', itemIds: ['lance'] },
+        ],
+      },
+    ],
     acces_competences: ['combat', 'force', 'special'],
     regles_speciales: [
       {
@@ -1836,6 +1898,16 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       'Dague',
       'Une arme contondante (marteau, masse, gourdin, fléau ou morgenstern, à une ou deux mains)',
     ],
+    equipement_choix: [
+      {
+        ligneIndex: 2,
+        options: [
+          { id: 'contondante', itemIds: ['arme_contondante_une_main'] },
+          { id: 'fleau', itemIds: ['fleau'] },
+          { id: 'morgenstern', itemIds: ['morgenstern'] },
+        ],
+      },
+    ],
     acces_competences: ['combat', 'academique', 'force', 'vitesse'],
     regles_speciales: [
       {
@@ -2090,6 +2162,22 @@ export function profilDeFrancTireur(francTireur: FrancTireurCatalog): Profile {
     competences_speciales: francTireur.competences_speciales,
     groupe_caracteristiques: francTireur.groupe_caracteristiques,
   };
+}
+
+// Libellé affiché pour une option de FrancTireurCatalog['equipement_choix']
+// (ex : ['epee', 'epee'] -> "2× Sword", ['epee', 'hache'] -> "Sword + Axe")
+// — dérivé des noms d'objets déjà traduits plutôt que d'un texte dédié à
+// écrire/traduire pour chaque combinaison.
+export function libelleOptionEquipementChoix(itemIds: string[], language: Language): string {
+  const comptes = new Map<string, number>();
+  for (const id of itemIds) comptes.set(id, (comptes.get(id) ?? 0) + 1);
+  return [...comptes.entries()]
+    .map(([id, n]) => {
+      const item = getItem(id);
+      const nom = item ? translateItem(item, language).nom : id;
+      return n > 1 ? `${n}× ${nom}` : nom;
+    })
+    .join(' + ');
 }
 
 export type DisponibiliteFrancTireur = { disponible: boolean; raison?: string };
