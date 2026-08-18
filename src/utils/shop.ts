@@ -6,7 +6,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import type { Member, RosterInstance, InventoryEntry, CustomItem, CustomItemOverride } from '../types/roster';
 import type { WarbandCatalog, Profile, SpecialRule, Stats } from '../types/catalog';
+import { STAT_KEYS } from '../types/catalog';
 import { TOUS_LES_ITEMS, getItem } from '../data/items';
+import { appliquerDeltaSurNotation } from './statsVariables';
 import type { IconName } from '../components/common/Icon';
 import { DEFAULT_GAME_RULES } from '../types/rules';
 import type { GameRules } from '../types/rules';
@@ -1150,6 +1152,53 @@ export function transfererVersMembre(roster: RosterInstance, instanceId: string,
 
 export function formatEquipementAffiche(inventaire: InventoryEntry[]): string {
   return inventaire.map((e) => e.nom).join(', ');
+}
+
+// Applique un achat complet à un membre : crée les entrées d'inventaire
+// (une par figurine du groupe), débite la trésorerie via acheterPourMembre,
+// applique le stats_delta éventuel de l'objet (ex : mutation Great Claw,
+// +1F/+1A) et resynchronise le résumé texte `equipement` affiché ailleurs
+// (liste du roster, export PDF). Centralisé ici plutôt que dupliqué entre
+// l'achat depuis la fiche personnage et l'achat au moment du recrutement,
+// pour que les deux parcours appliquent exactement les mêmes règles.
+export function appliquerAchatSurMembre(
+  roster: RosterInstance,
+  membre: Member,
+  item: ShopItem,
+  coutPaye: number
+): RosterInstance {
+  const entrees = creerEntreesInventaire(item, coutPaye, membre.taille_groupe || 1);
+  const nouveauRoster = acheterPourMembre(roster, membre.instance_id, entrees);
+  const inventaire = [...membre.inventaire, ...entrees];
+  let stats_actuels = membre.stats_actuels;
+  let stats_modifiees = membre.stats_modifiees;
+  let stats_variables = membre.stats_variables;
+  if (item.stats_delta) {
+    stats_actuels = { ...stats_actuels };
+    stats_modifiees = [...stats_modifiees];
+    for (const k of STAT_KEYS) {
+      const delta = item.stats_delta[k];
+      if (!delta) continue;
+      // Une caractéristique encore variable (ex : F du Damné) n'a pas de
+      // stats_actuels significatif à ce stade : le delta s'applique à la
+      // notation dé elle-même plutôt que sur l'espace réservé ignoré par
+      // l'affichage — voir CaracteristiquesCard.
+      if (stats_variables?.[k]) {
+        stats_variables = { ...stats_variables, [k]: appliquerDeltaSurNotation(stats_variables[k]!, delta) };
+        continue;
+      }
+      stats_actuels[k] += delta;
+      if (!stats_modifiees.includes(k)) stats_modifiees.push(k);
+    }
+  }
+  return {
+    ...nouveauRoster,
+    membres: nouveauRoster.membres.map((m) =>
+      m.instance_id === membre.instance_id
+        ? { ...m, equipement: formatEquipementAffiche(inventaire), stats_actuels, stats_modifiees, stats_variables }
+        : m
+    ),
+  };
 }
 
 // Un groupe d'hommes de main ne peut pas mélanger son équipement : l'achat

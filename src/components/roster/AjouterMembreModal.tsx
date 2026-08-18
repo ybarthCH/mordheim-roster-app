@@ -26,7 +26,12 @@ const FRANC_TIREUR = '__franc_tireur__';
 type Props = {
   roster: RosterInstance;
   onClose: () => void;
-  onConfirm: (roster: RosterInstance) => void;
+  // Le second paramètre (id du membre créé) n'est fourni que pour une
+  // nouvelle recrue individuelle/nouveau groupe — omis en rejoignant un
+  // groupe existant, puisque son équipement est alors forcément identique
+  // au reste du groupe (voir rejoindreGroupe) et ne se rachète pas ici.
+  // Permet à l'appelant d'enchaîner sur RecrutementEquipementModal.
+  onConfirm: (roster: RosterInstance, nouveauMembreId?: string) => void;
 };
 
 export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
@@ -151,11 +156,14 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     if (profil.type === 'heros' && equitationGratuitePourTribu(catalogue, roster)) {
       membre.competences_acquises = [...membre.competences_acquises, SKILL_EQUITATION];
     }
-    onConfirm({
-      ...roster,
-      tresorerie: roster.tresorerie - coutTotal,
-      membres: [...roster.membres, membre],
-    });
+    onConfirm(
+      {
+        ...roster,
+        tresorerie: roster.tresorerie - coutTotal,
+        membres: [...roster.membres, membre],
+      },
+      membre.instance_id
+    );
   };
 
   return (

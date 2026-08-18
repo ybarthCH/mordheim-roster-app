@@ -5,9 +5,10 @@ import { Modal } from '../common/Modal';
 import { CATALOGUES } from '../../data/warbands';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { STAT_KEYS } from '../../types/catalog';
-import type { Member, RosterInstance } from '../../types/roster';
+import type { CustomItem, CustomItemOverride, Member, RosterInstance } from '../../types/roster';
 import { creerMembre, creerRoster } from '../../utils/factory';
 import { equipementInclusDepart } from '../../utils/shop';
+import { RecrutementEquipementModal } from '../roster/RecrutementEquipementModal';
 import { peutAjouterMembre } from '../../utils/validation';
 import { estSorcier, resolveSort, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
@@ -38,6 +39,14 @@ export function CreationBandeScreen() {
   // pour ces profils, donc `coutTotal` ci-dessous ne peut pas le déduire.
   const [coutPayeParInstance, setCoutPayeParInstance] = useState<Record<string, number>>({});
   const [profilEnRecrutement, setProfilEnRecrutement] = useState<Profile | null>(null);
+  // Recrue tout juste ajoutée, en attente d'un éventuel achat d'équipement
+  // avant de continuer la création — voir RecrutementEquipementModal.
+  const [membreEnEquipementId, setMembreEnEquipementId] = useState<string | null>(null);
+  // Objets personnalisés / surcharges créés depuis le shop pendant la
+  // création (bouton "Personnalisé" d'AchatEquipementModal) — vides par
+  // défaut, portés jusqu'au roster final par handleCreer ci-dessous.
+  const [objetsPersonnalises, setObjetsPersonnalises] = useState<CustomItem[]>([]);
+  const [objetsSurcharges, setObjetsSurcharges] = useState<Record<string, CustomItemOverride>>({});
   // Bandes à chef libre (ex : Lustrian Reavers) : le joueur choisit le chef
   // parmi les héros recrutés, plutôt qu'un profil fixe (voir Profile.est_leader).
   const [leaderInstanceId, setLeaderInstanceId] = useState<string | null>(null);
@@ -66,28 +75,35 @@ export function CreationBandeScreen() {
   const coutTotal = membres.reduce((acc, m) => {
     const profil = catalogue?.profils.find((p) => p.id === m.profil_id);
     const coutUnitaire = profil?.cout ?? coutPayeParInstance[m.instance_id] ?? 0;
-    return acc + coutUnitaire * (m.taille_groupe || 1);
+    // + équipement éventuellement acheté juste après le recrutement (voir
+    // membreEnEquipementId ci-dessous) : chaque entrée porte déjà son coût
+    // payé total pour tout le groupe (voir creerEntreesInventaire).
+    const coutEquipement = m.inventaire.reduce((a, e) => a + e.cout, 0);
+    return acc + coutUnitaire * (m.taille_groupe || 1) + coutEquipement;
   }, 0);
   const restant = budget - coutTotal;
 
-  // roster factice pour vérifier les limites de composition en cours de création
+  // roster factice pour vérifier les limites de composition en cours de
+  // création, et servir de support à RecrutementEquipementModal — tresorerie
+  // reflète donc le budget réellement restant (recrutement + équipement déjà
+  // achetés), pas le budget de départ.
   const rosterFictif = useMemo<RosterInstance>(
     () => ({
       id: 'draft',
       bande_id: bandeId,
       nom_bande: nomBande,
-      tresorerie: budget,
+      tresorerie: restant,
       wyrdstone: 0,
       equipement_reserve: '',
       stock: [],
-      objets_personnalises: [],
-      objets_surcharges: {},
+      objets_personnalises: objetsPersonnalises,
+      objets_surcharges: objetsSurcharges,
       membres,
       historique_batailles: [],
       createdAt: '',
       updatedAt: '',
     }),
-    [bandeId, nomBande, budget, membres]
+    [bandeId, nomBande, restant, objetsPersonnalises, objetsSurcharges, membres]
   );
 
   const retirerMembre = (instanceId: string) => {
@@ -115,6 +131,8 @@ export function CreationBandeScreen() {
     if (!peutCreer) return;
     const roster = creerRoster(bandeId, nomBande.trim(), restant);
     roster.membres = membres;
+    roster.objets_personnalises = objetsPersonnalises;
+    roster.objets_surcharges = objetsSurcharges;
     if (catalogue?.leader_libre && leaderInstanceId) {
       roster.leader_instance_id = leaderInstanceId;
     }
@@ -337,9 +355,32 @@ export function CreationBandeScreen() {
             }
             setMembres((prev) => [...prev, membre]);
             setProfilEnRecrutement(null);
+            setMembreEnEquipementId(membre.instance_id);
           }}
         />
       )}
+
+      {membreEnEquipementId &&
+        catalogue &&
+        (() => {
+          const membreRecrue = membres.find((m) => m.instance_id === membreEnEquipementId);
+          const profilRecrue = membreRecrue && catalogue.profils.find((p) => p.id === membreRecrue.profil_id);
+          if (!membreRecrue || !profilRecrue) return null;
+          return (
+            <RecrutementEquipementModal
+              roster={rosterFictif}
+              membre={membreRecrue}
+              profil={profilRecrue}
+              catalogue={catalogue}
+              onUpdateRoster={(nouveauRoster) => {
+                setMembres(nouveauRoster.membres);
+                setObjetsPersonnalises(nouveauRoster.objets_personnalises);
+                setObjetsSurcharges(nouveauRoster.objets_surcharges);
+              }}
+              onDone={() => setMembreEnEquipementId(null)}
+            />
+          );
+        })()}
     </Screen>
   );
 }

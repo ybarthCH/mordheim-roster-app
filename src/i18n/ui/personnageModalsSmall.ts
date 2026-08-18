@@ -65,6 +65,15 @@ export const personnageModalsSmall: UiDictionary = {
   'customItemForm.revertToCatalog': { fr: 'Revenir aux valeurs du catalogue', en: 'Revert to catalogue values' },
   'customItemForm.save': { fr: 'Enregistrer', en: 'Save' },
 
+  // RecrutementEquipementModal
+  'recrutementEquipement.title': { fr: '{nom} recruté(e)', en: '{nom} recruited' },
+  'recrutementEquipement.hint': {
+    fr: "Acheter tout de suite son équipement (ou une mutation) plutôt que de repasser par sa fiche ensuite ?",
+    en: 'Buy their equipment (or a mutation) right away, instead of coming back to their sheet later?',
+  },
+  'recrutementEquipement.finish': { fr: 'Terminer', en: 'Finish' },
+  'recrutementEquipement.buyEquipment': { fr: 'Acheter un objet', en: 'Buy an item' },
+
   // DocteurModal
   'docteurModal.title': { fr: 'Quoi de neuf, Docteur ?', en: "What's Up, Doc?" },
   'docteurModal.appliedNote': { fr: 'Le résultat et ses effets ont été appliqués.', en: 'The result and its effects have been applied.' },
