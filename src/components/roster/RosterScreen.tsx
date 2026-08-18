@@ -10,7 +10,6 @@ import { choixLeaderRequis, succederApresMorts } from '../../utils/leader';
 import { validerComposition, validerEffectif } from '../../utils/validation';
 import { exporterRoster, partageDisponible, partagerRoster } from '../../utils/importExport';
 import { AjouterMembreModal } from './AjouterMembreModal';
-import { RecrutementEquipementModal } from './RecrutementEquipementModal';
 import { RosterSummaryCard } from './RosterSummaryCard';
 import { ArmurerieSection } from './ArmurerieSection';
 import { MemberGroupCard } from './MemberGroupCard';
@@ -77,9 +76,6 @@ export function RosterScreen({
   const { t, language } = useLanguage();
   const roster = getRosterById(id ?? '');
   const [modalMembre, setModalMembre] = useState(false);
-  // Recrue tout juste ajoutée, en attente d'un éventuel achat d'équipement
-  // avant de refermer complètement le flux — voir RecrutementEquipementModal.
-  const [membreEnEquipementId, setMembreEnEquipementId] = useState<string | null>(null);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
   const [modalLeader, setModalLeader] = useState(false);
   const [modalPromotion, setModalPromotion] = useState(false);
@@ -556,33 +552,8 @@ export function RosterScreen({
       </div>
 
       {modalMembre && (
-        <AjouterMembreModal
-          roster={roster}
-          onClose={() => setModalMembre(false)}
-          onConfirm={(r, nouveauMembreId) => {
-            updateRoster(r);
-            setModalMembre(false);
-            if (nouveauMembreId) setMembreEnEquipementId(nouveauMembreId);
-          }}
-        />
+        <AjouterMembreModal roster={roster} onClose={() => setModalMembre(false)} onUpdateRoster={updateRoster} />
       )}
-      {membreEnEquipementId &&
-        catalogue &&
-        (() => {
-          const membreRecrue = roster.membres.find((m) => m.instance_id === membreEnEquipementId);
-          const profilRecrue = membreRecrue && catalogue.profils.find((p) => p.id === membreRecrue.profil_id);
-          if (!membreRecrue || !profilRecrue) return null;
-          return (
-            <RecrutementEquipementModal
-              roster={roster}
-              membre={membreRecrue}
-              profil={profilRecrue}
-              catalogue={catalogue}
-              onUpdateRoster={updateRoster}
-              onDone={() => setMembreEnEquipementId(null)}
-            />
-          );
-        })()}
       {modalLeader && (
         <Modal onClose={() => setModalLeader(false)}>
           <h3>{t('roster.chooseLeaderTitle')}</h3>

@@ -1134,9 +1134,9 @@ export const itemsEn: Record<string, ItemTraduit> = {
 
   // --- Armes à poudre noire ---
   arquebuse: {
-    nom: 'Arquebus',
+    nom: 'Handgun',
     texte:
-      'The arquebus is a rudimentary firearm whose manufacturing quality ranges from the crude wooden hackbuts of the Nuln artillery school to the sophisticated dwarf firearms. The latter are fitted with levers and springs that hold the lit match, and triggers that activate the firing mechanism. Arquebuses are not very reliable weapons: the barrel occasionally explodes and the powder sometimes refuses to ignite. But their range is extraordinary and their penetrating power makes a mockery of even the thickest armour. In Mordheim, arquebuses are rare and expensive, but a warband equipped with such weapons will command the respect of all rivals. The arquebus is eligible for the double barrel option for Nuln Artillerists.',
+      'The handgun is a rudimentary firearm whose manufacturing quality ranges from the crude wooden hackbuts of the Nuln artillery school to the sophisticated dwarf firearms. The latter are fitted with levers and springs that hold the lit match, and triggers that activate the firing mechanism. Handguns are not very reliable weapons: the barrel occasionally explodes and the powder sometimes refuses to ignite. But their range is extraordinary and their penetrating power makes a mockery of even the thickest armour. In Mordheim, handguns are rare and expensive, but a warband equipped with such weapons will command the respect of all rivals. The handgun is eligible for the double barrel option for Nuln Artillerists.',
     regles_speciales: [
       {
         nom: 'Save Modifier',
@@ -1151,17 +1151,17 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   arquebuse_a_repetition: {
-    nom: 'Repeater Arquebus',
+    nom: 'Repeater Handgun',
     texte:
-      "These represent the next stage in the evolution of multi-barrelled arquebuses. This repeating weapon is made up of a number of barrels mounted around a rotating cylinder, each firing in turn. Often prone to malfunction, repeater arquebuses are nonetheless highly sought after, as they can unleash a veritable storm of lead upon the enemy if they don't explode.",
+      "These represent the next stage in the evolution of multi-barrelled handguns. This repeating weapon is made up of a number of barrels mounted around a rotating cylinder, each firing in turn. Often prone to malfunction, repeater handguns are nonetheless highly sought after, as they can unleash a veritable storm of lead upon the enemy if they don't explode.",
     regles_speciales: [
       {
         nom: 'Experimental',
         texte:
           "This weapon is always subject to the optional black powder weapon rules from the Mordheim Rulebook, even if they are not used in your campaign. For any result other than 'BOOM!', the weapon has jammed or run out of ammunition and the barrels must be reloaded.",
       },
-      { nom: 'Save Modifier', texte: 'See Arquebus.' },
-      { nom: 'Move or Shoot', texte: 'See Arquebus.' },
+      { nom: 'Save Modifier', texte: 'See Handgun.' },
+      { nom: 'Move or Shoot', texte: 'See Handgun.' },
       {
         nom: 'Long Reload',
         texte:
@@ -1519,7 +1519,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
   double_canon: {
     nom: 'Double Barrel (option)',
     texte:
-      'Originally created by an innovative Ostland blacksmith for a vampire hunter, the engineers of the Nuln College of Engineering quickly grasped the concept. The idea is fairly simple: it is simply a black powder weapon with a pair of barrels and a trigger, capable of firing one or both barrels at once, giving it the ability to punch through the thickest armour. The following black powder weapons may benefit from the double barrel option (see each weapon\'s price table for cost and rarity): Arquebus (Nuln Artillerists), Hochland Long Rifle (Ostlander Mercenaries), Pistol (Nuln Artillerists, Ostlander Mercenaries), Duelling Pistol (Nuln Artillerists).',
+      'Originally created by an innovative Ostland blacksmith for a vampire hunter, the engineers of the Nuln College of Engineering quickly grasped the concept. The idea is fairly simple: it is simply a black powder weapon with a pair of barrels and a trigger, capable of firing one or both barrels at once, giving it the ability to punch through the thickest armour. The following black powder weapons may benefit from the double barrel option (see each weapon\'s price table for cost and rarity): Handgun (Nuln Artillerists), Hochland Long Rifle (Ostlander Mercenaries), Pistol (Nuln Artillerists, Ostlander Mercenaries), Duelling Pistol (Nuln Artillerists).',
     regles_speciales: [
       {
         nom: 'Double Barrel',
@@ -1608,12 +1608,12 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   arquebuse_double_canon: {
-    nom: 'Double-Barrelled Arquebus',
-    texte: 'An arquebus fitted with a pair of barrels, capable of punching through the thickest armour. Eligible for the double barrel option.',
+    nom: 'Double-Barrelled Handgun',
+    texte: 'A handgun fitted with a pair of barrels, capable of punching through the thickest armour. Eligible for the double barrel option.',
     regles_speciales: [
       {
         nom: 'Double Shot',
-        texte: 'This weapon fires two shots before needing to be reloaded (instead of just one for a normal arquebus).',
+        texte: 'This weapon fires two shots before needing to be reloaded (instead of just one for a normal handgun).',
       },
       {
         nom: 'Save Modifier',
