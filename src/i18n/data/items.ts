@@ -3850,6 +3850,60 @@ export const itemsEn: Record<string, ItemTraduit> = {
       { nom: 'Heavy', texte: '-1 Initiative in hand-to-hand combat for the wielder.' },
     ],
   },
+  serre_cruelle: {
+    nom: 'Cruel Talon',
+    texte: 'A claw-like blade grown directly from the bark, as sharp as a metal blade but never quite of the same nature.',
+    disponibilite: 'Sylvaneth only',
+    regles_speciales: [
+      {
+        nom: 'Parry',
+        texte:
+          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
+      },
+    ],
+  },
+  arme_spectrale_market: {
+    nom: 'Spectral Weapon',
+    texte:
+      'Any weapon available in the Sylvaneth or Treeman equipment list, except daggers, may be purchased as a spectral version for twice its normal cost. You may choose which close combat weapon type is offered.',
+    disponibilite: 'Common, Sylvaneth only',
+    regles_speciales: [
+      { nom: 'Cost x2', texte: 'Base weapon price x2.' },
+      {
+        nom: 'Automatic Wound',
+        texte:
+          'On a natural 6 to hit, the attack wounds automatically. Still roll to wound to determine whether a critical hit is scored. This roll may not be re-rolled by Wrathful Spirits.',
+      },
+    ],
+  },
+  grand_arc_de_kurnoth: {
+    nom: 'Kurnoth Greatbow',
+    texte: "A bow the size of its bearer, carved from the hardest wood of the oldest glades.",
+    disponibilite: 'Rare 9, Treeman only',
+    regles_speciales: [
+      { nom: 'Kurnoth Greatbow', texte: "Counts as an Elf Bow whose shots are resolved using the user's Strength." },
+    ],
+  },
+  ecorce_de_fer: {
+    nom: 'Ironbark',
+    texte:
+      "Ironbark is a growth bound to the bearer's body. It provides a normal, modifiable armour save and may be combined with a shield. It may not be transferred or sold and never reduces the bearer's Movement. It never prevents the bearer from casting spells.",
+    disponibilite: 'Common (Levels I-II), Rare 10 Heroes only (Level III), Sylvaneth only',
+    regles_speciales: [
+      {
+        nom: 'Levels',
+        texte:
+          'Level I: 30 gc, 5+ save, Common. Level II: +50 gc (80 gc total), 4+ save, Common. Level III: +120 gc (200 gc total), 3+ save, Rare 10, Heroes only.',
+      },
+    ],
+  },
+  lamentiri: {
+    nom: 'Lamentiri',
+    texte:
+      'When a warrior receives a Lamentiri, 55 gc are paid to bind the stone to their essence. If the bearer dies and their body or essence can be recovered, the player may consume the Lamentiri and pay 2 gc for each Experience point gained by the bearer since recruitment. A compatible successor then receives half of the Experience gained in this way, rounded down, and makes the corresponding Advance rolls normally. The successor must belong to the same profile or a compatible lineage: Tree-Revenant with Tree-Revenant, Spite-Revenant with Spite-Revenant, Treeman with Treeman. The Lamentiri is consumed after use and can never bypass a recruitment limit.',
+    disponibilite: 'Common, Sylvaneth Heroes and Treeman only',
+    regles_speciales: [],
+  },
 };
 
 const DISPONIBILITE_ARTEFACT_EN =
