@@ -67,6 +67,7 @@
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["hommes_betes"],
+      "categories_interdites": ["armures"],
       "acces_competences_a_verifier": false
     },
     {

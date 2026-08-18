@@ -190,7 +190,6 @@
     "orques": {
       "armes_cac": [
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
-        { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "hache", "cout": 5 },
         { "item_id": "epee", "cout": 10 },
         { "item_id": "hallebarde", "cout": 10 },

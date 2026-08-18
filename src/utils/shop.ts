@@ -976,6 +976,15 @@ export function getEquipementBande(
       for (const ref of liste[categorie] ?? []) {
         const item = getItem(ref.item_id);
         if (!item) continue;
+        if (
+          estCategorieInterdite(
+            categorie,
+            profil,
+            competencesAcquises,
+            'sous_type' in item ? (item.sous_type as string | undefined) : undefined
+          )
+        )
+          continue;
         if (!objetAutorisePourHommeDeMain(catalogue.id, profil, item.id, item.categorie)) continue;
         items.push({
           id: item.id,

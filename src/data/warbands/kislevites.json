@@ -50,6 +50,7 @@
       ],
       "acces_competences": ["combat", "force", "vitesse"],
       "acces_equipement": ["guerriers_kislevites"],
+      "categories_interdites": ["armures"],
       "acces_competences_a_verifier": false
     },
     {
@@ -66,6 +67,7 @@
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "vitesse"],
       "acces_equipement": ["guerriers_kislevites"],
+      "categories_interdites": ["armures"],
       "acces_competences_a_verifier": false
     },
     {
@@ -82,6 +84,7 @@
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "vitesse"],
       "acces_equipement": ["guerriers_kislevites"],
+      "categories_interdites": ["armures"],
       "acces_competences_a_verifier": false
     },
     {
@@ -198,7 +201,9 @@
         { "item_id": "arc", "cout": 10 },
         { "item_id": "arbalete", "cout": 25 },
         { "item_id": "pistolet", "cout": 15 },
-        { "item_id": "pistolet_paire", "cout": 30 }
+        { "item_id": "pistolet_de_duel", "cout": 25 },
+        { "item_id": "pistolet_paire", "cout": 30 },
+        { "item_id": "pistolet_de_duel_paire", "cout": 50 }
       ],
       "armures": [
         { "item_id": "bouclier", "cout": 5 },
