@@ -21,7 +21,7 @@
       "max": 1,
       "cout": 60,
       "xp_depart": 20,
-      "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
+      "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
       "regles_speciales": [
         { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Capitaine peut utiliser le Commandement de ce dernier pour ses tests." }
       ],
@@ -61,7 +61,7 @@
         { "nom": "Pièges", "texte": "Un Bergjaeger peut poser un piège s'il y passe un tour sans rien faire d'autre (sauf s'il vient tout juste de se relever après avoir été mis à terre). Placez un marqueur en contact avec son socle. Lorsqu'une figurine, amie ou ennemie, arrive dans un rayon de 2ps du piège, elle risque de le déclencher : jetez 1D6, sur un résultat de 3+ le piège inflige une touche de Force 4 (un Bergjaeger ne risque jamais de déclencher ses propres pièges). Si le piège n'a pas blessé la figurine ou n'a pas été déclenché, la victime peut achever son mouvement ; sinon elle se retrouve à terre ou sonnée à 2ps du marqueur. Que le piège ait été déclenché ou non, le marqueur est retiré du jeu." }
       ],
       "acces_competences": ["tir", "vitesse"],
-      "acces_equipement": ["eclaireurs", "tireurs", "gardes_des_montagnes"],
+      "acces_equipement": ["eclaireurs", "eclaireurs_bergjaeger", "tireurs", "gardes_des_montagnes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -154,13 +154,11 @@
       "armes_cac": [
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
         { "item_id": "arme_contondante_une_main", "cout": 3 },
-        { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "hache", "cout": 5 },
         { "item_id": "epee", "cout": 10 }
       ],
       "armes_tir": [
-        { "item_id": "arc", "cout": 10 },
-        { "item_id": "arc_long", "cout": 15 }
+        { "item_id": "arc", "cout": 10 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
@@ -168,10 +166,17 @@
         { "item_id": "rondache", "cout": 5 }
       ]
     },
+    "eclaireurs_bergjaeger": {
+      "armes_tir": [
+        { "item_id": "arc_long", "cout": 15 }
+      ],
+      "divers": [
+        { "item_id": "fleches_de_chasse", "cout": 35, "restriction": "Bergjaeger uniquement" }
+      ]
+    },
     "tireurs": {
       "armes_cac": [
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
-        { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "hache", "cout": 5 },
         { "item_id": "epee", "cout": 10 }
@@ -188,16 +193,13 @@
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
-        { "item_id": "armure_lourde", "cout": 50 },
         { "item_id": "casque", "cout": 10 },
-        { "item_id": "bouclier", "cout": 5 },
         { "item_id": "rondache", "cout": 5 }
       ]
     },
     "gardes_des_montagnes": {
       "armes_cac": [
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
-        { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "hache", "cout": 5 },
         { "item_id": "epee", "cout": 10 },

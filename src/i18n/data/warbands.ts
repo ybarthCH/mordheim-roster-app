@@ -4739,8 +4739,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       cuir_epais: {
-        nom: 'Thick Hide',
-        texte: "The Hero's skin is so thick it acts as armour: 6+ armour save, combinable with other armour.",
+        nom: 'Shaggy Hide',
+        texte:
+          "The Beastman's massively shaggy hide acts as armour, deflecting sword strokes and protecting him from harm: 6+ armour save, combinable with other armour.",
       },
       mutant: {
         nom: 'Mutant',
