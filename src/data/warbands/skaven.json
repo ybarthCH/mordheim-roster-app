@@ -78,7 +78,7 @@
       "stats": { "M": 6, "CC": 2, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "vitesse"],
-      "acces_equipement": ["heros_skavens"],
+      "acces_equipement": ["hommes_de_main_skavens"],
       "acces_competences_a_verifier": false
     },
     {

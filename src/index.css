@@ -569,28 +569,28 @@ button {
   padding-right: 2.3rem;
 }
 
-/* Cadre carré du pack UI autour de la photo de la fiche personnage —
-   dimensionné un cran plus grand que l'avatar lui-même pour que seul le
-   filet peint dépasse tout autour (le cœur de l'asset n'est pas
-   transparent, cf. avatar-frame-*.png : il faut donc que l'avatar le
-   recouvre plutôt que de se poser dessus). */
+/* Petit cadre "mat" autour de l'avatar de la fiche personnage : un dégradé
+   cuivré en padding plutôt que l'asset peint de .photo-frame-large (son
+   filet est un fondu large, taillé pour une photo de 200px — reporté tel
+   quel sur un avatar de ~50px, le fondu proportionnel dévore presque tout
+   l'avatar et laisse une marge morte visible). Un dégradé CSS reste net à
+   n'importe quelle taille et ne laisse aucun espace non couvert par
+   l'avatar/la photo. */
 .avatar-frame {
   position: relative;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
   flex-shrink: 0;
-  width: 68px;
-  height: 68px;
-  background-image: url('/decor/avatar-frame-red.webp');
-  background-size: 100% 100%;
+  padding: 3px;
+  border-radius: 26%;
+  background: linear-gradient(145deg, #8c4a3a, #5a2420 55%, #2b120f);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 /* Grand cadre du pack UI autour de la photo agrandie (modale "Changer la
-   photo") — contrairement à avatar-frame-*.png, le centre de cet asset
-   est bien transparent : il se pose donc directement par-dessus la photo,
-   légèrement plus grand qu'elle (inset négatif) pour que le filet peint
-   dépasse tout autour au lieu de recouvrir l'image. */
+   photo") — même asset au centre transparent que .avatar-frame ci-dessus,
+   juste à une échelle plus grande. */
 .photo-frame-large {
   position: relative;
   display: block;
@@ -1567,6 +1567,7 @@ button {
    (StatutCard) — retiré de la liste du roster, où sa taille le rendait
    illisible et prenait de la place sans réel apport. */
 .avatar {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1590,6 +1591,28 @@ button {
   background: hsl(var(--avatar-hue) 42% 40%);
   color: #fff6ea;
   border-color: transparent;
+}
+/* Petit repère "ajouter une photo" discret dans le coin bas-droit de
+   l'avatar par défaut (initiales) — invisible dès qu'une photo est
+   renseignée, puisque ce fallback n'est rendu que dans la branche sans
+   photo (Avatar.tsx). Taille en % de l'avatar plutôt qu'en px pour rester
+   cohérent si le composant est réutilisé à une autre taille. */
+.avatar__camera-badge {
+  position: absolute;
+  right: -6%;
+  bottom: -6%;
+  width: 42%;
+  height: 42%;
+  min-width: 14px;
+  min-height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  opacity: 0.85;
 }
 .avatar--clickable {
   cursor: pointer;
@@ -3183,10 +3206,10 @@ button {
 }
 
 :root[data-theme='light'] .avatar-frame {
-  background-image: none;
-  background-color: var(--bg-inset);
-  border: 2px solid var(--border);
-  border-radius: 10px;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
 }
 
 :root[data-theme='light'] .photo-frame-large::after {

@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import { Icon } from './Icon';
 
 // Teinte dérivée du nom (hash simple, stable) : donne une variété de
 // couleurs aux avatars sans figer une palette fixe — cohérent avec
@@ -44,7 +45,16 @@ export function Avatar({ nom, photo, size = 36, className, onClick, title }: Ava
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => (e.key === 'Enter' || e.key === ' ') && onClick() : undefined}
     >
-      {photo ? <img src={photo} alt="" className="avatar__img" /> : initiales(nom)}
+      {photo ? (
+        <img src={photo} alt="" className="avatar__img" />
+      ) : (
+        <>
+          {initiales(nom)}
+          <span className="avatar__camera-badge">
+            <Icon name="photo" size="60%" />
+          </span>
+        </>
+      )}
     </span>
   );
 }

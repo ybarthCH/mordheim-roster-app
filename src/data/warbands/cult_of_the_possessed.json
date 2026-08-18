@@ -119,7 +119,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 2, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [{ "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5." }],
       "acces_competences": [],
-      "acces_equipement": ["culte_des_possedes"],
+      "acces_equipement": ["damnes"],
       "acces_competences_a_verifier": false
     },
     {
@@ -196,13 +196,7 @@
     { "item_id": "epines", "cout": 35, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"], "groupe_prix": "table_mutations" },
     { "item_id": "queue_de_scorpion", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"], "groupe_prix": "table_mutations" },
     { "item_id": "bras_supplementaire", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"], "groupe_prix": "table_mutations" },
-    { "item_id": "hideux_mutation", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"], "groupe_prix": "table_mutations" },
-    { "item_id": "corps_cristallin", "cout": 60, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"], "groupe_prix": "table_mutations" },
-    { "item_id": "brute_epaisse", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"], "groupe_prix": "table_mutations" },
-    { "item_id": "morsure_venimeuse", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"], "groupe_prix": "table_mutations" },
-    { "item_id": "queue_prehensile", "cout": 50, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"], "groupe_prix": "table_mutations" },
-    { "item_id": "peau_ecailleuse", "cout": 60, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"], "groupe_prix": "table_mutations" },
-    { "item_id": "ailes_mutation", "cout": 45, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"], "groupe_prix": "table_mutations" }
+    { "item_id": "hideux_mutation", "cout": 40, "disponibilite": "Première mutation au prix normal, les suivantes sur la même figurine coûtent le double.", "profils": ["mutant", "possede"], "groupe_prix": "table_mutations" }
   ],
   "magie": {
     "nom": "Rituels du Chaos",

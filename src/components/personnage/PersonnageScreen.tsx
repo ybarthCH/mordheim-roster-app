@@ -6,7 +6,6 @@ import { Screen } from '../common/Screen';
 import { grilleXpDuProfil, resolveProfil, nombreHeros } from '../../utils/profil';
 import { getCatalogue } from '../../data/warbands';
 import type { Magie, Stats } from '../../types/catalog';
-import { STAT_KEYS } from '../../types/catalog';
 import type { AdvanceRecord, Statut } from '../../types/roster';
 import { StatutCard } from './StatutCard';
 import { CaracteristiquesCard } from './CaracteristiquesCard';
@@ -38,15 +37,14 @@ import { translateSkill } from '../../i18n/data/skills';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
 import { magieMineure } from '../../i18n/data/minorMagic';
 import {
-  acheterPourMembre,
   retirerDeMembre,
   transfererVersStock,
-  creerEntreesInventaire,
   resumeInventaireParItem,
   formatEquipementAffiche,
   inventaireComplet,
   resolveItemDetail,
   prixVente,
+  appliquerAchatSurMembre,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { InventoryEntry } from '../../types/roster';
@@ -55,7 +53,6 @@ import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import { useGameRules } from '../../state/useGameRules';
 import { annulerEffetsBlessure } from '../../utils/blessures';
 import { annulerAvancee, avanceeReversible } from '../../utils/avancees';
-import { appliquerDeltaSurNotation } from '../../utils/statsVariables';
 
 const GRIMOIRE_DE_MAGIE_ID = 'grimoire_de_magie';
 
@@ -192,38 +189,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   // seul ajustement même pour un groupe (taille_groupe), les figurines d'un
   // même groupe partageant un unique jeu de caractéristiques.
   const acheterItem = (item: ShopItem, coutPaye: number) => {
-    const entrees = creerEntreesInventaire(item, coutPaye, membre.taille_groupe || 1);
-    const nouveauRoster = acheterPourMembre(roster, membre.instance_id, entrees);
-    const inventaire = [...membre.inventaire, ...entrees];
-    let stats_actuels = membre.stats_actuels;
-    let stats_modifiees = membre.stats_modifiees;
-    let stats_variables = membre.stats_variables;
-    if (item.stats_delta) {
-      stats_actuels = { ...stats_actuels };
-      stats_modifiees = [...stats_modifiees];
-      for (const k of STAT_KEYS) {
-        const delta = item.stats_delta[k];
-        if (!delta) continue;
-        // Une caractéristique encore variable (ex : F du Damné) n'a pas de
-        // stats_actuels significatif à ce stade : le delta s'applique à la
-        // notation dé elle-même plutôt que sur l'espace réservé ignoré par
-        // l'affichage — voir CaracteristiquesCard.
-        if (stats_variables?.[k]) {
-          stats_variables = { ...stats_variables, [k]: appliquerDeltaSurNotation(stats_variables[k]!, delta) };
-          continue;
-        }
-        stats_actuels[k] += delta;
-        if (!stats_modifiees.includes(k)) stats_modifiees.push(k);
-      }
-    }
-    updateRoster({
-      ...nouveauRoster,
-      membres: nouveauRoster.membres.map((m) =>
-        m.instance_id === membre.instance_id
-          ? { ...m, equipement: formatEquipementAffiche(inventaire), stats_actuels, stats_modifiees, stats_variables }
-          : m
-      ),
-    });
+    updateRoster(appliquerAchatSurMembre(roster, membre, item, coutPaye));
   };
 
   // Supprime un seul exemplaire sans contrepartie (perdu, détruit...) —
