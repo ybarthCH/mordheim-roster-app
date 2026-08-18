@@ -1567,6 +1567,7 @@ button {
    (StatutCard) — retiré de la liste du roster, où sa taille le rendait
    illisible et prenait de la place sans réel apport. */
 .avatar {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1590,6 +1591,28 @@ button {
   background: hsl(var(--avatar-hue) 42% 40%);
   color: #fff6ea;
   border-color: transparent;
+}
+/* Petit repère "ajouter une photo" discret dans le coin bas-droit de
+   l'avatar par défaut (initiales) — invisible dès qu'une photo est
+   renseignée, puisque ce fallback n'est rendu que dans la branche sans
+   photo (Avatar.tsx). Taille en % de l'avatar plutôt qu'en px pour rester
+   cohérent si le composant est réutilisé à une autre taille. */
+.avatar__camera-badge {
+  position: absolute;
+  right: -6%;
+  bottom: -6%;
+  width: 42%;
+  height: 42%;
+  min-width: 14px;
+  min-height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  opacity: 0.85;
 }
 .avatar--clickable {
   cursor: pointer;
