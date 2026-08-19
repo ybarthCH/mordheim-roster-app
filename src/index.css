@@ -426,8 +426,32 @@ button {
     border-image-slice: 16% fill;
     border-image-source: url('/decor/card-panel-titlebar-stone.webp');
   }
-  
-  
+
+
+}
+
+/* Cartes de groupe du roster (Héros, Hommes de main, Francs-tireurs...) :
+   redescendent volontairement sur l'habillage plat de .card d'avant le
+   panneau de pierre — voir MemberGroupCard, qui donne désormais ce panneau
+   à chaque carte de figurine individuelle à la place (voir .member-cards
+   .list-item plus bas). Un seul niveau de cadre peint à la fois est plus
+   lisible que le cadre-dans-le-cadre. Padding latéral réduit pour laisser
+   les cartes de figurines s'étendre davantage en largeur — l'essentiel de
+   l'air visuel se joue maintenant à l'intérieur de chaque carte, pas
+   autour du groupe. */
+:root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card {
+  background-color: var(--bg-card);
+  background-image: var(--texture-parchemin);
+  background-blend-mode: overlay;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--border);
+  border-image-source: none;
+  box-shadow: var(--shadow);
+  padding: 0.6rem 0.1rem;
+}
+:root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card::before {
+  content: '';
 }
 /* Carte résumé de bande (ressources) : asset panel_10 dédié, avec son
    propre liseré lumineux — toujours affiché à taille pleine (jamais
@@ -1958,6 +1982,24 @@ button {
   color: inherit;
   touch-action: manipulation;
   transition: background-color 0.1s ease;
+}
+/* Carte de figurine du roster (Héros, Hommes de main...) : cadre pierre
+   peint du pack UI, à la place du simple encart 1px — voir le commentaire
+   sur .roster-groupe-card plus haut (le cadre de groupe qui contenait ces
+   cartes est redescendu sur l'habillage plat en échange). Même technique
+   et même asset que .list-item--bande (panel_titlebar_10, généreux dans
+   ses proportions pour une carte pleine largeur en mobile). Padding gauche
+   augmenté pour le même motif que .list-item--bande : le liseré peint longe
+   tout le bord intérieur du cadre. */
+:root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item {
+  background-image: none;
+  border-style: solid;
+  border-width: 14px;
+  border-image-repeat: stretch;
+  border-image-slice: 16% fill;
+  border-image-source: url('/decor/card-panel-titlebar-stone.webp');
+  box-shadow: none;
+  padding: 0.5rem 0.6rem 0.5rem 1rem;
 }
 /* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
    peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de

@@ -154,6 +154,7 @@ export function MemberGroupCard({
   return (
     <CollapsibleCard
       preferenceKey={preferenceKey}
+      className="card card--tight roster-groupe-card"
       title={
         <>
           <Icon name={icone} style={{ marginRight: '0.35em' }} />
