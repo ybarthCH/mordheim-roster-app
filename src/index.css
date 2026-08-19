@@ -2107,11 +2107,15 @@ button {
 }
 /* Statut de la figurine (voir MemberGroupCard) — la suppression a rejoint la
    poignée de drag dans .list-item__title-actions, coin supérieur droit de la
-   carte, donc ce flex item ne porte plus que le statut désormais. */
+   carte, donc ce flex item ne porte plus que le statut désormais. flex-basis
+   100% : toujours sur sa propre ligne, jamais à côté du nom sur une carte
+   compacte (nom court, pas de badges) — sinon le statut se retrouvait juste
+   sous la croix/poignée ancrées au coin, au lieu de rester sous le nom. */
 .list-item__statut-suppression {
   display: flex;
   align-items: center;
   gap: 0.3rem;
+  flex-basis: 100%;
 }
 .list-item__title {
   font-weight: 700;
