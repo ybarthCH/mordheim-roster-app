@@ -387,7 +387,7 @@ export function AchatEquipementContenu({
     : undefined;
 
   return (
-      <div className="achat-equipement">
+      <div className={`achat-equipement${resterOuvertApresAchat ? ' achat-equipement--integre' : ''}`}>
         {vuePersonnalise === 'menu' ? (
           <div className="achat-equipement__contenu">
             <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>

@@ -155,15 +155,19 @@ export function CustomItemForm({ titre, initial, onEnregistrer, onAnnuler, onRev
       </div>
 
       <div className="flex gap-sm" style={{ marginTop: '1rem', flexWrap: 'wrap' }}>
-        <button className="btn" onClick={onAnnuler}>
+        <button className="btn--pack-pill-sm" onClick={onAnnuler}>
           {t('customItemForm.cancel')}
         </button>
         {onRevert && (
-          <button className="btn btn--danger" onClick={onRevert}>
+          <button className="btn--pack-pill-sm" onClick={onRevert}>
             {t('customItemForm.revertToCatalog')}
           </button>
         )}
-        <button className="btn btn--primary" disabled={!nomValide || !coutValide} onClick={enregistrer}>
+        <button
+          className="btn--pack-pill-sm btn--pack-pill-sm--primary"
+          disabled={!nomValide || !coutValide}
+          onClick={enregistrer}
+        >
           {t('customItemForm.save')}
         </button>
       </div>

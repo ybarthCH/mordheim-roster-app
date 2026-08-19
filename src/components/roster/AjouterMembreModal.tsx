@@ -320,10 +320,14 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
           />
         )}
         <div className="flex gap-sm" style={{ padding: '0.9rem' }}>
-          <button className="btn" onClick={onClose}>
+          <button className="btn--pack-pill-sm" onClick={onClose}>
             {t('achatEquipement.cancel')}
           </button>
-          <button className="btn btn--primary" disabled={tresorerieProjetee < 0} onClick={terminer}>
+          <button
+            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
+            disabled={tresorerieProjetee < 0}
+            onClick={terminer}
+          >
             {t('recrutementEquipement.finish')}
           </button>
         </div>
@@ -572,11 +576,11 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
         </p>
       )}
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
-        <button className="btn" onClick={onClose}>
+        <button className="btn--pack-pill-sm" onClick={onClose}>
           {t('creation.modal.cancel')}
         </button>
         <button
-          className="btn btn--primary"
+          className="btn--pack-pill-sm btn--pack-pill-sm--primary"
           disabled={
             !profil ||
             !check.ok ||

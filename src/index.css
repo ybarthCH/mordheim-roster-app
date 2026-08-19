@@ -2990,6 +2990,14 @@ button {
   min-height: 100%;
   margin: 0 auto;
 }
+/* Intégré dans une autre fenêtre (voir AjouterMembreModal) : le shop n'est
+   qu'un morceau du contenu de la modale plein écran, pas son unique enfant
+   — min-height: 100% s'appliquerait alors au viewport entier et forcerait
+   un vide énorme entre la liste et la barre Annuler/Terminer qui la suit
+   dans le flux. */
+.achat-equipement--integre {
+  min-height: 0;
+}
 .achat-equipement__header {
   position: sticky;
   top: 0;
