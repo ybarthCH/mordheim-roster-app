@@ -2062,7 +2062,6 @@ button {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
-  margin-left: calc(1.1rem + 0.7rem);
 }
 .list-item__subtitle {
   font-size: 0.82rem;

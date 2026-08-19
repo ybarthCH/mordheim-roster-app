@@ -9,8 +9,16 @@ type State = { hasError: boolean; isStaleChunk: boolean };
 // chunks JS (noms hashés) que le nouveau build a remplacés : le prochain
 // import() dynamique (changement de route) échoue en 404 et React le
 // remonte comme une erreur de rendu classique — ce n'est pas un vrai bug,
-// juste une coquille d'app obsolète. Signatures observées selon navigateur.
-const RECHARGEMENT_ATTENDU = /dynamically imported module|Importing a module script failed|Loading chunk|error loading dynamically imported module/i;
+// juste une coquille d'app obsolète. Signatures observées selon navigateur,
+// plus large que les seuls messages de rejet d'import() : un service worker
+// qui sert encore l'ancien index.html pour un chunk renommé/supprimé fait
+// souvent échouer le fetch tout court (pas de mention explicite d'"import
+// dynamique"), ou renvoie du HTML là où du JS était attendu (SyntaxError
+// "Unexpected token '<'" au parsing). Un faux positif ici reste sans risque
+// : le pire cas est un bouton "recharger" au lieu du message d'erreur
+// générique, jamais une perte de données.
+const RECHARGEMENT_ATTENDU =
+  /dynamically imported module|importing a module script failed|loading chunk|unable to preload css|unexpected token '<'|failed to fetch|networkerror when attempting to fetch/i;
 
 function estErreurDeChunkObsolete(error: Error): boolean {
   return RECHARGEMENT_ATTENDU.test(error.message) || RECHARGEMENT_ATTENDU.test(error.name);
