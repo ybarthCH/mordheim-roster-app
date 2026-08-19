@@ -318,6 +318,11 @@ export type Tribu = {
   // recrutement/promotion (ex : les Hungs et leurs Chevaux de Guerre), sans
   // consommer d'avancée.
   equitation_gratuite_heros?: boolean;
+  // Surcharge de l'accès aux compétences par profil pour cette tribu, si
+  // différent de celui du profil de base (ex : les trois cités-états
+  // tiléennes ont chacune leur propre tableau de compétences pour un même
+  // profil Capitaine/Champion/Recrue). Clé = Profile.id.
+  profil_acces_competences?: Record<string, SkillCategory[]>;
 };
 
 export type WarbandCatalog = {

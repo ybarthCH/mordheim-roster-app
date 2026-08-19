@@ -2,9 +2,10 @@ import type { Profile, SkillCategory, WarbandCatalog } from '../types/catalog';
 import { SKILL_CATEGORIES } from '../types/catalog';
 import type { Member, RosterInstance } from '../types/roster';
 import type { Language } from '../state/useLanguage';
-import { getProfil } from '../data/warbands';
+import { getCatalogue, getProfil } from '../data/warbands';
 import { estFrancTireur, getFrancTireur, profilDeFrancTireur } from '../data/hiredSwords';
 import { translateHiredSword } from '../i18n/data/hiredSwords';
+import { accesCompetencesPourTribu } from './tribu';
 
 /**
  * Profil effectif d'un membre : celui du catalogue de la bande, ou le profil
@@ -49,16 +50,24 @@ export function resolveProfil(
 
   if (!base) return undefined;
 
+  // Surcharge d'accès aux compétences par tribu (ex : les trois cités-états
+  // tiléennes n'ont pas le même tableau de compétences pour un même profil)
+  // — cherchée sur le catalogue complet même si `catalogue` n'a pas été
+  // fourni, car `tribuChoisie` a besoin de `WarbandCatalog.tribus`, absent
+  // du seul `Profile` résolu ci-dessus.
+  const catalogueComplet = catalogue ?? getCatalogue(roster.bande_id);
+  const accesTribu = accesCompetencesPourTribu(catalogueComplet, roster, membre.profil_id);
+
   if (membre.promu_heros) {
     return {
       ...base,
       type: 'heros',
-      acces_competences: membre.acces_competences_override ?? base.acces_competences,
+      acces_competences: membre.acces_competences_override ?? accesTribu ?? base.acces_competences,
       acces_competences_a_verifier: false,
     };
   }
 
-  return base;
+  return accesTribu ? { ...base, acces_competences: accesTribu } : base;
 }
 
 export function grilleXpDuProfil(profil: Profile): 'heros' | 'homme_de_main' {

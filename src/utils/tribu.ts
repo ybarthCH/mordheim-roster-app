@@ -1,6 +1,6 @@
 // Résolution de la tribu choisie à la création pour les bandes qui en
 // proposent (voir WarbandCatalog.tribus, ex : Maraudeurs du Chaos).
-import type { WarbandCatalog } from '../types/catalog';
+import type { SkillCategory, WarbandCatalog } from '../types/catalog';
 import type { RosterInstance } from '../types/roster';
 
 export function tribuChoisie(catalogue: WarbandCatalog | undefined, roster: RosterInstance) {
@@ -36,4 +36,18 @@ export function maxProfilPourTribu(
   const tribu = tribuChoisie(catalogue, roster);
   if (tribu?.profil_max && profilId in tribu.profil_max) return tribu.profil_max[profilId];
   return undefined;
+}
+
+// Accès aux compétences pour un profil donné, en tenant compte d'une
+// éventuelle surcharge de tribu (ex : les Capitaines/Champions/Recrues
+// tiléens n'ont pas le même tableau de compétences selon leur cité-état
+// d'origine). `undefined` signifie "pas de surcharge" — l'appelant se
+// rabat alors sur `profil.acces_competences`.
+export function accesCompetencesPourTribu(
+  catalogue: WarbandCatalog | undefined,
+  roster: RosterInstance,
+  profilId: string
+): SkillCategory[] | undefined {
+  const tribu = tribuChoisie(catalogue, roster);
+  return tribu?.profil_acces_competences?.[profilId];
 }
