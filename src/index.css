@@ -2088,16 +2088,20 @@ button {
   flex-shrink: 0;
 }
 /* Statut + suppression + poignée de drag (voir MemberGroupCard) : un seul
-   flex item groupant les trois, toujours sur la même ligne, en haut de la
-   carte — alignés avec le nom (voir .list-item__row > :not(.list-item__main)
-   ci-dessus : passent à la ligne ensemble si la carte est trop étroite pour
-   tout tenir, jamais séparément). Gap généreux avant le groupe croix/poignée
-   (voir .list-item__title-actions plus bas) : espace visible entre le
-   sceau de statut et la croix, pas seulement l'absence de chevauchement. */
+   flex item groupant les trois, toujours sur la même ligne — alignés (voir
+   .list-item__row > :not(.list-item__main) ci-dessus : passent à la ligne
+   ensemble si la carte est trop étroite pour tout tenir, jamais séparément).
+   flex-basis 100% : toujours sa propre ligne pleine largeur sous le nom
+   (jamais accolée à un nom court comme "Sergeant"), pour que
+   justify-content dissocie franchement le sceau de statut (gauche) de la
+   paire croix/poignée (voir .list-item__title-actions plus bas), poussée
+   dans le coin droit de cette ligne plutôt que juste espacée d'un gap fixe. */
 .list-item__statut-suppression {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.7rem;
+  flex-basis: 100%;
 }
 .list-item__title {
   font-weight: 700;
