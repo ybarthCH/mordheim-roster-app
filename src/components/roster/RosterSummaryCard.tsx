@@ -52,7 +52,7 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
   }, [roster.id, roster.wyrdstone]);
 
   return (
-    <div className="card card--summary">
+    <div className="card card--titlebar">
       <input
         value={nomSaisi}
         onChange={(e) => {

@@ -475,14 +475,10 @@ button {
 :root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card::before {
   content: '';
 }
-/* Carte résumé de bande (ressources) : asset panel_10 dédié, avec son
-   propre liseré lumineux — toujours affiché à taille pleine (jamais
-   remplacé par panel_titlebar_10), donc redéclaré après la règle @container
-   ci-dessus pour gagner sur la cascade (même spécificité, ordre de
-   déclaration). */
-:root[data-theme='dark'][data-palette='rouge'] .card--summary {
-  border-image-source: url('/decor/card-panel-summary-stone.webp');
-}
+/* Carte résumé de bande (nom + 4 ressources) : carte unique au même titre
+   que l'armurerie et les règles spéciales ci-dessus, donc même cadre
+   compact panel_titlebar_10 plutôt que son ancien asset panel_10 dédié
+   (voir RosterSummaryCard, className card--titlebar). */
 
 /* Illustration bannière de la bande, écran de sélection des bandes
    (ListeBandesScreen) : véritable fond de carte (background-image posée en
@@ -1123,9 +1119,10 @@ button {
    et poussé en bout de ligne plutôt que d'être un flex sibling dédié devant
    .list-item__row — libère toute la largeur qu'occupaient sa colonne et ses
    marges. Opacité et taille remontées : à 0.4 il devenait quasi invisible au
-   repos une fois sorti de sa colonne dédiée. */
+   repos une fois sorti de sa colonne dédiée. margin-left auto retiré : c'est
+   désormais .list-item__title-actions (son wrapper commun avec le bouton de
+   suppression) qui pousse la paire en bout de ligne. */
 .drag-handle--titre {
-  margin-left: auto;
   width: 1.3rem;
   height: 1.3rem;
   opacity: 0.6;
@@ -2092,10 +2089,9 @@ button {
 .list-item__row > :not(.list-item__main) {
   flex-shrink: 0;
 }
-/* Statut + suppression : un seul flex item groupant les deux (voir
-   MemberGroupCard), pour que flex-wrap sur .list-item__row les fasse passer
-   à la ligne ensemble plutôt que de laisser le statut sur la ligne du nom et
-   la suppression seule, orpheline, sur la ligne suivante. */
+/* Statut de la figurine (voir MemberGroupCard) — la suppression a rejoint la
+   poignée de drag dans .list-item__title-actions, coin supérieur droit de la
+   carte, donc ce flex item ne porte plus que le statut désormais. */
 .list-item__statut-suppression {
   display: flex;
   align-items: center;
@@ -2123,6 +2119,17 @@ button {
   white-space: nowrap;
   min-width: 3em;
   flex: 1 1 auto;
+}
+/* Suppression + poignée de drag regroupées dans le coin supérieur droit de
+   la carte mobile (voir MemberGroupCard) : un seul wrapper porte le
+   margin-left auto qui pousse la paire en bout de ligne, plutôt que de le
+   mettre sur la poignée seule (ce qui écarterait la croix, restée collée au
+   nom, de la poignée repoussée à droite). */
+.list-item__title-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin-left: auto;
 }
 .list-item__details {
   flex-basis: 100%;

@@ -368,23 +368,31 @@ export function MemberGroupCard({
                         {t('memberGroup.pendingAdvance')}
                       </span>
                     )}
-                    <span
-                      className="drag-handle drag-handle--discret drag-handle--titre"
-                      onPointerDown={demarrerDrag(m.instance_id)}
-                      onClick={(e) => e.stopPropagation()}
-                      title={t('memberGroup.dragHandle')}
-                    >
-                      <Icon name="poignee" size="0.85em" />
+                    <span className="list-item__title-actions">
+                      <button
+                        className="btn--ghost-danger"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSupprimer(m);
+                        }}
+                        title={t('memberGroup.removeTitle')}
+                      >
+                        <Icon name="croixPack" />
+                      </button>
+                      <span
+                        className="drag-handle drag-handle--discret drag-handle--titre"
+                        onPointerDown={demarrerDrag(m.instance_id)}
+                        onClick={(e) => e.stopPropagation()}
+                        title={t('memberGroup.dragHandle')}
+                      >
+                        <Icon name="poignee" size="0.85em" />
+                      </span>
                     </span>
                   </div>
                 </div>
-                {/* Statut + suppression regroupés dans un seul enfant flex de
-                    .list-item__row (au lieu de deux flex siblings distincts) :
-                    sinon flex-wrap pouvait laisser le bouton de statut sur la
-                    ligne du nom tout en renvoyant la suppression seule sur la
-                    ligne suivante dès que le nom (badges Chef/avancée compris)
-                    ne laissait plus assez de place pour les deux — la paire
-                    passe maintenant à la ligne ensemble ou reste ensemble. */}
+                {/* Suppression déplacée dans .list-item__title-actions (coin
+                    supérieur droit, à côté de la poignée de drag) — ne reste
+                    ici que le statut. */}
                 <div className="list-item__statut-suppression">
                   {groupeSimplifie ? (
                     <button
@@ -431,16 +439,6 @@ export function MemberGroupCard({
                       <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
                     </button>
                   )}
-                  <button
-                    className="btn--ghost-danger"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSupprimer(m);
-                    }}
-                    title={t('memberGroup.removeTitle')}
-                  >
-                    <Icon name="croixPack" />
-                  </button>
                 </div>
               </div>
               <div className="list-item__details">
