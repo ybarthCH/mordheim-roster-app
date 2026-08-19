@@ -518,7 +518,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
       "Adds +1 to the weapon's Strength, but does not grant the -1 armour save penalty. Remember that all Henchmen in the same group must be equipped identically.",
   },
   venin_fuligineux: {
-    nom: 'Sooty Venom',
+    nom: 'Dark Venom',
     texte:
       'This poison is drawn from fire dragons, the giant sea serpents that infest the western ocean and the coast of Naggaroth. The slightest scratch infected with sooty venom causes unbearable pain that neutralises even the bravest of men.',
     regles_speciales: [

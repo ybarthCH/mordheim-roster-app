@@ -1444,13 +1444,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       precheur_sorcier_pestilens: {
-        nom: 'Pestilens Preacher-Sorcerer',
+        nom: 'Pestilens Sorcerer',
         regles_speciales: [
-          { nom: 'Sorcerer', texte: 'The Pestilens Preacher-Sorcerer is a spellcaster who uses the Magic of the Horned Rat.' },
+          { nom: 'Sorcerer', texte: 'The Pestilens Sorcerer is a spellcaster who uses the Magic of the Horned Rat.' },
         ],
       },
       moine_de_la_peste: { nom: 'Plague Monk' },
-      initie_de_la_peste: { nom: 'Plague Initiate' },
+      initie_de_la_peste: { nom: 'Monk Initiate' },
       novice_de_la_peste: {
         nom: 'Plague Novice',
         regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
@@ -1464,7 +1464,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Familiar Rat',
             texte:
-              "If the warband includes a Pestilens Preacher-Sorcerer equipped with a Familiar Rat Scroll, a giant rat may be transformed into a Familiar Rat before the battle (see Special Equipment). Familiar Rat profile: M6 WS2 BS0 S3 T3 W1 I4 A1 Ld4, with no weapons or armour. It gains experience like a Henchman, but its 10-12 \"Lad's Got Talent\" result is replaced by \"Enhanced Spellcasting: if the Pestilens Preacher-Sorcerer is within 6\" of the Familiar Rat, he gains a cumulative +1 bonus to his casting roll.\" If the Pestilens Preacher-Sorcerer dies, the Familiar Rat reverts to its Giant Rat form.",
+              "If the warband includes a Pestilens Sorcerer equipped with a Familiar Rat Scroll, a giant rat may be transformed into a Familiar Rat before the battle (see Special Equipment). Familiar Rat profile: M6 WS2 BS0 S3 T3 W1 I4 A1 Ld4, with no weapons or armour. It gains experience like a Henchman, but its 10-12 \"Lad's Got Talent\" result is replaced by \"Enhanced Spellcasting: if the Pestilens Sorcerer is within 6\" of the Familiar Rat, he gains a cumulative +1 bonus to his casting roll.\" If the Pestilens Sorcerer dies, the Familiar Rat reverts to its Giant Rat form.",
           },
         ],
       },
@@ -1529,17 +1529,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           texte: 'Range 8", hits the first model in its path: D3 Strength 4 hits on the victim and a Strength 3 hit on every model within 2" of it.',
         },
         {
-          nom: 'Spawn of the Horned Rat',
-          texte: "Usable once before each game. Summons D3 Giant Rats placed within 6\" of the Preacher-Sorcerer; these rats do not count towards the warband's maximum model count.",
+          nom: 'Children of the Horned Rat',
+          texte: "Usable once before each game. Summons D3 Giant Rats placed within 6\" of the Sorcerer; these rats do not count towards the warband's maximum model count.",
         },
-        { nom: 'Fleshgnaw', texte: 'Causes 2D6 Strength 1 hits on a single model within 8" of the Preacher-Sorcerer.' },
+        { nom: 'Gnawdoom', texte: 'Causes 2D6 Strength 1 hits on a single model within 8" of the Sorcerer.' },
         {
           nom: 'Black Fury',
-          texte: 'The Preacher-Sorcerer may immediately charge an enemy model of his choice within 12" (ignoring terrain and other models). He gains 2 extra Attacks and +1 Strength during the hand-to-hand combat phase of this turn only.',
+          texte: 'The Sorcerer may immediately charge an enemy model of his choice within 12" (ignoring terrain and other models). He gains 2 extra Attacks and +1 Strength during the hand-to-hand combat phase of this turn only.',
         },
         {
           nom: 'Eye of the Warp',
-          texte: 'All standing models in contact with the Preacher-Sorcerer must immediately make a Leadership test. Those who fail suffer a Strength 3 hit and must run 2D6" in the direction opposite the Preacher-Sorcerer.',
+          texte: 'All standing models in contact with the Sorcerer must immediately make a Leadership test. Those who fail suffer a Strength 3 hit and must run 2D6" in the direction opposite the Sorcerer.',
         },
         {
           nom: "Sorcerer's Curse",
@@ -1928,7 +1928,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Powder Is Expensive!',
         texte:
-          'Bandits are often too poor to buy or maintain costly equipment such as black powder weapons. Only Heroes may buy them (black powder weapons available only via the Scrapper equipment list); Henchmen may never buy them.',
+          'Bandits are often too poor to buy or maintain costly equipment such as black powder weapons. Only Heroes may buy them (black powder weapons available only via the Duelist equipment list); Henchmen may never buy them.',
       },
       {
         nom: 'Penny-Pinchers',
@@ -1947,48 +1947,48 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     ],
     profils: {
       prince_des_bandits: {
-        nom: 'Bandit Chief',
+        nom: 'Bandit Prince',
         regles_speciales: [
-          { nom: 'Leader', texte: 'Any warrior within 6" of the Bandit Chief may use the latter\'s Leadership for their Leadership tests.' },
+          { nom: 'Leader', texte: 'Any warrior within 6" of the Bandit Prince may use the latter\'s Leadership for their Leadership tests.' },
         ],
       },
       brigand: {
-        nom: 'Brigand',
+        nom: 'Footpad',
         regles_speciales: [
           {
             nom: 'Concealment',
             texte:
-              "Enemies of a Brigand find him extremely difficult to detect before he strikes. If an enemy warrior wishes to charge a Brigand he cannot see (and who has not been declared hidden), he must subtract 1 from his Initiative before making his Initiative test (a roll of 6 is always a failure). In addition, the detection range for a hidden Brigand is halved.",
+              "Enemies of a Footpad find him extremely difficult to detect before he strikes. If an enemy warrior wishes to charge a Footpad he cannot see (and who has not been declared hidden), he must subtract 1 from his Initiative before making his Initiative test (a roll of 6 is always a failure). In addition, the detection range for a hidden Footpad is halved.",
           },
         ],
       },
       ferrailleur: {
-        nom: 'Scrapper',
+        nom: 'Duelist',
         regles_speciales: [
           {
             nom: 'Master Swordsman',
             texte:
-              "If equipped with a weapon or piece of armour that grants a parry, the Scrapper succeeds in parrying an enemy blow on a result equal to or higher than the opponent's to-hit roll, not only on a strictly higher result as with a normal parry.",
+              "If equipped with a weapon or piece of armour that grants a parry, the Duelist succeeds in parrying an enemy blow on a result equal to or higher than the opponent's to-hit roll, not only on a strictly higher result as with a normal parry.",
           },
           {
             nom: 'Weapon Lore',
             texte:
-              "The weapons on the Scrapper's equipment list only represent those he can start with. A Scrapper may use any hand-to-hand or missile weapon that warband members can find.",
+              "The weapons on the Duelist's equipment list only represent those he can start with. A Duelist may use any hand-to-hand or missile weapon that warband members can find.",
           },
         ],
       },
       demagogue: {
-        nom: 'Demagogue',
+        nom: 'Huckster',
         regles_speciales: [
           {
             nom: 'Persuasive Manner',
             texte:
-              'When an enemy warrior attempts to charge a member of the Demagogue\'s warband within 12" of him, the enemy must first pass a Leadership test, or the charge fails (as if he had failed to charge an enemy that causes Fear). Creatures subject to Stupidity and animals (as well as the Undead) are immune.',
+              'When an enemy warrior attempts to charge a member of the Huckster\'s warband within 12" of him, the enemy must first pass a Leadership test, or the charge fails (as if he had failed to charge an enemy that causes Fear). Creatures subject to Stupidity and animals (as well as the Undead) are immune.',
           },
           {
             nom: 'Shrewd Manager',
             texte:
-              'Between games, the player may call on the Demagogue to swindle the local populace. Roll 1D6. On a 2-6, the scam succeeds and the warband gains 2D6 Gold Crowns. On a 1, the Demagogue must flee: he misses the next game and does not take part in the Exploration phase. For reference only, not automated.',
+              'Between games, the player may call on the Huckster to swindle the local populace. Roll 1D6. On a 2-6, the scam succeeds and the warband gains 2D6 Gold Crowns. On a 1, the Huckster must flee: he misses the next game and does not take part in the Exploration phase. For reference only, not automated.',
           },
         ],
       },
@@ -2013,15 +2013,15 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       sans_coeur: {
-        nom: 'Heartless',
+        nom: 'Blackheart',
         regles_speciales: [
           { nom: 'Hardened', texte: 'Immune to Fear and never has to take an all alone test.' },
         ],
       },
       racaille: {
-        nom: 'Rabble',
+        nom: 'Gutterscum',
         regles_speciales: [
-          { nom: 'Totally Unskilled', texte: 'Rabble never gain experience.' },
+          { nom: 'Totally Unskilled', texte: 'Gutterscum never gain experience.' },
           { nom: 'Recruitment', texte: 'Bought in groups of 5.' },
         ],
       },
@@ -2237,7 +2237,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
   },
   norses: {
-    nom: 'Norse Explorers (1b)',
+    nom: 'Norses (1b)',
     regles_speciales: [
       {
         nom: 'Sailors',
@@ -2300,7 +2300,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       expert_du_bouclier: {
-        nom: 'Shield Expert',
+        nom: 'Shield Master',
         texte: 'Equipped with a shield, may perform a parry in addition to the 6+ armour save.',
       },
       frappe_destructrice: { nom: 'Crushing Blow', texte: "This Hero's attacks cannot be parried." },
@@ -2309,12 +2309,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'Armed with an axe or a two-handed weapon, may re-roll any failed to-hit roll when charging.',
       },
       jargon_des_batailles: {
-        nom: 'Battle Cant',
+        nom: 'Battle Tongue',
         reserve_a: 'Warband Leader only',
         texte: 'The range within which allies may use his Leadership increases from 6" to 12".',
       },
       intrepidite: {
-        nom: 'Fearlessness',
+        nom: 'Barbarian Courage',
         texte: 'Never has to take an all alone test and may re-roll failed Fear tests.',
       },
     },
@@ -2541,7 +2541,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     regles_speciales: [
       {
         nom: 'Hired Swords',
-        texte: 'Imperial Escorts may only be accompanied by mounted Hired Swords (Errant Knights and Roadwardens). Highwaymen may not be hired.',
+        texte: 'Imperial Outriders may only be accompanied by mounted Hired Swords (the Freelance Knight and Roadwardens). Highwaymen may not be hired.',
       },
       {
         nom: 'Dense Terrain',
@@ -2567,7 +2567,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       escorteur: {
-        nom: 'Escort',
+        nom: 'Outrider',
         regles_speciales: [
           { nom: 'Mount', texte: 'An Escort rides a Horse (included in his cost). May be upgraded to a Warhorse for +40gc.' },
         ],
@@ -2625,28 +2625,28 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Archers',
         texte:
-          'All warriors in a Stirwood Forest Outlaws warband must be equipped with a bow. However, they may never carry or use any other missile weapon. So even if an Outlaw gains skills that would allow him to use additional missile weapons, he may not use them. The only exception to this rule is the Monk, who may choose to carry a bow, but is not required to do so.',
+          'All warriors in a Stirwood Forest Outlaws warband must be equipped with a bow. However, they may never carry or use any other missile weapon. So even if an Outlaw gains skills that would allow him to use additional missile weapons, he may not use them. The only exception to this rule is the Cleric, who may choose to carry a bow, but is not required to do so.',
       },
       {
         nom: 'Hired Swords',
-        texte: 'The following Hired Swords are not available to the Outlaws: Bounty Hunters, Priests of Ulric, Norse Shamans, and Dark Elf Assassins.',
+        texte: 'The following Hired Swords are not available to the Outlaws: Bounty Hunters, Wolf Priest of Ulric, Norse Shamans, and Dark Elf Assassins.',
       },
     ],
     profils: {
       chef_hors_la_loi: {
-        nom: 'Outlaw Chief',
+        nom: 'Bandit Leader',
         regles_speciales: [
-          { nom: 'Leader', texte: 'Any model within 6" of the Outlaw Chief may use the latter\'s Leadership to make their tests.' },
+          { nom: 'Leader', texte: 'Any model within 6" of the Bandit Leader may use the latter\'s Leadership to make their tests.' },
         ],
       },
       moine_stirwood: {
-        nom: 'Monk',
+        nom: 'Cleric',
         regles_speciales: [
-          { nom: 'Recruitment', texte: 'The warband may include one Monk, but he must replace a Stirwood Champion or a Petty Thief.' },
+          { nom: 'Recruitment', texte: 'The warband may include one Cleric, but he must replace a Stirwood Champion or a Petty Thief.' },
           {
             nom: 'Disciple of Sigmar',
             texte:
-              'The Monk has devoted his life to the service of Sigmar and may use the Prayers of Sigmar. Like a Warrior Priest of the Repurgators, he is also subject to certain restrictions applicable to disciples of Sigmar, and therefore cannot learn Sorcery or Magic. Since Prayers are not considered spells, a Monk may wear armour if he wishes.',
+              'The Cleric has devoted his life to the service of Sigmar and may use the Prayers of Sigmar. Like a Warrior Priest of the Repurgators, he is also subject to certain restrictions applicable to disciples of Sigmar, and therefore cannot learn Sorcery or Magic. Since Prayers are not considered spells, a Cleric may wear armour if he wishes.',
           },
         ],
       },
@@ -3691,7 +3691,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Elixir of Life',
         reserve_a: 'Amazon Heroines only, instead of the standard list',
         texte:
-          'After years of service within her tribe, this Amazon has gained access to the springs that produce the Elixir of Life. It is said the Elixir heals wounds and makes Amazons immortal. After the battle, if the Amazon was taken Out of Action, she may re-roll her Injury roll. Thus, on a result of 1-4 on 1D6, the Amazon does not suffer the consequences of being Out of Action and may take part normally in the Post-Battle sequence.',
+          'After years of service within her tribe, this Amazon has gained access to the springs that produce the Elixir of Life. It is said the Elixir heals wounds and makes Amazons immortal. After the battle, if the Amazon was taken Out of Action, she may re-roll her Injury roll once, accepting the result of the second roll.',
       },
     },
     equipement: {
@@ -3751,7 +3751,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Hired Swords',
         texte:
-          'A Tilean warband may use the Hired Swords available to Mercenary warbands from the Mordheim rulebook, including: Ghost Warrior, Big Game Hunter, Tilean Crossbowman. Unless stated otherwise, Hired Swords cannot benefit from the specific rules of the Tilean city-states.',
+          'A Tilean warband may use the Hired Swords available to Mercenary warbands from the Mordheim rulebook, including: Shadow Warrior, Big Game Hunter, Tilean Marksman. Unless stated otherwise, Hired Swords cannot benefit from the specific rules of the Tilean city-states.',
       },
     ],
     tribus: {
@@ -3763,7 +3763,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       remas: {
         nom: 'Remas',
         texte:
-          'In 1487 IC, a fleet of Dark Elf ships invaded the coasts of the city of Remas, and ever since, its inhabitants have felt a deep aversion to the Druchii. A warband from Remas will fight to the death against a Dark Elf warband. To represent this, when fighting Dark Elves, a Tilean player from Remas may re-roll a Rout test but must keep the second result. Remas officers are steadfast individuals whose years of training have made them excellent commanders. The Leadership value of a Captain, Champion, or Recruit from Remas is always one point higher, regardless of the opposing warband (for reference only, apply on the paper roster).',
+          'In 1487 IC, a fleet of Dark Elf ships invaded the coasts of the city of Remas, and ever since, its inhabitants have felt a deep aversion to the Druchii. A warband from Remas will fight to the death against a Dark Elf warband. To represent this, when fighting Dark Elves, a Tilean player from Remas may re-roll a Rout test but must keep the second result. Remas officers are steadfast individuals whose years of training have made them excellent commanders. The Leadership value of a Captain, Champion, or Youngblood from Remas is always one point higher, regardless of the opposing warband (for reference only, apply on the paper roster).',
       },
       trantio: {
         nom: 'Trantio',
@@ -3779,7 +3779,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       champion: { nom: 'Champion' },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youngblood' },
       guerrier_tileen: { nom: 'Warrior' },
       duelliste: {
         nom: 'Duellist',
@@ -3803,6 +3803,10 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         armes_tir: ['30gc per pair', '50gc per pair', undefined, undefined, undefined, undefined],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Rare 7, man-sized creatures or larger only' },
+      { disponibilite: 'Rare 5, Hochland Bandits, Reiklanders, Marienburgers, Merchant Caravans and Tileans only' },
+    ],
   },
   nains_du_chaos: {
     nom: 'Black Dwarfs (1c)',
@@ -3971,32 +3975,32 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Pit Fighters (1b)',
     regles_speciales: [
       {
-        nom: 'Gladiator',
+        nom: 'Pit Fighter',
         texte: 'All models in the warband gain +1 WS and +1 Attack if the fight takes place inside a building, in ruins, or in an arena (to be clearly defined before the game).',
       },
       { nom: 'Free the Slaves!', texte: 'Gladiators despise all slavers and will never sell a captured opponent to one of them.' },
       {
-        nom: 'Into the Arena!',
+        nom: 'In the Pit!',
         texte:
           "A captured prisoner can be sent to fight in the arenas of Cutthroat's Haven (full rules in Town Cryer #14): if the Gladiator sent wins, he gains +2 XP and the warband receives the prisoner's weapons/armour plus 50 gc; if he loses, roll a restricted Serious Injury (Stripped/Captured/Hardened/Sold to the Arena/Miraculous Survival results excluded) with no loss of equipment, and the winning prisoner then gains +50 gc and +2 XP. The crowd then decides (4+ on 1D6) whether the prisoner is freed; otherwise he remains captive and can be sent back into the arena after future games.",
       },
       {
         nom: 'Fighting Styles',
         texte:
-          'Except for Ogre Gladiators and Troll Slayers (separate restricted list), each model chooses a fighting style from the corresponding list (matching weapons and armour); a Hero may mix styles if he has Weapons Training and/or Weapons Expert. The warband may switch styles between games (swapping equipment or buying the missing pieces) and Henchmen may have different styles within the same group. Official price for the complete style, to be applied manually instead of the itemised total if the whole style is bought at once: Orc 20 gc, Undead 35 gc, Empire 45 gc, Chaos 50 gc, Skink Netsman 25 gc, Fury Netsman 30 gc.',
+          'Except for Ogre Gladiators and Troll Slayers (separate restricted list), each model chooses a fighting style from the corresponding list (matching weapons and armour); a Hero may mix styles if he has Weapons Training and/or Weapons Expert. The warband may switch styles between games (swapping equipment or buying the missing pieces) and Henchmen may have different styles within the same group. Official price for the complete style, to be applied manually instead of the itemised total if the whole style is bought at once: Orc 20 gc, Undead 35 gc, Empire 45 gc, Chaos 50 gc, Skink Style 25 gc, Witch Elf Style 30 gc.',
       },
-      { nom: 'Hired Swords', texte: 'The warband may hire any available Hired Sword, except the Elf Scout.' },
+      { nom: 'Hired Swords', texte: 'The warband may hire any available Hired Sword, except the Elf Ranger.' },
     ],
     profils: {
       roi_de_larene: {
-        nom: 'King of the Arena',
+        nom: 'Pit King',
         regles_speciales: [
-          { nom: 'Leader', texte: 'Any model within 6" of the King of the Arena may use his Leadership for their tests.' },
+          { nom: 'Leader', texte: 'Any model within 6" of the Pit King may use his Leadership for their tests.' },
         ],
       },
-      veteran_de_larene: { nom: 'Arena Veteran' },
+      veteran_de_larene: { nom: 'Pit Veteran' },
       gladiateur_tueur_de_trolls: {
-        nom: 'Gladiator Troll Slayer',
+        nom: 'Dwarf Troll Slayer',
         regles_speciales: [
           {
             nom: 'Hard to Kill',
@@ -4004,22 +4008,22 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
           { nom: 'Hard Head', texte: 'Ignores the special rules of maces, hammers, and other blunt weapons.' },
           { nom: 'Hatred of Orcs and Goblins', texte: 'Like all Dwarfs, hates Orcs and Goblins (see Psychology).' },
-          { nom: 'Grudge-Bearer', texte: 'If the warband hires an Elf Hired Sword, the Gladiator Troll Slayer immediately leaves the warband.' },
+          { nom: 'Grudge-Bearer', texte: 'If the warband hires an Elf Hired Sword, the Dwarf Troll Slayer immediately leaves the warband.' },
           { nom: 'Death Wish', texte: 'Immune to Psychology and never takes a test when fighting alone.' },
         ],
       },
-      gladiateur: { nom: 'Gladiator' },
+      gladiateur: { nom: 'Pit Fighter' },
       retiaire: {
-        nom: 'Netsman',
+        nom: 'Pursuer',
         regles_speciales: [
           {
-            nom: 'Dodge',
+            nom: 'Evade',
             texte: 'If targeted by a charge, may attempt to dodge by passing an Initiative test: on a success, the charge is considered to have failed.',
           },
         ],
       },
       gladiateur_ogre: {
-        nom: 'Ogre Gladiator',
+        nom: 'Ogre Pit Fighter',
         regles_speciales: [
           { nom: 'Fear', texte: 'A large creature that causes Fear (see Psychology).' },
           { nom: 'Large', texte: 'Large Target, as explained in the Shooting chapter.' },
@@ -4030,7 +4034,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Skills',
             texte:
-              "If he becomes a Hero on a 'Lad's Got Talent' result, chooses his skills from the Combat and Strength lists, plus the Gladiators' special skills (Bowl Over, Iron Will, Big Arms, Weapons Master, Old Campaigner).",
+              "If he becomes a Hero on a 'Lad's Got Talent' result, chooses his skills from the Combat and Strength lists, plus the Gladiators' special skills (Body Slam, Force of Will, Bulging Biceps, Weapons Master, Grizzled Veteran).",
           },
         ],
       },
@@ -4052,17 +4056,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       renversement: {
-        nom: 'Bowl Over',
+        nom: 'Body Slam',
         texte:
           'Instead of a normal charge, attempts a single attack with +1 to hit and +1 Strength, without weapon or Weapon Skill bonus; scores a Critical Hit on a 5+.',
       },
       volonte_de_fer: {
-        nom: 'Iron Will',
+        nom: 'Force of Will',
         texte:
           'Taken Out of Action, tests his Toughness to get back up and keep fighting; at the start of each following turn, he repeats the test with a cumulative -1 penalty, until he fails again (removed from the battlefield).',
       },
       gros_bras: {
-        nom: 'Big Arms',
+        nom: 'Bulging Biceps',
         texte: "Ignores Fatigue penalties; his weapon's Strength bonus applies during every round of hand-to-hand combat, not just the first.",
       },
       maitre_darmes: {
@@ -4070,20 +4074,20 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte:
           'Ignores the restrictions of the Difficult to Handle rule, allowing him to combine, for example, a morning star and a shield, or even a pair of morning stars.',
       },
-      vieux_de_la_vieille: { nom: 'Old Campaigner', texte: 'Immune to Psychology.' },
+      vieux_de_la_vieille: { nom: 'Grizzled Veteran', texte: 'Immune to Psychology.' },
       berserk_gladiateur: {
         nom: 'Berserk',
-        reserve_a: 'Gladiator Troll Slayer only',
+        reserve_a: 'Dwarf Troll Slayer only',
         texte: '+1 to hit in hand-to-hand combat during the turn he charges (not cumulative with Furious Charge).',
       },
       charge_furieuse_gladiateur: {
         nom: 'Furious Charge',
-        reserve_a: 'Gladiator Troll Slayer only',
+        reserve_a: 'Dwarf Troll Slayer only',
         texte: 'May double his number of Attacks during the turn he charges, with a -1 penalty to hit.',
       },
       tueur_de_monstres: {
         nom: 'Monster Slayer',
-        reserve_a: 'Gladiator Troll Slayer only',
+        reserve_a: 'Dwarf Troll Slayer only',
         texte: 'Always wounds his opponent on a 4+ regardless of Toughness, unless his Strength already allows him to wound more easily.',
       },
     },
@@ -4224,17 +4228,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte:
           "Unless stated otherwise, Pirate warbands have access to the same Hired Swords and items as a human Mercenary warband. The same applies to the usual rules. Pirates must, however, pay an extra +20 gc in wages if their warband includes both Dwarfs and Elves at the same time (the ship isn't that big, and the cramped space makes them more irritable than usual!).",
       },
-      { nom: 'Press-Ganged in a One-off Game', texte: 'In a one-off game, a Pirate warband starts with 2 free Press-Ganged Men!' },
-      { nom: 'Succession', texte: 'If the Captain is killed, one of the Quartermasters takes over in the same way a Champion would take command of a Mercenary warband.' },
+      { nom: 'Press-Ganged in a One-off Game', texte: 'In a one-off game, a Pirate warband starts with 2 free Swabbies!' },
+      { nom: 'Succession', texte: 'If the Captain is killed, one of the Mates takes over in the same way a Champion would take command of a Mercenary warband.' },
       {
         nom: 'Press-Ganging',
         texte:
-          "Pirate warbands can 'recruit' new members to join the exciting life of piracy, sometimes of their own free will, but more often as an alternative to the plank! Only human Heroes or Henchmen can be recruited this way. Any human Hero from a warband fighting the Pirates who suffers the Captured (61) result on the Serious Injury table may be 'offered' a place in the crew (usually at the point of a cutlass!). Each player rolls 2D6, the Pirate player adding his Captain's Leadership and the opponent adding the captured Hero's Ld. If one side won the game, it may add +1 to its result. If the Pirate player scores the higher result, the Hero abandons his old life and becomes a Deckhand (skills and characteristics changed to match those of a basic Deckhand, or those of his new crewmates if he joins an existing group). If the Hero scores the higher result, he resists the sirens' song and becomes a Press-Ganged Man (stripped of his equipment and weapons, but keeps his original skills and characteristics). Enemy human Henchmen taken Out of Action in a game won by the Pirates (a 1-2 result on the Serious Injury roll) also have a chance to join the crew, following a similar procedure. This rule is not automated in the app: it is resolved entirely on the tabletop, by agreement with the opponent, and the new member must be added manually to the warband (as a Press-Ganged Man or Deckhand, depending on the result).",
+          "Pirate warbands can 'recruit' new members to join the exciting life of piracy, sometimes of their own free will, but more often as an alternative to the plank! Only human Heroes or Henchmen can be recruited this way. Any human Hero from a warband fighting the Pirates who suffers the Captured (61) result on the Serious Injury table may be 'offered' a place in the crew (usually at the point of a cutlass!). Each player rolls 2D6, the Pirate player adding his Captain's Leadership and the opponent adding the captured Hero's Ld. If one side won the game, it may add +1 to its result. If the Pirate player scores the higher result, the Hero abandons his old life and becomes a Crewman (skills and characteristics changed to match those of a basic Crewman, or those of his new crewmates if he joins an existing group). If the Hero scores the higher result, he resists the sirens' song and becomes a Swabbie (stripped of his equipment and weapons, but keeps his original skills and characteristics). Enemy human Henchmen taken Out of Action in a game won by the Pirates (a 1-2 result on the Serious Injury roll) also have a chance to join the crew, following a similar procedure. This rule is not automated in the app: it is resolved entirely on the tabletop, by agreement with the opponent, and the new member must be added manually to the warband (as a Swabbie or Crewman, depending on the result).",
       },
       {
         nom: 'Vagabonds and Prisoners',
         texte:
-          'On the Exploration table, if the Pirates roll the (4.4) Vagabonds or (3.3.3) Prisoners result during their search, they may agree to come aboard the Jolly Roger and join the crew as a Press-Ganged Man or Deckhand, following a procedure similar to that used to recruit an ordinary Hired Sword. Not automated — resolve on the tabletop.',
+          'On the Exploration table, if the Pirates roll the (4.4) Vagabonds or (3.3.3) Prisoners result during their search, they may agree to come aboard the Jolly Roger and join the crew as a Swabbie or Crewman, following a procedure similar to that used to recruit an ordinary Hired Sword. Not automated — resolve on the tabletop.',
       },
     ],
     profils: {
@@ -4244,9 +4248,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: 'Leader', texte: "Any Pirate within 6\" of the Pirate Captain may use the latter's Ld for his Leadership tests." },
         ],
       },
-      quartier_maitre: { nom: 'Quartermaster' },
+      quartier_maitre: { nom: 'Mate' },
       mousse: { nom: 'Cabin Boy' },
-      matelot: { nom: 'Deckhand' },
+      matelot: { nom: 'Crewman' },
       artilleur: {
         nom: 'Gunner',
         regles_speciales: [
@@ -4272,31 +4276,31 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       enrole: {
-        nom: 'Press-Ganged Man',
+        nom: 'Swabbie',
         regles_speciales: [
           {
             nom: 'Not Recruited',
             texte:
-              "Press-Ganged Men are not recruited for Gold Crowns: they join the warband through the Press-Ganging special rule (a captured enemy Hero or Henchman) or through the Vagabonds/Prisoners results on the Exploration table — see the Pirates' special rules. This profile is provided here so it can be recorded manually in the warband once the procedure has been resolved on the tabletop.",
+              "Swabbies are not recruited for Gold Crowns: they join the warband through the Press-Ganging special rule (a captured enemy Hero or Henchman) or through the Vagabonds/Prisoners results on the Exploration table — see the Pirates' special rules. This profile is provided here so it can be recorded manually in the warband once the procedure has been resolved on the tabletop.",
           },
           {
             nom: 'Never Gains Experience',
-            texte: 'Generally speaking, Press-Ganged Men have no desire to prove their worth to the crew. They are only interested in surviving and, if possible, escaping!',
+            texte: 'Generally speaking, Swabbies have no desire to prove their worth to the crew. They are only interested in surviving and, if possible, escaping!',
           },
           {
             nom: 'Riff-Raff',
             texte:
-              "Press-Ganged Men need not all be armed the same way. Each of them may be given different equipment, as long as it appears on the Press-Ganged Men's equipment list. Press-Ganged Men can never use magic or cast spells in any way, whatever their background or original abilities.",
+              "Swabbies need not all be armed the same way. Each of them may be given different equipment, as long as it appears on the Swabbies' equipment list. Swabbies can never use magic or cast spells in any way, whatever their background or original abilities.",
           },
           {
             nom: "Shiver Me Timbers, They've Taken to the Sails!",
             texte:
-              'If the Pirate warband is Routed, any Press-Ganged Men who left the table in previous turns are assumed to have successfully escaped and are never seen again. Remove them from your warband roster as if they were dead.',
+              'If the Pirate warband is Routed, any Swabbies who left the table in previous turns are assumed to have successfully escaped and are never seen again. Remove them from your warband roster as if they were dead.',
           },
           {
             nom: "Don't Mind Them, Lads, They Ain't Real Pirates!",
             texte:
-              "The rest of the crew will barely notice if a Press-Ganged Man flees or is put out of action; they know they'll catch up with him sooner or later and give him 30 lashes if he's lucky! Press-Ganged Men who flee or are taken Out of Action are not counted when working out the Rout test threshold.",
+              "The rest of the crew will barely notice if a Swabbie flees or is put out of action; they know they'll catch up with him sooner or later and give him 30 lashes if he's lucky! Swabbies who flee or are taken Out of Action are not counted when working out the Rout test threshold.",
           },
         ],
       },
@@ -4309,13 +4313,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           "In every sea, the pirate is renowned as one of the finest singers to ever tread a ship's boards, able to lift the spirits of any crew with a rousing rendition of pirate songs. At the start of his hand-to-hand combat phase, the Hero may suddenly burst into song, distracting an enemy of his choice in base contact. That enemy must pass a Leadership test or lose 1 Attack for that turn. Does not affect Undead or other non-living creatures, such as the Possessed.",
       },
       constitution_solide: {
-        nom: 'Iron Constitution',
+        nom: 'Hardy Constitution',
         reserve_a: 'Pirate Heroes only',
         texte:
           "Many months spent at sea eating ship's biscuit have hardened the pirate's body where a less hardy man would have collapsed. During battle, the Pirate may ignore any Critical Hit on a 5+ roll of 1D6 (on a success, the Wound is treated normally). If the roll fails, the Critical Hit applies.",
       },
       voix_tonitruante: {
-        nom: 'Thundering Voice',
+        nom: 'Booming Voice',
         reserve_a: 'Pirate Captain only',
         texte:
           "The captain has fought in many battles, bellowing orders to his crew, roaring over the din of cannon fire and enemy cries. Once per turn, the Pirate Captain may shout encouragement (or threats) at one of his Pirates within 8\" who has just failed a test resulting in fleeing combat, or a Rally test. That Pirate may then re-take his test. This can only be done if the Pirate Captain is standing and not engaged in hand-to-hand combat.",
@@ -4427,7 +4431,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Lady of the Lake',
         texte:
-          'Before engaging in battle, Bretonnian Knights kneel and pray to the Lady of the Lake, swearing to fight to the death for honour and justice. Before starting the game, make a Leadership test using the warband Leader\'s Ld. If the test is successful, the Lady of the Lake has granted her blessing to the warband. It takes the form of a powerful curse that falls upon the enemies of chivalry, and especially upon those who make use of foul, dishonourable weapons of mass destruction. Any enemy model wishing to use a firearm must roll 4+ on 1D6 to overcome the curse. On a failure, it may not shoot. The test must be made every time an enemy wishes to use one of these weapons. Models armed with other missile weapons, such as bows or crossbows, do not need to make this test, unless they are targeting a Bretonnian Knight (Knight of the Quest and Errant Knights only).',
+          'Before engaging in battle, Bretonnian Knights kneel and pray to the Lady of the Lake, swearing to fight to the death for honour and justice. Before starting the game, make a Leadership test using the warband Leader\'s Ld. If the test is successful, the Lady of the Lake has granted her blessing to the warband. It takes the form of a powerful curse that falls upon the enemies of chivalry, and especially upon those who make use of foul, dishonourable weapons of mass destruction. Any enemy model wishing to use a firearm must roll 4+ on 1D6 to overcome the curse. On a failure, it may not shoot. The test must be made every time an enemy wishes to use one of these weapons. Models armed with other missile weapons, such as bows or crossbows, do not need to make this test, unless they are targeting a Bretonnian Knight (Questing Knight and Knights Errant only).',
       },
       {
         nom: 'Horsemanship',
@@ -4437,23 +4441,23 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     ],
     profils: {
       chevalier_de_la_quete: {
-        nom: 'Knight of the Quest',
+        nom: 'Questing Knight',
         regles_speciales: [
-          { nom: 'Leader', texte: "Any model within 6\" of the Knight of the Quest may use the latter's Leadership to make his tests." },
+          { nom: 'Leader', texte: "Any model within 6\" of the Questing Knight may use the latter's Leadership to make his tests." },
           {
             nom: 'Knightly Virtue',
-            texte: 'A Knight of the Quest is a chivalrous warrior, far above the ordinary fighter. He never panics and never flees combat. He therefore does not need to take All Alone tests.',
+            texte: 'A Questing Knight is a chivalrous warrior, far above the ordinary fighter. He never panics and never flees combat. He therefore does not need to take All Alone tests.',
           },
         ],
       },
       chevalier_errant: {
-        nom: 'Errant Knight',
+        nom: 'Knight Errant',
         regles_speciales: [
           {
             nom: 'Knightly Virtue',
-            texte: 'A Knight of the Quest is a chivalrous warrior, far above the ordinary fighter. He never panics and never flees combat. He therefore does not need to take All Alone tests.',
+            texte: 'A Questing Knight is a chivalrous warrior, far above the ordinary fighter. He never panics and never flees combat. He therefore does not need to take All Alone tests.',
           },
-          { nom: 'Mount', texte: 'An Errant Knight may not ride a warhorse if the Knight of the Quest does not already have one.' },
+          { nom: 'Mount', texte: 'A Knight Errant may not ride a warhorse if the Questing Knight does not already have one.' },
         ],
       },
       ecuyer: {
@@ -4462,12 +4466,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: 'Numbers', texte: 'You may not have more Squires than Knights in your warband.' },
           {
             nom: 'Mount',
-            texte: 'A Squire may not ride a horse unless the Knight of the Quest and all the Errant Knights in the warband already ride a warhorse.',
+            texte: 'A Squire may not ride a horse unless the Questing Knight and all the Knights Errant in the warband already ride a warhorse.',
           },
         ],
       },
       homme_darme_bretonnien: { nom: 'Man-at-Arms' },
-      archer_bretonnien: { nom: 'Archer' },
+      archer_bretonnien: { nom: 'Bowman' },
     },
     competences_speciales: {
       vertu_discipline: {
@@ -4488,7 +4492,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           "The knight's only goal is to serve the Lady of the Lake. The purity of his heart and his discipline grant him a strength of mind that lets him resist his enemies' magic. Any spell cast against the Hero is dispelled on a 4+ on 1D6. This is a natural dispelling caused by the Hero's piety.",
       },
       vertu_bravoure: {
-        nom: 'Virtue of Bravery',
+        nom: 'Virtue of Valour',
         reserve_a: 'Bretonnian Knight Heroes only, instead of a normal skill',
         texte:
           "The knight has sworn to fight the greatest and most powerful opponents. The mightier the enemy, the more valiant the knight's efforts. If he fights a model with a Strength higher than his own, the Hero may re-roll failed to-hit rolls in hand-to-hand combat.",
@@ -4520,17 +4524,26 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Aversion to Poison',
         texte:
-          'The use of poisons and other drugs is a speciality of the dark elves. Ghost Warriors disapprove of their use even more strongly than the High Elves do. Members of a Ghost Warrior warband never use any type of poison.',
+          'The use of poisons and other drugs is a speciality of the dark elves. Shadow Warriors disapprove of their use even more strongly than the High Elves do. Members of a Shadow Warrior warband never use any type of poison.',
+      },
+      {
+        nom: 'Hate Dark Elves',
+        texte: 'All warriors in a Shadow Warrior warband (excluding any Hired Swords) have an unyielding Hatred for Dark Elves.',
+      },
+      {
+        nom: 'Excellent Sight',
+        texte:
+          "All the Elves in a Shadow Warrior warband can spot Hidden enemies from twice as far away as other warriors (ie, twice their Initiative in inches).",
       },
       {
         nom: 'Merciless',
         texte:
-          'In addition to their hatred of their corrupted cousins, the people of Nagarythe have long fought against Chaos. In a multiplayer game, a Ghost Warrior warband may never ally with any warband of a chaotic nature (Possessed, Skaven, Beastmen, Dark Elves, etc.).',
+          'In addition to their hatred of their corrupted cousins, the people of Nagarythe have long fought against Chaos. In a multiplayer game, a Shadow Warrior warband may never ally with any warband of a chaotic nature (Possessed, Skaven, Beastmen, Dark Elves, etc.).',
       },
       {
         nom: 'Tolerant',
         texte:
-          "Due to their status as outcasts among their own people, the elves of Nagarythe have learned to suppress their contempt for the 'lesser races', and sometimes even work for them. A Ghost Warrior warband may therefore hire any non-chaotic or non-evil Hired Sword (so no Skaven, Possessed, Dark Elves, Undead, etc.). They also avoid anyone who makes use of poisons (so no Assassins).",
+          "Due to their status as outcasts among their own people, the elves of Nagarythe have learned to suppress their contempt for the 'lesser races', and sometimes even work for them. A Shadow Warrior warband may therefore hire any non-chaotic or non-evil Hired Sword (so no Skaven, Possessed, Dark Elves, Undead, etc.). They also avoid anyone who makes use of poisons (so no Assassins).",
       },
     ],
     profils: {
@@ -4540,44 +4553,44 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: 'Leader', texte: "Any warrior within 6\" of the Shadow Master may use the latter's Leadership value for his Leadership tests." },
         ],
       },
-      rodeur_des_ombres: { nom: 'Shadow Ranger' },
+      rodeur_des_ombres: { nom: 'Shadow Walker' },
       tisseur_dombres: {
         nom: 'Shadow Weaver',
         regles_speciales: [
           { nom: 'Sorcerer', texte: 'The Shadow Weaver is a spellcaster who uses the Shadow Magic spell list. He cannot cast spells if he wears armour.' },
         ],
       },
-      guerrier_fantome: { nom: 'Ghost Warrior' },
+      guerrier_fantome: { nom: 'Shadow Warrior' },
       novice: { nom: 'Novice' },
     },
     competences_speciales: {
       infiltration_fantome: {
         nom: 'Infiltration',
-        reserve_a: 'Ghost Warrior Heroes only',
+        reserve_a: 'Shadow Warrior Heroes only',
         texte:
           'This skill is identical to the Skaven skill of the same name: at the start of the game, you may place him anywhere on the table, provided he is hidden and more than 12" from any enemy.',
       },
       voir_dans_les_tenebres: {
-        nom: 'See in the Dark',
-        reserve_a: 'Ghost Warrior Heroes only',
+        nom: 'See in Shadows',
+        reserve_a: 'Shadow Warrior Heroes only',
         texte:
           'The warrior\'s senses have been sharpened after years spent moving through the shadows. As long as his Movement allows him to reach them, the warrior may always roll the dice to charge enemies he cannot see (instead of the usual 4").',
       },
       se_cacher_parmi_les_ombres: {
-        nom: 'Hide Among the Shadows',
-        reserve_a: 'Ghost Warrior Heroes only',
+        nom: 'Hide in Shadows',
+        reserve_a: 'Shadow Warrior Heroes only',
         texte:
-          "Ghost Warriors have learned to stay perfectly still and become undetectable, even to the keen senses of their Dark Elf cousins. An enemy warrior attempting to detect this warrior while he is hidden must halve his Initiative before measuring the distance.",
+          "Shadow Warriors have learned to stay perfectly still and become undetectable, even to the keen senses of their Dark Elf cousins. An enemy warrior attempting to detect this warrior while he is hidden must halve his Initiative before measuring the distance.",
       },
       tir_silencieux: {
-        nom: 'Silent Shot',
-        reserve_a: 'Ghost Warrior Heroes only',
+        nom: 'Sniper',
+        reserve_a: 'Shadow Warrior Heroes only',
         texte:
-          'Long years of guerrilla warfare against the Dark Elves have taught Ghost Warriors how to strike from the shadows without being seen. If hidden, a warrior with this skill may shoot or cast spells while remaining hidden. If his target is not immediately taken Out of Action, it must pass a test against its Initiative to spot him. A success means the shooter is spotted and can no longer remain hidden.',
+          'Long years of guerrilla warfare against the Dark Elves have taught Shadow Warriors how to strike from the shadows without being seen. If hidden, a warrior with this skill may shoot or cast spells while remaining hidden. If his target is not immediately taken Out of Action, it must pass a test against its Initiative to spot him. A success means the shooter is spotted and can no longer remain hidden.',
       },
       solide_carrure_fantome: {
-        nom: 'Sturdy Build',
-        reserve_a: 'Ghost Warrior Heroes only, except the Shadow Weaver, maximum two models per warband',
+        nom: 'Powerful Build',
+        reserve_a: 'Shadow Warrior Heroes only, except the Shadow Weaver, maximum two models per warband',
         texte:
           'For an elf, the warrior is solidly built, capable of physical feats rare among the inhabitants of Ulthuan. A warrior with this skill may choose his skills from the Strength skills table. This skill cannot be taken by a Shadow Weaver. There may never be more than two elves with this skill in a warband at the same time.',
       },

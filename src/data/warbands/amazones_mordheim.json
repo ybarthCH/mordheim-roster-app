@@ -29,7 +29,7 @@
         { "nom": "Chef", "texte": "N'importe quelle figurine de la bande se trouvant dans un rayon de 6ps autour de la Prêtresse peut utiliser le Cd de cette dernière." },
         { "nom": "Sorcière", "texte": "La Prêtresse est une Sorcière utilisant les Rituels Amazones. Elle débute avec un rituel choisi aléatoirement dans la liste." }
       ],
-      "acces_competences": ["combat", "academique", "force", "vitesse"],
+      "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
       "acces_equipement": ["heroines"],
       "acces_competences_a_verifier": false,
       "est_leader": true
@@ -66,7 +66,7 @@
       "regles_speciales": [
         { "nom": "Frénésie", "texte": "Les Guerrières Totem sont des combattantes frénétiques et assoiffées de sang. Elles sont également totalement enivrées par les potions préparées par leurs sœurs. Les Guerrières Totem sont des machines à tuer qui ne se soucient guère de leur propre existence. Elles sont sujettes à la frénésie." }
       ],
-      "acces_competences": ["combat", "force"],
+      "acces_competences": ["combat", "force", "vitesse"],
       "acces_equipement": ["heroines"],
       "acces_competences_a_verifier": false
     },

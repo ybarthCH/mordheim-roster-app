@@ -63,7 +63,7 @@
       "cout": 35,
       "xp_depart": 8,
       "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
-      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_competences": ["combat", "tir", "force"],
       "acces_equipement": ["hors_la_loi"],
       "acces_competences_a_verifier": false
     },

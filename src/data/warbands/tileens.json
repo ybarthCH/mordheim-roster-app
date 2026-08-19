@@ -73,7 +73,7 @@
       "min": 0,
       "max": 2,
       "cout": 15,
-      "xp_depart": 8,
+      "xp_depart": 0,
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
       "acces_competences": ["force", "vitesse"],
       "acces_equipement": ["tileens"],
