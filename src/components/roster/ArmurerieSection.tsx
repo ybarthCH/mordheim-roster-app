@@ -95,7 +95,12 @@ export function ArmurerieSection({
       }
     >
       {roster.stock.length === 0 && <p className="text-muted text-sm">{t('armurerie.emptyStock')}</p>}
-      {roster.stock.map((entree) => (
+      {roster.stock.map((entree) => {
+        // Calculé une seule fois par ligne plutôt qu'à chaque usage
+        // (disabled, title, options) : membresEligibles refiltre tout
+        // roster.membres avec un resolveProfil par figurine à chaque appel.
+        const eligibles = membresEligibles(entree);
+        return (
         <div key={entree.instance_id} className="list-item">
           <div
             className="list-item__main"
@@ -117,12 +122,12 @@ export function ArmurerieSection({
           <div className="list-item__actions">
             <select
               value=""
-              disabled={membresEligibles(entree).length === 0}
-              title={membresEligibles(entree).length === 0 ? t('armurerie.noEligibleRecipient') : undefined}
+              disabled={eligibles.length === 0}
+              title={eligibles.length === 0 ? t('armurerie.noEligibleRecipient') : undefined}
               onChange={(e) => e.target.value && onDonner(entree.instance_id, e.target.value)}
             >
               <option value="">{t('armurerie.giveTo')}</option>
-              {membresEligibles(entree).map((m) => (
+              {eligibles.map((m) => (
                 <option key={m.instance_id} value={m.instance_id}>
                   {nomAffiche(m)}
                 </option>
@@ -145,7 +150,8 @@ export function ArmurerieSection({
             </button>
           </div>
         </div>
-      ))}
+        );
+      })}
     </CollapsibleCard>
 
       {modalAchatOuvert && catalogue && (

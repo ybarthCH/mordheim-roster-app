@@ -2010,6 +2010,15 @@ button {
 .list-item__row > :not(.list-item__main) {
   flex-shrink: 0;
 }
+/* Statut + suppression : un seul flex item groupant les deux (voir
+   MemberGroupCard), pour que flex-wrap sur .list-item__row les fasse passer
+   à la ligne ensemble plutôt que de laisser le statut sur la ligne du nom et
+   la suppression seule, orpheline, sur la ligne suivante. */
+.list-item__statut-suppression {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
 .list-item__title {
   font-weight: 700;
   font-family: var(--font-heading);
@@ -2980,6 +2989,14 @@ button {
   width: min(100%, 760px);
   min-height: 100%;
   margin: 0 auto;
+}
+/* Intégré dans une autre fenêtre (voir AjouterMembreModal) : le shop n'est
+   qu'un morceau du contenu de la modale plein écran, pas son unique enfant
+   — min-height: 100% s'appliquerait alors au viewport entier et forcerait
+   un vide énorme entre la liste et la barre Annuler/Terminer qui la suit
+   dans le flux. */
+.achat-equipement--integre {
+  min-height: 0;
 }
 .achat-equipement__header {
   position: sticky;

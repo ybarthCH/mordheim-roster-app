@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
@@ -87,7 +87,13 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
 
   const membre = roster?.membres.find((m) => m.instance_id === instanceId);
   const catalogueBrut = roster ? getCatalogue(roster.bande_id) : undefined;
-  const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
+  // translateWarbandCatalog reconstruit tout le catalogue en anglais à
+  // chaque appel — memoïsé pour ne pas refaire ce travail à chaque rendu
+  // (édition de stat, de trésorerie...) pour un utilisateur en anglais.
+  const catalogue = useMemo(
+    () => (catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut),
+    [catalogueBrut, language]
+  );
   const profil = roster && membre ? resolveProfil(roster, membre, catalogue, language) : undefined;
   const francTireur = getFrancTireur(membre?.franc_tireur_id);
 

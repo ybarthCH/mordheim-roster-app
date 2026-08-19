@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { getItem } from '../../data/items';
 import { estAccesGenerique, iconeCategorie, prixAvecRegles } from '../../utils/shop';
@@ -39,7 +40,12 @@ function libelleListe(cle: string, language: Language): string {
 // bande (mutations, armes à poudre noire exclusives, objets bloqués à une
 // liste précise...) : les objets génériques de la base commune sont déjà
 // accessibles via le shop intégré et n'ont plus leur place ici.
-export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }) {
+// memo : listesFiltrees ci-dessous refiltre et re-résout tout l'équipement
+// de la bande (getItem + estAccesGenerique par objet) à chaque rendu — avec
+// `catalogue` maintenant memoïsé côté appelant (voir translateWarbandCatalog),
+// ce composant peut sauter son propre rendu tant que la bande n'a pas changé,
+// au lieu de refaire ce travail à chaque frappe ailleurs sur l'écran.
+export const EquipementReference = memo(function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }) {
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
   const listesFiltrees = Object.entries(catalogue.equipement ?? {})
@@ -110,12 +116,12 @@ export function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }
       )}
     </CollapsibleCard>
   );
-}
+});
 
 // Référence libre du système de magie/prières. Avec un profil, résout son
 // domaine et mémorise l'état replié de la carte sur sa fiche. Sans profil,
 // affiche le domaine général de la bande dans le résumé du roster.
-export function MagieReference({
+export const MagieReference = memo(function MagieReference({
   catalogue,
   profil,
   marqueId,
@@ -175,4 +181,4 @@ export function MagieReference({
       {contenu}
     </CollapsibleCard>
   );
-}
+});

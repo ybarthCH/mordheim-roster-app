@@ -377,61 +377,70 @@ export function MemberGroupCard({
                     )}
                   </div>
                 </div>
-                {groupeSimplifie ? (
-                  <button
-                    type="button"
-                    className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onBasculerHorsCombat(m);
-                    }}
-                    title={titreHorsCombat(m, groupeSimplifie)}
-                    aria-label={titreHorsCombat(m, groupeSimplifie)}
-                  >
-                    <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
-                    <span className="status-switch__label">
-                      {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
-                    </span>
-                  </button>
-                ) : m.statut === 'mort' ? (
-                  <span
-                    className={`status-switch status-switch--${STATUT_COULEUR[m.statut]} status-switch--badge`}
-                    title={t('memberGroup.deadStatusHint')}
-                  >
-                    {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                    <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
-                  </span>
-                ) : (
-                  <button
-                    type="button"
-                    className={`status-plaque${m.statut === 'actif' ? ' status-plaque--actif' : ''}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onBasculerHorsCombat(m);
-                    }}
-                    title={titreHorsCombat(m, groupeSimplifie)}
-                    aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m, groupeSimplifie)}`}
-                  >
-                    <span className="status-plaque__switch">
-                      <span className="status-plaque__switch-track" />
-                      <span className="status-plaque__switch-knob">
-                        <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--green" />
-                        <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--red" />
+                {/* Statut + suppression regroupés dans un seul enfant flex de
+                    .list-item__row (au lieu de deux flex siblings distincts) :
+                    sinon flex-wrap pouvait laisser le bouton de statut sur la
+                    ligne du nom tout en renvoyant la suppression seule sur la
+                    ligne suivante dès que le nom (badges Chef/avancée compris)
+                    ne laissait plus assez de place pour les deux — la paire
+                    passe maintenant à la ligne ensemble ou reste ensemble. */}
+                <div className="list-item__statut-suppression">
+                  {groupeSimplifie ? (
+                    <button
+                      type="button"
+                      className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onBasculerHorsCombat(m);
+                      }}
+                      title={titreHorsCombat(m, groupeSimplifie)}
+                      aria-label={titreHorsCombat(m, groupeSimplifie)}
+                    >
+                      <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
+                      <span className="status-switch__label">
+                        {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
                       </span>
+                    </button>
+                  ) : m.statut === 'mort' ? (
+                    <span
+                      className={`status-switch status-switch--${STATUT_COULEUR[m.statut]} status-switch--badge`}
+                      title={t('memberGroup.deadStatusHint')}
+                    >
+                      {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
+                      <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
                     </span>
-                    <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
+                  ) : (
+                    <button
+                      type="button"
+                      className={`status-plaque${m.statut === 'actif' ? ' status-plaque--actif' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onBasculerHorsCombat(m);
+                      }}
+                      title={titreHorsCombat(m, groupeSimplifie)}
+                      aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m, groupeSimplifie)}`}
+                    >
+                      <span className="status-plaque__switch">
+                        <span className="status-plaque__switch-track" />
+                        <span className="status-plaque__switch-knob">
+                          <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--green" />
+                          <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--red" />
+                        </span>
+                      </span>
+                      <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
+                    </button>
+                  )}
+                  <button
+                    className="btn--ghost-danger"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSupprimer(m);
+                    }}
+                    title={t('memberGroup.removeTitle')}
+                  >
+                    <Icon name="croixPack" />
                   </button>
-                )}
-                <button
-                  className="btn--ghost-danger"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onSupprimer(m);
-                  }}
-                  title={t('memberGroup.removeTitle')}
-                >
-                  <Icon name="croixPack" />
-                </button>
+                </div>
               </div>
               <div className="list-item__details">
                 <div className="list-item__subtitle">

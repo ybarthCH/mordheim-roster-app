@@ -36,6 +36,21 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roster.id]);
 
+  // Même motif que nomSaisi ci-dessus, pour la même raison (curseur/valeur
+  // qui saute), plus un second problème propre aux champs numériques : un
+  // input contrôlé directement par un number empêche de taper un « - »
+  // (trésorerie négative, cas réel — voir le style rouge ci-dessous) ou de
+  // vider le champ pour retaper un nombre, la valeur retombant à 0 dès le
+  // premier caractère effacé/saisi invalide.
+  const [tresorerieSaisie, setTresorerieSaisie] = useState(String(roster.tresorerie));
+  useEffect(() => {
+    setTresorerieSaisie(String(roster.tresorerie));
+  }, [roster.id, roster.tresorerie]);
+  const [wyrdstoneSaisi, setWyrdstoneSaisi] = useState(String(roster.wyrdstone));
+  useEffect(() => {
+    setWyrdstoneSaisi(String(roster.wyrdstone));
+  }, [roster.id, roster.wyrdstone]);
+
   return (
     <div className="card card--summary">
       <input
@@ -87,8 +102,14 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           <span className="summary-tile__icon summary-tile__icon--treasury" aria-hidden="true" />
           <input
             type="number"
-            value={roster.tresorerie}
-            onChange={(e) => onPatch({ tresorerie: Number(e.target.value) || 0 })}
+            value={tresorerieSaisie}
+            onChange={(e) => {
+              const raw = e.target.value;
+              setTresorerieSaisie(raw);
+              const n = Number(raw);
+              if (raw.trim() !== '' && raw.trim() !== '-' && Number.isFinite(n)) onPatch({ tresorerie: n });
+            }}
+            onBlur={() => setTresorerieSaisie(String(roster.tresorerie))}
             className="summary-tile__value summary-tile__input"
             style={roster.tresorerie < 0 ? { color: 'var(--danger)' } : undefined}
           />
@@ -98,8 +119,14 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           <span className="summary-tile__icon summary-tile__icon--wyrdstone" aria-hidden="true" />
           <input
             type="number"
-            value={roster.wyrdstone}
-            onChange={(e) => onPatch({ wyrdstone: Number(e.target.value) || 0 })}
+            value={wyrdstoneSaisi}
+            onChange={(e) => {
+              const raw = e.target.value;
+              setWyrdstoneSaisi(raw);
+              const n = Number(raw);
+              if (raw.trim() !== '' && raw.trim() !== '-' && Number.isFinite(n)) onPatch({ wyrdstone: n });
+            }}
+            onBlur={() => setWyrdstoneSaisi(String(roster.wyrdstone))}
             className="summary-tile__value summary-tile__input"
           />
           <div className="summary-tile__label">{t('rosterSummary.wyrdstone')}</div>

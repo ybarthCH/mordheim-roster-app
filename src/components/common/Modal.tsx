@@ -14,11 +14,19 @@ const SELECTEUR_FOCUSABLE =
 export function Modal({ onClose, children, variant = 'sheet' }: ModalProps) {
   const fullscreen = variant === 'fullscreen';
   const sheetRef = useRef<HTMLDivElement>(null);
+  // Lu par le keydown handler plutôt que capturé dans les deps de l'effet
+  // ci-dessous : la plupart des appelants passent une arrow function inline
+  // (nouvelle référence à chaque rendu), ce qui redéclencherait l'effet — et
+  // donc le vol de focus vers le premier élément — à chaque frappe dans un
+  // champ de la modale si l'effet dépendait de `onClose` directement.
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   // Échap pour fermer + piège à focus : sans ça, Tab fait sortir le focus
   // clavier de la modale vers la page derrière (masquée visuellement mais
   // toujours interactive), et un lecteur d'écran n'a aucun signal qu'une
   // boîte de dialogue vient de s'ouvrir (voir role="dialog" ci-dessous).
+  // Deps vides : ne s'exécute qu'au montage, pas à chaque rendu.
   useEffect(() => {
     const sheet = sheetRef.current;
     if (!sheet) return;
@@ -32,7 +40,7 @@ export function Modal({ onClose, children, variant = 'sheet' }: ModalProps) {
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        onCloseRef.current();
         return;
       }
       if (e.key !== 'Tab') return;
@@ -53,7 +61,8 @@ export function Modal({ onClose, children, variant = 'sheet' }: ModalProps) {
 
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
-  }, [onClose]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Porté sur document.body plutôt que rendu en place : sinon, ouvert
   // depuis le volet gauche du mode deux-volets (voir .roster-split dans

@@ -59,16 +59,6 @@ export async function listRosters(): Promise<RosterInstance[]> {
   }
 }
 
-export async function getRoster(id: string): Promise<RosterInstance | undefined> {
-  try {
-    const db = await getDb();
-    return await db.get('rosters', id);
-  } catch (err) {
-    console.error(`IndexedDB : échec de la lecture de la bande ${id}`, err);
-    throw err;
-  }
-}
-
 export async function saveRoster(roster: RosterInstance): Promise<void> {
   try {
     const db = await getDb();

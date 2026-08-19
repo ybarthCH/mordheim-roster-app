@@ -84,6 +84,14 @@ type Props = {
   // achat, on revient simplement à la liste du catalogue au lieu de fermer,
   // pour pouvoir enchaîner plusieurs achats sans quitter la vue.
   resterOuvertApresAchat?: boolean;
+  // Masque les boutons de fermeture (X) internes à chaque sous-vue du shop.
+  // Utilisé depuis le recrutement (voir AjouterMembreModal), où le shop est
+  // fusionné dans la fenêtre de recrutement : ce X fermait toute la fenêtre
+  // de recrutement (le membre déjà recruté restant, mais le panier en cours
+  // perdu) au lieu de simplement fermer une sous-vue du shop — hors de
+  // propos dans ce contexte fusionné, qui expose son propre bouton
+  // "Annuler" en pied de fenêtre à la place.
+  masquerBoutonFermer?: boolean;
   onClose: () => void;
   onAchat: (item: ShopItem, coutPaye: number) => void;
 };
@@ -132,6 +140,7 @@ export function AchatEquipementContenu({
   onObjetsSurchargesChange,
   categorieInitiale,
   resterOuvertApresAchat = false,
+  masquerBoutonFermer = false,
   onClose,
   onAchat,
 }: Props) {
@@ -378,7 +387,7 @@ export function AchatEquipementContenu({
     : undefined;
 
   return (
-      <div className="achat-equipement">
+      <div className={`achat-equipement${resterOuvertApresAchat ? ' achat-equipement--integre' : ''}`}>
         {vuePersonnalise === 'menu' ? (
           <div className="achat-equipement__contenu">
             <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
@@ -458,9 +467,11 @@ export function AchatEquipementContenu({
           <div className="achat-equipement__contenu">
             <div className="achat-equipement__header-ligne" style={{ marginBottom: '0.5rem' }}>
               <h3 className="mt-0 mb-0">{itemSelectionneAffiche!.nom}</h3>
-              <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
-                <Icon name="croixPack" />
-              </button>
+              {!masquerBoutonFermer && (
+                <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
+                  <Icon name="croixPack" />
+                </button>
+              )}
             </div>
             <p className="text-sm text-muted">{t('achatEquipement.rollResultNote')}</p>
             <button className="btn--pack-pill-sm" style={{ marginBottom: '0.5rem' }} onClick={() => setItemId('')}>
@@ -481,9 +492,11 @@ export function AchatEquipementContenu({
               <h3 className="mt-0 mb-0">
                 {translateItem(materiauSelectionne, language).nom} {t('achatEquipement.chooseBaseSuffix')}
               </h3>
-              <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
-                <Icon name="croixPack" />
-              </button>
+              {!masquerBoutonFermer && (
+                <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
+                  <Icon name="croixPack" />
+                </button>
+              )}
             </div>
             <p className="text-sm text-muted">{t('achatEquipement.chooseBaseNote')}</p>
             <button className="btn--pack-pill-sm" style={{ marginBottom: '0.5rem' }} onClick={() => setItemId('')}>
@@ -520,9 +533,11 @@ export function AchatEquipementContenu({
                 <button className="btn--pack-pill-sm" onClick={() => setBaseMateriauId('')}>
                   {t('achatEquipement.chooseOtherBase')}
                 </button>
-                <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
-                  <Icon name="croixPack" />
-                </button>
+                {!masquerBoutonFermer && (
+                  <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
+                    <Icon name="croixPack" />
+                  </button>
+                )}
               </div>
               <div className="achat-equipement__selection-titre">
                 <h3 className="mt-0 mb-0">
@@ -615,9 +630,11 @@ export function AchatEquipementContenu({
                       {t('achatEquipement.custom')}
                     </button>
                   )}
-                  <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
-                    <Icon name="croixPack" />
-                  </button>
+                  {!masquerBoutonFermer && (
+                    <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
+                      <Icon name="croixPack" />
+                    </button>
+                  )}
                 </div>
               </div>
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.2rem' }}>
@@ -725,9 +742,11 @@ export function AchatEquipementContenu({
                 <button className="btn--pack-pill-sm" onClick={() => setItemId('')}>
                   {t('achatEquipement.catalogBack')}
                 </button>
-                <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
-                  <Icon name="croixPack" />
-                </button>
+                {!masquerBoutonFermer && (
+                  <button className="icon-btn achat-equipement__close" aria-label={t('achatEquipement.close')} onClick={onClose}>
+                    <Icon name="croixPack" />
+                  </button>
+                )}
               </div>
               <div className="achat-equipement__selection-titre">
                 <h3 className="mt-0 mb-0">{itemSelectionneAffiche!.nom}</h3>

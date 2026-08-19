@@ -57,6 +57,24 @@ export function ListeBandesScreen() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [aSupprimer, setASupprimer] = useState<RosterInstance | null>(null);
   const [erreurImport, setErreurImport] = useState<string | null>(null);
+  // Un double-clic/double-tap sur "Dupliquer" (accidentel, ou latence perçue
+  // pendant l'écriture IndexedDB) relançait duplicateRoster une seconde fois
+  // avant que le bouton ne redevienne visuellement pertinent — deux copies
+  // créées pour un seul clic voulu.
+  const [duplicationEnCours, setDuplicationEnCours] = useState<Set<string>>(new Set());
+  const dupliquer = async (id: string) => {
+    if (duplicationEnCours.has(id)) return;
+    setDuplicationEnCours((prev) => new Set(prev).add(id));
+    try {
+      await duplicateRoster(id);
+    } finally {
+      setDuplicationEnCours((prev) => {
+        const suivant = new Set(prev);
+        suivant.delete(id);
+        return suivant;
+      });
+    }
+  };
   const { elements, refItem, onPointerDown, onHandlePointerDown, onCardClick, idEnCours, pointerPos } =
     useCardDragReorder(rosters, reorderRosters);
   const tactile = useMediaQuery(TACTILE_QUERY);
@@ -171,7 +189,11 @@ export function ListeBandesScreen() {
                 <button className="btn--pack-pill-sm" onClick={() => exporterRoster(roster)}>
                   {t('home.export')}
                 </button>
-                <button className="btn--pack-pill-sm" onClick={() => duplicateRoster(roster.id)}>
+                <button
+                  className="btn--pack-pill-sm"
+                  disabled={duplicationEnCours.has(roster.id)}
+                  onClick={() => dupliquer(roster.id)}
+                >
                   {t('home.duplicate')}
                 </button>
                 <button className="btn--ghost-danger" onClick={() => setASupprimer(roster)} title={t('home.deleteShort')}>

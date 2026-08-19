@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../common/Icon';
 import type { Member, RosterInstance } from '../../types/roster';
@@ -44,7 +44,13 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
   const catalogueBrut = getCatalogue(roster.bande_id);
-  const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
+  // Memoïsé : translateWarbandCatalog reconstruit tout le catalogue à
+  // chaque appel, et cette modale re-rend à chaque frappe (recherche de
+  // sort, quantité, nom du personnage...).
+  const catalogue = useMemo(
+    () => (catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut),
+    [catalogueBrut, language]
+  );
   const [profilId, setProfilId] = useState('');
   const [nomPerso, setNomPerso] = useState('');
   // Saisie gardée en texte brut (pas en number) : un input contrôlé par un
@@ -251,9 +257,16 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
                   className="flex items-center justify-between"
                   style={{ marginTop: '0.3rem' }}
                 >
-                  <span className="text-sm">{translateItem(p.item, language).nom}</span>
+                  <span className="text-sm">
+                    {tailleGroupeActuelle > 1 ? `${tailleGroupeActuelle}× ` : ''}
+                    {translateItem(p.item, language).nom}
+                  </span>
                   <span className="flex items-center gap-sm">
-                    <span className="text-sm text-muted">{formatCoutItem(p.coutPaye, language)}</span>
+                    <span className="text-sm text-muted">
+                      {tailleGroupeActuelle > 1
+                        ? `${formatCoutItem(p.coutPaye, language)} × ${tailleGroupeActuelle} = ${formatCoutItem(p.coutPaye * tailleGroupeActuelle, language)}`
+                        : formatCoutItem(p.coutPaye, language)}
+                    </span>
                     <button
                       className="btn--ghost-danger"
                       style={{ padding: '0.1rem 0.35rem' }}
@@ -301,12 +314,20 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
             onObjetsPersonnalisesChange={(objets) => onUpdateRoster({ ...roster, objets_personnalises: objets })}
             onObjetsSurchargesChange={(surcharges) => onUpdateRoster({ ...roster, objets_surcharges: surcharges })}
             resterOuvertApresAchat
+            masquerBoutonFermer
             onClose={onClose}
             onAchat={(item, coutPaye) => setPanier((prev) => [...prev, { item, coutPaye }])}
           />
         )}
         <div className="flex gap-sm" style={{ padding: '0.9rem' }}>
-          <button className="btn btn--primary" disabled={tresorerieProjetee < 0} onClick={terminer}>
+          <button className="btn--pack-pill-sm" onClick={onClose}>
+            {t('achatEquipement.cancel')}
+          </button>
+          <button
+            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
+            disabled={tresorerieProjetee < 0}
+            onClick={terminer}
+          >
             {t('recrutementEquipement.finish')}
           </button>
         </div>
@@ -555,11 +576,11 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
         </p>
       )}
       <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
-        <button className="btn" onClick={onClose}>
+        <button className="btn--pack-pill-sm" onClick={onClose}>
           {t('creation.modal.cancel')}
         </button>
         <button
-          className="btn btn--primary"
+          className="btn--pack-pill-sm btn--pack-pill-sm--primary"
           disabled={
             !profil ||
             !check.ok ||

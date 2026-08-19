@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { getSetting, setSetting } from '../../db/db';
@@ -75,6 +75,16 @@ export function RosterScreen({
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
   const roster = getRosterById(id ?? '');
+  // Hissé avant le "if (!roster) return" ci-dessous (les Hooks ne peuvent pas
+  // être conditionnels) : translateWarbandCatalog reconstruit tout le
+  // catalogue (profils, équipement, magie...) en anglais à chaque appel, pas
+  // seulement au changement de langue — sans ce useMemo, ce recalcul complet
+  // s'exécutait à chaque rendu de cet écran pour un utilisateur en anglais.
+  const catalogueBrut = getCatalogue(roster?.bande_id ?? '');
+  const catalogue = useMemo(
+    () => (catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut),
+    [catalogueBrut, language]
+  );
   const [modalMembre, setModalMembre] = useState(false);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
   const [modalLeader, setModalLeader] = useState(false);
@@ -126,8 +136,6 @@ export function RosterScreen({
     );
   }
 
-  const catalogueBrut = getCatalogue(roster.bande_id);
-  const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
   const tribu = tribuChoisie(catalogue, roster);
   const violations = validerComposition(roster);
   const violationsEffectif = validerEffectif(roster);

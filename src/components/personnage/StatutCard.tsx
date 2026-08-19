@@ -62,6 +62,19 @@ export function StatutCard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [membre.instance_id]);
 
+  // Même motif pour les compteurs de tours blessé : un input contrôlé
+  // directement par le number empêche de vider le champ pour retaper une
+  // valeur à plusieurs chiffres. Resynchronisé aussi sur la valeur elle-même
+  // (décomptée automatiquement en post-bataille), comme tailleGroupeSaisie.
+  const [tourActuelSaisi, setTourActuelSaisi] = useState(String(membre.blesse_tour_actuel));
+  useEffect(() => {
+    setTourActuelSaisi(String(membre.blesse_tour_actuel));
+  }, [membre.instance_id, membre.blesse_tour_actuel]);
+  const [tourTotalSaisi, setTourTotalSaisi] = useState(String(membre.blesse_tour_total));
+  useEffect(() => {
+    setTourTotalSaisi(String(membre.blesse_tour_total));
+  }, [membre.instance_id, membre.blesse_tour_total]);
+
   const statutsDisponibles = estGroupeSimplifie ? STATUTS.filter((s) => s.id === 'actif' || s.id === 'mort') : STATUTS;
 
   // Passage au statut Blessé : demande le nombre de tours (post-batailles)
@@ -182,15 +195,27 @@ export function StatutCard({
           <input
             type="number"
             className="stat-grid__input stat-grid__input--pv"
-            value={membre.blesse_tour_actuel}
-            onChange={(e) => onMajMembre({ blesse_tour_actuel: Number(e.target.value) || 0 })}
+            value={tourActuelSaisi}
+            onChange={(e) => {
+              const raw = e.target.value;
+              setTourActuelSaisi(raw);
+              const n = Number(raw);
+              if (raw.trim() !== '' && Number.isFinite(n) && n >= 0) onMajMembre({ blesse_tour_actuel: n });
+            }}
+            onBlur={() => setTourActuelSaisi(String(membre.blesse_tour_actuel))}
           />
           <span>/</span>
           <input
             type="number"
             className="stat-grid__input stat-grid__input--pv"
-            value={membre.blesse_tour_total}
-            onChange={(e) => onMajMembre({ blesse_tour_total: Number(e.target.value) || 0 })}
+            value={tourTotalSaisi}
+            onChange={(e) => {
+              const raw = e.target.value;
+              setTourTotalSaisi(raw);
+              const n = Number(raw);
+              if (raw.trim() !== '' && Number.isFinite(n) && n >= 0) onMajMembre({ blesse_tour_total: n });
+            }}
+            onBlur={() => setTourTotalSaisi(String(membre.blesse_tour_total))}
           />
           <span className="text-sm text-muted">{t('statutCard.turns')}</span>
         </div>

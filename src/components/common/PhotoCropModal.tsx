@@ -26,12 +26,22 @@ export function PhotoCropModal({ fichier, onConfirm, onCancel }: PhotoCropModalP
   const [zoom, setZoom] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const imgRef = useRef<HTMLImageElement>(null);
+  // Nettoyage du pan en cours (voir demarrerPan) : la modale peut se fermer
+  // (Échap, clic sur le fond) pendant un glisser, sans que pointerup/
+  // pointercancel se déclenche jamais sur window — sans ce ref, les
+  // écouteurs restent attachés indéfiniment et continuent d'appeler
+  // setOffset sur un composant démonté.
+  const finPanRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     const url = URL.createObjectURL(fichier);
     setImgUrl(url);
     return () => URL.revokeObjectURL(url);
   }, [fichier]);
+
+  useEffect(() => {
+    return () => finPanRef.current?.();
+  }, []);
 
   const baseScale = naturalSize.w && naturalSize.h ? Math.max(VIEWPORT / naturalSize.w, VIEWPORT / naturalSize.h) : 1;
   const scale = baseScale * zoom;
@@ -70,10 +80,12 @@ export function PhotoCropModal({ fichier, onConfirm, onCancel }: PhotoCropModalP
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onFin);
       window.removeEventListener('pointercancel', onFin);
+      finPanRef.current = null;
     };
     window.addEventListener('pointermove', onMove);
     window.addEventListener('pointerup', onFin);
     window.addEventListener('pointercancel', onFin);
+    finPanRef.current = onFin;
   };
 
   const confirmer = () => {

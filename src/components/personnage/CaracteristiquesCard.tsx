@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Profile, Stats } from '../../types/catalog';
 import type { Member } from '../../types/roster';
@@ -12,9 +13,25 @@ type CaracteristiquesCardProps = {
   onEditerStat: (k: keyof Stats, value: number) => void;
 };
 
+function saisiesDepuis(stats: Stats): Record<string, string> {
+  return Object.fromEntries(STAT_KEYS.map((k) => [k, String(stats[k])]));
+}
+
 export function CaracteristiquesCard({ membre, profil, onEditerStat }: CaracteristiquesCardProps) {
   const { t, language } = useLanguage();
   const plafond = plafondPour(profil, membre.competences_acquises);
+
+  // Saisie locale par caractéristique : un input contrôlé directement par
+  // membre.stats_actuels[k] (un number) empêche de vider le champ pour
+  // retaper une valeur — le premier caractère effacé/invalide fait
+  // retomber le champ à 0 avant que le chiffre suivant soit tapé. Voir le
+  // même motif pour nomSaisi/tresorerieSaisie ailleurs dans l'appli.
+  // Resynchronisé au changement de personnage ou de stats_actuels (avancée,
+  // blessure grave, achat d'équipement à delta permanent...).
+  const [saisies, setSaisies] = useState(() => saisiesDepuis(membre.stats_actuels));
+  useEffect(() => {
+    setSaisies(saisiesDepuis(membre.stats_actuels));
+  }, [membre.instance_id, membre.stats_actuels]);
   return (
     <div className="card">
       <h3>
@@ -52,8 +69,14 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
               <input
                 type="number"
                 className={`stat-grid__input ${auPlafond ? 'stat-grid__input--plafond' : ''}`}
-                value={membre.stats_actuels[k]}
-                onChange={(e) => onEditerStat(k, Number(e.target.value) || 0)}
+                value={saisies[k] ?? ''}
+                onChange={(e) => {
+                  const raw = e.target.value;
+                  setSaisies((prev) => ({ ...prev, [k]: raw }));
+                  const n = Number(raw);
+                  if (raw.trim() !== '' && raw.trim() !== '-' && Number.isFinite(n)) onEditerStat(k, n);
+                }}
+                onBlur={() => setSaisies((prev) => ({ ...prev, [k]: String(membre.stats_actuels[k]) }))}
               />
             </div>
           );

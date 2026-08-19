@@ -126,9 +126,16 @@ export function CreationBandeScreen() {
   const tribuRequise = (catalogue?.tribus?.length ?? 0) > 0;
   const peutCreer =
     bandeId !== '' && nomBande.trim() !== '' && membres.length > 0 && (!tribuRequise || tribuId !== '');
+  // Un double-clic/double-tap sur "Créer" (accidentel, ou latence perçue
+  // pendant l'écriture IndexedDB) relançait handleCreer une seconde fois
+  // avant la navigation loin de cet écran — deux bandes distinctes créées
+  // pour une seule intention, la seconde silencieusement invisible tant que
+  // l'utilisateur ne regarde pas la liste des bandes.
+  const [creationEnCours, setCreationEnCours] = useState(false);
 
   const handleCreer = async () => {
-    if (!peutCreer) return;
+    if (!peutCreer || creationEnCours) return;
+    setCreationEnCours(true);
     const roster = creerRoster(bandeId, nomBande.trim(), restant);
     roster.membres = membres;
     roster.objets_personnalises = objetsPersonnalises;
@@ -323,7 +330,7 @@ export function CreationBandeScreen() {
         </div>
       )}
 
-      <button className="btn btn--primary btn--block" disabled={!peutCreer} onClick={handleCreer}>
+      <button className="btn btn--primary btn--block" disabled={!peutCreer || creationEnCours} onClick={handleCreer}>
         {t('creation.createBand')}
       </button>
       {nomBande.trim() === '' && (
