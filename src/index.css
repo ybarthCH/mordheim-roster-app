@@ -2010,6 +2010,15 @@ button {
 .list-item__row > :not(.list-item__main) {
   flex-shrink: 0;
 }
+/* Statut + suppression : un seul flex item groupant les deux (voir
+   MemberGroupCard), pour que flex-wrap sur .list-item__row les fasse passer
+   à la ligne ensemble plutôt que de laisser le statut sur la ligne du nom et
+   la suppression seule, orpheline, sur la ligne suivante. */
+.list-item__statut-suppression {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
 .list-item__title {
   font-weight: 700;
   font-family: var(--font-heading);

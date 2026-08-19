@@ -257,9 +257,16 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
                   className="flex items-center justify-between"
                   style={{ marginTop: '0.3rem' }}
                 >
-                  <span className="text-sm">{translateItem(p.item, language).nom}</span>
+                  <span className="text-sm">
+                    {tailleGroupeActuelle > 1 ? `${tailleGroupeActuelle}× ` : ''}
+                    {translateItem(p.item, language).nom}
+                  </span>
                   <span className="flex items-center gap-sm">
-                    <span className="text-sm text-muted">{formatCoutItem(p.coutPaye, language)}</span>
+                    <span className="text-sm text-muted">
+                      {tailleGroupeActuelle > 1
+                        ? `${formatCoutItem(p.coutPaye, language)} × ${tailleGroupeActuelle} = ${formatCoutItem(p.coutPaye * tailleGroupeActuelle, language)}`
+                        : formatCoutItem(p.coutPaye, language)}
+                    </span>
                     <button
                       className="btn--ghost-danger"
                       style={{ padding: '0.1rem 0.35rem' }}
@@ -307,11 +314,15 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
             onObjetsPersonnalisesChange={(objets) => onUpdateRoster({ ...roster, objets_personnalises: objets })}
             onObjetsSurchargesChange={(surcharges) => onUpdateRoster({ ...roster, objets_surcharges: surcharges })}
             resterOuvertApresAchat
+            masquerBoutonFermer
             onClose={onClose}
             onAchat={(item, coutPaye) => setPanier((prev) => [...prev, { item, coutPaye }])}
           />
         )}
         <div className="flex gap-sm" style={{ padding: '0.9rem' }}>
+          <button className="btn" onClick={onClose}>
+            {t('achatEquipement.cancel')}
+          </button>
           <button className="btn btn--primary" disabled={tresorerieProjetee < 0} onClick={terminer}>
             {t('recrutementEquipement.finish')}
           </button>
