@@ -7,6 +7,14 @@ export type RostersContextValue = {
   refresh: () => Promise<void>;
   getRosterById: (id: string) => RosterInstance | undefined;
   updateRoster: (roster: RosterInstance) => Promise<void>;
+  // Lit/modifie la bande à partir de son état le plus récent (une ref tenue à
+  // jour de façon synchrone, jamais la valeur figée dans la closure de
+  // l'appelant) : deux appels rapprochés (ex. saisie clavier rapide dans deux
+  // champs différents) s'enchaînent donc correctement au lieu que le second,
+  // parti d'un instantané périmé, écrase le changement du premier. Préférer
+  // patchRoster à updateRoster partout où le partiel dépend de l'état
+  // courant de la bande plutôt que d'une valeur déjà entièrement calculée.
+  patchRoster: (id: string, updater: (current: RosterInstance) => RosterInstance) => Promise<void>;
   addRoster: (roster: RosterInstance) => Promise<void>;
   removeRoster: (id: string) => Promise<void>;
   duplicateRoster: (id: string) => Promise<RosterInstance | undefined>;

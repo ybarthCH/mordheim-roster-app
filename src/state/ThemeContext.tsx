@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { getSetting, setSetting } from '../db/db';
 import { ThemeContext } from './useTheme';
@@ -19,10 +19,14 @@ const ACCENT_COLORS: Record<'light' | 'dark', string> = {
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('system');
   const [systemDark, setSystemDark] = useState(systemPrefersDark());
+  // Un choix fait avant la fin du chargement IndexedDB (ouverture rapide des
+  // réglages, appareil lent) ne doit pas être écrasé par la valeur persistée
+  // une fois ce chargement terminé — voir le même motif dans GameRulesContext.
+  const modifiedBeforeLoad = useRef(false);
 
   useEffect(() => {
     getSetting<Theme>('theme').then((saved) => {
-      if (saved) setThemeState(saved);
+      if (saved && !modifiedBeforeLoad.current) setThemeState(saved);
     });
     const mql = window.matchMedia('(prefers-color-scheme: dark)');
     const listener = (e: MediaQueryListEvent) => setSystemDark(e.matches);
@@ -43,6 +47,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [effectiveTheme]);
 
   const setTheme = useCallback((t: Theme) => {
+    modifiedBeforeLoad.current = true;
     setThemeState(t);
     setSetting('theme', t);
   }, []);

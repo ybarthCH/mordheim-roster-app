@@ -1099,6 +1099,7 @@ export function PostBatailleScreen() {
           nbHerosHorsDeCombat={nbHerosHorsDeCombat}
           onMajRoster={majRosterExploration}
           onResolu={() => setOeilResolu(true)}
+          dejaResolu={oeilResolu}
         />
       )}
 

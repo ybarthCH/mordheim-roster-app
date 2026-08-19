@@ -143,6 +143,10 @@ export const postBatailleShared: UiDictionary = {
   },
   'postBataille.eyeOfDarkGods.defeatPrefix': { fr: 'Défaite : ', en: 'Defeat: ' },
   'postBataille.eyeOfDarkGods.victoryPrefix': { fr: 'Victoire : ', en: 'Victory: ' },
+  'postBataille.eyeOfDarkGods.alreadyResolved': {
+    fr: 'Test déjà résolu pour cette séquence post-bataille.',
+    en: 'Already resolved for this post-battle sequence.',
+  },
 
   // Blessures graves (étape)
   'postBataille.injuries.title': { fr: 'Blessures graves', en: 'Serious injuries' },
