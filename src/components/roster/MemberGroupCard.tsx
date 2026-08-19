@@ -351,14 +351,6 @@ export function MemberGroupCard({
               role="button"
               onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
             >
-              <span
-                className="drag-handle drag-handle--discret"
-                onPointerDown={demarrerDrag(m.instance_id)}
-                onClick={(e) => e.stopPropagation()}
-                title={t('memberGroup.dragHandle')}
-              >
-                <Icon name="poignee" size="0.7em" />
-              </span>
               <div className="list-item__row">
                 <div className="list-item__main">
                   <div className="list-item__title">
@@ -375,6 +367,14 @@ export function MemberGroupCard({
                         {t('memberGroup.pendingAdvance')}
                       </span>
                     )}
+                    <span
+                      className="drag-handle drag-handle--discret drag-handle--titre"
+                      onPointerDown={demarrerDrag(m.instance_id)}
+                      onClick={(e) => e.stopPropagation()}
+                      title={t('memberGroup.dragHandle')}
+                    >
+                      <Icon name="poignee" size="0.85em" />
+                    </span>
                   </div>
                 </div>
                 {/* Statut + suppression regroupés dans un seul enfant flex de

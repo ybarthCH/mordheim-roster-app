@@ -1073,6 +1073,20 @@ button {
 .drag-handle--discret:active {
   opacity: 1;
 }
+/* Sur la carte mobile (voir MemberGroupCard) : déplacé dans .list-item__title
+   et poussé en bout de ligne plutôt que d'être un flex sibling dédié devant
+   .list-item__row — libère toute la largeur qu'occupaient sa colonne et ses
+   marges. Opacité et taille remontées : à 0.4 il devenait quasi invisible au
+   repos une fois sorti de sa colonne dédiée. */
+.drag-handle--titre {
+  margin-left: auto;
+  width: 1.3rem;
+  height: 1.3rem;
+  opacity: 0.6;
+}
+.drag-handle--titre:active {
+  opacity: 1;
+}
 .roster-table__poignee-cell {
   width: 1.6rem;
   padding-left: 0.4rem !important;
@@ -1471,7 +1485,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 6px 10px;
+  padding: 5px 8px;
   background: var(--status-plaque-fill);
   border: 1px solid #7a6b5d;
   border-radius: 3px;
@@ -1965,11 +1979,12 @@ button {
   border-image-source: url('/decor/card-panel-titlebar-stone.webp');
 }
 
-/* Rangée principale (nom + statut + suppression) : flex sibling du
-   drag-handle, elle occupe toute la largeur restante. Le bloc d'infos
-   secondaires (.list-item__details, ci-dessous) est un AUTRE flex sibling
-   forcé en pleine largeur pour toujours passer à la ligne suivante plutôt
-   que de se comprimer contre les boutons d'action sur un format étroit. */
+/* Rangée principale (nom + statut + suppression), seul flex sibling direct
+   de .list-item (le drag-handle vit désormais dans .list-item__title, voir
+   MemberGroupCard). Le bloc d'infos secondaires (.list-item__details,
+   ci-dessous) est un AUTRE flex sibling forcé en pleine largeur pour
+   toujours passer à la ligne suivante plutôt que de se comprimer contre les
+   boutons d'action sur un format étroit. */
 .list-item__row {
   display: flex;
   /* flex-wrap, pas nowrap : dans une colonne de liste étroite (volet liste
@@ -2017,7 +2032,7 @@ button {
 .list-item__statut-suppression {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.3rem;
 }
 .list-item__title {
   font-weight: 700;
