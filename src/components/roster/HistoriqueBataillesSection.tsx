@@ -42,55 +42,57 @@ export function HistoriqueBataillesSection({
       }
     >
       {historique.length === 0 && <p className="text-muted text-sm">{t('historique.empty')}</p>}
-      {historique
-        .slice()
-        .reverse()
-        .map((b) => (
-          <div
-            key={b.id}
-            className="list-item"
-            role="button"
-            style={{ marginBottom: '0.5rem' }}
-            onClick={() => setEnEdition(b)}
-          >
-            <div className="list-item__main">
-              <div className="list-item__title">
-                {b.date} —{' '}
-                <span
-                  className={b.resultat === 'victoire' ? 'text-success' : b.resultat === 'defaite' ? 'text-danger' : ''}
-                >
-                  {b.resultat === 'victoire' && <Icon name="banniere" style={{ marginRight: '0.3em' }} />}
-                  {b.resultat === 'defaite' && <Icon name="crane" style={{ marginRight: '0.3em' }} />}
-                  {t(`historique.resultLabel.${b.resultat}`)}
-                </span>
+      <div className="historique-liste">
+        {historique
+          .slice()
+          .reverse()
+          .map((b) => (
+            <div
+              key={b.id}
+              className="list-item"
+              role="button"
+              style={{ marginBottom: '0.5rem' }}
+              onClick={() => setEnEdition(b)}
+            >
+              <div className="list-item__main">
+                <div className="list-item__title">
+                  {b.date} —{' '}
+                  <span
+                    className={b.resultat === 'victoire' ? 'text-success' : b.resultat === 'defaite' ? 'text-danger' : ''}
+                  >
+                    {b.resultat === 'victoire' && <Icon name="banniere" style={{ marginRight: '0.3em' }} />}
+                    {b.resultat === 'defaite' && <Icon name="crane" style={{ marginRight: '0.3em' }} />}
+                    {t(`historique.resultLabel.${b.resultat}`)}
+                  </span>
+                </div>
+                <div className="list-item__subtitle">
+                  {b.adversaires.length > 0 && `${t('historique.vsPrefix')} ${b.adversaires.join(', ')}`} {b.notes}
+                </div>
               </div>
-              <div className="list-item__subtitle">
-                {b.adversaires.length > 0 && `${t('historique.vsPrefix')} ${b.adversaires.join(', ')}`} {b.notes}
-              </div>
+              <button
+                className="btn--ghost"
+                style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setEnEdition(b);
+                }}
+                title={t('historique.editTitle')}
+              >
+                <Icon name="plumePack" size="0.9em" />
+              </button>
+              <button
+                className="btn--ghost-danger"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setASupprimer(b);
+                }}
+                title={t('historique.deleteTitle')}
+              >
+                <Icon name="croixPack" />
+              </button>
             </div>
-            <button
-              className="btn--ghost"
-              style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
-              onClick={(e) => {
-                e.stopPropagation();
-                setEnEdition(b);
-              }}
-              title={t('historique.editTitle')}
-            >
-              <Icon name="plumePack" size="0.9em" />
-            </button>
-            <button
-              className="btn--ghost-danger"
-              onClick={(e) => {
-                e.stopPropagation();
-                setASupprimer(b);
-              }}
-              title={t('historique.deleteTitle')}
-            >
-              <Icon name="croixPack" />
-            </button>
-          </div>
-        ))}
+          ))}
+      </div>
     </CollapsibleCard>
 
       {modalAjout && (

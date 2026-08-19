@@ -343,6 +343,15 @@ button {
   width: 100%;
   margin: 0 auto;
 }
+/* Sur téléphone, la marge desktop (pensée pour dégager la scrollbar native)
+   n'a plus lieu d'être : elle ne fait que retirer de la largeur utile aux
+   cartes, déjà à l'étroit sur un petit écran. */
+@media (max-width: 480px) {
+  .app-main {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+  }
+}
 /* Le mode deux volets (roster + fiche) reste comprimé par le même plafond
    que le reste de l'appli sur un grand écran — sous-exploite l'espace
    disponible alors que c'est justement là qu'il sert le plus (comparer
@@ -430,6 +439,19 @@ button {
 
 }
 
+/* Cartes uniques (une seule par écran, jamais répétées) : panel_titlebar_10,
+   plus compact, à la place du grand panel_10 par défaut — réservé à
+   l'armurerie et aux règles spéciales (voir ArmurerieSection/RosterScreen)
+   pour les distinguer des unités/entrées répétées sous elles, qui gardent
+   le grand panneau (voir .member-cards .list-item / .historique-liste
+   .list-item plus bas). Choix explicite, indépendant de la largeur du
+   conteneur — contrairement au repli @container ci-dessus. */
+:root[data-theme='dark'][data-palette='rouge'] .card--titlebar {
+  border-width: 14px;
+  border-image-slice: 16% fill;
+  border-image-source: url('/decor/card-panel-titlebar-stone.webp');
+}
+
 /* Cartes de groupe du roster (Héros, Hommes de main, Francs-tireurs...) :
    redescendent volontairement sur l'habillage plat de .card d'avant le
    panneau de pierre — voir MemberGroupCard, qui donne désormais ce panneau
@@ -448,7 +470,7 @@ button {
   border-color: var(--border);
   border-image-source: none;
   box-shadow: var(--shadow);
-  padding: 0.6rem 0.1rem;
+  padding: 0.6rem 0.5rem;
 }
 :root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card::before {
   content: '';
@@ -1986,20 +2008,23 @@ button {
 /* Carte de figurine du roster (Héros, Hommes de main...) : cadre pierre
    peint du pack UI, à la place du simple encart 1px — voir le commentaire
    sur .roster-groupe-card plus haut (le cadre de groupe qui contenait ces
-   cartes est redescendu sur l'habillage plat en échange). Même technique
-   et même asset que .list-item--bande (panel_titlebar_10, généreux dans
-   ses proportions pour une carte pleine largeur en mobile). Padding gauche
-   augmenté pour le même motif que .list-item--bande : le liseré peint longe
-   tout le bord intérieur du cadre. */
-:root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item {
+   cartes est redescendu sur l'habillage plat en échange). Panel_10 (le
+   grand panneau, même asset que .card par défaut) plutôt que panel_titlebar_10
+   : réservé aux cartes uniques (armurerie, règles spéciales — voir
+   .card--titlebar) ; toute unité/entrée répétée sous les règles spéciales
+   (figurines, historique de batailles...) prend ce panneau-ci. Padding
+   gauche augmenté pour le même motif que .list-item--bande : le liseré peint
+   longe tout le bord intérieur du cadre. */
+:root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item,
+:root[data-theme='dark'][data-palette='rouge'] .historique-liste .list-item {
   background-image: none;
   border-style: solid;
-  border-width: 14px;
+  border-width: 20px;
   border-image-repeat: stretch;
-  border-image-slice: 16% fill;
-  border-image-source: url('/decor/card-panel-titlebar-stone.webp');
+  border-image-slice: 10% fill;
+  border-image-source: url('/decor/card-panel-stone.webp');
   box-shadow: none;
-  padding: 0.5rem 0.6rem 0.5rem 1rem;
+  padding: 0.4rem 0.6rem 0.4rem 1.1rem;
 }
 /* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
    peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de

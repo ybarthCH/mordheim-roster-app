@@ -87,6 +87,7 @@ export function ArmurerieSection({
     <>
     <CollapsibleCard
       preferenceKey="ui.roster.armurerie.ouvert"
+      className="card card--tight card--titlebar"
       title={
         <>
           <Icon name="coffrePack" style={{ marginRight: '0.35em' }} />
