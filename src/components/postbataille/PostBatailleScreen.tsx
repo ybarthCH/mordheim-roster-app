@@ -133,7 +133,12 @@ export function PostBatailleScreen() {
   const { t, language } = useLanguage();
   const roster = getRosterById(id ?? '');
   const catalogueBrut = roster ? getCatalogue(roster.bande_id) : undefined;
-  const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
+  // Memoïsé : translateWarbandCatalog reconstruit tout le catalogue à chaque
+  // appel, et cet assistant multi-étapes re-rend à chaque saisie.
+  const catalogue = useMemo(
+    () => (catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut),
+    [catalogueBrut, language]
+  );
   const demiXp = !!catalogue?.xp_demi;
 
   // Photographie des membres et effets persistants présents à l'ouverture de

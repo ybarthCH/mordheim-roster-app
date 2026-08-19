@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../common/Icon';
 import type { Member, RosterInstance } from '../../types/roster';
@@ -44,7 +44,13 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
   const catalogueBrut = getCatalogue(roster.bande_id);
-  const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
+  // Memoïsé : translateWarbandCatalog reconstruit tout le catalogue à
+  // chaque appel, et cette modale re-rend à chaque frappe (recherche de
+  // sort, quantité, nom du personnage...).
+  const catalogue = useMemo(
+    () => (catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut),
+    [catalogueBrut, language]
+  );
   const [profilId, setProfilId] = useState('');
   const [nomPerso, setNomPerso] = useState('');
   // Saisie gardée en texte brut (pas en number) : un input contrôlé par un
