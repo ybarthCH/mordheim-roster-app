@@ -4263,7 +4263,7 @@ for (const id of ['cheval', 'pousse_pousse']) {
   itemsEn[id].disponibilite = 'Rare 8, Humans only';
 }
 for (const id of ['grande_hache_du_chaos']) {
-  itemsEn[id].disponibilite = 'Rare 8, Chaos Heroes with the Chosen by Chaos skill';
+  itemsEn[id].disponibilite = 'Rare 8, Chaos Heroes with the Chosen of Chaos skill';
 }
 for (const id of ['vodka']) {
   itemsEn[id].disponibilite = 'Rare 8, Kislevites only';
