@@ -17,6 +17,14 @@ type Props = {
   // pour débloquer la validation finale de l'assistant — voir oeilApplicable
   // et oeilResolu dans PostBatailleScreen.
   onResolu: () => void;
+  // État persistant côté PostBatailleScreen (oeilResolu) : ce composant est
+  // démonté/remonté à chaque fois que l'assistant quitte puis revient à son
+  // étape (son `resolu` local repart alors à zéro). Sans ce verrou externe,
+  // revenir sur l'étape après une Défaite qui a tué le chef réoffrirait le
+  // test contre le nouveau chef (qui n'a pas encore de Marque) — double
+  // résolution en cascade. `dejaResolu` bloque tout rendu interactif dès que
+  // le test a été résolu une fois, quel que soit l'état de montage local.
+  dejaResolu: boolean;
 };
 
 // Seuil de déclenchement : 12+ de base, 13+ pour la tribu Norse (Panthéon),
@@ -41,17 +49,18 @@ export function ResolutionOeilDesDieuxSombres({
   nbHerosHorsDeCombat,
   onMajRoster,
   onResolu,
+  dejaResolu,
 }: Props) {
   const { t } = useLanguage();
   const [marqueChoisie, setMarqueChoisie] = useState('');
   const [succesDeclare, setSuccesDeclare] = useState(false);
   const [resolu, setResolu] = useState<string | null>(null);
 
-  if (resolu) {
+  if (dejaResolu || resolu) {
     return (
       <div className="card card--tight" style={{ marginTop: '0.8rem' }}>
         <h3 className="mt-0">Œil des Dieux Sombres</h3>
-        <p className="text-sm mb-0">{resolu}</p>
+        <p className="text-sm mb-0">{resolu ?? t('postBataille.eyeOfDarkGods.alreadyResolved')}</p>
       </div>
     );
   }

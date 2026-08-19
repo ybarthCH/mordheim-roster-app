@@ -1,23 +1,33 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../common/Icon';
-import type { RosterInstance } from '../../types/roster';
+import type { Member, RosterInstance } from '../../types/roster';
+import { STAT_KEYS } from '../../types/catalog';
 import { getCatalogue } from '../../data/warbands';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
 import { peutAjouterMembre } from '../../utils/validation';
 import { creerMembre } from '../../utils/factory';
 import {
+  appliquerAchatSurMembre,
   calculerCoutRejoindreGroupe,
+  creerEntreesInventaire,
   equipementInclusDepart,
   formatCoutProfil,
+  formatCoutItem,
+  inventaireComplet,
+  profilPeutAcheterEquipement,
   rejoindreGroupe,
   TRINKETS_LIMITES,
 } from '../../utils/shop';
+import type { ShopItem } from '../../utils/shop';
+import { translateItem } from '../../i18n/data/items';
 import { estSorcier, resolveSort, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
 import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
 import { peutGagnerExperience } from '../../utils/xp';
+import { libelleCaracteristique } from '../../utils/stats';
 import { Modal } from '../common/Modal';
+import { AchatEquipementContenu } from '../personnage/AchatEquipementModal';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
 
@@ -26,15 +36,10 @@ const FRANC_TIREUR = '__franc_tireur__';
 type Props = {
   roster: RosterInstance;
   onClose: () => void;
-  // Le second paramètre (id du membre créé) n'est fourni que pour une
-  // nouvelle recrue individuelle/nouveau groupe — omis en rejoignant un
-  // groupe existant, puisque son équipement est alors forcément identique
-  // au reste du groupe (voir rejoindreGroupe) et ne se rachète pas ici.
-  // Permet à l'appelant d'enchaîner sur RecrutementEquipementModal.
-  onConfirm: (roster: RosterInstance, nouveauMembreId?: string) => void;
+  onUpdateRoster: (roster: RosterInstance) => void;
 };
 
-export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
+export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
   const navigate = useNavigate();
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
@@ -42,12 +47,20 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
   const [profilId, setProfilId] = useState('');
   const [nomPerso, setNomPerso] = useState('');
-  // Saisies gardées en texte brut (pas en number) : un input contrôlé par un
+  // Saisie gardée en texte brut (pas en number) : un input contrôlé par un
   // number forcerait la valeur dès l'effacement (impossible de vider le
   // champ pour retaper un chiffre) — la conversion/le plancher ne s'applique
-  // qu'à l'usage (voir xpDepart/quantite ci-dessous).
-  const [xpDepartSaisie, setXpDepartSaisie] = useState('0');
+  // qu'à l'usage (voir quantite ci-dessous).
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
+  // Une fois la recrue créée, on affiche son équipement à acheter dans cette
+  // même fenêtre modale (fiche + shop intégré, pas un second écran) — null
+  // tant que le formulaire de recrutement est actif.
+  const [membreRecrute, setMembreRecrute] = useState<Member | null>(null);
+  // Objets choisis pendant cette session d'achat, pas encore payés : permet
+  // d'en sélectionner plusieurs d'affilée avant de les appliquer tous en une
+  // fois au clic sur Terminer (voir panierTotal/appliquerPanier plus bas),
+  // plutôt que de déduire la trésorerie item par item.
+  const [panier, setPanier] = useState<{ item: ShopItem; coutPaye: number }[]>([]);
   const [groupeCibleId, setGroupeCibleId] = useState<string | null>(null);
   // Coût saisi à la main quand le profil n'a pas de prix fixe (ex : chien de
   // guerre, "25+2D6") — jet à faire sur table papier, comme pour un objet.
@@ -86,7 +99,7 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
   const nombreSortsRequis = profil?.nombre_sorts_choisis_depart ?? 1;
   const sortsChoisisValides =
     sortsChoisis.length === nombreSortsRequis && sortsChoisis.every((s) => s !== '');
-  const xpDepart = Number(xpDepartSaisie) || 0;
+  const xpDepart = profil?.xp_depart ?? 0;
   const quantite = Math.max(1, parseInt(quantiteSaisie, 10) || 1);
   const coutManuelRequis = !!profil && profil.cout === null;
   const coutManuelValide =
@@ -122,7 +135,6 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     }
     setProfilId(value);
     const p = catalogue?.profils.find((pr) => pr.id === value);
-    setXpDepartSaisie(String(p?.xp_depart ?? 0));
     setQuantiteSaisie('1');
     setGroupeCibleId(null);
     setCoutManuelSaisi('');
@@ -138,10 +150,12 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     if (groupeCible) {
       // Rejoint un groupe existant : la figurine hérite immédiatement de
       // l'XP et de l'équipement du groupe (payé séparément ci-dessus), pas
-      // d'XP de départ propre.
-      onConfirm(
+      // d'XP de départ propre. Son équipement est forcément identique au
+      // reste du groupe : pas d'étape achat séparée à proposer ensuite.
+      onUpdateRoster(
         rejoindreGroupe(roster, groupeCible, quantite, coutTotal, coutManuelRequis ? coutUnitaire : undefined)
       );
+      onClose();
       return;
     }
 
@@ -156,15 +170,149 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
     if (profil.type === 'heros' && equitationGratuitePourTribu(catalogue, roster)) {
       membre.competences_acquises = [...membre.competences_acquises, SKILL_EQUITATION];
     }
-    onConfirm(
-      {
-        ...roster,
-        tresorerie: roster.tresorerie - coutTotal,
-        membres: [...roster.membres, membre],
-      },
-      membre.instance_id
-    );
+    onUpdateRoster({
+      ...roster,
+      tresorerie: roster.tresorerie - coutTotal,
+      membres: [...roster.membres, membre],
+    });
+
+    // On ne propose l'étape équipement que si ce profil peut effectivement
+    // acheter quelque chose (les animaux, par ex., n'ont jamais d'équipement
+    // personnel) — sinon la recrue est prête, inutile de le demander.
+    if (catalogue && profilPeutAcheterEquipement(catalogue, profil)) {
+      setMembreRecrute(membre);
+    } else {
+      onClose();
+    }
   };
+
+  if (membreRecrute) {
+    // Toujours relire le membre à jour dans le roster (son XP/statut a pu
+    // changer entre-temps ailleurs), mais son inventaire n'est modifié
+    // qu'au moment de Terminer — voir panier ci-dessous.
+    const membreActuel = roster.membres.find((m) => m.instance_id === membreRecrute.instance_id) ?? membreRecrute;
+    const tailleGroupeActuelle = membreActuel.taille_groupe || 1;
+    const panierTotal = panier.reduce((somme, p) => somme + p.coutPaye * tailleGroupeActuelle, 0);
+    const tresorerieProjetee = roster.tresorerie - panierTotal;
+    // Vue "et si" de l'inventaire incluant le panier pas encore payé : sans
+    // ça, le shop ne verrait pas un objet déjà mis dans le panier (ex :
+    // proposerait une 2e dague comme "gratuite" au lieu de la 1re).
+    const inventairePanier = panier.flatMap(({ item, coutPaye }) =>
+      creerEntreesInventaire(item, coutPaye, tailleGroupeActuelle)
+    );
+
+    const terminer = () => {
+      if (tresorerieProjetee < 0) return;
+      let rosterCourant = roster;
+      for (const { item, coutPaye } of panier) {
+        const membreCourant =
+          rosterCourant.membres.find((m) => m.instance_id === membreActuel.instance_id) ?? membreActuel;
+        rosterCourant = appliquerAchatSurMembre(rosterCourant, membreCourant, item, coutPaye);
+      }
+      if (panier.length > 0) onUpdateRoster(rosterCourant);
+      onClose();
+    };
+
+    return (
+      <Modal onClose={onClose} variant="fullscreen">
+        <div style={{ padding: '0.9rem 0.9rem 0' }}>
+          <h3 className="mt-0">{t('recrutementEquipement.title', { nom: membreActuel.nom_perso })}</h3>
+          {profil?.stats && (
+            <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
+              {STAT_KEYS.map((k) => (
+                <div key={k} className="stat-grid__cell stat-grid__cell--label">
+                  {libelleCaracteristique(k, language)}
+                </div>
+              ))}
+              {STAT_KEYS.map((k) => (
+                <div key={k} className="stat-grid__cell stat-grid__cell--value">
+                  {profil.stats![k]}
+                </div>
+              ))}
+            </div>
+          )}
+          {profil?.regles_speciales?.map((r) => (
+            <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              <strong>{r.nom}</strong> — {r.texte}
+            </p>
+          ))}
+          <div className="card card--tight" style={{ margin: '0.7rem 0' }}>
+            <p className="text-sm mb-0">
+              <strong>{t('recrutementEquipement.selectedEquipment')}</strong>
+            </p>
+            {panier.length === 0 ? (
+              <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
+                {t('recrutementEquipement.noSelectionYet')}
+              </p>
+            ) : (
+              panier.map((p, i) => (
+                <div
+                  key={`${p.item.id}-${i}`}
+                  className="flex items-center justify-between"
+                  style={{ marginTop: '0.3rem' }}
+                >
+                  <span className="text-sm">{translateItem(p.item, language).nom}</span>
+                  <span className="flex items-center gap-sm">
+                    <span className="text-sm text-muted">{formatCoutItem(p.coutPaye, language)}</span>
+                    <button
+                      className="btn--ghost-danger"
+                      style={{ padding: '0.1rem 0.35rem' }}
+                      onClick={() => setPanier((prev) => prev.filter((_, idx) => idx !== i))}
+                      aria-label={t('recrutementEquipement.removeItem')}
+                    >
+                      <Icon name="croixPack" />
+                    </button>
+                  </span>
+                </div>
+              ))
+            )}
+            <p className="text-sm mb-0" style={{ marginTop: '0.5rem', borderTop: '1px solid var(--border)', paddingTop: '0.4rem' }}>
+              {t('recrutementEquipement.treasury')} {roster.tresorerie} {t('creation.gc')}
+              {panier.length > 0 && (
+                <>
+                  {' '}
+                  · {t('recrutementEquipement.equipmentCost')} {panierTotal} {t('creation.gc')} ·{' '}
+                  <span className={tresorerieProjetee < 0 ? 'text-danger' : ''}>
+                    {t('recrutementEquipement.remaining')} {tresorerieProjetee} {t('creation.gc')}
+                  </span>
+                </>
+              )}
+            </p>
+            {tresorerieProjetee < 0 && (
+              <p className="text-danger text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                {t('recrutementEquipement.insufficientTreasury')}
+              </p>
+            )}
+          </div>
+        </div>
+        {catalogue && (
+          <AchatEquipementContenu
+            catalogue={catalogue}
+            profil={profil ?? null}
+            tresorerie={tresorerieProjetee}
+            competencesAcquises={membreActuel.competences_acquises}
+            marqueId={membreActuel.marque}
+            inventaireActuel={[...membreActuel.inventaire, ...inventairePanier]}
+            inventaireBande={[...inventaireComplet(roster), ...inventairePanier]}
+            roster={roster}
+            tailleGroupe={tailleGroupeActuelle}
+            objetsPersonnalises={roster.objets_personnalises}
+            objetsSurcharges={roster.objets_surcharges}
+            onObjetsPersonnalisesChange={(objets) => onUpdateRoster({ ...roster, objets_personnalises: objets })}
+            onObjetsSurchargesChange={(surcharges) => onUpdateRoster({ ...roster, objets_surcharges: surcharges })}
+            resterOuvertApresAchat
+            onClose={onClose}
+            onAchat={(item, coutPaye) => setPanier((prev) => [...prev, { item, coutPaye }])}
+          />
+        )}
+        <div className="flex gap-sm" style={{ padding: '0.9rem' }}>
+          <button className="btn btn--primary" disabled={tresorerieProjetee < 0} onClick={terminer}>
+            {t('recrutementEquipement.finish')}
+          </button>
+        </div>
+      </Modal>
+    );
+  }
 
   return (
     <Modal onClose={onClose}>
@@ -198,6 +346,34 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
       </div>
       {profil && (
         <>
+          <h4 style={{ marginBottom: '0.2rem' }}>
+            {profil.nom}
+            {gagneExperience && !groupeCible ? ` — ${t('creation.modal.startingXpSuffix', { xp: xpDepart })}` : ''}
+          </h4>
+          {!gagneExperience && (
+            <p className="text-sm text-muted" style={{ marginTop: '-0.3rem' }}>
+              {t('creation.modal.notCombatant')}
+            </p>
+          )}
+          {profil.stats && (
+            <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
+              {STAT_KEYS.map((k) => (
+                <div key={k} className="stat-grid__cell stat-grid__cell--label">
+                  {libelleCaracteristique(k, language)}
+                </div>
+              ))}
+              {STAT_KEYS.map((k) => (
+                <div key={k} className="stat-grid__cell stat-grid__cell--value">
+                  {profil.stats![k]}
+                </div>
+              ))}
+            </div>
+          )}
+          {profil.regles_speciales?.map((r) => (
+            <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              <strong>{r.nom}</strong> — {r.texte}
+            </p>
+          ))}
           {profil.rarete && (
             <p className="text-sm text-danger">
               <Icon name="cadenasPack" style={{ marginRight: '0.3em' }} />
@@ -367,14 +543,8 @@ export function AjouterMembreModal({ roster, onClose, onConfirm }: Props) {
                 </p>
               )}
             </div>
-          ) : gagneExperience ? (
-            <div className="field">
-              <label>{t('creation.modal.startingXp')}</label>
-              <input type="number" value={xpDepartSaisie} onChange={(e) => setXpDepartSaisie(e.target.value)} />
-              <p className="text-sm text-muted mb-0">{t('creation.modal.noAdvanceTriggered')}</p>
-            </div>
           ) : (
-            <p className="text-sm text-muted">{t('creation.modal.neverGainsXp')}</p>
+            !gagneExperience && <p className="text-sm text-muted">{t('creation.modal.neverGainsXp')}</p>
           )}
         </>
       )}

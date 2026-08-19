@@ -10,7 +10,6 @@ import { choixLeaderRequis, succederApresMorts } from '../../utils/leader';
 import { validerComposition, validerEffectif } from '../../utils/validation';
 import { exporterRoster, partageDisponible, partagerRoster } from '../../utils/importExport';
 import { AjouterMembreModal } from './AjouterMembreModal';
-import { RecrutementEquipementModal } from './RecrutementEquipementModal';
 import { RosterSummaryCard } from './RosterSummaryCard';
 import { ArmurerieSection } from './ArmurerieSection';
 import { MemberGroupCard } from './MemberGroupCard';
@@ -72,14 +71,11 @@ export function RosterScreen({
 }: RosterScreenProps = {}) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { getRosterById, updateRoster } = useRosters();
+  const { getRosterById, updateRoster, patchRoster } = useRosters();
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
   const roster = getRosterById(id ?? '');
   const [modalMembre, setModalMembre] = useState(false);
-  // Recrue tout juste ajoutée, en attente d'un éventuel achat d'équipement
-  // avant de refermer complètement le flux — voir RecrutementEquipementModal.
-  const [membreEnEquipementId, setMembreEnEquipementId] = useState<string | null>(null);
   const [membreASupprimer, setMembreASupprimer] = useState<Member | null>(null);
   const [modalLeader, setModalLeader] = useState(false);
   const [modalPromotion, setModalPromotion] = useState(false);
@@ -167,7 +163,7 @@ export function RosterScreen({
   const promotionDisponible = rolesVacants.length > 0 && prospectsDisponibles.length > 0;
 
   const patch = (partial: Partial<RosterInstance>) => {
-    updateRoster({ ...roster, ...partial });
+    patchRoster(roster.id, (current) => ({ ...current, ...partial }));
   };
 
   // Ouvre le menu de partage natif (Drive, mail, Dropbox...) pour que le
@@ -189,29 +185,35 @@ export function RosterScreen({
   };
 
   const acheterPourArmurerie = (item: ShopItem, coutPaye: number) => {
-    updateRoster(acheterPourStock(roster, creerEntreeInventaire(item, coutPaye)));
+    patchRoster(roster.id, (current) => acheterPourStock(current, creerEntreeInventaire(item, coutPaye)));
   };
 
   // Supprime l'objet du stock sans contrepartie (perdu, détruit...).
   const retirerStock = (instanceId: string) => {
-    updateRoster(retirerDuStock(roster, instanceId));
+    patchRoster(roster.id, (current) => retirerDuStock(current, instanceId));
   };
 
   // Revend l'objet du stock : moitié du prix payé (arrondi au supérieur) reversée à la trésorerie.
   const vendreStock = (instanceId: string) => {
     const entree = roster.stock.find((e) => e.instance_id === instanceId);
     if (!entree) return;
-    const sansItem = retirerDuStock(roster, instanceId);
-    updateRoster({ ...sansItem, tresorerie: sansItem.tresorerie + prixVente(entree.cout) });
+    patchRoster(roster.id, (current) => {
+      const entreeActuelle = current.stock.find((e) => e.instance_id === instanceId);
+      if (!entreeActuelle) return current;
+      const sansItem = retirerDuStock(current, instanceId);
+      return { ...sansItem, tresorerie: sansItem.tresorerie + prixVente(entreeActuelle.cout) };
+    });
   };
 
   const donnerAMembre = (instanceId: string, membreId: string) => {
-    const nouveauRoster = transfererVersMembre(roster, instanceId, membreId);
-    updateRoster({
-      ...nouveauRoster,
-      membres: nouveauRoster.membres.map((m) =>
-        m.instance_id === membreId ? { ...m, equipement: formatEquipementAffiche(m.inventaire) } : m
-      ),
+    patchRoster(roster.id, (current) => {
+      const nouveauRoster = transfererVersMembre(current, instanceId, membreId);
+      return {
+        ...nouveauRoster,
+        membres: nouveauRoster.membres.map((m) =>
+          m.instance_id === membreId ? { ...m, equipement: formatEquipementAffiche(m.inventaire) } : m
+        ),
+      };
     });
   };
 
@@ -544,7 +546,7 @@ export function RosterScreen({
       {splitView && (
         <div className="roster-split__detail">
           {selectedInstanceId ? (
-            <PersonnageScreen embedded instanceId={selectedInstanceId} />
+            <PersonnageScreen key={selectedInstanceId} embedded instanceId={selectedInstanceId} />
           ) : (
             <div className="roster-split__empty">
               <Icon name="etoile" size="1.6em" />
@@ -556,33 +558,8 @@ export function RosterScreen({
       </div>
 
       {modalMembre && (
-        <AjouterMembreModal
-          roster={roster}
-          onClose={() => setModalMembre(false)}
-          onConfirm={(r, nouveauMembreId) => {
-            updateRoster(r);
-            setModalMembre(false);
-            if (nouveauMembreId) setMembreEnEquipementId(nouveauMembreId);
-          }}
-        />
+        <AjouterMembreModal roster={roster} onClose={() => setModalMembre(false)} onUpdateRoster={updateRoster} />
       )}
-      {membreEnEquipementId &&
-        catalogue &&
-        (() => {
-          const membreRecrue = roster.membres.find((m) => m.instance_id === membreEnEquipementId);
-          const profilRecrue = membreRecrue && catalogue.profils.find((p) => p.id === membreRecrue.profil_id);
-          if (!membreRecrue || !profilRecrue) return null;
-          return (
-            <RecrutementEquipementModal
-              roster={roster}
-              membre={membreRecrue}
-              profil={profilRecrue}
-              catalogue={catalogue}
-              onUpdateRoster={updateRoster}
-              onDone={() => setMembreEnEquipementId(null)}
-            />
-          );
-        })()}
       {modalLeader && (
         <Modal onClose={() => setModalLeader(false)}>
           <h3>{t('roster.chooseLeaderTitle')}</h3>

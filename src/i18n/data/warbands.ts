@@ -5228,7 +5228,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Master Armourer',
             texte:
-              'A Dwarf Engineer can increase the range of the warband\'s missile weapons. Missile weapons bought from the Dwarf Equipment list gain +3" range for Pistols and +6" for Crossbows and Arquebuses. The range increases only apply to battles the Dwarf Engineer takes part in (but they apply even if he has not yet entered the battlefield or has been taken Out of Action). The increase does not apply to Hired Swords\' equipment.',
+              'A Dwarf Engineer can increase the range of the warband\'s missile weapons. Missile weapons bought from the Dwarf Equipment list gain +3" range for Pistols and +6" for Crossbows and Handguns. The range increases only apply to battles the Dwarf Engineer takes part in (but they apply even if he has not yet entered the battlefield or has been taken Out of Action). The increase does not apply to Hired Swords\' equipment.',
           },
         ],
       },

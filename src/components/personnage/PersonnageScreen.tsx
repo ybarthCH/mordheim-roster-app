@@ -72,7 +72,7 @@ type PersonnageScreenProps = {
 export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps = {}) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { getRosterById, updateRoster } = useRosters();
+  const { getRosterById, updateRoster, patchRoster } = useRosters();
   const { rules } = useGameRules();
   const { language, t } = useLanguage();
   const roster = getRosterById(id ?? '');
@@ -110,10 +110,10 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
     domaines.push(magieMineure('fr'), magieMineure('en'));
     const migres = migrerSortsConnus(membre.sorts_connus, domaines);
     if (migres.some((v, i) => v !== membre.sorts_connus[i])) {
-      updateRoster({
-        ...roster,
-        membres: roster.membres.map((m) => (m.instance_id === membre.instance_id ? { ...m, sorts_connus: migres } : m)),
-      });
+      patchRoster(roster.id, (current) => ({
+        ...current,
+        membres: current.membres.map((m) => (m.instance_id === membre.instance_id ? { ...m, sorts_connus: migres } : m)),
+      }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roster?.id, membre?.instance_id, membre?.sorts_connus, catalogueBrut]);
@@ -130,10 +130,10 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   }
 
   const majMembre = (partial: Partial<typeof membre>) => {
-    const membresMaj = roster.membres.map((m) =>
-      m.instance_id === membre.instance_id ? { ...m, ...partial } : m
-    );
-    updateRoster({ ...roster, membres: membresMaj });
+    patchRoster(roster.id, (current) => ({
+      ...current,
+      membres: current.membres.map((m) => (m.instance_id === membre.instance_id ? { ...m, ...partial } : m)),
+    }));
   };
 
   // Résultat de blessure grave "Gladiateur" gagné : la récompense en po
@@ -141,13 +141,15 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   // updateRoster pour éviter qu'une mise à jour écrase l'autre. Une blessure
   // grave "Tué" peut aussi faire tomber le chef de bande (voir succession).
   const appliquerBlessureGrave = (updated: typeof membre, tresorerieBonus: number) => {
-    const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
-    const succession = succederApresMorts(roster, catalogue, membresMaj);
-    updateRoster({
-      ...roster,
-      ...succession,
-      membres: membresMaj,
-      tresorerie: roster.tresorerie + tresorerieBonus,
+    patchRoster(roster.id, (current) => {
+      const membresMaj = current.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
+      const succession = succederApresMorts(current, catalogue, membresMaj);
+      return {
+        ...current,
+        ...succession,
+        membres: membresMaj,
+        tresorerie: current.tresorerie + tresorerieBonus,
+      };
     });
   };
 
@@ -189,35 +191,45 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   // seul ajustement même pour un groupe (taille_groupe), les figurines d'un
   // même groupe partageant un unique jeu de caractéristiques.
   const acheterItem = (item: ShopItem, coutPaye: number) => {
-    updateRoster(appliquerAchatSurMembre(roster, membre, item, coutPaye));
+    patchRoster(roster.id, (current) => {
+      const membreCourant = current.membres.find((m) => m.instance_id === membre.instance_id) ?? membre;
+      return appliquerAchatSurMembre(current, membreCourant, item, coutPaye);
+    });
   };
 
   // Supprime un seul exemplaire sans contrepartie (perdu, détruit...) —
   // toujours un exemplaire à la fois, même dans un groupe d'hommes de main
   // (voir note sur transfererVersStock dans utils/shop.ts).
   const retirerItem = (instanceId: string) => {
-    const sansItem = retirerDeMembre(roster, membre.instance_id, instanceId);
-    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
-    updateRoster(avecEquipementSynchronise(sansItem, inventaire));
+    patchRoster(roster.id, (current) => {
+      const membreCourant = current.membres.find((m) => m.instance_id === membre.instance_id) ?? membre;
+      const sansItem = retirerDeMembre(current, membreCourant.instance_id, instanceId);
+      const inventaire = membreCourant.inventaire.filter((e) => e.instance_id !== instanceId);
+      return avecEquipementSynchronise(sansItem, inventaire);
+    });
   };
 
   // Revend un seul exemplaire : moitié du prix payé (arrondi au supérieur)
   // reversée à la trésorerie.
   const vendreItem = (instanceId: string) => {
-    const entree = membre.inventaire.find((e) => e.instance_id === instanceId);
-    if (!entree) return;
-    const remboursement = prixVente(entree.cout);
-    const sansItem = retirerDeMembre(roster, membre.instance_id, instanceId);
-    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
-    updateRoster(
-      avecEquipementSynchronise({ ...sansItem, tresorerie: sansItem.tresorerie + remboursement }, inventaire)
-    );
+    patchRoster(roster.id, (current) => {
+      const membreCourant = current.membres.find((m) => m.instance_id === membre.instance_id) ?? membre;
+      const entree = membreCourant.inventaire.find((e) => e.instance_id === instanceId);
+      if (!entree) return current;
+      const remboursement = prixVente(entree.cout);
+      const sansItem = retirerDeMembre(current, membreCourant.instance_id, instanceId);
+      const inventaire = membreCourant.inventaire.filter((e) => e.instance_id !== instanceId);
+      return avecEquipementSynchronise({ ...sansItem, tresorerie: sansItem.tresorerie + remboursement }, inventaire);
+    });
   };
 
   const renvoyerStockItem = (instanceId: string) => {
-    const nouveauRoster = transfererVersStock(roster, membre, instanceId);
-    const inventaire = membre.inventaire.filter((e) => e.instance_id !== instanceId);
-    updateRoster(avecEquipementSynchronise(nouveauRoster, inventaire));
+    patchRoster(roster.id, (current) => {
+      const membreCourant = current.membres.find((m) => m.instance_id === membre.instance_id) ?? membre;
+      const nouveauRoster = transfererVersStock(current, membreCourant, instanceId);
+      const inventaire = membreCourant.inventaire.filter((e) => e.instance_id !== instanceId);
+      return avecEquipementSynchronise(nouveauRoster, inventaire);
+    });
   };
 
   const editerStat = (k: keyof Stats, value: number) => {
@@ -230,11 +242,13 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   const changerStatut = (s: Statut, toursBlesse?: number) => {
     if (s === 'mort') {
       const dateMort = new Date().toISOString().slice(0, 10);
-      const membresApres = roster.membres.map((m) =>
-        m.instance_id === membre.instance_id ? { ...m, statut: s, date_mort: dateMort } : m
-      );
-      const succession = succederApresMorts(roster, catalogue, membresApres);
-      updateRoster({ ...roster, ...succession, membres: membresApres });
+      patchRoster(roster.id, (current) => {
+        const membresApres = current.membres.map((m) =>
+          m.instance_id === membre.instance_id ? { ...m, statut: s, date_mort: dateMort } : m
+        );
+        const succession = succederApresMorts(current, catalogue, membresApres);
+        return { ...current, ...succession, membres: membresApres };
+      });
     } else if (s === 'blesse') {
       majMembre({ statut: s, date_mort: undefined, blesse_tour_actuel: 0, blesse_tour_total: toursBlesse ?? 0 });
     } else {
@@ -286,31 +300,38 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
     if (membre.sorts_connus.includes(idSort)) return;
     if (!grimoireMembre && !grimoireStock) return;
 
-    const inventaire = grimoireMembre
-      ? membre.inventaire.filter((entree) => entree.instance_id !== grimoireMembre.instance_id)
-      : membre.inventaire;
-    const stock = !grimoireMembre && grimoireStock
-      ? roster.stock.filter((entree) => entree.instance_id !== grimoireStock.instance_id)
-      : roster.stock;
+    patchRoster(roster.id, (current) => {
+      const membreCourant = current.membres.find((m) => m.instance_id === membre.instance_id) ?? membre;
+      if (membreCourant.sorts_connus.includes(idSort)) return current;
+      const inventaire = grimoireMembre
+        ? membreCourant.inventaire.filter((entree) => entree.instance_id !== grimoireMembre.instance_id)
+        : membreCourant.inventaire;
+      const stock = !grimoireMembre && grimoireStock
+        ? current.stock.filter((entree) => entree.instance_id !== grimoireStock.instance_id)
+        : current.stock;
 
-    updateRoster({
-      ...roster,
-      stock,
-      membres: roster.membres.map((m) =>
-        m.instance_id === membre.instance_id
-          ? {
-              ...m,
-              inventaire,
-              equipement: grimoireMembre ? formatEquipementAffiche(inventaire) : m.equipement,
-              sorts_connus: [...m.sorts_connus, idSort],
-            }
-          : m
-      ),
+      return {
+        ...current,
+        stock,
+        membres: current.membres.map((m) =>
+          m.instance_id === membre.instance_id
+            ? {
+                ...m,
+                inventaire,
+                equipement: grimoireMembre ? formatEquipementAffiche(inventaire) : m.equipement,
+                sorts_connus: [...m.sorts_connus, idSort],
+              }
+            : m
+        ),
+      };
     });
   };
 
   const supprimerMembre = () => {
-    updateRoster({ ...roster, membres: roster.membres.filter((m) => m.instance_id !== membre.instance_id) });
+    patchRoster(roster.id, (current) => ({
+      ...current,
+      membres: current.membres.filter((m) => m.instance_id !== membre.instance_id),
+    }));
     navigate(`/roster/${roster.id}`);
   };
 

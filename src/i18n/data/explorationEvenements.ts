@@ -150,7 +150,7 @@ export const evenementsEn: Record<string, EvenementTraduit> = {
       { resultat: 'Blunderbuss' },
       { resultat: 'Pair of pistols' },
       { resultat: 'Pair of duelling pistols' },
-      { resultat: 'D3 Arquebuses' },
+      { resultat: 'D3 Handguns' },
       { resultat: 'D3 Superior black powder flasks' },
       { resultat: 'Hochland long rifle' },
     ],

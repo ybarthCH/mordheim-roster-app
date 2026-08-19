@@ -78,6 +78,12 @@ type Props = {
   // commun (ex : "artefacts_magiques" depuis un événement d'exploration qui
   // renvoie sur le Tableau des artefacts magiques).
   categorieInitiale?: string;
+  // Par défaut, un achat confirmé referme tout le flux (comportement
+  // standalone historique). Mis à true depuis un contexte où le shop est
+  // intégré directement dans une autre fenêtre (ex : recrutement) : après
+  // achat, on revient simplement à la liste du catalogue au lieu de fermer,
+  // pour pouvoir enchaîner plusieurs achats sans quitter la vue.
+  resterOuvertApresAchat?: boolean;
   onClose: () => void;
   onAchat: (item: ShopItem, coutPaye: number) => void;
 };
@@ -104,7 +110,12 @@ function disponibiliteSansRarete(disponibilite: string | undefined, rarete: stri
   return disponibilite.startsWith(`${prefixe}, `) ? disponibilite.slice(prefixe.length + 2) : disponibilite;
 }
 
-export function AchatEquipementModal({
+// Contenu du shop, sans la coquille modale plein écran — extrait pour
+// pouvoir être intégré directement dans une autre fenêtre (voir
+// AjouterMembreModal, qui l'affiche à la suite du recrutement au lieu
+// d'ouvrir un second écran séparé). AchatEquipementModal ci-dessous reste le
+// point d'entrée standalone utilisé partout ailleurs.
+export function AchatEquipementContenu({
   catalogue,
   profil,
   tresorerie,
@@ -120,6 +131,7 @@ export function AchatEquipementModal({
   onObjetsPersonnalisesChange,
   onObjetsSurchargesChange,
   categorieInitiale,
+  resterOuvertApresAchat = false,
   onClose,
   onAchat,
 }: Props) {
@@ -266,10 +278,26 @@ export function AchatEquipementModal({
     setCoutBaseSaisi(base.cout_fixe && typeof base.cout === 'number' ? String(base.cout) : '');
   };
 
+  // Après un achat confirmé : referme tout le flux (comportement standalone),
+  // sauf si intégré ailleurs (resterOuvertApresAchat), où l'on revient
+  // simplement à la liste pour permettre d'enchaîner un autre achat.
+  const finaliserAchat = () => {
+    if (!resterOuvertApresAchat) {
+      onClose();
+      return;
+    }
+    setItemId('');
+    setCoutSaisi('');
+    setBaseMateriauId('');
+    setRechercheMateriau('');
+    setCoutBaseSaisi('');
+    setResultatSousJetAchat(null);
+  };
+
   const confirmerMateriau = () => {
     if (!objetMateriauCombine || !budgetMateriauSuffisant) return;
     onAchat(objetMateriauCombine, objetMateriauCombine.cout as number);
-    onClose();
+    finaliserAchat();
   };
 
   const cout = Number(coutSaisi);
@@ -296,7 +324,7 @@ export function AchatEquipementModal({
   const confirmer = () => {
     if (!itemSelectionne || !coutValide || limiteAtteinte || (!gratuit && coutTotal > tresorerie)) return;
     onAchat(itemSelectionne, cout);
-    onClose();
+    finaliserAchat();
   };
 
   const fermerFlowPersonnalise = () => {
@@ -350,7 +378,6 @@ export function AchatEquipementModal({
     : undefined;
 
   return (
-    <Modal onClose={onClose} variant="fullscreen">
       <div className="achat-equipement">
         {vuePersonnalise === 'menu' ? (
           <div className="achat-equipement__contenu">
@@ -869,6 +896,15 @@ export function AchatEquipementModal({
           </>
         )}
       </div>
+  );
+}
+
+// Point d'entrée standalone (utilisé partout ailleurs) : la même vitrine,
+// dans sa propre fenêtre plein écran.
+export function AchatEquipementModal(props: Props) {
+  return (
+    <Modal onClose={props.onClose} variant="fullscreen">
+      <AchatEquipementContenu {...props} />
     </Modal>
   );
 }

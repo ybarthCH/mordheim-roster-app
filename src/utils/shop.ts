@@ -1046,6 +1046,34 @@ export function getEquipementBande(
   }).map((item) => appliquerReglesObjet(item, catalogue.id, rules, 'bande'));
 }
 
+// Un profil a-t-il quoi que ce soit à acheter (liste de bande ou shop
+// commun) ? Sert à sauter l'étape d'équipement après un recrutement plutôt
+// que de proposer une boutique vide.
+// Les profils "animal" (chien de guerre, monture, squig...) n'ont jamais
+// d'équipement personnel dans les règles — vérifié sur les 27 bandes du
+// projet, aucun profil animal n'a de `acces_equipement` renseigné — donc
+// exclus sans condition plutôt que de dépendre de `categories_interdites`
+// (renseigné de façon inégale selon les bandes, ex : le Chien de guerre
+// générique n'a jamais eu cette liste alors que le Molosse du Chaos si) :
+// un animal shoppant au shop commun (torche, corde...) n'aurait aucun sens.
+// Volontairement permissif par défaut pour les autres profils
+// (competencesAcquises vide, pas de matériaux) : sert juste à décider si
+// l'étape mérite d'être montrée, pas à filtrer finement.
+export function profilPeutAcheterEquipement(catalogue: WarbandCatalog, profil: Profile | null): boolean {
+  if (!profil) return false;
+  if (profil.type === 'animal') {
+    // Un profil animal n'a jamais `acces_equipement` renseigné (voir plus
+    // haut), donc le laisser passer par la logique de catégories ci-dessous
+    // lui ouvrirait TOUTES les listes de bande (repli `?? Object.keys(...)`
+    // dans getEquipementBande) au lieu de rien. Seul un objet
+    // equipement_special explicitement réservé à ce profil précis (ex : les
+    // Cymbales du Singe de Combat, Cavalcade Maudite) doit compter.
+    return !!catalogue.equipement_special?.some((ref) => ref.profils?.includes(profil.id));
+  }
+  if (getEquipementBande(catalogue, profil).length > 0) return true;
+  return getShopCommun(catalogue.id, DEFAULT_GAME_RULES, profil, [], catalogue, true).length > 0;
+}
+
 // Objets homebrew créés pour cette bande (voir CustomItem/RosterInstance) —
 // convertis à la forme ShopItem pour rejoindre le reste du catalogue d'achat.
 export function objetsPersonnalisesEnShopItems(objets: CustomItem[]): ShopItem[] {

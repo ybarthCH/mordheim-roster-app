@@ -30,7 +30,12 @@ function normaliserMembre(membre: Partial<Member>): Member {
     inventaire: membre.inventaire ?? [],
     xp: membre.xp ?? 0,
     xp_depart: membre.xp_depart ?? 0,
-    stats_actuels: membre.stats_actuels ?? { ...STATS_VIDES },
+    // Fusion clé par clé plutôt qu'un repli global sur l'objet reçu : une
+    // bande importée dont stats_actuels a perdu une seule clé (JSON édité à
+    // la main, export d'une version antérieure du schéma...) doit récupérer
+    // uniquement cette clé à 0, pas voir tout le reste de ses caractéristiques
+    // écrasées par le repli.
+    stats_actuels: { ...STATS_VIDES, ...membre.stats_actuels },
     stats_modifiees: membre.stats_modifiees ?? [],
     stats_variables: membre.stats_variables,
     competences_acquises: membre.competences_acquises ?? [],

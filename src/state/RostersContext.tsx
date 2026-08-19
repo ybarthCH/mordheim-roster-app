@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { RosterInstance } from '../types/roster';
@@ -9,6 +9,12 @@ import { RostersContext } from './useRosters';
 export function RostersProvider({ children }: { children: ReactNode }) {
   const [rosters, setRosters] = useState<RosterInstance[]>([]);
   const [loading, setLoading] = useState(true);
+  // Reflète `rosters` de façon synchrone (assignée pendant le rendu, avant
+  // tout effet) : patchRoster s'appuie dessus plutôt que sur `rosters` pour
+  // lire l'état le plus récent même entre deux rendus, quand un premier
+  // appel est encore en attente de son écriture IndexedDB.
+  const rostersRef = useRef(rosters);
+  rostersRef.current = rosters;
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -37,6 +43,23 @@ export function RostersProvider({ children }: { children: ReactNode }) {
       return copy;
     });
   }, []);
+
+  const patchRoster = useCallback(
+    async (id: string, updater: (current: RosterInstance) => RosterInstance) => {
+      const current = rostersRef.current.find((r) => r.id === id);
+      if (!current) return;
+      const updated = { ...updater(current), updatedAt: new Date().toISOString() };
+      // Répercuté sur la ref et sur l'état React de façon synchrone, avant
+      // l'attente de saveRoster : un second patchRoster lancé pendant cette
+      // écriture (ex. deuxième frappe avant que la précédente ait fini de
+      // persister) part donc de ce résultat déjà à jour plutôt que de
+      // l'instantané pré-patch.
+      rostersRef.current = rostersRef.current.map((r) => (r.id === id ? updated : r));
+      setRosters(rostersRef.current);
+      await saveRoster(updated);
+    },
+    []
+  );
 
   const addRoster = useCallback(async (roster: RosterInstance) => {
     await saveRoster(roster);
@@ -113,9 +136,17 @@ export function RostersProvider({ children }: { children: ReactNode }) {
       }
     }
     if (misesAJour.length === 0) return;
-    await Promise.all(misesAJour.map((r) => saveRoster(r)));
+    // allSettled plutôt qu'all : si une seule écriture IndexedDB échoue
+    // (quota, etc.), les autres doivent quand même se refléter dans l'état
+    // React — sinon un Promise.all rejeté abandonnerait tout le lot, y
+    // compris les bandes réellement persistées avec leur nouvel ordre,
+    // désynchronisant l'affichage de ce qui est en base jusqu'au prochain
+    // rechargement complet.
+    const resultats = await Promise.allSettled(misesAJour.map((r) => saveRoster(r)));
+    const reussies = misesAJour.filter((_, i) => resultats[i].status === 'fulfilled');
+    if (reussies.length === 0) return;
     setRosters((prev) => {
-      const parIdMaj = new Map(misesAJour.map((r) => [r.id, r]));
+      const parIdMaj = new Map(reussies.map((r) => [r.id, r]));
       return prev
         .map((r) => parIdMaj.get(r.id) ?? r)
         .sort((a, b) => (a.ordre ?? Number.MAX_SAFE_INTEGER) - (b.ordre ?? Number.MAX_SAFE_INTEGER));
@@ -143,6 +174,7 @@ export function RostersProvider({ children }: { children: ReactNode }) {
       refresh,
       getRosterById,
       updateRoster,
+      patchRoster,
       addRoster,
       removeRoster,
       duplicateRoster,
@@ -155,6 +187,7 @@ export function RostersProvider({ children }: { children: ReactNode }) {
       refresh,
       getRosterById,
       updateRoster,
+      patchRoster,
       addRoster,
       removeRoster,
       duplicateRoster,

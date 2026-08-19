@@ -26,6 +26,7 @@ export const recruterFrancTireurScreen: UiDictionary = {
   'francTireur.sourcePdfSuffix': { fr: 'du PDF', en: 'of the PDF' },
   'francTireur.equipmentAndProgress': { fr: 'Équipement et progression', en: 'Equipment and progression' },
   'francTireur.equipmentProvided': { fr: 'Équipement fourni :', en: 'Equipment provided:' },
+  'francTireur.equipmentChoiceLabel': { fr: 'Choix d’équipement', en: 'Equipment choice' },
   'francTireur.skillTables': { fr: 'Tables de compétences :', en: 'Skill tables:' },
   'francTireur.noneFem': { fr: 'Aucune', en: 'None' },
   'francTireur.equipmentNote': {

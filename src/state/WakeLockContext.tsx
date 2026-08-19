@@ -8,10 +8,15 @@ const supporte = typeof navigator !== 'undefined' && 'wakeLock' in navigator;
 export function WakeLockProvider({ children }: { children: ReactNode }) {
   const [actif, setActifState] = useState(false);
   const sentinelRef = useRef<WakeLockSentinel | null>(null);
+  // Un setActif(false) déclenché avant la fin du chargement IndexedDB (ex :
+  // l'utilisateur désactive tout de suite un réglage resté activé en base
+  // depuis une session précédente) ne doit pas être réécrasé à true par ce
+  // chargement une fois terminé — même motif que GameRulesContext.
+  const modifiedBeforeLoad = useRef(false);
 
   useEffect(() => {
     getSetting<boolean>('ecranActif').then((saved) => {
-      if (saved) setActifState(true);
+      if (saved && !modifiedBeforeLoad.current) setActifState(true);
     });
   }, []);
 
@@ -60,6 +65,7 @@ export function WakeLockProvider({ children }: { children: ReactNode }) {
   }, [actif]);
 
   const setActif = useCallback((v: boolean) => {
+    modifiedBeforeLoad.current = true;
     setActifState(v);
     setSetting('ecranActif', v);
   }, []);

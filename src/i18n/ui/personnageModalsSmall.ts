@@ -73,6 +73,19 @@ export const personnageModalsSmall: UiDictionary = {
   },
   'recrutementEquipement.finish': { fr: 'Terminer', en: 'Finish' },
   'recrutementEquipement.buyEquipment': { fr: 'Acheter un objet', en: 'Buy an item' },
+  'recrutementEquipement.selectedEquipment': { fr: 'Équipement sélectionné', en: 'Selected equipment' },
+  'recrutementEquipement.noSelectionYet': {
+    fr: 'Aucun objet sélectionné pour l’instant — choisissez-en un ci-dessous.',
+    en: 'No items selected yet — pick some below.',
+  },
+  'recrutementEquipement.removeItem': { fr: 'Retirer cet objet', en: 'Remove this item' },
+  'recrutementEquipement.treasury': { fr: 'Trésorerie :', en: 'Treasury:' },
+  'recrutementEquipement.equipmentCost': { fr: 'Équipement :', en: 'Equipment:' },
+  'recrutementEquipement.remaining': { fr: 'Restant :', en: 'Remaining:' },
+  'recrutementEquipement.insufficientTreasury': {
+    fr: 'Trésorerie insuffisante pour cette sélection : retirez un objet pour continuer.',
+    en: 'Not enough treasury for this selection: remove an item to continue.',
+  },
 
   // DocteurModal
   'docteurModal.title': { fr: 'Quoi de neuf, Docteur ?', en: "What's Up, Doc?" },

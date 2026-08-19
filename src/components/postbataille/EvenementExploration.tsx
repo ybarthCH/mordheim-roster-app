@@ -208,6 +208,12 @@ export function EvenementExploration({
 
           {evenement.or && (
             <JetOrButton
+              // Sans clé liée à l'événement affiché, React réutilise la même
+              // instance (même position dans l'arbre) d'un événement à
+              // l'autre : son verrou « déjà appliqué » resterait affiché à
+              // tort sur le prochain événement tiré au lieu de proposer sa
+              // propre saisie.
+              key={`${palierId}-${face}`}
               label={t('postBataille.rollObtainedNotation', { notation: evenement.or })}
               onValider={(valeur) => ajouterOr(evenement.or!, '', valeur)}
             />
@@ -302,6 +308,11 @@ export function EvenementExploration({
               </div>
               {ligneSousTable?.or && (
                 <JetOrButton
+                  // Même raison que ci-dessus : sans clé liée à la ligne de
+                  // sous-table sélectionnée, changer de ligne (même sans
+                  // changer d'événement) réutiliserait l'instance verrouillée
+                  // de la ligne précédente.
+                  key={`${palierId}-${face}-${evenement.sousTable?.indexOf(ligneSousTable)}`}
                   label={t('evenement.goldRollNotation', { notation: ligneSousTable.or })}
                   onValider={(valeur) => ajouterOr(ligneSousTable.or!, resultatAffiche(ligneSousTable), valeur)}
                 />
@@ -310,7 +321,12 @@ export function EvenementExploration({
                 <div style={{ marginTop: '0.3rem' }}>
                   {ligneSousTable.objets.map((objet, i) => (
                     <AjouterObjetTrouveButton
-                      key={i}
+                      // Même raison que pour JetOrButton ci-dessus : la clé
+                      // doit identifier la ligne de sous-table (pas seulement
+                      // la position de l'objet dans cette ligne), sinon
+                      // changer de ligne réutilise l'instance verrouillée de
+                      // la ligne précédente au même index.
+                      key={`${palierId}-${face}-${evenement.sousTable?.indexOf(ligneSousTable)}-${i}`}
                       ligneObjet={objet}
                       catalogueId={catalogue.id}
                       onAjouter={(item, quantite) => ajouterObjet(resultatAffiche(ligneSousTable), item, quantite)}

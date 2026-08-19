@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { getSetting, setSetting } from '../db/db';
 import { LanguageContext } from './useLanguage';
@@ -7,14 +7,19 @@ import { uiDictionary } from '../i18n/ui';
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en');
+  // Voir le même motif dans GameRulesContext/ThemeContext : un changement de
+  // langue déclenché avant la fin du chargement IndexedDB ne doit pas être
+  // écrasé par la valeur persistée une fois ce chargement terminé.
+  const modifiedBeforeLoad = useRef(false);
 
   useEffect(() => {
     getSetting<Language>('language').then((saved) => {
-      if (saved) setLanguageState(saved);
+      if (saved && !modifiedBeforeLoad.current) setLanguageState(saved);
     });
   }, []);
 
   const setLanguage = useCallback((l: Language) => {
+    modifiedBeforeLoad.current = true;
     setLanguageState(l);
     setSetting('language', l);
   }, []);
