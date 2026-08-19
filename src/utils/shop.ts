@@ -166,6 +166,11 @@ const CATALOGUES_HUMAINS = new Set([
   'hors_la_loi_de_stirwood',
   'pirates',
   'tileens',
+  'ostermarkers',
+  'caravanes_marchandes',
+  'moines_guerriers_de_cathay',
+  'pilleurs_de_tombes_arabes',
+  'lustrian_reavers',
 ]);
 
 // Les tags "commun_sauf_X_Y" (ex : "commun_sauf_witch_hunters_sisters_of_sigmar")
