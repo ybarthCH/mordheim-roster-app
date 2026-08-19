@@ -1115,13 +1115,11 @@ button {
 .drag-handle--discret:active {
   opacity: 1;
 }
-/* Sur la carte mobile (voir MemberGroupCard) : déplacé dans .list-item__title
-   et poussé en bout de ligne plutôt que d'être un flex sibling dédié devant
-   .list-item__row — libère toute la largeur qu'occupaient sa colonne et ses
-   marges. Opacité et taille remontées : à 0.4 il devenait quasi invisible au
-   repos une fois sorti de sa colonne dédiée. margin-left auto retiré : c'est
-   désormais .list-item__title-actions (son wrapper commun avec le bouton de
-   suppression) qui pousse la paire en bout de ligne. */
+/* Sur la carte mobile (voir MemberGroupCard) : à côté du bouton de
+   suppression dans .list-item__title-actions, lui-même dans
+   .list-item__statut-suppression — plus dans sa propre colonne dédiée devant
+   .list-item__row. Opacité et taille remontées : à 0.4 il devenait quasi
+   invisible au repos une fois sorti de cette colonne. */
 .drag-handle--titre {
   width: 1.3rem;
   height: 1.3rem;
@@ -2002,14 +2000,6 @@ button {
   touch-action: manipulation;
   transition: background-color 0.1s ease;
 }
-/* Positioned ancestor pour .list-item__title-actions (croix de suppression +
-   poignée de drag), ancrées en absolu dans ce coin — voir plus bas. Padding
-   réservé sur toute la hauteur de la carte, pas seulement la ligne du titre,
-   pour ne jamais laisser le texte passer dessous. */
-.member-cards .list-item {
-  position: relative;
-  padding-right: 3.4rem;
-}
 /* Carte de figurine du roster (Héros, Hommes de main...) : cadre pierre
    peint du pack UI, à la place du simple encart 1px — voir le commentaire
    sur .roster-groupe-card plus haut (le cadre de groupe qui contenait ces
@@ -2030,14 +2020,6 @@ button {
   border-image-source: url('/decor/card-panel-stone.webp');
   box-shadow: none;
   padding: 0.4rem 0.6rem 0.4rem 1.1rem;
-}
-/* Le raccourci padding ci-dessus (spécificité égale, déclaré après la règle
-   de base .member-cards .list-item) écraserait sinon son padding-right
-   réservé pour .list-item__title-actions — .historique-liste, qui n'a pas
-   cette croix/poignée ancrées, n'a pas besoin de cette marge et n'est donc
-   pas concerné ici. */
-:root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item {
-  padding-right: 3.4rem;
 }
 /* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
    peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de
@@ -2105,17 +2087,17 @@ button {
 .list-item__row > :not(.list-item__main) {
   flex-shrink: 0;
 }
-/* Statut de la figurine (voir MemberGroupCard) — la suppression a rejoint la
-   poignée de drag dans .list-item__title-actions, coin supérieur droit de la
-   carte, donc ce flex item ne porte plus que le statut désormais. flex-basis
-   100% : toujours sur sa propre ligne, jamais à côté du nom sur une carte
-   compacte (nom court, pas de badges) — sinon le statut se retrouvait juste
-   sous la croix/poignée ancrées au coin, au lieu de rester sous le nom. */
+/* Statut + suppression + poignée de drag (voir MemberGroupCard) : un seul
+   flex item groupant les trois, toujours sur la même ligne, en haut de la
+   carte — alignés avec le nom (voir .list-item__row > :not(.list-item__main)
+   ci-dessus : passent à la ligne ensemble si la carte est trop étroite pour
+   tout tenir, jamais séparément). Gap généreux avant le groupe croix/poignée
+   (voir .list-item__title-actions plus bas) : espace visible entre le
+   sceau de statut et la croix, pas seulement l'absence de chevauchement. */
 .list-item__statut-suppression {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  flex-basis: 100%;
+  gap: 0.7rem;
 }
 .list-item__title {
   font-weight: 700;
@@ -2140,20 +2122,10 @@ button {
   min-width: 3em;
   flex: 1 1 auto;
 }
-/* Suppression + poignée de drag ancrées dans le coin supérieur droit de la
-   carte mobile (voir MemberGroupCard), plutôt que suivies dans le flux du
-   titre : un margin-left:auto en fin de ligne flex les faisait retomber sous
-   le nom dès que celui-ci + les badges (Chef, avancée en attente) remplissaient
-   toute la première ligne — elles quittaient alors visuellement le coin de la
-   carte. Position absolue à la place (même motif que .list-item--bande__poignee
-   plus haut) : ancrées au coin quel que soit ce que fait le titre. Le
-   padding-right réservé sur .member-cards .list-item (plus bas) empêche le
-   texte de passer dessous. */
+/* Suppression + poignée de drag, groupées serrées l'une contre l'autre (la
+   paire elle-même) à l'intérieur de .list-item__statut-suppression, qui leur
+   donne son gap généreux avec le sceau de statut juste avant. */
 .list-item__title-actions {
-  position: absolute;
-  top: 0.6rem;
-  right: 0.6rem;
-  z-index: 2;
   display: flex;
   align-items: center;
   gap: 0.2rem;
