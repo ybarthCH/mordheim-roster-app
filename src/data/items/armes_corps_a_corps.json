@@ -675,8 +675,8 @@
         "texte": "Un Maître des Bêtes armé d'un fouet à bêtes provoque la peur chez les animaux. Tout animal chargé par ou désirant charger un Maître des Bêtes doit donc effectuer un test de peur selon les règles habituelles du Livre des Règles de Mordheim."
       },
       {
-        "nom": "Claquement",
-        "texte": "Une figurine armée du fouet à bêtes gagne +1 Attaque lorsqu'elle charge, en plus de tout autre bonus. Lorsqu'elle est chargée, elle gagne aussi +1 Attaque qu'elle ne peut utiliser que contre la figurine qui la charge. Cette attaque supplémentaire frappe en premier. Si le porteur est chargé par 2 ennemis ou plus, ce bonus reste de +1A. Si le porteur se bat avec deux fouets, il reçoit +1A pour son arme de base additionnelle, mais seul son premier fouet bénéficie du +1A dû au claquement."
+        "nom": "Allonge",
+        "texte": "Un fouet à bêtes permet d'attaquer un adversaire jusqu'à 4ps de distance."
       }
     ]
   },
@@ -1049,10 +1049,6 @@
     "portee": "C à C",
     "force": "U",
     "regles_speciales": [
-      {
-        "nom": "+1 sauvegarde ennemie",
-        "texte": "Un ennemi Blessé par cette arme obtient +1 à sa sauvegarde d'armure ou une sauvegarde de 6+ s'il n'en a pas."
-      },
       {
         "nom": "Défense",
         "texte": "La lame des étoiles permet de parer la première touche réussie de tout combat sur un 4+."
@@ -1822,7 +1818,7 @@
     ],
     "source": "EN",
     "page": 18,
-    "texte": "Ces lames sont forgées dans la cité de Hag Graef, le Sombre Roc, à partir de fer noir, un minerai très rare trouvé au cœur des montagnes qui entourent la cité. Les barbelures des lames des elfes noirs sont capables d'infliger de graves blessures à leur victime. Tout elfe noir peut doter son épée ou sa dague d'une lame elfe noire pour le coût de 20 CO au moment de son achat. Les armes dotées d'une lame elfe noire gardent leurs règles habituelles (les épées peuvent donc parer et les dagues accordent une sauvegarde d'armure de 6+).",
+    "texte": "Ces lames sont forgées dans la cité de Hag Graef, l'Escarpement Sombre, à partir d'acier noir, une forme rare d'acier trouvée au cœur des montagnes qui entourent la cité. Les barbelures des lames des elfes noirs sont capables d'infliger de graves blessures à leur victime. Tout elfe noir peut doter son épée ou sa dague d'une lame elfe noire pour le coût de 20 CO au moment de son achat. Les armes dotées d'une lame elfe noire gardent leurs règles habituelles (les épées peuvent donc parer et les dagues accordent une sauvegarde d'armure de 6+).",
     "portee": null,
     "force": null,
     "regles_speciales": [

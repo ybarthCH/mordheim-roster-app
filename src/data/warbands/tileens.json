@@ -11,17 +11,32 @@
     {
       "id": "miragliano",
       "nom": "Miragliano",
-      "texte": "Les Tiléens de Miragliano sont d'une précision mortelle grâce à l'arme officielle de leur cité : l'arbalète. Par conséquent, les Héros de Miragliano ont +1 pour Toucher lorsqu'ils utilisent des arbalètes. Les Tireurs d'Élite ont +1 pour toucher avec n'importe quelle arme de tir. Tous les habitants de Miragliano ont une profonde aversion des Skavens. Cela remonte à l'épidémie de Fièvre Rouge de 1812 CI. durant laquelle les trois quarts des habitants de la cité périrent. Lorsqu'une bande de Miragliano combat des Skavens, elle est affectée par les règles de haine. Les Francs-Tireurs ne sont pas affectés par cette règle (purement indicatif, à appliquer sur table papier)."
+      "texte": "Les Tiléens de Miragliano sont d'une précision mortelle grâce à l'arme officielle de leur cité : l'arbalète. Par conséquent, les Héros de Miragliano ont +1 pour Toucher lorsqu'ils utilisent des arbalètes. Les Tireurs d'Élite ont +1 pour toucher avec n'importe quelle arme de tir. Tous les habitants de Miragliano ont une profonde aversion des Skavens. Cela remonte à l'épidémie de Fièvre Rouge de 1812 CI. durant laquelle les trois quarts des habitants de la cité périrent. Lorsqu'une bande de Miragliano combat des Skavens, elle est affectée par les règles de haine. Les Francs-Tireurs ne sont pas affectés par cette règle (purement indicatif, à appliquer sur table papier).",
+      "profil_acces_competences": {
+        "capitaine": ["combat", "tir", "academique", "force", "vitesse"],
+        "champion": ["combat", "tir", "vitesse"],
+        "recrue": ["combat", "tir", "force"]
+      }
     },
     {
       "id": "remas",
       "nom": "Remas",
-      "texte": "En 1487 CI., une flotte de vaisseaux elfes noirs envahit les côtes de la cité de Remas et depuis, ses habitants ressentent une profonde aversion envers les druchii. Une bande originaire de Remas se battra jusqu'à la mort face à une bande d'Elfes Noirs. Pour représenter ceci, lorsqu'il combat des Elfes Noirs, un joueur de Tiléens de Remas est autorisé à relancer un test de Déroute mais doit conserver le second résultat. Les officiers de Remas sont des individus indéfectibles dont les années d'entraînement ont donné d'excellents commandants. La valeur de Commandement d'un Capitaine, d'un Champion ou d'une Recrue de Remas est toujours d'un point supérieur, quelle que soit la bande adverse (purement indicatif, à appliquer sur la fiche papier)."
+      "texte": "En 1487 CI., une flotte de vaisseaux elfes noirs envahit les côtes de la cité de Remas et depuis, ses habitants ressentent une profonde aversion envers les druchii. Une bande originaire de Remas se battra jusqu'à la mort face à une bande d'Elfes Noirs. Pour représenter ceci, lorsqu'il combat des Elfes Noirs, un joueur de Tiléens de Remas est autorisé à relancer un test de Déroute mais doit conserver le second résultat. Les officiers de Remas sont des individus indéfectibles dont les années d'entraînement ont donné d'excellents commandants. La valeur de Commandement d'un Capitaine, d'un Champion ou d'une Recrue de Remas est toujours d'un point supérieur, quelle que soit la bande adverse (purement indicatif, à appliquer sur la fiche papier).",
+      "profil_acces_competences": {
+        "capitaine": ["combat", "academique", "force", "vitesse"],
+        "champion": ["combat", "academique", "force"],
+        "recrue": ["combat", "vitesse"]
+      }
     },
     {
       "id": "trantio",
       "nom": "Trantio",
-      "texte": "Une bande originaire de Trantio sera la mieux équipée et la plus expérimentée des bandes humaines en Lustrie. Pour représenter ceci, une bande de Trantio commencera toujours une partie simple avec 100 Couronnes d'Or supplémentaires et avec une majoration de 20% de la somme prévue pour le recrutement lors d'une campagne en Lustrie (purement indicatif, non automatisé)."
+      "texte": "Une bande originaire de Trantio sera la mieux équipée et la plus expérimentée des bandes humaines en Lustrie. Pour représenter ceci, une bande de Trantio commencera toujours une partie simple avec 100 Couronnes d'Or supplémentaires et avec une majoration de 20% de la somme prévue pour le recrutement lors d'une campagne en Lustrie (purement indicatif, non automatisé).",
+      "profil_acces_competences": {
+        "capitaine": ["combat", "tir", "academique", "vitesse"],
+        "champion": ["combat", "tir", "vitesse"],
+        "recrue": ["combat", "tir", "force"]
+      }
     }
   ],
   "composition": {
@@ -73,9 +88,9 @@
       "min": 0,
       "max": 2,
       "cout": 15,
-      "xp_depart": 8,
+      "xp_depart": 0,
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
-      "acces_competences": ["force", "vitesse"],
+      "acces_competences": ["combat", "tir", "force"],
       "acces_equipement": ["tileens"],
       "acces_competences_a_verifier": false
     },

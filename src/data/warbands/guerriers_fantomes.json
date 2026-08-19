@@ -6,6 +6,8 @@
   "banniere": "bandes/guerriers_fantomes.webp",
   "regles_speciales": [
     { "nom": "Aversion pour le Poison", "texte": "L'usage des poisons et autres drogues est une spécialité des elfes noirs. Les Guerriers Fantômes en désapprouvent l'usage, plus encore que les hauts elfes. Les membres d'une bande de Guerriers Fantômes n'utilisent jamais aucun type de poison." },
+    { "nom": "Haine des Elfes Noirs", "texte": "Tous les guerriers d'une bande de Guerriers Fantômes (à l'exception des francs-tireurs) vouent une Haine inébranlable aux Elfes Noirs." },
+    { "nom": "Vue Perçante", "texte": "Tous les elfes d'une bande de Guerriers Fantômes peuvent repérer les figurines Cachées à deux fois la distance normale (c'est-à-dire deux fois leur valeur d'Initiative en pas)." },
     { "nom": "Impitoyables", "texte": "En plus de leur haine envers leurs cousins corrompus, le peuple de Nagarythe combat depuis longtemps le Chaos. Dans une partie multijoueurs, une bande de Guerriers Fantômes ne peut jamais s'allier avec aucune bande de nature chaotique (Possédés, Skavens, Hommes-bêtes, Elfes noirs, etc.)." },
     { "nom": "Tolérants", "texte": "En raison de leur statut de parias auprès de leur peuple, les elfes de Nagarythe ont appris à réprimer leur mépris pour les « races inférieures », et travaillent même parfois pour elles. Une bande de Guerriers Fantômes peut donc recruter tout franc-tireur non chaotique ou maléfique (donc pas de Skavens, de Possédés, d'Elfes Noirs, de Morts-vivants, etc.) Ils évitent également tous ceux qui font usage de poisons (donc pas d'assassins)." }
   ],
@@ -45,7 +47,7 @@
       "cout": 45,
       "xp_depart": 12,
       "stats": { "M": 5, "CC": 5, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 6, "A": 1, "Cd": 8 },
-      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_competences": ["combat", "tir", "vitesse", "special"],
       "acces_equipement": ["guerriers_fantomes"],
       "acces_competences_a_verifier": false
     },
@@ -63,7 +65,7 @@
       "regles_speciales": [
         { "nom": "Sorcier", "texte": "Le Tisseur d'Ombres est un sorcier utilisant la liste des sorts de la Magie d'Ombre. Il ne peut pas lancer de sorts s'il porte une armure." }
       ],
-      "acces_competences": ["combat", "vitesse", "special"],
+      "acces_competences": ["combat", "academique", "vitesse", "special"],
       "acces_equipement": ["guerriers_fantomes"],
       "acces_competences_a_verifier": false
     },
