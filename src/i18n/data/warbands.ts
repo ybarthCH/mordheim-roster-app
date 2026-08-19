@@ -2719,7 +2719,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     ],
     profils: {
       chevalier_de_la_quete: {
-        nom: 'Knight of the Quest',
+        nom: 'Questing Knight',
         regles_speciales: [
           { nom: 'Leader', texte: 'Any warband member within 6" may use his Leadership for their tests.' },
           { nom: 'Knight', texte: 'Has the Chivalry, the Lord\'s Favour, and Virtue of Purity rules.' },
@@ -2737,7 +2737,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       chevalier_errant: {
-        nom: 'Errant Knight',
+        nom: 'Knight Errant',
         regles_speciales: [
           { nom: 'Knight', texte: "Has the Chivalry, the Lord's Favour, and Virtue of Purity rules." },
           { nom: 'Vain', texte: 'Refuses to wear a helmet.' },
@@ -2748,7 +2748,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
           {
             nom: 'May Exceed Three',
-            texte: 'May exceed 3 Errant Knights if a Squire promoted to Hero becomes one (see the Knighting rule).',
+            texte: 'May exceed 3 Knights Errant if a Squire promoted to Hero becomes one (see the Knighting rule).',
           },
         ],
       },
@@ -2758,11 +2758,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Knighting',
             texte:
-              "On 'Lad's Got Talent', two choices: remain a Squire (2 lists among Combat/Academic/Strength/Speed, keeps his equipment list) or become an Errant Knight (immediately gains Knight, Vain, and Impetuous instead of an immediate advance, gains access to Special Skills plus 2 other lists, switches to the Knights' equipment list, may no longer use missile weapons — this is the mechanism that allows exceeding 3 Errant Knights).",
+              "On 'Lad's Got Talent', two choices: remain a Squire (2 lists among Combat/Academic/Strength/Speed, keeps his equipment list) or become a Knight Errant (immediately gains Knight, Vain, and Impetuous instead of an immediate advance, gains access to Special Skills plus 2 other lists, switches to the Knights' equipment list, may no longer use missile weapons — this is the mechanism that allows exceeding 3 Knights Errant).",
           },
           {
             nom: 'Mount',
-            texte: 'May only ride a horse if the Knight of the Quest and all Errant Knights are themselves mounted on warhorses.',
+            texte: 'May only ride a horse if the Questing Knight and all Knights Errant are themselves mounted on warhorses.',
           },
         ],
       },
@@ -2815,7 +2815,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       voeu_de_la_quete: {
         nom: 'Vow of the Quest',
-        reserve_a: 'Knight of the Quest only',
+        reserve_a: 'Questing Knight only',
         texte: 'If he charges, is charged, or fights an enemy that causes fear, may re-roll a Leadership test (including Rout), keeping the second result.',
       },
       coup_de_bouclier: {
