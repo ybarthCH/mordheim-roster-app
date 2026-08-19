@@ -52,7 +52,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Marauders of Chaos (1c)',
     regles_speciales: [
       {
-        nom: 'Eye of the Dark Gods',
+        nom: 'Eye of the Gods',
         texte:
           "After each battle, roll 2D6. If you lost, add +1 for each Hero taken Out of Action; on a 12+, the leader becomes a Spawn of Chaos (losing experience, skills, wounds, and equipment). If you won, add +1 for each enemy taken Out of Action by the leader; on a 12+, the leader receives a Mark of the Dark Gods of his choice (see the Marks of the Dark Gods special rule). Once a leader has received a Mark through this rule, he is no longer subject to it (unless he dies, in which case the new leader is tested in turn). If the warband already has a Spawn of Chaos, a leader who would get this result is simply removed from the warband instead of being transformed.",
       },
@@ -69,7 +69,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Marks of the Dark Gods',
         texte:
-          "A leader can only bear one Mark at a time (except the Mark of Chaos Undivided, which can coexist with the others); Seers choose their Mark in agreement with the tribe at recruitment, and then use the rituals associated with their Mark instead of the generic Rituals of Chaos (except Chaos Undivided, which keeps the Rituals of Chaos). Mark of Arkhar the Hound — Leader: automatic frenzy, any spell targeting the Hero fails on a 4+. Seer: becomes a Blood Father, no longer casts spells but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required), and gains access to Strength skills in addition to his normal list. Mark of Shornaal the Serpent — Leader: enemies not Immune to Psychology must pass a Leadership test (3D6, discarding the lowest) to attack the Hero in hand-to-hand combat, or suffer an automatic hit; once passed, no further tests are needed. Seer: uses the Rituals of Shornaal; may brew a strong drink for the warband (like Bugman's Ale, not for sale) instead of searching for rare items, provided he was not taken Out of Action. Mark of Tchar the Eagle — Leader: immediately learns a random spell from the Rituals of Tchar, with a -1 penalty to difficulty rolls unless he was already a spellcaster. Seer: starts with two spells from the Rituals of Tchar (one chosen freely, one random). Mark of Onogal the Raven — Leader: +1 Toughness, may re-roll on the Serious Injury table, immune to poisons. Seer: uses the Rituals of Onogal and benefits from immunity to poisons. Mark of Chaos Undivided — Leader: all warband members within the Leader rule's range may re-roll failed Leadership tests. Seer: allows the warband to include 0 to 3 Gors (see Beastmen Raiders), counting towards the maximum warband size; uses the standard Rituals of Chaos. The alternative rituals specific to each Mark (Shornaal, Tchar, Onogal) are provided as additional reference; otherwise the Seer uses the Rituals of Chaos below.",
+          "A leader can only bear one Mark at a time (except the Mark of Chaos Undivided, which can coexist with the others); Seers choose their Mark in agreement with the tribe at recruitment, and then use the rituals associated with their Mark instead of the generic Rituals of Chaos (except Chaos Undivided, which keeps the Rituals of Chaos). Mark of Arkhar the Dog — Leader: automatic frenzy, any spell targeting the Hero fails on a 4+. Seer: becomes a Bloodfather, no longer casts spells but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required), and gains access to Strength skills in addition to his normal list. Mark of Shornaal the Serpent — Leader: enemies not Immune to Psychology must pass a Leadership test (3D6, discarding the lowest) to attack the Hero in hand-to-hand combat, or suffer an automatic hit; once passed, no further tests are needed. Seer: uses the Rituals of Shornaal; may brew a strong drink for the warband (like Bugman's Ale, not for sale) instead of searching for rare items, provided he was not taken Out of Action. Mark of Tchar the Eagle — Leader: immediately learns a random spell from the Rituals of Tchar, with a -1 penalty to difficulty rolls unless he was already a spellcaster. Seer: starts with two spells from the Rituals of Tchar (one chosen freely, one random). Mark of Onogal the Crow — Leader: +1 Toughness, may re-roll on the Serious Injury table, immune to poisons. Seer: uses the Rituals of Onogal and benefits from immunity to poisons. Mark of Chaos Undivided — Leader: all warband members within the Leader rule's range may re-roll failed Leadership tests. Seer: allows the warband to include 0 to 3 Gors (see Beastmen Raiders), counting towards the maximum warband size; uses the standard Rituals of Chaos. The alternative rituals specific to each Mark (Shornaal, Tchar, Onogal) are provided as additional reference; otherwise the Seer uses the Rituals of Chaos below.",
       },
       {
         nom: 'Mutation Table',
@@ -91,7 +91,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       norses: {
         nom: 'Norse',
         texte:
-          'Raiders: due to their proximity to the Empire and the frequency of their raids, the Norse excel at finding the best equipment and supplies quickly — they gain +1 to their rarity rolls when searching for rare items (for reference only, apply on your tabletop). Pantheon: the Norse worship a myriad of gods, spirits, and ancestors; because of their broad pantheon, the effect of the Eye of the Dark Gods special rule (becoming a Spawn of Chaos or receiving a Mark) triggers on a result of 13+ instead of 12+.',
+          'Reavers: due to their proximity to the Empire and the frequency of their raids, the Norse excel at finding the best equipment and supplies quickly — they gain +1 to their rarity rolls when searching for rare items (for reference only, apply on your tabletop). Pantheon: the Norse worship a myriad of gods, spirits, and ancestors; because of their broad pantheon, the effect of the Eye of the Gods special rule (becoming a Spawn of Chaos or receiving a Mark) triggers on a result of 13+ instead of 12+.',
       },
       kurgans: {
         nom: 'Kurgans',
@@ -101,7 +101,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       hungs: {
         nom: 'Hung',
         texte:
-          'Faithlessness: the tribal loyalty of these nomads is weak at best — the maximum number of warriors in the warband is reduced to 12 (instead of 15). Affinity with horses: warhorses always cost the warband 40 gc, even outside of warband creation (for reference only, not automated in the shop); all Heroes (including promoted Henchmen) automatically gain the Ride – Warhorse skill.',
+          'Disloyalty: the tribal loyalty of these nomads is weak at best — the maximum number of warriors in the warband is reduced to 12 (instead of 15). Affinity with horses: warhorses always cost the warband 40 gc, even outside of warband creation (for reference only, not automated in the shop); all Heroes (including promoted Henchmen) automatically gain the Ride – Warhorse skill.',
       },
     },
     profils: {
@@ -121,7 +121,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Mark of the Dark Gods',
             texte:
-              "Receives a Mark of choice at recruitment: Mark of the Serpent (Shornaal), of the Raven (Onogal), of the Hound (Arkhar), of the Eagle (Tchar), or the Mark of Chaos Undivided.",
+              "Receives a Mark of choice at recruitment: Mark of the Serpent (Shornaal), of the Crow (Onogal), of the Dog (Arkhar), of the Eagle (Tchar), or the Mark of Chaos Undivided.",
           },
         ],
       },
@@ -200,10 +200,10 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       corps_tatoue: {
         nom: 'Tattooed Body',
         reserve_a: 'Warband Leader only',
-        texte: 'Lowers the trigger threshold of Eye of the Dark Gods to 10+ (11+ for a Norse Leader) instead of 12+.',
+        texte: 'Lowers the trigger threshold of Eye of the Gods to 10+ (11+ for a Norse Leader) instead of 12+.',
       },
       courage_du_guerrier: {
-        nom: "Warrior's Courage",
+        nom: 'Heart of the Warrior',
         reserve_a: 'Warband Leader only',
         texte: 'May re-roll any failed Rout test and is immune to Fear as well as to All Alone.',
       },
@@ -212,7 +212,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'Requires the Strongman skill. Each Out of Action result caused with a two-handed weapon grants an immediate extra attack against another model in base contact.',
       },
       choisi_par_le_chaos: {
-        nom: 'Chosen by Chaos',
+        nom: 'Chosen of Chaos',
         texte: 'The Hero joins the ranks of the Chaos Warriors: he uses their maximum profile (see caracteristiques_max) and the Heroes\' equipment list (if not already the case).',
       },
     },
@@ -229,7 +229,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       nom: 'Rituals of Chaos',
       type: 'sorcery',
       note:
-        'Base table used by a Seer with no Mark, or with the Mark of Chaos Undivided. A Seer marked by Shornaal, Tchar, or Onogal instead uses the rituals specific to his Mark (chosen at recruitment — see marks). A Seer marked by Arkhar becomes a Blood Father and no longer casts spells.',
+        'Base table used by a Seer with no Mark, or with the Mark of Chaos Undivided. A Seer marked by Shornaal, Tchar, or Onogal instead uses the rituals specific to his Mark (chosen at recruitment — see marks). A Seer marked by Arkhar becomes a Bloodfather and no longer casts spells.',
       sorts: [
         {
           nom: 'Vision of Torment',
@@ -259,8 +259,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     marques: {
       arkhar: {
-        nom: 'Mark of Arkhar the Hound',
-        texte: 'The Seer becomes a Blood Father: he no longer casts spells, but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required), and gains access to Strength skills in addition to his normal list.',
+        nom: 'Mark of Arkhar the Dog',
+        texte: 'The Seer becomes a Bloodfather: he no longer casts spells, but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required), and gains access to Strength skills in addition to his normal list.',
       },
       shornaal: {
         nom: 'Mark of Shornaal the Serpent',
@@ -271,7 +271,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'Uses the Rituals of Tchar. Starts with two spells from the Rituals of Tchar (one chosen freely, one determined randomly — the second spell is not automated here, roll on your tabletop).',
       },
       onogal: {
-        nom: 'Mark of Onogal the Raven',
+        nom: 'Mark of Onogal the Crow',
         texte: 'Uses the Rituals of Onogal and benefits from immunity to poisons.',
       },
       chaos_universel: {
@@ -289,7 +289,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte: 'All models (friend and foe, except the Seer) within 3" must pass a Leadership test or be Knocked Down.',
           },
           {
-            nom: "Serpent's Dance",
+            nom: 'Dance of the Serpent',
             texte: "All enemy models that are not Immune to Psychology suffer a -1 penalty to hit the Seer in hand-to-hand combat. The Dance lasts until the start of the Seer's next Shooting phase.",
           },
           {
@@ -297,7 +297,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte: 'Choose an enemy model within 8". From now on, it must make a -1 Injury roll after its Recovery phase. As long as the torment lasts, the Seer can do nothing else but end the spell, at the start of his turn. If he is attacked in hand-to-hand combat, he is hit automatically and the spell is broken.',
           },
           {
-            nom: 'Consternation',
+            nom: 'Mystify',
             texte: 'Choose an enemy model within 8". Its Initiative is reduced to 1 and it will always strike last in hand-to-hand combat, even if it charges or is armed with a spear while itself charged. Lasts until the target passes a Leadership test during the Recovery phase.',
           },
           {
@@ -305,7 +305,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte: 'Choose an enemy model within 12". It reduces its Leadership by D3+1 (minimum 2) if it is not Immune to Psychology. It must pass a Leadership test at the start of its turn to end the spell; the spell also breaks if the Seer suffers a wound. Can only affect one model at a time.',
           },
           {
-            nom: 'Temptation of Shornaal',
+            nom: "Shornaal's Temptation",
             texte: 'Choose an enemy model within 8" that is not Immune to Psychology. It must pass a Leadership test, or the Seer takes control of the target (control may be regained with a Leadership test at Recovery). Can only target one model at a time; if the Seer is hit in hand-to-hand combat or by shooting, he must pass a Leadership test for the spell not to end.',
           },
         ],
@@ -315,12 +315,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         type: 'sorcery',
         sorts: [
           {
-            nom: 'Blessing of Tchar',
+            nom: "Tchar's Blessing",
             texte: 'To be used before the game, once only. The Seer may not cast spells during the battle that follows. After the game, he gains D3 experience points if he was not taken Out of Action.',
           },
           { nom: 'Dispel Magic', texte: 'The Seer ends all active spell effects.' },
           {
-            nom: 'Clairvoyance',
+            nom: 'Foresight',
             texte: 'To be used before the game, once only. Choose a warband; one of its Heroes, determined randomly, cannot take part in the current game. Models capable of casting spells or prayers are immune to this effect.',
           },
           {
@@ -328,11 +328,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte: 'Choose an enemy model within 12". It is hit by an attack with a Strength equal to the difference in experience points between the Seer and the target (max 10), normal armour save. If the victim has more XP than the Seer, the Seer is hit instead.',
           },
           {
-            nom: 'Reward of Tchar',
+            nom: "Tchar's Reward",
             texte: "The Seer gains +1 to any characteristic for every 10 experience points earned (each only once by this means). Lasts until the end of the Seer's next Shooting phase, after which the spell may be discarded.",
           },
           {
-            nom: 'Slave of Chaos',
+            nom: 'Slave to Chaos',
             texte: 'Range 12", Strength 2 hit with no armour save. If the model is taken Out of Action, roll immediately on the Serious Injury table; if it dies, it is replaced by a Pink Horror of Tzeentch until the end of the game, under the Seer\'s control (see Daemonic Bestiary). If the Seer is Stunned or taken Out of Action, the Horror vanishes into the Realm of Chaos.',
           },
         ],
