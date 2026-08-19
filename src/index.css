@@ -2002,6 +2002,14 @@ button {
   touch-action: manipulation;
   transition: background-color 0.1s ease;
 }
+/* Positioned ancestor pour .list-item__title-actions (croix de suppression +
+   poignée de drag), ancrées en absolu dans ce coin — voir plus bas. Padding
+   réservé sur toute la hauteur de la carte, pas seulement la ligne du titre,
+   pour ne jamais laisser le texte passer dessous. */
+.member-cards .list-item {
+  position: relative;
+  padding-right: 3.4rem;
+}
 /* Carte de figurine du roster (Héros, Hommes de main...) : cadre pierre
    peint du pack UI, à la place du simple encart 1px — voir le commentaire
    sur .roster-groupe-card plus haut (le cadre de groupe qui contenait ces
@@ -2022,6 +2030,14 @@ button {
   border-image-source: url('/decor/card-panel-stone.webp');
   box-shadow: none;
   padding: 0.4rem 0.6rem 0.4rem 1.1rem;
+}
+/* Le raccourci padding ci-dessus (spécificité égale, déclaré après la règle
+   de base .member-cards .list-item) écraserait sinon son padding-right
+   réservé pour .list-item__title-actions — .historique-liste, qui n'a pas
+   cette croix/poignée ancrées, n'a pas besoin de cette marge et n'est donc
+   pas concerné ici. */
+:root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item {
+  padding-right: 3.4rem;
 }
 /* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
    peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de
@@ -2120,16 +2136,23 @@ button {
   min-width: 3em;
   flex: 1 1 auto;
 }
-/* Suppression + poignée de drag regroupées dans le coin supérieur droit de
-   la carte mobile (voir MemberGroupCard) : un seul wrapper porte le
-   margin-left auto qui pousse la paire en bout de ligne, plutôt que de le
-   mettre sur la poignée seule (ce qui écarterait la croix, restée collée au
-   nom, de la poignée repoussée à droite). */
+/* Suppression + poignée de drag ancrées dans le coin supérieur droit de la
+   carte mobile (voir MemberGroupCard), plutôt que suivies dans le flux du
+   titre : un margin-left:auto en fin de ligne flex les faisait retomber sous
+   le nom dès que celui-ci + les badges (Chef, avancée en attente) remplissaient
+   toute la première ligne — elles quittaient alors visuellement le coin de la
+   carte. Position absolue à la place (même motif que .list-item--bande__poignee
+   plus haut) : ancrées au coin quel que soit ce que fait le titre. Le
+   padding-right réservé sur .member-cards .list-item (plus bas) empêche le
+   texte de passer dessous. */
 .list-item__title-actions {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: 0.2rem;
-  margin-left: auto;
 }
 .list-item__details {
   flex-basis: 100%;
