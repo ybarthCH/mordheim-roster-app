@@ -386,62 +386,95 @@ export function PostBatailleScreen() {
     });
   }, [roster, xpDrafts, blessureDrafts, date, catalogue, language]);
 
-  const coutCommerce = Object.values(commerceDrafts).reduce((total, draft) => {
-    if (draft.action === 'docteur') return total + COUT_DOCTEUR;
-    if (draft.action === 'rare' && draft.achat) return total + draft.achat.cout;
-    if (draft.action === 'dramatis_personae' && draft.recrute) return total + draft.cout;
-    return total;
-  }, 0);
+  // Les valeurs dérivées ci-dessous (coutCommerce à entretienMalepierre plus
+  // bas) n'étaient pas mémoïsées : sur un assistant multi-étapes, toute
+  // frappe dans N'IMPORTE QUELLE étape re-rend tout le composant et
+  // recalculait chacune, y compris pour des étapes qui n'ont pas changé.
+  const coutCommerce = useMemo(
+    () =>
+      Object.values(commerceDrafts).reduce((total, draft) => {
+        if (draft.action === 'docteur') return total + COUT_DOCTEUR;
+        if (draft.action === 'rare' && draft.achat) return total + draft.achat.cout;
+        if (draft.action === 'dramatis_personae' && draft.recrute) return total + draft.cout;
+        return total;
+      }, 0),
+    [commerceDrafts]
+  );
   // Dramatis Personae dont la recherche a réussi et qui vient d'être recruté
   // (étape Commerce) : nouveaux membres à ajouter au roster dans terminer(),
   // distinct de stockCommerce/coutCommerce qui ne touchent pas la liste des
   // membres.
-  const dramatisPersonaeARecruter = Object.values(commerceDrafts).flatMap((draft) =>
-    draft.action === 'dramatis_personae' && draft.recrute ? [draft] : []
+  const dramatisPersonaeARecruter = useMemo(
+    () => Object.values(commerceDrafts).flatMap((draft) => (draft.action === 'dramatis_personae' && draft.recrute ? [draft] : [])),
+    [commerceDrafts]
   );
-  const stockCommerce = Object.values(commerceDrafts).flatMap((draft) => {
-    if (draft.action === 'rare' && draft.achat) return [draft.achat];
-    if (draft.action === 'docteur' && draft.statut === 'termine') return draft.equipementConserve;
-    return [];
-  });
-  const commerceIncomplet = herosCommerce.some((hero) => {
-    const draft = commerceDrafts[hero.membre.instance_id];
-    return !draft || draft.statut !== 'termine';
-  });
+  const stockCommerce = useMemo(
+    () =>
+      Object.values(commerceDrafts).flatMap((draft) => {
+        if (draft.action === 'rare' && draft.achat) return [draft.achat];
+        if (draft.action === 'docteur' && draft.statut === 'termine') return draft.equipementConserve;
+        return [];
+      }),
+    [commerceDrafts]
+  );
+  const commerceIncomplet = useMemo(
+    () =>
+      herosCommerce.some((hero) => {
+        const draft = commerceDrafts[hero.membre.instance_id];
+        return !draft || draft.statut !== 'termine';
+      }),
+    [herosCommerce, commerceDrafts]
+  );
   // Résultats du docteur (étape Commerce), pour affichage nominatif dans le
   // résumé final — qui a consulté, quel jet, quel résultat.
-  const docteurResultats = Object.entries(commerceDrafts).flatMap(([instanceId, draft]) => {
-    if (draft.action !== 'docteur' || draft.statut !== 'termine') return [];
-    const nom = roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?';
-    return [{ nom, jet: draft.jet, titre: draft.resultatTitre }];
-  });
+  const docteurResultats = useMemo(
+    () =>
+      Object.entries(commerceDrafts).flatMap(([instanceId, draft]) => {
+        if (draft.action !== 'docteur' || draft.statut !== 'termine') return [];
+        const nom = roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?';
+        return [{ nom, jet: draft.jet, titre: draft.resultatTitre }];
+      }),
+    [commerceDrafts, roster]
+  );
   // Recherches d'objet rare (étape Commerce), pour affichage nominatif dans
   // le résumé final — qui a cherché quoi, et avec quel résultat.
-  const rechercheRareResultats = Object.entries(commerceDrafts).flatMap(([instanceId, draft]) => {
-    if (draft.action !== 'rare') return [];
-    const nom = roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?';
-    return [{ nom, objetNom: draft.objetNom, rarete: draft.rarete, reussi: draft.reussi, achete: !!draft.achat }];
-  });
+  const rechercheRareResultats = useMemo(
+    () =>
+      Object.entries(commerceDrafts).flatMap(([instanceId, draft]) => {
+        if (draft.action !== 'rare') return [];
+        const nom = roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?';
+        return [{ nom, objetNom: draft.objetNom, rarete: draft.rarete, reussi: draft.reussi, achete: !!draft.achat }];
+      }),
+    [commerceDrafts, roster]
+  );
   // Recherches de Dramatis Personae (étape Commerce), pour affichage
   // nominatif dans le résumé final — qui a cherché qui, et avec quel résultat.
-  const dramatisPersonaeResultats = Object.entries(commerceDrafts).flatMap(([instanceId, draft]) => {
-    if (draft.action !== 'dramatis_personae') return [];
-    const nom = roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?';
-    return [{ nom, dpNom: draft.nom, reussi: draft.reussi, recrute: draft.recrute }];
-  });
+  const dramatisPersonaeResultats = useMemo(
+    () =>
+      Object.entries(commerceDrafts).flatMap(([instanceId, draft]) => {
+        if (draft.action !== 'dramatis_personae') return [];
+        const nom = roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?';
+        return [{ nom, dpNom: draft.nom, reussi: draft.reussi, recrute: draft.recrute }];
+      }),
+    [commerceDrafts, roster]
+  );
   // Blessures graves enregistrées cette bataille, pour affichage nominatif
   // dans le résumé final — qui a été touché et par quelle blessure.
-  const blessuresResume = Object.entries(blessureDrafts)
-    .filter(([, d]) => d.description.trim())
-    .map(([instanceId, d]) => ({
-      nom: roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?',
-      blessure: nomCourtBlessureAffiche(d, language),
-    }));
+  const blessuresResume = useMemo(
+    () =>
+      Object.entries(blessureDrafts)
+        .filter(([, d]) => d.description.trim())
+        .map(([instanceId, d]) => ({
+          nom: roster?.membres.find((m) => m.instance_id === instanceId)?.nom_perso ?? '?',
+          blessure: nomCourtBlessureAffiche(d, language),
+        })),
+    [blessureDrafts, roster, language]
+  );
   // Gains de trésorerie issus de résultats de blessure grave automatisés
   // (ex : victoire au combat de Gladiateur, +50 po).
-  const blessuresTresorerieBonus = Object.values(blessureDrafts).reduce(
-    (total, d) => total + d.tresorerieBonus,
-    0
+  const blessuresTresorerieBonus = useMemo(
+    () => Object.values(blessureDrafts).reduce((total, d) => total + d.tresorerieBonus, 0),
+    [blessureDrafts]
   );
 
   const lignesEntretien: LigneEntretien[] = useMemo(() => {
@@ -475,13 +508,26 @@ export function PostBatailleScreen() {
     entretienDrafts[ligne.membre.instance_id] ??
     (ligne.departAutomatique ? 'depart_automatique' : ligne.type === 'aucun' ? 'gratuit' : 'payer');
 
-  const soldeTotal = lignesEntretien.reduce(
-    (acc, ligne) => acc + (decisionEntretien(ligne) === 'payer' && ligne.type === 'or' ? ligne.cout : 0),
-    0
+  const soldeTotal = useMemo(
+    () =>
+      lignesEntretien.reduce(
+        (acc, ligne) => acc + (decisionEntretien(ligne) === 'payer' && ligne.type === 'or' ? ligne.cout : 0),
+        0
+      ),
+    // decisionEntretien lit entretienDrafts (voir sa définition) : c'est la
+    // vraie dépendance à surveiller, pas la fonction elle-même (recréée à
+    // chaque rendu).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [lignesEntretien, entretienDrafts]
   );
-  const entretienMalepierre = lignesEntretien.reduce(
-    (acc, ligne) => acc + (decisionEntretien(ligne) === 'payer' && ligne.type === 'malepierre' ? ligne.cout : 0),
-    0
+  const entretienMalepierre = useMemo(
+    () =>
+      lignesEntretien.reduce(
+        (acc, ligne) => acc + (decisionEntretien(ligne) === 'payer' && ligne.type === 'malepierre' ? ligne.cout : 0),
+        0
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [lignesEntretien, entretienDrafts]
   );
 
   if (!roster) {
@@ -597,6 +643,11 @@ export function PostBatailleScreen() {
   // officielle (quantité vendue × taille de bande) — jamais saisi à la main,
   // pour ne jamais diverger de ce que le tableau affiche.
   const prixVente = prixVenteWyrdstone(quantiteVendue, effectifTotal(roster));
+  // Calculée une seule fois ici (au lieu de dupliquer la formule dans
+  // EtapeResume et dans terminer() ci-dessous, comme c'était le cas) : les
+  // deux lectures risquaient de diverger silencieusement si l'une des deux
+  // était mise à jour sans l'autre.
+  const tresorerieApres = roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus - coutCommerce;
   const orDisponibleAvantCommerce = roster.tresorerie + prixVente + blessuresTresorerieBonus;
   const orDisponiblePourEntretien = orDisponibleAvantCommerce - coutCommerce;
   const wyrdstoneDisponiblePourEntretien = Math.max(
@@ -674,8 +725,6 @@ export function PostBatailleScreen() {
   };
 
   const terminer = async () => {
-    const tresorerieApres =
-      roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus - coutCommerce;
     const groupesHCIds = new Set(groupesHC.map((m) => m.instance_id));
 
     // Journalisation des guerriers restés au camp car Blessé (voir la
@@ -1072,6 +1121,7 @@ export function PostBatailleScreen() {
           entretienMalepierre={entretienMalepierre}
           blessuresTresorerieBonus={blessuresTresorerieBonus}
           coutCommerce={coutCommerce}
+          tresorerieApres={tresorerieApres}
           tresorerieInitiale={tresorerieInitialeRef.current ?? roster.tresorerie}
           journalOr={journalOr}
           francTireursPayesCount={lignesEntretien.filter(

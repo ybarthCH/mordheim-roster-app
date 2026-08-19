@@ -18,6 +18,11 @@ type EtapeResumeProps = {
   entretienMalepierre: number;
   blessuresTresorerieBonus: number;
   coutCommerce: number;
+  // Calculée une seule fois dans PostBatailleScreen (même formule que
+  // terminer(), qui l'applique réellement à la bande) plutôt que refaite ici
+  // à partir des mêmes ingrédients — évite toute divergence entre l'aperçu
+  // affiché et le montant réellement enregistré.
+  tresorerieApres: number;
   // Trésorerie au tout début de l'assistant (voir tresorerieInitialeRef dans
   // PostBatailleScreen) — distincte de roster.tresorerie, déjà mutée en
   // direct par la récompense de scénario et les événements d'exploration à
@@ -53,6 +58,7 @@ export function EtapeResume({
   entretienMalepierre,
   blessuresTresorerieBonus,
   coutCommerce,
+  tresorerieApres,
   tresorerieInitiale,
   journalOr,
   francTireursPayesCount,
@@ -68,7 +74,6 @@ export function EtapeResume({
   avancesResolues,
 }: EtapeResumeProps) {
   const { t } = useLanguage();
-  const tresorerieApres = roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus - coutCommerce;
   const lignesTresorerie = [
     ...journalOr,
     prixVente > 0 && { label: t('resume.wyrdstoneSale'), montant: prixVente },

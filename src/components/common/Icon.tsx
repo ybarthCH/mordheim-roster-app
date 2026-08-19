@@ -3,6 +3,7 @@
 // importé (dont le style bold/plein jurerait avec le rendu manuscrit).
 // currentColor partout : suit la couleur du texte parent, donc le thème
 // clair/sombre sans configuration supplémentaire.
+import { memo } from 'react';
 import type { CSSProperties } from 'react';
 
 // Icônes peintes du pack UI acheté — utilisées ponctuellement là où l'asset
@@ -221,7 +222,11 @@ type Props = {
   title?: string;
 };
 
-export function Icon({ name, size = '1em', style, className, title }: Props) {
+// memo : Icon est utilisé partout dans l'appli (listes de membres, badges de
+// règles spéciales, boutons...) avec des props le plus souvent stables — sans
+// ça, chaque re-rendu d'une liste parente (ex : une frappe dans un champ de
+// la fiche personnage) re-rend aussi chaque icône qu'elle contient.
+export const Icon = memo(function Icon({ name, size = '1em', style, className, title }: Props) {
   if (isPackIconName(name)) {
     return (
       <img
@@ -276,4 +281,4 @@ export function Icon({ name, size = '1em', style, className, title }: Props) {
       )}
     </svg>
   );
-}
+});
