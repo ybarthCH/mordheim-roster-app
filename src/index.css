@@ -343,6 +343,15 @@ button {
   width: 100%;
   margin: 0 auto;
 }
+/* Sur téléphone, la marge desktop (pensée pour dégager la scrollbar native)
+   n'a plus lieu d'être : elle ne fait que retirer de la largeur utile aux
+   cartes, déjà à l'étroit sur un petit écran. */
+@media (max-width: 480px) {
+  .app-main {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+  }
+}
 /* Le mode deux volets (roster + fiche) reste comprimé par le même plafond
    que le reste de l'appli sur un grand écran — sous-exploite l'espace
    disponible alors que c'est justement là qu'il sert le plus (comparer
@@ -426,17 +435,50 @@ button {
     border-image-slice: 16% fill;
     border-image-source: url('/decor/card-panel-titlebar-stone.webp');
   }
-  
-  
+
+
 }
-/* Carte résumé de bande (ressources) : asset panel_10 dédié, avec son
-   propre liseré lumineux — toujours affiché à taille pleine (jamais
-   remplacé par panel_titlebar_10), donc redéclaré après la règle @container
-   ci-dessus pour gagner sur la cascade (même spécificité, ordre de
-   déclaration). */
-:root[data-theme='dark'][data-palette='rouge'] .card--summary {
-  border-image-source: url('/decor/card-panel-summary-stone.webp');
+
+/* Cartes uniques (une seule par écran, jamais répétées) : panel_titlebar_10,
+   plus compact, à la place du grand panel_10 par défaut — réservé à
+   l'armurerie et aux règles spéciales (voir ArmurerieSection/RosterScreen)
+   pour les distinguer des unités/entrées répétées sous elles, qui gardent
+   le grand panneau (voir .member-cards .list-item / .historique-liste
+   .list-item plus bas). Choix explicite, indépendant de la largeur du
+   conteneur — contrairement au repli @container ci-dessus. */
+:root[data-theme='dark'][data-palette='rouge'] .card--titlebar {
+  border-width: 14px;
+  border-image-slice: 16% fill;
+  border-image-source: url('/decor/card-panel-titlebar-stone.webp');
 }
+
+/* Cartes de groupe du roster (Héros, Hommes de main, Francs-tireurs...) :
+   redescendent volontairement sur l'habillage plat de .card d'avant le
+   panneau de pierre — voir MemberGroupCard, qui donne désormais ce panneau
+   à chaque carte de figurine individuelle à la place (voir .member-cards
+   .list-item plus bas). Un seul niveau de cadre peint à la fois est plus
+   lisible que le cadre-dans-le-cadre. Padding latéral réduit pour laisser
+   les cartes de figurines s'étendre davantage en largeur — l'essentiel de
+   l'air visuel se joue maintenant à l'intérieur de chaque carte, pas
+   autour du groupe. */
+:root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card {
+  background-color: var(--bg-card);
+  background-image: var(--texture-parchemin);
+  background-blend-mode: overlay;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--border);
+  border-image-source: none;
+  box-shadow: var(--shadow);
+  padding: 0.6rem 0.5rem;
+}
+:root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card::before {
+  content: '';
+}
+/* Carte résumé de bande (nom + 4 ressources) : carte unique au même titre
+   que l'armurerie et les règles spéciales ci-dessus, donc même cadre
+   compact panel_titlebar_10 plutôt que son ancien asset panel_10 dédié
+   (voir RosterSummaryCard, className card--titlebar). */
 
 /* Illustration bannière de la bande, écran de sélection des bandes
    (ListeBandesScreen) : véritable fond de carte (background-image posée en
@@ -1073,6 +1115,19 @@ button {
 .drag-handle--discret:active {
   opacity: 1;
 }
+/* Sur la carte mobile (voir MemberGroupCard) : à côté du bouton de
+   suppression dans .list-item__title-actions, lui-même dans
+   .list-item__statut-suppression — plus dans sa propre colonne dédiée devant
+   .list-item__row. Opacité et taille remontées : à 0.4 il devenait quasi
+   invisible au repos une fois sorti de cette colonne. */
+.drag-handle--titre {
+  width: 1.3rem;
+  height: 1.3rem;
+  opacity: 0.6;
+}
+.drag-handle--titre:active {
+  opacity: 1;
+}
 .roster-table__poignee-cell {
   width: 1.6rem;
   padding-left: 0.4rem !important;
@@ -1471,7 +1526,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 6px 10px;
+  padding: 5px 8px;
   background: var(--status-plaque-fill);
   border: 1px solid #7a6b5d;
   border-radius: 3px;
@@ -1945,6 +2000,27 @@ button {
   touch-action: manipulation;
   transition: background-color 0.1s ease;
 }
+/* Carte de figurine du roster (Héros, Hommes de main...) : cadre pierre
+   peint du pack UI, à la place du simple encart 1px — voir le commentaire
+   sur .roster-groupe-card plus haut (le cadre de groupe qui contenait ces
+   cartes est redescendu sur l'habillage plat en échange). Panel_10 (le
+   grand panneau, même asset que .card par défaut) plutôt que panel_titlebar_10
+   : réservé aux cartes uniques (armurerie, règles spéciales — voir
+   .card--titlebar) ; toute unité/entrée répétée sous les règles spéciales
+   (figurines, historique de batailles...) prend ce panneau-ci. Padding
+   gauche augmenté pour le même motif que .list-item--bande : le liseré peint
+   longe tout le bord intérieur du cadre. */
+:root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item,
+:root[data-theme='dark'][data-palette='rouge'] .historique-liste .list-item {
+  background-image: none;
+  border-style: solid;
+  border-width: 20px;
+  border-image-repeat: stretch;
+  border-image-slice: 10% fill;
+  border-image-source: url('/decor/card-panel-stone.webp');
+  box-shadow: none;
+  padding: 0.4rem 0.6rem 0.4rem 1.1rem;
+}
 /* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
    peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de
    .list-item — même traitement compact que .card en colonne étroite (voir
@@ -1965,11 +2041,12 @@ button {
   border-image-source: url('/decor/card-panel-titlebar-stone.webp');
 }
 
-/* Rangée principale (nom + statut + suppression) : flex sibling du
-   drag-handle, elle occupe toute la largeur restante. Le bloc d'infos
-   secondaires (.list-item__details, ci-dessous) est un AUTRE flex sibling
-   forcé en pleine largeur pour toujours passer à la ligne suivante plutôt
-   que de se comprimer contre les boutons d'action sur un format étroit. */
+/* Rangée principale (nom + statut + suppression), seul flex sibling direct
+   de .list-item (le drag-handle vit désormais dans .list-item__title, voir
+   MemberGroupCard). Le bloc d'infos secondaires (.list-item__details,
+   ci-dessous) est un AUTRE flex sibling forcé en pleine largeur pour
+   toujours passer à la ligne suivante plutôt que de se comprimer contre les
+   boutons d'action sur un format étroit. */
 .list-item__row {
   display: flex;
   /* flex-wrap, pas nowrap : dans une colonne de liste étroite (volet liste
@@ -2010,14 +2087,21 @@ button {
 .list-item__row > :not(.list-item__main) {
   flex-shrink: 0;
 }
-/* Statut + suppression : un seul flex item groupant les deux (voir
-   MemberGroupCard), pour que flex-wrap sur .list-item__row les fasse passer
-   à la ligne ensemble plutôt que de laisser le statut sur la ligne du nom et
-   la suppression seule, orpheline, sur la ligne suivante. */
+/* Statut + suppression + poignée de drag (voir MemberGroupCard) : un seul
+   flex item groupant les trois, toujours sur la même ligne — alignés (voir
+   .list-item__row > :not(.list-item__main) ci-dessus : passent à la ligne
+   ensemble si la carte est trop étroite pour tout tenir, jamais séparément).
+   flex-basis 100% : toujours sa propre ligne pleine largeur sous le nom
+   (jamais accolée à un nom court comme "Sergeant"), pour que
+   justify-content dissocie franchement le sceau de statut (gauche) de la
+   paire croix/poignée (voir .list-item__title-actions plus bas), poussée
+   dans le coin droit de cette ligne plutôt que juste espacée d'un gap fixe. */
 .list-item__statut-suppression {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  justify-content: space-between;
+  gap: 0.7rem;
+  flex-basis: 100%;
 }
 .list-item__title {
   font-weight: 700;
@@ -2042,12 +2126,19 @@ button {
   min-width: 3em;
   flex: 1 1 auto;
 }
+/* Suppression + poignée de drag, groupées serrées l'une contre l'autre (la
+   paire elle-même) à l'intérieur de .list-item__statut-suppression, qui leur
+   donne son gap généreux avec le sceau de statut juste avant. */
+.list-item__title-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
 .list-item__details {
   flex-basis: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
-  margin-left: calc(1.1rem + 0.7rem);
 }
 .list-item__subtitle {
   font-size: 0.82rem;

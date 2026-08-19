@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { useTheme } from '../../state/useTheme';
 import { useGameRules } from '../../state/useGameRules';
@@ -11,6 +12,7 @@ const THEMES = [
 ] as const;
 
 export function ReglagesScreen() {
+  const navigate = useNavigate();
   const { theme, setTheme } = useTheme();
   const { rules, setRule } = useGameRules();
   const { actif: ecranActif, setActif: setEcranActif, supporte: ecranActifSupporte } = useWakeLock();
@@ -143,6 +145,19 @@ export function ReglagesScreen() {
           {t('reglages.privacyPolicy')}
         </a>
       </div>
+
+      {/* Les réglages sont déjà enregistrés en direct à chaque changement —
+          ce bouton n'enregistre rien de plus. Il existe purement pour
+          rassurer l'utilisateur sur ce point et lui offrir un point de
+          sortie explicite et cohérent avec le reste de l'app, plutôt que de
+          devoir remonter jusqu'au petit chevron < de l'en-tête. */}
+      <button
+        type="button"
+        className="btn--pack-pill-sm btn--pack-pill-sm--primary btn--block"
+        onClick={() => navigate(-1)}
+      >
+        {t('reglages.saveAndBack')}
+      </button>
     </Screen>
   );
 }

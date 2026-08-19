@@ -53,4 +53,5 @@ export const reglagesScreen: UiDictionary = {
   },
   'reglages.about': { fr: 'À propos', en: 'About' },
   'reglages.privacyPolicy': { fr: 'Politique de confidentialité', en: 'Privacy Policy' },
+  'reglages.saveAndBack': { fr: 'Enregistrer et revenir en arrière', en: 'Save and go back' },
 };

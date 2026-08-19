@@ -414,6 +414,7 @@ export function RosterScreen({
       {catalogue && catalogue.regles_speciales.length > 0 && (
         <CollapsibleCard
           preferenceKey="ui.roster.regles_speciales.ouvert"
+          className="card card--tight card--titlebar"
           title={
             <>
               <Icon name="grimoirePack" style={{ marginRight: '0.35em' }} />

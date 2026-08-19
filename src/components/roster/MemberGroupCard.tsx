@@ -154,6 +154,7 @@ export function MemberGroupCard({
   return (
     <CollapsibleCard
       preferenceKey={preferenceKey}
+      className="card card--tight roster-groupe-card"
       title={
         <>
           <Icon name={icone} style={{ marginRight: '0.35em' }} />
@@ -351,14 +352,6 @@ export function MemberGroupCard({
               role="button"
               onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
             >
-              <span
-                className="drag-handle drag-handle--discret"
-                onPointerDown={demarrerDrag(m.instance_id)}
-                onClick={(e) => e.stopPropagation()}
-                title={t('memberGroup.dragHandle')}
-              >
-                <Icon name="poignee" size="0.7em" />
-              </span>
               <div className="list-item__row">
                 <div className="list-item__main">
                   <div className="list-item__title">
@@ -377,13 +370,10 @@ export function MemberGroupCard({
                     )}
                   </div>
                 </div>
-                {/* Statut + suppression regroupés dans un seul enfant flex de
-                    .list-item__row (au lieu de deux flex siblings distincts) :
-                    sinon flex-wrap pouvait laisser le bouton de statut sur la
-                    ligne du nom tout en renvoyant la suppression seule sur la
-                    ligne suivante dès que le nom (badges Chef/avancée compris)
-                    ne laissait plus assez de place pour les deux — la paire
-                    passe maintenant à la ligne ensemble ou reste ensemble. */}
+                {/* Statut + suppression + poignée de drag regroupés : un seul
+                    flex item, toujours sur la même ligne en haut de la carte,
+                    aligné avec le nom — voir .list-item__row plus bas pour le
+                    wrap si la ligne ne tient pas tout entière. */}
                 <div className="list-item__statut-suppression">
                   {groupeSimplifie ? (
                     <button
@@ -430,16 +420,26 @@ export function MemberGroupCard({
                       <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
                     </button>
                   )}
-                  <button
-                    className="btn--ghost-danger"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSupprimer(m);
-                    }}
-                    title={t('memberGroup.removeTitle')}
-                  >
-                    <Icon name="croixPack" />
-                  </button>
+                  <span className="list-item__title-actions">
+                    <button
+                      className="btn--ghost-danger"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onSupprimer(m);
+                      }}
+                      title={t('memberGroup.removeTitle')}
+                    >
+                      <Icon name="croixPack" />
+                    </button>
+                    <span
+                      className="drag-handle drag-handle--discret drag-handle--titre"
+                      onPointerDown={demarrerDrag(m.instance_id)}
+                      onClick={(e) => e.stopPropagation()}
+                      title={t('memberGroup.dragHandle')}
+                    >
+                      <Icon name="poignee" size="0.85em" />
+                    </span>
+                  </span>
                 </div>
               </div>
               <div className="list-item__details">
