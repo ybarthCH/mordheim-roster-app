@@ -1167,10 +1167,19 @@ export function PostBatailleScreen() {
         >
           {t('postBatailleScreen.previous')}
         </button>
-        {etape === indexCommerce && herosCommerce.some((hero) => !commerceDrafts[hero.membre.instance_id]) && (
+        {etape === indexCommerce && (
           <button
             type="button"
             className="btn--pack-pill-sm"
+            // Toujours monté (juste désactivé une fois tous les Héros
+            // traités) plutôt que retiré du DOM : le faire disparaître
+            // décalait le bouton "Suivant" (à sa droite) exactement à sa
+            // place, si bien qu'un clic immédiatement après "Tout passer"
+            // — un double-clic réflexe, ou un doigt encore posé sur un
+            // écran tactile — atterrissait sur "Suivant" désormais activé
+            // et donnait l'impression que "Tout passer" validait lui-même
+            // l'étape.
+            disabled={!herosCommerce.some((hero) => !commerceDrafts[hero.membre.instance_id])}
             onClick={() => {
               setCommerceDrafts((precedents) => {
                 const suivants = { ...precedents };

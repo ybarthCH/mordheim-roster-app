@@ -1116,10 +1116,10 @@ button {
   opacity: 1;
 }
 /* Sur la carte mobile (voir MemberGroupCard) : à côté du bouton de
-   suppression dans .list-item__title-actions, lui-même dans
-   .list-item__statut-suppression — plus dans sa propre colonne dédiée devant
-   .list-item__row. Opacité et taille remontées : à 0.4 il devenait quasi
-   invisible au repos une fois sorti de cette colonne. */
+   suppression dans .list-item__title-actions, ancré au coin supérieur droit
+   de la carte — plus dans sa propre colonne dédiée devant .list-item__row.
+   Opacité et taille remontées : à 0.4 il devenait quasi invisible au repos
+   une fois sorti de cette colonne. */
 .drag-handle--titre {
   width: 1.3rem;
   height: 1.3rem;
@@ -2000,6 +2000,14 @@ button {
   touch-action: manipulation;
   transition: background-color 0.1s ease;
 }
+/* Positioned ancestor pour .list-item__title-actions (croix de suppression +
+   poignée de drag), ancrées en absolu dans ce coin — voir plus bas. Padding
+   réservé sur toute la hauteur de la carte pour que le texte du titre (nom,
+   badge Chef) ne passe jamais dessous. */
+.member-cards .list-item {
+  position: relative;
+  padding-right: 3.4rem;
+}
 /* Carte de figurine du roster (Héros, Hommes de main...) : cadre pierre
    peint du pack UI, à la place du simple encart 1px — voir le commentaire
    sur .roster-groupe-card plus haut (le cadre de groupe qui contenait ces
@@ -2020,6 +2028,14 @@ button {
   border-image-source: url('/decor/card-panel-stone.webp');
   box-shadow: none;
   padding: 0.4rem 0.6rem 0.4rem 1.1rem;
+}
+/* Le raccourci padding ci-dessus (spécificité égale, déclaré après la règle
+   de base .member-cards .list-item) écraserait sinon son padding-right
+   réservé pour .list-item__title-actions — .historique-liste, qui n'a pas
+   cette croix/poignée ancrées, n'a pas besoin de cette marge et n'est donc
+   pas concerné ici. */
+:root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item {
+  padding-right: 3.4rem;
 }
 /* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
    peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de
@@ -2087,20 +2103,15 @@ button {
 .list-item__row > :not(.list-item__main) {
   flex-shrink: 0;
 }
-/* Statut + suppression + poignée de drag (voir MemberGroupCard) : un seul
-   flex item groupant les trois, toujours sur la même ligne — alignés (voir
-   .list-item__row > :not(.list-item__main) ci-dessus : passent à la ligne
-   ensemble si la carte est trop étroite pour tout tenir, jamais séparément).
-   flex-basis 100% : toujours sa propre ligne pleine largeur sous le nom
-   (jamais accolée à un nom court comme "Sergeant"), pour que
-   justify-content dissocie franchement le sceau de statut (gauche) de la
-   paire croix/poignée (voir .list-item__title-actions plus bas), poussée
-   dans le coin droit de cette ligne plutôt que juste espacée d'un gap fixe. */
+/* Statut + badge "avancée en attente" (voir MemberGroupCard) : toujours sur
+   leur propre ligne pleine largeur sous le nom (flex-basis 100%), jamais
+   accolés à un nom court comme "Sergeant" — la croix de suppression et la
+   poignée de drag n'y vivent plus, voir .list-item__title-actions plus bas
+   (ancrées au coin supérieur droit de la carte, dans le titre). */
 .list-item__statut-suppression {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.7rem;
+  gap: 0.5rem;
   flex-basis: 100%;
 }
 .list-item__title {
@@ -2115,21 +2126,31 @@ button {
 /* Le nom lui-même tronque avec des points de suspension plutôt que de
    passer sur plusieurs lignes : un nom saisi à la recruitment (limité à 20
    caractères, voir maxLength des champs de saisie) reste lisible sur une
-   seule ligne même dans une colonne étroite, et les badges (Chef, avancée
-   en attente) — voir .list-item__title ci-dessus — gardent une largeur
-   fixe à côté plutôt que d'être repoussés par un nom qui s'étale sur
-   plusieurs lignes. */
+   seule ligne même dans une colonne étroite. Pas de flex-grow (flex: 0 1
+   auto par défaut) : avec flex-grow, le nom s'étirait pour occuper toute la
+   largeur disponible du titre même quand le texte visible était court,
+   repoussant le badge Chef loin du nom au lieu de le laisser lui coller —
+   voir MemberCardMobile (MemberGroupCard.tsx) pour le cas où le badge Chef
+   ne tient quand même pas et rejoint la ligne de statut. */
 .list-item__title-name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   min-width: 3em;
-  flex: 1 1 auto;
+  flex-shrink: 1;
 }
-/* Suppression + poignée de drag, groupées serrées l'une contre l'autre (la
-   paire elle-même) à l'intérieur de .list-item__statut-suppression, qui leur
-   donne son gap généreux avec le sceau de statut juste avant. */
+/* Suppression + poignée de drag, ancrées dans le coin supérieur droit de la
+   carte mobile (voir MemberGroupCard), plutôt que suivies dans le flux du
+   titre — sinon le badge Chef et surtout le badge "avancée en attente"
+   pouvaient les repousser sous le nom, loin du coin réel de la carte. Position
+   absolue (même motif que .list-item--bande__poignee plus haut) : ancrées au
+   coin quel que soit ce que fait le titre. Le padding-right réservé sur
+   .member-cards .list-item (plus haut) empêche le texte de passer dessous. */
 .list-item__title-actions {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: 0.2rem;

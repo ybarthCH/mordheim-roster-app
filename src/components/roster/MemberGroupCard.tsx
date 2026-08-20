@@ -1,4 +1,5 @@
-import { Fragment, useMemo } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import type { PointerEvent as ReactPointerEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
@@ -15,6 +16,7 @@ import type { WarbandCatalog } from '../../types/catalog';
 import { STAT_KEYS } from '../../types/catalog';
 import { getFrancTireur } from '../../data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
+import type { Language } from '../../state/useLanguage';
 import { getItem } from '../../data/items';
 import { translateItem } from '../../i18n/data/items';
 import { libelleCaracteristique } from '../../utils/stats';
@@ -34,6 +36,232 @@ const STATUT_ICONE: Partial<Record<string, IconName | PackIconName>> = {
   mort: 'crane',
   blesse: 'goutte',
 };
+
+type MemberCardMobileProps = {
+  m: Member;
+  profil: Profile | undefined;
+  equipement: string;
+  blessures: string | null;
+  groupeSimplifie: boolean;
+  leader: boolean;
+  avanceEnAttente: boolean;
+  fantome: boolean;
+  selectionne: boolean;
+  masquerProfil?: boolean;
+  language: Language;
+  t: (key: string, params?: Record<string, string | number>) => string;
+  cardRef: (el: HTMLDivElement | null) => void;
+  onSelect: () => void;
+  onSupprimer: () => void;
+  onBasculerHorsCombat: () => void;
+  onDragPointerDown: (e: ReactPointerEvent) => void;
+  titreHorsCombatTexte: string;
+};
+
+// Carte mobile d'une figurine. Composant à part (et non plus une fonction
+// inline dans le .map de MemberGroupCard) car le badge Chef a besoin d'un
+// hook de mesure par figurine : par défaut il reste accolé au nom dans le
+// titre (ligne 1), mais si le nom est trop long pour lui laisser la place,
+// il rejoint la ligne de statut (ligne 2) plutôt que de forcer un retour à
+// la ligne disgracieux à l'intérieur du titre.
+function MemberCardMobile({
+  m,
+  profil,
+  equipement,
+  blessures,
+  groupeSimplifie,
+  leader,
+  avanceEnAttente,
+  fantome,
+  selectionne,
+  masquerProfil,
+  language,
+  t,
+  cardRef,
+  onSelect,
+  onSupprimer,
+  onBasculerHorsCombat,
+  onDragPointerDown,
+  titreHorsCombatTexte,
+}: MemberCardMobileProps) {
+  const titreRef = useRef<HTMLDivElement>(null);
+  const nomRef = useRef<HTMLSpanElement>(null);
+  const chefRef = useRef<HTMLSpanElement>(null);
+  const [chefDansTitre, setChefDansTitre] = useState(true);
+  // Compteur de "nouvelle tentative" : incrémenté à chaque redimensionnement
+  // réel du titre (voir ResizeObserver ci-dessous), pour forcer une nouvelle
+  // mesure. Volontairement distinct de chefDansTitre lui-même — si l'effet
+  // de mesure dépendait de sa propre sortie (chefDansTitre), corriger le
+  // placement déclencherait l'effet à nouveau indéfiniment.
+  const [mesureTick, setMesureTick] = useState(0);
+
+  useEffect(() => {
+    if (!leader) return;
+    const titre = titreRef.current;
+    if (!titre) return;
+    const ro = new ResizeObserver(() => {
+      setChefDansTitre(true);
+      setMesureTick((n) => n + 1);
+    });
+    ro.observe(titre);
+    return () => ro.disconnect();
+  }, [leader]);
+
+  useLayoutEffect(() => {
+    if (!leader) return;
+    const nom = nomRef.current;
+    const chef = chefRef.current;
+    // Chef pas actuellement rendu dans le titre (déjà relogé en ligne 2) :
+    // rien à (re-)mesurer cette passe, on attend le prochain resize réel.
+    if (!nom || !chef) return;
+    // Chevauchement vertical des rectangles plutôt que comparaison directe
+    // d'offsetTop : avec align-items:baseline, le nom (1.05rem) et le badge
+    // Chef (0.72rem) n'ont pas le même offsetTop même accolés sur la même
+    // ligne (leur ligne de base commune n'aligne pas leurs bords hauts). Sur
+    // la même ligne, leurs rectangles se chevauchent forcément verticalement
+    // ; passé à la ligne suivante, le badge démarre au niveau ou après le
+    // bas du nom, donc plus aucun chevauchement.
+    const nomRect = nom.getBoundingClientRect();
+    const chefRect = chef.getBoundingClientRect();
+    const memeLigne = chefRect.top < nomRect.bottom && nomRect.top < chefRect.bottom;
+    if (!memeLigne) setChefDansTitre(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [leader, nomAffiche(m), mesureTick]);
+
+  const chefBadge = (
+    <span ref={chefRef} className="badge badge--leader" title={t('memberGroup.leaderTitle')}>
+      {t('memberGroup.leader')}
+    </span>
+  );
+
+  return (
+    <div
+      ref={cardRef}
+      className={`list-item${fantome ? ' list-item--fantome' : ''}${selectionne ? ' list-item--selectionne' : ''}`}
+      role="button"
+      onClick={onSelect}
+    >
+      <div className="list-item__row">
+        <div className="list-item__main">
+          <div className="list-item__title" ref={titreRef}>
+            <span ref={nomRef} className="list-item__title-name" title={nomAffiche(m)}>
+              {nomAffiche(m)}
+            </span>
+            {leader && chefDansTitre && chefBadge}
+            {/* Ancrées au coin supérieur droit de la carte (position
+                absolue, voir .list-item__title-actions) : toujours ici
+                quel que soit le nom/badge Chef, qui passe simplement à
+                la ligne en dessous s'il n'a plus la place. */}
+            <span className="list-item__title-actions">
+              <button
+                className="btn--ghost-danger"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSupprimer();
+                }}
+                title={t('memberGroup.removeTitle')}
+              >
+                <Icon name="croixPack" />
+              </button>
+              <span
+                className="drag-handle drag-handle--discret drag-handle--titre"
+                onPointerDown={onDragPointerDown}
+                onClick={(e) => e.stopPropagation()}
+                title={t('memberGroup.dragHandle')}
+              >
+                <Icon name="poignee" size="0.85em" />
+              </span>
+            </span>
+          </div>
+        </div>
+        {/* Statut + suppression : toujours sur leur propre ligne, sous le
+            titre — voir .list-item__row plus bas. Le badge Chef les rejoint
+            ici quand il ne tient plus à côté du nom (voir chefDansTitre). */}
+        <div className="list-item__statut-suppression">
+          {leader && !chefDansTitre && chefBadge}
+          {groupeSimplifie ? (
+            <button
+              type="button"
+              className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onBasculerHorsCombat();
+              }}
+              title={titreHorsCombatTexte}
+              aria-label={titreHorsCombatTexte}
+            >
+              <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
+              <span className="status-switch__label">
+                {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
+              </span>
+            </button>
+          ) : m.statut === 'mort' ? (
+            <span
+              className={`status-switch status-switch--${STATUT_COULEUR[m.statut]} status-switch--badge`}
+              title={t('memberGroup.deadStatusHint')}
+            >
+              {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
+              <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
+            </span>
+          ) : (
+            <button
+              type="button"
+              className={`status-plaque${m.statut === 'actif' ? ' status-plaque--actif' : ''}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onBasculerHorsCombat();
+              }}
+              title={titreHorsCombatTexte}
+              aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombatTexte}`}
+            >
+              <span className="status-plaque__switch">
+                <span className="status-plaque__switch-track" />
+                <span className="status-plaque__switch-knob">
+                  <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--green" />
+                  <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--red" />
+                </span>
+              </span>
+              <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
+            </button>
+          )}
+          {avanceEnAttente && (
+            <span className="badge badge--pending" title={t('memberGroup.pendingAdvance')}>
+              {t('memberGroup.pendingAdvance')}
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="list-item__details">
+        <div className="list-item__subtitle">
+          {!masquerProfil && profil?.nom ? `${profil.nom} · ` : ''}XP {m.xp}
+        </div>
+        <div className="stat-grid" style={{ margin: '0.5rem 0' }}>
+          {STAT_KEYS.map((k) => (
+            <div key={`lbl-${k}`} className="stat-grid__cell stat-grid__cell--label">
+              {libelleCaracteristique(k, language)}
+            </div>
+          ))}
+          {STAT_KEYS.map((k) => (
+            <div key={`val-${k}`} className="stat-grid__cell stat-grid__cell--value">
+              {m.stats_variables?.[k] ?? m.stats_actuels[k]}
+            </div>
+          ))}
+        </div>
+        <div className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
+          {equipement}
+        </div>
+        {blessures && <div className="text-sm text-danger">{blessures}</div>}
+        {inventaireGroupeMismatch(m) && (
+          <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.15rem' }}>
+            <span className="badge badge--equipment-warning" title={t('memberGroup.equipmentMismatchTitle')}>
+              ⚠ {t('memberGroup.equipmentMismatchBadge')}
+            </span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 type MemberGroupCardProps = {
   titre: string;
@@ -343,136 +571,29 @@ export function MemberGroupCard({
       </div>
 
       <div className="member-cards">
-        {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente }) => {
-          return (
-            <div
-              key={m.instance_id}
-              ref={refItem('card', m.instance_id)}
-              className={`list-item${idEnCours === m.instance_id ? ' list-item--fantome' : ''}${m.instance_id === selectedInstanceId ? ' list-item--selectionne' : ''}`}
-              role="button"
-              onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
-            >
-              <div className="list-item__row">
-                <div className="list-item__main">
-                  <div className="list-item__title">
-                    <span className="list-item__title-name" title={nomAffiche(m)}>
-                      {nomAffiche(m)}
-                    </span>
-                    {leader && (
-                      <span className="badge badge--leader" title={t('memberGroup.leaderTitle')}>
-                        {t('memberGroup.leader')}
-                      </span>
-                    )}
-                    {avanceEnAttente && (
-                      <span className="badge badge--pending" title={t('memberGroup.pendingAdvance')}>
-                        {t('memberGroup.pendingAdvance')}
-                      </span>
-                    )}
-                  </div>
-                </div>
-                {/* Statut + suppression + poignée de drag regroupés : un seul
-                    flex item, toujours sur la même ligne en haut de la carte,
-                    aligné avec le nom — voir .list-item__row plus bas pour le
-                    wrap si la ligne ne tient pas tout entière. */}
-                <div className="list-item__statut-suppression">
-                  {groupeSimplifie ? (
-                    <button
-                      type="button"
-                      className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onBasculerHorsCombat(m);
-                      }}
-                      title={titreHorsCombat(m, groupeSimplifie)}
-                      aria-label={titreHorsCombat(m, groupeSimplifie)}
-                    >
-                      <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
-                      <span className="status-switch__label">
-                        {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
-                      </span>
-                    </button>
-                  ) : m.statut === 'mort' ? (
-                    <span
-                      className={`status-switch status-switch--${STATUT_COULEUR[m.statut]} status-switch--badge`}
-                      title={t('memberGroup.deadStatusHint')}
-                    >
-                      {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                      <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
-                    </span>
-                  ) : (
-                    <button
-                      type="button"
-                      className={`status-plaque${m.statut === 'actif' ? ' status-plaque--actif' : ''}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onBasculerHorsCombat(m);
-                      }}
-                      title={titreHorsCombat(m, groupeSimplifie)}
-                      aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m, groupeSimplifie)}`}
-                    >
-                      <span className="status-plaque__switch">
-                        <span className="status-plaque__switch-track" />
-                        <span className="status-plaque__switch-knob">
-                          <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--green" />
-                          <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--red" />
-                        </span>
-                      </span>
-                      <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
-                    </button>
-                  )}
-                  <span className="list-item__title-actions">
-                    <button
-                      className="btn--ghost-danger"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onSupprimer(m);
-                      }}
-                      title={t('memberGroup.removeTitle')}
-                    >
-                      <Icon name="croixPack" />
-                    </button>
-                    <span
-                      className="drag-handle drag-handle--discret drag-handle--titre"
-                      onPointerDown={demarrerDrag(m.instance_id)}
-                      onClick={(e) => e.stopPropagation()}
-                      title={t('memberGroup.dragHandle')}
-                    >
-                      <Icon name="poignee" size="0.85em" />
-                    </span>
-                  </span>
-                </div>
-              </div>
-              <div className="list-item__details">
-                <div className="list-item__subtitle">
-                  {!masquerProfil && profil?.nom ? `${profil.nom} · ` : ''}XP {m.xp}
-                </div>
-                <div className="stat-grid" style={{ margin: '0.5rem 0' }}>
-                  {STAT_KEYS.map((k) => (
-                    <div key={`lbl-${k}`} className="stat-grid__cell stat-grid__cell--label">
-                      {libelleCaracteristique(k, language)}
-                    </div>
-                  ))}
-                  {STAT_KEYS.map((k) => (
-                    <div key={`val-${k}`} className="stat-grid__cell stat-grid__cell--value">
-                      {m.stats_variables?.[k] ?? m.stats_actuels[k]}
-                    </div>
-                  ))}
-                </div>
-                <div className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
-                  {equipement}
-                </div>
-                {blessures && <div className="text-sm text-danger">{blessures}</div>}
-                {inventaireGroupeMismatch(m) && (
-                  <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.15rem' }}>
-                    <span className="badge badge--equipment-warning" title={t('memberGroup.equipmentMismatchTitle')}>
-                      ⚠ {t('memberGroup.equipmentMismatchBadge')}
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
-          );
-        })}
+        {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente }) => (
+          <MemberCardMobile
+            key={m.instance_id}
+            m={m}
+            profil={profil}
+            equipement={equipement}
+            blessures={blessures}
+            groupeSimplifie={groupeSimplifie}
+            leader={leader}
+            avanceEnAttente={avanceEnAttente}
+            fantome={idEnCours === m.instance_id}
+            selectionne={m.instance_id === selectedInstanceId}
+            masquerProfil={masquerProfil}
+            language={language}
+            t={t}
+            cardRef={refItem('card', m.instance_id)}
+            onSelect={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
+            onSupprimer={() => onSupprimer(m)}
+            onBasculerHorsCombat={() => onBasculerHorsCombat(m)}
+            onDragPointerDown={demarrerDrag(m.instance_id)}
+            titreHorsCombatTexte={titreHorsCombat(m, groupeSimplifie)}
+          />
+        ))}
       </div>
 
       {membres.length === 0 && <p className="text-muted">{t('memberGroup.noMembers')}</p>}
