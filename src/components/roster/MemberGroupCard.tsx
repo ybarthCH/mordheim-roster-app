@@ -363,17 +363,34 @@ export function MemberGroupCard({
                         {t('memberGroup.leader')}
                       </span>
                     )}
-                    {avanceEnAttente && (
-                      <span className="badge badge--pending" title={t('memberGroup.pendingAdvance')}>
-                        {t('memberGroup.pendingAdvance')}
+                    {/* Ancrées au coin supérieur droit de la carte (position
+                        absolue, voir .list-item__title-actions) : toujours ici
+                        quel que soit le nom/badge Chef, qui passe simplement à
+                        la ligne en dessous s'il n'a plus la place. */}
+                    <span className="list-item__title-actions">
+                      <button
+                        className="btn--ghost-danger"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSupprimer(m);
+                        }}
+                        title={t('memberGroup.removeTitle')}
+                      >
+                        <Icon name="croixPack" />
+                      </button>
+                      <span
+                        className="drag-handle drag-handle--discret drag-handle--titre"
+                        onPointerDown={demarrerDrag(m.instance_id)}
+                        onClick={(e) => e.stopPropagation()}
+                        title={t('memberGroup.dragHandle')}
+                      >
+                        <Icon name="poignee" size="0.85em" />
                       </span>
-                    )}
+                    </span>
                   </div>
                 </div>
-                {/* Statut + suppression + poignée de drag regroupés : un seul
-                    flex item, toujours sur la même ligne en haut de la carte,
-                    aligné avec le nom — voir .list-item__row plus bas pour le
-                    wrap si la ligne ne tient pas tout entière. */}
+                {/* Statut + avancée en attente : toujours sur leur propre
+                    ligne, sous le titre — voir .list-item__row plus bas. */}
                 <div className="list-item__statut-suppression">
                   {groupeSimplifie ? (
                     <button
@@ -420,26 +437,11 @@ export function MemberGroupCard({
                       <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
                     </button>
                   )}
-                  <span className="list-item__title-actions">
-                    <button
-                      className="btn--ghost-danger"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onSupprimer(m);
-                      }}
-                      title={t('memberGroup.removeTitle')}
-                    >
-                      <Icon name="croixPack" />
-                    </button>
-                    <span
-                      className="drag-handle drag-handle--discret drag-handle--titre"
-                      onPointerDown={demarrerDrag(m.instance_id)}
-                      onClick={(e) => e.stopPropagation()}
-                      title={t('memberGroup.dragHandle')}
-                    >
-                      <Icon name="poignee" size="0.85em" />
+                  {avanceEnAttente && (
+                    <span className="badge badge--pending" title={t('memberGroup.pendingAdvance')}>
+                      {t('memberGroup.pendingAdvance')}
                     </span>
-                  </span>
+                  )}
                 </div>
               </div>
               <div className="list-item__details">
