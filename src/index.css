@@ -2126,16 +2126,18 @@ button {
 /* Le nom lui-même tronque avec des points de suspension plutôt que de
    passer sur plusieurs lignes : un nom saisi à la recruitment (limité à 20
    caractères, voir maxLength des champs de saisie) reste lisible sur une
-   seule ligne même dans une colonne étroite, et les badges (Chef, avancée
-   en attente) — voir .list-item__title ci-dessus — gardent une largeur
-   fixe à côté plutôt que d'être repoussés par un nom qui s'étale sur
-   plusieurs lignes. */
+   seule ligne même dans une colonne étroite. Pas de flex-grow (flex: 0 1
+   auto par défaut) : avec flex-grow, le nom s'étirait pour occuper toute la
+   largeur disponible du titre même quand le texte visible était court,
+   repoussant le badge Chef loin du nom au lieu de le laisser lui coller —
+   voir MemberCardMobile (MemberGroupCard.tsx) pour le cas où le badge Chef
+   ne tient quand même pas et rejoint la ligne de statut. */
 .list-item__title-name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   min-width: 3em;
-  flex: 1 1 auto;
+  flex-shrink: 1;
 }
 /* Suppression + poignée de drag, ancrées dans le coin supérieur droit de la
    carte mobile (voir MemberGroupCard), plutôt que suivies dans le flux du
