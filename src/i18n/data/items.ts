@@ -912,7 +912,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
   armure_en_gromril_market: {
     nom: 'Gromril Armour',
     texte:
-      'Gromril is the rarest and hardest metal in the Old World. Only a handful of dwarf craftsmen know how to work gromril, and the armour they forge fetches astronomical prices. Gromril armour is always heavy armour — four times the price of ordinary heavy armour.',
+      'Gromril is the rarest and hardest metal in the Old World. Only a handful of dwarf craftsmen know how to work gromril, and the armour they forge fetches astronomical prices. Gromril armour is always heavy armour — three times the price of ordinary heavy armour.',
     regles_speciales: [
       {
         nom: 'Heavy armour',
