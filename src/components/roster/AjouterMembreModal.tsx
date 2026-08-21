@@ -297,6 +297,22 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
               </p>
             )}
           </div>
+          {/* Annuler/Terminer juste après le résumé plutôt qu'en pied de
+              fenêtre après tout le catalogue d'équipement (position d'origine)
+              : sur un catalogue long, valider obligeait à défiler jusqu'en bas
+              en passant par toute la liste d'objets à chaque fois. */}
+          <div className="flex gap-sm" style={{ marginBottom: '0.9rem' }}>
+            <button className="btn--pack-pill-sm" onClick={onClose}>
+              {t('achatEquipement.cancel')}
+            </button>
+            <button
+              className="btn--pack-pill-sm btn--pack-pill-sm--primary"
+              disabled={tresorerieProjetee < 0}
+              onClick={terminer}
+            >
+              {t('recrutementEquipement.finish')}
+            </button>
+          </div>
         </div>
         {catalogue && (
           <AchatEquipementContenu
@@ -319,18 +335,6 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
             onAchat={(item, coutPaye) => setPanier((prev) => [...prev, { item, coutPaye }])}
           />
         )}
-        <div className="flex gap-sm" style={{ padding: '0.9rem' }}>
-          <button className="btn--pack-pill-sm" onClick={onClose}>
-            {t('achatEquipement.cancel')}
-          </button>
-          <button
-            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
-            disabled={tresorerieProjetee < 0}
-            onClick={terminer}
-          >
-            {t('recrutementEquipement.finish')}
-          </button>
-        </div>
       </Modal>
     );
   }
