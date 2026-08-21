@@ -300,13 +300,21 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
           {/* Annuler/Terminer juste après le résumé plutôt qu'en pied de
               fenêtre après tout le catalogue d'équipement (position d'origine)
               : sur un catalogue long, valider obligeait à défiler jusqu'en bas
-              en passant par toute la liste d'objets à chaque fois. */}
+              en passant par toute la liste d'objets à chaque fois.
+              .btn/.btn--primary (cadre plein, plus grand) plutôt que
+              .btn--pack-pill-sm comme le reste de cet écran : ce sont les
+              actions principales de toute la fenêtre, mais la pilule peinte
+              les faisait se fondre parmi les nombreux autres boutons pilule
+              du shop juste en dessous (onglets Bande/Commun, catégories,
+              Personnalisé...). flex:1 pour qu'elles occupent toute la
+              largeur de la rangée, comme une vraie barre d'action. */}
           <div className="flex gap-sm" style={{ marginBottom: '0.9rem' }}>
-            <button className="btn--pack-pill-sm" onClick={onClose}>
+            <button className="btn" style={{ flex: 1 }} onClick={onClose}>
               {t('achatEquipement.cancel')}
             </button>
             <button
-              className="btn--pack-pill-sm btn--pack-pill-sm--primary"
+              className="btn btn--primary"
+              style={{ flex: 1 }}
               disabled={tresorerieProjetee < 0}
               onClick={terminer}
             >

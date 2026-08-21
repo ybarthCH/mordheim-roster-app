@@ -1118,15 +1118,15 @@ button {
 /* Sur la carte mobile (voir MemberGroupCard) : à côté du bouton de
    suppression dans .list-item__title-actions, ancré au coin supérieur droit
    de la carte — plus dans sa propre colonne dédiée devant .list-item__row.
-   Opacité et taille remontées : à 0.4 il devenait quasi invisible au repos
-   une fois sorti de cette colonne. Taille remontée encore une fois (1.3rem
-   → 2.1rem, soit ~33.6px, icône inchangée car dimensionnée en em) : audit
-   ergonomie mobile, cible mesurée à 23.5×23.5px, sous le minimum recommandé
-   de 44px et à 3.6px seulement de la croix de suppression voisine. */
+   Taille et opacité remontées un peu plus (1.3rem/0.6 → 1.5rem/0.85), et
+   couleur passée de --text-muted à --text : les six points de l'icône sont
+   minuscules et --text-muted trop pâle le rendait difficile à repérer avant
+   même de le toucher, surtout en thème sombre. */
 .drag-handle--titre {
-  width: 2.1rem;
-  height: 2.1rem;
-  opacity: 0.6;
+  width: 1.5rem;
+  height: 1.5rem;
+  opacity: 0.85;
+  color: var(--text);
 }
 .drag-handle--titre:active {
   opacity: 1;
@@ -2006,15 +2006,10 @@ button {
 /* Positioned ancestor pour .list-item__title-actions (croix de suppression +
    poignée de drag), ancrées en absolu dans ce coin — voir plus bas. Padding
    réservé sur toute la hauteur de la carte pour que le texte du titre (nom,
-   badge Chef) ne passe jamais dessous. Calibré sur la largeur agrandie de
-   .list-item__title-actions (cibles tactiles ≥38px, voir plus bas) : audit
-   ergonomie mobile, la croix de suppression (27.8×24.5px mesurés) et la
-   poignée de drag (23.5×23.5px, à 3.6px seulement de la croix) étaient
-   toutes deux sous le minimum recommandé de 44px et quasi collées l'une à
-   l'autre — risque de supprimer un membre en voulant le réordonner. */
+   badge Chef) ne passe jamais dessous. */
 .member-cards .list-item {
   position: relative;
-  padding-right: 5.75rem;
+  padding-right: 3.5rem;
 }
 /* Carte de figurine du roster (Héros, Hommes de main...) : cadre pierre
    peint du pack UI, à la place du simple encart 1px — voir le commentaire
@@ -2043,7 +2038,7 @@ button {
    cette croix/poignée ancrées, n'a pas besoin de cette marge et n'est donc
    pas concerné ici. */
 :root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item {
-  padding-right: 5.75rem;
+  padding-right: 3.5rem;
 }
 /* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
    peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de
@@ -2161,11 +2156,7 @@ button {
   z-index: 2;
   display: flex;
   align-items: center;
-  /* 0.2rem (3.2px) laissait la croix de suppression et la poignée de drag
-     quasi collées (3.6px mesurés entre les deux) — un doigt (zone de
-     contact ~40-48px) recouvrait les deux à la fois. Voir aussi le
-     padding-right recalibré sur .member-cards .list-item plus haut. */
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 .list-item__details {
   flex-basis: 100%;
@@ -2201,20 +2192,6 @@ button {
   min-width: 2.75rem;
   min-height: 2.75rem;
 }
-/* Même motif pour la croix de suppression d'un membre (carte mobile du
-   roster) — mesurée à 27.8×24.5px, sous le minimum recommandé de 44px pour
-   une action destructive. Pas tout à fait 2.75rem comme .list-item--bande
-   ci-dessus : cette croix partage son coin avec la poignée de drag dans un
-   espace de carte bien plus restreint (voir le padding-right recalibré sur
-   .member-cards .list-item). */
-.list-item__title-actions .btn--ghost-danger {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.375rem;
-  min-height: 2.375rem;
-}
-
 .tabs {
   display: flex;
   gap: 0.3rem;
