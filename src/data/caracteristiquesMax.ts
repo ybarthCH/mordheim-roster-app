@@ -140,10 +140,13 @@ export const CARACTERISTIQUES_MAX: Record<string, PlafondCaracteristiques> = {
   garou: { label: 'Garou', M: 8, CC: 6, CT: 0, F: 6, E: 5, PV: 4, I: 7, A: 4, Cd: 9 },
 
   // Table "Amélioration de caractéristique" propre au document source des
-  // Sylvaneths (bande non officielle, grade 3) : une seule ligne couvre
-  // Sylve-/Fiel-revenants (partagée aussi par l'Archi-revenant, la Sorcière
-  // des ronces et le Shadestalker, qui suivent la même lignée), une seconde
-  // ligne distincte pour la Branchanteresse.
+  // Sylvaneths (bande non officielle, grade 3, draft V1.7) : une ligne
+  // couvre Sylve-/Fiel-revenants (partagée aussi par l'Archi-revenant, la
+  // Sorcière des ronces et le Shadestalker, qui suivent la même lignée),
+  // une deuxième ligne distincte pour la Branchanteresse, une troisième
+  // pour l'Homme-arbre (ajoutée dans cette révision du document — absente
+  // des versions antérieures, qui n'imposaient donc aucun plafond).
   sylvaneth_revenant: { label: 'Sylve-/Fiel-revenant', M: 4, CC: 7, CT: 6, F: 4, E: 4, PV: 3, I: 5, A: 4, Cd: 9 },
   sylvaneth_branchanteresse: { label: 'Branchanteresse', M: 4, CC: 7, CT: 6, F: 4, E: 5, PV: 3, I: 4, A: 4, Cd: 10 },
+  sylvaneth_homme_arbre: { label: 'Homme-arbre', M: 6, CC: 6, CT: 5, F: 5, E: 5, PV: 5, I: 5, A: 5, Cd: 9 },
 };
