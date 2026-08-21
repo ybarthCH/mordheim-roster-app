@@ -912,7 +912,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
   armure_en_gromril_market: {
     nom: 'Gromril Armour',
     texte:
-      'Gromril is the rarest and hardest metal in the Old World. Only a handful of dwarf craftsmen know how to work gromril, and the armour they forge fetches astronomical prices. Gromril armour is always heavy armour — four times the price of ordinary heavy armour.',
+      'Gromril is the rarest and hardest metal in the Old World. Only a handful of dwarf craftsmen know how to work gromril, and the armour they forge fetches astronomical prices. Gromril armour is always heavy armour — three times the price of ordinary heavy armour.',
     regles_speciales: [
       {
         nom: 'Heavy armour',
@@ -3865,7 +3865,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
   arme_spectrale_market: {
     nom: 'Spectral Weapon',
     texte:
-      'Any weapon available in the Sylvaneth or Treeman equipment list, except daggers, may be purchased as a spectral version for twice its normal cost. You may choose which close combat weapon type is offered.',
+      'Any weapon available in the Sylvaneth or Treeman equipment list, except daggers, may be purchased as a spectral version for twice its normal cost.',
     disponibilite: 'Common, Sylvaneth only',
     regles_speciales: [
       { nom: 'Cost x2', texte: 'Base weapon price x2.' },
@@ -3881,7 +3881,11 @@ export const itemsEn: Record<string, ItemTraduit> = {
     texte: "A bow the size of its bearer, carved from the hardest wood of the oldest glades.",
     disponibilite: 'Rare 9, Treeman only',
     regles_speciales: [
-      { nom: 'Kurnoth Greatbow', texte: "Counts as an Elf Bow whose shots are resolved using the user's Strength." },
+      {
+        nom: 'Piercing Trait',
+        texte:
+          "When a shot from the Kurnoth Greatbow causes an unsaved wound, the projectile may continue on its course. Draw a straight line from the shooter through the target. If another warrior is directly behind it on this line, he automatically suffers a hit with Strength reduced by 1. If this hit in turn causes an unsaved wound, the projectile continues in the same way, again reducing its Strength by 1. The projectile stops as soon as it fails to cause an unsaved wound or its Strength drops to 0.",
+      },
     ],
   },
   ecorce_de_fer: {
@@ -3896,13 +3900,6 @@ export const itemsEn: Record<string, ItemTraduit> = {
           'Level I: 30 gc, 5+ save, Common. Level II: +50 gc (80 gc total), 4+ save, Common. Level III: +120 gc (200 gc total), 3+ save, Rare 10, Heroes only.',
       },
     ],
-  },
-  lamentiri: {
-    nom: 'Lamentiri',
-    texte:
-      'When a warrior receives a Lamentiri, 55 gc are paid to bind the stone to their essence. If the bearer dies and their body or essence can be recovered, the player may consume the Lamentiri and pay 2 gc for each Experience point gained by the bearer since recruitment. A compatible successor then receives half of the Experience gained in this way, rounded down, and makes the corresponding Advance rolls normally. The successor must belong to the same profile or a compatible lineage: Tree-Revenant with Tree-Revenant, Spite-Revenant with Spite-Revenant, Treeman with Treeman. The Lamentiri is consumed after use and can never bypass a recruitment limit.',
-    disponibilite: 'Common, Sylvaneth Heroes and Treeman only',
-    regles_speciales: [],
   },
 };
 

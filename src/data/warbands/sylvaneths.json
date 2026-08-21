@@ -16,10 +16,6 @@
     {
       "nom": "Marche forestière",
       "texte": "Les Sylvaneths ignorent les pénalités de Mouvement dues aux bois, forêts, sous-bois et terrains végétaux similaires."
-    },
-    {
-      "nom": "Chant spirituel",
-      "texte": "Les Sylvaneths amis à 6ps de l'Archi-revenant ou de la Sorcière des ronces peuvent relancer leurs tests de Commandement ratés. Les Fiel-revenants n'en bénéficient jamais. Cette règle ne s'applique pas aux tests de Déroute."
     }
   ],
   "composition": {
@@ -40,8 +36,7 @@
       "xp_depart": 20,
       "stats": { "M": 4, "CC": 5, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 4, "A": 2, "Cd": 8 },
       "regles_speciales": [
-        { "nom": "Chef", "texte": "Tout guerrier à moins de 6ps de l'Archi-revenant peut utiliser son Commandement." },
-        { "nom": "Chant spirituel", "texte": "L'Archi-revenant projette le Chant spirituel (voir règles spéciales de la bande)." }
+        { "nom": "Chef", "texte": "Tout guerrier à moins de 6ps de l'Archi-revenant peut utiliser son Commandement." }
       ],
       "acces_competences": ["combat", "tir", "academique", "vitesse", "special"],
       "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
@@ -63,8 +58,7 @@
       "categorie_magie": "sylvaneth",
       "nombre_sorts_choisis_depart": 1,
       "regles_speciales": [
-        { "nom": "Sorcier", "texte": "La Sorcière des ronces est une sorcière utilisant les Rituels des Sylvaneths (voir magie). Elle débute avec un sort déterminé au hasard en lançant 1D3." },
-        { "nom": "Chant spirituel", "texte": "La Sorcière des ronces projette le Chant spirituel (voir règles spéciales de la bande)." }
+        { "nom": "Sorcier", "texte": "La Sorcière des ronces est une sorcière utilisant les Rituels des Sylvaneths (voir magie). Elle débute avec un sort déterminé au hasard en lançant 1D3." }
       ],
       "acces_competences": ["combat", "tir", "academique", "vitesse", "special"],
       "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
@@ -106,7 +100,7 @@
       "regles_speciales": [
         { "nom": "Peur", "texte": "Le Shadestalker cause la Peur." },
         { "nom": "Frénésie", "texte": "Le Shadestalker est sujet à la Frénésie." },
-        { "nom": "Paria", "texte": "Le Shadestalker ne bénéficie jamais du Chant spirituel et ne peut jamais devenir Chef." }
+        { "nom": "Paria", "texte": "Le Shadestalker ne peut jamais devenir Chef." }
       ],
       "acces_competences": ["force", "special"],
       "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
@@ -165,20 +159,18 @@
       "id": "homme_arbre",
       "nom": "Homme-arbre",
       "type": "homme_de_main",
-      "groupe_caracteristiques": "sylvaneth_revenant",
-      "plafond_ignore": true,
+      "groupe_caracteristiques": "sylvaneth_homme_arbre",
       "unique": true,
       "min": 0,
       "max": 1,
       "cout": 200,
       "xp_depart": 0,
-      "stats": { "M": 5, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 3, "I": 3, "A": 3, "Cd": 8 },
+      "stats": { "M": 5, "CC": 4, "CT": 4, "F": 4, "E": 4, "PV": 3, "I": 3, "A": 3, "Cd": 8 },
       "regles_speciales": [
         { "nom": "Peur", "texte": "L'Homme-arbre cause la Peur." },
         { "nom": "Grande cible", "texte": "L'Homme-arbre est une Grande cible." },
         { "nom": "Vétéran monstrueux", "texte": "Gagne de l'expérience mais ne peut jamais devenir Héros. Tout résultat « Ce gars est doué ! » est relancé." },
-        { "nom": "Griffes", "texte": "Combat avec ses armes naturelles sans pénalité." },
-        { "nom": "Plafond de caractéristiques", "texte": "Le document source ne fournit pas de table d'amélioration dédiée pour ce profil : aucun plafond n'est appliqué automatiquement." }
+        { "nom": "Griffes", "texte": "Combat avec ses armes naturelles sans pénalité." }
       ],
       "acces_competences": [],
       "acces_equipement": ["homme_arbre", "divers_sylvaneth"],
@@ -241,14 +233,13 @@
     },
     "homme_arbre": {
       "armes_cac": [{ "item_id": "arme_a_deux_mains", "cout": 15 }],
-      "armes_tir": [{ "item_id": "grand_arc_de_kurnoth", "cout": 50 }],
+      "armes_tir": [{ "item_id": "grand_arc_de_kurnoth", "cout": 40 }],
       "armures": [{ "item_id": "ecorce_de_fer", "cout": "30/80/200", "note": "Niveau I/II/III, voir règles spéciales" }]
     },
     "divers_sylvaneth": {
       "divers": [
         { "item_id": "arme_spectrale_market", "cout": "x2", "note": "Prix x2 de l'arme de base, sauf dagues — voir règles spéciales" },
         { "item_id": "familier", "cout": "20+1D6", "restriction": "Sorcière des ronces uniquement" },
-        { "item_id": "lamentiri", "cout": 55, "restriction": "Héros Sylvaneths et Homme-arbre uniquement" },
         { "item_id": "fouet_barbele", "cout": 10 }
       ]
     }
@@ -257,8 +248,7 @@
     { "item_id": "serre_cruelle", "cout": 2, "disponibilite": "Sylvaneths uniquement" },
     { "item_id": "arme_spectrale_market", "cout": "x2", "disponibilite": "Commune, Sylvaneths uniquement" },
     { "item_id": "ecorce_de_fer", "cout": "30/80/200", "disponibilite": "Commune (Niveaux I-II), Rare 10 Héros uniquement (Niveau III), Sylvaneths uniquement" },
-    { "item_id": "grand_arc_de_kurnoth", "cout": 50, "disponibilite": "Rare 9, Homme-arbre uniquement" },
-    { "item_id": "lamentiri", "cout": 55, "disponibilite": "Commune, Héros Sylvaneths et Homme-arbre uniquement" },
+    { "item_id": "grand_arc_de_kurnoth", "cout": 40, "disponibilite": "Rare 9, Homme-arbre uniquement" },
     { "item_id": "familier", "cout": "20+1D6", "disponibilite": "Rare 8, Sorcière des ronces uniquement" }
   ],
   "magie": {

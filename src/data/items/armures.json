@@ -87,7 +87,7 @@
     "id": "armure_en_gromril_market",
     "nom": "Armure en gromril",
     "categorie": "armures",
-    "cout": 200,
+    "cout": 150,
     "cout_fixe": true,
     "rarete": "11",
     "disponibilite": "Rare 11",
@@ -96,7 +96,7 @@
     ],
     "source": "LdR",
     "page": 34,
-    "texte": "Le gromril est le métal le plus rare et le plus dur du Vieux Monde. Seuls quelques rares artisans nains savent travailler le gromril, et les armures qu'ils forgent atteignent des prix astronomiques. Une armure en gromril est toujours une armure lourde — quatre fois plus chère qu'une armure lourde normale.",
+    "texte": "Le gromril est le métal le plus rare et le plus dur du Vieux Monde. Seuls quelques rares artisans nains savent travailler le gromril, et les armures qu'ils forgent atteignent des prix astronomiques. Une armure en gromril est toujours une armure lourde — trois fois plus chère qu'une armure lourde normale.",
     "sauvegarde": "4+",
     "regles_speciales": [
       {
@@ -570,7 +570,7 @@
     ],
     "source": "Bande non officielle - Sylvaneths (Draft V1.7)",
     "page": 3,
-    "texte": "L'Écorce de fer est une croissance liée au corps du porteur. Elle confère une sauvegarde d'armure normale et modifiable et peut se cumuler avec un bouclier. Elle ne revend jamais et ne réduit jamais le Mouvement du porteur. Elle n'empêche jamais son porteur de lancer des sorts.",
+    "texte": "L'Écorce de fer est une croissance liée au corps du porteur. Elle confère une sauvegarde d'armure normale et modifiable et peut se cumuler avec un bouclier. Elle ne peut être ni transférée ni revendue et ne réduit jamais le Mouvement du porteur. Elle n'empêche jamais son porteur de lancer des sorts.",
     "sauvegarde": "5+/4+/3+ (Niveau I/II/III)",
     "regles_speciales": [
       {

@@ -2295,21 +2295,5 @@
         "texte": "Permet de planer depuis une position élevée : pour 1ps de chute, avance de 2ps horizontalement."
       }
     ]
-  },
-  {
-    "id": "lamentiri",
-    "nom": "Lamentiri",
-    "categorie": "divers",
-    "cout": 55,
-    "cout_fixe": true,
-    "rarete": "C",
-    "disponibilite": "Commune, Héros Sylvaneths et Homme-arbre uniquement",
-    "acces": [
-      "sylvaneths"
-    ],
-    "source": "Bande non officielle - Sylvaneths (Draft V1.7)",
-    "page": 3,
-    "texte": "Lorsqu'un guerrier reçoit un Lamentiri, 55 co sont payées pour lier la pierre à son essence. Si le porteur meurt et que son corps ou son essence peut être récupéré, le joueur peut consumer le Lamentiri et payer 2 co pour chaque point d'expérience gagné par le porteur depuis son recrutement. Un successeur compatible reçoit alors la moitié des points d'expérience ainsi acquis, arrondie à l'inférieur, puis effectue normalement les jets d'avancement correspondants. Le successeur doit appartenir au même profil ou à une lignée compatible : Sylve-revenant avec Sylve-revenant, Fiel-revenant avec Fiel-revenant, Homme-arbre avec Homme-arbre. Le Lamentiri est consommé après utilisation et ne permet jamais de contourner une limite de recrutement.",
-    "regles_speciales": []
   }
 ]

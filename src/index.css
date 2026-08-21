@@ -1118,12 +1118,15 @@ button {
 /* Sur la carte mobile (voir MemberGroupCard) : à côté du bouton de
    suppression dans .list-item__title-actions, ancré au coin supérieur droit
    de la carte — plus dans sa propre colonne dédiée devant .list-item__row.
-   Opacité et taille remontées : à 0.4 il devenait quasi invisible au repos
-   une fois sorti de cette colonne. */
+   Taille et opacité remontées un peu plus (1.3rem/0.6 → 1.5rem/0.85), et
+   couleur passée de --text-muted à --text : les six points de l'icône sont
+   minuscules et --text-muted trop pâle le rendait difficile à repérer avant
+   même de le toucher, surtout en thème sombre. */
 .drag-handle--titre {
-  width: 1.3rem;
-  height: 1.3rem;
-  opacity: 0.6;
+  width: 1.5rem;
+  height: 1.5rem;
+  opacity: 0.85;
+  color: var(--text);
 }
 .drag-handle--titre:active {
   opacity: 1;
@@ -2006,7 +2009,7 @@ button {
    badge Chef) ne passe jamais dessous. */
 .member-cards .list-item {
   position: relative;
-  padding-right: 3.4rem;
+  padding-right: 3.5rem;
 }
 /* Carte de figurine du roster (Héros, Hommes de main...) : cadre pierre
    peint du pack UI, à la place du simple encart 1px — voir le commentaire
@@ -2035,7 +2038,7 @@ button {
    cette croix/poignée ancrées, n'a pas besoin de cette marge et n'est donc
    pas concerné ici. */
 :root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item {
-  padding-right: 3.4rem;
+  padding-right: 3.5rem;
 }
 /* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
    peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de
@@ -2153,7 +2156,7 @@ button {
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.25rem;
 }
 .list-item__details {
   flex-basis: 100%;
@@ -2189,7 +2192,6 @@ button {
   min-width: 2.75rem;
   min-height: 2.75rem;
 }
-
 .tabs {
   display: flex;
   gap: 0.3rem;
@@ -2213,15 +2215,21 @@ button {
   border-bottom-color: var(--accent);
 }
 
-/* XP checkbox grid */
+/* XP checkbox grid. Case et gap remontés (26px/4px → 32px/6px) : audit
+   ergonomie mobile, un tap sur une case voisine fixe silencieusement l'XP
+   du personnage à cette valeur (voir XpGrid.toggle) — pas de confirmation,
+   donc une cible/un espacement trop serrés transforment un mistap en
+   modification de donnée non signalée. flex-wrap répartit déjà les cases
+   sur autant de lignes que nécessaire selon la largeur disponible, donc
+   l'agrandissement n'impose pas de nombre de colonnes fixe. */
 .xp-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 6px;
 }
 .xp-box {
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   border: 1.5px solid var(--border);
   border-radius: 4px;
   background: var(--bg-inset);

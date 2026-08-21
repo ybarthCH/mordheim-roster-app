@@ -62,6 +62,12 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
   // même fenêtre modale (fiche + shop intégré, pas un second écran) — null
   // tant que le formulaire de recrutement est actif.
   const [membreRecrute, setMembreRecrute] = useState<Member | null>(null);
+  // Coût déjà déduit de la trésorerie au moment du recrutement (voir
+  // confirmer ci-dessous) : mémorisé à part plutôt que recalculé depuis
+  // coutTotal/profil/quantite à l'écran équipement, pour rembourser
+  // exactement ce qui a été prélevé si "Annuler" est cliqué à cette étape,
+  // même si ces champs venaient à changer entre-temps.
+  const [coutRecrutementPaye, setCoutRecrutementPaye] = useState(0);
   // Objets choisis pendant cette session d'achat, pas encore payés : permet
   // d'en sélectionner plusieurs d'affilée avant de les appliquer tous en une
   // fois au clic sur Terminer (voir panierTotal/appliquerPanier plus bas),
@@ -186,6 +192,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
     // acheter quelque chose (les animaux, par ex., n'ont jamais d'équipement
     // personnel) — sinon la recrue est prête, inutile de le demander.
     if (catalogue && profilPeutAcheterEquipement(catalogue, profil)) {
+      setCoutRecrutementPaye(coutTotal);
       setMembreRecrute(membre);
     } else {
       onClose();
@@ -219,8 +226,22 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
       onClose();
     };
 
+    // "Annuler" à cette étape annule tout le recrutement, pas seulement
+    // l'achat d'équipement en cours : la recrue vient d'être ajoutée au
+    // roster et payée par confirmer() ci-dessus (le panier, lui, n'a encore
+    // rien débité — voir terminer()), donc l'annulation retire ce membre et
+    // rembourse exactement ce qui a été prélevé.
+    const annulerRecrutement = () => {
+      onUpdateRoster({
+        ...roster,
+        tresorerie: roster.tresorerie + coutRecrutementPaye,
+        membres: roster.membres.filter((m) => m.instance_id !== membreActuel.instance_id),
+      });
+      onClose();
+    };
+
     return (
-      <Modal onClose={onClose} variant="fullscreen">
+      <Modal onClose={annulerRecrutement} variant="fullscreen">
         <div style={{ padding: '0.9rem 0.9rem 0' }}>
           <h3 className="mt-0">{t('recrutementEquipement.title', { nom: membreActuel.nom_perso })}</h3>
           {profil?.stats && (
@@ -297,6 +318,30 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
               </p>
             )}
           </div>
+          {/* Annuler/Terminer juste après le résumé plutôt qu'en pied de
+              fenêtre après tout le catalogue d'équipement (position d'origine)
+              : sur un catalogue long, valider obligeait à défiler jusqu'en bas
+              en passant par toute la liste d'objets à chaque fois.
+              .btn/.btn--primary (cadre plein, plus grand) plutôt que
+              .btn--pack-pill-sm comme le reste de cet écran : ce sont les
+              actions principales de toute la fenêtre, mais la pilule peinte
+              les faisait se fondre parmi les nombreux autres boutons pilule
+              du shop juste en dessous (onglets Bande/Commun, catégories,
+              Personnalisé...). flex:1 pour qu'elles occupent toute la
+              largeur de la rangée, comme une vraie barre d'action. */}
+          <div className="flex gap-sm" style={{ marginBottom: '0.9rem' }}>
+            <button className="btn" style={{ flex: 1 }} onClick={annulerRecrutement}>
+              {t('achatEquipement.cancel')}
+            </button>
+            <button
+              className="btn btn--primary"
+              style={{ flex: 1 }}
+              disabled={tresorerieProjetee < 0}
+              onClick={terminer}
+            >
+              {t('recrutementEquipement.finish')}
+            </button>
+          </div>
         </div>
         {catalogue && (
           <AchatEquipementContenu
@@ -315,22 +360,10 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
             onObjetsSurchargesChange={(surcharges) => onUpdateRoster({ ...roster, objets_surcharges: surcharges })}
             resterOuvertApresAchat
             masquerBoutonFermer
-            onClose={onClose}
+            onClose={annulerRecrutement}
             onAchat={(item, coutPaye) => setPanier((prev) => [...prev, { item, coutPaye }])}
           />
         )}
-        <div className="flex gap-sm" style={{ padding: '0.9rem' }}>
-          <button className="btn--pack-pill-sm" onClick={onClose}>
-            {t('achatEquipement.cancel')}
-          </button>
-          <button
-            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
-            disabled={tresorerieProjetee < 0}
-            onClick={terminer}
-          >
-            {t('recrutementEquipement.finish')}
-          </button>
-        </div>
       </Modal>
     );
   }

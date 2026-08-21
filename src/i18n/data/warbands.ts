@@ -6519,26 +6519,15 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Forest Walk',
         texte: 'Sylvaneth ignore Movement penalties caused by woods, forests, undergrowth and similar vegetation terrain.',
       },
-      {
-        nom: 'Spirit-song',
-        texte:
-          'Friendly Sylvaneth within 6" of the Arch-Revenant or Thornwych may re-roll failed Leadership tests. Spite-Revenants never benefit from this rule. It does not apply to Rout tests.',
-      },
     ],
     profils: {
       archi_revenant: {
         nom: 'Arch-Revenant',
-        regles_speciales: [
-          { nom: 'Leader', texte: 'Any warrior within 6" may use his Leadership.' },
-          { nom: 'Spirit-song', texte: 'Projects the Spirit-song.' },
-        ],
+        regles_speciales: [{ nom: 'Leader', texte: 'Any warrior within 6" may use his Leadership.' }],
       },
       sorciere_des_ronces: {
         nom: 'Thornwych',
-        regles_speciales: [
-          { nom: 'Wizard', texte: 'Starts with one randomly determined spell by rolling D3.' },
-          { nom: 'Spirit-song', texte: 'Projects the Spirit-song.' },
-        ],
+        regles_speciales: [{ nom: 'Wizard', texte: 'Starts with one randomly determined spell by rolling D3.' }],
       },
       branchanteresse: {
         nom: 'Branchwych',
@@ -6552,7 +6541,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Fear', texte: 'Causes Fear.' },
           { nom: 'Frenzy', texte: 'Is subject to Frenzy.' },
-          { nom: 'Outcast', texte: 'Never benefits from the Spirit-song and can never become the warband leader.' },
+          { nom: 'Outcast', texte: 'Can never become the warband leader.' },
         ],
       },
       sylve_revenant: { nom: 'Tree-Revenant' },
@@ -6587,11 +6576,6 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte: 'Gains Experience but can never become a Hero. Any "The Lad\'s Got Talent!" result is re-rolled.',
           },
           { nom: 'Claws', texte: 'Fights with its natural weapons without penalty.' },
-          {
-            nom: 'Characteristic cap',
-            texte:
-              'The source document does not provide a dedicated advancement table for this profile: no cap is automatically applied.',
-          },
         ],
       },
     },
@@ -6668,7 +6652,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         armures: ['Level I/II/III, see special rules'],
       },
       divers_sylvaneth: {
-        divers: ['Base weapon price x2, except daggers — see special rules', undefined, undefined, undefined],
+        divers: ['Base weapon price x2, except daggers — see special rules', undefined, undefined],
       },
     },
     equipement_special: [
@@ -6676,7 +6660,6 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       { disponibilite: 'Common, Sylvaneth only' },
       { disponibilite: 'Common (Levels I-II), Rare 10 Heroes only (Level III), Sylvaneth only' },
       { disponibilite: 'Rare 9, Treeman only' },
-      { disponibilite: 'Common, Sylvaneth Heroes and Treeman only' },
       { disponibilite: 'Rare 8, Thornwych only' },
     ],
   },

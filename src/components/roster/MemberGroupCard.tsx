@@ -169,7 +169,7 @@ function MemberCardMobile({
                 onClick={(e) => e.stopPropagation()}
                 title={t('memberGroup.dragHandle')}
               >
-                <Icon name="poignee" size="0.85em" />
+                <Icon name="poignee" size="1.05em" />
               </span>
             </span>
           </div>
