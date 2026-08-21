@@ -58,4 +58,12 @@ export const etapeExploration: UiDictionary = {
     fr: "Vous bénéficiez de {n} dé(s) supplémentaire(s) lors de cette phase d'exploration.",
     en: 'You get {n} extra {dice} during this exploration phase.',
   },
+  'exploration.permanentRerollSourceLabel': {
+    fr: 'Entrée des Catacombes',
+    en: 'Entrance to the Catacombs',
+  },
+  'exploration.permanentRerollNote': {
+    fr: "Vous pouvez relancer un dé lors de vos jets sur le Tableau d'exploration.",
+    en: 'You may re-roll one die on your Exploration Table rolls.',
+  },
 };

@@ -36,6 +36,39 @@ export const postBatailleShared: UiDictionary = {
   },
   'postBataille.debtor.hireForFree': { fr: 'Engager gratuitement', en: 'Hire for free' },
 
+  // Bâtiment écroulé
+  'postBataille.collapsedBuilding.fragmentsResult': { fr: '✓ {texte}', en: '✓ {texte}' },
+  'postBataille.collapsedBuilding.fragmentsFound': {
+    fr: '{n} fragment{s} de pierre magique trouvé{s} dans les décombres.',
+    en: '{n} fragment{s} of warpstone found in the rubble.',
+  },
+  'postBataille.collapsedBuilding.leaderCommandTest': {
+    fr: 'Test de Commandement du chef{chef} (chien de guerre) :',
+    en: "Leader's Leadership test{chef} (war dog):",
+  },
+  'postBataille.collapsedBuilding.dogResult': { fr: '✓ {texte}', en: '✓ {texte}' },
+  'postBataille.collapsedBuilding.addDog': { fr: 'Ajouter le chien de guerre à la bande', en: 'Add the war dog to the warband' },
+  'postBataille.collapsedBuilding.dogAdopted': { fr: 'Un chien de guerre rejoint la bande.', en: 'A war dog joins the warband.' },
+  'postBataille.collapsedBuilding.dogFled': {
+    fr: "Le chien de guerre s'enfuit dans les décombres.",
+    en: 'The war dog flees into the rubble.',
+  },
+  'postBataille.collapsedBuilding.noDogProfile': {
+    fr: 'Cette bande ne dispose pas de profil Chien de guerre dans son catalogue — notez-le manuellement.',
+    en: "This warband's catalog has no War Dog profile — note it down manually.",
+  },
+
+  // Entrée des Catacombes (quintuples)
+  'postBataille.catacombs.add': { fr: 'Ajouter la relance permanente à la bande', en: 'Add the permanent re-roll to the warband' },
+  'postBataille.catacombs.added': {
+    fr: "Relance permanente ajoutée — rappelée à chaque future phase d'exploration.",
+    en: 'Permanent re-roll added — you will be reminded at every future exploration phase.',
+  },
+  'postBataille.catacombs.alreadyActive': {
+    fr: 'Cette bande bénéficie déjà de cette relance permanente — rien de plus à obtenir.',
+    en: 'This warband already has this permanent re-roll — nothing more to gain.',
+  },
+
   // Puits
   'postBataille.well.result': { fr: '✓ Puits : {texte}', en: '✓ The Well: {texte}' },
   'postBataille.well.foundFragment': { fr: '{nom} trouve un fragment de pierre magique.', en: '{nom} finds a fragment of warpstone.' },

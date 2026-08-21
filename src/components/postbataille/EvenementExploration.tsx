@@ -17,6 +17,8 @@ import { ResolutionVagabond } from './ResolutionVagabond';
 import { ResolutionTaverne } from './ResolutionTaverne';
 import { ResolutionPrisonniers } from './ResolutionPrisonniers';
 import { ResolutionDebiteurReconnaissant } from './ResolutionDebiteurReconnaissant';
+import { ResolutionBatimentEcroule } from './ResolutionBatimentEcroule';
+import { ResolutionEntreeCatacombes } from './ResolutionEntreeCatacombes';
 import { useLanguage } from '../../state/useLanguage';
 import { translateEvenementExploration } from '../../i18n/data/explorationEvenements';
 import { translateItem } from '../../i18n/data/items';
@@ -46,11 +48,13 @@ const EVENEMENTS_AVEC_COMPOSANT = new Set([
   'taverne',
   'prisonniers',
   'debiteur_reconnaissant',
+  'batiment_ecroule',
+  'entree_catacombes_5',
 ]);
 
 function evenementAUneResolution(ev: Evenement): boolean {
   if (ev.or || ev.artefactMagique) return true;
-  if (ev.sousTable?.some((l) => l.or || l.objets)) return true;
+  if (ev.sousTable?.some((l) => l.or || l.objets || l.artefactMagique)) return true;
   if (ev.sousTableTresor?.length) return true;
   return EVENEMENTS_AVEC_COMPOSANT.has(ev.id);
 }
@@ -152,7 +156,7 @@ export function EvenementExploration({
     // Résultat sans aucune action possible (ex : butin narratif à revendre à
     // un prix spécial) : on consigne au moment de la sélection, faute
     // d'autre occasion de le faire.
-    if (!deselection && evenement && !ligne.or && !ligne.objets) {
+    if (!deselection && evenement && !ligne.or && !ligne.objets && !ligne.artefactMagique) {
       onAjouterAuJournal(`${evenementAffiche?.nom ?? ''} — ${resultatAffiche(ligne)}`);
     }
   };
@@ -279,6 +283,25 @@ export function EvenementExploration({
             />
           )}
 
+          {evenement.id === 'batiment_ecroule' && (
+            <ResolutionBatimentEcroule
+              roster={roster}
+              catalogue={catalogue}
+              nomEvenement={evenementAffiche.nom}
+              onMajRoster={onMajRoster}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
+          )}
+
+          {evenement.id === 'entree_catacombes_5' && (
+            <ResolutionEntreeCatacombes
+              roster={roster}
+              nomEvenement={evenementAffiche.nom}
+              onMajRoster={onMajRoster}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
+          )}
+
           {evenement.artefactMagique && (
             <button className="btn--pack-pill-sm" style={{ marginTop: '0.5rem' }} onClick={onOuvrirArtefacts}>
               {t('postBataille.openMagicArtefactsTable')}
@@ -333,6 +356,16 @@ export function EvenementExploration({
                     />
                   ))}
                 </div>
+              )}
+              {ligneSousTable?.artefactMagique && (
+                <button
+                  type="button"
+                  className="btn--pack-pill-sm"
+                  style={{ marginTop: '0.5rem' }}
+                  onClick={onOuvrirArtefacts}
+                >
+                  {t('postBataille.openMagicArtefactsTable')}
+                </button>
               )}
             </div>
           )}

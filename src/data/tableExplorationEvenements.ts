@@ -30,6 +30,10 @@ export type LigneSousTableD6 = {
   // objets alternatifs (ex : Bouclier OU Rondache) affichés côte à côte, pas
   // cumulatifs : le joueur clique celui qu'il a choisi sur table papier.
   objets?: LigneObjetTrouve[];
+  // Renvoie vers le Tableau des artefacts magiques, uniquement pour ce
+  // résultat précis (ex : Villa de noble, 5-6) — distinct du champ de même
+  // nom sur EvenementExploration, qui s'applique à l'événement entier.
+  artefactMagique?: boolean;
 };
 
 // Élément d'une sous-table "trésor" (Trésor caché, Bande massacrée) : chaque
@@ -528,7 +532,7 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
           { element: '3D6x5 CO', seuil: 'Auto', or: '3D6x5' },
           { element: 'D3 Armures légères', seuil: '4+', objets: [{ item_id: 'armure_legere', quantite: 'D3' }] },
           { element: 'Armure lourde', seuil: '5+', objets: [{ item_id: 'armure_lourde' }] },
-          { element: 'D6 Dagues', seuil: 'Auto', objets: [{ item_id: 'dague', quantite: 6 }] },
+          { element: 'D6 Dagues', seuil: 'Auto', objets: [{ item_id: 'dague', quantite: 'D6' }] },
           {
             element: 'Carte de Mordheim (voir p55)',
             seuil: '4+',
@@ -571,9 +575,9 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
             min: 5,
             max: 6,
             resultat: 'Un artefact magique dissimulé dans une alcôve secrète — lancez sur le Tableau des artefacts magiques.',
+            artefactMagique: true,
           },
         ],
-        artefactMagique: true,
       },
     ],
   },
