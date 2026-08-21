@@ -3881,7 +3881,6 @@ export const itemsEn: Record<string, ItemTraduit> = {
     texte: "A bow the size of its bearer, carved from the hardest wood of the oldest glades.",
     disponibilite: 'Rare 9, Treeman only',
     regles_speciales: [
-      { nom: 'Kurnoth Greatbow', texte: "Counts as an Elf Bow whose shots are resolved using the user's Strength." },
       {
         nom: 'Piercing Trait',
         texte:

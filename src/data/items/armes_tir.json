@@ -563,10 +563,6 @@
     "force": "Utilisateur",
     "regles_speciales": [
       {
-        "nom": "Grand Arc de Kurnoth",
-        "texte": "Compte comme un Arc elfique dont les tirs sont résolus avec la Force de l'utilisateur."
-      },
-      {
         "nom": "Trait transperçant",
         "texte": "Lorsqu'un tir du Grand Arc de Kurnoth inflige une blessure non sauvegardée, le projectile peut continuer sa course. Tracez une ligne droite depuis le tireur en passant par la cible. Si un autre guerrier se trouve directement derrière elle sur cette ligne, il subit automatiquement une touche avec une Force réduite de 1. Si cette touche inflige à son tour une blessure non sauvegardée, le projectile continue de la même manière, en réduisant à nouveau sa Force de 1. Le projectile s'arrête dès qu'il n'inflige pas de blessure non sauvegardée ou que sa Force tombe à 0."
       }
