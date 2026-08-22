@@ -1166,6 +1166,38 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         },
       ],
     },
+    competences_speciales: {
+      producteur_de_champignons: {
+        nom: 'Fungus Farmer',
+        texte:
+          "The industrious little git has a mushroom crop back at the cave. If the Hero doesn't search for rare items, he may pick D3-1 Mad Cap Mushrooms instead. There is a chance of getting none, as there is no guarantee they will be ready for harvest. Each Mad Cap Mushroom must be used in the next battle, and they cannot be sold or traded to other warbands — these are a special high yield/low shelf life crop.",
+      },
+      se_cacher_dans_lombre: {
+        nom: 'Hide in Shadows',
+        texte:
+          'The sneaky Goblin has become an expert at concealing himself from enemies (and potential victims!). An enemy warrior attempting to detect this warrior when it is Hidden must halve their Initiative (round up) before measuring the distance.',
+      },
+      retiaire: {
+        nom: 'Netter',
+        texte:
+          'The Goblin applies techniques learned hunting wild Cave Squigs in the depths of the mountains to disable charging enemies. Instead of their normal use, the Goblin may throw a Net they are equipped with at an enemy who is charging them. This reduces the charge range of the attacker by D6" as the charger either slows down to avoid the net, or gets tangled up in it. If this means the attacker cannot reach the Goblin, the charge is failed. Regardless of the outcome, the Net is lost when this skill is used.',
+      },
+      petit_vicelard: {
+        nom: 'Sneaky Git',
+        texte:
+          'The Goblin specializes in attacking his targets from the shadows. He may charge an opponent from hiding, even if he cannot see the target. There is no need for an Initiative test, and the target may be over the normal 4" limit for charging unseen targets. If the charge is successful, the Goblin surprises his opponent, who will attack at half Weapon Skill and half Initiative, rounded up. This penalty lasts for the first round of combat only, as the opponent will swiftly recover their wits if the initial assault is survived.',
+      },
+      chevaucheur_de_squigs: {
+        nom: 'Ride Squig',
+        texte:
+          'This Goblin can ride one of the warband\'s Cave Squigs, or even the Great Squig! The pair deploy as a single model. Standard mount rules are not used, although the Night Goblin counts as being mounted for the Cavalry Bonus rule (see spears and lances). While the Squig is ridden, it and the rider move as a single model using the Squig\'s movement rules, but attack separately in Close Combat. In this skill\'s text, "Squig" refers to both Cave Squigs and Great Squigs. If a shooting or close combat attack hits, roll 1D6 to see who is hit: 1-2 the rider; 3-6 the Squig. If the Squig is stunned or taken Out of Action, the rider crashes to the ground and takes a Strength 2 hit with no armor save. If the rider is stunned or taken Out of Action, the Squig reverts to normal Squig behavior. Either way, the rider counts as on foot for the rest of the battle. Squigs don\'t like being ridden. If the Movement roll is a double or triple, the rider must roll 1D6 and compare the result to his Strength: if higher, the rider is thrown off before the Squig moves away — he crashes to the ground, takes a Strength 2 hit with no armor save, and counts as on foot for the rest of the battle; if equal to or lower, the rider keeps his grip and stays on the Squig.',
+      },
+      infiltration: {
+        nom: 'Infiltrate',
+        texte:
+          'A Night Goblin with this skill is always placed on the battlefield after the opposing warband has deployed. He may be deployed anywhere on the table, provided he is out of sight of the enemy and more than 12" from any enemy model. If both players have models with Infiltrate, roll 1D6 for each — the lowest result deploys first.',
+      },
+    },
   },
 
   chasseurs_cornus: {
