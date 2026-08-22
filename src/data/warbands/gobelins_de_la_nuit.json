@@ -89,13 +89,14 @@
         { "nom": "Dresseur - Squigs", "texte": "Tout Squig à moins de 6ps (12ps avec un aiguillon à squig) peut utiliser son Commandement au lieu du sien." },
         { "nom": "Maître berger", "texte": "En phase de Ralliement, tout Squig des Cavernes ou Grand Squig hors de contrôle dans sa zone d'influence cesse de vagabonder et peut être contrôlé sur un test de Commandement réussi." },
         {
-          "nom": "Compétences dédiées (au lieu de la liste Spéciale)",
-          "texte": "Lorsqu'il acquiert une nouvelle compétence de catégorie Spéciale, le Berger à Squig choisit dans sa propre liste (Squigs gazeux, Menace, Entraînement) plutôt que dans la liste Spéciale de la bande — voir l'onglet Compétences de sa fiche."
+          "nom": "Compétences dédiées (en plus de la liste Spéciale)",
+          "texte": "Lorsqu'il acquiert une nouvelle compétence de catégorie Spéciale, le Berger à Squig peut choisir dans sa propre liste (Squigs gazeux, Menace, Entraînement) en plus de la liste Spéciale de la bande — voir l'onglet Compétences de sa fiche."
         }
       ],
       "acces_competences": ["combat", "vitesse", "special"],
       "acces_equipement": ["heros"],
       "acces_competences_a_verifier": false,
+      "competences_speciales_ajoutees": true,
       "competences_speciales": [
         {
           "id": "squigs_gazeux",

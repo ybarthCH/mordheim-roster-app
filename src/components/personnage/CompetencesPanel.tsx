@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { Member } from '../../types/roster';
 import type { Profile, SkillCategory, WarbandCatalog } from '../../types/catalog';
 import { SKILLS } from '../../data/gameData';
-import { categoriesAccessibles } from '../../utils/profil';
+import { categoriesAccessibles, competencesSpecialesPourProfil } from '../../utils/profil';
 import { useLanguage } from '../../state/useLanguage';
 import { translateSkill } from '../../i18n/data/skills';
 
@@ -20,8 +20,8 @@ export function CompetencesPanel({ member, profil, catalogue, onToggleSkill }: P
   const [ongletActif, setOngletActif] = useState<SkillCategory>(categories[0]);
 
   const skillsDeLaCategorie = (cat: SkillCategory) =>
-    cat === 'special' ? (profil.competences_speciales ?? catalogue.competences_speciales) : SKILLS[cat];
-  const competencesSpeciales = profil.competences_speciales ?? catalogue.competences_speciales;
+    cat === 'special' ? competencesSpecialesPourProfil(profil, catalogue) : SKILLS[cat];
+  const competencesSpeciales = competencesSpecialesPourProfil(profil, catalogue);
 
   return (
     <div>

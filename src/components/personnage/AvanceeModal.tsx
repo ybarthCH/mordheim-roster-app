@@ -6,7 +6,12 @@ import type { AdvanceEntry } from '../../types/gameData';
 import { Modal } from '../common/Modal';
 import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN, skillById } from '../../data/gameData';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
-import { LIMITE_HEROS, categoriesAccessibles, tableAvancementDuProfil } from '../../utils/profil';
+import {
+  LIMITE_HEROS,
+  categoriesAccessibles,
+  competencesSpecialesPourProfil,
+  tableAvancementDuProfil,
+} from '../../utils/profil';
 import { bonusPlafondCC, peutAugmenterStat } from '../../utils/plafond';
 import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
@@ -215,13 +220,12 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
   };
 
   const skillsDeLaCategorie = (cat: SkillCategory) =>
-    cat === 'special' ? (profil.competences_speciales ?? catalogue.competences_speciales) : SKILLS[cat];
+    cat === 'special' ? competencesSpecialesPourProfil(profil, catalogue) : SKILLS[cat];
 
   const nomCompetence = (skillId: string) => {
-    const found = [
-      ...Object.values(SKILLS).flat(),
-      ...(profil.competences_speciales ?? catalogue.competences_speciales),
-    ].find((s) => s.id === skillId);
+    const found = [...Object.values(SKILLS).flat(), ...competencesSpecialesPourProfil(profil, catalogue)].find(
+      (s) => s.id === skillId
+    );
     return (found && translateSkill(found, language).nom) ?? skillId;
   };
 
@@ -291,7 +295,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       setEtape('choix_monture');
       return;
     }
-    const skill = [...Object.values(SKILLS).flat(), ...(profil.competences_speciales ?? catalogue.competences_speciales)].find(
+    const skill = [...Object.values(SKILLS).flat(), ...competencesSpecialesPourProfil(profil, catalogue)].find(
       (s) => s.id === skillId
     );
     if (!skill) return;

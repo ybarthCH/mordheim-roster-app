@@ -177,9 +177,17 @@ export type Profile = {
   leader_toujours_recrutable?: boolean;
   // Règles spéciales propres à ce profil (en plus de celles de la bande).
   regles_speciales?: SpecialRule[];
-  // Compétences spéciales propres au profil. Utilisé notamment par les
-  // francs-tireurs, dont les listes ne dépendent pas de la bande employeuse.
+  // Compétences spéciales propres au profil. Par défaut, REMPLACE la liste
+  // Spéciale de la bande pour ce profil (utilisé notamment par les
+  // francs-tireurs, dont les listes ne dépendent pas de la bande employeuse) —
+  // sauf si `competences_speciales_ajoutees` est vrai, auquel cas elle s'y
+  // ajoute (voir ce champ).
   competences_speciales?: CompetenceSpeciale[];
+  // Si vrai, `competences_speciales` s'ajoute à la liste Spéciale de la
+  // bande au lieu de la remplacer (ex : le Berger à Squig gobelin, dont les
+  // compétences dédiées viennent en plus de la liste Spéciale de la bande,
+  // pas à sa place). Sans effet si `competences_speciales` est absent.
+  competences_speciales_ajoutees?: boolean;
   // Clé vers CARACTERISTIQUES_MAX (src/data/caracteristiquesMax.ts) : plafond
   // d'avancement applicable à ce profil. Absent seulement pour les profils
   // de type 'animal' (n'avancent jamais, voir avancesDues).

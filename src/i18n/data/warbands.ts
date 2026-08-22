@@ -1007,9 +1007,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
               'During the Recovery phase, any out-of-control Cave Squig or Giant Squig within his zone of influence stops wandering and can be controlled on a successful Leadership test.',
           },
           {
-            nom: 'Dedicated Skills (instead of the Special list)',
+            nom: 'Dedicated Skills (in addition to the Special list)',
             texte:
-              "When gaining a new Special skill, the Squig Herder chooses from his own list (Gaseous Squigs, Menace, Training) instead of the warband's Special list — see the Skills tab on his sheet.",
+              "When gaining a new Special skill, the Squig Herder may choose from his own list (Gaseous Squigs, Menace, Training) in addition to the warband's Special list — see the Skills tab on his sheet.",
           },
         ],
         competences_speciales: {
