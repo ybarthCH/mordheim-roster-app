@@ -37,6 +37,73 @@ const STATUT_ICONE: Partial<Record<string, IconName | PackIconName>> = {
   blesse: 'goutte',
 };
 
+type StatutControlProps = {
+  m: Member;
+  groupeSimplifie: boolean;
+  titre: string;
+  onToggle: () => void;
+  t: (key: string, params?: Record<string, string | number>) => string;
+};
+
+// Contrôle de statut (switch groupe simplifié / plaque héros / badge figé
+// pour un mort) — partagé entre la carte mobile et la vue condensée, pour ne
+// pas dupliquer une troisième fois ce même bloc (déjà présent séparément
+// dans le tableau desktop, qui reste hors de ce partage pour ne pas risquer
+// de régression sur un rendu déjà bien rodé).
+function StatutControl({ m, groupeSimplifie, titre, onToggle, t }: StatutControlProps) {
+  if (groupeSimplifie) {
+    return (
+      <button
+        type="button"
+        className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggle();
+        }}
+        title={titre}
+        aria-label={titre}
+      >
+        <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
+        <span className="status-switch__label">
+          {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
+        </span>
+      </button>
+    );
+  }
+  if (m.statut === 'mort') {
+    return (
+      <span
+        className={`status-switch status-switch--${STATUT_COULEUR[m.statut]} status-switch--badge`}
+        title={t('memberGroup.deadStatusHint')}
+      >
+        {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
+        <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
+      </span>
+    );
+  }
+  return (
+    <button
+      type="button"
+      className={`status-plaque${m.statut === 'actif' ? ' status-plaque--actif' : ''}`}
+      onClick={(e) => {
+        e.stopPropagation();
+        onToggle();
+      }}
+      title={titre}
+      aria-label={`${t(`statut.${m.statut}`)} — ${titre}`}
+    >
+      <span className="status-plaque__switch">
+        <span className="status-plaque__switch-track" />
+        <span className="status-plaque__switch-knob">
+          <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--green" />
+          <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--red" />
+        </span>
+      </span>
+      <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
+    </button>
+  );
+}
+
 type MemberCardMobileProps = {
   m: Member;
   profil: Profile | undefined;
@@ -179,51 +246,13 @@ function MemberCardMobile({
             ici quand il ne tient plus à côté du nom (voir chefDansTitre). */}
         <div className="list-item__statut-suppression">
           {leader && !chefDansTitre && chefBadge}
-          {groupeSimplifie ? (
-            <button
-              type="button"
-              className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onBasculerHorsCombat();
-              }}
-              title={titreHorsCombatTexte}
-              aria-label={titreHorsCombatTexte}
-            >
-              <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
-              <span className="status-switch__label">
-                {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
-              </span>
-            </button>
-          ) : m.statut === 'mort' ? (
-            <span
-              className={`status-switch status-switch--${STATUT_COULEUR[m.statut]} status-switch--badge`}
-              title={t('memberGroup.deadStatusHint')}
-            >
-              {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-              <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
-            </span>
-          ) : (
-            <button
-              type="button"
-              className={`status-plaque${m.statut === 'actif' ? ' status-plaque--actif' : ''}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onBasculerHorsCombat();
-              }}
-              title={titreHorsCombatTexte}
-              aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombatTexte}`}
-            >
-              <span className="status-plaque__switch">
-                <span className="status-plaque__switch-track" />
-                <span className="status-plaque__switch-knob">
-                  <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--green" />
-                  <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--red" />
-                </span>
-              </span>
-              <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
-            </button>
-          )}
+          <StatutControl
+            m={m}
+            groupeSimplifie={groupeSimplifie}
+            titre={titreHorsCombatTexte}
+            onToggle={onBasculerHorsCombat}
+            t={t}
+          />
           {avanceEnAttente && (
             <span className="badge badge--pending" title={t('memberGroup.pendingAdvance')}>
               {t('memberGroup.pendingAdvance')}
@@ -263,6 +292,117 @@ function MemberCardMobile({
   );
 }
 
+type MemberCardCondensedProps = {
+  m: Member;
+  profil: Profile | undefined;
+  equipement: string;
+  groupeSimplifie: boolean;
+  leader: boolean;
+  avanceEnAttente: boolean;
+  fantome: boolean;
+  selectionne: boolean;
+  masquerProfil?: boolean;
+  language: Language;
+  t: (key: string, params?: Record<string, string | number>) => string;
+  cardRef: (el: HTMLDivElement | null) => void;
+  onSelect: () => void;
+  onSupprimer: () => void;
+  onBasculerHorsCombat: () => void;
+  onDragPointerDown: (e: ReactPointerEvent) => void;
+  titreHorsCombatTexte: string;
+};
+
+// Variante condensée d'une figurine (voir bouton "Vue condensée" dans
+// MemberGroupCard) : nom, profil, bloc de stats sur une ligne (au lieu de la
+// grille 9 colonnes) et équipement tronqué sur une seule ligne, plutôt que
+// la carte mobile complète (MemberCardMobile) — pensée pour rester lisible
+// dans un volet de liste étroit (mode deux volets) sans jamais retomber sur
+// le grand format, disproportionné par rapport à l'espace réellement
+// disponible dans ce contexte.
+function MemberCardCondensed({
+  m,
+  profil,
+  equipement,
+  groupeSimplifie,
+  leader,
+  avanceEnAttente,
+  fantome,
+  selectionne,
+  masquerProfil,
+  language,
+  t,
+  cardRef,
+  onSelect,
+  onSupprimer,
+  onBasculerHorsCombat,
+  onDragPointerDown,
+  titreHorsCombatTexte,
+}: MemberCardCondensedProps) {
+  const statsTexte = STAT_KEYS.map(
+    (k) => `${libelleCaracteristique(k, language)}${m.stats_variables?.[k] ?? m.stats_actuels[k]}`
+  ).join(' ');
+
+  return (
+    <div
+      ref={cardRef}
+      className={`list-item${fantome ? ' list-item--fantome' : ''}${selectionne ? ' list-item--selectionne' : ''}`}
+      role="button"
+      onClick={onSelect}
+    >
+      <div className="list-item__title">
+        <span className="list-item__title-name" title={nomAffiche(m)}>
+          {nomAffiche(m)}
+        </span>
+        {leader && (
+          <span className="badge badge--leader" title={t('memberGroup.leaderTitle')}>
+            {t('memberGroup.leader')}
+          </span>
+        )}
+        {avanceEnAttente && (
+          <span className="badge badge--pending" title={t('memberGroup.pendingAdvance')}>
+            {t('memberGroup.pendingAdvance')}
+          </span>
+        )}
+        <span className="list-item__title-actions">
+          <button
+            className="btn--ghost-danger"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSupprimer();
+            }}
+            title={t('memberGroup.removeTitle')}
+          >
+            <Icon name="croixPack" />
+          </button>
+          <span
+            className="drag-handle drag-handle--discret drag-handle--titre"
+            onPointerDown={onDragPointerDown}
+            onClick={(e) => e.stopPropagation()}
+            title={t('memberGroup.dragHandle')}
+          >
+            <Icon name="poignee" size="1.05em" />
+          </span>
+        </span>
+      </div>
+      <div className="member-condensed__ligne member-condensed__ligne--stats">
+        {!masquerProfil && profil?.nom ? `${profil.nom} · ` : ''}XP {m.xp} · {statsTexte}
+      </div>
+      <div className="member-condensed__ligne member-condensed__ligne--tronquee" style={{ fontStyle: 'italic' }}>
+        {equipement}
+      </div>
+      <div className="member-condensed__statut">
+        <StatutControl
+          m={m}
+          groupeSimplifie={groupeSimplifie}
+          titre={titreHorsCombatTexte}
+          onToggle={onBasculerHorsCombat}
+          t={t}
+        />
+      </div>
+    </div>
+  );
+}
+
 type MemberGroupCardProps = {
   titre: string;
   icone: IconName | PackIconName;
@@ -280,6 +420,10 @@ type MemberGroupCardProps = {
   // Membre actuellement ouvert dans le volet détail (mode deux volets, grands
   // écrans) : surligne sa ligne dans la liste. Voir RosterScreen/RosterRoute.
   selectedInstanceId?: string;
+  // Vue condensée (nom/profil/stats/équipement en quelques lignes serrées),
+  // partagée entre tous les groupes de la fiche de bande — voir RosterScreen.
+  vueCondensee: boolean;
+  onToggleVueCondensee: () => void;
 };
 
 export function MemberGroupCard({
@@ -294,6 +438,8 @@ export function MemberGroupCard({
   onSupprimer,
   masquerProfil,
   selectedInstanceId,
+  vueCondensee,
+  onToggleVueCondensee,
 }: MemberGroupCardProps) {
   const navigate = useNavigate();
   const { t, language } = useLanguage();
@@ -389,7 +535,23 @@ export function MemberGroupCard({
           {titre}
         </>
       }
+      actions={
+        <button
+          type="button"
+          className={`collapse-btn ${vueCondensee ? 'collapse-btn--actif' : ''}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleVueCondensee();
+          }}
+          aria-pressed={vueCondensee}
+          title={vueCondensee ? t('memberGroup.condensedOff') : t('memberGroup.condensedOn')}
+        >
+          <Icon name="liste" size="1.1em" />
+        </button>
+      }
     >
+      {!vueCondensee && (
+      <>
       <div className="roster-table-wrap">
         <table className="roster-table">
           <thead>
@@ -595,6 +757,35 @@ export function MemberGroupCard({
           />
         ))}
       </div>
+      </>
+      )}
+
+      {vueCondensee && (
+        <div className="member-condensed">
+          {vues.map(({ m, profil, equipement, groupeSimplifie, leader, avanceEnAttente }) => (
+            <MemberCardCondensed
+              key={m.instance_id}
+              m={m}
+              profil={profil}
+              equipement={equipement}
+              groupeSimplifie={groupeSimplifie}
+              leader={leader}
+              avanceEnAttente={avanceEnAttente}
+              fantome={idEnCours === m.instance_id}
+              selectionne={m.instance_id === selectedInstanceId}
+              masquerProfil={masquerProfil}
+              language={language}
+              t={t}
+              cardRef={refItem('condense', m.instance_id)}
+              onSelect={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
+              onSupprimer={() => onSupprimer(m)}
+              onBasculerHorsCombat={() => onBasculerHorsCombat(m)}
+              onDragPointerDown={demarrerDrag(m.instance_id)}
+              titreHorsCombatTexte={titreHorsCombat(m, groupeSimplifie)}
+            />
+          ))}
+        </div>
+      )}
 
       {membres.length === 0 && <p className="text-muted">{t('memberGroup.noMembers')}</p>}
 

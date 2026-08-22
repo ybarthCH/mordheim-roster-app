@@ -34,10 +34,12 @@ export function useDragReorder<T extends { instance_id: string }>(
     else refsElements.current.delete(cle);
   };
 
-  // Rect de la variante actuellement visible pour cet id (l'autre étant
-  // masquée en CSS a une boîte 0×0, donc écartée).
+  // Rect de la variante actuellement visible pour cet id (les autres étant
+  // soit masquées en CSS (boîte 0×0), soit carrément démontées — voir
+  // "condense", la vue condensée du roster (MemberGroupCard), jamais montée
+  // en même temps que "table"/"card" — donc écartées.
   const rectVisible = (id: string): DOMRect | null => {
-    for (const variante of ['table', 'card']) {
+    for (const variante of ['table', 'card', 'condense']) {
       const el = refsElements.current.get(`${variante}:${id}`);
       if (!el) continue;
       const rect = el.getBoundingClientRect();

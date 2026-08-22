@@ -1216,6 +1216,15 @@ button {
 .collapse-btn--replie {
   transform: rotate(180deg);
 }
+/* État "actif" d'un bouton d'action de section (ex : bascule vue condensée
+   du roster, MemberGroupCard) — distinct de --replie (rotation, réservée au
+   repli/déploiement) : ce cadre reste toujours à l'endroit, seul le
+   remplissage change pour indiquer que l'option est activée. */
+.collapse-btn--actif {
+  background: var(--accent);
+  border-color: var(--accent-strong, var(--accent));
+  color: var(--accent-contrast);
+}
 
 .field {
   display: flex;
@@ -2565,6 +2574,45 @@ button {
 
 .member-cards {
   display: none;
+}
+
+/* Vue condensée d'un groupe de membres (bouton dédié dans l'en-tête de
+   section, voir .collapse-btn--actif) : nom/profil/stats/équipement sur
+   quelques lignes serrées, réutilisant .list-item pour la structure de
+   base (bordure, fond, coin ancré pour la croix/poignée) mais avec un
+   padding et une typographie resserrés — jamais gérée par une media/
+   container query comme .roster-table-wrap/.member-cards ci-dessus : le
+   choix reste celui de l'utilisateur (voir MemberGroupCard), utile en
+   mode deux volets où le volet liste peut rester bien plus étroit que les
+   ~950px que réclame le tableau complet (voir .roster-split__list plus
+   bas), sans jamais retomber sur les grandes cartes mobiles pour autant. */
+.member-condensed .list-item {
+  position: relative;
+  padding: 0.5rem 3.2rem 0.5rem 0.65rem;
+  margin-bottom: 0.35rem;
+}
+.member-condensed .list-item__title {
+  font-size: 0.92rem;
+}
+.member-condensed__ligne {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+/* Bloc de stats : jamais tronqué (voir demande d'origine — les 9
+   caractéristiques doivent rester visibles), passe à la ligne suivante au
+   lieu de couper au milieu d'une abréviation de caractéristique. */
+.member-condensed__ligne--stats {
+  overflow-wrap: break-word;
+}
+/* Équipement : peut être arbitrairement long (tout un paquetage) — tronqué
+   sur une seule ligne avec ellipse plutôt que d'allonger la carte. */
+.member-condensed__ligne--tronquee {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.member-condensed__statut {
+  margin-top: 0.3rem;
 }
 
 @media (max-width: 720px) {
