@@ -65,14 +65,10 @@ export const personnageModalsSmall: UiDictionary = {
   'customItemForm.revertToCatalog': { fr: 'Revenir aux valeurs du catalogue', en: 'Revert to catalogue values' },
   'customItemForm.save': { fr: 'Enregistrer', en: 'Save' },
 
-  // RecrutementEquipementModal
+  // Étape équipement d'AjouterMembreModal (recrutement bande existante et
+  // création de bande partagent la même fenêtre)
   'recrutementEquipement.title': { fr: '{nom} recruté(e)', en: '{nom} recruited' },
-  'recrutementEquipement.hint': {
-    fr: "Acheter tout de suite son équipement (ou une mutation) plutôt que de repasser par sa fiche ensuite ?",
-    en: 'Buy their equipment (or a mutation) right away, instead of coming back to their sheet later?',
-  },
   'recrutementEquipement.finish': { fr: 'Terminer', en: 'Finish' },
-  'recrutementEquipement.buyEquipment': { fr: 'Acheter un objet', en: 'Buy an item' },
   'recrutementEquipement.selectedEquipment': { fr: 'Équipement sélectionné', en: 'Selected equipment' },
   'recrutementEquipement.noSelectionYet': {
     fr: 'Aucun objet sélectionné pour l’instant — choisissez-en un ci-dessous.',

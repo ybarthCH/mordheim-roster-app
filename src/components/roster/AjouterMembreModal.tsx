@@ -37,9 +37,14 @@ type Props = {
   roster: RosterInstance;
   onClose: () => void;
   onUpdateRoster: (roster: RosterInstance) => void;
+  // Masque l'option "Franc-tireur" (recrutement mercenaire) : cette option
+  // navigue vers un écran dédié qui lit/écrit un roster persisté par son id
+  // (voir RecruterFrancTireurScreen), incompatible avec un roster brouillon
+  // pas encore créé (voir CreationBandeScreen, seul appelant à passer true).
+  masquerFrancTireur?: boolean;
 };
 
-export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
+export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFrancTireur }: Props) {
   const navigate = useNavigate();
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
@@ -393,9 +398,11 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster }: Props) {
               ))}
             </optgroup>
           )}
-          <optgroup label={t('ajouterMembre.other')}>
-            <option value={FRANC_TIREUR}>{t('ajouterMembre.hiredSword')}</option>
-          </optgroup>
+          {!masquerFrancTireur && (
+            <optgroup label={t('ajouterMembre.other')}>
+              <option value={FRANC_TIREUR}>{t('ajouterMembre.hiredSword')}</option>
+            </optgroup>
+          )}
         </select>
       </div>
       {profil && (
