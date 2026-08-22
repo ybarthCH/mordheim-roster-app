@@ -90,12 +90,32 @@
         { "nom": "Maître berger", "texte": "En phase de Ralliement, tout Squig des Cavernes ou Grand Squig hors de contrôle dans sa zone d'influence cesse de vagabonder et peut être contrôlé sur un test de Commandement réussi." },
         {
           "nom": "Compétences dédiées (au lieu de la liste Spéciale)",
-          "texte": "Squigs gazeux : quand un Squig des Cavernes non entraîné est mis hors de combat, sur un 1 il explose et touche toutes les figurines dans un rayon d'1D6ps avec une touche de F3 ; ce Squig est mort. — Menace : en phase de Mouvement, sur un test de Cd réussi, tous les Squigs des Cavernes et Grands Squigs à portée (6ps, 12ps avec aiguillon) peuvent relancer leur dé de Mouvement pour ce tour. — Entraînement : le Berger peut entraîner un Squig comme garde personnel : celui-ci gagne de l'expérience comme un Homme de main normal (en relançant Ce gars est doué). Un seul Squig entraîné à la fois ; il ne meurt que sur un 1 après mise hors de combat et protège son maître tombé au combat dans certaines conditions."
+          "texte": "Lorsqu'il acquiert une nouvelle compétence de catégorie Spéciale, le Berger à Squig choisit dans sa propre liste (Squigs gazeux, Menace, Entraînement) plutôt que dans la liste Spéciale de la bande — voir l'onglet Compétences de sa fiche."
         }
       ],
       "acces_competences": ["combat", "vitesse", "special"],
       "acces_equipement": ["heros"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "competences_speciales": [
+        {
+          "id": "squigs_gazeux",
+          "nom": "Squigs gazeux",
+          "texte": "Le Berger à Squig nourrit ses Squigs d'un mélange de champignons pourris, de silex et de cailloux tranchants pour en faire du shrapnel. Quand un Squig des Cavernes non entraîné (voir Entraînement) est mis hors de combat, lancez un dé. Sur un 1, il explose en touchant toutes les figurines dans un rayon d'1D6ps avec une touche de Force 3. Ce Squig est MORT !",
+          "valeurPuissance": 0
+        },
+        {
+          "id": "menace",
+          "nom": "Menace",
+          "texte": "Pendant la phase de Mouvement, le Berger à Squig peut faire un test de Commandement. En cas de réussite, tous les Squigs des Cavernes et les Grands Squigs dans un rayon de 6ps (12ps avec un aiguillon à squigs) peuvent relancer leurs dés de Mouvement pour ce tour.",
+          "valeurPuissance": 0
+        },
+        {
+          "id": "entrainement",
+          "nom": "Entraînement",
+          "texte": "Le Berger à Squig peut entraîner un Squig particulièrement intelligent et vicieux pour en faire son garde personnel. Le prochain Squig acheté gagne de l'expérience comme un Homme de main normal, en relançant les résultats « Ce gars est doué » sur la table de progression des Hommes de main. Si le Berger à Squig meurt, le Squig entraîné est retiré de la bande. Si le Squig entraîné meurt, un nouveau Squig entraîné peut être recruté. Il n'y a jamais qu'un seul Squig entraîné dans la bande, et il compte toujours dans le nombre maximum de Squigs des Cavernes. En raison des attentions particulières que le Berger accorde à son Squig entraîné (coups de pied, coups de bâton), il ne meurt que sur un jet de 1 après avoir été mis hors de combat. En échange, le Squig entraîné défendra farouchement son maître tombé au combat : si le Berger à Squig est mis hors de combat et que le Squig entraîné est sous contrôle, retirez ce dernier de la table mais considérez tous les résultats 36 - Dépouillé, 61 - Capturé et 65 - Vendu aux arènes comme une Récupération totale.",
+          "valeurPuissance": 0
+        }
+      ]
     },
     {
       "id": "zbir",

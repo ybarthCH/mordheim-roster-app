@@ -1009,9 +1009,26 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Dedicated Skills (instead of the Special list)',
             texte:
-              "Gaseous Squigs: when an untrained Cave Squig is taken Out of Action, on a 1 it explodes and hits every model within 1D6\" with a Strength 3 hit; that Squig is dead. — Menace: during the Movement phase, on a successful Leadership test, all Cave Squigs and Giant Squigs within range (6\", 12\" with a prodder) may re-roll their Movement die for that turn. — Training: the Herder may train a Squig as a personal bodyguard: it gains experience like a normal Henchman (re-rolling Lad's Got Talent results). Only one trained Squig at a time; it only dies on a 1 after being taken Out of Action and protects its fallen master under certain conditions.",
+              "When gaining a new Special skill, the Squig Herder chooses from his own list (Gaseous Squigs, Menace, Training) instead of the warband's Special list — see the Skills tab on his sheet.",
           },
         ],
+        competences_speciales: {
+          squigs_gazeux: {
+            nom: 'Gaseous Squigs',
+            texte:
+              "The Squig Herder feeds his Squigs a mix of rotten mushrooms, flint, and sharp pebbles to turn them into shrapnel. When an untrained Cave Squig (see Training) is taken Out of Action, roll a die. On a 1, it explodes, hitting every model within 1D6\" with a Strength 3 hit. That Squig is DEAD!",
+          },
+          menace: {
+            nom: 'Menace',
+            texte:
+              'During the Movement phase, the Squig Herder may take a Leadership test. If successful, all Cave Squigs and Giant Squigs within 6" (12" with a squig prodder) may re-roll their Movement dice for that turn.',
+          },
+          entrainement: {
+            nom: 'Training',
+            texte:
+              "The Squig Herder may train a particularly intelligent and vicious Squig as his personal bodyguard. The next Squig bought gains experience like a normal Henchman, re-rolling \"Lad's Got Talent\" results on the Henchman advance table. If the Squig Herder dies, the trained Squig is removed from the warband. If the trained Squig dies, a new trained Squig may be recruited. There is never more than one trained Squig in a warband, and it still counts towards the maximum number of Cave Squigs. Thanks to the Herder's special attention (kicks, prods), the trained Squig only dies on a roll of 1 after being taken Out of Action. In exchange, the trained Squig will fiercely defend its fallen master: if the Squig Herder is taken Out of Action and the trained Squig is under control, remove the latter from the table but treat any 36 - Stripped Bare, 61 - Captured!, or 65 - Sold to the Arena result as a Full Recovery instead.",
+          },
+        },
       },
       zbir: { nom: 'Thug' },
       guerrier_gobelin_de_la_nuit: {
