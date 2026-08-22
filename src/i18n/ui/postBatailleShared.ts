@@ -58,6 +58,17 @@ export const postBatailleShared: UiDictionary = {
     en: "This warband's catalog has no War Dog profile — note it down manually.",
   },
 
+  // Arène (sextuples)
+  'postBataille.arena.result': { fr: '✓ {texte}', en: '✓ {texte}' },
+  'postBataille.arena.sellFor100': { fr: 'Vendre pour 100 CO', en: 'Sell for 100 gc' },
+  'postBataille.arena.keep': { fr: 'Garder pour un héros', en: 'Keep for a Hero' },
+  'postBataille.arena.keepLabel': { fr: 'Gardé', en: 'Kept' },
+  'postBataille.arena.sold': { fr: "Manuel d'entraînement vendu — +100 po.", en: 'Training manual sold — +100 gc.' },
+  'postBataille.arena.kept': {
+    fr: "Manuel d'entraînement gardé et ajouté au stock de la bande.",
+    en: "Training manual kept and added to the warband's stock.",
+  },
+
   // Entrée des Catacombes (quintuples)
   'postBataille.catacombs.add': { fr: 'Ajouter la relance permanente à la bande', en: 'Add the permanent re-roll to the warband' },
   'postBataille.catacombs.added': {

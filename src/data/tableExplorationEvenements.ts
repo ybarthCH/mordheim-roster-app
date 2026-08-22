@@ -554,7 +554,6 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
         regle: [
           "Vous trouvez un manuel d'entraînement, que vous pouvez vendre pour 100 CO ou donner à l'un de vos héros. Le savoir qu'il y trouve lui permet de choisir dans la liste de compétences de combat en plus de ses listes habituelles lorsqu'un jet de progression lui fait gagner une nouvelle compétence, et sa CC peut dorénavant progresser d'un point de plus que le maximum normal (par exemple, la CC d'un humain doté du livre peut à présent progresser jusqu'à un maximum de 7).",
         ],
-        or: '100',
       },
       {
         id: 'villa_de_noble',

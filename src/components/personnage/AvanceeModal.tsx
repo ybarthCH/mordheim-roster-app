@@ -7,7 +7,7 @@ import { Modal } from '../common/Modal';
 import { SKILLS, TABLE_AVANCEMENT_HEROS, TABLE_AVANCEMENT_HOMMES_DE_MAIN, skillById } from '../../data/gameData';
 import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
 import { LIMITE_HEROS, categoriesAccessibles, tableAvancementDuProfil } from '../../utils/profil';
-import { peutAugmenterStat } from '../../utils/plafond';
+import { bonusPlafondCC, peutAugmenterStat } from '../../utils/plafond';
 import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
 import { formatEquipementAffiche, monturesDisponibles, resumeInventaireParItem } from '../../utils/shop';
@@ -120,7 +120,14 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
   const entreeAvancement = indexAvancement !== '' ? table[Number(indexAvancement)] : null;
 
   const verdictStat = (stat: keyof Member['stats_actuels']) =>
-    peutAugmenterStat(profil, travail.stats_actuels, travail.historique_avancees, stat, travail.competences_acquises);
+    peutAugmenterStat(
+      profil,
+      travail.stats_actuels,
+      travail.historique_avancees,
+      stat,
+      travail.competences_acquises,
+      bonusPlafondCC(travail)
+    );
 
   const verdictFixe =
     entreeAvancement?.type === 'caracteristique_fixe' ? verdictStat(entreeAvancement.stat) : null;

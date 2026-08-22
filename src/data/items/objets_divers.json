@@ -1706,6 +1706,23 @@
     ]
   },
   {
+    "id": "manuel_entrainement",
+    "nom": "Manuel d'entraînement",
+    "categorie": "divers",
+    "cout": 100,
+    "cout_fixe": true,
+    "disponibilite": "Trouvé uniquement lors de l'événement d'exploration Arène — jamais en boutique",
+    "acces": [],
+    "source": "LdR",
+    "texte": "Un manuel d'entraînement retrouvé dans les ruines d'une arène de duellistes et de gladiateurs de Mordheim, décrivant des techniques de combat oubliées.",
+    "regles_speciales": [
+      {
+        "nom": "Effet",
+        "texte": "Le Héros porteur peut choisir dans la liste de compétences de combat en plus de ses listes habituelles lorsqu'un jet de progression lui fait gagner une nouvelle compétence, et sa CC peut dorénavant progresser d'un point de plus que le maximum normal (par exemple, la CC d'un humain doté du manuel peut à présent progresser jusqu'à un maximum de 7)."
+      }
+    ]
+  },
+  {
     "id": "tonneau_de_poudre",
     "nom": "Tonneau de poudre",
     "categorie": "divers",

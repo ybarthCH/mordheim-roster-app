@@ -19,6 +19,7 @@ import { ResolutionPrisonniers } from './ResolutionPrisonniers';
 import { ResolutionDebiteurReconnaissant } from './ResolutionDebiteurReconnaissant';
 import { ResolutionBatimentEcroule } from './ResolutionBatimentEcroule';
 import { ResolutionEntreeCatacombes } from './ResolutionEntreeCatacombes';
+import { ResolutionArene } from './ResolutionArene';
 import { useLanguage } from '../../state/useLanguage';
 import { translateEvenementExploration } from '../../i18n/data/explorationEvenements';
 import { translateItem } from '../../i18n/data/items';
@@ -50,6 +51,7 @@ const EVENEMENTS_AVEC_COMPOSANT = new Set([
   'debiteur_reconnaissant',
   'batiment_ecroule',
   'entree_catacombes_5',
+  'arene',
 ]);
 
 function evenementAUneResolution(ev: Evenement): boolean {
@@ -298,6 +300,16 @@ export function EvenementExploration({
               roster={roster}
               nomEvenement={evenementAffiche.nom}
               onMajRoster={onMajRoster}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
+          )}
+
+          {evenement.id === 'arene' && (
+            <ResolutionArene
+              nomEvenement={evenementAffiche.nom}
+              catalogueId={catalogue.id}
+              onAjouterOr={onAjouterOr}
+              onAjouterObjet={ajouterObjet}
               onAjouterAuJournal={onAjouterAuJournal}
             />
           )}
