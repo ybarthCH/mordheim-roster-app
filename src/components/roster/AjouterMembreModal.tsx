@@ -5,7 +5,7 @@ import type { Member, RosterInstance } from '../../types/roster';
 import { STAT_KEYS } from '../../types/catalog';
 import { getCatalogue } from '../../data/warbands';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
-import { peutAjouterMembre } from '../../utils/validation';
+import { limiteAfficheePourProfil, peutAjouterMembre } from '../../utils/validation';
 import { creerMembre } from '../../utils/factory';
 import {
   appliquerAchatSurMembre,
@@ -96,6 +96,27 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
   // comme un groupe d'hommes de main (voir estGroupable plus bas) : classés
   // dans le même optgroup pour ne pas les faire ressembler à un objet à part.
   const profilsHommesDeMain = catalogue?.profils.filter((p) => p.type === 'homme_de_main' || p.type === 'animal') ?? [];
+
+  // Grise/désactive dans la liste déroulante les profils déjà à leur limite
+  // (unique déjà recruté, max de groupe atteint, plafond combiné atteint,
+  // profil banni à jamais) — même vérification que `check` plus bas pour le
+  // profil sélectionné, appliquée ici à chaque option de la liste, pour ne
+  // pas laisser cliquer un profil qui sera de toute façon refusé ensuite.
+  const suffixeLimiteProfil = (id: string): { desactive: boolean; suffixe: string } => {
+    const verif = peutAjouterMembre(roster, id, 1);
+    if (verif.ok) return { desactive: false, suffixe: '' };
+    if (verif.raison?.includes('banni')) {
+      return { desactive: true, suffixe: ` (${t('ajouterMembre.unavailable')})` };
+    }
+    const limite = limiteAfficheePourProfil(roster, id);
+    return {
+      desactive: true,
+      suffixe:
+        limite != null
+          ? ` (${t('ajouterMembre.maxReachedWithNumber', { n: limite })})`
+          : ` (${t('ajouterMembre.maxReached')})`,
+    };
+  };
 
   const profil = catalogue?.profils.find((p) => p.id === profilId);
   const estGroupable = profil?.type === 'homme_de_main' || profil?.type === 'animal';
@@ -382,20 +403,26 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
           <option value="">{t('ajouterMembre.choose')}</option>
           {profilsHeros.length > 0 && (
             <optgroup label={t('ajouterMembre.heroes')}>
-              {profilsHeros.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.nom} ({formatCoutProfil(p.cout, p.cout_notation, language)})
-                </option>
-              ))}
+              {profilsHeros.map((p) => {
+                const { desactive, suffixe } = suffixeLimiteProfil(p.id);
+                return (
+                  <option key={p.id} value={p.id} disabled={desactive}>
+                    {p.nom} ({formatCoutProfil(p.cout, p.cout_notation, language)}){suffixe}
+                  </option>
+                );
+              })}
             </optgroup>
           )}
           {profilsHommesDeMain.length > 0 && (
             <optgroup label={t('ajouterMembre.henchmen')}>
-              {profilsHommesDeMain.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.nom} ({formatCoutProfil(p.cout, p.cout_notation, language)})
-                </option>
-              ))}
+              {profilsHommesDeMain.map((p) => {
+                const { desactive, suffixe } = suffixeLimiteProfil(p.id);
+                return (
+                  <option key={p.id} value={p.id} disabled={desactive}>
+                    {p.nom} ({formatCoutProfil(p.cout, p.cout_notation, language)}){suffixe}
+                  </option>
+                );
+              })}
             </optgroup>
           )}
           {!masquerFrancTireur && (

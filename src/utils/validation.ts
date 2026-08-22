@@ -92,6 +92,18 @@ export function validerEffectif(roster: RosterInstance): ViolationEffectif[] {
   return violations;
 }
 
+// Limite numérique à afficher pour un profil (ex : griser une option de
+// liste avec son max) — même calcul que dans peutAjouterMembre, mais séparé
+// car purement informatif : ne couvre pas le plafond combiné
+// (profil.plafond_groupe), qui n'a pas de max propre à un seul profil.
+export function limiteAfficheePourProfil(roster: RosterInstance, profilId: string): number | undefined {
+  const catalogue = getCatalogue(roster.bande_id);
+  const profil = catalogue?.profils.find((p) => p.id === profilId);
+  if (!catalogue || !profil) return undefined;
+  const surchargeTribu = maxProfilPourTribu(catalogue, roster, profilId);
+  return limiteEffectivePourProfil(profil, surchargeTribu);
+}
+
 export function peutAjouterMembre(
   roster: RosterInstance,
   profilId: string,
