@@ -1712,7 +1712,7 @@
     "cout": 100,
     "cout_fixe": true,
     "disponibilite": "Trouvé uniquement lors de l'événement d'exploration Arène — jamais en boutique",
-    "acces": [],
+    "acces": ["exploration_uniquement"],
     "source": "LdR",
     "texte": "Un manuel d'entraînement retrouvé dans les ruines d'une arène de duellistes et de gladiateurs de Mordheim, décrivant des techniques de combat oubliées.",
     "regles_speciales": [
