@@ -14,6 +14,7 @@ import { AjouterMembreModal } from './AjouterMembreModal';
 import { RosterSummaryCard } from './RosterSummaryCard';
 import { ArmurerieSection } from './ArmurerieSection';
 import { MemberGroupCard } from './MemberGroupCard';
+import { MemberQuickList } from './MemberQuickList';
 import { HistoriqueBataillesSection } from './HistoriqueBataillesSection';
 import { PromotionHerosDechuModal } from './PromotionHerosDechuModal';
 import { EquipementReference, MagieReference } from '../common/CatalogueReference';
@@ -95,14 +96,12 @@ export function RosterScreen({
   // s'affiche maintenant à côté de Recruter/Assistant post-bataille (voir
   // .top-actions plus bas), pas dans l'en-tête de la carte armurerie.
   const [modalAchat, setModalAchat] = useState(false);
-  // Vue condensée des groupes de membres (nom/profil/stats/équipement sur
-  // quelques lignes serrées, sans le tableau complet ni les grandes cartes
-  // mobiles) — utile en split view, où le volet liste peut rester étroit
-  // sans jamais atteindre les ~950px que réclame le tableau (voir
-  // .roster-split__list dans index.css), forçant sinon les cartes pleine
-  // taille même avec une vingtaine de membres à parcourir. Partagée entre
-  // tous les groupes (Héros/Hommes de main/...) plutôt qu'un état par
-  // groupe : un seul bouton, cohérent partout sur l'écran.
+  // Liste rapide (fusion Héros + Hommes de main, nom/profil/stats seulement,
+  // voir MemberQuickList) remplaçant les deux cartes de groupe détaillées :
+  // utile pour défiler vite une bande nombreuse (~20 membres), y compris en
+  // split view où le volet liste peut rester étroit sans jamais atteindre
+  // les ~950px que réclame le tableau (voir .roster-split__list dans
+  // index.css).
   const { open: vueCondensee, toggle: toggleVueCondensee } = usePersistentDisclosure(
     'ui.roster.membres.vueCondensee',
     false
@@ -386,6 +385,16 @@ export function RosterScreen({
         >
           {t('roster.postBattleWizard')}
         </button>
+        <button
+          type="button"
+          className={`btn roster-actions__btn${vueCondensee ? ' btn--primary' : ''}`}
+          onClick={toggleVueCondensee}
+          aria-pressed={vueCondensee}
+          title={vueCondensee ? t('roster.quickListOff') : t('roster.quickListOn')}
+        >
+          <Icon name="liste" style={{ marginRight: '0.35em' }} />
+          {vueCondensee ? t('roster.quickListOff') : t('roster.quickListOn')}
+        </button>
       </div>
 
       <ArmurerieSection
@@ -464,34 +473,45 @@ export function RosterScreen({
         </CollapsibleCard>
       )}
 
-      <MemberGroupCard
-        titre={t('roster.heroes')}
-        icone="etoilePack"
-        preferenceKey="ui.roster.groupe_heros.ouvert"
-        membres={heros}
-        roster={roster}
-        catalogue={catalogue}
-        onReordonner={reordonnerSection}
-        onBasculerHorsCombat={basculerHorsCombat}
-        onSupprimer={setMembreASupprimer}
-          vueCondensee={vueCondensee}
-          onToggleVueCondensee={toggleVueCondensee}
-        selectedInstanceId={selectedInstanceId}
-      />
-      <MemberGroupCard
-        titre={t('roster.henchmen')}
-        icone="drapeauxPack"
-        preferenceKey="ui.roster.groupe_hommes_de_main.ouvert"
-        membres={hommesDeMain}
-        roster={roster}
-        catalogue={catalogue}
-        onReordonner={reordonnerSection}
-        onBasculerHorsCombat={basculerHorsCombat}
-        onSupprimer={setMembreASupprimer}
-          vueCondensee={vueCondensee}
-          onToggleVueCondensee={toggleVueCondensee}
-        selectedInstanceId={selectedInstanceId}
-      />
+      {vueCondensee ? (
+        <MemberQuickList
+          titre={`${t('roster.heroes')} · ${t('roster.henchmen')}`}
+          icone="etoilePack"
+          preferenceKey="ui.roster.groupe_liste_rapide.ouvert"
+          membres={[...heros, ...hommesDeMain]}
+          roster={roster}
+          catalogue={catalogue}
+          onSupprimer={setMembreASupprimer}
+          selectedInstanceId={selectedInstanceId}
+        />
+      ) : (
+        <>
+          <MemberGroupCard
+            titre={t('roster.heroes')}
+            icone="etoilePack"
+            preferenceKey="ui.roster.groupe_heros.ouvert"
+            membres={heros}
+            roster={roster}
+            catalogue={catalogue}
+            onReordonner={reordonnerSection}
+            onBasculerHorsCombat={basculerHorsCombat}
+            onSupprimer={setMembreASupprimer}
+            selectedInstanceId={selectedInstanceId}
+          />
+          <MemberGroupCard
+            titre={t('roster.henchmen')}
+            icone="drapeauxPack"
+            preferenceKey="ui.roster.groupe_hommes_de_main.ouvert"
+            membres={hommesDeMain}
+            roster={roster}
+            catalogue={catalogue}
+            onReordonner={reordonnerSection}
+            onBasculerHorsCombat={basculerHorsCombat}
+            onSupprimer={setMembreASupprimer}
+            selectedInstanceId={selectedInstanceId}
+          />
+        </>
+      )}
       {francsTireurs.length > 0 && (
         <MemberGroupCard
           titre={t('roster.hiredSwordsGroup')}
@@ -503,8 +523,6 @@ export function RosterScreen({
           onReordonner={reordonnerSection}
           onBasculerHorsCombat={basculerHorsCombat}
           onSupprimer={setMembreASupprimer}
-          vueCondensee={vueCondensee}
-          onToggleVueCondensee={toggleVueCondensee}
         />
       )}
       {dramatisPersonae.length > 0 && (
@@ -518,8 +536,6 @@ export function RosterScreen({
           onReordonner={reordonnerSection}
           onBasculerHorsCombat={basculerHorsCombat}
           onSupprimer={setMembreASupprimer}
-          vueCondensee={vueCondensee}
-          onToggleVueCondensee={toggleVueCondensee}
           masquerProfil
         />
       )}
@@ -534,8 +550,6 @@ export function RosterScreen({
           onReordonner={reordonnerSection}
           onBasculerHorsCombat={basculerHorsCombat}
           onSupprimer={setMembreASupprimer}
-          vueCondensee={vueCondensee}
-          onToggleVueCondensee={toggleVueCondensee}
           selectedInstanceId={selectedInstanceId}
         />
       )}

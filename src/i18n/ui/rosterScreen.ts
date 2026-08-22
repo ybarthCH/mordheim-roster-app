@@ -55,6 +55,8 @@ export const rosterScreen: UiDictionary = {
   'roster.tribeNotSet': { fr: '— non renseignée', en: '— not specified' },
   'roster.recruit': { fr: 'Recruter', en: 'Recruit' },
   'roster.postBattleWizard': { fr: 'Assistant post-bataille', en: 'Post-battle wizard' },
+  'roster.quickListOn': { fr: 'Liste rapide', en: 'Quick list' },
+  'roster.quickListOff': { fr: 'Vue détaillée', en: 'Detailed view' },
   'roster.heroes': { fr: 'Héros', en: 'Heroes' },
   'roster.henchmen': { fr: 'Hommes de main', en: 'Henchmen' },
   'roster.hiredSwordsGroup': { fr: 'Francs-tireurs', en: 'Hired Swords' },
@@ -195,11 +197,6 @@ export const rosterScreen: UiDictionary = {
   'memberGroup.removeTitle': { fr: 'Retirer de la bande', en: 'Remove from the warband' },
   'memberGroup.noMembers': { fr: 'Aucun membre recruté.', en: 'No members recruited.' },
   'memberGroup.noEquipment': { fr: 'Sans équipement', en: 'No equipment' },
-  'memberGroup.condensedOn': {
-    fr: 'Vue condensée (nom, profil, stats, équipement)',
-    en: 'Condensed view (name, profile, stats, equipment)',
-  },
-  'memberGroup.condensedOff': { fr: 'Revenir à la vue normale', en: 'Back to normal view' },
   'memberGroup.injuries': { fr: 'Blessures :', en: 'Injuries:' },
 
   'promotion.title': { fr: 'Promouvoir un Prospect — rôle vacant', en: 'Promote a Prospect — vacant role' },
