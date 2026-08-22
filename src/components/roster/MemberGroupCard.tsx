@@ -309,6 +309,10 @@ type MemberGroupCardProps = {
   // Membre actuellement ouvert dans le volet détail (mode deux volets, grands
   // écrans) : surligne sa ligne dans la liste. Voir RosterScreen/RosterRoute.
   selectedInstanceId?: string;
+  // Bascule vers la liste rapide "Bande complète" (RosterScreen) : bouton
+  // affiché dans l'en-tête si fourni — les groupes qui ne participent pas à
+  // la fusion (ex : Cimetière) n'ont pas ce bouton.
+  onBasculerVueRapide?: () => void;
 };
 
 export function MemberGroupCard({
@@ -323,6 +327,7 @@ export function MemberGroupCard({
   onSupprimer,
   masquerProfil,
   selectedInstanceId,
+  onBasculerVueRapide,
 }: MemberGroupCardProps) {
   const navigate = useNavigate();
   const { t, language } = useLanguage();
@@ -417,6 +422,21 @@ export function MemberGroupCard({
           <Icon name={icone} style={{ marginRight: '0.35em' }} />
           {titre}
         </>
+      }
+      actions={
+        onBasculerVueRapide && (
+          <button
+            type="button"
+            className="collapse-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              onBasculerVueRapide();
+            }}
+            title={t('roster.quickListOn')}
+          >
+            <Icon name="liste" size="1.1em" />
+          </button>
+        )
       }
     >
       <div className="roster-table-wrap">

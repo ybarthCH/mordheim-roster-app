@@ -22,13 +22,17 @@ type MemberQuickListProps = {
   catalogue: WarbandCatalog | undefined;
   onSupprimer: (m: Member) => void;
   selectedInstanceId?: string;
+  // Retour à la vue détaillée (groupes séparés) — bouton dans l'en-tête,
+  // symétrique de onBasculerVueRapide sur MemberGroupCard.
+  onBasculerVueDetaillee: () => void;
 };
 
-// Liste fusionnée Héros + Hommes de main, pensée pour un défilement rapide
-// sur une bande nombreuse (~20 membres) plutôt que la consultation détaillée
-// : chaque ligne se limite au nom, au profil et au bloc de stats — ni
-// équipement, ni contrôle de statut, ni poignée de glisser-déposer (voir
-// RosterScreen, bouton dédié) — seule la croix de suppression subsiste.
+// Liste fusionnée "Bande complète" (Héros, Hommes de main, Francs-tireurs,
+// Dramatis Personae), pensée pour un défilement rapide sur une bande
+// nombreuse (~20 membres) plutôt que la consultation détaillée : chaque
+// ligne se limite au nom, au profil et au bloc de stats — ni équipement, ni
+// contrôle de statut, ni poignée de glisser-déposer — seule la croix de
+// suppression subsiste.
 export function MemberQuickList({
   titre,
   icone,
@@ -38,6 +42,7 @@ export function MemberQuickList({
   catalogue,
   onSupprimer,
   selectedInstanceId,
+  onBasculerVueDetaillee,
 }: MemberQuickListProps) {
   const navigate = useNavigate();
   const { t, language } = useLanguage();
@@ -71,6 +76,19 @@ export function MemberQuickList({
           <Icon name={icone} style={{ marginRight: '0.35em' }} />
           {titre}
         </>
+      }
+      actions={
+        <button
+          type="button"
+          className="collapse-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            onBasculerVueDetaillee();
+          }}
+          title={t('roster.quickListOff')}
+        >
+          <Icon name="liste" size="1.1em" />
+        </button>
       }
     >
       <div className="member-condensed">

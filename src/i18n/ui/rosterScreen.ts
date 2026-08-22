@@ -57,6 +57,7 @@ export const rosterScreen: UiDictionary = {
   'roster.postBattleWizard': { fr: 'Assistant post-bataille', en: 'Post-battle wizard' },
   'roster.quickListOn': { fr: 'Liste rapide', en: 'Quick list' },
   'roster.quickListOff': { fr: 'Vue détaillée', en: 'Detailed view' },
+  'roster.fullWarband': { fr: 'Bande complète', en: 'Full warband' },
   'roster.heroes': { fr: 'Héros', en: 'Heroes' },
   'roster.henchmen': { fr: 'Hommes de main', en: 'Henchmen' },
   'roster.hiredSwordsGroup': { fr: 'Francs-tireurs', en: 'Hired Swords' },
