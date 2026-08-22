@@ -968,7 +968,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Unsavoury Characters',
         texte:
-          'A Night Goblin warband may only hire the following Hired Swords: Gladiator, Ogre Bodyguard, Wizard, as well as any Hired Sword whose description specifically allows it.',
+          'A Night Goblin warband may only hire the following Hired Swords: Gladiator, Ogre Bodyguard, Warlock, Witch, as well as any Hired Sword whose description specifically allows it.',
       },
     ],
     profils: {
