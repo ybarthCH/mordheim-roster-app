@@ -46,6 +46,10 @@ export const blessureGraveWizard: UiDictionary = {
     en: "Warband's current treasury: {n} gc.",
   },
   'blessureGraveWizard.heroLost': { fr: 'Héros perdu', en: 'Hero lost' },
+  'blessureGraveWizard.exchangedForPrisoner': {
+    fr: 'Échangé contre un prisonnier',
+    en: 'Exchanged for a prisoner',
+  },
   'blessureGraveWizard.ransomedBack': { fr: 'Récupéré contre rançon', en: 'Recovered for ransom' },
   'blessureGraveWizard.ransomAmountLabel': { fr: 'Montant de la rançon (po)', en: 'Ransom amount (gc)' },
   'blessureGraveWizard.treasuryAfterPayment': {
@@ -106,6 +110,14 @@ export const blessureGraveWizard: UiDictionary = {
   'blessureGraveWizard.capturedRansomTexte': {
     fr: 'Le prisonnier est libéré contre une rançon de {montant} po, payée par la bande. Il conserve tout son équipement et rejoint aussitôt la bande.',
     en: 'The captive is released for a ransom of {montant} gc, paid by the warband. He keeps all his equipment and immediately rejoins the warband.',
+  },
+  'blessureGraveWizard.capturedExchangeNom': {
+    fr: 'Capturé — échangé contre un prisonnier',
+    en: 'Captured — exchanged for a prisoner',
+  },
+  'blessureGraveWizard.capturedExchangeTexte': {
+    fr: 'Le prisonnier est échangé contre un captif détenu par sa propre bande. Il conserve tout son équipement et rejoint aussitôt la bande.',
+    en: 'The captive is exchanged for a prisoner held by his own warband. He keeps all his equipment and immediately rejoins the warband.',
   },
   'blessureGraveWizard.subRollResultPrefix': { fr: 'Résultat du sous-jet', en: 'Sub-roll result' },
   'blessureGraveWizard.missesNextGamesSuffix': {

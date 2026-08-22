@@ -27,6 +27,11 @@ export function ResolutionVagabond({ roster, catalogue, nomEvenement, onMajRoste
   // aucun état, ils restaient cliquables indéfiniment — chaque clic
   // supplémentaire rappliquait le gain (XP, zombie, dé bonus) en double.
   const [resolu, setResolu] = useState<string | null>(null);
+  // « Vendre » (Skavens) exige un jet à saisir (2D6) contrairement aux trois
+  // autres options : révèle le JetOrButton au clic plutôt que de l'afficher
+  // en permanence dès qu'une bande skaven est détectée — même principe que
+  // les autres branches (un clic sur le bouton principal engage l'action).
+  const [venteRevelee, setVenteRevelee] = useState(false);
 
   const sacrifierPourXp = () => {
     if (!chef) return;
@@ -81,6 +86,7 @@ export function ResolutionVagabond({ roster, catalogue, nomEvenement, onMajRoste
           className="btn--pack-pill-sm"
           disabled={catalogue.id !== 'skaven'}
           title={catalogue.id !== 'skaven' ? t('postBataille.vagrant.reservedFor', { faction: 'Skavens' }) : undefined}
+          onClick={() => setVenteRevelee(true)}
         >
           {t('postBataille.vagrant.sellFor2d6')}
         </button>
@@ -120,7 +126,7 @@ export function ResolutionVagabond({ roster, catalogue, nomEvenement, onMajRoste
           {t('postBataille.vagrant.questionForDie')}
         </button>
       </div>
-      {catalogue.id === 'skaven' && (
+      {catalogue.id === 'skaven' && venteRevelee && (
         <JetOrButton
           label={t('postBataille.vagrant.rollObtained2d6')}
           onValider={venduPourOr}

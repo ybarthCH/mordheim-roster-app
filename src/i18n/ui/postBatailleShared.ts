@@ -161,8 +161,8 @@ export const postBatailleShared: UiDictionary = {
   },
   'postBataille.prisoners.soldAsSlaves': { fr: 'Vendus comme esclaves — +{n} po.', en: 'Sold as slaves — +{n} gc.' },
   'postBataille.prisoners.escorted': {
-    fr: "Escortés hors de la cité — +{n} po. Un captif peut rejoindre un groupe d'hommes de main humain existant si tu as le matériel pour l'équiper (à faire manuellement).",
-    en: 'Escorted out of the city — +{n} gc. A captive may join an existing human henchman group if you have the gear to equip them (to be done manually).',
+    fr: 'Escortés hors de la cité — +{n} po.',
+    en: 'Escorted out of the city — +{n} gc.',
   },
   'postBataille.prisoners.sacrificeForXp': { fr: 'Sacrifier — D3 XP', en: 'Sacrifice — D3 XP' },
   'postBataille.prisoners.killForZombies': { fr: 'Tuer — D3 zombies gratuits', en: 'Kill — D3 free zombies' },
@@ -173,6 +173,21 @@ export const postBatailleShared: UiDictionary = {
   'postBataille.prisoners.addXp': { fr: "Ajouter l'XP", en: 'Add the XP' },
   'postBataille.prisoners.addZombies': { fr: 'Ajouter les zombies', en: 'Add the zombies' },
   'postBataille.prisoners.rollObtained3d6': { fr: 'Jet obtenu (3D6) :', en: 'Roll obtained (3D6):' },
+  'postBataille.prisoners.recruitGroupLabel': {
+    fr: 'Groupe rejoint par la recrue',
+    en: 'Group joined by the recruit',
+  },
+  'postBataille.prisoners.recruitNoGroup': {
+    fr: "Aucun groupe d'hommes de main dans cette bande — la recrue ne peut pas être intégrée.",
+    en: 'No henchman group in this warband — the recruit cannot be added.',
+  },
+  'postBataille.prisoners.recruitJoinButton': { fr: 'Ajouter la recrue au groupe', en: 'Add the recruit to the group' },
+  'postBataille.prisoners.recruitSkip': { fr: 'Ne pas recruter', en: "Don't recruit" },
+  'postBataille.prisoners.recruitSkipped': { fr: "Aucun captif n'a rejoint la bande.", en: 'No captive joined the warband.' },
+  'postBataille.prisoners.recruitJoined': {
+    fr: 'Un captif rejoint le groupe « {groupe} ».',
+    en: 'A captive joins the "{groupe}" group.',
+  },
 
   // Œil des Dieux Sombres
   'postBataille.eyeOfDarkGods.markLabel': { fr: 'Marque des Dieux Sombres', en: 'Mark of the Dark Gods' },
