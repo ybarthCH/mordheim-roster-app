@@ -1143,13 +1143,13 @@ button {
 .drag-handle--discret:active {
   opacity: 1;
 }
-/* Sur la carte mobile (voir MemberGroupCard) : à côté du bouton de
-   suppression dans .list-item__title-actions, ancré au coin supérieur droit
-   de la carte — plus dans sa propre colonne dédiée devant .list-item__row.
-   Taille et opacité remontées un peu plus (1.3rem/0.6 → 1.5rem/0.85), et
-   couleur passée de --text-muted à --text : les six points de l'icône sont
-   minuscules et --text-muted trop pâle le rendait difficile à repérer avant
-   même de le toucher, surtout en thème sombre. */
+/* Sur la ligne condensée "Bande complète" (voir MemberQuickList) : à côté
+   du bouton de suppression dans .list-item__title-actions, ancré au coin
+   supérieur droit de la carte. Taille et opacité remontées un peu plus
+   (1.3rem/0.6 → 1.5rem/0.85), et couleur passée de --text-muted à --text :
+   les six points de l'icône sont minuscules et --text-muted trop pâle le
+   rendait difficile à repérer avant même de le toucher, surtout en thème
+   sombre. */
 .drag-handle--titre {
   width: 1.5rem;
   height: 1.5rem;
@@ -2646,7 +2646,10 @@ thead .roster-table__col-actions {
    de glisser-déposer (une seule action ancrée dans le coin : la croix). */
 .member-condensed .list-item {
   position: relative;
-  padding: 0.5rem 2.4rem 0.5rem 0.65rem;
+  /* 3.5rem à droite : place pour les deux icônes ancrées dans
+     .list-item__title-actions (suppression + poignée de glisser-déposer,
+     voir .drag-handle--titre) sans chevaucher le titre. */
+  padding: 0.5rem 3.5rem 0.5rem 0.65rem;
   margin-bottom: 0.35rem;
 }
 .member-condensed .list-item__title {

@@ -11,13 +11,15 @@ import { useEffect, useRef, useState } from 'react';
 // curseur/doigt à l'écran.
 //
 // `refItem` prend une variante (ex : "table" / "compact") car un même
-// membre est monté deux fois en parallèle — tableau desktop ET lignes
-// compactes téléphone (voir MemberGroupCard), l'une des deux étant
+// membre peut être monté deux fois en parallèle — tableau desktop ET
+// lignes compactes téléphone (voir MemberGroupCard), l'une des deux étant
 // seulement masquée en CSS (display: none) selon la largeur d'écran, pas
 // démontée. Sans cette distinction, la dernière variante à s'attacher
 // écraserait systématiquement la référence de l'autre dans la Map, et le
 // calcul de position utiliserait alors le rect d'un élément caché (donc
-// toujours 0×0).
+// toujours 0×0). Les appelants à rendu unique (ex : MemberQuickList)
+// peuvent utiliser n'importe quel nom de variante, y compris toujours le
+// même — rectVisible ne présuppose pas quels noms existent.
 export function useDragReorder<T extends { instance_id: string }>(
   items: T[],
   onReorder: (nouvelOrdre: T[]) => void
@@ -26,6 +28,21 @@ export function useDragReorder<T extends { instance_id: string }>(
   const [idEnCours, setIdEnCours] = useState<string | null>(null);
   const [pointerPos, setPointerPos] = useState<{ x: number; y: number } | null>(null);
   const refsElements = useRef<Map<string, HTMLElement>>(new Map());
+  // Miroir synchrone de ordreEnCours : onFin (voir plus bas) a besoin de lire
+  // l'ordre final AVANT de déclencher onReorder — appeler onReorder depuis
+  // l'intérieur d'un updater fonctionnel de setOrdreEnCours (ancienne
+  // version) invoque au passage le setState d'un tout autre composant
+  // (RostersProvider, plusieurs niveaux plus haut), React ne garantit pas
+  // qu'un tel effet de bord niché dans un updater soit appliqué de façon
+  // fiable — en pratique, le nouvel ordre s'affichait bien pendant le drag
+  // mais ne persistait jamais (silencieusement annulé au relâchement). Ce
+  // ref permet à onFin de lire l'ordre courant puis d'appeler onReorder en
+  // tant qu'appel de fonction ordinaire, hors de tout updater.
+  const ordreEnCoursRef = useRef<T[] | null>(null);
+  const definirOrdreEnCours = (valeur: T[] | null) => {
+    ordreEnCoursRef.current = valeur;
+    setOrdreEnCours(valeur);
+  };
 
   const refItem = (variante: string, id: string) => (el: HTMLElement | null) => {
     const cle = `${variante}:${id}`;
@@ -33,16 +50,24 @@ export function useDragReorder<T extends { instance_id: string }>(
     else refsElements.current.delete(cle);
   };
 
-  // Rect de la variante actuellement visible pour cet id (l'autre étant
-  // masquée en CSS, donc une boîte 0×0 — écartée).
+  // Rect de la variante actuellement visible pour cet id (une éventuelle
+  // autre variante masquée en CSS donnant une boîte 0×0 — écartée).
   const rectVisible = (id: string): DOMRect | null => {
-    for (const variante of ['table', 'compact']) {
-      const el = refsElements.current.get(`${variante}:${id}`);
-      if (!el) continue;
+    const suffixe = `:${id}`;
+    for (const [cle, el] of refsElements.current) {
+      if (!cle.endsWith(suffixe)) continue;
       const rect = el.getBoundingClientRect();
       if (rect.width > 0 || rect.height > 0) return rect;
     }
     return null;
+  };
+
+  const demarrerDrag = (id: string) => (e: React.PointerEvent) => {
+    e.preventDefault();
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    setIdEnCours(id);
+    definirOrdreEnCours(items);
+    setPointerPos({ x: e.clientX, y: e.clientY });
   };
 
   // Vrai juste après qu'un drag démarré via demarrerDragDiffere se soit
@@ -60,7 +85,11 @@ export function useDragReorder<T extends { instance_id: string }>(
   // selon ce qui arrive en premier — plutôt qu'immédiatement au
   // pointerdown : un simple clic/tap reste ainsi un clic normal.
   const DEPLACEMENT_MIN_DRAG_PX = 6;
-  const APPUI_LONG_MS = 350;
+  // Remonté de 350ms : trop court, il s'armait parfois sur un simple tap un
+  // peu lent (doigt qui reste posé une fraction de seconde avant de lever),
+  // déclenchant un drag alors que l'intention était juste de naviguer vers
+  // la fiche.
+  const APPUI_LONG_MS = 2000;
 
   const demarrerDragDiffere = (id: string) => (e: React.PointerEvent) => {
     const element = e.currentTarget as HTMLElement;
@@ -88,7 +117,7 @@ export function useDragReorder<T extends { instance_id: string }>(
         // Pas grave, voir commentaire ci-dessus.
       }
       setIdEnCours(id);
-      setOrdreEnCours(items);
+      definirOrdreEnCours(items);
       setPointerPos({ x, y });
     };
 
@@ -133,33 +162,31 @@ export function useDragReorder<T extends { instance_id: string }>(
 
     const onMove = (e: PointerEvent) => {
       setPointerPos({ x: e.clientX, y: e.clientY });
-      setOrdreEnCours((current) => {
-        if (!current) return current;
-        const dragged = current.find((it) => it.instance_id === idEnCours);
-        if (!dragged) return current;
-        const autres = current.filter((it) => it.instance_id !== idEnCours);
-        let cible = autres.length;
-        for (let i = 0; i < autres.length; i++) {
-          const rect = rectVisible(autres[i].instance_id);
-          if (!rect) continue;
-          if (e.clientY < rect.top + rect.height / 2) {
-            cible = i;
-            break;
-          }
+      const current = ordreEnCoursRef.current;
+      if (!current) return;
+      const dragged = current.find((it) => it.instance_id === idEnCours);
+      if (!dragged) return;
+      const autres = current.filter((it) => it.instance_id !== idEnCours);
+      let cible = autres.length;
+      for (let i = 0; i < autres.length; i++) {
+        const rect = rectVisible(autres[i].instance_id);
+        if (!rect) continue;
+        if (e.clientY < rect.top + rect.height / 2) {
+          cible = i;
+          break;
         }
-        const nouveau = [...autres.slice(0, cible), dragged, ...autres.slice(cible)];
-        const inchange = nouveau.length === current.length && nouveau.every((it, i) => it.instance_id === current[i].instance_id);
-        return inchange ? current : nouveau;
-      });
+      }
+      const nouveau = [...autres.slice(0, cible), dragged, ...autres.slice(cible)];
+      const inchange = nouveau.length === current.length && nouveau.every((it, i) => it.instance_id === current[i].instance_id);
+      if (!inchange) definirOrdreEnCours(nouveau);
     };
 
     const onFin = () => {
+      const final = ordreEnCoursRef.current;
       setIdEnCours(null);
       setPointerPos(null);
-      setOrdreEnCours((current) => {
-        if (current) onReorder(current);
-        return null;
-      });
+      definirOrdreEnCours(null);
+      if (final) onReorder(final);
     };
 
     window.addEventListener('pointermove', onMove);
@@ -175,6 +202,7 @@ export function useDragReorder<T extends { instance_id: string }>(
   return {
     elements: ordreEnCours ?? items,
     refItem,
+    demarrerDrag,
     demarrerDragDiffere,
     dragVientDeSeProduire,
     idEnCours,

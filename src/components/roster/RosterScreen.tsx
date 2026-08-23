@@ -167,6 +167,16 @@ export function RosterScreen({
   const hommesDeMain = roster.membres.filter(
     (m) => m.statut !== 'mort' && !estFrancTireur(m) && resolveProfil(roster, m)?.type !== 'heros'
   );
+  // Union des quatre filtres ci-dessus, mais dans l'ordre réel de
+  // roster.membres plutôt que la concaténation par blocs (héros, puis
+  // hommes de main, puis...) — nécessaire pour que le glisser-déposer de
+  // MemberQuickList puisse réordonner LIBREMENT, y compris à travers ces
+  // catégories (ex : un homme de main déplacé avant un héros) : avec la
+  // concaténation par blocs, la position "réelle" dans roster.membres était
+  // bien mise à jour par le drag, mais le rendu la reconstruisait aussitôt
+  // groupée par type à chaque rendu, annulant silencieusement tout
+  // réordonnancement franchissant une frontière de catégorie.
+  const membresVivants = roster.membres.filter((m) => m.statut !== 'mort');
   const besoinChoixLeader = choixLeaderRequis(roster, catalogue);
   const trinketsLimitesEnTrop = rules.trinketsLimites ? trouverTrinketsLimitesEnTrop(roster) : [];
 
@@ -469,10 +479,11 @@ export function RosterScreen({
           titre={t('roster.fullWarband')}
           icone="etoilePack"
           preferenceKey="ui.roster.groupe_liste_rapide.ouvert"
-          membres={[...heros, ...hommesDeMain, ...francsTireurs, ...dramatisPersonae]}
+          membres={membresVivants}
           roster={roster}
           catalogue={catalogue}
           rules={rules}
+          onReordonner={reordonnerSection}
           onSupprimer={setMembreASupprimer}
           selectedInstanceId={selectedInstanceId}
           onBasculerVueDetaillee={toggleVueCondensee}

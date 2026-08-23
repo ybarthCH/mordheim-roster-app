@@ -5,6 +5,7 @@ import { Icon } from '../common/Icon';
 import type { IconName, PackIconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import { avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
+import { useDragReorder } from '../../utils/useDragReorder';
 import { estLeaderActuel } from '../../utils/leader';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
@@ -23,6 +24,7 @@ type MemberQuickListProps = {
   roster: RosterInstance;
   catalogue: WarbandCatalog | undefined;
   rules: GameRules;
+  onReordonner: (nouvelOrdre: Member[]) => void;
   onSupprimer: (m: Member) => void;
   selectedInstanceId?: string;
   // Retour à la vue détaillée (groupes séparés) — bouton dans l'en-tête,
@@ -33,9 +35,12 @@ type MemberQuickListProps = {
 // Liste fusionnée "Bande complète" (Héros, Hommes de main, Francs-tireurs,
 // Dramatis Personae), pensée pour un défilement rapide sur une bande
 // nombreuse (~20 membres) plutôt que la consultation détaillée : chaque
-// ligne se limite au nom, au profil et au bloc de stats — ni équipement, ni
-// contrôle de statut, ni poignée de glisser-déposer — seule la croix de
-// suppression subsiste.
+// ligne se limite au nom, au profil, au bloc de stats et à une poignée de
+// glisser-déposer dédiée (voir demarrerDrag — contrairement au tableau et
+// aux lignes compactes de MemberGroupCard, cette liste n'a pas d'autre
+// action au clic sur le nom lui-même qui justifierait la disambiguïsation
+// appui-long/mouvement de demarrerDragDiffere) — ni équipement, ni contrôle
+// de statut ceci dit, en dehors de la croix de suppression.
 export function MemberQuickList({
   titre,
   icone,
@@ -44,12 +49,17 @@ export function MemberQuickList({
   roster,
   catalogue,
   rules,
+  onReordonner,
   onSupprimer,
   selectedInstanceId,
   onBasculerVueDetaillee,
 }: MemberQuickListProps) {
   const navigate = useNavigate();
   const { t, language } = useLanguage();
+  const { elements, refItem, demarrerDrag, dragVientDeSeProduire, idEnCours, pointerPos } = useDragReorder(
+    membres,
+    onReordonner
+  );
 
   const estAvanceEnAttente = (profil: Profile | undefined, m: Member) => {
     if (!profil || !peutGagnerExperience(profil)) return false;
@@ -62,13 +72,13 @@ export function MemberQuickList({
 
   const vues = useMemo(
     () =>
-      membres.map((m) => ({
+      elements.map((m) => ({
         m,
         profil: resolveProfil(roster, m, catalogue, language),
         leader: estLeaderActuel(roster, catalogue, m),
       })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [membres, roster, catalogue, language]
+    [elements, roster, catalogue, language]
   );
 
   return (
@@ -105,9 +115,13 @@ export function MemberQuickList({
           return (
             <div
               key={m.instance_id}
-              className={`list-item${m.instance_id === selectedInstanceId ? ' list-item--selectionne' : ''}`}
+              ref={refItem('liste', m.instance_id)}
+              className={`list-item${idEnCours === m.instance_id ? ' list-item--fantome' : ''}${m.instance_id === selectedInstanceId ? ' list-item--selectionne' : ''}`}
               role="button"
-              onClick={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
+              onClick={() => {
+                if (dragVientDeSeProduire()) return;
+                navigate(`/roster/${roster.id}/personnage/${m.instance_id}`);
+              }}
             >
               <div className="list-item__title">
                 <span className="list-item__title-name" title={nomAffiche(m)}>
@@ -134,6 +148,14 @@ export function MemberQuickList({
                   >
                     <Icon name="croixPack" />
                   </button>
+                  <span
+                    className="drag-handle drag-handle--discret drag-handle--titre"
+                    onPointerDown={demarrerDrag(m.instance_id)}
+                    onClick={(e) => e.stopPropagation()}
+                    title={t('memberGroup.dragHandle')}
+                  >
+                    <Icon name="poignee" size="1.05em" />
+                  </span>
                 </span>
               </div>
               <div className="member-condensed__ligne member-condensed__ligne--stats">
@@ -146,6 +168,20 @@ export function MemberQuickList({
       </div>
 
       {membres.length === 0 && <p className="text-muted">{t('memberGroup.noMembers')}</p>}
+
+      {idEnCours &&
+        pointerPos &&
+        (() => {
+          const dragged = vues.find((v) => v.m.instance_id === idEnCours);
+          if (!dragged) return null;
+          return (
+            <div className="drag-ghost" style={{ left: pointerPos.x, top: pointerPos.y }}>
+              <Icon name="poignee" size="0.85em" style={{ marginRight: '0.4em', color: 'var(--text-muted)' }} />
+              <span className="drag-ghost__nom">{nomAffiche(dragged.m)}</span>
+              {dragged.profil?.nom && <span className="drag-ghost__profil"> · {dragged.profil.nom}</span>}
+            </div>
+          );
+        })()}
     </CollapsibleCard>
   );
 }
