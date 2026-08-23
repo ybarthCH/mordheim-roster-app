@@ -475,6 +475,35 @@ button {
 :root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card::before {
   content: '';
 }
+/* "Bande complète" (MemberQuickList, liste fusionnée Héros/Hommes de main/
+   Francs-tireurs) : contrairement aux cartes de groupe ci-dessus, ses
+   lignes (.member-condensed .list-item) restent volontairement plates —
+   liste dense pensée pour le défilement rapide d'une grande bande (12 à
+   21 figurines n'est pas rare), donc pas de cadre par ligne ici. Aucun
+   risque de cadre-dans-le-cadre : un seul niveau reprend donc le panneau
+   pierre peinte standard de .card. :has() cible cette carte de groupe
+   précise sans classe dédiée côté JSX. */
+:root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card:has(.member-condensed) {
+  background-color: var(--bg-card);
+  background-image: none;
+  border-style: solid;
+  border-width: 20px;
+  border-image-repeat: stretch;
+  border-image-slice: 10% fill;
+  border-image-source: url('/decor/card-panel-stone.webp');
+  box-shadow: none;
+  padding: 0.9rem;
+}
+:root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card:has(.member-condensed)::before {
+  content: none;
+}
+@container (max-width: 340px) {
+  :root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card:has(.member-condensed) {
+    border-width: 14px;
+    border-image-slice: 16% fill;
+    border-image-source: url('/decor/card-panel-titlebar-stone.webp');
+  }
+}
 /* Carte résumé de bande (nom + 4 ressources) : carte unique au même titre
    que l'armurerie et les règles spéciales ci-dessus, donc même cadre
    compact panel_titlebar_10 plutôt que son ancien asset panel_10 dédié
