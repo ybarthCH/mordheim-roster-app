@@ -2004,15 +2004,13 @@ button {
   touch-action: manipulation;
   transition: background-color 0.1s ease;
 }
-/* Carte d'historique de bataille et ligne de "Bande complète" (liste
-   fusionnée, voir MemberQuickList) : cadre pierre peint du pack UI, à la
+/* Carte d'historique de bataille : cadre pierre peint du pack UI, à la
    place du simple encart 1px — panel_10 (le grand panneau, même asset que
    .card par défaut) plutôt que panel_titlebar_10, réservé aux cartes
    uniques (armurerie, règles spéciales — voir .card--titlebar) ; toute
    entrée répétée sous les règles spéciales prend ce panneau-ci (voir aussi
    .list-item--bande plus bas pour le sélecteur de bande à l'accueil). */
-:root[data-theme='dark'][data-palette='rouge'] .historique-liste .list-item,
-:root[data-theme='dark'][data-palette='rouge'] .member-condensed .list-item {
+:root[data-theme='dark'][data-palette='rouge'] .historique-liste .list-item {
   background-image: none;
   border-style: solid;
   border-width: 20px;
@@ -2021,6 +2019,27 @@ button {
   border-image-source: url('/decor/card-panel-stone.webp');
   box-shadow: none;
   padding: 0.4rem 0.6rem 0.4rem 1.1rem;
+}
+/* Ligne de "Bande complète" (liste fusionnée, voir MemberQuickList) : cadre
+   pierre peint aussi, mais panel_titlebar_10 (compact, 14px) plutôt que le
+   grand panel_10 ci-dessus — une bande de 12 à 21 figurines défile vite
+   dans cette vue, et le grand cadre (20px de bordure de chaque côté) pris
+   sur une seule ligne de texte gonflait chaque ligne bien plus que son
+   contenu ne le justifiait. Padding et marge resserrés pour la même
+   raison. */
+:root[data-theme='dark'][data-palette='rouge'] .member-condensed .list-item {
+  background-image: none;
+  border-style: solid;
+  border-width: 6px;
+  border-image-repeat: stretch;
+  border-image-slice: 16% fill;
+  border-image-source: url('/decor/card-panel-titlebar-stone.webp');
+  box-shadow: none;
+  /* 3.5rem à droite conservé (voir .member-condensed .list-item plus bas) :
+     largeur réservée aux deux icônes ancrées dans .list-item__title-actions,
+     indépendante de la hauteur de ligne resserrée ici. */
+  padding: 0.1rem 3.5rem 0.1rem 0.5rem;
+  margin-bottom: 0.15rem;
 }
 /* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
    peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de
