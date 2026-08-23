@@ -2488,28 +2488,44 @@ thead .roster-table__col-actions {
    inchangés — voir plus bas) + un liseré couleur accent en haut et en bas
    du bloc : à spécificité égale, .roster-table__stat--band et les colonnes
    épinglées gardent leur propre fond, peint par-dessus celui du <tr>. */
-/* Liseré NON accentué entre figurines par défaut (l'accent redevient le
-   signal réservé à la sélection, voir plus bas — auparavant toutes les
-   figurines avaient un liseré accent, noyant le surlignage de la figurine
-   sélectionnée). */
+/* Liseré ivoire ("bone") entre figurines : délimite nettement la fin d'une
+   figurine dans le tableau — réutilise --text (déjà un ivoire crème), pas
+   une nouvelle valeur, pour rester cohérent avec le reste de la palette.
+   Pas la couleur accent (réservée à la sélection, voir plus bas —
+   auparavant toutes les figurines avaient un liseré accent, noyant le
+   surlignage de la figurine sélectionnée). */
 :root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale td {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--text);
 }
 :root[data-theme='dark'][data-palette='rouge'] .roster-table__row-synopsis td {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--text);
 }
 
 /* Plus de teinte de fond : la texture pierre du cadre (.roster-table-wrap,
    voir .roster-table background:none plus haut) reste visible telle
    quelle sur les deux lignes de la figurine, sans filtre de couleur —
    seul le liseré (voir plus haut) distingue une figurine de la suivante.
-   Les colonnes épinglées gardent un fond opaque UNI (var(--bg-card), pas
-   teinté) : indispensable pour masquer le contenu qui défile en dessous
-   pendant le scroll horizontal (voir .roster-table__col-nom plus haut),
-   contrairement aux autres cellules qui n'ont pas cette contrainte. */
+   Les colonnes épinglées ont besoin d'un fond qui masque ce qui défile en
+   dessous pendant le scroll horizontal (voir .roster-table__col-nom plus
+   haut) — indispensable, contrairement aux autres cellules qui n'ont pas
+   cette contrainte. Trois teintes testées pour que ce fond plat ne
+   détonne plus à côté d'une texture qui ne l'est pas (gris-pierre plus
+   proche de la moyenne de la texture, semi-transparent, fragment de la
+   texture elle-même) : aucune ne suffisait, l'écart plat/texturé restant
+   visible quelle que soit la couleur choisie. Solution retenue à la
+   place : ne plus chercher à le cacher, mais lui donner un sens — une
+   ombre portée façon "colonne figée au-dessus du reste du tableau"
+   (motif standard des tableurs à colonnes gelées), qui fait lire la
+   coupure comme un choix plutôt qu'un raccord raté. */
 :root[data-theme='dark'][data-palette='rouge'] tbody .roster-table__col-nom,
 :root[data-theme='dark'][data-palette='rouge'] tbody .roster-table__col-actions {
   background: var(--bg-card);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__col-nom {
+  box-shadow: 3px 0 6px -2px rgba(0, 0, 0, 0.6);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__col-actions {
+  box-shadow: -3px 0 6px -2px rgba(0, 0, 0, 0.6);
 }
 /* Texte plus clair et plus net sur ce fond désormais texturé (pierre,
    variable en luminosité selon l'endroit) plutôt que le --text crème
