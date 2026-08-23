@@ -2499,20 +2499,26 @@ thead .roster-table__col-actions {
   border-bottom: 1px solid var(--border);
 }
 
-/* Teinte pierre chaude, sourde : color-mix avec un brun-pierre plutôt que
-   du blanc (le blanc pur virait gris/froid sur cette base brune chaude),
-   à faible dose. */
-:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale,
-:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-synopsis {
-  background: color-mix(in srgb, var(--bg-card) 94%, #8a7256 6%);
-}
-/* tbody seulement : .roster-table__col-nom/-actions sont aussi posées sur
-   les <th> de l'en-tête (même mécanisme d'épinglage) — sans ce filtre, la
-   teinte débordait aussi sur l'en-tête (NOM et la colonne vide au-dessus
-   de la suppression), détonnant avec le reste de la ligne d'en-tête. */
+/* Plus de teinte de fond : la texture pierre du cadre (.roster-table-wrap,
+   voir .roster-table background:none plus haut) reste visible telle
+   quelle sur les deux lignes de la figurine, sans filtre de couleur —
+   seul le liseré (voir plus haut) distingue une figurine de la suivante.
+   Les colonnes épinglées gardent un fond opaque UNI (var(--bg-card), pas
+   teinté) : indispensable pour masquer le contenu qui défile en dessous
+   pendant le scroll horizontal (voir .roster-table__col-nom plus haut),
+   contrairement aux autres cellules qui n'ont pas cette contrainte. */
 :root[data-theme='dark'][data-palette='rouge'] tbody .roster-table__col-nom,
 :root[data-theme='dark'][data-palette='rouge'] tbody .roster-table__col-actions {
-  background: color-mix(in srgb, var(--bg-card) 94%, #8a7256 6%);
+  background: var(--bg-card);
+}
+/* Texte plus clair et plus net sur ce fond désormais texturé (pierre,
+   variable en luminosité selon l'endroit) plutôt que le --text crème
+   habituel : un texte quasi blanc + une ombre portée sombre discrète
+   gardent chaque chiffre lisible même sur les zones les plus sombres de
+   la texture, sans dépendre d'un fond plat pour le contraste. */
+:root[data-theme='dark'][data-palette='rouge'] .roster-table td {
+  color: #fbf4e6;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
 }
 
 /* Sélection : reconstruit en box-shadow (inset), pas en border/box-shadow
