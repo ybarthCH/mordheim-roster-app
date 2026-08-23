@@ -3300,9 +3300,26 @@ button {
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header {
   padding-bottom: 1.1rem;
 }
+/* Même cadre en pierre peinte que .card (voir "Équipement sélectionné" juste
+   au-dessus dans AjouterMembreModal) plutôt que le simple fond plat
+   --bg-card hérité de la règle générale ci-dessus (pensée pour la boutique
+   autonome, déjà encadrée par le panneau de .modal-sheet:has(>
+   .achat-equipement) — absent ici puisque le shop n'est qu'un morceau de la
+   fenêtre de recrutement). */
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement--integre .achat-equipement__header {
   position: relative;
+  background: none;
+  border-style: solid;
+  border-width: 20px;
+  border-image-repeat: stretch;
+  border-image-slice: 10% fill;
+  border-image-source: url('/decor/card-panel-stone.webp');
   box-shadow: none;
+}
+/* Le filet ornemental ::after ferait double emploi avec le bord bas déjà
+   peint dans le panneau ci-dessus. */
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement--integre .achat-equipement__header::after {
+  content: none;
 }
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header::after,
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions::before {

@@ -349,13 +349,14 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             fenêtre après tout le catalogue d'équipement (position d'origine)
             : sur un catalogue long, valider obligeait à défiler jusqu'en bas
             en passant par toute la liste d'objets à chaque fois.
-            .btn/.btn--primary (cadre plein, plus grand) plutôt que
-            .btn--pack-pill-sm comme le reste de cet écran : ce sont les
-            actions principales de toute la fenêtre, mais la pilule peinte
-            les faisait se fondre parmi les nombreux autres boutons pilule
-            du shop juste en dessous (onglets Bande/Commun, catégories,
-            Personnalisé...). flex:1 pour qu'elles occupent toute la largeur
-            de la rangée, comme une vraie barre d'action.
+            .btn--pack-pill-sm (même habillage peint que le reste de cet
+            écran) plutôt que .btn/.btn--primary : Terminer est l'action
+            principale de toute la fenêtre, donc --primary, et l'onglet actif
+            "Équipement de la bande"/"Shop commun" juste en dessous perd sa
+            propre variante --primary (voir AchatEquipementModal,
+            resterOuvertApresAchat) pour ne plus rivaliser avec elle. flex:1
+            pour que les deux boutons occupent toute la largeur de la
+            rangée, comme une vraie barre d'action.
             Épinglée en haut de la fenêtre au défilement (voir
             .recrutement-equipement__validation, index.css) : remplace
             l'en-tête collant du shop juste en dessous
@@ -369,11 +370,17 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             que ce bloc entier sort de l'écran, avant même d'atteindre le
             shop. */}
         <div className="recrutement-equipement__validation flex gap-sm">
-          <button className="btn" style={{ flex: 1 }} onClick={annulerRecrutement}>
+          <button
+            type="button"
+            className="btn--pack-pill-sm btn--pack-pill-sm--secondaire"
+            style={{ flex: 1 }}
+            onClick={annulerRecrutement}
+          >
             {t('achatEquipement.cancel')}
           </button>
           <button
-            className="btn btn--primary"
+            type="button"
+            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
             style={{ flex: 1 }}
             disabled={tresorerieProjetee < 0}
             onClick={terminer}

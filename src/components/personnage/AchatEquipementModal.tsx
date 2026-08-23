@@ -646,15 +646,37 @@ export function AchatEquipementContenu({
             </header>
 
             <div className="achat-equipement__contenu">
+              {/* Intégré dans le recrutement (resterOuvertApresAchat), la
+                  variante "primary" (asset éclairci/saturé) de l'onglet actif
+                  se confondait avec la véritable action principale de la
+                  fenêtre (Annuler/Terminer, juste au-dessus) — l'onglet
+                  inactif passe alors en gris (--secondaire) plutôt que
+                  l'actif en rouge vif, pour rester lisible sans rivaliser. */}
               <div className="flex gap-sm" style={{ marginBottom: '0.5rem' }}>
                 <button
-                  className={`btn--pack-pill-sm ${source === 'bande' ? 'btn--pack-pill-sm--primary' : ''}`}
+                  className={`btn--pack-pill-sm ${
+                    source === 'bande'
+                      ? resterOuvertApresAchat
+                        ? ''
+                        : 'btn--pack-pill-sm--primary'
+                      : resterOuvertApresAchat
+                      ? 'btn--pack-pill-sm--secondaire'
+                      : ''
+                  }`}
                   onClick={() => changerSource('bande')}
                 >
                   {t('achatEquipement.bandEquipment')}
                 </button>
                 <button
-                  className={`btn--pack-pill-sm ${source === 'commun' ? 'btn--pack-pill-sm--primary' : ''}`}
+                  className={`btn--pack-pill-sm ${
+                    source === 'commun'
+                      ? resterOuvertApresAchat
+                        ? ''
+                        : 'btn--pack-pill-sm--primary'
+                      : resterOuvertApresAchat
+                      ? 'btn--pack-pill-sm--secondaire'
+                      : ''
+                  }`}
                   onClick={() => changerSource('commun')}
                 >
                   {t('achatEquipement.commonShop')} ({itemsCommun.length})
