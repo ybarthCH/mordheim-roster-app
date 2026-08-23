@@ -2020,20 +2020,19 @@ button {
   box-shadow: none;
   padding: 0.4rem 0.6rem 0.4rem 1.1rem;
 }
-/* Ligne de "Bande complète" (liste fusionnée, voir MemberQuickList) : cadre
-   pierre peint aussi, mais panel_titlebar_10 (compact, 14px) plutôt que le
-   grand panel_10 ci-dessus — une bande de 12 à 21 figurines défile vite
-   dans cette vue, et le grand cadre (20px de bordure de chaque côté) pris
-   sur une seule ligne de texte gonflait chaque ligne bien plus que son
-   contenu ne le justifiait. Padding et marge resserrés pour la même
-   raison. */
+/* Ligne de "Bande complète" (liste fusionnée, voir MemberQuickList) :
+   panel_summary_10 — troisième asset du pack (jusqu'ici inutilisé),
+   liseré fin et net plutôt que le bord épais et déchiré de panel_10
+   (.historique-liste) ou le cadre ouvragé de panel_titlebar_10 : le mieux
+   adapté à une ligne dense d'une seule ligne de texte, sur une bande de
+   12 à 21 figurines qui défile vite dans cette vue. */
 :root[data-theme='dark'][data-palette='rouge'] .member-condensed .list-item {
   background-image: none;
   border-style: solid;
-  border-width: 6px;
+  border-width: 8px;
   border-image-repeat: stretch;
-  border-image-slice: 16% fill;
-  border-image-source: url('/decor/card-panel-titlebar-stone.webp');
+  border-image-slice: 6% fill;
+  border-image-source: url('/decor/card-panel-summary-stone.webp');
   box-shadow: none;
   /* 3.5rem à droite conservé (voir .member-condensed .list-item plus bas) :
      largeur réservée aux deux icônes ancrées dans .list-item__title-actions,
@@ -2160,6 +2159,16 @@ button {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
+/* .member-condensed .list-item est bien plus bas que les autres variantes
+   de .list-item (une seule ligne de contenu, voir plus bas) — un top fixe
+   pensé pour une carte plus haute y ancrait les icônes trop bas, décalées
+   du texte. Centrage vertical robuste à la hauteur réelle de la carte,
+   scopé ici pour ne pas toucher les autres variantes (historique, sélecteur
+   de bande...) dont le top fixe reste pertinent. */
+.member-condensed .list-item__title-actions {
+  top: 50%;
+  transform: translateY(-50%);
 }
 .list-item__details {
   flex-basis: 100%;
@@ -2479,23 +2488,57 @@ thead .roster-table__col-actions {
    inchangés — voir plus bas) + un liseré couleur accent en haut et en bas
    du bloc : à spécificité égale, .roster-table__stat--band et les colonnes
    épinglées gardent leur propre fond, peint par-dessus celui du <tr>. */
-/* --bg-elevated est presque identique à --bg-card dans cette palette
-   (#221c16 vs #241d17, à peine 2 crans d'écart) — un color-mix avec un peu
-   de blanc, plutôt qu'un jeton de fond existant, pour un éclaircissement
-   réellement visible sans virer au gris sur cette base brune chaude. */
-:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale,
-:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-synopsis {
-  background: color-mix(in srgb, var(--bg-card) 90%, white 10%);
-}
+/* Liseré NON accentué entre figurines par défaut (l'accent redevient le
+   signal réservé à la sélection, voir plus bas — auparavant toutes les
+   figurines avaient un liseré accent, noyant le surlignage de la figurine
+   sélectionnée). */
 :root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale td {
-  border-top: 2px solid var(--accent);
+  border-top: 1px solid var(--border);
 }
 :root[data-theme='dark'][data-palette='rouge'] .roster-table__row-synopsis td {
-  border-bottom: 2px solid var(--accent);
+  border-bottom: 1px solid var(--border);
 }
-:root[data-theme='dark'][data-palette='rouge'] .roster-table__col-nom,
-:root[data-theme='dark'][data-palette='rouge'] .roster-table__col-actions {
-  background: color-mix(in srgb, var(--bg-card) 90%, white 10%);
+
+/* Teinte pierre chaude, sourde : color-mix avec un brun-pierre plutôt que
+   du blanc (le blanc pur virait gris/froid sur cette base brune chaude),
+   à faible dose. */
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale,
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-synopsis {
+  background: color-mix(in srgb, var(--bg-card) 94%, #8a7256 6%);
+}
+/* tbody seulement : .roster-table__col-nom/-actions sont aussi posées sur
+   les <th> de l'en-tête (même mécanisme d'épinglage) — sans ce filtre, la
+   teinte débordait aussi sur l'en-tête (NOM et la colonne vide au-dessus
+   de la suppression), détonnant avec le reste de la ligne d'en-tête. */
+:root[data-theme='dark'][data-palette='rouge'] tbody .roster-table__col-nom,
+:root[data-theme='dark'][data-palette='rouge'] tbody .roster-table__col-actions {
+  background: color-mix(in srgb, var(--bg-card) 94%, #8a7256 6%);
+}
+
+/* Sélection : reconstruit en box-shadow (inset), pas en border/box-shadow
+   sur le <tr> — sous border-collapse:collapse, ni l'un ni l'autre ne
+   s'affichait de façon fiable sur un <tr> (probable cause du surlignage
+   perdu). box-shadow sur les <td> (pas soumis aux règles de fusion de
+   bordures) permet un vrai "cadre" continu sur les DEUX lignes de la
+   figurine sélectionnée : le sélecteur + cible directement le <tr> de
+   synopsis, qui ne porte pourtant pas la classe --selectionnee lui-même. */
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale.roster-table__row--selectionnee td {
+  box-shadow: inset 0 2px 0 0 var(--accent);
+  background: color-mix(in srgb, var(--bg-card) 85%, var(--accent) 15%);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale.roster-table__row--selectionnee .roster-table__col-nom {
+  box-shadow: inset 0 2px 0 0 var(--accent), inset 2px 0 0 0 var(--accent);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale.roster-table__row--selectionnee .roster-table__col-actions {
+  box-shadow: inset 0 2px 0 0 var(--accent), inset -2px 0 0 0 var(--accent);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale.roster-table__row--selectionnee + .roster-table__row-synopsis td {
+  box-shadow:
+    inset 2px 0 0 0 var(--accent),
+    inset -2px 0 0 0 var(--accent),
+    inset 0 -2px 0 0 var(--accent);
+  background: color-mix(in srgb, var(--bg-card) 85%, var(--accent) 15%);
+  border-bottom: none;
 }
 .roster-table__synopsis {
   line-height: 1.3;
