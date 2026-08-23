@@ -2567,6 +2567,32 @@ button {
   display: none;
 }
 
+/* Liste rapide fusionnée Héros + Hommes de main (MemberQuickList, bouton
+   dédié dans .roster-actions de RosterScreen) : nom/profil/bloc de stats
+   sur deux lignes serrées, réutilisant .list-item pour la structure de base
+   (bordure, fond, coin ancré pour la croix de suppression) mais avec un
+   padding et une typographie resserrés — pensée pour défiler rapidement une
+   bande nombreuse (~20 membres), donc ni équipement, ni statut, ni poignée
+   de glisser-déposer (une seule action ancrée dans le coin : la croix). */
+.member-condensed .list-item {
+  position: relative;
+  padding: 0.5rem 2.4rem 0.5rem 0.65rem;
+  margin-bottom: 0.35rem;
+}
+.member-condensed .list-item__title {
+  font-size: 0.92rem;
+}
+.member-condensed__ligne {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+/* Bloc de stats : jamais tronqué (les 9 caractéristiques doivent rester
+   visibles), passe à la ligne suivante au lieu de couper au milieu d'une
+   abréviation de caractéristique. */
+.member-condensed__ligne--stats {
+  overflow-wrap: break-word;
+}
+
 @media (max-width: 720px) {
   .roster-table-wrap {
     display: none;

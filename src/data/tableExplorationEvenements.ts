@@ -15,6 +15,13 @@ export type LigneObjetTrouve = {
   // exacte dépend d'un jet à reporter depuis la table papier — jamais lancé
   // par l'app, comme `or` ci-dessous.
   quantite?: number | string;
+  // Cet objet précis se revend au double de sa valeur de revente habituelle
+  // (ex : Carrosse retourné, épée+dague — « le double du prix de vente
+  // habituel »). La revente générique (voir utils/shop.ts) verse la moitié
+  // du prix payé enregistré à l'ajout au stock : on double donc ce prix payé
+  // de référence (2×cout au lieu de cout) plutôt que d'ajouter un second
+  // mécanisme de calcul de revente.
+  venteDoublee?: boolean;
 };
 
 // Résultat d'une sous-table à un seul jet de D6 (ex : Cadavre, Forge...).
@@ -30,6 +37,10 @@ export type LigneSousTableD6 = {
   // objets alternatifs (ex : Bouclier OU Rondache) affichés côte à côte, pas
   // cumulatifs : le joueur clique celui qu'il a choisi sur table papier.
   objets?: LigneObjetTrouve[];
+  // Renvoie vers le Tableau des artefacts magiques, uniquement pour ce
+  // résultat précis (ex : Villa de noble, 5-6) — distinct du champ de même
+  // nom sur EvenementExploration, qui s'applique à l'événement entier.
+  artefactMagique?: boolean;
 };
 
 // Élément d'une sous-table "trésor" (Trésor caché, Bande massacrée) : chaque
@@ -69,6 +80,11 @@ export type EvenementExploration = {
   sousTableTresor?: LigneTresorConditionnel[];
   // Gain d'or automatisable directement lié à l'événement (hors sous-table).
   or?: string;
+  // Objet gagné en plus de `or` si (et seulement si) le jet reporté pour `or`
+  // fait partie de ces valeurs précises (ex : Échoppe — un Porte-bonheur
+  // trouvé en plus du butin, uniquement sur un jet de 1). Les deux gains
+  // viennent du même jet physique unique, jamais relancé par l'app.
+  objetSiOr?: { valeurs: number[]; objet: LigneObjetTrouve };
   // Renvoie vers le Tableau des artefacts magiques (voir items/artefacts_magiques.json).
   artefactMagique?: boolean;
 };
@@ -106,6 +122,7 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
           "Après une fouille minutieuse, vous trouvez D6 CO de butin. Sur un 1 vous trouvez aussi un Porte-bonheur (voir le chapitre Équipement page 53).",
         ],
         or: 'D6',
+        objetSiOr: { valeurs: [1], objet: { item_id: 'porte_bonheur' } },
       },
       {
         id: 'cadavre',
@@ -155,6 +172,10 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
             max: 6,
             resultat:
               "Une épée et une dague incrustées de joyaux. Vous pouvez les garder ou les vendre. Vous tirerez 10 CO de l'épée et 2 CO de la dague — le double du prix de vente habituel (consultez le chapitre Commerce pour les règles sur la vente d'objets).",
+            objets: [
+              { item_id: 'epee', venteDoublee: true },
+              { item_id: 'dague', venteDoublee: true },
+            ],
           },
         ],
       },
@@ -528,7 +549,7 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
           { element: '3D6x5 CO', seuil: 'Auto', or: '3D6x5' },
           { element: 'D3 Armures légères', seuil: '4+', objets: [{ item_id: 'armure_legere', quantite: 'D3' }] },
           { element: 'Armure lourde', seuil: '5+', objets: [{ item_id: 'armure_lourde' }] },
-          { element: 'D6 Dagues', seuil: 'Auto', objets: [{ item_id: 'dague', quantite: 6 }] },
+          { element: 'D6 Dagues', seuil: 'Auto', objets: [{ item_id: 'dague', quantite: 'D6' }] },
           {
             element: 'Carte de Mordheim (voir p55)',
             seuil: '4+',
@@ -550,7 +571,6 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
         regle: [
           "Vous trouvez un manuel d'entraînement, que vous pouvez vendre pour 100 CO ou donner à l'un de vos héros. Le savoir qu'il y trouve lui permet de choisir dans la liste de compétences de combat en plus de ses listes habituelles lorsqu'un jet de progression lui fait gagner une nouvelle compétence, et sa CC peut dorénavant progresser d'un point de plus que le maximum normal (par exemple, la CC d'un humain doté du livre peut à présent progresser jusqu'à un maximum de 7).",
         ],
-        or: '100',
       },
       {
         id: 'villa_de_noble',
@@ -571,9 +591,9 @@ export const TABLE_EXPLORATION_EVENEMENTS: PalierExploration[] = [
             min: 5,
             max: 6,
             resultat: 'Un artefact magique dissimulé dans une alcôve secrète — lancez sur le Tableau des artefacts magiques.',
+            artefactMagique: true,
           },
         ],
-        artefactMagique: true,
       },
     ],
   },

@@ -3901,6 +3901,19 @@ export const itemsEn: Record<string, ItemTraduit> = {
       },
     ],
   },
+  manuel_entrainement: {
+    nom: 'Training Manual',
+    texte:
+      'A training manual recovered from the ruins of a duellists and gladiators arena in Mordheim, describing forgotten combat techniques.',
+    disponibilite: 'Found only via the Arena exploration event — never for purchase',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "The bearing Hero may choose from the Combat skill list in addition to his usual lists whenever an advance roll grants him a new skill, and his Weapon Skill may now advance one point beyond the normal maximum (for example, a human's Weapon Skill with the manual may now advance to a maximum of 7).",
+      },
+    ],
+  },
 };
 
 const DISPONIBILITE_ARTEFACT_EN =

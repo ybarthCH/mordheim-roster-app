@@ -95,6 +95,7 @@ export type IconName =
   | 'crayon'
   | 'chevrons'
   | 'volets'
+  | 'liste'
   | 'partager'
   | 'accolades'
   | 'document'
@@ -140,6 +141,10 @@ const PATHS: Record<IconName, string> = {
     'M17 3 L21 7 L8 20 L3 21 L4 16 Z M14 6 L18 10',
   chevrons: 'M6 8 L12 13 L18 8 M6 15 L12 20 L18 15',
   volets: 'M4 5 L20 5 L20 19 L4 19 Z M9.5 5 L9.5 19',
+  // Trois lignes de liste (puce courte + tiret long) — bascule vers un
+  // résumé condensé, à distinguer de "volets" (volets/panneaux du split
+  // view, notion différente).
+  liste: 'M4 6 L7 6 M9 6 L20 6 M4 12 L7 12 M9 12 L20 12 M4 18 L7 18 M9 18 L20 18',
   // Trois nœuds reliés (façon "Share2") plutôt qu'une flèche vers une boîte :
   // cette dernière se lit comme un envoi/export, pas comme un partage.
   partager:
@@ -192,6 +197,7 @@ const VIEWBOX: Record<IconName, string> = {
   crayon: '0 0 24 24',
   chevrons: '0 0 24 24',
   volets: '0 0 24 24',
+  liste: '0 0 24 24',
   partager: '0 0 24 24',
   accolades: '0 0 24 24',
   document: '0 0 24 24',

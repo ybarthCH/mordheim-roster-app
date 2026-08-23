@@ -3,6 +3,7 @@ import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { resolveProfil } from '../../utils/profil';
 import { creerMembre } from '../../utils/factory';
+import { rejoindreGroupe } from '../../utils/shop';
 import { JetOrButton } from './JetOrButton';
 import { useLanguage } from '../../state/useLanguage';
 
@@ -33,6 +34,11 @@ export function ResolutionPrisonniers({
   const [heroId, setHeroId] = useState('');
   const [jetXp, setJetXp] = useState('');
   const [jetZombies, setJetZombies] = useState('');
+  // Branche « Escorter » : le gain d'or (2D6) et la recrue gratuite sont deux
+  // gains indépendants du même résultat — on ne verrouille (voir `resolu`)
+  // qu'une fois les deux réglés, mais l'or est appliqué dès son propre jet.
+  const [orEscorteValeur, setOrEscorteValeur] = useState<number | null>(null);
+  const [groupeRecrueId, setGroupeRecrueId] = useState('');
   // Se verrouille une fois une branche résolue : sans ça, rien n'indiquait
   // qu'un clic sur « Escorter » (ou une autre branche) avait bien été pris en
   // compte, et rien n'empêchait de recliquer pour appliquer le gain une
@@ -42,6 +48,12 @@ export function ResolutionPrisonniers({
   const heros = roster.membres.filter((m) => m.statut !== 'mort' && resolveProfil(roster, m)?.type === 'heros');
   const zombieProfil = catalogue.profils.find((p) => p.id === 'zombie');
   const estMortsVivants = catalogue.id === 'undead' || catalogue.id === 'morts_sans_repos';
+  // « n'importe quel groupe humain » de la bande : les groupes d'hommes de
+  // main (hors profils "animal", ex : Chien de guerre — ce n'est pas un
+  // captif humain qui pourrait les rejoindre).
+  const groupesHumains = roster.membres.filter(
+    (m) => m.statut !== 'mort' && resolveProfil(roster, m)?.type === 'homme_de_main'
+  );
 
   const appliquerXp = () => {
     const valeur = Number(jetXp);
@@ -70,11 +82,26 @@ export function ResolutionPrisonniers({
     setResolu(texte);
   };
 
-  const escortes = (valeur: number) => {
+  const validerOrEscorte = (valeur: number) => {
     onAjouterOr(valeur);
-    const texte = t('postBataille.prisoners.escorted', { n: valeur });
-    onAjouterAuJournal(`${nomEvenement} : ${texte}`);
-    setResolu(texte);
+    onAjouterAuJournal(`${nomEvenement} : ${t('postBataille.prisoners.escorted', { n: valeur })}`);
+    setOrEscorteValeur(valeur);
+  };
+
+  const finaliserEscorte = (texteRecrue: string) => {
+    onAjouterAuJournal(`${nomEvenement} : ${texteRecrue}`);
+    setResolu(`${t('postBataille.prisoners.escorted', { n: orEscorteValeur ?? 0 })} ${texteRecrue}`);
+  };
+
+  const ajouterRecrue = () => {
+    const groupe = groupesHumains.find((m) => m.instance_id === groupeRecrueId);
+    if (!groupe) return;
+    onMajRoster(rejoindreGroupe(roster, groupe, 1, 0));
+    finaliserEscorte(t('postBataille.prisoners.recruitJoined', { groupe: groupe.nom_perso }));
+  };
+
+  const ignorerRecrue = () => {
+    finaliserEscorte(t('postBataille.prisoners.recruitSkipped'));
   };
 
   if (resolu) {
@@ -177,8 +204,47 @@ export function ResolutionPrisonniers({
         />
       )}
 
-      {branche === 'autres' && (
-        <JetOrButton label={t('postBataille.vagrant.rollObtained2d6')} onValider={escortes} boutonLabel={t('postBataille.addToTreasury')} />
+      {branche === 'autres' && orEscorteValeur === null && (
+        <JetOrButton
+          label={t('postBataille.vagrant.rollObtained2d6')}
+          onValider={validerOrEscorte}
+          boutonLabel={t('postBataille.addToTreasury')}
+        />
+      )}
+
+      {branche === 'autres' && orEscorteValeur !== null && (
+        <div style={{ marginTop: '0.5rem' }}>
+          {groupesHumains.length > 0 ? (
+            <div className="field">
+              <label>{t('postBataille.prisoners.recruitGroupLabel')}</label>
+              <select value={groupeRecrueId} onChange={(e) => setGroupeRecrueId(e.target.value)}>
+                <option value="">{t('postBataille.chooseEllipsis')}</option>
+                {groupesHumains.map((g) => (
+                  <option key={g.instance_id} value={g.instance_id}>
+                    {g.nom_perso} (×{g.taille_groupe})
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            <p className="text-sm text-muted">{t('postBataille.prisoners.recruitNoGroup')}</p>
+          )}
+          <div className="flex gap-sm" style={{ marginTop: '0.4rem', flexWrap: 'wrap' }}>
+            {groupesHumains.length > 0 && (
+              <button
+                type="button"
+                className="btn--pack-pill-sm btn--pack-pill-sm--primary"
+                disabled={!groupeRecrueId}
+                onClick={ajouterRecrue}
+              >
+                {t('postBataille.prisoners.recruitJoinButton')}
+              </button>
+            )}
+            <button type="button" className="btn--pack-pill-sm" onClick={ignorerRecrue}>
+              {t('postBataille.prisoners.recruitSkip')}
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

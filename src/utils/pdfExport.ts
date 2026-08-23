@@ -18,7 +18,7 @@ import { valeurBande, bilanBatailles } from './bandeValue';
 import { ratingAffiche } from './displayedRating';
 import type { GameRules } from '../types/rules';
 import { DEFAULT_GAME_RULES } from '../types/rules';
-import { plafondPour } from './plafond';
+import { bonusPlafondCC, plafondPour } from './plafond';
 import { skillById } from '../data/gameData';
 import { resolveSort } from './magie';
 import { injuryLabel } from './blessures';
@@ -130,7 +130,7 @@ function dessinerTableauStats(doc: jsPDF, x: number, y: number, m: Member, profi
   doc.setDrawColor(...TRAIT);
   doc.line(x, y + 1.2, x + LARGEUR_COL_STAT * STAT_KEYS.length, y + 1.2);
 
-  const plafond = plafondPour(profil, m.competences_acquises);
+  const plafond = plafondPour(profil, m.competences_acquises, bonusPlafondCC(m));
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   STAT_KEYS.forEach((k, i) => {
@@ -198,7 +198,7 @@ function preparerBlocHeros(
       ? doc.splitTextToSize(`Blessures graves : ${blessures.join(' · ')}`, largeurCol2).slice(0, 2)
       : [];
 
-  const plafond = plafondPour(profil, m.competences_acquises);
+  const plafond = plafondPour(profil, m.competences_acquises, bonusPlafondCC(m));
   const hauteurCol1 = plafond ? 8.6 : 5.6;
   const hauteurCol2 = (equipementLignes.length + competencesLignes.length + blessuresLignes.length) * 3.1;
   const hauteurLigne2 = Math.max(hauteurCol1, hauteurCol2);
@@ -291,7 +291,7 @@ function preparerBlocSuivant(
     .splitTextToSize(`Règles spéciales & compétences : ${texteReglesEtCompetences(catalogue, profil, m)}`, largeurCol2)
     .slice(0, 2);
 
-  const plafond = plafondPour(profil, m.competences_acquises);
+  const plafond = plafondPour(profil, m.competences_acquises, bonusPlafondCC(m));
   const hauteurCol1 = plafond ? 8.6 : 5.6;
   const hauteurCol2 = (equipementLignes.length + reglesLignes.length) * 3.1;
   const hauteurLigne2 = Math.max(hauteurCol1, hauteurCol2);

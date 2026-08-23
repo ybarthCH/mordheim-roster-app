@@ -26,6 +26,7 @@ import { traduireCle, segmentAffiche } from '../../utils/blessures';
 const NOM_GLADIATEUR_VICTOIRE = 'Gladiateur (victoire)';
 const NOM_CAPTURE_PERDU = 'Capturé — héros perdu';
 const NOM_CAPTURE_RANCON = 'Capturé — libéré contre rançon';
+const NOM_CAPTURE_ECHANGE = 'Capturé — échangé contre un prisonnier';
 
 // Profil de l'adversaire dans les fosses de combat (résultat "Gladiateur") —
 // c'est le franc-tireur "Gladiateur" (Pit Fighter, hiredSwords.ts) que l'on
@@ -263,10 +264,13 @@ export function BlessureGraveWizard({
   // statutMort/perteEquipement : aucun cas particulier à gérer ici.
   const [enChoixGladiateurPerdu, setEnChoixGladiateurPerdu] = useState(false);
   const [gladiateurForcePerte, setGladiateurForcePerte] = useState(false);
-  // Cas spécial "Capturé" : deux issues possibles, la seconde nécessitant un
-  // montant de rançon saisi avant de pouvoir conclure (voir mode
-  // 'capture_issue' plus bas).
-  const [captureChoix, setCaptureChoix] = useState<'perdu' | 'rancon' | null>(null);
+  // Cas spécial "Capturé" : trois issues possibles pour la bande du héros
+  // capturé — perdu (vendu/tué/zombifié par les ravisseurs, équipement
+  // perdu), échangé contre un prisonnier détenu par sa propre bande (retour
+  // immédiat, équipement conservé, sans coût), ou libéré contre rançon
+  // (retour immédiat, équipement conservé, coût en po saisi avant de
+  // conclure — voir mode 'capture_issue' plus bas).
+  const [captureChoix, setCaptureChoix] = useState<'perdu' | 'echange' | 'rancon' | null>(null);
   const [ranconSaisie, setRanconSaisie] = useState('');
   // Règle Éternelle (voir Props.estEternelle) : sur un résultat autre que
   // Tué, la Liche peut choisir d'ignorer ce résultat contre -1 PV permanent.
@@ -386,6 +390,21 @@ export function BlessureGraveWizard({
         captureIssue: false,
         perteEquipement: true,
         statutMort: true,
+      },
+    });
+  };
+
+  const choisirCaptureEchange = () => {
+    if (!selectionActuelle) return;
+    terminerIteration({
+      resultat: {
+        ...selectionActuelle,
+        nom: NOM_CAPTURE_ECHANGE,
+        texte:
+          "Le prisonnier est échangé contre un captif détenu par sa propre bande. Il conserve tout son équipement et rejoint aussitôt la bande.",
+        captureIssue: false,
+        perteEquipement: false,
+        statutMort: false,
       },
     });
   };
@@ -732,6 +751,9 @@ export function BlessureGraveWizard({
           <div className="flex flex-wrap gap-sm">
             <button className="btn" onClick={choisirCapturePerdu}>
               {t('blessureGraveWizard.heroLost')}
+            </button>
+            <button className="btn" onClick={choisirCaptureEchange}>
+              {t('blessureGraveWizard.exchangedForPrisoner')}
             </button>
             <button className="btn btn--primary" onClick={() => setCaptureChoix('rancon')}>
               {t('blessureGraveWizard.ransomedBack')}

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Profile, Stats } from '../../types/catalog';
 import type { Member } from '../../types/roster';
-import { plafondPour, estStatAuPlafond } from '../../utils/plafond';
+import { plafondPour, estStatAuPlafond, bonusPlafondCC } from '../../utils/plafond';
 import { useLanguage } from '../../state/useLanguage';
 import { libelleCaracteristique } from '../../utils/stats';
 import { Icon } from '../common/Icon';
@@ -19,7 +19,7 @@ function saisiesDepuis(stats: Stats): Record<string, string> {
 
 export function CaracteristiquesCard({ membre, profil, onEditerStat }: CaracteristiquesCardProps) {
   const { t, language } = useLanguage();
-  const plafond = plafondPour(profil, membre.competences_acquises);
+  const plafond = plafondPour(profil, membre.competences_acquises, bonusPlafondCC(membre));
 
   // Saisie locale par caractéristique : un input contrôlé directement par
   // membre.stats_actuels[k] (un number) empêche de vider le champ pour
@@ -57,7 +57,13 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
               </div>
             );
           }
-          const auPlafond = estStatAuPlafond(profil, membre.stats_actuels, k, membre.competences_acquises);
+          const auPlafond = estStatAuPlafond(
+            profil,
+            membre.stats_actuels,
+            k,
+            membre.competences_acquises,
+            bonusPlafondCC(membre)
+          );
           return (
             <div
               key={k}

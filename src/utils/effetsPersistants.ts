@@ -10,6 +10,13 @@ import type { EffetPersistant, RosterInstance } from '../types/roster';
 // "lancez un dé en plus, et annulez un des résultats de votre choix").
 export const CLE_DE_SUPPLEMENTAIRE_EXPLORATION = 'de_supplementaire_exploration';
 
+// Bonus permanent (jamais consommé/retiré par PostBatailleScreen.terminer(),
+// contrairement à CLE_DE_SUPPLEMENTAIRE_EXPLORATION ci-dessus) — Entrée des
+// Catacombes (quintuples) : relance d'un dé à chaque jet d'exploration futur.
+// Un seul exemplaire par bande : l'événement lui-même précise qu'en trouver
+// une seconde n'apporte pas de relance supplémentaire.
+export const CLE_RELANCE_EXPLORATION_PERMANENTE = 'relance_exploration_permanente';
+
 export function ajouterEffetPersistant(
   roster: RosterInstance,
   effet: Omit<EffetPersistant, 'id'>

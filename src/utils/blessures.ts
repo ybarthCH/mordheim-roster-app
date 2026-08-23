@@ -19,7 +19,7 @@ export function traduireCle(key: string, language: Language, params?: Record<str
 
 // Issues spéciales "Gladiateur"/"Capturé" construites par BlessureGraveWizard
 // (voir les constantes NOM_GLADIATEUR_VICTOIRE / NOM_CAPTURE_PERDU /
-// NOM_CAPTURE_RANCON là-bas) : leur texte est un français fixe hors de la
+// NOM_CAPTURE_ECHANGE / NOM_CAPTURE_RANCON là-bas) : leur texte est un français fixe hors de la
 // table canonique BLESSURES_GRAVES, donc jamais reconnu comme un résultat
 // canonique standard. Reconnues ici par `resultat_id` (stable) + nom exact
 // pour distinguer l'issue précise parmi celles qui partagent le même
@@ -63,6 +63,15 @@ function issueSpecialeAffichee(
       texte: (segment) => traduireCle('blessureGraveWizard.capturedRansomTexte', language, { montant: montantDe(segment) }),
       texteFrancaisAttendu: (segment) =>
         `Le prisonnier est libéré contre une rançon de ${montantDe(segment)} po, payée par la bande. Il conserve tout son équipement et rejoint aussitôt la bande.`,
+    };
+  }
+  if (effet.resultat_id === 'capture' && effet.nom === 'Capturé — échangé contre un prisonnier') {
+    const texteFr =
+      "Le prisonnier est échangé contre un captif détenu par sa propre bande. Il conserve tout son équipement et rejoint aussitôt la bande.";
+    return {
+      nom: traduireCle('blessureGraveWizard.capturedExchangeNom', language),
+      texte: () => traduireCle('blessureGraveWizard.capturedExchangeTexte', language),
+      texteFrancaisAttendu: () => texteFr,
     };
   }
   return undefined;

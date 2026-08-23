@@ -1,4 +1,4 @@
-import type { Profile, SkillCategory, WarbandCatalog } from '../types/catalog';
+import type { CompetenceSpeciale, Profile, SkillCategory, WarbandCatalog } from '../types/catalog';
 import { SKILL_CATEGORIES } from '../types/catalog';
 import type { Member, RosterInstance } from '../types/roster';
 import type { Language } from '../state/useLanguage';
@@ -113,6 +113,26 @@ export function categoriesAccessibles(profil: Profile): SkillCategory[] {
     return base;
   }
   return [...base, 'equitation'];
+}
+
+/**
+ * Compétences de catégorie Spéciale réellement proposées à un profil : par
+ * défaut, `profil.competences_speciales` remplace entièrement la liste
+ * Spéciale de la bande (ex : franc-tireur, Marchand) ; si
+ * `competences_speciales_ajoutees` est vrai, elle s'y ajoute au lieu de la
+ * remplacer (ex : Berger à Squig gobelin — voir Profile.competences_speciales
+ * dans types/catalog.ts). Utilisé par AvanceeModal et CompetencesPanel, les
+ * deux seuls endroits qui résolvent la liste Spéciale d'un profil.
+ */
+export function competencesSpecialesPourProfil(
+  profil: Profile,
+  catalogue: WarbandCatalog
+): CompetenceSpeciale[] {
+  if (!profil.competences_speciales) return catalogue.competences_speciales;
+  if (profil.competences_speciales_ajoutees) {
+    return [...catalogue.competences_speciales, ...profil.competences_speciales];
+  }
+  return profil.competences_speciales;
 }
 
 // Règle Mordheim : une bande ne peut jamais compter plus de 6 héros.

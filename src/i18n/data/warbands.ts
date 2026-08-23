@@ -968,7 +968,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Unsavoury Characters',
         texte:
-          'A Night Goblin warband may only hire the following Hired Swords: Gladiator, Ogre Bodyguard, Wizard, as well as any Hired Sword whose description specifically allows it.',
+          'A Night Goblin warband may only hire the following Hired Swords: Gladiator, Ogre Bodyguard, Warlock, Witch, as well as any Hired Sword whose description specifically allows it.',
       },
     ],
     profils: {
@@ -1007,11 +1007,28 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
               'During the Recovery phase, any out-of-control Cave Squig or Giant Squig within his zone of influence stops wandering and can be controlled on a successful Leadership test.',
           },
           {
-            nom: 'Dedicated Skills (instead of the Special list)',
+            nom: 'Dedicated Skills (in addition to the Special list)',
             texte:
-              "Gaseous Squigs: when an untrained Cave Squig is taken Out of Action, on a 1 it explodes and hits every model within 1D6\" with a Strength 3 hit; that Squig is dead. — Menace: during the Movement phase, on a successful Leadership test, all Cave Squigs and Giant Squigs within range (6\", 12\" with a prodder) may re-roll their Movement die for that turn. — Training: the Herder may train a Squig as a personal bodyguard: it gains experience like a normal Henchman (re-rolling Lad's Got Talent results). Only one trained Squig at a time; it only dies on a 1 after being taken Out of Action and protects its fallen master under certain conditions.",
+              "When gaining a new Special skill, the Squig Herder may choose from his own list (Gaseous Squigs, Menace, Training) in addition to the warband's Special list — see the Skills tab on his sheet.",
           },
         ],
+        competences_speciales: {
+          squigs_gazeux: {
+            nom: 'Gaseous Squigs',
+            texte:
+              "The Squig Herder feeds his Squigs a mix of rotten mushrooms, flint, and sharp pebbles to turn them into shrapnel. When an untrained Cave Squig (see Training) is taken Out of Action, roll a die. On a 1, it explodes, hitting every model within 1D6\" with a Strength 3 hit. That Squig is DEAD!",
+          },
+          menace: {
+            nom: 'Menace',
+            texte:
+              'During the Movement phase, the Squig Herder may take a Leadership test. If successful, all Cave Squigs and Giant Squigs within 6" (12" with a squig prodder) may re-roll their Movement dice for that turn.',
+          },
+          entrainement: {
+            nom: 'Training',
+            texte:
+              "The Squig Herder may train a particularly intelligent and vicious Squig as his personal bodyguard. The next Squig bought gains experience like a normal Henchman, re-rolling \"Lad's Got Talent\" results on the Henchman advance table. If the Squig Herder dies, the trained Squig is removed from the warband. If the trained Squig dies, a new trained Squig may be recruited. There is never more than one trained Squig in a warband, and it still counts towards the maximum number of Cave Squigs. Thanks to the Herder's special attention (kicks, prods), the trained Squig only dies on a roll of 1 after being taken Out of Action. In exchange, the trained Squig will fiercely defend its fallen master: if the Squig Herder is taken Out of Action and the trained Squig is under control, remove the latter from the table but treat any 36 - Stripped Bare, 61 - Captured!, or 65 - Sold to the Arena result as a Full Recovery instead.",
+          },
+        },
       },
       zbir: { nom: 'Thug' },
       guerrier_gobelin_de_la_nuit: {
@@ -1148,6 +1165,38 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           texte: 'Allied models within 6" of the Shaman treat Stunned results as Knocked Down, until the Shaman suffers a Wound.',
         },
       ],
+    },
+    competences_speciales: {
+      producteur_de_champignons: {
+        nom: 'Fungus Farmer',
+        texte:
+          "The industrious little git has a mushroom crop back at the cave. If the Hero doesn't search for rare items, he may pick D3-1 Mad Cap Mushrooms instead. There is a chance of getting none, as there is no guarantee they will be ready for harvest. Each Mad Cap Mushroom must be used in the next battle, and they cannot be sold or traded to other warbands — these are a special high yield/low shelf life crop.",
+      },
+      se_cacher_dans_lombre: {
+        nom: 'Hide in Shadows',
+        texte:
+          'The sneaky Goblin has become an expert at concealing himself from enemies (and potential victims!). An enemy warrior attempting to detect this warrior when it is Hidden must halve their Initiative (round up) before measuring the distance.',
+      },
+      retiaire: {
+        nom: 'Netter',
+        texte:
+          'The Goblin applies techniques learned hunting wild Cave Squigs in the depths of the mountains to disable charging enemies. Instead of their normal use, the Goblin may throw a Net they are equipped with at an enemy who is charging them. This reduces the charge range of the attacker by D6" as the charger either slows down to avoid the net, or gets tangled up in it. If this means the attacker cannot reach the Goblin, the charge is failed. Regardless of the outcome, the Net is lost when this skill is used.',
+      },
+      petit_vicelard: {
+        nom: 'Sneaky Git',
+        texte:
+          'The Goblin specializes in attacking his targets from the shadows. He may charge an opponent from hiding, even if he cannot see the target. There is no need for an Initiative test, and the target may be over the normal 4" limit for charging unseen targets. If the charge is successful, the Goblin surprises his opponent, who will attack at half Weapon Skill and half Initiative, rounded up. This penalty lasts for the first round of combat only, as the opponent will swiftly recover their wits if the initial assault is survived.',
+      },
+      chevaucheur_de_squigs: {
+        nom: 'Ride Squig',
+        texte:
+          'This Goblin can ride one of the warband\'s Cave Squigs, or even the Great Squig! The pair deploy as a single model. Standard mount rules are not used, although the Night Goblin counts as being mounted for the Cavalry Bonus rule (see spears and lances). While the Squig is ridden, it and the rider move as a single model using the Squig\'s movement rules, but attack separately in Close Combat. In this skill\'s text, "Squig" refers to both Cave Squigs and Great Squigs. If a shooting or close combat attack hits, roll 1D6 to see who is hit: 1-2 the rider; 3-6 the Squig. If the Squig is stunned or taken Out of Action, the rider crashes to the ground and takes a Strength 2 hit with no armor save. If the rider is stunned or taken Out of Action, the Squig reverts to normal Squig behavior. Either way, the rider counts as on foot for the rest of the battle. Squigs don\'t like being ridden. If the Movement roll is a double or triple, the rider must roll 1D6 and compare the result to his Strength: if higher, the rider is thrown off before the Squig moves away — he crashes to the ground, takes a Strength 2 hit with no armor save, and counts as on foot for the rest of the battle; if equal to or lower, the rider keeps his grip and stays on the Squig.',
+      },
+      infiltration: {
+        nom: 'Infiltrate',
+        texte:
+          'A Night Goblin with this skill is always placed on the battlefield after the opposing warband has deployed. He may be deployed anywhere on the table, provided he is out of sight of the enemy and more than 12" from any enemy model. If both players have models with Infiltrate, roll 1D6 for each — the lowest result deploys first.',
+      },
     },
   },
 

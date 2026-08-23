@@ -5,7 +5,11 @@ import { resolveItemDetail } from './shop';
 import { resolveProfil } from './profil';
 import type { GameRules } from '../types/rules';
 import { estFrancTireur } from '../data/hiredSwords';
-import { CLE_DE_SUPPLEMENTAIRE_EXPLORATION, effetsPersistantsAvecCle } from './effetsPersistants';
+import {
+  CLE_DE_SUPPLEMENTAIRE_EXPLORATION,
+  CLE_RELANCE_EXPLORATION_PERMANENTE,
+  effetsPersistantsAvecCle,
+} from './effetsPersistants';
 import type { Language } from '../state/useLanguage';
 import { uiDictionary } from '../i18n/ui';
 import { translateItem } from '../i18n/data/items';
@@ -205,6 +209,19 @@ export function resumeExploration(
       texteAffiche,
       texteFrancais,
       desSupplementairesPersistants
+    );
+  }
+
+  // Relance permanente (Entrée des Catacombes, quintuples) — contrairement au
+  // bonus de dé ci-dessus, jamais consommée/retirée par
+  // PostBatailleScreen.terminer() : c'est un simple rappel, pas un dé en plus
+  // (l'app ne relance jamais elle-même, le joueur le fait sur table papier).
+  if (effetsPersistantsAvecCle(roster, CLE_RELANCE_EXPLORATION_PERMANENTE).length > 0) {
+    ajouterAide(
+      aides,
+      tr('exploration.permanentRerollSourceLabel', language),
+      tr('exploration.permanentRerollNote', language),
+      "Vous pouvez relancer un dé lors de vos jets sur le Tableau d'exploration."
     );
   }
 

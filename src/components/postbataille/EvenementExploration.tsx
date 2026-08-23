@@ -17,6 +17,9 @@ import { ResolutionVagabond } from './ResolutionVagabond';
 import { ResolutionTaverne } from './ResolutionTaverne';
 import { ResolutionPrisonniers } from './ResolutionPrisonniers';
 import { ResolutionDebiteurReconnaissant } from './ResolutionDebiteurReconnaissant';
+import { ResolutionBatimentEcroule } from './ResolutionBatimentEcroule';
+import { ResolutionEntreeCatacombes } from './ResolutionEntreeCatacombes';
+import { ResolutionArene } from './ResolutionArene';
 import { useLanguage } from '../../state/useLanguage';
 import { translateEvenementExploration } from '../../i18n/data/explorationEvenements';
 import { translateItem } from '../../i18n/data/items';
@@ -46,11 +49,14 @@ const EVENEMENTS_AVEC_COMPOSANT = new Set([
   'taverne',
   'prisonniers',
   'debiteur_reconnaissant',
+  'batiment_ecroule',
+  'entree_catacombes_5',
+  'arene',
 ]);
 
 function evenementAUneResolution(ev: Evenement): boolean {
   if (ev.or || ev.artefactMagique) return true;
-  if (ev.sousTable?.some((l) => l.or || l.objets)) return true;
+  if (ev.sousTable?.some((l) => l.or || l.objets || l.artefactMagique)) return true;
   if (ev.sousTableTresor?.length) return true;
   return EVENEMENTS_AVEC_COMPOSANT.has(ev.id);
 }
@@ -69,6 +75,10 @@ export function EvenementExploration({
   const [palierId, setPalierId] = useState<PalierExploration['id'] | ''>('');
   const [face, setFace] = useState<number | ''>('');
   const [jetSousTable, setJetSousTable] = useState('');
+  // Valeur du jet reporté pour `evenement.or`, retenue pour savoir si le
+  // bonus conditionnel `objetSiOr` (ex : Échoppe — Porte-bonheur sur un 1)
+  // doit s'afficher — le même jet physique unique sert aux deux gains.
+  const [valeurOrEvenement, setValeurOrEvenement] = useState<number | null>(null);
 
   const palier = TABLE_EXPLORATION_EVENEMENTS.find((p) => p.id === palierId) ?? null;
   const evenement: Evenement | null =
@@ -82,6 +92,7 @@ export function EvenementExploration({
     setPalierId(id);
     setFace('');
     setJetSousTable('');
+    setValeurOrEvenement(null);
   };
 
   // Libellé (traduit) d'une ligne de sous-table, pour préfixer une entrée de
@@ -108,6 +119,7 @@ export function EvenementExploration({
     }
     setFace(nouveau);
     setJetSousTable('');
+    setValeurOrEvenement(null);
   };
 
   const ajouterOr = (notation: string, nomLigne: string, valeur: number) => {
@@ -116,14 +128,18 @@ export function EvenementExploration({
     onAjouterAuJournal(t('evenement.journalGold', { prefix: prefixeJournal(nomLigne), valeur, notation }));
   };
 
-  const ajouterObjet = (nomLigne: string, item: ShopItem, quantite: number) => {
+  const ajouterObjet = (nomLigne: string, item: ShopItem, quantite: number, venteDoublee?: boolean) => {
     if (!evenement) return;
     // Valeur de référence pour une revente future (voir ajouterAuStock dans
     // PostBatailleScreen) : le vrai prix de l'objet (règles optionnelles
     // déjà appliquées par itemVersShopItem), jamais 0 — l'objet est gratuit
     // pour la trésorerie (onAchatStockMultiple ne la touche jamais), pas
-    // sans valeur.
-    onAchatStockMultiple(item, typeof item.cout === 'number' ? item.cout : 0, quantite);
+    // sans valeur. Doublé si l'événement promet une revente au double du
+    // prix habituel (ex : Carrosse retourné) — la revente générique verse la
+    // moitié du prix payé enregistré ici, donc 2×cout donne bien le double
+    // de la revente normale.
+    const coutBase = typeof item.cout === 'number' ? item.cout : 0;
+    onAchatStockMultiple(item, venteDoublee ? coutBase * 2 : coutBase, quantite);
     onAjouterAuJournal(
       t('evenement.journalItemAdded', {
         prefix: prefixeJournal(nomLigne),
@@ -152,7 +168,7 @@ export function EvenementExploration({
     // Résultat sans aucune action possible (ex : butin narratif à revendre à
     // un prix spécial) : on consigne au moment de la sélection, faute
     // d'autre occasion de le faire.
-    if (!deselection && evenement && !ligne.or && !ligne.objets) {
+    if (!deselection && evenement && !ligne.or && !ligne.objets && !ligne.artefactMagique) {
       onAjouterAuJournal(`${evenementAffiche?.nom ?? ''} — ${resultatAffiche(ligne)}`);
     }
   };
@@ -215,7 +231,19 @@ export function EvenementExploration({
               // propre saisie.
               key={`${palierId}-${face}`}
               label={t('postBataille.rollObtainedNotation', { notation: evenement.or })}
-              onValider={(valeur) => ajouterOr(evenement.or!, '', valeur)}
+              onValider={(valeur) => {
+                ajouterOr(evenement.or!, '', valeur);
+                setValeurOrEvenement(valeur);
+              }}
+            />
+          )}
+
+          {evenement.objetSiOr && valeurOrEvenement !== null && evenement.objetSiOr.valeurs.includes(valeurOrEvenement) && (
+            <AjouterObjetTrouveButton
+              key={`${palierId}-${face}-objetSiOr`}
+              ligneObjet={evenement.objetSiOr.objet}
+              catalogueId={catalogue.id}
+              onAjouter={(item, quantite) => ajouterObjet('', item, quantite)}
             />
           )}
 
@@ -279,6 +307,35 @@ export function EvenementExploration({
             />
           )}
 
+          {evenement.id === 'batiment_ecroule' && (
+            <ResolutionBatimentEcroule
+              roster={roster}
+              catalogue={catalogue}
+              nomEvenement={evenementAffiche.nom}
+              onMajRoster={onMajRoster}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
+          )}
+
+          {evenement.id === 'entree_catacombes_5' && (
+            <ResolutionEntreeCatacombes
+              roster={roster}
+              nomEvenement={evenementAffiche.nom}
+              onMajRoster={onMajRoster}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
+          )}
+
+          {evenement.id === 'arene' && (
+            <ResolutionArene
+              nomEvenement={evenementAffiche.nom}
+              catalogueId={catalogue.id}
+              onAjouterOr={onAjouterOr}
+              onAjouterObjet={ajouterObjet}
+              onAjouterAuJournal={onAjouterAuJournal}
+            />
+          )}
+
           {evenement.artefactMagique && (
             <button className="btn--pack-pill-sm" style={{ marginTop: '0.5rem' }} onClick={onOuvrirArtefacts}>
               {t('postBataille.openMagicArtefactsTable')}
@@ -329,10 +386,22 @@ export function EvenementExploration({
                       key={`${palierId}-${face}-${evenement.sousTable?.indexOf(ligneSousTable)}-${i}`}
                       ligneObjet={objet}
                       catalogueId={catalogue.id}
-                      onAjouter={(item, quantite) => ajouterObjet(resultatAffiche(ligneSousTable), item, quantite)}
+                      onAjouter={(item, quantite) =>
+                        ajouterObjet(resultatAffiche(ligneSousTable), item, quantite, objet.venteDoublee)
+                      }
                     />
                   ))}
                 </div>
+              )}
+              {ligneSousTable?.artefactMagique && (
+                <button
+                  type="button"
+                  className="btn--pack-pill-sm"
+                  style={{ marginTop: '0.5rem' }}
+                  onClick={onOuvrirArtefacts}
+                >
+                  {t('postBataille.openMagicArtefactsTable')}
+                </button>
               )}
             </div>
           )}

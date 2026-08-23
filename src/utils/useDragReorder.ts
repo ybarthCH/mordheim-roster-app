@@ -35,7 +35,7 @@ export function useDragReorder<T extends { instance_id: string }>(
   };
 
   // Rect de la variante actuellement visible pour cet id (l'autre étant
-  // masquée en CSS a une boîte 0×0, donc écartée).
+  // masquée en CSS, donc une boîte 0×0 — écartée).
   const rectVisible = (id: string): DOMRect | null => {
     for (const variante of ['table', 'card']) {
       const el = refsElements.current.get(`${variante}:${id}`);

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
+import { usePersistentDisclosure } from '../../state/usePersistentDisclosure';
 import { getSetting, setSetting } from '../../db/db';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
@@ -13,6 +14,7 @@ import { AjouterMembreModal } from './AjouterMembreModal';
 import { RosterSummaryCard } from './RosterSummaryCard';
 import { ArmurerieSection } from './ArmurerieSection';
 import { MemberGroupCard } from './MemberGroupCard';
+import { MemberQuickList } from './MemberQuickList';
 import { HistoriqueBataillesSection } from './HistoriqueBataillesSection';
 import { PromotionHerosDechuModal } from './PromotionHerosDechuModal';
 import { EquipementReference, MagieReference } from '../common/CatalogueReference';
@@ -94,6 +96,17 @@ export function RosterScreen({
   // s'affiche maintenant à côté de Recruter/Assistant post-bataille (voir
   // .top-actions plus bas), pas dans l'en-tête de la carte armurerie.
   const [modalAchat, setModalAchat] = useState(false);
+  // Liste rapide "Bande complète" (fusion Héros/Hommes de main/Francs-tireurs/
+  // Dramatis Personae, nom/profil/stats seulement, voir MemberQuickList)
+  // remplaçant ces cartes de groupe détaillées — bouton dans l'en-tête de
+  // chacune (voir onBasculerVueRapide) — utile pour défiler vite une bande
+  // nombreuse (~20 membres), y compris en split view où le volet liste peut
+  // rester étroit sans jamais atteindre les ~950px que réclame le tableau
+  // (voir .roster-split__list dans index.css).
+  const { open: vueCondensee, toggle: toggleVueCondensee } = usePersistentDisclosure(
+    'ui.roster.membres.vueCondensee',
+    false
+  );
 
   const splitRef = useRef<HTMLDivElement>(null);
   const [listWidthPct, setListWidthPct] = useState(SPLIT_LIST_WIDTH_DEFAUT);
@@ -451,56 +464,76 @@ export function RosterScreen({
         </CollapsibleCard>
       )}
 
-      <MemberGroupCard
-        titre={t('roster.heroes')}
-        icone="etoilePack"
-        preferenceKey="ui.roster.groupe_heros.ouvert"
-        membres={heros}
-        roster={roster}
-        catalogue={catalogue}
-        onReordonner={reordonnerSection}
-        onBasculerHorsCombat={basculerHorsCombat}
-        onSupprimer={setMembreASupprimer}
-        selectedInstanceId={selectedInstanceId}
-      />
-      <MemberGroupCard
-        titre={t('roster.henchmen')}
-        icone="drapeauxPack"
-        preferenceKey="ui.roster.groupe_hommes_de_main.ouvert"
-        membres={hommesDeMain}
-        roster={roster}
-        catalogue={catalogue}
-        onReordonner={reordonnerSection}
-        onBasculerHorsCombat={basculerHorsCombat}
-        onSupprimer={setMembreASupprimer}
-        selectedInstanceId={selectedInstanceId}
-      />
-      {francsTireurs.length > 0 && (
-        <MemberGroupCard
-          titre={t('roster.hiredSwordsGroup')}
-          icone="bouclier"
-          preferenceKey="ui.roster.groupe_francs_tireurs.ouvert"
-          membres={francsTireurs}
+      {vueCondensee ? (
+        <MemberQuickList
+          titre={t('roster.fullWarband')}
+          icone="etoilePack"
+          preferenceKey="ui.roster.groupe_liste_rapide.ouvert"
+          membres={[...heros, ...hommesDeMain, ...francsTireurs, ...dramatisPersonae]}
           roster={roster}
           catalogue={catalogue}
-          onReordonner={reordonnerSection}
-          onBasculerHorsCombat={basculerHorsCombat}
           onSupprimer={setMembreASupprimer}
+          selectedInstanceId={selectedInstanceId}
+          onBasculerVueDetaillee={toggleVueCondensee}
         />
-      )}
-      {dramatisPersonae.length > 0 && (
-        <MemberGroupCard
-          titre={t('roster.dramatisPersonae')}
-          icone="bouclier"
-          preferenceKey="ui.roster.groupe_dramatis_personae.ouvert"
-          membres={dramatisPersonae}
-          roster={roster}
-          catalogue={catalogue}
-          onReordonner={reordonnerSection}
-          onBasculerHorsCombat={basculerHorsCombat}
-          onSupprimer={setMembreASupprimer}
-          masquerProfil
-        />
+      ) : (
+        <>
+          <MemberGroupCard
+            titre={t('roster.heroes')}
+            icone="etoilePack"
+            preferenceKey="ui.roster.groupe_heros.ouvert"
+            membres={heros}
+            roster={roster}
+            catalogue={catalogue}
+            onReordonner={reordonnerSection}
+            onBasculerHorsCombat={basculerHorsCombat}
+            onSupprimer={setMembreASupprimer}
+            selectedInstanceId={selectedInstanceId}
+            onBasculerVueRapide={toggleVueCondensee}
+          />
+          <MemberGroupCard
+            titre={t('roster.henchmen')}
+            icone="drapeauxPack"
+            preferenceKey="ui.roster.groupe_hommes_de_main.ouvert"
+            membres={hommesDeMain}
+            roster={roster}
+            catalogue={catalogue}
+            onReordonner={reordonnerSection}
+            onBasculerHorsCombat={basculerHorsCombat}
+            onSupprimer={setMembreASupprimer}
+            selectedInstanceId={selectedInstanceId}
+            onBasculerVueRapide={toggleVueCondensee}
+          />
+          {francsTireurs.length > 0 && (
+            <MemberGroupCard
+              titre={t('roster.hiredSwordsGroup')}
+              icone="bouclier"
+              preferenceKey="ui.roster.groupe_francs_tireurs.ouvert"
+              membres={francsTireurs}
+              roster={roster}
+              catalogue={catalogue}
+              onReordonner={reordonnerSection}
+              onBasculerHorsCombat={basculerHorsCombat}
+              onSupprimer={setMembreASupprimer}
+              onBasculerVueRapide={toggleVueCondensee}
+            />
+          )}
+          {dramatisPersonae.length > 0 && (
+            <MemberGroupCard
+              titre={t('roster.dramatisPersonae')}
+              icone="bouclier"
+              preferenceKey="ui.roster.groupe_dramatis_personae.ouvert"
+              membres={dramatisPersonae}
+              roster={roster}
+              catalogue={catalogue}
+              onReordonner={reordonnerSection}
+              onBasculerHorsCombat={basculerHorsCombat}
+              onSupprimer={setMembreASupprimer}
+              masquerProfil
+              onBasculerVueRapide={toggleVueCondensee}
+            />
+          )}
+        </>
       )}
       {defunts.length > 0 && (
         <MemberGroupCard

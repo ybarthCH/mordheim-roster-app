@@ -26,7 +26,7 @@
     },
     {
       "nom": "Des gens peu recommandables",
-      "texte": "Une bande de Gobelins de la Nuit ne peut recruter que les Francs-Tireurs suivants : Gladiateur, Garde du Corps Ogre, Mage, ainsi que tout Franc-Tireur dont la description le permet explicitement."
+      "texte": "Une bande de Gobelins de la Nuit ne peut recruter que les Francs-Tireurs suivants : Gladiateur, Garde du Corps Ogre, Mage, Sorcière, ainsi que tout Franc-Tireur dont la description le permet explicitement."
     }
   ],
   "composition": {
@@ -89,13 +89,34 @@
         { "nom": "Dresseur - Squigs", "texte": "Tout Squig à moins de 6ps (12ps avec un aiguillon à squig) peut utiliser son Commandement au lieu du sien." },
         { "nom": "Maître berger", "texte": "En phase de Ralliement, tout Squig des Cavernes ou Grand Squig hors de contrôle dans sa zone d'influence cesse de vagabonder et peut être contrôlé sur un test de Commandement réussi." },
         {
-          "nom": "Compétences dédiées (au lieu de la liste Spéciale)",
-          "texte": "Squigs gazeux : quand un Squig des Cavernes non entraîné est mis hors de combat, sur un 1 il explose et touche toutes les figurines dans un rayon d'1D6ps avec une touche de F3 ; ce Squig est mort. — Menace : en phase de Mouvement, sur un test de Cd réussi, tous les Squigs des Cavernes et Grands Squigs à portée (6ps, 12ps avec aiguillon) peuvent relancer leur dé de Mouvement pour ce tour. — Entraînement : le Berger peut entraîner un Squig comme garde personnel : celui-ci gagne de l'expérience comme un Homme de main normal (en relançant Ce gars est doué). Un seul Squig entraîné à la fois ; il ne meurt que sur un 1 après mise hors de combat et protège son maître tombé au combat dans certaines conditions."
+          "nom": "Compétences dédiées (en plus de la liste Spéciale)",
+          "texte": "Lorsqu'il acquiert une nouvelle compétence de catégorie Spéciale, le Berger à Squig peut choisir dans sa propre liste (Squigs gazeux, Menace, Entraînement) en plus de la liste Spéciale de la bande — voir l'onglet Compétences de sa fiche."
         }
       ],
       "acces_competences": ["combat", "vitesse", "special"],
       "acces_equipement": ["heros"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "competences_speciales_ajoutees": true,
+      "competences_speciales": [
+        {
+          "id": "squigs_gazeux",
+          "nom": "Squigs gazeux",
+          "texte": "Le Berger à Squig nourrit ses Squigs d'un mélange de champignons pourris, de silex et de cailloux tranchants pour en faire du shrapnel. Quand un Squig des Cavernes non entraîné (voir Entraînement) est mis hors de combat, lancez un dé. Sur un 1, il explose en touchant toutes les figurines dans un rayon d'1D6ps avec une touche de Force 3. Ce Squig est MORT !",
+          "valeurPuissance": 0
+        },
+        {
+          "id": "menace",
+          "nom": "Menace",
+          "texte": "Pendant la phase de Mouvement, le Berger à Squig peut faire un test de Commandement. En cas de réussite, tous les Squigs des Cavernes et les Grands Squigs dans un rayon de 6ps (12ps avec un aiguillon à squigs) peuvent relancer leurs dés de Mouvement pour ce tour.",
+          "valeurPuissance": 0
+        },
+        {
+          "id": "entrainement",
+          "nom": "Entraînement",
+          "texte": "Le Berger à Squig peut entraîner un Squig particulièrement intelligent et vicieux pour en faire son garde personnel. Le prochain Squig acheté gagne de l'expérience comme un Homme de main normal, en relançant les résultats « Ce gars est doué » sur la table de progression des Hommes de main. Si le Berger à Squig meurt, le Squig entraîné est retiré de la bande. Si le Squig entraîné meurt, un nouveau Squig entraîné peut être recruté. Il n'y a jamais qu'un seul Squig entraîné dans la bande, et il compte toujours dans le nombre maximum de Squigs des Cavernes. En raison des attentions particulières que le Berger accorde à son Squig entraîné (coups de pied, coups de bâton), il ne meurt que sur un jet de 1 après avoir été mis hors de combat. En échange, le Squig entraîné défendra farouchement son maître tombé au combat : si le Berger à Squig est mis hors de combat et que le Squig entraîné est sous contrôle, retirez ce dernier de la table mais considérez tous les résultats 36 - Dépouillé, 61 - Capturé et 65 - Vendu aux arènes comme une Récupération totale.",
+          "valeurPuissance": 0
+        }
+      ]
     },
     {
       "id": "zbir",
@@ -198,6 +219,7 @@
       "max": 1,
       "cout": 210,
       "stats": { "M": 0, "CC": 4, "CT": 0, "F": 5, "E": 5, "PV": 3, "I": 4, "A": 3, "Cd": 5 },
+      "stats_variables": { "M": "3D6" },
       "regles_speciales": [
         { "nom": "Mouvement", "texte": "Comme le Squig des Cavernes, mais lance 3D6." },
         { "nom": "Sauvage", "texte": "A besoin d'un Gobelin pour le surveiller ; sur une touche du dé de dispersion, il se déplace vers la figurine visible la plus proche (alliée ou ennemie) et l'engage au contact." },
@@ -254,7 +276,44 @@
       "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": [],
+  "competences_speciales": [
+    {
+      "id": "producteur_de_champignons",
+      "nom": "Producteur de champignons",
+      "texte": "Ce petit malin besogneux cultive des champignons dans sa grotte. Si le Héros ne recherche pas d'objets rares, il peut récolter D3-1 champignons bonnets de fou à la place. Il existe une chance de n'en obtenir aucun, car il n'y a aucune garantie qu'ils seront prêts à être récoltés. Chaque champignon bonnet de fou doit être utilisé lors de la prochaine bataille et ne peut être vendu ou échangé avec d'autres bandes parce qu'il s'agit d'une culture spéciale à haut rendement et à faible durée de conservation.",
+      "valeurPuissance": 0
+    },
+    {
+      "id": "se_cacher_dans_lombre",
+      "nom": "Se cacher dans l'ombre",
+      "texte": "Ce gobelin sournois est devenu un expert dans l'art de se cacher de ses ennemis (et de ses victimes potentielles !). Un guerrier ennemi qui tente de détecter ce guerrier caché doit réduire de moitié son Initiative (arrondi au supérieur) avant de mesurer la distance.",
+      "valeurPuissance": 0
+    },
+    {
+      "id": "retiaire",
+      "nom": "Rétiaire",
+      "texte": "Pour mettre hors d'état de nuire les ennemis qui le chargent, le gobelin applique les techniques qu'il a acquises en chassant le squig sauvage dans les profondeurs des montagnes. S'il possède un filet, le Gobelin de la Nuit peut s'en servir contre un ennemi qui charge au lieu de l'utiliser normalement. Cette action réduit la distance de charge d'1D6ps car l'attaquant doit ralentir pour éviter le filet pour ne pas s'y emmêler. Si l'attaquant ne peut pas atteindre le gobelin, la charge est ratée. Indépendamment du résultat, le filet est perdu lorsque cette compétence est utilisée.",
+      "valeurPuissance": 0
+    },
+    {
+      "id": "petit_vicelard",
+      "nom": "Petit vicelard",
+      "texte": "Le gobelin est spécialisé dans les attaques sournoises. Il peut charger un adversaire depuis une cachette, même s'il ne peut pas voir la cible. Il n'est pas nécessaire de procéder à un test d'Initiative, et la cible peut dépasser la limite normale de 4ps pour charger des cibles invisibles. Si la charge est réussie, il surprend son adversaire qui attaquera à la moitié de la CC et à la moitié de son Initiative, arrondies au supérieur. Cette pénalité ne dure que pour le premier tour de combat, car son adversaire récupère rapidement ses esprits s'il survit à l'assaut.",
+      "valeurPuissance": 0
+    },
+    {
+      "id": "chevaucheur_de_squigs",
+      "nom": "Chevaucheur de squigs",
+      "texte": "Ce gobelin peut monter l'un des Squigs de la bande, voire le Squig Géant ! Le duo est considéré comme une seule et même figurine. Les règles habituelles d'Équitation ne s'appliquent pas, bien que le Gobelin de la Nuit soit considéré comme un cavalier au regard du bonus de cavalerie (voir lance et lance de cavalerie). Aussi longtemps que le Squig est monté, lui et son cavalier se déplacent comme une seule et même figurine en utilisant les règles de déplacement du Squig. Cependant, ils attaquent séparément s'ils sont engagés au Corps à Corps. Dans le cadre de cette compétence, le mot « Squig » désigne les Squigs des Cavernes et les Squigs Géants. Si une attaque à distance ou au Corps à Corps touche, lancez 1D6 pour savoir qui est touché : 1-2 le cavalier ; 3-6 le Squig. Si le Squig est sonné ou mis hors de combat, le cavalier s'écrase au sol et subit une touche de F2 sans sauvegarde d'armure. Si le cavalier est sonné ou mis hors de combat, le Squig reprend son comportement normal (voir Squigs des Cavernes). Dans tous les cas, le cavalier est considéré comme à pied pour le reste de la partie. Les Squigs n'aiment pas être montés. Si le jet de Mouvement donne un double ou un triple, le cavalier doit lancer 1D6 et comparer le résultat obtenu à sa Force : si le résultat est supérieur, le cavalier est éjecté avant que le Squig ne s'éloigne — il s'écrase au sol, subit une touche de F2 sans sauvegarde d'armure, et est considéré comme à pied pour le reste de la bataille ; si le jet est inférieur ou égal, le cavalier maintient sa prise et reste sur le Squig.",
+      "valeurPuissance": 0
+    },
+    {
+      "id": "infiltration",
+      "nom": "Infiltration",
+      "texte": "Un Gobelin de la Nuit avec cette compétence est toujours placé sur le champ de bataille après le déploiement de la bande adverse. Il peut être déployé n'importe où sur le terrain, à condition d'être hors de toute ligne de vue adverse et à plus de 12ps de toute figurine ennemie. Si les deux joueurs ont des figurines en Infiltration, lancez 1D6. Le résultat le plus faible se déploie en premier.",
+      "valeurPuissance": 0
+    }
+  ],
   "equipement": {
     "heros": {
       "armes_cac": [

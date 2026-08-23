@@ -13,7 +13,7 @@ import type { Member, RosterInstance, SeriousInjuryEffect } from '../types/roste
 import type { CompetenceSpeciale, Profile, Stats, WarbandCatalog } from '../types/catalog';
 import type { Skill } from '../types/gameData';
 import { STAT_KEYS } from '../types/catalog';
-import { resolveProfil } from './profil';
+import { competencesSpecialesPourProfil, resolveProfil } from './profil';
 import { skillById } from '../data/gameData';
 import { getCatalogue } from '../data/warbands';
 import { estFrancTireur, getFrancTireur } from '../data/hiredSwords';
@@ -165,7 +165,8 @@ function trouverCompetence(
   profil: Profile | undefined,
   catalogue: WarbandCatalog | undefined
 ): Skill | CompetenceSpeciale | undefined {
-  return skillById(id) ?? (profil?.competences_speciales ?? catalogue?.competences_speciales ?? []).find((s) => s.id === id);
+  const speciales = profil && catalogue ? competencesSpecialesPourProfil(profil, catalogue) : (profil?.competences_speciales ?? catalogue?.competences_speciales ?? []);
+  return skillById(id) ?? speciales.find((s) => s.id === id);
 }
 
 /**
