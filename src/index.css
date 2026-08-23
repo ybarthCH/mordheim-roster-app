@@ -453,35 +453,17 @@ button {
 }
 
 /* Cartes de groupe du roster (Héros, Hommes de main, Francs-tireurs...) :
-   redescendent volontairement sur l'habillage plat de .card d'avant le
-   panneau de pierre — le tableau qu'elles contiennent (.roster-table-wrap,
-   voir plus bas) porte déjà son propre cadre en pierre peinte. Un seul
-   niveau de cadre peint à la fois est plus lisible que le cadre-dans-le-
-   cadre. Padding latéral réduit pour laisser le tableau s'étendre
-   davantage en largeur — l'essentiel de l'air visuel se joue maintenant à
-   l'intérieur de son propre cadre, pas autour du groupe. */
+   reprennent le cadre pierre peinte standard de .card ci-dessus (comme
+   l'historique de bataille, l'armurerie, les cartes de "Bande complète")
+   — plus d'habillage plat dédié. Le tableau qu'elles contiennent redevient
+   un simple encart CSS à l'intérieur (voir .roster-table-wrap plus bas),
+   sans cadre concurrent : un seul niveau de cadre peint, à l'extérieur.
+   Padding latéral réduit (hérite le padding vertical par défaut de .card)
+   pour laisser le tableau s'étendre davantage en largeur. */
 :root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card {
-  background-color: var(--bg-card);
-  background-image: var(--texture-parchemin);
-  background-blend-mode: overlay;
-  border-style: solid;
-  border-width: 1px;
-  border-color: var(--border);
-  border-image-source: none;
-  box-shadow: var(--shadow);
-  padding: 0.6rem 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
-:root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card::before {
-  content: '';
-}
-/* "Bande complète" (MemberQuickList, liste fusionnée Héros/Hommes de main/
-   Francs-tireurs) : chacune de ses lignes (.member-condensed .list-item,
-   voir plus bas) porte maintenant son propre cadre pierre peinte, comme
-   chaque figurine des cartes de groupe détaillées porte le sien via son
-   tableau — la carte de groupe qui les contient reste donc sur
-   l'habillage plat hérité de .card.roster-groupe-card ci-dessus, sans
-   règle supplémentaire ici : même motif "un seul niveau de cadre à la
-   fois" que le reste du roster. */
 /* Carte résumé de bande (nom + 4 ressources) : carte unique au même titre
    que l'armurerie et les règles spéciales ci-dessus, donc même cadre
    compact panel_titlebar_10 plutôt que son ancien asset panel_10 dédié
@@ -2313,22 +2295,16 @@ button {
 .roster-table-wrap {
   overflow-x: auto;
 }
-/* Proposition : le tableau desktop reste un simple encart plat même en
-   thème sombre/palette rouge, alors que le reste de l'appli (cartes,
-   modales) porte le cadre en pierre peinte du pack (voir .card plus haut).
-   Même traitement ici — border-image plutôt que background-image : le
-   filet des bords reste entier quelle que soit la hauteur du tableau
-   (nombre de figurines variable), seul le centre est étiré ("fill"). */
+/* Le tableau reste un simple encart CSS, y compris en thème sombre/palette
+   rouge — c'est désormais la carte de groupe qui le contient
+   (.card.roster-groupe-card, voir plus haut) qui porte le cadre pierre
+   peinte, comme le reste de l'appli. --bg-card (pas --bg-inset, trop
+   sombre en pratique et surtout déjà utilisé par la bande de colonnes
+   alternée ci-dessous — les deux fonds identiques annulaient son
+   contraste). */
 :root[data-theme='dark'][data-palette='rouge'] .roster-table-wrap {
   background-color: var(--bg-card);
-  border-style: solid;
-  border-width: 20px;
-  border-image-repeat: stretch;
-  border-image-slice: 10% fill;
-  border-image-source: url('/decor/card-panel-stone.webp');
-}
-:root[data-theme='dark'][data-palette='rouge'] .roster-table {
-  background: none;
+  border-radius: var(--radius);
 }
 .roster-table {
   width: 100%;
@@ -2476,24 +2452,10 @@ thead .roster-table__col-actions {
 .roster-table__row-principale td {
   border-bottom: none;
 }
-/* Chaque figurine dans son propre "encart" en thème sombre/palette rouge —
-   compromis face au vrai cadre pierre peinte des autres vues (member-cards
-   d'origine, Bande complète, ligne compacte téléphone) : border-image sur
-   un <tr> n'est pas fiable sous border-collapse:collapse (nécessaire ici
-   pour les colonnes épinglées Nom/Suppression, voir .roster-table__col-nom
-   plus haut), et repartir sur une grille CSS pour l'obtenir referait tout
-   ce qui dépend du tableau HTML (survol de colonne, Sv dynamique, drag).
-   Fond légèrement éclairci sur les deux lignes de la figurine (posé sur le
-   <tr>, sous les fonds propres des cellules à bande/épinglées qui restent
-   inchangés — voir plus bas) + un liseré couleur accent en haut et en bas
-   du bloc : à spécificité égale, .roster-table__stat--band et les colonnes
-   épinglées gardent leur propre fond, peint par-dessus celui du <tr>. */
 /* Liseré ivoire ("bone") entre figurines : délimite nettement la fin d'une
    figurine dans le tableau — réutilise --text (déjà un ivoire crème), pas
    une nouvelle valeur, pour rester cohérent avec le reste de la palette.
-   Pas la couleur accent (réservée à la sélection, voir plus bas —
-   auparavant toutes les figurines avaient un liseré accent, noyant le
-   surlignage de la figurine sélectionnée). */
+   Pas la couleur accent (réservée à la sélection, voir plus bas). */
 :root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale td {
   border-top: 1px solid var(--text);
 }
@@ -2501,40 +2463,12 @@ thead .roster-table__col-actions {
   border-bottom: 1px solid var(--text);
 }
 
-/* Plus de teinte de fond : la texture pierre du cadre (.roster-table-wrap,
-   voir .roster-table background:none plus haut) reste visible telle
-   quelle sur les deux lignes de la figurine, sans filtre de couleur —
-   seul le liseré (voir plus haut) distingue une figurine de la suivante.
-   Les colonnes épinglées ont besoin d'un fond qui masque ce qui défile en
-   dessous pendant le scroll horizontal (voir .roster-table__col-nom plus
-   haut) — indispensable, contrairement aux autres cellules qui n'ont pas
-   cette contrainte. Trois teintes testées pour que ce fond plat ne
-   détonne plus à côté d'une texture qui ne l'est pas (gris-pierre plus
-   proche de la moyenne de la texture, semi-transparent, fragment de la
-   texture elle-même) : aucune ne suffisait, l'écart plat/texturé restant
-   visible quelle que soit la couleur choisie. Solution retenue à la
-   place : ne plus chercher à le cacher, mais lui donner un sens — une
-   ombre portée façon "colonne figée au-dessus du reste du tableau"
-   (motif standard des tableurs à colonnes gelées), qui fait lire la
-   coupure comme un choix plutôt qu'un raccord raté. */
+/* Colonnes épinglées : même fond --bg-card que .roster-table-wrap
+   (voir plus haut) — plus de raccord visible à masquer puisque le
+   tableau est redevenu un simple encart plat d'une seule teinte. */
 :root[data-theme='dark'][data-palette='rouge'] tbody .roster-table__col-nom,
 :root[data-theme='dark'][data-palette='rouge'] tbody .roster-table__col-actions {
   background: var(--bg-card);
-}
-:root[data-theme='dark'][data-palette='rouge'] .roster-table__col-nom {
-  box-shadow: 3px 0 6px -2px rgba(0, 0, 0, 0.6);
-}
-:root[data-theme='dark'][data-palette='rouge'] .roster-table__col-actions {
-  box-shadow: -3px 0 6px -2px rgba(0, 0, 0, 0.6);
-}
-/* Texte plus clair et plus net sur ce fond désormais texturé (pierre,
-   variable en luminosité selon l'endroit) plutôt que le --text crème
-   habituel : un texte quasi blanc + une ombre portée sombre discrète
-   gardent chaque chiffre lisible même sur les zones les plus sombres de
-   la texture, sans dépendre d'un fond plat pour le contraste. */
-:root[data-theme='dark'][data-palette='rouge'] .roster-table td {
-  color: #fbf4e6;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
 }
 
 /* Sélection : reconstruit en box-shadow (inset), pas en border/box-shadow
