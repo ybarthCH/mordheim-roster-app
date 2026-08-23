@@ -443,9 +443,9 @@ button {
    plus compact, à la place du grand panel_10 par défaut — réservé à
    l'armurerie et aux règles spéciales (voir ArmurerieSection/RosterScreen)
    pour les distinguer des unités/entrées répétées sous elles, qui gardent
-   le grand panneau (voir .member-cards .list-item / .historique-liste
-   .list-item plus bas). Choix explicite, indépendant de la largeur du
-   conteneur — contrairement au repli @container ci-dessus. */
+   le grand panneau (voir .historique-liste .list-item plus bas). Choix
+   explicite, indépendant de la largeur du conteneur — contrairement au
+   repli @container ci-dessus. */
 :root[data-theme='dark'][data-palette='rouge'] .card--titlebar {
   border-width: 14px;
   border-image-slice: 16% fill;
@@ -453,27 +453,16 @@ button {
 }
 
 /* Cartes de groupe du roster (Héros, Hommes de main, Francs-tireurs...) :
-   redescendent volontairement sur l'habillage plat de .card d'avant le
-   panneau de pierre — voir MemberGroupCard, qui donne désormais ce panneau
-   à chaque carte de figurine individuelle à la place (voir .member-cards
-   .list-item plus bas). Un seul niveau de cadre peint à la fois est plus
-   lisible que le cadre-dans-le-cadre. Padding latéral réduit pour laisser
-   les cartes de figurines s'étendre davantage en largeur — l'essentiel de
-   l'air visuel se joue maintenant à l'intérieur de chaque carte, pas
-   autour du groupe. */
+   reprennent le cadre pierre peinte standard de .card ci-dessus (comme
+   l'historique de bataille, l'armurerie, les cartes de "Bande complète")
+   — plus d'habillage plat dédié. Le tableau qu'elles contiennent redevient
+   un simple encart CSS à l'intérieur (voir .roster-table-wrap plus bas),
+   sans cadre concurrent : un seul niveau de cadre peint, à l'extérieur.
+   Padding latéral réduit (hérite le padding vertical par défaut de .card)
+   pour laisser le tableau s'étendre davantage en largeur. */
 :root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card {
-  background-color: var(--bg-card);
-  background-image: var(--texture-parchemin);
-  background-blend-mode: overlay;
-  border-style: solid;
-  border-width: 1px;
-  border-color: var(--border);
-  border-image-source: none;
-  box-shadow: var(--shadow);
-  padding: 0.6rem 0.5rem;
-}
-:root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card::before {
-  content: '';
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 /* Carte résumé de bande (nom + 4 ressources) : carte unique au même titre
    que l'armurerie et les règles spéciales ci-dessus, donc même cadre
@@ -1115,13 +1104,13 @@ button {
 .drag-handle--discret:active {
   opacity: 1;
 }
-/* Sur la carte mobile (voir MemberGroupCard) : à côté du bouton de
-   suppression dans .list-item__title-actions, ancré au coin supérieur droit
-   de la carte — plus dans sa propre colonne dédiée devant .list-item__row.
-   Taille et opacité remontées un peu plus (1.3rem/0.6 → 1.5rem/0.85), et
-   couleur passée de --text-muted à --text : les six points de l'icône sont
-   minuscules et --text-muted trop pâle le rendait difficile à repérer avant
-   même de le toucher, surtout en thème sombre. */
+/* Sur la ligne condensée "Bande complète" (voir MemberQuickList) : à côté
+   du bouton de suppression dans .list-item__title-actions, ancré au coin
+   supérieur droit de la carte. Taille et opacité remontées un peu plus
+   (1.3rem/0.6 → 1.5rem/0.85), et couleur passée de --text-muted à --text :
+   les six points de l'icône sont minuscules et --text-muted trop pâle le
+   rendait difficile à repérer avant même de le toucher, surtout en thème
+   sombre. */
 .drag-handle--titre {
   width: 1.5rem;
   height: 1.5rem;
@@ -1131,12 +1120,6 @@ button {
 .drag-handle--titre:active {
   opacity: 1;
 }
-.roster-table__poignee-cell {
-  width: 1.6rem;
-  padding-left: 0.4rem !important;
-  padding-right: 0 !important;
-}
-
 /* Emplacement laissé par la figurine en cours de glissement (voir
    drag-ghost, qui suit le curseur/doigt séparément) : le montrer estompé
    plutôt que masqué garde sa hauteur exacte, donc des rects fiables pour
@@ -2003,25 +1986,12 @@ button {
   touch-action: manipulation;
   transition: background-color 0.1s ease;
 }
-/* Positioned ancestor pour .list-item__title-actions (croix de suppression +
-   poignée de drag), ancrées en absolu dans ce coin — voir plus bas. Padding
-   réservé sur toute la hauteur de la carte pour que le texte du titre (nom,
-   badge Chef) ne passe jamais dessous. */
-.member-cards .list-item {
-  position: relative;
-  padding-right: 3.5rem;
-}
-/* Carte de figurine du roster (Héros, Hommes de main...) : cadre pierre
-   peint du pack UI, à la place du simple encart 1px — voir le commentaire
-   sur .roster-groupe-card plus haut (le cadre de groupe qui contenait ces
-   cartes est redescendu sur l'habillage plat en échange). Panel_10 (le
-   grand panneau, même asset que .card par défaut) plutôt que panel_titlebar_10
-   : réservé aux cartes uniques (armurerie, règles spéciales — voir
-   .card--titlebar) ; toute unité/entrée répétée sous les règles spéciales
-   (figurines, historique de batailles...) prend ce panneau-ci. Padding
-   gauche augmenté pour le même motif que .list-item--bande : le liseré peint
-   longe tout le bord intérieur du cadre. */
-:root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item,
+/* Carte d'historique de bataille : cadre pierre peint du pack UI, à la
+   place du simple encart 1px — panel_10 (le grand panneau, même asset que
+   .card par défaut) plutôt que panel_titlebar_10, réservé aux cartes
+   uniques (armurerie, règles spéciales — voir .card--titlebar) ; toute
+   entrée répétée sous les règles spéciales prend ce panneau-ci (voir aussi
+   .list-item--bande plus bas pour le sélecteur de bande à l'accueil). */
 :root[data-theme='dark'][data-palette='rouge'] .historique-liste .list-item {
   background-image: none;
   border-style: solid;
@@ -2032,13 +2002,25 @@ button {
   box-shadow: none;
   padding: 0.4rem 0.6rem 0.4rem 1.1rem;
 }
-/* Le raccourci padding ci-dessus (spécificité égale, déclaré après la règle
-   de base .member-cards .list-item) écraserait sinon son padding-right
-   réservé pour .list-item__title-actions — .historique-liste, qui n'a pas
-   cette croix/poignée ancrées, n'a pas besoin de cette marge et n'est donc
-   pas concerné ici. */
-:root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item {
-  padding-right: 3.5rem;
+/* Ligne de "Bande complète" (liste fusionnée, voir MemberQuickList) :
+   panel_summary_10 — troisième asset du pack (jusqu'ici inutilisé),
+   liseré fin et net plutôt que le bord épais et déchiré de panel_10
+   (.historique-liste) ou le cadre ouvragé de panel_titlebar_10 : le mieux
+   adapté à une ligne dense d'une seule ligne de texte, sur une bande de
+   12 à 21 figurines qui défile vite dans cette vue. */
+:root[data-theme='dark'][data-palette='rouge'] .member-condensed .list-item {
+  background-image: none;
+  border-style: solid;
+  border-width: 8px;
+  border-image-repeat: stretch;
+  border-image-slice: 6% fill;
+  border-image-source: url('/decor/card-panel-summary-stone.webp');
+  box-shadow: none;
+  /* 3.5rem à droite conservé (voir .member-condensed .list-item plus bas) :
+     largeur réservée aux deux icônes ancrées dans .list-item__title-actions,
+     indépendante de la hauteur de ligne resserrée ici. */
+  padding: 0.1rem 3.5rem 0.1rem 0.5rem;
+  margin-bottom: 0.15rem;
 }
 /* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
    peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de
@@ -2142,13 +2124,15 @@ button {
   min-width: 3em;
   flex-shrink: 1;
 }
-/* Suppression + poignée de drag, ancrées dans le coin supérieur droit de la
-   carte mobile (voir MemberGroupCard), plutôt que suivies dans le flux du
-   titre — sinon le badge Chef et surtout le badge "avancée en attente"
-   pouvaient les repousser sous le nom, loin du coin réel de la carte. Position
-   absolue (même motif que .list-item--bande__poignee plus haut) : ancrées au
-   coin quel que soit ce que fait le titre. Le padding-right réservé sur
-   .member-cards .list-item (plus haut) empêche le texte de passer dessous. */
+/* Suppression (+ éventuelle poignée de drag), ancrée dans le coin supérieur
+   droit de la carte (voir .member-condensed .list-item, MemberQuickList),
+   plutôt que suivie dans le flux du titre — sinon le badge Chef et surtout
+   le badge "avancée en attente" pouvaient la repousser sous le nom, loin du
+   coin réel de la carte. Position absolue (même motif que
+   .list-item--bande__poignee plus haut) : ancrée au coin quel que soit ce
+   que fait le titre. Le padding-right propre à chaque variante de
+   .list-item (voir .member-condensed .list-item plus bas) empêche le texte
+   de passer dessous. */
 .list-item__title-actions {
   position: absolute;
   top: 0.6rem;
@@ -2157,6 +2141,16 @@ button {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
+/* .member-condensed .list-item est bien plus bas que les autres variantes
+   de .list-item (une seule ligne de contenu, voir plus bas) — un top fixe
+   pensé pour une carte plus haute y ancrait les icônes trop bas, décalées
+   du texte. Centrage vertical robuste à la hauteur réelle de la carte,
+   scopé ici pour ne pas toucher les autres variantes (historique, sélecteur
+   de bande...) dont le top fixe reste pertinent. */
+.member-condensed .list-item__title-actions {
+  top: 50%;
+  transform: translateY(-50%);
 }
 .list-item__details {
   flex-basis: 100%;
@@ -2301,6 +2295,17 @@ button {
 .roster-table-wrap {
   overflow-x: auto;
 }
+/* Le tableau reste un simple encart CSS, y compris en thème sombre/palette
+   rouge — c'est désormais la carte de groupe qui le contient
+   (.card.roster-groupe-card, voir plus haut) qui porte le cadre pierre
+   peinte, comme le reste de l'appli. --bg-card (pas --bg-inset, trop
+   sombre en pratique et surtout déjà utilisé par la bande de colonnes
+   alternée ci-dessous — les deux fonds identiques annulaient son
+   contraste). */
+:root[data-theme='dark'][data-palette='rouge'] .roster-table-wrap {
+  background-color: var(--bg-card);
+  border-radius: var(--radius);
+}
 .roster-table {
   width: 100%;
   border-collapse: collapse;
@@ -2328,6 +2333,55 @@ button {
   padding-bottom: 0.6rem;
 }
 
+/* Plus de poignée dédiée (colonne retirée pour gagner de la place à l'écran
+   étroit — voir demarrerDragDiffere, useDragReorder.ts) : le nom lui-même
+   sert de zone de glisser-déposer, curseur "grab" pour l'indiquer. Un
+   simple clic reste une navigation normale vers la fiche — seul un
+   déplacement ou un appui prolongé arme le drag. */
+.roster-table__col-nom {
+  cursor: grab;
+  /* Autorise le navigateur à traiter nativement un balayage horizontal
+     démarré ici comme un défilement de .roster-table-wrap (overflow-x:auto)
+     ET un balayage vertical comme le défilement normal de la PAGE — sans
+     le second, "pan-x" seul seul désactive implicitement tout le reste, y
+     compris pan-y : un balayage vertical (l'utilisateur qui fait
+     simplement défiler la page en partant du nom) n'était alors plus
+     jamais reconnu comme un geste natif par le navigateur et atterrissait
+     systématiquement dans demarrerDragDiffere, qui l'armait aussitôt en
+     réordonnancement (voir le garde-fou pointerType==='mouse' côté JS,
+     useDragReorder.ts — au tactile, seul l'appui prolongé arme le drag
+     désormais, plus aucun mouvement ne le fait). Équivalent à "auto" pour
+     le défilement dans les deux axes (mais sans le double-tap-zoom, comme
+     .roster-table tbody tr plus bas — cohérent avec le reste du tableau). */
+  touch-action: manipulation;
+  /* Colonne épinglée à gauche pendant le défilement horizontal du tableau
+     (essentiel dès que le tableau est affiché aussi sur petit écran, où le
+     nom de la figurine doit rester visible pendant qu'on parcourt les
+     caractéristiques) — voir aussi .roster-table__col-actions plus bas,
+     épinglée côté droit pour la même raison côté suppression. */
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--bg-card);
+}
+.roster-table__col-nom:active {
+  cursor: grabbing;
+}
+/* Au-dessus du corps du tableau (z-index 1) pour rester visible même quand
+   une ligne survolée/sélectionnée pose son propre fond par-dessus. */
+thead .roster-table__col-nom {
+  z-index: 2;
+}
+.roster-table__col-actions {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  background: var(--bg-card);
+}
+thead .roster-table__col-actions {
+  z-index: 2;
+}
+
 /* Colonnes de caractéristiques (M à Cd) et XP : centrées sous leur en-tête
    plutôt qu'alignées à gauche — sans ça, une CC à deux chiffres et un M à un
    chiffre ne tombent jamais au même endroit d'une ligne à l'autre, et l'œil
@@ -2346,6 +2400,14 @@ button {
 .roster-table td.roster-table__stat {
   text-align: center;
   font-variant-numeric: tabular-nums;
+  /* Largeur fixe, identique pour toutes les colonnes de caractéristique :
+     sans elle, la mise en page automatique du tableau élargit les colonnes
+     à en-tête de deux lettres (CC, CT, PV, Cd) pour loger leur texte,
+     pendant que les colonnes à une lettre (M, F, E, I, A) restent plus
+     étroites — la grille de chiffres perd son alignement carré régulier.
+     2.4rem loge confortablement "CC"/"PV"/"Cd" en majuscules (0.72rem) sans
+     jamais tronquer. */
+  width: 2.4rem;
 }
 /* Trame alternée très discrète sur les neuf colonnes de caractéristiques
    seulement (jamais sur XP, hors du groupe) : un repère visuel de plus pour
@@ -2371,7 +2433,8 @@ button {
 .roster-table:has(.roster-table__col-PV:hover) .roster-table__col-PV,
 .roster-table:has(.roster-table__col-I:hover) .roster-table__col-I,
 .roster-table:has(.roster-table__col-A:hover) .roster-table__col-A,
-.roster-table:has(.roster-table__col-Cd:hover) .roster-table__col-Cd {
+.roster-table:has(.roster-table__col-Cd:hover) .roster-table__col-Cd,
+.roster-table:has(.roster-table__col-Sv:hover) .roster-table__col-Sv {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
 }
 /* Le synopsis d'équipement d'un membre a sa propre ligne (pleine largeur,
@@ -2387,6 +2450,50 @@ button {
    séparateur entre les deux, seulement après le synopsis (avant le membre
    suivant). */
 .roster-table__row-principale td {
+  border-bottom: none;
+}
+/* Liseré ivoire ("bone") entre figurines : délimite nettement la fin d'une
+   figurine dans le tableau — réutilise --text (déjà un ivoire crème), pas
+   une nouvelle valeur, pour rester cohérent avec le reste de la palette.
+   Pas la couleur accent (réservée à la sélection, voir plus bas). */
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale td {
+  border-top: 1px solid var(--text);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-synopsis td {
+  border-bottom: 1px solid var(--text);
+}
+
+/* Colonnes épinglées : même fond --bg-card que .roster-table-wrap
+   (voir plus haut) — plus de raccord visible à masquer puisque le
+   tableau est redevenu un simple encart plat d'une seule teinte. */
+:root[data-theme='dark'][data-palette='rouge'] tbody .roster-table__col-nom,
+:root[data-theme='dark'][data-palette='rouge'] tbody .roster-table__col-actions {
+  background: var(--bg-card);
+}
+
+/* Sélection : reconstruit en box-shadow (inset), pas en border/box-shadow
+   sur le <tr> — sous border-collapse:collapse, ni l'un ni l'autre ne
+   s'affichait de façon fiable sur un <tr> (probable cause du surlignage
+   perdu). box-shadow sur les <td> (pas soumis aux règles de fusion de
+   bordures) permet un vrai "cadre" continu sur les DEUX lignes de la
+   figurine sélectionnée : le sélecteur + cible directement le <tr> de
+   synopsis, qui ne porte pourtant pas la classe --selectionnee lui-même. */
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale.roster-table__row--selectionnee td {
+  box-shadow: inset 0 2px 0 0 var(--accent);
+  background: color-mix(in srgb, var(--bg-card) 85%, var(--accent) 15%);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale.roster-table__row--selectionnee .roster-table__col-nom {
+  box-shadow: inset 0 2px 0 0 var(--accent), inset 2px 0 0 0 var(--accent);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale.roster-table__row--selectionnee .roster-table__col-actions {
+  box-shadow: inset 0 2px 0 0 var(--accent), inset -2px 0 0 0 var(--accent);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale.roster-table__row--selectionnee + .roster-table__row-synopsis td {
+  box-shadow:
+    inset 2px 0 0 0 var(--accent),
+    inset -2px 0 0 0 var(--accent),
+    inset 0 -2px 0 0 var(--accent);
+  background: color-mix(in srgb, var(--bg-card) 85%, var(--accent) 15%);
   border-bottom: none;
 }
 .roster-table__synopsis {
@@ -2563,10 +2670,6 @@ button {
   color: var(--text-muted);
 }
 
-.member-cards {
-  display: none;
-}
-
 /* Liste rapide fusionnée Héros + Hommes de main (MemberQuickList, bouton
    dédié dans .roster-actions de RosterScreen) : nom/profil/bloc de stats
    sur deux lignes serrées, réutilisant .list-item pour la structure de base
@@ -2576,7 +2679,10 @@ button {
    de glisser-déposer (une seule action ancrée dans le coin : la croix). */
 .member-condensed .list-item {
   position: relative;
-  padding: 0.5rem 2.4rem 0.5rem 0.65rem;
+  /* 3.5rem à droite : place pour les deux icônes ancrées dans
+     .list-item__title-actions (suppression + poignée de glisser-déposer,
+     voir .drag-handle--titre) sans chevaucher le titre. */
+  padding: 0.5rem 3.5rem 0.5rem 0.65rem;
   margin-bottom: 0.35rem;
 }
 .member-condensed .list-item__title {
@@ -2593,13 +2699,108 @@ button {
   overflow-wrap: break-word;
 }
 
-@media (max-width: 720px) {
-  .roster-table-wrap {
-    display: none;
-  }
-  .member-cards {
-    display: block;
-  }
+/* Le tableau (colonnes Nom épinglée à gauche / suppression épinglée à
+   droite, voir .roster-table__col-nom et .roster-table__col-actions plus
+   haut) reste affiché tel quel tant qu'il tient sans scroll horizontal —
+   aucun souci remonté à ces largeurs. En dessous (~780px, voir le seuil du
+   @container plus bas), même épinglées, les colonnes qui défilent entre les
+   deux (tout le bloc caractéristiques) forcent un va-et-vient horizontal
+   pénible sur téléphone : .roster-compact-list prend le relais à ce point,
+   nom/profil, bloc de caractéristiques et équipement empilés sur leur
+   propre ligne plutôt qu'à côté les uns des autres. */
+.roster-compact-list {
+  display: none;
+}
+.roster-compact-row {
+  position: relative;
+  padding: 0.5rem 0.6rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.roster-compact-row--fantome {
+  opacity: 0.15;
+}
+.roster-compact-row--selectionnee {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+/* Ligne 1 : nom (+ profil, + badge Chef éventuel — voir
+   .roster-compact-row__identite) à gauche, statut + suppression groupés à
+   droite (voir .roster-compact-row__actions), TOUJOURS sur une seule ligne
+   (pas de flex-wrap) : mieux vaut tronquer un nom/profil trop long avec une
+   ellipse que renvoyer statut+suppression sur leur propre ligne, ce qui
+   cassait le rythme "3 lignes" visé dès que le contenu de gauche était un
+   peu long. Pas besoin de la mesure de repositionnement dédiée de l'ancienne
+   grande carte (badge Chef) : ici il fait juste partie du groupe qui
+   rétrécit. */
+.roster-compact-row__ligne1 {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.roster-compact-row__identite {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  cursor: grab;
+}
+.roster-compact-row__identite:active {
+  cursor: grabbing;
+}
+.roster-compact-row__nom {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.roster-compact-row__profil {
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: 0.85em;
+}
+.roster-compact-row__actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+/* Le texte du médaillon ("ACTIF"/"HDC"...) fait double emploi avec sa
+   position sur le rail (le switch lui-même reste inchangé, seul son
+   libellé disparaît ici) — l'économie de largeur évite un retour à la
+   ligne pour la plupart des lignes (nom + profil sans le badge Chef, plus
+   large et volontairement laissé tel quel). */
+.roster-compact-row__actions .status-plaque__label {
+  display: none;
+}
+.roster-compact-row__actions .status-plaque {
+  gap: 0;
+}
+/* Ligne 2 : réutilise .stat-grid (voir CaracteristiquesCard) tel quel —
+   même apparition dynamique de Sv que le tableau desktop (voir
+   .roster-table__col-Sv), gérée ici en élargissant la grille d'une colonne
+   plutôt qu'en ajoutant/retirant une colonne de tableau partagée. */
+.roster-compact-row__stats {
+  margin-bottom: 0.4rem;
+}
+/* Ligne 3 : équipement + badges d'état (avancée en attente, équipement
+   dépareillé, franc-tireur impayé) — regroupés ici plutôt que sur la ligne
+   1 (badge Chef mis à part, qui reste un repère d'identité) : ce sont tous
+   des signaux secondaires liés à l'état de la figurine, pas à son identité. */
+.roster-compact-row__synopsis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
 }
 
 /* ---------- mode deux volets (roster + fiche, grands écrans) ---------- */
@@ -2680,16 +2881,14 @@ button {
    jusqu'à 75% du conteneur — RosterScreen.SPLIT_LIST_WIDTH_MAX_PCT) et sa
    largeur réelle est déconnectée de celle de la fenêtre : sur un grand
    écran avec le volet redimensionné petit, la fenêtre peut être large
-   alors que la colonne, elle, reste étroite — une media query sur la
-   largeur de FENÊTRE (voir @media (max-width:720px) ci-dessus) ne peut
-   pas le détecter, d'où une container query sur la largeur réelle de la
-   colonne elle-même plutôt qu'un scroll horizontal de secours qui, en
-   pratique, ne permet jamais de voir le nom et les statistiques en même
-   temps. Seuil mesuré empiriquement (Playwright, scrollWidth vs
-   clientWidth du .roster-table-wrap réel, statut le plus long "Hors de
-   combat/Out of action" inclus) : le tableau a besoin d'environ 930px
-   pour tenir sans son propre scroll horizontal ; 950px pour une marge de
-   sécurité.
+   alors que la colonne, elle, reste étroite — d'où une container query sur
+   la largeur réelle de la colonne plutôt qu'une media query sur la largeur
+   de fenêtre pour savoir quand la colonne Profil (superflue à ce stade,
+   voir .roster-table__col-profil) doit s'effacer. Le tableau lui-même
+   reste affiché à toute largeur (voir plus haut) — seul en dessous de
+   900px, mesuré empiriquement (Playwright, nom de personnage à 20
+   caractères + statut le plus long "OOA"/"HdC"), le nom de profil risque
+   de pousser le tableau en scroll horizontal plus tôt que nécessaire.
    Conteneur NOMMÉ (pas anonyme) : .card (chaque groupe de membres) déclare
    elle aussi container-type:inline-size (voir plus haut, pour son propre
    @container de cadre compact) et se trouve plus près de .roster-table-wrap
@@ -2700,18 +2899,29 @@ button {
   container-type: inline-size;
   container-name: roster-split-list;
 }
-.roster-split__list .roster-table-wrap {
-  display: none;
+@container roster-split-list (max-width: 899.98px) {
+  .roster-split__list .roster-table__col-profil {
+    display: none;
+  }
 }
-.roster-split__list .member-cards {
-  display: block;
-}
-@container roster-split-list (min-width: 950px) {
+@container roster-split-list (max-width: 779.98px) {
   .roster-split__list .roster-table-wrap {
+    display: none;
+  }
+  .roster-split__list .roster-compact-list {
     display: block;
   }
-  .roster-split__list .member-cards {
+}
+
+/* Pendant du @container ci-dessus pour le cas où le tableau se rend hors
+   de .roster-split__list (pas de conteneur nommé en portée) : largeur de
+   fenêtre plutôt que largeur de colonne, seuil historique de ce repli. */
+@media (max-width: 720px) {
+  .roster-table-wrap {
     display: none;
+  }
+  .roster-compact-list {
+    display: block;
   }
 }
 
@@ -3153,6 +3363,39 @@ button {
   border-bottom: 1px solid var(--border);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+/* Intégré dans le recrutement (AjouterMembreModal) : c'est la barre
+   Annuler/Terminer qui précède ce contenu dans le flux qui doit rester
+   épinglée en haut au défilement (voir .recrutement-equipement__validation
+   plus bas), pas cet en-tête — un seul élément collant à la fois. Reste
+   positionné (relative, pas static) pour continuer à ancrer son filet
+   décoratif ::after ci-dessous. */
+.achat-equipement--integre .achat-equipement__header {
+  position: relative;
+  top: auto;
+  z-index: auto;
+  box-shadow: none;
+}
+/* Barre Annuler/Terminer du recrutement (AjouterMembreModal), épinglée en
+   haut de la fenêtre plein écran au défilement du shop intégré juste en
+   dessous — même traitement visuel que .achat-equipement__header qu'elle
+   remplace dans ce rôle. Rendue en sibling direct de .modal-sheet--fullscreen
+   (pas de padding à compenser, voir le commentaire côté JSX sur pourquoi ce
+   n'est pas un enfant du bloc titre/stats/résumé). */
+.recrutement-equipement__validation {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  margin-bottom: 0.9rem;
+  padding: max(1rem, env(safe-area-inset-top)) 0.9rem 0.85rem;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+:root[data-theme='dark'][data-palette='rouge'] .recrutement-equipement__validation {
+  background: var(--bg-card);
+  border: none;
+  box-shadow: none;
+}
 .achat-equipement__header--selection {
   display: flex;
   flex-direction: column;
@@ -3242,6 +3485,27 @@ button {
 }
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header {
   padding-bottom: 1.1rem;
+}
+/* Même cadre en pierre peinte que .card (voir "Équipement sélectionné" juste
+   au-dessus dans AjouterMembreModal) plutôt que le simple fond plat
+   --bg-card hérité de la règle générale ci-dessus (pensée pour la boutique
+   autonome, déjà encadrée par le panneau de .modal-sheet:has(>
+   .achat-equipement) — absent ici puisque le shop n'est qu'un morceau de la
+   fenêtre de recrutement). */
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement--integre .achat-equipement__header {
+  position: relative;
+  background: none;
+  border-style: solid;
+  border-width: 20px;
+  border-image-repeat: stretch;
+  border-image-slice: 10% fill;
+  border-image-source: url('/decor/card-panel-stone.webp');
+  box-shadow: none;
+}
+/* Le filet ornemental ::after ferait double emploi avec le bord bas déjà
+   peint dans le panneau ci-dessus. */
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement--integre .achat-equipement__header::after {
+  content: none;
 }
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header::after,
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions::before {

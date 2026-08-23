@@ -274,8 +274,9 @@ const CATALOGUE_ARTILLEURS_NULN = 'artilleurs_de_nuln';
 
 // Armures de corps et caparaçons concernés par la règle Lozheim. Les
 // protections périphériques (boucliers, casques, cuir durci, pavois,
-// rondaches, écus, capes...) sont volontairement absentes.
-const ARMURES_LOZHEIM = new Set([
+// rondaches, écus, capes...) sont volontairement absentes. Exporté pour
+// utils/armure.ts (calcul de la statistique Sv).
+export const ARMURES_LOZHEIM = new Set([
   'armure_cathayenne_soie_matelassee',
   'armure_du_chaos_market',
   'armure_en_gromril_market',
@@ -477,6 +478,14 @@ export function prixAvecRegles(
   return prix;
 }
 
+// Améliore d'un cran la valeur de base d'un texte de sauvegarde ("6+" ->
+// "5+") sans toucher un éventuel bonus de superposition à droite ("6+/+1"
+// -> "5+/+1") : la règle Lozheim renforce l'armure elle-même, pas ce
+// qu'elle apporte en superposition à une autre armure (voir Sv, utils/armure.ts).
+function ameliorerTexteSauvegarde(sauvegarde: string): string {
+  return sauvegarde.replace(/^(\d)\+/, (_, chiffre: string) => `${Math.max(1, Number(chiffre) - 1)}+`);
+}
+
 function appliquerReglesObjet(
   item: ShopItem,
   catalogueId: string,
@@ -487,6 +496,7 @@ function appliquerReglesObjet(
   return {
     ...item,
     cout: prixAvecRegles(item.id, item.cout, catalogueId, rules, originePrix),
+    sauvegarde: lozheim && item.sauvegarde ? ameliorerTexteSauvegarde(item.sauvegarde) : item.sauvegarde,
     regles_speciales: lozheim
       ? [
           ...(item.regles_speciales ?? []),
@@ -706,32 +716,35 @@ export function aAccesArmureLourde(catalogue: WarbandCatalog | undefined, profil
   return clesProfil.some((cle) => listes[cle]?.armures?.some((ref) => ref.item_id === 'armure_lourde'));
 }
 
-// Compétences qui donnent accès à toute arme de la bande dans leur
-// catégorie, au-delà de la liste normalement assignée au profil (cf.
-// src/data/skills.json) : "Connaissance des Armes" (corps à corps) et
-// "Expert en Armes" (tir).
+// Compétences qui donnent accès à N'IMPORTE QUELLE arme de la catégorie —
+// pas seulement celles déjà présentes dans une liste d'équipement de la
+// bande (cf. src/data/skills.json, texte de la compétence : "peut utiliser
+// n'importe quelle arme de corps à corps/de tir, pas seulement celles de
+// ses options d'équipement") : "Connaissance des Armes" (corps à corps) et
+// "Expert en Armes" (tir). "Tir" couvre ici armes_tir ET armes_poudre_noire
+// (les armes à poudre noire sont des armes de tir au sens des règles — la
+// distinction entre les deux dans nos données sert au filtrage/à
+// l'affichage de la boutique, pas à limiter la portée de cette compétence),
+// ce qui inclut donc aussi les armes "Rare" de la boutique commune (ex :
+// Long fusil du Hochland) qui ne figurent dans la liste d'équipement
+// d'aucun profil.
 const SKILL_TOUTES_ARMES_CAC = 'combat_03';
 const SKILL_TOUTES_ARMES_TIR = 'tir_04';
 
 // Ids déjà présents dans la/les liste(s) d'équipement propre(s) au profil
 // pour cette catégorie (mêmes règles que getEquipementBande : repli sur
-// toutes les listes de la bande si `acces_equipement` est absent, extension
-// à toutes les listes par Connaissance des Armes/Expert en Armes pour leur
-// catégorie respective — sans effet sur les armures, qui n'ont pas
-// d'équivalent).
+// toutes les listes de la bande si `acces_equipement` est absent). Ne gère
+// pas Connaissance des Armes/Expert en Armes — voir SKILL_TOUTES_ARMES_CAC/
+// SKILL_TOUTES_ARMES_TIR ci-dessus, court-circuités directement par
+// l'appelant (armeArmureUtilisableSansEntrainement) avant même d'en arriver
+// à une recherche dans les listes.
 function idsListeProfil(
   catalogue: WarbandCatalog,
   profil: Profile,
-  competencesAcquises: string[],
   categorie: 'armes_cac' | 'armes_tir' | 'armures'
 ): Set<string> {
   const listes = catalogue.equipement ?? {};
-  const clesProfil = profil.acces_equipement ?? Object.keys(listes);
-  const clesToutes = Object.keys(listes);
-  const skillLeveTout =
-    (categorie === 'armes_cac' && competencesAcquises.includes(SKILL_TOUTES_ARMES_CAC)) ||
-    (categorie === 'armes_tir' && competencesAcquises.includes(SKILL_TOUTES_ARMES_TIR));
-  const cles = skillLeveTout ? clesToutes : clesProfil;
+  const cles = profil.acces_equipement ?? Object.keys(listes);
   const ids = new Set<string>();
   for (const cle of cles) {
     for (const ref of listes[cle]?.[categorie] ?? []) ids.add(ref.item_id);
@@ -753,16 +766,20 @@ function idBasePourAcces(itemId: string): string {
 // particulier ? Reflète la règle "vos guerriers ne savent utiliser que les
 // armes de leur liste de recrutement" (livre de règles, Place du Marché) :
 // objet présent dans sa propre liste d'équipement de bande (acces_equipement),
-// ou compétence Connaissance des Armes/Expert en Armes pour sa catégorie
-// (les armures n'ont pas d'équivalent, hors gromril/ithilmar qui suivent
-// aAccesArmureLourde). Ne s'applique qu'aux armes et armures : les autres
-// catégories restent toujours utilisables. Contrairement au filtre d'ACHAT
-// de getShopCommun (voir `filtrerAccesEntrainement`), ceci ne bloque jamais
-// une transaction — le livre de règles autorise explicitement l'achat
-// d'objets rares qu'un guerrier ne sait pas encore utiliser ("ils seront
-// peut-être capables de s'en servir plus tard") : cette fonction sert donc
-// uniquement à décider qui peut RECEVOIR un objet déjà possédé (voir
-// "Donner à" dans ArmurerieSection), pas ce qui peut être acheté.
+// ou compétence Connaissance des Armes/Expert en Armes pour sa catégorie —
+// auquel cas TOUTE arme de cette catégorie devient utilisable, y compris une
+// arme "Rare" de la boutique commune (ex : Long fusil du Hochland) qui ne
+// figure dans la liste d'équipement d'aucun profil de la bande (voir
+// SKILL_TOUTES_ARMES_CAC/SKILL_TOUTES_ARMES_TIR ci-dessus). Les armures n'ont
+// pas d'équivalent, hors gromril/ithilmar qui suivent aAccesArmureLourde. Ne
+// s'applique qu'aux armes et armures : les autres catégories restent
+// toujours utilisables. Contrairement au filtre d'ACHAT de getShopCommun
+// (voir `filtrerAccesEntrainement`), ceci ne bloque jamais une transaction —
+// le livre de règles autorise explicitement l'achat d'objets rares qu'un
+// guerrier ne sait pas encore utiliser ("ils seront peut-être capables de
+// s'en servir plus tard") : cette fonction sert donc uniquement à décider
+// qui peut RECEVOIR un objet déjà possédé (voir "Donner à" dans
+// ArmurerieSection), pas ce qui peut être acheté.
 export function armeArmureUtilisableSansEntrainement(
   itemId: string,
   categorie: string,
@@ -773,9 +790,13 @@ export function armeArmureUtilisableSansEntrainement(
   if (!catalogue || !profil) return true;
   const c = normaliserCategorie(categorie);
   const id = idBasePourAcces(itemId);
-  if (c === 'armes_cac') return idsListeProfil(catalogue, profil, competencesAcquises, 'armes_cac').has(id);
+  if (c === 'armes_cac') {
+    if (competencesAcquises.includes(SKILL_TOUTES_ARMES_CAC)) return true;
+    return idsListeProfil(catalogue, profil, 'armes_cac').has(id);
+  }
   if (c === 'armes_tir' || c === 'armes_poudre_noire') {
-    return idsListeProfil(catalogue, profil, competencesAcquises, 'armes_tir').has(id);
+    if (competencesAcquises.includes(SKILL_TOUTES_ARMES_TIR)) return true;
+    return idsListeProfil(catalogue, profil, 'armes_tir').has(id);
   }
   if (c === 'armures') {
     if (ITEMS_EQUIVALENT_ARMURE_LOURDE.has(id)) return aAccesArmureLourde(catalogue, profil);
@@ -784,7 +805,7 @@ export function armeArmureUtilisableSansEntrainement(
     // la bande pour être utilisé — contrairement aux autres armures, son
     // achat n'est donc pas conditionné à la liste d'entraînement du profil.
     if (getItem(id)?.acces?.includes('commun_heros')) return true;
-    return idsListeProfil(catalogue, profil, competencesAcquises, 'armures').has(id);
+    return idsListeProfil(catalogue, profil, 'armures').has(id);
   }
   return true;
 }

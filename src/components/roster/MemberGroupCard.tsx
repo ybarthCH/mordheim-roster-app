@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useMemo } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CollapsibleCard } from '../common/CollapsibleCard';
@@ -20,6 +20,8 @@ import type { Language } from '../../state/useLanguage';
 import { getItem } from '../../data/items';
 import { translateItem } from '../../i18n/data/items';
 import { libelleCaracteristique } from '../../utils/stats';
+import { sauvegardeArmureMembre } from '../../utils/armure';
+import type { GameRules } from '../../types/rules';
 
 // Couleur du sceau de statut (voir .status-switch) : reprend les mêmes
 // teintes sémantiques que les .badge--* du reste de l'appli.
@@ -46,10 +48,9 @@ type StatutControlProps = {
 };
 
 // Contrôle de statut (switch groupe simplifié / plaque héros / badge figé
-// pour un mort) — partagé entre la carte mobile et la vue condensée, pour ne
-// pas dupliquer une troisième fois ce même bloc (déjà présent séparément
-// dans le tableau desktop, qui reste hors de ce partage pour ne pas risquer
-// de régression sur un rendu déjà bien rodé).
+// pour un mort) — partagé entre le tableau desktop et la ligne compacte
+// téléphone (voir MemberRowCompact), pour ne pas dupliquer une deuxième
+// fois ce même bloc.
 function StatutControl({ m, groupeSimplifie, titre, onToggle, t }: StatutControlProps) {
   if (groupeSimplifie) {
     return (
@@ -104,7 +105,7 @@ function StatutControl({ m, groupeSimplifie, titre, onToggle, t }: StatutControl
   );
 }
 
-type MemberCardMobileProps = {
+type MemberRowCompactProps = {
   m: Member;
   profil: Profile | undefined;
   equipement: string;
@@ -112,12 +113,13 @@ type MemberCardMobileProps = {
   groupeSimplifie: boolean;
   leader: boolean;
   avanceEnAttente: boolean;
+  sv: number | null;
   fantome: boolean;
   selectionne: boolean;
   masquerProfil?: boolean;
   language: Language;
   t: (key: string, params?: Record<string, string | number>) => string;
-  cardRef: (el: HTMLDivElement | null) => void;
+  rowRef: (el: HTMLDivElement | null) => void;
   onSelect: () => void;
   onSupprimer: () => void;
   onBasculerHorsCombat: () => void;
@@ -125,13 +127,14 @@ type MemberCardMobileProps = {
   titreHorsCombatTexte: string;
 };
 
-// Carte mobile d'une figurine. Composant à part (et non plus une fonction
-// inline dans le .map de MemberGroupCard) car le badge Chef a besoin d'un
-// hook de mesure par figurine : par défaut il reste accolé au nom dans le
-// titre (ligne 1), mais si le nom est trop long pour lui laisser la place,
-// il rejoint la ligne de statut (ligne 2) plutôt que de forcer un retour à
-// la ligne disgracieux à l'intérieur du titre.
-function MemberCardMobile({
+// Ligne compacte téléphone (3 lignes : nom/profil + statut/suppression,
+// bloc de caractéristiques, équipement) — remplace le tableau desktop en
+// dessous du seuil où il tiendrait sans scroll horizontal (voir
+// .roster-compact-list, .roster-table-wrap). Contrairement à l'ancienne
+// grande carte par figurine (MemberCardMobile, supprimée), volontairement
+// minimale : pas de mesure de repositionnement du badge Chef, pas de
+// padding généreux — l'objectif est une ligne courte, pas une fiche.
+function MemberRowCompact({
   m,
   profil,
   equipement,
@@ -139,113 +142,45 @@ function MemberCardMobile({
   groupeSimplifie,
   leader,
   avanceEnAttente,
+  sv,
   fantome,
   selectionne,
   masquerProfil,
   language,
   t,
-  cardRef,
+  rowRef,
   onSelect,
   onSupprimer,
   onBasculerHorsCombat,
   onDragPointerDown,
   titreHorsCombatTexte,
-}: MemberCardMobileProps) {
-  const titreRef = useRef<HTMLDivElement>(null);
-  const nomRef = useRef<HTMLSpanElement>(null);
-  const chefRef = useRef<HTMLSpanElement>(null);
-  const [chefDansTitre, setChefDansTitre] = useState(true);
-  // Compteur de "nouvelle tentative" : incrémenté à chaque redimensionnement
-  // réel du titre (voir ResizeObserver ci-dessous), pour forcer une nouvelle
-  // mesure. Volontairement distinct de chefDansTitre lui-même — si l'effet
-  // de mesure dépendait de sa propre sortie (chefDansTitre), corriger le
-  // placement déclencherait l'effet à nouveau indéfiniment.
-  const [mesureTick, setMesureTick] = useState(0);
-
-  useEffect(() => {
-    if (!leader) return;
-    const titre = titreRef.current;
-    if (!titre) return;
-    const ro = new ResizeObserver(() => {
-      setChefDansTitre(true);
-      setMesureTick((n) => n + 1);
-    });
-    ro.observe(titre);
-    return () => ro.disconnect();
-  }, [leader]);
-
-  useLayoutEffect(() => {
-    if (!leader) return;
-    const nom = nomRef.current;
-    const chef = chefRef.current;
-    // Chef pas actuellement rendu dans le titre (déjà relogé en ligne 2) :
-    // rien à (re-)mesurer cette passe, on attend le prochain resize réel.
-    if (!nom || !chef) return;
-    // Chevauchement vertical des rectangles plutôt que comparaison directe
-    // d'offsetTop : avec align-items:baseline, le nom (1.05rem) et le badge
-    // Chef (0.72rem) n'ont pas le même offsetTop même accolés sur la même
-    // ligne (leur ligne de base commune n'aligne pas leurs bords hauts). Sur
-    // la même ligne, leurs rectangles se chevauchent forcément verticalement
-    // ; passé à la ligne suivante, le badge démarre au niveau ou après le
-    // bas du nom, donc plus aucun chevauchement.
-    const nomRect = nom.getBoundingClientRect();
-    const chefRect = chef.getBoundingClientRect();
-    const memeLigne = chefRect.top < nomRect.bottom && nomRect.top < chefRect.bottom;
-    if (!memeLigne) setChefDansTitre(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [leader, nomAffiche(m), mesureTick]);
-
-  const chefBadge = (
-    <span ref={chefRef} className="badge badge--leader" title={t('memberGroup.leaderTitle')}>
-      {t('memberGroup.leader')}
-    </span>
-  );
-
+}: MemberRowCompactProps) {
   return (
     <div
-      ref={cardRef}
-      className={`list-item${fantome ? ' list-item--fantome' : ''}${selectionne ? ' list-item--selectionne' : ''}`}
+      ref={rowRef}
+      className={`roster-compact-row${fantome ? ' roster-compact-row--fantome' : ''}${selectionne ? ' roster-compact-row--selectionnee' : ''}`}
       role="button"
       onClick={onSelect}
     >
-      <div className="list-item__row">
-        <div className="list-item__main">
-          <div className="list-item__title" ref={titreRef}>
-            <span ref={nomRef} className="list-item__title-name" title={nomAffiche(m)}>
-              {nomAffiche(m)}
+      <div className="roster-compact-row__ligne1">
+        <span
+          className="roster-compact-row__identite"
+          onPointerDown={onDragPointerDown}
+          title={t('memberGroup.dragHandle')}
+        >
+          <span className="roster-compact-row__nom">
+            {nomAffiche(m)}
+            {!masquerProfil && profil?.nom && (
+              <span className="roster-compact-row__profil"> · {profil.nom}</span>
+            )}
+          </span>
+          {leader && (
+            <span className="badge badge--leader" title={t('memberGroup.leaderTitle')}>
+              {t('memberGroup.leader')}
             </span>
-            {leader && chefDansTitre && chefBadge}
-            {/* Ancrées au coin supérieur droit de la carte (position
-                absolue, voir .list-item__title-actions) : toujours ici
-                quel que soit le nom/badge Chef, qui passe simplement à
-                la ligne en dessous s'il n'a plus la place. */}
-            <span className="list-item__title-actions">
-              <button
-                className="btn--ghost-danger"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSupprimer();
-                }}
-                title={t('memberGroup.removeTitle')}
-              >
-                <Icon name="croixPack" />
-              </button>
-              <span
-                className="drag-handle drag-handle--discret drag-handle--titre"
-                onPointerDown={onDragPointerDown}
-                onClick={(e) => e.stopPropagation()}
-                title={t('memberGroup.dragHandle')}
-              >
-                <Icon name="poignee" size="1.05em" />
-              </span>
-            </span>
-          </div>
-        </div>
-        {/* Statut + suppression : toujours sur leur propre ligne, sous le
-            titre — voir .list-item__row plus bas. Le badge Chef les rejoint
-            ici quand il ne tient plus à côté du nom (voir chefDansTitre). */}
-        <div className="list-item__statut-suppression">
-          {leader && !chefDansTitre && chefBadge}
+          )}
+        </span>
+        <span className="roster-compact-row__actions">
           <StatutControl
             m={m}
             groupeSimplifie={groupeSimplifie}
@@ -253,41 +188,56 @@ function MemberCardMobile({
             onToggle={onBasculerHorsCombat}
             t={t}
           />
-          {avanceEnAttente && (
-            <span className="badge badge--pending" title={t('memberGroup.pendingAdvance')}>
-              {t('memberGroup.pendingAdvance')}
-            </span>
-          )}
-        </div>
+          <button
+            className="btn--ghost-danger"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSupprimer();
+            }}
+            title={t('memberGroup.removeTitle')}
+          >
+            <Icon name="croixPack" />
+          </button>
+        </span>
       </div>
-      <div className="list-item__details">
-        <div className="list-item__subtitle">
-          {!masquerProfil && profil?.nom ? `${profil.nom} · ` : ''}XP {m.xp}
-        </div>
-        <div className="stat-grid" style={{ margin: '0.5rem 0' }}>
-          {STAT_KEYS.map((k) => (
-            <div key={`lbl-${k}`} className="stat-grid__cell stat-grid__cell--label">
-              {libelleCaracteristique(k, language)}
-            </div>
-          ))}
-          {STAT_KEYS.map((k) => (
-            <div key={`val-${k}`} className="stat-grid__cell stat-grid__cell--value">
-              {m.stats_variables?.[k] ?? m.stats_actuels[k]}
-            </div>
-          ))}
-        </div>
-        <div className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
-          {equipement}
-        </div>
-        {blessures && <div className="text-sm text-danger">{blessures}</div>}
-        {inventaireGroupeMismatch(m) && (
-          <div className="flex flex-wrap gap-sm" style={{ marginTop: '0.15rem' }}>
-            <span className="badge badge--equipment-warning" title={t('memberGroup.equipmentMismatchTitle')}>
-              ⚠ {t('memberGroup.equipmentMismatchBadge')}
-            </span>
+      <div
+        className="stat-grid roster-compact-row__stats"
+        style={sv !== null ? { gridTemplateColumns: `repeat(${STAT_KEYS.length + 1}, 1fr)` } : undefined}
+      >
+        {STAT_KEYS.map((k) => (
+          <div key={`lbl-${k}`} className="stat-grid__cell stat-grid__cell--label">
+            {libelleCaracteristique(k, language)}
           </div>
-        )}
+        ))}
+        {sv !== null && <div className="stat-grid__cell stat-grid__cell--label">Sv</div>}
+        {STAT_KEYS.map((k) => (
+          <div key={`val-${k}`} className="stat-grid__cell stat-grid__cell--value">
+            {m.stats_variables?.[k] ?? m.stats_actuels[k]}
+          </div>
+        ))}
+        {sv !== null && <div className="stat-grid__cell stat-grid__cell--value">{sv}+</div>}
       </div>
+      <div className="roster-compact-row__synopsis">
+        <span className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
+          {equipement}
+        </span>
+        {avanceEnAttente && (
+          <span className="badge badge--pending" title={t('memberGroup.pendingAdvance')}>
+            {t('memberGroup.pendingAdvance')}
+          </span>
+        )}
+        {inventaireGroupeMismatch(m) && (
+          <span className="badge badge--equipment-warning" title={t('memberGroup.equipmentMismatchTitle')}>
+            ⚠ {t('memberGroup.equipmentMismatchBadge')}
+          </span>
+        )}
+        {m.franc_tireur_impaye && <span className="badge badge--warning">{t('memberGroup.absentUnpaid')}</span>}
+      </div>
+      {blessures && (
+        <div className="text-sm text-danger" style={{ marginTop: '0.1rem' }}>
+          {blessures}
+        </div>
+      )}
     </div>
   );
 }
@@ -299,6 +249,7 @@ type MemberGroupCardProps = {
   membres: Member[];
   roster: RosterInstance;
   catalogue: WarbandCatalog | undefined;
+  rules: GameRules;
   onReordonner: (nouvelOrdre: Member[]) => void;
   onBasculerHorsCombat: (m: Member) => void;
   onSupprimer: (m: Member) => void;
@@ -322,6 +273,7 @@ export function MemberGroupCard({
   membres,
   roster,
   catalogue,
+  rules,
   onReordonner,
   onBasculerHorsCombat,
   onSupprimer,
@@ -331,7 +283,8 @@ export function MemberGroupCard({
 }: MemberGroupCardProps) {
   const navigate = useNavigate();
   const { t, language } = useLanguage();
-  const { elements, refItem, demarrerDrag, idEnCours, pointerPos } = useDragReorder(membres, onReordonner);
+  const { elements, refItem, demarrerDragDiffere, dragVientDeSeProduire, idEnCours, pointerPos } =
+    useDragReorder(membres, onReordonner);
 
   // Synopsis discret de l'équipement d'un membre (ou de son groupe, toujours
   // identique entre figurines) pour l'aperçu du roster global. Affiché sur
@@ -407,11 +360,20 @@ export function MemberGroupCard({
           groupeSimplifie,
           leader: estLeaderActuel(roster, catalogue, m),
           avanceEnAttente: estAvanceEnAttente(profil, m),
+          sv: sauvegardeArmureMembre(m.inventaire, rules.armuresLozheim),
         };
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [elements, roster, catalogue, language]
+    [elements, roster, catalogue, language, rules.armuresLozheim]
   );
+
+  // Colonne Sv affichée pour tout le groupe dès qu'au moins un de ses
+  // membres a une sauvegarde d'armure (voir utils/armure.ts) — même logique
+  // "apparition dynamique" que CaracteristiquesCard/MemberCardMobile, mais
+  // au niveau de la colonne entière plutôt que par membre : un tableau
+  // partagé ne peut pas faire varier son nombre de colonnes ligne par
+  // ligne. Les membres sans Sv affichent un tiret dans cette colonne.
+  const groupeADuSv = vues.some(({ sv }) => sv !== null);
 
   return (
     <CollapsibleCard
@@ -443,9 +405,8 @@ export function MemberGroupCard({
         <table className="roster-table">
           <thead>
             <tr>
-              <th style={{ width: '1.6rem' }}></th>
-              <th>{t('memberGroup.name')}</th>
-              {!masquerProfil && <th>{t('memberGroup.profile')}</th>}
+              <th className="roster-table__col-nom">{t('memberGroup.name')}</th>
+              {!masquerProfil && <th className="roster-table__col-profil">{t('memberGroup.profile')}</th>}
               <th className="roster-table__stat roster-table__col-M roster-table__group-start">
                 {libelleCaracteristique('M', language)}
               </th>
@@ -465,32 +426,30 @@ export function MemberGroupCard({
                 {libelleCaracteristique('A', language)}
               </th>
               <th className="roster-table__stat roster-table__col-Cd">{libelleCaracteristique('Cd', language)}</th>
+              {groupeADuSv && <th className="roster-table__stat roster-table__col-Sv">Sv</th>}
               <th className="roster-table__stat roster-table__group-start">XP</th>
               <th>{t('memberGroup.status')}</th>
-              <th></th>
+              <th className="roster-table__col-actions"></th>
             </tr>
           </thead>
           <tbody>
-            {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente }) => {
+            {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente, sv }) => {
               const versPersonnage = () => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`);
               return (
                 <Fragment key={m.instance_id}>
                   <tr
                     ref={refItem('table', m.instance_id)}
                     className={`roster-table__row-principale${idEnCours === m.instance_id ? ' roster-table__row--fantome' : ''}${m.instance_id === selectedInstanceId ? ' roster-table__row--selectionnee' : ''}`}
-                    onClick={versPersonnage}
+                    onClick={() => {
+                      if (dragVientDeSeProduire()) return;
+                      versPersonnage();
+                    }}
                   >
-                    <td className="roster-table__poignee-cell">
-                      <span
-                        className="drag-handle drag-handle--discret"
-                        onPointerDown={demarrerDrag(m.instance_id)}
-                        onClick={(e) => e.stopPropagation()}
-                        title={t('memberGroup.dragHandle')}
-                      >
-                        <Icon name="poignee" size="0.7em" />
-                      </span>
-                    </td>
-                    <td>
+                    <td
+                      className="roster-table__col-nom"
+                      onPointerDown={demarrerDragDiffere(m.instance_id)}
+                      title={t('memberGroup.dragHandle')}
+                    >
                       {nomAffiche(m)}
                       {leader && (
                         <span className="badge badge--leader" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
@@ -503,7 +462,7 @@ export function MemberGroupCard({
                         </span>
                       )}
                     </td>
-                    {!masquerProfil && <td>{profil?.nom ?? m.profil_id}</td>}
+                    {!masquerProfil && <td className="roster-table__col-profil">{profil?.nom ?? m.profil_id}</td>}
                     <td className="roster-table__stat roster-table__col-M roster-table__group-start">
                       {m.stats_variables?.M ?? m.stats_actuels.M}
                     </td>
@@ -523,53 +482,18 @@ export function MemberGroupCard({
                       {m.stats_variables?.A ?? m.stats_actuels.A}
                     </td>
                     <td className="roster-table__stat roster-table__col-Cd">{m.stats_variables?.Cd ?? m.stats_actuels.Cd}</td>
+                    {groupeADuSv && (
+                      <td className="roster-table__stat roster-table__col-Sv">{sv !== null ? `${sv}+` : '—'}</td>
+                    )}
                     <td className="roster-table__stat roster-table__group-start">{m.xp}</td>
                     <td>
-                      {groupeSimplifie ? (
-                        <button
-                          type="button"
-                          className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onBasculerHorsCombat(m);
-                          }}
-                          title={titreHorsCombat(m, groupeSimplifie)}
-                          aria-label={titreHorsCombat(m, groupeSimplifie)}
-                        >
-                          <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
-                          <span className="status-switch__label">
-                            {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
-                          </span>
-                        </button>
-                      ) : m.statut === 'mort' ? (
-                        <span
-                          className={`status-switch status-switch--${STATUT_COULEUR[m.statut]} status-switch--badge`}
-                          title={t('memberGroup.deadStatusHint')}
-                        >
-                          {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                          <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
-                        </span>
-                      ) : (
-                        <button
-                          type="button"
-                          className={`status-plaque${m.statut === 'actif' ? ' status-plaque--actif' : ''}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onBasculerHorsCombat(m);
-                          }}
-                          title={titreHorsCombat(m, groupeSimplifie)}
-                          aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m, groupeSimplifie)}`}
-                        >
-                          <span className="status-plaque__switch">
-                            <span className="status-plaque__switch-track" />
-                            <span className="status-plaque__switch-knob">
-                              <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--green" />
-                              <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--red" />
-                            </span>
-                          </span>
-                          <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
-                        </button>
-                      )}
+                      <StatutControl
+                        m={m}
+                        groupeSimplifie={groupeSimplifie}
+                        titre={titreHorsCombat(m, groupeSimplifie)}
+                        onToggle={() => onBasculerHorsCombat(m)}
+                        t={t}
+                      />
                       {inventaireGroupeMismatch(m) && (
                         <span
                           className="badge badge--equipment-warning"
@@ -585,23 +509,30 @@ export function MemberGroupCard({
                         </span>
                       )}
                     </td>
-                    <td>
-                      <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
-                        <button
-                          className="btn--ghost-danger"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onSupprimer(m);
-                          }}
-                          title={t('memberGroup.removeTitle')}
-                        >
-                          <Icon name="croixPack" />
-                        </button>
-                      </div>
+                    <td className="roster-table__col-actions">
+                      <button
+                        className="btn--ghost-danger"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSupprimer(m);
+                        }}
+                        title={t('memberGroup.removeTitle')}
+                      >
+                        <Icon name="croixPack" />
+                      </button>
                     </td>
                   </tr>
-                  <tr className="roster-table__row-synopsis" onClick={versPersonnage}>
-                    <td colSpan={masquerProfil ? 14 : 15} className="roster-table__synopsis-cell">
+                  <tr
+                    className="roster-table__row-synopsis"
+                    onClick={() => {
+                      if (dragVientDeSeProduire()) return;
+                      versPersonnage();
+                    }}
+                  >
+                    <td
+                      colSpan={(masquerProfil ? 13 : 14) + (groupeADuSv ? 1 : 0)}
+                      className="roster-table__synopsis-cell"
+                    >
                       <div className="text-sm text-muted roster-table__synopsis" style={{ fontStyle: 'italic' }}>
                         {equipement}
                       </div>
@@ -619,9 +550,9 @@ export function MemberGroupCard({
         </table>
       </div>
 
-      <div className="member-cards">
-        {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente }) => (
-          <MemberCardMobile
+      <div className="roster-compact-list">
+        {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente, sv }) => (
+          <MemberRowCompact
             key={m.instance_id}
             m={m}
             profil={profil}
@@ -630,16 +561,20 @@ export function MemberGroupCard({
             groupeSimplifie={groupeSimplifie}
             leader={leader}
             avanceEnAttente={avanceEnAttente}
+            sv={sv}
             fantome={idEnCours === m.instance_id}
             selectionne={m.instance_id === selectedInstanceId}
             masquerProfil={masquerProfil}
             language={language}
             t={t}
-            cardRef={refItem('card', m.instance_id)}
-            onSelect={() => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`)}
+            rowRef={refItem('compact', m.instance_id)}
+            onSelect={() => {
+              if (dragVientDeSeProduire()) return;
+              navigate(`/roster/${roster.id}/personnage/${m.instance_id}`);
+            }}
             onSupprimer={() => onSupprimer(m)}
             onBasculerHorsCombat={() => onBasculerHorsCombat(m)}
-            onDragPointerDown={demarrerDrag(m.instance_id)}
+            onDragPointerDown={demarrerDragDiffere(m.instance_id)}
             titreHorsCombatTexte={titreHorsCombat(m, groupeSimplifie)}
           />
         ))}
