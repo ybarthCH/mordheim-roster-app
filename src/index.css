@@ -443,9 +443,9 @@ button {
    plus compact, à la place du grand panel_10 par défaut — réservé à
    l'armurerie et aux règles spéciales (voir ArmurerieSection/RosterScreen)
    pour les distinguer des unités/entrées répétées sous elles, qui gardent
-   le grand panneau (voir .member-cards .list-item / .historique-liste
-   .list-item plus bas). Choix explicite, indépendant de la largeur du
-   conteneur — contrairement au repli @container ci-dessus. */
+   le grand panneau (voir .historique-liste .list-item plus bas). Choix
+   explicite, indépendant de la largeur du conteneur — contrairement au
+   repli @container ci-dessus. */
 :root[data-theme='dark'][data-palette='rouge'] .card--titlebar {
   border-width: 14px;
   border-image-slice: 16% fill;
@@ -454,13 +454,12 @@ button {
 
 /* Cartes de groupe du roster (Héros, Hommes de main, Francs-tireurs...) :
    redescendent volontairement sur l'habillage plat de .card d'avant le
-   panneau de pierre — voir MemberGroupCard, qui donne désormais ce panneau
-   à chaque carte de figurine individuelle à la place (voir .member-cards
-   .list-item plus bas). Un seul niveau de cadre peint à la fois est plus
-   lisible que le cadre-dans-le-cadre. Padding latéral réduit pour laisser
-   les cartes de figurines s'étendre davantage en largeur — l'essentiel de
-   l'air visuel se joue maintenant à l'intérieur de chaque carte, pas
-   autour du groupe. */
+   panneau de pierre — le tableau qu'elles contiennent (.roster-table-wrap,
+   voir plus bas) porte déjà son propre cadre en pierre peinte. Un seul
+   niveau de cadre peint à la fois est plus lisible que le cadre-dans-le-
+   cadre. Padding latéral réduit pour laisser le tableau s'étendre
+   davantage en largeur — l'essentiel de l'air visuel se joue maintenant à
+   l'intérieur de son propre cadre, pas autour du groupe. */
 :root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card {
   background-color: var(--bg-card);
   background-image: var(--texture-parchemin);
@@ -2026,25 +2025,12 @@ button {
   touch-action: manipulation;
   transition: background-color 0.1s ease;
 }
-/* Positioned ancestor pour .list-item__title-actions (croix de suppression +
-   poignée de drag), ancrées en absolu dans ce coin — voir plus bas. Padding
-   réservé sur toute la hauteur de la carte pour que le texte du titre (nom,
-   badge Chef) ne passe jamais dessous. */
-.member-cards .list-item {
-  position: relative;
-  padding-right: 3.5rem;
-}
-/* Carte de figurine du roster (Héros, Hommes de main...) : cadre pierre
-   peint du pack UI, à la place du simple encart 1px — voir le commentaire
-   sur .roster-groupe-card plus haut (le cadre de groupe qui contenait ces
-   cartes est redescendu sur l'habillage plat en échange). Panel_10 (le
-   grand panneau, même asset que .card par défaut) plutôt que panel_titlebar_10
-   : réservé aux cartes uniques (armurerie, règles spéciales — voir
-   .card--titlebar) ; toute unité/entrée répétée sous les règles spéciales
-   (figurines, historique de batailles...) prend ce panneau-ci. Padding
-   gauche augmenté pour le même motif que .list-item--bande : le liseré peint
-   longe tout le bord intérieur du cadre. */
-:root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item,
+/* Carte d'historique de bataille : cadre pierre peint du pack UI, à la
+   place du simple encart 1px — panel_10 (le grand panneau, même asset que
+   .card par défaut) plutôt que panel_titlebar_10, réservé aux cartes
+   uniques (armurerie, règles spéciales — voir .card--titlebar) ; toute
+   entrée répétée sous les règles spéciales prend ce panneau-ci (voir aussi
+   .list-item--bande plus bas pour le sélecteur de bande à l'accueil). */
 :root[data-theme='dark'][data-palette='rouge'] .historique-liste .list-item {
   background-image: none;
   border-style: solid;
@@ -2054,14 +2040,6 @@ button {
   border-image-source: url('/decor/card-panel-stone.webp');
   box-shadow: none;
   padding: 0.4rem 0.6rem 0.4rem 1.1rem;
-}
-/* Le raccourci padding ci-dessus (spécificité égale, déclaré après la règle
-   de base .member-cards .list-item) écraserait sinon son padding-right
-   réservé pour .list-item__title-actions — .historique-liste, qui n'a pas
-   cette croix/poignée ancrées, n'a pas besoin de cette marge et n'est donc
-   pas concerné ici. */
-:root[data-theme='dark'][data-palette='rouge'] .member-cards .list-item {
-  padding-right: 3.5rem;
 }
 /* Sélecteur de bande (accueil) : chaque bande dans son propre cadre pierre
    peinte du pack UI (panel_titlebar_10) plutôt que le simple encart 1px de
@@ -2165,13 +2143,15 @@ button {
   min-width: 3em;
   flex-shrink: 1;
 }
-/* Suppression + poignée de drag, ancrées dans le coin supérieur droit de la
-   carte mobile (voir MemberGroupCard), plutôt que suivies dans le flux du
-   titre — sinon le badge Chef et surtout le badge "avancée en attente"
-   pouvaient les repousser sous le nom, loin du coin réel de la carte. Position
-   absolue (même motif que .list-item--bande__poignee plus haut) : ancrées au
-   coin quel que soit ce que fait le titre. Le padding-right réservé sur
-   .member-cards .list-item (plus haut) empêche le texte de passer dessous. */
+/* Suppression (+ éventuelle poignée de drag), ancrée dans le coin supérieur
+   droit de la carte (voir .member-condensed .list-item, MemberQuickList),
+   plutôt que suivie dans le flux du titre — sinon le badge Chef et surtout
+   le badge "avancée en attente" pouvaient la repousser sous le nom, loin du
+   coin réel de la carte. Position absolue (même motif que
+   .list-item--bande__poignee plus haut) : ancrée au coin quel que soit ce
+   que fait le titre. Le padding-right propre à chaque variante de
+   .list-item (voir .member-condensed .list-item plus bas) empêche le texte
+   de passer dessous. */
 .list-item__title-actions {
   position: absolute;
   top: 0.6rem;
@@ -2375,9 +2355,42 @@ button {
    déplacement ou un appui prolongé arme le drag. */
 .roster-table__col-nom {
   cursor: grab;
+  /* Autorise le navigateur à traiter nativement un balayage horizontal
+     démarré ici comme un défilement de .roster-table-wrap (overflow-x:auto)
+     plutôt que de le laisser arbitrer entre scroll et drag-reorder : sans
+     ce point, un simple balayage tactile pour faire défiler le tableau
+     pouvait, selon la course, s'armer en réordonnancement avant que le
+     navigateur ne tranche pour le scroll natif (les deux réagissent au
+     même geste). pan-x réserve explicitement l'axe horizontal au scroll
+     natif ; un mouvement vertical (réordonnancement) reste, lui, disponible
+     pour demarrerDragDiffere (useDragReorder.ts). */
+  touch-action: pan-x;
+  /* Colonne épinglée à gauche pendant le défilement horizontal du tableau
+     (essentiel dès que le tableau est affiché aussi sur petit écran, où le
+     nom de la figurine doit rester visible pendant qu'on parcourt les
+     caractéristiques) — voir aussi .roster-table__col-actions plus bas,
+     épinglée côté droit pour la même raison côté suppression. */
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--bg-card);
 }
 .roster-table__col-nom:active {
   cursor: grabbing;
+}
+/* Au-dessus du corps du tableau (z-index 1) pour rester visible même quand
+   une ligne survolée/sélectionnée pose son propre fond par-dessus. */
+thead .roster-table__col-nom {
+  z-index: 2;
+}
+.roster-table__col-actions {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  background: var(--bg-card);
+}
+thead .roster-table__col-actions {
+  z-index: 2;
 }
 
 /* Colonnes de caractéristiques (M à Cd) et XP : centrées sous leur en-tête
@@ -2624,10 +2637,6 @@ button {
   color: var(--text-muted);
 }
 
-.member-cards {
-  display: none;
-}
-
 /* Liste rapide fusionnée Héros + Hommes de main (MemberQuickList, bouton
    dédié dans .roster-actions de RosterScreen) : nom/profil/bloc de stats
    sur deux lignes serrées, réutilisant .list-item pour la structure de base
@@ -2654,14 +2663,14 @@ button {
   overflow-wrap: break-word;
 }
 
-@media (max-width: 720px) {
-  .roster-table-wrap {
-    display: none;
-  }
-  .member-cards {
-    display: block;
-  }
-}
+/* Le tableau (colonnes Nom épinglée à gauche / suppression épinglée à
+   droite, voir .roster-table__col-nom et .roster-table__col-actions plus
+   bas) reste affiché à toute largeur, y compris téléphone — les grandes
+   cartes par figurine (.member-cards, MemberCardMobile) tenaient 3× plus de
+   hauteur par figurine pour un gain d'information marginal, un défilement
+   vertical bien plus pénible sur une bande de 12 à 21 figurines (courant
+   dans ce jeu) que le défilement horizontal du tableau, lui-même limité par
+   les deux colonnes épinglées. */
 
 /* ---------- mode deux volets (roster + fiche, grands écrans) ---------- */
 .roster-split {
@@ -2741,23 +2750,14 @@ button {
    jusqu'à 75% du conteneur — RosterScreen.SPLIT_LIST_WIDTH_MAX_PCT) et sa
    largeur réelle est déconnectée de celle de la fenêtre : sur un grand
    écran avec le volet redimensionné petit, la fenêtre peut être large
-   alors que la colonne, elle, reste étroite — une media query sur la
-   largeur de FENÊTRE (voir @media (max-width:720px) ci-dessus) ne peut
-   pas le détecter, d'où une container query sur la largeur réelle de la
-   colonne elle-même plutôt qu'un scroll horizontal de secours qui, en
-   pratique, ne permet jamais de voir le nom et les statistiques en même
-   temps. Deux seuils, mesurés empiriquement (Playwright, scrollWidth vs
-   clientWidth du .roster-table-wrap réel, nom de personnage au maximum de
-   20 caractères + statut le plus long "OOA"/"HdC" inclus — plus de colonne
-   poignée dédiée, voir .roster-table__col-nom et demarrerDragDiffere,
-   useDragReorder.ts) :
-   - avec la colonne Profil, le tableau a besoin d'environ 826px pour tenir
-     sans scroll horizontal propre ; 900px pour une marge de sécurité
-     (longueur du nom de profil non couverte par la mesure ci-dessus).
-   - Profil masquée (voir .roster-table__col-profil), il ne lui faut plus
-     que ~749px ; 780px avec marge — tant qu'on est en dessous des 900px du
-     palier complet, la table reste affichée mais sans cette colonne plutôt
-     que de retomber sur les grandes cartes mobiles.
+   alors que la colonne, elle, reste étroite — d'où une container query sur
+   la largeur réelle de la colonne plutôt qu'une media query sur la largeur
+   de fenêtre pour savoir quand la colonne Profil (superflue à ce stade,
+   voir .roster-table__col-profil) doit s'effacer. Le tableau lui-même
+   reste affiché à toute largeur (voir plus haut) — seul en dessous de
+   900px, mesuré empiriquement (Playwright, nom de personnage à 20
+   caractères + statut le plus long "OOA"/"HdC"), le nom de profil risque
+   de pousser le tableau en scroll horizontal plus tôt que nécessaire.
    Conteneur NOMMÉ (pas anonyme) : .card (chaque groupe de membres) déclare
    elle aussi container-type:inline-size (voir plus haut, pour son propre
    @container de cadre compact) et se trouve plus près de .roster-table-wrap
@@ -2768,28 +2768,8 @@ button {
   container-type: inline-size;
   container-name: roster-split-list;
 }
-.roster-split__list .roster-table-wrap {
-  display: none;
-}
-.roster-split__list .member-cards {
-  display: block;
-}
-@container roster-split-list (min-width: 780px) and (max-width: 899.98px) {
-  .roster-split__list .roster-table-wrap {
-    display: block;
-  }
-  .roster-split__list .member-cards {
-    display: none;
-  }
+@container roster-split-list (max-width: 899.98px) {
   .roster-split__list .roster-table__col-profil {
-    display: none;
-  }
-}
-@container roster-split-list (min-width: 900px) {
-  .roster-split__list .roster-table-wrap {
-    display: block;
-  }
-  .roster-split__list .member-cards {
     display: none;
   }
 }

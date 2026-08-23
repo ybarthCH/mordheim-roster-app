@@ -10,15 +10,6 @@ import { useEffect, useRef, useState } from 'react';
 // c'est une vignette flottante séparée (voir pointerPos) qui suit le
 // curseur/doigt à l'écran.
 //
-// `refItem` prend une variante (ex : "table" / "card") car un même membre
-// est monté deux fois en parallèle — tableau desktop ET cartes mobiles,
-// l'une des deux étant seulement masquée en CSS (display: none) selon la
-// largeur d'écran, pas démontée. Sans cette distinction, la dernière
-// variante à s'attacher (les cartes, rendues après le tableau) écrasait
-// systématiquement la référence de l'autre dans la Map : sur desktop, où
-// c'est le tableau qui est visible, le calcul de position utilisait alors
-// le rect d'un élément caché (donc toujours 0×0), et la figurine glissée
-// atterrissait invariablement en fin de liste, sans retour visuel fiable.
 export function useDragReorder<T extends { instance_id: string }>(
   items: T[],
   onReorder: (nouvelOrdre: T[]) => void
@@ -28,31 +19,12 @@ export function useDragReorder<T extends { instance_id: string }>(
   const [pointerPos, setPointerPos] = useState<{ x: number; y: number } | null>(null);
   const refsElements = useRef<Map<string, HTMLElement>>(new Map());
 
-  const refItem = (variante: string, id: string) => (el: HTMLElement | null) => {
-    const cle = `${variante}:${id}`;
-    if (el) refsElements.current.set(cle, el);
-    else refsElements.current.delete(cle);
+  const refItem = (id: string) => (el: HTMLElement | null) => {
+    if (el) refsElements.current.set(id, el);
+    else refsElements.current.delete(id);
   };
 
-  // Rect de la variante actuellement visible pour cet id (l'autre étant
-  // masquée en CSS, donc une boîte 0×0 — écartée).
-  const rectVisible = (id: string): DOMRect | null => {
-    for (const variante of ['table', 'card']) {
-      const el = refsElements.current.get(`${variante}:${id}`);
-      if (!el) continue;
-      const rect = el.getBoundingClientRect();
-      if (rect.width > 0 || rect.height > 0) return rect;
-    }
-    return null;
-  };
-
-  const demarrerDrag = (id: string) => (e: React.PointerEvent) => {
-    e.preventDefault();
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-    setIdEnCours(id);
-    setOrdreEnCours(items);
-    setPointerPos({ x: e.clientX, y: e.clientY });
-  };
+  const rectVisible = (id: string): DOMRect | null => refsElements.current.get(id)?.getBoundingClientRect() ?? null;
 
   // Vrai juste après qu'un drag démarré via demarrerDragDiffere se soit
   // réellement armé (voir ci-dessous) — remis à false au tour suivant.
@@ -83,7 +55,19 @@ export function useDragReorder<T extends { instance_id: string }>(
       arme = true;
       dragVientDeSeProduireRef.current = true;
       clearTimeout(minuteur);
-      element.setPointerCapture(pointerId);
+      // setPointerCapture peut lever InvalidStateError si le pointeur n'est
+      // déjà plus "actif" au moment de l'appel (observé en pratique sur un
+      // geste tactile synthétique, potentiellement aussi sur un vrai
+      // relâchement très rapide) — la logique de drag elle-même n'en dépend
+      // pas (le useEffect ci-dessous écoute déjà pointermove/up sur window,
+      // pas sur cet élément précis), la capture n'est qu'un bonus de
+      // compatibilité : on l'essaie sans laisser un échec faire planter la
+      // page.
+      try {
+        element.setPointerCapture(pointerId);
+      } catch {
+        // Pas grave, voir commentaire ci-dessus.
+      }
       setIdEnCours(id);
       setOrdreEnCours(items);
       setPointerPos({ x, y });
@@ -95,7 +79,19 @@ export function useDragReorder<T extends { instance_id: string }>(
       if (ev.pointerId !== pointerId) return;
       const dx = ev.clientX - origineX;
       const dy = ev.clientY - origineY;
-      if (Math.hypot(dx, dy) >= DEPLACEMENT_MIN_DRAG_PX) armer(ev.clientX, ev.clientY);
+      // N'arme sur mouvement que si celui-ci est majoritairement VERTICAL :
+      // réordonner est par nature un geste vertical (on monte/descend une
+      // figurine dans sa liste), alors qu'un balayage majoritairement
+      // horizontal correspond à une intention de défilement du tableau
+      // (voir touch-action:pan-x sur .roster-table__col-nom, qui délègue
+      // déjà cet axe au scroll natif — cette vérification est une seconde
+      // ligne de défense indépendante du navigateur, utile si l'arbitrage
+      // tactile natif ne tranche pas assez tôt). Un balayage horizontal pur
+      // ne s'arme donc jamais ici ; l'appui prolongé (minuteur ci-dessus)
+      // reste, lui, toujours disponible pour démarrer un drag sans bouger.
+      if (Math.hypot(dx, dy) >= DEPLACEMENT_MIN_DRAG_PX && Math.abs(dy) >= Math.abs(dx)) {
+        armer(ev.clientX, ev.clientY);
+      }
     };
     const nettoyer = (ev: PointerEvent) => {
       if (ev.pointerId !== pointerId) return;
@@ -160,7 +156,6 @@ export function useDragReorder<T extends { instance_id: string }>(
   return {
     elements: ordreEnCours ?? items,
     refItem,
-    demarrerDrag,
     demarrerDragDiffere,
     dragVientDeSeProduire,
     idEnCours,
