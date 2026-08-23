@@ -2295,6 +2295,23 @@ button {
 .roster-table-wrap {
   overflow-x: auto;
 }
+/* Proposition : le tableau desktop reste un simple encart plat même en
+   thème sombre/palette rouge, alors que le reste de l'appli (cartes,
+   modales) porte le cadre en pierre peinte du pack (voir .card plus haut).
+   Même traitement ici — border-image plutôt que background-image : le
+   filet des bords reste entier quelle que soit la hauteur du tableau
+   (nombre de figurines variable), seul le centre est étiré ("fill"). */
+:root[data-theme='dark'][data-palette='rouge'] .roster-table-wrap {
+  background-color: var(--bg-card);
+  border-style: solid;
+  border-width: 20px;
+  border-image-repeat: stretch;
+  border-image-slice: 10% fill;
+  border-image-source: url('/decor/card-panel-stone.webp');
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table {
+  background: none;
+}
 .roster-table {
   width: 100%;
   border-collapse: collapse;
@@ -2352,6 +2369,14 @@ button {
 .roster-table td.roster-table__stat {
   text-align: center;
   font-variant-numeric: tabular-nums;
+  /* Largeur fixe, identique pour toutes les colonnes de caractéristique :
+     sans elle, la mise en page automatique du tableau élargit les colonnes
+     à en-tête de deux lettres (CC, CT, PV, Cd) pour loger leur texte,
+     pendant que les colonnes à une lettre (M, F, E, I, A) restent plus
+     étroites — la grille de chiffres perd son alignement carré régulier.
+     2.4rem loge confortablement "CC"/"PV"/"Cd" en majuscules (0.72rem) sans
+     jamais tronquer. */
+  width: 2.4rem;
 }
 /* Trame alternée très discrète sur les neuf colonnes de caractéristiques
    seulement (jamais sur XP, hors du groupe) : un repère visuel de plus pour
@@ -2377,7 +2402,8 @@ button {
 .roster-table:has(.roster-table__col-PV:hover) .roster-table__col-PV,
 .roster-table:has(.roster-table__col-I:hover) .roster-table__col-I,
 .roster-table:has(.roster-table__col-A:hover) .roster-table__col-A,
-.roster-table:has(.roster-table__col-Cd:hover) .roster-table__col-Cd {
+.roster-table:has(.roster-table__col-Cd:hover) .roster-table__col-Cd,
+.roster-table:has(.roster-table__col-Sv:hover) .roster-table__col-Sv {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
 }
 /* Le synopsis d'équipement d'un membre a sa propre ligne (pleine largeur,

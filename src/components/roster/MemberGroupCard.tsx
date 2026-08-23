@@ -431,6 +431,14 @@ export function MemberGroupCard({
     [elements, roster, catalogue, language, rules.armuresLozheim]
   );
 
+  // Colonne Sv affichée pour tout le groupe dès qu'au moins un de ses
+  // membres a une sauvegarde d'armure (voir utils/armure.ts) — même logique
+  // "apparition dynamique" que CaracteristiquesCard/MemberCardMobile, mais
+  // au niveau de la colonne entière plutôt que par membre : un tableau
+  // partagé ne peut pas faire varier son nombre de colonnes ligne par
+  // ligne. Les membres sans Sv affichent un tiret dans cette colonne.
+  const groupeADuSv = vues.some(({ sv }) => sv !== null);
+
   return (
     <CollapsibleCard
       preferenceKey={preferenceKey}
@@ -482,13 +490,14 @@ export function MemberGroupCard({
                 {libelleCaracteristique('A', language)}
               </th>
               <th className="roster-table__stat roster-table__col-Cd">{libelleCaracteristique('Cd', language)}</th>
+              {groupeADuSv && <th className="roster-table__stat roster-table__col-Sv">Sv</th>}
               <th className="roster-table__stat roster-table__group-start">XP</th>
               <th>{t('memberGroup.status')}</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente }) => {
+            {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente, sv }) => {
               const versPersonnage = () => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`);
               return (
                 <Fragment key={m.instance_id}>
@@ -537,6 +546,9 @@ export function MemberGroupCard({
                       {m.stats_variables?.A ?? m.stats_actuels.A}
                     </td>
                     <td className="roster-table__stat roster-table__col-Cd">{m.stats_variables?.Cd ?? m.stats_actuels.Cd}</td>
+                    {groupeADuSv && (
+                      <td className="roster-table__stat roster-table__col-Sv">{sv !== null ? `${sv}+` : '—'}</td>
+                    )}
                     <td className="roster-table__stat roster-table__group-start">{m.xp}</td>
                     <td>
                       {groupeSimplifie ? (
@@ -621,7 +633,10 @@ export function MemberGroupCard({
                       versPersonnage();
                     }}
                   >
-                    <td colSpan={masquerProfil ? 13 : 14} className="roster-table__synopsis-cell">
+                    <td
+                      colSpan={(masquerProfil ? 13 : 14) + (groupeADuSv ? 1 : 0)}
+                      className="roster-table__synopsis-cell"
+                    >
                       <div className="text-sm text-muted roster-table__synopsis" style={{ fontStyle: 'italic' }}>
                         {equipement}
                       </div>
