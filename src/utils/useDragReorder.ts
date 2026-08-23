@@ -94,6 +94,17 @@ export function useDragReorder<T extends { instance_id: string }>(
   const demarrerDragDiffere = (id: string) => (e: React.PointerEvent) => {
     const element = e.currentTarget as HTMLElement;
     const pointerId = e.pointerId;
+    // Souris uniquement : au tactile, un simple défilement de PAGE démarré
+    // depuis cette cellule (le nom, sans poignée dédiée) est lui aussi un
+    // mouvement — vertical qui plus est, la direction qu'on autorise
+    // justement au drag ci-dessous. Même avec le bon touch-action (voir
+    // .roster-table__col-nom), rien ne garantit que l'arbitrage tactile
+    // natif tranche pour le scroll AVANT que ce seuil de quelques pixels ne
+    // s'arme côté JS (observé en pratique : "appuyer sur un nom et faire
+    // défiler par accident" déclenchait le drag). Au tactile, seul l'appui
+    // prolongé (minuteur plus bas) arme donc le drag — la souris garde
+    // l'armement immédiat au mouvement, sans ce risque de conflit.
+    const pointerType = e.pointerType;
     const origineX = e.clientX;
     const origineY = e.clientY;
     let arme = false;
@@ -125,18 +136,15 @@ export function useDragReorder<T extends { instance_id: string }>(
 
     const onMoveInitial = (ev: PointerEvent) => {
       if (ev.pointerId !== pointerId) return;
+      // Voir le commentaire sur pointerType plus haut : au tactile, un
+      // mouvement n'arme jamais — seul l'appui prolongé le fait.
+      if (pointerType !== 'mouse') return;
       const dx = ev.clientX - origineX;
       const dy = ev.clientY - origineY;
       // N'arme sur mouvement que si celui-ci est majoritairement VERTICAL :
       // réordonner est par nature un geste vertical (on monte/descend une
       // figurine dans sa liste), alors qu'un balayage majoritairement
-      // horizontal correspond à une intention de défilement du tableau
-      // (voir touch-action:pan-x sur .roster-table__col-nom, qui délègue
-      // déjà cet axe au scroll natif — cette vérification est une seconde
-      // ligne de défense indépendante du navigateur, utile si l'arbitrage
-      // tactile natif ne tranche pas assez tôt). Un balayage horizontal pur
-      // ne s'arme donc jamais ici ; l'appui prolongé (minuteur ci-dessus)
-      // reste, lui, toujours disponible pour démarrer un drag sans bouger.
+      // horizontal correspond à une intention de défilement du tableau.
       if (Math.hypot(dx, dy) >= DEPLACEMENT_MIN_DRAG_PX && Math.abs(dy) >= Math.abs(dx)) {
         armer(ev.clientX, ev.clientY);
       }

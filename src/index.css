@@ -475,34 +475,13 @@ button {
   content: '';
 }
 /* "Bande complète" (MemberQuickList, liste fusionnée Héros/Hommes de main/
-   Francs-tireurs) : contrairement aux cartes de groupe ci-dessus, ses
-   lignes (.member-condensed .list-item) restent volontairement plates —
-   liste dense pensée pour le défilement rapide d'une grande bande (12 à
-   21 figurines n'est pas rare), donc pas de cadre par ligne ici. Aucun
-   risque de cadre-dans-le-cadre : un seul niveau reprend donc le panneau
-   pierre peinte standard de .card. :has() cible cette carte de groupe
-   précise sans classe dédiée côté JSX. */
-:root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card:has(.member-condensed) {
-  background-color: var(--bg-card);
-  background-image: none;
-  border-style: solid;
-  border-width: 20px;
-  border-image-repeat: stretch;
-  border-image-slice: 10% fill;
-  border-image-source: url('/decor/card-panel-stone.webp');
-  box-shadow: none;
-  padding: 0.9rem;
-}
-:root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card:has(.member-condensed)::before {
-  content: none;
-}
-@container (max-width: 340px) {
-  :root[data-theme='dark'][data-palette='rouge'] .card.roster-groupe-card:has(.member-condensed) {
-    border-width: 14px;
-    border-image-slice: 16% fill;
-    border-image-source: url('/decor/card-panel-titlebar-stone.webp');
-  }
-}
+   Francs-tireurs) : chacune de ses lignes (.member-condensed .list-item,
+   voir plus bas) porte maintenant son propre cadre pierre peinte, comme
+   chaque figurine des cartes de groupe détaillées porte le sien via son
+   tableau — la carte de groupe qui les contient reste donc sur
+   l'habillage plat hérité de .card.roster-groupe-card ci-dessus, sans
+   règle supplémentaire ici : même motif "un seul niveau de cadre à la
+   fois" que le reste du roster. */
 /* Carte résumé de bande (nom + 4 ressources) : carte unique au même titre
    que l'armurerie et les règles spéciales ci-dessus, donc même cadre
    compact panel_titlebar_10 plutôt que son ancien asset panel_10 dédié
@@ -2025,13 +2004,15 @@ button {
   touch-action: manipulation;
   transition: background-color 0.1s ease;
 }
-/* Carte d'historique de bataille : cadre pierre peint du pack UI, à la
+/* Carte d'historique de bataille et ligne de "Bande complète" (liste
+   fusionnée, voir MemberQuickList) : cadre pierre peint du pack UI, à la
    place du simple encart 1px — panel_10 (le grand panneau, même asset que
    .card par défaut) plutôt que panel_titlebar_10, réservé aux cartes
    uniques (armurerie, règles spéciales — voir .card--titlebar) ; toute
    entrée répétée sous les règles spéciales prend ce panneau-ci (voir aussi
    .list-item--bande plus bas pour le sélecteur de bande à l'accueil). */
-:root[data-theme='dark'][data-palette='rouge'] .historique-liste .list-item {
+:root[data-theme='dark'][data-palette='rouge'] .historique-liste .list-item,
+:root[data-theme='dark'][data-palette='rouge'] .member-condensed .list-item {
   background-image: none;
   border-style: solid;
   border-width: 20px;
@@ -2357,14 +2338,18 @@ button {
   cursor: grab;
   /* Autorise le navigateur à traiter nativement un balayage horizontal
      démarré ici comme un défilement de .roster-table-wrap (overflow-x:auto)
-     plutôt que de le laisser arbitrer entre scroll et drag-reorder : sans
-     ce point, un simple balayage tactile pour faire défiler le tableau
-     pouvait, selon la course, s'armer en réordonnancement avant que le
-     navigateur ne tranche pour le scroll natif (les deux réagissent au
-     même geste). pan-x réserve explicitement l'axe horizontal au scroll
-     natif ; un mouvement vertical (réordonnancement) reste, lui, disponible
-     pour demarrerDragDiffere (useDragReorder.ts). */
-  touch-action: pan-x;
+     ET un balayage vertical comme le défilement normal de la PAGE — sans
+     le second, "pan-x" seul seul désactive implicitement tout le reste, y
+     compris pan-y : un balayage vertical (l'utilisateur qui fait
+     simplement défiler la page en partant du nom) n'était alors plus
+     jamais reconnu comme un geste natif par le navigateur et atterrissait
+     systématiquement dans demarrerDragDiffere, qui l'armait aussitôt en
+     réordonnancement (voir le garde-fou pointerType==='mouse' côté JS,
+     useDragReorder.ts — au tactile, seul l'appui prolongé arme le drag
+     désormais, plus aucun mouvement ne le fait). Équivalent à "auto" pour
+     le défilement dans les deux axes (mais sans le double-tap-zoom, comme
+     .roster-table tbody tr plus bas — cohérent avec le reste du tableau). */
+  touch-action: manipulation;
   /* Colonne épinglée à gauche pendant le défilement horizontal du tableau
      (essentiel dès que le tableau est affiché aussi sur petit écran, où le
      nom de la figurine doit rester visible pendant qu'on parcourt les
