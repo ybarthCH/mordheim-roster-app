@@ -2665,12 +2665,107 @@ thead .roster-table__col-actions {
 
 /* Le tableau (colonnes Nom épinglée à gauche / suppression épinglée à
    droite, voir .roster-table__col-nom et .roster-table__col-actions plus
-   bas) reste affiché à toute largeur, y compris téléphone — les grandes
-   cartes par figurine (.member-cards, MemberCardMobile) tenaient 3× plus de
-   hauteur par figurine pour un gain d'information marginal, un défilement
-   vertical bien plus pénible sur une bande de 12 à 21 figurines (courant
-   dans ce jeu) que le défilement horizontal du tableau, lui-même limité par
-   les deux colonnes épinglées. */
+   haut) reste affiché tel quel tant qu'il tient sans scroll horizontal —
+   aucun souci remonté à ces largeurs. En dessous (~780px, voir le seuil du
+   @container plus bas), même épinglées, les colonnes qui défilent entre les
+   deux (tout le bloc caractéristiques) forcent un va-et-vient horizontal
+   pénible sur téléphone : .roster-compact-list prend le relais à ce point,
+   nom/profil, bloc de caractéristiques et équipement empilés sur leur
+   propre ligne plutôt qu'à côté les uns des autres. */
+.roster-compact-list {
+  display: none;
+}
+.roster-compact-row {
+  position: relative;
+  padding: 0.5rem 0.6rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.roster-compact-row--fantome {
+  opacity: 0.15;
+}
+.roster-compact-row--selectionnee {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+/* Ligne 1 : nom (+ profil, + badge Chef éventuel — voir
+   .roster-compact-row__identite) à gauche, statut + suppression groupés à
+   droite (voir .roster-compact-row__actions), TOUJOURS sur une seule ligne
+   (pas de flex-wrap) : mieux vaut tronquer un nom/profil trop long avec une
+   ellipse que renvoyer statut+suppression sur leur propre ligne, ce qui
+   cassait le rythme "3 lignes" visé dès que le contenu de gauche était un
+   peu long. Pas besoin de la mesure de repositionnement dédiée de l'ancienne
+   grande carte (badge Chef) : ici il fait juste partie du groupe qui
+   rétrécit. */
+.roster-compact-row__ligne1 {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.roster-compact-row__identite {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  cursor: grab;
+}
+.roster-compact-row__identite:active {
+  cursor: grabbing;
+}
+.roster-compact-row__nom {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.roster-compact-row__profil {
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: 0.85em;
+}
+.roster-compact-row__actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+/* Le texte du médaillon ("ACTIF"/"HDC"...) fait double emploi avec sa
+   position sur le rail (le switch lui-même reste inchangé, seul son
+   libellé disparaît ici) — l'économie de largeur évite un retour à la
+   ligne pour la plupart des lignes (nom + profil sans le badge Chef, plus
+   large et volontairement laissé tel quel). */
+.roster-compact-row__actions .status-plaque__label {
+  display: none;
+}
+.roster-compact-row__actions .status-plaque {
+  gap: 0;
+}
+/* Ligne 2 : réutilise .stat-grid (voir CaracteristiquesCard) tel quel —
+   même apparition dynamique de Sv que le tableau desktop (voir
+   .roster-table__col-Sv), gérée ici en élargissant la grille d'une colonne
+   plutôt qu'en ajoutant/retirant une colonne de tableau partagée. */
+.roster-compact-row__stats {
+  margin-bottom: 0.4rem;
+}
+/* Ligne 3 : équipement + badges d'état (avancée en attente, équipement
+   dépareillé, franc-tireur impayé) — regroupés ici plutôt que sur la ligne
+   1 (badge Chef mis à part, qui reste un repère d'identité) : ce sont tous
+   des signaux secondaires liés à l'état de la figurine, pas à son identité. */
+.roster-compact-row__synopsis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+}
 
 /* ---------- mode deux volets (roster + fiche, grands écrans) ---------- */
 .roster-split {
@@ -2771,6 +2866,26 @@ thead .roster-table__col-actions {
 @container roster-split-list (max-width: 899.98px) {
   .roster-split__list .roster-table__col-profil {
     display: none;
+  }
+}
+@container roster-split-list (max-width: 779.98px) {
+  .roster-split__list .roster-table-wrap {
+    display: none;
+  }
+  .roster-split__list .roster-compact-list {
+    display: block;
+  }
+}
+
+/* Pendant du @container ci-dessus pour le cas où le tableau se rend hors
+   de .roster-split__list (pas de conteneur nommé en portée) : largeur de
+   fenêtre plutôt que largeur de colonne, seuil historique de ce repli. */
+@media (max-width: 720px) {
+  .roster-table-wrap {
+    display: none;
+  }
+  .roster-compact-list {
+    display: block;
   }
 }
 

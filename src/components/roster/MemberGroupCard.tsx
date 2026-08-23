@@ -1,4 +1,5 @@
 import { Fragment, useMemo } from 'react';
+import type { PointerEvent as ReactPointerEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
@@ -12,8 +13,10 @@ import { useDragReorder } from '../../utils/useDragReorder';
 import { estLeaderActuel } from '../../utils/leader';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
+import { STAT_KEYS } from '../../types/catalog';
 import { getFrancTireur } from '../../data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
+import type { Language } from '../../state/useLanguage';
 import { getItem } from '../../data/items';
 import { translateItem } from '../../i18n/data/items';
 import { libelleCaracteristique } from '../../utils/stats';
@@ -35,6 +38,209 @@ const STATUT_ICONE: Partial<Record<string, IconName | PackIconName>> = {
   mort: 'crane',
   blesse: 'goutte',
 };
+
+type StatutControlProps = {
+  m: Member;
+  groupeSimplifie: boolean;
+  titre: string;
+  onToggle: () => void;
+  t: (key: string, params?: Record<string, string | number>) => string;
+};
+
+// Contrôle de statut (switch groupe simplifié / plaque héros / badge figé
+// pour un mort) — partagé entre le tableau desktop et la ligne compacte
+// téléphone (voir MemberRowCompact), pour ne pas dupliquer une deuxième
+// fois ce même bloc.
+function StatutControl({ m, groupeSimplifie, titre, onToggle, t }: StatutControlProps) {
+  if (groupeSimplifie) {
+    return (
+      <button
+        type="button"
+        className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggle();
+        }}
+        title={titre}
+        aria-label={titre}
+      >
+        <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
+        <span className="status-switch__label">
+          {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
+        </span>
+      </button>
+    );
+  }
+  if (m.statut === 'mort') {
+    return (
+      <span
+        className={`status-switch status-switch--${STATUT_COULEUR[m.statut]} status-switch--badge`}
+        title={t('memberGroup.deadStatusHint')}
+      >
+        {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
+        <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
+      </span>
+    );
+  }
+  return (
+    <button
+      type="button"
+      className={`status-plaque${m.statut === 'actif' ? ' status-plaque--actif' : ''}`}
+      onClick={(e) => {
+        e.stopPropagation();
+        onToggle();
+      }}
+      title={titre}
+      aria-label={`${t(`statut.${m.statut}`)} — ${titre}`}
+    >
+      <span className="status-plaque__switch">
+        <span className="status-plaque__switch-track" />
+        <span className="status-plaque__switch-knob">
+          <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--green" />
+          <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--red" />
+        </span>
+      </span>
+      <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
+    </button>
+  );
+}
+
+type MemberRowCompactProps = {
+  m: Member;
+  profil: Profile | undefined;
+  equipement: string;
+  blessures: string | null;
+  groupeSimplifie: boolean;
+  leader: boolean;
+  avanceEnAttente: boolean;
+  sv: number | null;
+  fantome: boolean;
+  selectionne: boolean;
+  masquerProfil?: boolean;
+  language: Language;
+  t: (key: string, params?: Record<string, string | number>) => string;
+  rowRef: (el: HTMLDivElement | null) => void;
+  onSelect: () => void;
+  onSupprimer: () => void;
+  onBasculerHorsCombat: () => void;
+  onDragPointerDown: (e: ReactPointerEvent) => void;
+  titreHorsCombatTexte: string;
+};
+
+// Ligne compacte téléphone (3 lignes : nom/profil + statut/suppression,
+// bloc de caractéristiques, équipement) — remplace le tableau desktop en
+// dessous du seuil où il tiendrait sans scroll horizontal (voir
+// .roster-compact-list, .roster-table-wrap). Contrairement à l'ancienne
+// grande carte par figurine (MemberCardMobile, supprimée), volontairement
+// minimale : pas de mesure de repositionnement du badge Chef, pas de
+// padding généreux — l'objectif est une ligne courte, pas une fiche.
+function MemberRowCompact({
+  m,
+  profil,
+  equipement,
+  blessures,
+  groupeSimplifie,
+  leader,
+  avanceEnAttente,
+  sv,
+  fantome,
+  selectionne,
+  masquerProfil,
+  language,
+  t,
+  rowRef,
+  onSelect,
+  onSupprimer,
+  onBasculerHorsCombat,
+  onDragPointerDown,
+  titreHorsCombatTexte,
+}: MemberRowCompactProps) {
+  return (
+    <div
+      ref={rowRef}
+      className={`roster-compact-row${fantome ? ' roster-compact-row--fantome' : ''}${selectionne ? ' roster-compact-row--selectionnee' : ''}`}
+      role="button"
+      onClick={onSelect}
+    >
+      <div className="roster-compact-row__ligne1">
+        <span
+          className="roster-compact-row__identite"
+          onPointerDown={onDragPointerDown}
+          title={t('memberGroup.dragHandle')}
+        >
+          <span className="roster-compact-row__nom">
+            {nomAffiche(m)}
+            {!masquerProfil && profil?.nom && (
+              <span className="roster-compact-row__profil"> · {profil.nom}</span>
+            )}
+          </span>
+          {leader && (
+            <span className="badge badge--leader" title={t('memberGroup.leaderTitle')}>
+              {t('memberGroup.leader')}
+            </span>
+          )}
+        </span>
+        <span className="roster-compact-row__actions">
+          <StatutControl
+            m={m}
+            groupeSimplifie={groupeSimplifie}
+            titre={titreHorsCombatTexte}
+            onToggle={onBasculerHorsCombat}
+            t={t}
+          />
+          <button
+            className="btn--ghost-danger"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSupprimer();
+            }}
+            title={t('memberGroup.removeTitle')}
+          >
+            <Icon name="croixPack" />
+          </button>
+        </span>
+      </div>
+      <div
+        className="stat-grid roster-compact-row__stats"
+        style={sv !== null ? { gridTemplateColumns: `repeat(${STAT_KEYS.length + 1}, 1fr)` } : undefined}
+      >
+        {STAT_KEYS.map((k) => (
+          <div key={`lbl-${k}`} className="stat-grid__cell stat-grid__cell--label">
+            {libelleCaracteristique(k, language)}
+          </div>
+        ))}
+        {sv !== null && <div className="stat-grid__cell stat-grid__cell--label">Sv</div>}
+        {STAT_KEYS.map((k) => (
+          <div key={`val-${k}`} className="stat-grid__cell stat-grid__cell--value">
+            {m.stats_variables?.[k] ?? m.stats_actuels[k]}
+          </div>
+        ))}
+        {sv !== null && <div className="stat-grid__cell stat-grid__cell--value">{sv}+</div>}
+      </div>
+      <div className="roster-compact-row__synopsis">
+        <span className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
+          {equipement}
+        </span>
+        {avanceEnAttente && (
+          <span className="badge badge--pending" title={t('memberGroup.pendingAdvance')}>
+            {t('memberGroup.pendingAdvance')}
+          </span>
+        )}
+        {inventaireGroupeMismatch(m) && (
+          <span className="badge badge--equipment-warning" title={t('memberGroup.equipmentMismatchTitle')}>
+            ⚠ {t('memberGroup.equipmentMismatchBadge')}
+          </span>
+        )}
+        {m.franc_tireur_impaye && <span className="badge badge--warning">{t('memberGroup.absentUnpaid')}</span>}
+      </div>
+      {blessures && (
+        <div className="text-sm text-danger" style={{ marginTop: '0.1rem' }}>
+          {blessures}
+        </div>
+      )}
+    </div>
+  );
+}
 
 type MemberGroupCardProps = {
   titre: string;
@@ -232,7 +438,7 @@ export function MemberGroupCard({
               return (
                 <Fragment key={m.instance_id}>
                   <tr
-                    ref={refItem(m.instance_id)}
+                    ref={refItem('table', m.instance_id)}
                     className={`roster-table__row-principale${idEnCours === m.instance_id ? ' roster-table__row--fantome' : ''}${m.instance_id === selectedInstanceId ? ' roster-table__row--selectionnee' : ''}`}
                     onClick={() => {
                       if (dragVientDeSeProduire()) return;
@@ -281,51 +487,13 @@ export function MemberGroupCard({
                     )}
                     <td className="roster-table__stat roster-table__group-start">{m.xp}</td>
                     <td>
-                      {groupeSimplifie ? (
-                        <button
-                          type="button"
-                          className={`status-switch status-switch--${m.hors_combat > 0 ? 'warning' : 'success'}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onBasculerHorsCombat(m);
-                          }}
-                          title={titreHorsCombat(m, groupeSimplifie)}
-                          aria-label={titreHorsCombat(m, groupeSimplifie)}
-                        >
-                          <Icon name={m.hors_combat > 0 ? 'ossements' : 'coche'} />
-                          <span className="status-switch__label">
-                            {m.hors_combat}/{m.taille_groupe} {t('memberGroup.hc')}
-                          </span>
-                        </button>
-                      ) : m.statut === 'mort' ? (
-                        <span
-                          className={`status-switch status-switch--${STATUT_COULEUR[m.statut]} status-switch--badge`}
-                          title={t('memberGroup.deadStatusHint')}
-                        >
-                          {STATUT_ICONE[m.statut] && <Icon name={STATUT_ICONE[m.statut]!} />}
-                          <span className="status-switch__label status-switch__label--fixed">{t(`statut.${m.statut}`)}</span>
-                        </span>
-                      ) : (
-                        <button
-                          type="button"
-                          className={`status-plaque${m.statut === 'actif' ? ' status-plaque--actif' : ''}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onBasculerHorsCombat(m);
-                          }}
-                          title={titreHorsCombat(m, groupeSimplifie)}
-                          aria-label={`${t(`statut.${m.statut}`)} — ${titreHorsCombat(m, groupeSimplifie)}`}
-                        >
-                          <span className="status-plaque__switch">
-                            <span className="status-plaque__switch-track" />
-                            <span className="status-plaque__switch-knob">
-                              <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--green" />
-                              <span className="status-plaque__switch-knob-gem status-plaque__switch-knob-gem--red" />
-                            </span>
-                          </span>
-                          <span className="status-plaque__label">{t(`memberGroup.statutCourt.${m.statut}`)}</span>
-                        </button>
-                      )}
+                      <StatutControl
+                        m={m}
+                        groupeSimplifie={groupeSimplifie}
+                        titre={titreHorsCombat(m, groupeSimplifie)}
+                        onToggle={() => onBasculerHorsCombat(m)}
+                        t={t}
+                      />
                       {inventaireGroupeMismatch(m) && (
                         <span
                           className="badge badge--equipment-warning"
@@ -342,18 +510,16 @@ export function MemberGroupCard({
                       )}
                     </td>
                     <td className="roster-table__col-actions">
-                      <div className="flex gap-sm" style={{ justifyContent: 'flex-end' }}>
-                        <button
-                          className="btn--ghost-danger"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onSupprimer(m);
-                          }}
-                          title={t('memberGroup.removeTitle')}
-                        >
-                          <Icon name="croixPack" />
-                        </button>
-                      </div>
+                      <button
+                        className="btn--ghost-danger"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSupprimer(m);
+                        }}
+                        title={t('memberGroup.removeTitle')}
+                      >
+                        <Icon name="croixPack" />
+                      </button>
                     </td>
                   </tr>
                   <tr
@@ -382,6 +548,36 @@ export function MemberGroupCard({
             })}
           </tbody>
         </table>
+      </div>
+
+      <div className="roster-compact-list">
+        {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente, sv }) => (
+          <MemberRowCompact
+            key={m.instance_id}
+            m={m}
+            profil={profil}
+            equipement={equipement}
+            blessures={blessures}
+            groupeSimplifie={groupeSimplifie}
+            leader={leader}
+            avanceEnAttente={avanceEnAttente}
+            sv={sv}
+            fantome={idEnCours === m.instance_id}
+            selectionne={m.instance_id === selectedInstanceId}
+            masquerProfil={masquerProfil}
+            language={language}
+            t={t}
+            rowRef={refItem('compact', m.instance_id)}
+            onSelect={() => {
+              if (dragVientDeSeProduire()) return;
+              navigate(`/roster/${roster.id}/personnage/${m.instance_id}`);
+            }}
+            onSupprimer={() => onSupprimer(m)}
+            onBasculerHorsCombat={() => onBasculerHorsCombat(m)}
+            onDragPointerDown={demarrerDragDiffere(m.instance_id)}
+            titreHorsCombatTexte={titreHorsCombat(m, groupeSimplifie)}
+          />
+        ))}
       </div>
 
       {membres.length === 0 && <p className="text-muted">{t('memberGroup.noMembers')}</p>}

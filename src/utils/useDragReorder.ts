@@ -10,6 +10,14 @@ import { useEffect, useRef, useState } from 'react';
 // c'est une vignette flottante séparée (voir pointerPos) qui suit le
 // curseur/doigt à l'écran.
 //
+// `refItem` prend une variante (ex : "table" / "compact") car un même
+// membre est monté deux fois en parallèle — tableau desktop ET lignes
+// compactes téléphone (voir MemberGroupCard), l'une des deux étant
+// seulement masquée en CSS (display: none) selon la largeur d'écran, pas
+// démontée. Sans cette distinction, la dernière variante à s'attacher
+// écraserait systématiquement la référence de l'autre dans la Map, et le
+// calcul de position utiliserait alors le rect d'un élément caché (donc
+// toujours 0×0).
 export function useDragReorder<T extends { instance_id: string }>(
   items: T[],
   onReorder: (nouvelOrdre: T[]) => void
@@ -19,12 +27,23 @@ export function useDragReorder<T extends { instance_id: string }>(
   const [pointerPos, setPointerPos] = useState<{ x: number; y: number } | null>(null);
   const refsElements = useRef<Map<string, HTMLElement>>(new Map());
 
-  const refItem = (id: string) => (el: HTMLElement | null) => {
-    if (el) refsElements.current.set(id, el);
-    else refsElements.current.delete(id);
+  const refItem = (variante: string, id: string) => (el: HTMLElement | null) => {
+    const cle = `${variante}:${id}`;
+    if (el) refsElements.current.set(cle, el);
+    else refsElements.current.delete(cle);
   };
 
-  const rectVisible = (id: string): DOMRect | null => refsElements.current.get(id)?.getBoundingClientRect() ?? null;
+  // Rect de la variante actuellement visible pour cet id (l'autre étant
+  // masquée en CSS, donc une boîte 0×0 — écartée).
+  const rectVisible = (id: string): DOMRect | null => {
+    for (const variante of ['table', 'compact']) {
+      const el = refsElements.current.get(`${variante}:${id}`);
+      if (!el) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.width > 0 || rect.height > 0) return rect;
+    }
+    return null;
+  };
 
   // Vrai juste après qu'un drag démarré via demarrerDragDiffere se soit
   // réellement armé (voir ci-dessous) — remis à false au tour suivant.
