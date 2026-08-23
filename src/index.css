@@ -1131,12 +1131,6 @@ button {
 .drag-handle--titre:active {
   opacity: 1;
 }
-.roster-table__poignee-cell {
-  width: 1.6rem;
-  padding-left: 0.4rem !important;
-  padding-right: 0 !important;
-}
-
 /* Emplacement laissé par la figurine en cours de glissement (voir
    drag-ghost, qui suit le curseur/doigt séparément) : le montrer estompé
    plutôt que masqué garde sa hauteur exacte, donc des rects fiables pour
@@ -2328,6 +2322,18 @@ button {
   padding-bottom: 0.6rem;
 }
 
+/* Plus de poignée dédiée (colonne retirée pour gagner de la place à l'écran
+   étroit — voir demarrerDragDiffere, useDragReorder.ts) : le nom lui-même
+   sert de zone de glisser-déposer, curseur "grab" pour l'indiquer. Un
+   simple clic reste une navigation normale vers la fiche — seul un
+   déplacement ou un appui prolongé arme le drag. */
+.roster-table__col-nom {
+  cursor: grab;
+}
+.roster-table__col-nom:active {
+  cursor: grabbing;
+}
+
 /* Colonnes de caractéristiques (M à Cd) et XP : centrées sous leur en-tête
    plutôt qu'alignées à gauche — sans ça, une CC à deux chiffres et un M à un
    chiffre ne tombent jamais au même endroit d'une ligne à l'autre, et l'œil
@@ -2685,11 +2691,18 @@ button {
    pas le détecter, d'où une container query sur la largeur réelle de la
    colonne elle-même plutôt qu'un scroll horizontal de secours qui, en
    pratique, ne permet jamais de voir le nom et les statistiques en même
-   temps. Seuil mesuré empiriquement (Playwright, scrollWidth vs
-   clientWidth du .roster-table-wrap réel, statut le plus long "Hors de
-   combat/Out of action" inclus) : le tableau a besoin d'environ 930px
-   pour tenir sans son propre scroll horizontal ; 950px pour une marge de
-   sécurité.
+   temps. Deux seuils, mesurés empiriquement (Playwright, scrollWidth vs
+   clientWidth du .roster-table-wrap réel, nom de personnage au maximum de
+   20 caractères + statut le plus long "OOA"/"HdC" inclus — plus de colonne
+   poignée dédiée, voir .roster-table__col-nom et demarrerDragDiffere,
+   useDragReorder.ts) :
+   - avec la colonne Profil, le tableau a besoin d'environ 826px pour tenir
+     sans scroll horizontal propre ; 900px pour une marge de sécurité
+     (longueur du nom de profil non couverte par la mesure ci-dessus).
+   - Profil masquée (voir .roster-table__col-profil), il ne lui faut plus
+     que ~749px ; 780px avec marge — tant qu'on est en dessous des 900px du
+     palier complet, la table reste affichée mais sans cette colonne plutôt
+     que de retomber sur les grandes cartes mobiles.
    Conteneur NOMMÉ (pas anonyme) : .card (chaque groupe de membres) déclare
    elle aussi container-type:inline-size (voir plus haut, pour son propre
    @container de cadre compact) et se trouve plus près de .roster-table-wrap
@@ -2706,7 +2719,18 @@ button {
 .roster-split__list .member-cards {
   display: block;
 }
-@container roster-split-list (min-width: 950px) {
+@container roster-split-list (min-width: 780px) and (max-width: 899.98px) {
+  .roster-split__list .roster-table-wrap {
+    display: block;
+  }
+  .roster-split__list .member-cards {
+    display: none;
+  }
+  .roster-split__list .roster-table__col-profil {
+    display: none;
+  }
+}
+@container roster-split-list (min-width: 900px) {
   .roster-split__list .roster-table-wrap {
     display: block;
   }

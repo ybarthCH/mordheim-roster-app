@@ -347,7 +347,8 @@ export function MemberGroupCard({
 }: MemberGroupCardProps) {
   const navigate = useNavigate();
   const { t, language } = useLanguage();
-  const { elements, refItem, demarrerDrag, idEnCours, pointerPos } = useDragReorder(membres, onReordonner);
+  const { elements, refItem, demarrerDrag, demarrerDragDiffere, dragVientDeSeProduire, idEnCours, pointerPos } =
+    useDragReorder(membres, onReordonner);
 
   // Synopsis discret de l'équipement d'un membre (ou de son groupe, toujours
   // identique entre figurines) pour l'aperçu du roster global. Affiché sur
@@ -460,9 +461,8 @@ export function MemberGroupCard({
         <table className="roster-table">
           <thead>
             <tr>
-              <th style={{ width: '1.6rem' }}></th>
               <th>{t('memberGroup.name')}</th>
-              {!masquerProfil && <th>{t('memberGroup.profile')}</th>}
+              {!masquerProfil && <th className="roster-table__col-profil">{t('memberGroup.profile')}</th>}
               <th className="roster-table__stat roster-table__col-M roster-table__group-start">
                 {libelleCaracteristique('M', language)}
               </th>
@@ -495,19 +495,16 @@ export function MemberGroupCard({
                   <tr
                     ref={refItem('table', m.instance_id)}
                     className={`roster-table__row-principale${idEnCours === m.instance_id ? ' roster-table__row--fantome' : ''}${m.instance_id === selectedInstanceId ? ' roster-table__row--selectionnee' : ''}`}
-                    onClick={versPersonnage}
+                    onClick={() => {
+                      if (dragVientDeSeProduire()) return;
+                      versPersonnage();
+                    }}
                   >
-                    <td className="roster-table__poignee-cell">
-                      <span
-                        className="drag-handle drag-handle--discret"
-                        onPointerDown={demarrerDrag(m.instance_id)}
-                        onClick={(e) => e.stopPropagation()}
-                        title={t('memberGroup.dragHandle')}
-                      >
-                        <Icon name="poignee" size="0.7em" />
-                      </span>
-                    </td>
-                    <td>
+                    <td
+                      className="roster-table__col-nom"
+                      onPointerDown={demarrerDragDiffere(m.instance_id)}
+                      title={t('memberGroup.dragHandle')}
+                    >
                       {nomAffiche(m)}
                       {leader && (
                         <span className="badge badge--leader" style={{ marginLeft: '0.4rem' }} title={t('memberGroup.leaderTitle')}>
@@ -520,7 +517,7 @@ export function MemberGroupCard({
                         </span>
                       )}
                     </td>
-                    {!masquerProfil && <td>{profil?.nom ?? m.profil_id}</td>}
+                    {!masquerProfil && <td className="roster-table__col-profil">{profil?.nom ?? m.profil_id}</td>}
                     <td className="roster-table__stat roster-table__col-M roster-table__group-start">
                       {m.stats_variables?.M ?? m.stats_actuels.M}
                     </td>
@@ -617,8 +614,14 @@ export function MemberGroupCard({
                       </div>
                     </td>
                   </tr>
-                  <tr className="roster-table__row-synopsis" onClick={versPersonnage}>
-                    <td colSpan={masquerProfil ? 14 : 15} className="roster-table__synopsis-cell">
+                  <tr
+                    className="roster-table__row-synopsis"
+                    onClick={() => {
+                      if (dragVientDeSeProduire()) return;
+                      versPersonnage();
+                    }}
+                  >
+                    <td colSpan={masquerProfil ? 13 : 14} className="roster-table__synopsis-cell">
                       <div className="text-sm text-muted roster-table__synopsis" style={{ fontStyle: 'italic' }}>
                         {equipement}
                       </div>

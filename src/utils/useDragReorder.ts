@@ -54,6 +54,65 @@ export function useDragReorder<T extends { instance_id: string }>(
     setPointerPos({ x: e.clientX, y: e.clientY });
   };
 
+  // Vrai juste après qu'un drag démarré via demarrerDragDiffere se soit
+  // réellement armé (voir ci-dessous) — remis à false au tour suivant.
+  // Permet à l'appelant de distinguer, dans son propre onClick (ex : la
+  // ligne du tableau qui navigue vers la fiche), un simple clic d'un
+  // relâchement qui vient de terminer un glisser.
+  const dragVientDeSeProduireRef = useRef(false);
+  const dragVientDeSeProduire = () => dragVientDeSeProduireRef.current;
+
+  // Variante "sans poignée dédiée" : le pointerdown se fait directement sur
+  // un élément qui a par ailleurs sa propre action au clic (ex : le nom
+  // d'une figurine, qui navigue vers sa fiche). Le drag ne s'arme donc
+  // qu'après un déplacement minimal OU un appui prolongé sans relâcher —
+  // selon ce qui arrive en premier — plutôt qu'immédiatement au
+  // pointerdown : un simple clic/tap reste ainsi un clic normal.
+  const DEPLACEMENT_MIN_DRAG_PX = 6;
+  const APPUI_LONG_MS = 350;
+
+  const demarrerDragDiffere = (id: string) => (e: React.PointerEvent) => {
+    const element = e.currentTarget as HTMLElement;
+    const pointerId = e.pointerId;
+    const origineX = e.clientX;
+    const origineY = e.clientY;
+    let arme = false;
+
+    const armer = (x: number, y: number) => {
+      if (arme) return;
+      arme = true;
+      dragVientDeSeProduireRef.current = true;
+      clearTimeout(minuteur);
+      element.setPointerCapture(pointerId);
+      setIdEnCours(id);
+      setOrdreEnCours(items);
+      setPointerPos({ x, y });
+    };
+
+    const minuteur = window.setTimeout(() => armer(origineX, origineY), APPUI_LONG_MS);
+
+    const onMoveInitial = (ev: PointerEvent) => {
+      if (ev.pointerId !== pointerId) return;
+      const dx = ev.clientX - origineX;
+      const dy = ev.clientY - origineY;
+      if (Math.hypot(dx, dy) >= DEPLACEMENT_MIN_DRAG_PX) armer(ev.clientX, ev.clientY);
+    };
+    const nettoyer = (ev: PointerEvent) => {
+      if (ev.pointerId !== pointerId) return;
+      clearTimeout(minuteur);
+      window.removeEventListener('pointermove', onMoveInitial);
+      window.removeEventListener('pointerup', nettoyer);
+      window.removeEventListener('pointercancel', nettoyer);
+      // Laisse dragVientDeSeProduireRef à true le temps du clic de
+      // compatibilité éventuel (survient de façon synchrone juste après ce
+      // pointerup, dans le même tour) — remis à false au tour suivant.
+      if (arme) setTimeout(() => { dragVientDeSeProduireRef.current = false; }, 0);
+    };
+    window.addEventListener('pointermove', onMoveInitial);
+    window.addEventListener('pointerup', nettoyer);
+    window.addEventListener('pointercancel', nettoyer);
+  };
+
   useEffect(() => {
     if (!idEnCours) return;
 
@@ -102,6 +161,8 @@ export function useDragReorder<T extends { instance_id: string }>(
     elements: ordreEnCours ?? items,
     refItem,
     demarrerDrag,
+    demarrerDragDiffere,
+    dragVientDeSeProduire,
     idEnCours,
     pointerPos,
   };
