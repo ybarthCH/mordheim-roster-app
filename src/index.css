@@ -2448,6 +2448,36 @@ thead .roster-table__col-actions {
 .roster-table__row-principale td {
   border-bottom: none;
 }
+/* Chaque figurine dans son propre "encart" en thème sombre/palette rouge —
+   compromis face au vrai cadre pierre peinte des autres vues (member-cards
+   d'origine, Bande complète, ligne compacte téléphone) : border-image sur
+   un <tr> n'est pas fiable sous border-collapse:collapse (nécessaire ici
+   pour les colonnes épinglées Nom/Suppression, voir .roster-table__col-nom
+   plus haut), et repartir sur une grille CSS pour l'obtenir referait tout
+   ce qui dépend du tableau HTML (survol de colonne, Sv dynamique, drag).
+   Fond légèrement éclairci sur les deux lignes de la figurine (posé sur le
+   <tr>, sous les fonds propres des cellules à bande/épinglées qui restent
+   inchangés — voir plus bas) + un liseré couleur accent en haut et en bas
+   du bloc : à spécificité égale, .roster-table__stat--band et les colonnes
+   épinglées gardent leur propre fond, peint par-dessus celui du <tr>. */
+/* --bg-elevated est presque identique à --bg-card dans cette palette
+   (#221c16 vs #241d17, à peine 2 crans d'écart) — un color-mix avec un peu
+   de blanc, plutôt qu'un jeton de fond existant, pour un éclaircissement
+   réellement visible sans virer au gris sur cette base brune chaude. */
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale,
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-synopsis {
+  background: color-mix(in srgb, var(--bg-card) 90%, white 10%);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-principale td {
+  border-top: 2px solid var(--accent);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__row-synopsis td {
+  border-bottom: 2px solid var(--accent);
+}
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__col-nom,
+:root[data-theme='dark'][data-palette='rouge'] .roster-table__col-actions {
+  background: color-mix(in srgb, var(--bg-card) 90%, white 10%);
+}
 .roster-table__synopsis {
   line-height: 1.3;
   max-height: 2.6em;
