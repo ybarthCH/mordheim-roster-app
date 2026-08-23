@@ -344,30 +344,42 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
               </p>
             )}
           </div>
-          {/* Annuler/Terminer juste après le résumé plutôt qu'en pied de
-              fenêtre après tout le catalogue d'équipement (position d'origine)
-              : sur un catalogue long, valider obligeait à défiler jusqu'en bas
-              en passant par toute la liste d'objets à chaque fois.
-              .btn/.btn--primary (cadre plein, plus grand) plutôt que
-              .btn--pack-pill-sm comme le reste de cet écran : ce sont les
-              actions principales de toute la fenêtre, mais la pilule peinte
-              les faisait se fondre parmi les nombreux autres boutons pilule
-              du shop juste en dessous (onglets Bande/Commun, catégories,
-              Personnalisé...). flex:1 pour qu'elles occupent toute la
-              largeur de la rangée, comme une vraie barre d'action. */}
-          <div className="flex gap-sm" style={{ marginBottom: '0.9rem' }}>
-            <button className="btn" style={{ flex: 1 }} onClick={annulerRecrutement}>
-              {t('achatEquipement.cancel')}
-            </button>
-            <button
-              className="btn btn--primary"
-              style={{ flex: 1 }}
-              disabled={tresorerieProjetee < 0}
-              onClick={terminer}
-            >
-              {t('recrutementEquipement.finish')}
-            </button>
-          </div>
+        </div>
+        {/* Annuler/Terminer juste après le résumé plutôt qu'en pied de
+            fenêtre après tout le catalogue d'équipement (position d'origine)
+            : sur un catalogue long, valider obligeait à défiler jusqu'en bas
+            en passant par toute la liste d'objets à chaque fois.
+            .btn/.btn--primary (cadre plein, plus grand) plutôt que
+            .btn--pack-pill-sm comme le reste de cet écran : ce sont les
+            actions principales de toute la fenêtre, mais la pilule peinte
+            les faisait se fondre parmi les nombreux autres boutons pilule
+            du shop juste en dessous (onglets Bande/Commun, catégories,
+            Personnalisé...). flex:1 pour qu'elles occupent toute la largeur
+            de la rangée, comme une vraie barre d'action.
+            Épinglée en haut de la fenêtre au défilement (voir
+            .recrutement-equipement__validation, index.css) : remplace
+            l'en-tête collant du shop juste en dessous
+            (.achat-equipement__header, désactivé en mode intégré) — ce sont
+            Annuler/Terminer qui doivent rester accessibles, pas le titre
+            "Acheter de l'équipement". Rendue en dehors du bloc padded
+            ci-dessus, en sibling direct du shop : position:sticky ne peut
+            rester épinglé que dans les bornes de son parent immédiat — à
+            l'intérieur du bloc titre/stats/résumé (court, se termine juste
+            après ce bouton), le défilement l'aurait emporté avec lui dès
+            que ce bloc entier sort de l'écran, avant même d'atteindre le
+            shop. */}
+        <div className="recrutement-equipement__validation flex gap-sm">
+          <button className="btn" style={{ flex: 1 }} onClick={annulerRecrutement}>
+            {t('achatEquipement.cancel')}
+          </button>
+          <button
+            className="btn btn--primary"
+            style={{ flex: 1 }}
+            disabled={tresorerieProjetee < 0}
+            onClick={terminer}
+          >
+            {t('recrutementEquipement.finish')}
+          </button>
         </div>
         {catalogue && (
           <AchatEquipementContenu

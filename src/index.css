@@ -3177,6 +3177,39 @@ button {
   border-bottom: 1px solid var(--border);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+/* Intégré dans le recrutement (AjouterMembreModal) : c'est la barre
+   Annuler/Terminer qui précède ce contenu dans le flux qui doit rester
+   épinglée en haut au défilement (voir .recrutement-equipement__validation
+   plus bas), pas cet en-tête — un seul élément collant à la fois. Reste
+   positionné (relative, pas static) pour continuer à ancrer son filet
+   décoratif ::after ci-dessous. */
+.achat-equipement--integre .achat-equipement__header {
+  position: relative;
+  top: auto;
+  z-index: auto;
+  box-shadow: none;
+}
+/* Barre Annuler/Terminer du recrutement (AjouterMembreModal), épinglée en
+   haut de la fenêtre plein écran au défilement du shop intégré juste en
+   dessous — même traitement visuel que .achat-equipement__header qu'elle
+   remplace dans ce rôle. Rendue en sibling direct de .modal-sheet--fullscreen
+   (pas de padding à compenser, voir le commentaire côté JSX sur pourquoi ce
+   n'est pas un enfant du bloc titre/stats/résumé). */
+.recrutement-equipement__validation {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  margin-bottom: 0.9rem;
+  padding: max(1rem, env(safe-area-inset-top)) 0.9rem 0.85rem;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+:root[data-theme='dark'][data-palette='rouge'] .recrutement-equipement__validation {
+  background: var(--bg-card);
+  border: none;
+  box-shadow: none;
+}
 .achat-equipement__header--selection {
   display: flex;
   flex-direction: column;
@@ -3266,6 +3299,10 @@ button {
 }
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header {
   padding-bottom: 1.1rem;
+}
+:root[data-theme='dark'][data-palette='rouge'] .achat-equipement--integre .achat-equipement__header {
+  position: relative;
+  box-shadow: none;
 }
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__header::after,
 :root[data-theme='dark'][data-palette='rouge'] .achat-equipement__actions::before {
