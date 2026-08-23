@@ -274,8 +274,9 @@ const CATALOGUE_ARTILLEURS_NULN = 'artilleurs_de_nuln';
 
 // Armures de corps et caparaçons concernés par la règle Lozheim. Les
 // protections périphériques (boucliers, casques, cuir durci, pavois,
-// rondaches, écus, capes...) sont volontairement absentes.
-const ARMURES_LOZHEIM = new Set([
+// rondaches, écus, capes...) sont volontairement absentes. Exporté pour
+// utils/armure.ts (calcul de la statistique Sv).
+export const ARMURES_LOZHEIM = new Set([
   'armure_cathayenne_soie_matelassee',
   'armure_du_chaos_market',
   'armure_en_gromril_market',
@@ -477,6 +478,14 @@ export function prixAvecRegles(
   return prix;
 }
 
+// Améliore d'un cran la valeur de base d'un texte de sauvegarde ("6+" ->
+// "5+") sans toucher un éventuel bonus de superposition à droite ("6+/+1"
+// -> "5+/+1") : la règle Lozheim renforce l'armure elle-même, pas ce
+// qu'elle apporte en superposition à une autre armure (voir Sv, utils/armure.ts).
+function ameliorerTexteSauvegarde(sauvegarde: string): string {
+  return sauvegarde.replace(/^(\d)\+/, (_, chiffre: string) => `${Math.max(1, Number(chiffre) - 1)}+`);
+}
+
 function appliquerReglesObjet(
   item: ShopItem,
   catalogueId: string,
@@ -487,6 +496,7 @@ function appliquerReglesObjet(
   return {
     ...item,
     cout: prixAvecRegles(item.id, item.cout, catalogueId, rules, originePrix),
+    sauvegarde: lozheim && item.sauvegarde ? ameliorerTexteSauvegarde(item.sauvegarde) : item.sauvegarde,
     regles_speciales: lozheim
       ? [
           ...(item.regles_speciales ?? []),

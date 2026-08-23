@@ -12,6 +12,8 @@ import { STAT_KEYS } from '../../types/catalog';
 import { getFrancTireur } from '../../data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
 import { libelleCaracteristique } from '../../utils/stats';
+import { sauvegardeArmureMembre } from '../../utils/armure';
+import type { GameRules } from '../../types/rules';
 
 type MemberQuickListProps = {
   titre: string;
@@ -20,6 +22,7 @@ type MemberQuickListProps = {
   membres: Member[];
   roster: RosterInstance;
   catalogue: WarbandCatalog | undefined;
+  rules: GameRules;
   onSupprimer: (m: Member) => void;
   selectedInstanceId?: string;
   // Retour à la vue détaillée (groupes séparés) — bouton dans l'en-tête,
@@ -40,6 +43,7 @@ export function MemberQuickList({
   membres,
   roster,
   catalogue,
+  rules,
   onSupprimer,
   selectedInstanceId,
   onBasculerVueDetaillee,
@@ -97,6 +101,7 @@ export function MemberQuickList({
           const statsTexte = STAT_KEYS.map(
             (k) => `${libelleCaracteristique(k, language)}${m.stats_variables?.[k] ?? m.stats_actuels[k]}`
           ).join(' ');
+          const sv = sauvegardeArmureMembre(m.inventaire, rules.armuresLozheim);
           return (
             <div
               key={m.instance_id}
@@ -133,6 +138,7 @@ export function MemberQuickList({
               </div>
               <div className="member-condensed__ligne member-condensed__ligne--stats">
                 {profil?.nom ? `${profil.nom} · ` : ''}XP {m.xp} · {statsTexte}
+                {sv !== null && ` · Sv ${sv}+`}
               </div>
             </div>
           );

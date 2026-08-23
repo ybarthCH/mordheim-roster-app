@@ -31,6 +31,10 @@ export const personnageCards: UiDictionary = {
   'caracteristiques.title': { fr: 'Caractéristiques', en: 'Characteristics' },
   'caracteristiques.variableTitle': { fr: 'Caractéristique variable — se fixe via une avancée d\'expérience', en: 'Variable characteristic — set via an experience advance' },
   'caracteristiques.capTitle': { fr: 'Caractéristique au plafond racial', en: 'Characteristic at racial cap' },
+  'caracteristiques.svTitle': {
+    fr: "Sauvegarde d'armure totale, déduite de l'équipement porté",
+    en: 'Total armour save, derived from equipped gear',
+  },
   'caracteristiques.capLabel': { fr: 'Plafond de caractéristiques', en: 'Characteristic cap' },
   'caracteristiques.henchmanCapNote': {
     fr: 'Un homme de main ne peut jamais augmenter une même caractéristique de plus de +1.',

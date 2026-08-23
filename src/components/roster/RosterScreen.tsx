@@ -472,6 +472,7 @@ export function RosterScreen({
           membres={[...heros, ...hommesDeMain, ...francsTireurs, ...dramatisPersonae]}
           roster={roster}
           catalogue={catalogue}
+          rules={rules}
           onSupprimer={setMembreASupprimer}
           selectedInstanceId={selectedInstanceId}
           onBasculerVueDetaillee={toggleVueCondensee}
@@ -485,6 +486,7 @@ export function RosterScreen({
             membres={heros}
             roster={roster}
             catalogue={catalogue}
+            rules={rules}
             onReordonner={reordonnerSection}
             onBasculerHorsCombat={basculerHorsCombat}
             onSupprimer={setMembreASupprimer}
@@ -498,6 +500,7 @@ export function RosterScreen({
             membres={hommesDeMain}
             roster={roster}
             catalogue={catalogue}
+            rules={rules}
             onReordonner={reordonnerSection}
             onBasculerHorsCombat={basculerHorsCombat}
             onSupprimer={setMembreASupprimer}
@@ -512,6 +515,7 @@ export function RosterScreen({
               membres={francsTireurs}
               roster={roster}
               catalogue={catalogue}
+              rules={rules}
               onReordonner={reordonnerSection}
               onBasculerHorsCombat={basculerHorsCombat}
               onSupprimer={setMembreASupprimer}
@@ -526,6 +530,7 @@ export function RosterScreen({
               membres={dramatisPersonae}
               roster={roster}
               catalogue={catalogue}
+              rules={rules}
               onReordonner={reordonnerSection}
               onBasculerHorsCombat={basculerHorsCombat}
               onSupprimer={setMembreASupprimer}
@@ -543,6 +548,7 @@ export function RosterScreen({
           membres={defunts}
           roster={roster}
           catalogue={catalogue}
+          rules={rules}
           onReordonner={reordonnerSection}
           onBasculerHorsCombat={basculerHorsCombat}
           onSupprimer={setMembreASupprimer}

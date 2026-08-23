@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { STAT_KEYS } from '../../types/catalog';
 import type { Profile, Stats } from '../../types/catalog';
 import type { Member } from '../../types/roster';
+import type { GameRules } from '../../types/rules';
 import { plafondPour, estStatAuPlafond, bonusPlafondCC } from '../../utils/plafond';
+import { sauvegardeArmureMembre } from '../../utils/armure';
 import { useLanguage } from '../../state/useLanguage';
 import { libelleCaracteristique } from '../../utils/stats';
 import { Icon } from '../common/Icon';
@@ -11,15 +13,20 @@ type CaracteristiquesCardProps = {
   membre: Member;
   profil: Profile;
   onEditerStat: (k: keyof Stats, value: number) => void;
+  rules: GameRules;
 };
 
 function saisiesDepuis(stats: Stats): Record<string, string> {
   return Object.fromEntries(STAT_KEYS.map((k) => [k, String(stats[k])]));
 }
 
-export function CaracteristiquesCard({ membre, profil, onEditerStat }: CaracteristiquesCardProps) {
+export function CaracteristiquesCard({ membre, profil, onEditerStat, rules }: CaracteristiquesCardProps) {
   const { t, language } = useLanguage();
   const plafond = plafondPour(profil, membre.competences_acquises, bonusPlafondCC(membre));
+  // Sv : sauvegarde d'armure totale, dérivée de l'équipement — voir
+  // utils/armure.ts. N'apparaît qu'en présence d'un objet qui l'accorde
+  // réellement (jamais les sauvegardes spéciales/ward).
+  const sv = sauvegardeArmureMembre(membre.inventaire, rules.armuresLozheim);
 
   // Saisie locale par caractéristique : un input contrôlé directement par
   // membre.stats_actuels[k] (un number) empêche de vider le champ pour
@@ -38,12 +45,13 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
         <Icon name="bouclier" style={{ marginRight: '0.35em' }} />
         {t('caracteristiques.title')}
       </h3>
-      <div className="stat-grid">
+      <div className="stat-grid" style={sv !== null ? { gridTemplateColumns: `repeat(${STAT_KEYS.length + 1}, 1fr)` } : undefined}>
         {STAT_KEYS.map((k) => (
           <div key={k} className="stat-grid__cell stat-grid__cell--label">
             {libelleCaracteristique(k, language)}
           </div>
         ))}
+        {sv !== null && <div className="stat-grid__cell stat-grid__cell--label">Sv</div>}
         {STAT_KEYS.map((k) => {
           const variable = membre.stats_variables?.[k];
           if (variable) {
@@ -87,6 +95,11 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat }: Caracteri
             </div>
           );
         })}
+        {sv !== null && (
+          <div className="stat-grid__cell stat-grid__cell--value" title={t('caracteristiques.svTitle')}>
+            {sv}+
+          </div>
+        )}
       </div>
       {plafond && (
         <p className="text-sm text-muted" style={{ marginTop: '0.5rem', marginBottom: 0 }}>

@@ -20,6 +20,8 @@ import type { Language } from '../../state/useLanguage';
 import { getItem } from '../../data/items';
 import { translateItem } from '../../i18n/data/items';
 import { libelleCaracteristique } from '../../utils/stats';
+import { sauvegardeArmureMembre } from '../../utils/armure';
+import type { GameRules } from '../../types/rules';
 
 // Couleur du sceau de statut (voir .status-switch) : reprend les mêmes
 // teintes sémantiques que les .badge--* du reste de l'appli.
@@ -112,6 +114,9 @@ type MemberCardMobileProps = {
   groupeSimplifie: boolean;
   leader: boolean;
   avanceEnAttente: boolean;
+  // Sauvegarde d'armure totale dérivée de l'équipement (voir utils/armure.ts)
+  // — `null` si rien ne l'accorde, auquel cas la colonne Sv n'apparaît pas.
+  sv: number | null;
   fantome: boolean;
   selectionne: boolean;
   masquerProfil?: boolean;
@@ -139,6 +144,7 @@ function MemberCardMobile({
   groupeSimplifie,
   leader,
   avanceEnAttente,
+  sv,
   fantome,
   selectionne,
   masquerProfil,
@@ -264,17 +270,25 @@ function MemberCardMobile({
         <div className="list-item__subtitle">
           {!masquerProfil && profil?.nom ? `${profil.nom} · ` : ''}XP {m.xp}
         </div>
-        <div className="stat-grid" style={{ margin: '0.5rem 0' }}>
+        <div
+          className="stat-grid"
+          style={{
+            margin: '0.5rem 0',
+            ...(sv !== null ? { gridTemplateColumns: `repeat(${STAT_KEYS.length + 1}, 1fr)` } : {}),
+          }}
+        >
           {STAT_KEYS.map((k) => (
             <div key={`lbl-${k}`} className="stat-grid__cell stat-grid__cell--label">
               {libelleCaracteristique(k, language)}
             </div>
           ))}
+          {sv !== null && <div className="stat-grid__cell stat-grid__cell--label">Sv</div>}
           {STAT_KEYS.map((k) => (
             <div key={`val-${k}`} className="stat-grid__cell stat-grid__cell--value">
               {m.stats_variables?.[k] ?? m.stats_actuels[k]}
             </div>
           ))}
+          {sv !== null && <div className="stat-grid__cell stat-grid__cell--value">{sv}+</div>}
         </div>
         <div className="text-sm text-muted" style={{ fontStyle: 'italic' }}>
           {equipement}
@@ -299,6 +313,7 @@ type MemberGroupCardProps = {
   membres: Member[];
   roster: RosterInstance;
   catalogue: WarbandCatalog | undefined;
+  rules: GameRules;
   onReordonner: (nouvelOrdre: Member[]) => void;
   onBasculerHorsCombat: (m: Member) => void;
   onSupprimer: (m: Member) => void;
@@ -322,6 +337,7 @@ export function MemberGroupCard({
   membres,
   roster,
   catalogue,
+  rules,
   onReordonner,
   onBasculerHorsCombat,
   onSupprimer,
@@ -407,10 +423,11 @@ export function MemberGroupCard({
           groupeSimplifie,
           leader: estLeaderActuel(roster, catalogue, m),
           avanceEnAttente: estAvanceEnAttente(profil, m),
+          sv: sauvegardeArmureMembre(m.inventaire, rules.armuresLozheim),
         };
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [elements, roster, catalogue, language]
+    [elements, roster, catalogue, language, rules.armuresLozheim]
   );
 
   return (
@@ -620,7 +637,7 @@ export function MemberGroupCard({
       </div>
 
       <div className="member-cards">
-        {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente }) => (
+        {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente, sv }) => (
           <MemberCardMobile
             key={m.instance_id}
             m={m}
@@ -630,6 +647,7 @@ export function MemberGroupCard({
             groupeSimplifie={groupeSimplifie}
             leader={leader}
             avanceEnAttente={avanceEnAttente}
+            sv={sv}
             fantome={idEnCours === m.instance_id}
             selectionne={m.instance_id === selectedInstanceId}
             masquerProfil={masquerProfil}

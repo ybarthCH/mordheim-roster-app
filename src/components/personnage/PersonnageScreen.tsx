@@ -381,12 +381,13 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         </CollapsibleCard>
       )}
 
-      <CaracteristiquesCard membre={membre} profil={profil} onEditerStat={editerStat} />
+      <CaracteristiquesCard membre={membre} profil={profil} onEditerStat={editerStat} rules={rules} />
 
       <ResumeCard
         profil={profil}
         membre={membre}
         catalogue={catalogue}
+        rules={rules}
         inventaireGroupe={inventaireGroupe}
         nomCompetence={nomCompetence}
         onItemClick={setItemDetail}

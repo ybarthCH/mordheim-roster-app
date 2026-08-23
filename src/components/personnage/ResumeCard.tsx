@@ -7,6 +7,7 @@ import { estFrancTireur } from '../../data/hiredSwords';
 import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import type { InventoryEntry, Member } from '../../types/roster';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
+import type { GameRules } from '../../types/rules';
 import { useLanguage } from '../../state/useLanguage';
 import { translateItem } from '../../i18n/data/items';
 
@@ -14,12 +15,13 @@ type ResumeCardProps = {
   profil: Profile;
   membre: Member;
   catalogue: WarbandCatalog;
+  rules: GameRules;
   inventaireGroupe: { entree: InventoryEntry; quantite: number }[];
   nomCompetence: (skillId: string) => { nom: string; texte?: string } | undefined;
   onItemClick: (entree: InventoryEntry) => void;
 };
 
-export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCompetence, onItemClick }: ResumeCardProps) {
+export function ResumeCard({ profil, membre, catalogue, rules, inventaireGroupe, nomCompetence, onItemClick }: ResumeCardProps) {
   const { t, language } = useLanguage();
   return (
     <CollapsibleCard title={t('resume.title')} preferenceKey="ui.personnage.resume.ouvert" className="card">
@@ -47,7 +49,7 @@ export function ResumeCard({ profil, membre, catalogue, inventaireGroupe, nomCom
       <span className="resume-section__title">{t('resume.equipment')}</span>
       {inventaireGroupe.length > 0 ? (
         inventaireGroupe.map(({ entree, quantite }) => {
-          const detail = translateItem(resolveItemDetail(entree), language);
+          const detail = translateItem(resolveItemDetail(entree, catalogue.id, rules), language);
           const synopsis = resumeItem(detail, language);
           return (
             <p key={entree.instance_id} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
