@@ -1,0 +1,406 @@
+// Notes de mise à jour affichées dans le menu Options (voir SettingsMenu,
+// ChangelogScreen). Une entrée par JOURNÉE de mise en production sur `main`
+// (pas par push individuel — plusieurs pushes/jour sont fréquents et
+// produiraient des entrées quasi vides) : quand une modification est
+// mergée sur main, ajouter sa journée en tête de liste si elle n'existe pas
+// encore, sinon ajouter une puce à l'entrée du jour. Texte pensé pour le
+// joueur (ce qui change pour lui), pas un résumé technique des commits —
+// voir i18n/data/changelog.ts pour la traduction anglaise associée, indexée
+// par la même date (les puces y sont réappariées par position, donc
+// n'insérer/retirer une puce FR qu'en mettant à jour l'anglais en même
+// temps).
+//
+// Chaque puce porte une catégorie, affichée regroupée à l'écran (voir
+// ChangelogScreen) :
+// - 'fonctionnalite' : un nouveau mécanisme ou une nouvelle capacité pour
+//   le joueur (ex : le cycle tactile des PV).
+// - 'interface' : apparence, ergonomie, disposition — sans changer ce que
+//   l'app permet de faire.
+// - 'autre' : corrections de bugs, corrections de règles erronées, et tout
+//   ce qui ne rentre pas clairement dans les deux catégories ci-dessus.
+export type ChangelogCategorie = 'fonctionnalite' | 'interface' | 'autre';
+
+export type ChangelogPoint = {
+  texte: string;
+  categorie: ChangelogCategorie;
+};
+
+export type ChangelogEntry = {
+  date: string; // AAAA-MM-JJ
+  points: ChangelogPoint[];
+};
+
+// Plus récent en premier.
+export const CHANGELOG: ChangelogEntry[] = [
+  {
+    date: '2026-08-24',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Un tap sur le nombre de Points de vie (PV) dans le tableau ou la liste compacte décompte maintenant les PV restants d'un cran, jusqu'à passer automatiquement Hors de combat à 0 puis revenir à pleine santé au tap suivant.",
+      },
+      {
+        categorie: 'autre',
+        texte: 'Ajout d\'une mention "projet de fan, non affilié à Games Workshop" en bas de la page Politique de confidentialité.',
+      },
+    ],
+  },
+  {
+    date: '2026-08-23',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte: 'Ajout d\'une colonne "Sv" (sauvegarde d\'armure totale) dans le tableau et la liste compacte.',
+      },
+      {
+        categorie: 'interface',
+        texte:
+          "Le tableau des membres reste maintenant affiché en permanence sur ordinateur (plus de bascule automatique vers une liste à 3 lignes sur les écrans étroits), et chaque figurine a son propre encart en pierre peinte.",
+      },
+      {
+        categorie: 'interface',
+        texte:
+          "La liste \"Bande complète\" a maintenant sa propre poignée de glisser-déposer, et le temps d'appui long pour démarrer un glisser sur mobile est passé à 2 secondes pour éviter un déclenchement accidentel.",
+      },
+      {
+        categorie: 'autre',
+        texte: "Correction : faire défiler la page en appuyant par erreur sur le nom d'une figurine ne déclenche plus de glisser-déposer sur mobile.",
+      },
+      {
+        categorie: 'autre',
+        texte: 'Correction des compétences "Expert en Armes"/"Connaissance des Armes", qui ne débloquaient pas correctement tous les types d\'armes.',
+      },
+    ],
+  },
+  {
+    date: '2026-08-22',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          'Nouvelle vue "Bande complète" : une liste condensée qui fusionne Héros et Hommes de main en un seul défilement rapide, avec un bouton pour revenir à la vue détaillée habituelle.',
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          'Étape Exploration : la Fosse aux ours devient une vraie décision et le nouvel objet "Manuel d\'entraînement" est disponible.',
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte: 'Gobelins de la Nuit : ajout des 6 compétences spéciales de bande et des compétences dédiées du Berger à Squig.',
+      },
+      {
+        categorie: 'interface',
+        texte: 'Les profils déjà recrutés à leur limite (uniques, etc.) apparaissent maintenant grisés dans la liste de recrutement plutôt que de rester sélectionnables.',
+      },
+      {
+        categorie: 'autre',
+        texte: 'Correction du sous-jet lié à la Carte de Mordheim en exploration.',
+      },
+      {
+        categorie: 'autre',
+        texte: "Correction de 5 divergences relevées dans l'assistant post-bataille.",
+      },
+      {
+        categorie: 'autre',
+        texte: 'Gobelins de la Nuit : correction du Mouvement du Squig Géant.',
+      },
+    ],
+  },
+  {
+    date: '2026-08-21',
+    points: [
+      {
+        categorie: 'interface',
+        texte: "Cibles tactiles agrandies sur mobile pour les cartes de figurine et les gains d'XP.",
+      },
+      {
+        categorie: 'autre',
+        texte: 'Correction : dans l\'assistant de recrutement, "Annuler" à l\'étape équipement annule maintenant tout le recrutement au lieu de laisser une figurine à moitié créée.',
+      },
+      {
+        categorie: 'autre',
+        texte: 'Correction du prix de l\'armure en gromril (150 po au lieu de 200) et de plusieurs incohérences sur la bande Sylvaneths.',
+      },
+      {
+        categorie: 'autre',
+        texte: "Ré-audit des événements d'exploration à résultats multiples (quadruple, quintuple, sextuple) : plusieurs cas manquants intégrés.",
+      },
+    ],
+  },
+  {
+    date: '2026-08-20',
+    points: [
+      {
+        categorie: 'interface',
+        texte: "Repositionnement de la croix de suppression et de la poignée de glisser sur les cartes de figurine, badge d'avancée en attente déplacé sur la ligne de statut.",
+      },
+      {
+        categorie: 'interface',
+        texte: 'Fusion du badge CHEF avec la ligne de statut quand il ne tient plus à côté du nom.',
+      },
+      {
+        categorie: 'autre',
+        texte: 'Le bouton "Tout passer" du post-bataille reste maintenant affiché (désactivé) au lieu de disparaître, évitant un saut de mise en page.',
+      },
+    ],
+  },
+  {
+    date: '2026-08-19',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte: "Ajout d'accès aux compétences propres à certaines tribus, appliqué aux cités-États tiléennes.",
+      },
+      {
+        categorie: 'interface',
+        texte: 'Repositionnement de la poignée de glisser-déposer et de la croix de suppression sur les cartes de figurine mobile, statut sur sa propre ligne.',
+      },
+      {
+        categorie: 'interface',
+        texte: 'Ajout d\'un bouton explicite "Enregistrer et revenir" en bas des Réglages.',
+      },
+      {
+        categorie: 'autre',
+        texte: "Correction de nombreuses erreurs de traduction anglaise relevées par un audit systématique sur l'ensemble des bandes (noms, compétences, règles spéciales).",
+      },
+      {
+        categorie: 'autre',
+        texte: "Correction d'une perte de modification lors d'actions rapides successives sur le roster, de fuites d'état en vue deux volets, et de champs de saisie numériques buggés.",
+      },
+    ],
+  },
+  {
+    date: '2026-08-18',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "L'achat d'équipement se fait maintenant directement dans la fenêtre de recrutement plutôt que sur un second écran, avec un panier pour acheter plusieurs objets d'un coup ; ajout de choix d'équipement pour 7 francs-tireurs.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte: 'Ajout de la traduction anglaise de la bande Sylvaneths.',
+      },
+      {
+        categorie: 'interface',
+        texte: "Rechargement automatique discret en cas d'erreur de déploiement, au lieu d'un écran d'erreur alarmant.",
+      },
+      {
+        categorie: 'autre',
+        texte: 'Correction de plusieurs bugs d\'équipement (Averland, Culte des Possédés, Kislevites, Skavens, Mob Orc, Morts-vivants, Bêtes du Chaos).',
+      },
+      {
+        categorie: 'autre',
+        texte: "Correction de l'avatar qui ne remplissait pas son cadre dans les deux thèmes.",
+      },
+    ],
+  },
+  {
+    date: '2026-08-17',
+    points: [
+      {
+        categorie: 'interface',
+        texte: "Harmonisation des boutons d'action rouges restants, XP de départ déplacé dans le titre de la fenêtre de recrutement.",
+      },
+      {
+        categorie: 'autre',
+        texte: "Correction de texte français qui s'affichait par erreur dans le journal d'exploration en mode anglais.",
+      },
+    ],
+  },
+  {
+    date: '2026-08-16',
+    points: [
+      {
+        categorie: 'interface',
+        texte: 'Ajout des illustrations de bannière pour toutes les bandes.',
+      },
+      {
+        categorie: 'interface',
+        texte: "Restylage de la boutique et de l'assistant post-bataille pour matcher le reste de l'appli (boutons peints, badges rubans).",
+      },
+      {
+        categorie: 'interface',
+        texte: "Sur tactile, le glisser-déposer d'une carte de bande ne s'active plus que via une poignée dédiée.",
+      },
+    ],
+  },
+  {
+    date: '2026-08-15',
+    points: [
+      {
+        categorie: 'interface',
+        texte: "La bannière de chaque bande s'affiche maintenant en fond de carte sur l'écran de sélection.",
+      },
+      {
+        categorie: 'interface',
+        texte: 'Les cartes de bande peuvent être réorganisées par glisser-déposer.',
+      },
+      {
+        categorie: 'autre',
+        texte: 'Correction du recadrage de la bannière qui devenait presque carré sur grand écran.',
+      },
+    ],
+  },
+  {
+    date: '2026-08-14',
+    points: [
+      {
+        categorie: 'interface',
+        texte:
+          "Les actions du bandeau (réglages, thème...) sont regroupées dans un seul menu déroulant en pierre peinte plutôt qu'une rangée de boutons séparés.",
+      },
+      {
+        categorie: 'interface',
+        texte: "Le titre-texte de l'accueil est remplacé par la bannière encadrée Musterheim.",
+      },
+      {
+        categorie: 'autre',
+        texte: "Correction de bugs de responsive en vue deux volets, des noms de personnage trop longs, et du contraste du bandeau en thème sombre.",
+      },
+    ],
+  },
+  {
+    date: '2026-08-13',
+    points: [
+      {
+        categorie: 'interface',
+        texte: "La boutique d'équipement passe en plein écran sur ordinateur, avec le même habillage en pierre peinte que le reste de l'appli.",
+      },
+      {
+        categorie: 'autre',
+        texte: 'Correction : seul le véritable profil de chef est banni définitivement à sa mort ; ajout d\'un moyen de lever ce bannissement manuellement depuis le roster.',
+      },
+    ],
+  },
+  {
+    date: '2026-08-11',
+    points: [
+      {
+        categorie: 'autre',
+        texte: "Correction de bandes manquantes dans la liste d'éligibilité et meilleure gestion des erreurs de stockage local.",
+      },
+      {
+        categorie: 'autre',
+        texte: 'Correction de plusieurs problèmes d\'accessibilité et de performance relevés en audit.',
+      },
+    ],
+  },
+  {
+    date: '2026-08-10',
+    points: [
+      {
+        categorie: 'autre',
+        texte: "Nom raccourci pour l'arme à deux mains.",
+      },
+    ],
+  },
+  {
+    date: '2026-08-09',
+    points: [
+      {
+        categorie: 'interface',
+        texte: 'Le contrôle de statut (Actif/Hors de combat) devient une plaque en fer forgé plutôt qu\'un simple interrupteur.',
+      },
+    ],
+  },
+  {
+    date: '2026-08-08',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte: 'Ajout de la Valeur de Puissance V2 (Rout Value, blessures permanentes, Dramatis Personae).',
+      },
+      {
+        categorie: 'interface',
+        texte: 'Refonte des tuiles de résumé (icônes filigranées derrière le texte).',
+      },
+      {
+        categorie: 'interface',
+        texte: 'Le tableau dense de caractéristiques est aussi affiché dans le volet liste en vue deux volets, pas seulement sur les cartes.',
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Correction du curseur qui sautait pendant l'édition du nom, d'une fenêtre cachée derrière la vue deux volets, et de l'alignement des caractéristiques dans le tableau du roster.",
+      },
+      {
+        categorie: 'autre',
+        texte: "Correction des objets gratuits d'exploration enregistrés à 0 po.",
+      },
+    ],
+  },
+  {
+    date: '2026-08-07',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte: 'Ajout d\'une section Cimetière pour les figurines mortes.',
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte: 'Ajout de la Valeur de Puissance comme notation alternative de bande.',
+      },
+      {
+        categorie: 'autre',
+        texte: "Correction de règles relevées par un audit FAQ (boutique, avancées post-bataille, sécurité de sortie de l'assistant).",
+      },
+      {
+        categorie: 'autre',
+        texte: "Correction du filtre d'import .txt, ajout d'une infobulle de détail pour la Valeur de Puissance.",
+      },
+      {
+        categorie: 'autre',
+        texte: 'Correction de texte français qui s\'affichait par erreur en mode anglais.',
+      },
+    ],
+  },
+  {
+    date: '2026-08-06',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte: 'Ajout des Paires de pistolets.',
+      },
+      {
+        categorie: 'interface',
+        texte: 'Refonte de la liste du roster et de la barre d\'actions, refonte de l\'affichage du statut Mort.',
+      },
+      {
+        categorie: 'interface',
+        texte: 'Refonte des tuiles de résumé de bande (Membres/Rating/Trésorerie/Wyrdstone).',
+      },
+      {
+        categorie: 'interface',
+        texte: "Les hommes de main identiques d'un même groupe partagent maintenant une seule ligne d'équipement plutôt que d'être répétés.",
+      },
+      {
+        categorie: 'autre',
+        texte: 'Correction : la photo (et deux autres champs) était effacée à chaque rechargement de la bande.',
+      },
+    ],
+  },
+  {
+    date: '2026-08-05',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte: 'Ajout de la photo de figurine, avec prise de photo directe et recadrage intégré.',
+      },
+      {
+        categorie: 'interface',
+        texte: "Nouvelle direction artistique : titres en Caslon Antique, en-têtes de section discrets, icônes de la barre d'outils unifiées.",
+      },
+      {
+        categorie: 'interface',
+        texte: 'Refonte du contrôle de statut Actif/Hors de combat en véritable interrupteur.',
+      },
+      {
+        categorie: 'autre',
+        texte: 'Correction de la visibilité des caractéristiques et de la largeur du tableau en vue deux volets.',
+      },
+    ],
+  },
+];

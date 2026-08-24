@@ -28,6 +28,7 @@ import { catalogueReferenceLists } from './catalogueReferenceLists';
 import { skillCategories } from './skillCategories';
 import { statFullNames } from './statFullNames';
 import { photo } from './photo';
+import { changelogScreen } from './changelogScreen';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -62,4 +63,5 @@ export const uiDictionary: UiDictionary = {
   ...skillCategories,
   ...statFullNames,
   ...photo,
+  ...changelogScreen,
 };
