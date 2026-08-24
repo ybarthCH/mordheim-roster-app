@@ -2437,6 +2437,15 @@ thead .roster-table__col-actions {
 .roster-table:has(.roster-table__col-Sv:hover) .roster-table__col-Sv {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
 }
+/* Case PV cliquable (tableau desktop et ligne compacte) : décompte un point
+   de vie à chaque tap, reboucle à pleine santé une fois à 0 (voir
+   utils/stats.ts pvEstCliquable/basculerPointsDeVie). Le curseur est le seul
+   signal ajouté ici — la case profite déjà du surlignage de colonne au
+   survol ci-dessus. */
+.roster-table__col-PV--cliquable,
+.stat-grid__cell--pv-cliquable {
+  cursor: pointer;
+}
 /* Le synopsis d'équipement d'un membre a sa propre ligne (pleine largeur,
    sous la ligne nom+caractéristiques) plutôt que d'être coincé dans la
    cellule Nom — sans quoi un inventaire un peu long pousse les colonnes de

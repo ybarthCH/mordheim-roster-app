@@ -7,6 +7,7 @@ import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { getCatalogue } from '../../data/warbands';
 import { resolveProfil } from '../../utils/profil';
+import { pvRestant } from '../../utils/stats';
 import { choixLeaderRequis, succederApresMorts } from '../../utils/leader';
 import { validerComposition, validerEffectif } from '../../utils/validation';
 import { exporterRoster, partageDisponible, partagerRoster } from '../../utils/importExport';
@@ -273,6 +274,31 @@ export function RosterScreen({
     });
   };
 
+  // Cycle tactile sur la case PV du tableau/roster compact : décrémente d'un
+  // point à chaque tap, puis reboucle à pleine santé une fois à 0 (voir
+  // utils/stats.ts pvRestant/pvAffiche). Bascule automatiquement le statut
+  // aux deux extrémités du cycle (Hors de combat à 0, Actif au retour à
+  // pleine santé) sans jamais écraser un statut Mort ou Blessé au passage —
+  // seuls ces deux franchissements ont un sens de statut non ambigu, les
+  // valeurs intermédiaires (touché mais pas à terre) ne changent rien au
+  // statut.
+  const basculerPointsDeVie = (m: Member) => {
+    const max = m.stats_actuels.PV;
+    const restantActuel = pvRestant(m);
+    const restantNouveau = restantActuel > 0 ? restantActuel - 1 : max;
+    const perdusNouveau = max - restantNouveau;
+    let statutNouveau = m.statut;
+    if (restantNouveau === 0) statutNouveau = 'hors_de_combat';
+    else if (restantNouveau === max && m.statut === 'hors_de_combat') statutNouveau = 'actif';
+    patch({
+      membres: roster.membres.map((x) =>
+        x.instance_id === m.instance_id
+          ? { ...x, pv_perdus: perdusNouveau || undefined, statut: statutNouveau }
+          : x
+      ),
+    });
+  };
+
   // Réordonne une section (Héros / Hommes de main) par glisser-déposer : les
   // autres membres du roster gardent leur position, seul le contenu des
   // emplacements de cette section est réarrangé selon `nouvelOrdre`.
@@ -500,6 +526,7 @@ export function RosterScreen({
             rules={rules}
             onReordonner={reordonnerSection}
             onBasculerHorsCombat={basculerHorsCombat}
+            onBasculerPointsDeVie={basculerPointsDeVie}
             onSupprimer={setMembreASupprimer}
             selectedInstanceId={selectedInstanceId}
             onBasculerVueRapide={toggleVueCondensee}
@@ -514,6 +541,7 @@ export function RosterScreen({
             rules={rules}
             onReordonner={reordonnerSection}
             onBasculerHorsCombat={basculerHorsCombat}
+            onBasculerPointsDeVie={basculerPointsDeVie}
             onSupprimer={setMembreASupprimer}
             selectedInstanceId={selectedInstanceId}
             onBasculerVueRapide={toggleVueCondensee}
@@ -529,6 +557,7 @@ export function RosterScreen({
               rules={rules}
               onReordonner={reordonnerSection}
               onBasculerHorsCombat={basculerHorsCombat}
+              onBasculerPointsDeVie={basculerPointsDeVie}
               onSupprimer={setMembreASupprimer}
               onBasculerVueRapide={toggleVueCondensee}
             />
@@ -544,6 +573,7 @@ export function RosterScreen({
               rules={rules}
               onReordonner={reordonnerSection}
               onBasculerHorsCombat={basculerHorsCombat}
+              onBasculerPointsDeVie={basculerPointsDeVie}
               onSupprimer={setMembreASupprimer}
               masquerProfil
               onBasculerVueRapide={toggleVueCondensee}
@@ -562,6 +592,7 @@ export function RosterScreen({
           rules={rules}
           onReordonner={reordonnerSection}
           onBasculerHorsCombat={basculerHorsCombat}
+          onBasculerPointsDeVie={basculerPointsDeVie}
           onSupprimer={setMembreASupprimer}
           selectedInstanceId={selectedInstanceId}
         />

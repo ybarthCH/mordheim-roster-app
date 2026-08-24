@@ -19,7 +19,7 @@ import { useLanguage } from '../../state/useLanguage';
 import type { Language } from '../../state/useLanguage';
 import { getItem } from '../../data/items';
 import { translateItem } from '../../i18n/data/items';
-import { libelleCaracteristique } from '../../utils/stats';
+import { libelleCaracteristique, pvAffiche, pvEstCliquable } from '../../utils/stats';
 import { sauvegardeArmureMembre } from '../../utils/armure';
 import type { GameRules } from '../../types/rules';
 
@@ -114,6 +114,7 @@ type MemberRowCompactProps = {
   leader: boolean;
   avanceEnAttente: boolean;
   sv: number | null;
+  pvCliquable: boolean;
   fantome: boolean;
   selectionne: boolean;
   masquerProfil?: boolean;
@@ -123,8 +124,10 @@ type MemberRowCompactProps = {
   onSelect: () => void;
   onSupprimer: () => void;
   onBasculerHorsCombat: () => void;
+  onBasculerPointsDeVie: () => void;
   onDragPointerDown: (e: ReactPointerEvent) => void;
   titreHorsCombatTexte: string;
+  titrePointsDeVieTexte: string;
 };
 
 // Ligne compacte téléphone (3 lignes : nom/profil + statut/suppression,
@@ -143,6 +146,7 @@ function MemberRowCompact({
   leader,
   avanceEnAttente,
   sv,
+  pvCliquable,
   fantome,
   selectionne,
   masquerProfil,
@@ -152,8 +156,10 @@ function MemberRowCompact({
   onSelect,
   onSupprimer,
   onBasculerHorsCombat,
+  onBasculerPointsDeVie,
   onDragPointerDown,
   titreHorsCombatTexte,
+  titrePointsDeVieTexte,
 }: MemberRowCompactProps) {
   return (
     <div
@@ -210,11 +216,28 @@ function MemberRowCompact({
           </div>
         ))}
         {sv !== null && <div className="stat-grid__cell stat-grid__cell--label">Sv</div>}
-        {STAT_KEYS.map((k) => (
-          <div key={`val-${k}`} className="stat-grid__cell stat-grid__cell--value">
-            {m.stats_variables?.[k] ?? m.stats_actuels[k]}
-          </div>
-        ))}
+        {STAT_KEYS.map((k) => {
+          if (k === 'PV' && pvCliquable) {
+            return (
+              <div
+                key={`val-${k}`}
+                className="stat-grid__cell stat-grid__cell--value stat-grid__cell--pv-cliquable"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onBasculerPointsDeVie();
+                }}
+                title={titrePointsDeVieTexte}
+              >
+                {pvAffiche(m)}
+              </div>
+            );
+          }
+          return (
+            <div key={`val-${k}`} className="stat-grid__cell stat-grid__cell--value">
+              {k === 'PV' ? pvAffiche(m) : (m.stats_variables?.[k] ?? m.stats_actuels[k])}
+            </div>
+          );
+        })}
         {sv !== null && <div className="stat-grid__cell stat-grid__cell--value">{sv}+</div>}
       </div>
       <div className="roster-compact-row__synopsis">
@@ -252,6 +275,7 @@ type MemberGroupCardProps = {
   rules: GameRules;
   onReordonner: (nouvelOrdre: Member[]) => void;
   onBasculerHorsCombat: (m: Member) => void;
+  onBasculerPointsDeVie: (m: Member) => void;
   onSupprimer: (m: Member) => void;
   // Masque la colonne "Profil" : superflue quand le nom du membre est
   // toujours identique à celui de son profil (ex : Dramatis Personae, jamais
@@ -276,6 +300,7 @@ export function MemberGroupCard({
   rules,
   onReordonner,
   onBasculerHorsCombat,
+  onBasculerPointsDeVie,
   onSupprimer,
   masquerProfil,
   selectedInstanceId,
@@ -336,6 +361,8 @@ export function MemberGroupCard({
     groupeSimplifie
       ? t('memberGroup.hcMarkTitle', { hc: m.hors_combat, taille: m.taille_groupe })
       : t('memberGroup.hcToggleTitle');
+
+  const titrePointsDeVie = (m: Member) => t('memberGroup.pvToggleTitle', { pv: pvAffiche(m) });
 
   // Calculs dérivés par membre (profil, équipement, statut...) partagés
   // entre le tableau desktop et les cartes mobiles ci-dessous : sans cette
@@ -474,9 +501,20 @@ export function MemberGroupCard({
                       {m.stats_variables?.F ?? m.stats_actuels.F}
                     </td>
                     <td className="roster-table__stat roster-table__col-E">{m.stats_variables?.E ?? m.stats_actuels.E}</td>
-                    <td className="roster-table__stat roster-table__stat--band roster-table__col-PV">
-                      {m.stats_variables?.PV ?? m.stats_actuels.PV}
-                    </td>
+                    {pvEstCliquable(m, groupeSimplifie) ? (
+                      <td
+                        className="roster-table__stat roster-table__stat--band roster-table__col-PV roster-table__col-PV--cliquable"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onBasculerPointsDeVie(m);
+                        }}
+                        title={titrePointsDeVie(m)}
+                      >
+                        {pvAffiche(m)}
+                      </td>
+                    ) : (
+                      <td className="roster-table__stat roster-table__stat--band roster-table__col-PV">{pvAffiche(m)}</td>
+                    )}
                     <td className="roster-table__stat roster-table__col-I">{m.stats_variables?.I ?? m.stats_actuels.I}</td>
                     <td className="roster-table__stat roster-table__stat--band roster-table__col-A">
                       {m.stats_variables?.A ?? m.stats_actuels.A}
@@ -562,6 +600,7 @@ export function MemberGroupCard({
             leader={leader}
             avanceEnAttente={avanceEnAttente}
             sv={sv}
+            pvCliquable={pvEstCliquable(m, groupeSimplifie)}
             fantome={idEnCours === m.instance_id}
             selectionne={m.instance_id === selectedInstanceId}
             masquerProfil={masquerProfil}
@@ -574,8 +613,10 @@ export function MemberGroupCard({
             }}
             onSupprimer={() => onSupprimer(m)}
             onBasculerHorsCombat={() => onBasculerHorsCombat(m)}
+            onBasculerPointsDeVie={() => onBasculerPointsDeVie(m)}
             onDragPointerDown={demarrerDragDiffere(m.instance_id)}
             titreHorsCombatTexte={titreHorsCombat(m, groupeSimplifie)}
+            titrePointsDeVieTexte={titrePointsDeVie(m)}
           />
         ))}
       </div>

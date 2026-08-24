@@ -59,6 +59,7 @@ function normaliserMembre(membre: Partial<Member>): Member {
     acces_competences_override: membre.acces_competences_override,
     taille_groupe: membre.taille_groupe ?? 1,
     hors_combat: membre.hors_combat ?? 0,
+    pv_perdus: membre.pv_perdus,
     cout_recrutement: membre.cout_recrutement,
   };
 }

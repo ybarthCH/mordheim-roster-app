@@ -184,6 +184,10 @@ export const rosterScreen: UiDictionary = {
   'memberGroup.dragHandle': { fr: 'Glisser pour réordonner', en: 'Drag to reorder' },
   'memberGroup.hcMarkTitle': { fr: 'Marquer une figurine Hors de combat ({hc}/{taille})', en: 'Mark one model Out of Action ({hc}/{taille})' },
   'memberGroup.hcToggleTitle': { fr: 'Basculer Hors de combat', en: 'Toggle Out of Action' },
+  'memberGroup.pvToggleTitle': {
+    fr: 'Points de vie : {pv} — cliquer pour décompter, revient à plein au bout du cycle',
+    en: 'Wounds: {pv} — click to count down, wraps back to full',
+  },
   'memberGroup.deadStatusHint': { fr: 'Modifiable depuis la fiche du personnage', en: 'Change this from the character sheet' },
   'memberGroup.hc': { fr: 'HC', en: 'OOA' },
   // Libellés abrégés affichés dans le switch de statut de la liste roster
