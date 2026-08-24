@@ -765,7 +765,7 @@ export function PostBatailleScreen() {
         if (d.survecu === 'non') {
           membre = { ...membre, statut: 'mort', date_mort: date };
         } else if (estAnimal) {
-          membre = { ...membre, statut: 'actif' };
+          membre = { ...membre, statut: 'actif', pv_perdus: undefined };
         } else {
           const gagneXp = profilFrancTireur?.gagne_experience !== false && peutGagnerExperience(profil);
           let xp = gagneXp ? d.xp : m.xp;
@@ -773,7 +773,7 @@ export function PostBatailleScreen() {
           membre =
             membre.statut === 'blesse'
               ? { ...membre, xp }
-              : { ...membre, statut: 'actif', xp };
+              : { ...membre, statut: 'actif', pv_perdus: undefined, xp };
         }
         if (decision === 'impaye') membre = { ...membre, franc_tireur_impaye: true };
         return membre;
@@ -821,7 +821,7 @@ export function PostBatailleScreen() {
         const retabli = m.blesse_tour_total > 0 && tourActuel >= m.blesse_tour_total;
         blessesAuCamp.push({ nom: nomAffiche(m), retabli });
         membre = retabli
-          ? { ...membre, statut: 'actif', blesse_tour_actuel: 0, blesse_tour_total: 0 }
+          ? { ...membre, statut: 'actif', pv_perdus: undefined, blesse_tour_actuel: 0, blesse_tour_total: 0 }
           : { ...membre, blesse_tour_actuel: tourActuel };
         return membre;
       }

@@ -26,6 +26,7 @@ import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
 import { MagieReference } from '../common/CatalogueReference';
 import { avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
+import { pvPerdusPourStatut } from '../../utils/stats';
 import { ratingAfficheMembre } from '../../utils/displayedRating';
 import { formatPowerValueTooltip, powerValueDetailMembre } from '../../utils/powerValue';
 import { succederApresMorts } from '../../utils/leader';
@@ -258,7 +259,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
     } else if (s === 'blesse') {
       majMembre({ statut: s, date_mort: undefined, blesse_tour_actuel: 0, blesse_tour_total: toursBlesse ?? 0 });
     } else {
-      majMembre({ statut: s, date_mort: undefined });
+      majMembre({ statut: s, date_mort: undefined, pv_perdus: pvPerdusPourStatut(membre, s) });
     }
   };
 

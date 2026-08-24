@@ -7,7 +7,7 @@ import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { getCatalogue } from '../../data/warbands';
 import { resolveProfil } from '../../utils/profil';
-import { pvRestant } from '../../utils/stats';
+import { pvPerdusPourStatut, pvRestant } from '../../utils/stats';
 import { choixLeaderRequis, succederApresMorts } from '../../utils/leader';
 import { validerComposition, validerEffectif } from '../../utils/validation';
 import { exporterRoster, partageDisponible, partagerRoster } from '../../utils/importExport';
@@ -269,7 +269,9 @@ export function RosterScreen({
     const nouveauStatut = m.statut === 'hors_de_combat' ? 'actif' : 'hors_de_combat';
     patch({
       membres: roster.membres.map((x) =>
-        x.instance_id === m.instance_id ? { ...x, statut: nouveauStatut, date_mort: undefined } : x
+        x.instance_id === m.instance_id
+          ? { ...x, statut: nouveauStatut, date_mort: undefined, pv_perdus: pvPerdusPourStatut(x, nouveauStatut) }
+          : x
       ),
     });
   };
@@ -288,7 +290,7 @@ export function RosterScreen({
     const restantNouveau = restantActuel > 0 ? restantActuel - 1 : max;
     const perdusNouveau = max - restantNouveau;
     let statutNouveau = m.statut;
-    if (restantNouveau === 0) statutNouveau = 'hors_de_combat';
+    if (restantNouveau === 0 && m.statut !== 'blesse') statutNouveau = 'hors_de_combat';
     else if (restantNouveau === max && m.statut === 'hors_de_combat') statutNouveau = 'actif';
     patch({
       membres: roster.membres.map((x) =>
