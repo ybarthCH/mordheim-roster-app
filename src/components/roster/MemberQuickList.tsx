@@ -12,7 +12,7 @@ import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { STAT_KEYS } from '../../types/catalog';
 import { getFrancTireur } from '../../data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
-import { libelleCaracteristique } from '../../utils/stats';
+import { libelleCaracteristique, pvAffiche } from '../../utils/stats';
 import { sauvegardeArmureMembre } from '../../utils/armure';
 import type { GameRules } from '../../types/rules';
 
@@ -109,7 +109,7 @@ export function MemberQuickList({
         {vues.map(({ m, profil, leader }) => {
           const avanceEnAttente = estAvanceEnAttente(profil, m);
           const statsTexte = STAT_KEYS.map(
-            (k) => `${libelleCaracteristique(k, language)}${m.stats_variables?.[k] ?? m.stats_actuels[k]}`
+            (k) => `${libelleCaracteristique(k, language)}${k === 'PV' ? pvAffiche(m) : (m.stats_variables?.[k] ?? m.stats_actuels[k])}`
           ).join(' ');
           const sv = sauvegardeArmureMembre(m.inventaire, rules.armuresLozheim);
           return (

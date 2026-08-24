@@ -213,6 +213,14 @@ export type Member = {
   // taille_groupe), en attente de résolution à l'assistant post-bataille.
   // Sans objet pour taille_groupe = 1 : le statut "Hors de combat" suffit.
   hors_combat: number;
+  // Points de vie perdus depuis la dernière fois où la figurine était à
+  // pleine santé (voir utils/stats.ts, pvRestant/pvAffiche) — alimenté par le
+  // cycle tactile sur la case PV du tableau/roster compact (tableau
+  // desktop et ligne compacte de MemberGroupCard). Absent ou 0 = pleine
+  // santé. Sans objet pour un groupe simplifié (taille_groupe > 1, hommes de
+  // main/animaux non promus) : ces entrées représentent plusieurs figurines
+  // identiques, déjà suivies via hors_combat ci-dessus.
+  pv_perdus?: number;
   // Coût de recrutement réellement payé PAR FIGURINE (même convention que
   // Profile.cout), utilisé par le calcul de Power Value (voir
   // utils/powerValue.ts). Renseigné uniquement quand le profil n'a pas de
