@@ -34,6 +34,85 @@ const changelogEn: Record<string, string[]> = {
     'Fixed the Gromril armour price (150 gc instead of 200) and several inconsistencies in the Sylvaneths warband.',
     'Re-audited multi-result exploration events (quadruple, quintuple, sextuple): several missing cases added.',
   ],
+  '2026-08-20': [
+    'Repositioned the delete X and drag handle on member cards, moved the pending-advance badge onto the status row.',
+    'Merged the LEADER badge with the status row when it no longer fits next to the name.',
+    'The post-battle wizard\'s "Skip all" button now stays visible (disabled) instead of disappearing, avoiding a layout jump.',
+  ],
+  '2026-08-19': [
+    'Added tribe-specific skill access, applied to the Tilean city-states.',
+    'Repositioned the drag handle and delete X on mobile member cards, status moved onto its own row.',
+    'Added an explicit "Save and go back" button at the bottom of Settings.',
+    'Fixed numerous English translation errors found by a systematic audit across every warband (names, skills, special rules).',
+    'Fixed a lost-update bug from quick successive actions on the roster, state leaks in split view, and buggy numeric input fields.',
+  ],
+  '2026-08-18': [
+    'Equipment shopping now happens directly in the recruitment window instead of a second screen, with a cart to buy several items at once; added equipment choices for 7 Hired Swords.',
+    'Added the English translation for the Sylvaneth warband.',
+    'Quiet auto-reload on a stale-deploy error instead of a scary error screen.',
+    'Fixed several equipment bugs (Averland, Cult of the Possessed, Kislevites, Skaven, Orc Mob, Undead, Beastmen).',
+    "Fixed the avatar not filling its frame in both themes.",
+  ],
+  '2026-08-17': [
+    "Unified the remaining red action buttons, moved starting XP into the recruit modal's title.",
+    'Fixed French text leaking into the exploration journal in English mode.',
+  ],
+  '2026-08-16': [
+    'Added banner illustrations for every warband.',
+    'Restyled the shop and post-battle wizard to match the rest of the app (painted buttons, ribbon badges).',
+    'On touch devices, dragging a warband card now only starts from a dedicated handle.',
+  ],
+  '2026-08-15': [
+    "Each warband's banner now fills the card background on the selection screen.",
+    'Warband cards can be reordered by drag-and-drop.',
+    'Fixed the banner crop ballooning into a near-square shape on wide screens.',
+  ],
+  '2026-08-14': [
+    'Header actions (settings, theme...) are now grouped into a single painted-stone dropdown menu instead of a row of separate buttons.',
+    "Replaced the home screen's text title with the framed Musterheim banner.",
+    'Fixed split-view responsive bugs, overly long character names, and dark-theme header contrast.',
+  ],
+  '2026-08-13': [
+    'The equipment shop is now full-screen on desktop, with the same painted stone styling as the rest of the app.',
+    'Fixed: only the true leader profile gets permanently banned on death; added a way to manually lift that ban from the roster.',
+  ],
+  '2026-08-11': [
+    'Fixed missing warbands in the eligibility list and improved local-storage error handling.',
+    'Fixed several accessibility and performance issues found in audit.',
+  ],
+  '2026-08-10': [
+    'Shortened the Two-Handed Weapon item name.',
+  ],
+  '2026-08-09': [
+    'The Active/Out of Action status control is now a forged-iron plaque instead of a plain switch.',
+  ],
+  '2026-08-08': [
+    'Added Power Value V2 (Rout Value, permanent injuries, Dramatis Personae).',
+    'Redesigned summary tiles (tinted watermark icons behind the text).',
+    "The dense stat table is now shown in split view's list pane too, not just on cards.",
+    'Fixed the cursor jumping while editing a name, a modal hidden behind split view, and stat alignment in the roster table.',
+    'Fixed free exploration items being stored at 0 gc.',
+  ],
+  '2026-08-07': [
+    'Added a Graveyard section for dead models.',
+    'Added Power Value as an alternative warband rating.',
+    'Fixed rules issues found in an FAQ audit (shop, post-battle advances, wizard-exit safety).',
+    'Fixed the .txt import filter, added a Power Value breakdown tooltip.',
+    'Fixed French text leaking into English mode.',
+  ],
+  '2026-08-06': [
+    'Added Braces of Pistols.',
+    'Redesigned the roster list and action bar, redesigned the Dead status display.',
+    'Redesigned the warband summary tiles (Members/Rating/Treasury/Wyrdstone).',
+    'Identical henchmen in the same group now share a single equipment line instead of repeating it.',
+    'Fixed: the photo (and two other fields) was wiped on every roster reload.',
+  ],
+  '2026-08-05': [
+    'Added member photos, with direct in-app photo capture and cropping.',
+    'New art direction: Caslon Antique headings, discreet section eyebrows, unified toolbar icons.',
+    'Redesigned the Active/Out of Action status control into a real toggle switch.',
+    'Fixed stat visibility and table width issues in split view.',
+  ],
 };
 
 export function translateChangelog(entries: ChangelogEntry[], language: Language): ChangelogEntry[] {
