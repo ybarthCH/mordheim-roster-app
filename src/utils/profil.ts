@@ -58,16 +58,27 @@ export function resolveProfil(
   const catalogueComplet = catalogue ?? getCatalogue(roster.bande_id);
   const accesTribu = accesCompetencesPourTribu(catalogueComplet, roster, membre.profil_id);
 
-  if (membre.promu_heros) {
-    return {
-      ...base,
-      type: 'heros',
-      acces_competences: membre.acces_competences_override ?? accesTribu ?? base.acces_competences,
-      acces_competences_a_verifier: false,
-    };
-  }
+  const resultat: Profile = membre.promu_heros
+    ? {
+        ...base,
+        type: 'heros',
+        acces_competences: membre.acces_competences_override ?? accesTribu ?? base.acces_competences,
+        acces_competences_a_verifier: false,
+      }
+    : accesTribu
+    ? { ...base, acces_competences: accesTribu }
+    : base;
 
-  return accesTribu ? { ...base, acces_competences: accesTribu } : base;
+  // Upgrade payant "Option Sorcier" pris par ce membre (voir
+  // Profile.option_sorcier, Member.option_sorcier_pris) : superpose l'accès
+  // à la Magie mineure sur le profil de base, une fois le prix payé — le
+  // champ option_sorcier lui-même reste dans le profil retourné (pas
+  // supprimé) pour que l'UI sache encore qu'un upgrade existe pour ce
+  // profil, même après l'avoir pris.
+  if (membre.option_sorcier_pris && resultat.option_sorcier) {
+    return { ...resultat, peut_lancer_sorts: true, categorie_magie: 'magie_mineure' };
+  }
+  return resultat;
 }
 
 export function grilleXpDuProfil(profil: Profile): 'heros' | 'homme_de_main' {

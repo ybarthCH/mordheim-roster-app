@@ -29,6 +29,7 @@ import { skillCategories } from './skillCategories';
 import { statFullNames } from './statFullNames';
 import { photo } from './photo';
 import { changelogScreen } from './changelogScreen';
+import { optionSorcierModal } from './optionSorcierModal';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -64,4 +65,5 @@ export const uiDictionary: UiDictionary = {
   ...statFullNames,
   ...photo,
   ...changelogScreen,
+  ...optionSorcierModal,
 };

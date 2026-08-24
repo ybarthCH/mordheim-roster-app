@@ -164,6 +164,13 @@ export type Member = {
   // recrutement d'un profil sorcier, les suivants via une avancée "nouvelle
   // compétence" (voir utils/magie.ts et AvanceeModal).
   sorts_connus: string[];
+  // Vrai si ce membre a pris l'upgrade payant "Option Sorcier" de son profil
+  // (voir Profile.option_sorcier) — accordé au recrutement ou plus tard en
+  // campagne, contre paiement depuis la trésorerie de la bande (voir
+  // OptionSorcierModal). Une fois vrai, resolveProfil superpose
+  // peut_lancer_sorts + categorie_magie:'magie_mineure' sur le profil de
+  // base, comme n'importe quel sorcier.
+  option_sorcier_pris?: boolean;
   // Marque choisie au recrutement pour les profils à `marque_requise` (ex :
   // le Devin des Maraudeurs du Chaos) — référence vers Marque.id, détermine
   // le domaine de sorts utilisé (voir utils/magie.ts). Fixée une fois pour

@@ -41,6 +41,7 @@ function normaliserMembre(membre: Partial<Member>): Member {
     competences_acquises: membre.competences_acquises ?? [],
     monture_equitation: membre.monture_equitation,
     sorts_connus: dejaMigreVersNotes ? (membre.sorts_connus ?? []) : [],
+    option_sorcier_pris: membre.option_sorcier_pris,
     marque: membre.marque,
     regles_speciales_notes: dejaMigreVersNotes ? membre.regles_speciales_notes! : (membre.sorts_connus ?? []),
     statut: (membre.statut as Statut | undefined) ?? 'actif',

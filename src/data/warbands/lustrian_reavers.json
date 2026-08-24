@@ -104,7 +104,8 @@
       ],
       "acces_competences": ["tir", "academique", "vitesse"],
       "acces_equipement": ["heros"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "option_sorcier": { "cout": 30 }
     },
     {
       "id": "trap_master",
