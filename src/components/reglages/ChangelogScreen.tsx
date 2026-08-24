@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Screen } from '../common/Screen';
 import { useLanguage } from '../../state/useLanguage';
 import { CHANGELOG } from '../../data/changelog';
@@ -40,14 +41,20 @@ export function ChangelogScreen() {
             const points = entree.points.filter((p) => p.categorie === categorie);
             if (points.length === 0) return null;
             return (
-              <div key={categorie}>
+              // Fragment (pas de <div>) : .resume-section__title compte sur
+              // :first-child pour n'aplatir sa marge du haut que sur le tout
+              // premier titre de la carte (voir ResumeCard, même règle CSS) —
+              // un wrapper par catégorie casserait cette cascade en donnant
+              // à CHAQUE titre son propre parent, l'aplatissant à chaque
+              // fois au lieu de garder l'espacement régulier entre sections.
+              <Fragment key={categorie}>
                 <span className="resume-section__title">{t(`changelog.category.${categorie}`)}</span>
                 <ul style={{ marginBottom: 0 }}>
                   {points.map((point, i) => (
                     <li key={i}>{point.texte}</li>
                   ))}
                 </ul>
-              </div>
+              </Fragment>
             );
           })}
         </div>
