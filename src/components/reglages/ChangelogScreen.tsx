@@ -1,6 +1,7 @@
 import { Screen } from '../common/Screen';
 import { useLanguage } from '../../state/useLanguage';
 import { CHANGELOG } from '../../data/changelog';
+import type { ChangelogCategorie } from '../../data/changelog';
 import { translateChangelog } from '../../i18n/data/changelog';
 
 // new Date('AAAA-MM-JJ') parse en UTC minuit : dans un fuseau à décalage
@@ -14,6 +15,12 @@ function formatDate(iso: string, locale: string): string {
     year: 'numeric',
   });
 }
+
+// Ordre d'affichage des catégories au sein d'une même journée : les
+// nouveautés d'abord (ce qui intéresse le plus le joueur), puis l'interface,
+// puis le reste (corrections diverses) — voir data/changelog.ts pour la
+// définition des catégories.
+const ORDRE_CATEGORIES: ChangelogCategorie[] = ['fonctionnalite', 'interface', 'autre'];
 
 export function ChangelogScreen() {
   const { t, language } = useLanguage();
@@ -29,11 +36,20 @@ export function ChangelogScreen() {
       {entries.map((entree) => (
         <div className="card" key={entree.date}>
           <h3 className="mt-0">{formatDate(entree.date, locale)}</h3>
-          <ul style={{ marginBottom: 0 }}>
-            {entree.points.map((point, i) => (
-              <li key={i}>{point}</li>
-            ))}
-          </ul>
+          {ORDRE_CATEGORIES.map((categorie) => {
+            const points = entree.points.filter((p) => p.categorie === categorie);
+            if (points.length === 0) return null;
+            return (
+              <div key={categorie}>
+                <span className="resume-section__title">{t(`changelog.category.${categorie}`)}</span>
+                <ul style={{ marginBottom: 0 }}>
+                  {points.map((point, i) => (
+                    <li key={i}>{point.texte}</li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       ))}
     </Screen>

@@ -13,4 +13,7 @@ export const changelogScreen: UiDictionary = {
     fr: "Historique des mises à jour de l'application, les plus récentes en premier.",
     en: 'History of app updates, most recent first.',
   },
+  'changelog.category.fonctionnalite': { fr: 'Nouveautés', en: 'New features' },
+  'changelog.category.interface': { fr: 'Interface', en: 'Interface' },
+  'changelog.category.autre': { fr: 'Corrections et autres', en: 'Fixes & other changes' },
 };
