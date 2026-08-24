@@ -26,6 +26,9 @@ const PostBatailleScreen = lazy(() =>
 const ReglagesScreen = lazy(() =>
   import('./components/reglages/ReglagesScreen').then((m) => ({ default: m.ReglagesScreen }))
 );
+const ChangelogScreen = lazy(() =>
+  import('./components/reglages/ChangelogScreen').then((m) => ({ default: m.ChangelogScreen }))
+);
 
 function App() {
   return (
@@ -53,6 +56,7 @@ function App() {
                           du segment optionnel personnage/:instanceId. */}
                       <Route path="/roster/:id/*" element={<RosterRoute />} />
                       <Route path="/reglages" element={<ReglagesScreen />} />
+                      <Route path="/notes-de-mise-a-jour" element={<ChangelogScreen />} />
                     </Routes>
                   </Suspense>
                 </ErrorBoundary>

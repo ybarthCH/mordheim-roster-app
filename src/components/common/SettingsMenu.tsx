@@ -65,6 +65,16 @@ export function SettingsMenu({ extraItems = [] }: Props) {
             onClick: () => navigate('/reglages'),
           },
         ]),
+    ...(location.pathname === '/notes-de-mise-a-jour'
+      ? []
+      : [
+          {
+            key: 'changelog',
+            icon: 'parchemin' as const,
+            label: t('changelog.menuLabel'),
+            onClick: () => navigate('/notes-de-mise-a-jour'),
+          },
+        ]),
     {
       key: 'theme',
       icon: toDark ? ('lune' as const) : ('soleil' as const),
