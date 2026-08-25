@@ -211,14 +211,32 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   // en un seul patch, pour ne jamais laisser l'un des deux appliqué sans
   // l'autre.
   const prendreOptionSorcier = (sortId: string) => {
-    const cout = profil.option_sorcier?.cout;
-    if (cout === undefined) return;
+    const optionSorcier = profil.option_sorcier;
+    if (!optionSorcier) return;
     patchRoster(roster.id, (current) => {
-      if (current.tresorerie < cout) return current;
+      if (current.tresorerie < optionSorcier.cout) return current;
+      const membreCourant = current.membres.find((m) => m.instance_id === membre.instance_id) ?? membre;
+      // Équipement de départ devenu incompatible (ex : Armure légère pour
+      // l'Ombre de la Jungle) : envoyé à l'armurerie de la bande plutôt que
+      // perdu, s'il a effectivement été ajouté à l'inventaire (silencieusement
+      // ignoré sinon — équipement encore purement narratif pour la plupart
+      // des héros, voir Profile.option_sorcier).
+      const aRetirer = membreCourant.inventaire.filter((e) => optionSorcier.equipement_retire?.includes(e.item_id));
+      let apresTransfert = current;
+      for (const entree of aRetirer) {
+        apresTransfert = transfererVersStock(apresTransfert, membreCourant, entree.instance_id);
+      }
+      // Recale aussi la textbox "Équipement" (résumé texte utilisé par le
+      // post-bataille et l'export PDF) sur l'inventaire structuré après
+      // transfert — sinon elle continue d'afficher l'armure retirée.
+      if (aRetirer.length > 0) {
+        const inventaireFinal = apresTransfert.membres.find((m) => m.instance_id === membre.instance_id)?.inventaire ?? [];
+        apresTransfert = avecEquipementSynchronise(apresTransfert, inventaireFinal);
+      }
       return {
-        ...current,
-        tresorerie: current.tresorerie - cout,
-        membres: current.membres.map((m) =>
+        ...apresTransfert,
+        tresorerie: apresTransfert.tresorerie - optionSorcier.cout,
+        membres: apresTransfert.membres.map((m) =>
           m.instance_id === membre.instance_id
             ? { ...m, option_sorcier_pris: true, sorts_connus: [...m.sorts_connus, sortId] }
             : m
