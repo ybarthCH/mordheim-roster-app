@@ -1204,7 +1204,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Horned Hunters (1b)',
     regles_speciales: [
       {
-        nom: 'Woodsmen',
+        nom: 'Woodcraft',
         texte: 'Horned Hunters warbands suffer no Movement penalty in difficult terrain.',
       },
     ],
@@ -1257,12 +1257,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'The range of snares set by this Hero is increased to 4". Traps set by a Master Trapper trigger on a 2+ instead of a 3+.',
       },
       effluve_nauseabonde: {
-        nom: 'Noxious Reek',
+        nom: 'Foul Odour',
         texte:
           'All living enemies (except Undead and Possessed) suffer a -1 penalty to hit this Hero in hand-to-hand combat. In addition, he may carry no flame, and burning attacks that hit him gain a +1 Strength bonus.',
       },
       ami_des_betes: {
-        nom: 'Friend of Beasts',
+        nom: 'Animal Friendship',
         texte: "The Hero cannot be attacked by any animal, and up to two war dogs in his possession do not count towards the warband's maximum model count.",
       },
       infiltration: {
@@ -1271,11 +1271,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'The Hero is always placed on the battlefield after the opposing warband. He may be placed anywhere on the table as long as he is out of sight and more than 12" from any enemy fighter. If both players have infiltrating fighters, each rolls 1D6; the lower result deploys first.',
       },
       guide: {
-        nom: 'Guide',
-        texte: 'Roll 1 additional D6 during the Exploration phase. A warband may only have one Hero with the Guide skill.',
+        nom: 'Pathfinder',
+        texte: 'Roll 1 additional D6 during the Exploration phase. A warband may only have one Hero with the Pathfinder skill.',
       },
       cache_dans_les_ombres: {
-        nom: 'Hidden in the Shadows',
+        nom: 'Hide in Shadows',
         texte: 'Enemy fighters must halve their Initiative when trying to spot this Hero while he is hidden.',
       },
     },
@@ -1307,16 +1307,16 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           texte: "The priest calls down Taal's blessing on an allied fighter or himself within 6\". The target gains a +2 Strength bonus until the Priest's next turn.",
         },
         {
-          nom: 'Earth Tremor',
+          nom: 'Earthshudder',
           texte:
             'The prayer targets a building within 4". Any enemy fighter in contact with the building suffers a Strength 3 hit. In addition, the building collapses and all fighters inside it are treated as having fallen. Remove the targeted terrain piece from the table for the rest of the game.',
         },
         {
-          nom: 'Entanglement',
+          nom: 'Tanglefoot',
           texte: 'All fighters, enemy and allied alike (except Zealots), within 12" of the Priest have their Movement halved until the next Shooting phase.',
         },
         {
-          nom: 'Call of the Squirrels',
+          nom: 'Summon Squirrels',
           texte: 'The Priest calls upon the wrath of the Lord of Beasts. The target, an enemy within 12" of the Priest, suffers 2D6 Strength 1 hits, with no armour save.',
         },
       ],
