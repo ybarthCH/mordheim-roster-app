@@ -890,7 +890,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       heroines: {
-        armes_cac: ['first free', 'Club', undefined, undefined, 'Claw of the Ancients'],
+        armes_cac: ['first free', 'Club', undefined, undefined, 'Claw of the Old Ones'],
         armures: ['Helmet', undefined],
         divers: ['Amulet of the Moon', 'Medicinal Herbs'],
       },
