@@ -21,3 +21,10 @@ Ce projet dispose de trois sous-agents Claude Code spécialisés, définis dans 
 - `mordheim-rules-auditor` doit vérifier le résultat complet présent sur `dev`, tout en distinguant les problèmes introduits par le diff des problèmes déjà présents sur `main`.
 - `mordheim-qa-reviewer` et `mordheim-responsive-reviewer` doivent indiquer pour chaque problème : « introduit sur dev », « déjà présent sur main », ou « origine indéterminée ».
 - Aucun agent ne doit corriger directement `main` ou `dev`.
+
+## Notes de mise à jour
+
+- Chaque merge/push sur `main` doit s'accompagner d'une entrée dans `src/data/changelog.ts` (+ sa traduction anglaise dans `src/i18n/data/changelog.ts`), affichée dans l'app via Options → Notes de mise à jour (voir `ChangelogScreen.tsx`).
+- Une entrée par JOURNÉE de mise en production sur `main`, pas par push individuel : si une entrée existe déjà pour la date du jour, ajouter des puces dedans plutôt qu'en créer une nouvelle.
+- Chaque puce a une catégorie (`fonctionnalite` / `interface` / `autre`) et un texte pensé pour le joueur (ce qui change pour lui), pas un résumé technique des commits.
+- Ne jamais oublier cette étape avant de pousser sur `main` — elle fait partie intégrante du merge, pas une tâche à part.
