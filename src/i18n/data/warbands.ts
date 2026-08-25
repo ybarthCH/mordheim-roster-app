@@ -1975,17 +1975,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Hochland Bandits (1b)',
     regles_speciales: [
       {
-        nom: 'Powder Is Expensive!',
+        nom: "Powder's Expensive!",
         texte:
           'Bandits are often too poor to buy or maintain costly equipment such as black powder weapons. Only Heroes may buy them (black powder weapons available only via the Duelist equipment list); Henchmen may never buy them.',
       },
       {
-        nom: 'Penny-Pinchers',
+        nom: 'Foragers',
         texte:
           "Hochland Bandits know how to save their gold: when determining the warband's Income, shift the warband size one column to the left (a warband of 1 to 3 members always uses the first column). For reference only, not automated.",
       },
       {
-        nom: 'Fence',
+        nom: 'Know Who To Sell To',
         texte:
           "In addition to half the base price of the item, when a Hochland Bandit sells equipment, he also receives half of the variable part of the item's price. For reference only, not automated.",
       },
@@ -2015,12 +2015,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Duelist',
         regles_speciales: [
           {
-            nom: 'Master Swordsman',
+            nom: 'Swordmaster',
             texte:
               "If equipped with a weapon or piece of armour that grants a parry, the Duelist succeeds in parrying an enemy blow on a result equal to or higher than the opponent's to-hit roll, not only on a strictly higher result as with a normal parry.",
           },
           {
-            nom: 'Weapon Lore',
+            nom: 'Weapon Knowledge',
             texte:
               "The weapons on the Duelist's equipment list only represent those he can start with. A Duelist may use any hand-to-hand or missile weapon that warband members can find.",
           },
@@ -2030,12 +2030,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Huckster',
         regles_speciales: [
           {
-            nom: 'Persuasive Manner',
+            nom: 'Convincing Manner',
             texte:
               'When an enemy warrior attempts to charge a member of the Huckster\'s warband within 12" of him, the enemy must first pass a Leadership test, or the charge fails (as if he had failed to charge an enemy that causes Fear). Creatures subject to Stupidity and animals (as well as the Undead) are immune.',
           },
           {
-            nom: 'Shrewd Manager',
+            nom: 'Slick Operator',
             texte:
               'Between games, the player may call on the Huckster to swindle the local populace. Roll 1D6. On a 2-6, the scam succeeds and the warband gains 2D6 Gold Crowns. On a 1, the Huckster must flee: he misses the next game and does not take part in the Exploration phase. For reference only, not automated.',
           },
@@ -2070,7 +2070,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       racaille: {
         nom: 'Gutterscum',
         regles_speciales: [
-          { nom: 'Totally Unskilled', texte: 'Gutterscum never gain experience.' },
+          { nom: 'Utterly Inept', texte: 'Gutterscum never gain experience.' },
           { nom: 'Recruitment', texte: 'Bought in groups of 5.' },
         ],
       },
@@ -2079,24 +2079,24 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       banditisme: {
         nom: 'Banditry',
         texte:
-          "Instead of searching for Rare equipment, the Hero may engage in banditry. Roll 1D6. On a 2-6, the banditry succeeds and the Hero adds 1D6+1 Gold Crowns to the warband's pool. On a 1, roll on the Serious Injury table for the Hero, as if he had been taken Out of Action. Cannot be combined with Shrewd Manager.",
+          "Instead of searching for Rare equipment, the Hero may engage in banditry. Roll 1D6. On a 2-6, the banditry succeeds and the Hero adds 1D6+1 Gold Crowns to the warband's pool. On a 1, roll on the Serious Injury table for the Hero, as if he had been taken Out of Action. Cannot be combined with Slick Operator.",
       },
       cache_dans_lombre: {
-        nom: 'Hidden in the Shadows',
+        nom: 'Hide in Shadows',
         texte: 'An enemy warrior attempting to detect the hidden Hero must halve his Initiative (rounding up) before measuring the detection range.',
       },
       bond_arriere: {
-        nom: 'Backward Leap',
+        nom: 'Jump Back',
         texte:
           'If the warrior is engaged in hand-to-hand combat at the start of his Movement phase and is neither Knocked Down nor Stunned, he may attempt a leap to break off combat via an Initiative test. On a failure, he automatically strikes last this turn. On a success, he is moved 1" away from the enemy warrior and may act normally (and may even charge again).',
       },
       tir_silencieux: {
-        nom: 'Silent Shot',
+        nom: 'Sniper',
         texte:
           "If hidden, the Hero may shoot or cast spells while remaining hidden. If his target is not immediately taken Out of Action, it must make an Initiative test to spot him. Does not work with a black powder weapon.",
       },
       ventriloque: {
-        nom: 'Ventriloquist',
+        nom: 'Throw Voice',
         texte: 'If an enemy warrior attempts to detect the hidden Hero, roll 1D6. On a 4+, the Hero is not spotted and remains hidden.',
       },
     },
