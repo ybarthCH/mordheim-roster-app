@@ -140,6 +140,14 @@
         { "item_id": "epee", "cout": 10 },
         { "item_id": "lance", "cout": 10 },
         { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "fronde", "cout": 5 },
+        { "item_id": "arc", "cout": 10 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10, "note": "Heaume" },
+        { "item_id": "rondache", "cout": 5 }
       ]
     },
     "guerrieres_jaguar": {
@@ -163,11 +171,11 @@
     }
   },
   "equipement_special": [
-    { "item_id": "lame_des_etoiles", "cout": 15, "disponibilite": "Rare 7, Amazones uniquement" },
-    { "item_id": "epee_des_etoiles", "cout": 30, "disponibilite": "Rare 10, Amazones uniquement" },
-    { "item_id": "baton_solaire_lustrie", "cout": 35, "disponibilite": "Rare 10, Amazones uniquement" },
-    { "item_id": "peaux_enchantees", "cout": 20, "disponibilite": "Rare 6, Amazones uniquement" },
-    { "item_id": "amulette_lunaire", "cout": 50, "disponibilite": "Rare 11, Amazones uniquement" },
+    { "item_id": "lame_des_etoiles", "cout": 15, "disponibilite": "Rare 7, Amazones uniquement", "profils": ["pretresse_serpent", "guerriere_aigle", "guerriere_piranha"] },
+    { "item_id": "epee_des_etoiles", "cout": 30, "disponibilite": "Rare 10, Amazones uniquement", "profils": ["pretresse_serpent", "guerriere_aigle", "guerriere_piranha"] },
+    { "item_id": "baton_solaire_lustrie", "cout": 35, "disponibilite": "Rare 10, Amazones uniquement", "profils": ["pretresse_serpent", "guerriere_aigle", "guerriere_piranha"] },
+    { "item_id": "peaux_enchantees", "cout": 20, "disponibilite": "Rare 6, Amazones uniquement", "profils": ["pretresse_serpent", "guerriere_aigle", "guerriere_piranha"] },
+    { "item_id": "amulette_lunaire", "cout": 50, "disponibilite": "Rare 11, Amazones uniquement", "profils": ["pretresse_serpent", "guerriere_aigle", "guerriere_piranha"] },
     { "item_id": "conque_musicale", "cout": 25, "disponibilite": "Rare 8, Guerrières Piranha des Amazones uniquement", "profils": ["guerriere_piranha"] },
     { "item_id": "herbes_de_soin", "cout": 35, "disponibilite": "Commun pour les Amazones, Héros uniquement", "profils": ["pretresse_serpent", "guerriere_aigle", "guerriere_piranha"] }
   ],

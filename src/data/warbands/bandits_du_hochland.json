@@ -287,7 +287,7 @@
     }
   },
   "equipement_special": [
-    { "item_id": "main_gauche", "cout": 7, "disponibilite": "Rare 7, Bandits du Hochland uniquement" },
-    { "item_id": "rapiere", "cout": 15, "disponibilite": "Rare 5, Reiklanders, Marienburgers, Bandits du Hochland uniquement" }
+    { "item_id": "main_gauche", "cout": 7, "disponibilite": "Rare 7, Bandits du Hochland uniquement", "profils": ["ferrailleur"] },
+    { "item_id": "rapiere", "cout": 15, "disponibilite": "Rare 5, Reiklanders, Marienburgers, Bandits du Hochland uniquement", "profils": ["ferrailleur"] }
   ]
 }

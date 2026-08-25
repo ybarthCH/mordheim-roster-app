@@ -9,6 +9,7 @@ Ce projet dispose de trois sous-agents Claude Code spécialisés, définis dans 
 - Lors d'une revue générale, les agents pertinents peuvent travailler en parallèle, mais leurs rapports doivent être terminés et synthétisés avant toute correction.
 - Ne pas lancer les trois agents automatiquement pour une modification triviale — choisir le ou les agents pertinents pour le changement en cours.
 - Ne jamais demander à un sous-agent de créer lui-même d'autres agents.
+- Sources PDF de règles : le dépôt GitHub public `ybarthCH/Musterheim-pdf-warband-ref` (dossiers `FR/` et `ENG/`, FR incomplet) contient les PDF de bandes utilisés pour vérifier les règles — persiste d'une session à l'autre, contrairement aux uploads de session. `mordheim-rules-auditor` sait déjà le cloner lui-même (voir sa définition) ; Claude principal peut aussi le cloner directement (`git clone --depth 1 https://github.com/ybarthCH/Musterheim-pdf-warband-ref.git` vers un répertoire hors de l'arbre de travail, ex. `/tmp`) plutôt que de redemander un PDF déjà présent dedans.
 
 ## Politique des branches
 

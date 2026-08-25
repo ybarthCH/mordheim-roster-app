@@ -384,19 +384,19 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     ],
     profils: {
       gran_chef: {
-        nom: 'Big Boss',
+        nom: 'Chieftain',
         regles_speciales: [
-          { nom: 'Leader', texte: 'Any warband member within 6" of the Big Boss may use his Leadership for their tests.' },
+          { nom: 'Leader', texte: 'Any warband member within 6" of the Chieftain may use his Leadership for their tests.' },
           {
-            nom: 'Spider Rider',
-            texte: 'The Big Boss may ride Giant Spiders or the Gigantic Spider using the rules detailed in the Mounted Warriors article.',
+            nom: 'Ride Spiders',
+            texte: 'The Chieftain may ride Giant Spiders or the Gigantic Spider using the rules detailed in the Mounted Warriors article.',
           },
         ],
       },
       chaman: {
-        nom: 'Forest Goblin Shaman',
+        nom: 'Shaman',
         regles_speciales: [
-          { nom: 'Sorcerer', texte: 'The Shaman starts with a spell randomly drawn from the Goblin Magic spell list.' },
+          { nom: 'Wizard', texte: 'The Shaman starts with a spell randomly drawn from the Goblin Magic spell list.' },
         ],
       },
       brav: {
@@ -410,7 +410,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [{ nom: 'Animosity', texte: 'Forest Goblins are subject to the Animosity rules.' }],
       },
       gobelin_dent_rouj: {
-        nom: 'Redfang Goblin',
+        nom: 'Red Toof Goblin',
         regles_speciales: [
           {
             nom: 'Berserkers',
@@ -420,13 +420,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       lanceur: {
-        nom: 'Thrower',
+        nom: 'Slugga',
         regles_speciales: [
           {
-            nom: 'Throwers',
-            texte: 'During the Shooting phase, Throwers may throw missile weapons up to three times per turn. If a Thrower is promoted to Hero, this ability cannot be used together with Quick Shot.',
+            nom: 'Sluggas',
+            texte: 'During the Shooting phase, Sluggas may throw missile weapons up to three times per turn. If a Slugga is promoted to Hero, this ability cannot be used together with Quick Shot.',
           },
-          { nom: 'Animosity', texte: 'Throwers are subject to the Animosity rules.' },
+          { nom: 'Animosity', texte: 'Sluggas are subject to the Animosity rules.' },
         ],
       },
       araignee_gigantesque: {
@@ -434,18 +434,18 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Weapons/armour', texte: 'A Gigantic Spider needs no weapons or armour and uses none.' },
           { nom: 'Fear', texte: 'Gigantic Spiders cause Fear.' },
-          { nom: 'Huge Beast', texte: 'Gigantic Spiders are Large Targets as defined in the Shooting rules.' },
+          { nom: 'Large Monster', texte: 'Gigantic Spiders are Large Targets as defined in the Shooting rules.' },
           { nom: 'Native', texte: 'They move through any wooded terrain without any penalty.' },
           {
-            nom: 'Venomous',
+            nom: 'Poisonous',
             texte: 'When it causes a Wound, use the following table: 1 Knocked Down; 2-4 Stunned; 5-6 Out of Action.',
           },
           { nom: 'Natives', texte: 'No Movement penalty in wooded terrain.' },
           { nom: 'Non-sentient', texte: 'Subject to the Stupidity rules. Never gains experience. May climb normally.' },
           {
-            nom: 'Mount',
+            nom: 'May Ride',
             texte:
-              'The Forest Goblin Big Boss may ride it (see the Mounted Warriors article). If a shooting attack hits, roll 1D6: 1-2 the Big Boss is hit, 3-6 the Gigantic Spider is hit. In hand-to-hand combat, the opponent chooses his target. While ridden, it is not subject to Stupidity.',
+              'The Forest Goblin Chieftain may ride it (see the Mounted Warriors article). If a shooting attack hits, roll 1D6: 1-2 the Chieftain is hit, 3-6 the Gigantic Spider is hit. In hand-to-hand combat, the opponent chooses his target. While ridden, it is not subject to Stupidity.',
           },
         ],
       },
@@ -463,17 +463,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       type: 'sorcery',
       sorts: [
         {
-          nom: "Gork's Wind",
+          nom: 'Wind of Gork',
           texte: 'Range 12"; the first model hit must pass a Toughness test or suffer a Strength 2 hit and be automatically Knocked Down.',
         },
-        { nom: "Mork's Gaze", texte: 'Range 12"; D3 Strength 3 hits on the first model in the path.' },
+        { nom: 'Gaze of Mork', texte: 'Range 12"; D3 Strength 3 hits on the first model in the path.' },
         {
-          nom: "'Ead-Seeker",
+          nom: "'Eadbanger",
           texte:
             "Range 6\"; fires a number of bolts equal to the Shaman's base Attacks, Strength equal to his Toughness, hitting the first model in the path. On a 1 after resolving, the Shaman collapses and is taken Out of Action.",
         },
         {
-          nom: 'Waaagh! Leap',
+          nom: 'Leap of Waaagh!',
           texte: 'The Shaman or a Goblin within 3" may be moved up to 12", ignoring terrain; if this brings him into hand-to-hand combat, it counts as a charge.',
         },
         { nom: 'Idol of Gork', texte: 'The Shaman gains WS+1, S+1, and A+1 until he suffers a Wound.' },
@@ -524,9 +524,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
         ],
       },
-      aspirant: { nom: 'Aspirant' },
-      cadets: { nom: 'Cadets' },
-      pupille_de_nuln: { nom: 'Nuln Pupil' },
+      aspirant: { nom: 'Senior Student' },
+      cadets: { nom: 'Underclassmen' },
+      pupille_de_nuln: { nom: 'Sons of the Guns' },
       tireur_delite: {
         nom: 'Marksman',
         regles_speciales: [
@@ -847,7 +847,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'Amazons are quick to offer their prisoners as sacrifices to their gods. Amazons follow the rules for the Possessed in the rulebook regarding captives.',
       },
       {
-        nom: 'She Is Not One of Us',
+        nom: 'Not One of Us',
         texte: 'Due to their independence and suspicion of other races, Amazons never ally with anyone. For this reason, they may not recruit Hired Swords or special characters, unless they are Amazons themselves.',
       },
     ],
@@ -867,7 +867,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           {
             nom: 'Lieutenants',
-            texte: "Champions have taken part in dozens of campaigns over the years. They are the Priestesses' lieutenants, as well as their bodyguards. They are skilled with a variety of weapons, including the legendary Claws of the Ancients.",
+            texte: "Champions have taken part in dozens of campaigns over the years. They are the Priestesses' lieutenants, as well as their bodyguards. They are skilled with a variety of weapons, including the legendary Claw of the Old Ones.",
           },
         ],
       },
@@ -890,7 +890,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       heroines: {
-        armes_cac: ['first free', 'Club', undefined, undefined, 'Claw of the Ancients'],
+        armes_cac: ['first free', 'Club', undefined, undefined, 'Claw of the Old Ones'],
         armures: ['Helmet', undefined],
         divers: ['Amulet of the Moon', 'Medicinal Herbs'],
       },
@@ -909,12 +909,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       note: 'Little is known about Amazon magic, but it is said that these immortal warriors learned it from the mouths of the gods themselves.',
       sorts: [
         {
-          nom: 'Song of the Wind',
+          nom: 'Singing Wind',
           texte:
             'The Priestess calls upon the Wind Goddess Shaekal to join the battle. The goddess appears as dancing notes of music and light that entrance an enemy model within 10" of the caster. Until the start of the Amazons\' next turn, the model cannot move, shoot, or cast spells, but may defend itself in hand-to-hand combat. Models affected by this ritual always act last in the combat phase.',
         },
         {
-          nom: 'Strength of the Serpent',
+          nom: "Serpent's Strength",
           texte:
             'The Priestess performs this ritual by dancing wildly and shouting forgotten words. All friendly models near the Priestess are filled with powerful energy until the end of their next turn. During this time, any model within 8" of the Priestess (including herself) adds +1 to Strength. The ritual cannot be cast if the Priestess is engaged in hand-to-hand combat during her Shooting phase. The effect continues after the ritual is cast if the Priestess joins a combat.',
         },
@@ -929,12 +929,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             'Delicately moving her hands as if weaving the very air, the Priestess calls upon the protection of plants. This ritual creates a cocoon of thorns around the Priestess, making her immune to any shooting or magical attack. Any model wishing to charge the Priestess may do so, but the thorns cancel all hits from both the Priestess and her opponents during the first round of hand-to-hand combat. The Priestess cannot cast this ritual while engaged in hand-to-hand combat.',
         },
         {
-          nom: 'Living Jungle',
+          nom: 'The Living Jungle',
           texte:
             "Focusing her will, the Priestess calls upon the aid of the jungle's creatures. Choose a model within 12\". It is suddenly assailed by a swarm of snakes, spiders, and insects, each more venomous than the last. The victim suffers 1D6 Strength 2 hits with no save allowed, other than invulnerable saves. You cannot dodge this swarm.",
         },
         {
-          nom: "Siren's Dream",
+          nom: "Siren's Dreams",
           texte:
             'The Priestess intones a sweet melody in a magnificent voice, soon joined by the other Amazons. The song is so beautiful and enchanting that enemy Leadership tests within 12" suffer a -1 penalty until the end of the opposing player\'s turn. Lizardmen and Undead are immune to the effects of this ritual.',
         },
@@ -1204,7 +1204,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Horned Hunters (1b)',
     regles_speciales: [
       {
-        nom: 'Woodsmen',
+        nom: 'Woodcraft',
         texte: 'Horned Hunters warbands suffer no Movement penalty in difficult terrain.',
       },
     ],
@@ -1257,12 +1257,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'The range of snares set by this Hero is increased to 4". Traps set by a Master Trapper trigger on a 2+ instead of a 3+.',
       },
       effluve_nauseabonde: {
-        nom: 'Noxious Reek',
+        nom: 'Foul Odour',
         texte:
           'All living enemies (except Undead and Possessed) suffer a -1 penalty to hit this Hero in hand-to-hand combat. In addition, he may carry no flame, and burning attacks that hit him gain a +1 Strength bonus.',
       },
       ami_des_betes: {
-        nom: 'Friend of Beasts',
+        nom: 'Animal Friendship',
         texte: "The Hero cannot be attacked by any animal, and up to two war dogs in his possession do not count towards the warband's maximum model count.",
       },
       infiltration: {
@@ -1271,11 +1271,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'The Hero is always placed on the battlefield after the opposing warband. He may be placed anywhere on the table as long as he is out of sight and more than 12" from any enemy fighter. If both players have infiltrating fighters, each rolls 1D6; the lower result deploys first.',
       },
       guide: {
-        nom: 'Guide',
-        texte: 'Roll 1 additional D6 during the Exploration phase. A warband may only have one Hero with the Guide skill.',
+        nom: 'Pathfinder',
+        texte: 'Roll 1 additional D6 during the Exploration phase. A warband may only have one Hero with the Pathfinder skill.',
       },
       cache_dans_les_ombres: {
-        nom: 'Hidden in the Shadows',
+        nom: 'Hide in Shadows',
         texte: 'Enemy fighters must halve their Initiative when trying to spot this Hero while he is hidden.',
       },
     },
@@ -1307,16 +1307,16 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           texte: "The priest calls down Taal's blessing on an allied fighter or himself within 6\". The target gains a +2 Strength bonus until the Priest's next turn.",
         },
         {
-          nom: 'Earth Tremor',
+          nom: 'Earthshudder',
           texte:
             'The prayer targets a building within 4". Any enemy fighter in contact with the building suffers a Strength 3 hit. In addition, the building collapses and all fighters inside it are treated as having fallen. Remove the targeted terrain piece from the table for the rest of the game.',
         },
         {
-          nom: 'Entanglement',
+          nom: 'Tanglefoot',
           texte: 'All fighters, enemy and allied alike (except Zealots), within 12" of the Priest have their Movement halved until the next Shooting phase.',
         },
         {
-          nom: 'Call of the Squirrels',
+          nom: 'Summon Squirrels',
           texte: 'The Priest calls upon the wrath of the Lord of Beasts. The target, an enemy within 12" of the Priest, suffers 2D6 Strength 1 hits, with no armour save.',
         },
       ],
@@ -1975,17 +1975,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Hochland Bandits (1b)',
     regles_speciales: [
       {
-        nom: 'Powder Is Expensive!',
+        nom: "Powder's Expensive!",
         texte:
           'Bandits are often too poor to buy or maintain costly equipment such as black powder weapons. Only Heroes may buy them (black powder weapons available only via the Duelist equipment list); Henchmen may never buy them.',
       },
       {
-        nom: 'Penny-Pinchers',
+        nom: 'Foragers',
         texte:
           "Hochland Bandits know how to save their gold: when determining the warband's Income, shift the warband size one column to the left (a warband of 1 to 3 members always uses the first column). For reference only, not automated.",
       },
       {
-        nom: 'Fence',
+        nom: 'Know Who To Sell To',
         texte:
           "In addition to half the base price of the item, when a Hochland Bandit sells equipment, he also receives half of the variable part of the item's price. For reference only, not automated.",
       },
@@ -2015,12 +2015,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Duelist',
         regles_speciales: [
           {
-            nom: 'Master Swordsman',
+            nom: 'Swordmaster',
             texte:
               "If equipped with a weapon or piece of armour that grants a parry, the Duelist succeeds in parrying an enemy blow on a result equal to or higher than the opponent's to-hit roll, not only on a strictly higher result as with a normal parry.",
           },
           {
-            nom: 'Weapon Lore',
+            nom: 'Weapon Knowledge',
             texte:
               "The weapons on the Duelist's equipment list only represent those he can start with. A Duelist may use any hand-to-hand or missile weapon that warband members can find.",
           },
@@ -2030,12 +2030,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Huckster',
         regles_speciales: [
           {
-            nom: 'Persuasive Manner',
+            nom: 'Convincing Manner',
             texte:
               'When an enemy warrior attempts to charge a member of the Huckster\'s warband within 12" of him, the enemy must first pass a Leadership test, or the charge fails (as if he had failed to charge an enemy that causes Fear). Creatures subject to Stupidity and animals (as well as the Undead) are immune.',
           },
           {
-            nom: 'Shrewd Manager',
+            nom: 'Slick Operator',
             texte:
               'Between games, the player may call on the Huckster to swindle the local populace. Roll 1D6. On a 2-6, the scam succeeds and the warband gains 2D6 Gold Crowns. On a 1, the Huckster must flee: he misses the next game and does not take part in the Exploration phase. For reference only, not automated.',
           },
@@ -2070,7 +2070,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       racaille: {
         nom: 'Gutterscum',
         regles_speciales: [
-          { nom: 'Totally Unskilled', texte: 'Gutterscum never gain experience.' },
+          { nom: 'Utterly Inept', texte: 'Gutterscum never gain experience.' },
           { nom: 'Recruitment', texte: 'Bought in groups of 5.' },
         ],
       },
@@ -2079,24 +2079,24 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       banditisme: {
         nom: 'Banditry',
         texte:
-          "Instead of searching for Rare equipment, the Hero may engage in banditry. Roll 1D6. On a 2-6, the banditry succeeds and the Hero adds 1D6+1 Gold Crowns to the warband's pool. On a 1, roll on the Serious Injury table for the Hero, as if he had been taken Out of Action. Cannot be combined with Shrewd Manager.",
+          "Instead of searching for Rare equipment, the Hero may engage in banditry. Roll 1D6. On a 2-6, the banditry succeeds and the Hero adds 1D6+1 Gold Crowns to the warband's pool. On a 1, roll on the Serious Injury table for the Hero, as if he had been taken Out of Action. Cannot be combined with Slick Operator.",
       },
       cache_dans_lombre: {
-        nom: 'Hidden in the Shadows',
+        nom: 'Hide in Shadows',
         texte: 'An enemy warrior attempting to detect the hidden Hero must halve his Initiative (rounding up) before measuring the detection range.',
       },
       bond_arriere: {
-        nom: 'Backward Leap',
+        nom: 'Jump Back',
         texte:
           'If the warrior is engaged in hand-to-hand combat at the start of his Movement phase and is neither Knocked Down nor Stunned, he may attempt a leap to break off combat via an Initiative test. On a failure, he automatically strikes last this turn. On a success, he is moved 1" away from the enemy warrior and may act normally (and may even charge again).',
       },
       tir_silencieux: {
-        nom: 'Silent Shot',
+        nom: 'Sniper',
         texte:
           "If hidden, the Hero may shoot or cast spells while remaining hidden. If his target is not immediately taken Out of Action, it must make an Initiative test to spot him. Does not work with a black powder weapon.",
       },
       ventriloque: {
-        nom: 'Ventriloquist',
+        nom: 'Throw Voice',
         texte: 'If an enemy warrior attempts to detect the hidden Hero, roll 1D6. On a 4+, the Hero is not spotted and remains hidden.',
       },
     },
@@ -3676,7 +3676,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'Against a Norse warband, Amazons will fight to the death. Amazons may re-roll their first failed Rout test against Norsemen. Remember that a failed re-roll cannot be re-rolled. In addition, Amazons may never choose to voluntarily Rout against a Norse warband, unless the warband Leader has been taken Out of Action.',
       },
       {
-        nom: 'She Is Not One of Us',
+        nom: 'Not One of Us',
         texte:
           'Due to their isolationism and suspicion of other races, Amazons never fight alongside anyone else. For this reason, Amazons do not recruit Hired Swords or Dramatis Personae, unless they are Amazons themselves.',
       },
@@ -3720,7 +3720,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'Through her exploits, the Amazon has proven herself an expert at hunting Lizardmen, particularly Skinks. Against a Skink, an Amazon with this skill will always strike first in the first round of combat.',
       },
       danse_hypnotique: {
-        nom: 'Hypnotic Dance',
+        nom: 'Mesmerising Dance',
         reserve_a: 'Amazon Heroines only, instead of the standard list',
         texte:
           'Some Amazons use a graceful dance as a combat technique that can subjugate their enemies. Any fighter engaged in hand-to-hand combat against the Amazon must pass a Leadership test at the start of each turn. On a failure, the fighter cannot attack this turn, but may defend himself. The dance has no effect, however, against Lizardmen or Undead, who are immune to its charms.',
@@ -3762,12 +3762,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       note: 'Beyond their island, little is known of Amazon magic. It is said that the immortal Amazons learned their magic from the gods themselves.',
       sorts: [
         {
-          nom: 'Song of the Wind',
+          nom: 'Singing Wind',
           texte:
             'The Priestess calls upon the Wind Goddess Shaekal to join the battle. The Goddess appears as dancing notes of music and light that entrance an enemy model within 10" of the Priestess. Until the start of the Amazon player\'s next turn, the model cannot move, shoot, or cast spells, but may defend itself in hand-to-hand combat. Models affected by this ritual always strike last in hand-to-hand combat.',
         },
         {
-          nom: 'Strength of the Serpent',
+          nom: "Serpent's Strength",
           texte:
             'The Priestess performs this ritual by dancing wildly and shouting forgotten words. All friendly models within 8" of the Priestess (including herself) are filled with powerful energy and gain +1 Strength until the end of the next Amazon turn. The ritual cannot be cast if the Priestess is engaged in hand-to-hand combat during her Shooting phase. However, once the ritual has been cast, its effect persists even if the Priestess becomes engaged in hand-to-hand combat.',
         },
@@ -3782,12 +3782,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             'Moving her hands as if weaving dark patterns in the air, the Priestess calls upon plants for protection. This ritual creates a cocoon of thorns around the Priestess, making her immune to any shooting or magical attack. Any model wishing to charge the Priestess may do so, but the thorns cancel all hits from both the Priestess and her enemies during the first round of hand-to-hand combat. The Priestess cannot cast this ritual while engaged in hand-to-hand combat.',
         },
         {
-          nom: 'Living Jungle',
+          nom: 'The Living Jungle',
           texte:
             'Focusing her will, the Priestess calls upon the aid of the jungle\'s creatures. Choose a model within 12". It is suddenly attacked by a swarm of snakes, spiders, and insects, each more venomous than the last. The victim suffers 1D6 Strength 2 hits, with no armour save allowed other than invulnerable saves. The model cannot use Sidestep against this swarm.',
         },
         {
-          nom: "Siren's Dream",
+          nom: "Siren's Dreams",
           texte:
             'The Priestess intones a sweet melody in a magnificent voice, soon joined by the other Amazons. The song is so beautiful and enchanting that enemy Leadership tests within 12" suffer a -1 penalty until the end of the opposing player\'s turn. Lizardmen and Undead are immune to the effects of this ritual.',
         },
@@ -5208,7 +5208,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
         ],
       },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youngblood' },
       garde_des_montagnes: {
         nom: 'Mountain Guard',
         regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
