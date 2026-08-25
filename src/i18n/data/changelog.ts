@@ -11,6 +11,7 @@ const changelogEn: Record<string, string[]> = {
   '2026-08-25': [
     'Lustrian Reavers: Jungle Shadow\'s "Wizard option" is finally playable — for 30 gc, takeable at recruitment or at any point in the campaign from their sheet, with a choice of first Lesser Magic spell. The starting Light Armour, now incompatible, goes to the warband armoury instead of being lost.',
     'New Musterheim banner on the home screen.',
+    'Major warband rules audit against official sourcebooks: fixed equipment and skill-access restrictions for the Amazons (Mordheim and Lustria), Nuln Gunnery School, Averlanders, Hochland Bandits, Horned Hunters, and Forest Goblins, plus numerous English translation fixes (rule, skill, and spell names aligned with the official texts).',
   ],
   '2026-08-24': [
     'Tapping the Wounds (W) number in the table or compact list now knocks off one wound per tap, automatically switching to Out of Action at zero and back to full health on the next tap.',

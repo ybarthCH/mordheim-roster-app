@@ -44,6 +44,11 @@ export const CHANGELOG: ChangelogEntry[] = [
         categorie: 'interface',
         texte: "Nouvelle bannière Musterheim sur l'écran d'accueil.",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Grand audit des règles de bande contre les documents officiels : corrections de restrictions d'équipement et de compétences pour les Amazones (Mordheim et Lustrie), les Artilleurs de Nuln, les Averlanders, les Bandits du Hochland, les Chasseurs Cornus et les Gobelins des Forêts, ainsi que de nombreuses corrections de traduction anglaise (noms de règles, compétences et sorts alignés sur les textes officiels).",
+      },
     ],
   },
   {
