@@ -38,7 +38,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       {
         categorie: 'fonctionnalite',
         texte:
-          'Pillards de Lustrie : "Option Sorcier" de l\'Ombre de la Jungle enfin jouable — contre 30 po, prenable au recrutement ou à tout moment de la campagne depuis sa fiche, avec choix du premier sort de Magie mineure.',
+          'Pillards de Lustrie : "Option Sorcier" de l\'Ombre de la Jungle enfin jouable — contre 30 po, prenable au recrutement ou à tout moment de la campagne depuis sa fiche, avec choix du premier sort de Magie mineure. L\'Armure légère de départ, devenue incompatible, part à l\'armurerie de la bande plutôt que d\'être perdue.',
       },
       {
         categorie: 'interface',
