@@ -384,19 +384,19 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     ],
     profils: {
       gran_chef: {
-        nom: 'Big Boss',
+        nom: 'Chieftain',
         regles_speciales: [
-          { nom: 'Leader', texte: 'Any warband member within 6" of the Big Boss may use his Leadership for their tests.' },
+          { nom: 'Leader', texte: 'Any warband member within 6" of the Chieftain may use his Leadership for their tests.' },
           {
-            nom: 'Spider Rider',
-            texte: 'The Big Boss may ride Giant Spiders or the Gigantic Spider using the rules detailed in the Mounted Warriors article.',
+            nom: 'Ride Spiders',
+            texte: 'The Chieftain may ride Giant Spiders or the Gigantic Spider using the rules detailed in the Mounted Warriors article.',
           },
         ],
       },
       chaman: {
-        nom: 'Forest Goblin Shaman',
+        nom: 'Shaman',
         regles_speciales: [
-          { nom: 'Sorcerer', texte: 'The Shaman starts with a spell randomly drawn from the Goblin Magic spell list.' },
+          { nom: 'Wizard', texte: 'The Shaman starts with a spell randomly drawn from the Goblin Magic spell list.' },
         ],
       },
       brav: {
@@ -410,7 +410,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [{ nom: 'Animosity', texte: 'Forest Goblins are subject to the Animosity rules.' }],
       },
       gobelin_dent_rouj: {
-        nom: 'Redfang Goblin',
+        nom: 'Red Toof Goblin',
         regles_speciales: [
           {
             nom: 'Berserkers',
@@ -420,13 +420,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       lanceur: {
-        nom: 'Thrower',
+        nom: 'Slugga',
         regles_speciales: [
           {
-            nom: 'Throwers',
-            texte: 'During the Shooting phase, Throwers may throw missile weapons up to three times per turn. If a Thrower is promoted to Hero, this ability cannot be used together with Quick Shot.',
+            nom: 'Sluggas',
+            texte: 'During the Shooting phase, Sluggas may throw missile weapons up to three times per turn. If a Slugga is promoted to Hero, this ability cannot be used together with Quick Shot.',
           },
-          { nom: 'Animosity', texte: 'Throwers are subject to the Animosity rules.' },
+          { nom: 'Animosity', texte: 'Sluggas are subject to the Animosity rules.' },
         ],
       },
       araignee_gigantesque: {
@@ -434,18 +434,18 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Weapons/armour', texte: 'A Gigantic Spider needs no weapons or armour and uses none.' },
           { nom: 'Fear', texte: 'Gigantic Spiders cause Fear.' },
-          { nom: 'Huge Beast', texte: 'Gigantic Spiders are Large Targets as defined in the Shooting rules.' },
+          { nom: 'Large Monster', texte: 'Gigantic Spiders are Large Targets as defined in the Shooting rules.' },
           { nom: 'Native', texte: 'They move through any wooded terrain without any penalty.' },
           {
-            nom: 'Venomous',
+            nom: 'Poisonous',
             texte: 'When it causes a Wound, use the following table: 1 Knocked Down; 2-4 Stunned; 5-6 Out of Action.',
           },
           { nom: 'Natives', texte: 'No Movement penalty in wooded terrain.' },
           { nom: 'Non-sentient', texte: 'Subject to the Stupidity rules. Never gains experience. May climb normally.' },
           {
-            nom: 'Mount',
+            nom: 'May Ride',
             texte:
-              'The Forest Goblin Big Boss may ride it (see the Mounted Warriors article). If a shooting attack hits, roll 1D6: 1-2 the Big Boss is hit, 3-6 the Gigantic Spider is hit. In hand-to-hand combat, the opponent chooses his target. While ridden, it is not subject to Stupidity.',
+              'The Forest Goblin Chieftain may ride it (see the Mounted Warriors article). If a shooting attack hits, roll 1D6: 1-2 the Chieftain is hit, 3-6 the Gigantic Spider is hit. In hand-to-hand combat, the opponent chooses his target. While ridden, it is not subject to Stupidity.',
           },
         ],
       },
@@ -463,17 +463,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       type: 'sorcery',
       sorts: [
         {
-          nom: "Gork's Wind",
+          nom: 'Wind of Gork',
           texte: 'Range 12"; the first model hit must pass a Toughness test or suffer a Strength 2 hit and be automatically Knocked Down.',
         },
-        { nom: "Mork's Gaze", texte: 'Range 12"; D3 Strength 3 hits on the first model in the path.' },
+        { nom: 'Gaze of Mork', texte: 'Range 12"; D3 Strength 3 hits on the first model in the path.' },
         {
-          nom: "'Ead-Seeker",
+          nom: "'Eadbanger",
           texte:
             "Range 6\"; fires a number of bolts equal to the Shaman's base Attacks, Strength equal to his Toughness, hitting the first model in the path. On a 1 after resolving, the Shaman collapses and is taken Out of Action.",
         },
         {
-          nom: 'Waaagh! Leap',
+          nom: 'Leap of Waaagh!',
           texte: 'The Shaman or a Goblin within 3" may be moved up to 12", ignoring terrain; if this brings him into hand-to-hand combat, it counts as a charge.',
         },
         { nom: 'Idol of Gork', texte: 'The Shaman gains WS+1, S+1, and A+1 until he suffers a Wound.' },

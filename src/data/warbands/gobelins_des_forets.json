@@ -16,6 +16,7 @@
   ],
   "composition": {
     "effectif_min": 3,
+    "effectif_max": 20,
     "cout_max_constitution": 500
   },
   "profils": [
@@ -34,7 +35,7 @@
         { "nom": "Chef", "texte": "Tout membre de la bande à moins de 6ps du Gran' Chef peut utiliser le Commandement de ce dernier pour ses tests." },
         { "nom": "Chevaucheur d'araignées", "texte": "Le Gran' Chef peut chevaucher des Araignées Géantes ou l'Araignée Gigantesque en utilisant les règles détaillées dans l'article Guerriers Montés." }
       ],
-      "acces_competences": ["combat", "tir", "force", "special"],
+      "acces_competences": ["combat", "tir", "academique", "vitesse"],
       "acces_equipement": ["heros"],
       "acces_competences_a_verifier": false,
       "est_leader": true
@@ -191,7 +192,7 @@
     }
   },
   "equipement_special": [
-    { "item_id": "attirail_tribal_dent_rouj", "cout": 40, "disponibilite": "Rare 9, Gobelins des Forêts uniquement, Héros uniquement", "profils": ["gran_chef", "chaman", "brav"] },
+    { "item_id": "attirail_tribal_dent_rouj", "cout": 40, "disponibilite": "Rare 9, Gobelins des Forêts uniquement" },
     { "item_id": "bidules_magiques", "cout": 50, "disponibilite": "Rare 9, Gobelins des Forêts uniquement", "profils": ["chaman"] },
     { "item_id": "arme_empoisonnee_mod", "cout": "+25", "disponibilite": "Commun, Gobelins des Forêts uniquement" },
     { "item_id": "araignee_geante", "cout": 100, "disponibilite": "Rare 11, Gobelins uniquement", "profils": ["gran_chef"] }

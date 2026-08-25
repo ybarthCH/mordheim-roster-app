@@ -1931,7 +1931,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   baton_dboss: {
-    nom: 'Boss Stick',
+    nom: 'Boss Pole',
     texte: 'Some influential goblins carry insignia of office, usually in the form of long wooden poles with an icon or a sharp blade at the end.',
     regles_speciales: [
       { nom: 'Authority', texte: 'Allows Heroes and all Goblin Henchmen within 6" and in line of sight to ignore animosity.' },
@@ -2851,7 +2851,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   attirail_tribal_dent_rouj: {
-    nom: 'Redfang Tribal Garb',
+    nom: 'Red Toof Tribal Jewellery',
     texte:
       'Only proof of martial prowess can catch the attention of this circle of warriors. Once inducted into the tribe, to symbolise his feats, the warrior gets pierced from head to toe!',
     regles_speciales: [
@@ -2911,7 +2911,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   bidules_magiques: {
-    nom: 'Magic Trinkets',
+    nom: 'Magic Gubbinz',
     texte:
       'Magic trinkets are objects of all kinds that allow the shaman to focus his powers. Most of the time these are bat claws, lizard jaws, and other similar items, but they nonetheless seem to bring benefits to their owner.',
     regles_speciales: [

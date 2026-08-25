@@ -2,7 +2,7 @@
   {
     "id": "araignee_geante", "nom": "Araignée géante", "categorie": "montures",
     "cout": 100, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Gobelins uniquement",
-    "acces": ["gobelins_de_la_nuit", "orc_mob"], "source": "GM (Guerriers Montés)", "page": 59,
+    "acces": ["gobelins_de_la_nuit", "orc_mob", "gobelins_des_forets"], "source": "GM (Guerriers Montés)", "page": 59,
     "texte": "Les araignées géantes sont des monstruosités velues faisant de 3 à 3,5 mètres de long qui peuplent les forêts du Vieux Monde. Elles sont très prisées comme montures par les gobelins des forêts. J'ai la chair de poule rien qu'à y penser...",
     "stats": { "M": 7, "CC": 3, "CT": 0, "F": "3(4)", "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
     "regles_speciales": [
