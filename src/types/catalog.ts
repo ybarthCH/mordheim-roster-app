@@ -145,6 +145,13 @@ export type Profile = {
   xp_depart?: number;
   peut_lancer_sorts?: boolean;
   categorie_magie?: string;
+  // Upgrade optionnel payant qui transforme CE héros en sorcier (Magie
+  // mineure), au recrutement ou plus tard en campagne — distinct d'un
+  // profil sorcier dès le départ (peut_lancer_sorts) : voir
+  // Member.option_sorcier_pris, resolveProfil (surcouche peut_lancer_sorts +
+  // categorie_magie une fois pris) et OptionSorcierModal. Ex : l'Ombre de la
+  // Jungle des Pillards de Lustrie (Town Cryer #14 / Lustrian Reavers v1.2).
+  option_sorcier?: { cout: number };
   // Sort(s) toujours connu(s) au recrutement, sans choix — s'ajoute(nt) aux
   // sorts choisis normalement (ex : le Hiérogrammate des Nains du Chaos
   // débute toujours avec le Rituel sacrificiel, en plus d'un rituel choisi).

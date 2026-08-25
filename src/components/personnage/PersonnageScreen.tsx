@@ -20,6 +20,7 @@ import { AvanceeModal } from './AvanceeModal';
 import { BlessureGraveModal } from './BlessureGraveModal';
 import { AchatEquipementModal } from './AchatEquipementModal';
 import { RecruterDansGroupeModal } from './RecruterDansGroupeModal';
+import { OptionSorcierModal } from './OptionSorcierModal';
 import { ItemDetailModal } from './ItemDetailModal';
 import { Modal } from '../common/Modal';
 import { CollapsibleCard } from '../common/CollapsibleCard';
@@ -82,6 +83,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   const [modalSuppression, setModalSuppression] = useState(false);
   const [modalAchat, setModalAchat] = useState(false);
   const [modalRecruterGroupe, setModalRecruterGroupe] = useState(false);
+  const [modalOptionSorcier, setModalOptionSorcier] = useState(false);
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
   const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
   const [avanceeAModifier, setAvanceeAModifier] = useState<AdvanceRecord | null>(null);
@@ -201,6 +203,27 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
     patchRoster(roster.id, (current) => {
       const membreCourant = current.membres.find((m) => m.instance_id === membre.instance_id) ?? membre;
       return appliquerAchatSurMembre(current, membreCourant, item, coutPaye);
+    });
+  };
+
+  // Upgrade payant "Option Sorcier" (voir Profile.option_sorcier) : débite
+  // la trésorerie de la bande et marque le membre comme ayant pris l'upgrade
+  // en un seul patch, pour ne jamais laisser l'un des deux appliqué sans
+  // l'autre.
+  const prendreOptionSorcier = (sortId: string) => {
+    const cout = profil.option_sorcier?.cout;
+    if (cout === undefined) return;
+    patchRoster(roster.id, (current) => {
+      if (current.tresorerie < cout) return current;
+      return {
+        ...current,
+        tresorerie: current.tresorerie - cout,
+        membres: current.membres.map((m) =>
+          m.instance_id === membre.instance_id
+            ? { ...m, option_sorcier_pris: true, sorts_connus: [...m.sorts_connus, sortId] }
+            : m
+        ),
+      };
     });
   };
 
@@ -428,6 +451,15 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         />
       )}
 
+      {profil.option_sorcier && !membre.option_sorcier_pris && (
+        <div className="card card--tight">
+          <button className="btn btn--block" onClick={() => setModalOptionSorcier(true)}>
+            <Icon name="baguettePack" style={{ marginRight: '0.35em' }} />
+            {t('optionSorcier.buttonLabel', { cout: profil.option_sorcier.cout })}
+          </button>
+        </div>
+      )}
+
       <ReglesSpecialesCard membre={membre} onMajMembre={majMembre} />
 
       {profil.type === 'heros' && (!francTireur || estDramatisPersonae(membre)) && (
@@ -559,6 +591,16 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
           coutUnitaire={profil.cout ?? 0}
           onClose={() => setModalRecruterGroupe(false)}
           onConfirm={updateRoster}
+        />
+      )}
+      {modalOptionSorcier && (
+        <OptionSorcierModal
+          roster={roster}
+          membre={membre}
+          profil={profil}
+          catalogue={catalogue}
+          onClose={() => setModalOptionSorcier(false)}
+          onConfirm={prendreOptionSorcier}
         />
       )}
       {itemDetail && (

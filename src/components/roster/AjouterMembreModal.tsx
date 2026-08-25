@@ -28,6 +28,7 @@ import { peutGagnerExperience } from '../../utils/xp';
 import { libelleCaracteristique } from '../../utils/stats';
 import { Modal } from '../common/Modal';
 import { AchatEquipementContenu } from '../personnage/AchatEquipementModal';
+import { OptionSorcierModal } from '../personnage/OptionSorcierModal';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
 
@@ -90,6 +91,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
   // le Devin des Maraudeurs du Chaos) — détermine le domaine de sorts
   // proposé ensuite (voir utils/magie.ts).
   const [marqueChoisie, setMarqueChoisie] = useState('');
+  const [modalOptionSorcier, setModalOptionSorcier] = useState(false);
 
   const profilsHeros = catalogue?.profils.filter((p) => p.type === 'heros') ?? [];
   // Les profils "animal" (chien de guerre...) se recrutent et se suivent
@@ -266,6 +268,25 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
       onClose();
     };
 
+    // Upgrade payant "Option Sorcier" (voir Profile.option_sorcier) — même
+    // action que sur la fiche personnage (PersonnageScreen), proposée ici
+    // aussi pour pouvoir la prendre dès le recrutement sans repasser par la
+    // fiche juste après.
+    const prendreOptionSorcier = (sortId: string) => {
+      if (!profil?.option_sorcier) return;
+      const cout = profil.option_sorcier.cout;
+      if (roster.tresorerie < cout) return;
+      onUpdateRoster({
+        ...roster,
+        tresorerie: roster.tresorerie - cout,
+        membres: roster.membres.map((m) =>
+          m.instance_id === membreActuel.instance_id
+            ? { ...m, option_sorcier_pris: true, sorts_connus: [...m.sorts_connus, sortId] }
+            : m
+        ),
+      });
+    };
+
     return (
       <Modal onClose={annulerRecrutement} variant="fullscreen">
         <div style={{ padding: '0.9rem 0.9rem 0' }}>
@@ -289,6 +310,26 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
               <strong>{r.nom}</strong> — {r.texte}
             </p>
           ))}
+          {profil?.option_sorcier && !membreActuel.option_sorcier_pris && (
+            <button
+              className="btn btn--block"
+              style={{ marginTop: '0.5rem' }}
+              onClick={() => setModalOptionSorcier(true)}
+            >
+              <Icon name="baguettePack" style={{ marginRight: '0.35em' }} />
+              {t('optionSorcier.buttonLabel', { cout: profil.option_sorcier.cout })}
+            </button>
+          )}
+          {modalOptionSorcier && profil && catalogue && (
+            <OptionSorcierModal
+              roster={roster}
+              membre={membreActuel}
+              profil={profil}
+              catalogue={catalogue}
+              onClose={() => setModalOptionSorcier(false)}
+              onConfirm={prendreOptionSorcier}
+            />
+          )}
           <div className="card card--tight" style={{ margin: '0.7rem 0' }}>
             <p className="text-sm mb-0">
               <strong>{t('recrutementEquipement.selectedEquipment')}</strong>

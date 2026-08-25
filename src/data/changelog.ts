@@ -33,6 +33,20 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-08-25',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          'Pillards de Lustrie : "Option Sorcier" de l\'Ombre de la Jungle enfin jouable — contre 30 po, prenable au recrutement ou à tout moment de la campagne depuis sa fiche, avec choix du premier sort de Magie mineure.',
+      },
+      {
+        categorie: 'interface',
+        texte: "Nouvelle bannière Musterheim sur l'écran d'accueil.",
+      },
+    ],
+  },
+  {
     date: '2026-08-24',
     points: [
       {

@@ -8,6 +8,10 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-08-25': [
+    'Lustrian Reavers: Jungle Shadow\'s "Wizard option" is finally playable — for 30 gc, takeable at recruitment or at any point in the campaign from their sheet, with a choice of first Lesser Magic spell.',
+    'New Musterheim banner on the home screen.',
+  ],
   '2026-08-24': [
     'Tapping the Wounds (W) number in the table or compact list now knocks off one wound per tap, automatically switching to Out of Action at zero and back to full health on the next tap.',
     'Added a "fan project, not affiliated with Games Workshop" notice at the bottom of the Privacy Policy page.',
