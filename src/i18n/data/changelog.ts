@@ -9,7 +9,7 @@ import type { ChangelogEntry } from '../../data/changelog';
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
   '2026-08-25': [
-    'Lustrian Reavers: Jungle Shadow\'s "Wizard option" is finally playable — for 30 gc, takeable at recruitment or at any point in the campaign from their sheet, with a choice of first Lesser Magic spell.',
+    'Lustrian Reavers: Jungle Shadow\'s "Wizard option" is finally playable — for 30 gc, takeable at recruitment or at any point in the campaign from their sheet, with a choice of first Lesser Magic spell. The starting Light Armour, now incompatible, goes to the warband armoury instead of being lost.',
     'New Musterheim banner on the home screen.',
   ],
   '2026-08-24': [

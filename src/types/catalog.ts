@@ -151,7 +151,12 @@ export type Profile = {
   // Member.option_sorcier_pris, resolveProfil (surcouche peut_lancer_sorts +
   // categorie_magie une fois pris) et OptionSorcierModal. Ex : l'Ombre de la
   // Jungle des Pillards de Lustrie (Town Cryer #14 / Lustrian Reavers v1.2).
-  option_sorcier?: { cout: number };
+  // `equipement_retire` : item_id de l'équipement de départ à retirer si pris
+  // (recherché dans Member.inventaire au moment de l'achat — envoyé à
+  // l'armurerie de la bande plutôt que perdu, voir transfererVersStock).
+  // Absent d'inventaire (jamais acheté, ou notation "fixe" jamais reportée en
+  // inventaire structuré) : aucun effet, silencieusement ignoré.
+  option_sorcier?: { cout: number; equipement_retire?: string[] };
   // Sort(s) toujours connu(s) au recrutement, sans choix — s'ajoute(nt) aux
   // sorts choisis normalement (ex : le Hiérogrammate des Nains du Chaos
   // débute toujours avec le Rituel sacrificiel, en plus d'un rituel choisi).

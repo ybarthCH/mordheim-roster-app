@@ -17,6 +17,8 @@ import {
   inventaireComplet,
   profilPeutAcheterEquipement,
   rejoindreGroupe,
+  transfererVersStock,
+  formatEquipementAffiche,
   TRINKETS_LIMITES,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
@@ -273,13 +275,35 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
     // aussi pour pouvoir la prendre dès le recrutement sans repasser par la
     // fiche juste après.
     const prendreOptionSorcier = (sortId: string) => {
-      if (!profil?.option_sorcier) return;
-      const cout = profil.option_sorcier.cout;
-      if (roster.tresorerie < cout) return;
+      const optionSorcier = profil?.option_sorcier;
+      if (!optionSorcier) return;
+      if (roster.tresorerie < optionSorcier.cout) return;
+      // Équipement de départ devenu incompatible : envoyé à l'armurerie s'il
+      // a déjà été ajouté à l'inventaire (voir même logique dans
+      // PersonnageScreen.prendreOptionSorcier). Ne voit pas le panier
+      // d'équipement pas encore validé de cette étape (Terminer) — seulement
+      // ce qui est déjà dans l'inventaire persisté à ce stade.
+      const aRetirer = membreActuel.inventaire.filter((e) => optionSorcier.equipement_retire?.includes(e.item_id));
+      let apresTransfert = roster;
+      for (const entree of aRetirer) {
+        apresTransfert = transfererVersStock(apresTransfert, membreActuel, entree.instance_id);
+      }
+      // Recale la textbox "Équipement" (résumé texte du post-bataille/export
+      // PDF) sur l'inventaire structuré après transfert — voir même logique
+      // dans PersonnageScreen.prendreOptionSorcier.
+      if (aRetirer.length > 0) {
+        const inventaireFinal = apresTransfert.membres.find((m) => m.instance_id === membreActuel.instance_id)?.inventaire ?? [];
+        apresTransfert = {
+          ...apresTransfert,
+          membres: apresTransfert.membres.map((m) =>
+            m.instance_id === membreActuel.instance_id ? { ...m, equipement: formatEquipementAffiche(inventaireFinal) } : m
+          ),
+        };
+      }
       onUpdateRoster({
-        ...roster,
-        tresorerie: roster.tresorerie - cout,
-        membres: roster.membres.map((m) =>
+        ...apresTransfert,
+        tresorerie: apresTransfert.tresorerie - optionSorcier.cout,
+        membres: apresTransfert.membres.map((m) =>
           m.instance_id === membreActuel.instance_id
             ? { ...m, option_sorcier_pris: true, sorts_connus: [...m.sorts_connus, sortId] }
             : m
