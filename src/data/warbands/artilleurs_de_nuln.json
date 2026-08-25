@@ -84,6 +84,7 @@
       "stats": { "M": 4, "CC": 3, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
       "acces_competences": ["combat", "tir", "vitesse"],
       "acces_equipement": ["artilleurs_de_nuln", "montures_nuln"],
+      "categories_interdites": ["armes_tir"],
       "acces_competences_a_verifier": false
     },
     {

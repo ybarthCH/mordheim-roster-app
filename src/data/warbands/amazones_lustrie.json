@@ -140,6 +140,14 @@
         { "item_id": "epee", "cout": 10 },
         { "item_id": "lance", "cout": 10 },
         { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armes_tir": [
+        { "item_id": "fronde", "cout": 5 },
+        { "item_id": "arc", "cout": 10 }
+      ],
+      "armures": [
+        { "item_id": "casque", "cout": 10, "note": "Heaume" },
+        { "item_id": "rondache", "cout": 5 }
       ]
     },
     "guerrieres_jaguar": {

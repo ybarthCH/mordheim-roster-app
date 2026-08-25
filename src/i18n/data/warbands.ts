@@ -524,9 +524,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
         ],
       },
-      aspirant: { nom: 'Aspirant' },
-      cadets: { nom: 'Cadets' },
-      pupille_de_nuln: { nom: 'Nuln Pupil' },
+      aspirant: { nom: 'Senior Student' },
+      cadets: { nom: 'Underclassmen' },
+      pupille_de_nuln: { nom: 'Sons of the Guns' },
       tireur_delite: {
         nom: 'Marksman',
         regles_speciales: [
@@ -847,7 +847,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'Amazons are quick to offer their prisoners as sacrifices to their gods. Amazons follow the rules for the Possessed in the rulebook regarding captives.',
       },
       {
-        nom: 'She Is Not One of Us',
+        nom: 'Not One of Us',
         texte: 'Due to their independence and suspicion of other races, Amazons never ally with anyone. For this reason, they may not recruit Hired Swords or special characters, unless they are Amazons themselves.',
       },
     ],
@@ -867,7 +867,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           {
             nom: 'Lieutenants',
-            texte: "Champions have taken part in dozens of campaigns over the years. They are the Priestesses' lieutenants, as well as their bodyguards. They are skilled with a variety of weapons, including the legendary Claws of the Ancients.",
+            texte: "Champions have taken part in dozens of campaigns over the years. They are the Priestesses' lieutenants, as well as their bodyguards. They are skilled with a variety of weapons, including the legendary Claw of the Old Ones.",
           },
         ],
       },
@@ -909,12 +909,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       note: 'Little is known about Amazon magic, but it is said that these immortal warriors learned it from the mouths of the gods themselves.',
       sorts: [
         {
-          nom: 'Song of the Wind',
+          nom: 'Singing Wind',
           texte:
             'The Priestess calls upon the Wind Goddess Shaekal to join the battle. The goddess appears as dancing notes of music and light that entrance an enemy model within 10" of the caster. Until the start of the Amazons\' next turn, the model cannot move, shoot, or cast spells, but may defend itself in hand-to-hand combat. Models affected by this ritual always act last in the combat phase.',
         },
         {
-          nom: 'Strength of the Serpent',
+          nom: "Serpent's Strength",
           texte:
             'The Priestess performs this ritual by dancing wildly and shouting forgotten words. All friendly models near the Priestess are filled with powerful energy until the end of their next turn. During this time, any model within 8" of the Priestess (including herself) adds +1 to Strength. The ritual cannot be cast if the Priestess is engaged in hand-to-hand combat during her Shooting phase. The effect continues after the ritual is cast if the Priestess joins a combat.',
         },
@@ -929,12 +929,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             'Delicately moving her hands as if weaving the very air, the Priestess calls upon the protection of plants. This ritual creates a cocoon of thorns around the Priestess, making her immune to any shooting or magical attack. Any model wishing to charge the Priestess may do so, but the thorns cancel all hits from both the Priestess and her opponents during the first round of hand-to-hand combat. The Priestess cannot cast this ritual while engaged in hand-to-hand combat.',
         },
         {
-          nom: 'Living Jungle',
+          nom: 'The Living Jungle',
           texte:
             "Focusing her will, the Priestess calls upon the aid of the jungle's creatures. Choose a model within 12\". It is suddenly assailed by a swarm of snakes, spiders, and insects, each more venomous than the last. The victim suffers 1D6 Strength 2 hits with no save allowed, other than invulnerable saves. You cannot dodge this swarm.",
         },
         {
-          nom: "Siren's Dream",
+          nom: "Siren's Dreams",
           texte:
             'The Priestess intones a sweet melody in a magnificent voice, soon joined by the other Amazons. The song is so beautiful and enchanting that enemy Leadership tests within 12" suffer a -1 penalty until the end of the opposing player\'s turn. Lizardmen and Undead are immune to the effects of this ritual.',
         },
@@ -3676,7 +3676,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'Against a Norse warband, Amazons will fight to the death. Amazons may re-roll their first failed Rout test against Norsemen. Remember that a failed re-roll cannot be re-rolled. In addition, Amazons may never choose to voluntarily Rout against a Norse warband, unless the warband Leader has been taken Out of Action.',
       },
       {
-        nom: 'She Is Not One of Us',
+        nom: 'Not One of Us',
         texte:
           'Due to their isolationism and suspicion of other races, Amazons never fight alongside anyone else. For this reason, Amazons do not recruit Hired Swords or Dramatis Personae, unless they are Amazons themselves.',
       },
@@ -3720,7 +3720,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'Through her exploits, the Amazon has proven herself an expert at hunting Lizardmen, particularly Skinks. Against a Skink, an Amazon with this skill will always strike first in the first round of combat.',
       },
       danse_hypnotique: {
-        nom: 'Hypnotic Dance',
+        nom: 'Mesmerising Dance',
         reserve_a: 'Amazon Heroines only, instead of the standard list',
         texte:
           'Some Amazons use a graceful dance as a combat technique that can subjugate their enemies. Any fighter engaged in hand-to-hand combat against the Amazon must pass a Leadership test at the start of each turn. On a failure, the fighter cannot attack this turn, but may defend himself. The dance has no effect, however, against Lizardmen or Undead, who are immune to its charms.',
@@ -3762,12 +3762,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       note: 'Beyond their island, little is known of Amazon magic. It is said that the immortal Amazons learned their magic from the gods themselves.',
       sorts: [
         {
-          nom: 'Song of the Wind',
+          nom: 'Singing Wind',
           texte:
             'The Priestess calls upon the Wind Goddess Shaekal to join the battle. The Goddess appears as dancing notes of music and light that entrance an enemy model within 10" of the Priestess. Until the start of the Amazon player\'s next turn, the model cannot move, shoot, or cast spells, but may defend itself in hand-to-hand combat. Models affected by this ritual always strike last in hand-to-hand combat.',
         },
         {
-          nom: 'Strength of the Serpent',
+          nom: "Serpent's Strength",
           texte:
             'The Priestess performs this ritual by dancing wildly and shouting forgotten words. All friendly models within 8" of the Priestess (including herself) are filled with powerful energy and gain +1 Strength until the end of the next Amazon turn. The ritual cannot be cast if the Priestess is engaged in hand-to-hand combat during her Shooting phase. However, once the ritual has been cast, its effect persists even if the Priestess becomes engaged in hand-to-hand combat.',
         },
@@ -3782,12 +3782,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             'Moving her hands as if weaving dark patterns in the air, the Priestess calls upon plants for protection. This ritual creates a cocoon of thorns around the Priestess, making her immune to any shooting or magical attack. Any model wishing to charge the Priestess may do so, but the thorns cancel all hits from both the Priestess and her enemies during the first round of hand-to-hand combat. The Priestess cannot cast this ritual while engaged in hand-to-hand combat.',
         },
         {
-          nom: 'Living Jungle',
+          nom: 'The Living Jungle',
           texte:
             'Focusing her will, the Priestess calls upon the aid of the jungle\'s creatures. Choose a model within 12". It is suddenly attacked by a swarm of snakes, spiders, and insects, each more venomous than the last. The victim suffers 1D6 Strength 2 hits, with no armour save allowed other than invulnerable saves. The model cannot use Sidestep against this swarm.',
         },
         {
-          nom: "Siren's Dream",
+          nom: "Siren's Dreams",
           texte:
             'The Priestess intones a sweet melody in a magnificent voice, soon joined by the other Amazons. The song is so beautiful and enchanting that enemy Leadership tests within 12" suffer a -1 penalty until the end of the opposing player\'s turn. Lizardmen and Undead are immune to the effects of this ritual.',
         },
@@ -5208,7 +5208,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
         ],
       },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youngblood' },
       garde_des_montagnes: {
         nom: 'Mountain Guard',
         regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],

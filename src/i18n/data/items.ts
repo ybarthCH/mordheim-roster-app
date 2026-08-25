@@ -2312,7 +2312,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   griffes_des_anciens: {
-    nom: 'Claws of the Ancients',
+    nom: 'Claw of the Old Ones',
     texte:
       'This very ancient weapon is made of an unalterable metal. The powers of this artefact can only be unleashed by a ritual known to a handful of Amazons. The blade of this weapon then appears white-hot and can pass through armour as if it were paper.',
     regles_speciales: [
