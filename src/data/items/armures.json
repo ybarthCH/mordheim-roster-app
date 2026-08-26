@@ -249,7 +249,7 @@
     "source": "CB (Chevaliers Bretonniens)",
     "page": 35,
     "texte": "Le caparaçon est une armure pour cheval, similaire à l'armure légère que portent les humains. Elle recouvre le corps de l'animal et parfois aussi la tête. Cette armure spéciale est bénie par les Bretonniens, qui n'est normalement disponible que pour les chevaliers bretonniens.",
-    "sauvegarde": "5+/+2",
+    "sauvegarde": "6+/+1",
     "regles_speciales": [
       {
         "nom": "Carapace",

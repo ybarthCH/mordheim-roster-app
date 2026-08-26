@@ -4510,9 +4510,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           {
             nom: 'Knightly Virtue',
-            texte: 'A Questing Knight is a chivalrous warrior, far above the ordinary fighter. He never panics and never flees combat. He therefore does not need to take All Alone tests.',
+            texte: 'A Knight Errant is a chivalrous warrior, far above the ordinary fighter. He never panics and never flees combat. He therefore does not need to take All Alone tests.',
           },
-          { nom: 'Mount', texte: 'A Knight Errant may not ride a warhorse if the Questing Knight does not already have one.' },
+          { nom: 'Mount', texte: 'A Knight Errant may not ride a warhorse if the Questing Knight does not already ride one.' },
         ],
       },
       ecuyer: {

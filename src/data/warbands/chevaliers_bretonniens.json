@@ -46,8 +46,8 @@
       "xp_depart": 8,
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [
-        { "nom": "Vertu chevaleresque", "texte": "Un Chevalier de la Quête est un guerrier chevaleresque bien au-dessus du guerrier ordinaire. Il ne panique jamais et ne fuit pas le combat. Il n'a donc pas à faire de tests de Seul contre tous." },
-        { "nom": "Monture", "texte": "Un Chevalier Errant ne peut pas monter un destrier si le Chevalier de la Quête n'en possède pas déjà un." }
+        { "nom": "Vertu chevaleresque", "texte": "Un Chevalier Errant est un guerrier chevaleresque bien au-dessus du guerrier ordinaire. Il ne panique jamais et ne fuit pas le combat. Il n'a donc pas à faire de tests de Seul contre tous." },
+        { "nom": "Monture", "texte": "Un Chevalier Errant ne peut pas monter un destrier si le Chevalier de la Quête n'en monte pas déjà un." }
       ],
       "acces_competences": ["combat", "vitesse", "special"],
       "acces_equipement": ["chevaliers"],
@@ -185,8 +185,8 @@
     }
   },
   "equipement_special": [
-    { "item_id": "destriers", "cout": 80, "disponibilite": "Rare 11, Humains uniquement" },
-    { "item_id": "cheval", "cout": 40, "disponibilite": "Rare 8, Humains uniquement" },
-    { "item_id": "caparacon_bretonnien", "cout": 30, "disponibilite": "Rare 11, destriers uniquement" }
+    { "item_id": "destriers", "cout": 80, "disponibilite": "Rare 11, Humains uniquement", "profils": ["chevalier_de_la_quete", "chevalier_errant"] },
+    { "item_id": "cheval", "cout": 40, "disponibilite": "Rare 8, Humains uniquement", "profils": ["ecuyer"] },
+    { "item_id": "caparacon_bretonnien", "cout": 30, "disponibilite": "Rare 11, destriers uniquement", "profils": ["chevalier_de_la_quete", "chevalier_errant"] }
   ]
 }
