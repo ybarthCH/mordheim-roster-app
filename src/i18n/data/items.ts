@@ -2070,7 +2070,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   dague_de_la_peste: {
-    nom: 'Plague Dagger',
+    nom: 'Disease Dagger',
     texte: 'This dagger is permanently coated with a disgusting substance resembling green mould. Wounds inflicted by this dagger can cause terrible diseases.',
     regles_speciales: [
       { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
@@ -2099,7 +2099,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   encensoir_a_peste: {
-    nom: 'Plague Censer',
+    nom: 'Censer',
     texte:
       'The plague censer is a hollow, spike-covered metal sphere attached to a long chain that swings like a flail. A fragment of warpstone infected with plague burns at the heart of the ball and gives off a foul smoke. This smoke nauseates opponents and can make the censer bearer a difficult target to hit.',
     regles_speciales: [
@@ -3381,7 +3381,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
   liber_bubonicus: {
     nom: 'Liber Bubonicus',
     texte:
-      "If a Clan Pestilens Skaven warband includes a Plague Preacher, he permanently gains a new spell. Roll for it randomly on the Horned Rat magic spell list. If he has the sorcery skill, a Plague Priest may use the Liber Bubonicus to learn Horned Rat magic. He gains the special rule 'Sorcerer: a sorcerer is a spellcaster who uses Horned Rat magic. See the Magic section.' and permanently learns a spell drawn at random from the Horned Rat magic spell list. The Liber Bubonicus may only be used once, and a warband may only have a single user of the Liber Bubonicus in any given campaign. This item is used by the Clan Pestilens Skaven in place of the grimoire of magic.",
+      "If a Clan Pestilens Skaven warband includes a Pestilens Sorcerer, he permanently gains a new spell. Roll for it randomly on the Horned Rat magic spell list. If he has the Arcane Lore skill, a Plague Priest may use the Liber Bubonicus to learn Horned Rat magic. He gains the special rule 'Sorcerer: a sorcerer is a spellcaster who uses Horned Rat magic. See the Magic section.' and permanently learns a spell drawn at random from the Horned Rat magic spell list. The Liber Bubonicus may only be used once, and a warband may only have a single user of the Liber Bubonicus in any given campaign. This item is used by the Clan Pestilens Skaven in place of the grimoire of magic.",
   },
   lanterne: {
     nom: 'Lantern',

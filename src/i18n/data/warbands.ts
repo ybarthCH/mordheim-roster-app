@@ -1541,20 +1541,20 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       insensible_a_la_douleur: {
-        nom: 'Unfeeling to Pain',
-        texte: 'Only a Skaven of Clan Pestilens Hero with the Hard as Nails skill may choose this skill. The Skaven treats Stunned results as Knocked Down.',
-        reserve_a: 'Requires the Hard as Nails skill',
+        nom: 'Ignore Pain',
+        texte: 'Only a Skaven of Clan Pestilens Hero with the Resilient skill may choose this skill. The Skaven treats Stunned results as Knocked Down.',
+        reserve_a: 'Requires the Resilient skill',
       },
       frenesie_mortelle: {
-        nom: 'Deadly Frenzy',
+        nom: 'Black Hunger',
         texte:
           'At the start of a turn, the Clan Pestilens Hero may declare that he is using this skill. He gains +1 Attack and 1D3" of Movement for the whole turn. In exchange, at the end of the turn, he suffers 1D3 Strength 3 hits, with no armour save allowed.',
       },
       porteur_dencensoir_a_peste: {
-        nom: 'Plague Censer Bearer',
+        nom: 'Censer Bearer',
         texte:
-          'Only a Skaven of Clan Pestilens Hero with the Deadly Frenzy skill may choose this skill. This Skaven is called a censer bearer. He gains the Frenzy special rule and may only use a plague censer as a hand-to-hand weapon.',
-        reserve_a: 'Requires the Deadly Frenzy skill',
+          'Only a Skaven of Clan Pestilens Hero with the Black Hunger skill may choose this skill. This Skaven is called a censer bearer. He gains the Frenzy special rule and may only use a plague censer as a hand-to-hand weapon.',
+        reserve_a: 'Requires the Black Hunger skill',
       },
       corps_putrefie: {
         nom: 'Rotten Body',
@@ -1570,7 +1570,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       heros_pestilens: {
-        armes_cac: ['first free', 'mace', undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_cac: ['first free', 'mace', undefined, undefined, undefined, undefined],
       },
       hommes_de_main_pestilens: {
         armes_cac: ['first free', 'mace', undefined, undefined],
@@ -1596,7 +1596,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         },
         {
           nom: 'Eye of the Warp',
-          texte: 'All standing models in contact with the Sorcerer must immediately make a Leadership test. Those who fail suffer a Strength 3 hit and must run 2D6" in the direction opposite the Sorcerer.',
+          texte: 'All standing models in contact with the Sorcerer must immediately make a Leadership test. Those who fail suffer a Strength 3 hit and must run 2D6" in the direction opposite the Sorcerer, exactly as if they had lost their nerve when fighting against more than one opponent.',
         },
         {
           nom: "Sorcerer's Curse",
