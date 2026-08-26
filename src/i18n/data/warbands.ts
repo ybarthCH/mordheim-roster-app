@@ -20,6 +20,14 @@ type EquipementListeTraduite = {
   armes_tir?: (string | undefined)[];
   armures?: (string | undefined)[];
   divers?: (string | undefined)[];
+  // Traductions du champ `restriction` (ex : "Héros et Tireurs uniquement"),
+  // alignées par index sur la même liste que ci-dessus — tableau distinct
+  // plutôt que réutiliser armes_cac/etc. pour ne pas casser les entrées
+  // existantes qui ne traduisent que `note`.
+  armes_cac_restriction?: (string | undefined)[];
+  armes_tir_restriction?: (string | undefined)[];
+  armures_restriction?: (string | undefined)[];
+  divers_restriction?: (string | undefined)[];
 };
 
 type ProfileTraduit = {
@@ -2675,7 +2683,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       {
         nom: 'Hired Swords',
-        texte: 'The following Hired Swords are not available to the Outlaws: Bounty Hunters, Wolf Priest of Ulric, Norse Shamans, and Dark Elf Assassins.',
+        texte: 'The following Hired Swords are not available to the Outlaws: Bounty Hunter, Wolf-Priest of Ulric, Norse Shaman, Dark Elf Assassin.',
       },
     ],
     profils: {
@@ -2688,7 +2696,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       moine_stirwood: {
         nom: 'Cleric',
         regles_speciales: [
-          { nom: 'Recruitment', texte: 'The warband may include one Cleric, but he must replace a Stirwood Champion or a Petty Thief.' },
+          { nom: 'Recruitment', texte: 'The warband may include one Cleric, but he must replace a Champion or a Petty Thief.' },
           {
             nom: 'Disciple of Sigmar',
             texte:
@@ -2696,7 +2704,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
         ],
       },
-      champion_de_stirwood: { nom: 'Stirwood Champion' },
+      champion_de_stirwood: { nom: 'Champion' },
       petit_voleur: { nom: 'Petty Thief' },
       hors_la_loi: { nom: 'Outlaw' },
       tireur: { nom: 'Marksman' },
@@ -2704,8 +2712,14 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     equipement: {
       hors_la_loi: {
         armes_cac: ['first free', 'Hammer, Mace, or Staff', undefined, undefined, undefined, undefined],
+        armes_tir_restriction: [undefined, undefined, 'Heroes and Marksmen only'],
+        armures_restriction: ['Heroes and Marksmen only'],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Rare 8, Heroes only — available with no Rarity roll at initial recruitment' },
+      { disponibilite: 'Rare 10, Outlaw Heroes only — available with no Rarity roll at initial recruitment' },
+    ],
     magie: {
       nom: 'Prayers of Sigmar',
       type: 'prayer',
@@ -6751,16 +6765,29 @@ export function translateMagie(magie: Magie, en: MagieTraduite | undefined): Mag
   };
 }
 
-function translateRefs(refs: EquipementRef[] | undefined, notesEn: (string | undefined)[] | undefined) {
-  return refs?.map((r, i) => (r.note && notesEn?.[i] ? { ...r, note: notesEn[i] } : r));
+function translateRefs(
+  refs: EquipementRef[] | undefined,
+  notesEn: (string | undefined)[] | undefined,
+  restrictionsEn: (string | undefined)[] | undefined
+) {
+  return refs?.map((r, i) => {
+    const noteEn = r.note && notesEn?.[i] ? notesEn[i] : undefined;
+    const restrictionEn = r.restriction && restrictionsEn?.[i] ? restrictionsEn[i] : undefined;
+    if (!noteEn && !restrictionEn) return r;
+    return {
+      ...r,
+      ...(noteEn ? { note: noteEn } : {}),
+      ...(restrictionEn ? { restriction: restrictionEn } : {}),
+    };
+  });
 }
 
 function translateEquipementListe(liste: EquipementListe, en: EquipementListeTraduite | undefined): EquipementListe {
   return {
-    armes_cac: translateRefs(liste.armes_cac, en?.armes_cac),
-    armes_tir: translateRefs(liste.armes_tir, en?.armes_tir),
-    armures: translateRefs(liste.armures, en?.armures),
-    divers: translateRefs(liste.divers, en?.divers),
+    armes_cac: translateRefs(liste.armes_cac, en?.armes_cac, en?.armes_cac_restriction),
+    armes_tir: translateRefs(liste.armes_tir, en?.armes_tir, en?.armes_tir_restriction),
+    armures: translateRefs(liste.armures, en?.armures, en?.armures_restriction),
+    divers: translateRefs(liste.divers, en?.divers, en?.divers_restriction),
   };
 }
 

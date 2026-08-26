@@ -552,7 +552,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 25, texte: '25 CO après chaque bataille à laquelle il participe.' },
     valeur: 25,
     employeurs: {
-      bande_ids: uniques([...HUMAINS, 'maraudeurs_du_chaos']),
+      bande_ids: uniques([...HUMAINS, 'maraudeurs_du_chaos']).filter((id) => id !== 'hors_la_loi_de_stirwood'),
       texte: 'Les bandes d’Humains, de Norses et de Maraudeurs du Chaos.',
     },
     stats: { M: 4, CC: 3, CT: 2, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 8 },
@@ -1665,7 +1665,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 15, texte: '15 CO après chaque bataille à laquelle il participe.' },
     valeur: 20,
     employeurs: {
-      bande_ids: toutesSauf('cult_of_the_possessed', ...MORTS_VIVANTS, ...SKAVENS, ...PEAUX_VERTES),
+      bande_ids: toutesSauf('cult_of_the_possessed', 'hors_la_loi_de_stirwood', ...MORTS_VIVANTS, ...SKAVENS, ...PEAUX_VERTES),
       texte: 'Toute bande sauf les Possédés, les Morts-Vivants, les Skavens et les Orques & Gobelins.',
     },
     stats: { M: 4, CC: 4, CT: 3, F: 4, E: 3, PV: 1, I: 4, A: 1, Cd: 8 },

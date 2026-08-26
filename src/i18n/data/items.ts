@@ -2942,9 +2942,9 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   cape_des_bois: {
-    nom: 'Cloak of the Woods',
+    nom: 'Forest Cloak',
     texte:
-      "Some outlaws use cloaks of the woods to camouflage themselves and slip out of their enemies' sight. Any bearer of such a cloak seems to blend into the surrounding forest, making him almost invisible. Cloaks of the woods are available to Stirwood Outlaw Heroes from their initial recruitment, with no Rarity roll needed. If you wish to acquire one afterwards, use the normal purchase rules during the Trade and Exploration phase.",
+      "Some outlaws use Forest Cloaks to camouflage themselves and slip out of their enemies' sight. Any bearer of such a cloak seems to blend into the surrounding forest, making him almost invisible. Forest Cloaks are available to Stirwood Outlaw Heroes from their initial recruitment, with no Rarity roll needed. If you wish to acquire one afterwards, use the normal purchase rules during the Trade and Exploration phase.",
     regles_speciales: [
       {
         nom: 'Effect',
@@ -4101,7 +4101,7 @@ for (const id of ['vin_elfique']) {
   itemsEn[id].disponibilite = 'Rare 10, Shadow Warriors only';
 }
 for (const id of ['cape_des_bois']) {
-  itemsEn[id].disponibilite = 'Rare 10, Outlaws of Stirwood Forest only';
+  itemsEn[id].disponibilite = 'Rare 10, Outlaw Heroes only';
 }
 for (const id of ['banniere_de_la_maison_noble']) {
   itemsEn[id].disponibilite = 'Rare 10, The Cursed Cavalcade Heroes only';
