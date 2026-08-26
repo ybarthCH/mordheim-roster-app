@@ -2102,6 +2102,8 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'centaure_chaos',
     'guide_lustrien',
     'assassin_elfe_noir',
+    'sorciere',
+    'mage',
   ]),
   nains_du_chaos: new Set([
     'gladiateur',
