@@ -49,10 +49,9 @@
       "max": 1,
       "cout": 60,
       "xp_depart": 11,
-      "stats": { "M": 4, "CC": 4, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 2, "A": 2, "Cd": 8 },
+      "stats": { "M": 4, "CC": 4, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 8 },
       "regles_speciales": [
-        { "nom": "Totem", "texte": "Lorsqu'un guerrier saurus a tué vingt ennemis, il est accepté au sein de l'un des trois Totems Guerriers : Aigle, Jaguar ou Alligator. Mais, auparavant, il doit chasser et tuer lui-même son animal totem pour prouver sa valeur. Une fois intégré dans l'un de ces groupes prestigieux, il sera choisi par les Prêtres Skinks pour participer à la protection des temples." },
-        { "nom": "Attaques", "texte": "Son profil de base (A1) est augmenté de +1 grâce à son statut de Guerrier Totem, imprimé A1+1 dans les règles originales." }
+        { "nom": "Totem", "texte": "Lorsqu'un guerrier saurus a tué vingt ennemis, il est accepté au sein de l'un des trois Totems Guerriers : Aigle, Jaguar ou Alligator. Mais, auparavant, il doit chasser et tuer lui-même son animal totem pour prouver sa valeur. Une fois intégré dans l'un de ces groupes prestigieux, il sera choisi par les Prêtres Skinks pour participer à la protection des temples." }
       ],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["saurus"],

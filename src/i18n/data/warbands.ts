@@ -3538,10 +3538,6 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte:
               'When a Saurus warrior has killed twenty enemies, he is accepted into one of the three Warrior Totems: Eagle, Jaguar, or Alligator. But first he must hunt and kill his totem animal himself to prove his worth. Once part of one of these prestigious groups, he will be chosen by the Skink Priests to help protect the temples.',
           },
-          {
-            nom: 'Attacks',
-            texte: "His base profile (A1) is increased by +1 due to his Totem Warrior status, printed as A1+1 in the original rules.",
-          },
         ],
       },
       skink_a_grande_crete: { nom: 'High-Crested Skink' },
