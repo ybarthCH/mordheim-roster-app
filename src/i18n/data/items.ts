@@ -330,7 +330,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   machine_du_chaos: {
-    nom: 'Chaos Machine',
+    nom: 'Engine of Chaos',
     texte:
       'The Slavers lock their victims inside a demonic machine, twisted by the industrial madness of Chaos engineers. This vehicle is a living prison on wheels. These armoured machines carry prisoners to the Dark Lands to fuel the furnaces or be sacrificed there.',
     regles_speciales: [
@@ -1062,7 +1062,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   exosquelette: {
-    nom: 'Exoskeleton',
+    nom: 'Mechanical Suit',
     texte:
       'The Curse of Stone falls upon all Chaos Dwarf Hierogrammates, gradually turning them to rock, starting with their feet. Engineers have designed machines that can carry their priests once they begin to pay the price of their dark rituals.',
     regles_speciales: [
@@ -2568,7 +2568,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
 
   // --- Armes de corps à corps (2/2) ---
   pince_market: {
-    nom: 'Tongs',
+    nom: 'Man-catcher',
     texte:
       "These are semi-circular teeth mounted on a long handle, ready to capture an enemy with this spike-covered jaw. Popular among Chaos Dwarfs, this device doesn't leave much room for the most violent prisoners to escape its grip.",
     regles_speciales: [

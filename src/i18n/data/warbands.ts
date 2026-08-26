@@ -3868,7 +3868,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       {
         nom: 'Hard Head',
-        texte: 'Chaos Dwarfs ignore the special rules of maces, hammers, and other such weapons. They too are not easy to knock silly!',
+        texte: 'Chaos Dwarfs ignore the special rules of clubs, maces, etc. They too are not easy to knock silly!',
         exception: 'Does not apply to Informers',
       },
       {
@@ -3879,7 +3879,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Hired Swords',
         texte:
-          'A Chaos Dwarf warband may hire the following Hired Swords: Ogre Bodyguard, Gladiator, Wizard, Imperial Assassin, and Hobgoblin Scout. They may also hire any Hired Sword available to all warbands, as well as those available to Orc and Chaos warbands. They may never hire any Elf Hired Sword, whoever they are!',
+          'A Chaos Dwarf warband may hire the following Hired Swords: Ogre Bodyguard, Pit Fighter, Warlock, Imperial Assassin, and Hobgoblin Scout. They may also hire any Hired Sword available to all warbands, as well as those available to Orc and Chaos warbands. They may never hire any Elf Hired Sword, whoever they are!',
         exception: 'Does not apply to Informers',
       },
     ],
@@ -3896,9 +3896,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       geolier: {
-        nom: 'Jailer',
+        nom: 'Gaoler',
         regles_speciales: [
-          { nom: 'Bad Reputation', texte: 'Jailers are known for their brutality. The mere thought of being captured by one of them strikes fear into Humans.' },
+          { nom: 'Nasty Reputation', texte: 'Gaolers are known for their brutality. The mere thought of being captured by one of them strikes fear into Humans.' },
         ],
       },
       centaure_taureau: {
@@ -3959,7 +3959,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       increvable: {
-        nom: 'Unstoppable',
+        nom: 'Extra Tough',
         texte:
           'A Chaos Dwarf with this skill is renowned for surviving wounds that would fell a lesser warrior. After a game in which this Hero was taken Out of Action, when you roll on the Serious Injury table, the dice may be re-rolled once. The result of this second roll must be accepted, even if the consequences are worse.',
       },
@@ -3978,7 +3978,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'This Chaos Dwarf is particularly skilled at locating valuable resources. When he rolls on the Exploration table at the end of the game, the Hero may modify one die roll by +1/-1.',
       },
       tres_coriace: {
-        nom: 'Extremely Tough',
+        nom: 'True Grit',
         texte: 'Chaos Dwarfs are sturdy creatures, and this Hero is determined, even for a Chaos Dwarf! On the Injury table, a roll of 1-3 is treated as Knocked Down, 4-5 as Stunned, and 6 as Out of Action.',
       },
       tyran: {
@@ -3990,13 +3990,21 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       nains_du_chaos: {
-        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined],
         armes_tir: ['30gc per pair', undefined, undefined],
       },
       delateurs: {
         armes_cac: ['first free', undefined, undefined, undefined],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Rare 12, Cult of the Possessed, Chaos Dwarfs, Carnival of Chaos, Marauders of Chaos, Norse, Beastmen Raiders only' },
+      { disponibilite: 'Rare 10, Chaos Dwarf Gaolers only' },
+      { disponibilite: 'Common, Chaos Dwarf Gaolers only' },
+      { disponibilite: 'Rare 14, Chaos Dwarfs only' },
+      { disponibilite: 'Rare 13, Cult of the Possessed, Chaos Dwarfs, Carnival of Chaos, Marauders of Chaos, Norse, Beastmen Raiders only' },
+      { disponibilite: 'Rare 10, Chaos Dwarfs only' },
+    ],
     magie: {
       nom: 'Rituals of Hashut',
       type: 'sorcery',
@@ -4011,7 +4019,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         { nom: 'Bellow of Doom', texte: 'All fighters in base contact with the Hierogrammate must pass a Leadership test or break off combat and flee.' },
         { nom: 'Fumes of Azgorh', texte: 'Range 8", hits all fighters in its path on a 4+. Strength 4 hit, no armour save allowed.' },
         {
-          nom: 'Glittering Skin',
+          nom: 'Flickering Hide',
           texte:
             "Can be cast on the Hierogrammate himself or any fighter within 6\". Negates any Wound suffered on a 4+. In hand-to-hand combat, any fighter who hits the target suffers a Strength 3 hit for each blow landed. Lasts until the start of the Hierogrammate's next Shooting phase.",
         },
