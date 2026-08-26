@@ -269,7 +269,7 @@
     "cout": 15,
     "cout_fixe": true,
     "rarete": "C",
-    "disponibilite": "Commun, Gobelins uniquement",
+    "disponibilite": "Commun, Fanatiques Gobelins de la Nuit uniquement",
     "acces": [
       "commun_gobelins"
     ],
@@ -293,7 +293,7 @@
       },
       {
         "nom": "Imprévisible",
-        "texte": "La seule manière d'utiliser cette arme est de la faire tournoyer au-dessus de sa tête, en utilisant son propre corps pour faire contrepoids. Ce n'est malheureusement pas la manière la plus fiable de combattre et dès qu'il commence à jouer du boulet, le guerrier ne maîtrise plus trop son destin. Le tour où il commence à faire tournoyer son boulet, le guerrier est déplacé de 2D6ps dans une direction définie par le joueur. Pour les phases de Mouvement suivantes, lancez 1D6 : 1 = la figurine s'emmêle les pinceaux et s'étrangle toute seule avec sa chaîne, mise hors de combat (tuée sur 1-2 au lieu de 1-3 au jet de Blessure Grave). 2-5 = déplacée de 2D6ps dans la direction définie par le joueur. 6 = déplacée de 2D6ps dans une direction aléatoire (dé de dispersion : 1 droit devant, 2-3 vers la droite, 4-5 vers la gauche, 6 en arrière). Si elle heurte un bâtiment, un mur ou tout autre obstacle, elle est immédiatement mise hors de combat. Une figurine souhaitant s'en prendre à un guerrier portant cette arme subit une pénalité de -1 pour toucher, car elle doit faire attention à ne pas recevoir le boulet en pleine tête. Le guerrier équipé d'une chaîne & boulet ne reste pas bloqué au corps à corps, même s'il est au contact d'une autre figurine au début de sa phase de Mouvement. Si la figurine arrive au contact d'une figurine (alliée ou ennemie), elle est considérée comme ayant chargé et reste engagée au corps à corps jusqu'à sa phase de Mouvement suivante."
+        "texte": "La seule manière d'utiliser cette arme est de la faire tournoyer au-dessus de sa tête, en utilisant son propre corps pour faire contrepoids. Ce n'est malheureusement pas la manière la plus fiable de combattre et dès qu'il commence à jouer du boulet, le guerrier ne maîtrise plus trop son destin. Le tour où il commence à faire tournoyer son boulet, le guerrier est déplacé de 2D6ps dans une direction définie par le joueur. Pour les phases de Mouvement suivantes, lancez 1D6 : 1 = la figurine s'emmêle les pinceaux et s'étrangle toute seule avec sa chaîne, mise hors de combat (tuée sur 1-3 au lieu de 1-2 au jet de Blessure Grave). 2-5 = déplacée de 2D6ps dans la direction définie par le joueur. 6 = déplacée de 2D6ps dans une direction aléatoire (dé de dispersion : 1 droit devant, 2-3 vers la droite, 4-5 vers la gauche, 6 en arrière). Si elle heurte un bâtiment, un mur ou tout autre obstacle, elle est immédiatement mise hors de combat. Une figurine souhaitant s'en prendre à un guerrier portant cette arme subit une pénalité de -1 pour toucher, car elle doit faire attention à ne pas recevoir le boulet en pleine tête. Le guerrier équipé d'une chaîne & boulet ne reste pas bloqué au corps à corps, même s'il est au contact d'une autre figurine au début de sa phase de Mouvement. Si la figurine arrive au contact d'une figurine (alliée ou ennemie), elle est considérée comme ayant chargé et reste engagée au corps à corps jusqu'à sa phase de Mouvement suivante."
       },
       {
         "nom": "Cinglé",
@@ -516,8 +516,12 @@
         "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante."
       },
       {
-        "nom": "+1 Sauvegarde d'armure",
-        "texte": "Note : pour la compétence maître escrimeur, l'épée courte compte comme une épée."
+        "nom": "+1 Sauvegarde ennemie",
+        "texte": "Un ennemi blessé par cette arme obtient +1 à sa sauvegarde d'armure, ou une sauvegarde de 6+ s'il n'en a pas."
+      },
+      {
+        "nom": "Note",
+        "texte": "Pour la compétence maître escrimeur, l'épée courte compte comme une épée."
       }
     ]
   },
@@ -1952,6 +1956,45 @@
       {
         "nom": "Blessure automatique",
         "texte": "Sur un 6 naturel pour toucher, l'attaque blesse automatiquement. Lancez tout de même le jet pour blesser afin de déterminer si un coup critique est obtenu. Ce jet ne peut pas être relancé par Esprit colérique."
+      }
+    ]
+  },
+  {
+    "id": "lames_tournoyantes",
+    "nom": "Lames tournoyantes",
+    "categorie": "armes_cac",
+    "cout": 30,
+    "cout_fixe": true,
+    "rarete": "9",
+    "disponibilite": "Rare 9, Tueurs uniquement",
+    "acces": [
+      "culte_des_tueurs"
+    ],
+    "source": "CT (Culte des Tueurs)",
+    "page": 6,
+    "texte": "Arme signature du Chercheur de Trépas, la lame tournoyante est une hache montée sur une chaîne. Même les Tueurs les plus expérimentés ont du mal à la maîtriser, mais une fois domptée, les dégâts qu'elle inflige sont stupéfiants.",
+    "portee": "C à C",
+    "force": "U",
+    "regles_speciales": [
+      {
+        "nom": "Ne peut être parée",
+        "texte": "Arme flexible maniée avec une grande dextérité : toute tentative de parer ses coups est vaine. Un combattant attaqué par une lame tournoyante ne peut pas parer avec une épée ou une rondache."
+      },
+      {
+        "nom": "Tranchant",
+        "texte": "L'arme bénéficie d'un modificateur de sauvegarde supplémentaire de -1 (un combattant de Force 4 réduira la sauvegarde de la cible de -2)."
+      },
+      {
+        "nom": "Paire",
+        "texte": "Les lames tournoyantes s'utilisent traditionnellement par paire, une dans chaque main ; comme toute arme de main secondaire, elle accorde une attaque supplémentaire normalement. Un guerrier équipé d'une paire de lames tournoyantes ne peut manier une autre arme de main secondaire et ne peut jamais séparer la paire (à moins de perdre une main)."
+      },
+      {
+        "nom": "Danse de la Mort",
+        "texte": "Lorsque le Chercheur de Trépas charge, la lame de sa main principale lui accorde +1 Attaque au premier tour de corps à corps. Cette même main accorde également une attaque supplémentaire lors de tout tour où le Chercheur de Trépas est chargé par un ou plusieurs adversaires (cette attaque doit viser l'un des chargeurs ; en cas de charge simultanée par plusieurs adversaires, le bonus reste limité à +1A au total). Cette règle ne s'applique pas à la lame de la main secondaire."
+      },
+      {
+        "nom": "Tourbillon Mortel",
+        "texte": "Lorsque le Chercheur de Trépas est chargé, l'attaque gratuite de Danse de la Mort et l'attaque supplémentaire de la main secondaire frappent toutes deux en premier ce tour-là, comme avec un fouet d'acier. Les autres attaques du Tueur frappent normalement."
       }
     ]
   }

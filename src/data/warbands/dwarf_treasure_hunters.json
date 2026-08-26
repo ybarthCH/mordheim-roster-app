@@ -33,7 +33,7 @@
         { "nom": "Chef", "texte": "Tout membre de la bande situé à moins de 6ps du noble nain peut utiliser le Commandement de ce dernier à la place du sien pour effectuer ses tests." }
       ],
       "acces_competences": ["combat", "tir", "force", "special"],
-      "acces_equipement": ["guerriers_nains", "tireurs_nains"],
+      "acces_equipement": ["guerriers_nains"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -52,7 +52,7 @@
         { "nom": "Maître Armurier", "texte": "Un ingénieur nain peut accroître la portée des armes de tir de la bande. Les armes de tir achetées sur la Liste d'Équipement Nain voient leur portée accrue de 3ps pour les Pistolets et de 6ps pour les Arbalètes et les Arquebuses. Les augmentations de portée ne s'appliquent qu'aux batailles auxquelles l'Ingénieur Nain participe (mais elles s'appliquent même s'il n'est pas encore entré sur le champ de bataille ou s'il a été mis hors de combat). L'augmentation ne s'applique pas à l'équipement des Francs-Tireurs." }
       ],
       "acces_competences": ["combat", "tir", "special"],
-      "acces_equipement": ["guerriers_nains", "tireurs_nains"],
+      "acces_equipement": ["tireurs_nains"],
       "acces_competences_a_verifier": false
     },
     {

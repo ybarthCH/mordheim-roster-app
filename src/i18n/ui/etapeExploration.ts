@@ -7,6 +7,10 @@ export const etapeExploration: UiDictionary = {
     en: 'Roll {total}D6: {heros} for the Heroes who took part without being taken Out of Action{victoire}{bonus}.',
   },
   'exploration.victorySuffix': { fr: ' + 1 pour la victoire', en: ' + 1 for the victory' },
+  'exploration.manualDiceCount': {
+    fr: "Les règles spéciales de cette bande conditionnent les dés d'Exploration individuellement par Héros (victoire, présence du Mémorialiste, etc.) : calcule toi-même le nombre de dés à lancer à partir des règles rappelées ci-dessous, l'app ne peut pas le suggérer de façon fiable.",
+    en: "This warband's special rules condition Exploration dice individually per Hero (victory, the Rememberer's presence, etc.): work out the number of dice to roll yourself from the rules reminded below — the app cannot reliably suggest one.",
+  },
   'exploration.bandRulesSuffix': { fr: ' + {n} dû aux règles de la bande', en: " + {n} due to the warband's rules" },
   'exploration.moreThanSixDiceNote': {
     fr: "Tu peux lancer plus de six dés, mais tu dois en choisir au maximum six pour former le résultat d'exploration.",

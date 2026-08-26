@@ -79,6 +79,11 @@ export type Profile = {
   // bêtes) un plafond combiné de 2 Bêtes de guerre au total — voir
   // comptePlafondGroupe dans utils/shop.ts.
   plafond_groupe?: { id: string; max: number; label?: string };
+  // Ce profil ne peut être recruté que si la bande compte déjà au moins un
+  // membre vivant (statut != 'mort') de ce profil-ci (ex : chez les Norses,
+  // les Loups ne sont autorisés que si la bande possède un Wulfen vivant) —
+  // voir peutAjouterMembre.
+  requiert_profil_vivant?: string;
   cout: number | null;
   // Notation de dés affichée quand `cout` est variable (donc null, ex :
   // "25+2D6" pour un chien de guerre) — le montant réel est saisi à la main
@@ -384,4 +389,13 @@ export type WarbandCatalog = {
   // unique bannit son profil du recrutement, pas seulement celui du chef —
   // voir Profile.unique et utils/leader.ts.
   bannir_profils_uniques_a_mort?: boolean;
+  // Le calcul générique des dés d'Exploration (1 par Héros debout + bonus de
+  // victoire + bonus fixes détectés par mot-clé) ne correspond pas à cette
+  // bande : ses règles conditionnent chaque dé de Héros à l'issue de la
+  // partie individuellement (ex : Culte des Tueurs — Seulement en Victoire,
+  // Registre de Bravoure) plutôt que d'ajouter un bonus global. Plutôt que
+  // d'afficher un total chiffré trompeur, l'app invite le joueur à calculer
+  // lui-même le nombre de dés — voir utils/exploration.ts et
+  // EtapeExploration.tsx.
+  des_exploration_manuels?: boolean;
 };

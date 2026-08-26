@@ -33,6 +33,21 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-08-26',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Nouvelle bande jouable : Culte des Tueurs (2a), bande naine de Tueurs cherchant une mort glorieuse — Tueur de Géants, Chercheurs de Trépas, Mémorialiste, Tueurs de Trolls, Barbes-Naissantes et Lanceurs de Haches, avec leurs armes signatures (Hache de jet, Lames tournoyantes). Bande disponible uniquement en anglais à l'origine, traduite en français pour l'occasion. Ses dés d'Exploration, trop dépendants du déroulement de la partie pour être calculés automatiquement, doivent être comptés à la main par le joueur, en s'appuyant sur le rappel des règles spéciales concernées.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Poursuite du grand audit des règles de bande contre les documents officiels : corrections de restrictions d'équipement, de compétences et de francs-tireurs pour les Chasseurs de Trésors Nains, les Nains du Chaos, les Gobelins de la Nuit, les Kislévites, les Ostlanders, les Escorteurs Impériaux, les Elfes Noirs, les Orques Noirs, les Hommes-Lézards, les Chevaliers Bretonniens, les Hors-la-loi de la Forêt de Stirwood, les Skavens du Clan Pestilens, les Guerriers Fantômes, les Maraudeurs du Chaos, les Norses, les Pirates, les Gardiens de Chapelle Bretonniens et la Horde Orque (dont l'interdiction de recruter un Sorcier/une Sorcière chez les Maraudeurs en présence de la Marque d'Arkhar, et l'obligation d'avoir un Wulfen vivant pour recruter des Loups chez les Norses), ainsi que de nombreuses corrections de traduction anglaise.",
+      },
+    ],
+  },
+  {
     date: '2026-08-25',
     points: [
       {

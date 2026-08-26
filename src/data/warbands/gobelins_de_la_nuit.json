@@ -369,14 +369,6 @@
       "divers": [{ "item_id": "champignons_bonnets_de_fou_market", "cout": 15 }]
     }
   },
-  "equipement_special": [
-    { "item_id": "chaine_et_boulet_cac", "cout": 15, "disponibilite": "Commune, Fanatiques Gobelins de la Nuit uniquement" },
-    { "item_id": "champignons_bonnets_de_fou_market", "cout": 15, "disponibilite": "Commun" },
-    { "item_id": "filet", "cout": 5, "disponibilite": "Commun" },
-    { "item_id": "aiguillon_a_squigs", "cout": 15, "disponibilite": "Commun, Gobelins uniquement" },
-    { "item_id": "baton_dboss", "cout": 20, "disponibilite": "Commun, Gobelins de la Nuit uniquement" },
-    { "item_id": "poignards_empoisonnes", "cout": 25, "disponibilite": "Commun, Gobelins de la Nuit uniquement" }
-  ],
   "magie": {
     "nom": "Magie Gobeline",
     "type": "sorcellerie",

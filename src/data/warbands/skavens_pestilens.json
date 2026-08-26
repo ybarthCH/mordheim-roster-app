@@ -148,9 +148,7 @@
         { "item_id": "epee", "cout": 10 },
         { "item_id": "hallebarde", "cout": 10 },
         { "item_id": "lance", "cout": 10 },
-        { "item_id": "fleau", "cout": 15 },
-        { "item_id": "dague_de_la_peste", "cout": 15 },
-        { "item_id": "encensoir_a_peste", "cout": 40 }
+        { "item_id": "fleau", "cout": 15 }
       ],
       "armes_tir": [
         { "item_id": "fronde", "cout": 2 }
@@ -199,7 +197,7 @@
       { "resultat": 2, "id": "rejetons_du_rat_cornu", "nom": "Rejetons du Rat Cornu", "difficulte": "Auto", "texte": "Utilisable une seule fois avant chaque partie. Invoque 1D3 rats géants placés à moins de 6ps du Prêcheur-Sorcier Pestilens ; ces rats ne comptent pas dans le nombre maximum de figurines de la bande." },
       { "resultat": 3, "id": "rongeviande", "nom": "Rongeviande", "difficulte": 7, "texte": "Cause 2D6 touches de Force 1 sur une seule figurine à moins de 8ps du Prêcheur-Sorcier Pestilens." },
       { "resultat": 4, "id": "fureur_noire", "nom": "Fureur Noire", "difficulte": 8, "texte": "Le Prêcheur-Sorcier Pestilens peut immédiatement charger une figurine ennemie de son choix à moins de 12ps (en ignorant terrain et autres figurines). Il gagne Attaques +2 et Force +1 durant la phase de corps à corps de ce tour uniquement." },
-      { "resultat": 5, "id": "il_du_warp", "nom": "Œil du Warp", "difficulte": 8, "texte": "Toutes les figurines debout en contact avec le Prêcheur-Sorcier Pestilens doivent immédiatement effectuer un test de Commandement. Celles qui échouent subissent une touche de Force 3 et doivent courir de 2D6ps dans la direction opposée à celle du Prêcheur-Sorcier Pestilens." },
+      { "resultat": 5, "id": "il_du_warp", "nom": "Œil du Warp", "difficulte": 8, "texte": "Toutes les figurines debout en contact avec le Prêcheur-Sorcier Pestilens doivent immédiatement effectuer un test de Commandement. Celles qui échouent subissent une touche de Force 3 et doivent courir de 2D6ps dans la direction opposée à celle du Prêcheur-Sorcier Pestilens, exactement comme si elles avaient perdu leur sang-froid en ratant un test de seul contre tous." },
       { "resultat": 6, "id": "malediction_du_sorcier", "nom": "Malédiction du Sorcier", "difficulte": 6, "texte": "Affecte une figurine à moins de 12ps : elle doit relancer tout jet pour toucher ou sauvegarde d'armure réussi durant la phase de corps à corps Skaven du Clan Pestilens qui suit, ainsi que lors des phases de tir et de corps à corps de son prochain tour." }
     ]
   }

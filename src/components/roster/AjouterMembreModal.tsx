@@ -109,7 +109,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
   const suffixeLimiteProfil = (id: string): { desactive: boolean; suffixe: string } => {
     const verif = peutAjouterMembre(roster, id, 1);
     if (verif.ok) return { desactive: false, suffixe: '' };
-    if (verif.raison?.includes('banni')) {
+    if (verif.raison?.includes('banni') || verif.raison?.includes('vivant soit déjà présent')) {
       return { desactive: true, suffixe: ` (${t('ajouterMembre.unavailable')})` };
     }
     const limite = limiteAfficheePourProfil(roster, id);

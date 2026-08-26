@@ -212,9 +212,7 @@
         { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "hache", "cout": 5 },
         { "item_id": "epee", "cout": 10 },
-        { "item_id": "fouet_dacier", "cout": 10, "restriction": "Geôlier uniquement" },
-        { "item_id": "arme_a_deux_mains", "cout": 15 },
-        { "item_id": "pince_market", "cout": 25 }
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armes_tir": [
         { "item_id": "pistolet", "cout": 15 },
@@ -225,11 +223,9 @@
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
         { "item_id": "armure_lourde", "cout": 50 },
-        { "item_id": "exosquelette", "cout": 175 },
         { "item_id": "casque", "cout": 10 },
         { "item_id": "bouclier", "cout": 5 }
-      ],
-      "divers": [{ "item_id": "machine_du_chaos", "cout": 125 }]
+      ]
     },
     "delateurs": {
       "armes_cac": [
@@ -251,8 +247,8 @@
   },
   "equipement_special": [
     { "item_id": "arme_en_obsidienne_market", "cout": "Prix de l'arme de base x4", "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
-    { "item_id": "pince_market", "cout": 25, "disponibilite": "Rare 10, Geôliers Nains du Chaos uniquement" },
-    { "item_id": "fouet_dacier", "cout": 10, "disponibilite": "Commun, Sœurs de Sigmar, Nains du Chaos uniquement" },
+    { "item_id": "pince_market", "cout": 25, "disponibilite": "Rare 10, Geôliers Nains du Chaos uniquement", "profils": ["geolier"] },
+    { "item_id": "fouet_dacier", "cout": 10, "disponibilite": "Commun, Geôliers Nains du Chaos uniquement", "profils": ["geolier"] },
     { "item_id": "exosquelette", "cout": 175, "disponibilite": "Rare 14, Nains du Chaos uniquement" },
     { "item_id": "armure_du_chaos_market", "cout": 185, "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
     { "item_id": "machine_du_chaos", "cout": 125, "disponibilite": "Rare 10, Nains du Chaos uniquement" }

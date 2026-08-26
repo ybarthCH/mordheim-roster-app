@@ -314,6 +314,9 @@ export const ITEMS_UNIQUES_BANDE = new Set([
   'faucon_de_chasse_tileen',
   // Jolly Roger (Pirates) : "un seul par bande".
   'jolly_roger',
+  // Pierrier (Pirates) : "une bande de Pirates ne peut avoir qu'un seul
+  // pierrier".
+  'pierrier',
 ]);
 
 // Objets "matériau" (gromril, ithilmar, obsidienne, lame elfe noire) : au

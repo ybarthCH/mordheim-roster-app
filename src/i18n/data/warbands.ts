@@ -20,6 +20,14 @@ type EquipementListeTraduite = {
   armes_tir?: (string | undefined)[];
   armures?: (string | undefined)[];
   divers?: (string | undefined)[];
+  // Traductions du champ `restriction` (ex : "Héros et Tireurs uniquement"),
+  // alignées par index sur la même liste que ci-dessus — tableau distinct
+  // plutôt que réutiliser armes_cac/etc. pour ne pas casser les entrées
+  // existantes qui ne traduisent que `note`.
+  armes_cac_restriction?: (string | undefined)[];
+  armes_tir_restriction?: (string | undefined)[];
+  armures_restriction?: (string | undefined)[];
+  divers_restriction?: (string | undefined)[];
 };
 
 type ProfileTraduit = {
@@ -368,6 +376,33 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Rare 8, Chaos Heroes with the Chosen of Chaos skill' },
+      { disponibilite: 'Rare 9, one Marauders of Chaos Hero only' },
+      { disponibilite: 'Rare 12, Cult of the Possessed, Black Dwarfs, Carnival of Chaos, Marauders of Chaos, Norse and Beastmen Raiders only' },
+      { disponibilite: 'Rare 13, Cult of the Possessed, Black Dwarfs, Carnival of Chaos, Marauders of Chaos, Norse and Beastmen Raiders only' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'First mutation at normal price; subsequent mutations on the same model cost double.' },
+      { disponibilite: 'Marauder Hero with the Mark of Onogal and the Mutant skill, instead of a regular mutation. First at normal price, subsequent purchases cost double.' },
+      { disponibilite: 'Marauder Hero with the Mark of Onogal and the Mutant skill, instead of a regular mutation. First at normal price, subsequent purchases cost double.' },
+      { disponibilite: 'Marauder Hero with the Mark of Onogal and the Mutant skill, instead of a regular mutation. First at normal price, subsequent purchases cost double.' },
+      { disponibilite: 'Marauder Hero with the Mark of Onogal and the Mutant skill, instead of a regular mutation. First at normal price, subsequent purchases cost double.' },
+      { disponibilite: 'Marauder Hero with the Mark of Onogal and the Mutant skill, instead of a regular mutation. First at normal price, subsequent purchases cost double.' },
+      { disponibilite: 'Marauder Hero with the Mark of Onogal and the Mutant skill, instead of a regular mutation. First at normal price, subsequent purchases cost double.' },
+    ],
   },
   gobelins_des_forets: {
     nom: 'Forest Goblins (1b)',
@@ -951,24 +986,24 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         exception: 'Does not affect Fanatics',
       },
       {
-        nom: "Masters of the Fool's Cap",
+        nom: 'Mad Cap Masters',
         texte:
           "Night Goblins ignore the stupidity side effect of Fool's Cap mushrooms while under the frenzy the mushrooms grant; if they are Knocked Down or Stunned, the stupidity takes effect again until the end of the battle.",
       },
       {
-        nom: 'Hatred of Dwarfs',
+        nom: 'Hate Stunties',
         texte: 'Night Goblins hold a bitter hatred for Dwarfs.',
         exception: 'Only affects Night Goblins; Fanatics are not subject to it',
       },
       {
-        nom: 'Fear of Elves',
+        nom: 'Fear Elves',
         texte: 'Night Goblins are subject to fear of Elves.',
         exception: 'Only affects Night Goblins; Fanatics are not subject to it',
       },
       {
-        nom: 'Unsavoury Characters',
+        nom: 'Distasteful Company',
         texte:
-          'A Night Goblin warband may only hire the following Hired Swords: Gladiator, Ogre Bodyguard, Warlock, Witch, as well as any Hired Sword whose description specifically allows it.',
+          'A Night Goblin warband may only hire the following Hired Swords: Pit Fighter, Ogre Bodyguard, Warlock, Witch, as well as any Hired Sword whose description specifically allows it.',
       },
     ],
     profils: {
@@ -977,7 +1012,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Leader', texte: 'Any model within 6" of the Boss may use his Leadership for their tests.' },
           {
-            nom: 'Biggest of the Bosses',
+            nom: 'Da Biggest Boss',
             texte:
               "Only the current Boss may choose Strength skills; a Boss promoted after the previous one's death gains this right in turn, but no other warband member may access it.",
           },
@@ -986,9 +1021,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       chaman: {
         nom: 'Night Goblin Shaman',
         regles_speciales: [
-          { nom: 'Sorcerer', texte: 'Starts with a spell randomly drawn from the Goblin Magic spell list.' },
+          { nom: 'Wizard', texte: 'Starts with a spell randomly drawn from the Goblin Magic spell list.' },
           {
-            nom: 'Mushroom Brew',
+            nom: 'Fungus Brew',
             texte:
               "Before the battle, may brew a special batch from 1 to 3 Fool's Cap mushrooms plus other harvested mushrooms, affecting a single group of Goblin warriors until the end of the battle. A roll is made on the mushroom brew table for each mushroom used; a duplicate result ruins the batch (just a headache).",
           },
@@ -998,7 +1033,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Squig Herder',
         regles_speciales: [
           {
-            nom: 'Handler — Squigs',
+            nom: 'Handle Animal - Squig',
             texte: 'Any Squig within 6" (12" with a squig prodder) may use his Leadership instead of its own.',
           },
           {
@@ -1009,22 +1044,22 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Dedicated Skills (in addition to the Special list)',
             texte:
-              "When gaining a new Special skill, the Squig Herder may choose from his own list (Gaseous Squigs, Menace, Training) in addition to the warband's Special list — see the Skills tab on his sheet.",
+              "When gaining a new Special skill, the Squig Herder may choose from his own list (Gassy Squigs, Threaten, Trainin') in addition to the warband's Special list — see the Skills tab on his sheet.",
           },
         ],
         competences_speciales: {
           squigs_gazeux: {
-            nom: 'Gaseous Squigs',
+            nom: 'Gassy Squigs',
             texte:
               "The Squig Herder feeds his Squigs a mix of rotten mushrooms, flint, and sharp pebbles to turn them into shrapnel. When an untrained Cave Squig (see Training) is taken Out of Action, roll a die. On a 1, it explodes, hitting every model within 1D6\" with a Strength 3 hit. That Squig is DEAD!",
           },
           menace: {
-            nom: 'Menace',
+            nom: 'Threaten',
             texte:
               'During the Movement phase, the Squig Herder may take a Leadership test. If successful, all Cave Squigs and Giant Squigs within 6" (12" with a squig prodder) may re-roll their Movement dice for that turn.',
           },
           entrainement: {
-            nom: 'Training',
+            nom: "Trainin'",
             texte:
               "The Squig Herder may train a particularly intelligent and vicious Squig as his personal bodyguard. The next Squig bought gains experience like a normal Henchman, re-rolling \"Lad's Got Talent\" results on the Henchman advance table. If the Squig Herder dies, the trained Squig is removed from the warband. If the trained Squig dies, a new trained Squig may be recruited. There is never more than one trained Squig in a warband, and it still counts towards the maximum number of Cave Squigs. Thanks to the Herder's special attention (kicks, prods), the trained Squig only dies on a roll of 1 after being taken Out of Action. In exchange, the trained Squig will fiercely defend its fallen master: if the Squig Herder is taken Out of Action and the trained Squig is under control, remove the latter from the table but treat any 36 - Stripped Bare, 61 - Captured!, or 65 - Sold to the Arena result as a Full Recovery instead.",
           },
@@ -1041,7 +1076,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Night Goblin Fanatic',
         regles_speciales: [
           {
-            nom: 'Addiction',
+            nom: 'Addict',
             texte: "Needs a Fool's Cap mushroom for every game; without one, he stays in his cave and does not take part in the battle.",
           },
           { nom: 'Crazed', texte: 'Immune to the animosity rules.' },
@@ -1146,17 +1181,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       type: 'sorcery',
       sorts: [
         {
-          nom: "Gork's Wind",
+          nom: 'Wind of Gork',
           texte: 'Range 12"; the first model hit must pass a Toughness test or suffer a Strength 2 hit and be automatically Knocked Down.',
         },
-        { nom: "Mork's Gaze", texte: 'Range 12"; D3 Strength 3 hits on the first model in the path.' },
+        { nom: 'Gaze of Mork', texte: 'Range 12"; D3 Strength 3 hits on the first model in the path.' },
         {
-          nom: "'Ead-Seeker",
+          nom: "'Eadbanger",
           texte:
             "Range 6\"; fires a number of bolts equal to the Shaman's base Attacks, Strength equal to his Toughness, hitting the first model in the path. On a 1 after resolving, the Shaman collapses and is taken Out of Action.",
         },
         {
-          nom: 'Waaagh! Leap',
+          nom: 'Leap of Waaagh!',
           texte: 'The Shaman or a Goblin within 3" may be moved up to 12", ignoring terrain; if this brings him into hand-to-hand combat, it counts as a charge.',
         },
         { nom: 'Idol of Gork', texte: 'The Shaman gains WS+1, S+1, and A+1 until he suffers a Wound.' },
@@ -1533,20 +1568,20 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       insensible_a_la_douleur: {
-        nom: 'Unfeeling to Pain',
-        texte: 'Only a Skaven of Clan Pestilens Hero with the Hard as Nails skill may choose this skill. The Skaven treats Stunned results as Knocked Down.',
-        reserve_a: 'Requires the Hard as Nails skill',
+        nom: 'Ignore Pain',
+        texte: 'Only a Skaven of Clan Pestilens Hero with the Resilient skill may choose this skill. The Skaven treats Stunned results as Knocked Down.',
+        reserve_a: 'Requires the Resilient skill',
       },
       frenesie_mortelle: {
-        nom: 'Deadly Frenzy',
+        nom: 'Black Hunger',
         texte:
           'At the start of a turn, the Clan Pestilens Hero may declare that he is using this skill. He gains +1 Attack and 1D3" of Movement for the whole turn. In exchange, at the end of the turn, he suffers 1D3 Strength 3 hits, with no armour save allowed.',
       },
       porteur_dencensoir_a_peste: {
-        nom: 'Plague Censer Bearer',
+        nom: 'Censer Bearer',
         texte:
-          'Only a Skaven of Clan Pestilens Hero with the Deadly Frenzy skill may choose this skill. This Skaven is called a censer bearer. He gains the Frenzy special rule and may only use a plague censer as a hand-to-hand weapon.',
-        reserve_a: 'Requires the Deadly Frenzy skill',
+          'Only a Skaven of Clan Pestilens Hero with the Black Hunger skill may choose this skill. This Skaven is called a censer bearer. He gains the Frenzy special rule and may only use a plague censer as a hand-to-hand weapon.',
+        reserve_a: 'Requires the Black Hunger skill',
       },
       corps_putrefie: {
         nom: 'Rotten Body',
@@ -1562,7 +1597,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       heros_pestilens: {
-        armes_cac: ['first free', 'mace', undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_cac: ['first free', 'mace', undefined, undefined, undefined, undefined],
       },
       hommes_de_main_pestilens: {
         armes_cac: ['first free', 'mace', undefined, undefined],
@@ -1588,7 +1623,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         },
         {
           nom: 'Eye of the Warp',
-          texte: 'All standing models in contact with the Sorcerer must immediately make a Leadership test. Those who fail suffer a Strength 3 hit and must run 2D6" in the direction opposite the Sorcerer.',
+          texte: 'All standing models in contact with the Sorcerer must immediately make a Leadership test. Those who fail suffer a Strength 3 hit and must run 2D6" in the direction opposite the Sorcerer, exactly as if they had lost their nerve when fighting against more than one opponent.',
         },
         {
           nom: "Sorcerer's Curse",
@@ -1798,14 +1833,14 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Black Orcs (1b)',
     regles_speciales: [
       {
-        nom: 'Let the Real Boyz Do the Job',
+        nom: 'Let the goons do the work',
         texte:
           'Black Orcs rely only on themselves to kill their enemies. They may therefore never have any kind of mount. Only common Orcs may ride boars or other mounts.',
       },
       {
-        nom: 'The Boss Got Done In!',
+        nom: 'Da Boss is Dead!',
         texte:
-          'If the Boss should be killed, command of the warband must pass to the Black Orc with the most experience, even if an Orc has more experience overall. The replacement automatically gains the special rule You Gonna Calm Down?!.',
+          'If the Boss should be killed, command of the warband must pass to the Black Orc with the most experience, even if an Orc has more experience overall. The replacement automatically gains the Oi Behave! skill.',
       },
       {
         nom: 'Animosity',
@@ -1823,7 +1858,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte: 'The model starts with a natural armour save of 6+. It may be combined with any equipment that would improve it.',
           },
           {
-            nom: 'You Gonna Calm Down?!',
+            nom: 'Oi Behave!',
             texte:
               'If an Orc Henchman fails his Animosity test within 6" of the Black Orc Boss, the Black Orc player may choose to have the Boss step in. The Black Orc Boss decides to calm things down by kicking a few backsides… The unruly Orc Henchman suffers an automatic hit of a Strength chosen by the Black Orc player. If the Orc Henchman is still standing after the smack, he adds a number equal to the Strength of the blow received to the result rolled on the Animosity table. For example, the player decides the Black Orc Boss gives an unruly Orc Henchman a Strength 2 clout. If he is not Knocked Down, Stunned, or Out of Action after the beating, the player adds +2 to the result on the Animosity table.',
           },
@@ -1849,30 +1884,30 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       kastagneurs_orques: {
-        nom: 'Orc Bruisers',
+        nom: 'Orc Boyz',
         regles_speciales: [
-          { nom: 'Animosity', texte: "Orc Bruisers are subject to animosity (see the warband's special rules)." },
+          { nom: 'Animosity', texte: "Orc Boyz are subject to animosity (see the warband's special rules)." },
         ],
       },
       chasseurs_orques: {
-        nom: 'Orc Hunters',
+        nom: 'Orc Shootaz',
         regles_speciales: [
-          { nom: 'Animosity', texte: "Orc Hunters are subject to animosity (see the warband's special rules)." },
+          { nom: 'Animosity', texte: "Orc Shootaz are subject to animosity (see the warband's special rules)." },
           {
             nom: 'Uncommon',
-            texte: 'A warband may never hire more Hunters than Bruisers. If a Bruiser dies and there are more Hunters than Bruisers, the next recruit must be a Bruiser to restore the balance.',
+            texte: 'A warband may never hire more Shootaz than Boyz. If a Boy dies and there are more Shootaz than Boyz, the next recruit must be a Boy to restore the balance.',
           },
         ],
       },
       ding_boyz: {
-        nom: "Ding'boyz",
+        nom: 'Orc Nuttaz',
         regles_speciales: [
           {
             nom: 'Unstable',
             texte: "These Orcs aren't quite right in the head. They don't suffer from Animosity, but from a whole host of other problems.",
           },
           {
-            nom: 'Mad',
+            nom: 'Crazy',
             texte:
               "Ding'boyz automatically pass all Leadership tests. The downside is that their minds are so disturbed that, should they become Heroes following an advance roll, they would be unable to learn even a single Academic skill.",
           },
@@ -1891,7 +1926,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte: 'Trolls could easily do without weapons, but they carry a big club regardless. In game terms, they may not be given weapons or armour.',
           },
           { nom: 'Fear', texte: 'Trolls are frightening creatures and cause Fear.' },
-          { nom: 'Zero IQ', texte: 'Trolls are far too stupid to learn anything. They never gain experience.' },
+          { nom: 'Dumb Monster', texte: 'Trolls are far too stupid to learn anything. They never gain experience.' },
           {
             nom: 'Regeneration',
             texte:
@@ -1931,7 +1966,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       tet_dure: {
-        nom: 'Thick Skull',
+        nom: "'Ard Ead",
         texte:
           "The warrior has a particularly thick skull, even for an Orc. This Orc gets a special 3+ save on 1D6 to avoid being Stunned. If the save is successful, the model is simply Knocked Down instead. If the Orc also wears a helmet, this save becomes 2+ instead of 3+ (replacing the helmet's usual special rule).",
       },
@@ -1940,16 +1975,16 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'Orcs are aggressive creatures who love to charge into the fray. The Hero adds +1D3" to his charge range.',
       },
       on_y_va: {
-        nom: "Let's Go!",
+        nom: "'Ere We Go!",
         texte: 'Orcs don\'t hesitate to rush into combat, even against fearsome opponents. The Hero ignores Fear and Terror tests when charging.',
       },
       revenez_ici: {
-        nom: "Come Back 'Ere!",
+        nom: "Da Cunnin' Plan",
         texte: 'Only the Boss may take this skill. The warband may re-roll all failed Rout tests as long as the Boss has not been taken Out of Action.',
         reserve_a: 'Black Orc Boss only',
       },
       coup_de_boule: {
-        nom: 'Headbutt',
+        nom: "'Eadbasher",
         texte: 'Orcs are fairly muscular creatures, and some are used to striking their opponents with great headbutts, with rather conclusive results. Any model Knocked Down in hand-to-hand combat is treated as Stunned.',
       },
     },
@@ -2121,9 +2156,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Orc Mob (1a)',
     regles_speciales: [
       {
-        nom: 'Disreputable Sorts',
+        nom: 'Distasteful Company',
         texte:
-          'Many Hired Swords would refuse to work for Orcs, knowing the orcs could turn on them at any moment. An Orc warband may therefore only hire the following Hired Swords: Gladiators, Ogre Bodyguards, or Wizards.',
+          'Many Hired Swords would refuse to work for Orcs, knowing the orcs could turn on them at any moment. An Orc warband may therefore only hire the following Hired Swords: Pit Fighters, Ogre Bodyguards, or Warlocks.',
       },
       {
         nom: 'Animosity',
@@ -2145,7 +2180,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: 'No Armour', texte: 'A Shaman may be equipped with weapons chosen from the Orc equipment list. He never wears armour.' },
         ],
       },
-      kosto: { nom: 'Bruiser' },
+      kosto: { nom: "Big 'Un" },
       boyz_orque: {
         nom: 'Orc Boyz',
         regles_speciales: [
@@ -2289,7 +2324,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Norses (1b)',
     regles_speciales: [
       {
-        nom: 'Sailors',
+        nom: 'Seamen',
         texte:
           "Norses are excellent navigators. All gain +2 Strength when rowing (see The Script of Sigmar scenario rule, Town Cryer #9; otherwise, apply this bonus to the boat's Movement).",
       },
@@ -2317,7 +2352,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
         ],
       },
-      bondis: { nom: 'Bóndis' },
+      bondis: { nom: 'Bondsmen' },
       maraudeur_norse: { nom: 'Norse Marauder' },
       chasseur_norse: { nom: 'Norse Hunter' },
       loup: {
@@ -2594,7 +2629,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       {
         nom: 'Dense Terrain',
-        texte: 'Imperial Escorts may ignore the normal limit of two mounts per warband within areas of dense terrain.',
+        texte: 'Imperial Outriders may ignore the normal limit of two mounts per warband within areas of dense terrain.',
       },
       {
         nom: 'Two-Weapon Fighting',
@@ -2626,10 +2661,10 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [{ nom: 'Mount', texte: 'A Scout rides a Horse (included in his cost).' }],
       },
       pistolier: {
-        nom: 'Pistolier',
+        nom: 'Chasseurs',
         regles_speciales: [
-          { nom: 'Ride', texte: 'Pistoliers already have the Ride skill.' },
-          { nom: 'Mount', texte: 'Pistoliers ride Horses (included in their cost).' },
+          { nom: 'Ride', texte: 'Chasseurs already have the Ride skill.' },
+          { nom: 'Mount', texte: 'Chasseurs ride Horses (included in their cost).' },
         ],
       },
       hussard: {
@@ -2637,8 +2672,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Ride', texte: 'Hussars already have the Ride skill.' },
           {
-            nom: 'Trample',
-            texte: 'Hussars already have the Trample skill: they make an additional Strength 4 Attack when they charge an enemy on foot.',
+            nom: 'Combat Riding',
+            texte: 'Hussars already have the Combat Riding skill: they make an additional Strength 4 Attack when they charge an enemy on foot.',
           },
           { nom: 'Mount', texte: 'Hussars ride Horses (included in their cost). May be upgraded to Warhorses for +40gc.' },
         ],
@@ -2660,9 +2695,6 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       base: {
         armes_cac: ['first free', 'Hammer', undefined, undefined, undefined, undefined, undefined],
       },
-      armes_tir_escorteurs: {
-        armes_tir: ['30gc per pair', undefined, undefined, undefined],
-      },
       armes_tir_eclaireurs: {
         armes_tir: ['Throwing knives'],
       },
@@ -2678,7 +2710,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       {
         nom: 'Hired Swords',
-        texte: 'The following Hired Swords are not available to the Outlaws: Bounty Hunters, Wolf Priest of Ulric, Norse Shamans, and Dark Elf Assassins.',
+        texte: 'The following Hired Swords are not available to the Outlaws: Bounty Hunter, Wolf-Priest of Ulric, Norse Shaman, Dark Elf Assassin.',
       },
     ],
     profils: {
@@ -2691,7 +2723,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       moine_stirwood: {
         nom: 'Cleric',
         regles_speciales: [
-          { nom: 'Recruitment', texte: 'The warband may include one Cleric, but he must replace a Stirwood Champion or a Petty Thief.' },
+          { nom: 'Recruitment', texte: 'The warband may include one Cleric, but he must replace a Champion or a Petty Thief.' },
           {
             nom: 'Disciple of Sigmar',
             texte:
@@ -2699,7 +2731,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
         ],
       },
-      champion_de_stirwood: { nom: 'Stirwood Champion' },
+      champion_de_stirwood: { nom: 'Champion' },
       petit_voleur: { nom: 'Petty Thief' },
       hors_la_loi: { nom: 'Outlaw' },
       tireur: { nom: 'Marksman' },
@@ -2707,8 +2739,14 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     equipement: {
       hors_la_loi: {
         armes_cac: ['first free', 'Hammer, Mace, or Staff', undefined, undefined, undefined, undefined],
+        armes_tir_restriction: [undefined, undefined, 'Heroes and Marksmen only'],
+        armures_restriction: ['Heroes and Marksmen only'],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Rare 8, Heroes only — available with no Rarity roll at initial recruitment' },
+      { disponibilite: 'Rare 10, Outlaw Heroes only — available with no Rarity roll at initial recruitment' },
+    ],
     magie: {
       nom: 'Prayers of Sigmar',
       type: 'prayer',
@@ -2756,7 +2794,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: "No Knight may use a missile weapon (except holy water), nor resort to poison, drugs, or spells; prayers remain permitted.",
       },
       {
-        nom: "The Lord's Favour",
+        nom: "Lord's Boon",
         texte:
           'Upon joining the warband, a Knight may acquire ONE item only from among warhorse / light armour / heavy armour at half price. This item may not be traded, given away, or sold, and is removed from the warband (returned or buried) if the Knight dies.',
       },
@@ -2772,7 +2810,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Leader', texte: 'Any warband member within 6" may use his Leadership for their tests.' },
           { nom: 'Knight', texte: 'Has the Chivalry, the Lord\'s Favour, and Virtue of Purity rules.' },
-          { nom: 'Horsemanship', texte: 'Starts with the Ride – Warhorse skill.' },
+          { nom: 'Ride', texte: 'Starts with the Ride – Warhorse skill.' },
           { nom: 'Vow of Poverty', texte: 'May never take a cavalry lance.' },
         ],
       },
@@ -2797,7 +2835,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
           {
             nom: 'May Exceed Three',
-            texte: 'May exceed 3 Knights Errant if a Squire promoted to Hero becomes one (see the Knighting rule).',
+            texte: 'May exceed 3 Knights Errant if a Squire promoted to Hero becomes one (see the Knighthood rule).',
           },
         ],
       },
@@ -2805,7 +2843,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Squire',
         regles_speciales: [
           {
-            nom: 'Knighting',
+            nom: 'Knighthood',
             texte:
               "On 'Lad's Got Talent', two choices: remain a Squire (2 lists among Combat/Academic/Strength/Speed, keeps his equipment list) or become a Knight Errant (immediately gains Knight, Vain, and Impetuous instead of an immediate advance, gains access to Special Skills plus 2 other lists, switches to the Knights' equipment list, may no longer use missile weapons — this is the mechanism that allows exceeding 3 Knights Errant).",
           },
@@ -2825,7 +2863,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: 'Hatred', texte: "Hatred of all enemies, regarded as heretics to the Lady's cause." },
           { nom: 'Stubborn', texte: 'May re-roll a failed Leadership test once, keeping the second result.' },
           {
-            nom: 'Bretonnian Sacred Relics',
+            nom: 'Holy Relics',
             texte:
               'May receive a sacred relic despite the usual restriction on Henchmen carrying miscellaneous items; it grants frenzy (and therefore immunity to Hatred). If a group does not have enough relics for all its members, the bearer splits off and forms his own group.',
           },
@@ -2882,16 +2920,30 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       chevaliers: {
-        armes_cac: ['first free', undefined, undefined, undefined, 'see special equipment', undefined, undefined, undefined],
+        armes_cac: ['first free', undefined, undefined, undefined, 'see special equipment', undefined, undefined, undefined, undefined],
+        armes_cac_restriction: [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, 'Not Questing Knight'],
         armures: [undefined, undefined, undefined, undefined, 'see special equipment', undefined],
+        armures_restriction: [undefined, undefined, 'Not Knight Errant', undefined, undefined, undefined],
       },
       pelerins: {
         armes_cac: ['first free', undefined, undefined, 'see special equipment', undefined, undefined, undefined, undefined],
+        divers_restriction: ['Pilgrim only'],
       },
       paysans_archers: {
         armes_cac: ['first free', undefined, undefined, 'see special equipment', undefined],
       },
+      damoiselle: {
+        armes_cac: ['first free', undefined, undefined, 'see special equipment', undefined],
+      },
     },
+    equipement_special: [
+      { disponibilite: 'Common, Bretonnian Chapel Guardian Knights only' },
+      { disponibilite: 'Common, Bretonnian Chapel Guardians only' },
+      { disponibilite: 'Common, Knights of the Bretonnian Chapel Guard only' },
+      { disponibilite: 'Rare 11, Humans only' },
+      { disponibilite: 'Rare 8, Damsels and Squires only' },
+      { disponibilite: 'Bretonnian Chapel Guardian Knights only' },
+    ],
     magie: {
       nom: 'Prayers of the Lady of the Lake',
       type: 'prayers',
@@ -3325,29 +3377,29 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Dark Elves (1b)',
     regles_speciales: [
       {
-        nom: 'Fratricidal Hatred',
+        nom: 'Kindred Hatred',
         texte:
           'Dark Elves have fought the High Elves for millennia, and the wars between the two peoples have been long and bloody. Dark Elves hate High Elves, including Hired Swords of that race.',
       },
       {
-        nom: 'Superhuman Eyesight',
+        nom: 'Excellent Sight',
         texte:
           'Many legends tell of the excellent eyesight of elves, whether Druchii or High Elves. Elves can detect hidden enemies at twice the normal distance (that is, at a distance equal to twice their Initiative).',
       },
       {
-        nom: 'Firearms',
+        nom: 'Black Powder Weapons',
         texte: 'Dark Elves never use black powder weapons, finding them primitive, noisy, and unreliable.',
       },
     ],
     profils: {
       dynaste: {
-        nom: 'Dreadlord',
+        nom: 'High Born',
         regles_speciales: [
-          { nom: 'Leader', texte: 'Any Dark Elf warband model within 6" of the Dreadlord may use his Leadership for their tests.' },
+          { nom: 'Leader', texte: 'Any Dark Elf warband model within 6" of the High Born may use his Leadership for their tests.' },
         ],
       },
       spadassin: {
-        nom: 'Swordsman',
+        nom: 'Fellblade',
         regles_speciales: [
           {
             nom: 'Melee Specialists',
@@ -3359,8 +3411,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Beastmaster',
         regles_speciales: [
           {
-            nom: 'Cold One Hound',
-            texte: 'The Beastmaster may be accompanied by up to two Cold One Hounds, recruited as Henchmen and following the special rules detailed further on.',
+            nom: 'Cold One Beasthound',
+            texte: 'The Beastmaster may be accompanied by up to two Cold One Beasthounds, recruited as Henchmen and following the special rules detailed further on.',
           },
         ],
       },
@@ -3386,29 +3438,29 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       molosse_a_sang_froid: {
-        nom: 'Cold One Hound',
+        nom: 'Cold One Beasthound',
         regles_speciales: [
-          { nom: 'Weapons/armour', texte: 'Cold One Hounds are animals and need no equipment other than their scales and teeth!' },
+          { nom: 'Weapons/armour', texte: 'Cold One Beasthounds are animals and need no equipment other than their scales and teeth!' },
           {
             nom: 'Animals',
-            texte: 'Cold One Hounds are animals, and all rules relating to animals apply to them. They can never gain experience.',
+            texte: 'Cold One Beasthounds are animals, and all rules relating to animals apply to them. They can never gain experience.',
           },
           {
             nom: 'Beastmaster',
             texte:
-              'Cold One Hounds are sly, vicious animals, barely controllable. If the Beastmaster dies, the Hounds immediately escape and are struck off the warband roster. If for any reason the Beastmaster cannot take part in a battle, the Cold One Hounds cannot either.',
+              'Cold One Beasthounds are sly, vicious animals, barely controllable. If the Beastmaster dies, the Beasthounds immediately escape and are struck off the warband roster. If for any reason the Beastmaster cannot take part in a battle, the Cold One Beasthounds cannot either.',
           },
           {
-            nom: 'Submissive',
+            nom: 'Stupidity',
             texte:
-              "Cold One Hounds may use the Beastmaster's base Leadership if within 6\" of him. However, they cannot benefit from the warband Leader's Leadership, even if their Beastmaster, within 6\" of him, does.",
+              "Cold One Beasthounds may use the Beastmaster's base Leadership if within 6\" of him. However, they cannot benefit from the warband Leader's Leadership, even if their Beastmaster, within 6\" of him, does.",
           },
           {
-            nom: 'Scales',
+            nom: 'Scaly Skin',
             texte:
-              "Cold One Hounds are protected by thick, scaly skin. They therefore count as having a 6+ Armour Save. This save cannot be reduced by the attacker's Strength, but certain Critical Hits ignore it normally.",
+              "Cold One Beasthounds are protected by thick, scaly skin. They therefore count as having a 6+ Armour Save. This save cannot be reduced by the attacker's Strength, but certain Critical Hits ignore it normally.",
           },
-          { nom: 'Fear', texte: 'Cold One Hounds cause fear.' },
+          { nom: 'Fear', texte: 'Cold One Beasthounds cause fear.' },
         ],
       },
     },
@@ -3420,13 +3472,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'A Dark Elf with this skill is always placed on the battlefield after the opposing warband has deployed. He may be placed anywhere on the table, provided he is out of enemy line of sight and more than 12" from any enemy model. If both players have infiltrating models, roll 1D6, the lower result deploys first.',
       },
       rapidite_surnaturelle: {
-        nom: 'Supernatural Speed',
+        nom: 'Fey Quickness',
         reserve_a: 'Dark Elf Heroes only',
         texte:
-          'Few can match the incredible swiftness of elves. An elf with this skill may dodge shooting or hand-to-hand attacks on a roll of 6 on 1D6. If the elf also has the Sidestep or Dodge skill, this save becomes 4+ in the appropriate area. For example, an elf with Supernatural Speed and Sidestep dodges hand-to-hand wounds on a 4+ and shooting on a 6+.',
+          'Few can match the incredible swiftness of elves. An elf with this skill may dodge shooting or hand-to-hand attacks on a roll of 6 on 1D6. If the elf also has the Sidestep or Dodge skill, this save becomes 4+ in the appropriate area. For example, an elf with Fey Quickness and Sidestep dodges hand-to-hand wounds on a 4+ and shooting on a 6+.',
       },
       massif_elfe_noir: {
-        nom: 'Massive',
+        nom: 'Powerful Build',
         reserve_a: 'Dark Elf Heroes only, except the Sorceress, maximum two models per warband',
         texte:
           'The warrior is solidly built (for an elf) and possesses great strength. A warrior with this skill may choose Strength skills. The Sorceress cannot receive this skill, and your warband may not have more than two models with it.',
@@ -3446,7 +3498,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       elfes_noirs: {
-        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, 'cost of the weapon (dagger or sword) + 20 gc, Heroes only'],
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, 'cost of the weapon (dagger or sword) + 20 gc, Heroes only'],
         armures: [undefined, undefined, undefined, undefined, 'Heroes and Corsairs only'],
       },
       ombres: {
@@ -3460,7 +3512,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         'Like the High Elves, Dark Elves are accomplished spellcasters. But where the High Elves use their magic to protect and do good, the Dark Elves wield dark magic to destroy.',
       sorts: [
         {
-          nom: 'Black Lightning',
+          nom: 'Doombolt',
           texte:
             'Murmuring an ancient incantation, the Sorceress creates a bolt of pure black energy that she unleashes on her enemies. Black Lightning may be cast against any enemy model in line of sight. Its range is 18" and it hits with Strength 5. If the target is wounded, the nearest model within 6" of it is also hit on a 4+ with Strength one point lower than the previous hit. The lightning continues jumping from model to model in this way until it runs out of targets, misses, or its Strength drops below 1. Each model can only be hit once per turn by this lightning. Armour saves apply normally.',
         },
@@ -3475,17 +3527,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             'By simple touch, the Sorceress drains her enemies of their life essence and absorbs it, strengthening her own energies. Once the spell is successfully cast, the Sorceress must make a to-hit roll against a model in contact. If it hits, its target loses 1 Wound, with no armour save allowed. The Sorceress then feeds on this energy and adds +1 Wound to her profile. Note: the Sorceress can never have more than 1 extra Wound from this spell, and it will be lost at the end of the game.',
         },
         {
-          nom: 'Sword of Fire',
+          nom: 'Flamesword',
           texte:
             'Invoking baleful energies, the Sorceress wreathes a blade in black, icy flames. The Sorceress may cast this spell on one of the hand-to-hand weapons of a Dark Elf within 6". A weapon so enchanted still counts as a normal weapon of the appropriate type, but adds +2 to its wielder\'s Strength, and the hits it inflicts ignore armour saves. This spell lasts until the next Dark Elf Shooting phase.',
         },
         {
-          nom: 'Death Spasms',
+          nom: 'Deathspasm',
           texte:
             'The Sorceress riddles her enemy\'s body with dark magic, inflicting unbearable pain for a mere mortal to endure. This spell has a range of 6" and may be cast on the nearest enemy. The affected model must immediately roll on the Injury table. If the spell is cast successfully, the Sorceress is immediately Knocked Down.',
         },
         {
-          nom: "Witches' Flight",
+          nom: 'Witch Flight',
           texte:
             'The Sorceress bends the winds of magic to her will and rises into the air. The Sorceress may immediately move anywhere within 12" and may charge an enemy this way. If she charges a fleeing enemy, she inflicts an automatic hit on it, after which it flees again.',
         },
@@ -3540,10 +3592,6 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             nom: 'Totem',
             texte:
               'When a Saurus warrior has killed twenty enemies, he is accepted into one of the three Warrior Totems: Eagle, Jaguar, or Alligator. But first he must hunt and kill his totem animal himself to prove his worth. Once part of one of these prestigious groups, he will be chosen by the Skink Priests to help protect the temples.',
-          },
-          {
-            nom: 'Attacks',
-            texte: "His base profile (A1) is increased by +1 due to his Totem Warrior status, printed as A1+1 in the original rules.",
           },
         ],
       },
@@ -3619,6 +3667,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         armures: [undefined, 'Bone helm', undefined],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Common, Heroes only (missile weapons); Saurus only (hand-to-hand weapons, bought from the Rare Items Table)' },
+      { disponibilite: 'Common, Heroes only (missile weapons); Saurus only (hand-to-hand weapons, bought from the Rare Items Table)' },
+      { disponibilite: 'Common for one battle, Skink Henchmen only — +1 Strength, no armour save modifier' },
+    ],
     magie: {
       nom: 'Lizardmen Magic',
       type: 'prayers',
@@ -3627,7 +3680,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         {
           nom: 'Wrath of Chotec',
           texte:
-            'A bolt of lightning falls from the sky and strikes the nearest enemy within 10" of the Skink Priest, inflicting a Strength 5 hit. If the target wears armour (light, heavy, gromril, etc.), increase the Strength by +1 and add +1 to the result on the Injury table.',
+            'A bolt of lightning falls from the sky and strikes the nearest enemy within 10" of the Skink Priest, inflicting a Strength 5 hit. If the target wears armour (light, heavy, Ithilmar, Gromril, etc.), increase the Strength by +1 and add +1 to the result on the Injury table.',
         },
         {
           nom: 'Blessing of Sotek',
@@ -3868,7 +3921,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       {
         nom: 'Hard Head',
-        texte: 'Chaos Dwarfs ignore the special rules of maces, hammers, and other such weapons. They too are not easy to knock silly!',
+        texte: 'Chaos Dwarfs ignore the special rules of clubs, maces, etc. They too are not easy to knock silly!',
         exception: 'Does not apply to Informers',
       },
       {
@@ -3879,7 +3932,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Hired Swords',
         texte:
-          'A Chaos Dwarf warband may hire the following Hired Swords: Ogre Bodyguard, Gladiator, Wizard, Imperial Assassin, and Hobgoblin Scout. They may also hire any Hired Sword available to all warbands, as well as those available to Orc and Chaos warbands. They may never hire any Elf Hired Sword, whoever they are!',
+          'A Chaos Dwarf warband may hire the following Hired Swords: Ogre Bodyguard, Pit Fighter, Warlock, Imperial Assassin, and Hobgoblin Scout. They may also hire any Hired Sword available to all warbands, as well as those available to Orc and Chaos warbands. They may never hire any Elf Hired Sword, whoever they are!',
         exception: 'Does not apply to Informers',
       },
     ],
@@ -3896,9 +3949,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       geolier: {
-        nom: 'Jailer',
+        nom: 'Gaoler',
         regles_speciales: [
-          { nom: 'Bad Reputation', texte: 'Jailers are known for their brutality. The mere thought of being captured by one of them strikes fear into Humans.' },
+          { nom: 'Nasty Reputation', texte: 'Gaolers are known for their brutality. The mere thought of being captured by one of them strikes fear into Humans.' },
         ],
       },
       centaure_taureau: {
@@ -3959,7 +4012,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       increvable: {
-        nom: 'Unstoppable',
+        nom: 'Extra Tough',
         texte:
           'A Chaos Dwarf with this skill is renowned for surviving wounds that would fell a lesser warrior. After a game in which this Hero was taken Out of Action, when you roll on the Serious Injury table, the dice may be re-rolled once. The result of this second roll must be accepted, even if the consequences are worse.',
       },
@@ -3978,7 +4031,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'This Chaos Dwarf is particularly skilled at locating valuable resources. When he rolls on the Exploration table at the end of the game, the Hero may modify one die roll by +1/-1.',
       },
       tres_coriace: {
-        nom: 'Extremely Tough',
+        nom: 'True Grit',
         texte: 'Chaos Dwarfs are sturdy creatures, and this Hero is determined, even for a Chaos Dwarf! On the Injury table, a roll of 1-3 is treated as Knocked Down, 4-5 as Stunned, and 6 as Out of Action.',
       },
       tyran: {
@@ -3990,13 +4043,21 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       nains_du_chaos: {
-        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined],
         armes_tir: ['30gc per pair', undefined, undefined],
       },
       delateurs: {
         armes_cac: ['first free', undefined, undefined, undefined],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Rare 12, Cult of the Possessed, Chaos Dwarfs, Carnival of Chaos, Marauders of Chaos, Norse, Beastmen Raiders only' },
+      { disponibilite: 'Rare 10, Chaos Dwarf Gaolers only' },
+      { disponibilite: 'Common, Chaos Dwarf Gaolers only' },
+      { disponibilite: 'Rare 14, Chaos Dwarfs only' },
+      { disponibilite: 'Rare 13, Cult of the Possessed, Chaos Dwarfs, Carnival of Chaos, Marauders of Chaos, Norse, Beastmen Raiders only' },
+      { disponibilite: 'Rare 10, Chaos Dwarfs only' },
+    ],
     magie: {
       nom: 'Rituals of Hashut',
       type: 'sorcery',
@@ -4011,7 +4072,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         { nom: 'Bellow of Doom', texte: 'All fighters in base contact with the Hierogrammate must pass a Leadership test or break off combat and flee.' },
         { nom: 'Fumes of Azgorh', texte: 'Range 8", hits all fighters in its path on a 4+. Strength 4 hit, no armour save allowed.' },
         {
-          nom: 'Glittering Skin',
+          nom: 'Flickering Hide',
           texte:
             "Can be cast on the Hierogrammate himself or any fighter within 6\". Negates any Wound suffered on a 4+. In hand-to-hand combat, any fighter who hits the target suffers a Strength 3 hit for each blow landed. Lasts until the start of the Hierogrammate's next Shooting phase.",
         },
@@ -4159,11 +4220,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Kislevites (1a)',
     regles_speciales: [
       {
-        nom: 'Hired Swords',
+        nom: 'May Hire',
         texte: 'A Kislevite warband may hire the same Hired Swords as the human Mercenary warbands described in the Mordheim rulebook.',
       },
       {
-        nom: 'Old Enemies',
+        nom: 'Ancient Enemies',
         texte:
           'Kislevites may never ally with any Chaos warband of any kind. This restriction extends to the following warbands: Possessed, Beastmen, Skaven, Dark Elves, Chaos Dwarfs, and any other warband deemed too chaotic by the players.',
       },
@@ -4174,7 +4235,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Leader', texte: "Any warrior within 6\" of the Druzhina Captain may use the latter's Ld for all his Leadership tests." },
           {
-            nom: 'Heirloom',
+            nom: 'Inheritance',
             texte:
               "When the warband is created, the Captain may buy one item from the Kislevite Warriors' equipment list at half price (family heirloom). If he loses this item (for example, a 'Stripped' result on the Injury table), he must replace it as soon as possible with a good-quality substitute by rebuying the same item at 150% of its usual price. Until the item is replaced, the Captain suffers a -1 penalty on all his tests and to-hit rolls.",
           },
@@ -4184,14 +4245,14 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Bear Tamer',
         regles_speciales: [
           {
-            nom: 'Bear Tamer',
+            nom: 'Bear Handler',
             texte:
-              "A Kislevite warband that includes a Bear Tamer may recruit a Tamed Bear as a Henchman. This animal has been trained to follow the Tamer's instructions: it automatically passes its Stupidity tests when within 6\" of the Bear Tamer (even if the latter is Knocked Down or Stunned).",
+              "A Kislevite warband that includes a Bear Tamer may recruit a Trained Bear as a Henchman. This animal has been trained to follow the Tamer's instructions: it automatically passes its Stupidity tests when within 6\" of the Bear Tamer (even if the latter is Knocked Down or Stunned).",
           },
         ],
       },
       esaul: { nom: 'Esaul' },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youths' },
       guerrier_kislevite: {
         nom: 'Warrior',
         regles_speciales: [{ nom: 'Recruitment', texte: 'Any number. Bought in groups of 1 to 5.' }],
@@ -4200,8 +4261,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Cossack',
         regles_speciales: [
           {
-            nom: 'Hatred of Chaos',
-            texte: 'Cossacks are subject to Hatred of the forces of Chaos, i.e. the members of any warband to which the Old Enemies rule applies.',
+            nom: 'Hate Chaos',
+            texte: 'Cossacks are subject to Hatred of the forces of Chaos, i.e. the members of any warband to which the Ancient Enemies rule applies.',
           },
           { nom: 'Recruitment', texte: 'Any number. Bought in groups of 1 to 5.' },
         ],
@@ -4210,7 +4271,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Streltsi',
         regles_speciales: [
           {
-            nom: 'Support',
+            nom: 'Gun-Rest',
             texte:
               'A Streltsi armed with a halberd and an arquebus may use the halberd to rest his firearm on: he then gains a +1 bonus to hit with his arquebus as long as he does not move during the Movement phase (even if he has a skill that allows him to move and shoot).',
           },
@@ -4218,15 +4279,15 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       ours_apprivoise: {
-        nom: 'Tamed Bear',
+        nom: 'Trained Bear',
         regles_speciales: [
           { nom: 'Recruitment', texte: 'May only be included if the warband already has a Bear Tamer.' },
           {
-            nom: 'Tamed',
+            nom: 'Trained',
             texte:
               "The Bear simply obeys its tamer. It is subject to Stupidity, but automatically passes its Stupidity tests if it is within 6\" of the Tamer. The Bear never uses the warband leader's Ld, but may use the Tamer's if it is within 6\" of him. The warband cannot control the Bear without its tamer present: if the warband loses the Tamer, the Bear stays in its cage until the warband recruits another one.",
           },
-          { nom: 'Frightening', texte: 'A charging bear is a fearsome sight. A Tamed Bear causes Fear.' },
+          { nom: 'Fearsome', texte: 'A charging bear is a fearsome sight. A Trained Bear causes Fear.' },
           {
             nom: 'Bear Hug',
             texte:
@@ -4394,17 +4455,30 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       pirates: {
-        armes_cac: ['first free', 'Hammer or Mace', undefined, undefined, undefined, 'Cutlass', undefined],
-        armes_tir: [undefined, undefined, undefined, '30gc per pair', '60gc per pair'],
+        armes_cac: ['first free', 'Hammer or Mace', undefined, undefined, 'Cutlass', undefined],
       },
       artilleurs: {
         armes_cac: ['first free', 'Hammer or Mace', undefined, 'Cutlass'],
-        armes_tir: ['30gc per pair', '60gc per pair', undefined, undefined, 'one per warband'],
+        armes_tir: [undefined, undefined, undefined, undefined, 'one per warband'],
       },
       enroles: {
         armes_cac: ['first free', 'Hammer or Mace', undefined, 'Hook', 'Cutlass', undefined],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Common, Pirate Gunners only' },
+      { disponibilite: 'Common, Pirate Gunners only' },
+      { disponibilite: 'Common, Pirate Gunners only' },
+      { disponibilite: 'Common, one per model, single use' },
+      { disponibilite: 'Common, Pirate Heroes only, one per warband' },
+      { disponibilite: 'Rare 9, Pirates only' },
+      { disponibilite: 'Rare 8, Captain and Mates only' },
+      { disponibilite: 'Rare 8, Pirates only' },
+      { disponibilite: 'Common, Pirates only (one per model)' },
+      { disponibilite: 'Common, Pirates only (one per model)' },
+      { disponibilite: 'Rare 10, Pirates only, single use' },
+      { disponibilite: 'Common, Pirate Heroes only' },
+    ],
   },
   marienburgers: {
     nom: 'Marienburg Mercenaries (1a)',
@@ -4504,9 +4578,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           {
             nom: 'Knightly Virtue',
-            texte: 'A Questing Knight is a chivalrous warrior, far above the ordinary fighter. He never panics and never flees combat. He therefore does not need to take All Alone tests.',
+            texte: 'A Knight Errant is a chivalrous warrior, far above the ordinary fighter. He never panics and never flees combat. He therefore does not need to take All Alone tests.',
           },
-          { nom: 'Mount', texte: 'A Knight Errant may not ride a warhorse if the Questing Knight does not already have one.' },
+          { nom: 'Mount', texte: 'A Knight Errant may not ride a warhorse if the Questing Knight does not already ride one.' },
         ],
       },
       ecuyer: {
@@ -4571,7 +4645,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Shadow Warriors (1b)',
     regles_speciales: [
       {
-        nom: 'Aversion to Poison',
+        nom: 'Distaste for Poison',
         texte:
           'The use of poisons and other drugs is a speciality of the dark elves. Shadow Warriors disapprove of their use even more strongly than the High Elves do. Members of a Shadow Warrior warband never use any type of poison.',
       },
@@ -4585,7 +4659,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           "All the Elves in a Shadow Warrior warband can spot Hidden enemies from twice as far away as other warriors (ie, twice their Initiative in inches).",
       },
       {
-        nom: 'Merciless',
+        nom: 'Unforgiving',
         texte:
           'In addition to their hatred of their corrupted cousins, the people of Nagarythe have long fought against Chaos. In a multiplayer game, a Shadow Warrior warband may never ally with any warband of a chaotic nature (Possessed, Skaven, Beastmen, Dark Elves, etc.).',
       },
@@ -4652,8 +4726,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       guerriers_fantomes: {
-        armes_cac: ['first free', undefined, undefined, undefined, 'Heroes only'],
-        armures: ['Helm', undefined, undefined, 'Heroes only'],
+        armes_cac: ['first free', undefined, undefined, undefined],
+        armures: ['Helm', undefined, undefined],
         divers: ['Heroes only', 'Heroes only', 'Heroes only', 'Heroes only', 'Heroes only'],
       },
     },
@@ -4664,12 +4738,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         "The magic wielded by Shadow Weavers differs greatly from the traditional High Magic taught at the Tower of Hoeth. Some spells specify that the target must be near a 'wall': this includes any terrain feature that casts a man-sized shadow.",
       sorts: [
         {
-          nom: 'Well of Darkness',
+          nom: 'Pool of Shadow',
           texte:
             'The area around the sorcerer is suddenly filled with shadows concealing everything within it. This spell allows the sorcerer and everyone within 6" of him to hide, exactly as if a wall stood between them and their opponents. They may hide even after running. The effect ends if an enemy enters the area of effect. In addition, those affected count as being under cover against enemy shooting. This spell lasts until the start of the Shadow Weaver\'s next turn.',
         },
         {
-          nom: 'Living Shadows',
+          nom: 'The Living Shadows',
           texte:
             'The shadows around the victim come alive and move to strike her. The Shadow Weaver may cast this spell on any enemy model within 12" of him, and within 2" of a wall. The target suffers a single Strength 4 hit with no armour save allowed.',
         },
@@ -4684,12 +4758,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             'The Shadow Weaver seems to be swallowed by impenetrable darkness. The Shadow Weaver hides from the enemy\'s sight. As long as he does not attack an enemy model (by casting spells, shooting, or engaging the enemy in hand-to-hand combat), he cannot be attacked. He may intercept normally, but is not obliged to (and if he does not, enemy warriors may of course move past him when they charge). The effect lasts until the Shadow Weaver attacks an enemy model. A model engaged in hand-to-hand combat can never choose not to attack.',
         },
         {
-          nom: 'Theatre of Shadows',
+          nom: 'Shadowbind',
           texte:
-            'Tentacles as black as night burst from the darkness to seize an enemy warrior, placing him at the sorcerer\'s mercy. The Shadow Weaver may cast this spell against any enemy model within 24" of him and within 2" of a wall. The target cannot move unless he passes a Strength test on 2D6 at the start of his turn (before the Recovery phase). This spell lasts until the Shadow Weaver suffers a wound or attempts to cast another spell. If attacked while under the effect of the spell, the victim is treated exactly as if he were Stunned.',
+            'Tentacles as black as night burst from the darkness to seize an enemy warrior, placing him at the sorcerer\'s mercy. The Shadow Weaver may cast this spell against any enemy model within 24" of him and within 2" of a wall. The target cannot move unless he passes a Strength test on 1D6+1 at the start of his turn (before the Recovery phase). This spell lasts until the Shadow Weaver suffers a wound or attempts to cast another spell. If attacked while under the effect of the spell, the victim is treated exactly as if he were Stunned.',
         },
         {
-          nom: 'Shield of Shadows',
+          nom: 'Shield of Shadow',
           texte:
             "Shadows form a protective barrier in front of the sorcerer or one of his companions. The Shadow Weaver may cast this spell on himself or a warband member within 12\" of him. The target gains a 5+ armour save unmodified by the attacker's Strength. The spell lasts until the start of the Shadow Weaver's next turn.",
         },
@@ -4875,7 +4949,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Ostlander Mercenaries (1a)',
     regles_speciales: [
       {
-        nom: 'Self-Reliant',
+        nom: 'Self-Sufficient',
         texte:
           "The Ostlanders have no desire to let their hard-earned gold end up in a stranger's hands. As a result, they may never hire Hired Swords, except Ogres (who are not uncommon in Ostland).",
       },
@@ -4891,12 +4965,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Priest of Taal',
         regles_speciales: [
           { nom: 'Prayers', texte: 'A Priest of Taal may use the Prayers of Taal (see Magic).' },
-          { nom: 'Frail', texte: 'Priests of Taal may never wear heavy armour.' },
+          { nom: 'Strictures', texte: 'Priests of Taal may never wear heavy armour.' },
         ],
       },
       freres_de_sang: { nom: 'Blood Brothers' },
       proche: {
-        nom: 'Kinsman',
+        nom: 'Kin',
         regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
       },
       jaeger: {
@@ -4904,15 +4978,15 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
       },
       vaurien: {
-        nom: 'Wastrel',
+        nom: 'Ruffian',
         regles_speciales: [
           {
             nom: 'Drunk',
-            texte: "Wastrels' minds are addled by rotgut and bad beer. They therefore automatically pass any Leadership tests they must take.",
+            texte: "Ruffians' minds are addled by rotgut and bad beer. They therefore automatically pass any Leadership tests they must take.",
           },
           {
-            nom: 'Disreputable',
-            texte: 'Wastrels provoke mixed feelings among their comrades, a strange blend of pity and fear. They can therefore never become the warband Leader.',
+            nom: 'No Respect',
+            texte: 'Ruffians provoke mixed feelings among their comrades, a strange blend of pity and fear. They can therefore never become the warband Leader.',
           },
         ],
       },
@@ -4921,7 +4995,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Fear', texte: 'Ogres are huge, threatening creatures that cause Fear.' },
           {
-            nom: 'Large Target',
+            nom: 'Large',
             texte: 'Ogres are bulky, massive creatures, making them good targets for archers. They are Large Targets, as defined in the Shooting rules.',
           },
           {
@@ -4958,7 +5032,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'When he charges, the Hero may attempt to knock down his opponent instead of making normal attacks: roll to score a single hit with a +1 modifier, with no wound roll. If the warrior hits, the target is Knocked Down.',
       },
       odeur_nauseabonde: {
-        nom: 'Foul Stench',
+        nom: 'Foul Odour',
         texte:
           'All living enemies (not Undead or Possessed) suffer a -1 penalty to hit this warrior in hand-to-hand combat. He may not carry a burning item, and fire attacks against him are resolved at Strength +1 due to his alcohol-soaked clothes.',
       },
@@ -4973,7 +5047,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'During the Shooting phase, the warrior may choose to taunt an enemy instead of shooting or casting a spell (follows the normal targeting rules for shooting: the nearest visible enemy, etc.). The enemy must take a Leadership test: if failed, he must spend his next Movement phase engaging the warrior who taunted him in hand-to-hand combat.',
       },
       amis_des_betes: {
-        nom: 'Friend of Beasts',
+        nom: 'Animal Friendship',
         texte:
           "This warrior radiates a charm that affects all \"ordinary\" animals (warhorses, war dogs, etc.): they will never attack him, and up to two War Dogs owned by this model do not count towards the warband's maximum model count.",
       },
@@ -4988,13 +5062,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       jaegers: {
         armes_cac: ['first free', undefined, undefined, undefined],
-        armes_tir: [undefined, undefined, undefined, '30gc per pair', '60gc per pair', undefined, undefined],
+        armes_tir: [undefined, undefined, undefined, undefined, 'Rare 10, 60gc for a pair', undefined, 'Rare 12', undefined, undefined],
       },
     },
     magie: {
       nom: 'Prayers of Taal',
       type: 'prayer',
-      note: 'The Prayers of Taal function like the Prayers of Sigmar, though a Priest of Taal rarely wears armour.',
+      note: 'The Prayers of Taal function like the Prayers of Sigmar, although the Taal Priest never wears armour.',
       sorts: [
         {
           nom: "Stag's Leap",
@@ -5002,7 +5076,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             'The Priest may immediately move anywhere within 9", including into base contact with an enemy (charging at Strength +1 for the first round). If he makes contact with a fleeing enemy, he inflicts an automatic Strength +1 hit during the hand-to-hand combat phase, and the enemy flees again if it survives.',
         },
         {
-          nom: 'Blessed Beer',
+          nom: 'Blessed Ale',
           texte:
             'The Priest may heal himself or any model within 2" of him, who recovers his full Wounds. In addition, all living enemy models (not Undead or Possessed) within 2" of the Priest lose 1 Attack during the next combat phase, due to the powerful fumes of beer.',
         },
@@ -5011,17 +5085,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           texte: "The Priest calls upon the blessing of Taal on himself or a friendly model within 6\": the target gains +2 Strength until the Priest's next turn.",
         },
         {
-          nom: 'Earthquake',
+          nom: 'Earthshudder',
           texte:
             'The spell must be cast on a building within 4". Any enemy model in contact with the building suffers a Strength 3 hit. In addition, the building collapses and models inside it suffer a fall (for every 2" fallen, an Initiative test must be passed to avoid D3 Strength 5 hits). Remove the building from the board for the rest of the game.',
         },
         {
-          nom: 'Snares',
+          nom: 'Tanglefoot',
           texte:
             'Creeping vines and small trees burst from the ground: all friendly or enemy models (except Ostlander Jaegers) within 12" of the Priest may only move at half their Movement until the next Shooting phase.',
         },
         {
-          nom: 'Call of the Squirrels',
+          nom: 'Summon Squirrels',
           texte:
             'The Priest summons dozens of enraged squirrels that attack an enemy within 12" of the Priest: the target suffers 2D6 Strength 1 hits, with no save allowed.',
         },
@@ -5265,15 +5339,15 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte:
           'Dwarfs are very tough and resilient. They can therefore only be taken Out of Action on a roll of 6 instead of 5-6 on the Injury table. Treat a roll of 1-2 as Knocked Down, 3-5 as Stunned, and 6 as Out of Action.',
       },
-      { nom: 'Hard Head', texte: 'Dwarfs ignore the special rules of maces, hammers, etc. They are not easy to knock silly!' },
+      { nom: 'Hard Head', texte: 'Dwarfs ignore the special rules of maces, clubs, etc. They are not easy to knock silly!' },
       { nom: 'Armour', texte: 'Dwarfs suffer no Movement penalty for wearing armour.' },
-      { nom: 'Hatred of Orcs and Goblins', texte: 'All Dwarfs hate Orcs and Goblins.' },
+      { nom: 'Hate Orcs and Goblins', texte: 'All Dwarfs hate Orcs and Goblins.' },
       {
-        nom: 'Grudge-Bearers',
+        nom: 'Grudgebearers',
         texte: 'Dwarfs hold an old grudge against elves. A Dwarf warband may never include any Elf Hired Sword, whoever they are.',
       },
       {
-        nom: 'Miners Without Equal',
+        nom: 'Incomparable Miners',
         texte: 'In the city of Mordheim, Dwarfs put their skills to use searching for Wyrdstone. Add +1 to the number of shards found when rolling to determine the amount of Wyrdstone at the end of the game.',
       },
     ],
@@ -5288,7 +5362,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Dwarf Engineer',
         regles_speciales: [
           {
-            nom: 'Master Armourer',
+            nom: 'Expert Weaponsmith',
             texte:
               'A Dwarf Engineer can increase the range of the warband\'s missile weapons. Missile weapons bought from the Dwarf Equipment list gain +3" range for Pistols and +6" for Crossbows and Handguns. The range increases only apply to battles the Dwarf Engineer takes part in (but they apply even if he has not yet entered the battlefield or has been taken Out of Action). The increase does not apply to Hired Swords\' equipment.',
           },
@@ -5338,20 +5412,20 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       maitre_des_lames: {
-        nom: 'Blademaster',
+        nom: 'Master of Blades',
         texte:
           'When using a weapon with the Parry special rule, this Dwarf may parry a blow by rolling equal to or higher than the best enemy to-hit roll, instead of strictly higher. If he wields two weapons with the Parry special rule, he may parry two attacks instead of one (if both his results are equal to or higher than the two best enemy to-hit rolls). If he wields two Dwarf axes, he may re-roll failed parry rolls.',
       },
       increvable: {
-        nom: 'Unstoppable',
+        nom: 'Extra Tough',
         texte: 'When you roll on the Serious Injury table at the end of a game in which this Hero was taken Out of Action, the die may be re-rolled once. The second result must be accepted, even if it is worse than the first.',
       },
       prospecteur: {
-        nom: 'Prospector',
+        nom: 'Resource Hunter',
         texte: 'During the Exploration phase at the end of the game, the Hero may modify one die roll by +1/-1.',
       },
       tres_coriace: {
-        nom: 'Extremely Tough',
+        nom: 'True Grit',
         texte: 'When rolling for damage affecting this Hero, a roll of 1-3 is treated as Knocked Down, 4-5 as Stunned, and 6 as Out of Action.',
       },
       crane_epais: {
@@ -5360,7 +5434,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'The Hero has a 3+ save on 1D6 to avoid being Stunned. If the save is successful, the Stunned result is treated as Knocked Down instead. If the Hero also wears a helmet, this save becomes 2+ instead of 3+ (this replaces the usual special rule for helmets).',
       },
       charge_furieuse: {
-        nom: 'Furious Charge',
+        nom: 'Ferocious Charge',
         reserve_a: 'Dwarf Troll Slayer only',
         texte: 'The Slayer may double his number of Attacks in the turn he charges. He then suffers a -1 penalty to hit.',
       },
@@ -5370,7 +5444,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'The Slayer always wounds his opponent on a 4+, regardless of Toughness, unless his Strength (after all weapon modifiers, etc.) already allows him to wound more easily.',
       },
       berserk: {
-        nom: 'Berserk',
+        nom: 'Berserker',
         reserve_a: 'Dwarf Troll Slayer only',
         texte: 'The Slayer may add +1 to his to-hit rolls in hand-to-hand combat in the turn he charges.',
       },
@@ -5397,6 +5471,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         armes_tir: [undefined, undefined, '30gc per pair'],
       },
     },
+    equipement_special: [{ disponibilite: 'Rare 8 (Dwarfs only)' }],
   },
   middenheimers: {
     nom: 'Middenheim Mercenaries (1a)',
@@ -6712,6 +6787,237 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       { disponibilite: 'Rare 8, Thornwych only' },
     ],
   },
+  culte_des_tueurs: {
+    nom: 'Slayer Cult Warband (2a)',
+    regles_speciales: [
+      {
+        nom: 'Hard to Kill',
+        texte:
+          'Dwarfs are tough, resilient individuals who can only be taken out of action on a roll of 6 instead of 5-6 when rolling on the Injury chart. Treat a roll of 1-2 as knocked down, 3-5 as stunned, and 6 as out of action.',
+      },
+      {
+        nom: 'Hard Head',
+        texte: 'Dwarfs ignore the special rules for maces, clubs, etc. They are not easy to knock out!',
+      },
+      {
+        nom: 'Grudgebearers',
+        texte:
+          'Dwarfs hold an ancient grudge against Elves from the days when the two races fought for supremacy in the Old World. A Dwarf warband may never include any kind of Elven Hired Sword or Dramatis Personae.',
+      },
+      {
+        nom: 'Deathwish',
+        texte:
+          "Slayers seek an honorable death in combat. Unless stated otherwise, all members of this are completely immune to all psychology and never need to test if fighting alone. This includes Hatred, Frenzy & Stupidity. The Rememberer is not a Slayer and does not benefit from this; Stubbles and Axe Hurlers do not have it either until they learn the skill of the same name (see their profiles and the Deathwish special skill).",
+      },
+      {
+        nom: 'Damnable Luck',
+        texte:
+          'While Slayers SEEK death, it often eerily avoids them. In the postgame, after rolling for all injuries, you may reroll one result of Death for a single slayer hero or henchman, accepting the second result.',
+      },
+      {
+        nom: 'No Armor, No Toys!',
+        texte:
+          "Slayers may never use armor of any kind, nor cloaks that provide a constant save bonus (though they may use Lucky Charms). Also, they may not use any missiles that aren't thrown, nor may they learn magic.",
+      },
+      {
+        nom: 'Only in Victory',
+        texte:
+          'Slayer heroes do NOT gain exploration dice at the end of the battle if they were defeated or routed; they only gain them if they win the scenario, were allied with the winner, or tied. (Does not include the Rememberer.)',
+      },
+      {
+        nom: 'Record of Valor',
+        texte:
+          "If a Slayer hero is taken out of action while the Rememberer was present on the board, you receive +1 Exploration dice in the post-game phase; this represents their patrons in Karak Kadrin rewarding their courage with money and hirelings. This only applies if the Slayer was taken out of action directly or indirectly by an enemy or NPC attack (ex. attacked by a warrior, falling off a cliff after a crossbow bolt, removed by a hostile random event, etc.) A Slayer that is taken out of action without any opposing influences (ex. deliberately walking off a cliff, failing a jump) does not grant you an exploration dice. If a Slayer is somehow brought back to the battlefield, this extra die is lost (as they are saved from the jaws of death).",
+      },
+      {
+        nom: 'Back-up Records',
+        texte:
+          "If your warband includes a Bard Hired Sword, the bard gains the Rememberer ability, 'Record of Valor'; however, two rememberers do not stack (i.e. 1 slayer taken OOA gives you a max of 1 exploration die, even if both the Rememberer and the Bard witness it). This rule merely provides a backup if the Rememberer somehow misses a game or is taken out of action.",
+      },
+      {
+        nom: 'The Rite of Trollslaying',
+        texte:
+          'If a slayer henchman takes an enemy out of action, if it was Large and started the game with multiple wounds, then in the post-game phase, the henchman gains experience enough to bring it to the next advancement (or if maxed out, to 16 exp), and treat it as if that henchman rolls "That Lad\'s Got Talent!" If you have 6 heroes already and do not wish to replace an existing hero, you may roll a henchman advance as normal. If promoted, be sure to gift it an appropriate title, like Ogreslayer. Not automated in the app: resolve on the tabletop.',
+      },
+      {
+        nom: 'The Rite of Dragonslaying',
+        texte:
+          "If a slayer takes out a model with all the following conditions: large or gigantic monster; scaled (including but not limited to: Hydra, Dragon, Wyvern, Sea Drake, Merwyrm, Turtigon, or any of their young versions); it has Skull of Iron and/or 4+ wounds; is an NPC or it rolls a death injury — then in the post-game, the slayer may tan the hide and gain a Sea Dragon Cloak for free, provided they don't own one already. They may not sell or give it to another warrior. This is the exception to the rule that a Slayer may not wear armor. If it's lost or stolen, they may not buy a replacement, but only win another through Dragonslaying. If the slayer is a henchman, the Rite of Trollslaying also applies (see above); if they can't be promoted, they may still wear the item while remaining a henchman. Not automated in the app: resolve on the tabletop, and add the item to the warrior's inventory by hand.",
+      },
+    ],
+    profils: {
+      tueur_de_geants: {
+        nom: 'Giant Slayer',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any models in the warband within 6" of the Giant Slayer may use his Leadership instead of their own.' },
+        ],
+      },
+      chercheur_de_trepas: { nom: 'Doomseeker' },
+      memorialiste: {
+        nom: 'Rememberer',
+        regles_speciales: [
+          { nom: 'Hatred of Orcs and Goblins', texte: 'Has unyielding Hatred of Orcs and Goblins. This is ignored if the warrior later becomes Immune to Psychology.' },
+          {
+            nom: 'Rememberer',
+            texte:
+              "The Rememberer's task is to record the doom of each of the slayers. When he is close by, the slayers will fight even harder to make their death more honourable. Once per game, any Slayer Hero fighting against a Large creature or a creature with Toughness 5 or greater, and is within 6\" of the Rememberer, may re-roll a failed To Hit roll once only.",
+          },
+          {
+            nom: 'Pick up the Slack',
+            texte:
+              'If he was not taken out of action, the Rememberer may make a rarity or Dramatis Personae roll for each Slayer hero that was taken out of action this game in addition to their normal rarity search.',
+          },
+          {
+            nom: 'Not a Slayer',
+            texte: 'A Rememberer is not a Slayer, and the slayer rules don\'t apply. Also, they may not learn "Slayer Only" skills, and may never be warband leader.',
+          },
+        ],
+      },
+      tueur_de_trolls: {
+        nom: 'Trollslayer',
+        regles_speciales: [{ nom: 'Deathwish', texte: 'See the warband\'s Deathwish special rule above.' }],
+      },
+      barbe_naissante: {
+        nom: 'Stubbles',
+        regles_speciales: [
+          {
+            nom: 'Skittish',
+            texte:
+              "As newly crowned Slayers, Stubbles do not have the skill 'Death Wish', and suffer psychology like normal. When a Stubble gains 'That Lad's Got Talent', instead of making an immediate roll on the Hero Advance Table, he MUST learn the skill 'Death Wish.'",
+          },
+        ],
+      },
+      lanceur_de_haches: {
+        nom: 'Axe Hurler',
+        regles_speciales: [
+          { nom: 'Hatred of Orcs and Goblins', texte: 'Has unyielding Hatred of Orcs and Goblins. This is ignored if the warrior later becomes Immune to Psychology.' },
+          {
+            nom: 'Strong Arm',
+            texte:
+              'The Axe Hurler can use his strength to hurl thrown weapons farther still. When throwing weapons, the Axe Hurler may throw the missile extra inches equal to his Strength (ex. S3 = +3").',
+          },
+          {
+            nom: 'Born Marksmen',
+            texte:
+              "If an Axe Hurler rolls a 'That Lad's Got Talent' as an advancement, he may always choose Shooting skills as one of his two skill list choices. He may do this even if there are no heroes with Shooting Skills in the warband. Reminder: Even with Weapon Mastery, he may not use any missile weapons that aren't thrown.",
+          },
+          {
+            nom: 'Skittish',
+            texte:
+              "As newly crowned Slayers, Hurlers do not have the skill 'Death Wish,' and suffer psychology like normal. When a Hurler gains 'That Lad's Got Talent', instead of making an immediate roll on the Hero Advance Table, he MUST learn the skill 'Death Wish.'",
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      voeu_de_mort_tueur: {
+        nom: 'Deathwish',
+        reserve_a:
+          "Stubbles and Axe Hurlers Only — other Slayers already have this ability from warband creation (see the Deathwish special rule above). A Stubble or Axe Hurler who rolls 'That Lad's Got Talent' MUST learn this skill instead of making a normal roll on the advancement table.",
+        texte: 'The hero is completely immune to all psychology and never need to test if fighting alone.',
+      },
+      charge_feroce_tueur: {
+        nom: 'Ferocious Charge',
+        reserve_a: 'Slayers Only',
+        texte: "The Slayer may double his attacks on the turn in which he charges. He will suffer a -1 'to hit' penalty on that turn.",
+      },
+      tueur_de_monstres_culte: {
+        nom: 'Monster Slayer',
+        reserve_a: 'Slayers Only',
+        texte:
+          "In close combat, the Slayer always wounds any opponent on a roll of 4+, regardless of Toughness, unless his own Strength (after all modifiers due to weapon bonuses, etc) would mean that a lower roll than this is needed.",
+      },
+      berserk_culte: {
+        nom: 'Berserker',
+        reserve_a: 'Slayers Only',
+        texte: "The Slayer may add +1 to his close combat 'to hit' rolls during the turn in which he charges.",
+      },
+      coup_fatal: {
+        nom: 'Deathblow',
+        reserve_a: 'Slayers Only',
+        texte:
+          'If the Hero is taken out of action in hand-to-hand, he may immediately make the remainder of his attacks before being removed, if he hasn\'t made all of his attacks already this turn. He may use this skill if he is knocked down or stunned.',
+      },
+      acharne_tueur: {
+        nom: 'Relentless',
+        reserve_a: 'Slayers Only',
+        texte:
+          'If the Hero charges a model but the charge fails, the Hero may still move the full distance of his move. This skill may only be used against enemies within sight or that the Slayer can detect.',
+      },
+      maitrise_de_la_hache: {
+        nom: 'Axe Mastery',
+        reserve_a: 'Slayer Cult Heroes only',
+        texte:
+          'The Hero is well taught in the hand-to-hand arts of axemanship. He may reroll all missed attacks if he was using an axe or a dwarven axe in the hand-to-hand phase of the turn that he charges. May not be used with Whirling Blades.',
+      },
+      endurance_naine_culte: {
+        nom: 'True Grit',
+        reserve_a: 'Slayer Cult Heroes only',
+        texte:
+          'Dwarfs are hardy individuals and this Hero is hardy even for a Dwarf! When rolling on the Injury table for this Hero, a roll of 1-3 is treated as knocked down, 4-5 as stunned, and 6 as out of action.',
+      },
+      crane_epais_culte: {
+        nom: 'Thick Skull',
+        reserve_a: 'Slayer Cult Heroes only',
+        texte: 'The Hero has a thick skull, even for a Dwarf. He has a 3+ save on a D6 to avoid being stunned. If the save is made, treat a stunned result as knocked down instead.',
+      },
+      chants_de_guerre: {
+        nom: 'Songster',
+        reserve_a: 'Rememberer only',
+        texte:
+          "A Bard's rousing war songs steel the hearts of all those around him. Any friendly model within 6\" of a Bard may re-roll any failed Leadership test with a +1 to Leadership, to a max of 10. This includes rout tests.",
+      },
+      chant_dhonneur: {
+        nom: 'Song of Honor',
+        reserve_a: 'Rememberer only',
+        texte: 'In the postgame, if one or more Slayers in your warband died, all heroes and henchmen gain +1 Experience.',
+      },
+      maitre_lanceur_de_haches: {
+        nom: 'Axe Thrower',
+        reserve_a: 'Heroes armed with Throwing Axes and with access to Shooting Skills only',
+        texte:
+          'The warrior can throw a maximum of two axes in his shooting phase, both of which gain +1 Strength, and may divide his shots between any targets within range as he wishes. Note that this skill cannot be combined with the Quick Shot skill or the Knife Fighter skill.',
+      },
+    },
+    equipement: {
+      tueurs: {
+        armes_cac: [
+          'first free',
+          'Mace/Hammer',
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          'Any weapon a Dwarf may normally purchase may be bought as a Gromril weapon instead. This multiplies the cost of the weapon by x3. For rules on Gromril weapons see the Mordheim rulebook. Note that this price is only for a starting warband, as it represents the Dwarfs outfitting themselves at their own stronghold. Later purchases of Gromril weapons are done using the price chart in the Mordheim rules (or the campaign setting).',
+        ],
+      },
+      chercheurs_de_trepas: {
+        armes_cac: [
+          'first free',
+          'Mace/Hammer',
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          'per pair',
+          'Any weapon a Dwarf may normally purchase may be bought as a Gromril weapon instead. This multiplies the cost of the weapon by x3. For rules on Gromril weapons see the Mordheim rulebook. Note that this price is only for a starting warband, as it represents the Dwarfs outfitting themselves at their own stronghold. Later purchases of Gromril weapons are done using the price chart in the Mordheim rules (or the campaign setting).',
+        ],
+      },
+      memorialistes: {
+        armes_cac: [
+          'first free',
+          'Mace/Hammer',
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          'Any weapon a Dwarf may normally purchase may be bought as a Gromril weapon instead. This multiplies the cost of the weapon by x3. For rules on Gromril weapons see the Mordheim rulebook. Note that this price is only for a starting warband, as it represents the Dwarfs outfitting themselves at their own stronghold. Later purchases of Gromril weapons are done using the price chart in the Mordheim rules (or the campaign setting).',
+        ],
+      },
+    },
+  },
 };
 
 function translateRegles(regles: SpecialRule[], en: RegleTraduite[] | undefined): SpecialRule[] {
@@ -6744,16 +7050,29 @@ export function translateMagie(magie: Magie, en: MagieTraduite | undefined): Mag
   };
 }
 
-function translateRefs(refs: EquipementRef[] | undefined, notesEn: (string | undefined)[] | undefined) {
-  return refs?.map((r, i) => (r.note && notesEn?.[i] ? { ...r, note: notesEn[i] } : r));
+function translateRefs(
+  refs: EquipementRef[] | undefined,
+  notesEn: (string | undefined)[] | undefined,
+  restrictionsEn: (string | undefined)[] | undefined
+) {
+  return refs?.map((r, i) => {
+    const noteEn = r.note && notesEn?.[i] ? notesEn[i] : undefined;
+    const restrictionEn = r.restriction && restrictionsEn?.[i] ? restrictionsEn[i] : undefined;
+    if (!noteEn && !restrictionEn) return r;
+    return {
+      ...r,
+      ...(noteEn ? { note: noteEn } : {}),
+      ...(restrictionEn ? { restriction: restrictionEn } : {}),
+    };
+  });
 }
 
 function translateEquipementListe(liste: EquipementListe, en: EquipementListeTraduite | undefined): EquipementListe {
   return {
-    armes_cac: translateRefs(liste.armes_cac, en?.armes_cac),
-    armes_tir: translateRefs(liste.armes_tir, en?.armes_tir),
-    armures: translateRefs(liste.armures, en?.armures),
-    divers: translateRefs(liste.divers, en?.divers),
+    armes_cac: translateRefs(liste.armes_cac, en?.armes_cac, en?.armes_cac_restriction),
+    armes_tir: translateRefs(liste.armes_tir, en?.armes_tir, en?.armes_tir_restriction),
+    armures: translateRefs(liste.armures, en?.armures, en?.armures_restriction),
+    divers: translateRefs(liste.divers, en?.divers, en?.divers_restriction),
   };
 }
 

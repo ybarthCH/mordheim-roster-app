@@ -361,6 +361,7 @@ export function PostBatailleScreen() {
             totalDesALancer: 0,
             maximumAConserver: 6,
             aides: [],
+            suggestionManuelle: false,
           },
     [roster, catalogue, resultat, rules, language]
   );

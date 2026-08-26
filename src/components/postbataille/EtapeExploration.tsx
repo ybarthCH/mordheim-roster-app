@@ -92,22 +92,28 @@ export function EtapeExploration({
     <div className="card">
       <h3>{t('exploration.title')}</h3>
       <div className="card card--tight" style={{ marginBottom: '0.8rem' }}>
-        <p className="mb-0">
-          {t('exploration.rollLine', {
-            total: resumeExploration.totalDesALancer,
-            heros: resumeExploration.desHeros,
-            victoire: resumeExploration.bonusVictoire > 0 ? t('exploration.victorySuffix') : '',
-            bonus: resumeExploration.bonusFixes > 0 ? t('exploration.bandRulesSuffix', { n: resumeExploration.bonusFixes }) : '',
-          })}
-        </p>
-        <p className="text-sm text-muted mb-0" style={{ marginTop: '0.35rem' }}>
-          {t('exploration.moreThanSixDiceNote')}
-        </p>
-        {resumeExploration.herosEligibles.length > 0 && (
-          <p className="text-sm mb-0" style={{ marginTop: '0.35rem' }}>
-            <strong>{t('exploration.heroesProvidingDie')}</strong>{' '}
-            {resumeExploration.herosEligibles.map((membre) => membre.nom_perso).join(', ')}.
-          </p>
+        {resumeExploration.suggestionManuelle ? (
+          <p className="mb-0">{t('exploration.manualDiceCount')}</p>
+        ) : (
+          <>
+            <p className="mb-0">
+              {t('exploration.rollLine', {
+                total: resumeExploration.totalDesALancer,
+                heros: resumeExploration.desHeros,
+                victoire: resumeExploration.bonusVictoire > 0 ? t('exploration.victorySuffix') : '',
+                bonus: resumeExploration.bonusFixes > 0 ? t('exploration.bandRulesSuffix', { n: resumeExploration.bonusFixes }) : '',
+              })}
+            </p>
+            <p className="text-sm text-muted mb-0" style={{ marginTop: '0.35rem' }}>
+              {t('exploration.moreThanSixDiceNote')}
+            </p>
+            {resumeExploration.herosEligibles.length > 0 && (
+              <p className="text-sm mb-0" style={{ marginTop: '0.35rem' }}>
+                <strong>{t('exploration.heroesProvidingDie')}</strong>{' '}
+                {resumeExploration.herosEligibles.map((membre) => membre.nom_perso).join(', ')}.
+              </p>
+            )}
+          </>
         )}
       </div>
 

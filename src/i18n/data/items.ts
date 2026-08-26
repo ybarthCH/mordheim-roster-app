@@ -330,7 +330,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   machine_du_chaos: {
-    nom: 'Chaos Machine',
+    nom: 'Engine of Chaos',
     texte:
       'The Slavers lock their victims inside a demonic machine, twisted by the industrial madness of Chaos engineers. This vehicle is a living prison on wheels. These armoured machines carry prisoners to the Dark Lands to fuel the furnaces or be sacrificed there.',
     regles_speciales: [
@@ -431,7 +431,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
 
   // --- Poisons / drogues ---
   champignons_bonnets_de_fou_market: {
-    nom: "Fool's Cap Mushrooms",
+    nom: 'Mad Cap Mushrooms',
     texte:
       "The dreaded cult of fanatical goblins from the Edge of the World Mountains use these hallucinogenic mushrooms to enter a state of frenzy. The use of poison is almost universally despised, but in the brutal, merciless battles of Mordheim, desperate warbands often use poisoned blades. The poison cannot be used with black powder weapons. When you buy a vial of poison, you always have enough for the duration of one battle. You may only poison a single weapon with one vial of poison.",
     regles_speciales: [
@@ -999,7 +999,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   cape_en_peau_de_dragon_des_mers: {
-    nom: 'Sea Dragon Skin Cloak',
+    nom: 'Sea Dragon Cloak',
     texte:
       'Dark elf corsairs wear cloaks cut from the hide of sea monsters. These cloaks are tough and offer excellent protection.',
     regles_speciales: [
@@ -1062,7 +1062,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   exosquelette: {
-    nom: 'Exoskeleton',
+    nom: 'Mechanical Suit',
     texte:
       'The Curse of Stone falls upon all Chaos Dwarf Hierogrammates, gradually turning them to rock, starting with their feet. Engineers have designed machines that can carry their priests once they begin to pay the price of their dark rituals.',
     regles_speciales: [
@@ -1721,6 +1721,16 @@ export const itemsEn: Record<string, ItemTraduit> = {
       },
     ],
   },
+  hache_de_jet: {
+    nom: 'Throwing Axe',
+    texte: 'A smaller axe specially weighted for hurling from dangerous distances.',
+    regles_speciales: [
+      {
+        nom: 'Thrown Weapon',
+        texte: 'Throwing axes suffer no penalty for throwing over half range, or for moving and shooting.',
+      },
+    ],
+  },
   bolas: {
     nom: 'Bolas',
     texte:
@@ -1883,7 +1893,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
 
   // --- Armes de corps à corps (1/2) ---
   aiguillon_a_squigs: {
-    nom: 'Squig Prod',
+    nom: 'Squig Prodder',
     texte:
       "This is a trident fixed to the end of a long pole and used by goblins to push squigs in the right direction. Squigs have learned to recognise a prod and hold a certain respect for whoever carries it!",
     regles_speciales: [
@@ -2011,7 +2021,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   chaine_et_boulet_cac: {
-    nom: 'Chain & Ball',
+    nom: 'Ball and Chain',
     texte:
       'This is a huge ball fixed to the end of a long chain. It is the favourite weapon of the infamous Night Goblin Fanatics. Extremely heavy and hard to wield, this weapon requires the consumption of fool\'s cap mushrooms.',
     regles_speciales: [
@@ -2021,19 +2031,19 @@ export const itemsEn: Record<string, ItemTraduit> = {
           'The chain & ball is so heavy that a model equipped with it cannot carry any other weapon or equipment. In addition, only a model under the influence of fool\'s cap mushrooms has the strength necessary to wield this weapon.',
       },
       {
-        nom: 'Colossal Force',
+        nom: 'Incredible Force',
         texte:
           'The impact of the enormous ball, boosted by the speed given to it by the chain, renders ordinary armour of little use. No armour save is therefore allowed against Wounds inflicted by this weapon. In addition, any successful hit could well decapitate the victim (or at least break a few limbs!): any Wound suffered inflicts 1D3 Wounds instead of just one.',
       },
       {
-        nom: 'Exhausting',
+        nom: 'Unwieldy',
         texte:
           "The effort required to wield this weapon can cause muscle damage or even dislocate a shoulder. Under the influence of the fool's cap mushrooms, the warrior feels no pain and won't even notice, but once the effects wear off, it's a different story... To represent this, after the battle, every model that used a chain & ball must make an Injury roll, as if it had been taken Out of Action. If the model was actually taken Out of Action, make only one roll, not two.",
       },
       {
-        nom: 'Unpredictable',
+        nom: 'Random',
         texte:
-          "The only way to use this weapon is to swing it above your head, using your own body as a counterweight. This is unfortunately not the most reliable way to fight, and once he starts swinging the ball, the warrior loses much control over his fate. On the turn he starts swinging his ball, the warrior is moved 2D6\" in a direction chosen by the player. For subsequent Movement phases, roll 1D6: 1 = the model tangles itself up and strangles itself with its own chain, taken Out of Action (killed on 1-2 instead of 1-3 on the Serious Injury roll). 2-5 = moved 2D6\" in the direction chosen by the player. 6 = moved 2D6\" in a random direction (scatter die: 1 straight ahead, 2-3 to the right, 4-5 to the left, 6 backwards). If it hits a building, wall, or other obstacle, it is immediately taken Out of Action. A model wishing to attack a warrior carrying this weapon suffers a -1 penalty to hit, as it must be careful not to take the ball to the head. A warrior equipped with a chain & ball is not locked into hand-to-hand combat, even if he is in contact with another model at the start of his Movement phase. If the model ends up in contact with a model (friend or foe), it is treated as having charged and remains engaged in hand-to-hand combat until its next Movement phase.",
+          "The only way to use this weapon is to swing it above your head, using your own body as a counterweight. This is unfortunately not the most reliable way to fight, and once he starts swinging the ball, the warrior loses much control over his fate. On the turn he starts swinging his ball, the warrior is moved 2D6\" in a direction chosen by the player. For subsequent Movement phases, roll 1D6: 1 = the model tangles itself up and strangles itself with its own chain, taken Out of Action (killed on 1-3 instead of 1-2 on the Serious Injury roll). 2-5 = moved 2D6\" in the direction chosen by the player. 6 = moved 2D6\" in a random direction (scatter die: 1 straight ahead, 2-3 to the right, 4-5 to the left, 6 backwards). If it hits a building, wall, or other obstacle, it is immediately taken Out of Action. A model wishing to attack a warrior carrying this weapon suffers a -1 penalty to hit, as it must be careful not to take the ball to the head. A warrior equipped with a chain & ball is not locked into hand-to-hand combat, even if he is in contact with another model at the start of his Movement phase. If the model ends up in contact with a model (friend or foe), it is treated as having charged and remains engaged in hand-to-hand combat until its next Movement phase.",
       },
       {
         nom: 'Deranged',
@@ -2070,7 +2080,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   dague_de_la_peste: {
-    nom: 'Plague Dagger',
+    nom: 'Disease Dagger',
     texte: 'This dagger is permanently coated with a disgusting substance resembling green mould. Wounds inflicted by this dagger can cause terrible diseases.',
     regles_speciales: [
       { nom: '+1 Enemy Save', texte: 'An enemy Wounded by this weapon gets +1 to his armour save, or a 6+ save if he has none.' },
@@ -2099,7 +2109,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   encensoir_a_peste: {
-    nom: 'Plague Censer',
+    nom: 'Censer',
     texte:
       'The plague censer is a hollow, spike-covered metal sphere attached to a long chain that swings like a flail. A fragment of warpstone infected with plague burns at the heart of the ball and gives off a foul smoke. This smoke nauseates opponents and can make the censer bearer a difficult target to hit.',
     regles_speciales: [
@@ -2139,7 +2149,11 @@ export const itemsEn: Record<string, ItemTraduit> = {
         texte:
           'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
       },
-      { nom: '+1 Armour Save', texte: 'Note: for the master swordsman skill, the short sword counts as a sword.' },
+      {
+        nom: '+1 Enemy Armour Save',
+        texte: 'An enemy wounded by this weapon gains a +1 bonus to his armour save, or a 6+ armour save if he has none normally.',
+      },
+      { nom: 'Note', texte: 'For the master swordsman skill, the short sword counts as a sword.' },
     ],
   },
   epee_batarde: {
@@ -2193,7 +2207,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   fouet_a_betes: {
-    nom: 'Beast Whip',
+    nom: 'Beastlash',
     texte: 'Beastmasters use barbed whips to drive their creatures into battle.',
     regles_speciales: [
       {
@@ -2202,9 +2216,8 @@ export const itemsEn: Record<string, ItemTraduit> = {
           'A Beastmaster armed with a beast whip causes fear in animals. Any animal charged by, or wishing to charge, a Beastmaster must therefore make a fear test according to the usual rules in the Mordheim Rulebook.',
       },
       {
-        nom: 'Crack',
-        texte:
-          'A model armed with the beast whip gets +1 Attack when charging, in addition to any other bonus. When charged, it also gets +1 Attack that may only be used against the model that charged it. This extra attack strikes first. If the bearer is charged by 2 or more enemies, this bonus remains +1 Attack. If the bearer fights with two whips, he gets +1 Attack for his additional base weapon, but only his first whip benefits from the +1 Attack from Crack.',
+        nom: 'Reach',
+        texte: 'A Beastlash may attack opponents up to 4" away.',
       },
     ],
   },
@@ -2360,6 +2373,34 @@ export const itemsEn: Record<string, ItemTraduit> = {
           'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
       },
       { nom: 'Sharp', texte: "The weapon gets an additional -1 save modifier (a Strength 4 fighter will reduce the target's save by -2)." },
+    ],
+  },
+  lames_tournoyantes: {
+    nom: 'Whirling Blades',
+    texte:
+      'The signature weapon of the Doomseeker, the Whirling Blade is an axe on a chain. Even expert slayers have trouble mastering such a difficult weapon, but once mastered, the damage dealt can be staggering.',
+    regles_speciales: [
+      {
+        nom: 'Cannot be Parried',
+        texte:
+          'The Whirling Blades are a flexible weapon and a Doomseeker uses them with great expertise. Attempts to parry their strikes are futile. A model attacked by a whirling blade may not make parries with swords or bucklers.',
+      },
+      { nom: 'Sharp', texte: "The weapon gets an additional -1 save modifier (a Strength 4 fighter will reduce the target's save by -2)." },
+      {
+        nom: 'Pair',
+        texte:
+          'Whirling Blades are traditionally used in pairs, one in each hand; like any off-hand weapon, it grants an additional attack as normal. A warrior armed with a pair of whirling blades may not wield a different off-hand weapon, and may never split up the pair (unless he loses a hand).',
+      },
+      {
+        nom: 'Dance of Doom',
+        texte:
+          'Whenever the Doomseeker charges, the blade in their main hand provides a +1 attack in the first round of combat. The main hand also grants an additional attack in any turn in which the doomseeker is charged by one or more opponents (this attack must be used against one of the chargers; if simultaneously charged by two or more opponents, the bonus remains a total of +1A). This does not apply to the off-hand Whirling Blade.',
+      },
+      {
+        nom: 'Whirlwind of Death',
+        texte:
+          "Whenever the Doomseeker is charged, the free attack from Dance of Doom and the additional attack from the off-hand both gain 'Strike First,' like a Steel Whip for that turn. All of the Slayer's other attacks strike at normal speed.",
+      },
     ],
   },
   hallebarde: {
@@ -2568,7 +2609,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
 
   // --- Armes de corps à corps (2/2) ---
   pince_market: {
-    nom: 'Tongs',
+    nom: 'Man-catcher',
     texte:
       "These are semi-circular teeth mounted on a long handle, ready to capture an enemy with this spike-covered jaw. Popular among Chaos Dwarfs, this device doesn't leave much room for the most violent prisoners to escape its grip.",
     regles_speciales: [
@@ -2620,7 +2661,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     texte: 'This pair of daggers is coated with the juice of death cap mushrooms.',
     regles_speciales: [
       {
-        nom: 'Pair',
+        nom: 'Paired',
         texte: 'These weapons are traditionally used in pairs, one in each hand. A warrior with these weapons gets +1 Attack.',
       },
       {
@@ -2757,7 +2798,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     texte:
       'These blades are forged in the city of Hag Graef, the Dark Rock, from black iron, a very rare ore found deep in the mountains surrounding the city. The barbs on dark elf blades can inflict severe wounds on their victims. Any dark elf can fit his sword or dagger with a dark elf blade for 20 gold crowns at the time of purchase. Weapons fitted with a dark elf blade keep their usual rules (swords can therefore still parry, and daggers still grant a 6+ armour save).',
     regles_speciales: [
-      { nom: 'Barbs', texte: 'Dark elf blades are fitted with sharp barbs and hooks with devastating effects. A damage roll of 2-4 counts as a Stunned result.' },
+      { nom: 'Wicked Edge', texte: 'Dark elf blades are fitted with sharp barbs and hooks with devastating effects. A damage roll of 2-4 counts as a Stunned result.' },
       {
         nom: 'Critical Damage',
         texte: 'Dark elf blades inflict severe damage on their enemies. In the event of a Critical Hit with a weapon of this type, add +1 to the result on the Critical Hit table.',
@@ -2943,9 +2984,9 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   cape_des_bois: {
-    nom: 'Cloak of the Woods',
+    nom: 'Forest Cloak',
     texte:
-      "Some outlaws use cloaks of the woods to camouflage themselves and slip out of their enemies' sight. Any bearer of such a cloak seems to blend into the surrounding forest, making him almost invisible. Cloaks of the woods are available to Stirwood Outlaw Heroes from their initial recruitment, with no Rarity roll needed. If you wish to acquire one afterwards, use the normal purchase rules during the Trade and Exploration phase.",
+      "Some outlaws use Forest Cloaks to camouflage themselves and slip out of their enemies' sight. Any bearer of such a cloak seems to blend into the surrounding forest, making him almost invisible. Forest Cloaks are available to Stirwood Outlaw Heroes from their initial recruitment, with no Rarity roll needed. If you wish to acquire one afterwards, use the normal purchase rules during the Trade and Exploration phase.",
     regles_speciales: [
       {
         nom: 'Effect',
@@ -3382,7 +3423,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
   liber_bubonicus: {
     nom: 'Liber Bubonicus',
     texte:
-      "If a Clan Pestilens Skaven warband includes a Plague Preacher, he permanently gains a new spell. Roll for it randomly on the Horned Rat magic spell list. If he has the sorcery skill, a Plague Priest may use the Liber Bubonicus to learn Horned Rat magic. He gains the special rule 'Sorcerer: a sorcerer is a spellcaster who uses Horned Rat magic. See the Magic section.' and permanently learns a spell drawn at random from the Horned Rat magic spell list. The Liber Bubonicus may only be used once, and a warband may only have a single user of the Liber Bubonicus in any given campaign. This item is used by the Clan Pestilens Skaven in place of the grimoire of magic.",
+      "If a Clan Pestilens Skaven warband includes a Pestilens Sorcerer, he permanently gains a new spell. Roll for it randomly on the Horned Rat magic spell list. If he has the Arcane Lore skill, a Plague Priest may use the Liber Bubonicus to learn Horned Rat magic. He gains the special rule 'Sorcerer: a sorcerer is a spellcaster who uses Horned Rat magic. See the Magic section.' and permanently learns a spell drawn at random from the Horned Rat magic spell list. The Liber Bubonicus may only be used once, and a warband may only have a single user of the Liber Bubonicus in any given campaign. This item is used by the Clan Pestilens Skaven in place of the grimoire of magic.",
   },
   lanterne: {
     nom: 'Lantern',
@@ -3666,7 +3707,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     nom: 'Bretonnian Holy Relic',
     texte: 'A fragment of a reliquary, a lock of hair from a Lady of the Lake, or a shard of armour from a fallen knight — an object of devotion carried on pilgrimage.',
     regles_speciales: [
-      { nom: 'Effect', texte: 'The bearer benefits from a special 6+ save against spells and prayers directed at him.' },
+      { nom: 'Effect', texte: 'The bearer gains the ability Frenzy (reminder: when frenzied, he is immune to Hatred).' },
     ],
   },
   relique_sacree_sigmarite: {
@@ -3969,8 +4010,11 @@ for (const id of ['poignards_empoisonnes']) {
 for (const id of ['arme_empoisonnee_mod']) {
   itemsEn[id].disponibilite = 'Common, Forest Goblins only';
 }
-for (const id of ['aiguillon_a_squigs', 'baton_dboss', 'chaine_et_boulet_cac']) {
+for (const id of ['aiguillon_a_squigs', 'baton_dboss']) {
   itemsEn[id].disponibilite = 'Common, Goblins only';
+}
+for (const id of ['chaine_et_boulet_cac']) {
+  itemsEn[id].disponibilite = 'Common, Night Goblin Fanatics only';
 }
 for (const id of ['chat_a_neuf_queues']) {
   itemsEn[id].disponibilite = 'Common, Pirate Heroes only';
@@ -4099,7 +4143,7 @@ for (const id of ['vin_elfique']) {
   itemsEn[id].disponibilite = 'Rare 10, Shadow Warriors only';
 }
 for (const id of ['cape_des_bois']) {
-  itemsEn[id].disponibilite = 'Rare 10, Outlaws of Stirwood Forest only';
+  itemsEn[id].disponibilite = 'Rare 10, Outlaw Heroes only';
 }
 for (const id of ['banniere_de_la_maison_noble']) {
   itemsEn[id].disponibilite = 'Rare 10, The Cursed Cavalcade Heroes only';
@@ -4286,6 +4330,12 @@ for (const id of ['fouet_a_betes']) {
 }
 for (const id of ['hache_naine']) {
   itemsEn[id].disponibilite = 'Rare 8, Dwarfs only';
+}
+for (const id of ['hache_de_jet']) {
+  itemsEn[id].disponibilite = 'Common for Slayers (Rare 5 for others)';
+}
+for (const id of ['lames_tournoyantes']) {
+  itemsEn[id].disponibilite = 'Rare 9, Slayers only';
 }
 for (const id of ['gnoblar_longue_vue', 'gnoblar_combattant']) {
   itemsEn[id].disponibilite = 'Rare 8, Ogres only';

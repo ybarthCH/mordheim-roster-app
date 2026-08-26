@@ -244,12 +244,13 @@
     "rarete": "11",
     "disponibilite": "Rare 11, Destriers Chevaliers Bretonniens uniquement",
     "acces": [
-      "chevaliers_bretonniens"
+      "chevaliers_bretonniens",
+      "gardiens_de_chapelle_bretonniens"
     ],
     "source": "CB (Chevaliers Bretonniens)",
     "page": 35,
     "texte": "Le caparaçon est une armure pour cheval, similaire à l'armure légère que portent les humains. Elle recouvre le corps de l'animal et parfois aussi la tête. Cette armure spéciale est bénie par les Bretonniens, qui n'est normalement disponible que pour les chevaliers bretonniens.",
-    "sauvegarde": "5+/+2",
+    "sauvegarde": "6+/+1",
     "regles_speciales": [
       {
         "nom": "Carapace",
@@ -322,7 +323,7 @@
     "disponibilite": "Spécial, Middenheimer, Explorateurs Norses, Maraudeurs du Chaos uniquement",
     "acces": [
       "middenheimers",
-      "explorateurs_norses",
+      "norses",
       "maraudeurs_du_chaos"
     ],
     "source": "BB/BTB",

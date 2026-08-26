@@ -467,8 +467,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 22,
     employeurs: {
-      bande_ids: toutesSauf('witch_hunters', 'sisters_of_sigmar', ...PEAUX_VERTES, ...SKAVENS),
-      texte: 'Toute bande sauf les Répurgateurs, Sœurs de Sigmar, Peaux-Vertes et Skavens.',
+      bande_ids: toutesSauf('witch_hunters', 'sisters_of_sigmar', 'guerriers_fantomes', ...PEAUX_VERTES, ...SKAVENS),
+      texte: 'Toute bande sauf les Répurgateurs, Sœurs de Sigmar, Guerriers Fantômes, Peaux-Vertes et Skavens.',
     },
     stats: { M: 4, CC: 4, CT: 4, F: 3, E: 3, PV: 1, I: 5, A: 2, Cd: 8 },
     equipement: ['Épée', 'Dague', 'Couteaux de jet', 'Arbalète de poing'],
@@ -552,7 +552,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 25, texte: '25 CO après chaque bataille à laquelle il participe.' },
     valeur: 25,
     employeurs: {
-      bande_ids: uniques([...HUMAINS, 'maraudeurs_du_chaos']),
+      bande_ids: uniques([...HUMAINS, 'maraudeurs_du_chaos']).filter((id) => id !== 'hors_la_loi_de_stirwood'),
       texte: 'Les bandes d’Humains, de Norses et de Maraudeurs du Chaos.',
     },
     stats: { M: 4, CC: 3, CT: 2, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 8 },
@@ -1665,7 +1665,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 15, texte: '15 CO après chaque bataille à laquelle il participe.' },
     valeur: 20,
     employeurs: {
-      bande_ids: toutesSauf('cult_of_the_possessed', ...MORTS_VIVANTS, ...SKAVENS, ...PEAUX_VERTES),
+      bande_ids: toutesSauf('cult_of_the_possessed', 'hors_la_loi_de_stirwood', ...MORTS_VIVANTS, ...SKAVENS, ...PEAUX_VERTES),
       texte: 'Toute bande sauf les Possédés, les Morts-Vivants, les Skavens et les Orques & Gobelins.',
     },
     stats: { M: 4, CC: 4, CT: 3, F: 4, E: 3, PV: 1, I: 4, A: 1, Cd: 8 },
@@ -2090,9 +2090,8 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'gladiateur',
     'ogre',
     'mage',
+    'sorciere',
     'supervizork',
-    'guide_lustrien',
-    'assassin_elfe_noir',
   ]),
   maneaters: new Set(['halfling', 'ogre', 'centaure_chaos', 'eclaireur_hobgobelin', 'guide_lustrien']),
   maraudeurs_du_chaos: new Set([
@@ -2103,6 +2102,8 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'centaure_chaos',
     'guide_lustrien',
     'assassin_elfe_noir',
+    'sorciere',
+    'mage',
   ]),
   nains_du_chaos: new Set([
     'gladiateur',
@@ -2119,7 +2120,7 @@ function appliquerRestrictionsDeBande(profil: FrancTireurCatalog): FrancTireurCa
   const bandeIds = profil.employeurs.bande_ids.filter((id) => {
     const restriction = RESTRICTIONS_ABSOLUES[id];
     if (restriction && !restriction.has(profil.id)) return false;
-    if (id === 'dwarf_treasure_hunters' && profil.tags?.includes('elfe')) return false;
+    if ((id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs') && profil.tags?.includes('elfe')) return false;
     return true;
   });
   return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };
@@ -2230,6 +2231,13 @@ export function disponibiliteFrancTireur(
   }
   if (francTireur.sacrifice_liche && !roster.membres.some((m) => m.profil_id === 'liche' && m.statut !== 'mort')) {
     return { disponible: false, raison: 'Une Liche vivante est requise pour construire le Goliath d’Os.' };
+  }
+  if (
+    roster.bande_id === 'maraudeurs_du_chaos' &&
+    (francTireur.id === 'sorciere' || francTireur.id === 'mage') &&
+    roster.membres.some((m) => m.statut !== 'mort' && m.marque === 'arkhar')
+  ) {
+    return { disponible: false, raison: 'Refusé : un guerrier de la bande porte la Marque d’Arkhar.' };
   }
   return { disponible: true };
 }

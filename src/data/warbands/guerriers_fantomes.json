@@ -7,7 +7,7 @@
   "regles_speciales": [
     { "nom": "Aversion pour le Poison", "texte": "L'usage des poisons et autres drogues est une spécialité des elfes noirs. Les Guerriers Fantômes en désapprouvent l'usage, plus encore que les hauts elfes. Les membres d'une bande de Guerriers Fantômes n'utilisent jamais aucun type de poison." },
     { "nom": "Haine des Elfes Noirs", "texte": "Tous les guerriers d'une bande de Guerriers Fantômes (à l'exception des francs-tireurs) vouent une Haine inébranlable aux Elfes Noirs." },
-    { "nom": "Vue Perçante", "texte": "Tous les elfes d'une bande de Guerriers Fantômes peuvent repérer les figurines Cachées à deux fois la distance normale (c'est-à-dire deux fois leur valeur d'Initiative en pas)." },
+    { "nom": "Vue Excellente", "texte": "Tous les elfes d'une bande de Guerriers Fantômes peuvent repérer les figurines Cachées à deux fois la distance normale (c'est-à-dire deux fois leur valeur d'Initiative en pas)." },
     { "nom": "Impitoyables", "texte": "En plus de leur haine envers leurs cousins corrompus, le peuple de Nagarythe combat depuis longtemps le Chaos. Dans une partie multijoueurs, une bande de Guerriers Fantômes ne peut jamais s'allier avec aucune bande de nature chaotique (Possédés, Skavens, Hommes-bêtes, Elfes noirs, etc.)." },
     { "nom": "Tolérants", "texte": "En raison de leur statut de parias auprès de leur peuple, les elfes de Nagarythe ont appris à réprimer leur mépris pour les « races inférieures », et travaillent même parfois pour elles. Une bande de Guerriers Fantômes peut donc recruter tout franc-tireur non chaotique ou maléfique (donc pas de Skavens, de Possédés, d'Elfes Noirs, de Morts-vivants, etc.) Ils évitent également tous ceux qui font usage de poisons (donc pas d'assassins)." }
   ],
@@ -112,8 +112,7 @@
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
         { "item_id": "epee", "cout": 10 },
         { "item_id": "arme_a_deux_mains", "cout": 15 },
-        { "item_id": "lance", "cout": 10 },
-        { "item_id": "arme_en_ithilmar", "cout": "coût x2", "note": "Héros uniquement" }
+        { "item_id": "lance", "cout": 10 }
       ],
       "armes_tir": [
         { "item_id": "arc", "cout": 10 },
@@ -123,8 +122,7 @@
       "armures": [
         { "item_id": "casque", "cout": 10, "note": "Heaume" },
         { "item_id": "armure_legere", "cout": 20 },
-        { "item_id": "bouclier", "cout": 5 },
-        { "item_id": "armure_en_ithilmar_market", "cout": 60, "note": "Héros uniquement" }
+        { "item_id": "bouclier", "cout": 5 }
       ],
       "divers": [
         { "item_id": "banniere_de_nagarythe", "cout": "75+3D6", "note": "Héros uniquement" },
@@ -141,7 +139,9 @@
     { "item_id": "banniere_de_nagarythe", "cout": "75+3D6", "disponibilite": "Rare 9, Guerriers Fantômes uniquement, Héros uniquement, à la création de la bande seulement", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] },
     { "item_id": "cor_de_guerre_de_nagarythe", "cout": "25+1D6", "disponibilite": "Rare 6, Guerriers Fantômes uniquement, Héros uniquement", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] },
     { "item_id": "cape_elfique", "cout": "75+1D6x10", "disponibilite": "Rare 12, Guerriers Fantômes uniquement" },
-    { "item_id": "familier", "cout": "20+1D6", "disponibilite": "Rare 8, Tisseurs d'Ombres uniquement", "profils": ["tisseur_dombres"] }
+    { "item_id": "familier", "cout": "20+1D6", "disponibilite": "Rare 8, Tisseurs d'Ombres uniquement", "profils": ["tisseur_dombres"] },
+    { "item_id": "arme_en_ithilmar", "cout": "coût x2", "disponibilite": "Héros Guerriers Fantômes uniquement", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] },
+    { "item_id": "armure_en_ithilmar_market", "cout": 60, "disponibilite": "Héros Guerriers Fantômes uniquement", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] }
   ],
   "magie": {
     "nom": "Magie d'Ombre",
@@ -154,7 +154,7 @@
       { "resultat": 2, "id": "ombres_vivantes", "nom": "Ombres Vivantes", "difficulte": 7, "texte": "Les ombres autour de la victime s'animent et se déplacent pour la frapper. Le Tisseur d'Ombres peut lancer ce sort sur n'importe quelle figurine ennemie dans un rayon de 12ps autour de lui, et à moins de 2ps d'un mur. La cible subit une seule touche de Force 4 sans sauvegarde d'armure possible." },
       { "resultat": 3, "id": "ailes_de_la_nuit", "nom": "Ailes de la Nuit", "difficulte": 6, "texte": "Des ailes ténébreuses se déploient dans le dos du Tisseur d'Ombres. Il disparaît pour réapparaître au sein des ombres proches. Ce sort ne peut être lancé que si le sorcier est à moins de 2ps d'un mur. Il est immédiatement déplacé jusqu'à 12ps de distance, à un endroit se trouvant également à moins de 2ps d'un mur. S'il se retrouve en contact avec une figurine ennemie, le Tisseur d'Ombres compte comme ayant chargé durant le premier tour de combat." },
       { "resultat": 4, "id": "cape_de_tenebres", "nom": "Cape de Ténèbres", "difficulte": 7, "texte": "Le Tisseur d'Ombres semble avalé par des ténèbres impénétrables. Le Tisseur d'Ombres se dissimule à la vue de l'ennemi. Tant qu'il n'attaque pas de figurine ennemie (en lançant des sorts, tirant ou engageant l'ennemi au corps à corps), il ne peut pas être attaqué. Il peut intercepter normalement, mais n'est pas obligé de le faire (et s'il ne le fait pas, les guerriers ennemis peuvent bien sûr le dépasser lors de leur charge). L'effet dure jusqu'à ce que le Tisseur d'Ombres attaque une figurine ennemie. Une figurine engagée au corps à corps ne peut jamais choisir de ne pas attaquer." },
-      { "resultat": 5, "id": "theatre_d_ombres", "nom": "Théâtre d'Ombres", "difficulte": 9, "texte": "Des tentacules noirs comme la nuit jaillissent des ténèbres pour se saisir d'un guerrier ennemi, le plaçant à la merci du sorcier. Le Tisseur d'Ombres peut lancer ce sort contre toute figurine adverse dans un rayon de 24ps autour de lui et à moins de 2ps d'un mur. La cible ne peut pas se déplacer à moins de réussir un test de Force sur 2D6 au début de son tour (avant la phase de ralliement). Ce sort dure jusqu'à ce que le Tisseur d'Ombres subisse une blessure ou tente de lancer un autre sort. Si elle est attaquée alors qu'elle est sous l'effet du sort, la victime est traitée exactement comme si elle était sonnée." },
+      { "resultat": 5, "id": "theatre_d_ombres", "nom": "Théâtre d'Ombres", "difficulte": 9, "texte": "Des tentacules noirs comme la nuit jaillissent des ténèbres pour se saisir d'un guerrier ennemi, le plaçant à la merci du sorcier. Le Tisseur d'Ombres peut lancer ce sort contre toute figurine adverse dans un rayon de 24ps autour de lui et à moins de 2ps d'un mur. La cible ne peut pas se déplacer à moins de réussir un test de Force sur 1D6+1 au début de son tour (avant la phase de ralliement). Ce sort dure jusqu'à ce que le Tisseur d'Ombres subisse une blessure ou tente de lancer un autre sort. Si elle est attaquée alors qu'elle est sous l'effet du sort, la victime est traitée exactement comme si elle était sonnée." },
       { "resultat": 6, "id": "bouclier_d_ombres", "nom": "Bouclier d'Ombres", "difficulte": 7, "texte": "Les ombres forment une barrière protectrice devant le sorcier ou un de ses camarades. Le Tisseur d'Ombres peut lancer ce sort sur lui-même ou un membre de sa bande se trouvant à moins de 12ps de lui. La cible bénéficie d'une sauvegarde d'armure de 5+ non modifiée par la Force de l'attaquant. Le sort dure jusqu'au début du tour suivant du Tisseur d'Ombres." }
     ]
   }
