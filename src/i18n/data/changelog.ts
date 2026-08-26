@@ -8,6 +8,10 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-08-26': [
+    'New playable warband: Slayer Cult Warband (2a), a Dwarf warband of Slayers seeking a glorious death — Giant Slayer, Doomseekers, Rememberer, Trollslayers, Stubbles, and Axe Hurlers, with their signature weapons (Throwing Axe, Whirling Blades). Originally only available in English, translated into French for the occasion. Its Exploration dice depend too heavily on how the battle unfolds to be calculated automatically, so the player must count them by hand, using the reminder of the relevant special rules.',
+    "Continued the major warband rules audit against official sourcebooks: fixed equipment, skill-access, and Hired Sword restrictions for the Dwarf Treasure Hunters, Black Dwarfs, Night Goblins, Kislevites, Ostlander Mercenaries, Imperial Outriders, Dark Elves, Black Orcs, Lizardmen, Bretonnian Knights, Outlaws of Stirwood Forest, Skaven of Clan Pestilens, Shadow Warriors, Marauders of Chaos, Norse, Pirates, Bretonnian Chapel Guardians, and Orc Mob (including forbidding Marauders from hiring a Witch/Warlock while a warrior bears the Mark of Arkhar, and requiring a living Wulfen for Norse to recruit Wolves), plus numerous English translation fixes.",
+  ],
   '2026-08-25': [
     'Lustrian Reavers: Jungle Shadow\'s "Wizard option" is finally playable — for 30 gc, takeable at recruitment or at any point in the campaign from their sheet, with a choice of first Lesser Magic spell. The starting Light Armour, now incompatible, goes to the warband armoury instead of being lost.',
     'New Musterheim banner on the home screen.',
