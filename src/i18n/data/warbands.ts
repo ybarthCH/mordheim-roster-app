@@ -2156,9 +2156,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Orc Mob (1a)',
     regles_speciales: [
       {
-        nom: 'Disreputable Sorts',
+        nom: 'Distasteful Company',
         texte:
-          'Many Hired Swords would refuse to work for Orcs, knowing the orcs could turn on them at any moment. An Orc warband may therefore only hire the following Hired Swords: Gladiators, Ogre Bodyguards, or Wizards.',
+          'Many Hired Swords would refuse to work for Orcs, knowing the orcs could turn on them at any moment. An Orc warband may therefore only hire the following Hired Swords: Pit Fighters, Ogre Bodyguards, or Warlocks.',
       },
       {
         nom: 'Animosity',
@@ -2180,7 +2180,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: 'No Armour', texte: 'A Shaman may be equipped with weapons chosen from the Orc equipment list. He never wears armour.' },
         ],
       },
-      kosto: { nom: 'Bruiser' },
+      kosto: { nom: "Big 'Un" },
       boyz_orque: {
         nom: 'Orc Boyz',
         regles_speciales: [

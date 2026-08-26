@@ -190,6 +190,7 @@
     "orques": {
       "armes_cac": [
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "hache", "cout": 5 },
         { "item_id": "epee", "cout": 10 },
         { "item_id": "hallebarde", "cout": 10 },
@@ -229,8 +230,8 @@
     }
   },
   "equipement_special": [
-    { "item_id": "chaine_et_boulet_cac", "cout": 15, "disponibilite": "Commune (Gobelins uniquement)" },
-    { "item_id": "aiguillon_a_squigs", "cout": 15, "disponibilite": "Commun (Gobelins uniquement)" },
+    { "item_id": "chaine_et_boulet_cac", "cout": 15, "disponibilite": "Commune (Gobelins uniquement)", "profils": ["guerrier_gobelin"] },
+    { "item_id": "aiguillon_a_squigs", "cout": 15, "disponibilite": "Commun (Gobelins uniquement)", "profils": ["guerrier_gobelin"] },
     { "item_id": "champignons_bonnets_de_fou_market", "cout": 25, "disponibilite": "Commun, Gobelins uniquement", "profils": ["guerrier_gobelin"] }
   ],
   "magie": {
