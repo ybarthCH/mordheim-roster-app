@@ -269,7 +269,7 @@
     "cout": 15,
     "cout_fixe": true,
     "rarete": "C",
-    "disponibilite": "Commun, Gobelins uniquement",
+    "disponibilite": "Commun, Fanatiques Gobelins de la Nuit uniquement",
     "acces": [
       "commun_gobelins"
     ],
@@ -293,7 +293,7 @@
       },
       {
         "nom": "Imprévisible",
-        "texte": "La seule manière d'utiliser cette arme est de la faire tournoyer au-dessus de sa tête, en utilisant son propre corps pour faire contrepoids. Ce n'est malheureusement pas la manière la plus fiable de combattre et dès qu'il commence à jouer du boulet, le guerrier ne maîtrise plus trop son destin. Le tour où il commence à faire tournoyer son boulet, le guerrier est déplacé de 2D6ps dans une direction définie par le joueur. Pour les phases de Mouvement suivantes, lancez 1D6 : 1 = la figurine s'emmêle les pinceaux et s'étrangle toute seule avec sa chaîne, mise hors de combat (tuée sur 1-2 au lieu de 1-3 au jet de Blessure Grave). 2-5 = déplacée de 2D6ps dans la direction définie par le joueur. 6 = déplacée de 2D6ps dans une direction aléatoire (dé de dispersion : 1 droit devant, 2-3 vers la droite, 4-5 vers la gauche, 6 en arrière). Si elle heurte un bâtiment, un mur ou tout autre obstacle, elle est immédiatement mise hors de combat. Une figurine souhaitant s'en prendre à un guerrier portant cette arme subit une pénalité de -1 pour toucher, car elle doit faire attention à ne pas recevoir le boulet en pleine tête. Le guerrier équipé d'une chaîne & boulet ne reste pas bloqué au corps à corps, même s'il est au contact d'une autre figurine au début de sa phase de Mouvement. Si la figurine arrive au contact d'une figurine (alliée ou ennemie), elle est considérée comme ayant chargé et reste engagée au corps à corps jusqu'à sa phase de Mouvement suivante."
+        "texte": "La seule manière d'utiliser cette arme est de la faire tournoyer au-dessus de sa tête, en utilisant son propre corps pour faire contrepoids. Ce n'est malheureusement pas la manière la plus fiable de combattre et dès qu'il commence à jouer du boulet, le guerrier ne maîtrise plus trop son destin. Le tour où il commence à faire tournoyer son boulet, le guerrier est déplacé de 2D6ps dans une direction définie par le joueur. Pour les phases de Mouvement suivantes, lancez 1D6 : 1 = la figurine s'emmêle les pinceaux et s'étrangle toute seule avec sa chaîne, mise hors de combat (tuée sur 1-3 au lieu de 1-2 au jet de Blessure Grave). 2-5 = déplacée de 2D6ps dans la direction définie par le joueur. 6 = déplacée de 2D6ps dans une direction aléatoire (dé de dispersion : 1 droit devant, 2-3 vers la droite, 4-5 vers la gauche, 6 en arrière). Si elle heurte un bâtiment, un mur ou tout autre obstacle, elle est immédiatement mise hors de combat. Une figurine souhaitant s'en prendre à un guerrier portant cette arme subit une pénalité de -1 pour toucher, car elle doit faire attention à ne pas recevoir le boulet en pleine tête. Le guerrier équipé d'une chaîne & boulet ne reste pas bloqué au corps à corps, même s'il est au contact d'une autre figurine au début de sa phase de Mouvement. Si la figurine arrive au contact d'une figurine (alliée ou ennemie), elle est considérée comme ayant chargé et reste engagée au corps à corps jusqu'à sa phase de Mouvement suivante."
       },
       {
         "nom": "Cinglé",

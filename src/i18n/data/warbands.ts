@@ -951,24 +951,24 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         exception: 'Does not affect Fanatics',
       },
       {
-        nom: "Masters of the Fool's Cap",
+        nom: 'Mad Cap Masters',
         texte:
           "Night Goblins ignore the stupidity side effect of Fool's Cap mushrooms while under the frenzy the mushrooms grant; if they are Knocked Down or Stunned, the stupidity takes effect again until the end of the battle.",
       },
       {
-        nom: 'Hatred of Dwarfs',
+        nom: 'Hate Stunties',
         texte: 'Night Goblins hold a bitter hatred for Dwarfs.',
         exception: 'Only affects Night Goblins; Fanatics are not subject to it',
       },
       {
-        nom: 'Fear of Elves',
+        nom: 'Fear Elves',
         texte: 'Night Goblins are subject to fear of Elves.',
         exception: 'Only affects Night Goblins; Fanatics are not subject to it',
       },
       {
-        nom: 'Unsavoury Characters',
+        nom: 'Distasteful Company',
         texte:
-          'A Night Goblin warband may only hire the following Hired Swords: Gladiator, Ogre Bodyguard, Warlock, Witch, as well as any Hired Sword whose description specifically allows it.',
+          'A Night Goblin warband may only hire the following Hired Swords: Pit Fighter, Ogre Bodyguard, Warlock, Witch, as well as any Hired Sword whose description specifically allows it.',
       },
     ],
     profils: {
@@ -977,7 +977,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Leader', texte: 'Any model within 6" of the Boss may use his Leadership for their tests.' },
           {
-            nom: 'Biggest of the Bosses',
+            nom: 'Da Biggest Boss',
             texte:
               "Only the current Boss may choose Strength skills; a Boss promoted after the previous one's death gains this right in turn, but no other warband member may access it.",
           },
@@ -986,9 +986,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       chaman: {
         nom: 'Night Goblin Shaman',
         regles_speciales: [
-          { nom: 'Sorcerer', texte: 'Starts with a spell randomly drawn from the Goblin Magic spell list.' },
+          { nom: 'Wizard', texte: 'Starts with a spell randomly drawn from the Goblin Magic spell list.' },
           {
-            nom: 'Mushroom Brew',
+            nom: 'Fungus Brew',
             texte:
               "Before the battle, may brew a special batch from 1 to 3 Fool's Cap mushrooms plus other harvested mushrooms, affecting a single group of Goblin warriors until the end of the battle. A roll is made on the mushroom brew table for each mushroom used; a duplicate result ruins the batch (just a headache).",
           },
@@ -998,7 +998,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Squig Herder',
         regles_speciales: [
           {
-            nom: 'Handler — Squigs',
+            nom: 'Handle Animal - Squig',
             texte: 'Any Squig within 6" (12" with a squig prodder) may use his Leadership instead of its own.',
           },
           {
@@ -1009,22 +1009,22 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Dedicated Skills (in addition to the Special list)',
             texte:
-              "When gaining a new Special skill, the Squig Herder may choose from his own list (Gaseous Squigs, Menace, Training) in addition to the warband's Special list — see the Skills tab on his sheet.",
+              "When gaining a new Special skill, the Squig Herder may choose from his own list (Gassy Squigs, Threaten, Trainin') in addition to the warband's Special list — see the Skills tab on his sheet.",
           },
         ],
         competences_speciales: {
           squigs_gazeux: {
-            nom: 'Gaseous Squigs',
+            nom: 'Gassy Squigs',
             texte:
               "The Squig Herder feeds his Squigs a mix of rotten mushrooms, flint, and sharp pebbles to turn them into shrapnel. When an untrained Cave Squig (see Training) is taken Out of Action, roll a die. On a 1, it explodes, hitting every model within 1D6\" with a Strength 3 hit. That Squig is DEAD!",
           },
           menace: {
-            nom: 'Menace',
+            nom: 'Threaten',
             texte:
               'During the Movement phase, the Squig Herder may take a Leadership test. If successful, all Cave Squigs and Giant Squigs within 6" (12" with a squig prodder) may re-roll their Movement dice for that turn.',
           },
           entrainement: {
-            nom: 'Training',
+            nom: "Trainin'",
             texte:
               "The Squig Herder may train a particularly intelligent and vicious Squig as his personal bodyguard. The next Squig bought gains experience like a normal Henchman, re-rolling \"Lad's Got Talent\" results on the Henchman advance table. If the Squig Herder dies, the trained Squig is removed from the warband. If the trained Squig dies, a new trained Squig may be recruited. There is never more than one trained Squig in a warband, and it still counts towards the maximum number of Cave Squigs. Thanks to the Herder's special attention (kicks, prods), the trained Squig only dies on a roll of 1 after being taken Out of Action. In exchange, the trained Squig will fiercely defend its fallen master: if the Squig Herder is taken Out of Action and the trained Squig is under control, remove the latter from the table but treat any 36 - Stripped Bare, 61 - Captured!, or 65 - Sold to the Arena result as a Full Recovery instead.",
           },
@@ -1041,7 +1041,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Night Goblin Fanatic',
         regles_speciales: [
           {
-            nom: 'Addiction',
+            nom: 'Addict',
             texte: "Needs a Fool's Cap mushroom for every game; without one, he stays in his cave and does not take part in the battle.",
           },
           { nom: 'Crazed', texte: 'Immune to the animosity rules.' },
@@ -1146,17 +1146,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       type: 'sorcery',
       sorts: [
         {
-          nom: "Gork's Wind",
+          nom: 'Wind of Gork',
           texte: 'Range 12"; the first model hit must pass a Toughness test or suffer a Strength 2 hit and be automatically Knocked Down.',
         },
-        { nom: "Mork's Gaze", texte: 'Range 12"; D3 Strength 3 hits on the first model in the path.' },
+        { nom: 'Gaze of Mork', texte: 'Range 12"; D3 Strength 3 hits on the first model in the path.' },
         {
-          nom: "'Ead-Seeker",
+          nom: "'Eadbanger",
           texte:
             "Range 6\"; fires a number of bolts equal to the Shaman's base Attacks, Strength equal to his Toughness, hitting the first model in the path. On a 1 after resolving, the Shaman collapses and is taken Out of Action.",
         },
         {
-          nom: 'Waaagh! Leap',
+          nom: 'Leap of Waaagh!',
           texte: 'The Shaman or a Goblin within 3" may be moved up to 12", ignoring terrain; if this brings him into hand-to-hand combat, it counts as a charge.',
         },
         { nom: 'Idol of Gork', texte: 'The Shaman gains WS+1, S+1, and A+1 until he suffers a Wound.' },

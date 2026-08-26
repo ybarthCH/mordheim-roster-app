@@ -431,7 +431,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
 
   // --- Poisons / drogues ---
   champignons_bonnets_de_fou_market: {
-    nom: "Fool's Cap Mushrooms",
+    nom: 'Mad Cap Mushrooms',
     texte:
       "The dreaded cult of fanatical goblins from the Edge of the World Mountains use these hallucinogenic mushrooms to enter a state of frenzy. The use of poison is almost universally despised, but in the brutal, merciless battles of Mordheim, desperate warbands often use poisoned blades. The poison cannot be used with black powder weapons. When you buy a vial of poison, you always have enough for the duration of one battle. You may only poison a single weapon with one vial of poison.",
     regles_speciales: [
@@ -1883,7 +1883,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
 
   // --- Armes de corps à corps (1/2) ---
   aiguillon_a_squigs: {
-    nom: 'Squig Prod',
+    nom: 'Squig Prodder',
     texte:
       "This is a trident fixed to the end of a long pole and used by goblins to push squigs in the right direction. Squigs have learned to recognise a prod and hold a certain respect for whoever carries it!",
     regles_speciales: [
@@ -2011,7 +2011,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   chaine_et_boulet_cac: {
-    nom: 'Chain & Ball',
+    nom: 'Ball and Chain',
     texte:
       'This is a huge ball fixed to the end of a long chain. It is the favourite weapon of the infamous Night Goblin Fanatics. Extremely heavy and hard to wield, this weapon requires the consumption of fool\'s cap mushrooms.',
     regles_speciales: [
@@ -2021,19 +2021,19 @@ export const itemsEn: Record<string, ItemTraduit> = {
           'The chain & ball is so heavy that a model equipped with it cannot carry any other weapon or equipment. In addition, only a model under the influence of fool\'s cap mushrooms has the strength necessary to wield this weapon.',
       },
       {
-        nom: 'Colossal Force',
+        nom: 'Incredible Force',
         texte:
           'The impact of the enormous ball, boosted by the speed given to it by the chain, renders ordinary armour of little use. No armour save is therefore allowed against Wounds inflicted by this weapon. In addition, any successful hit could well decapitate the victim (or at least break a few limbs!): any Wound suffered inflicts 1D3 Wounds instead of just one.',
       },
       {
-        nom: 'Exhausting',
+        nom: 'Unwieldy',
         texte:
           "The effort required to wield this weapon can cause muscle damage or even dislocate a shoulder. Under the influence of the fool's cap mushrooms, the warrior feels no pain and won't even notice, but once the effects wear off, it's a different story... To represent this, after the battle, every model that used a chain & ball must make an Injury roll, as if it had been taken Out of Action. If the model was actually taken Out of Action, make only one roll, not two.",
       },
       {
-        nom: 'Unpredictable',
+        nom: 'Random',
         texte:
-          "The only way to use this weapon is to swing it above your head, using your own body as a counterweight. This is unfortunately not the most reliable way to fight, and once he starts swinging the ball, the warrior loses much control over his fate. On the turn he starts swinging his ball, the warrior is moved 2D6\" in a direction chosen by the player. For subsequent Movement phases, roll 1D6: 1 = the model tangles itself up and strangles itself with its own chain, taken Out of Action (killed on 1-2 instead of 1-3 on the Serious Injury roll). 2-5 = moved 2D6\" in the direction chosen by the player. 6 = moved 2D6\" in a random direction (scatter die: 1 straight ahead, 2-3 to the right, 4-5 to the left, 6 backwards). If it hits a building, wall, or other obstacle, it is immediately taken Out of Action. A model wishing to attack a warrior carrying this weapon suffers a -1 penalty to hit, as it must be careful not to take the ball to the head. A warrior equipped with a chain & ball is not locked into hand-to-hand combat, even if he is in contact with another model at the start of his Movement phase. If the model ends up in contact with a model (friend or foe), it is treated as having charged and remains engaged in hand-to-hand combat until its next Movement phase.",
+          "The only way to use this weapon is to swing it above your head, using your own body as a counterweight. This is unfortunately not the most reliable way to fight, and once he starts swinging the ball, the warrior loses much control over his fate. On the turn he starts swinging his ball, the warrior is moved 2D6\" in a direction chosen by the player. For subsequent Movement phases, roll 1D6: 1 = the model tangles itself up and strangles itself with its own chain, taken Out of Action (killed on 1-3 instead of 1-2 on the Serious Injury roll). 2-5 = moved 2D6\" in the direction chosen by the player. 6 = moved 2D6\" in a random direction (scatter die: 1 straight ahead, 2-3 to the right, 4-5 to the left, 6 backwards). If it hits a building, wall, or other obstacle, it is immediately taken Out of Action. A model wishing to attack a warrior carrying this weapon suffers a -1 penalty to hit, as it must be careful not to take the ball to the head. A warrior equipped with a chain & ball is not locked into hand-to-hand combat, even if he is in contact with another model at the start of his Movement phase. If the model ends up in contact with a model (friend or foe), it is treated as having charged and remains engaged in hand-to-hand combat until its next Movement phase.",
       },
       {
         nom: 'Deranged',
@@ -2620,7 +2620,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     texte: 'This pair of daggers is coated with the juice of death cap mushrooms.',
     regles_speciales: [
       {
-        nom: 'Pair',
+        nom: 'Paired',
         texte: 'These weapons are traditionally used in pairs, one in each hand. A warrior with these weapons gets +1 Attack.',
       },
       {
@@ -3969,8 +3969,11 @@ for (const id of ['poignards_empoisonnes']) {
 for (const id of ['arme_empoisonnee_mod']) {
   itemsEn[id].disponibilite = 'Common, Forest Goblins only';
 }
-for (const id of ['aiguillon_a_squigs', 'baton_dboss', 'chaine_et_boulet_cac']) {
+for (const id of ['aiguillon_a_squigs', 'baton_dboss']) {
   itemsEn[id].disponibilite = 'Common, Goblins only';
+}
+for (const id of ['chaine_et_boulet_cac']) {
+  itemsEn[id].disponibilite = 'Common, Night Goblin Fanatics only';
 }
 for (const id of ['chat_a_neuf_queues']) {
   itemsEn[id].disponibilite = 'Common, Pirate Heroes only';

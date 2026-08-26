@@ -2090,9 +2090,8 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'gladiateur',
     'ogre',
     'mage',
+    'sorciere',
     'supervizork',
-    'guide_lustrien',
-    'assassin_elfe_noir',
   ]),
   maneaters: new Set(['halfling', 'ogre', 'centaure_chaos', 'eclaireur_hobgobelin', 'guide_lustrien']),
   maraudeurs_du_chaos: new Set([
