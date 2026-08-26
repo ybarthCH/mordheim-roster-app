@@ -2594,7 +2594,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       {
         nom: 'Dense Terrain',
-        texte: 'Imperial Escorts may ignore the normal limit of two mounts per warband within areas of dense terrain.',
+        texte: 'Imperial Outriders may ignore the normal limit of two mounts per warband within areas of dense terrain.',
       },
       {
         nom: 'Two-Weapon Fighting',
@@ -2626,10 +2626,10 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [{ nom: 'Mount', texte: 'A Scout rides a Horse (included in his cost).' }],
       },
       pistolier: {
-        nom: 'Pistolier',
+        nom: 'Chasseurs',
         regles_speciales: [
-          { nom: 'Ride', texte: 'Pistoliers already have the Ride skill.' },
-          { nom: 'Mount', texte: 'Pistoliers ride Horses (included in their cost).' },
+          { nom: 'Ride', texte: 'Chasseurs already have the Ride skill.' },
+          { nom: 'Mount', texte: 'Chasseurs ride Horses (included in their cost).' },
         ],
       },
       hussard: {
@@ -2637,8 +2637,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Ride', texte: 'Hussars already have the Ride skill.' },
           {
-            nom: 'Trample',
-            texte: 'Hussars already have the Trample skill: they make an additional Strength 4 Attack when they charge an enemy on foot.',
+            nom: 'Combat Riding',
+            texte: 'Hussars already have the Combat Riding skill: they make an additional Strength 4 Attack when they charge an enemy on foot.',
           },
           { nom: 'Mount', texte: 'Hussars ride Horses (included in their cost). May be upgraded to Warhorses for +40gc.' },
         ],
@@ -2659,9 +2659,6 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     equipement: {
       base: {
         armes_cac: ['first free', 'Hammer', undefined, undefined, undefined, undefined, undefined],
-      },
-      armes_tir_escorteurs: {
-        armes_tir: ['30gc per pair', undefined, undefined, undefined],
       },
       armes_tir_eclaireurs: {
         armes_tir: ['Throwing knives'],
