@@ -5489,7 +5489,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       champion: { nom: 'Champion' },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youngblood' },
       guerrier: {
         nom: 'Warrior',
         regles_speciales: [{ nom: 'Recruitment', texte: 'As many as you want. Bought in groups of 1 to 5.' }],

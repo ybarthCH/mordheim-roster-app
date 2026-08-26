@@ -31,7 +31,7 @@
         { "nom": "Chef", "texte": "N'importe quel guerrier à moins de 6ps du capitaine mercenaire peut utiliser le commandement de ce dernier pour ses tests de Commandement." }
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
-      "acces_equipement": ["mercenaires", "tireur"],
+      "acces_equipement": ["mercenaires"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -48,7 +48,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "vitesse"],
-      "acces_equipement": ["mercenaires", "tireur"],
+      "acces_equipement": ["mercenaires"],
       "acces_competences_a_verifier": false
     },
     {
@@ -64,7 +64,7 @@
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "vitesse"],
-      "acces_equipement": ["mercenaires", "tireur"],
+      "acces_equipement": ["mercenaires"],
       "acces_competences_a_verifier": false
     },
     {
