@@ -151,7 +151,7 @@ export function RosterScreen({
   }
 
   const tribu = tribuChoisie(catalogue, roster);
-  const violations = validerComposition(roster);
+  const violations = validerComposition(roster, language);
   const violationsEffectif = validerEffectif(roster);
   const effectifDepasse = violationsEffectif.find((v) => v.type === 'max');
   // Les figurines mortes sont retirées de leur section d'origine et

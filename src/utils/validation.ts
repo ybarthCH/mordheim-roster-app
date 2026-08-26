@@ -1,5 +1,7 @@
 import type { RosterInstance } from '../types/roster';
+import type { Language } from '../state/useLanguage';
 import { getCatalogue } from '../data/warbands';
+import { translateWarbandCatalog } from '../i18n/data/warbands';
 import { effectifTotal } from './bandeValue';
 import { aUnFrancTireurAvecTag, estFrancTireur } from '../data/hiredSwords';
 import { effectifMaxPourTribu, maxProfilPourTribu } from './tribu';
@@ -31,9 +33,10 @@ function limiteEffectivePourProfil(
  * Vérifie les limites de composition (max/min par profil, unique) parmi les
  * membres actifs/capturés (hors morts). Purement informatif — n'empêche rien.
  */
-export function validerComposition(roster: RosterInstance): ViolationComposition[] {
-  const catalogue = getCatalogue(roster.bande_id);
-  if (!catalogue) return [];
+export function validerComposition(roster: RosterInstance, language?: Language): ViolationComposition[] {
+  const catalogueBrut = getCatalogue(roster.bande_id);
+  if (!catalogueBrut) return [];
+  const catalogue = language ? translateWarbandCatalog(catalogueBrut, language) : catalogueBrut;
   const violations: ViolationComposition[] = [];
   const comptes = new Map<string, number>();
   for (const m of roster.membres) {
