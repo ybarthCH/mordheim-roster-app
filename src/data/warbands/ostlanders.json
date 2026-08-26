@@ -31,7 +31,7 @@
         { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Doyen peut utiliser le Commandement de ce dernier pour ses tests." }
       ],
       "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
-      "acces_equipement": ["ostlanders", "vauriens", "jaegers"],
+      "acces_equipement": ["ostlanders"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -51,7 +51,7 @@
         { "nom": "Frêle", "texte": "Les Prêtres de Taal ne peuvent jamais porter une armure lourde." }
       ],
       "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
-      "acces_equipement": ["ostlanders", "vauriens", "jaegers"],
+      "acces_equipement": ["ostlanders"],
       "acces_competences_a_verifier": false
     },
     {
@@ -67,7 +67,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
       "acces_competences": ["combat", "force", "special"],
-      "acces_equipement": ["ostlanders", "vauriens", "jaegers"],
+      "acces_equipement": ["ostlanders"],
       "acces_competences_a_verifier": false
     },
     {
@@ -212,9 +212,9 @@
         { "item_id": "arquebuse", "cout": 35 },
         { "item_id": "tromblon", "cout": 30 },
         { "item_id": "pistolet", "cout": 15 },
-        { "item_id": "pistolet_double_canon", "cout": 30 },
+        { "item_id": "pistolet_double_canon", "cout": 30, "note": "Rare 10, 60 CO la paire" },
         { "item_id": "long_fusil_du_hochland", "cout": 200 },
-        { "item_id": "long_fusil_hochland_double_canon", "cout": 300 },
+        { "item_id": "long_fusil_hochland_double_canon", "cout": 300, "note": "Rare 12" },
         { "item_id": "pistolet_paire", "cout": 30 },
         { "item_id": "pistolet_double_canon_paire", "cout": 60 }
       ],
@@ -234,10 +234,6 @@
       "armures": [{ "item_id": "armure_legere", "cout": 20 }]
     }
   },
-  "equipement_special": [
-    { "item_id": "pistolet_double_canon", "cout": 30, "disponibilite": "Rare 10, 60 CO la paire" },
-    { "item_id": "long_fusil_hochland_double_canon", "cout": 300, "disponibilite": "Rare 12" }
-  ],
   "magie": {
     "nom": "Prières de Taal",
     "type": "prières",

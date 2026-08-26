@@ -4883,7 +4883,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Ostlander Mercenaries (1a)',
     regles_speciales: [
       {
-        nom: 'Self-Reliant',
+        nom: 'Self-Sufficient',
         texte:
           "The Ostlanders have no desire to let their hard-earned gold end up in a stranger's hands. As a result, they may never hire Hired Swords, except Ogres (who are not uncommon in Ostland).",
       },
@@ -4899,12 +4899,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Priest of Taal',
         regles_speciales: [
           { nom: 'Prayers', texte: 'A Priest of Taal may use the Prayers of Taal (see Magic).' },
-          { nom: 'Frail', texte: 'Priests of Taal may never wear heavy armour.' },
+          { nom: 'Strictures', texte: 'Priests of Taal may never wear heavy armour.' },
         ],
       },
       freres_de_sang: { nom: 'Blood Brothers' },
       proche: {
-        nom: 'Kinsman',
+        nom: 'Kin',
         regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
       },
       jaeger: {
@@ -4912,15 +4912,15 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
       },
       vaurien: {
-        nom: 'Wastrel',
+        nom: 'Ruffian',
         regles_speciales: [
           {
             nom: 'Drunk',
-            texte: "Wastrels' minds are addled by rotgut and bad beer. They therefore automatically pass any Leadership tests they must take.",
+            texte: "Ruffians' minds are addled by rotgut and bad beer. They therefore automatically pass any Leadership tests they must take.",
           },
           {
-            nom: 'Disreputable',
-            texte: 'Wastrels provoke mixed feelings among their comrades, a strange blend of pity and fear. They can therefore never become the warband Leader.',
+            nom: 'No Respect',
+            texte: 'Ruffians provoke mixed feelings among their comrades, a strange blend of pity and fear. They can therefore never become the warband Leader.',
           },
         ],
       },
@@ -4929,7 +4929,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Fear', texte: 'Ogres are huge, threatening creatures that cause Fear.' },
           {
-            nom: 'Large Target',
+            nom: 'Large',
             texte: 'Ogres are bulky, massive creatures, making them good targets for archers. They are Large Targets, as defined in the Shooting rules.',
           },
           {
@@ -4966,7 +4966,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'When he charges, the Hero may attempt to knock down his opponent instead of making normal attacks: roll to score a single hit with a +1 modifier, with no wound roll. If the warrior hits, the target is Knocked Down.',
       },
       odeur_nauseabonde: {
-        nom: 'Foul Stench',
+        nom: 'Foul Odour',
         texte:
           'All living enemies (not Undead or Possessed) suffer a -1 penalty to hit this warrior in hand-to-hand combat. He may not carry a burning item, and fire attacks against him are resolved at Strength +1 due to his alcohol-soaked clothes.',
       },
@@ -4981,7 +4981,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'During the Shooting phase, the warrior may choose to taunt an enemy instead of shooting or casting a spell (follows the normal targeting rules for shooting: the nearest visible enemy, etc.). The enemy must take a Leadership test: if failed, he must spend his next Movement phase engaging the warrior who taunted him in hand-to-hand combat.',
       },
       amis_des_betes: {
-        nom: 'Friend of Beasts',
+        nom: 'Animal Friendship',
         texte:
           "This warrior radiates a charm that affects all \"ordinary\" animals (warhorses, war dogs, etc.): they will never attack him, and up to two War Dogs owned by this model do not count towards the warband's maximum model count.",
       },
@@ -4996,13 +4996,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       jaegers: {
         armes_cac: ['first free', undefined, undefined, undefined],
-        armes_tir: [undefined, undefined, undefined, '30gc per pair', '60gc per pair', undefined, undefined],
+        armes_tir: [undefined, undefined, undefined, undefined, 'Rare 10, 60gc for a pair', undefined, 'Rare 12', undefined, undefined],
       },
     },
     magie: {
       nom: 'Prayers of Taal',
       type: 'prayer',
-      note: 'The Prayers of Taal function like the Prayers of Sigmar, though a Priest of Taal rarely wears armour.',
+      note: 'The Prayers of Taal function like the Prayers of Sigmar, although the Taal Priest never wears armour.',
       sorts: [
         {
           nom: "Stag's Leap",
@@ -5010,7 +5010,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             'The Priest may immediately move anywhere within 9", including into base contact with an enemy (charging at Strength +1 for the first round). If he makes contact with a fleeing enemy, he inflicts an automatic Strength +1 hit during the hand-to-hand combat phase, and the enemy flees again if it survives.',
         },
         {
-          nom: 'Blessed Beer',
+          nom: 'Blessed Ale',
           texte:
             'The Priest may heal himself or any model within 2" of him, who recovers his full Wounds. In addition, all living enemy models (not Undead or Possessed) within 2" of the Priest lose 1 Attack during the next combat phase, due to the powerful fumes of beer.',
         },
@@ -5019,17 +5019,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           texte: "The Priest calls upon the blessing of Taal on himself or a friendly model within 6\": the target gains +2 Strength until the Priest's next turn.",
         },
         {
-          nom: 'Earthquake',
+          nom: 'Earthshudder',
           texte:
             'The spell must be cast on a building within 4". Any enemy model in contact with the building suffers a Strength 3 hit. In addition, the building collapses and models inside it suffer a fall (for every 2" fallen, an Initiative test must be passed to avoid D3 Strength 5 hits). Remove the building from the board for the rest of the game.',
         },
         {
-          nom: 'Snares',
+          nom: 'Tanglefoot',
           texte:
             'Creeping vines and small trees burst from the ground: all friendly or enemy models (except Ostlander Jaegers) within 12" of the Priest may only move at half their Movement until the next Shooting phase.',
         },
         {
-          nom: 'Call of the Squirrels',
+          nom: 'Summon Squirrels',
           texte:
             'The Priest summons dozens of enraged squirrels that attack an enemy within 12" of the Priest: the target suffers 2D6 Strength 1 hits, with no save allowed.',
         },
