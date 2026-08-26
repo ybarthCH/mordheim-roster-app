@@ -1798,14 +1798,14 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Black Orcs (1b)',
     regles_speciales: [
       {
-        nom: 'Let the Real Boyz Do the Job',
+        nom: 'Let the goons do the work',
         texte:
           'Black Orcs rely only on themselves to kill their enemies. They may therefore never have any kind of mount. Only common Orcs may ride boars or other mounts.',
       },
       {
-        nom: 'The Boss Got Done In!',
+        nom: 'Da Boss is Dead!',
         texte:
-          'If the Boss should be killed, command of the warband must pass to the Black Orc with the most experience, even if an Orc has more experience overall. The replacement automatically gains the special rule You Gonna Calm Down?!.',
+          'If the Boss should be killed, command of the warband must pass to the Black Orc with the most experience, even if an Orc has more experience overall. The replacement automatically gains the Oi Behave! skill.',
       },
       {
         nom: 'Animosity',
@@ -1823,7 +1823,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte: 'The model starts with a natural armour save of 6+. It may be combined with any equipment that would improve it.',
           },
           {
-            nom: 'You Gonna Calm Down?!',
+            nom: 'Oi Behave!',
             texte:
               'If an Orc Henchman fails his Animosity test within 6" of the Black Orc Boss, the Black Orc player may choose to have the Boss step in. The Black Orc Boss decides to calm things down by kicking a few backsides… The unruly Orc Henchman suffers an automatic hit of a Strength chosen by the Black Orc player. If the Orc Henchman is still standing after the smack, he adds a number equal to the Strength of the blow received to the result rolled on the Animosity table. For example, the player decides the Black Orc Boss gives an unruly Orc Henchman a Strength 2 clout. If he is not Knocked Down, Stunned, or Out of Action after the beating, the player adds +2 to the result on the Animosity table.',
           },
@@ -1849,30 +1849,30 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       kastagneurs_orques: {
-        nom: 'Orc Bruisers',
+        nom: 'Orc Boyz',
         regles_speciales: [
-          { nom: 'Animosity', texte: "Orc Bruisers are subject to animosity (see the warband's special rules)." },
+          { nom: 'Animosity', texte: "Orc Boyz are subject to animosity (see the warband's special rules)." },
         ],
       },
       chasseurs_orques: {
-        nom: 'Orc Hunters',
+        nom: 'Orc Shootaz',
         regles_speciales: [
-          { nom: 'Animosity', texte: "Orc Hunters are subject to animosity (see the warband's special rules)." },
+          { nom: 'Animosity', texte: "Orc Shootaz are subject to animosity (see the warband's special rules)." },
           {
             nom: 'Uncommon',
-            texte: 'A warband may never hire more Hunters than Bruisers. If a Bruiser dies and there are more Hunters than Bruisers, the next recruit must be a Bruiser to restore the balance.',
+            texte: 'A warband may never hire more Shootaz than Boyz. If a Boy dies and there are more Shootaz than Boyz, the next recruit must be a Boy to restore the balance.',
           },
         ],
       },
       ding_boyz: {
-        nom: "Ding'boyz",
+        nom: 'Orc Nuttaz',
         regles_speciales: [
           {
             nom: 'Unstable',
             texte: "These Orcs aren't quite right in the head. They don't suffer from Animosity, but from a whole host of other problems.",
           },
           {
-            nom: 'Mad',
+            nom: 'Crazy',
             texte:
               "Ding'boyz automatically pass all Leadership tests. The downside is that their minds are so disturbed that, should they become Heroes following an advance roll, they would be unable to learn even a single Academic skill.",
           },
@@ -1891,7 +1891,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte: 'Trolls could easily do without weapons, but they carry a big club regardless. In game terms, they may not be given weapons or armour.',
           },
           { nom: 'Fear', texte: 'Trolls are frightening creatures and cause Fear.' },
-          { nom: 'Zero IQ', texte: 'Trolls are far too stupid to learn anything. They never gain experience.' },
+          { nom: 'Dumb Monster', texte: 'Trolls are far too stupid to learn anything. They never gain experience.' },
           {
             nom: 'Regeneration',
             texte:
@@ -1931,7 +1931,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       tet_dure: {
-        nom: 'Thick Skull',
+        nom: "'Ard Ead",
         texte:
           "The warrior has a particularly thick skull, even for an Orc. This Orc gets a special 3+ save on 1D6 to avoid being Stunned. If the save is successful, the model is simply Knocked Down instead. If the Orc also wears a helmet, this save becomes 2+ instead of 3+ (replacing the helmet's usual special rule).",
       },
@@ -1940,16 +1940,16 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'Orcs are aggressive creatures who love to charge into the fray. The Hero adds +1D3" to his charge range.',
       },
       on_y_va: {
-        nom: "Let's Go!",
+        nom: "'Ere We Go!",
         texte: 'Orcs don\'t hesitate to rush into combat, even against fearsome opponents. The Hero ignores Fear and Terror tests when charging.',
       },
       revenez_ici: {
-        nom: "Come Back 'Ere!",
+        nom: "Da Cunnin' Plan",
         texte: 'Only the Boss may take this skill. The warband may re-roll all failed Rout tests as long as the Boss has not been taken Out of Action.',
         reserve_a: 'Black Orc Boss only',
       },
       coup_de_boule: {
-        nom: 'Headbutt',
+        nom: "'Eadbasher",
         texte: 'Orcs are fairly muscular creatures, and some are used to striking their opponents with great headbutts, with rather conclusive results. Any model Knocked Down in hand-to-hand combat is treated as Stunned.',
       },
     },
