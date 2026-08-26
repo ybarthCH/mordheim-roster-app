@@ -3616,6 +3616,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         armures: [undefined, 'Bone helm', undefined],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Common, Heroes only (missile weapons); Saurus only (hand-to-hand weapons, bought from the Rare Items Table)' },
+      { disponibilite: 'Common, Heroes only (missile weapons); Saurus only (hand-to-hand weapons, bought from the Rare Items Table)' },
+      { disponibilite: 'Common for one battle, Skink Henchmen only — +1 Strength, no armour save modifier' },
+    ],
     magie: {
       nom: 'Lizardmen Magic',
       type: 'prayers',
@@ -3624,7 +3629,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         {
           nom: 'Wrath of Chotec',
           texte:
-            'A bolt of lightning falls from the sky and strikes the nearest enemy within 10" of the Skink Priest, inflicting a Strength 5 hit. If the target wears armour (light, heavy, gromril, etc.), increase the Strength by +1 and add +1 to the result on the Injury table.',
+            'A bolt of lightning falls from the sky and strikes the nearest enemy within 10" of the Skink Priest, inflicting a Strength 5 hit. If the target wears armour (light, heavy, Ithilmar, Gromril, etc.), increase the Strength by +1 and add +1 to the result on the Injury table.',
         },
         {
           nom: 'Blessing of Sotek',
