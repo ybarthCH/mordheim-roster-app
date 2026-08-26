@@ -4167,11 +4167,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Kislevites (1a)',
     regles_speciales: [
       {
-        nom: 'Hired Swords',
+        nom: 'May Hire',
         texte: 'A Kislevite warband may hire the same Hired Swords as the human Mercenary warbands described in the Mordheim rulebook.',
       },
       {
-        nom: 'Old Enemies',
+        nom: 'Ancient Enemies',
         texte:
           'Kislevites may never ally with any Chaos warband of any kind. This restriction extends to the following warbands: Possessed, Beastmen, Skaven, Dark Elves, Chaos Dwarfs, and any other warband deemed too chaotic by the players.',
       },
@@ -4182,7 +4182,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Leader', texte: "Any warrior within 6\" of the Druzhina Captain may use the latter's Ld for all his Leadership tests." },
           {
-            nom: 'Heirloom',
+            nom: 'Inheritance',
             texte:
               "When the warband is created, the Captain may buy one item from the Kislevite Warriors' equipment list at half price (family heirloom). If he loses this item (for example, a 'Stripped' result on the Injury table), he must replace it as soon as possible with a good-quality substitute by rebuying the same item at 150% of its usual price. Until the item is replaced, the Captain suffers a -1 penalty on all his tests and to-hit rolls.",
           },
@@ -4192,14 +4192,14 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Bear Tamer',
         regles_speciales: [
           {
-            nom: 'Bear Tamer',
+            nom: 'Bear Handler',
             texte:
-              "A Kislevite warband that includes a Bear Tamer may recruit a Tamed Bear as a Henchman. This animal has been trained to follow the Tamer's instructions: it automatically passes its Stupidity tests when within 6\" of the Bear Tamer (even if the latter is Knocked Down or Stunned).",
+              "A Kislevite warband that includes a Bear Tamer may recruit a Trained Bear as a Henchman. This animal has been trained to follow the Tamer's instructions: it automatically passes its Stupidity tests when within 6\" of the Bear Tamer (even if the latter is Knocked Down or Stunned).",
           },
         ],
       },
       esaul: { nom: 'Esaul' },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youths' },
       guerrier_kislevite: {
         nom: 'Warrior',
         regles_speciales: [{ nom: 'Recruitment', texte: 'Any number. Bought in groups of 1 to 5.' }],
@@ -4208,8 +4208,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Cossack',
         regles_speciales: [
           {
-            nom: 'Hatred of Chaos',
-            texte: 'Cossacks are subject to Hatred of the forces of Chaos, i.e. the members of any warband to which the Old Enemies rule applies.',
+            nom: 'Hate Chaos',
+            texte: 'Cossacks are subject to Hatred of the forces of Chaos, i.e. the members of any warband to which the Ancient Enemies rule applies.',
           },
           { nom: 'Recruitment', texte: 'Any number. Bought in groups of 1 to 5.' },
         ],
@@ -4218,7 +4218,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Streltsi',
         regles_speciales: [
           {
-            nom: 'Support',
+            nom: 'Gun-Rest',
             texte:
               'A Streltsi armed with a halberd and an arquebus may use the halberd to rest his firearm on: he then gains a +1 bonus to hit with his arquebus as long as he does not move during the Movement phase (even if he has a skill that allows him to move and shoot).',
           },
@@ -4226,15 +4226,15 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       ours_apprivoise: {
-        nom: 'Tamed Bear',
+        nom: 'Trained Bear',
         regles_speciales: [
           { nom: 'Recruitment', texte: 'May only be included if the warband already has a Bear Tamer.' },
           {
-            nom: 'Tamed',
+            nom: 'Trained',
             texte:
               "The Bear simply obeys its tamer. It is subject to Stupidity, but automatically passes its Stupidity tests if it is within 6\" of the Tamer. The Bear never uses the warband leader's Ld, but may use the Tamer's if it is within 6\" of him. The warband cannot control the Bear without its tamer present: if the warband loses the Tamer, the Bear stays in its cage until the warband recruits another one.",
           },
-          { nom: 'Frightening', texte: 'A charging bear is a fearsome sight. A Tamed Bear causes Fear.' },
+          { nom: 'Fearsome', texte: 'A charging bear is a fearsome sight. A Trained Bear causes Fear.' },
           {
             nom: 'Bear Hug',
             texte:
