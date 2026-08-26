@@ -122,6 +122,7 @@
       "type": "animal",
       "min": 0,
       "max": 5,
+      "requiert_profil_vivant": "wulfen",
       "cout": 15,
       "stats": { "M": 9, "CC": 3, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
       "regles_speciales": [

@@ -184,7 +184,7 @@
       "max": 1,
       "cout": 180,
       "xp_depart": 0,
-      "stats": { "M": 0, "CC": 3, "CT": 0, "F": 4, "E": 5, "PV": 3, "I": 2, "A": 0, "Cd": 5 },
+      "stats": { "M": 0, "CC": 3, "CT": 0, "F": 4, "E": 5, "PV": 3, "I": 2, "A": 0, "Cd": 10 },
       "stats_variables": { "M": "2D6", "A": "D6+1" },
       "regles_speciales": [
         { "nom": "Mouvement spécial", "texte": "Se déplace de 2D6ps en ligne droite (direction orientable par le joueur avant le jet) à chaque phase de Mouvement, au lieu de la valeur M ci-dessus (espace réservé) ; ne double pas ce mouvement pour une charge, mais un contact avec une figurine compte comme charge et engage le combat." },

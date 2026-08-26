@@ -79,6 +79,11 @@ export type Profile = {
   // bêtes) un plafond combiné de 2 Bêtes de guerre au total — voir
   // comptePlafondGroupe dans utils/shop.ts.
   plafond_groupe?: { id: string; max: number; label?: string };
+  // Ce profil ne peut être recruté que si la bande compte déjà au moins un
+  // membre vivant (statut != 'mort') de ce profil-ci (ex : chez les Norses,
+  // les Loups ne sont autorisés que si la bande possède un Wulfen vivant) —
+  // voir peutAjouterMembre.
+  requiert_profil_vivant?: string;
   cout: number | null;
   // Notation de dés affichée quand `cout` est variable (donc null, ex :
   // "25+2D6" pour un chien de guerre) — le montant réel est saisi à la main

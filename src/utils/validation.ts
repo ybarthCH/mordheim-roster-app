@@ -122,6 +122,16 @@ export function peutAjouterMembre(
       raison: `${profil.nom} ne peut plus jamais être recruté dans cette bande (profil banni définitivement).`,
     };
   }
+  if (profil.requiert_profil_vivant) {
+    const profilRequis = catalogue.profils.find((p) => p.id === profil.requiert_profil_vivant);
+    const present = roster.membres.some((m) => m.profil_id === profil.requiert_profil_vivant && m.statut !== 'mort');
+    if (!present) {
+      return {
+        ok: false,
+        raison: `${profil.nom} nécessite qu'un ${profilRequis?.nom ?? profil.requiert_profil_vivant} vivant soit déjà présent dans la bande.`,
+      };
+    }
+  }
   const surchargeTribu = maxProfilPourTribu(catalogue, roster, profilId);
   const limite = limiteEffectivePourProfil(profil, surchargeTribu);
   if (limite != null) {

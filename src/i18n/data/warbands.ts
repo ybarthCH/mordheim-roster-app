@@ -2920,8 +2920,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       chevaliers: {
-        armes_cac: ['first free', undefined, undefined, undefined, 'see special equipment', undefined, undefined, undefined],
-        armes_cac_restriction: [undefined, undefined, undefined, undefined, undefined, undefined, undefined, 'Not Questing Knight'],
+        armes_cac: ['first free', undefined, undefined, undefined, 'see special equipment', undefined, undefined, undefined, undefined],
+        armes_cac_restriction: [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, 'Not Questing Knight'],
         armures: [undefined, undefined, undefined, undefined, 'see special equipment', undefined],
         armures_restriction: [undefined, undefined, 'Not Knight Errant', undefined, undefined, undefined],
       },
@@ -4760,7 +4760,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         {
           nom: 'Shadowbind',
           texte:
-            'Tentacles as black as night burst from the darkness to seize an enemy warrior, placing him at the sorcerer\'s mercy. The Shadow Weaver may cast this spell against any enemy model within 24" of him and within 2" of a wall. The target cannot move unless he passes a Strength test on 2D6 at the start of his turn (before the Recovery phase). This spell lasts until the Shadow Weaver suffers a wound or attempts to cast another spell. If attacked while under the effect of the spell, the victim is treated exactly as if he were Stunned.',
+            'Tentacles as black as night burst from the darkness to seize an enemy warrior, placing him at the sorcerer\'s mercy. The Shadow Weaver may cast this spell against any enemy model within 24" of him and within 2" of a wall. The target cannot move unless he passes a Strength test on 1D6+1 at the start of his turn (before the Recovery phase). This spell lasts until the Shadow Weaver suffers a wound or attempts to cast another spell. If attacked while under the effect of the spell, the victim is treated exactly as if he were Stunned.',
         },
         {
           nom: 'Shield of Shadow',
