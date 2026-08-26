@@ -30,6 +30,7 @@ export const TOUTES_LES_BANDES = [
   'chevaliers_bretonniens',
   'cour_des_plaisirs_profanes',
   'cult_of_the_possessed',
+  'culte_des_tueurs',
   'dwarf_treasure_hunters',
   'elfes_noirs',
   'escorteurs_imperiaux',
@@ -73,7 +74,7 @@ export const SKAVENS = ['skaven', 'skavens_pestilens'];
 export const MORTS_VIVANTS = ['undead', 'morts_sans_repos'];
 export const PEAUX_VERTES = ['orc_mob', 'orques_noirs', 'gobelins_de_la_nuit', 'gobelins_des_forets'];
 export const ELFES = ['elfes_noirs', 'guerriers_fantomes'];
-export const NAINS = ['dwarf_treasure_hunters', 'expedition_runique'];
+export const NAINS = ['dwarf_treasure_hunters', 'expedition_runique', 'culte_des_tueurs'];
 export const CHAOS = [
   'beastmen_raiders',
   'carnival_of_chaos',
@@ -115,6 +116,7 @@ export const BIEN = [
   'kislevites',
   'gardiens_de_chapelle_bretonniens',
   'dwarf_treasure_hunters',
+  'culte_des_tueurs',
 ];
 export const MALEFIQUES = [...MORTS_VIVANTS, ...SKAVENS, ...PEAUX_VERTES, ...CHAOS];
 

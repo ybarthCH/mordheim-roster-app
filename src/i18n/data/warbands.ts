@@ -6787,6 +6787,237 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       { disponibilite: 'Rare 8, Thornwych only' },
     ],
   },
+  culte_des_tueurs: {
+    nom: 'Slayer Cult Warband (2a)',
+    regles_speciales: [
+      {
+        nom: 'Hard to Kill',
+        texte:
+          'Dwarfs are tough, resilient individuals who can only be taken out of action on a roll of 6 instead of 5-6 when rolling on the Injury chart. Treat a roll of 1-2 as knocked down, 3-5 as stunned, and 6 as out of action.',
+      },
+      {
+        nom: 'Hard Head',
+        texte: 'Dwarfs ignore the special rules for maces, clubs, etc. They are not easy to knock out!',
+      },
+      {
+        nom: 'Grudgebearers',
+        texte:
+          'Dwarfs hold an ancient grudge against Elves from the days when the two races fought for supremacy in the Old World. A Dwarf warband may never include any kind of Elven Hired Sword or Dramatis Personae.',
+      },
+      {
+        nom: 'Deathwish',
+        texte:
+          "Slayers seek an honorable death in combat. Unless stated otherwise, all members of this are completely immune to all psychology and never need to test if fighting alone. This includes Hatred, Frenzy & Stupidity. The Rememberer is not a Slayer and does not benefit from this; Stubbles and Axe Hurlers do not have it either until they learn the skill of the same name (see their profiles and the Deathwish special skill).",
+      },
+      {
+        nom: 'Damnable Luck',
+        texte:
+          'While Slayers SEEK death, it often eerily avoids them. In the postgame, after rolling for all injuries, you may reroll one result of Death for a single slayer hero or henchman, accepting the second result.',
+      },
+      {
+        nom: 'No Armor, No Toys!',
+        texte:
+          "Slayers may never use armor of any kind, nor cloaks that provide a constant save bonus (though they may use Lucky Charms). Also, they may not use any missiles that aren't thrown, nor may they learn magic.",
+      },
+      {
+        nom: 'Only in Victory',
+        texte:
+          'Slayer heroes do NOT gain exploration dice at the end of the battle if they were defeated or routed; they only gain them if they win the scenario, were allied with the winner, or tied. (Does not include the Rememberer.)',
+      },
+      {
+        nom: 'Record of Valor',
+        texte:
+          "If a Slayer hero is taken out of action while the Rememberer was present on the board, you receive +1 Exploration dice in the post-game phase; this represents their patrons in Karak Kadrin rewarding their courage with money and hirelings. This only applies if the Slayer was taken out of action directly or indirectly by an enemy or NPC attack (ex. attacked by a warrior, falling off a cliff after a crossbow bolt, removed by a hostile random event, etc.) A Slayer that is taken out of action without any opposing influences (ex. deliberately walking off a cliff, failing a jump) does not grant you an exploration dice. If a Slayer is somehow brought back to the battlefield, this extra die is lost (as they are saved from the jaws of death).",
+      },
+      {
+        nom: 'Back-up Records',
+        texte:
+          "If your warband includes a Bard Hired Sword, the bard gains the Rememberer ability, 'Record of Valor'; however, two rememberers do not stack (i.e. 1 slayer taken OOA gives you a max of 1 exploration die, even if both the Rememberer and the Bard witness it). This rule merely provides a backup if the Rememberer somehow misses a game or is taken out of action.",
+      },
+      {
+        nom: 'The Rite of Trollslaying',
+        texte:
+          'If a slayer henchman takes an enemy out of action, if it was Large and started the game with multiple wounds, then in the post-game phase, the henchman gains experience enough to bring it to the next advancement (or if maxed out, to 16 exp), and treat it as if that henchman rolls "That Lad\'s Got Talent!" If you have 6 heroes already and do not wish to replace an existing hero, you may roll a henchman advance as normal. If promoted, be sure to gift it an appropriate title, like Ogreslayer. Not automated in the app: resolve on the tabletop.',
+      },
+      {
+        nom: 'The Rite of Dragonslaying',
+        texte:
+          "If a slayer takes out a model with all the following conditions: large or gigantic monster; scaled (including but not limited to: Hydra, Dragon, Wyvern, Sea Drake, Merwyrm, Turtigon, or any of their young versions); it has Skull of Iron and/or 4+ wounds; is an NPC or it rolls a death injury — then in the post-game, the slayer may tan the hide and gain a Sea Dragon Cloak for free, provided they don't own one already. They may not sell or give it to another warrior. This is the exception to the rule that a Slayer may not wear armor. If it's lost or stolen, they may not buy a replacement, but only win another through Dragonslaying. If the slayer is a henchman, the Rite of Trollslaying also applies (see above); if they can't be promoted, they may still wear the item while remaining a henchman. Not automated in the app: resolve on the tabletop, and add the item to the warrior's inventory by hand.",
+      },
+    ],
+    profils: {
+      tueur_de_geants: {
+        nom: 'Giant Slayer',
+        regles_speciales: [
+          { nom: 'Leader', texte: 'Any models in the warband within 6" of the Giant Slayer may use his Leadership instead of their own.' },
+        ],
+      },
+      chercheur_de_trepas: { nom: 'Doomseeker' },
+      memorialiste: {
+        nom: 'Rememberer',
+        regles_speciales: [
+          { nom: 'Hatred of Orcs and Goblins', texte: 'Has unyielding Hatred of Orcs and Goblins. This is ignored if the warrior later becomes Immune to Psychology.' },
+          {
+            nom: 'Rememberer',
+            texte:
+              "The Rememberer's task is to record the doom of each of the slayers. When he is close by, the slayers will fight even harder to make their death more honourable. Once per game, any Slayer Hero fighting against a Large creature or a creature with Toughness 5 or greater, and is within 6\" of the Rememberer, may re-roll a failed To Hit roll once only.",
+          },
+          {
+            nom: 'Pick up the Slack',
+            texte:
+              'If he was not taken out of action, the Rememberer may make a rarity or Dramatis Personae roll for each Slayer hero that was taken out of action this game in addition to their normal rarity search.',
+          },
+          {
+            nom: 'Not a Slayer',
+            texte: 'A Rememberer is not a Slayer, and the slayer rules don\'t apply. Also, they may not learn "Slayer Only" skills, and may never be warband leader.',
+          },
+        ],
+      },
+      tueur_de_trolls: {
+        nom: 'Trollslayer',
+        regles_speciales: [{ nom: 'Deathwish', texte: 'See the warband\'s Deathwish special rule above.' }],
+      },
+      barbe_naissante: {
+        nom: 'Stubbles',
+        regles_speciales: [
+          {
+            nom: 'Skittish',
+            texte:
+              "As newly crowned Slayers, Stubbles do not have the skill 'Death Wish', and suffer psychology like normal. When a Stubble gains 'That Lad's Got Talent', instead of making an immediate roll on the Hero Advance Table, he MUST learn the skill 'Death Wish.'",
+          },
+        ],
+      },
+      lanceur_de_haches: {
+        nom: 'Axe Hurler',
+        regles_speciales: [
+          { nom: 'Hatred of Orcs and Goblins', texte: 'Has unyielding Hatred of Orcs and Goblins. This is ignored if the warrior later becomes Immune to Psychology.' },
+          {
+            nom: 'Strong Arm',
+            texte:
+              'The Axe Hurler can use his strength to hurl thrown weapons farther still. When throwing weapons, the Axe Hurler may throw the missile extra inches equal to his Strength (ex. S3 = +3").',
+          },
+          {
+            nom: 'Born Marksmen',
+            texte:
+              "If an Axe Hurler rolls a 'That Lad's Got Talent' as an advancement, he may always choose Shooting skills as one of his two skill list choices. He may do this even if there are no heroes with Shooting Skills in the warband. Reminder: Even with Weapon Mastery, he may not use any missile weapons that aren't thrown.",
+          },
+          {
+            nom: 'Skittish',
+            texte:
+              "As newly crowned Slayers, Hurlers do not have the skill 'Death Wish,' and suffer psychology like normal. When a Hurler gains 'That Lad's Got Talent', instead of making an immediate roll on the Hero Advance Table, he MUST learn the skill 'Death Wish.'",
+          },
+        ],
+      },
+    },
+    competences_speciales: {
+      voeu_de_mort_tueur: {
+        nom: 'Deathwish',
+        reserve_a:
+          "Stubbles and Axe Hurlers Only — other Slayers already have this ability from warband creation (see the Deathwish special rule above). A Stubble or Axe Hurler who rolls 'That Lad's Got Talent' MUST learn this skill instead of making a normal roll on the advancement table.",
+        texte: 'The hero is completely immune to all psychology and never need to test if fighting alone.',
+      },
+      charge_feroce_tueur: {
+        nom: 'Ferocious Charge',
+        reserve_a: 'Slayers Only',
+        texte: "The Slayer may double his attacks on the turn in which he charges. He will suffer a -1 'to hit' penalty on that turn.",
+      },
+      tueur_de_monstres_culte: {
+        nom: 'Monster Slayer',
+        reserve_a: 'Slayers Only',
+        texte:
+          "In close combat, the Slayer always wounds any opponent on a roll of 4+, regardless of Toughness, unless his own Strength (after all modifiers due to weapon bonuses, etc) would mean that a lower roll than this is needed.",
+      },
+      berserk_culte: {
+        nom: 'Berserker',
+        reserve_a: 'Slayers Only',
+        texte: "The Slayer may add +1 to his close combat 'to hit' rolls during the turn in which he charges.",
+      },
+      coup_fatal: {
+        nom: 'Deathblow',
+        reserve_a: 'Slayers Only',
+        texte:
+          'If the Hero is taken out of action in hand-to-hand, he may immediately make the remainder of his attacks before being removed, if he hasn\'t made all of his attacks already this turn. He may use this skill if he is knocked down or stunned.',
+      },
+      acharne_tueur: {
+        nom: 'Relentless',
+        reserve_a: 'Slayers Only',
+        texte:
+          'If the Hero charges a model but the charge fails, the Hero may still move the full distance of his move. This skill may only be used against enemies within sight or that the Slayer can detect.',
+      },
+      maitrise_de_la_hache: {
+        nom: 'Axe Mastery',
+        reserve_a: 'Slayer Cult Heroes only',
+        texte:
+          'The Hero is well taught in the hand-to-hand arts of axemanship. He may reroll all missed attacks if he was using an axe or a dwarven axe in the hand-to-hand phase of the turn that he charges. May not be used with Whirling Blades.',
+      },
+      endurance_naine_culte: {
+        nom: 'True Grit',
+        reserve_a: 'Slayer Cult Heroes only',
+        texte:
+          'Dwarfs are hardy individuals and this Hero is hardy even for a Dwarf! When rolling on the Injury table for this Hero, a roll of 1-3 is treated as knocked down, 4-5 as stunned, and 6 as out of action.',
+      },
+      crane_epais_culte: {
+        nom: 'Thick Skull',
+        reserve_a: 'Slayer Cult Heroes only',
+        texte: 'The Hero has a thick skull, even for a Dwarf. He has a 3+ save on a D6 to avoid being stunned. If the save is made, treat a stunned result as knocked down instead.',
+      },
+      chants_de_guerre: {
+        nom: 'Songster',
+        reserve_a: 'Rememberer only',
+        texte:
+          "A Bard's rousing war songs steel the hearts of all those around him. Any friendly model within 6\" of a Bard may re-roll any failed Leadership test with a +1 to Leadership, to a max of 10. This includes rout tests.",
+      },
+      chant_dhonneur: {
+        nom: 'Song of Honor',
+        reserve_a: 'Rememberer only',
+        texte: 'In the postgame, if one or more Slayers in your warband died, all heroes and henchmen gain +1 Experience.',
+      },
+      maitre_lanceur_de_haches: {
+        nom: 'Axe Thrower',
+        reserve_a: 'Heroes armed with Throwing Axes and with access to Shooting Skills only',
+        texte:
+          'The warrior can throw a maximum of two axes in his shooting phase, both of which gain +1 Strength, and may divide his shots between any targets within range as he wishes. Note that this skill cannot be combined with the Quick Shot skill or the Knife Fighter skill.',
+      },
+    },
+    equipement: {
+      tueurs: {
+        armes_cac: [
+          'first free',
+          'Mace/Hammer',
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          'Any weapon a Dwarf may normally purchase may be bought as a Gromril weapon instead. This multiplies the cost of the weapon by x3. For rules on Gromril weapons see the Mordheim rulebook. Note that this price is only for a starting warband, as it represents the Dwarfs outfitting themselves at their own stronghold. Later purchases of Gromril weapons are done using the price chart in the Mordheim rules (or the campaign setting).',
+        ],
+      },
+      chercheurs_de_trepas: {
+        armes_cac: [
+          'first free',
+          'Mace/Hammer',
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          'per pair',
+          'Any weapon a Dwarf may normally purchase may be bought as a Gromril weapon instead. This multiplies the cost of the weapon by x3. For rules on Gromril weapons see the Mordheim rulebook. Note that this price is only for a starting warband, as it represents the Dwarfs outfitting themselves at their own stronghold. Later purchases of Gromril weapons are done using the price chart in the Mordheim rules (or the campaign setting).',
+        ],
+      },
+      memorialistes: {
+        armes_cac: [
+          'first free',
+          'Mace/Hammer',
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          'Any weapon a Dwarf may normally purchase may be bought as a Gromril weapon instead. This multiplies the cost of the weapon by x3. For rules on Gromril weapons see the Mordheim rulebook. Note that this price is only for a starting warband, as it represents the Dwarfs outfitting themselves at their own stronghold. Later purchases of Gromril weapons are done using the price chart in the Mordheim rules (or the campaign setting).',
+        ],
+      },
+    },
+  },
 };
 
 function translateRegles(regles: SpecialRule[], en: RegleTraduite[] | undefined): SpecialRule[] {

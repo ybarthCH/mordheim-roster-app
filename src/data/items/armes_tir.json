@@ -567,5 +567,29 @@
         "texte": "Lorsqu'un tir du Grand Arc de Kurnoth inflige une blessure non sauvegardée, le projectile peut continuer sa course. Tracez une ligne droite depuis le tireur en passant par la cible. Si un autre guerrier se trouve directement derrière elle sur cette ligne, il subit automatiquement une touche avec une Force réduite de 1. Si cette touche inflige à son tour une blessure non sauvegardée, le projectile continue de la même manière, en réduisant à nouveau sa Force de 1. Le projectile s'arrête dès qu'il n'inflige pas de blessure non sauvegardée ou que sa Force tombe à 0."
       }
     ]
+  },
+  {
+    "id": "hache_de_jet",
+    "nom": "Hache de jet",
+    "categorie": "armes_tir",
+    "sous_type": "jet",
+    "cout": 15,
+    "cout_fixe": true,
+    "rarete": "5",
+    "disponibilite": "Commune pour les Tueurs (Rare 5 pour les autres)",
+    "acces": [
+      "culte_des_tueurs"
+    ],
+    "source": "CT (Culte des Tueurs)",
+    "page": 6,
+    "texte": "De petites haches spécialement équilibrées pour être lancées avec précision, même à bonne distance.",
+    "portee": "6ps",
+    "force": "U",
+    "regles_speciales": [
+      {
+        "nom": "Arme de jet",
+        "texte": "Cette arme ne subit aucune pénalité pour un tir à longue portée, ni pour avoir bougé et tiré le même tour."
+      }
+    ]
   }
 ]

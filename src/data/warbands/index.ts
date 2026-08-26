@@ -13,6 +13,7 @@ import chasseurs_cornus from './chasseurs_cornus.json';
 import chevaliers_bretonniens from './chevaliers_bretonniens.json';
 import cour_des_plaisirs_profanes from './cour_des_plaisirs_profanes.json';
 import cult_of_the_possessed from './cult_of_the_possessed.json';
+import culte_des_tueurs from './culte_des_tueurs.json';
 import dwarf_treasure_hunters from './dwarf_treasure_hunters.json';
 import elfes_noirs from './elfes_noirs.json';
 import escorteurs_imperiaux from './escorteurs_imperiaux.json';
@@ -66,6 +67,7 @@ export const CATALOGUES: WarbandCatalog[] = [
   chevaliers_bretonniens,
   cour_des_plaisirs_profanes,
   cult_of_the_possessed,
+  culte_des_tueurs,
   dwarf_treasure_hunters,
   elfes_noirs,
   escorteurs_imperiaux,

@@ -1958,5 +1958,44 @@
         "texte": "Sur un 6 naturel pour toucher, l'attaque blesse automatiquement. Lancez tout de même le jet pour blesser afin de déterminer si un coup critique est obtenu. Ce jet ne peut pas être relancé par Esprit colérique."
       }
     ]
+  },
+  {
+    "id": "lames_tournoyantes",
+    "nom": "Lames tournoyantes",
+    "categorie": "armes_cac",
+    "cout": 30,
+    "cout_fixe": true,
+    "rarete": "9",
+    "disponibilite": "Rare 9, Tueurs uniquement",
+    "acces": [
+      "culte_des_tueurs"
+    ],
+    "source": "CT (Culte des Tueurs)",
+    "page": 6,
+    "texte": "Arme signature du Chercheur de Trépas, la lame tournoyante est une hache montée sur une chaîne. Même les Tueurs les plus expérimentés ont du mal à la maîtriser, mais une fois domptée, les dégâts qu'elle inflige sont stupéfiants.",
+    "portee": "C à C",
+    "force": "U",
+    "regles_speciales": [
+      {
+        "nom": "Ne peut être parée",
+        "texte": "Arme flexible maniée avec une grande dextérité : toute tentative de parer ses coups est vaine. Un combattant attaqué par une lame tournoyante ne peut pas parer avec une épée ou une rondache."
+      },
+      {
+        "nom": "Tranchant",
+        "texte": "L'arme bénéficie d'un modificateur de sauvegarde supplémentaire de -1 (un combattant de Force 4 réduira la sauvegarde de la cible de -2)."
+      },
+      {
+        "nom": "Paire",
+        "texte": "Les lames tournoyantes s'utilisent traditionnellement par paire, une dans chaque main ; comme toute arme de main secondaire, elle accorde une attaque supplémentaire normalement. Un guerrier équipé d'une paire de lames tournoyantes ne peut manier une autre arme de main secondaire et ne peut jamais séparer la paire (à moins de perdre une main)."
+      },
+      {
+        "nom": "Danse de la Mort",
+        "texte": "Lorsque le Chercheur de Trépas charge, la lame de sa main principale lui accorde +1 Attaque au premier tour de corps à corps. Cette même main accorde également une attaque supplémentaire lors de tout tour où le Chercheur de Trépas est chargé par un ou plusieurs adversaires (cette attaque doit viser l'un des chargeurs ; en cas de charge simultanée par plusieurs adversaires, le bonus reste limité à +1A au total). Cette règle ne s'applique pas à la lame de la main secondaire."
+      },
+      {
+        "nom": "Tourbillon Mortel",
+        "texte": "Lorsque le Chercheur de Trépas est chargé, l'attaque gratuite de Danse de la Mort et l'attaque supplémentaire de la main secondaire frappent toutes deux en premier ce tour-là, comme avec un fouet d'acier. Les autres attaques du Tueur frappent normalement."
+      }
+    ]
   }
 ]

@@ -1721,6 +1721,16 @@ export const itemsEn: Record<string, ItemTraduit> = {
       },
     ],
   },
+  hache_de_jet: {
+    nom: 'Throwing Axe',
+    texte: 'A smaller axe specially weighted for hurling from dangerous distances.',
+    regles_speciales: [
+      {
+        nom: 'Thrown Weapon',
+        texte: 'Throwing axes suffer no penalty for throwing over half range, or for moving and shooting.',
+      },
+    ],
+  },
   bolas: {
     nom: 'Bolas',
     texte:
@@ -2363,6 +2373,34 @@ export const itemsEn: Record<string, ItemTraduit> = {
           'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
       },
       { nom: 'Sharp', texte: "The weapon gets an additional -1 save modifier (a Strength 4 fighter will reduce the target's save by -2)." },
+    ],
+  },
+  lames_tournoyantes: {
+    nom: 'Whirling Blades',
+    texte:
+      'The signature weapon of the Doomseeker, the Whirling Blade is an axe on a chain. Even expert slayers have trouble mastering such a difficult weapon, but once mastered, the damage dealt can be staggering.',
+    regles_speciales: [
+      {
+        nom: 'Cannot be Parried',
+        texte:
+          'The Whirling Blades are a flexible weapon and a Doomseeker uses them with great expertise. Attempts to parry their strikes are futile. A model attacked by a whirling blade may not make parries with swords or bucklers.',
+      },
+      { nom: 'Sharp', texte: "The weapon gets an additional -1 save modifier (a Strength 4 fighter will reduce the target's save by -2)." },
+      {
+        nom: 'Pair',
+        texte:
+          'Whirling Blades are traditionally used in pairs, one in each hand; like any off-hand weapon, it grants an additional attack as normal. A warrior armed with a pair of whirling blades may not wield a different off-hand weapon, and may never split up the pair (unless he loses a hand).',
+      },
+      {
+        nom: 'Dance of Doom',
+        texte:
+          'Whenever the Doomseeker charges, the blade in their main hand provides a +1 attack in the first round of combat. The main hand also grants an additional attack in any turn in which the doomseeker is charged by one or more opponents (this attack must be used against one of the chargers; if simultaneously charged by two or more opponents, the bonus remains a total of +1A). This does not apply to the off-hand Whirling Blade.',
+      },
+      {
+        nom: 'Whirlwind of Death',
+        texte:
+          "Whenever the Doomseeker is charged, the free attack from Dance of Doom and the additional attack from the off-hand both gain 'Strike First,' like a Steel Whip for that turn. All of the Slayer's other attacks strike at normal speed.",
+      },
     ],
   },
   hallebarde: {
@@ -4292,6 +4330,12 @@ for (const id of ['fouet_a_betes']) {
 }
 for (const id of ['hache_naine']) {
   itemsEn[id].disponibilite = 'Rare 8, Dwarfs only';
+}
+for (const id of ['hache_de_jet']) {
+  itemsEn[id].disponibilite = 'Common for Slayers (Rare 5 for others)';
+}
+for (const id of ['lames_tournoyantes']) {
+  itemsEn[id].disponibilite = 'Rare 9, Slayers only';
 }
 for (const id of ['gnoblar_longue_vue', 'gnoblar_combattant']) {
   itemsEn[id].disponibilite = 'Rare 8, Ogres only';

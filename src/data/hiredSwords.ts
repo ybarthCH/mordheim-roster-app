@@ -2120,7 +2120,7 @@ function appliquerRestrictionsDeBande(profil: FrancTireurCatalog): FrancTireurCa
   const bandeIds = profil.employeurs.bande_ids.filter((id) => {
     const restriction = RESTRICTIONS_ABSOLUES[id];
     if (restriction && !restriction.has(profil.id)) return false;
-    if (id === 'dwarf_treasure_hunters' && profil.tags?.includes('elfe')) return false;
+    if ((id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs') && profil.tags?.includes('elfe')) return false;
     return true;
   });
   return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };
