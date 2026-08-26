@@ -2139,7 +2139,11 @@ export const itemsEn: Record<string, ItemTraduit> = {
         texte:
           'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
       },
-      { nom: '+1 Armour Save', texte: 'Note: for the master swordsman skill, the short sword counts as a sword.' },
+      {
+        nom: '+1 Enemy Armour Save',
+        texte: 'An enemy wounded by this weapon gains a +1 bonus to his armour save, or a 6+ armour save if he has none normally.',
+      },
+      { nom: 'Note', texte: 'For the master swordsman skill, the short sword counts as a sword.' },
     ],
   },
   epee_batarde: {
@@ -3665,7 +3669,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     nom: 'Bretonnian Holy Relic',
     texte: 'A fragment of a reliquary, a lock of hair from a Lady of the Lake, or a shard of armour from a fallen knight — an object of devotion carried on pilgrimage.',
     regles_speciales: [
-      { nom: 'Effect', texte: 'The bearer benefits from a special 6+ save against spells and prayers directed at him.' },
+      { nom: 'Effect', texte: 'The bearer gains the ability Frenzy (reminder: when frenzied, he is immune to Hatred).' },
     ],
   },
   relique_sacree_sigmarite: {

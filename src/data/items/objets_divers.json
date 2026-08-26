@@ -1781,7 +1781,7 @@
     "regles_speciales": [
       {
         "nom": "Effet",
-        "texte": "Le porteur bénéficie d'une sauvegarde spéciale de 6+ contre les sorts et prières dirigés contre lui."
+        "texte": "Le porteur gagne la capacité frénésie (rappel : en état de frénésie, il devient immunisé à la haine)."
       }
     ]
   },

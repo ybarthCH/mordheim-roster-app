@@ -2794,7 +2794,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: "No Knight may use a missile weapon (except holy water), nor resort to poison, drugs, or spells; prayers remain permitted.",
       },
       {
-        nom: "The Lord's Favour",
+        nom: "Lord's Boon",
         texte:
           'Upon joining the warband, a Knight may acquire ONE item only from among warhorse / light armour / heavy armour at half price. This item may not be traded, given away, or sold, and is removed from the warband (returned or buried) if the Knight dies.',
       },
@@ -2810,7 +2810,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Leader', texte: 'Any warband member within 6" may use his Leadership for their tests.' },
           { nom: 'Knight', texte: 'Has the Chivalry, the Lord\'s Favour, and Virtue of Purity rules.' },
-          { nom: 'Horsemanship', texte: 'Starts with the Ride – Warhorse skill.' },
+          { nom: 'Ride', texte: 'Starts with the Ride – Warhorse skill.' },
           { nom: 'Vow of Poverty', texte: 'May never take a cavalry lance.' },
         ],
       },
@@ -2835,7 +2835,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
           {
             nom: 'May Exceed Three',
-            texte: 'May exceed 3 Knights Errant if a Squire promoted to Hero becomes one (see the Knighting rule).',
+            texte: 'May exceed 3 Knights Errant if a Squire promoted to Hero becomes one (see the Knighthood rule).',
           },
         ],
       },
@@ -2843,7 +2843,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Squire',
         regles_speciales: [
           {
-            nom: 'Knighting',
+            nom: 'Knighthood',
             texte:
               "On 'Lad's Got Talent', two choices: remain a Squire (2 lists among Combat/Academic/Strength/Speed, keeps his equipment list) or become a Knight Errant (immediately gains Knight, Vain, and Impetuous instead of an immediate advance, gains access to Special Skills plus 2 other lists, switches to the Knights' equipment list, may no longer use missile weapons — this is the mechanism that allows exceeding 3 Knights Errant).",
           },
@@ -2863,7 +2863,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: 'Hatred', texte: "Hatred of all enemies, regarded as heretics to the Lady's cause." },
           { nom: 'Stubborn', texte: 'May re-roll a failed Leadership test once, keeping the second result.' },
           {
-            nom: 'Bretonnian Sacred Relics',
+            nom: 'Holy Relics',
             texte:
               'May receive a sacred relic despite the usual restriction on Henchmen carrying miscellaneous items; it grants frenzy (and therefore immunity to Hatred). If a group does not have enough relics for all its members, the bearer splits off and forms his own group.',
           },
@@ -2921,15 +2921,29 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     equipement: {
       chevaliers: {
         armes_cac: ['first free', undefined, undefined, undefined, 'see special equipment', undefined, undefined, undefined],
+        armes_cac_restriction: [undefined, undefined, undefined, undefined, undefined, undefined, undefined, 'Not Questing Knight'],
         armures: [undefined, undefined, undefined, undefined, 'see special equipment', undefined],
+        armures_restriction: [undefined, undefined, 'Not Knight Errant', undefined, undefined, undefined],
       },
       pelerins: {
         armes_cac: ['first free', undefined, undefined, 'see special equipment', undefined, undefined, undefined, undefined],
+        divers_restriction: ['Pilgrim only'],
       },
       paysans_archers: {
         armes_cac: ['first free', undefined, undefined, 'see special equipment', undefined],
       },
+      damoiselle: {
+        armes_cac: ['first free', undefined, undefined, 'see special equipment', undefined],
+      },
     },
+    equipement_special: [
+      { disponibilite: 'Common, Bretonnian Chapel Guardian Knights only' },
+      { disponibilite: 'Common, Bretonnian Chapel Guardians only' },
+      { disponibilite: 'Common, Knights of the Bretonnian Chapel Guard only' },
+      { disponibilite: 'Rare 11, Humans only' },
+      { disponibilite: 'Rare 8, Damsels and Squires only' },
+      { disponibilite: 'Bretonnian Chapel Guardian Knights only' },
+    ],
     magie: {
       nom: 'Prayers of the Lady of the Lake',
       type: 'prayers',

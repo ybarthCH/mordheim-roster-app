@@ -244,7 +244,8 @@
     "rarete": "11",
     "disponibilite": "Rare 11, Destriers Chevaliers Bretonniens uniquement",
     "acces": [
-      "chevaliers_bretonniens"
+      "chevaliers_bretonniens",
+      "gardiens_de_chapelle_bretonniens"
     ],
     "source": "CB (Chevaliers Bretonniens)",
     "page": 35,

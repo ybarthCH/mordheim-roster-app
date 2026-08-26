@@ -516,8 +516,12 @@
         "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante."
       },
       {
-        "nom": "+1 Sauvegarde d'armure",
-        "texte": "Note : pour la compétence maître escrimeur, l'épée courte compte comme une épée."
+        "nom": "+1 Sauvegarde ennemie",
+        "texte": "Un ennemi blessé par cette arme obtient +1 à sa sauvegarde d'armure, ou une sauvegarde de 6+ s'il n'en a pas."
+      },
+      {
+        "nom": "Note",
+        "texte": "Pour la compétence maître escrimeur, l'épée courte compte comme une épée."
       }
     ]
   },
