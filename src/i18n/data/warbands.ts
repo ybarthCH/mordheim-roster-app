@@ -2324,7 +2324,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Norses (1b)',
     regles_speciales: [
       {
-        nom: 'Sailors',
+        nom: 'Seamen',
         texte:
           "Norses are excellent navigators. All gain +2 Strength when rowing (see The Script of Sigmar scenario rule, Town Cryer #9; otherwise, apply this bonus to the boat's Movement).",
       },
@@ -2352,7 +2352,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
         ],
       },
-      bondis: { nom: 'Bóndis' },
+      bondis: { nom: 'Bondsmen' },
       maraudeur_norse: { nom: 'Norse Marauder' },
       chasseur_norse: { nom: 'Norse Hunter' },
       loup: {
