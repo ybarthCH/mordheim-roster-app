@@ -624,7 +624,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Leader', texte: 'Any warrior within 6" of an Assassin Adept may use his Leadership.' },
           {
-            nom: 'Killing Machine',
+            nom: 'Perfect Killer',
             texte: "An Assassin Adept always inflicts a -1 penalty to the enemy's armour save when he wounds (in shooting or hand-to-hand combat).",
           },
         ],
@@ -633,7 +633,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       sorcier_eshin: {
         nom: 'Eshin Sorcerer',
         regles_speciales: [
-          { nom: 'Sorcerer', texte: 'An Eshin Sorcerer is a spellcaster who uses the Magic of the Horned Rat (see Magic).' },
+          { nom: 'Wizard', texte: 'An Eshin Sorcerer is a spellcaster who uses the Magic of the Horned Rat (see Magic).' },
         ],
       },
       coureur_nocturne: { nom: 'Night Runner' },
@@ -644,7 +644,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       rat_geant: {
         nom: 'Giant Rat',
         regles_speciales: [
-          { nom: 'Numbers', texte: 'You may recruit as many Giant Rats as you wish. Bought in groups of 1 to 5.' },
+          { nom: 'Pack size', texte: 'You may recruit as many Giant Rats as you wish. Bought in groups of 1 to 5.' },
           { nom: 'Experience', texte: 'Giant Rats are animals and therefore do not gain experience.' },
           { nom: 'Equipment', texte: 'None. Giant Rats carry no weapons or armour.' },
         ],
@@ -665,16 +665,16 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       frenesie_mortelle: {
-        nom: 'Deadly Frenzy',
+        nom: 'Black Hunger',
         texte:
           'The Skaven Hero may declare at the start of a turn that he is using this skill: he gains +1 Attack and 1D3" of Movement for the whole turn, but suffers 1D3 Strength 3 hits with no armour save allowed at the end of the turn.',
       },
       queue_de_combat: {
-        nom: 'Fighting Tail',
+        nom: 'Tail Fighting',
         texte: 'The Skaven may use a shield, sword, or dagger with his tail: an extra Attack with the appropriate weapon, or a +1 bonus to armour save.',
       },
       grimpeur_ne: {
-        nom: 'Born Climber',
+        nom: 'Wall Runner',
         texte: 'The Skaven does not need to make an Initiative test when climbing a wall or steep surface.',
       },
       infiltration: {
@@ -697,6 +697,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         armes_cac: ['first free', undefined, undefined, undefined],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Rare 7, Skaven only' },
+      { disponibilite: 'Rare 11, Skaven only' },
+      { disponibilite: 'Rare 7, Skaven only' },
+      { disponibilite: 'Rare 9, Skaven only' },
+    ],
     magie: {
       nom: 'Magic of the Horned Rat',
       type: 'sorcery',

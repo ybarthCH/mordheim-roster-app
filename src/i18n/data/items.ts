@@ -1354,7 +1354,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   pistolet_a_malepierre: {
-    nom: 'Warpstone Pistol',
+    nom: 'Warplock Pistol',
     texte:
       "Warpstone pistols are formidable weapons, testament to Clan Skryre's twisted genius. These pistols fire ammunition made from bewitched warpstone fragments. These bullets cause horrific wounds that often degenerate into terrible infections.",
     regles_speciales: [
@@ -1448,7 +1448,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   pistolet_a_malepierre_paire: {
-    nom: 'Brace of Warpstone Pistols',
+    nom: 'Brace of Warplock Pistols',
     texte:
       "Warpstone pistols are formidable weapons, testament to Clan Skryre's twisted genius. These pistols fire ammunition made from bewitched warpstone fragments. These bullets cause horrific wounds that often degenerate into terrible infections.",
     regles_speciales: [
