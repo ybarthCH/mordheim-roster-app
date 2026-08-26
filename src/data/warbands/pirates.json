@@ -153,23 +153,16 @@
         { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau ou Masse" },
         { "item_id": "hache", "cout": 5 },
         { "item_id": "gaffe", "cout": 8 },
-        { "item_id": "chat_a_neuf_queues", "cout": 8, "restriction": "Héros uniquement" },
         { "item_id": "epee", "cout": 10, "note": "Sabre d'abordage" },
         { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armes_tir": [
         { "item_id": "cabillot", "cout": 3 },
-        { "item_id": "arbalete", "cout": 25 },
-        { "item_id": "pistolet", "cout": 15 },
-        { "item_id": "pistolet_de_duel", "cout": 30 },
-        { "item_id": "pistolet_paire", "cout": 30 },
-        { "item_id": "pistolet_de_duel_paire", "cout": 60 }
+        { "item_id": "arc", "cout": 10 }
       ],
       "armures": [
         { "item_id": "cuir_durci", "cout": 5 },
-        { "item_id": "rondache", "cout": 5 },
-        { "item_id": "casque", "cout": 10 },
-        { "item_id": "armure_legere", "cout": 20 }
+        { "item_id": "rondache", "cout": 5 }
       ]
     },
     "artilleurs": {
@@ -202,14 +195,6 @@
         { "item_id": "gaffe", "cout": 8, "note": "Crochet" },
         { "item_id": "epee", "cout": 10, "note": "Sabre d'abordage" },
         { "item_id": "arme_a_deux_mains", "cout": 15 }
-      ],
-      "armes_tir": [
-        { "item_id": "cabillot", "cout": 3 },
-        { "item_id": "arc", "cout": 10 }
-      ],
-      "armures": [
-        { "item_id": "rondache", "cout": 5 },
-        { "item_id": "cuir_durci", "cout": 5 }
       ]
     }
   },
@@ -218,12 +203,13 @@
     { "item_id": "chaines_pierrier", "cout": 2, "disponibilite": "Commun, Artilleurs Pirates uniquement", "profils": ["artilleur"] },
     { "item_id": "mitraille_pierrier", "cout": 2, "disponibilite": "Commun, Artilleurs Pirates uniquement", "profils": ["artilleur"] },
     { "item_id": "biscuit_de_mer", "cout": 5, "disponibilite": "Commun, un par Héros Pirate, une seule utilisation" },
-    { "item_id": "jolly_roger", "cout": "40+2D6", "disponibilite": "Commun, Pirates uniquement, un seul par bande" },
+    { "item_id": "jolly_roger", "cout": "40+2D6", "disponibilite": "Commun, Héros Pirates uniquement, un seul par bande", "profils": ["capitaine_pirate", "quartier_maitre", "mousse"] },
     { "item_id": "boussole", "cout": "45+2D6", "disponibilite": "Rare 9, Pirates uniquement" },
     { "item_id": "perroquet", "cout": 15, "disponibilite": "Rare 8, Capitaine et Lieutenants Pirates uniquement", "profils": ["capitaine_pirate", "quartier_maitre"] },
     { "item_id": "longue_vue", "cout": 20, "disponibilite": "Rare 8, Pirates uniquement" },
     { "item_id": "crochet", "cout": 4, "disponibilite": "Commun, Pirates uniquement (un seul par figurine)" },
     { "item_id": "jambe_de_bois", "cout": 8, "disponibilite": "Commun, Pirates uniquement (une seule par figurine)" },
-    { "item_id": "carte_au_tresor", "cout": "75+4D6", "disponibilite": "Rare 10, Pirates uniquement, une seule utilisation" }
+    { "item_id": "carte_au_tresor", "cout": "75+4D6", "disponibilite": "Rare 10, Pirates uniquement, une seule utilisation" },
+    { "item_id": "chat_a_neuf_queues", "cout": 8, "disponibilite": "Commun, Héros Pirates uniquement", "profils": ["capitaine_pirate", "quartier_maitre", "mousse"] }
   ]
 }

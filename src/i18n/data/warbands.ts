@@ -4441,17 +4441,30 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       pirates: {
-        armes_cac: ['first free', 'Hammer or Mace', undefined, undefined, undefined, 'Cutlass', undefined],
-        armes_tir: [undefined, undefined, undefined, '30gc per pair', '60gc per pair'],
+        armes_cac: ['first free', 'Hammer or Mace', undefined, undefined, 'Cutlass', undefined],
       },
       artilleurs: {
         armes_cac: ['first free', 'Hammer or Mace', undefined, 'Cutlass'],
-        armes_tir: ['30gc per pair', '60gc per pair', undefined, undefined, 'one per warband'],
+        armes_tir: [undefined, undefined, undefined, undefined, 'one per warband'],
       },
       enroles: {
         armes_cac: ['first free', 'Hammer or Mace', undefined, 'Hook', 'Cutlass', undefined],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Common, Pirate Gunners only' },
+      { disponibilite: 'Common, Pirate Gunners only' },
+      { disponibilite: 'Common, Pirate Gunners only' },
+      { disponibilite: 'Common, one per model, single use' },
+      { disponibilite: 'Common, Pirate Heroes only, one per warband' },
+      { disponibilite: 'Rare 9, Pirates only' },
+      { disponibilite: 'Rare 8, Captain and Mates only' },
+      { disponibilite: 'Rare 8, Pirates only' },
+      { disponibilite: 'Common, Pirates only (one per model)' },
+      { disponibilite: 'Common, Pirates only (one per model)' },
+      { disponibilite: 'Rare 10, Pirates only, single use' },
+      { disponibilite: 'Common, Pirate Heroes only' },
+    ],
   },
   marienburgers: {
     nom: 'Marienburg Mercenaries (1a)',
