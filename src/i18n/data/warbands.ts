@@ -1750,7 +1750,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Witch Hunter Captain',
         regles_speciales: [
           { nom: 'Leader', texte: 'Any warrior within 6" may use his Ld for Leadership tests.' },
-          { nom: 'To the Stake!', texte: 'The Witch Hunter Captain hates all spellcasters.' },
+          { nom: 'Burn the Witch!', texte: 'The Witch Hunter Captain hates all spellcasters.' },
         ],
       },
       pretre_guerrier: {
@@ -1761,9 +1761,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       repurgateur: {
         nom: 'Witch Hunter',
-        regles_speciales: [{ nom: 'To the Stake!', texte: 'Witch Hunters hate all spellcasters.' }],
+        regles_speciales: [{ nom: 'Burn the Witch!', texte: 'Witch Hunters hate all spellcasters.' }],
       },
-      seide: { nom: 'Warrior' },
+      seide: { nom: 'Zealot' },
       flagellant: {
         nom: 'Flagellant',
         regles_speciales: [
