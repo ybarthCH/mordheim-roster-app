@@ -40,6 +40,12 @@ export type ResumeExploration = {
   totalDesALancer: number;
   maximumAConserver: number;
   aides: AideExploration[];
+  // Voir WarbandCatalog.des_exploration_manuels : quand vrai, totalDesALancer
+  // ci-dessus reste calculé (au cas où un futur appelant en aurait besoin)
+  // mais ne doit PAS être affiché comme une suggestion fiable — les règles
+  // de la bande conditionnent les dés individuellement par Héros plutôt que
+  // d'ajouter un bonus global, ce que ce calcul générique ne modélise pas.
+  suggestionManuelle: boolean;
 };
 
 const NORMALISER = (texte: string) =>
@@ -235,5 +241,6 @@ export function resumeExploration(
     totalDesALancer: desHeros + bonusVictoire + bonusFixes,
     maximumAConserver: 6,
     aides,
+    suggestionManuelle: !!catalogue?.des_exploration_manuels,
   };
 }
