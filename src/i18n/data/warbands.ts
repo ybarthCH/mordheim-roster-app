@@ -4591,7 +4591,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Shadow Warriors (1b)',
     regles_speciales: [
       {
-        nom: 'Aversion to Poison',
+        nom: 'Distaste for Poison',
         texte:
           'The use of poisons and other drugs is a speciality of the dark elves. Shadow Warriors disapprove of their use even more strongly than the High Elves do. Members of a Shadow Warrior warband never use any type of poison.',
       },
@@ -4605,7 +4605,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           "All the Elves in a Shadow Warrior warband can spot Hidden enemies from twice as far away as other warriors (ie, twice their Initiative in inches).",
       },
       {
-        nom: 'Merciless',
+        nom: 'Unforgiving',
         texte:
           'In addition to their hatred of their corrupted cousins, the people of Nagarythe have long fought against Chaos. In a multiplayer game, a Shadow Warrior warband may never ally with any warband of a chaotic nature (Possessed, Skaven, Beastmen, Dark Elves, etc.).',
       },
@@ -4672,8 +4672,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       guerriers_fantomes: {
-        armes_cac: ['first free', undefined, undefined, undefined, 'Heroes only'],
-        armures: ['Helm', undefined, undefined, 'Heroes only'],
+        armes_cac: ['first free', undefined, undefined, undefined],
+        armures: ['Helm', undefined, undefined],
         divers: ['Heroes only', 'Heroes only', 'Heroes only', 'Heroes only', 'Heroes only'],
       },
     },
@@ -4684,12 +4684,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         "The magic wielded by Shadow Weavers differs greatly from the traditional High Magic taught at the Tower of Hoeth. Some spells specify that the target must be near a 'wall': this includes any terrain feature that casts a man-sized shadow.",
       sorts: [
         {
-          nom: 'Well of Darkness',
+          nom: 'Pool of Shadow',
           texte:
             'The area around the sorcerer is suddenly filled with shadows concealing everything within it. This spell allows the sorcerer and everyone within 6" of him to hide, exactly as if a wall stood between them and their opponents. They may hide even after running. The effect ends if an enemy enters the area of effect. In addition, those affected count as being under cover against enemy shooting. This spell lasts until the start of the Shadow Weaver\'s next turn.',
         },
         {
-          nom: 'Living Shadows',
+          nom: 'The Living Shadows',
           texte:
             'The shadows around the victim come alive and move to strike her. The Shadow Weaver may cast this spell on any enemy model within 12" of him, and within 2" of a wall. The target suffers a single Strength 4 hit with no armour save allowed.',
         },
@@ -4704,12 +4704,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             'The Shadow Weaver seems to be swallowed by impenetrable darkness. The Shadow Weaver hides from the enemy\'s sight. As long as he does not attack an enemy model (by casting spells, shooting, or engaging the enemy in hand-to-hand combat), he cannot be attacked. He may intercept normally, but is not obliged to (and if he does not, enemy warriors may of course move past him when they charge). The effect lasts until the Shadow Weaver attacks an enemy model. A model engaged in hand-to-hand combat can never choose not to attack.',
         },
         {
-          nom: 'Theatre of Shadows',
+          nom: 'Shadowbind',
           texte:
             'Tentacles as black as night burst from the darkness to seize an enemy warrior, placing him at the sorcerer\'s mercy. The Shadow Weaver may cast this spell against any enemy model within 24" of him and within 2" of a wall. The target cannot move unless he passes a Strength test on 2D6 at the start of his turn (before the Recovery phase). This spell lasts until the Shadow Weaver suffers a wound or attempts to cast another spell. If attacked while under the effect of the spell, the victim is treated exactly as if he were Stunned.',
         },
         {
-          nom: 'Shield of Shadows',
+          nom: 'Shield of Shadow',
           texte:
             "Shadows form a protective barrier in front of the sorcerer or one of his companions. The Shadow Weaver may cast this spell on himself or a warband member within 12\" of him. The target gains a 5+ armour save unmodified by the attacker's Strength. The spell lasts until the start of the Shadow Weaver's next turn.",
         },

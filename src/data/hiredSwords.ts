@@ -467,8 +467,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 22,
     employeurs: {
-      bande_ids: toutesSauf('witch_hunters', 'sisters_of_sigmar', ...PEAUX_VERTES, ...SKAVENS),
-      texte: 'Toute bande sauf les Répurgateurs, Sœurs de Sigmar, Peaux-Vertes et Skavens.',
+      bande_ids: toutesSauf('witch_hunters', 'sisters_of_sigmar', 'guerriers_fantomes', ...PEAUX_VERTES, ...SKAVENS),
+      texte: 'Toute bande sauf les Répurgateurs, Sœurs de Sigmar, Guerriers Fantômes, Peaux-Vertes et Skavens.',
     },
     stats: { M: 4, CC: 4, CT: 4, F: 3, E: 3, PV: 1, I: 5, A: 2, Cd: 8 },
     equipement: ['Épée', 'Dague', 'Couteaux de jet', 'Arbalète de poing'],
