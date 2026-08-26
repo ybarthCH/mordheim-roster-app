@@ -1656,7 +1656,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       necromancien: {
         nom: 'Necromancer',
         regles_speciales: [
-          { nom: 'Sorcerer', texte: 'Necromancers are spellcasters who use Necromancy (see Magic).' },
+          { nom: 'Wizard', texte: 'Necromancers are spellcasters who use Necromancy (see Magic).' },
         ],
       },
       paria: { nom: 'Dregs' },
