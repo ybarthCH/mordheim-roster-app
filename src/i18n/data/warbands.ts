@@ -4501,7 +4501,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       champion: { nom: 'Champion' },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youngblood' },
       guerrier: {
         nom: 'Warrior',
         regles_speciales: [{ nom: 'Recruitment', texte: 'As many as you like. Bought in groups of 1 to 5.' }],
@@ -4511,12 +4511,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
       },
       bretteur: {
-        nom: 'Fencer',
+        nom: 'Swordsman',
         regles_speciales: [
           {
             nom: 'Sword Expert',
             texte:
-              'Fencers are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This only applies when they are equipped with ordinary swords, not two-handed swords or other weapons.',
+              'Swordsmen are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This only applies when they are equipped with ordinary swords, not two-handed swords or other weapons.',
           },
           { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
         ],
