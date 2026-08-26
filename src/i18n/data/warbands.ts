@@ -5265,15 +5265,15 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte:
           'Dwarfs are very tough and resilient. They can therefore only be taken Out of Action on a roll of 6 instead of 5-6 on the Injury table. Treat a roll of 1-2 as Knocked Down, 3-5 as Stunned, and 6 as Out of Action.',
       },
-      { nom: 'Hard Head', texte: 'Dwarfs ignore the special rules of maces, hammers, etc. They are not easy to knock silly!' },
+      { nom: 'Hard Head', texte: 'Dwarfs ignore the special rules of maces, clubs, etc. They are not easy to knock silly!' },
       { nom: 'Armour', texte: 'Dwarfs suffer no Movement penalty for wearing armour.' },
-      { nom: 'Hatred of Orcs and Goblins', texte: 'All Dwarfs hate Orcs and Goblins.' },
+      { nom: 'Hate Orcs and Goblins', texte: 'All Dwarfs hate Orcs and Goblins.' },
       {
-        nom: 'Grudge-Bearers',
+        nom: 'Grudgebearers',
         texte: 'Dwarfs hold an old grudge against elves. A Dwarf warband may never include any Elf Hired Sword, whoever they are.',
       },
       {
-        nom: 'Miners Without Equal',
+        nom: 'Incomparable Miners',
         texte: 'In the city of Mordheim, Dwarfs put their skills to use searching for Wyrdstone. Add +1 to the number of shards found when rolling to determine the amount of Wyrdstone at the end of the game.',
       },
     ],
@@ -5288,7 +5288,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Dwarf Engineer',
         regles_speciales: [
           {
-            nom: 'Master Armourer',
+            nom: 'Expert Weaponsmith',
             texte:
               'A Dwarf Engineer can increase the range of the warband\'s missile weapons. Missile weapons bought from the Dwarf Equipment list gain +3" range for Pistols and +6" for Crossbows and Handguns. The range increases only apply to battles the Dwarf Engineer takes part in (but they apply even if he has not yet entered the battlefield or has been taken Out of Action). The increase does not apply to Hired Swords\' equipment.',
           },
@@ -5338,20 +5338,20 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       maitre_des_lames: {
-        nom: 'Blademaster',
+        nom: 'Master of Blades',
         texte:
           'When using a weapon with the Parry special rule, this Dwarf may parry a blow by rolling equal to or higher than the best enemy to-hit roll, instead of strictly higher. If he wields two weapons with the Parry special rule, he may parry two attacks instead of one (if both his results are equal to or higher than the two best enemy to-hit rolls). If he wields two Dwarf axes, he may re-roll failed parry rolls.',
       },
       increvable: {
-        nom: 'Unstoppable',
+        nom: 'Extra Tough',
         texte: 'When you roll on the Serious Injury table at the end of a game in which this Hero was taken Out of Action, the die may be re-rolled once. The second result must be accepted, even if it is worse than the first.',
       },
       prospecteur: {
-        nom: 'Prospector',
+        nom: 'Resource Hunter',
         texte: 'During the Exploration phase at the end of the game, the Hero may modify one die roll by +1/-1.',
       },
       tres_coriace: {
-        nom: 'Extremely Tough',
+        nom: 'True Grit',
         texte: 'When rolling for damage affecting this Hero, a roll of 1-3 is treated as Knocked Down, 4-5 as Stunned, and 6 as Out of Action.',
       },
       crane_epais: {
@@ -5360,7 +5360,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'The Hero has a 3+ save on 1D6 to avoid being Stunned. If the save is successful, the Stunned result is treated as Knocked Down instead. If the Hero also wears a helmet, this save becomes 2+ instead of 3+ (this replaces the usual special rule for helmets).',
       },
       charge_furieuse: {
-        nom: 'Furious Charge',
+        nom: 'Ferocious Charge',
         reserve_a: 'Dwarf Troll Slayer only',
         texte: 'The Slayer may double his number of Attacks in the turn he charges. He then suffers a -1 penalty to hit.',
       },
@@ -5370,7 +5370,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         texte: 'The Slayer always wounds his opponent on a 4+, regardless of Toughness, unless his Strength (after all weapon modifiers, etc.) already allows him to wound more easily.',
       },
       berserk: {
-        nom: 'Berserk',
+        nom: 'Berserker',
         reserve_a: 'Dwarf Troll Slayer only',
         texte: 'The Slayer may add +1 to his to-hit rolls in hand-to-hand combat in the turn he charges.',
       },
@@ -5397,6 +5397,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         armes_tir: [undefined, undefined, '30gc per pair'],
       },
     },
+    equipement_special: [{ disponibilite: 'Rare 8 (Dwarfs only)' }],
   },
   middenheimers: {
     nom: 'Middenheim Mercenaries (1a)',
