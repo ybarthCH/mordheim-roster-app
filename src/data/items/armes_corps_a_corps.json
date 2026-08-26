@@ -1271,7 +1271,7 @@
     "cout": 15,
     "cout_fixe": true,
     "rarete": "C",
-    "disponibilite": "Commune, Matriarches et Sœurs Supérieures des Sœurs de Sigmar uniquement",
+    "disponibilite": "Commune, Sœurs de Sigmar uniquement",
     "acces": [
       "sisters_of_sigmar"
     ],
@@ -1288,6 +1288,10 @@
       {
         "nom": "Sacré",
         "texte": "Chaque marteau a été béni par une matriarche avant d'être remis à une sœur. Le marteau donne un bonus de +1 sur tous les jets pour Blesser infligés au corps à corps contre les Possédés et les Morts-Vivants. Notez qu'il vous faudra tout de même un 6 avant modificateurs pour infliger un Coup Critique."
+      },
+      {
+        "nom": "Note",
+        "texte": "Seules les Matriarches et les Sœurs supérieures de l'ordre peuvent porter deux marteaux de guerre sigmarites à la fois."
       }
     ]
   },

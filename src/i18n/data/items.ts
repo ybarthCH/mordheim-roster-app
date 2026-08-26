@@ -2546,6 +2546,10 @@ export const itemsEn: Record<string, ItemTraduit> = {
         texte:
           'Each hammer was blessed by a Matriarch before being given to a Sister. The hammer grants a +1 bonus to all Wound rolls inflicted in hand-to-hand combat against Possessed and Undead. Note that you will still need a 6 before modifiers to inflict a Critical Hit.',
       },
+      {
+        nom: 'Note',
+        texte: 'Only Matriarchs and Sister Superiors of the order may carry two Sigmarite war hammers at once.',
+      },
     ],
   },
   massue_ogre: {
@@ -4083,7 +4087,7 @@ for (const id of ['epee_longue_cathayenne']) {
   itemsEn[id].disponibilite = 'Common, Battle Monks of Cathay Emissary only';
 }
 for (const id of ['marteau_de_guerre_sigmarite_market']) {
-  itemsEn[id].disponibilite = 'Common, Sisters of Sigmar Sigmarite Matriarchs and Sister Superiors only';
+  itemsEn[id].disponibilite = 'Common, Sisters of Sigmar only';
 }
 for (const id of ['armure_lourde_de_maitre', 'bec_de_corbin']) {
   itemsEn[id].disponibilite = 'Lustrian Reavers Conqueror only';

@@ -5607,6 +5607,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     equipement: {
       soeurs_de_sigmar: {
         armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined],
+        divers_restriction: ['Heroines only', 'Heroines only', 'Heroines only'],
       },
     },
     magie: {
