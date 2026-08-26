@@ -999,7 +999,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   cape_en_peau_de_dragon_des_mers: {
-    nom: 'Sea Dragon Skin Cloak',
+    nom: 'Sea Dragon Cloak',
     texte:
       'Dark elf corsairs wear cloaks cut from the hide of sea monsters. These cloaks are tough and offer excellent protection.',
     regles_speciales: [
@@ -2193,7 +2193,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   fouet_a_betes: {
-    nom: 'Beast Whip',
+    nom: 'Beastlash',
     texte: 'Beastmasters use barbed whips to drive their creatures into battle.',
     regles_speciales: [
       {
@@ -2202,9 +2202,8 @@ export const itemsEn: Record<string, ItemTraduit> = {
           'A Beastmaster armed with a beast whip causes fear in animals. Any animal charged by, or wishing to charge, a Beastmaster must therefore make a fear test according to the usual rules in the Mordheim Rulebook.',
       },
       {
-        nom: 'Crack',
-        texte:
-          'A model armed with the beast whip gets +1 Attack when charging, in addition to any other bonus. When charged, it also gets +1 Attack that may only be used against the model that charged it. This extra attack strikes first. If the bearer is charged by 2 or more enemies, this bonus remains +1 Attack. If the bearer fights with two whips, he gets +1 Attack for his additional base weapon, but only his first whip benefits from the +1 Attack from Crack.',
+        nom: 'Reach',
+        texte: 'A Beastlash may attack opponents up to 4" away.',
       },
     ],
   },
@@ -2757,7 +2756,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     texte:
       'These blades are forged in the city of Hag Graef, the Dark Rock, from black iron, a very rare ore found deep in the mountains surrounding the city. The barbs on dark elf blades can inflict severe wounds on their victims. Any dark elf can fit his sword or dagger with a dark elf blade for 20 gold crowns at the time of purchase. Weapons fitted with a dark elf blade keep their usual rules (swords can therefore still parry, and daggers still grant a 6+ armour save).',
     regles_speciales: [
-      { nom: 'Barbs', texte: 'Dark elf blades are fitted with sharp barbs and hooks with devastating effects. A damage roll of 2-4 counts as a Stunned result.' },
+      { nom: 'Wicked Edge', texte: 'Dark elf blades are fitted with sharp barbs and hooks with devastating effects. A damage roll of 2-4 counts as a Stunned result.' },
       {
         nom: 'Critical Damage',
         texte: 'Dark elf blades inflict severe damage on their enemies. In the event of a Critical Hit with a weapon of this type, add +1 to the result on the Critical Hit table.',

@@ -3322,29 +3322,29 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     nom: 'Dark Elves (1b)',
     regles_speciales: [
       {
-        nom: 'Fratricidal Hatred',
+        nom: 'Kindred Hatred',
         texte:
           'Dark Elves have fought the High Elves for millennia, and the wars between the two peoples have been long and bloody. Dark Elves hate High Elves, including Hired Swords of that race.',
       },
       {
-        nom: 'Superhuman Eyesight',
+        nom: 'Excellent Sight',
         texte:
           'Many legends tell of the excellent eyesight of elves, whether Druchii or High Elves. Elves can detect hidden enemies at twice the normal distance (that is, at a distance equal to twice their Initiative).',
       },
       {
-        nom: 'Firearms',
+        nom: 'Black Powder Weapons',
         texte: 'Dark Elves never use black powder weapons, finding them primitive, noisy, and unreliable.',
       },
     ],
     profils: {
       dynaste: {
-        nom: 'Dreadlord',
+        nom: 'High Born',
         regles_speciales: [
-          { nom: 'Leader', texte: 'Any Dark Elf warband model within 6" of the Dreadlord may use his Leadership for their tests.' },
+          { nom: 'Leader', texte: 'Any Dark Elf warband model within 6" of the High Born may use his Leadership for their tests.' },
         ],
       },
       spadassin: {
-        nom: 'Swordsman',
+        nom: 'Fellblade',
         regles_speciales: [
           {
             nom: 'Melee Specialists',
@@ -3356,8 +3356,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Beastmaster',
         regles_speciales: [
           {
-            nom: 'Cold One Hound',
-            texte: 'The Beastmaster may be accompanied by up to two Cold One Hounds, recruited as Henchmen and following the special rules detailed further on.',
+            nom: 'Cold One Beasthound',
+            texte: 'The Beastmaster may be accompanied by up to two Cold One Beasthounds, recruited as Henchmen and following the special rules detailed further on.',
           },
         ],
       },
@@ -3383,29 +3383,29 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       molosse_a_sang_froid: {
-        nom: 'Cold One Hound',
+        nom: 'Cold One Beasthound',
         regles_speciales: [
-          { nom: 'Weapons/armour', texte: 'Cold One Hounds are animals and need no equipment other than their scales and teeth!' },
+          { nom: 'Weapons/armour', texte: 'Cold One Beasthounds are animals and need no equipment other than their scales and teeth!' },
           {
             nom: 'Animals',
-            texte: 'Cold One Hounds are animals, and all rules relating to animals apply to them. They can never gain experience.',
+            texte: 'Cold One Beasthounds are animals, and all rules relating to animals apply to them. They can never gain experience.',
           },
           {
             nom: 'Beastmaster',
             texte:
-              'Cold One Hounds are sly, vicious animals, barely controllable. If the Beastmaster dies, the Hounds immediately escape and are struck off the warband roster. If for any reason the Beastmaster cannot take part in a battle, the Cold One Hounds cannot either.',
+              'Cold One Beasthounds are sly, vicious animals, barely controllable. If the Beastmaster dies, the Beasthounds immediately escape and are struck off the warband roster. If for any reason the Beastmaster cannot take part in a battle, the Cold One Beasthounds cannot either.',
           },
           {
-            nom: 'Submissive',
+            nom: 'Stupidity',
             texte:
-              "Cold One Hounds may use the Beastmaster's base Leadership if within 6\" of him. However, they cannot benefit from the warband Leader's Leadership, even if their Beastmaster, within 6\" of him, does.",
+              "Cold One Beasthounds may use the Beastmaster's base Leadership if within 6\" of him. However, they cannot benefit from the warband Leader's Leadership, even if their Beastmaster, within 6\" of him, does.",
           },
           {
-            nom: 'Scales',
+            nom: 'Scaly Skin',
             texte:
-              "Cold One Hounds are protected by thick, scaly skin. They therefore count as having a 6+ Armour Save. This save cannot be reduced by the attacker's Strength, but certain Critical Hits ignore it normally.",
+              "Cold One Beasthounds are protected by thick, scaly skin. They therefore count as having a 6+ Armour Save. This save cannot be reduced by the attacker's Strength, but certain Critical Hits ignore it normally.",
           },
-          { nom: 'Fear', texte: 'Cold One Hounds cause fear.' },
+          { nom: 'Fear', texte: 'Cold One Beasthounds cause fear.' },
         ],
       },
     },
@@ -3417,13 +3417,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           'A Dark Elf with this skill is always placed on the battlefield after the opposing warband has deployed. He may be placed anywhere on the table, provided he is out of enemy line of sight and more than 12" from any enemy model. If both players have infiltrating models, roll 1D6, the lower result deploys first.',
       },
       rapidite_surnaturelle: {
-        nom: 'Supernatural Speed',
+        nom: 'Fey Quickness',
         reserve_a: 'Dark Elf Heroes only',
         texte:
-          'Few can match the incredible swiftness of elves. An elf with this skill may dodge shooting or hand-to-hand attacks on a roll of 6 on 1D6. If the elf also has the Sidestep or Dodge skill, this save becomes 4+ in the appropriate area. For example, an elf with Supernatural Speed and Sidestep dodges hand-to-hand wounds on a 4+ and shooting on a 6+.',
+          'Few can match the incredible swiftness of elves. An elf with this skill may dodge shooting or hand-to-hand attacks on a roll of 6 on 1D6. If the elf also has the Sidestep or Dodge skill, this save becomes 4+ in the appropriate area. For example, an elf with Fey Quickness and Sidestep dodges hand-to-hand wounds on a 4+ and shooting on a 6+.',
       },
       massif_elfe_noir: {
-        nom: 'Massive',
+        nom: 'Powerful Build',
         reserve_a: 'Dark Elf Heroes only, except the Sorceress, maximum two models per warband',
         texte:
           'The warrior is solidly built (for an elf) and possesses great strength. A warrior with this skill may choose Strength skills. The Sorceress cannot receive this skill, and your warband may not have more than two models with it.',
@@ -3443,7 +3443,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       elfes_noirs: {
-        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, 'cost of the weapon (dagger or sword) + 20 gc, Heroes only'],
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, 'cost of the weapon (dagger or sword) + 20 gc, Heroes only'],
         armures: [undefined, undefined, undefined, undefined, 'Heroes and Corsairs only'],
       },
       ombres: {
@@ -3457,7 +3457,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         'Like the High Elves, Dark Elves are accomplished spellcasters. But where the High Elves use their magic to protect and do good, the Dark Elves wield dark magic to destroy.',
       sorts: [
         {
-          nom: 'Black Lightning',
+          nom: 'Doombolt',
           texte:
             'Murmuring an ancient incantation, the Sorceress creates a bolt of pure black energy that she unleashes on her enemies. Black Lightning may be cast against any enemy model in line of sight. Its range is 18" and it hits with Strength 5. If the target is wounded, the nearest model within 6" of it is also hit on a 4+ with Strength one point lower than the previous hit. The lightning continues jumping from model to model in this way until it runs out of targets, misses, or its Strength drops below 1. Each model can only be hit once per turn by this lightning. Armour saves apply normally.',
         },
@@ -3472,17 +3472,17 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             'By simple touch, the Sorceress drains her enemies of their life essence and absorbs it, strengthening her own energies. Once the spell is successfully cast, the Sorceress must make a to-hit roll against a model in contact. If it hits, its target loses 1 Wound, with no armour save allowed. The Sorceress then feeds on this energy and adds +1 Wound to her profile. Note: the Sorceress can never have more than 1 extra Wound from this spell, and it will be lost at the end of the game.',
         },
         {
-          nom: 'Sword of Fire',
+          nom: 'Flamesword',
           texte:
             'Invoking baleful energies, the Sorceress wreathes a blade in black, icy flames. The Sorceress may cast this spell on one of the hand-to-hand weapons of a Dark Elf within 6". A weapon so enchanted still counts as a normal weapon of the appropriate type, but adds +2 to its wielder\'s Strength, and the hits it inflicts ignore armour saves. This spell lasts until the next Dark Elf Shooting phase.',
         },
         {
-          nom: 'Death Spasms',
+          nom: 'Deathspasm',
           texte:
             'The Sorceress riddles her enemy\'s body with dark magic, inflicting unbearable pain for a mere mortal to endure. This spell has a range of 6" and may be cast on the nearest enemy. The affected model must immediately roll on the Injury table. If the spell is cast successfully, the Sorceress is immediately Knocked Down.',
         },
         {
-          nom: "Witches' Flight",
+          nom: 'Witch Flight',
           texte:
             'The Sorceress bends the winds of magic to her will and rises into the air. The Sorceress may immediately move anywhere within 12" and may charge an enemy this way. If she charges a fleeing enemy, she inflicts an automatic hit on it, after which it flees again.',
         },
