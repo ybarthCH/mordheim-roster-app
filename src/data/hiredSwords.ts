@@ -2232,6 +2232,13 @@ export function disponibiliteFrancTireur(
   if (francTireur.sacrifice_liche && !roster.membres.some((m) => m.profil_id === 'liche' && m.statut !== 'mort')) {
     return { disponible: false, raison: 'Une Liche vivante est requise pour construire le Goliath d’Os.' };
   }
+  if (
+    roster.bande_id === 'maraudeurs_du_chaos' &&
+    (francTireur.id === 'sorciere' || francTireur.id === 'mage') &&
+    roster.membres.some((m) => m.statut !== 'mort' && m.marque === 'arkhar')
+  ) {
+    return { disponible: false, raison: 'Refusé : un guerrier de la bande porte la Marque d’Arkhar.' };
+  }
   return { disponible: true };
 }
 
