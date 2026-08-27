@@ -5926,16 +5926,16 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       champion: { nom: 'Champion' },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youngblood' },
       guerrier: { nom: 'Warrior' },
       tireur: { nom: 'Marksman' },
       bretteur: {
-        nom: 'Swashbuckler',
+        nom: 'Swordsman',
         regles_speciales: [
           {
             nom: 'Sword Expert',
             texte:
-              'Swashbucklers are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. Note that this applies when they carry normal swords, not two-handed swords or other weapons.',
+              'Swordsmen are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. Note that this applies when they carry normal swords, not two-handed swords or other weapons.',
           },
         ],
       },
@@ -5956,6 +5956,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Rare 7, Heroes only' },
+      { disponibilite: 'Rare 8, Humans only, Heroes only' },
+      { disponibilite: 'Rare 11, Humans only, Heroes only' },
+    ],
   },
   mootlanders: {
     nom: 'Mootlanders (1b)',
