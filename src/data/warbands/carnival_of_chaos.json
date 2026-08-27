@@ -158,7 +158,7 @@
         { "nom": "Profils détaillés", "texte": "Roulotte : E8, PV4. Roue : E6, PV1. Cheval : M8, F3, E3, PV1, I3. Gardien (Cocher) : CC3, F3, E3, A1, I3." }
       ],
       "acces_competences": [],
-      "acces_equipement": ["kermesse"],
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {
