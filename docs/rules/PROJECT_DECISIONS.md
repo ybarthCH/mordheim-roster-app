@@ -21,4 +21,11 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 
 ## Décisions enregistrées
 
-_Aucune entrée pour le moment._
+### Commandement de l'Enfant du Chaos (Maraudeurs du Chaos)
+
+- **Question de règle** : le profil `enfant_du_chaos` a-t-il un Commandement de 5 ou de 10 ? Les deux sources locales se contredisent : toutes les autres caractéristiques (M, CC, CT, F, E, PV, I, A) sont identiques entre les deux éditions, seul le Cd diverge.
+- **Source et page** : `Maraudeurs du Chaos [GLM].pdf` (FR, édition GLM/BTB 2022, 18 pages), page 7, tableau "0-1 Enfant du Chaos" → Cd 5 ; `Marauders of Chaos.pdf` (ENG, édition 2010, 8 pages), page 4, tableau "0-1 Spawn of Chaos" → Ld 10.
+- **Décision de Yannick** : Commandement 10 (source ENG).
+- **Statut** : Officiel
+- **Parties du code concernées** : `src/data/warbands/maraudeurs_du_chaos.json` (profil `enfant_du_chaos`, champ `stats.Cd`) — déjà à 10, aucun changement nécessaire.
+- **Date** : 2026-08-27

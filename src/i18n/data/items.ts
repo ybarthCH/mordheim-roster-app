@@ -1354,7 +1354,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   pistolet_a_malepierre: {
-    nom: 'Warpstone Pistol',
+    nom: 'Warplock Pistol',
     texte:
       "Warpstone pistols are formidable weapons, testament to Clan Skryre's twisted genius. These pistols fire ammunition made from bewitched warpstone fragments. These bullets cause horrific wounds that often degenerate into terrible infections.",
     regles_speciales: [
@@ -1448,7 +1448,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
     ],
   },
   pistolet_a_malepierre_paire: {
-    nom: 'Brace of Warpstone Pistols',
+    nom: 'Brace of Warplock Pistols',
     texte:
       "Warpstone pistols are formidable weapons, testament to Clan Skryre's twisted genius. These pistols fire ammunition made from bewitched warpstone fragments. These bullets cause horrific wounds that often degenerate into terrible infections.",
     regles_speciales: [
@@ -2545,6 +2545,10 @@ export const itemsEn: Record<string, ItemTraduit> = {
         nom: 'Sacred',
         texte:
           'Each hammer was blessed by a Matriarch before being given to a Sister. The hammer grants a +1 bonus to all Wound rolls inflicted in hand-to-hand combat against Possessed and Undead. Note that you will still need a 6 before modifiers to inflict a Critical Hit.',
+      },
+      {
+        nom: 'Note',
+        texte: 'Only Matriarchs and Sister Superiors of the order may carry two Sigmarite war hammers at once.',
       },
     ],
   },
@@ -4083,7 +4087,7 @@ for (const id of ['epee_longue_cathayenne']) {
   itemsEn[id].disponibilite = 'Common, Battle Monks of Cathay Emissary only';
 }
 for (const id of ['marteau_de_guerre_sigmarite_market']) {
-  itemsEn[id].disponibilite = 'Common, Sisters of Sigmar Sigmarite Matriarchs and Sister Superiors only';
+  itemsEn[id].disponibilite = 'Common, Sisters of Sigmar only';
 }
 for (const id of ['armure_lourde_de_maitre', 'bec_de_corbin']) {
   itemsEn[id].disponibilite = 'Lustrian Reavers Conqueror only';

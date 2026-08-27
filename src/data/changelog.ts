@@ -33,6 +33,26 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-08-27',
+    points: [
+      {
+        categorie: 'interface',
+        texte:
+          "Dans la boutique, les mutations (Culte des Possédés, Maraudeurs du Chaos, Pillards Hommes-Bêtes, Kermesse du Chaos) sortent de la catégorie Divers/Spécial pour rejoindre un nouvel onglet Mutations dédié, qui n'apparaît que pour les guerriers y ayant réellement accès.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Poursuite du grand audit des règles de bande contre les documents officiels : corrections sur les Mercenaires Marienburgers, les Mercenaires Middenheimers, les Mercenaires Reiklanders, les Sœurs de Sigmar, les Répurgateurs, les Skavens, les Morts-Vivants, le Culte des Possédés, les Mercenaires Ostermarkers, les Tiléens, les Pillards Hommes-Bêtes, les Maraudeurs du Chaos et la Kermesse du Chaos — dont l'ajout de 6 mutations manquantes au Culte des Possédés, le doublement de prix des mutations enfin appliqué chez les Pillards Hommes-Bêtes, l'exemption de la règle Œil des Dieux Sombres pour un chef Blessé chez les Maraudeurs du Chaos, et de nombreuses corrections d'accès aux compétences, à l'équipement et de traduction anglaise.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Corrigé une fuite permettant à un guerrier totalement privé d'une catégorie d'arme ou d'armure par les règles (bêtes de guerre du Chaos, Roulotte de la Peste de la Kermesse du Chaos...) d'acheter quand même ce type d'objet via l'équipement spécial de sa bande. Le bouton Acheter de la fiche personnage se grise désormais automatiquement quand le guerrier n'a droit à aucun achat, quelle que soit sa bande.",
+      },
+    ],
+  },
+  {
     date: '2026-08-26',
     points: [
       {

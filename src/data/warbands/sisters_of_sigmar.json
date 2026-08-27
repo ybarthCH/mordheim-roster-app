@@ -137,8 +137,7 @@
         { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armes_tir": [
-        { "item_id": "fronde", "cout": 2 },
-        { "item_id": "eau_benite", "cout": 10, "restriction": "Héroïnes seulement" }
+        { "item_id": "fronde", "cout": 2 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
@@ -148,15 +147,12 @@
         { "item_id": "casque", "cout": 10 }
       ],
       "divers": [
+        { "item_id": "eau_benite", "cout": 10, "restriction": "Héroïnes seulement" },
         { "item_id": "livre_saint", "cout": 120, "restriction": "Héroïnes seulement" },
         { "item_id": "relique_sacree_sigmarite", "cout": 15, "restriction": "Héroïnes seulement" }
       ]
     }
   },
-  "equipement_special": [
-    { "item_id": "marteau_de_guerre_sigmarite_market", "cout": 15, "disponibilite": "Commune (Sœurs de Sigmar uniquement)" },
-    { "item_id": "fouet_dacier", "cout": 10, "disponibilite": "Commune (Sœurs de Sigmar uniquement)" }
-  ],
   "magie": {
     "nom": "Prières de Sigmar",
     "type": "prières",

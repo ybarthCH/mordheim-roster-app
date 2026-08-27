@@ -62,7 +62,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Eye of the Gods',
         texte:
-          "After each battle, roll 2D6. If you lost, add +1 for each Hero taken Out of Action; on a 12+, the leader becomes a Spawn of Chaos (losing experience, skills, wounds, and equipment). If you won, add +1 for each enemy taken Out of Action by the leader; on a 12+, the leader receives a Mark of the Dark Gods of his choice (see the Marks of the Dark Gods special rule). Once a leader has received a Mark through this rule, he is no longer subject to it (unless he dies, in which case the new leader is tested in turn). If the warband already has a Spawn of Chaos, a leader who would get this result is simply removed from the warband instead of being transformed.",
+          "After each battle, roll 2D6. If you lost, add +1 for each Hero taken Out of Action; on a 12+, the leader becomes a Spawn of Chaos (losing experience, skills, wounds, and equipment). If you won, add +1 for each enemy taken Out of Action by the leader; on a 12+, the leader receives a Mark of the Dark Gods of his choice (see the Marks of the Dark Gods special rule). Once a leader has received a Mark through this rule, he is no longer subject to it (unless he dies, in which case the new leader is tested in turn). If the warband already has a Spawn of Chaos, a leader who would get this result is simply removed from the warband instead of being transformed. This rule does not apply if the leader did not take part in the battle (for example if he was Wounded).",
       },
       {
         nom: 'Hired Swords',
@@ -77,7 +77,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Marks of the Dark Gods',
         texte:
-          "A leader can only bear one Mark at a time (except the Mark of Chaos Undivided, which can coexist with the others); Seers choose their Mark in agreement with the tribe at recruitment, and then use the rituals associated with their Mark instead of the generic Rituals of Chaos (except Chaos Undivided, which keeps the Rituals of Chaos). Mark of Arkhar the Dog — Leader: automatic frenzy, any spell targeting the Hero fails on a 4+. Seer: becomes a Bloodfather, no longer casts spells but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required), and gains access to Strength skills in addition to his normal list. Mark of Shornaal the Serpent — Leader: enemies not Immune to Psychology must pass a Leadership test (3D6, discarding the lowest) to attack the Hero in hand-to-hand combat, or suffer an automatic hit; once passed, no further tests are needed. Seer: uses the Rituals of Shornaal; may brew a strong drink for the warband (like Bugman's Ale, not for sale) instead of searching for rare items, provided he was not taken Out of Action. Mark of Tchar the Eagle — Leader: immediately learns a random spell from the Rituals of Tchar, with a -1 penalty to difficulty rolls unless he was already a spellcaster. Seer: starts with two spells from the Rituals of Tchar (one chosen freely, one random). Mark of Onogal the Crow — Leader: +1 Toughness, may re-roll on the Serious Injury table, immune to poisons. Seer: uses the Rituals of Onogal and benefits from immunity to poisons. Mark of Chaos Undivided — Leader: all warband members within the Leader rule's range may re-roll failed Leadership tests. Seer: allows the warband to include 0 to 3 Gors (see Beastmen Raiders), counting towards the maximum warband size; uses the standard Rituals of Chaos. The alternative rituals specific to each Mark (Shornaal, Tchar, Onogal) are provided as additional reference; otherwise the Seer uses the Rituals of Chaos below.",
+          "A leader can only bear one Mark at a time (except the Mark of Chaos Undivided, which can coexist with the others); Seers choose their Mark in agreement with the tribe at recruitment, and then use the rituals associated with their Mark instead of the generic Rituals of Chaos (except Chaos Undivided, which keeps the Rituals of Chaos). Mark of Arkhar the Dog — Leader: automatic frenzy, any spell targeting the Hero fails on a 4+. Seer: becomes a Bloodfather, no longer casts spells but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required, bonus lasts until the end of the battle), and gains access to Strength skills in addition to his normal list. Mark of Shornaal the Serpent — Leader: enemies not Immune to Psychology must pass a Leadership test (3D6, discarding the lowest) to attack the Hero in hand-to-hand combat, or suffer an automatic hit; once passed, no further tests are needed (note that the Lizardmen's Cold-Blooded special rule cannot apply in this particular case). Seer: uses the Rituals of Shornaal; may brew a strong drink for the warband (like Bugman's Ale, not for sale) instead of searching for rare items, provided he was not taken Out of Action. Mark of Tchar the Eagle — Leader: immediately learns a random spell from the Rituals of Tchar, with a -1 penalty to difficulty rolls unless he was already a spellcaster. Seer: starts with two spells from the Rituals of Tchar (one chosen freely, one random). Mark of Onogal the Crow — Leader: +1 Toughness, may re-roll on the Serious Injury table, immune to poisons. Seer: uses the Rituals of Onogal and benefits from immunity to poisons. Mark of Chaos Undivided — Leader: all warband members within the Leader rule's range may re-roll failed Leadership tests. Seer: allows the warband to include 0 to 3 Gors (see Beastmen Raiders), counting towards the maximum warband size; always re-roll any 'Lad's Got Talent' result rolled for a Gor; uses the standard Rituals of Chaos. The alternative rituals specific to each Mark (Shornaal, Tchar, Onogal) are provided as additional reference; otherwise the Seer uses the Rituals of Chaos below.",
       },
       {
         nom: 'Mutation Table',
@@ -226,7 +226,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     equipement: {
       heros: {
-        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, 'see special weapons', undefined, undefined],
+        armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined, undefined],
       },
       hommes_de_main: {
         armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined],
@@ -253,7 +253,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         },
         {
           nom: 'Lure of Chaos',
-          texte: 'Range 12" against the nearest enemy; compares 1D6+Ld of the Seer against 1D6+Ld of the target. If the Seer wins, he takes control of the victim until a successful Leadership test during the opponent\'s Recovery phase; it cannot commit suicide but may attack its own side, without fighting the Seer\'s warband.',
+          texte: 'Range 12" against the nearest enemy; compares 1D6+Ld of the Seer against 1D6+Ld of the target. If the Seer wins, he takes control of the victim until a successful Leadership test during the opponent\'s Recovery phase; it cannot commit suicide but may attack its own side, without fighting the Seer\'s warband. If the victim was already engaged in hand-to-hand combat with warriors from the Seer\'s warband, it immediately moves 1" away from them.',
         },
         {
           nom: 'Wings of Darkness',
@@ -268,7 +268,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     marques: {
       arkhar: {
         nom: 'Mark of Arkhar the Dog',
-        texte: 'The Seer becomes a Bloodfather: he no longer casts spells, but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required), and gains access to Strength skills in addition to his normal list.',
+        texte: 'The Seer becomes a Bloodfather: he no longer casts spells, but gains +1 to a characteristic of choice (Combat, S, T, or I, once each) each time he takes an enemy Out of Action (Leadership test required, bonus lasts until the end of the battle), and gains access to Strength skills in addition to his normal list.',
       },
       shornaal: {
         nom: 'Mark of Shornaal the Serpent',
@@ -284,7 +284,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       chaos_universel: {
         nom: 'Mark of Chaos Undivided',
-        texte: 'Uses the standard Rituals of Chaos. Allows the warband to include 0 to 3 Gors (see Beastmen Raiders), counting towards the maximum warband size.',
+        texte: "Uses the standard Rituals of Chaos. Allows the warband to include 0 to 3 Gors (see Beastmen Raiders), counting towards the maximum warband size; always re-roll any 'Lad's Got Talent' result rolled for a Gor.",
       },
     },
     magie_variantes: {
@@ -624,7 +624,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [
           { nom: 'Leader', texte: 'Any warrior within 6" of an Assassin Adept may use his Leadership.' },
           {
-            nom: 'Killing Machine',
+            nom: 'Perfect Killer',
             texte: "An Assassin Adept always inflicts a -1 penalty to the enemy's armour save when he wounds (in shooting or hand-to-hand combat).",
           },
         ],
@@ -633,7 +633,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       sorcier_eshin: {
         nom: 'Eshin Sorcerer',
         regles_speciales: [
-          { nom: 'Sorcerer', texte: 'An Eshin Sorcerer is a spellcaster who uses the Magic of the Horned Rat (see Magic).' },
+          { nom: 'Wizard', texte: 'An Eshin Sorcerer is a spellcaster who uses the Magic of the Horned Rat (see Magic).' },
         ],
       },
       coureur_nocturne: { nom: 'Night Runner' },
@@ -644,7 +644,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       rat_geant: {
         nom: 'Giant Rat',
         regles_speciales: [
-          { nom: 'Numbers', texte: 'You may recruit as many Giant Rats as you wish. Bought in groups of 1 to 5.' },
+          { nom: 'Pack size', texte: 'You may recruit as many Giant Rats as you wish. Bought in groups of 1 to 5.' },
           { nom: 'Experience', texte: 'Giant Rats are animals and therefore do not gain experience.' },
           { nom: 'Equipment', texte: 'None. Giant Rats carry no weapons or armour.' },
         ],
@@ -665,16 +665,16 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       frenesie_mortelle: {
-        nom: 'Deadly Frenzy',
+        nom: 'Black Hunger',
         texte:
           'The Skaven Hero may declare at the start of a turn that he is using this skill: he gains +1 Attack and 1D3" of Movement for the whole turn, but suffers 1D3 Strength 3 hits with no armour save allowed at the end of the turn.',
       },
       queue_de_combat: {
-        nom: 'Fighting Tail',
+        nom: 'Tail Fighting',
         texte: 'The Skaven may use a shield, sword, or dagger with his tail: an extra Attack with the appropriate weapon, or a +1 bonus to armour save.',
       },
       grimpeur_ne: {
-        nom: 'Born Climber',
+        nom: 'Wall Runner',
         texte: 'The Skaven does not need to make an Initiative test when climbing a wall or steep surface.',
       },
       infiltration: {
@@ -697,6 +697,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         armes_cac: ['first free', undefined, undefined, undefined],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Rare 7, Skaven only' },
+      { disponibilite: 'Rare 11, Skaven only' },
+      { disponibilite: 'Rare 7, Skaven only' },
+      { disponibilite: 'Rare 9, Skaven only' },
+    ],
     magie: {
       nom: 'Magic of the Horned Rat',
       type: 'sorcery',
@@ -1650,7 +1656,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       necromancien: {
         nom: 'Necromancer',
         regles_speciales: [
-          { nom: 'Sorcerer', texte: 'Necromancers are spellcasters who use Necromancy (see Magic).' },
+          { nom: 'Wizard', texte: 'Necromancers are spellcasters who use Necromancy (see Magic).' },
         ],
       },
       paria: { nom: 'Dregs' },
@@ -1750,7 +1756,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Witch Hunter Captain',
         regles_speciales: [
           { nom: 'Leader', texte: 'Any warrior within 6" may use his Ld for Leadership tests.' },
-          { nom: 'To the Stake!', texte: 'The Witch Hunter Captain hates all spellcasters.' },
+          { nom: 'Burn the Witch!', texte: 'The Witch Hunter Captain hates all spellcasters.' },
         ],
       },
       pretre_guerrier: {
@@ -1761,9 +1767,9 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       },
       repurgateur: {
         nom: 'Witch Hunter',
-        regles_speciales: [{ nom: 'To the Stake!', texte: 'Witch Hunters hate all spellcasters.' }],
+        regles_speciales: [{ nom: 'Burn the Witch!', texte: 'Witch Hunters hate all spellcasters.' }],
       },
-      seide: { nom: 'Warrior' },
+      seide: { nom: 'Zealot' },
       flagellant: {
         nom: 'Flagellant',
         regles_speciales: [
@@ -2567,7 +2573,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       champion: { nom: 'Champion' },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youngblood' },
       guerrier: {
         nom: 'Warrior',
         regles_speciales: [{ nom: 'Recruitment', texte: 'As many as you like. Bought in groups of 1 to 5.' }],
@@ -2583,12 +2589,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       bretteur: {
-        nom: 'Fencer',
+        nom: 'Swordsman',
         regles_speciales: [
           {
-            nom: 'Expert Swordsman',
+            nom: 'Sword Expert',
             texte:
-              'Fencers are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This applies only when equipped with ordinary swords, not two-handed swords or other weapons.',
+              'Swordsmen are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This applies only when equipped with ordinary swords, not two-handed swords or other weapons.',
           },
           { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
         ],
@@ -4501,7 +4507,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       champion: { nom: 'Champion' },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youngblood' },
       guerrier: {
         nom: 'Warrior',
         regles_speciales: [{ nom: 'Recruitment', texte: 'As many as you like. Bought in groups of 1 to 5.' }],
@@ -4511,12 +4517,12 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
       },
       bretteur: {
-        nom: 'Fencer',
+        nom: 'Swordsman',
         regles_speciales: [
           {
             nom: 'Sword Expert',
             texte:
-              'Fencers are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This only applies when they are equipped with ordinary swords, not two-handed swords or other weapons.',
+              'Swordsmen are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This only applies when they are equipped with ordinary swords, not two-handed swords or other weapons.',
           },
           { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
         ],
@@ -5489,7 +5495,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       champion: { nom: 'Champion' },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youngblood' },
       guerrier: {
         nom: 'Warrior',
         regles_speciales: [{ nom: 'Recruitment', texte: 'As many as you want. Bought in groups of 1 to 5.' }],
@@ -5607,6 +5613,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     equipement: {
       soeurs_de_sigmar: {
         armes_cac: ['first free', undefined, undefined, undefined, undefined, undefined, undefined],
+        divers_restriction: ['Heroines only', 'Heroines only', 'Heroines only'],
       },
     },
     magie: {
@@ -5919,16 +5926,16 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       champion: { nom: 'Champion' },
-      recrue: { nom: 'Recruit' },
+      recrue: { nom: 'Youngblood' },
       guerrier: { nom: 'Warrior' },
       tireur: { nom: 'Marksman' },
       bretteur: {
-        nom: 'Swashbuckler',
+        nom: 'Swordsman',
         regles_speciales: [
           {
             nom: 'Sword Expert',
             texte:
-              'Swashbucklers are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. Note that this applies when they carry normal swords, not two-handed swords or other weapons.',
+              'Swordsmen are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. Note that this applies when they carry normal swords, not two-handed swords or other weapons.',
           },
         ],
       },
@@ -5949,6 +5956,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
     },
+    equipement_special: [
+      { disponibilite: 'Rare 7, Heroes only' },
+      { disponibilite: 'Rare 8, Humans only, Heroes only' },
+      { disponibilite: 'Rare 11, Humans only, Heroes only' },
+    ],
   },
   mootlanders: {
     nom: 'Mootlanders (1b)',
