@@ -294,7 +294,10 @@ export function PostBatailleScreen() {
   const oeilApplicable = useMemo(() => {
     if (!roster || catalogue?.id !== 'maraudeurs_du_chaos' || resultat === 'nul') return false;
     const chef = resolveLeader(roster, catalogue);
-    return !!chef && !chef.marque;
+    // "La règle Œil des Dieux Sombres ne s'applique pas si le chef de bande
+    // n'a pas participé à la bataille" — un chef Blessé reste au camp,
+    // seul cas de non-participation que l'app modélise explicitement.
+    return !!chef && !chef.marque && chef.statut !== 'blesse';
   }, [roster, catalogue, resultat]);
 
   // Gain d'expérience, section « à résoudre » : hommes de main et animaux

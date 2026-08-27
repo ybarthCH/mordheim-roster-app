@@ -317,6 +317,9 @@ export const ITEMS_UNIQUES_BANDE = new Set([
   // Pierrier (Pirates) : "une bande de Pirates ne peut avoir qu'un seul
   // pierrier".
   'pierrier',
+  // Fouet barbelé (Maraudeurs du Chaos) : "Rare 9, un seul Héros
+  // Maraudeurs du Chaos uniquement".
+  'fouet_barbele',
 ]);
 
 // Objets "matériau" (gromril, ithilmar, obsidienne, lame elfe noire) : au

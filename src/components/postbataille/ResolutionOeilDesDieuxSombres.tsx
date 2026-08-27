@@ -71,6 +71,11 @@ export function ResolutionOeilDesDieuxSombres({
   // soumis (sauf s'il décède)" — le profil chef n'a jamais de Marque par un
   // autre biais, donc toute Marque présente vient forcément de ce test.
   if (chef.marque) return null;
+  // "La règle Œil des Dieux Sombres ne s'applique pas si le chef de bande
+  // n'a pas participé à la bataille" — un chef Blessé reste au camp, seul
+  // cas de non-participation que l'app modélise explicitement (voir la
+  // même condition dans oeilApplicable, PostBatailleScreen).
+  if (chef.statut === 'blesse') return null;
 
   const seuil = seuilDeclenchement(roster, chef);
 
