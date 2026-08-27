@@ -1830,7 +1830,7 @@
   {
     "id": "flot_de_corruption",
     "nom": "Flot de Corruption (Bénédiction de Nurgle)",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 25,
     "cout_fixe": true,
     "rarete": "C",
@@ -1851,7 +1851,7 @@
   {
     "id": "pourriture_de_nurgle",
     "nom": "Pourriture de Nurgle (Bénédiction de Nurgle)",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 50,
     "cout_fixe": true,
     "rarete": "C",
@@ -1872,7 +1872,7 @@
   {
     "id": "nuage_de_mouches_benediction",
     "nom": "Nuage de Mouches (Bénédiction de Nurgle)",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 25,
     "cout_fixe": true,
     "rarete": "C",
@@ -1893,7 +1893,7 @@
   {
     "id": "horreur_enflee",
     "nom": "Horreur Enflée (Bénédiction de Nurgle)",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 40,
     "cout_fixe": true,
     "rarete": "C",
@@ -1919,7 +1919,7 @@
   {
     "id": "marque_de_nurgle",
     "nom": "Marque de Nurgle (Bénédiction de Nurgle)",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 35,
     "cout_fixe": true,
     "rarete": "C",
@@ -1943,7 +1943,7 @@
   {
     "id": "hideux",
     "nom": "Hideux (Bénédiction de Nurgle)",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 40,
     "cout_fixe": true,
     "rarete": "C",
@@ -1964,7 +1964,7 @@
   {
     "id": "ame_demoniaque",
     "nom": "Âme démoniaque",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 20,
     "cout_fixe": true,
     "rarete": "C",
@@ -1987,7 +1987,7 @@
   {
     "id": "pince_mutation",
     "nom": "Pince",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 50,
     "cout_fixe": true,
     "rarete": "C",
@@ -2010,7 +2010,7 @@
   {
     "id": "tentacule",
     "nom": "Tentacule",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 35,
     "cout_fixe": true,
     "rarete": "C",
@@ -2033,7 +2033,7 @@
   {
     "id": "sabots_fendus",
     "nom": "Sabots fendus",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 40,
     "cout_fixe": true,
     "rarete": "C",
@@ -2059,7 +2059,7 @@
   {
     "id": "sang_acide",
     "nom": "Sang acide",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 30,
     "cout_fixe": true,
     "rarete": "C",
@@ -2082,7 +2082,7 @@
   {
     "id": "epines",
     "nom": "Épines",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 35,
     "cout_fixe": true,
     "rarete": "C",
@@ -2105,7 +2105,7 @@
   {
     "id": "queue_de_scorpion",
     "nom": "Queue de scorpion",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 40,
     "cout_fixe": true,
     "rarete": "C",
@@ -2128,7 +2128,7 @@
   {
     "id": "bras_supplementaire",
     "nom": "Bras supplémentaire",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 40,
     "cout_fixe": true,
     "rarete": "C",
@@ -2151,7 +2151,7 @@
   {
     "id": "hideux_mutation",
     "nom": "Hideux",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 40,
     "cout_fixe": true,
     "rarete": "C",
@@ -2174,7 +2174,7 @@
   {
     "id": "corps_cristallin",
     "nom": "Corps cristallin",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 60,
     "cout_fixe": true,
     "rarete": "C",
@@ -2198,7 +2198,7 @@
   {
     "id": "brute_epaisse",
     "nom": "Brute épaisse",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 50,
     "cout_fixe": true,
     "rarete": "C",
@@ -2226,7 +2226,7 @@
   {
     "id": "morsure_venimeuse",
     "nom": "Morsure venimeuse",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 50,
     "cout_fixe": true,
     "rarete": "C",
@@ -2250,7 +2250,7 @@
   {
     "id": "queue_prehensile",
     "nom": "Queue préhensile",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 50,
     "cout_fixe": true,
     "rarete": "C",
@@ -2274,7 +2274,7 @@
   {
     "id": "peau_ecailleuse",
     "nom": "Peau écailleuse",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 60,
     "cout_fixe": true,
     "rarete": "C",
@@ -2298,7 +2298,7 @@
   {
     "id": "ailes_mutation",
     "nom": "Ailes",
-    "categorie": "divers",
+    "categorie": "mutations",
     "cout": 45,
     "cout_fixe": true,
     "rarete": "C",

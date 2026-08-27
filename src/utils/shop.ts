@@ -596,6 +596,7 @@ export const CATEGORIE_ORDRE = [
   'munitions',
   'armures',
   'divers',
+  'mutations',
   'consommables',
   'poisons_drogues',
   'montures',
@@ -611,6 +612,7 @@ const CATEGORIE_LABELS: Record<string, string> = {
   munitions: 'Munitions',
   armures: 'Armure',
   divers: 'Divers',
+  mutations: 'Mutations',
   consommables: 'Consommable',
   poisons_drogues: 'Poison / drogue',
   montures: 'Monture',
@@ -626,6 +628,7 @@ const CATEGORIE_LABELS_EN: Record<string, string> = {
   munitions: 'Ammunition',
   armures: 'Armour',
   divers: 'Miscellaneous',
+  mutations: 'Mutations',
   consommables: 'Consumable',
   poisons_drogues: 'Poison / drug',
   montures: 'Mount',
@@ -646,6 +649,7 @@ const CATEGORIE_ICONES: Partial<Record<string, IconName>> = {
   munitions: 'cible',
   armures: 'bouclier',
   divers: 'gemme',
+  mutations: 'crane',
   consommables: 'fiole',
   poisons_drogues: 'goutte',
   montures: 'griffe',
@@ -914,6 +918,12 @@ export function getShopCommun(
   const armureLourdeInterdite = !aAccesArmureLourde(catalogue, profil);
   const items: ShopItem[] = TOUS_LES_ITEMS.filter(
     (item) =>
+      // Les mutations ("Un guerrier de Mutant ou de Possédé peut acheter des
+      // mutations uniquement lors de son recrutement") ne s'achètent jamais
+      // depuis le shop commun, quelle que soit la bande : uniquement via la
+      // liste equipement_special de la bande, qui applique la restriction de
+      // profil (profils/competences) que ce shop générique ne connaît pas.
+      item.categorie !== 'mutations' &&
       !(armureLourdeInterdite && ITEMS_EQUIVALENT_ARMURE_LOURDE.has(item.id)) &&
       ((catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) ||
         (item.acces?.includes('commun_heros') && profil?.type === 'heros')) &&
@@ -1052,7 +1062,12 @@ export function getEquipementBande(
     items.push({
       id: item.id,
       nom: item.nom,
-      categorie: 'special',
+      // La liste d'équipement spécial d'une bande regroupe des objets très
+      // divers (armures uniques, montures, mutations...) tous affichés sous
+      // un même onglet "Spécial" par défaut — sauf les mutations, qui
+      // gagnent leur propre onglet dédié (voir CATEGORIE_ORDRE) pour rester
+      // groupées avec celles achetées via le shop commun.
+      categorie: item.categorie === 'mutations' ? 'mutations' : 'special',
       cout,
       cout_fixe: typeof cout === 'number',
       disponibilite: ref.disponibilite ?? item.disponibilite,
