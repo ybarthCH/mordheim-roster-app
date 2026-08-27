@@ -47,6 +47,7 @@ import {
   resolveItemDetail,
   prixVente,
   appliquerAchatSurMembre,
+  profilPeutAcheterEquipement,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { InventoryEntry } from '../../types/roster';
@@ -99,6 +100,10 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   );
   const profil = roster && membre ? resolveProfil(roster, membre, catalogue, language) : undefined;
   const francTireur = getFrancTireur(membre?.franc_tireur_id);
+  // Grise le bouton "Acheter" de la fiche pour un profil qui n'a
+  // structurellement rien à acheter (ex : animal sans équipement propre) —
+  // permissif par défaut si le catalogue n'est pas résolu.
+  const peutAcheterEquipement = !catalogue || !profil ? true : profilPeutAcheterEquipement(catalogue, profil);
 
   // sorts_connus stockait autrefois le nom affiché du sort plutôt qu'un id
   // stable (voir MagieSort.id) : un sort choisi pendant que l'interface était
@@ -450,6 +455,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         membre={membre}
         inventaireGroupe={inventaireGroupe}
         onOpenAchat={() => setModalAchat(true)}
+        peutAcheter={peutAcheterEquipement}
         onItemClick={setItemDetail}
         onRenvoyer={renvoyerStockItem}
         onVendre={setVenteEnCours}

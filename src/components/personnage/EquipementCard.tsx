@@ -10,6 +10,11 @@ type EquipementCardProps = {
   membre: Member;
   inventaireGroupe: { entree: InventoryEntry; quantite: number }[];
   onOpenAchat: () => void;
+  // Faux quand le profil de ce membre n'a structurellement rien à acheter
+  // (ex : animal sans équipement propre — voir profilPeutAcheterEquipement,
+  // utils/shop.ts) — grise le bouton plutôt que de le masquer, pour que le
+  // joueur comprenne que c'est voulu et pas un bug d'affichage.
+  peutAcheter: boolean;
   onItemClick: (entree: InventoryEntry) => void;
   onRenvoyer: (instanceId: string) => void;
   onVendre: (entree: InventoryEntry) => void;
@@ -21,6 +26,7 @@ export function EquipementCard({
   membre,
   inventaireGroupe,
   onOpenAchat,
+  peutAcheter,
   onItemClick,
   onRenvoyer,
   onVendre,
@@ -39,7 +45,12 @@ export function EquipementCard({
       }
       actions={
         !verrouille && (
-          <button className="btn--pack-pill-sm" onClick={onOpenAchat}>
+          <button
+            className="btn--pack-pill-sm"
+            onClick={onOpenAchat}
+            disabled={!peutAcheter}
+            title={peutAcheter ? undefined : t('equipementCard.buyDisabledTitle')}
+          >
             {t('equipementCard.buy')}
           </button>
         )
@@ -55,6 +66,15 @@ export function EquipementCard({
       {inventaireGroupeMismatch(membre) && (
         <p className="text-sm text-danger" style={{ marginTop: 0 }}>
           ⚠ {t('equipementCard.mismatchWarning', { taille: membre.taille_groupe })}
+        </p>
+      )}
+      {/* Le `title` du bouton "+ Acheter" grisé (survol souris uniquement)
+          n'est pas accessible au tactile ni au clavier — répété ici en texte
+          toujours visible, sur le même principe que contractEquipmentNote
+          ci-dessus pour l'équipement de contrat verrouillé. */}
+      {!verrouille && !peutAcheter && (
+        <p className="text-muted text-sm" style={{ marginTop: 0 }}>
+          {t('equipementCard.buyDisabledTitle')}
         </p>
       )}
       {!verrouille && inventaireGroupe.length === 0 && <p className="text-muted text-sm">{t('equipementCard.noItemsBought')}</p>}

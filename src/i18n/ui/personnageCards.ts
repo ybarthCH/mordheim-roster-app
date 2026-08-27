@@ -67,6 +67,10 @@ export const personnageCards: UiDictionary = {
   // EquipementCard
   'equipementCard.title': { fr: 'Équipement', en: 'Equipment' },
   'equipementCard.buy': { fr: '+ Acheter', en: '+ Buy' },
+  'equipementCard.buyDisabledTitle': {
+    fr: "Ce profil n'a droit à aucun équipement",
+    en: 'This profile has no equipment allowed',
+  },
   'equipementCard.noEquipment': { fr: 'Aucun équipement', en: 'No equipment' },
   'equipementCard.contractEquipmentNote': {
     fr: "Équipement fourni avec le contrat : il ne peut être ni complété, ni revendu, ni transféré.",

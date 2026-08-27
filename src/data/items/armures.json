@@ -64,6 +64,7 @@
     "page": 33,
     "texte": "L'armure du Chaos est une armure travaillée dans un métal étrange et surnaturel. Elle est la manifestation de la faveur d'un Dieu Sombre du Chaos. La plupart des armures du Chaos sont obtenues en récompense d'un Protecteur Infernal. Cependant, elles peuvent également être acquises, auprès des nains du Chaos, en échange de nombreux esclaves ou suite à un acte extraordinaire servant leurs intérêts.",
     "sauvegarde": "4+",
+    "leve_interdiction_armures_pour_sorciers": true,
     "regles_speciales": [
       {
         "nom": "Coût",

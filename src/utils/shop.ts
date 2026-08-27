@@ -9,6 +9,7 @@ import type { WarbandCatalog, Profile, SpecialRule, Stats } from '../types/catal
 import { STAT_KEYS } from '../types/catalog';
 import { TOUS_LES_ITEMS, getItem } from '../data/items';
 import { appliquerDeltaSurNotation } from './statsVariables';
+import { estSorcier } from './magie';
 import type { IconName } from '../components/common/Icon';
 import { DEFAULT_GAME_RULES } from '../types/rules';
 import type { GameRules } from '../types/rules';
@@ -1052,6 +1053,30 @@ export function getEquipementBande(
     if (ref.marques && !(marqueId && ref.marques.includes(marqueId))) continue;
     const item = getItem(ref.item_id);
     if (!item) continue;
+    // Contrairement à la boucle equipement/acces_equipement ci-dessus,
+    // equipement_special ignorait jusqu'ici categories_interdites (ex : un
+    // profil "ne peut en aucun cas porter d'armure" pouvait acheter une
+    // armure spéciale). Exception : l'Armure du Chaos porte elle-même la
+    // règle "Jeteurs de sorts" ("peut être portée par les jeteurs de
+    // sorts" malgré une interdiction d'armure) — modélisée par
+    // `leve_interdiction_armures_pour_sorciers` sur l'item, levée
+    // uniquement pour un profil sorcier (voir utils/magie.ts estSorcier).
+    const contourneInterdictionArmures =
+      item.categorie === 'armures' &&
+      'leve_interdiction_armures_pour_sorciers' in item &&
+      !!item.leve_interdiction_armures_pour_sorciers &&
+      !!profil &&
+      estSorcier(catalogue, profil, marqueId);
+    if (
+      !contourneInterdictionArmures &&
+      estCategorieInterdite(
+        item.categorie,
+        profil,
+        competencesAcquises,
+        'sous_type' in item ? (item.sous_type as string | undefined) : undefined
+      )
+    )
+      continue;
     let cout = ref.cout;
     if (ref.groupe_prix && typeof cout === 'number') {
       const idsGroupe = new Set(
