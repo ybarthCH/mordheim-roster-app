@@ -11,6 +11,7 @@ const changelogEn: Record<string, string[]> = {
   '2026-08-28': [
     'New banner on the home screen announcing the app is now officially available on the Google Play Store (can be permanently dismissed with one click).',
     'Continued the major warband rules audit: fixes for the Restless Dead (a Necromancer could wrongly be offered the spell reserved for the Liche instead of his own) and the Lustrian Reavers (the warband mistakenly used another warband\'s special weapon instead of its own, and a Hero\'s equipment normally reserved for one specific profile stayed purchasable by any Hero).',
+    'The Finish button when recruiting a Mutant (Cult of the Possessed) or a Tainted One (Carnival of Chaos) now stays greyed out until a mutation/Blessing of Nurgle has been bought, matching the rule that requires one at recruitment.',
   ],
   '2026-08-27': [
     'In the shop, mutations (Cult of the Possessed, Marauders of Chaos, Beastmen Raiders, Carnival of Chaos) move out of the Miscellaneous/Special category into a new dedicated Mutations tab, which only shows up for warriors who actually have access to them.',

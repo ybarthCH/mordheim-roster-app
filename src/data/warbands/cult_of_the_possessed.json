@@ -71,6 +71,7 @@
       ],
       "acces_competences": ["combat", "vitesse"],
       "acces_equipement": ["culte_des_possedes"],
+      "mutation_requise_au_recrutement": true,
       "acces_competences_a_verifier": false,
       "acces_seigneur_des_ombres": true
     },
