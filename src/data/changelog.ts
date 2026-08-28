@@ -45,6 +45,11 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Poursuite du grand audit des règles de bande : corrections sur les Morts Tourmentés (un Nécromancien pouvait se voir proposer à tort le sort réservé à la Liche au lieu du sien) et sur les Pillards de Lustrie (la bande utilisait par erreur l'arme spéciale d'une autre bande à la place de la sienne, et de l'équipement de héros normalement réservé à un profil précis restait achetable par n'importe quel héros).",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Le bouton Terminer du recrutement d'un Mutant (Culte des Possédés) ou d'un Impur (Kermesse du Chaos) reste désormais grisé tant qu'aucune mutation/Bénédiction de Nurgle n'a été achetée, conformément à la règle qui l'impose dès le recrutement.",
+      },
     ],
   },
   {
