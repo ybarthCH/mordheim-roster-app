@@ -82,6 +82,10 @@ export const personnageModalsSmall: UiDictionary = {
     fr: 'Trésorerie insuffisante pour cette sélection : retirez un objet pour continuer.',
     en: 'Not enough treasury for this selection: remove an item to continue.',
   },
+  'recrutementEquipement.mutationRequise': {
+    fr: 'Ce profil doit recevoir au moins une mutation au recrutement : choisissez-en une avant de terminer.',
+    en: 'This profile must receive at least one mutation at recruitment: pick one before finishing.',
+  },
 
   // DocteurModal
   'docteurModal.title': { fr: 'Quoi de neuf, Docteur ?', en: "What's Up, Doc?" },

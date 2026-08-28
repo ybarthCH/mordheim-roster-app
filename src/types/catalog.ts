@@ -181,6 +181,16 @@ export type Profile = {
   // WarbandCatalog.marques, ex : le Devin des Maraudeurs du Chaos) — le
   // choix détermine le domaine de sorts utilisé (Member.marque).
   marque_requise?: boolean;
+  // Ce profil doit acheter au moins un objet de categorie "mutations" au
+  // recrutement (règle "doit commencer la partie avec une ou plusieurs
+  // mutations" — ex : le Mutant du Culte des Possédés, l'Impur de la
+  // Kermesse du Chaos) — bloque le bouton Terminer de l'étape équipement
+  // du recrutement tant qu'aucune n'a été ajoutée au panier. Contrairement
+  // au Possédé (mutations facultatives à son recrutement), non applicable
+  // aux héros qui accèdent aux mutations via la compétence "Mutant"
+  // (Maraudeurs du Chaos, Pillards Hommes-Bêtes) : cette compétence se
+  // prend en avancée, hors du flux de recrutement que ce champ contrôle.
+  mutation_requise_au_recrutement?: boolean;
   // Chef de bande selon les règles (un seul par catalogue) : badge visuel +
   // bonus de +1 XP automatique en cas de victoire.
   est_leader?: boolean;

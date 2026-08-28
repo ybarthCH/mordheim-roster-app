@@ -79,6 +79,7 @@
       ],
       "acces_competences": ["combat", "vitesse"],
       "acces_equipement": ["kermesse"],
+      "mutation_requise_au_recrutement": true,
       "acces_competences_a_verifier": false
     },
     {

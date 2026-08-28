@@ -243,9 +243,16 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
     const inventairePanier = panier.flatMap(({ item, coutPaye }) =>
       creerEntreesInventaire(item, coutPaye, tailleGroupeActuelle)
     );
+    // "Chaque Mutant doit commencer la partie avec une ou plusieurs
+    // mutations" / "[l'Impur] doit recevoir une ou plusieurs Bénédictions de
+    // Nurgle au moment de son recrutement" (voir Profile.
+    // mutation_requise_au_recrutement) — bloque Terminer tant que le panier
+    // ne contient aucun objet de categorie "mutations".
+    const mutationRequise = !!profil?.mutation_requise_au_recrutement;
+    const mutationChoisieValide = !mutationRequise || panier.some((p) => p.item.categorie === 'mutations');
 
     const terminer = () => {
-      if (tresorerieProjetee < 0) return;
+      if (tresorerieProjetee < 0 || !mutationChoisieValide) return;
       let rosterCourant = roster;
       for (const { item, coutPaye } of panier) {
         const membreCourant =
@@ -408,6 +415,11 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
                 {t('recrutementEquipement.insufficientTreasury')}
               </p>
             )}
+            {mutationRequise && !mutationChoisieValide && (
+              <p className="text-danger text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                {t('recrutementEquipement.mutationRequise')}
+              </p>
+            )}
           </div>
         </div>
         {/* Annuler/Terminer juste après le résumé plutôt qu'en pied de
@@ -447,7 +459,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             type="button"
             className="btn--pack-pill-sm btn--pack-pill-sm--primary"
             style={{ flex: 1 }}
-            disabled={tresorerieProjetee < 0}
+            disabled={tresorerieProjetee < 0 || !mutationChoisieValide}
             onClick={terminer}
           >
             {t('recrutementEquipement.finish')}
