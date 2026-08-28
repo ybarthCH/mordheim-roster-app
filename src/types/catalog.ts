@@ -295,6 +295,21 @@ export type MagieSort = {
   difficulte: number | string;
   texte: string;
   note?: string;
+  // Ce sort n'est proposé qu'au profil désigné (id) — utile quand deux
+  // sorts distincts partagent le même `resultat` avec des lanceurs
+  // mutuellement exclusifs (ex : Morts Tourmentés, Vision Funeste
+  // "Nécromanciens uniquement" / Horreur Vivante "Liche uniquement" au
+  // résultat 6). Sans effet sur le profil auquel il est déjà réservé —
+  // sert seulement à l'exclure des AUTRES profils, y compris quand
+  // Profile.sorts_restreints_a_profil le ferait sinon apparaître à tort
+  // (voir sortsDisponiblesPourRoster, utils/magie.ts).
+  reserve_a_profil?: string;
+  // Id d'un autre sort de la même table : quand le profil référencé par
+  // Profile.sorts_restreints_a_profil du lanceur courant connaît CE sort
+  // (`reserve_a_profil` d'un autre lanceur), CELUI-CI devient disponible en
+  // exception — modélise la règle "Apprenti" du Nécromancien des Morts
+  // Tourmentés ("accessible si la Liche connaît le sort Horreur Vivante").
+  exception_si_connu?: string;
 };
 
 // Système de magie/prières propre à la bande — affiché en référence libre

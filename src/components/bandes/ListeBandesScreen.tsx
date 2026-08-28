@@ -13,6 +13,7 @@ import type { RosterInstance } from '../../types/roster';
 import { useLanguage } from '../../state/useLanguage';
 import { useGameRules } from '../../state/useGameRules';
 import { useMediaQuery } from '../../state/useMediaQuery';
+import { usePersistentDisclosure } from '../../state/usePersistentDisclosure';
 
 // Sur écran tactile, le glisser-déposer engagé n'importe où sur la carte
 // entrait en conflit avec le scroll de la page (le doigt qui bouge fait à la
@@ -78,6 +79,10 @@ export function ListeBandesScreen() {
   const { elements, refItem, onPointerDown, onHandlePointerDown, onCardClick, idEnCours, pointerPos } =
     useCardDragReorder(rosters, reorderRosters);
   const tactile = useMediaQuery(TACTILE_QUERY);
+  const { open: annoncePlayStoreVisible, toggle: masquerAnnoncePlayStore } = usePersistentDisclosure(
+    'ui.accueil.annoncePlayStore',
+    true
+  );
 
   const winLabel = language === 'en' ? 'W' : 'V';
   const lossLabel = language === 'en' ? 'L' : 'D';
@@ -104,6 +109,25 @@ export function ListeBandesScreen() {
         </div>
         <div className="home-hero__rule" />
       </div>
+
+      {annoncePlayStoreVisible && (
+        <div className="card card--tight home-annonce">
+          <button
+            type="button"
+            className="btn--ghost-danger home-annonce__close"
+            onClick={masquerAnnoncePlayStore}
+            aria-label={t('home.playStoreAnnounceDismiss')}
+          >
+            <Icon name="croixPack" />
+          </button>
+          <p className="text-sm home-annonce__texte">
+            {t('home.playStoreAnnounceText')}{' '}
+            <a href="https://play.google.com/store/apps/details?id=app.musterheim" target="_blank" rel="noopener noreferrer">
+              {t('home.playStoreAnnounceLink')}
+            </a>
+          </p>
+        </div>
+      )}
 
       <div className="roster-actions">
         <button className="btn btn--primary roster-actions__btn" onClick={() => navigate('/creer')}>

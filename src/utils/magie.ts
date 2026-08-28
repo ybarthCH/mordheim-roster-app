@@ -97,11 +97,20 @@ export function sortsDisponiblesPourRoster(
   magieMineureAffichee: Magie = MAGIE_MINEURE
 ): MagieSort[] {
   const base = sortsDisponibles(catalogue, dejaConnus, profil, marqueId, magieMineureAffichee);
+  const profilId = typeof profil === 'string' ? profil : profil?.id;
+  // Un sort réservé à un autre profil (MagieSort.reserve_a_profil) ne doit
+  // jamais apparaître ici pour ce profil-ci, même s'il matche par ailleurs
+  // le filtre sorts_restreints_a_profil ci-dessous (voir vision_funeste/
+  // horreur_vivante des Morts Tourmentés, qui partagent un même résultat de
+  // dé avec des lanceurs mutuellement exclusifs).
+  const sansSortsReserves = base.filter((s) => !s.reserve_a_profil || s.reserve_a_profil === profilId);
   const profilRestriction = typeof profil !== 'string' ? profil?.sorts_restreints_a_profil : undefined;
-  if (!profilRestriction) return base;
+  if (!profilRestriction) return sansSortsReserves;
   const connus = sortsConnusParProfil(roster, profilRestriction);
-  if (!connus) return base;
-  return base.filter((s) => connus.includes(s.id));
+  if (!connus) return sansSortsReserves;
+  return sansSortsReserves.filter(
+    (s) => connus.includes(s.id) || (s.exception_si_connu && connus.includes(s.exception_si_connu))
+  );
 }
 
 /** Synopsis complet d'un sort connu (nom, difficulté, texte) à partir de son

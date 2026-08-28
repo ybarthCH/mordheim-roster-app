@@ -211,7 +211,7 @@
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
         { "item_id": "epee", "cout": 10 },
         { "item_id": "arme_contondante_une_main", "cout": 3 },
-        { "item_id": "misericordia", "cout": 10, "note": "voir équipement spécial" },
+        { "item_id": "misericorde", "cout": 10, "note": "voir équipement spécial" },
         { "item_id": "arme_a_deux_mains", "cout": 15 },
         { "item_id": "lance", "cout": 40, "restriction": "Modèles montés uniquement" }
       ],
@@ -251,11 +251,11 @@
     }
   },
   "equipement_special": [
-    { "item_id": "armure_lourde_de_maitre", "cout": "—" },
-    { "item_id": "bec_de_corbin", "cout": "—" },
+    { "item_id": "armure_lourde_de_maitre", "cout": "—", "disponibilite": "Conquérant uniquement", "profils": ["conqueror"] },
+    { "item_id": "bec_de_corbin", "cout": "—", "disponibilite": "Conquérant uniquement", "profils": ["conqueror"] },
     { "item_id": "javelots", "cout": 10 },
-    { "item_id": "misericordia", "cout": 10 },
-    { "item_id": "grenade_de_miragliano", "cout": "—", "disponibilite": "Héros uniquement", "profils": ["conqueror", "saurus_slayer", "reaver_beastmaster", "jungle_shadow", "trap_master"] },
+    { "item_id": "misericorde", "cout": 10 },
+    { "item_id": "grenade_de_miragliano", "cout": "—", "disponibilite": "Maître des pièges uniquement", "profils": ["trap_master"] },
     { "item_id": "cape_en_peau_des_hommes_lezards", "cout": 10, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },
     { "item_id": "masque_de_crane", "cout": 15, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },
     { "item_id": "lame_homme_lezard", "cout": 30, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },

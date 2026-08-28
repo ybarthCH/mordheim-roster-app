@@ -57,6 +57,33 @@ jobs:
             --directory="$GITHUB_WORKSPACE/android-twa" \
             --manifest="$GITHUB_WORKSPACE/android-twa/twa-manifest.json"
 
+      # Bubblewrap 1.25.0's own template still pins androidbrowserhelper
+      # 2.6.2 and never enables resource shrinking, both flagged by Google
+      # Play's pre-launch report (deprecated setStatusBarColor/
+      # setNavigationBarColor/getStatusBarColor in WebViewFallbackActivity,
+      # missing edge-to-edge handling, resource shrinking disabled).
+      # androidbrowserhelper 2.7.0 ("limit deprecated apis to android 14" +
+      # "Add edge-to-edge support for the splash screen") fixes the first
+      # two; 2.7.3 is the latest stable as of writing, no breaking changes
+      # or minSdkVersion bump between 2.6.2 and 2.7.3. Bump the version
+      # here, in the generated app/build.gradle, since the CLI itself has
+      # no manifest flag for it and re-checks its own template on every
+      # run regardless of --skipVersionUpgrade (which only concerns
+      # updating an already-generated project in place, not what a fresh
+      # `update` on an empty directory produces). minifyEnabled true is
+      # already in the template; shrinkResources true is added next to it.
+      # AGP itself (8.9.1 in the current template) is intentionally left
+      # untouched here — AGP 9.0 is a major release with its own migration
+      # steps and this workflow's sandboxed generation can't fully build-
+      # test that bump before it reaches Yannick.
+      - name: Patch generated Gradle project (androidbrowserhelper bump + resource shrinking)
+        working-directory: android-twa
+        run: |
+          set -e
+          sed -i "s/androidbrowserhelper:androidbrowserhelper:[0-9][0-9.]*\(-[a-zA-Z0-9]*\)\?/androidbrowserhelper:androidbrowserhelper:2.7.3/" app/build.gradle
+          sed -i "s/\(\s*\)minifyEnabled true/\1minifyEnabled true\n\1shrinkResources true/" app/build.gradle
+          grep -n "androidbrowserhelper:androidbrowserhelper\|minifyEnabled\|shrinkResources" app/build.gradle
+
       - name: Build signed APK and AAB
         working-directory: android-twa
         env:

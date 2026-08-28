@@ -3192,7 +3192,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           nom: 'Grim Vision',
           note: 'Necromancers only',
           texte:
-            'The Necromancer causes fear in his enemies for the duration of the battle and is himself immune to it — the sole exception to the Apprentice rule, available if the Liche knows the Vision of Death spell.',
+            'The Necromancer causes fear in his enemies for the duration of the battle and is himself immune to it — the sole exception to the Apprentice rule, available if the Liche knows the Living Horror spell.',
         },
         {
           nom: 'Living Horror',

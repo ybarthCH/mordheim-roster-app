@@ -8,6 +8,10 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-08-28': [
+    'New banner on the home screen announcing the app is now officially available on the Google Play Store (can be permanently dismissed with one click).',
+    'Continued the major warband rules audit: fixes for the Restless Dead (a Necromancer could wrongly be offered the spell reserved for the Liche instead of his own) and the Lustrian Reavers (the warband mistakenly used another warband\'s special weapon instead of its own, and a Hero\'s equipment normally reserved for one specific profile stayed purchasable by any Hero).',
+  ],
   '2026-08-27': [
     'In the shop, mutations (Cult of the Possessed, Marauders of Chaos, Beastmen Raiders, Carnival of Chaos) move out of the Miscellaneous/Special category into a new dedicated Mutations tab, which only shows up for warriors who actually have access to them.',
     "Continued the major warband rules audit against official sourcebooks: fixed rules for the Marienburg Mercenaries, Middenheim Mercenaries, Reikland Mercenaries, Sisters of Sigmar, Witch Hunters, Skaven, Undead, Cult of the Possessed, Ostermark Mercenaries, Tileans, Beastmen Raiders, Marauders of Chaos, and Carnival of Chaos — including 6 missing mutations added to the Cult of the Possessed, the second-mutation price doubling finally applied for Beastmen Raiders, an exemption from the Eye of the Gods rule for a Wounded leader among the Marauders of Chaos, and numerous skill-access, equipment, and English translation fixes.",
