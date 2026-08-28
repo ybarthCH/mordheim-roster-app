@@ -7,8 +7,8 @@ export const listeBandesScreen: UiDictionary = {
   'home.importJson': { fr: 'Importer JSON', en: 'Import JSON' },
   'home.importFailed': { fr: "Échec de l'import.", en: 'Import failed.' },
   'home.playStoreAnnounceText': {
-    fr: 'Musterheim est maintenant disponible officiellement sur le Google Play Store !',
-    en: 'Musterheim is now officially available on the Google Play Store!',
+    fr: 'Musterheim quitte la bêta fermée : l\'app est maintenant disponible publiquement sur le Google Play Store !',
+    en: 'Musterheim is leaving closed beta: the app is now publicly available on the Google Play Store!',
   },
   'home.playStoreAnnounceLink': { fr: 'Voir la fiche', en: 'View listing' },
   'home.playStoreAnnounceDismiss': { fr: 'Masquer cette annonce', en: 'Dismiss this announcement' },
