@@ -33,6 +33,21 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-08-28',
+    points: [
+      {
+        categorie: 'interface',
+        texte:
+          "Nouvel encadré sur l'écran d'accueil annonçant la disponibilité officielle de l'app sur le Google Play Store (masquable définitivement d'un clic).",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Poursuite du grand audit des règles de bande : corrections sur les Morts Tourmentés (un Nécromancien pouvait se voir proposer à tort le sort réservé à la Liche au lieu du sien) et sur les Pillards de Lustrie (la bande utilisait par erreur l'arme spéciale d'une autre bande à la place de la sienne, et de l'équipement de héros normalement réservé à un profil précis restait achetable par n'importe quel héros).",
+      },
+    ],
+  },
+  {
     date: '2026-08-27',
     points: [
       {
