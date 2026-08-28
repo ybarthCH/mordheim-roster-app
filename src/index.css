@@ -1825,6 +1825,23 @@ button {
   background: var(--accent);
   opacity: 0.55;
 }
+/* Encadré d'annonce ponctuel sur l'écran d'accueil (ex : sortie officielle
+   sur le Play Store) — fermeture persistée via usePersistentDisclosure,
+   ne réapparaît plus une fois masqué. Croix .btn--ghost-danger +
+   Icon="croixPack", même croix rouge peinte que le bouton de suppression
+   de bande sur ce même écran (ListeBandesScreen), plutôt que le glyphe
+   "×" brut de .icon-btn — plus lisible en thème sombre. */
+.home-annonce__close {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  font-size: 1.3rem;
+}
+.home-annonce__texte {
+  margin: 0;
+  padding-right: 1.9rem;
+}
+
 /* Rangée d'actions principales du roster (Recruter / Armurerie / Assistant
    post-bataille), en haut de la vue — trois boutons pleins plutôt qu'un
    pilule segmentée, pour un poids visuel de vraie action et pas d'un simple
