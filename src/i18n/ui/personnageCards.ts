@@ -17,6 +17,13 @@ export const personnageCards: UiDictionary = {
   'statutCard.recruitInGroup': { fr: '+ Recruter un nouveau membre dans ce groupe', en: '+ Recruit a new member into this group' },
   'statutCard.outOfAction': { fr: 'Hors de combat :', en: 'Out of action:' },
   'statutCard.toResolveNextPostBattle': { fr: 'à résoudre au prochain post-bataille', en: 'to resolve at the next post-battle' },
+  'statutCard.trainedBadge': { fr: 'Entraîné', en: 'Trained' },
+  'statutCard.trainedDesignateButton': { fr: 'Désigner comme Entraîné', en: 'Designate as Trained' },
+  'statutCard.trainedMustBeRemoved': {
+    fr: 'Le dresseur a perdu la compétence requise ou est mort : ce statut doit être retiré.',
+    en: 'The trainer no longer has the required skill or has died: this status must be removed.',
+  },
+  'statutCard.trainedRemoveButton': { fr: 'Retirer de la bande', en: 'Remove from warband' },
   'statutCard.injuredModalTitle': { fr: 'Blessé — combien de tours ?', en: 'Injured — how many turns?' },
   'statutCard.injuredModalBody': {
     fr: "Nombre de post-batailles avant rétablissement. Le guerrier ne gagnera pas d'expérience tant qu'il est blessé (il n'a pas participé à la bataille), mais le compteur avancera automatiquement à la fin de chaque assistant post-bataille.",

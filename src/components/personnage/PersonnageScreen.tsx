@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
-import { grilleXpDuProfil, resolveProfil, nombreHeros } from '../../utils/profil';
+import { grilleXpDuProfil, resolveProfil, nombreHeros, peutDesignerEntraine, doitEtreRetireEntraine } from '../../utils/profil';
 import { getCatalogue } from '../../data/warbands';
 import type { Magie, Stats } from '../../types/catalog';
 import type { AdvanceRecord, Statut } from '../../types/roster';
@@ -327,6 +327,25 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   // Actif et Mort restent pertinents pour l'historique.
   const estGroupeSimplifie = (profil.type === 'homme_de_main' || profil.type === 'animal') && !membre.promu_heros;
 
+  // Statut spécial "Squig Entraîné" (voir Profile.designation_entrainee) :
+  // désignation/retrait manuels par le joueur, jamais automatiques — voir
+  // peutDesignerEntraine/doitEtreRetireEntraine dans utils/profil.ts.
+  const designationEntrainee = profil.designation_entrainee
+    ? {
+        estDesigne: !!membre.squig_entraine,
+        peutEtreDesigne: peutDesignerEntraine(roster, profil, membre),
+        doitEtreRetire: doitEtreRetireEntraine(roster, profil, membre),
+        onDesigner: () => majMembre({ squig_entraine: true }),
+        onRetirer: () => {
+          patchRoster(roster.id, (current) => ({
+            ...current,
+            membres: current.membres.filter((m) => m.instance_id !== membre.instance_id),
+          }));
+          navigate(`/roster/${roster.id}`);
+        },
+      }
+    : undefined;
+
   const demiXp = !!catalogue.xp_demi;
   const dues =
     francTireur?.gagne_experience === false || !peutGagnerExperience(profil)
@@ -406,6 +425,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         onMajMembre={majMembre}
         onChangerStatut={changerStatut}
         onOpenRecruterGroupe={() => setModalRecruterGroupe(true)}
+        designationEntrainee={designationEntrainee}
       />
 
       {profil.regles_speciales && profil.regles_speciales.length > 0 && (

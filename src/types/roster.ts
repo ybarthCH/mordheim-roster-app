@@ -212,6 +212,13 @@ export type Member = {
   // Tables de compétences choisies à la promotion (2 ou 3), remplace
   // l'accès du profil d'origine une fois promu.
   acces_competences_override?: SkillCategory[];
+  // Statut spécial "Squig Entraîné" (voir Profile.designation_entrainee) :
+  // désigné manuellement par le joueur une fois la condition remplie.
+  // Superposé par resolveProfil sur le profil animal de base pour lui
+  // ouvrir la grille XP/table d'avancement Homme de Main — le profil de
+  // base porte lui-même `ne_peut_jamais_devenir_heros` pour bloquer "Ce
+  // gars est doué".
+  squig_entraine?: boolean;
   // Nombre de figurines représentées par cette entrée (groupe d'hommes de
   // main identiques). Toujours 1 pour un héros — voir la promotion, qui
   // détache une figurine du groupe plutôt que de le convertir en bloc.
