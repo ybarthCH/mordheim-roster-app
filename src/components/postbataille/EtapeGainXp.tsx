@@ -35,14 +35,16 @@ function XpBarCompacte({
   const boxes = Array.from({ length: max }, (_, i) => i + 1);
   const toggle = (box: number) => {
     if (!demiXp) {
-      onChange(xpActuel === box ? box - 1 : box);
+      onChange(Math.max(xpActuel === box ? box - 1 : box, xpDepart));
       return;
     }
     const plein = box * 2;
     const moitie = box * 2 - 1;
-    if (xpActuel >= plein) onChange(plein - 2);
-    else if (xpActuel >= moitie) onChange(plein);
-    else onChange(moitie);
+    let next: number;
+    if (xpActuel >= plein) next = plein - 2;
+    else if (xpActuel >= moitie) next = plein;
+    else next = moitie;
+    onChange(Math.max(next, xpDepart));
   };
   // Bonus chef de bande : plutôt qu'ajoutée en toute fin de grille (après la
   // case 90, hors de vue de la progression réelle), la case "V" s'insère
