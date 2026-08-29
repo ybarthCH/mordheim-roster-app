@@ -10,6 +10,7 @@ import type { ChangelogEntry } from '../../data/changelog';
 const changelogEn: Record<string, string[]> = {
   '2026-08-29': [
     "Kislevites: fixed access to the Priest of Morr, Elf Mage, and Kislev Ranger Hired Swords (their own special rule says they hire like the Human Mercenary warbands). Also fixed the name of the Halfling Hired Sword, who is actually the Halfling Scout.",
+    'Kislevites: the Bear Tamer, Esaul, and Youth can once again buy armour, like the rest of the warband.',
   ],
   '2026-08-28': [
     'New banner on the home screen announcing the app is now officially available on the Google Play Store (can be permanently dismissed with one click).',
