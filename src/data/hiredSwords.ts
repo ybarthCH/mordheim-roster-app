@@ -96,7 +96,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
   },
   {
     id: 'halfling',
-    nom: 'Halfling',
+    nom: 'Éclaireur Halfling',
+    nom_original: 'Halfling Scout',
     page_source: 3,
     recrutement: { cout: 15 },
     entretien: { type: 'or', cout: 5, texte: '5 CO après chaque bataille à laquelle il participe.' },
