@@ -443,6 +443,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   ranger_kislevite: {
     nom: 'Kislev Ranger',
+    employeurs: { texte: 'Mercenaries, Kislevites, Witch Hunters, and Dwarfs.' },
     entretien: { texte: '15 gc after every battle she fights.' },
     equipement: ['Bow', 'Sword', "Hunter's cloak"],
     regles_speciales: [

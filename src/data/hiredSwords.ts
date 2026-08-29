@@ -750,8 +750,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 15, texte: '15 CO après chaque bataille à laquelle il participe.' },
     valeur: 15,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'witch_hunters', 'dwarf_treasure_hunters']),
-      texte: 'Les Mercenaires, les Répurgateurs et les Nains.',
+      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'witch_hunters', 'dwarf_treasure_hunters']),
+      texte: 'Les Mercenaires, les Kislévites, les Répurgateurs et les Nains.',
     },
     stats: { M: 4, CC: 3, CT: 4, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
     equipement: ['Arc', 'Épée', 'Manteau de chasseur'],
