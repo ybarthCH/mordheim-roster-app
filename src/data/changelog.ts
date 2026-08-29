@@ -45,6 +45,11 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Kislévites : le Dompteur d'Ours, l'Esaul et la Recrue peuvent de nouveau acheter des armures, comme le reste de la bande.",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Fixé un miss-click possible dans la grille d'XP (sur la fiche personnage comme dans l'assistant post-bataille) qui pouvait faire redescendre l'XP d'un guerrier en dessous de son XP de départ.",
+      },
     ],
   },
   {

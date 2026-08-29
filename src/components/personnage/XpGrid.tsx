@@ -16,14 +16,16 @@ export function XpGrid({ type, xp, xpDepart = 0, onChange, demiXp = false }: Pro
   const toggle = (box: number) => {
     if (!demiXp) {
       // cliquer une case fixe l'XP totale à cette valeur (ou la décoche si déjà à ce niveau)
-      onChange(xp === box ? box - 1 : box);
+      onChange(Math.max(xp === box ? box - 1 : box, xpDepart));
       return;
     }
     const plein = box * 2;
     const moitie = box * 2 - 1;
-    if (xp >= plein) onChange(plein - 2);
-    else if (xp >= moitie) onChange(plein);
-    else onChange(moitie);
+    let next: number;
+    if (xp >= plein) next = plein - 2;
+    else if (xp >= moitie) next = plein;
+    else next = moitie;
+    onChange(Math.max(next, xpDepart));
   };
 
   const max = type === 'heros' ? HERO_XP_MAX : HENCHMAN_XP_MAX;
