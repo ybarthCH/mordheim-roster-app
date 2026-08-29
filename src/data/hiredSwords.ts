@@ -19,7 +19,7 @@ import {
   toutesSauf,
   uniques,
 } from './bandeCategories';
-import { DRAMATIS_PERSONAE } from './dramatisPersonae';
+import { DRAMATIS_PERSONAE, RESTRICTIONS_ABSOLUES_DP } from './dramatisPersonae';
 
 export { SKAVENS, MORTS_VIVANTS, toutesSauf };
 
@@ -2094,6 +2094,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
 
 const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
   carnival_of_chaos: new Set(),
+  cavalcade_maudite: new Set(),
   ostlanders: new Set(['ogre']),
   lustrian_reavers: new Set(['ogre', 'tueur_trolls_nain', 'tireur_elite_tileen', 'chasseur_gros_gibier']),
   orc_mob: new Set(['gladiateur', 'ogre', 'mage']),
@@ -2137,18 +2138,35 @@ function appliquerRestrictionsDeBande(profil: FrancTireurCatalog): FrancTireurCa
   return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };
 }
 
+// Pendant DP de appliquerRestrictionsDeBande ci-dessus, appliqué aux
+// Dramatis Personae au moment où ils rejoignent FRANCS_TIREURS — sans ce
+// filtre, RecruterFrancTireurScreen (qui liste FRANCS_TIREURS dans son
+// intégralité, francs-tireurs bruts ET Dramatis Personae confondus) resterait
+// aveugle à RESTRICTIONS_ABSOLUES_DP.
+function appliquerRestrictionsDeBandeDP(profil: FrancTireurCatalog): FrancTireurCatalog {
+  const bandeIds = profil.employeurs.bande_ids.filter((id) => {
+    const restriction = RESTRICTIONS_ABSOLUES_DP[id];
+    return !restriction || restriction.has(profil.id);
+  });
+  return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };
+}
+
 // Le chapitre Dramatis Personae (dramatisPersonae.ts) rejoint le même
 // catalogue : recrutement différent (recherche post-bataille dédiée plutôt
 // que l'écran de recrutement), mais mécanique de jeu identique (resolveProfil,
 // entretien, valeur de bande...) — voir FrancTireurCatalog.est_dramatis_personae.
 // RESTRICTIONS_ABSOLUES ne s'applique volontairement qu'aux francs-tireurs
 // bruts : c'est une liste blanche par bande spécifique à ce système (ex :
-// l'Horde Orque exclut Gladiateur/Ogre/Mage), sans équivalent documenté pour
+// l'Horde Orque exclut Gladiateur/Ogre/Mage), sans équivalent partagé avec
 // les Dramatis Personae — la leur appliquer les rendrait accidentellement
-// indisponibles partout où une bande a une liste blanche.
+// indisponibles partout où une bande a une liste blanche. Une bande fermée
+// à TOUT franc-tireur/DP sauf un cas nommé (ex : la Cavalcade Maudite, qui
+// ne peut engager que le Maître Corbeau — voir RESTRICTIONS_ABSOLUES_DP
+// dans dramatisPersonae.ts pour le pendant DP) doit donc être déclarée aux
+// DEUX endroits séparément.
 export const FRANCS_TIREURS: FrancTireurCatalog[] = [
   ...PROFILS_BRUTS.map(appliquerRestrictionsDeBande),
-  ...DRAMATIS_PERSONAE,
+  ...DRAMATIS_PERSONAE.map(appliquerRestrictionsDeBandeDP),
 ];
 
 export function getFrancTireur(id: string | undefined): FrancTireurCatalog | undefined {

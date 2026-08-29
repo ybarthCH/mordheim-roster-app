@@ -1149,6 +1149,10 @@
       {
         "nom": "Garde transversale",
         "texte": "Cette arme a été conçue pour arrêter net la charge d'un sanglier enragé. Lorsque son porteur est chargé, la lance à sanglier réduit de -1 le nombre d'Attaques du premier assaillant au corps à corps (jusqu'à un minimum de 1). Les Attaques provenant d'une deuxième arme ou de toute autre source, à l'exception de la caractéristique de base, ne sont pas affectées. La lance à sanglier n'a aucun effet sur les grandes cibles telles que les ogres, à l'exception du bonus de charge. L'Aristocrate ne peut pas manier deux lances à sanglier à la fois."
+      },
+      {
+        "nom": "Difficile à manier",
+        "texte": "Un combattant armé de cette arme peut porter un bouclier ou une rondache normalement, mais pas d'arme additionnelle."
       }
     ]
   },
