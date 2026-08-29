@@ -283,6 +283,12 @@ export type EquipementRef = {
   cout: number | string;
   note?: string;
   restriction?: string;
+  // Réserve cet objet précis aux profils de type 'heros' au sein d'une liste
+  // par ailleurs partagée avec des hommes de main (voir getEquipementBande
+  // dans utils/shop.ts) — ex : le Fouet d'hédoniste de la Cour des Plaisirs
+  // Profanes ("Heroes only"). `note`/`restriction` restent purement du texte
+  // affiché ; ce champ est le seul qui bloque réellement l'achat.
+  heros_uniquement?: boolean;
 };
 
 // Une liste d'équipement nommée (ex : "repurgateurs", "flagellants"...) —

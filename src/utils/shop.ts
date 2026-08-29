@@ -1029,6 +1029,7 @@ export function getEquipementBande(
         )
           continue;
         if (!objetAutorisePourHommeDeMain(catalogue.id, profil, item.id, item.categorie)) continue;
+        if (ref.heros_uniquement && profil?.type === 'homme_de_main') continue;
         items.push({
           id: item.id,
           nom: item.nom,
