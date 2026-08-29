@@ -223,7 +223,7 @@
       },
       {
         "nom": "Frappe en premier",
-        "texte": "Un combattant équipé de cette arme frappe en premier lors du premier tour de corps à corps, même face à une charge. Le Prêtre Liche peut renoncer à toutes ses attaques et parades d'un tour pour utiliser le pouvoir contenu dans le bâton. Un seul mot du pouvoir donne vie au serpent qu'il frappe."
+        "texte": "Le Prêtre Liche peut renoncer à toutes ses attaques et parades d'un tour pour utiliser le pouvoir contenu dans le bâton : un seul mot de pouvoir donne vie au serpent, qui frappe alors toujours en premier au corps à corps."
       },
       {
         "nom": "Parade",
