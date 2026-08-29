@@ -11,6 +11,7 @@ const changelogEn: Record<string, string[]> = {
   '2026-08-29': [
     "Kislevites: fixed access to the Priest of Morr, Elf Mage, and Kislev Ranger Hired Swords (their own special rule says they hire like the Human Mercenary warbands). Also fixed the name of the Halfling Hired Sword, who is actually the Halfling Scout.",
     'Kislevites: the Bear Tamer, Esaul, and Youth can once again buy armour, like the rest of the warband.',
+    "Fixed a possible misclick in the XP grid (on the character sheet and in the post-battle wizard) that could drop a warrior's XP below their starting XP.",
   ],
   '2026-08-28': [
     'New banner on the home screen announcing the app is now officially available on the Google Play Store (can be permanently dismissed with one click).',
