@@ -958,8 +958,8 @@
     "force": "U",
     "regles_speciales": [
       {
-        "nom": "Tranchant",
-        "texte": "L'arme bénéficie d'un modificateur de sauvegarde supplémentaire de -1 (un combattant de Force 4 réduira la sauvegarde de la cible de -2)."
+        "nom": "-1 Sauvegarde ennemie",
+        "texte": "Un ennemi blessé par cette arme subit un malus de -1 à sa sauvegarde d'armure."
       }
     ]
   },
@@ -1198,7 +1198,7 @@
     "page": 13,
     "texte": "Une louche n'est pas très efficace pour tuer vos ennemis, mais si vous visez correctement, un coup sur les phalanges peut sérieusement réduire les capacités de combat, même du meilleur guerrier.",
     "portee": "C à C",
-    "force": "U+2",
+    "force": "U-1",
     "regles_speciales": [
       {
         "nom": "Casse-phalanges",
