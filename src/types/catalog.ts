@@ -289,6 +289,14 @@ export type EquipementRef = {
   // Profanes ("Heroes only"). `note`/`restriction` restent purement du texte
   // affiché ; ce champ est le seul qui bloque réellement l'achat.
   heros_uniquement?: boolean;
+  // Réserve cet objet précis à un ou plusieurs profils nommés au sein d'une
+  // liste par ailleurs partagée avec d'autres profils — même principe que
+  // EquipementSpecialRef.profils, pour un objet resté dans la liste normale
+  // plutôt que déplacé en equipement_special (ex : le Sabre de Cathay des
+  // Mangeurs d'Hommes, "Capitaine only", partagé avec les autres Ogres dans
+  // la même liste `ogres`). Absent = accessible à tous les profils ayant
+  // accès à la liste.
+  profils?: string[];
 };
 
 // Une liste d'équipement nommée (ex : "repurgateurs", "flagellants"...) —
