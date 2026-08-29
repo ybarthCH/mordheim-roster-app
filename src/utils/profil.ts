@@ -66,7 +66,7 @@ export function resolveProfil(
         acces_competences_a_verifier: false,
       }
     : membre.squig_entraine
-    ? { ...base, type: 'homme_de_main', grille_xp: 'homme_de_main', table_avancement: 'homme_de_main' }
+    ? { ...base, grille_xp: 'homme_de_main', table_avancement: 'homme_de_main', gagne_experience: true }
     : accesTribu
     ? { ...base, acces_competences: accesTribu }
     : base;

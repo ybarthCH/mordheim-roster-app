@@ -209,14 +209,14 @@ export function AchatEquipementContenu({
 
   const itemsPourEdition = useMemo(() => {
     const vus = new Set<string>();
-    return [...itemsBande, ...itemsCommun]
+    return [...itemsBande, ...(masquerShopCommun ? [] : itemsCommun)]
       .filter((i) => {
         if (vus.has(i.id)) return false;
         vus.add(i.id);
         return true;
       })
       .sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
-  }, [itemsBande, itemsCommun]);
+  }, [itemsBande, itemsCommun, masquerShopCommun]);
   const itemsPourEditionFiltres = useMemo(() => {
     const q = rechercheEdition.trim().toLowerCase();
     return q ? itemsPourEdition.filter((i) => i.nom.toLowerCase().includes(q)) : itemsPourEdition;
