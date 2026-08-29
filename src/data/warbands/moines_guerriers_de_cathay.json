@@ -64,7 +64,8 @@
       "regles_speciales": [],
       "acces_competences": ["combat", "tir", "force", "vitesse"],
       "acces_equipement": ["soldats"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_chef": true
     },
     {
       "id": "moine_dragon",
@@ -84,7 +85,8 @@
       "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
       "acces_equipement": ["moines"],
       "categories_interdites": ["armures"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_chef": true
     },
     {
       "id": "soldat",

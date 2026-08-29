@@ -1148,7 +1148,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 15, texte: '15 CO après chaque bataille à laquelle il participe.' },
     valeur: 10,
     employeurs: {
-      bande_ids: uniques([...HUMAINS, 'dwarf_treasure_hunters']),
+      bande_ids: uniques([...HUMAINS, 'dwarf_treasure_hunters', 'moines_guerriers_de_cathay']),
       texte: 'Toute bande comprenant des Humains ou des Elfes, y compris les Moines de Cathay.',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 4, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
@@ -1227,7 +1227,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 10,
     employeurs: {
-      bande_ids: uniques([...HUMAINS, 'dwarf_treasure_hunters']),
+      bande_ids: uniques([...HUMAINS, 'dwarf_treasure_hunters', 'moines_guerriers_de_cathay']),
       texte: 'Toute bande comprenant des Humains ou des Nains, y compris les Moines de Cathay.',
     },
     stats: { M: 4, CC: 2, CT: 2, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
@@ -2095,6 +2095,11 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
 const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
   carnival_of_chaos: new Set(),
   cavalcade_maudite: new Set(),
+  // "Outsiders: ... The Battle Monks warband may never hire any sort of
+  // Hired Sword or Dramatis Personae unless specifically stated with the
+  // Hired sword/Dramatis Personae." (Battle Monks of Cathay.pdf p.1) —
+  // seuls les francs-tireurs dont le texte nomme explicitement Cathay.
+  moines_guerriers_de_cathay: new Set(['pyromane', 'ninja', 'forgeron', 'marchand_cathayen']),
   ostlanders: new Set(['ogre']),
   lustrian_reavers: new Set(['ogre', 'tueur_trolls_nain', 'tireur_elite_tileen', 'chasseur_gros_gibier']),
   orc_mob: new Set(['gladiateur', 'ogre', 'mage']),

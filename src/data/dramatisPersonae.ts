@@ -656,6 +656,10 @@ const IDS_COEQUIPIERS = new Set(
 // n'est pas explicitement exclue.
 export const RESTRICTIONS_ABSOLUES_DP: Record<string, Set<string>> = {
   cavalcade_maudite: new Set(['simius_gantt']),
+  // Règle "Étrangers"/Outsiders (Battle Monks of Cathay.pdf p.1, voir le
+  // pendant francs-tireurs dans hiredSwords.ts RESTRICTIONS_ABSOLUES) :
+  // aucun Dramatis Personae ne nomme explicitement Cathay dans son texte.
+  moines_guerriers_de_cathay: new Set(),
 };
 
 export function dramatisPersonaeDisponibles(roster: RosterInstance): FrancTireurCatalog[] {
