@@ -90,6 +90,18 @@ export const MERCENAIRES = [
   'ostlanders',
   'artilleurs_de_nuln',
 ];
+// Règle spéciale kislévite ("Une bande kislévite peut engager les mêmes
+// Francs-tireurs que les bandes de mercenaires humains décrites dans le
+// livre de règles de Mordheim.", Kislévites [GW].pdf p.1) : à utiliser à la
+// place de MERCENAIRES seul pour tout franc-tireur dont le texte
+// d'employeurs désigne génériquement "les bandes de Mercenaires humains"
+// (voir hiredSwords.ts, ex. Prêtre de Morr, Mage elfe) — pas pour ceux dont
+// la liste d'employeurs nomme des bandes précises en plus des Mercenaires
+// (Barde, Ranger Kislévite, Chasseur de Trésor Nain, Pyromane...), où
+// l'exclusion des Kislévites pourrait être volontaire et documentée dans
+// leur propre fiche du Hired Sword Compendium — non vérifié à ce jour,
+// laissés sur MERCENAIRES tant que cette source n'a pas été relue.
+export const MERCENAIRES_ET_KISLEVITES = [...MERCENAIRES, 'kislevites'];
 export const HUMAINS = [
   ...MERCENAIRES,
   'witch_hunters',

@@ -33,6 +33,16 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-08-29',
+    points: [
+      {
+        categorie: 'autre',
+        texte:
+          "Kislévites : corrigé l'accès aux francs-tireurs Prêtre de Morr, Mage elfe et Ranger Kislévite (leur propre règle spéciale dit pourtant qu'ils recrutent comme les bandes de Mercenaires humains). Corrigé aussi le nom du franc-tireur Halfling, qui s'appelle en réalité Éclaireur Halfling.",
+      },
+    ],
+  },
+  {
     date: '2026-08-28',
     points: [
       {

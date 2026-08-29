@@ -8,6 +8,9 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-08-29': [
+    "Kislevites: fixed access to the Priest of Morr, Elf Mage, and Kislev Ranger Hired Swords (their own special rule says they hire like the Human Mercenary warbands). Also fixed the name of the Halfling Hired Sword, who is actually the Halfling Scout.",
+  ],
   '2026-08-28': [
     'New banner on the home screen announcing the app is now officially available on the Google Play Store (can be permanently dismissed with one click).',
     'Continued the major warband rules audit: fixes for the Restless Dead (a Necromancer could wrongly be offered the spell reserved for the Liche instead of his own) and the Lustrian Reavers (the warband mistakenly used another warband\'s special weapon instead of its own, and a Hero\'s equipment normally reserved for one specific profile stayed purchasable by any Hero).',
