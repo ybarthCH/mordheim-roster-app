@@ -40,6 +40,11 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Kislévites : corrigé l'accès aux francs-tireurs Prêtre de Morr, Mage elfe et Ranger Kislévite (leur propre règle spéciale dit pourtant qu'ils recrutent comme les bandes de Mercenaires humains). Corrigé aussi le nom du franc-tireur Halfling, qui s'appelle en réalité Éclaireur Halfling.",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Kislévites : le Dompteur d'Ours, l'Esaul et la Recrue peuvent de nouveau acheter des armures, comme le reste de la bande.",
+      },
     ],
   },
   {
