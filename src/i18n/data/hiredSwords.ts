@@ -1059,6 +1059,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   pretre_de_morr: {
     nom: 'Priest of Morr',
     entretien: { texte: 'Priests of Morr have no use for gold: no upkeep is due after any battle.' },
+    employeurs: { texte: 'Human Mercenary warbands (Reikland, Marienburg, Middenheim, Averland, Ostland, Nuln Gunnery School), as well as the Kislevites.' },
     equipement: ['Dagger', 'Scythe (two-handed weapon, user Strength +1, difficult to use)'],
     regles_speciales: [
       { nom: 'Loner', texte: 'Priests of Morr do not suffer from the All Alone rules.' },
@@ -1232,6 +1233,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   mage_elfe: {
     nom: 'Elf Mage',
+    employeurs: { texte: 'Human Mercenary warbands, as well as the Kislevites.' },
     equipement: ['Staff', 'Elven cloak'],
     regles_speciales: [
       { nom: 'Wizard', texte: 'Starts with three spells generated at random from the Spells of the Djed’hi list below.' },
