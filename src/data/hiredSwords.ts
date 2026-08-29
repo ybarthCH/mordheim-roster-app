@@ -348,7 +348,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     recrutement: { cout: 40 },
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 22,
-    employeurs: { bande_ids: BIEN, texte: 'Les bandes alignées du côté du Bien.' },
+    employeurs: { bande_ids: BIEN, texte: 'Les bandes alignées du côté du Bien, ainsi que les Gladiateurs.' },
     stats: { M: 4, CC: 3, CT: 4, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 8 },
     equipement: ['Arbalète', 'Marteau de cavalerie', 'Dague', 'Armure lourde', 'Trois torches', 'Cheval'],
     acces_competences: ['combat', 'force', 'tir'],

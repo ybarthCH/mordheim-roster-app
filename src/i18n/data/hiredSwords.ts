@@ -191,6 +191,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   patrouilleur: {
     nom: 'Roadwarden',
     entretien: { texte: '20 gc after every battle he fights.' },
+    employeurs: { texte: 'Warbands aligned with Good, as well as the Pit Fighters.' },
     equipement: ['Crossbow', 'Horseman’s hammer', 'Dagger', 'Heavy armour', 'Three torches', 'Horse'],
     regles_speciales: [
       { nom: 'Lethal Marksman', texte: 'Has both the Eagle Eyes and Trick Shooter skills.' },

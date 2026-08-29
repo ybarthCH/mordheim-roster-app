@@ -14,7 +14,7 @@ Audit complet (`mordheim-rules-auditor`) fait contre une source anglaise obtenue
 
 `gardiens_de_chapelle_bretonniens` : vérification partielle seulement (un seul point précis confirmé — noms « Questing Knight »/« Knight Errant » — pas un audit exhaustif de toutes ses règles spéciales/compétences comme les 16 bandes ci-dessus). À auditer complètement si on veut le même niveau de confiance.
 
-`gladiateurs` : retirée de ce niveau — marquée « vérifiée » ici mais aucun commit de correction ne le corrobore dans l'historique git (contrairement aux autres bandes ci-dessus, qui ont toutes un commit de fix identifiable), signe qu'elle n'a probablement jamais été réellement auditée malgré cette entrée. À ajouter au périmètre du grand audit des règles (pas seulement traduction) la prochaine fois qu'on le reprend.
+`gladiateurs` : ré-auditée intégralement (grand audit des règles, pas seulement traduction) contre `Gladiateurs [GLM].pdf`, commit de correction `24e6cdf` — francs-tireurs (accès élargi à MERCENAIRES avec exclusion explicite de l'Éclaireur elfe), compétences spéciales exclusives du Tueur de Trolls (déplacées vers le profil), restrictions de profil sur la liste d'équipement Ogres/Tueurs de Trolls. Reclassée niveau 3 à part entière.
 
 ## Niveau 1 — source anglaise cataloguée, jamais recroisée avec le texte actuel de l'app
 
