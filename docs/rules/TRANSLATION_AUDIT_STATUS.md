@@ -8,11 +8,13 @@ Voir `SOURCE_INDEX.md` pour le détail des documents sources (nom exact, SHA-256
 
 Audit complet (`mordheim-rules-auditor`) fait contre une source anglaise obtenue et cataloguée, corrections appliquées et poussées sur `main` :
 
-`elfes_noirs`, `expedition_runique`, `orques_noirs`, `amazones_mordheim`, `amazones_lustrie`, `bandits_du_hochland`, `escorteurs_imperiaux`, `gladiateurs`, `hommes_lezards`, `chevaliers_bretonniens`, `tileens`, `hors_la_loi_de_stirwood`, `skavens_pestilens`, `norses`, `pirates`, `guerriers_fantomes`, `maraudeurs_du_chaos`.
+`elfes_noirs`, `expedition_runique`, `orques_noirs`, `amazones_mordheim`, `amazones_lustrie`, `bandits_du_hochland`, `escorteurs_imperiaux`, `hommes_lezards`, `chevaliers_bretonniens`, `tileens`, `hors_la_loi_de_stirwood`, `skavens_pestilens`, `norses`, `pirates`, `guerriers_fantomes`, `maraudeurs_du_chaos`.
 
 `maraudeurs_du_chaos` : l'écart de longueur FR/EN qui avait motivé la priorisation de cette bande s'est avéré normal — le PDF EN de 8 pages (Town Cryer #10) renvoie explicitement au livre de règles Mordheim (Rituels du Chaos de base) et à Empire in Flames (Bénédictions de Nurgle, Bestiaire) au lieu de les détailler, alors que le JSON FR les intègre. Seuls 9 noms propres divergeaient réellement (compétences, sorts, Marques — ex. « Chosen by Chaos » → « Chosen of Chaos », « Mark of Onogal the Raven » → « ... the Crow »), tous corrigés. Aucune divergence de règle ou de valeur numérique trouvée.
 
 `gardiens_de_chapelle_bretonniens` : vérification partielle seulement (un seul point précis confirmé — noms « Questing Knight »/« Knight Errant » — pas un audit exhaustif de toutes ses règles spéciales/compétences comme les 16 bandes ci-dessus). À auditer complètement si on veut le même niveau de confiance.
+
+`gladiateurs` : retirée de ce niveau — marquée « vérifiée » ici mais aucun commit de correction ne le corrobore dans l'historique git (contrairement aux autres bandes ci-dessus, qui ont toutes un commit de fix identifiable), signe qu'elle n'a probablement jamais été réellement auditée malgré cette entrée. À ajouter au périmètre du grand audit des règles (pas seulement traduction) la prochaine fois qu'on le reprend.
 
 ## Niveau 1 — source anglaise cataloguée, jamais recroisée avec le texte actuel de l'app
 
