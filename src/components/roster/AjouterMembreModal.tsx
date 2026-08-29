@@ -482,6 +482,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             onObjetsSurchargesChange={(surcharges) => onUpdateRoster({ ...roster, objets_surcharges: surcharges })}
             resterOuvertApresAchat
             masquerBoutonFermer
+            masquerShopCommun
             onClose={annulerRecrutement}
             onAchat={(item, coutPaye) => setPanier((prev) => [...prev, { item, coutPaye }])}
           />

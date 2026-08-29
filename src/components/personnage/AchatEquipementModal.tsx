@@ -92,6 +92,16 @@ type Props = {
   // propos dans ce contexte fusionné, qui expose son propre bouton
   // "Annuler" en pied de fenêtre à la place.
   masquerBoutonFermer?: boolean;
+  // Masque l'onglet "shop commun" et empêche d'y basculer. Utilisé au
+  // recrutement (voir AjouterMembreModal) : le livre de règles (Mordheim
+  // Living Rulebook p.46-47, Part 3 - Campaigns & Optional Rules p.102)
+  // limite l'équipement disponible à la création d'une bande comme au
+  // recrutement d'un nouveau membre en cours de campagne à la seule liste
+  // propre à la bande — le shop commun/"Price chart" générique ne s'applique
+  // qu'aux guerriers déjà recrutés qui achètent entre deux batailles
+  // (fiche personnage, armurerie, exploration), jamais au moment du
+  // recrutement lui-même.
+  masquerShopCommun?: boolean;
   onClose: () => void;
   onAchat: (item: ShopItem, coutPaye: number) => void;
 };
@@ -141,12 +151,13 @@ export function AchatEquipementContenu({
   categorieInitiale,
   resterOuvertApresAchat = false,
   masquerBoutonFermer = false,
+  masquerShopCommun = false,
   onClose,
   onAchat,
 }: Props) {
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
-  const [source, setSource] = useState<'bande' | 'commun'>(categorieInitiale ? 'commun' : 'bande');
+  const [source, setSource] = useState<'bande' | 'commun'>(categorieInitiale && !masquerShopCommun ? 'commun' : 'bande');
   const [categorieFiltre, setCategorieFiltre] = useState<string | null>(categorieInitiale ?? null);
   const [recherche, setRecherche] = useState('');
   const [itemId, setItemId] = useState('');
@@ -235,6 +246,7 @@ export function AchatEquipementContenu({
   );
 
   const changerSource = (s: 'bande' | 'commun') => {
+    if (s === 'commun' && masquerShopCommun) return;
     setSource(s);
     setCategorieFiltre(null);
     setItemId('');
@@ -652,6 +664,12 @@ export function AchatEquipementContenu({
                   fenêtre (Annuler/Terminer, juste au-dessus) — l'onglet
                   inactif passe alors en gris (--secondaire) plutôt que
                   l'actif en rouge vif, pour rester lisible sans rivaliser. */}
+              {masquerShopCommun && (
+                <p className="text-sm text-muted" style={{ marginBottom: '0.5rem' }}>
+                  {t('achatEquipement.commonShopHiddenAtRecruitment')}
+                </p>
+              )}
+              {!masquerShopCommun && (
               <div className="flex gap-sm" style={{ marginBottom: '0.5rem' }}>
                 <button
                   className={`btn--pack-pill-sm ${
@@ -682,6 +700,7 @@ export function AchatEquipementContenu({
                   {t('achatEquipement.commonShop')} ({itemsCommun.length})
                 </button>
               </div>
+              )}
 
               {categoriesDisponibles.length > 1 && (
                 <div className="tabs" style={{ marginBottom: '0.5rem' }}>

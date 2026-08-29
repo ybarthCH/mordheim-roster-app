@@ -58,6 +58,10 @@ export const achatEquipementModal: UiDictionary = {
   },
   'achatEquipement.bandEquipment': { fr: 'Équipement de la bande', en: "Warband's equipment" },
   'achatEquipement.commonShop': { fr: 'Shop commun', en: 'Common shop' },
+  'achatEquipement.commonShopHiddenAtRecruitment': {
+    fr: "Au recrutement, seul l'équipement propre à la bande est disponible — le shop commun ne s'ouvre qu'entre deux batailles.",
+    en: "At recruitment, only the warband's own equipment is available — the common shop only opens between battles.",
+  },
   'achatEquipement.all': { fr: 'Toutes', en: 'All' },
   'achatEquipement.editThisItemTitle': { fr: 'Modifier cet objet pour cette bande', en: 'Modify this item for this warband' },
   'achatEquipement.permanentEffect': { fr: 'Effet permanent', en: 'Permanent effect' },
