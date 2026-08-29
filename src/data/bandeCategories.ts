@@ -98,6 +98,14 @@ export const MERCENAIRES = [
   'averlanders',
   'ostlanders',
   'artilleurs_de_nuln',
+  // Gladiateurs ("Les Gladiateurs peuvent recruter tous les Francs-tireurs
+  // disponibles, à l'exception de l'Éclaireur Elfe...", Gladiateurs [GLM].pdf
+  // p.2) : ajoutée ici pour que tout franc-tireur accessible aux Mercenaires
+  // (directement ou via HUMAINS/BIEN/MERCENAIRES_ET_KISLEVITES, qui
+  // partent tous de cette constante) le devienne aussi pour les Gladiateurs
+  // — sauf l'Éclaireur Elfe, explicitement exclu de son propre bande_ids
+  // (voir hiredSwords.ts).
+  'gladiateurs',
 ];
 // Règle spéciale kislévite ("Une bande kislévite peut engager les mêmes
 // Francs-tireurs que les bandes de mercenaires humains décrites dans le
@@ -117,7 +125,6 @@ export const HUMAINS = [
   'sisters_of_sigmar',
   'kislevites',
   'norses',
-  'gladiateurs',
   'gardiens_de_chapelle_bretonniens',
   'lustrian_reavers',
   'amazones_lustrie',

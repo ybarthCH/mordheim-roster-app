@@ -198,7 +198,15 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       texte: '20 CO, ou 40 CO si la bande comprend des nains.',
     },
     valeur: 12,
-    employeurs: { bande_ids: brutesDuBien, texte: 'Les bandes de Mercenaires et de Répurgateurs.' },
+    employeurs: {
+      // Exclusion explicite : "à l'exception de l'Éclaireur Elfe pour qui
+      // travailler avec des individus aussi sales et brutaux est
+      // inconcevable !" (Gladiateurs [GLM].pdf p.2, règle Francs-tireurs) —
+      // seul cas où les Gladiateurs (ajoutés à MERCENAIRES, voir
+      // bandeCategories.ts) doivent rester exclus malgré brutesDuBien.
+      bande_ids: brutesDuBien.filter((id) => id !== 'gladiateurs'),
+      texte: 'Les bandes de Mercenaires et de Répurgateurs.',
+    },
     stats: { M: 5, CC: 4, CT: 5, F: 3, E: 3, PV: 1, I: 6, A: 1, Cd: 8 },
     equipement: ['Arc elfique', 'Épée', 'Cape elfique'],
     acces_competences: ['tir', 'vitesse', 'special'],
