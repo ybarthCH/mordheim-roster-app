@@ -1364,6 +1364,29 @@ export function clonerEquipementPourNouvellesFigurines(
   return clones;
 }
 
+// Équipement restant pour un groupe d'hommes de main ayant perdu des
+// figurines (résolution post-bataille) — l'inverse de
+// clonerEquipementPourNouvellesFigurines ci-dessus : chaque figurine tombée
+// emporte sa part de chaque objet distinct avec elle plutôt que de la
+// laisser aux survivants (ex : groupe de 5 avec 5 Dagues, 2 tombent = 3
+// Dagues restantes, pas 5). Sans ce partage, le reste du groupe se
+// retrouverait avec plus d'exemplaires de chaque objet que de figurines
+// pour les porter.
+export function retirerEquipementFigurinesTombees(
+  inventaireExistant: InventoryEntry[],
+  tailleGroupeActuelle: number,
+  survivants: number
+): InventoryEntry[] {
+  const diviseur = Math.max(1, tailleGroupeActuelle);
+  const restant: InventoryEntry[] = [];
+  for (const { entree, quantite } of resumeInventaireParItem(inventaireExistant)) {
+    const quantiteParFigurine = Math.floor(quantite / diviseur);
+    const memeItem = inventaireExistant.filter((e) => e.item_id === entree.item_id);
+    restant.push(...memeItem.slice(0, quantiteParFigurine * survivants));
+  }
+  return restant;
+}
+
 // Coût total pour équiper `quantiteNouvelle` nouvelles figurines à
 // l'identique de l'équipement déjà possédé par le groupe (voir
 // clonerEquipementPourNouvellesFigurines ci-dessus pour le calcul par

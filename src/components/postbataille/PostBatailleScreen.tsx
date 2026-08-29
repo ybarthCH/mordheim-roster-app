@@ -13,7 +13,7 @@ import type { BattleRecord, JournalPostBataille, Member, RosterInstance, Serious
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 import { estRetablissementIsole } from '../../data/blessuresGraves';
 import { appliquerDeltaStats, nomCourtBlessureAffiche } from '../../utils/blessures';
-import { creerEntreeInventaire, creerEntreesInventaire } from '../../utils/shop';
+import { creerEntreeInventaire, creerEntreesInventaire, formatEquipementAffiche, retirerEquipementFigurinesTombees } from '../../utils/shop';
 import { estLeaderActuel, resolveLeader, succederApresMorts } from '../../utils/leader';
 import type { ShopItem } from '../../utils/shop';
 import { AvanceeModal } from '../personnage/AvanceeModal';
@@ -789,13 +789,22 @@ export function PostBatailleScreen() {
         const survivants = m.taille_groupe - morts;
         if (survivants <= 0) {
           membre = { ...membre, statut: 'mort', date_mort: date, taille_groupe: 0, hors_combat: 0 };
-        } else if (estAnimal) {
-          membre = { ...membre, statut: 'actif', taille_groupe: survivants, hors_combat: 0 };
         } else {
-          const gagneXp = peutGagnerExperience(profil);
-          let xp = gagneXp ? m.xp + 1 : m.xp;
-          if (estLeaderVictoire && gagneXp) xp += 1;
-          membre = { ...membre, statut: 'actif', taille_groupe: survivants, hors_combat: 0, xp };
+          // Les figurines tombées emportent leur part de l'équipement du
+          // groupe avec elles : sans ce recalage, les survivants se
+          // retrouveraient avec plus d'exemplaires de chaque objet que de
+          // figurines pour les porter (voir retirerEquipementFigurinesTombees).
+          const inventaire =
+            morts > 0 ? retirerEquipementFigurinesTombees(m.inventaire, m.taille_groupe, survivants) : m.inventaire;
+          const equipement = morts > 0 ? formatEquipementAffiche(inventaire) : m.equipement;
+          if (estAnimal) {
+            membre = { ...membre, statut: 'actif', taille_groupe: survivants, hors_combat: 0, inventaire, equipement };
+          } else {
+            const gagneXp = peutGagnerExperience(profil);
+            let xp = gagneXp ? m.xp + 1 : m.xp;
+            if (estLeaderVictoire && gagneXp) xp += 1;
+            membre = { ...membre, statut: 'actif', taille_groupe: survivants, hors_combat: 0, xp, inventaire, equipement };
+          }
         }
         return membre;
       }
