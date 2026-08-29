@@ -111,7 +111,8 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["esclaves"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_heros": true
     }
   ],
   "competences_speciales": [
