@@ -1372,6 +1372,13 @@ export function clonerEquipementPourNouvellesFigurines(
 // Dagues restantes, pas 5). Sans ce partage, le reste du groupe se
 // retrouverait avec plus d'exemplaires de chaque objet que de figurines
 // pour les porter.
+// Le ratio se calcule sur `quantite * survivants` avant de diviser (plutôt
+// que floor(quantite / tailleGroupeActuelle) * survivants) : un groupe déjà
+// en sous-effectif d'équipement avant la mort (ex: un exemplaire revendu
+// individuellement depuis la fiche personnage, voir inventaireGroupeMismatch)
+// aurait sinon vu tout l'objet disparaître d'un coup dès qu'une seule
+// figurine meurt (floor(4/5) = 0 exemplaire par figurine), au lieu d'en
+// garder une part proportionnelle pour les survivants.
 export function retirerEquipementFigurinesTombees(
   inventaireExistant: InventoryEntry[],
   tailleGroupeActuelle: number,
@@ -1380,9 +1387,9 @@ export function retirerEquipementFigurinesTombees(
   const diviseur = Math.max(1, tailleGroupeActuelle);
   const restant: InventoryEntry[] = [];
   for (const { entree, quantite } of resumeInventaireParItem(inventaireExistant)) {
-    const quantiteParFigurine = Math.floor(quantite / diviseur);
+    const quantiteRestante = Math.floor((quantite * survivants) / diviseur);
     const memeItem = inventaireExistant.filter((e) => e.item_id === entree.item_id);
-    restant.push(...memeItem.slice(0, quantiteParFigurine * survivants));
+    restant.push(...memeItem.slice(0, quantiteRestante));
   }
   return restant;
 }
