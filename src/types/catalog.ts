@@ -214,6 +214,13 @@ export type Profile = {
   // Chef de bande selon les règles (un seul par catalogue) : badge visuel +
   // bonus de +1 XP automatique en cas de victoire.
   est_leader?: boolean;
+  // Engagé/mercenaire payé par le chef de bande : ne peut jamais devenir
+  // chef, ni par succession automatique à la mort du chef actuel (voir
+  // succederApresMorts dans utils/leader.ts) ni par choix manuel du joueur
+  // en cas d'égalité de Commandement (voir la modale de choix de chef dans
+  // RosterScreen.tsx). Ex : le Chevalier d'Avant-garde et le Magicien des
+  // Caravanes marchandes ("Engagé").
+  ne_peut_jamais_devenir_chef?: boolean;
   // Exemption à la règle générale "le profil du chef mort est banni du
   // recrutement à jamais" : réservée aux profils qui restent recrutables
   // indéfiniment malgré leur statut de chef (ex : le Vampire des

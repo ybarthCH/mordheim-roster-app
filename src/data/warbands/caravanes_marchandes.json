@@ -139,7 +139,8 @@
       ],
       "acces_competences": ["combat", "force", "vitesse"],
       "acces_equipement": ["heros", "cathayen"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_chef": true
     },
     {
       "id": "magicien",
@@ -160,7 +161,8 @@
       ],
       "acces_competences": ["academique", "vitesse"],
       "acces_equipement": ["heros"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_chef": true
     },
     {
       "id": "epee_a_louer",
@@ -214,7 +216,8 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["cathayen"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_heros": true
     }
   ],
   "competences_speciales": [],

@@ -165,6 +165,11 @@ export function RosterScreen({
   const heros = roster.membres.filter(
     (m) => m.statut !== 'mort' && !estFrancTireur(m) && resolveProfil(roster, m)?.type === 'heros'
   );
+  // Sous-ensemble des héros éligibles au poste de chef (voir Profile.
+  // ne_peut_jamais_devenir_chef, ex : le Chevalier d'Avant-garde et le
+  // Magicien des Caravanes marchandes, "Engagés" payés par le chef) —
+  // utilisé uniquement par la modale de choix manuel de chef ci-dessous.
+  const herosEligiblesChef = heros.filter((m) => !resolveProfil(roster, m)?.ne_peut_jamais_devenir_chef);
   const hommesDeMain = roster.membres.filter(
     (m) => m.statut !== 'mort' && !estFrancTireur(m) && resolveProfil(roster, m)?.type !== 'heros'
   );
@@ -658,11 +663,11 @@ export function RosterScreen({
           <p className="text-muted text-sm" style={{ marginTop: '-0.4rem' }}>
             {t('roster.chooseLeaderBody')}
           </p>
-          {heros.length === 0 ? (
+          {herosEligiblesChef.length === 0 ? (
             <p className="text-muted">{t('roster.noLivingHero')}</p>
           ) : (
             <div className="flex flex-col gap-sm">
-              {heros
+              {herosEligiblesChef
                 .slice()
                 .sort((a, b) => b.stats_actuels.Cd - a.stats_actuels.Cd)
                 .map((m) => (

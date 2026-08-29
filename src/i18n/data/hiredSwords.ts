@@ -606,6 +606,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   pyromane: {
     nom: 'Pyromaniac',
     entretien: { texte: '10 gc after every battle he fights.' },
+    employeurs: { texte: 'Merchant Caravans, Battle Monks of Cathay, and Mercenaries.' },
     equipement: ['Rockets', 'Firecrackers (unlimited)'],
     regles_speciales: [
       {

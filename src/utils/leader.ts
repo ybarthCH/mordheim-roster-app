@@ -134,13 +134,11 @@ export function succederApresMorts(
       changement = true;
     }
 
-    const survivants = membresApres.filter(
-      (m) =>
-        m.instance_id !== leaderAvant.instance_id &&
-        m.statut !== 'mort' &&
-        !estFrancTireur(m) &&
-        resolveProfil(rosterAvant, m)?.type === 'heros'
-    );
+    const survivants = membresApres.filter((m) => {
+      if (m.instance_id === leaderAvant.instance_id || m.statut === 'mort' || estFrancTireur(m)) return false;
+      const p = resolveProfil(rosterAvant, m);
+      return p?.type === 'heros' && !p.ne_peut_jamais_devenir_chef;
+    });
     if (survivants.length === 0) {
       leaderInstanceId = undefined;
     } else {
