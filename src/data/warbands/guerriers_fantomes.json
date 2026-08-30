@@ -128,14 +128,13 @@
         { "item_id": "banniere_de_nagarythe", "cout": "75+3D6", "note": "Héros uniquement" },
         { "item_id": "cor_de_guerre_de_nagarythe", "cout": "25+1D6", "note": "Héros uniquement" },
         { "item_id": "cape_elfique", "cout": "75+1D6x10", "note": "Héros uniquement" },
-        { "item_id": "vin_elfique", "cout": "30+3D6", "note": "Héros uniquement" },
-        { "item_id": "pierres_runiques_elfiques", "cout": "50+2D6", "note": "Héros uniquement" }
+        { "item_id": "vin_elfique", "cout": "30+3D6", "note": "Héros uniquement" }
       ]
     }
   },
   "equipement_special": [
     { "item_id": "vin_elfique", "cout": "30+3D6", "disponibilite": "Rare 10, Guerriers Fantômes uniquement, Héros uniquement, une seule utilisation", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] },
-    { "item_id": "pierres_runiques_elfiques", "cout": "50+2D6", "disponibilite": "Rare 11, Guerriers Fantômes uniquement, Héros uniquement", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] },
+    { "item_id": "pierres_runiques_elfiques", "cout": "50+2D6", "disponibilite": "Rare 11, Guerriers Fantômes uniquement, Tisseurs d'Ombres uniquement", "profils": ["tisseur_dombres"] },
     { "item_id": "banniere_de_nagarythe", "cout": "75+3D6", "disponibilite": "Rare 9, Guerriers Fantômes uniquement, Héros uniquement, à la création de la bande seulement", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] },
     { "item_id": "cor_de_guerre_de_nagarythe", "cout": "25+1D6", "disponibilite": "Rare 6, Guerriers Fantômes uniquement, Héros uniquement", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] },
     { "item_id": "cape_elfique", "cout": "75+1D6x10", "disponibilite": "Rare 12, Guerriers Fantômes uniquement" },

@@ -403,7 +403,13 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 20,
     employeurs: {
-      bande_ids: toutesSauf('sisters_of_sigmar', 'witch_hunters'),
+      // "May be Hired: Any warband, except Sisters of Sigmar, Witch
+      // Hunters and any good-aligned Elves may hire a Highwayman."
+      // (Hired Sword Compendium part1.pdf p.11) — le texte affiché
+      // ci-dessous excluait déjà "les elfes du Bien" (seule bande d'elfes
+      // non-maléfique du catalogue : Guerriers Fantômes), mais bande_ids
+      // ne l'excluait pas réellement.
+      bande_ids: toutesSauf('sisters_of_sigmar', 'witch_hunters', 'guerriers_fantomes'),
       texte: 'Toute bande sauf les Sœurs de Sigmar, les Répurgateurs et les elfes du Bien.',
     },
     stats: { M: 4, CC: 3, CT: 4, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 7 },
