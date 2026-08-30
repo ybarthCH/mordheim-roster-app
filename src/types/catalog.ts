@@ -503,4 +503,13 @@ export type WarbandCatalog = {
   // lui-même le nombre de dés — voir utils/exploration.ts et
   // EtapeExploration.tsx.
   des_exploration_manuels?: boolean;
+  // Bonus fixe et inconditionnel de dé(s) d'Exploration pour toute la
+  // bande, ajouté à chaque phase d'Exploration quel que soit le résultat
+  // de la partie (ex : Gardiens des Tombes — "Terrain natal" : "Une bande
+  // de Gardiens des Tombes lance toujours un dé supplémentaire lors de la
+  // phase d'Exploration."). Distinct de `des_exploration_manuels`, réservé
+  // aux bandes dont le calcul générique ne peut pas du tout s'appliquer —
+  // ici le calcul reste valide, il lui manque juste ce bonus fixe. Voir
+  // utils/exploration.ts (resumeExploration).
+  bonus_des_exploration_fixe?: number;
 };
