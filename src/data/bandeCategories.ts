@@ -123,6 +123,15 @@ export const MERCENAIRES = [
   // hoc redondant du Pyromane dans hiredSwords.ts (seul cas déjà correct
   // avant ce commit, désormais couvert par le spread).
   'caravanes_marchandes',
+  // Ostermarkers ("Ostermarkers follow the rules for Mercenary warbands as
+  // given on page 48 of the Mordheim rulebook.", 19TheLeagueOfOstermark.pdf
+  // p.3/Mercenaires Ostermarkers [GLM].pdf p.1) : bande de Mercenaires
+  // humains standard sans exception nommée — manquait de cette constante
+  // depuis sa création (`ostermarkers` n'était présente que dans
+  // TOUTES_LES_BANDES), ce qui bloquait à tort tout franc-tireur/Dramatis
+  // Personae gaté par MERCENAIRES/HUMAINS/BIEN (ex. Luthor la Lame Pourpre,
+  // ouvert à "Toutes les bandes humaines sauf les Middenheimers").
+  'ostermarkers',
 ];
 // Règle spéciale kislévite ("Une bande kislévite peut engager les mêmes
 // Francs-tireurs que les bandes de mercenaires humains décrites dans le

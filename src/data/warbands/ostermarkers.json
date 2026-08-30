@@ -30,7 +30,7 @@
         { "nom": "Chef", "texte": "Tout membre de la bande à moins de 6ps du Capitaine Mercenaire peut utiliser le Commandement de ce dernier pour ses tests." }
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
-      "acces_equipement": ["mercenaires", "montures"],
+      "acces_equipement": ["mercenaires"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -46,9 +46,9 @@
       "xp_depart": 8,
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
-      "acces_competences": ["combat", "tir", "force", "vitesse"],
-      "acces_equipement": ["mercenaires", "montures"],
-      "acces_competences_a_verifier": true
+      "acces_competences": ["combat", "tir", "force"],
+      "acces_equipement": ["mercenaires"],
+      "acces_competences_a_verifier": false
     },
     {
       "id": "recrue",
@@ -62,9 +62,9 @@
       "xp_depart": 0,
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
       "regles_speciales": [],
-      "acces_competences": ["combat", "tir", "force", "vitesse"],
-      "acces_equipement": ["mercenaires", "montures"],
-      "acces_competences_a_verifier": true
+      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["mercenaires"],
+      "acces_competences_a_verifier": false
     },
     {
       "id": "guerrier",
@@ -187,13 +187,6 @@
         { "item_id": "armure_legere", "cout": 20 },
         { "item_id": "casque", "cout": 10 },
         { "item_id": "bouclier", "cout": 5 }
-      ]
-    },
-    "montures": {
-      "divers": [
-        { "item_id": "mule_market", "cout": 30, "note": "voir équipement spécial ; Héros uniquement" },
-        { "item_id": "cheval", "cout": 40, "note": "voir équipement spécial ; Héros uniquement" },
-        { "item_id": "destriers", "cout": 80, "note": "voir équipement spécial ; Héros uniquement" }
       ]
     }
   },
