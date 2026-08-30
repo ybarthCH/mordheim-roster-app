@@ -189,9 +189,6 @@
       ]
     }
   },
-  "equipement_special": [
-    { "item_id": "hache_naine", "cout": 15, "disponibilite": "Rare 8, Nains uniquement" }
-  ],
   "magie": {
     "nom": "Runes Naines",
     "type": "runes",
