@@ -168,6 +168,7 @@
         { "nom": "Sans avenir", "texte": "Les Souffre-douleurs ne peuvent pas devenir Héros par la voie normale : si le résultat « Ce gars est doué » est tiré sur la table d'avancement pour un Souffre-douleur, relancez-le ; si ce second jet donne de nouveau « Ce gars est doué », la figurine subit immédiatement un jet sur la table des Blessures Graves, comme s'il s'agissait d'un Héros." }
       ],
       "acces_competences": [],
+      "ne_peut_jamais_devenir_heros": true,
       "acces_equipement": ["souffre_douleurs"],
       "acces_competences_a_verifier": false
     },
