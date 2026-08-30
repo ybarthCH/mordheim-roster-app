@@ -906,6 +906,24 @@ export function objetAutorisePourHommeDeMain(
   return EXCEPTIONS_DIVERS_HOMMES_DE_MAIN.has(`${bandeId}::${profil.id}::${itemId}`);
 }
 
+// Un objet accessible via le shop commun (tag générique type "commun_humains",
+// ou nommé directement pour une bande) reste soumis à la restriction de
+// profil que sa propre bande lui impose déjà via equipement_special.profils,
+// quand elle existe (ex : Destriers/Cheval/Caparaçon bretonnien des
+// Chevaliers Bretonniens, réservés aux Chevaliers/Écuyers — sans ce filtre,
+// un Homme d'Arme ou un Archer pouvait les acheter via le shop commun,
+// contournant la restriction déjà posée côté liste de la bande). Ne
+// s'applique que si la bande a explicitement choisi de restreindre CET item
+// par profil ; les autres objets restent inchangés.
+function respecteRestrictionProfilEquipementSpecial(
+  catalogue: WarbandCatalog | undefined,
+  profil: Profile | null | undefined,
+  itemId: string
+): boolean {
+  const refRestreint = catalogue?.equipement_special?.find((ref) => ref.item_id === itemId && ref.profils);
+  return !refRestreint?.profils || (!!profil && refRestreint.profils.includes(profil.id));
+}
+
 // `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
 // cette bande (voir estAccesPourCatalogue) — omis, seul le shop générique
 // (accessible à toutes les bandes) est retourné. `profil`/`competencesAcquises`
@@ -941,6 +959,7 @@ export function getShopCommun(
       !(armureLourdeInterdite && ITEMS_EQUIVALENT_ARMURE_LOURDE.has(item.id)) &&
       ((catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) ||
         (item.acces?.includes('commun_heros') && profil?.type === 'heros')) &&
+      respecteRestrictionProfilEquipementSpecial(catalogue, profil, item.id) &&
       !estCategorieInterdite(
         item.categorie,
         profil,
