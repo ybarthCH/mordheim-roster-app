@@ -561,9 +561,8 @@ export function inventaireComplet(roster: RosterInstance): InventoryEntry[] {
 
 // Équipement de départ inclus dans le coût de recrutement d'un profil précis
 // (voir sa règle spéciale), à ajouter à l'inventaire dès la création du
-// membre plutôt qu'à acheter séparément — pour l'instant limité à la
-// Branchanteresse des Sylvaneths (Écorce de fer I). À étendre au cas par cas
-// si d'autres profils l'exigent.
+// membre plutôt qu'à acheter séparément. À étendre au cas par cas si
+// d'autres profils l'exigent.
 export function equipementInclusDepart(catalogueId: string, profilId: string): InventoryEntry[] {
   if (catalogueId === 'sylvaneths' && profilId === 'branchanteresse') {
     const item = getItem('ecorce_de_fer');
@@ -601,6 +600,29 @@ export function equipementInclusDepart(catalogueId: string, profilId: string): I
     const item = getItem('corde_et_grappin');
     if (item) {
       return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
+  // "Écorce de fer : débute avec Écorce de fer I et ne peut jamais
+  // l'améliorer." (Sylvaneths V1.7 p.5) — acces_equipement est vide sur ce
+  // profil (aucun achat possible), même situation que le Snotling/Kroxigor
+  // ci-dessus.
+  if (catalogueId === 'sylvaneths' && profilId === 'dryade') {
+    const item = getItem('ecorce_de_fer');
+    if (item) {
+      return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
+  // "Serres cruelles : débute avec deux Serres cruelles, comprises dans
+  // son coût." (Sylvaneths V1.7 p.5) — contrairement aux cas ci-dessus, le
+  // Fiel-revenant garde un accès normal à sa liste d'équipement ; ceci
+  // s'ajoute simplement à ce qu'il achète par ailleurs.
+  if (catalogueId === 'sylvaneths' && profilId === 'fiel_revenant') {
+    const item = getItem('serre_cruelle');
+    if (item) {
+      return [
+        { instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 },
+        { instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 },
+      ];
     }
   }
   return [];
