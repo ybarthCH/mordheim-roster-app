@@ -142,8 +142,17 @@ export function succederApresMorts(
     if (survivants.length === 0) {
       leaderInstanceId = undefined;
     } else {
+      // "If there is more than one Hero eligible to assume command, the
+      // warrior with the most Experience points becomes the leader. In the
+      // case of a tie roll a D6 to decide the new leader." (Part 3 -
+      // Campaigns & Optional Rules p.78) — départage automatique par
+      // Commandement puis XP ; seule une égalité stricte sur les deux
+      // (représentant le jet de D6, que l'app ne simule pas) retombe sur
+      // `undefined` et le choix manuel du joueur (voir choixLeaderRequis).
       const maxCd = Math.max(...survivants.map((m) => m.stats_actuels.Cd));
-      const candidats = survivants.filter((m) => m.stats_actuels.Cd === maxCd);
+      const candidatsCd = survivants.filter((m) => m.stats_actuels.Cd === maxCd);
+      const maxXp = Math.max(...candidatsCd.map((m) => m.xp));
+      const candidats = candidatsCd.filter((m) => m.xp === maxXp);
       leaderInstanceId = candidats.length === 1 ? candidats[0].instance_id : undefined;
     }
     changement = true;

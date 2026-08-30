@@ -10,6 +10,7 @@ import {
   libelleCategorie,
   iconeCategorie,
   classeRarete,
+  estObjetRare,
   resumeItem,
   traduirePortee,
   formatCoutItem,
@@ -102,6 +103,17 @@ type Props = {
   // (fiche personnage, armurerie, exploration), jamais au moment du
   // recrutement lui-même.
   masquerShopCommun?: boolean;
+  // Masque les objets "Rare N" (armes/armures/équipement, bande comme
+  // commun) — livre de règles : "you may buy rare weapons and armour when
+  // starting a warband ... but after playing the first game the only way
+  // to get further rare weapons and armour is to roll to see if you can
+  // locate them" (Living Rulebook p.47 / Part 3 - Campaigns & Optional
+  // Rules p.103). Passé à `true` dès que roster.historique_batailles n'est
+  // plus vide — la recherche d'objet rare (RechercheObjetRareModal, étape
+  // Commerce du post-bataille) reste alors le seul chemin légitime.
+  // Volontairement ignoré quand `gratuit` est vrai (objet trouvé en jeu via
+  // l'exploration/une récompense de scénario, pas acheté).
+  masquerObjetsRares?: boolean;
   onClose: () => void;
   onAchat: (item: ShopItem, coutPaye: number) => void;
 };
@@ -152,6 +164,7 @@ export function AchatEquipementContenu({
   resterOuvertApresAchat = false,
   masquerBoutonFermer = false,
   masquerShopCommun = false,
+  masquerObjetsRares = false,
   onClose,
   onAchat,
 }: Props) {
@@ -183,6 +196,8 @@ export function AchatEquipementContenu({
 
   const personnaliseActif = !!(onObjetsPersonnalisesChange && onObjetsSurchargesChange);
 
+  const rareteActive = masquerObjetsRares && !gratuit;
+
   const itemsBandeBase = useMemo(
     () => [
       ...getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel, rules, marqueId),
@@ -190,10 +205,10 @@ export function AchatEquipementContenu({
     ],
     [catalogue, profil, competencesAcquises, inventaireActuel, rules, marqueId, objetsPersonnalises]
   );
-  const itemsBande = useMemo(
-    () => avecSurcharges(itemsBandeBase, objetsSurcharges),
-    [itemsBandeBase, objetsSurcharges]
-  );
+  const itemsBande = useMemo(() => {
+    const liste = avecSurcharges(itemsBandeBase, objetsSurcharges);
+    return rareteActive ? liste.filter((item) => !estObjetRare(item.rarete)) : liste;
+  }, [itemsBandeBase, objetsSurcharges, rareteActive]);
   const itemsCommunBase = useMemo(
     () =>
       getShopCommun(catalogue.id, rules, profil, competencesAcquises, catalogue, !!profil).filter(
@@ -201,10 +216,10 @@ export function AchatEquipementContenu({
       ),
     [catalogue, rules, gratuit, profil, competencesAcquises]
   );
-  const itemsCommun = useMemo(
-    () => avecSurcharges(itemsCommunBase, objetsSurcharges),
-    [itemsCommunBase, objetsSurcharges]
-  );
+  const itemsCommun = useMemo(() => {
+    const liste = avecSurcharges(itemsCommunBase, objetsSurcharges);
+    return rareteActive ? liste.filter((item) => !estObjetRare(item.rarete)) : liste;
+  }, [itemsCommunBase, objetsSurcharges, rareteActive]);
   const items = source === 'bande' ? itemsBande : itemsCommun;
 
   const itemsPourEdition = useMemo(() => {
@@ -667,6 +682,11 @@ export function AchatEquipementContenu({
               {masquerShopCommun && (
                 <p className="text-sm text-muted" style={{ marginBottom: '0.5rem' }}>
                   {t('achatEquipement.commonShopHiddenAtRecruitment')}
+                </p>
+              )}
+              {masquerObjetsRares && !gratuit && (
+                <p className="text-sm text-muted" style={{ marginBottom: '0.5rem' }}>
+                  {t('achatEquipement.rareItemsHiddenNote')}
                 </p>
               )}
               {!masquerShopCommun && (

@@ -48,6 +48,7 @@ import {
   prixVente,
   appliquerAchatSurMembre,
   profilPeutAcheterEquipement,
+  equipementPerduALaMort,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { InventoryEntry } from '../../types/roster';
@@ -297,7 +298,9 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
       const dateMort = new Date().toISOString().slice(0, 10);
       patchRoster(roster.id, (current) => {
         const membresApres = current.membres.map((m) =>
-          m.instance_id === membre.instance_id ? { ...m, statut: s, date_mort: dateMort } : m
+          m.instance_id === membre.instance_id
+            ? { ...m, statut: s, date_mort: dateMort, ...equipementPerduALaMort() }
+            : m
         );
         const succession = succederApresMorts(current, catalogue, membresApres);
         return { ...current, ...succession, membres: membresApres };
@@ -620,6 +623,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
           inventaireBande={inventaireComplet(roster)}
           roster={roster}
           tailleGroupe={membre.taille_groupe || 1}
+          masquerObjetsRares={roster.historique_batailles.length > 0}
           objetsPersonnalises={roster.objets_personnalises}
           objetsSurcharges={roster.objets_surcharges}
           onObjetsPersonnalisesChange={(objets) => updateRoster({ ...roster, objets_personnalises: objets })}

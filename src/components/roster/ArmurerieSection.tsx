@@ -162,6 +162,7 @@ export function ArmurerieSection({
           tresorerie={roster.tresorerie}
           inventaireBande={inventaireBande}
           roster={roster}
+          masquerObjetsRares={roster.historique_batailles.length > 0}
           objetsPersonnalises={roster.objets_personnalises}
           objetsSurcharges={roster.objets_surcharges}
           onObjetsPersonnalisesChange={onObjetsPersonnalisesChange}

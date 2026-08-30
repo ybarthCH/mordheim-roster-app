@@ -15,7 +15,12 @@ import {
 import { bonusPlafondCC, peutAugmenterStat } from '../../utils/plafond';
 import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
-import { formatEquipementAffiche, monturesDisponibles, resumeInventaireParItem } from '../../utils/shop';
+import {
+  equipementPerduALaMort,
+  formatEquipementAffiche,
+  monturesDisponibles,
+  resumeInventaireParItem,
+} from '../../utils/shop';
 import { SKILL_EQUITATION } from '../../utils/tribu';
 import { useLanguage } from '../../state/useLanguage';
 import { translateSkill } from '../../i18n/data/skills';
@@ -270,7 +275,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       {
         stats_actuels: statsActuels,
         stats_modifiees: Array.from(statsModifiees),
-        inventaire,
+        ...(resultat.statutMort ? equipementPerduALaMort() : { inventaire }),
         notes,
         competences_acquises,
         ...(resultat.statutMort

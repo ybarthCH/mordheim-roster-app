@@ -483,6 +483,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             resterOuvertApresAchat
             masquerBoutonFermer
             masquerShopCommun
+            masquerObjetsRares={roster.historique_batailles.length > 0}
             onClose={annulerRecrutement}
             onAchat={(item, coutPaye) => setPanier((prev) => [...prev, { item, coutPaye }])}
           />

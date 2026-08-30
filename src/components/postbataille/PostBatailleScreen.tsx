@@ -13,7 +13,13 @@ import type { BattleRecord, JournalPostBataille, Member, RosterInstance, Serious
 import type { BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 import { estRetablissementIsole } from '../../data/blessuresGraves';
 import { appliquerDeltaStats, nomCourtBlessureAffiche } from '../../utils/blessures';
-import { creerEntreeInventaire, creerEntreesInventaire, formatEquipementAffiche, retirerEquipementFigurinesTombees } from '../../utils/shop';
+import {
+  creerEntreeInventaire,
+  creerEntreesInventaire,
+  equipementPerduALaMort,
+  formatEquipementAffiche,
+  retirerEquipementFigurinesTombees,
+} from '../../utils/shop';
 import { estLeaderActuel, resolveLeader, succederApresMorts } from '../../utils/leader';
 import type { ShopItem } from '../../utils/shop';
 import { AvanceeModal } from '../personnage/AvanceeModal';
@@ -767,7 +773,7 @@ export function PostBatailleScreen() {
       if (m.statut === 'hors_de_combat') {
         const d = xpDrafts[m.instance_id] ?? { xp: m.xp, survecu: null };
         if (d.survecu === 'non') {
-          membre = { ...membre, statut: 'mort', date_mort: date };
+          membre = { ...membre, statut: 'mort', date_mort: date, ...equipementPerduALaMort() };
         } else if (estAnimal) {
           membre = { ...membre, statut: 'actif', pv_perdus: undefined };
         } else {
@@ -788,7 +794,14 @@ export function PostBatailleScreen() {
         const morts = slots.filter((s) => s === 'non').length;
         const survivants = m.taille_groupe - morts;
         if (survivants <= 0) {
-          membre = { ...membre, statut: 'mort', date_mort: date, taille_groupe: 0, hors_combat: 0 };
+          membre = {
+            ...membre,
+            statut: 'mort',
+            date_mort: date,
+            taille_groupe: 0,
+            hors_combat: 0,
+            ...equipementPerduALaMort(),
+          };
         } else {
           // Les figurines tombées emportent leur part de l'équipement du
           // groupe avec elles : sans ce recalage, les survivants se

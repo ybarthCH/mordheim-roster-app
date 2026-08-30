@@ -678,6 +678,16 @@ export function classeRarete(rarete?: string): string | null {
   return 'badge--rarete-info';
 }
 
+// Un objet est "Rare N" (par opposition à Commun/"C", ou "-" pour les objets
+// sans cote applicable) dès que sa rareté est un nombre — même convention
+// que classeRarete ci-dessus. Sert à distinguer les objets Rares dans
+// masquerObjetsRares (voir AchatEquipementModal) : au-delà de la création
+// de bande, le livre de règles n'autorise plus leur achat direct, seulement
+// via un jet de recherche d'objet rare (RechercheObjetRareModal).
+export function estObjetRare(rarete?: string): boolean {
+  return rarete !== undefined && !Number.isNaN(Number(rarete));
+}
+
 // Mappe un objet brut (items/*.json) vers un ShopItem "commun", sans
 // résolution de règles de prix (voir getShopCommun/itemVersShopItem qui
 // appellent appliquerReglesObjet par-dessus).
@@ -1263,6 +1273,18 @@ export function transfererVersMembre(roster: RosterInstance, instanceId: string,
 
 export function formatEquipementAffiche(inventaire: InventoryEntry[]): string {
   return inventaire.map((e) => e.nom).join(', ');
+}
+
+// "When a warrior is killed (Hero or Henchman) all his weapons and
+// equipment are lost. [...] It is not possible to reallocate a warrior's
+// weapons or equipment once he is dead." (Part 3 - Campaigns & Optional
+// Rules, p.78) — à répercuter sur tout membre passant au statut 'mort',
+// quel que soit le chemin (jet Hors de Combat simple, groupe anéanti,
+// déclaration manuelle). Sans ça, l'inventaire du défunt reste compté par
+// inventaireComplet() et peut bloquer indéfiniment le rachat d'un objet
+// unique/limité à la bande.
+export function equipementPerduALaMort(): Pick<Member, 'inventaire' | 'equipement'> {
+  return { inventaire: [], equipement: '' };
 }
 
 // Applique un achat complet à un membre : crée les entrées d'inventaire
