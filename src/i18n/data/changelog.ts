@@ -8,6 +8,15 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-08-30': [
+    'New +1 XP button right from the warband list, no need to open the character sheet — handy for recording an enemy taken out of action mid-game. Dedicated chip with a confirmation prompt on mobile/two-pane view (to avoid a stray tap while scrolling), and a directly clickable XP cell on the desktop table.',
+    'A confirmation is now asked before leaving the "create a new warband" screen without having clicked "Create warband" (header back button or a phone\'s hardware/gesture back) — nothing is saved yet at that point, so an accidental tap no longer silently loses everything.',
+    "Continued the major warband rules audit against official sourcebooks on the 10 warbands that had never been checked before: Merchant Caravans, The Cursed Cavalcade, Court of the Profane Pleasures, Sons of Hashut, Tomb Guardians, Maneaters, Cathayan Warrior Monks, Mootlanders, Arabian Tomb Robbers, and Pit Fighters — fixed wrongly-hireable Hired Swords and Dramatis Personae, skills misallocated between profiles, equipment access, and several incorrect stats and special rules (including the Mootlanders' Cleaver, whose Strength was flat-out inverted).",
+    "General rules-engine audit (warband creation and the full post-battle sequence): Rare items can no longer be bought in the shop once the warband has fought its first battle (from then on they can only be found through exploration, as the rule requires); when several Heroes are tied on Leadership after the leader dies, succession is now decided automatically by Experience points, leaving the player's manual choice only for a full tie.",
+    'A warrior who dies now consistently loses all of his equipment, as the rule requires: fixed first for the models of a group who die in the post-battle wizard (including a group whose inventory was already mismatched between models), then extended to every other case where it was still missing (dying in combat from the character sheet, the Pit, the Lord of the Shadows table...).',
+    'Kislevites: the Tame Bear once again requires a living Bear Tamer to be recruited or kept in the warband.',
+    'Fixed two shop leaks: the common shop stayed accessible while recruiting a new member even though it should be hidden for certain warbands, and a Squig designated "Trained" (Night Goblins) could wrongly buy equipment like a Henchman.',
+  ],
   '2026-08-29': [
     "Kislevites: fixed access to the Priest of Morr, Elf Mage, and Kislev Ranger Hired Swords (their own special rule says they hire like the Human Mercenary warbands). Also fixed the name of the Halfling Hired Sword, who is actually the Halfling Scout.",
     'Kislevites: the Bear Tamer, Esaul, and Youth can once again buy armour, like the rest of the warband.',
