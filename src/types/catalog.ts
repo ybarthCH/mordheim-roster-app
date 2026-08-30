@@ -113,6 +113,12 @@ export type Profile = {
   plafond_competence_override?: { competence_id: string; groupe: string };
   acces_competences: SkillCategory[];
   acces_competences_a_verifier?: boolean;
+  // Catégories que ce profil ne peut jamais choisir comme tableau
+  // supplémentaire lors d'une promotion "Ce gars est doué" (ex : l'Éclaireur
+  // Halfling des Averlanders, qui ne peut jamais choisir Force) — distinct
+  // d'acces_competences, qui régit les compétences déjà accessibles au
+  // quotidien, pas ce choix ponctuel à la promotion. Voir AvanceeModal.
+  tableaux_promotion_interdits?: SkillCategory[];
   // La grille qui détermine les cases et paliers d'XP peut différer du type
   // du profil. Les francs-tireurs utilisent celle des hommes de main.
   grille_xp?: 'heros' | 'homme_de_main';

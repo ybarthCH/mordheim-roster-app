@@ -678,16 +678,25 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
           </p>
           <p className="text-sm text-muted">{t('avanceeModal.chooseTwoTables')}</p>
           <div className="skill-list">
-            {SKILL_CATEGORIES.map((c) => (
-              <label key={c.id} className="skill-check" style={{ cursor: 'pointer' }}>
-                <input
-                  type="checkbox"
-                  checked={categoriesPromotion.includes(c.id)}
-                  onChange={() => toggleCategoriePromotion(c.id)}
-                />
-                <span className="skill-check__name">{t(`skillCategory.${c.id}`)}</span>
-              </label>
-            ))}
+            {SKILL_CATEGORIES.map((c) => {
+              const interdite = !!profil.tableaux_promotion_interdits?.includes(c.id);
+              return (
+                <label
+                  key={c.id}
+                  className="skill-check"
+                  style={{ cursor: interdite ? 'not-allowed' : 'pointer', opacity: interdite ? 0.5 : 1 }}
+                  title={interdite ? t('avanceeModal.promotionTableForbidden') : undefined}
+                >
+                  <input
+                    type="checkbox"
+                    checked={categoriesPromotion.includes(c.id)}
+                    disabled={interdite}
+                    onChange={() => toggleCategoriePromotion(c.id)}
+                  />
+                  <span className="skill-check__name">{t(`skillCategory.${c.id}`)}</span>
+                </label>
+              );
+            })}
           </div>
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
             <button className="btn" onClick={onClose}>

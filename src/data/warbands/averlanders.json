@@ -124,6 +124,7 @@
         { "nom": "Promotion", "texte": "Un Éclaireur halfling promu au rang de héros par un résultat de « ce gars est doué » ne peut pas choisir les compétences de Force comme un de ses deux tableaux de compétences. Les Halflings ne sont pas renommés pour leur carrure d'athlète !" }
       ],
       "acces_competences": [],
+      "tableaux_promotion_interdits": ["force"],
       "acces_equipement": ["eclaireurs"],
       "acces_competences_a_verifier": false
     },
@@ -193,7 +194,9 @@
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
         { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 },
         { "item_id": "rondache", "cout": 5 }
       ]
     },
