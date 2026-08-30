@@ -36,6 +36,7 @@
       ],
       "acces_competences": ["academique", "vitesse", "special"],
       "acces_equipement": ["skinks"],
+      "leader_toujours_recrutable": true,
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -55,6 +56,7 @@
       ],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["saurus"],
+      "categories_interdites": ["armes_tir", "armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -101,6 +103,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["saurus"],
+      "categories_interdites": ["armes_tir", "armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -139,7 +142,8 @@
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
         { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Hache de pierre" },
         { "item_id": "hache", "cout": 5 },
-        { "item_id": "epee", "cout": 10, "restriction": "Héros uniquement" }
+        { "item_id": "epee", "cout": 10, "restriction": "Héros uniquement", "heros_uniquement": true },
+        { "item_id": "lance", "cout": 10 }
       ],
       "armes_tir": [
         { "item_id": "arc_court", "cout": 5 },
@@ -149,7 +153,7 @@
         { "item_id": "sarbacane", "cout": 25 }
       ],
       "armures": [
-        { "item_id": "casque", "cout": 10, "note": "Heaume d'os — Prêtre Skink uniquement" },
+        { "item_id": "casque", "cout": 10, "note": "Heaume d'os — Prêtre Skink uniquement", "profils": ["pretre_skink"] },
         { "item_id": "bouclier", "cout": 5 },
         { "item_id": "rondache", "cout": 5 }
       ]
@@ -172,8 +176,8 @@
     }
   },
   "equipement_special": [
-    { "item_id": "venin_fuligineux", "cout": 20, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete", "saurus"] },
-    { "item_id": "lotus_noir", "cout": 10, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete", "saurus"] },
+    { "item_id": "venin_fuligineux", "cout": 20, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete"] },
+    { "item_id": "lotus_noir", "cout": 10, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete"] },
     { "item_id": "venin_de_reptile", "cout": 5, "disponibilite": "Commun pour une bataille, Hommes de main Skinks uniquement — +1 Force, aucun malus de sauvegarde", "profils": ["skink"] }
   ],
   "magie": {

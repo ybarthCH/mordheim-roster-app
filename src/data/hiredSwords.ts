@@ -1427,7 +1427,12 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     recrutement: { cout: 70 },
     entretien: { type: 'or', cout: 12, texte: '12 CO après chaque bataille à laquelle il participe.' },
     valeur: 25,
-    employeurs: { bande_ids: [], texte: 'Seules les bandes d’Hommes-Lézards (aucune dans le catalogue actuel).' },
+    // Le commentaire d'origine ("aucune dans le catalogue actuel") date
+    // d'avant l'implémentation de la bande hommes_lezards, désormais
+    // jouable — bande_ids était resté vide, rendant ce franc-tireur
+    // inaccessible à absolument tout le monde, y compris son seul
+    // employeur prévu.
+    employeurs: { bande_ids: ['hommes_lezards'], texte: 'Seules les bandes d’Hommes-Lézards.' },
     stats: { M: 6, CC: 4, CT: 4, F: 4, E: 2, PV: 1, I: 5, A: 1, Cd: 7 },
     equipement: ['Dague', 'Sarbacane avec dards empoisonnés', 'Rondache'],
     acces_competences: ['tir', 'vitesse', 'special'],

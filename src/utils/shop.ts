@@ -543,6 +543,16 @@ export function equipementInclusDepart(catalogueId: string, profilId: string): I
       return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
     }
   }
+  // "Un Kroxigor n'a accès à aucune liste d'équipement mais, contrairement
+  // à l'usage, est recruté avec une hallebarde." (Hommes-Lézards [GLM].pdf
+  // p.7) — même situation que le Snotling ci-dessus (acces_equipement
+  // vide, arme incluse dans le coût de recrutement).
+  if (catalogueId === 'hommes_lezards' && profilId === 'kroxigor') {
+    const item = getItem('hallebarde');
+    if (item) {
+      return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
   return [];
 }
 
