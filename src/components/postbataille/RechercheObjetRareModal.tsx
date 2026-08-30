@@ -18,6 +18,7 @@ import {
   MATERIAUX,
   resumeItem,
   TRINKETS_LIMITES,
+  ITEMS_UNIQUES_BANDE,
   type ShopItem,
 } from '../../utils/shop';
 import { useGameRules } from '../../state/useGameRules';
@@ -169,8 +170,7 @@ export function RechercheObjetRareModal({
   const inventaireBande = [...inventaireComplet(roster), ...inventaireSupplementaire];
   const trinketBloque =
     !!item &&
-    rules.trinketsLimites &&
-    TRINKETS_LIMITES.has(item.id) &&
+    ((rules.trinketsLimites && TRINKETS_LIMITES.has(item.id)) || ITEMS_UNIQUES_BANDE.has(item.id)) &&
     inventaireBande.some((entree) => entree.item_id === item.id);
 
   const materiauSelectionne = item && estItemMateriau(item.id) ? item : undefined;

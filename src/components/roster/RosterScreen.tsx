@@ -185,7 +185,7 @@ export function RosterScreen({
   // réordonnancement franchissant une frontière de catégorie.
   const membresVivants = roster.membres.filter((m) => m.statut !== 'mort');
   const besoinChoixLeader = choixLeaderRequis(roster, catalogue);
-  const trinketsLimitesEnTrop = rules.trinketsLimites ? trouverTrinketsLimitesEnTrop(roster) : [];
+  const trinketsLimitesEnTrop = trouverTrinketsLimitesEnTrop(roster, rules);
 
   // Lustrian Reavers ("Promotions") : rôles de héros uniques tombés — bannis
   // du recrutement mais toujours vacants (aucun titulaire vivant) — qu'un

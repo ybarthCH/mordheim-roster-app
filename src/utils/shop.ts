@@ -630,12 +630,18 @@ export type AvertissementTrinketLimite = {
 
 // Contrôle aussi bien le stock de bande que l'équipement porté. Cette
 // validation reste utile pour les anciens rosters ou lorsqu'une règle est
-// activée après que plusieurs exemplaires ont déjà été achetés.
-export function trouverTrinketsLimitesEnTrop(roster: RosterInstance): AvertissementTrinketLimite[] {
+// activée après que plusieurs exemplaires ont déjà été achetés — ou après
+// qu'un roster ait pu se retrouver en double via un flux mal gardé (ex :
+// avant que groupeDupliqueraitObjetLimite/RechercheObjetRareModal ne
+// vérifient ITEMS_UNIQUES_BANDE). TRINKETS_LIMITES reste optionnel
+// (`rules.trinketsLimites`) ; ITEMS_UNIQUES_BANDE est toujours vérifié, la
+// règle source elle-même n'étant jamais optionnelle.
+export function trouverTrinketsLimitesEnTrop(roster: RosterInstance, rules: GameRules): AvertissementTrinketLimite[] {
   const parItem = new Map<string, AvertissementTrinketLimite>();
 
   for (const entree of inventaireComplet(roster)) {
-    if (!TRINKETS_LIMITES.has(entree.item_id)) continue;
+    if (!((rules.trinketsLimites && TRINKETS_LIMITES.has(entree.item_id)) || ITEMS_UNIQUES_BANDE.has(entree.item_id)))
+      continue;
     const existant = parItem.get(entree.item_id);
     if (existant) {
       existant.quantite += 1;

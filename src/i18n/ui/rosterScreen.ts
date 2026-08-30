@@ -32,8 +32,8 @@ export const rosterScreen: UiDictionary = {
   },
   'roster.chooseLeader': { fr: 'Choisir un chef', en: 'Choose a leader' },
   'roster.trinketRulePrefix': {
-    fr: 'Règle « Trinket limité » non respectée :',
-    en: '"Limited Trinket" rule violated:',
+    fr: 'Objet limité à un exemplaire par bande, présent en double :',
+    en: 'Item limited to one copy per warband, present in duplicate:',
   },
   'roster.trinketRuleSuffix': {
     fr: 'Un seul exemplaire de chaque objet est autorisé dans toute la bande.',
