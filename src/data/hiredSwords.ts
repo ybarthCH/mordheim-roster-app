@@ -1588,7 +1588,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     },
     valeur: 12,
     employeurs: {
-      bande_ids: uniques([...BIEN, 'artilleurs_de_nuln', 'gladiateurs']),
+      bande_ids: uniques([...BIEN, 'artilleurs_de_nuln', 'gladiateurs', 'tileens']),
       texte:
         'Les Hauts Elfes et les bandes humaines non maléfiques, sans personnage ou franc-tireur maléfique.',
     },
