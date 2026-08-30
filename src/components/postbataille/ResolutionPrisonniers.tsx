@@ -6,6 +6,7 @@ import { creerMembre } from '../../utils/factory';
 import { rejoindreGroupe } from '../../utils/shop';
 import { JetOrButton } from './JetOrButton';
 import { useLanguage } from '../../state/useLanguage';
+import { BANDES_TRAITEES_COMME_POSSEDES } from '../../data/bandeCategories';
 
 type Props = {
   roster: RosterInstance;
@@ -20,12 +21,9 @@ type Props = {
 
 type Branche = 'possedes' | 'morts_vivants' | 'skaven' | 'autres';
 
-// "Sacrifice: The Amazons follow the rules for the Possessed warband when
-// it comes to prisoners." (Amazones - Setting Mordheim [GW - GLM edit].pdf
-// p.4, texte identique pour le Setting Lustrie) — mêmes deux Settings déjà
-// regroupés pour la restriction de recrutement de francs-tireurs/Dramatis
-// Personae (voir RESTRICTIONS_ABSOLUES/RESTRICTIONS_ABSOLUES_DP).
-const BANDES_SACRIFICE_PRISONNIERS = ['cult_of_the_possessed', 'amazones_mordheim', 'amazones_lustrie'];
+// Voir BANDES_TRAITEES_COMME_POSSEDES (data/bandeCategories.ts) pour la
+// source de chaque bande listée ici.
+const BANDES_SACRIFICE_PRISONNIERS = BANDES_TRAITEES_COMME_POSSEDES;
 
 // (3 3 3) Prisonniers — l'action possible dépend de la nature de la bande.
 export function ResolutionPrisonniers({

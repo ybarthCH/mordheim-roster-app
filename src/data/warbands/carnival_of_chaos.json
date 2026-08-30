@@ -59,6 +59,7 @@
         { "nom": "Force Surnaturelle", "texte": "Dispose dès sa création de la compétence de Force Homme Fort du livre de règles." }
       ],
       "acces_competences": ["combat", "force", "vitesse"],
+      "competences_gratuites": ["force_05"],
       "acces_equipement": ["colosses"],
       "acces_competences_a_verifier": false
     },
@@ -151,6 +152,7 @@
       "min": 0,
       "max": 1,
       "cout": 120,
+      "bonus_effectif_max": 2,
       "stats": { "M": 0, "CC": 0, "CT": 0, "F": 0, "E": 8, "PV": 4, "I": 0, "A": 0, "Cd": 0 },
       "regles_speciales": [
         { "nom": "Roulotte de la Peste", "texte": "Augmente le nombre maximum de guerriers de la bande de +2. Diminue l'instabilité des démons : Portepestes et Nurglings peuvent relancer leurs tests de Commandement ratés dus à l'instabilité et bénéficient d'un bonus de +1 pour déterminer la gravité de leurs blessures s'ils sont mis hors de combat." },

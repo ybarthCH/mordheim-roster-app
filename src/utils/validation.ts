@@ -69,9 +69,18 @@ export type ViolationEffectif = {
 
 /** Le Cuisinier Halfling permet à la bande d'accueillir un guerrier de plus. */
 export function effectifMaxAutorise(roster: RosterInstance): number | undefined {
-  const maximum = effectifMaxPourTribu(getCatalogue(roster.bande_id), roster);
+  const catalogue = getCatalogue(roster.bande_id);
+  const maximum = effectifMaxPourTribu(catalogue, roster);
   if (maximum == null) return undefined;
-  return maximum + (aUnFrancTireurAvecTag(roster, 'halfling') ? 1 : 0);
+  // Bonus porté par un profil de bande (ex : la Roulotte de la Peste de la
+  // Kermesse du Chaos, "+2") — voir Profile.bonus_effectif_max.
+  const bonusProfils =
+    catalogue?.profils.reduce((total, profil) => {
+      if (!profil.bonus_effectif_max) return total;
+      const possede = roster.membres.some((m) => m.profil_id === profil.id && m.statut !== 'mort');
+      return possede ? total + profil.bonus_effectif_max : total;
+    }, 0) ?? 0;
+  return maximum + (aUnFrancTireurAvecTag(roster, 'halfling') ? 1 : 0) + bonusProfils;
 }
 
 /**

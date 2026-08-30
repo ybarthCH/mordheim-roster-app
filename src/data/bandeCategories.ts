@@ -156,5 +156,17 @@ export const BIEN = [
 ];
 export const MALEFIQUES = [...MORTS_VIVANTS, ...SKAVENS, ...PEAUX_VERTES, ...CHAOS];
 
+// Bandes qui "comptent comme" le Culte des Possédés pour l'exploration et
+// les blessures graves : "The Amazons follow the rules for the Possessed
+// warband when it comes to prisoners." (Amazones - Setting Mordheim/Lustrie
+// [GW - GLM edit].pdf p.4) et "La kermesse du Chaos compte donc comme une
+// bande de possédés pour tout ce qui est de l'exploration et des blessures
+// graves." (Kermesse du Chaos [GW].pdf p.1, règle "Corrompu"). Utilisée pour
+// synchroniser les options de sacrifice (Vagabond, Prisonniers) entre
+// ResolutionVagabond.tsx et ResolutionPrisonniers.tsx, qui codaient chacun
+// leur propre liste en dur — l'ajout des Amazones à l'un sans l'autre avait
+// laissé passer l'oubli de la Kermesse dans les deux.
+export const BANDES_TRAITEES_COMME_POSSEDES = ['cult_of_the_possessed', 'amazones_mordheim', 'amazones_lustrie', 'carnival_of_chaos'];
+
 export const toutesSauf = (...ids: string[]) => TOUTES_LES_BANDES.filter((id) => !ids.includes(id));
 export const uniques = (ids: string[]) => [...new Set(ids)];

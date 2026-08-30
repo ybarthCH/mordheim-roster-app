@@ -153,6 +153,17 @@ export type Profile = {
   // Prêtre de Taal, armure lourde uniquement) — non automatisée, laissée en
   // texte informatif dans regles_speciales.
   categories_interdites?: ('armes_cac' | 'armes_tir' | 'armes_poudre_noire' | 'armes_de_jet' | 'armures')[];
+  // Ce profil, tant qu'un membre vivant le possède, augmente l'effectif
+  // maximum autorisé de la bande d'autant (ex : la Roulotte de la Peste de
+  // la Kermesse du Chaos, "+2" — voir effectifMaxAutorise dans
+  // utils/validation.ts, qui applique déjà un bonus équivalent en dur pour
+  // le Cuisinier Halfling franc-tireur).
+  bonus_effectif_max?: number;
+  // Compétence(s) acquises gratuitement dès la création du membre, sans
+  // consommer d'avancée (ex : le Colosse de la Kermesse du Chaos, qui
+  // démarre avec Homme Fort — "Force Surnaturelle") — voir
+  // utils/factory.ts creerMembre.
+  competences_gratuites?: string[];
   xp_depart?: number;
   peut_lancer_sorts?: boolean;
   categorie_magie?: string;
