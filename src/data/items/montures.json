@@ -14,7 +14,7 @@
   {
     "id": "cauchemar", "nom": "Cauchemar", "categorie": "montures",
     "cout": 95, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Vampires et Nécromants uniquement",
-    "acces": ["undead", "morts_sans_repos"], "source": "GM (Guerriers Montés)", "page": 60,
+    "acces": ["undead", "morts_sans_repos", "cavalcade_maudite"], "source": "GM (Guerriers Montés)", "page": 60,
     "texte": "Les comtes vampires ont parfois besoin d'une monture pour se déplacer rapidement. Après tout, même mort, un cheval garde ses quatre pattes, non ?",
     "stats": { "M": 8, "CC": 2, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 5 },
     "regles_speciales": [

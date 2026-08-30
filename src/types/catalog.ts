@@ -159,6 +159,13 @@ export type Profile = {
   // utils/validation.ts, qui applique déjà un bonus équivalent en dur pour
   // le Cuisinier Halfling franc-tireur).
   bonus_effectif_max?: number;
+  // Ce profil ne compte jamais dans l'effectif total de la bande (ex : les
+  // Serviteurs Capturés de la Cavalcade Maudite, "do not count toward the
+  // maximum number of models allowed in your warband") — même principe que
+  // l'exclusion déjà appliquée aux francs-tireurs dans effectifTotal
+  // (utils/bandeValue.ts), mais porté par le profil plutôt que par le statut
+  // de franc-tireur.
+  exclu_effectif_max?: boolean;
   // Compétence(s) acquises gratuitement dès la création du membre, sans
   // consommer d'avancée (ex : le Colosse de la Kermesse du Chaos, qui
   // démarre avec Homme Fort — "Force Surnaturelle") — voir

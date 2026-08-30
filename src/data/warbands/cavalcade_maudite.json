@@ -63,6 +63,7 @@
       ],
       "acces_competences": ["combat", "tir", "academique", "vitesse", "special"],
       "acces_equipement": ["heros"],
+      "competences_gratuites": ["equitation_01"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -85,6 +86,7 @@
       ],
       "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
       "acces_equipement": ["heros"],
+      "competences_gratuites": ["combat_05"],
       "acces_competences_a_verifier": false
     },
     {
@@ -182,6 +184,7 @@
         }
       ],
       "acces_competences": [],
+      "exclu_effectif_max": true,
       "acces_equipement": ["thralls"],
       "acces_competences_a_verifier": false
     },
@@ -252,6 +255,7 @@
         }
       ],
       "acces_competences": [],
+      "competences_gratuites": ["vitesse_07", "vitesse_03", "vitesse_06"],
       "acces_equipement": [],
       "acces_competences_a_verifier": false
     }

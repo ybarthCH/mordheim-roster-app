@@ -18,8 +18,12 @@ export function valeurBande(roster: RosterInstance): number {
 
 /** Nombre total de figurines (groupes comptés par leur taille) encore actives. */
 export function effectifTotal(roster: RosterInstance): number {
+  const catalogue = getCatalogue(roster.bande_id);
+  const exclus = new Set(
+    catalogue?.profils.filter((p) => p.exclu_effectif_max).map((p) => p.id) ?? []
+  );
   return roster.membres
-    .filter((m) => m.statut !== 'mort' && !estFrancTireur(m))
+    .filter((m) => m.statut !== 'mort' && !estFrancTireur(m) && !exclus.has(m.profil_id))
     .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
 }
 

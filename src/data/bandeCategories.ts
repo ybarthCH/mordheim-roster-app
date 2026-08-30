@@ -166,7 +166,18 @@ export const MALEFIQUES = [...MORTS_VIVANTS, ...SKAVENS, ...PEAUX_VERTES, ...CHA
 // ResolutionVagabond.tsx et ResolutionPrisonniers.tsx, qui codaient chacun
 // leur propre liste en dur — l'ajout des Amazones à l'un sans l'autre avait
 // laissé passer l'oubli de la Kermesse dans les deux.
-export const BANDES_TRAITEES_COMME_POSSEDES = ['cult_of_the_possessed', 'amazones_mordheim', 'amazones_lustrie', 'carnival_of_chaos'];
+export const BANDES_TRAITEES_COMME_POSSEDES = [
+  'cult_of_the_possessed',
+  'amazones_mordheim',
+  'amazones_lustrie',
+  'carnival_of_chaos',
+  // "the Cursed Cavalcade is treated as an Evil warband, and, similarly to
+  // the Cult of the Possessed, for all game effects purpose (such as, for
+  // example, for the effect 333 - Prisoners, on the exploration chart)."
+  // (The Cursed Cavalcade.pdf p.4) — clause générale ("for all game effects
+  // purpose"), pas limitée au seul exemple cité.
+  'cavalcade_maudite',
+];
 
 export const toutesSauf = (...ids: string[]) => TOUTES_LES_BANDES.filter((id) => !ids.includes(id));
 export const uniques = (ids: string[]) => [...new Set(ids)];
