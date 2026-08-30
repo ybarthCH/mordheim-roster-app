@@ -777,11 +777,17 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     valeur: 15,
     employeurs: {
       // "May be Hired: Mercenaries, Witch Hunters and Dwarfs may hire
-      // Kislev Rangers." (Hired Sword Compendium part1.pdf p.29) — les
-      // Kislévites eux-mêmes n'y sont PAS nommés, contrairement à ce que
-      // le champ portait jusqu'ici.
-      bande_ids: uniques([...MERCENAIRES, 'witch_hunters', 'dwarf_treasure_hunters']),
-      texte: 'Les Mercenaires, les Répurgateurs et les Nains.',
+      // Kislev Rangers." (Hired Sword Compendium part1.pdf p.29) ne nomme
+      // pas les Kislévites — mais ceux-ci y ont accès quand même via leur
+      // propre règle générale ("Une bande kislévite peut engager les
+      // mêmes Francs-tireurs que les bandes de mercenaires humains",
+      // Kislévites [GW].pdf), qui s'applique dès lors que ce franc-tireur
+      // est accessible aux Mercenaires (c'est le cas : MERCENAIRES ci-
+      // dessous). Confirmé explicitement par l'utilisateur (pas une
+      // erreur, malgré la fiche propre du Ranger qui ne le nomme pas) —
+      // ne pas retirer 'kislevites' d'ici sans revalider ce point.
+      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'witch_hunters', 'dwarf_treasure_hunters']),
+      texte: 'Les Mercenaires, les Kislévites, les Répurgateurs et les Nains.',
     },
     stats: { M: 4, CC: 3, CT: 4, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
     equipement: ['Arc', 'Épée', 'Manteau de chasseur'],
