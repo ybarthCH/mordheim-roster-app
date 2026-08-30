@@ -194,6 +194,11 @@ const EXCLUSIONS_COMMUN_SAUF: Record<string, string[]> = {
   commun_sauf_carnival_of_chaos_undead: ['carnival_of_chaos', 'undead'],
   commun_sauf_cult_of_the_possessed_undead: ['cult_of_the_possessed', 'undead'],
   rare_8_sauf_witch_hunters_sisters_of_sigmar: ['witch_hunters', 'sisters_of_sigmar'],
+  // Ail ("Garlic ... Common (May not be bought by Undead)", Part 3 -
+  // Campaigns & Optional Rules p.104) — non étendu à Morts Sans Repos
+  // (`morts_sans_repos`), bande de morts-vivants distincte dont la source
+  // propre ne confirme pas cette même exclusion.
+  commun_sauf_undead: ['undead'],
 };
 
 // Un objet "commun_<bande>" (restreint à un groupe précis, donc exclu du

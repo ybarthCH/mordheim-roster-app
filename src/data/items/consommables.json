@@ -1,8 +1,8 @@
 [
   {
     "id": "ail", "nom": "Ail", "categorie": "consommables",
-    "cout": 1, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun",
-    "acces": ["commun"], "source": "LdR", "page": 54,
+    "cout": 1, "cout_fixe": true, "rarete": "C", "disponibilite": "Commun, indisponible aux Morts-Vivants",
+    "acces": ["commun_sauf_undead"], "source": "LdR", "page": 54,
     "texte": "L'ail, réputé pour éloigner les vampires et autres créatures de la nuit, pousse dans la plupart des potagers de l'Empire. Un Vampire doit réussir un test de Commandement pour pouvoir charger une figurine portant un chapelet d'ail. L'ail dure le temps d'une bataille seulement, qu'il soit utilisé ou non.",
     "regles_speciales": []
   },
