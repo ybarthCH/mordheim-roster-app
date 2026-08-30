@@ -414,7 +414,8 @@
     "rarete": "9",
     "disponibilite": "Rare 9, Hobgobelins uniquement",
     "acces": [
-      "hobgobelins"
+      "hobgobelins",
+      "fils_dhashut"
     ],
     "source": "FH (Fils d'Hashut)",
     "page": 6,

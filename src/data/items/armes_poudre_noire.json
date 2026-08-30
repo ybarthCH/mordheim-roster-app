@@ -240,7 +240,7 @@
     "id": "tromblon_nain_du_chaos", "nom": "Tromblon Nain du Chaos", "categorie": "armes_poudre_noire",
     "cout": 40, "cout_fixe": true, "prix_poudre_noire_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Nains du Chaos uniquement",
     "note_maison": "Prix fixe à 40 CO, non affecté par la règle avancée de poudre noire (l'arme joue déjà systématiquement les incidents de tir, voir sa règle spéciale). Remplace le Tromblon normal pour cette bande.",
-    "acces": ["nains_du_chaos"], "source": "FH (Fils d'Hashut)", "page": 29,
+    "acces": ["nains_du_chaos", "fils_dhashut"], "source": "FH (Fils d'Hashut)", "page": 29,
     "texte": "Les Nains du Chaos sont réputés pour utiliser un grand nombre de ces fameux tromblons contre leurs troupes d'infanterie. Ils emploient la même tactique dans les combats de rue à Mordheim.",
     "portee": "16ps", "force": "3",
     "regles_speciales": [

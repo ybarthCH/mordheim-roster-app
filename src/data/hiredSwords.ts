@@ -1322,7 +1322,11 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 19,
     employeurs: {
-      bande_ids: ['nains_du_chaos', 'maneaters'],
+      // "Une bande de Fils d'Hashut peut recruter les Francs-Tireurs
+      // suivants : [...] et Éclaireurs Hobgobelins." (fils_dhashut.json,
+      // règle de bande "Francs-Tireurs") — ajouté explicitement ici, en
+      // plus de nains_du_chaos/maneaters.
+      bande_ids: ['nains_du_chaos', 'maneaters', 'fils_dhashut'],
       texte: 'Les bandes de Nains du Chaos et d’Ogres.',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 3, E: 3, PV: 1, I: 2, A: 1, Cd: 6 },
