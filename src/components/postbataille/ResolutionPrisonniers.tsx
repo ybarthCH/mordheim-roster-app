@@ -20,6 +20,13 @@ type Props = {
 
 type Branche = 'possedes' | 'morts_vivants' | 'skaven' | 'autres';
 
+// "Sacrifice: The Amazons follow the rules for the Possessed warband when
+// it comes to prisoners." (Amazones - Setting Mordheim [GW - GLM edit].pdf
+// p.4, texte identique pour le Setting Lustrie) — mêmes deux Settings déjà
+// regroupés pour la restriction de recrutement de francs-tireurs/Dramatis
+// Personae (voir RESTRICTIONS_ABSOLUES/RESTRICTIONS_ABSOLUES_DP).
+const BANDES_SACRIFICE_PRISONNIERS = ['cult_of_the_possessed', 'amazones_mordheim', 'amazones_lustrie'];
+
 // (3 3 3) Prisonniers — l'action possible dépend de la nature de la bande.
 export function ResolutionPrisonniers({
   roster,
@@ -118,8 +125,12 @@ export function ResolutionPrisonniers({
         <button
           type="button"
           className={`btn--pack-pill-sm ${branche === 'possedes' ? 'btn--pack-pill-sm--primary' : ''}`}
-          disabled={catalogue.id !== 'cult_of_the_possessed'}
-          title={catalogue.id !== 'cult_of_the_possessed' ? t('postBataille.vagrant.reservedFor', { faction: 'Possédés' }) : undefined}
+          disabled={!BANDES_SACRIFICE_PRISONNIERS.includes(catalogue.id)}
+          title={
+            !BANDES_SACRIFICE_PRISONNIERS.includes(catalogue.id)
+              ? t('postBataille.vagrant.reservedFor', { faction: 'Possédés, Amazones' })
+              : undefined
+          }
           onClick={() => setBranche('possedes')}
         >
           {t('postBataille.prisoners.sacrificeForXp')}
@@ -145,9 +156,9 @@ export function ResolutionPrisonniers({
         <button
           type="button"
           className={`btn--pack-pill-sm ${branche === 'autres' ? 'btn--pack-pill-sm--primary' : ''}`}
-          disabled={['cult_of_the_possessed', 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)}
+          disabled={[...BANDES_SACRIFICE_PRISONNIERS, 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)}
           title={
-            ['cult_of_the_possessed', 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)
+            [...BANDES_SACRIFICE_PRISONNIERS, 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)
               ? t('postBataille.vagrant.betterOptionAbove')
               : undefined
           }

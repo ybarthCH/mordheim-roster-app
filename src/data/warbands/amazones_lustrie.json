@@ -169,7 +169,7 @@
     { "item_id": "peaux_enchantees", "cout": 20, "disponibilite": "Rare 6, Amazones uniquement", "profils": ["pretresse_serpent", "guerriere_aigle", "guerriere_piranha"] },
     { "item_id": "amulette_lunaire", "cout": 50, "disponibilite": "Rare 11, Amazones uniquement", "rarete": "11", "profils": ["pretresse_serpent", "guerriere_aigle", "guerriere_piranha"] },
     { "item_id": "conque_musicale", "cout": 25, "disponibilite": "Rare 8, Guerrières Piranha des Amazones uniquement", "profils": ["guerriere_piranha"] },
-    { "item_id": "herbes_de_soin", "cout": 35, "disponibilite": "Commun pour les Amazones, Héros uniquement", "profils": ["pretresse_serpent", "guerriere_aigle", "guerriere_piranha"] }
+    { "item_id": "herbes_de_soin", "cout": 35, "disponibilite": "Commun pour les Amazones, Héros uniquement", "rarete": "-", "profils": ["pretresse_serpent", "guerriere_aigle", "guerriere_piranha"] }
   ],
   "magie": {
     "nom": "Rituels des Amazones",

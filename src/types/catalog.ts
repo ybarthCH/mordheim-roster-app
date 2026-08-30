@@ -318,8 +318,14 @@ export type EquipementSpecialRef = {
   // pour les Amazones du Setting Mordheim mais Rare 11 pour celles du
   // Setting Lustrie). `disponibilite` (texte libre) peut déjà l'annoncer,
   // mais sans ce champ le calcul réel de rareté (recherche d'objet rare
-  // post-bataille) continuait de lire Item.rarete tel quel, ignorant la
-  // surcharge textuelle. Absent = utilise Item.rarete sans changement.
+  // post-bataille, masquage des objets Rares après la 1ère bataille —
+  // voir estObjetRare/masquerObjetsRares) continuait de lire Item.rarete
+  // tel quel, ignorant la surcharge textuelle. Une valeur non numérique
+  // (ex : "-") force le statut "jamais Rare pour cette bande" (même
+  // convention que Item.rarete, voir estObjetRare) — utile pour un objet
+  // habituellement Rare mais explicitement rendu commun par une règle de
+  // bande (ex : les Herbes Médicinales des Amazones). Absent = utilise
+  // Item.rarete sans changement.
   rarete?: string;
   // Restreint l'objet à certains profils (ex : mutations réservées à
   // l'Impur). Absent = accessible à tous les profils de la bande.
