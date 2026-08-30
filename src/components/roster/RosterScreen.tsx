@@ -6,7 +6,8 @@ import { getSetting, setSetting } from '../../db/db';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { getCatalogue } from '../../data/warbands';
-import { resolveProfil } from '../../utils/profil';
+import { grilleXpDuProfil, resolveProfil } from '../../utils/profil';
+import { HENCHMAN_XP_MAX, HERO_XP_MAX, peutGagnerExperience } from '../../utils/xp';
 import { pvPerdusPourStatut, pvRestant } from '../../utils/stats';
 import { choixLeaderRequis, succederApresMorts } from '../../utils/leader';
 import { validerComposition, validerEffectif } from '../../utils/validation';
@@ -36,7 +37,7 @@ import {
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { Icon } from '../common/Icon';
-import { estFrancTireur } from '../../data/hiredSwords';
+import { estFrancTireur, getFrancTireur } from '../../data/hiredSwords';
 import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
@@ -306,6 +307,24 @@ export function RosterScreen({
     });
   };
 
+  // Ajout rapide de +1 XP (ex : ennemi mis hors de combat) depuis le roster
+  // global, sans ouvrir la fiche personnage — équivaut à cocher la case
+  // suivante de la grille d'expérience (voir XpGrid/PersonnageScreen).
+  // Mêmes exclusions que MemberGroupCard.peutAjouterXp (l'UI ne propose déjà
+  // pas l'action sinon, mais on revérifie ici au cas où un état obsolète
+  // aurait laissé l'affordance affichée) : reste plafonné au max de la
+  // grille du profil, jamais appliqué à un profil qui ne gagne pas d'XP, à
+  // un franc-tireur qui en est exclu, ou à un membre mort.
+  const ajouterXp = (m: Member) => {
+    const profil = resolveProfil(roster, m);
+    if (!profil || !peutGagnerExperience(profil) || m.statut === 'mort') return;
+    if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return;
+    const max = grilleXpDuProfil(profil) === 'heros' ? HERO_XP_MAX : HENCHMAN_XP_MAX;
+    patch({
+      membres: roster.membres.map((x) => (x.instance_id === m.instance_id ? { ...x, xp: Math.min(x.xp + 1, max) } : x)),
+    });
+  };
+
   // Réordonne une section (Héros / Hommes de main) par glisser-déposer : les
   // autres membres du roster gardent leur position, seul le contenu des
   // emplacements de cette section est réarrangé selon `nouvelOrdre`.
@@ -534,6 +553,7 @@ export function RosterScreen({
             onReordonner={reordonnerSection}
             onBasculerHorsCombat={basculerHorsCombat}
             onBasculerPointsDeVie={basculerPointsDeVie}
+            onAjouterXp={ajouterXp}
             onSupprimer={setMembreASupprimer}
             selectedInstanceId={selectedInstanceId}
             onBasculerVueRapide={toggleVueCondensee}
@@ -549,6 +569,7 @@ export function RosterScreen({
             onReordonner={reordonnerSection}
             onBasculerHorsCombat={basculerHorsCombat}
             onBasculerPointsDeVie={basculerPointsDeVie}
+            onAjouterXp={ajouterXp}
             onSupprimer={setMembreASupprimer}
             selectedInstanceId={selectedInstanceId}
             onBasculerVueRapide={toggleVueCondensee}
@@ -565,6 +586,7 @@ export function RosterScreen({
               onReordonner={reordonnerSection}
               onBasculerHorsCombat={basculerHorsCombat}
               onBasculerPointsDeVie={basculerPointsDeVie}
+              onAjouterXp={ajouterXp}
               onSupprimer={setMembreASupprimer}
               onBasculerVueRapide={toggleVueCondensee}
             />
@@ -581,6 +603,7 @@ export function RosterScreen({
               onReordonner={reordonnerSection}
               onBasculerHorsCombat={basculerHorsCombat}
               onBasculerPointsDeVie={basculerPointsDeVie}
+              onAjouterXp={ajouterXp}
               onSupprimer={setMembreASupprimer}
               masquerProfil
               onBasculerVueRapide={toggleVueCondensee}
@@ -600,6 +623,7 @@ export function RosterScreen({
           onReordonner={reordonnerSection}
           onBasculerHorsCombat={basculerHorsCombat}
           onBasculerPointsDeVie={basculerPointsDeVie}
+          onAjouterXp={ajouterXp}
           onSupprimer={setMembreASupprimer}
           selectedInstanceId={selectedInstanceId}
         />

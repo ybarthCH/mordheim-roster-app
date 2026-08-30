@@ -2460,7 +2460,17 @@ thead .roster-table__col-actions {
    signal ajouté ici — la case profite déjà du surlignage de colonne au
    survol ci-dessus. */
 .roster-table__col-PV--cliquable,
-.stat-grid__cell--pv-cliquable {
+.stat-grid__cell--pv-cliquable,
+.roster-table__col-XP--cliquable {
+  cursor: pointer;
+}
+/* Puce +1 XP de la ligne compacte (roster-compact-row__synopsis) : même
+   habillage que .badge--info, mais un vrai <button> plutôt qu'un <span> —
+   réinitialise juste ce que le navigateur impose par défaut à un bouton. */
+.xp-chip {
+  margin-left: auto;
+  border: none;
+  font: inherit;
   cursor: pointer;
 }
 /* Le synopsis d'équipement d'un membre a sa propre ligne (pleine largeur,
