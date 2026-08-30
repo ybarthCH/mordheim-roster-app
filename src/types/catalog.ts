@@ -312,6 +312,15 @@ export type EquipementSpecialRef = {
   item_id: string;
   cout: number | string;
   disponibilite?: string;
+  // Surcharge le seuil de rareté NUMÉRIQUE de l'objet de base (Item.rarete)
+  // pour cette bande précise — nécessaire quand un même objet a des seuils
+  // différents selon le Setting/la bande (ex : l'Amulette lunaire, Rare 12
+  // pour les Amazones du Setting Mordheim mais Rare 11 pour celles du
+  // Setting Lustrie). `disponibilite` (texte libre) peut déjà l'annoncer,
+  // mais sans ce champ le calcul réel de rareté (recherche d'objet rare
+  // post-bataille) continuait de lire Item.rarete tel quel, ignorant la
+  // surcharge textuelle. Absent = utilise Item.rarete sans changement.
+  rarete?: string;
   // Restreint l'objet à certains profils (ex : mutations réservées à
   // l'Impur). Absent = accessible à tous les profils de la bande.
   profils?: string[];

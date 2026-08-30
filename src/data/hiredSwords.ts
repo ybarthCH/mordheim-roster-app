@@ -2103,6 +2103,14 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
 const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
   carnival_of_chaos: new Set(),
   cavalcade_maudite: new Set(),
+  // "It's not one of us: ... the Amazons never hire Hired Swords or
+  // Dramatis Personae, unless they are also Amazons." (Amazones - Setting
+  // Lustrie [GLM].pdf p.1) — aucun franc-tireur brut n'est une Amazone,
+  // d'où l'ensemble vide ; seule Penthesilée (Dramatis Personae) reste
+  // recrutable, via RESTRICTIONS_ABSOLUES_DP dans dramatisPersonae.ts. Même
+  // règle chez les Amazones du Setting Mordheim (amazones_mordheim).
+  amazones_lustrie: new Set(),
+  amazones_mordheim: new Set(),
   // "Outsiders: ... The Battle Monks warband may never hire any sort of
   // Hired Sword or Dramatis Personae unless specifically stated with the
   // Hired sword/Dramatis Personae." (Battle Monks of Cathay.pdf p.1) —

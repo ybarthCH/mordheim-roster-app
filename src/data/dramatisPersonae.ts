@@ -660,6 +660,11 @@ export const RESTRICTIONS_ABSOLUES_DP: Record<string, Set<string>> = {
   // pendant francs-tireurs dans hiredSwords.ts RESTRICTIONS_ABSOLUES) :
   // aucun Dramatis Personae ne nomme explicitement Cathay dans son texte.
   moines_guerriers_de_cathay: new Set(),
+  // "Il n'est pas des nôtres" (Amazones - Setting Lustrie [GLM].pdf p.1,
+  // voir le pendant francs-tireurs dans hiredSwords.ts RESTRICTIONS_ABSOLUES)
+  // : seule Penthesilée, elle-même une Amazone, reste recrutable.
+  amazones_lustrie: new Set(['penthesilee']),
+  amazones_mordheim: new Set(['penthesilee']),
 };
 
 export function dramatisPersonaeDisponibles(roster: RosterInstance): FrancTireurCatalog[] {
