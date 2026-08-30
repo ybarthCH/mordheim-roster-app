@@ -208,10 +208,12 @@
         { "nom": "Foule", "texte": "L'ensemble des Snotlings compte comme une seule figurine pour la taille de la bande." },
         { "nom": "Chétif", "texte": "Mis à terre sur un 1, sonné sur 2-3, hors de combat sur 4-6." },
         { "nom": "Insaisissable", "texte": "Malus de -1 au toucher pour toute attaque de tir ou de corps à corps ciblant un Snotling." },
-        { "nom": "Insignifiant", "texte": "L'ensemble des Snotlings ne compte que pour une figurine aux tests de Déroute et à la vente de pierres magiques ; chaque Snotling ne rapporte qu'un demi-point d'expérience (arrondi à l'inférieur), ne gagne jamais d'expérience lui-même, et n'est pas une cible prioritaire pour les tireurs." }
+        { "nom": "Insignifiant", "texte": "L'ensemble des Snotlings ne compte que pour une figurine aux tests de Déroute et à la vente de pierres magiques ; chaque Snotling ne rapporte qu'un demi-point d'expérience (arrondi à l'inférieur), ne gagne jamais d'expérience lui-même, et n'est pas une cible prioritaire pour les tireurs." },
+        { "nom": "Armes/armures", "texte": "Les Snotlings ne peuvent utiliser qu'un bâton pointu ou un objet quelconque similaire, qu'ils trouveront eux-mêmes sans frais. Cette arme compte comme une dague." }
       ],
       "acces_competences": [],
-      "acces_equipement": ["hommes_de_main"],
+      "groupe_compte_comme_un": true,
+      "acces_equipement": [],
       "acces_competences_a_verifier": false
     },
     {

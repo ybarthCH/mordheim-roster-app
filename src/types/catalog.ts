@@ -166,6 +166,16 @@ export type Profile = {
   // (utils/bandeValue.ts), mais porté par le profil plutôt que par le statut
   // de franc-tireur.
   exclu_effectif_max?: boolean;
+  // L'ensemble des membres de ce profil compte pour une seule figurine
+  // dans l'effectif de la bande, quel que soit leur nombre réellement
+  // recruté (ex : les Snotlings des Gobelins de la Nuit — "Foule : ...
+  // considérés comme une seule figurine en ce qui concerne la taille de
+  // la bande." / "Insignifiant : ... ne comptent que pour une seule
+  // figurine pour [...] la vente de pierres magiques.") — distinct
+  // d'exclu_effectif_max (qui les retire complètement du compte, soit 0
+  // plutôt que 1). Consommé par effectifTotal (utils/bandeValue.ts), qui
+  // alimente aussi le prix de vente de la pierre magique.
+  groupe_compte_comme_un?: boolean;
   // Ce profil précis (et non toute la bande, contrairement à
   // WarbandCatalog.xp_demi, ex : Mangeurs d'Hommes) ne coche qu'une
   // demi-case par point d'expérience gagné — il lui faut donc le double

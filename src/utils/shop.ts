@@ -532,6 +532,17 @@ export function equipementInclusDepart(catalogueId: string, profilId: string): I
       return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
     }
   }
+  // "Armes/armures : Les Snotlings ne peuvent utiliser qu'un bâton pointu
+  // ou un objet quelconque similaire, qu'ils trouveront eux-mêmes sans
+  // frais. Cette arme compte comme une dague." (Gobelins de la Nuit
+  // [GLM].pdf p.10) — acces_equipement est vide sur ce profil (aucun
+  // achat possible), donc l'arme gratuite doit être fournie ici.
+  if (catalogueId === 'gobelins_de_la_nuit' && profilId === 'snotling') {
+    const item = getItem('dague');
+    if (item) {
+      return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
   return [];
 }
 

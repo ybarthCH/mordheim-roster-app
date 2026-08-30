@@ -22,9 +22,19 @@ export function effectifTotal(roster: RosterInstance): number {
   const exclus = new Set(
     catalogue?.profils.filter((p) => p.exclu_effectif_max).map((p) => p.id) ?? []
   );
-  return roster.membres
-    .filter((m) => m.statut !== 'mort' && !estFrancTireur(m) && !exclus.has(m.profil_id))
+  const compteCommeUn = new Set(
+    catalogue?.profils.filter((p) => p.groupe_compte_comme_un).map((p) => p.id) ?? []
+  );
+  const membresActifs = roster.membres.filter(
+    (m) => m.statut !== 'mort' && !estFrancTireur(m) && !exclus.has(m.profil_id)
+  );
+  const total = membresActifs
+    .filter((m) => !compteCommeUn.has(m.profil_id))
     .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
+  const profilsGroupesSpeciaux = new Set(
+    membresActifs.filter((m) => compteCommeUn.has(m.profil_id)).map((m) => m.profil_id)
+  );
+  return total + profilsGroupesSpeciaux.size;
 }
 
 /**

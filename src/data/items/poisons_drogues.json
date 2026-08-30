@@ -3,7 +3,7 @@
     "id": "champignons_bonnets_de_fou_market", "nom": "Champignons bonnets de fou", "categorie": "poisons_drogues",
     "cout": "30+3D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9 (Commun, 25 CO si la bande comprend des Gobelins de la Nuit)",
     "acces": ["rare_9", "gobelins_de_la_nuit"], "source": "LdR/HO", "page": 57,
-    "texte": "Le redouté culte des gobelins fanatiques des Montagnes du Bord du Monde utilise ces champignons hallucinogènes pour entrer dans un état de frénésie. L'utilisation du poison est presque universellement méprisée, mais lors des batailles brutales et sans merci de Mordheim, les bandes désespérées utilisent souvent des lames empoisonnées. Le poison ne peut pas être utilisé avec des armes à poudre noire. Lorsque vous achetez une fiole de poison, vous en avez toujours assez pour la durée d'une bataille. Vous ne pouvez empoisonner qu'une seule arme avec une fiole de poison.",
+    "texte": "Le redouté culte des gobelins fanatiques des Montagnes du Bord du Monde utilise ces champignons hallucinogènes pour entrer dans un état de frénésie.",
     "regles_speciales": [
       { "nom": "Effet", "texte": "Un guerrier consommant des bonnets de fou avant une bataille sera sujet à la frénésie. Ces champignons n'ont aucun effet sur les Possédés et les Morts-Vivants." },
       { "nom": "Effets secondaires", "texte": "Après la bataille, lancez 1D6. Sur un résultat de 1, la figurine devient stupide définitivement." }
