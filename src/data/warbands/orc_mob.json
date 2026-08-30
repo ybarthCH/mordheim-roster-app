@@ -111,7 +111,8 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["gobelins"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_heros": true
     },
     {
       "id": "squig_des_cavernes",
@@ -132,6 +133,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
+      "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
       "acces_competences_a_verifier": false
     },
     {
@@ -225,15 +227,10 @@
       "divers": [
         { "item_id": "aiguillon_a_squigs", "cout": 15 },
         { "item_id": "chaine_et_boulet_cac", "cout": 15, "restriction": "Gobelins uniquement" },
-        { "item_id": "champignons_bonnets_de_fou_market", "cout": 25, "restriction": "Si la bande comprend au moins un Gobelin" }
+        { "item_id": "champignons_bonnets_de_fou_market", "cout": 25, "restriction": "Si la bande comprend au moins un Gobelin", "rarete": "-" }
       ]
     }
   },
-  "equipement_special": [
-    { "item_id": "chaine_et_boulet_cac", "cout": 15, "disponibilite": "Commune (Gobelins uniquement)", "profils": ["guerrier_gobelin"] },
-    { "item_id": "aiguillon_a_squigs", "cout": 15, "disponibilite": "Commun (Gobelins uniquement)", "profils": ["guerrier_gobelin"] },
-    { "item_id": "champignons_bonnets_de_fou_market", "cout": 25, "disponibilite": "Commun, Gobelins uniquement", "profils": ["guerrier_gobelin"] }
-  ],
   "magie": {
     "nom": "Magie Waaagh !",
     "type": "sorcellerie",

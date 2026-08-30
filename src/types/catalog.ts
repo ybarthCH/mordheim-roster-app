@@ -378,6 +378,13 @@ export type EquipementRef = {
   // la même liste `ogres`). Absent = accessible à tous les profils ayant
   // accès à la liste.
   profils?: string[];
+  // Même principe que EquipementSpecialRef.rarete (voir son propre
+  // commentaire) : surcharge le seuil de rareté de l'objet de base pour
+  // cette bande précise (ex : les Champignons bonnets de fou d'Orc Mob,
+  // objet habituellement Rare 9 mais rendu commun à 25 CO pour une bande
+  // avec au moins un Gobelin — "rarete": "-"). Absent = utilise Item.rarete
+  // sans changement.
+  rarete?: string;
 };
 
 // Une liste d'équipement nommée (ex : "repurgateurs", "flagellants"...) —

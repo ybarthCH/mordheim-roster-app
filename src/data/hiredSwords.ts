@@ -2193,6 +2193,12 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'sorciere',
     'mage',
   ]),
+  // "Francs-Tireurs : ... Ils ne peuvent jamais recruter un Franc-Tireur
+  // Elfe, quel qu'il soit !" (Nains du Chaos [GLM].pdf p.1) — l'exclusion
+  // elfe elle-même est appliquée génériquement via le tag `elfe` dans
+  // appliquerRestrictionsDeBande ci-dessous (même mécanisme que pour
+  // dwarf_treasure_hunters/culte_des_tueurs) ; assassin_elfe_noir ne doit
+  // donc pas figurer dans cette liste blanche malgré son tag `malefique`.
   nains_du_chaos: new Set([
     'gladiateur',
     'ogre',
@@ -2200,7 +2206,6 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'assassin_imperial',
     'eclaireur_hobgobelin',
     'guide_lustrien',
-    'assassin_elfe_noir',
   ]),
 };
 
@@ -2208,7 +2213,11 @@ function appliquerRestrictionsDeBande(profil: FrancTireurCatalog): FrancTireurCa
   const bandeIds = profil.employeurs.bande_ids.filter((id) => {
     const restriction = RESTRICTIONS_ABSOLUES[id];
     if (restriction && !restriction.has(profil.id)) return false;
-    if ((id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs') && profil.tags?.includes('elfe')) return false;
+    if (
+      (id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs' || id === 'nains_du_chaos') &&
+      profil.tags?.includes('elfe')
+    )
+      return false;
     return true;
   });
   return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };
@@ -2227,7 +2236,11 @@ function appliquerRestrictionsDeBandeDP(profil: FrancTireurCatalog): FrancTireur
     // (appliquerRestrictionsDeBande ci-dessus), dupliquée ici pour que
     // RecruterFrancTireurScreen (qui liste FRANCS_TIREURS en entier) reste
     // cohérent avec dramatisPersonaeDisponibles (dramatisPersonae.ts).
-    if ((id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs') && profil.tags?.includes('elfe')) return false;
+    if (
+      (id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs' || id === 'nains_du_chaos') &&
+      profil.tags?.includes('elfe')
+    )
+      return false;
     return true;
   });
   return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };

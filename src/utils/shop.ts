@@ -1147,7 +1147,7 @@ export function getEquipementBande(
           cout: ref.cout,
           cout_fixe: typeof ref.cout === 'number',
           disponibilite: ref.restriction ?? ref.note ?? item.disponibilite,
-          rarete: item.rarete,
+          rarete: ref.rarete ?? item.rarete,
           texte: item.texte,
           portee: 'portee' in item ? (item.portee as string | null) : undefined,
           force: 'force' in item ? (item.force as string | null) : undefined,

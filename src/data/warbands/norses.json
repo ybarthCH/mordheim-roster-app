@@ -71,7 +71,9 @@
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
-      "acces_competences_a_verifier": false
+      "aucun_achat_shop_commun": true,
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_chef": true
     },
     {
       "id": "bondis",
@@ -225,9 +227,5 @@
         { "item_id": "bouclier", "cout": 5 }
       ]
     }
-  },
-  "equipement_special": [
-    { "item_id": "arme_en_obsidienne_market", "cout": "Prix de l'arme de base x4", "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
-    { "item_id": "armure_du_chaos_market", "cout": 185, "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" }
-  ]
+  }
 }
