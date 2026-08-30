@@ -47,8 +47,17 @@
       ],
       "acces_competences": ["tir", "academique", "vitesse", "special"],
       "acces_equipement": ["soldats", "emissaire_special"],
+      "competences_speciales": [
+        {
+          "id": "guerre_acharnee",
+          "nom": "Guerre acharnée",
+          "texte": "Avant la bataille, le Héros peut faire un test de Commandement. En cas de réussite, D3+1 Paysans en furie rejoignent la bande pour la partie à venir (ce qui peut dépasser l'effectif maximum autorisé). Chaque Paysan en furie ainsi recruté est sujet à la Haine pour la durée de la bataille.",
+          "valeurPuissance": 40
+        }
+      ],
       "acces_competences_a_verifier": false,
-      "est_leader": true
+      "est_leader": true,
+      "leader_toujours_recrutable": true
     },
     {
       "id": "officier",
@@ -84,7 +93,7 @@
       ],
       "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
       "acces_equipement": ["moines"],
-      "categories_interdites": ["armures"],
+      "categories_interdites": ["armures", "poisons_drogues"],
       "acces_competences_a_verifier": false,
       "ne_peut_jamais_devenir_chef": true
     },
@@ -118,7 +127,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["moines"],
-      "categories_interdites": ["armures"],
+      "categories_interdites": ["armures", "poisons_drogues"],
       "acces_competences_a_verifier": false
     },
     {

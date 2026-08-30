@@ -161,7 +161,14 @@ export type Profile = {
   // portée : les profils qui n'interdisent qu'un type d'armure précis (ex :
   // Prêtre de Taal, armure lourde uniquement) — non automatisée, laissée en
   // texte informatif dans regles_speciales.
-  categories_interdites?: ('armes_cac' | 'armes_tir' | 'armes_poudre_noire' | 'armes_de_jet' | 'armures')[];
+  categories_interdites?: (
+    | 'armes_cac'
+    | 'armes_tir'
+    | 'armes_poudre_noire'
+    | 'armes_de_jet'
+    | 'armures'
+    | 'poisons_drogues'
+  )[];
   // Ce profil, tant qu'un membre vivant le possède, augmente l'effectif
   // maximum autorisé de la bande d'autant (ex : la Roulotte de la Peste de
   // la Kermesse du Chaos, "+2" — voir effectifMaxAutorise dans

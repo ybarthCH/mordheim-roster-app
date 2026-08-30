@@ -240,7 +240,13 @@ function normaliserCategorie(categorie: string): string {
 // utilisé par les bandes qui bannissent seulement les armes lancées à la
 // main (ex : la règle Chevalerie des Gardiens de Chapelle Bretonniens) sans
 // toucher aux arcs/arbalètes.
-export type CategorieInterdite = 'armes_cac' | 'armes_tir' | 'armes_poudre_noire' | 'armes_de_jet' | 'armures';
+export type CategorieInterdite =
+  | 'armes_cac'
+  | 'armes_tir'
+  | 'armes_poudre_noire'
+  | 'armes_de_jet'
+  | 'armures'
+  | 'poisons_drogues';
 
 // Un objet appartient-il à une catégorie interdite à ce profil (voir
 // Profile.categories_interdites) ? Ne filtre que l'onglet "commun" du shop
@@ -268,6 +274,7 @@ export function estCategorieInterdite(
   if (c === 'munitions' && interdictions.includes('armes_tir') && interdictions.includes('armes_poudre_noire')) {
     return true;
   }
+  if (interdictions.includes('poisons_drogues') && c === 'poisons_drogues') return true;
   return false;
 }
 
@@ -949,6 +956,24 @@ function respecteRestrictionProfilEquipementSpecial(
   return !refRestreint?.profils || !profil || refRestreint.profils.includes(profil.id);
 }
 
+// Même principe que respecteRestrictionProfilEquipementSpecial ci-dessus,
+// mais pour la restriction de compétence que la bande impose déjà via
+// equipement_special.competences (ex : Grande Hache du Chaos des Maraudeurs
+// du Chaos, réservée aux Héros avec la compétence Choisi par le Chaos) —
+// sans ce filtre, un objet devenu accessible par tag générique dans le shop
+// commun/la recherche d'objet rare contournerait la restriction de
+// compétence déjà posée côté liste de la bande. `profil` omis (vitrine sans
+// membre précis) : même contrat que ci-dessus, on ne filtre pas.
+function respecteRestrictionCompetenceEquipementSpecial(
+  catalogue: WarbandCatalog | undefined,
+  profil: Profile | null | undefined,
+  competencesAcquises: string[],
+  itemId: string
+): boolean {
+  const refRestreint = catalogue?.equipement_special?.find((ref) => ref.item_id === itemId && ref.competences);
+  return !refRestreint?.competences || !profil || refRestreint.competences.some((c) => competencesAcquises.includes(c));
+}
+
 // `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
 // cette bande (voir estAccesPourCatalogue) — omis, seul le shop générique
 // (accessible à toutes les bandes) est retourné. `profil`/`competencesAcquises`
@@ -985,13 +1010,13 @@ export function getShopCommun(
       // Les mutations ("Un guerrier de Mutant ou de Possédé peut acheter des
       // mutations uniquement lors de son recrutement") ne s'achètent jamais
       // depuis le shop commun, quelle que soit la bande : uniquement via la
-      // liste equipement_special de la bande, qui applique la restriction de
-      // profil (profils/competences) que ce shop générique ne connaît pas.
+      // liste equipement_special de la bande.
       item.categorie !== 'mutations' &&
       !(armureLourdeInterdite && ITEMS_EQUIVALENT_ARMURE_LOURDE.has(item.id)) &&
       ((catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) ||
         (item.acces?.includes('commun_heros') && profil?.type === 'heros')) &&
       respecteRestrictionProfilEquipementSpecial(catalogue, profil, item.id) &&
+      respecteRestrictionCompetenceEquipementSpecial(catalogue, profil, competencesAcquises, item.id) &&
       !estCategorieInterdite(
         item.categorie,
         profil,

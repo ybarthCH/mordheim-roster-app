@@ -38,12 +38,12 @@
     {
       "id": "norses",
       "nom": "Norses",
-      "texte": "Pilleurs : en raison de leur proximité avec l'Empire et de la fréquence de leurs raids, les Norses excellent dans l'art de trouver le meilleur équipement et du matériel rapidement — ils gagnent +1 à leurs jets de rareté lors de la recherche d'objets rares (purement indicatif, à appliquer sur table papier). Panthéon : les Norses adorent une myriade de dieux, esprits et ancêtres ; en raison de leur large panthéon, l'effet de la règle spéciale Œil des Dieux Sombres (devenir un Enfant du Chaos ou recevoir une Marque) se produit sur un résultat de 13+ au lieu de 12+."
+      "texte": "Pilleurs : en raison de leur proximité avec l'Empire et de la fréquence de leurs raids, les Norses excellent dans l'art de trouver le meilleur équipement et du matériel rapidement — ils gagnent +1 à leurs jets de rareté lors de la recherche d'objets rares. Panthéon : les Norses adorent une myriade de dieux, esprits et ancêtres ; en raison de leur large panthéon, l'effet de la règle spéciale Œil des Dieux Sombres (devenir un Enfant du Chaos ou recevoir une Marque) se produit sur un résultat de 13+ au lieu de 12+."
     },
     {
       "id": "kurgans",
       "nom": "Kurgans",
-      "texte": "Pedigree : une bande Kurgan peut inclure autant de Chiens du Chaos que désiré, pas seulement cinq. Arcs d'os : les Héros et Hommes de main Maraudeurs peuvent utiliser des arcs (10 CO, Commun — purement indicatif, non filtré automatiquement dans le shop). Clients Difficiles : alors que les Norses et les Hungs commercent avec le sud, les Kurgans vivent loin de la civilisation et n'y sont pas bienvenus — malus de -1 sur les jets de recherche d'objets rares, sauf pour les Grandes Haches du Chaos et les Fouets Barbelés (purement indicatif, à appliquer sur table papier).",
+      "texte": "Pedigree : une bande Kurgan peut inclure autant de Chiens du Chaos que désiré, pas seulement cinq. Arcs d'os : les Héros et Hommes de main Maraudeurs peuvent utiliser des arcs (10 CO, Commun — purement indicatif, non filtré automatiquement dans le shop). Clients Difficiles : alors que les Norses et les Hungs commercent avec le sud, les Kurgans vivent loin de la civilisation et n'y sont pas bienvenus — malus de -1 sur les jets de recherche d'objets rares, sauf pour les Grandes Haches du Chaos et les Fouets Barbelés.",
       "profil_max": { "chien_du_chaos": null }
     },
     {
