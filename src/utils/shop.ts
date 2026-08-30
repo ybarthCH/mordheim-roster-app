@@ -1029,9 +1029,23 @@ export function getEquipementBande(
       for (const ref of liste[categorie] ?? []) {
         const item = getItem(ref.item_id);
         if (!item) continue;
+        // Une arme à poudre noire d'une bande reste rangée sous la clé
+        // d'onglet "armes_tir" dans son catalogue.equipement (pas de clé
+        // dédiée "armes_poudre_noire" pour ces listes) — estCategorieInterdite
+        // distingue pourtant explicitement les deux (voir son propre code),
+        // donc sans cette bascule, un profil interdit d'"armes_tir" SEUL (ex :
+        // les 7 profils Artilleurs de Nuln, dont la règle "Fier artilleur !"
+        // n'interdit QUE les armes de tir non-poudre-noire) se retrouvait
+        // aussi privé de ses propres armes à poudre noire, la seule catégorie
+        // qu'il a pourtant explicitement le droit d'acheter. getShopCommun
+        // (juste au-dessus) ne souffre pas de ce problème : il passe déjà
+        // item.categorie, la vraie catégorie de l'objet, plutôt que la clé
+        // d'onglet de la liste où il est rangé.
+        const categorieInterdictionEffective =
+          categorie === 'armes_tir' && item.categorie === 'armes_poudre_noire' ? 'armes_poudre_noire' : categorie;
         if (
           estCategorieInterdite(
-            categorie,
+            categorieInterdictionEffective,
             profil,
             competencesAcquises,
             'sous_type' in item ? (item.sous_type as string | undefined) : undefined

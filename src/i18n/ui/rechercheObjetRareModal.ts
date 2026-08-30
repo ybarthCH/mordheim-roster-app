@@ -15,6 +15,10 @@ export const rechercheObjetRareModal: UiDictionary = {
     fr: 'Réussi sur un résultat de 2D6 supérieur ou égal à {n}.',
     en: 'Succeeds on a 2D6 result of {n} or higher.',
   },
+  'rareModal.blackPowderBonus': {
+    fr: 'Seuil déjà réduit de {n} : Entretien impeccable (armes à poudre noire, Artilleurs de Nuln).',
+    en: 'Threshold already lowered by {n}: Well-Kept Weapons (black powder weapons, Gunnery School of Nuln).',
+  },
   'rareModal.success': { fr: 'Réussi', en: 'Succeeded' },
   'rareModal.failure': { fr: 'Raté', en: 'Failed' },
   'rareModal.costPaidLabel': { fr: 'Coût payé (po)', en: 'Cost paid (gc)' },

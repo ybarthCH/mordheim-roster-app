@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { resolveProfil } from '../../utils/profil';
+import { getItem } from '../../data/items';
 import {
   basesPourMateriau,
   CATEGORIE_ORDRE,
@@ -105,6 +106,20 @@ export function RechercheObjetRareModal({
   const item = items.find((candidat) => candidat.id === itemId) ?? null;
   const itemAffiche = item ? translateItem(item, language) : null;
   const rarete = item ? niveauRarete(item) : null;
+  // "The Gunnery School may always use the cheaper price of black powder
+  // weapons in their list, and gain a +2 bonus when rolling for rarity to
+  // find a black powder weapon, as no one seems to worry about selling
+  // faulty weapons!" (Artilleurs de Nuln [GLM].pdf p.1, "Entretien
+  // impeccable") — +2 au jet du joueur équivaut à afficher un seuil de
+  // réussite 2 points plus bas ; ce seuil n'est jamais simulé par l'app
+  // (le joueur lance le dé lui-même sur table), donc seul l'affichage du
+  // seuil annoncé doit refléter le bonus. Le badge Rare N ci-dessous reste
+  // sur la vraie rareté (classeRarete/rareModal.rareLevel) : c'est
+  // toujours objectivement le même objet rare, seule la facilité à le
+  // trouver change pour cette bande.
+  const bonusRaretePoudreNoire =
+    catalogue.id === 'artilleurs_de_nuln' && item && getItem(item.id)?.categorie === 'armes_poudre_noire' ? 2 : 0;
+  const rareteEffective = rarete !== null ? Math.max(2, rarete - bonusRaretePoudreNoire) : null;
   const cout = Number(coutSaisi);
   const coutValide = coutSaisi.trim() !== '' && Number.isFinite(cout) && cout >= 0;
   const inventaireBande = [...inventaireComplet(roster), ...inventaireSupplementaire];
@@ -273,7 +288,10 @@ export function RechercheObjetRareModal({
             </header>
 
             <div className="achat-equipement__contenu achat-equipement__detail">
-              <p className="text-sm text-muted">{t('rareModal.succeedsOn', { n: rarete ?? 0 })}</p>
+              <p className="text-sm text-muted">{t('rareModal.succeedsOn', { n: rareteEffective ?? 0 })}</p>
+              {bonusRaretePoudreNoire > 0 && (
+                <p className="text-sm text-muted">{t('rareModal.blackPowderBonus', { n: bonusRaretePoudreNoire })}</p>
+              )}
               {itemAffiche!.disponibilite && <p className="text-sm text-muted">{itemAffiche!.disponibilite}</p>}
               {resumeItem(itemAffiche!, language) && <p className="text-sm">{resumeItem(itemAffiche!, language)}</p>}
 
