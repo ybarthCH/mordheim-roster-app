@@ -5,6 +5,7 @@ import { LanguageProvider } from './state/LanguageContext';
 import { ThemeProvider } from './state/ThemeContext';
 import { GameRulesProvider } from './state/GameRulesContext';
 import { WakeLockProvider } from './state/WakeLockContext';
+import { UpdateSWProvider } from './state/UpdateSWContext';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { ScrollToTop } from './components/common/ScrollToTop';
 import { UpdateToast } from './components/common/UpdateToast';
@@ -38,31 +39,33 @@ function App() {
         <GameRulesProvider>
           <WakeLockProvider>
             <RostersProvider>
-              <HashRouter>
-                <ScrollToTop />
-                <UpdateToast />
-                <ErrorBoundary>
-                  <Suspense fallback={null}>
-                    <Routes>
-                      <Route path="/" element={<ListeBandesScreen />} />
-                      <Route path="/creer" element={<CreationBandeScreen />} />
-                      <Route path="/roster/:id/recruter-franc-tireur" element={<RecruterFrancTireurScreen />} />
-                      <Route path="/roster/:id/post-bataille" element={<PostBatailleScreen />} />
-                      {/* Un seul Route (au lieu de deux entrées distinctes pour
-                          /roster/:id et /roster/:id/personnage/:instanceId) :
-                          React Router remonte tout le sous-arbre en changeant
-                          d'entrée Route, même vers le même composant — ce qui
-                          ferait clignoter tout l'écran (au lieu de ne mettre à
-                          jour que le volet détail) à chaque clic sur un membre
-                          en mode deux volets. Voir RosterRoute pour le parsing
-                          du segment optionnel personnage/:instanceId. */}
-                      <Route path="/roster/:id/*" element={<RosterRoute />} />
-                      <Route path="/reglages" element={<ReglagesScreen />} />
-                      <Route path="/notes-de-mise-a-jour" element={<ChangelogScreen />} />
-                    </Routes>
-                  </Suspense>
-                </ErrorBoundary>
-              </HashRouter>
+              <UpdateSWProvider>
+                <HashRouter>
+                  <ScrollToTop />
+                  <UpdateToast />
+                  <ErrorBoundary>
+                    <Suspense fallback={null}>
+                      <Routes>
+                        <Route path="/" element={<ListeBandesScreen />} />
+                        <Route path="/creer" element={<CreationBandeScreen />} />
+                        <Route path="/roster/:id/recruter-franc-tireur" element={<RecruterFrancTireurScreen />} />
+                        <Route path="/roster/:id/post-bataille" element={<PostBatailleScreen />} />
+                        {/* Un seul Route (au lieu de deux entrées distinctes pour
+                            /roster/:id et /roster/:id/personnage/:instanceId) :
+                            React Router remonte tout le sous-arbre en changeant
+                            d'entrée Route, même vers le même composant — ce qui
+                            ferait clignoter tout l'écran (au lieu de ne mettre à
+                            jour que le volet détail) à chaque clic sur un membre
+                            en mode deux volets. Voir RosterRoute pour le parsing
+                            du segment optionnel personnage/:instanceId. */}
+                        <Route path="/roster/:id/*" element={<RosterRoute />} />
+                        <Route path="/reglages" element={<ReglagesScreen />} />
+                        <Route path="/notes-de-mise-a-jour" element={<ChangelogScreen />} />
+                      </Routes>
+                    </Suspense>
+                  </ErrorBoundary>
+                </HashRouter>
+              </UpdateSWProvider>
             </RostersProvider>
           </WakeLockProvider>
         </GameRulesProvider>

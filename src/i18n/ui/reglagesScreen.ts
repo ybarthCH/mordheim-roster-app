@@ -53,5 +53,8 @@ export const reglagesScreen: UiDictionary = {
   },
   'reglages.about': { fr: 'À propos', en: 'About' },
   'reglages.privacyPolicy': { fr: 'Politique de confidentialité', en: 'Privacy Policy' },
+  'reglages.checkUpdate': { fr: 'Vérifier les mises à jour', en: 'Check for updates' },
+  'reglages.checkingUpdate': { fr: 'Vérification…', en: 'Checking…' },
+  'reglages.upToDate': { fr: 'App à jour', en: 'App up to date' },
   'reglages.saveAndBack': { fr: 'Enregistrer et revenir en arrière', en: 'Save and go back' },
 };
