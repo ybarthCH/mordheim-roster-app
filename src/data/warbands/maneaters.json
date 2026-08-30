@@ -195,7 +195,7 @@
         { "item_id": "morgenstern", "cout": 15 },
         { "item_id": "arme_a_deux_mains", "cout": 15 },
         { "item_id": "poing_de_fer", "cout": 15, "note": "voir équipement spécial" },
-        { "item_id": "sabre_de_cathay", "cout": 75, "restriction": "Capitaine uniquement", "profils": ["capitaine"] }
+        { "item_id": "sabre_de_cathay", "cout": "75+2D6", "restriction": "Capitaine uniquement", "profils": ["capitaine"] }
       ],
       "armes_tir": [
         { "item_id": "mortier_portable", "cout": "80 + 2D6", "note": "voir équipement spécial" }

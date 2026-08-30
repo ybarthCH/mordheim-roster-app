@@ -56,7 +56,7 @@
     "id": "mortier_portable", "nom": "Mortier portable", "categorie": "armes_poudre_noire",
     "cout": "55+2D6", "cout_officiel": "80+2D6", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12, Artilleurs de Nuln uniquement",
     "note_maison": "Prix officiel 80+2D6 CO, base réduite à 55+2D6 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée.",
-    "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 25,
+    "acces": ["artilleurs_de_nuln", "maneaters"], "source": "AN (Artilleurs de Nuln)", "page": 25,
     "texte": "Avec la puissance explosive d'un véritable mortier, un dispositif suffisamment petit pour être porté par un seul homme permet à un guerrier de projeter un explosif au cœur des rangs ennemis, semant la mort et le désordre.",
     "portee": "24ps", "force": "4",
     "regles_speciales": [

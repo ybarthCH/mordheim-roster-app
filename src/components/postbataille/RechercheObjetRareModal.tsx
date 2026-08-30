@@ -126,8 +126,21 @@ export function RechercheObjetRareModal({
   // ciblé des Artilleurs de Nuln (poudre noire uniquement), celui-ci
   // s'applique à toute catégorie d'objet rare.
   const bonusRareteMarienburgers = catalogue.id === 'marienburgers' ? 1 : 0;
+  // "Clients Difficiles : Les Héros Ogres subissent un malus de -1 lors des
+  // jets pour trouver des objets Rares non exclusivement réservés aux
+  // Ogres." (Mangeurs d'Hommes / Border Town Burning) — les objets propres
+  // à la bande (Gourdin d'Ogre, Poing de fer, Lance-harpon, Gnoblars...) ont
+  // tous `acces: ["maneaters"]` exclusivement ; tout autre objet Rare (y
+  // compris un objet partagé avec une autre bande, comme le Mortier
+  // portable des Artilleurs de Nuln) subit le malus.
+  const itemAccesRare = item ? (getItem(item.id)?.acces ?? []) : [];
+  const itemExclusifOgre = itemAccesRare.length > 0 && itemAccesRare.every((a) => a === 'maneaters');
+  const malusRareteClientsDifficiles =
+    catalogue.id === 'maneaters' && profil?.type === 'heros' && item && !itemExclusifOgre ? 1 : 0;
   const rareteEffective =
-    rarete !== null ? Math.max(2, rarete - bonusRaretePoudreNoire - bonusRareteMarienburgers) : null;
+    rarete !== null
+      ? Math.max(2, rarete - bonusRaretePoudreNoire - bonusRareteMarienburgers + malusRareteClientsDifficiles)
+      : null;
   const cout = Number(coutSaisi);
   const coutValide = coutSaisi.trim() !== '' && Number.isFinite(cout) && cout >= 0;
   const inventaireBande = [...inventaireComplet(roster), ...inventaireSupplementaire];
@@ -302,6 +315,9 @@ export function RechercheObjetRareModal({
               )}
               {bonusRareteMarienburgers > 0 && (
                 <p className="text-sm text-muted">{t('rareModal.marienburgersBonus', { n: bonusRareteMarienburgers })}</p>
+              )}
+              {malusRareteClientsDifficiles > 0 && (
+                <p className="text-sm text-muted">{t('rareModal.maneatersMalus', { n: malusRareteClientsDifficiles })}</p>
               )}
               {itemAffiche!.disponibilite && <p className="text-sm text-muted">{itemAffiche!.disponibilite}</p>}
               {resumeItem(itemAffiche!, language) && <p className="text-sm">{resumeItem(itemAffiche!, language)}</p>}

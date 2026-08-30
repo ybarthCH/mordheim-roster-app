@@ -23,6 +23,10 @@ export const rechercheObjetRareModal: UiDictionary = {
     fr: 'Seuil déjà réduit de {n} : Bonus Rare +1 (guildes de marchands de Marienburg).',
     en: 'Threshold already lowered by {n}: +1 Rare Bonus (Marienburg merchant guilds).',
   },
+  'rareModal.maneatersMalus': {
+    fr: 'Seuil déjà augmenté de {n} : Clients Difficiles (Héros Ogre, objet non exclusif aux Ogres).',
+    en: 'Threshold already raised by {n}: Difficult Customers (Ogre Hero, item not Ogre-exclusive).',
+  },
   'rareModal.success': { fr: 'Réussi', en: 'Succeeded' },
   'rareModal.failure': { fr: 'Raté', en: 'Failed' },
   'rareModal.costPaidLabel': { fr: 'Coût payé (po)', en: 'Cost paid (gc)' },

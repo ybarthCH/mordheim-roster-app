@@ -1757,8 +1757,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     },
     valeur: 14,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'guerriers_fantomes', ...NAINS]),
-      texte: 'Les Mercenaires humains, les Kislévites, ainsi que toute bande d’Elfes Sylvains ou de Nains.',
+      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'guerriers_fantomes', ...NAINS, 'maneaters']),
+      texte: 'Les Mercenaires humains, les Kislévites, ainsi que toute bande d’Elfes Sylvains, de Nains ou de Mangeurs d’Hommes.',
     },
     stats: { M: 4, CC: 2, CT: 4, F: 2, E: 2, PV: 1, I: 4, A: 1, Cd: 7 },
     equipement: ['Épée', 'Dague', 'Couteaux de jet', 'Corde et grappin'],
@@ -2180,7 +2180,7 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'sorciere',
     'supervizork',
   ]),
-  maneaters: new Set(['halfling', 'ogre', 'centaure_chaos', 'eclaireur_hobgobelin', 'guide_lustrien']),
+  maneaters: new Set(['halfling', 'halfling_voleur', 'ogre', 'centaure_chaos', 'eclaireur_hobgobelin', 'guide_lustrien']),
   maraudeurs_du_chaos: new Set([
     'gladiateur',
     'ogre',
