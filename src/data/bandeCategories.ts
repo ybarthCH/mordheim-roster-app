@@ -106,6 +106,13 @@ export const MERCENAIRES = [
   // — sauf l'Éclaireur Elfe, explicitement exclu de son propre bande_ids
   // (voir hiredSwords.ts).
   'gladiateurs',
+  // Bandits du Hochland ("Les Bandits n'ont aucun scrupule à recruter des
+  // mercenaires et peuvent engager n'importe quel Franc-Tireur autorisé pour
+  // une bande de Mercenaires humains.", Bandits du Hochland [GLM].pdf p.1)
+  // : même logique que Gladiateurs ci-dessus — aucune exception nommée dans
+  // le texte, donc ajoutée directement ici plutôt que via une constante
+  // dérivée façon MERCENAIRES_ET_KISLEVITES.
+  'bandits_du_hochland',
 ];
 // Règle spéciale kislévite ("Une bande kislévite peut engager les mêmes
 // Francs-tireurs que les bandes de mercenaires humains décrites dans le
@@ -129,7 +136,8 @@ export const HUMAINS = [
   'lustrian_reavers',
   'amazones_lustrie',
   'amazones_mordheim',
-  'bandits_du_hochland',
+  // bandits_du_hochland retiré d'ici : déjà couvert via le spread
+  // ...MERCENAIRES ci-dessus depuis son ajout direct à MERCENAIRES.
   'chasseurs_cornus',
   'chevaliers_bretonniens',
   'escorteurs_imperiaux',

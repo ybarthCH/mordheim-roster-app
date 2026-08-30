@@ -44,6 +44,7 @@
       ],
       "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
       "acces_equipement": ["bandits"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -63,6 +64,7 @@
       ],
       "acces_competences": ["combat", "tir", "vitesse", "special"],
       "acces_equipement": ["bandits"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -101,6 +103,7 @@
       ],
       "acces_competences": ["combat", "academique", "special"],
       "acces_equipement": ["pleutres"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -118,6 +121,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["bandits"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -135,6 +139,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["braconniers"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -152,6 +157,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["pleutres"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -169,6 +175,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["bandits"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -187,6 +194,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["pleutres"],
+      "categories_interdites": ["armes_poudre_noire"],
       "acces_competences_a_verifier": false
     }
   ],
@@ -285,9 +293,5 @@
         { "item_id": "casque", "cout": 10 }
       ]
     }
-  },
-  "equipement_special": [
-    { "item_id": "main_gauche", "cout": 7, "disponibilite": "Rare 7, Bandits du Hochland uniquement", "profils": ["ferrailleur"] },
-    { "item_id": "rapiere", "cout": 15, "disponibilite": "Rare 5, Reiklanders, Marienburgers, Bandits du Hochland uniquement", "profils": ["ferrailleur"] }
-  ]
+  }
 }
