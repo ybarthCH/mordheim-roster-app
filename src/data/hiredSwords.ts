@@ -1062,7 +1062,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 9,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'caravanes_marchandes', 'moines_guerriers_de_cathay']),
+      bande_ids: uniques([...MERCENAIRES, 'moines_guerriers_de_cathay']),
       texte: 'Les Caravanes marchandes, Moines de Cathay et Mercenaires.',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 7 },

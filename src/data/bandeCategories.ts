@@ -113,6 +113,16 @@ export const MERCENAIRES = [
   // le texte, donc ajoutée directement ici plutôt que via une constante
   // dérivée façon MERCENAIRES_ET_KISLEVITES.
   'bandits_du_hochland',
+  // Caravanes Marchandes ("Hired Swords: Merchant Caravans may hire every
+  // Hired Sword that is available to Mercenary warbands.", Merchant
+  // Caravans.pdf p.1) : même logique — aucune exception nommée, et
+  // vérification croisée du Hired Sword Compendium (Bard, Dwarf Troll
+  // Slayer, Freelancer, Elf Ranger, Kislev Ranger, Halfling Thief, Elf
+  // Mage, Priest of Morr) confirmant qu'aucun de ces francs-tireurs
+  // n'exclut nommément cette bande. Retire par la même occasion l'ajout ad
+  // hoc redondant du Pyromane dans hiredSwords.ts (seul cas déjà correct
+  // avant ce commit, désormais couvert par le spread).
+  'caravanes_marchandes',
 ];
 // Règle spéciale kislévite ("Une bande kislévite peut engager les mêmes
 // Francs-tireurs que les bandes de mercenaires humains décrites dans le
