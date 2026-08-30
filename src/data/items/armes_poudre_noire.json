@@ -70,8 +70,8 @@
   },
   {
     "id": "pierrier", "nom": "Pierrier", "categorie": "armes_poudre_noire",
-    "cout": 45, "cout_officiel": 65, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Artilleurs de la bande des Pirates uniquement",
-    "note_maison": "Prix officiel 65 CO, réduit à 45 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée.",
+    "cout": 65, "cout_fixe": true, "prix_poudre_noire_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Artilleurs de la bande des Pirates uniquement",
+    "note_maison": "Prix fixe à 65 CO, non affecté par la règle avancée de poudre noire (le texte source [GLM] précise que la règle optionnelle de la p.184 du Livre des Règles s'applique toujours aux pierriers sans en réduire le coût).",
     "acces": ["pirates"], "source": "P (Pirates)", "page": 26,
     "texte": "Parfois, les artilleurs pirates fabriquent et emportent sur le champ de bataille une version réduite des véritables canons habituellement fixés sur les supports pivotants aux rambardes ou aux flancs du navire. Bien que plus petits que les canons ordinaires, ces canons montés sur pivot sont si grands qu'ils doivent être montés sur un support en bois. Ils sont encombrants et plus susceptibles de s'enrayer que les armes à poudre noire plus courantes, ceci à cause de moulages imparfaits ou d'un mauvais mélange de poudre noire. Malgré tout, la plupart des artilleurs s'accordent à dire que ces inconvénients sont largement compensés par leur puissance.",
     "portee": "Variable", "force": "Variable",

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Member, RosterInstance } from '../../types/roster';
-import { calculerCoutRejoindreGroupe, rejoindreGroupe, TRINKETS_LIMITES } from '../../utils/shop';
+import { calculerCoutRejoindreGroupe, rejoindreGroupe, groupeDupliqueraitObjetLimite } from '../../utils/shop';
 import { useGameRules } from '../../state/useGameRules';
 import { Modal } from '../common/Modal';
 import { useLanguage } from '../../state/useLanguage';
@@ -26,8 +26,7 @@ export function RecruterDansGroupeModal({ roster, groupe, coutUnitaire, onClose,
 
   const cout = calculerCoutRejoindreGroupe(groupe, coutUnitaire, quantite);
   const budgetSuffisant = cout.coutTotal <= roster.tresorerie;
-  const dupliqueraitTrinket =
-    rules.trinketsLimites && groupe.inventaire.some((entree) => TRINKETS_LIMITES.has(entree.item_id));
+  const dupliqueraitTrinket = groupeDupliqueraitObjetLimite(groupe, rules);
 
   const confirmer = () => {
     if (dupliqueraitTrinket) return;

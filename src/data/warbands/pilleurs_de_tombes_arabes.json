@@ -25,7 +25,8 @@
       "xp_depart": 20,
       "stats": { "M": 4, "CC": 4, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 8 },
       "regles_speciales": [
-        { "nom": "Recrutement", "texte": "Chaque bande de Pilleurs de Tombes Arabes doit compter un Cheikh : ni plus, ni moins ! Il est le chef incontesté de la bande." }
+        { "nom": "Recrutement", "texte": "Chaque bande de Pilleurs de Tombes Arabes doit compter un Cheikh : ni plus, ni moins ! Il est le chef incontesté de la bande." },
+        { "nom": "Chef", "texte": "Toute figurine à moins de 6ps du Cheikh peut utiliser son Commandement pour ses tests." }
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse", "special"],
       "acces_equipement": ["guerriers"],

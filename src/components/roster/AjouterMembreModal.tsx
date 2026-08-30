@@ -19,7 +19,7 @@ import {
   rejoindreGroupe,
   transfererVersStock,
   formatEquipementAffiche,
-  TRINKETS_LIMITES,
+  groupeDupliqueraitObjetLimite,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { translateItem } from '../../i18n/data/items';
@@ -164,10 +164,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
   const coutRejoindre = groupeCible ? calculerCoutRejoindreGroupe(groupeCible, coutUnitaire, quantite) : null;
   const coutTotal = coutRejoindre ? coutRejoindre.coutTotal : coutUnitaire * quantite;
   const budgetSuffisant = coutTotal <= roster.tresorerie;
-  const dupliqueraitTrinket =
-    !!groupeCible &&
-    rules.trinketsLimites &&
-    groupeCible.inventaire.some((entree) => TRINKETS_LIMITES.has(entree.item_id));
+  const dupliqueraitTrinket = !!groupeCible && groupeDupliqueraitObjetLimite(groupeCible, rules);
 
   const choisirProfil = (value: string) => {
     if (value === FRANC_TIREUR) {

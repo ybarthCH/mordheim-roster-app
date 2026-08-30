@@ -335,6 +335,22 @@ export const ITEMS_UNIQUES_BANDE = new Set([
   'fouet_barbele',
 ]);
 
+// Rejoindre un groupe existant (RecruterDansGroupeModal, sélection d'un
+// groupe cible dans AjouterMembreModal, recrue gratuite d'un Prisonnier
+// dans ResolutionPrisonniers) clone l'inventaire du groupe pour chaque
+// nouvelle figurine (voir clonerEquipementPourNouvellesFigurines) — si ce
+// groupe possède déjà un trinket limité ou un objet unique de bande, la
+// rejoindre dupliquerait cet objet en contournant la limite, sans jamais
+// passer par les gardes-fous de l'achat direct (AchatEquipementModal,
+// `trinketLimite`/`limiteUniqueBande`). Centralise le même contrôle pour
+// ces trois flux.
+export function groupeDupliqueraitObjetLimite(groupe: Member, rules: GameRules): boolean {
+  return (
+    (rules.trinketsLimites && groupe.inventaire.some((entree) => TRINKETS_LIMITES.has(entree.item_id))) ||
+    groupe.inventaire.some((entree) => ITEMS_UNIQUES_BANDE.has(entree.item_id))
+  );
+}
+
 // Objets "matériau" (gromril, ithilmar, obsidienne, lame elfe noire) : au
 // lieu de s'acheter tels quels, ils demandent de choisir une arme/armure de
 // base existante — son prix est soit multiplié (gromril/ithilmar/
@@ -561,6 +577,17 @@ export function equipementInclusDepart(catalogueId: string, profilId: string): I
   // vide, arme incluse dans le coût de recrutement).
   if (catalogueId === 'hommes_lezards' && profilId === 'kroxigor') {
     const item = getItem('hallebarde');
+    if (item) {
+      return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
+  // "Armes/armures : Les Boscos commencent avec une corde & grappin et
+  // peuvent s'équiper d'armes et d'armures choisies dans la liste
+  // d'équipement des Pirates." (Pirates [GLM].pdf p.10) — contrairement
+  // aux cas ci-dessus, le Bosco garde un accès normal à sa liste
+  // d'équipement ; ceci s'ajoute simplement à ce qu'il achète par ailleurs.
+  if (catalogueId === 'pirates' && profilId === 'bosco') {
+    const item = getItem('corde_et_grappin');
     if (item) {
       return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
     }

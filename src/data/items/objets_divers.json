@@ -1013,7 +1013,10 @@
         "nom": "Effet",
         "texte": "Si le porteur subit une blessure à la jambe ou jambe écrasée lors de combats ultérieurs, ces Blessures Graves pourront être ignorées sur un jet de 4+ car le coup a été porté sur la jambe de bois."
       }
-    ]
+    ],
+    "stats_delta": {
+      "M": -1
+    }
   },
   {
     "id": "jolly_roger",

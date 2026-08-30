@@ -560,8 +560,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 8,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'sisters_of_sigmar', 'witch_hunters']),
-      texte: 'Les Mercenaires, les Sœurs de Sigmar et les Répurgateurs.',
+      bande_ids: uniques([...MERCENAIRES, 'pirates', 'sisters_of_sigmar', 'witch_hunters']),
+      texte: 'Les Mercenaires, les Pirates, les Sœurs de Sigmar et les Répurgateurs.',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 7 },
     equipement: ['Épée', 'Dague', 'Armure légère'],
@@ -796,8 +796,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       // dessous). Confirmé explicitement par l'utilisateur (pas une
       // erreur, malgré la fiche propre du Ranger qui ne le nomme pas) —
       // ne pas retirer 'kislevites' d'ici sans revalider ce point.
-      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'witch_hunters', 'dwarf_treasure_hunters']),
-      texte: 'Les Mercenaires, les Kislévites, les Répurgateurs et les Nains.',
+      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'pirates', 'witch_hunters', 'dwarf_treasure_hunters']),
+      texte: 'Les Mercenaires, les Kislévites, les Pirates, les Répurgateurs et les Nains.',
     },
     stats: { M: 4, CC: 3, CT: 4, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
     equipement: ['Arc', 'Épée', 'Manteau de chasseur'],
@@ -856,9 +856,9 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     },
     valeur: 24,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'witch_hunters']),
+      bande_ids: uniques([...MERCENAIRES, 'pirates', 'witch_hunters']),
       texte:
-        'Les Mercenaires et les Répurgateurs. Les bandes naines ne peuvent pas l’employer.',
+        'Les Mercenaires, les Pirates et les Répurgateurs. Les bandes naines ne peuvent pas l’employer.',
     },
     stats: { M: 3, CC: 5, CT: 4, F: 3, E: 4, PV: 1, I: 2, A: 1, Cd: 9 },
     equipement: [
@@ -1099,8 +1099,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 9,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'moines_guerriers_de_cathay']),
-      texte: 'Les Caravanes marchandes, Moines de Cathay et Mercenaires.',
+      bande_ids: uniques([...MERCENAIRES, 'pirates', 'moines_guerriers_de_cathay']),
+      texte: 'Les Caravanes marchandes, Moines de Cathay, Pirates et Mercenaires.',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 7 },
     equipement: ['Fusées', 'Pétards (illimités)'],
@@ -1757,8 +1757,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     },
     valeur: 14,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'guerriers_fantomes', ...NAINS, 'maneaters']),
-      texte: 'Les Mercenaires humains, les Kislévites, ainsi que toute bande d’Elfes Sylvains, de Nains ou de Mangeurs d’Hommes.',
+      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'pirates', 'guerriers_fantomes', ...NAINS, 'maneaters']),
+      texte: 'Les Mercenaires humains, les Kislévites, les Pirates, ainsi que toute bande d’Elfes Sylvains, de Nains ou de Mangeurs d’Hommes.',
     },
     stats: { M: 4, CC: 2, CT: 4, F: 2, E: 2, PV: 1, I: 4, A: 1, Cd: 7 },
     equipement: ['Épée', 'Dague', 'Couteaux de jet', 'Corde et grappin'],
@@ -1888,8 +1888,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'aucun', cout: 0, texte: 'Aucune solde : les Prêtres de Morr n’ont que faire de l’or.' },
     valeur: 8,
     employeurs: {
-      bande_ids: MERCENAIRES_ET_KISLEVITES,
-      texte: 'Les bandes de Mercenaires humains (Reikland, Marienburg, Middenheim, Averland, Ostland, Artilleurs de Nuln), ainsi que les Kislévites.',
+      bande_ids: uniques([...MERCENAIRES_ET_KISLEVITES, 'pirates']),
+      texte: 'Les bandes de Mercenaires humains (Reikland, Marienburg, Middenheim, Averland, Ostland, Artilleurs de Nuln), les Pirates, ainsi que les Kislévites.',
     },
     stats: { M: 4, CC: 2, CT: 2, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 9 },
     equipement: ['Dague', 'Faux (arme à deux mains, Force de l’utilisateur +1, difficile à manier)'],
@@ -2110,8 +2110,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'aucun', cout: 0, texte: 'Aucune solde : le Mage elfe ne reste jamais assez longtemps pour en réclamer une.' },
     valeur: 23,
     employeurs: {
-      bande_ids: MERCENAIRES_ET_KISLEVITES,
-      texte: 'Les bandes de Mercenaires humains, ainsi que les Kislévites.',
+      bande_ids: uniques([...MERCENAIRES_ET_KISLEVITES, 'pirates']),
+      texte: 'Les bandes de Mercenaires humains, les Pirates, ainsi que les Kislévites.',
     },
     stats: { M: 5, CC: 4, CT: 3, F: 3, E: 3, PV: 2, I: 6, A: 1, Cd: 8 },
     equipement: ['Bâton', 'Cape elfique'],

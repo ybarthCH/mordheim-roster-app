@@ -3,9 +3,10 @@ import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { resolveProfil } from '../../utils/profil';
 import { creerMembre } from '../../utils/factory';
-import { rejoindreGroupe } from '../../utils/shop';
+import { rejoindreGroupe, groupeDupliqueraitObjetLimite } from '../../utils/shop';
 import { JetOrButton } from './JetOrButton';
 import { useLanguage } from '../../state/useLanguage';
+import { useGameRules } from '../../state/useGameRules';
 import { BANDES_TRAITEES_COMME_POSSEDES } from '../../data/bandeCategories';
 
 type Props = {
@@ -35,6 +36,7 @@ export function ResolutionPrisonniers({
   onAjouterAuJournal,
 }: Props) {
   const { t } = useLanguage();
+  const { rules } = useGameRules();
   const [branche, setBranche] = useState<Branche | null>(null);
   const [heroId, setHeroId] = useState('');
   const [jetXp, setJetXp] = useState('');
@@ -98,11 +100,13 @@ export function ResolutionPrisonniers({
     setResolu(`${t('postBataille.prisoners.escorted', { n: orEscorteValeur ?? 0 })} ${texteRecrue}`);
   };
 
+  const groupeRecrue = groupesHumains.find((m) => m.instance_id === groupeRecrueId);
+  const dupliqueraitObjetLimite = !!groupeRecrue && groupeDupliqueraitObjetLimite(groupeRecrue, rules);
+
   const ajouterRecrue = () => {
-    const groupe = groupesHumains.find((m) => m.instance_id === groupeRecrueId);
-    if (!groupe) return;
-    onMajRoster(rejoindreGroupe(roster, groupe, 1, 0));
-    finaliserEscorte(t('postBataille.prisoners.recruitJoined', { groupe: groupe.nom_perso }));
+    if (!groupeRecrue || dupliqueraitObjetLimite) return;
+    onMajRoster(rejoindreGroupe(roster, groupeRecrue, 1, 0));
+    finaliserEscorte(t('postBataille.prisoners.recruitJoined', { groupe: groupeRecrue.nom_perso }));
   };
 
   const ignorerRecrue = () => {
@@ -234,6 +238,9 @@ export function ResolutionPrisonniers({
                   </option>
                 ))}
               </select>
+              {dupliqueraitObjetLimite && (
+                <p className="text-danger text-sm">{t('recruterDansGroupe.trinketBlocked')}</p>
+              )}
             </div>
           ) : (
             <p className="text-sm text-muted">{t('postBataille.prisoners.recruitNoGroup')}</p>
@@ -243,7 +250,7 @@ export function ResolutionPrisonniers({
               <button
                 type="button"
                 className="btn--pack-pill-sm btn--pack-pill-sm--primary"
-                disabled={!groupeRecrueId}
+                disabled={!groupeRecrueId || dupliqueraitObjetLimite}
                 onClick={ajouterRecrue}
               >
                 {t('postBataille.prisoners.recruitJoinButton')}
