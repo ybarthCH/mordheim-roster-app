@@ -119,7 +119,15 @@ export function RechercheObjetRareModal({
   // trouver change pour cette bande.
   const bonusRaretePoudreNoire =
     catalogue.id === 'artilleurs_de_nuln' && item && getItem(item.id)?.categorie === 'armes_poudre_noire' ? 2 : 0;
-  const rareteEffective = rarete !== null ? Math.max(2, rarete - bonusRaretePoudreNoire) : null;
+  // "Du fait qu'elles sont en contact avec les guildes de marchands de
+  // Marienburg, les bandes reçoivent un bonus de +1 lors des acquisitions
+  // d'objets rares." (Mercenaires Marienburgers, Middenheimers et
+  // Reiklanders [GW].pdf p.1, "Bonus Rare +1") — contrairement au bonus
+  // ciblé des Artilleurs de Nuln (poudre noire uniquement), celui-ci
+  // s'applique à toute catégorie d'objet rare.
+  const bonusRareteMarienburgers = catalogue.id === 'marienburgers' ? 1 : 0;
+  const rareteEffective =
+    rarete !== null ? Math.max(2, rarete - bonusRaretePoudreNoire - bonusRareteMarienburgers) : null;
   const cout = Number(coutSaisi);
   const coutValide = coutSaisi.trim() !== '' && Number.isFinite(cout) && cout >= 0;
   const inventaireBande = [...inventaireComplet(roster), ...inventaireSupplementaire];
@@ -291,6 +299,9 @@ export function RechercheObjetRareModal({
               <p className="text-sm text-muted">{t('rareModal.succeedsOn', { n: rareteEffective ?? 0 })}</p>
               {bonusRaretePoudreNoire > 0 && (
                 <p className="text-sm text-muted">{t('rareModal.blackPowderBonus', { n: bonusRaretePoudreNoire })}</p>
+              )}
+              {bonusRareteMarienburgers > 0 && (
+                <p className="text-sm text-muted">{t('rareModal.marienburgersBonus', { n: bonusRareteMarienburgers })}</p>
               )}
               {itemAffiche!.disponibilite && <p className="text-sm text-muted">{itemAffiche!.disponibilite}</p>}
               {resumeItem(itemAffiche!, language) && <p className="text-sm">{resumeItem(itemAffiche!, language)}</p>}

@@ -19,6 +19,10 @@ export const rechercheObjetRareModal: UiDictionary = {
     fr: 'Seuil déjà réduit de {n} : Entretien impeccable (armes à poudre noire, Artilleurs de Nuln).',
     en: 'Threshold already lowered by {n}: Well-Kept Weapons (black powder weapons, Gunnery School of Nuln).',
   },
+  'rareModal.marienburgersBonus': {
+    fr: 'Seuil déjà réduit de {n} : Bonus Rare +1 (guildes de marchands de Marienburg).',
+    en: 'Threshold already lowered by {n}: +1 Rare Bonus (Marienburg merchant guilds).',
+  },
   'rareModal.success': { fr: 'Réussi', en: 'Succeeded' },
   'rareModal.failure': { fr: 'Raté', en: 'Failed' },
   'rareModal.costPaidLabel': { fr: 'Coût payé (po)', en: 'Cost paid (gc)' },
