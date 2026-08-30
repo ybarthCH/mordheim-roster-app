@@ -8,7 +8,7 @@
     "rarete": "5",
     "disponibilite": "Rare 5, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 38,
@@ -216,7 +216,7 @@
     "rarete": "5",
     "disponibilite": "Rare 5, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 40,
@@ -844,7 +844,7 @@
     "rarete": "9",
     "disponibilite": "Rare 9, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 46,
@@ -1113,7 +1113,7 @@
     "rarete": "12",
     "disponibilite": "Rare 12, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 48,
@@ -1162,7 +1162,7 @@
     "rarete": "8",
     "disponibilite": "Rare 8, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 48,
@@ -1489,7 +1489,7 @@
     "rarete": "8",
     "disponibilite": "Rare 8, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 51,

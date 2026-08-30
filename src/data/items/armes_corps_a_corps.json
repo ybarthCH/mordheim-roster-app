@@ -387,7 +387,7 @@
     "rarete": "8",
     "disponibilite": "Rare 8, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 5,
@@ -450,7 +450,7 @@
     "rarete": "9",
     "disponibilite": "Rare 9, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 6,

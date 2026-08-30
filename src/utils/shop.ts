@@ -333,6 +333,12 @@ export const ITEMS_UNIQUES_BANDE = new Set([
   // Fouet barbelé (Maraudeurs du Chaos) : "Rare 9, un seul Héros
   // Maraudeurs du Chaos uniquement".
   'fouet_barbele',
+  // Bannière du clan Pestilens (Skavens du Clan Pestilens) : "Une bande ne
+  // peut avoir qu'une seule bannière du Clan Pestilens à la fois."
+  'banniere_du_clan_pestilens',
+  // Liber Bubonicus (Skavens du Clan Pestilens) : "une bande ne peut avoir
+  // qu'un seul utilisateur du Liber Bubonicus dans une campagne donnée."
+  'liber_bubonicus',
 ]);
 
 // Rejoindre un groupe existant (RecruterDansGroupeModal, sélection d'un
