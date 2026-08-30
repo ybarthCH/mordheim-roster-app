@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { useTheme } from '../../state/useTheme';
 import { useGameRules } from '../../state/useGameRules';
 import { useWakeLock } from '../../state/useWakeLock';
+import { useUpdateSW } from '../../state/useUpdateSW';
 import { useLanguage } from '../../state/useLanguage';
 
 const THEMES = [
@@ -16,7 +18,19 @@ export function ReglagesScreen() {
   const { theme, setTheme } = useTheme();
   const { rules, setRule } = useGameRules();
   const { actif: ecranActif, setActif: setEcranActif, supporte: ecranActifSupporte } = useWakeLock();
+  const { needRefresh, updateServiceWorker, checkForUpdate } = useUpdateSW();
   const { t } = useLanguage();
+
+  // La vérification automatique (toutes les heures, voir UpdateSWContext)
+  // peut faire attendre longtemps avant qu'une mise à jour tout juste
+  // déployée soit détectée — ce bouton force une revérification immédiate
+  // au lieu de laisser le temps faire son œuvre.
+  const [verificationMaj, setVerificationMaj] = useState<'inactif' | 'en_cours' | 'a_jour'>('inactif');
+  const verifierMaj = async () => {
+    setVerificationMaj('en_cours');
+    const resultat = await checkForUpdate();
+    setVerificationMaj(resultat === 'update-found' ? 'inactif' : 'a_jour');
+  };
 
   return (
     <Screen title={t('reglages.title')} back>
@@ -144,6 +158,24 @@ export function ReglagesScreen() {
         <a href="/privacy" target="_blank" rel="noopener noreferrer">
           {t('reglages.privacyPolicy')}
         </a>
+
+        <div style={{ marginTop: '1rem' }}>
+          {needRefresh ? (
+            <div className="flex items-center justify-between gap-sm">
+              <span className="text-sm">{t('updateToast.message')}</span>
+              <button type="button" className="btn btn--primary btn--sm" onClick={() => updateServiceWorker()}>
+                {t('updateToast.refresh')}
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between gap-sm">
+              <button type="button" className="btn btn--sm" onClick={verifierMaj} disabled={verificationMaj === 'en_cours'}>
+                {verificationMaj === 'en_cours' ? t('reglages.checkingUpdate') : t('reglages.checkUpdate')}
+              </button>
+              {verificationMaj === 'a_jour' && <span className="text-sm text-muted">{t('reglages.upToDate')}</span>}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Les réglages sont déjà enregistrés en direct à chaque changement —
