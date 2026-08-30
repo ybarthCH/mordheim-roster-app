@@ -175,20 +175,25 @@ const CATALOGUES_HUMAINS = new Set([
 ]);
 
 // Les tags "commun_sauf_X_Y" (ex : "commun_sauf_witch_hunters_sisters_of_sigmar")
-// nomment une ou plusieurs bandes exclues d'un objet par ailleurs commun.
-// estAccesGenerique() les traite comme génériques (l'objet reste "commun"
-// pour l'affichage/le shop des autres bandes) — c'est ici, avec l'id de
-// catalogue de la bande consultée, que l'exclusion doit réellement
-// s'appliquer. Les ids de bande contenant eux-mêmes des "_" (ex :
-// "carnival_of_chaos", "cult_of_the_possessed") et ne correspondant pas
-// toujours au fragment du tag (ex : tag "hommes_betes" vs id de catalogue
-// "beastmen_raiders"), chaque tag connu est mappé explicitement plutôt que
-// re-découpé programmatiquement.
+// et, de la même façon, "rare_N_sauf_X_Y" (ex :
+// "rare_8_sauf_witch_hunters_sisters_of_sigmar", pour un objet qui reste
+// Rare N pour tout le monde sauf des bandes nommément exclues — ex : Venin
+// fuligineux, "Not available to Witch Hunters, Warrior-Priests, or Sisters
+// of Sigmar") nomment une ou plusieurs bandes exclues d'un objet par
+// ailleurs générique. estAccesGenerique() les traite comme génériques
+// (l'objet reste accessible pour l'affichage/le shop des autres bandes) —
+// c'est ici, avec l'id de catalogue de la bande consultée, que l'exclusion
+// doit réellement s'appliquer. Les ids de bande contenant eux-mêmes des "_"
+// (ex : "carnival_of_chaos", "cult_of_the_possessed") et ne correspondant
+// pas toujours au fragment du tag (ex : tag "hommes_betes" vs id de
+// catalogue "beastmen_raiders"), chaque tag connu est mappé explicitement
+// plutôt que re-découpé programmatiquement.
 const EXCLUSIONS_COMMUN_SAUF: Record<string, string[]> = {
   commun_sauf_witch_hunters_sisters_of_sigmar: ['witch_hunters', 'sisters_of_sigmar'],
   commun_sauf_hommes_betes: ['beastmen_raiders'],
   commun_sauf_carnival_of_chaos_undead: ['carnival_of_chaos', 'undead'],
   commun_sauf_cult_of_the_possessed_undead: ['cult_of_the_possessed', 'undead'],
+  rare_8_sauf_witch_hunters_sisters_of_sigmar: ['witch_hunters', 'sisters_of_sigmar'],
 };
 
 // Un objet "commun_<bande>" (restreint à un groupe précis, donc exclu du
@@ -1067,7 +1072,14 @@ export function getShopCommun(
       !(armureLourdeInterdite && ITEMS_EQUIVALENT_ARMURE_LOURDE.has(item.id)) &&
       !('heros_uniquement' in item && item.heros_uniquement && profil?.type === 'homme_de_main') &&
       ((catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) ||
-        (item.acces?.includes('commun_heros') && profil?.type === 'heros')) &&
+        (item.acces?.includes('commun_heros') && profil?.type === 'heros') ||
+        // Eau bénite ("Common for Warrior-Priests and Sisters of Sigmar") —
+        // même principe que commun_heros ci-dessus : restreint au Prêtre-
+        // guerrier des Répurgateurs (les Sœurs de Sigmar y ont déjà accès
+        // via leur propre liste de bande, restriction Héroïnes uniquement
+        // déjà appliquée là par le mécanisme générique "chapitre Objets
+        // Divers" — inutile de dupliquer l'accès ici pour elles).
+        (item.acces?.includes('commun_pretres_guerriers_soeurs_de_sigmar') && profil?.id === 'pretre_guerrier')) &&
       respecteRestrictionProfilEquipementSpecial(catalogue, profil, item.id) &&
       respecteRestrictionCompetenceEquipementSpecial(catalogue, profil, competencesAcquises, item.id) &&
       !estCategorieInterdite(
