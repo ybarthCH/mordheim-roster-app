@@ -52,6 +52,11 @@ export type CompetenceSpeciale = {
   // Value, dupliquée ici pour les mêmes raisons que le reste de ce type
   // (éviter un import circulaire catalog.ts <-> gameData.ts).
   valeurPuissance?: number;
+  // Cette compétence augmente l'effectif maximum de la bande tant qu'un
+  // membre vivant la possède (ex : Invocateur des Morts Sans Repos, "+1") —
+  // même principe que Profile.bonus_effectif_max, lu par
+  // effectifMaxAutorise() dans utils/validation.ts.
+  bonus_effectif_max?: number;
 };
 
 export type Profile = {
@@ -162,6 +167,25 @@ export type Profile = {
   // Prêtre de Taal, armure lourde uniquement) — non automatisée, laissée en
   // texte informatif dans regles_speciales.
   categories_interdites?: (
+    | 'armes_cac'
+    | 'armes_tir'
+    | 'armes_poudre_noire'
+    | 'armes_de_jet'
+    | 'armures'
+    | 'poisons_drogues'
+  )[];
+  // Variante de `categories_interdites` qui ne filtre QUE l'onglet "commune"
+  // du shop (et la recherche d'objet rare) — jamais l'onglet "bande" via
+  // getEquipementBande, contrairement à `categories_interdites` qui filtre
+  // les deux (voir son propre commentaire ci-dessus et le cas Artilleurs de
+  // Nuln dans getEquipementBande/utils/shop.ts). Nécessaire quand la propre
+  // liste d'équipement du profil range légitimement des objets dans une
+  // catégorie par ailleurs interdite en boutique commune (ex : le Maître
+  // Cuisinier des Mootlanders, dont les ustensiles de cuisine sont rangés
+  // sous "armes_cac" — `categories_interdites: ["armes_cac"]` masquerait
+  // aussi ses propres ustensiles, ce qui n'est pas voulu). Consommé par
+  // getShopCommun uniquement.
+  categories_interdites_commun?: (
     | 'armes_cac'
     | 'armes_tir'
     | 'armes_poudre_noire'

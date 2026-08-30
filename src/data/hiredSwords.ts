@@ -1967,6 +1967,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
           { id: 'contondante', itemIds: ['arme_contondante_une_main'] },
           { id: 'fleau', itemIds: ['fleau'] },
           { id: 'morgenstern', itemIds: ['morgenstern'] },
+          { id: 'deux_mains', itemIds: ['arme_a_deux_mains'] },
         ],
       },
     ],

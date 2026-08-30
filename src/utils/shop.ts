@@ -1005,6 +1005,14 @@ export function getShopCommun(
   // poisons restaient achetables via cet onglet malgré acces_equipement: [].
   if (profil?.aucun_achat_shop_commun) return [];
   const armureLourdeInterdite = !aAccesArmureLourde(catalogue, profil);
+  // Fusionne categories_interdites (filtre aussi l'onglet bande) et
+  // categories_interdites_commun (ne filtre que cet onglet commun) pour ce
+  // seul appel — voir le commentaire de categories_interdites_commun dans
+  // types/catalog.ts pour la raison de cette distinction.
+  const profilInterdictionCommune =
+    profil && profil.categories_interdites_commun?.length
+      ? { ...profil, categories_interdites: [...(profil.categories_interdites ?? []), ...profil.categories_interdites_commun] }
+      : profil;
   const items: ShopItem[] = TOUS_LES_ITEMS.filter(
     (item) =>
       // Les mutations ("Un guerrier de Mutant ou de Possédé peut acheter des
@@ -1013,13 +1021,14 @@ export function getShopCommun(
       // liste equipement_special de la bande.
       item.categorie !== 'mutations' &&
       !(armureLourdeInterdite && ITEMS_EQUIVALENT_ARMURE_LOURDE.has(item.id)) &&
+      !('heros_uniquement' in item && item.heros_uniquement && profil?.type === 'homme_de_main') &&
       ((catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) ||
         (item.acces?.includes('commun_heros') && profil?.type === 'heros')) &&
       respecteRestrictionProfilEquipementSpecial(catalogue, profil, item.id) &&
       respecteRestrictionCompetenceEquipementSpecial(catalogue, profil, competencesAcquises, item.id) &&
       !estCategorieInterdite(
         item.categorie,
-        profil,
+        profilInterdictionCommune,
         competencesAcquises,
         'sous_type' in item ? (item.sous_type as string | undefined) : undefined
       ) &&

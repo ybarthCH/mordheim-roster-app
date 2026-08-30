@@ -80,7 +80,18 @@ export function effectifMaxAutorise(roster: RosterInstance): number | undefined 
       const possede = roster.membres.some((m) => m.profil_id === profil.id && m.statut !== 'mort');
       return possede ? total + profil.bonus_effectif_max : total;
     }, 0) ?? 0;
-  return maximum + (aUnFrancTireurAvecTag(roster, 'halfling') ? 1 : 0) + bonusProfils;
+  // Bonus porté par une compétence spéciale acquise par un membre vivant
+  // (ex : Invocateur des Morts Sans Repos, "+1") — voir
+  // CompetenceSpeciale.bonus_effectif_max.
+  const bonusCompetences =
+    catalogue?.competences_speciales.reduce((total, competence) => {
+      if (!competence.bonus_effectif_max) return total;
+      const possede = roster.membres.some(
+        (m) => m.statut !== 'mort' && m.competences_acquises.includes(competence.id)
+      );
+      return possede ? total + competence.bonus_effectif_max : total;
+    }, 0) ?? 0;
+  return maximum + (aUnFrancTireurAvecTag(roster, 'halfling') ? 1 : 0) + bonusProfils + bonusCompetences;
 }
 
 /**
