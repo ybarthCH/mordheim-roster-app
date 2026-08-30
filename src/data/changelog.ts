@@ -48,7 +48,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       {
         categorie: 'fonctionnalite',
         texte:
-          "Nouveau bandeau \"Nouvelle version disponible\" quand une mise à jour de l'app est prête : reste discrètement en bas de l'écran jusqu'à un clic sur \"Actualiser\", sans jamais recharger tout seul ni interrompre une saisie ou fermer un écran en cours. L'app revérifie désormais aussi activement toutes les heures tant qu'elle reste ouverte, en plus de la vérification automatique du navigateur à chaque relance.",
+          "Nouveau bandeau \"Nouvelle version disponible\" quand une mise à jour de l'app est prête : reste discrètement en bas de l'écran jusqu'à un clic sur \"Actualiser\", sans jamais recharger tout seul ni interrompre une saisie ou fermer un écran en cours. L'app revérifie désormais aussi activement toutes les heures tant qu'elle reste ouverte, en plus de la vérification automatique du navigateur à chaque relance — et un nouveau bouton \"Vérifier les mises à jour\" dans Options → À propos permet de forcer cette vérification immédiatement plutôt que d'attendre.",
       },
       {
         categorie: 'autre',
