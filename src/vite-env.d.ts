@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+/// <reference types="vite-plugin-pwa/client" />
 
 // Injectées par vite.config.ts (define) — voir gitShortSha() là-bas.
 declare const __APP_VERSION__: string;

@@ -1132,6 +1132,33 @@ button {
   border-style: dashed;
 }
 
+/* Bandeau flottant "Nouvelle version disponible" (voir UpdateToast.tsx) :
+   fixe en bas de l'écran, ne pousse jamais le reste de la mise en page et
+   reste visible même en scrollant — contrairement à une carte au fil du
+   contenu, qu'un défilement ferait vite passer hors champ. z-index sous les
+   modales (.modal-backdrop, 50) : rien d'urgent à interrompre une saisie
+   en cours pour l'afficher par-dessus. */
+.update-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(1rem + var(--safe-bottom));
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  max-width: calc(100vw - 2rem);
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  box-shadow: var(--shadow);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .drag-ghost {
   position: fixed;
   z-index: 1000;

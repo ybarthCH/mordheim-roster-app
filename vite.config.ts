@@ -62,7 +62,14 @@ export default defineConfig(({ command }) => ({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      // 'prompt' + injectRegister: false : on enregistre nous-mêmes le service
+      // worker via virtual:pwa-register/react (voir UpdateToast.tsx) plutôt
+      // que le script auto-injecté par le plugin — nécessaire pour piloter
+      // le moment du rechargement (bandeau "Nouvelle version" cliqué par le
+      // joueur) au lieu d'un rechargement automatique et silencieux qui
+      // pourrait interrompre une saisie ou fermer un écran en cours.
+      registerType: 'prompt',
+      injectRegister: false,
       includeAssets: [
         'app-icons/icon-32.png',
         'app-icons/icon-192.png',
