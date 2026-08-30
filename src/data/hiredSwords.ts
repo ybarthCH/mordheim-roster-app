@@ -162,7 +162,13 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 21,
     employeurs: {
-      bande_ids: brutesDuBien,
+      // "Francs-tireurs : Les Escorteurs Impériaux ne peuvent être
+      // accompagnés que par des Francs-tireurs montés. Cela concerne les
+      // Chevaliers solitaires et les Patrouilleurs." (Escorteurs Impériaux
+      // [GLM].pdf p.1) — ajouté explicitement ici, en plus de brutesDuBien ;
+      // voir RESTRICTIONS_ABSOLUES ci-dessous pour la fermeture réciproque
+      // (tout autre franc-tireur exclu pour cette bande).
+      bande_ids: uniques([...brutesDuBien, 'escorteurs_imperiaux']),
       texte: 'Les bandes de Mercenaires et de Répurgateurs.',
     },
     stats: { M: 4, CC: 4, CT: 3, F: 4, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
@@ -348,7 +354,12 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     recrutement: { cout: 40 },
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 22,
-    employeurs: { bande_ids: BIEN, texte: 'Les bandes alignées du côté du Bien, ainsi que les Gladiateurs.' },
+    employeurs: {
+      // Voir chevalier_solitaire ci-dessus : même règle "Francs-tireurs"
+      // des Escorteurs Impériaux, qui nomme aussi le Patrouilleur.
+      bande_ids: uniques([...BIEN, 'escorteurs_imperiaux']),
+      texte: 'Les bandes alignées du côté du Bien, ainsi que les Gladiateurs.',
+    },
     stats: { M: 4, CC: 3, CT: 4, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 8 },
     equipement: ['Arbalète', 'Marteau de cavalerie', 'Dague', 'Armure lourde', 'Trois torches', 'Cheval'],
     acces_competences: ['combat', 'force', 'tir'],
@@ -2116,6 +2127,14 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
   // Hired sword/Dramatis Personae." (Battle Monks of Cathay.pdf p.1) —
   // seuls les francs-tireurs dont le texte nomme explicitement Cathay.
   moines_guerriers_de_cathay: new Set(['pyromane', 'ninja', 'forgeron', 'marchand_cathayen']),
+  // "Francs-tireurs : Les Escorteurs Impériaux ne peuvent être accompagnés
+  // que par des Francs-tireurs montés. Cela concerne les Chevaliers
+  // solitaires et les Patrouilleurs." (Escorteurs Impériaux [GLM].pdf p.1)
+  // — liste blanche fermée : sans elle, tout franc-tireur dont la
+  // définition utilise toutesSauf(...)/HUMAINS/TOUTES_LES_BANDES (ex.
+  // Bandit de Grand Chemin, nommément exclu par le texte) resterait
+  // accessible par défaut.
+  escorteurs_imperiaux: new Set(['chevalier_solitaire', 'patrouilleur']),
   ostlanders: new Set(['ogre']),
   lustrian_reavers: new Set(['ogre', 'tueur_trolls_nain', 'tireur_elite_tileen', 'chasseur_gros_gibier']),
   orc_mob: new Set(['gladiateur', 'ogre', 'mage']),
