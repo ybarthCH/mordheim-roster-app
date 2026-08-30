@@ -261,7 +261,17 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       texte: '10 CO, ou 20 CO si la bande comprend des elfes.',
     },
     valeur: 12,
-    employeurs: { bande_ids: brutesDuBien, texte: 'Les bandes de Mercenaires et de Répurgateurs.' },
+    employeurs: {
+      // "Hired Swords: [...] They may hire an Ogre Bodyguard, Dwarf
+      // Trollslayer, Tilean Marksman or a Big Game Hunter."
+      // (Lustrian-Reavers-V1.2.pdf p.2, "Épées louées") — les 3 autres
+      // francs-tireurs cités fonctionnaient déjà (listes de base plus
+      // larges), seul celui-ci en manquait ; RESTRICTIONS_ABSOLUES.lustrian_reavers
+      // le référence déjà mais ne fait que RESTREINDRE une liste de base,
+      // jamais l'étendre — sans cet ajout il restait un artefact sans effet.
+      bande_ids: uniques([...brutesDuBien, 'lustrian_reavers']),
+      texte: 'Les bandes de Mercenaires et de Répurgateurs.',
+    },
     stats: { M: 3, CC: 4, CT: 3, F: 3, E: 4, PV: 1, I: 2, A: 1, Cd: 9 },
     equipement: ['Deux haches ou une hache à deux mains'],
     equipement_choix: [
