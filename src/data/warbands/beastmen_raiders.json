@@ -104,6 +104,7 @@
         { "nom": "Recrutement", "texte": "Autant que vous le souhaitez." }
       ],
       "acces_competences": [],
+      "ne_peut_jamais_devenir_heros": true,
       "acces_equipement": ["ungors"],
       "acces_competences_a_verifier": false
     },
@@ -157,6 +158,7 @@
         { "nom": "Grande cible", "texte": "Le Minotaure est une grande cible, comme décrit dans les règles de Tir." }
       ],
       "acces_competences": [],
+      "ne_peut_jamais_devenir_heros": true,
       "acces_equipement": ["hommes_betes"],
       "acces_competences_a_verifier": false
     },
