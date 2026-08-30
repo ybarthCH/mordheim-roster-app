@@ -116,7 +116,9 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["vauriens"],
-      "acces_competences_a_verifier": false
+      "categories_interdites_commun": ["armes_tir", "armes_poudre_noire"],
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_chef": true
     },
     {
       "id": "ogre",
@@ -134,9 +136,10 @@
         { "nom": "Compétences", "texte": "Un Ogre qui devient un Héros dans le cadre de la règle « Ce gars est doué » peut faire son choix dans les listes de compétences de Combat et de Force." },
         { "nom": "Lent d'Esprit", "texte": "Bien que les Ogres soient capables de gagner de l'expérience et de profiter des progressions, ils ne sont pas les plus intelligentes des créatures. Les Ogres gagnent une progression qu'une fois sur deux (ils doivent accumuler deux fois plus d'expérience que la normale pour obtenir une progression)." }
       ],
-      "acces_competences": [],
+      "acces_competences": ["combat", "force"],
       "acces_equipement": ["ogres"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "demi_xp": true
     },
     {
       "id": "chien_de_guerre",
