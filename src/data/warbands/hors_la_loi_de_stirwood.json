@@ -125,10 +125,10 @@
       "armes_tir": [
         { "item_id": "arc_court", "cout": 5 },
         { "item_id": "arc", "cout": 10 },
-        { "item_id": "arc_long", "cout": 15, "restriction": "Héros et Tireurs uniquement" }
+        { "item_id": "arc_long", "cout": 15, "restriction": "Héros et Tireurs uniquement", "profils": ["chef_hors_la_loi", "moine_stirwood", "champion_de_stirwood", "petit_voleur", "tireur"] }
       ],
       "armures": [
-        { "item_id": "armure_legere", "cout": 20, "restriction": "Héros et Tireurs uniquement" },
+        { "item_id": "armure_legere", "cout": 20, "restriction": "Héros et Tireurs uniquement", "profils": ["chef_hors_la_loi", "moine_stirwood", "champion_de_stirwood", "petit_voleur", "tireur"] },
         { "item_id": "casque", "cout": 10 },
         { "item_id": "bouclier", "cout": 5 }
       ]
