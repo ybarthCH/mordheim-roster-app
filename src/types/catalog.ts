@@ -166,6 +166,13 @@ export type Profile = {
   // (utils/bandeValue.ts), mais porté par le profil plutôt que par le statut
   // de franc-tireur.
   exclu_effectif_max?: boolean;
+  // Ce profil précis (et non toute la bande, contrairement à
+  // WarbandCatalog.xp_demi, ex : Mangeurs d'Hommes) ne coche qu'une
+  // demi-case par point d'expérience gagné — il lui faut donc le double
+  // d'XP pour obtenir chaque avancée (ex : "Lent d'Esprit" du Gladiateur
+  // Ogre). Consommé par avancesDues (utils/xp.ts), en plus de
+  // catalogue.xp_demi.
+  demi_xp?: boolean;
   // Compétence(s) acquises gratuitement dès la création du membre, sans
   // consommer d'avancée (ex : le Colosse de la Kermesse du Chaos, qui
   // démarre avec Homme Fort — "Force Surnaturelle") — voir

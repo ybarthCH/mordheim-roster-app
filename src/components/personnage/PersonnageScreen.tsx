@@ -349,7 +349,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
       }
     : undefined;
 
-  const demiXp = !!catalogue.xp_demi;
+  const demiXp = !!catalogue.xp_demi || !!profil.demi_xp;
   const dues =
     francTireur?.gagne_experience === false || !peutGagnerExperience(profil)
       ? 0
