@@ -3,6 +3,7 @@ import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { resolveLeader, succederApresMorts } from '../../utils/leader';
 import { creerMembre } from '../../utils/factory';
+import { equipementPerduALaMort } from '../../utils/shop';
 import { nomAffiche } from '../../utils/profil';
 import { useLanguage } from '../../state/useLanguage';
 
@@ -82,7 +83,9 @@ export function ResolutionOeilDesDieuxSombres({
   const appliquerDefaite = () => {
     const dejaEnfant = roster.membres.some((m) => m.profil_id === 'enfant_du_chaos' && m.statut !== 'mort');
     const membresMaj = roster.membres.map((m) =>
-      m.instance_id === chef.instance_id ? { ...m, statut: 'mort' as const, date_mort: date } : m
+      m.instance_id === chef.instance_id
+        ? { ...m, statut: 'mort' as const, date_mort: date, ...equipementPerduALaMort() }
+        : m
     );
     const succession = succederApresMorts(roster, catalogue, membresMaj, { sansBannirProfilLeader: true });
     const profilEnfant = catalogue.profils.find((p) => p.id === 'enfant_du_chaos');

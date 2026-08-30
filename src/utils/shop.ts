@@ -678,6 +678,16 @@ export function classeRarete(rarete?: string): string | null {
   return 'badge--rarete-info';
 }
 
+// Un objet est "Rare N" (par opposition à Commun/"C", ou "-" pour les objets
+// sans cote applicable) dès que sa rareté est un nombre — même convention
+// que classeRarete ci-dessus. Sert à distinguer les objets Rares dans
+// masquerObjetsRares (voir AchatEquipementModal) : au-delà de la création
+// de bande, le livre de règles n'autorise plus leur achat direct, seulement
+// via un jet de recherche d'objet rare (RechercheObjetRareModal).
+export function estObjetRare(rarete?: string): boolean {
+  return rarete !== undefined && !Number.isNaN(Number(rarete));
+}
+
 // Mappe un objet brut (items/*.json) vers un ShopItem "commun", sans
 // résolution de règles de prix (voir getShopCommun/itemVersShopItem qui
 // appellent appliquerReglesObjet par-dessus).
@@ -1029,6 +1039,8 @@ export function getEquipementBande(
         )
           continue;
         if (!objetAutorisePourHommeDeMain(catalogue.id, profil, item.id, item.categorie)) continue;
+        if (ref.heros_uniquement && profil?.type === 'homme_de_main') continue;
+        if (ref.profils && !(profil && ref.profils.includes(profil.id))) continue;
         items.push({
           id: item.id,
           nom: item.nom,
@@ -1263,6 +1275,18 @@ export function formatEquipementAffiche(inventaire: InventoryEntry[]): string {
   return inventaire.map((e) => e.nom).join(', ');
 }
 
+// "When a warrior is killed (Hero or Henchman) all his weapons and
+// equipment are lost. [...] It is not possible to reallocate a warrior's
+// weapons or equipment once he is dead." (Part 3 - Campaigns & Optional
+// Rules, p.78) — à répercuter sur tout membre passant au statut 'mort',
+// quel que soit le chemin (jet Hors de Combat simple, groupe anéanti,
+// déclaration manuelle). Sans ça, l'inventaire du défunt reste compté par
+// inventaireComplet() et peut bloquer indéfiniment le rachat d'un objet
+// unique/limité à la bande.
+export function equipementPerduALaMort(): Pick<Member, 'inventaire' | 'equipement'> {
+  return { inventaire: [], equipement: '' };
+}
+
 // Applique un achat complet à un membre : crée les entrées d'inventaire
 // (une par figurine du groupe), débite la trésorerie via acheterPourMembre,
 // applique le stats_delta éventuel de l'objet (ex : mutation Great Claw,
@@ -1362,6 +1386,36 @@ export function clonerEquipementPourNouvellesFigurines(
     }
   }
   return clones;
+}
+
+// Équipement restant pour un groupe d'hommes de main ayant perdu des
+// figurines (résolution post-bataille) — l'inverse de
+// clonerEquipementPourNouvellesFigurines ci-dessus : chaque figurine tombée
+// emporte sa part de chaque objet distinct avec elle plutôt que de la
+// laisser aux survivants (ex : groupe de 5 avec 5 Dagues, 2 tombent = 3
+// Dagues restantes, pas 5). Sans ce partage, le reste du groupe se
+// retrouverait avec plus d'exemplaires de chaque objet que de figurines
+// pour les porter.
+// Le ratio se calcule sur `quantite * survivants` avant de diviser (plutôt
+// que floor(quantite / tailleGroupeActuelle) * survivants) : un groupe déjà
+// en sous-effectif d'équipement avant la mort (ex: un exemplaire revendu
+// individuellement depuis la fiche personnage, voir inventaireGroupeMismatch)
+// aurait sinon vu tout l'objet disparaître d'un coup dès qu'une seule
+// figurine meurt (floor(4/5) = 0 exemplaire par figurine), au lieu d'en
+// garder une part proportionnelle pour les survivants.
+export function retirerEquipementFigurinesTombees(
+  inventaireExistant: InventoryEntry[],
+  tailleGroupeActuelle: number,
+  survivants: number
+): InventoryEntry[] {
+  const diviseur = Math.max(1, tailleGroupeActuelle);
+  const restant: InventoryEntry[] = [];
+  for (const { entree, quantite } of resumeInventaireParItem(inventaireExistant)) {
+    const quantiteRestante = Math.floor((quantite * survivants) / diviseur);
+    const memeItem = inventaireExistant.filter((e) => e.item_id === entree.item_id);
+    restant.push(...memeItem.slice(0, quantiteRestante));
+  }
+  return restant;
 }
 
 // Coût total pour équiper `quantiteNouvelle` nouvelles figurines à

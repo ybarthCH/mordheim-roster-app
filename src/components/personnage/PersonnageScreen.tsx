@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
-import { grilleXpDuProfil, resolveProfil, nombreHeros } from '../../utils/profil';
+import { grilleXpDuProfil, resolveProfil, nombreHeros, peutDesignerEntraine, doitEtreRetireEntraine } from '../../utils/profil';
 import { getCatalogue } from '../../data/warbands';
 import type { Magie, Stats } from '../../types/catalog';
 import type { AdvanceRecord, Statut } from '../../types/roster';
@@ -48,6 +48,7 @@ import {
   prixVente,
   appliquerAchatSurMembre,
   profilPeutAcheterEquipement,
+  equipementPerduALaMort,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { InventoryEntry } from '../../types/roster';
@@ -297,7 +298,9 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
       const dateMort = new Date().toISOString().slice(0, 10);
       patchRoster(roster.id, (current) => {
         const membresApres = current.membres.map((m) =>
-          m.instance_id === membre.instance_id ? { ...m, statut: s, date_mort: dateMort } : m
+          m.instance_id === membre.instance_id
+            ? { ...m, statut: s, date_mort: dateMort, ...equipementPerduALaMort() }
+            : m
         );
         const succession = succederApresMorts(current, catalogue, membresApres);
         return { ...current, ...succession, membres: membresApres };
@@ -326,6 +329,25 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   // compteur dédié, résolu figurine par figurine au post-bataille. Seuls
   // Actif et Mort restent pertinents pour l'historique.
   const estGroupeSimplifie = (profil.type === 'homme_de_main' || profil.type === 'animal') && !membre.promu_heros;
+
+  // Statut spécial "Squig Entraîné" (voir Profile.designation_entrainee) :
+  // désignation/retrait manuels par le joueur, jamais automatiques — voir
+  // peutDesignerEntraine/doitEtreRetireEntraine dans utils/profil.ts.
+  const designationEntrainee = profil.designation_entrainee
+    ? {
+        estDesigne: !!membre.squig_entraine,
+        peutEtreDesigne: peutDesignerEntraine(roster, profil, membre),
+        doitEtreRetire: doitEtreRetireEntraine(roster, profil, membre),
+        onDesigner: () => majMembre({ squig_entraine: true }),
+        onRetirer: () => {
+          patchRoster(roster.id, (current) => ({
+            ...current,
+            membres: current.membres.filter((m) => m.instance_id !== membre.instance_id),
+          }));
+          navigate(`/roster/${roster.id}`);
+        },
+      }
+    : undefined;
 
   const demiXp = !!catalogue.xp_demi;
   const dues =
@@ -406,6 +428,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         onMajMembre={majMembre}
         onChangerStatut={changerStatut}
         onOpenRecruterGroupe={() => setModalRecruterGroupe(true)}
+        designationEntrainee={designationEntrainee}
       />
 
       {profil.regles_speciales && profil.regles_speciales.length > 0 && (
@@ -600,6 +623,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
           inventaireBande={inventaireComplet(roster)}
           roster={roster}
           tailleGroupe={membre.taille_groupe || 1}
+          masquerObjetsRares={roster.historique_batailles.length > 0}
           objetsPersonnalises={roster.objets_personnalises}
           objetsSurcharges={roster.objets_surcharges}
           onObjetsPersonnalisesChange={(objets) => updateRoster({ ...roster, objets_personnalises: objets })}

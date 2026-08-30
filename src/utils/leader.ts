@@ -134,18 +134,25 @@ export function succederApresMorts(
       changement = true;
     }
 
-    const survivants = membresApres.filter(
-      (m) =>
-        m.instance_id !== leaderAvant.instance_id &&
-        m.statut !== 'mort' &&
-        !estFrancTireur(m) &&
-        resolveProfil(rosterAvant, m)?.type === 'heros'
-    );
+    const survivants = membresApres.filter((m) => {
+      if (m.instance_id === leaderAvant.instance_id || m.statut === 'mort' || estFrancTireur(m)) return false;
+      const p = resolveProfil(rosterAvant, m);
+      return p?.type === 'heros' && !p.ne_peut_jamais_devenir_chef;
+    });
     if (survivants.length === 0) {
       leaderInstanceId = undefined;
     } else {
+      // "If there is more than one Hero eligible to assume command, the
+      // warrior with the most Experience points becomes the leader. In the
+      // case of a tie roll a D6 to decide the new leader." (Part 3 -
+      // Campaigns & Optional Rules p.78) — départage automatique par
+      // Commandement puis XP ; seule une égalité stricte sur les deux
+      // (représentant le jet de D6, que l'app ne simule pas) retombe sur
+      // `undefined` et le choix manuel du joueur (voir choixLeaderRequis).
       const maxCd = Math.max(...survivants.map((m) => m.stats_actuels.Cd));
-      const candidats = survivants.filter((m) => m.stats_actuels.Cd === maxCd);
+      const candidatsCd = survivants.filter((m) => m.stats_actuels.Cd === maxCd);
+      const maxXp = Math.max(...candidatsCd.map((m) => m.xp));
+      const candidats = candidatsCd.filter((m) => m.xp === maxXp);
       leaderInstanceId = candidats.length === 1 ? candidats[0].instance_id : undefined;
     }
     changement = true;

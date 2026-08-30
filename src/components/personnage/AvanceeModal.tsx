@@ -15,7 +15,12 @@ import {
 import { bonusPlafondCC, peutAugmenterStat } from '../../utils/plafond';
 import { estSorcier, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
-import { formatEquipementAffiche, monturesDisponibles, resumeInventaireParItem } from '../../utils/shop';
+import {
+  equipementPerduALaMort,
+  formatEquipementAffiche,
+  monturesDisponibles,
+  resumeInventaireParItem,
+} from '../../utils/shop';
 import { SKILL_EQUITATION } from '../../utils/tribu';
 import { useLanguage } from '../../state/useLanguage';
 import { translateSkill } from '../../i18n/data/skills';
@@ -270,7 +275,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
       {
         stats_actuels: statsActuels,
         stats_modifiees: Array.from(statsModifiees),
-        inventaire,
+        ...(resultat.statutMort ? equipementPerduALaMort() : { inventaire }),
         notes,
         competences_acquises,
         ...(resultat.statutMort
@@ -542,20 +547,24 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
             <select value={indexAvancement} onChange={(e) => setIndexAvancement(e.target.value)}>
               <option value="">{t('avanceeModal.chooseResultObtained')}</option>
               {table.map((entry, i) => {
-                const bloquee = entry.type === 'promotion' && limiteHerosAtteinte;
+                const jamaisHeros = !!profil.ne_peut_jamais_devenir_heros;
+                const bloquee = entry.type === 'promotion' && (limiteHerosAtteinte || jamaisHeros);
                 return (
                   <option key={i} value={i} disabled={bloquee}>
                     {entry.min === entry.max ? entry.min : `${entry.min}-${entry.max}`} — {libelleEntreeAvancement(entry, t)}
-                    {bloquee ? t('avanceeModal.unavailableHeroLimitSuffix') : ''}
+                    {bloquee ? (jamaisHeros ? t('avanceeModal.unavailableNeverHeroSuffix') : t('avanceeModal.unavailableHeroLimitSuffix')) : ''}
                   </option>
                 );
               })}
             </select>
           </div>
-          {limiteHerosAtteinte && table.some((e) => e.type === 'promotion') && (
+          {limiteHerosAtteinte && !profil.ne_peut_jamais_devenir_heros && table.some((e) => e.type === 'promotion') && (
             <p className="text-sm text-muted">
               {t('avanceeModal.heroLimitReachedNote', { n: LIMITE_HEROS })}
             </p>
+          )}
+          {profil.ne_peut_jamais_devenir_heros && table.some((e) => e.type === 'promotion') && (
+            <p className="text-sm text-muted">{t('avanceeModal.neverHeroNote')}</p>
           )}
           {verdictFixe && !verdictFixe.ok && (
             <p className="text-sm text-danger">

@@ -194,8 +194,7 @@
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
         { "item_id": "epee", "cout": 10 },
         { "item_id": "arme_contondante_une_main", "cout": 3, "note": "masse" },
-        { "item_id": "fouet_dhedoniste", "cout": 15, "note": "Héros uniquement" },
-        { "item_id": "pince_homme_slaaneshi", "cout": 30, "note": "voir Équipement spécial ; Rare 10, Maître Fouetteur uniquement" },
+        { "item_id": "fouet_dhedoniste", "cout": 15, "note": "Héros uniquement", "heros_uniquement": true },
         { "item_id": "arme_a_deux_mains", "cout": 15 }
       ],
       "armes_tir": [

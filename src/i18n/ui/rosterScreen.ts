@@ -203,6 +203,17 @@ export const rosterScreen: UiDictionary = {
   'memberGroup.noMembers': { fr: 'Aucun membre recruté.', en: 'No members recruited.' },
   'memberGroup.noEquipment': { fr: 'Sans équipement', en: 'No equipment' },
   'memberGroup.injuries': { fr: 'Blessures :', en: 'Injuries:' },
+  'memberGroup.addXpTitle': {
+    fr: 'Ajouter 1 XP (ex : ennemi mis hors de combat)',
+    en: 'Add 1 XP (e.g. an enemy taken out of action)',
+  },
+  'memberGroup.addXpChip': { fr: '{xp} XP', en: '{xp} XP' },
+  'memberGroup.confirmAddXpTitlePrefix': { fr: 'Ajouter 1 XP à', en: 'Add 1 XP to' },
+  'memberGroup.confirmAddXpBody': {
+    fr: "Sert à noter un ennemi mis hors de combat en cours de partie, sans ouvrir la fiche — équivaut à cocher la case suivante de la grille d'expérience.",
+    en: "Use this to record an enemy taken out of action mid-game, without opening the character sheet — equivalent to checking the next box on the experience grid.",
+  },
+  'memberGroup.confirmAddXpConfirm': { fr: '+1 XP', en: '+1 XP' },
 
   'promotion.title': { fr: 'Promouvoir un Prospect — rôle vacant', en: 'Promote a Prospect — vacant role' },
   'promotion.body': {

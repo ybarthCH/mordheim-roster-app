@@ -1,12 +1,13 @@
-import { Fragment, useMemo } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CollapsibleCard } from '../common/CollapsibleCard';
+import { Modal } from '../common/Modal';
 import { Icon } from '../common/Icon';
 import type { IconName, PackIconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import type { Profile } from '../../types/catalog';
-import { avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
+import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
 import { nomCourtBlessureAffiche } from '../../utils/blessures';
 import { inventaireGroupeMismatch, resumeInventaireParItem } from '../../utils/shop';
 import { useDragReorder } from '../../utils/useDragReorder';
@@ -115,6 +116,10 @@ type MemberRowCompactProps = {
   avanceEnAttente: boolean;
   sv: number | null;
   pvCliquable: boolean;
+  // Absent si ce membre ne peut pas gagner d'XP en ce moment (voir
+  // peutAjouterXp dans `vues`) : la puce +XP n'est alors pas affichée du
+  // tout, plutôt que désactivée sans explication.
+  peutAjouterXp: boolean;
   fantome: boolean;
   selectionne: boolean;
   masquerProfil?: boolean;
@@ -125,6 +130,12 @@ type MemberRowCompactProps = {
   onSupprimer: () => void;
   onBasculerHorsCombat: () => void;
   onBasculerPointsDeVie: () => void;
+  // Ouvre la confirmation (voir plus bas) plutôt que d'ajouter l'XP
+  // directement : contrairement au clic souris du tableau desktop, un tap
+  // tactile pendant un défilement peut facilement viser cette puce par
+  // erreur, et +1 XP n'est pas auto-réversible par un second tap comme le
+  // sont Hors de combat/PV.
+  onDemanderAjouterXp: () => void;
   onDragPointerDown: (e: ReactPointerEvent) => void;
   titreHorsCombatTexte: string;
   titrePointsDeVieTexte: string;
@@ -147,6 +158,7 @@ function MemberRowCompact({
   avanceEnAttente,
   sv,
   pvCliquable,
+  peutAjouterXp,
   fantome,
   selectionne,
   masquerProfil,
@@ -157,6 +169,7 @@ function MemberRowCompact({
   onSupprimer,
   onBasculerHorsCombat,
   onBasculerPointsDeVie,
+  onDemanderAjouterXp,
   onDragPointerDown,
   titreHorsCombatTexte,
   titrePointsDeVieTexte,
@@ -255,6 +268,24 @@ function MemberRowCompact({
           </span>
         )}
         {m.franc_tireur_impaye && <span className="badge badge--warning">{t('memberGroup.absentUnpaid')}</span>}
+        {peutAjouterXp && (
+          <button
+            type="button"
+            className="badge badge--info xp-chip"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDemanderAjouterXp();
+            }}
+            title={t('memberGroup.addXpTitle')}
+            aria-label={t('memberGroup.addXpTitle')}
+          >
+            <Icon name="etoile" size="0.85em" />
+            {t('memberGroup.addXpChip', { xp: m.xp })}
+            <span aria-hidden="true" style={{ fontWeight: 800 }}>
+              +
+            </span>
+          </button>
+        )}
       </div>
       {blessures && (
         <div className="text-sm text-danger" style={{ marginTop: '0.1rem' }}>
@@ -276,6 +307,7 @@ type MemberGroupCardProps = {
   onReordonner: (nouvelOrdre: Member[]) => void;
   onBasculerHorsCombat: (m: Member) => void;
   onBasculerPointsDeVie: (m: Member) => void;
+  onAjouterXp: (m: Member) => void;
   onSupprimer: (m: Member) => void;
   // Masque la colonne "Profil" : superflue quand le nom du membre est
   // toujours identique à celui de son profil (ex : Dramatis Personae, jamais
@@ -301,6 +333,7 @@ export function MemberGroupCard({
   onReordonner,
   onBasculerHorsCombat,
   onBasculerPointsDeVie,
+  onAjouterXp,
   onSupprimer,
   masquerProfil,
   selectedInstanceId,
@@ -310,6 +343,13 @@ export function MemberGroupCard({
   const { t, language } = useLanguage();
   const { elements, refItem, demarrerDragDiffere, dragVientDeSeProduire, idEnCours, pointerPos } =
     useDragReorder(membres, onReordonner);
+  // Confirmation avant d'ajouter +1 XP depuis la puce tactile de la ligne
+  // compacte (voir MemberRowCompact) : un tap accidentel au défilement est
+  // fréquent sur téléphone, et +1 XP n'est pas auto-réversible par un
+  // second tap comme le sont Hors de combat/PV — contrairement au clic
+  // souris sur la colonne XP du tableau desktop (roster-table__col-XP), qui
+  // reste immédiat, précision de pointeur oblige.
+  const [membrePourAjoutXp, setMembrePourAjoutXp] = useState<Member | null>(null);
 
   // Synopsis discret de l'équipement d'un membre (ou de son groupe, toujours
   // identique entre figurines) pour l'aperçu du roster global. Affiché sur
@@ -357,6 +397,17 @@ export function MemberGroupCard({
     );
   };
 
+  // Mêmes exclusions que estAvanceEnAttente (animal non désigné, franc-tireur
+  // sans XP...), plus mort (plus aucune XP possible) et déjà à la case
+  // maximale de sa grille (voir XpGrid) : la puce/cellule +1 XP n'a alors
+  // plus rien à faire, autant la masquer que la laisser cliquable sans effet.
+  const peutAjouterXp = (profil: Profile | undefined, m: Member) => {
+    if (!profil || !peutGagnerExperience(profil) || m.statut === 'mort') return false;
+    if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return false;
+    const max = grilleXpDuProfil(profil) === 'heros' ? HERO_XP_MAX : HENCHMAN_XP_MAX;
+    return m.xp < max;
+  };
+
   const titreHorsCombat = (m: Member, groupeSimplifie: boolean) =>
     groupeSimplifie
       ? t('memberGroup.hcMarkTitle', { hc: m.hors_combat, taille: m.taille_groupe })
@@ -387,6 +438,7 @@ export function MemberGroupCard({
           groupeSimplifie,
           leader: estLeaderActuel(roster, catalogue, m),
           avanceEnAttente: estAvanceEnAttente(profil, m),
+          peutAjouterXp: peutAjouterXp(profil, m),
           sv: sauvegardeArmureMembre(m.inventaire, rules.armuresLozheim),
         };
       }),
@@ -460,7 +512,7 @@ export function MemberGroupCard({
             </tr>
           </thead>
           <tbody>
-            {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente, sv }) => {
+            {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente, sv, peutAjouterXp }) => {
               const versPersonnage = () => navigate(`/roster/${roster.id}/personnage/${m.instance_id}`);
               return (
                 <Fragment key={m.instance_id}>
@@ -523,7 +575,20 @@ export function MemberGroupCard({
                     {groupeADuSv && (
                       <td className="roster-table__stat roster-table__col-Sv">{sv !== null ? `${sv}+` : '—'}</td>
                     )}
-                    <td className="roster-table__stat roster-table__group-start">{m.xp}</td>
+                    {peutAjouterXp ? (
+                      <td
+                        className="roster-table__stat roster-table__group-start roster-table__col-XP--cliquable"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onAjouterXp(m);
+                        }}
+                        title={t('memberGroup.addXpTitle')}
+                      >
+                        {m.xp}
+                      </td>
+                    ) : (
+                      <td className="roster-table__stat roster-table__group-start">{m.xp}</td>
+                    )}
                     <td>
                       <StatutControl
                         m={m}
@@ -589,7 +654,7 @@ export function MemberGroupCard({
       </div>
 
       <div className="roster-compact-list">
-        {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente, sv }) => (
+        {vues.map(({ m, profil, equipement, blessures, groupeSimplifie, leader, avanceEnAttente, sv, peutAjouterXp }) => (
           <MemberRowCompact
             key={m.instance_id}
             m={m}
@@ -601,6 +666,7 @@ export function MemberGroupCard({
             avanceEnAttente={avanceEnAttente}
             sv={sv}
             pvCliquable={pvEstCliquable(m, groupeSimplifie)}
+            peutAjouterXp={peutAjouterXp}
             fantome={idEnCours === m.instance_id}
             selectionne={m.instance_id === selectedInstanceId}
             masquerProfil={masquerProfil}
@@ -614,6 +680,7 @@ export function MemberGroupCard({
             onSupprimer={() => onSupprimer(m)}
             onBasculerHorsCombat={() => onBasculerHorsCombat(m)}
             onBasculerPointsDeVie={() => onBasculerPointsDeVie(m)}
+            onDemanderAjouterXp={() => setMembrePourAjoutXp(m)}
             onDragPointerDown={demarrerDragDiffere(m.instance_id)}
             titreHorsCombatTexte={titreHorsCombat(m, groupeSimplifie)}
             titrePointsDeVieTexte={titrePointsDeVie(m)}
@@ -636,6 +703,28 @@ export function MemberGroupCard({
             </div>
           );
         })()}
+      {membrePourAjoutXp && (
+        <Modal onClose={() => setMembrePourAjoutXp(null)}>
+          <h3>
+            {t('memberGroup.confirmAddXpTitlePrefix')} {nomAffiche(membrePourAjoutXp)} ?
+          </h3>
+          <p className="text-muted">{t('memberGroup.confirmAddXpBody')}</p>
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={() => setMembrePourAjoutXp(null)}>
+              {t('roster.cancel')}
+            </button>
+            <button
+              className="btn btn--primary"
+              onClick={() => {
+                onAjouterXp(membrePourAjoutXp);
+                setMembrePourAjoutXp(null);
+              }}
+            >
+              {t('memberGroup.confirmAddXpConfirm')}
+            </button>
+          </div>
+        </Modal>
+      )}
     </CollapsibleCard>
   );
 }

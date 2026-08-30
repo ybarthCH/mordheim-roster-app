@@ -24,6 +24,14 @@ export const avanceeModal: UiDictionary = {
     fr: 'La bande compte déjà {n} héros (maximum autorisé) : « Lad\'s Got Talent » ne peut pas promouvoir ce membre pour l\'instant.',
     en: 'The warband already has {n} heroes (maximum allowed): "Lad\'s Got Talent" cannot promote this member right now.',
   },
+  'avanceeModal.unavailableNeverHeroSuffix': {
+    fr: ' (indisponible — ne peut jamais devenir héros)',
+    en: ' (unavailable — can never become a hero)',
+  },
+  'avanceeModal.neverHeroNote': {
+    fr: 'Ce profil ne peut jamais déclencher « Lad\'s Got Talent » : relance sur ta table papier pour obtenir un autre résultat.',
+    en: 'This profile can never trigger "Lad\'s Got Talent": roll again on your tabletop to get another result.',
+  },
   'avanceeModal.cannotApplyResult': {
     fr: "Impossible d'appliquer ce résultat : {raison} Relance sur ta table papier pour obtenir un autre résultat.",
     en: 'Cannot apply this result: {raison} Roll again on your tabletop to get another result.',

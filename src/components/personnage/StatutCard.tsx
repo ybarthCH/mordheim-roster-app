@@ -20,6 +20,15 @@ type StatutCardProps = {
   // ci-dessous) : nombre de tours (post-batailles) avant rétablissement.
   onChangerStatut: (s: Statut, toursBlesse?: number) => void;
   onOpenRecruterGroupe: () => void;
+  // Statut spécial "Squig Entraîné" (voir Profile.designation_entrainee) —
+  // absent si ce profil n'en propose pas.
+  designationEntrainee?: {
+    estDesigne: boolean;
+    peutEtreDesigne: boolean;
+    doitEtreRetire: boolean;
+    onDesigner: () => void;
+    onRetirer: () => void;
+  };
 };
 
 export function StatutCard({
@@ -32,6 +41,7 @@ export function StatutCard({
   onMajMembre,
   onChangerStatut,
   onOpenRecruterGroupe,
+  designationEntrainee,
 }: StatutCardProps) {
   const { t } = useLanguage();
   const estFrancTireur = !!(membre.franc_tireur_id || membre.profil_custom);
@@ -275,6 +285,27 @@ export function StatutCard({
             +
           </button>
           {membre.hors_combat > 0 && <span className="text-sm text-muted">{t('statutCard.toResolveNextPostBattle')}</span>}
+        </div>
+      )}
+
+      {designationEntrainee?.estDesigne && (
+        <div className="flex items-center gap-sm" style={{ marginTop: '0.6rem' }}>
+          <span className="badge badge--info">{t('statutCard.trainedBadge')}</span>
+          {designationEntrainee.doitEtreRetire && (
+            <>
+              <span className="text-sm text-danger">{t('statutCard.trainedMustBeRemoved')}</span>
+              <button className="btn btn--sm btn--danger" onClick={designationEntrainee.onRetirer}>
+                {t('statutCard.trainedRemoveButton')}
+              </button>
+            </>
+          )}
+        </div>
+      )}
+      {designationEntrainee?.peutEtreDesigne && (
+        <div style={{ marginTop: '0.6rem' }}>
+          <button className="btn btn--sm" onClick={designationEntrainee.onDesigner}>
+            {t('statutCard.trainedDesignateButton')}
+          </button>
         </div>
       )}
 

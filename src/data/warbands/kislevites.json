@@ -141,6 +141,7 @@
       "type": "animal",
       "min": 0,
       "max": 1,
+      "requiert_profil_vivant": "dompteur_dours",
       "cout": 125,
       "stats": { "M": 6, "CC": 3, "CT": 0, "F": 5, "E": 5, "PV": 2, "I": 2, "A": 2, "Cd": 6 },
       "regles_speciales": [

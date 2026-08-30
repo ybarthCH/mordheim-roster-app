@@ -131,7 +131,7 @@
           "texte": "Pendant la phase de Tir, le Flûtiste Maudit peut diriger la mélodie maudite de sa flûte contre un modèle ennemi visible à moins de 6ps. Le modèle ciblé doit réussir un test de Commandement ou tomber sous l'emprise de la Danse Macabre : le Flûtiste peut alors le déplacer dans n'importe quelle direction (y compris hors d'un corps à corps ou pour le faire tomber d'une hauteur). Un guerrier engagé au corps à corps sous cette emprise ne peut pas attaquer (trop occupé à danser !). Un seul ennemi à la fois peut être contrôlé par la Danse Macabre ; si le Flûtiste cible un autre guerrier, le précédent est immédiatement libéré. Au début du tour ennemi suivant, en phase de Récupération, le guerrier contrôlé doit réussir un nouveau test de Commandement ou rester sous l'emprise (incapable d'attaquer ou de tirer) pour ce tour."
         }
       ],
-      "acces_competences": ["tir", "special"],
+      "acces_competences": ["academique", "special"],
       "acces_equipement": ["heros"],
       "acces_competences_a_verifier": false
     },

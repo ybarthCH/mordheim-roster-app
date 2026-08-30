@@ -223,7 +223,7 @@
       },
       {
         "nom": "Frappe en premier",
-        "texte": "Un combattant équipé de cette arme frappe en premier lors du premier tour de corps à corps, même face à une charge. Le Prêtre Liche peut renoncer à toutes ses attaques et parades d'un tour pour utiliser le pouvoir contenu dans le bâton. Un seul mot du pouvoir donne vie au serpent qu'il frappe."
+        "texte": "Le Prêtre Liche peut renoncer à toutes ses attaques et parades d'un tour pour utiliser le pouvoir contenu dans le bâton : un seul mot de pouvoir donne vie au serpent, qui frappe alors toujours en premier au corps à corps."
       },
       {
         "nom": "Parade",
@@ -958,8 +958,8 @@
     "force": "U",
     "regles_speciales": [
       {
-        "nom": "Tranchant",
-        "texte": "L'arme bénéficie d'un modificateur de sauvegarde supplémentaire de -1 (un combattant de Force 4 réduira la sauvegarde de la cible de -2)."
+        "nom": "-1 Sauvegarde ennemie",
+        "texte": "Un ennemi blessé par cette arme subit un malus de -1 à sa sauvegarde d'armure."
       }
     ]
   },
@@ -1149,6 +1149,10 @@
       {
         "nom": "Garde transversale",
         "texte": "Cette arme a été conçue pour arrêter net la charge d'un sanglier enragé. Lorsque son porteur est chargé, la lance à sanglier réduit de -1 le nombre d'Attaques du premier assaillant au corps à corps (jusqu'à un minimum de 1). Les Attaques provenant d'une deuxième arme ou de toute autre source, à l'exception de la caractéristique de base, ne sont pas affectées. La lance à sanglier n'a aucun effet sur les grandes cibles telles que les ogres, à l'exception du bonus de charge. L'Aristocrate ne peut pas manier deux lances à sanglier à la fois."
+      },
+      {
+        "nom": "Difficile à manier",
+        "texte": "Un combattant armé de cette arme peut porter un bouclier ou une rondache normalement, mais pas d'arme additionnelle."
       }
     ]
   },
@@ -1194,7 +1198,7 @@
     "page": 13,
     "texte": "Une louche n'est pas très efficace pour tuer vos ennemis, mais si vous visez correctement, un coup sur les phalanges peut sérieusement réduire les capacités de combat, même du meilleur guerrier.",
     "portee": "C à C",
-    "force": "U+2",
+    "force": "U-1",
     "regles_speciales": [
       {
         "nom": "Casse-phalanges",
@@ -1460,7 +1464,7 @@
     "cout": 30,
     "cout_fixe": true,
     "rarete": "10",
-    "disponibilite": "Rare 10, Fouettard uniquement",
+    "disponibilite": "Rare 10, Maître Fouetteur uniquement",
     "acces": [
       "cour_des_plaisirs_profanes"
     ],

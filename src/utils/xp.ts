@@ -12,19 +12,25 @@ export const HENCHMAN_XP_MAX = 14;
 export const HENCHMAN_XP_PALIERS = [2, 5, 9, 14];
 
 /**
- * Un profil 'animal' ne gagne jamais d'expérience, quel que soit
- * `gagne_experience`. Un profil 'heros'/'homme_de_main' peut aussi en être
- * explicitement exclu par ses propres règles (ex : Zombie, Squelette,
- * Enfant du Chaos) via `gagne_experience: false` dans les données de bande —
- * distinct de l'exclusion équivalente portée par les francs-tireurs
- * (voir `HiredSword.gagne_experience` dans data/hiredSwords.ts, vérifié
+ * Un profil 'animal' ne gagne jamais d'expérience par défaut, sauf exception
+ * explicite via `gagne_experience: true` (ex : un Squig des Cavernes désigné
+ * "Entraîné", voir Profile.designation_entrainee/Member.squig_entraine dans
+ * resolveProfil) — volontairement distinct d'un changement de `type`, qui
+ * aurait aussi des effets de bord sur l'éligibilité à l'achat d'équipement
+ * ailleurs dans le code (voir profilPeutAcheterEquipement) : seule l'XP doit
+ * être débloquée, pas le reste du traitement "animal". Un profil
+ * 'heros'/'homme_de_main' peut à l'inverse en être explicitement exclu par
+ * ses propres règles (ex : Zombie, Squelette, Enfant du Chaos) via
+ * `gagne_experience: false` dans les données de bande — distinct de
+ * l'exclusion équivalente portée par les francs-tireurs (voir
+ * `HiredSword.gagne_experience` dans data/hiredSwords.ts, vérifié
  * séparément par les appelants).
  */
 export function peutGagnerExperience(
   profil: { type: 'heros' | 'homme_de_main' | 'animal'; gagne_experience?: boolean } | null | undefined
 ): boolean {
   if (!profil) return true;
-  if (profil.type === 'animal') return false;
+  if (profil.type === 'animal') return profil.gagne_experience === true;
   return profil.gagne_experience !== false;
 }
 

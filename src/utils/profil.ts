@@ -65,6 +65,8 @@ export function resolveProfil(
         acces_competences: membre.acces_competences_override ?? accesTribu ?? base.acces_competences,
         acces_competences_a_verifier: false,
       }
+    : membre.squig_entraine
+    ? { ...base, grille_xp: 'homme_de_main', table_avancement: 'homme_de_main', gagne_experience: true }
     : accesTribu
     ? { ...base, acces_competences: accesTribu }
     : base;
@@ -87,6 +89,51 @@ export function grilleXpDuProfil(profil: Profile): 'heros' | 'homme_de_main' {
 
 export function tableAvancementDuProfil(profil: Profile): 'heros' | 'homme_de_main' {
   return profil.table_avancement ?? (profil.type === 'heros' ? 'heros' : 'homme_de_main');
+}
+
+/**
+ * Un membre peut être désigné manuellement avec le statut spécial porté par
+ * `Profile.designation_entrainee` (voir ce champ) si : ce profil le prévoit,
+ * ce membre n'est pas déjà désigné, il représente une figurine isolée
+ * (taille_groupe === 1, pas un groupe simplifié), il est vivant, un membre
+ * vivant du profil dresseur a acquis la compétence requise, et aucun autre
+ * membre de la bande n'est déjà désigné (un seul à la fois).
+ */
+export function peutDesignerEntraine(roster: RosterInstance, profil: Profile, membre: Member): boolean {
+  const designation = profil.designation_entrainee;
+  if (!designation) return false;
+  if (membre.squig_entraine) return false;
+  if (membre.taille_groupe !== 1) return false;
+  if (membre.statut === 'mort') return false;
+  const dejaDesigneAilleurs = roster.membres.some(
+    (m) => m.instance_id !== membre.instance_id && m.squig_entraine
+  );
+  if (dejaDesigneAilleurs) return false;
+  return roster.membres.some(
+    (m) =>
+      m.profil_id === designation.profil_dresseur &&
+      m.statut !== 'mort' &&
+      m.competences_acquises.includes(designation.competence_requise)
+  );
+}
+
+/**
+ * Vrai si un membre désigné (`Member.squig_entraine`) devrait être retiré de
+ * la bande car son dresseur n'est plus vivant ou n'a plus la compétence
+ * requise (ex : « Si le Berger à Squig meurt, le Squig entraîné est retiré
+ * de la bande »). Purement informatif ici — l'app ne supprime jamais un
+ * membre automatiquement, voir le bouton de retrait manuel sur la fiche
+ * personnage (StatutCard).
+ */
+export function doitEtreRetireEntraine(roster: RosterInstance, profil: Profile, membre: Member): boolean {
+  const designation = profil.designation_entrainee;
+  if (!designation || !membre.squig_entraine) return false;
+  return !roster.membres.some(
+    (m) =>
+      m.profil_id === designation.profil_dresseur &&
+      m.statut !== 'mort' &&
+      m.competences_acquises.includes(designation.competence_requise)
+  );
 }
 
 const GRANDE_CIBLE_RE = /^grande?\s*cible$/i;

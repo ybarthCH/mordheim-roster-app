@@ -647,6 +647,21 @@ const IDS_COEQUIPIERS = new Set(
   DRAMATIS_PERSONAE.flatMap((dp) => (dp.recrue_avec ? [dp.recrue_avec] : []))
 );
 
+// Pendant DP de RESTRICTIONS_ABSOLUES dans hiredSwords.ts : une bande fermée
+// à tout Dramatis Personae sauf un cas nommé par sa propre règle spéciale
+// (ex : la Cavalcade Maudite, "They cannot hire any Hired Sword or Dramatis
+// Personae, other than the Crow Master") a besoin d'une liste blanche ici,
+// puisque la plupart des DP restent ouverts par défaut via toutesSauf(...) —
+// sans ce filtre, une telle bande resterait éligible à tous les DP dont elle
+// n'est pas explicitement exclue.
+export const RESTRICTIONS_ABSOLUES_DP: Record<string, Set<string>> = {
+  cavalcade_maudite: new Set(['simius_gantt']),
+  // Règle "Étrangers"/Outsiders (Battle Monks of Cathay.pdf p.1, voir le
+  // pendant francs-tireurs dans hiredSwords.ts RESTRICTIONS_ABSOLUES) :
+  // aucun Dramatis Personae ne nomme explicitement Cathay dans son texte.
+  moines_guerriers_de_cathay: new Set(),
+};
+
 export function dramatisPersonaeDisponibles(roster: RosterInstance): FrancTireurCatalog[] {
   const dejaPresents = new Set(
     roster.membres.filter((m) => m.franc_tireur_id).map((m) => m.franc_tireur_id as string)
@@ -656,9 +671,11 @@ export function dramatisPersonaeDisponibles(roster: RosterInstance): FrancTireur
       .map((id) => getDramatisPersonae(id)?.groupe_exclusif)
       .filter((g): g is string => !!g)
   );
+  const restriction = RESTRICTIONS_ABSOLUES_DP[roster.bande_id];
   return DRAMATIS_PERSONAE.filter(
     (dp) =>
       dp.employeurs.bande_ids.includes(roster.bande_id) &&
+      (!restriction || restriction.has(dp.id)) &&
       !dejaPresents.has(dp.id) &&
       !(dp.recrue_avec && dejaPresents.has(dp.recrue_avec)) &&
       !IDS_COEQUIPIERS.has(dp.id) &&

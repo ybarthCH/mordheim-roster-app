@@ -6,7 +6,8 @@ import { getSetting, setSetting } from '../../db/db';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { getCatalogue } from '../../data/warbands';
-import { resolveProfil } from '../../utils/profil';
+import { grilleXpDuProfil, resolveProfil } from '../../utils/profil';
+import { HENCHMAN_XP_MAX, HERO_XP_MAX, peutGagnerExperience } from '../../utils/xp';
 import { pvPerdusPourStatut, pvRestant } from '../../utils/stats';
 import { choixLeaderRequis, succederApresMorts } from '../../utils/leader';
 import { validerComposition, validerEffectif } from '../../utils/validation';
@@ -36,7 +37,7 @@ import {
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { Icon } from '../common/Icon';
-import { estFrancTireur } from '../../data/hiredSwords';
+import { estFrancTireur, getFrancTireur } from '../../data/hiredSwords';
 import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
@@ -165,6 +166,11 @@ export function RosterScreen({
   const heros = roster.membres.filter(
     (m) => m.statut !== 'mort' && !estFrancTireur(m) && resolveProfil(roster, m)?.type === 'heros'
   );
+  // Sous-ensemble des héros éligibles au poste de chef (voir Profile.
+  // ne_peut_jamais_devenir_chef, ex : le Chevalier d'Avant-garde et le
+  // Magicien des Caravanes marchandes, "Engagés" payés par le chef) —
+  // utilisé uniquement par la modale de choix manuel de chef ci-dessous.
+  const herosEligiblesChef = heros.filter((m) => !resolveProfil(roster, m)?.ne_peut_jamais_devenir_chef);
   const hommesDeMain = roster.membres.filter(
     (m) => m.statut !== 'mort' && !estFrancTireur(m) && resolveProfil(roster, m)?.type !== 'heros'
   );
@@ -298,6 +304,24 @@ export function RosterScreen({
           ? { ...x, pv_perdus: perdusNouveau || undefined, statut: statutNouveau }
           : x
       ),
+    });
+  };
+
+  // Ajout rapide de +1 XP (ex : ennemi mis hors de combat) depuis le roster
+  // global, sans ouvrir la fiche personnage — équivaut à cocher la case
+  // suivante de la grille d'expérience (voir XpGrid/PersonnageScreen).
+  // Mêmes exclusions que MemberGroupCard.peutAjouterXp (l'UI ne propose déjà
+  // pas l'action sinon, mais on revérifie ici au cas où un état obsolète
+  // aurait laissé l'affordance affichée) : reste plafonné au max de la
+  // grille du profil, jamais appliqué à un profil qui ne gagne pas d'XP, à
+  // un franc-tireur qui en est exclu, ou à un membre mort.
+  const ajouterXp = (m: Member) => {
+    const profil = resolveProfil(roster, m);
+    if (!profil || !peutGagnerExperience(profil) || m.statut === 'mort') return;
+    if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return;
+    const max = grilleXpDuProfil(profil) === 'heros' ? HERO_XP_MAX : HENCHMAN_XP_MAX;
+    patch({
+      membres: roster.membres.map((x) => (x.instance_id === m.instance_id ? { ...x, xp: Math.min(x.xp + 1, max) } : x)),
     });
   };
 
@@ -529,6 +553,7 @@ export function RosterScreen({
             onReordonner={reordonnerSection}
             onBasculerHorsCombat={basculerHorsCombat}
             onBasculerPointsDeVie={basculerPointsDeVie}
+            onAjouterXp={ajouterXp}
             onSupprimer={setMembreASupprimer}
             selectedInstanceId={selectedInstanceId}
             onBasculerVueRapide={toggleVueCondensee}
@@ -544,6 +569,7 @@ export function RosterScreen({
             onReordonner={reordonnerSection}
             onBasculerHorsCombat={basculerHorsCombat}
             onBasculerPointsDeVie={basculerPointsDeVie}
+            onAjouterXp={ajouterXp}
             onSupprimer={setMembreASupprimer}
             selectedInstanceId={selectedInstanceId}
             onBasculerVueRapide={toggleVueCondensee}
@@ -560,6 +586,7 @@ export function RosterScreen({
               onReordonner={reordonnerSection}
               onBasculerHorsCombat={basculerHorsCombat}
               onBasculerPointsDeVie={basculerPointsDeVie}
+              onAjouterXp={ajouterXp}
               onSupprimer={setMembreASupprimer}
               onBasculerVueRapide={toggleVueCondensee}
             />
@@ -576,6 +603,7 @@ export function RosterScreen({
               onReordonner={reordonnerSection}
               onBasculerHorsCombat={basculerHorsCombat}
               onBasculerPointsDeVie={basculerPointsDeVie}
+              onAjouterXp={ajouterXp}
               onSupprimer={setMembreASupprimer}
               masquerProfil
               onBasculerVueRapide={toggleVueCondensee}
@@ -595,6 +623,7 @@ export function RosterScreen({
           onReordonner={reordonnerSection}
           onBasculerHorsCombat={basculerHorsCombat}
           onBasculerPointsDeVie={basculerPointsDeVie}
+          onAjouterXp={ajouterXp}
           onSupprimer={setMembreASupprimer}
           selectedInstanceId={selectedInstanceId}
         />
@@ -658,11 +687,11 @@ export function RosterScreen({
           <p className="text-muted text-sm" style={{ marginTop: '-0.4rem' }}>
             {t('roster.chooseLeaderBody')}
           </p>
-          {heros.length === 0 ? (
+          {herosEligiblesChef.length === 0 ? (
             <p className="text-muted">{t('roster.noLivingHero')}</p>
           ) : (
             <div className="flex flex-col gap-sm">
-              {heros
+              {herosEligiblesChef
                 .slice()
                 .sort((a, b) => b.stats_actuels.Cd - a.stats_actuels.Cd)
                 .map((m) => (

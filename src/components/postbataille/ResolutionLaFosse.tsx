@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { RosterInstance } from '../../types/roster';
 import { resolveProfil } from '../../utils/profil';
+import { equipementPerduALaMort } from '../../utils/shop';
 import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
@@ -47,7 +48,9 @@ export function ResolutionLaFosse({ roster, date, nomEvenement, onMajRoster, onA
     if (!hero) return;
     onMajRoster({
       membres: roster.membres.map((m) =>
-        m.instance_id === hero.instance_id ? { ...m, statut: 'mort' as const, date_mort: date } : m
+        m.instance_id === hero.instance_id
+          ? { ...m, statut: 'mort' as const, date_mort: date, ...equipementPerduALaMort() }
+          : m
       ),
     });
     const texte = `${hero.nom_perso} ${t('postBataille.pit.devoured')}`;

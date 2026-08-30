@@ -191,9 +191,36 @@ export type Profile = {
   // (Maraudeurs du Chaos, Pillards Hommes-Bêtes) : cette compétence se
   // prend en avancée, hors du flux de recrutement que ce champ contrôle.
   mutation_requise_au_recrutement?: boolean;
+  // Empêche définitivement ce profil de déclencher "Ce gars est doué"/Lads
+  // Got Talent : l'entrée Promotion reste visible mais désactivée sur la
+  // table d'avancement (voir AvanceeModal), le joueur doit relancer
+  // physiquement pour obtenir un autre résultat — même mécanisme que la
+  // limite de 6 héros déjà en place. Ex : le Fanatique Gobelin de la Nuit
+  // ("Cerveau champignon"), ou un Squig des Cavernes désigné Entraîné (voir
+  // designation_entrainee juste en dessous).
+  ne_peut_jamais_devenir_heros?: boolean;
+  // Marque ce profil ('animal' normalement) comme pouvant être désigné
+  // manuellement par le joueur — une figurine à la fois, isolée d'un groupe
+  // (Member.taille_groupe === 1) — comme statut spécial (Member.
+  // squig_entraine), à condition qu'un membre vivant du profil
+  // `profil_dresseur` ait acquis la compétence `competence_requise`. Une
+  // seule figurine désignée à la fois dans toute la bande (voir
+  // peutDesignerEntraine dans utils/profil.ts). Ex : le Squig des Cavernes
+  // des Gobelins de la Nuit, désignable "Squig Entraîné" une fois le Berger
+  // à Squig doté de la compétence "Entraînement" — gagne alors de l'XP
+  // comme un Homme de Main (voir resolveProfil, qui superpose ce
+  // comportement par-dessus le profil animal de base).
+  designation_entrainee?: { competence_requise: string; profil_dresseur: string };
   // Chef de bande selon les règles (un seul par catalogue) : badge visuel +
   // bonus de +1 XP automatique en cas de victoire.
   est_leader?: boolean;
+  // Engagé/mercenaire payé par le chef de bande : ne peut jamais devenir
+  // chef, ni par succession automatique à la mort du chef actuel (voir
+  // succederApresMorts dans utils/leader.ts) ni par choix manuel du joueur
+  // en cas d'égalité de Commandement (voir la modale de choix de chef dans
+  // RosterScreen.tsx). Ex : le Chevalier d'Avant-garde et le Magicien des
+  // Caravanes marchandes ("Engagé").
+  ne_peut_jamais_devenir_chef?: boolean;
   // Exemption à la règle générale "le profil du chef mort est banni du
   // recrutement à jamais" : réservée aux profils qui restent recrutables
   // indéfiniment malgré leur statut de chef (ex : le Vampire des
@@ -256,6 +283,20 @@ export type EquipementRef = {
   cout: number | string;
   note?: string;
   restriction?: string;
+  // Réserve cet objet précis aux profils de type 'heros' au sein d'une liste
+  // par ailleurs partagée avec des hommes de main (voir getEquipementBande
+  // dans utils/shop.ts) — ex : le Fouet d'hédoniste de la Cour des Plaisirs
+  // Profanes ("Heroes only"). `note`/`restriction` restent purement du texte
+  // affiché ; ce champ est le seul qui bloque réellement l'achat.
+  heros_uniquement?: boolean;
+  // Réserve cet objet précis à un ou plusieurs profils nommés au sein d'une
+  // liste par ailleurs partagée avec d'autres profils — même principe que
+  // EquipementSpecialRef.profils, pour un objet resté dans la liste normale
+  // plutôt que déplacé en equipement_special (ex : le Sabre de Cathay des
+  // Mangeurs d'Hommes, "Capitaine only", partagé avec les autres Ogres dans
+  // la même liste `ogres`). Absent = accessible à tous les profils ayant
+  // accès à la liste.
+  profils?: string[];
 };
 
 // Une liste d'équipement nommée (ex : "repurgateurs", "flagellants"...) —

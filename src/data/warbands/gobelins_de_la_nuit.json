@@ -168,7 +168,8 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["fanatiques"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_heros": true
     },
     {
       "id": "squig_des_cavernes",
@@ -188,7 +189,9 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_heros": true,
+      "designation_entrainee": { "competence_requise": "entrainement", "profil_dresseur": "berger_a_squig" }
     },
     {
       "id": "snotling",

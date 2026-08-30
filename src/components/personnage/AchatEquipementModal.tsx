@@ -10,6 +10,7 @@ import {
   libelleCategorie,
   iconeCategorie,
   classeRarete,
+  estObjetRare,
   resumeItem,
   traduirePortee,
   formatCoutItem,
@@ -92,6 +93,27 @@ type Props = {
   // propos dans ce contexte fusionné, qui expose son propre bouton
   // "Annuler" en pied de fenêtre à la place.
   masquerBoutonFermer?: boolean;
+  // Masque l'onglet "shop commun" et empêche d'y basculer. Utilisé au
+  // recrutement (voir AjouterMembreModal) : le livre de règles (Mordheim
+  // Living Rulebook p.46-47, Part 3 - Campaigns & Optional Rules p.102)
+  // limite l'équipement disponible à la création d'une bande comme au
+  // recrutement d'un nouveau membre en cours de campagne à la seule liste
+  // propre à la bande — le shop commun/"Price chart" générique ne s'applique
+  // qu'aux guerriers déjà recrutés qui achètent entre deux batailles
+  // (fiche personnage, armurerie, exploration), jamais au moment du
+  // recrutement lui-même.
+  masquerShopCommun?: boolean;
+  // Masque les objets "Rare N" (armes/armures/équipement, bande comme
+  // commun) — livre de règles : "you may buy rare weapons and armour when
+  // starting a warband ... but after playing the first game the only way
+  // to get further rare weapons and armour is to roll to see if you can
+  // locate them" (Living Rulebook p.47 / Part 3 - Campaigns & Optional
+  // Rules p.103). Passé à `true` dès que roster.historique_batailles n'est
+  // plus vide — la recherche d'objet rare (RechercheObjetRareModal, étape
+  // Commerce du post-bataille) reste alors le seul chemin légitime.
+  // Volontairement ignoré quand `gratuit` est vrai (objet trouvé en jeu via
+  // l'exploration/une récompense de scénario, pas acheté).
+  masquerObjetsRares?: boolean;
   onClose: () => void;
   onAchat: (item: ShopItem, coutPaye: number) => void;
 };
@@ -141,12 +163,14 @@ export function AchatEquipementContenu({
   categorieInitiale,
   resterOuvertApresAchat = false,
   masquerBoutonFermer = false,
+  masquerShopCommun = false,
+  masquerObjetsRares = false,
   onClose,
   onAchat,
 }: Props) {
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
-  const [source, setSource] = useState<'bande' | 'commun'>(categorieInitiale ? 'commun' : 'bande');
+  const [source, setSource] = useState<'bande' | 'commun'>(categorieInitiale && !masquerShopCommun ? 'commun' : 'bande');
   const [categorieFiltre, setCategorieFiltre] = useState<string | null>(categorieInitiale ?? null);
   const [recherche, setRecherche] = useState('');
   const [itemId, setItemId] = useState('');
@@ -172,6 +196,8 @@ export function AchatEquipementContenu({
 
   const personnaliseActif = !!(onObjetsPersonnalisesChange && onObjetsSurchargesChange);
 
+  const rareteActive = masquerObjetsRares && !gratuit;
+
   const itemsBandeBase = useMemo(
     () => [
       ...getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel, rules, marqueId),
@@ -179,10 +205,10 @@ export function AchatEquipementContenu({
     ],
     [catalogue, profil, competencesAcquises, inventaireActuel, rules, marqueId, objetsPersonnalises]
   );
-  const itemsBande = useMemo(
-    () => avecSurcharges(itemsBandeBase, objetsSurcharges),
-    [itemsBandeBase, objetsSurcharges]
-  );
+  const itemsBande = useMemo(() => {
+    const liste = avecSurcharges(itemsBandeBase, objetsSurcharges);
+    return rareteActive ? liste.filter((item) => !estObjetRare(item.rarete)) : liste;
+  }, [itemsBandeBase, objetsSurcharges, rareteActive]);
   const itemsCommunBase = useMemo(
     () =>
       getShopCommun(catalogue.id, rules, profil, competencesAcquises, catalogue, !!profil).filter(
@@ -190,22 +216,22 @@ export function AchatEquipementContenu({
       ),
     [catalogue, rules, gratuit, profil, competencesAcquises]
   );
-  const itemsCommun = useMemo(
-    () => avecSurcharges(itemsCommunBase, objetsSurcharges),
-    [itemsCommunBase, objetsSurcharges]
-  );
+  const itemsCommun = useMemo(() => {
+    const liste = avecSurcharges(itemsCommunBase, objetsSurcharges);
+    return rareteActive ? liste.filter((item) => !estObjetRare(item.rarete)) : liste;
+  }, [itemsCommunBase, objetsSurcharges, rareteActive]);
   const items = source === 'bande' ? itemsBande : itemsCommun;
 
   const itemsPourEdition = useMemo(() => {
     const vus = new Set<string>();
-    return [...itemsBande, ...itemsCommun]
+    return [...itemsBande, ...(masquerShopCommun ? [] : itemsCommun)]
       .filter((i) => {
         if (vus.has(i.id)) return false;
         vus.add(i.id);
         return true;
       })
       .sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
-  }, [itemsBande, itemsCommun]);
+  }, [itemsBande, itemsCommun, masquerShopCommun]);
   const itemsPourEditionFiltres = useMemo(() => {
     const q = rechercheEdition.trim().toLowerCase();
     return q ? itemsPourEdition.filter((i) => i.nom.toLowerCase().includes(q)) : itemsPourEdition;
@@ -235,6 +261,7 @@ export function AchatEquipementContenu({
   );
 
   const changerSource = (s: 'bande' | 'commun') => {
+    if (s === 'commun' && masquerShopCommun) return;
     setSource(s);
     setCategorieFiltre(null);
     setItemId('');
@@ -652,6 +679,17 @@ export function AchatEquipementContenu({
                   fenêtre (Annuler/Terminer, juste au-dessus) — l'onglet
                   inactif passe alors en gris (--secondaire) plutôt que
                   l'actif en rouge vif, pour rester lisible sans rivaliser. */}
+              {masquerShopCommun && (
+                <p className="text-sm text-muted" style={{ marginBottom: '0.5rem' }}>
+                  {t('achatEquipement.commonShopHiddenAtRecruitment')}
+                </p>
+              )}
+              {masquerObjetsRares && !gratuit && (
+                <p className="text-sm text-muted" style={{ marginBottom: '0.5rem' }}>
+                  {t('achatEquipement.rareItemsHiddenNote')}
+                </p>
+              )}
+              {!masquerShopCommun && (
               <div className="flex gap-sm" style={{ marginBottom: '0.5rem' }}>
                 <button
                   className={`btn--pack-pill-sm ${
@@ -682,6 +720,7 @@ export function AchatEquipementContenu({
                   {t('achatEquipement.commonShop')} ({itemsCommun.length})
                 </button>
               </div>
+              )}
 
               {categoriesDisponibles.length > 1 && (
                 <div className="tabs" style={{ marginBottom: '0.5rem' }}>

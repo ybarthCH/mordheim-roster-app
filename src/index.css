@@ -2463,6 +2463,33 @@ thead .roster-table__col-actions {
 .stat-grid__cell--pv-cliquable {
   cursor: pointer;
 }
+/* Case XP cliquable (tableau desktop uniquement, voir RosterScreen.ajouterXp)
+   : contrairement à PV ci-dessus, la colonne XP ne fait pas partie du groupe
+   surligné au survol (règle :has() plus haut) — sans indice propre, rien ne
+   distingue cette case des autres statistiques, purement affichées. Petit
+   "+1" en coin, dans le style déjà validé sur les maquettes. */
+.roster-table__col-XP--cliquable {
+  cursor: pointer;
+  position: relative;
+}
+.roster-table__col-XP--cliquable::after {
+  content: '+1';
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  font-size: 0.55em;
+  font-weight: 700;
+  opacity: 0.55;
+}
+/* Puce +1 XP de la ligne compacte (roster-compact-row__synopsis) : même
+   habillage que .badge--info, mais un vrai <button> plutôt qu'un <span> —
+   réinitialise juste ce que le navigateur impose par défaut à un bouton. */
+.xp-chip {
+  margin-left: auto;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
 /* Le synopsis d'équipement d'un membre a sa propre ligne (pleine largeur,
    sous la ligne nom+caractéristiques) plutôt que d'être coincé dans la
    cellule Nom — sans quoi un inventaire un peu long pousse les colonnes de

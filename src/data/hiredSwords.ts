@@ -19,7 +19,7 @@ import {
   toutesSauf,
   uniques,
 } from './bandeCategories';
-import { DRAMATIS_PERSONAE } from './dramatisPersonae';
+import { DRAMATIS_PERSONAE, RESTRICTIONS_ABSOLUES_DP } from './dramatisPersonae';
 
 export { SKAVENS, MORTS_VIVANTS, toutesSauf };
 
@@ -198,7 +198,15 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       texte: '20 CO, ou 40 CO si la bande comprend des nains.',
     },
     valeur: 12,
-    employeurs: { bande_ids: brutesDuBien, texte: 'Les bandes de Mercenaires et de Répurgateurs.' },
+    employeurs: {
+      // Exclusion explicite : "à l'exception de l'Éclaireur Elfe pour qui
+      // travailler avec des individus aussi sales et brutaux est
+      // inconcevable !" (Gladiateurs [GLM].pdf p.2, règle Francs-tireurs) —
+      // seul cas où les Gladiateurs (ajoutés à MERCENAIRES, voir
+      // bandeCategories.ts) doivent rester exclus malgré brutesDuBien.
+      bande_ids: brutesDuBien.filter((id) => id !== 'gladiateurs'),
+      texte: 'Les bandes de Mercenaires et de Répurgateurs.',
+    },
     stats: { M: 5, CC: 4, CT: 5, F: 3, E: 3, PV: 1, I: 6, A: 1, Cd: 8 },
     equipement: ['Arc elfique', 'Épée', 'Cape elfique'],
     acces_competences: ['tir', 'vitesse', 'special'],
@@ -340,7 +348,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     recrutement: { cout: 40 },
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 22,
-    employeurs: { bande_ids: BIEN, texte: 'Les bandes alignées du côté du Bien.' },
+    employeurs: { bande_ids: BIEN, texte: 'Les bandes alignées du côté du Bien, ainsi que les Gladiateurs.' },
     stats: { M: 4, CC: 3, CT: 4, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 8 },
     equipement: ['Arbalète', 'Marteau de cavalerie', 'Dague', 'Armure lourde', 'Trois torches', 'Cheval'],
     acces_competences: ['combat', 'force', 'tir'],
@@ -1053,7 +1061,10 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     recrutement: { cout: 25 },
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 9,
-    employeurs: { bande_ids: MERCENAIRES, texte: 'Les Caravanes marchandes, Moines de Cathay et Mercenaires.' },
+    employeurs: {
+      bande_ids: uniques([...MERCENAIRES, 'caravanes_marchandes', 'moines_guerriers_de_cathay']),
+      texte: 'Les Caravanes marchandes, Moines de Cathay et Mercenaires.',
+    },
     stats: { M: 4, CC: 3, CT: 3, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 7 },
     equipement: ['Fusées', 'Pétards (illimités)'],
     acces_competences: ['special'],
@@ -1145,7 +1156,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 15, texte: '15 CO après chaque bataille à laquelle il participe.' },
     valeur: 10,
     employeurs: {
-      bande_ids: uniques([...HUMAINS, 'dwarf_treasure_hunters']),
+      bande_ids: uniques([...HUMAINS, 'dwarf_treasure_hunters', 'moines_guerriers_de_cathay']),
       texte: 'Toute bande comprenant des Humains ou des Elfes, y compris les Moines de Cathay.',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 4, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
@@ -1224,7 +1235,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 10,
     employeurs: {
-      bande_ids: uniques([...HUMAINS, 'dwarf_treasure_hunters']),
+      bande_ids: uniques([...HUMAINS, 'dwarf_treasure_hunters', 'moines_guerriers_de_cathay']),
       texte: 'Toute bande comprenant des Humains ou des Nains, y compris les Moines de Cathay.',
     },
     stats: { M: 4, CC: 2, CT: 2, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
@@ -2091,6 +2102,12 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
 
 const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
   carnival_of_chaos: new Set(),
+  cavalcade_maudite: new Set(),
+  // "Outsiders: ... The Battle Monks warband may never hire any sort of
+  // Hired Sword or Dramatis Personae unless specifically stated with the
+  // Hired sword/Dramatis Personae." (Battle Monks of Cathay.pdf p.1) —
+  // seuls les francs-tireurs dont le texte nomme explicitement Cathay.
+  moines_guerriers_de_cathay: new Set(['pyromane', 'ninja', 'forgeron', 'marchand_cathayen']),
   ostlanders: new Set(['ogre']),
   lustrian_reavers: new Set(['ogre', 'tueur_trolls_nain', 'tireur_elite_tileen', 'chasseur_gros_gibier']),
   orc_mob: new Set(['gladiateur', 'ogre', 'mage']),
@@ -2134,18 +2151,35 @@ function appliquerRestrictionsDeBande(profil: FrancTireurCatalog): FrancTireurCa
   return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };
 }
 
+// Pendant DP de appliquerRestrictionsDeBande ci-dessus, appliqué aux
+// Dramatis Personae au moment où ils rejoignent FRANCS_TIREURS — sans ce
+// filtre, RecruterFrancTireurScreen (qui liste FRANCS_TIREURS dans son
+// intégralité, francs-tireurs bruts ET Dramatis Personae confondus) resterait
+// aveugle à RESTRICTIONS_ABSOLUES_DP.
+function appliquerRestrictionsDeBandeDP(profil: FrancTireurCatalog): FrancTireurCatalog {
+  const bandeIds = profil.employeurs.bande_ids.filter((id) => {
+    const restriction = RESTRICTIONS_ABSOLUES_DP[id];
+    return !restriction || restriction.has(profil.id);
+  });
+  return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };
+}
+
 // Le chapitre Dramatis Personae (dramatisPersonae.ts) rejoint le même
 // catalogue : recrutement différent (recherche post-bataille dédiée plutôt
 // que l'écran de recrutement), mais mécanique de jeu identique (resolveProfil,
 // entretien, valeur de bande...) — voir FrancTireurCatalog.est_dramatis_personae.
 // RESTRICTIONS_ABSOLUES ne s'applique volontairement qu'aux francs-tireurs
 // bruts : c'est une liste blanche par bande spécifique à ce système (ex :
-// l'Horde Orque exclut Gladiateur/Ogre/Mage), sans équivalent documenté pour
+// l'Horde Orque exclut Gladiateur/Ogre/Mage), sans équivalent partagé avec
 // les Dramatis Personae — la leur appliquer les rendrait accidentellement
-// indisponibles partout où une bande a une liste blanche.
+// indisponibles partout où une bande a une liste blanche. Une bande fermée
+// à TOUT franc-tireur/DP sauf un cas nommé (ex : la Cavalcade Maudite, qui
+// ne peut engager que le Maître Corbeau — voir RESTRICTIONS_ABSOLUES_DP
+// dans dramatisPersonae.ts pour le pendant DP) doit donc être déclarée aux
+// DEUX endroits séparément.
 export const FRANCS_TIREURS: FrancTireurCatalog[] = [
   ...PROFILS_BRUTS.map(appliquerRestrictionsDeBande),
-  ...DRAMATIS_PERSONAE,
+  ...DRAMATIS_PERSONAE.map(appliquerRestrictionsDeBandeDP),
 ];
 
 export function getFrancTireur(id: string | undefined): FrancTireurCatalog | undefined {

@@ -71,7 +71,13 @@
       ],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["ogres_trolls"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "competences_speciales_ajoutees": true,
+      "competences_speciales": [
+        { "id": "berserk_gladiateur", "nom": "Berserk", "texte": "+1 pour toucher au corps à corps lors du tour où il charge (non cumulable avec Charge furieuse).", "valeurPuissance": 20 },
+        { "id": "charge_furieuse_gladiateur", "nom": "Charge furieuse", "texte": "Peut doubler son nombre d'attaques lors du tour où il charge, avec un malus de -1 pour toucher.", "valeurPuissance": 40 },
+        { "id": "tueur_de_monstres", "nom": "Tueur de monstres", "texte": "Blesse toujours son adversaire sur 4+ sans tenir compte de l'Endurance, sauf si sa Force lui permet déjà de blesser plus facilement.", "valeurPuissance": 20 }
+      ]
     },
     {
       "id": "gladiateur",
@@ -150,10 +156,7 @@
     { "id": "volonte_de_fer", "nom": "Volonté de Fer", "texte": "Mis Hors de combat, teste son Endurance pour se relever et continuer à combattre ; à chaque début de tour suivant, refait le test avec un malus de -1 cumulatif, jusqu'à un nouvel échec (retiré du champ de bataille).", "valeurPuissance": 40 },
     { "id": "gros_bras", "nom": "Gros bras", "texte": "Ignore les pénalités de Fatigue ; le bonus de Force de son arme s'applique à tous les tours de corps à corps, pas seulement au premier.", "valeurPuissance": 20 },
     { "id": "maitre_darmes", "nom": "Maître d'armes", "texte": "Ignore les restrictions liées à la règle Difficile à manier, permettant de combiner par exemple une morgenstern et un bouclier, voire une paire de morgensterns.", "valeurPuissance": 20 },
-    { "id": "vieux_de_la_vieille", "nom": "Vieux de la vieille", "texte": "Immunisé à la psychologie.", "valeurPuissance": 40 },
-    { "id": "berserk_gladiateur", "nom": "Berserk", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "+1 pour toucher au corps à corps lors du tour où il charge (non cumulable avec Charge furieuse).", "valeurPuissance": 20 },
-    { "id": "charge_furieuse_gladiateur", "nom": "Charge furieuse", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "Peut doubler son nombre d'attaques lors du tour où il charge, avec un malus de -1 pour toucher.", "valeurPuissance": 40 },
-    { "id": "tueur_de_monstres", "nom": "Tueur de monstres", "reserve_a": "Gladiateur Tueur de Trolls uniquement", "texte": "Blesse toujours son adversaire sur 4+ sans tenir compte de l'Endurance, sauf si sa Force lui permet déjà de blesser plus facilement.", "valeurPuissance": 20 }
+    { "id": "vieux_de_la_vieille", "nom": "Vieux de la vieille", "texte": "Immunisé à la psychologie.", "valeurPuissance": 40 }
   ],
   "equipement": {
     "style_orque": {
@@ -232,14 +235,14 @@
         { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau ou Masse" },
         { "item_id": "hache", "cout": 5 },
         { "item_id": "epee", "cout": 10 },
-        { "item_id": "hache_naine", "cout": 15, "restriction": "Gladiateurs Tueurs nains uniquement" },
+        { "item_id": "hache_naine", "cout": 15, "restriction": "Gladiateurs Tueurs nains uniquement", "profils": ["gladiateur_tueur_de_trolls"] },
         { "item_id": "fleau", "cout": 15 },
         { "item_id": "gantelet_a_pointe", "cout": 15 },
-        { "item_id": "arme_en_gromril", "cout": "x3", "restriction": "Gladiateurs Tueurs nains uniquement" }
+        { "item_id": "arme_en_gromril", "cout": "x3", "restriction": "Gladiateurs Tueurs nains uniquement", "profils": ["gladiateur_tueur_de_trolls"] }
       ],
       "armures": [
-        { "item_id": "armure_legere", "cout": 20, "restriction": "Gladiateurs Ogres uniquement" },
-        { "item_id": "casque", "cout": 10, "restriction": "Gladiateurs Ogres uniquement" }
+        { "item_id": "armure_legere", "cout": 20, "restriction": "Gladiateurs Ogres uniquement", "profils": ["gladiateur_ogre"] },
+        { "item_id": "casque", "cout": 10, "restriction": "Gladiateurs Ogres uniquement", "profils": ["gladiateur_ogre"] }
       ]
     }
   },

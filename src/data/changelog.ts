@@ -33,6 +33,46 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-08-30',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Nouveau bouton +1 XP directement depuis la liste de la bande, sans ouvrir la fiche du personnage — pratique pour noter un ennemi mis hors de combat en pleine partie. Puce dédiée avec confirmation sur mobile/deux volets (pour éviter un faux tap au défilement), case XP directement cliquable sur le tableau desktop.",
+      },
+      {
+        categorie: 'interface',
+        texte:
+          "Confirmation demandée avant de quitter l'écran de création d'une nouvelle bande sans avoir cliqué sur \"Créer la bande\" (bouton retour du bandeau ou retour matériel/geste du téléphone) — rien n'y est encore sauvegardé, un appui accidentel ne fait plus tout perdre en silence.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Poursuite du grand audit des règles de bande contre les documents officiels sur les 10 dernières bandes jamais vérifiées : Caravanes Marchandes, La Cavalcade Maudite, Cour des Plaisirs Profanes, Fils d'Hashut, Gardiens des Tombes, Mangeurs d'Hommes, Moines Guerriers de Cathay, Mootlanders, Pilleurs de Tombes Arabes et Gladiateurs — corrections de francs-tireurs et Dramatis Personae recrutables à tort, de compétences mal réparties entre profils, d'accès à l'équipement, et de plusieurs statistiques et règles spéciales erronées (dont la Force du Louche des Mootlanders, purement et simplement inversée).",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Audit général du moteur de règles (création de bande et séquence post-bataille complète) : les objets Rares ne sont plus achetables en boutique une fois la première bataille de la bande disputée (ils ne s'obtiennent alors plus qu'à l'exploration, comme le prévoit la règle) ; en cas d'égalité de Commandement entre plusieurs héros à la mort du chef, la succession se départage désormais automatiquement par Points d'Expérience, le choix manuel du joueur ne restant nécessaire qu'en cas d'égalité totale.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Un combattant qui meurt perd désormais systématiquement tout son équipement, comme le prévoit la règle : corrigé d'abord pour les figurines mortes d'un groupe en post-bataille (y compris un groupe dont l'inventaire était déjà dépareillé entre figurines), puis étendu à tous les autres cas où c'était encore manquant (mort au combat depuis la fiche, la Fosse, la table du Seigneur des Ombres...).",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Kislévites : l'Ours Apprivoisé nécessite de nouveau un Dompteur d'Ours vivant pour être recruté ou conservé dans la bande.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Corrigé deux fuites de la boutique : le shop commun restait accessible pendant le recrutement d'un nouveau membre alors qu'il devrait être masqué pour certaines bandes, et un Squig désigné \"Entraîné\" (Gobelins de la Nuit) pouvait à tort acheter de l'équipement comme un homme de main.",
+      },
+    ],
+  },
+  {
     date: '2026-08-29',
     points: [
       {

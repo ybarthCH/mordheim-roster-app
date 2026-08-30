@@ -71,7 +71,16 @@ export const TOUTES_LES_BANDES = [
 ] as const;
 
 export const SKAVENS = ['skaven', 'skavens_pestilens'];
-export const MORTS_VIVANTS = ['undead', 'morts_sans_repos'];
+// gardiens_des_tombes n'est nommée dans aucune source comme exclue des
+// francs-tireurs/Dramatis Personae (son propre PDF, tomb guardians.pdf, ne
+// parle même pas de francs-tireurs) — ajoutée par extension du même
+// traitement déjà appliqué à morts_sans_repos (bande de supplément elle
+// aussi sans clause explicite propre, mais dont tous les profils portent la
+// règle spéciale nommée "Mort-Vivant"/"Undead", exactement comme ici sur
+// les 5 profils de Gardiens des Tombes hors Scorpion des Tombeaux) : à
+// reconsidérer si une source nommant explicitement cette bande contredit ce
+// choix.
+export const MORTS_VIVANTS = ['undead', 'morts_sans_repos', 'gardiens_des_tombes'];
 export const PEAUX_VERTES = ['orc_mob', 'orques_noirs', 'gobelins_de_la_nuit', 'gobelins_des_forets'];
 export const ELFES = ['elfes_noirs', 'guerriers_fantomes'];
 export const NAINS = ['dwarf_treasure_hunters', 'expedition_runique', 'culte_des_tueurs'];
@@ -89,6 +98,14 @@ export const MERCENAIRES = [
   'averlanders',
   'ostlanders',
   'artilleurs_de_nuln',
+  // Gladiateurs ("Les Gladiateurs peuvent recruter tous les Francs-tireurs
+  // disponibles, à l'exception de l'Éclaireur Elfe...", Gladiateurs [GLM].pdf
+  // p.2) : ajoutée ici pour que tout franc-tireur accessible aux Mercenaires
+  // (directement ou via HUMAINS/BIEN/MERCENAIRES_ET_KISLEVITES, qui
+  // partent tous de cette constante) le devienne aussi pour les Gladiateurs
+  // — sauf l'Éclaireur Elfe, explicitement exclu de son propre bande_ids
+  // (voir hiredSwords.ts).
+  'gladiateurs',
 ];
 // Règle spéciale kislévite ("Une bande kislévite peut engager les mêmes
 // Francs-tireurs que les bandes de mercenaires humains décrites dans le
@@ -108,7 +125,6 @@ export const HUMAINS = [
   'sisters_of_sigmar',
   'kislevites',
   'norses',
-  'gladiateurs',
   'gardiens_de_chapelle_bretonniens',
   'lustrian_reavers',
   'amazones_lustrie',
