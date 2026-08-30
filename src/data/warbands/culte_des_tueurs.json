@@ -40,6 +40,7 @@
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "special"],
       "acces_equipement": ["tueurs"],
+      "categories_interdites": ["armures", "armes_poudre_noire"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -56,6 +57,7 @@
       "stats": { "M": 3, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 9 },
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["chercheurs_de_trepas"],
+      "categories_interdites": ["armures", "armes_tir", "armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -94,6 +96,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["tueurs"],
+      "categories_interdites": ["armures", "armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -111,6 +114,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["tueurs"],
+      "categories_interdites": ["armures", "armes_poudre_noire"],
       "acces_competences_a_verifier": false
     },
     {
@@ -130,6 +134,7 @@
         { "nom": "Novices", "texte": "Tueurs fraîchement initiés, les Lanceurs de Haches ne possèdent pas encore la compétence « Vœu de Mort » et subissent normalement les effets de la psychologie. Lorsqu'un Lanceur de Haches obtient le résultat « Ce gars est doué », il DOIT apprendre la compétence « Vœu de Mort » au lieu d'effectuer un jet normal sur le tableau d'avancement des Héros." }
       ],
       "acces_competences": [],
+      "categories_interdites": ["armures", "armes_poudre_noire"],
       "acces_equipement": ["tueurs"],
       "acces_competences_a_verifier": false
     }

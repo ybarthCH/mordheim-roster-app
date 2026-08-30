@@ -2167,7 +2167,13 @@ function appliquerRestrictionsDeBande(profil: FrancTireurCatalog): FrancTireurCa
 function appliquerRestrictionsDeBandeDP(profil: FrancTireurCatalog): FrancTireurCatalog {
   const bandeIds = profil.employeurs.bande_ids.filter((id) => {
     const restriction = RESTRICTIONS_ABSOLUES_DP[id];
-    return !restriction || restriction.has(profil.id);
+    if (restriction && !restriction.has(profil.id)) return false;
+    // "Rancuniers" — même exclusion elfe que pour les francs-tireurs bruts
+    // (appliquerRestrictionsDeBande ci-dessus), dupliquée ici pour que
+    // RecruterFrancTireurScreen (qui liste FRANCS_TIREURS en entier) reste
+    // cohérent avec dramatisPersonaeDisponibles (dramatisPersonae.ts).
+    if ((id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs') && profil.tags?.includes('elfe')) return false;
+    return true;
   });
   return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };
 }
