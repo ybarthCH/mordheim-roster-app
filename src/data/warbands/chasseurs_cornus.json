@@ -73,6 +73,7 @@
       ],
       "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
       "acces_equipement": ["heros"],
+      "categories_interdites": ["armures"],
       "acces_competences_a_verifier": false
     },
     {
