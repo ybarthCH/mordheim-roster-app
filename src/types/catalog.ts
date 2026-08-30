@@ -134,6 +134,15 @@ export type Profile = {
   // bande (repli par défaut, tant que ce champ n'est pas encore rempli
   // partout).
   acces_equipement?: string[];
+  // Ce profil n'a accès à AUCUN achat via l'onglet "boutique commune",
+  // toutes catégories confondues — au-delà de `categories_interdites`
+  // (armes/armures uniquement), pour les profils dont la seule
+  // équipement légitime est fournie gratuitement à la création (ex :
+  // Snotling des Gobelins de la Nuit, Kroxigor des Hommes-Lézards — voir
+  // utils/shop.ts equipementInclusDepart) et qui ne devraient donc jamais
+  // pouvoir acheter une monture/un véhicule/une munition/un poison via
+  // cet onglet générique. Consommé par getShopCommun.
+  aucun_achat_shop_commun?: boolean;
   // Catégories entièrement interdites à ce profil par ses propres règles
   // (ex : Flagellant sans armure ni arme de tir), appliqué en plus de
   // `acces_equipement` — celui-ci ne filtre que l'onglet "bande" du shop,

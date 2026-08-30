@@ -214,6 +214,7 @@
       "acces_competences": [],
       "groupe_compte_comme_un": true,
       "acces_equipement": [],
+      "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false
     },
     {

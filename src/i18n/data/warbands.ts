@@ -1118,6 +1118,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte:
               'The whole group of Snotlings only counts as one model for Rout tests and when selling magic stones; each Snotling only earns half an experience point (rounded down), never gains experience itself, and is not a priority target for shooters.',
           },
+          {
+            nom: 'Weapons/armour',
+            texte:
+              'Snotlings may only ever use a pointy stick or similar mundane object, which they will find for themselves at no cost. This counts as a dagger.',
+          },
         ],
       },
       squig_geant: {
@@ -5704,6 +5709,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: "Can't Run", texte: 'A slow undead creature; cannot run but can charge normally.' },
           { nom: 'Immune to Poison', texte: 'Unaffected by poisons.' },
         ],
+        competences_speciales: {
+          conduire_char: {
+            nom: 'Drive Chariot',
+            texte:
+              'Chariots are very difficult to handle. A driver without this skill cannot charge with the Skeleton Chariot.',
+          },
+        },
       },
       acolyte: {
         nom: 'Acolyte',
@@ -5715,6 +5727,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: "Can't Run", texte: 'A slow undead creature; cannot run but can charge normally.' },
           { nom: 'Immune to Poison', texte: 'Unaffected by poisons.' },
         ],
+        competences_speciales: {
+          conduire_char: {
+            nom: 'Drive Chariot',
+            texte:
+              'Chariots are very difficult to handle. A driver without this skill cannot charge with the Skeleton Chariot.',
+          },
+        },
       },
       squelette: {
         nom: 'Skeleton Warrior',

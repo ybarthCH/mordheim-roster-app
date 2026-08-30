@@ -972,6 +972,13 @@ export function getShopCommun(
   catalogue?: WarbandCatalog,
   filtrerAccesEntrainement = false
 ): ShopItem[] {
+  // Profil sans aucun achat possible, toutes catégories confondues (ex :
+  // Snotling des Gobelins de la Nuit, Kroxigor des Hommes-Lézards — arme
+  // gratuite fournie par equipementInclusDepart, sans liste d'équipement
+  // ni accès au shop commun). categories_interdites ne couvre que
+  // armes/armures ; sans ce court-circuit, montures/véhicules/munitions/
+  // poisons restaient achetables via cet onglet malgré acces_equipement: [].
+  if (profil?.aucun_achat_shop_commun) return [];
   const armureLourdeInterdite = !aAccesArmureLourde(catalogue, profil);
   const items: ShopItem[] = TOUS_LES_ITEMS.filter(
     (item) =>

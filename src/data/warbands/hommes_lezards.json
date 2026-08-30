@@ -124,6 +124,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
+      "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false
     }
   ],
