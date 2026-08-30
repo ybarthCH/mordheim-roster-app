@@ -914,14 +914,18 @@ export function objetAutorisePourHommeDeMain(
 // un Homme d'Arme ou un Archer pouvait les acheter via le shop commun,
 // contournant la restriction déjà posée côté liste de la bande). Ne
 // s'applique que si la bande a explicitement choisi de restreindre CET item
-// par profil ; les autres objets restent inchangés.
+// par profil ; les autres objets restent inchangés. Si `profil` est omis
+// (vitrine sans membre précis, ex : achat pour le stock de bande depuis
+// l'Armurerie), on ne filtre PAS — même contrat que le reste de
+// getShopCommun (voir son propre commentaire) : un profil manquant ne doit
+// jamais se comporter comme "aucun profil n'a le droit".
 function respecteRestrictionProfilEquipementSpecial(
   catalogue: WarbandCatalog | undefined,
   profil: Profile | null | undefined,
   itemId: string
 ): boolean {
   const refRestreint = catalogue?.equipement_special?.find((ref) => ref.item_id === itemId && ref.profils);
-  return !refRestreint?.profils || (!!profil && refRestreint.profils.includes(profil.id));
+  return !refRestreint?.profils || !profil || refRestreint.profils.includes(profil.id);
 }
 
 // `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
