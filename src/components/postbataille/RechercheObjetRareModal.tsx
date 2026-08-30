@@ -137,9 +137,32 @@ export function RechercheObjetRareModal({
   const itemExclusifOgre = itemAccesRare.length > 0 && itemAccesRare.every((a) => a === 'maneaters');
   const malusRareteClientsDifficiles =
     catalogue.id === 'maneaters' && profil?.type === 'heros' && item && !itemExclusifOgre ? 1 : 0;
+  // "Pilleurs : ... ils gagnent un +1 à leurs jets de rareté lors de la
+  // recherche d'objets rares." (Maraudeurs du Chaos [GLM].pdf p.9, "Les
+  // Norses") — s'applique à toute catégorie, comme le bonus Marienburgers.
+  const bonusRareteNorses = catalogue.id === 'maraudeurs_du_chaos' && roster.tribu === 'norses' ? 1 : 0;
+  // "Clients Difficiles : ... une Bande Kurgan subit un malus de -1 sur les
+  // jets pour trouver des articles rares, à l'exception de Grandes Haches et
+  // de Fouets Barbelés." (Maraudeurs du Chaos [GLM].pdf p.9, "Les Kurgans")
+  const malusRareteKurgans =
+    catalogue.id === 'maraudeurs_du_chaos' &&
+    roster.tribu === 'kurgans' &&
+    item &&
+    item.id !== 'grande_hache_du_chaos' &&
+    item.id !== 'fouet_barbele'
+      ? 1
+      : 0;
   const rareteEffective =
     rarete !== null
-      ? Math.max(2, rarete - bonusRaretePoudreNoire - bonusRareteMarienburgers + malusRareteClientsDifficiles)
+      ? Math.max(
+          2,
+          rarete -
+            bonusRaretePoudreNoire -
+            bonusRareteMarienburgers -
+            bonusRareteNorses +
+            malusRareteClientsDifficiles +
+            malusRareteKurgans
+        )
       : null;
   const cout = Number(coutSaisi);
   const coutValide = coutSaisi.trim() !== '' && Number.isFinite(cout) && cout >= 0;
@@ -318,6 +341,12 @@ export function RechercheObjetRareModal({
               )}
               {malusRareteClientsDifficiles > 0 && (
                 <p className="text-sm text-muted">{t('rareModal.maneatersMalus', { n: malusRareteClientsDifficiles })}</p>
+              )}
+              {bonusRareteNorses > 0 && (
+                <p className="text-sm text-muted">{t('rareModal.norsesBonus', { n: bonusRareteNorses })}</p>
+              )}
+              {malusRareteKurgans > 0 && (
+                <p className="text-sm text-muted">{t('rareModal.kurgansMalus', { n: malusRareteKurgans })}</p>
               )}
               {itemAffiche!.disponibilite && <p className="text-sm text-muted">{itemAffiche!.disponibilite}</p>}
               {resumeItem(itemAffiche!, language) && <p className="text-sm">{resumeItem(itemAffiche!, language)}</p>}

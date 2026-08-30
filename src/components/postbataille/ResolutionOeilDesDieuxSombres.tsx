@@ -5,6 +5,7 @@ import { resolveLeader, succederApresMorts } from '../../utils/leader';
 import { creerMembre } from '../../utils/factory';
 import { equipementPerduALaMort } from '../../utils/shop';
 import { nomAffiche } from '../../utils/profil';
+import { marquesDisponibles } from '../../utils/magie';
 import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
@@ -151,7 +152,7 @@ export function ResolutionOeilDesDieuxSombres({
             <label>{t('postBataille.eyeOfDarkGods.markLabel')}</label>
             <select value={marqueChoisie} onChange={(e) => setMarqueChoisie(e.target.value)}>
               <option value="">{t('postBataille.chooseEllipsis')}</option>
-              {catalogue.marques?.map((m) => (
+              {marquesDisponibles(catalogue, roster).map((m) => (
                 <option key={m.id} value={m.id}>
                   {m.nom}
                 </option>

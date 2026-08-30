@@ -23,7 +23,7 @@ import {
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { translateItem } from '../../i18n/data/items';
-import { estSorcier, resolveSort, sortsDisponiblesPourRoster } from '../../utils/magie';
+import { estSorcier, marquesDisponibles, resolveSort, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
 import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
 import { peutGagnerExperience } from '../../utils/xp';
@@ -624,7 +624,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
                 }}
               >
                 <option value="">{t('creation.modal.choose')}</option>
-                {catalogue?.marques?.map((m) => (
+                {marquesDisponibles(catalogue, roster).map((m) => (
                   <option key={m.id} value={m.id}>
                     {m.nom}
                   </option>

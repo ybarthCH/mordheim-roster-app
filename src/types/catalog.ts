@@ -453,6 +453,16 @@ export type Marque = {
   // Cette Marque retire tout accès aux sorts (ex : Arkhar, dont le Devin
   // devient un Père de Sang qui ne jette plus de sorts).
   pas_de_sorts?: boolean;
+  // Il ne peut jamais y avoir dans la bande deux figurines vivantes portant
+  // des Marques différentes — sauf celle(s) marquées `coexiste_avec_autres`
+  // (ex : la Marque du Chaos Universel des Maraudeurs du Chaos), qui restent
+  // toujours proposables même si une autre Marque est déjà portée ailleurs
+  // dans la bande. Voir marquesDisponibles dans utils/magie.ts.
+  coexiste_avec_autres?: boolean;
+  // Catégories de compétences supplémentaires accordées en plus de celles du
+  // profil (ex : Marque d'Arkhar — le Devin devenu Père de Sang accède aux
+  // compétences de Force). Fusionnées par resolveProfil dans utils/profil.ts.
+  competences_supplementaires?: SkillCategory[];
 };
 
 // Variante de bande choisie une fois pour toutes à la création (ex : les

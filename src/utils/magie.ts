@@ -3,7 +3,7 @@
 // d'un sort déjà connu — utilisé au recrutement (premier sort obligatoire),
 // à l'avancée d'expérience ("nouvelle compétence" → sort à la place), et à
 // l'affichage sur la fiche personnage.
-import type { Magie, MagieSort, Profile, WarbandCatalog } from '../types/catalog';
+import type { Magie, MagieSort, Marque, Profile, WarbandCatalog } from '../types/catalog';
 import type { RosterInstance } from '../types/roster';
 import { MAGIE_MINEURE } from '../data/minorMagic';
 
@@ -40,6 +40,26 @@ export function magieDuProfil(
   // liste d'utilisateurs (laquelle ne référence que les profils du catalogue).
   if (typeof profil !== 'string' && profil.peut_lancer_sorts && !profil.categorie_magie) return catalogue?.magie;
   return undefined;
+}
+
+/** Marques proposables au choix pour cette bande, compte tenu de celles déjà
+ * portées par des membres vivants du roster. "Un chef ne peut porter qu'une
+ * seule Marque à la fois (sauf Marque du Chaos Universel, qui peut coexister
+ * avec les autres)" (Maraudeurs du Chaos [GLM].pdf p.10, "Marques des Dieux
+ * Sombres") — la règle s'applique en réalité à toute la bande, pas
+ * uniquement au chef : dès qu'une figurine porte une Marque non
+ * `coexiste_avec_autres`, plus aucune autre Marque distincte ne peut être
+ * choisie ailleurs dans la bande tant qu'elle est en vie. Utilisé au
+ * recrutement du Devin (AjouterMembreModal) et lors du choix de Marque du
+ * chef (ResolutionOeilDesDieuxSombres). */
+export function marquesDisponibles(catalogue: WarbandCatalog | undefined, roster: RosterInstance): Marque[] {
+  const marques = catalogue?.marques ?? [];
+  const marqueExclusivePortee = roster.membres
+    .filter((m) => m.statut !== 'mort' && m.marque)
+    .map((m) => marques.find((marque) => marque.id === m.marque))
+    .find((marque) => marque && !marque.coexiste_avec_autres);
+  if (!marqueExclusivePortee) return marques;
+  return marques.filter((m) => m.id === marqueExclusivePortee!.id || m.coexiste_avec_autres);
 }
 
 /** Vrai si ce profil (avec cette Marque le cas échéant) dispose d'un domaine

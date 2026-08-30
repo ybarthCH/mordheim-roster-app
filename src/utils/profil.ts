@@ -71,16 +71,32 @@ export function resolveProfil(
     ? { ...base, acces_competences: accesTribu }
     : base;
 
+  // Marque des Dieux Sombres (Maraudeurs du Chaos) : certaines Marques
+  // élargissent les catégories de compétences accessibles au lieu de
+  // simplement changer le domaine de sorts (ex : Marque d'Arkhar — le Devin
+  // devenu Père de Sang accède aux compétences de Force en plus de sa liste
+  // normale). Voir Marque.competences_supplementaires dans types/catalog.ts.
+  const competencesSupplementairesMarque = membre.marque
+    ? catalogueComplet?.marques?.find((m) => m.id === membre.marque)?.competences_supplementaires
+    : undefined;
+  const resultatAvecMarque =
+    competencesSupplementairesMarque && !resultat.acces_competences_a_verifier
+      ? {
+          ...resultat,
+          acces_competences: [...new Set([...resultat.acces_competences, ...competencesSupplementairesMarque])],
+        }
+      : resultat;
+
   // Upgrade payant "Option Sorcier" pris par ce membre (voir
   // Profile.option_sorcier, Member.option_sorcier_pris) : superpose l'accès
   // à la Magie mineure sur le profil de base, une fois le prix payé — le
   // champ option_sorcier lui-même reste dans le profil retourné (pas
   // supprimé) pour que l'UI sache encore qu'un upgrade existe pour ce
   // profil, même après l'avoir pris.
-  if (membre.option_sorcier_pris && resultat.option_sorcier) {
-    return { ...resultat, peut_lancer_sorts: true, categorie_magie: 'magie_mineure' };
+  if (membre.option_sorcier_pris && resultatAvecMarque.option_sorcier) {
+    return { ...resultatAvecMarque, peut_lancer_sorts: true, categorie_magie: 'magie_mineure' };
   }
-  return resultat;
+  return resultatAvecMarque;
 }
 
 export function grilleXpDuProfil(profil: Profile): 'heros' | 'homme_de_main' {

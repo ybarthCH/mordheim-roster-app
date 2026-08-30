@@ -27,6 +27,14 @@ export const rechercheObjetRareModal: UiDictionary = {
     fr: 'Seuil déjà augmenté de {n} : Clients Difficiles (Héros Ogre, objet non exclusif aux Ogres).',
     en: 'Threshold already raised by {n}: Difficult Customers (Ogre Hero, item not Ogre-exclusive).',
   },
+  'rareModal.norsesBonus': {
+    fr: 'Seuil déjà réduit de {n} : Pilleurs (tribu Norse).',
+    en: 'Threshold already lowered by {n}: Raiders (Norse tribe).',
+  },
+  'rareModal.kurgansMalus': {
+    fr: 'Seuil déjà augmenté de {n} : Clients Difficiles (tribu Kurgan, sauf Grande Hache du Chaos et Fouet Barbelé).',
+    en: 'Threshold already raised by {n}: Difficult Customers (Kurgan tribe, except Great Chaos Axe and Barbed Whip).',
+  },
   'rareModal.success': { fr: 'Réussi', en: 'Succeeded' },
   'rareModal.failure': { fr: 'Raté', en: 'Failed' },
   'rareModal.costPaidLabel': { fr: 'Coût payé (po)', en: 'Cost paid (gc)' },

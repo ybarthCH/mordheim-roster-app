@@ -172,6 +172,7 @@
       "acces_competences": [],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
+      "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -197,6 +198,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
+      "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -314,6 +316,7 @@
       "id": "arkhar",
       "nom": "Marque d'Arkhar le Chien",
       "pas_de_sorts": true,
+      "competences_supplementaires": ["force"],
       "texte": "Le Devin devient un Père de Sang : il ne jette plus de sorts, mais gagne +1 à une caractéristique au choix (Combat, F, E ou I, une fois chacune) chaque fois qu'il met un ennemi hors de combat (test de Commandement requis, bonus valable jusqu'à la fin de la bataille), et accède aux compétences de Force en plus de sa liste normale."
     },
     {
@@ -337,6 +340,7 @@
     {
       "id": "chaos_universel",
       "nom": "Marque du Chaos Universel",
+      "coexiste_avec_autres": true,
       "texte": "Utilise les Rituels du Chaos standards. Permet à la bande d'inclure 0 à 3 Gors (voir Pillards Hommes-Bêtes), comptant dans l'effectif maximum ; relancez systématiquement tout résultat « Ce gars est doué » obtenu par un Gor."
     }
   ],
