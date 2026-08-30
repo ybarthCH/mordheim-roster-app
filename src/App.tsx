@@ -7,6 +7,7 @@ import { GameRulesProvider } from './state/GameRulesContext';
 import { WakeLockProvider } from './state/WakeLockContext';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
 import { ScrollToTop } from './components/common/ScrollToTop';
+import { UpdateToast } from './components/common/UpdateToast';
 
 const ListeBandesScreen = lazy(() =>
   import('./components/bandes/ListeBandesScreen').then((m) => ({ default: m.ListeBandesScreen }))
@@ -39,6 +40,7 @@ function App() {
             <RostersProvider>
               <HashRouter>
                 <ScrollToTop />
+                <UpdateToast />
                 <ErrorBoundary>
                   <Suspense fallback={null}>
                     <Routes>

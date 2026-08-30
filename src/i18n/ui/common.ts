@@ -14,6 +14,8 @@ export const common: UiDictionary = {
   'statut.blesse': { fr: 'Blessé', en: 'Injured' },
   'common.collapse': { fr: 'Replier', en: 'Collapse' },
   'common.expand': { fr: 'Déplier', en: 'Expand' },
+  'updateToast.message': { fr: 'Nouvelle version disponible', en: 'New version available' },
+  'updateToast.refresh': { fr: 'Actualiser', en: 'Refresh' },
   'errorBoundary.title': { fr: 'Oups', en: 'Oops' },
   'errorBoundary.message': {
     fr: "L'application a rencontré un problème inattendu.",
