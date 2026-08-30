@@ -267,6 +267,12 @@ export function estCategorieInterdite(
     return true;
   }
   if (interdictions.includes('armures') && c === 'armures') return true;
+  // Sans rapport avec le tir : vérifiée avant le court-circuit
+  // SKILL_TOUTES_ARMES_TIR ci-dessous, qui ne doit lever que les
+  // interdictions liées au tir (voir QA sur commit 9aa1e8f — la compétence
+  // "Toutes armes de tir" ne doit jamais rendre un poison de nouveau
+  // achetable à un profil qui les a par ailleurs bannis).
+  if (interdictions.includes('poisons_drogues') && c === 'poisons_drogues') return true;
   if (competencesAcquises.includes(SKILL_TOUTES_ARMES_TIR)) return false;
   if (interdictions.includes('armes_tir') && c === 'armes_tir') return true;
   if (interdictions.includes('armes_poudre_noire') && c === 'armes_poudre_noire') return true;
@@ -274,7 +280,6 @@ export function estCategorieInterdite(
   if (c === 'munitions' && interdictions.includes('armes_tir') && interdictions.includes('armes_poudre_noire')) {
     return true;
   }
-  if (interdictions.includes('poisons_drogues') && c === 'poisons_drogues') return true;
   return false;
 }
 
