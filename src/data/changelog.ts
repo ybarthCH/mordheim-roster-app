@@ -46,6 +46,11 @@ export const CHANGELOG: ChangelogEntry[] = [
           "Confirmation demandée avant de quitter l'écran de création d'une nouvelle bande sans avoir cliqué sur \"Créer la bande\" (bouton retour du bandeau ou retour matériel/geste du téléphone) — rien n'y est encore sauvegardé, un appui accidentel ne fait plus tout perdre en silence.",
       },
       {
+        categorie: 'fonctionnalite',
+        texte:
+          "Nouveau bandeau \"Nouvelle version disponible\" quand une mise à jour de l'app est prête : reste discrètement en bas de l'écran jusqu'à un clic sur \"Actualiser\", sans jamais recharger tout seul ni interrompre une saisie ou fermer un écran en cours. L'app revérifie désormais aussi activement toutes les heures tant qu'elle reste ouverte, en plus de la vérification automatique du navigateur à chaque relance.",
+      },
+      {
         categorie: 'autre',
         texte:
           "Poursuite du grand audit des règles de bande contre les documents officiels sur les 10 dernières bandes jamais vérifiées : Caravanes Marchandes, La Cavalcade Maudite, Cour des Plaisirs Profanes, Fils d'Hashut, Gardiens des Tombes, Mangeurs d'Hommes, Moines Guerriers de Cathay, Mootlanders, Pilleurs de Tombes Arabes et Gladiateurs — corrections de francs-tireurs et Dramatis Personae recrutables à tort, de compétences mal réparties entre profils, d'accès à l'équipement, et de plusieurs statistiques et règles spéciales erronées (dont la Force du Louche des Mootlanders, purement et simplement inversée).",
