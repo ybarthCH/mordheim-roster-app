@@ -32,6 +32,10 @@ export const creationBandeScreen: UiDictionary = {
     fr: 'Entre un nom de bande pour pouvoir la créer.',
     en: 'Enter a warband name to create it.',
   },
+  'creation.confirmLeaveDraft': {
+    fr: "Quitter maintenant ? Rien n'est encore sauvegardé — la faction, les membres recrutés et l'équipement acheté seront perdus tant que « Créer la bande » n'a pas été validé.",
+    en: 'Leave now? Nothing is saved yet — the faction, recruited members, and purchased equipment will be lost until "Create warband" is confirmed.',
+  },
 
   'creation.modal.notCombatant': {
     fr: "Traité comme une créature/objet d'équipement (recrutement, prix et rareté comme au shop), pas comme un combattant normal de la bande.",

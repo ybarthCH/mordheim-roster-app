@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { CATALOGUES } from '../../data/warbands';
@@ -120,6 +120,30 @@ export function CreationBandeScreen() {
   // l'utilisateur ne regarde pas la liste des bandes.
   const [creationEnCours, setCreationEnCours] = useState(false);
 
+  // Rien de tout ce brouillon n'est persisté avant "Créer la bande"
+  // (handleCreer) : un appui de trop sur le retour du bandeau, ou le
+  // retour matériel/geste du téléphone, faisait tout perdre en silence
+  // (faction choisie, membres recrutés, équipement déjà acheté). On
+  // demande donc confirmation dans les deux cas dès qu'un brouillon a
+  // été entamé — même garde que l'assistant post-bataille
+  // (PostBatailleScreen) pour son propre risque de perte de saisie.
+  const enCours = bandeId !== '' || nomBande.trim() !== '' || membres.length > 0;
+  const confirmerAbandon = () => !enCours || window.confirm(t('creation.confirmLeaveDraft'));
+
+  useEffect(() => {
+    if (!enCours) return;
+    window.history.pushState(null, '');
+    const onPopState = () => {
+      window.history.pushState(null, '');
+      if (confirmerAbandon()) {
+        navigate('/', { replace: true });
+      }
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enCours]);
+
   const handleCreer = async () => {
     if (!peutCreer || creationEnCours) return;
     setCreationEnCours(true);
@@ -138,7 +162,7 @@ export function CreationBandeScreen() {
   };
 
   return (
-    <Screen title={t('creation.title')} back="/">
+    <Screen title={t('creation.title')} back="/" onBeforeBack={confirmerAbandon}>
       <div className="card">
         <div className="field">
           <label>{t('creation.faction')}</label>
