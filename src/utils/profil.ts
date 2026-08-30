@@ -138,17 +138,30 @@ export function doitEtreRetireEntraine(roster: RosterInstance, profil: Profile, 
 
 const GRANDE_CIBLE_RE = /^grande?\s*cible$/i;
 
+// Autres intitulés officiels de la même règle "Grande Cible" (droit à être
+// pris pour cible au Tir) selon la bande source — ex. l'Araignée Gigantesque
+// des Gobelins des Forêts, dont la règle est nommée "Grosse bête"/"Large
+// Monster" plutôt que "Grande Cible" ("Les Araignées Gigantesques sont des
+// grandes cibles comme défini dans les règles de Tir.", Gobelins des Forêts
+// [GLM].pdf p.6 ; "Gigantic Spiders are large targets...", Forest
+// Goblins.pdf p.4). La comparaison porte sur le nom traduit affiché, donc
+// les deux langues doivent être listées.
+const AUTRES_NOMS_GRANDE_CIBLE = new Set(['grosse bête', 'large monster']);
+
 /**
  * Détecte la règle spéciale "Grande Cible" directement sur le profil du
- * catalogue (nom de règle "Grande Cible"/"Grande cible" ou "Grand" pour les
- * Gladiateurs Ogres), plutôt qu'une case à cocher manuelle. Reste inopérant
- * pour un profil Franc-tireur (profil_custom), qui n'a pas de regles_speciales
- * — d'où la case manuelle conservée uniquement pour ce cas-là.
+ * catalogue (nom de règle "Grande Cible"/"Grande cible", "Grand" pour les
+ * Gladiateurs Ogres, ou un autre intitulé officiel équivalent — voir
+ * AUTRES_NOMS_GRANDE_CIBLE), plutôt qu'une case à cocher manuelle. Reste
+ * inopérant pour un profil Franc-tireur (profil_custom), qui n'a pas de
+ * regles_speciales — d'où la case manuelle conservée uniquement pour ce
+ * cas-là.
  */
 export function estGrandeCible(profil: Profile | undefined): boolean {
-  return (profil?.regles_speciales ?? []).some(
-    (r) => GRANDE_CIBLE_RE.test(r.nom.trim()) || r.nom.trim().toLowerCase() === 'grand'
-  );
+  return (profil?.regles_speciales ?? []).some((r) => {
+    const nom = r.nom.trim();
+    return GRANDE_CIBLE_RE.test(nom) || nom.toLowerCase() === 'grand' || AUTRES_NOMS_GRANDE_CIBLE.has(nom.toLowerCase());
+  });
 }
 
 /**
