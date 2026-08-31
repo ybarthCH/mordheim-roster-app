@@ -180,9 +180,9 @@
         { "item_id": "arquebuse", "cout": 25 },
         { "item_id": "arquebuse_double_canon", "cout": 45 },
         { "item_id": "pistolet_paire", "cout": 20 },
-        { "item_id": "pistolet_double_canon_paire", "cout": 40 },
-        { "item_id": "pistolet_de_duel_paire", "cout": 40 },
-        { "item_id": "pistolet_duel_double_canon_paire", "cout": 70 }
+        { "item_id": "pistolet_double_canon_paire", "cout": 35 },
+        { "item_id": "pistolet_de_duel_paire", "cout": 35 },
+        { "item_id": "pistolet_duel_double_canon_paire", "cout": 65 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
@@ -214,7 +214,7 @@
         { "item_id": "mortier_portable", "cout": 70 },
         { "item_id": "pigeon_explosif", "cout": 25 },
         { "item_id": "pistolet_paire", "cout": 20 },
-        { "item_id": "pistolet_double_canon_paire", "cout": 40 }
+        { "item_id": "pistolet_double_canon_paire", "cout": 35 }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },

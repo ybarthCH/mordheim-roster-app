@@ -21,6 +21,51 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 
 ## Décisions enregistrées
 
+### Artilleurs de Nuln — prix des 3 paires de pistolets
+
+- **Question de règle** : le PDF imprime directement 35/35/65 CO pour les paires (double canon, duel, duel à double canon), mais la convention générale de l'app (« prix de la paire = double du prix simple », documentée sur chaque item du catalogue) donne 40/40/70 CO — la valeur en place avant cette décision, restaurée par un revert QA (commit 7dc3234) pour rester cohérente entre onglets, sans trancher laquelle des deux sources fait réellement foi.
+- **Source et page** : `Artilleurs de Nuln [GLM].pdf`, liste d'équipement p.24 (Pistolet à double canon), p.28 (Pistolet de duel, Pistolet de duel à double canon) vs convention générique `note_maison` de `src/data/items/armes_poudre_noire.json`.
+- **Décision de Yannick** : suivre le prix imprimé du PDF (35/35/65 CO), au prix d'une exception à la convention générale.
+- **Statut** : Maison (exception assumée à la convention générique, en faveur du prix imprimé)
+- **Parties du code concernées** : `src/data/warbands/artilleurs_de_nuln.json` (`cout` des 3 paires fixé à 35/35/65 dans les listes `artilleurs_de_nuln` et `tireurs_delite`) ; `src/utils/shop.ts` (`PRIX_LISTE_RAPIDE_NULN` étendue aux 3 paires, pour que le shop commun reste cohérent avec la liste de bande). Deux des trois objets sont partagés avec d'autres bandes (`pistolet_double_canon_paire` avec les Ostlanders ; `pistolet_de_duel_paire` en accès générique `rare_10`, ouvert à toute bande y ayant droit) — ces bandes gardent le prix issu de la convention générale (double du prix simple), seul le catalogue `artilleurs_de_nuln` applique ce prix fixe.
+- **Date** : 2026-08-31
+
+### Ostlanders — la règle « Autonome » ferme-t-elle aussi les Dramatis Personae ?
+
+- **Question de règle** : la règle limite les Francs-Tireurs de la bande à l'Ogre uniquement. Le texte ne nomme que « Francs-Tireurs », jamais les « Personnages Hauts en Couleur » (Dramatis Personae) explicitement — contrairement à d'autres bandes qui citent les deux catégories ensemble quand la restriction doit s'étendre aux deux.
+- **Source et page** : `Mercenaires Ostlanders [GLM].pdf`, règle spéciale « Autonome ».
+- **Décision de Yannick** : étendre la restriction aux Dramatis Personae — aucune n'est recrutable par cette bande (seul l'Ogre, via les Francs-Tireurs).
+- **Statut** : Maison (lecture extensive d'un texte qui ne le précise pas explicitement)
+- **Parties du code concernées** : `src/data/dramatisPersonae.ts` (`RESTRICTIONS_ABSOLUES_DP.ostlanders = new Set()`, consommée à la fois par `dramatisPersonaeDisponibles()` et `appliquerRestrictionsDeBandeDP()`).
+- **Date** : 2026-08-31
+
+### Guerriers Fantômes — test de Force du sort « Théâtre d'Ombres »
+
+- **Question de règle** : 2D6 au PDF FR vs 1D6+1 au PDF EN.
+- **Source et page** : source FR vs `Hired Sword Compendium part1.pdf`/source EN équivalente pour ce sort.
+- **Décision de Yannick** : garder 1D6+1 (EN).
+- **Statut** : Officiel (source EN)
+- **Parties du code concernées** : aucune — déjà conforme à l'EN, aucun changement.
+- **Date** : 2026-08-31
+
+### Gobelins de la Nuit — la Sorcière est-elle un franc-tireur recrutable pour cette bande ?
+
+- **Question de règle** : présente dans la source EN (TBMF) mais absente de la source FR pourtant citée comme référence par la bande elle-même.
+- **Source et page** : `Gobelins de la Nuit [GLM].pdf` (FR, absente) vs source EN (TBMF, présente).
+- **Décision de Yannick** : ouvrir l'accès (suivre l'EN).
+- **Statut** : Officiel (source EN)
+- **Parties du code concernées** : aucune — vérification faite en préparant cette décision : la Sorcière (`src/data/hiredSwords.ts`, `bande_ids: toutesSauf('witch_hunters', 'sisters_of_sigmar')`) est déjà accessible à `gobelins_de_la_nuit`, et `RESTRICTIONS_ABSOLUES.gobelins_de_la_nuit` l'a déjà en liste blanche. Le constat « non tranché » du commit d'audit d'origine (2d4a2ae) décrivait un état qui n'était déjà plus d'actualité au moment de cette décision — aucun changement de code nécessaire.
+- **Date** : 2026-08-31
+
+### Gladiateurs — Javelot de gladiateur strictement dominé par le Javelot commun
+
+- **Question de règle** : le Javelot de gladiateur (10 CO, portée annoncée 10ps) partage exactement les mêmes caractéristiques que le Javelot commun du catalogue partagé (5 CO, portée 8ps) sauf sa portée, jamais appliquée en pratique — un objet spécial strictement dominé par sa version commune, qu'aucun joueur rationnel n'achèterait.
+- **Source et page** : `Gladiateurs [GLM].pdf`, équipement du style Skink, comparé à `src/data/items/armes_tir.json` (Javelot commun).
+- **Décision de Yannick** : laisser tel quel — pas de correction.
+- **Statut** : Maison (statu quo assumé plutôt qu'un nouvel item dédié ou un retrait de l'entrée redondante)
+- **Parties du code concernées** : aucune.
+- **Date** : 2026-08-31
+
 ### Artilleurs de Nuln — prix des armes à poudre noire spéciales (Pistolet/Arquebuse à répétition, Mortier portable, Pigeon explosif)
 
 - **Question de règle** : le PDF se contredit entre sa liste rapide d'équipement (prix fixes : Pistolet à répétition 25, Arquebuse à répétition 50, Mortier portable 70, Pigeon explosif 25) et ses fiches détaillées plus loin dans le même document (prix à dés officiels : 30+2D6/60+2D6/80+2D6/30+2D6, déjà réduits par la règle poudre noire avancée à 20+2D6/40+2D6/55+2D6/20+2D6 dans le catalogue générique de l'app avant cette décision). Laquelle fait foi pour cette bande ?

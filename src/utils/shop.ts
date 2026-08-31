@@ -301,11 +301,21 @@ const CATALOGUE_ARTILLEURS_NULN = 'artilleurs_de_nuln';
 // faveur de la liste rapide (docs/rules/PROJECT_DECISIONS.md). Pistolet à
 // répétition/Arquebuse à répétition/Pigeon explosif sont exclusifs à Nuln
 // et ont directement leur `cout` fixé dans armes_poudre_noire.json ; le
-// Mortier portable est partagé avec les Mangeurs d'Hommes (`acces`), qui
-// eux gardent le calcul à dés habituel — cette table ne s'applique donc
-// qu'à Nuln, pas à ce second accès.
+// Mortier portable et 2 des 3 paires de pistolets sont partagés avec
+// d'autres bandes (Mangeurs d'Hommes pour le mortier ; Ostlanders pour la
+// Paire de pistolets à double canon ; la Paire de pistolets de duel est
+// même en accès générique "rare_10", ouverte à toute bande y ayant accès)
+// — ces bandes gardent le calcul à dés habituel, cette table ne s'applique
+// donc qu'au catalogue artilleurs_de_nuln. Les mêmes montants sont aussi
+// fixés en dur dans artilleurs_de_nuln.json (listes "artilleurs_de_nuln"
+// et "tireurs_delite") pour que la liste de bande et le shop commun
+// restent cohérents entre eux (getEquipementBande ne passe jamais par
+// cette fonction, contrairement à getShopCommun).
 const PRIX_LISTE_RAPIDE_NULN: Record<string, number> = {
   mortier_portable: 70,
+  pistolet_double_canon_paire: 35,
+  pistolet_de_duel_paire: 35,
+  pistolet_duel_double_canon_paire: 65,
 };
 
 // Armures de corps et caparaçons concernés par la règle Lozheim. Les

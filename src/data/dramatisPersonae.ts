@@ -665,6 +665,13 @@ export const RESTRICTIONS_ABSOLUES_DP: Record<string, Set<string>> = {
   // : seule Penthesilée, elle-même une Amazone, reste recrutable.
   amazones_lustrie: new Set(['penthesilee']),
   amazones_mordheim: new Set(['penthesilee']),
+  // "Autonome" (Mercenaires Ostlanders [GLM].pdf) : les Francs-Tireurs de la
+  // bande sont limités à l'Ogre (voir le pendant francs-tireurs bruts dans
+  // hiredSwords.ts RESTRICTIONS_ABSOLUES). Arbitrage Yannick
+  // (docs/rules/PROJECT_DECISIONS.md) : la restriction s'étend aussi aux
+  // Dramatis Personae, qu'aucun texte ne cite explicitement pour cette
+  // bande — ensemble vide, aucune Dramatis Personae recrutable.
+  ostlanders: new Set(),
 };
 
 export function dramatisPersonaeDisponibles(roster: RosterInstance): FrancTireurCatalog[] {
