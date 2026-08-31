@@ -48,6 +48,11 @@ type Props = {
   // à détecter les objets déjà possédés d'un même `groupe_prix` (ex :
   // Bénédictions de Nurgle) pour appliquer le doublement de prix.
   inventaireActuel?: InventoryEntry[];
+  // XP du membre ciblé par l'achat (armurerie de bande, profil === null : pas
+  // fourni) — sert uniquement à la réduction de prix de l'Armure du Chaos
+  // ("réduit d'1 CO par point d'expérience possédé par le Héros", voir
+  // armures.json).
+  xpMembre?: number;
   // Ensemble du stock et des inventaires de tous les membres. Sert aux
   // limites qui s'appliquent à l'échelle de la bande entière.
   inventaireBande?: InventoryEntry[];
@@ -126,6 +131,12 @@ const LONGUEUR_SYNOPSIS = 110;
 // possédée, les suivantes reprennent leur prix normal.
 const ID_DAGUE = 'dague';
 
+// Armure du Chaos (armures.json) : "Le coût d'une armure du Chaos est réduit
+// d'1 CO pour chaque point d'expérience possédé par le Héros." Ne s'applique
+// qu'à un achat pour un membre précis (xpMembre fourni) — l'armurerie de
+// bande n'est pas concernée.
+const ID_ARMURE_DU_CHAOS = 'armure_du_chaos_market';
+
 function synopsis(texte: string | null | undefined): string | null {
   if (!texte) return null;
   return texte.length > LONGUEUR_SYNOPSIS ? `${texte.slice(0, LONGUEUR_SYNOPSIS).trimEnd()}…` : texte;
@@ -152,6 +163,7 @@ export function AchatEquipementContenu({
   competencesAcquises = [],
   marqueId,
   inventaireActuel = [],
+  xpMembre,
   inventaireBande = [],
   roster,
   tailleGroupe = 1,
@@ -271,14 +283,22 @@ export function AchatEquipementContenu({
   const estPremiereDagueGratuite = (item: Pick<ShopItem, 'id'>) =>
     !gratuit && !!profil && item.id === ID_DAGUE && !dagueDejaPossedee;
 
+  const coutReduitArmureDuChaos = (item: Pick<ShopItem, 'id' | 'cout' | 'cout_fixe'>) =>
+    item.id === ID_ARMURE_DU_CHAOS && item.cout_fixe && typeof item.cout === 'number'
+      ? Math.max(0, item.cout - (xpMembre ?? 0))
+      : null;
+
   const choisir = (item: ShopItem) => {
     setItemId(item.id);
+    const coutArmureDuChaos = coutReduitArmureDuChaos(item);
     setCoutSaisi(
       estPremiereDagueGratuite(item)
         ? '0'
-        : item.cout_fixe && typeof item.cout === 'number'
-          ? String(item.cout)
-          : ''
+        : coutArmureDuChaos !== null
+          ? String(coutArmureDuChaos)
+          : item.cout_fixe && typeof item.cout === 'number'
+            ? String(item.cout)
+            : ''
     );
     setBaseMateriauId('');
     setRechercheMateriau('');

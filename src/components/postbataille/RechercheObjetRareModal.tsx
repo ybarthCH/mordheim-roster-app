@@ -67,6 +67,13 @@ export function RechercheObjetRareModal({
   const [itemId, setItemId] = useState('');
   const [succesDeclare, setSuccesDeclare] = useState(false);
   const [coutSaisi, setCoutSaisi] = useState('');
+  // "Lors de la recherche d'une armure du Chaos, un guerrier gagne +1 sur le
+  // résultat de son jet de recherche pour chaque ennemi qu'il a mis hors de
+  // combat lors de la bataille précédente." (armures.json, "Rareté" de
+  // l'Armure du Chaos) — donnée que l'app ne trace nulle part (pas de suivi
+  // par figurine des ennemis mis hors de combat en bataille), donc saisie
+  // manuelle ponctuelle au moment de la recherche, comme le coût ci-dessus.
+  const [ennemisHorsDeCombatSaisie, setEnnemisHorsDeCombatSaisie] = useState('');
   // Objet "matériau" (gromril/ithilmar/obsidienne) trouvé : demande de
   // choisir une arme/armure de base existante avant de connaître le prix
   // final (voir basesPourMateriau/construireObjetMateriau dans utils/shop.ts,
@@ -153,6 +160,8 @@ export function RechercheObjetRareModal({
     item.id !== 'fouet_barbele'
       ? 1
       : 0;
+  const bonusRareteArmureDuChaos =
+    item?.id === 'armure_du_chaos_market' ? Math.max(0, Number(ennemisHorsDeCombatSaisie) || 0) : 0;
   const rareteEffective =
     rarete !== null
       ? Math.max(
@@ -160,7 +169,8 @@ export function RechercheObjetRareModal({
           rarete -
             bonusRaretePoudreNoire -
             bonusRareteMarienburgers -
-            bonusRareteNorses +
+            bonusRareteNorses -
+            bonusRareteArmureDuChaos +
             malusRareteClientsDifficiles +
             malusRareteKurgans
         )
@@ -195,6 +205,7 @@ export function RechercheObjetRareModal({
     setBaseMateriauId('');
     setRechercheMateriau('');
     setCoutBaseSaisi('');
+    setEnnemisHorsDeCombatSaisie('');
   };
 
   const choisirBaseMateriau = (base: ShopItem) => {
@@ -211,7 +222,11 @@ export function RechercheObjetRareModal({
   const declarerSucces = () => {
     setSuccesDeclare(true);
     if (item?.cout_fixe && typeof item.cout === 'number') {
-      setCoutSaisi(String(item.cout));
+      // "Le coût d'une armure du Chaos est réduit d'1 CO pour chaque point
+      // d'expérience possédé par le Héros." (armures.json, "Coût" de
+      // l'Armure du Chaos).
+      const reduction = item.id === 'armure_du_chaos_market' ? membre.xp : 0;
+      setCoutSaisi(String(Math.max(0, item.cout - reduction)));
     }
   };
 
@@ -347,6 +362,18 @@ export function RechercheObjetRareModal({
               )}
               {malusRareteKurgans > 0 && (
                 <p className="text-sm text-muted">{t('rareModal.kurgansMalus', { n: malusRareteKurgans })}</p>
+              )}
+              {item?.id === 'armure_du_chaos_market' && !succesDeclare && (
+                <div className="field">
+                  <label>{t('rareModal.chaosArmourEnemiesLabel')}</label>
+                  <input
+                    type="number"
+                    min={0}
+                    value={ennemisHorsDeCombatSaisie}
+                    onChange={(e) => setEnnemisHorsDeCombatSaisie(e.target.value)}
+                    placeholder="0"
+                  />
+                </div>
               )}
               {itemAffiche!.disponibilite && <p className="text-sm text-muted">{itemAffiche!.disponibilite}</p>}
               {resumeItem(itemAffiche!, language) && <p className="text-sm">{resumeItem(itemAffiche!, language)}</p>}

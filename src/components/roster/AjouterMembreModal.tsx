@@ -488,6 +488,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             competencesAcquises={membreActuel.competences_acquises}
             marqueId={membreActuel.marque}
             inventaireActuel={[...membreActuel.inventaire, ...inventairePanier]}
+            xpMembre={membreActuel.xp}
             inventaireBande={[...inventaireComplet(roster), ...inventairePanier]}
             roster={roster}
             tailleGroupe={tailleGroupeActuelle}

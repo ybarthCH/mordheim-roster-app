@@ -669,6 +669,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
           competencesAcquises={membre.competences_acquises}
           marqueId={membre.marque}
           inventaireActuel={membre.inventaire}
+          xpMembre={membre.xp}
           inventaireBande={inventaireComplet(roster)}
           roster={roster}
           tailleGroupe={membre.taille_groupe || 1}
