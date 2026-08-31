@@ -115,7 +115,7 @@
       "xp_depart": 0,
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "acces_competences": [],
-      "acces_equipement": ["chasseurs_norses"],
+      "acces_equipement": ["hommes_de_main"],
       "acces_competences_a_verifier": false
     },
     {
@@ -205,24 +205,6 @@
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
-        { "item_id": "casque", "cout": 10 },
-        { "item_id": "bouclier", "cout": 5 }
-      ]
-    },
-    "chasseurs_norses": {
-      "armes_cac": [
-        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
-        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
-        { "item_id": "hache", "cout": 5 },
-        { "item_id": "epee", "cout": 10 },
-        { "item_id": "lance", "cout": 10 },
-        { "item_id": "arme_a_deux_mains", "cout": 15 }
-      ],
-      "armes_tir": [
-        { "item_id": "javelots", "cout": 5 },
-        { "item_id": "arc", "cout": 10 }
-      ],
-      "armures": [
         { "item_id": "casque", "cout": 10 },
         { "item_id": "bouclier", "cout": 5 }
       ]

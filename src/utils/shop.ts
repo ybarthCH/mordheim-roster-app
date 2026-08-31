@@ -295,6 +295,19 @@ export function estCategorieInterdite(
 
 const CATALOGUE_ARTILLEURS_NULN = 'artilleurs_de_nuln';
 
+// Artilleurs de Nuln : la liste rapide d'équipement du PDF fixe des prix
+// forfaitaires pour ces armes à poudre noire, en contradiction avec le prix
+// à dés des fiches détaillées du même document — arbitrage Yannick en
+// faveur de la liste rapide (docs/rules/PROJECT_DECISIONS.md). Pistolet à
+// répétition/Arquebuse à répétition/Pigeon explosif sont exclusifs à Nuln
+// et ont directement leur `cout` fixé dans armes_poudre_noire.json ; le
+// Mortier portable est partagé avec les Mangeurs d'Hommes (`acces`), qui
+// eux gardent le calcul à dés habituel — cette table ne s'applique donc
+// qu'à Nuln, pas à ce second accès.
+const PRIX_LISTE_RAPIDE_NULN: Record<string, number> = {
+  mortier_portable: 70,
+};
+
 // Armures de corps et caparaçons concernés par la règle Lozheim. Les
 // protections périphériques (boucliers, casques, cuir durci, pavois,
 // rondaches, écus, capes...) sont volontairement absentes. Exporté pour
@@ -500,6 +513,9 @@ export function prixAvecRegles(
   rules: GameRules,
   origine: OriginePrix
 ): number | string {
+  if (catalogueId === CATALOGUE_ARTILLEURS_NULN && itemId in PRIX_LISTE_RAPIDE_NULN) {
+    return PRIX_LISTE_RAPIDE_NULN[itemId];
+  }
   const reference = getItem(itemId);
   // Tromblon Nain du Chaos : joue toujours avec les incidents de tir (voir
   // son texte de règle), donc son prix ne suit pas la remise habituelle de

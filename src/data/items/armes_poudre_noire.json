@@ -14,8 +14,8 @@
   },
   {
     "id": "arquebuse_a_repetition", "nom": "Arquebuse à répétition", "categorie": "armes_poudre_noire",
-    "cout": "40+2D6", "cout_officiel": "60+2D6", "cout_fixe": false, "rarete": "11", "disponibilite": "Rare 11, Artilleurs de Nuln uniquement",
-    "note_maison": "Prix officiel 60+2D6 CO, base réduite à 40+2D6 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée.",
+    "cout": 50, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Artilleurs de Nuln uniquement",
+    "note_maison": "Prix fixé à 50 CO (liste rapide d'équipement du PDF Artilleurs de Nuln), qui contredit le prix à dés de la fiche détaillée (60+2D6 CO officiel, 40+2D6 réduit) — arbitrage Yannick en faveur de la liste rapide, voir docs/rules/PROJECT_DECISIONS.md.",
     "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 24,
     "texte": "Ils représentent la prochaine étape dans l'évolution des arquebuses à canons multiples. Cette arme à répétition est composée d'un certain nombre de canons montés autour d'un cylindre rotatif, chacun tirant à son tour. Souvent victimes de dysfonctionnement, les arquebuses à répétition sont malgré tout très recherchées, car elles peuvent lancer une véritable tempête de plomb sur l'ennemi si elles n'explosent pas.",
     "portee": "24ps", "force": "4",
@@ -55,7 +55,7 @@
   {
     "id": "mortier_portable", "nom": "Mortier portable", "categorie": "armes_poudre_noire",
     "cout": "55+2D6", "cout_officiel": "80+2D6", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12, Artilleurs de Nuln uniquement",
-    "note_maison": "Prix officiel 80+2D6 CO, base réduite à 55+2D6 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée.",
+    "note_maison": "Prix officiel 80+2D6 CO, base réduite à 55+2D6 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée — s'applique tel quel aux Mangeurs d'Hommes (accès partagé). Pour les Artilleurs de Nuln uniquement, ce prix à dés est écarté au profit du prix fixe (70 CO) de leur liste rapide d'équipement, arbitrage Yannick, voir PRIX_LISTE_RAPIDE_NULN dans utils/shop.ts et docs/rules/PROJECT_DECISIONS.md.",
     "acces": ["artilleurs_de_nuln", "maneaters"], "source": "AN (Artilleurs de Nuln)", "page": 25,
     "texte": "Avec la puissance explosive d'un véritable mortier, un dispositif suffisamment petit pour être porté par un seul homme permet à un guerrier de projeter un explosif au cœur des rangs ennemis, semant la mort et le désordre.",
     "portee": "24ps", "force": "4",
@@ -119,8 +119,8 @@
   },
   {
     "id": "pigeon_explosif", "nom": "Pigeon explosif de Hersten-Wenkler", "categorie": "armes_poudre_noire",
-    "cout": "20+2D6", "cout_officiel": "30+2D6", "cout_fixe": false, "rarete": "8", "disponibilite": "Rare 8, Artilleurs de Nuln uniquement",
-    "note_maison": "Prix officiel 30+2D6 CO, base réduite à 20+2D6 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée.",
+    "cout": 25, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Artilleurs de Nuln uniquement",
+    "note_maison": "Prix fixé à 25 CO (liste rapide d'équipement du PDF Artilleurs de Nuln), qui contredit le prix à dés de la fiche détaillée (30+2D6 CO officiel, 20+2D6 réduit) — arbitrage Yannick en faveur de la liste rapide, voir docs/rules/PROJECT_DECISIONS.md.",
     "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 27,
     "texte": "Lorsque l'Empire a pris conscience de tout le potentiel de la poudre à canon, ce n'était plus qu'une question de temps avant que quelques ingénieurs entreprenants ne combinent explosifs et petits animaux. Après les échecs initiaux lors des tentatives avec des rats, des chauves-souris et des chiens, des résultats prometteurs ont été obtenus avec des pigeons. Bien qu'ils ne soient pas vraiment précis, les pigeons peuvent rapidement atteindre des cibles éloignées et, une fois lancés, il est très difficile de les intercepter. Arrivés à destination, le petit harnais métallique du pigeon se détache, libérant la bombe pour ravager une petite zone en dessous, alors que le pigeon rentre tranquillement à la maison...",
     "portee": "Illimitée", "force": "4",
@@ -158,8 +158,8 @@
   },
   {
     "id": "pistolet_a_repetition", "nom": "Pistolet à répétition", "categorie": "armes_poudre_noire",
-    "cout": "20+2D6", "cout_officiel": "30+2D6", "cout_fixe": false, "rarete": "9", "disponibilite": "Rare 9, Artilleurs de Nuln uniquement",
-    "note_maison": "Prix officiel 30+2D6 CO, base réduite à 20+2D6 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée.",
+    "cout": 25, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Artilleurs de Nuln uniquement",
+    "note_maison": "Prix fixé à 25 CO (liste rapide d'équipement du PDF Artilleurs de Nuln), qui contredit le prix à dés de la fiche détaillée (30+2D6 CO officiel, 20+2D6 réduit) — arbitrage Yannick en faveur de la liste rapide, voir docs/rules/PROJECT_DECISIONS.md.",
     "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 28,
     "texte": "Il ne fallut pas longtemps aux ingénieurs Impériaux pour adapter le mécanisme de l'arquebuse à répétition sur un pistolet. Bien qu'ils soient, eux aussi, enclins à des dysfonctionnements réguliers, ils ont trouvé leur place dans les armureries de l'armée. Les histoires d'officiers impassibles tirant sur des hordes d'ennemis, debout sur une pile de cadavres, sont, selon toute vraisemblance, des légendes. Mais cela pourrait bien se produire...",
     "portee": "6ps", "force": "4",
