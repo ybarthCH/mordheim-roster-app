@@ -208,6 +208,7 @@
       "id": "murmures_des_racines",
       "nom": "Murmures des racines",
       "reserve_a": "Un seul Héros de la bande peut posséder cette compétence",
+      "plafond_bande": 1,
       "texte": "Lors des jets d'Exploration, ce Héros autorise à modifier le résultat d'un dé de -1/+1.",
       "valeurPuissance": 0
     }

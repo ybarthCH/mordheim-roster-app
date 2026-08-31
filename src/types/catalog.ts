@@ -48,6 +48,14 @@ export type CompetenceSpeciale = {
   // prix croissant) — reste proposée après un premier choix, contrairement
   // aux autres compétences.
   repetable?: boolean;
+  // Nombre maximum de membres vivants de la bande pouvant posséder cette
+  // compétence en même temps (ex : Murmures des Racines des Sylvaneths,
+  // "un seul Héros" -> 1 ; Solide Carrure des Guerriers Fantômes,
+  // "maximum deux figurines" -> 2). Une fois ce plafond atteint, la
+  // compétence n'est plus proposée aux AUTRES membres lors d'une avancée
+  // (celui qui la possède déjà la garde). Distinct de `reserve_a`, qui
+  // restreint À QUI la compétence s'adresse, pas COMBIEN peuvent l'avoir.
+  plafond_bande?: number;
   // Voir Skill.valeurPuissance (types/gameData.ts) — même métadonnée Power
   // Value, dupliquée ici pour les mêmes raisons que le reste de ce type
   // (éviter un import circulaire catalog.ts <-> gameData.ts).

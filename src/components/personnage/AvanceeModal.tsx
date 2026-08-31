@@ -227,6 +227,21 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
   const skillsDeLaCategorie = (cat: SkillCategory) =>
     cat === 'special' ? competencesSpecialesPourProfil(profil, catalogue) : SKILLS[cat];
 
+  // Une compétence à `plafond_bande` (ex : "un seul Héros de la bande peut
+  // posséder cette compétence") n'est plus proposée aux AUTRES membres une
+  // fois ce nombre de détenteurs vivants atteint — celui qui l'a déjà la
+  // garde (filtre juste au-dessus, sur competences_acquises).
+  const plafondBandeAtteint = (skillId: string, plafond: number | undefined) => {
+    if (!plafond) return false;
+    const detenteurs = roster.membres.filter(
+      (m) =>
+        m.instance_id !== member.instance_id &&
+        m.statut !== 'mort' &&
+        m.competences_acquises.includes(skillId)
+    ).length;
+    return detenteurs >= plafond;
+  };
+
   const nomCompetence = (skillId: string) => {
     const found = [...Object.values(SKILLS).flat(), ...competencesSpecialesPourProfil(profil, catalogue)].find(
       (s) => s.id === skillId
@@ -822,6 +837,11 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
             <div className="skill-list">
               {skillsDeLaCategorie(categorie)
                 .filter((s) => !travail.competences_acquises.includes(s.id) || ('repetable' in s && s.repetable))
+                .filter(
+                  (s) =>
+                    !('plafond_bande' in s) ||
+                    !plafondBandeAtteint(s.id, s.plafond_bande as number | undefined)
+                )
                 .map((sOriginal) => {
                   const s = translateSkill(sOriginal, language);
                   return (
