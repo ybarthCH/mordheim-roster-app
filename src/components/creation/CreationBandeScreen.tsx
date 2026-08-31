@@ -244,10 +244,9 @@ export function CreationBandeScreen() {
             {tribuRequise && (
               <div style={{ marginTop: '0.6rem', paddingTop: '0.6rem', borderTop: '1px solid var(--border)' }}>
                 <strong>
-                  {t('creation.tribe')}{' '}
                   {tribuId
                     ? `${t('creation.tribeChosen')} ${catalogue?.tribus?.find((tr) => tr.id === tribuId)?.nom}`
-                    : t('creation.tribeToChoose')}
+                    : `${t('creation.tribe')} ${t('creation.tribeToChoose')}`}
                 </strong>
                 {(tribuId ? catalogue?.tribus?.filter((tr) => tr.id === tribuId) : catalogue?.tribus)?.map((tr) => (
                   <div key={tr.id} style={{ marginTop: '0.5rem' }}>

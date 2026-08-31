@@ -14,6 +14,38 @@
     "effectif_max": 15,
     "cout_max_constitution": 500
   },
+  "tribus": [
+    {
+      "id": "option_1",
+      "nom": "Option 1",
+      "texte": "Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir, Force ; Recrue — Combat, Tir, Vitesse.",
+      "profil_acces_competences": {
+        "capitaine_mercenaire": ["combat", "tir", "academique", "force", "vitesse"],
+        "champion": ["combat", "tir", "force"],
+        "recrue": ["combat", "tir", "vitesse"]
+      }
+    },
+    {
+      "id": "option_2",
+      "nom": "Option 2",
+      "texte": "Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Force, Vitesse ; Recrue — Combat, Force, Vitesse.",
+      "profil_acces_competences": {
+        "capitaine_mercenaire": ["combat", "tir", "academique", "force", "vitesse"],
+        "champion": ["combat", "force", "vitesse"],
+        "recrue": ["combat", "force", "vitesse"]
+      }
+    },
+    {
+      "id": "option_3",
+      "nom": "Option 3",
+      "texte": "Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir ; Recrue — Combat, Tir, Vitesse.",
+      "profil_acces_competences": {
+        "capitaine_mercenaire": ["combat", "tir", "academique", "force", "vitesse"],
+        "champion": ["combat", "tir"],
+        "recrue": ["combat", "tir", "vitesse"]
+      }
+    }
+  ],
   "profils": [
     {
       "id": "capitaine_mercenaire",
