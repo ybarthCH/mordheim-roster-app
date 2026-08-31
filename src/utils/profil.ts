@@ -108,13 +108,26 @@ export function tableAvancementDuProfil(profil: Profile): 'heros' | 'homme_de_ma
 }
 
 // Voir Profile.transformation — le bouton de transformation n'apparaît sur
-// la fiche du personnage qu'une fois le seuil d'XP atteint (statut vivant
-// implicite : la fiche personnage n'est de toute façon consultable que pour
-// un membre existant du roster).
-export function transformationDisponible(profil: Profile, membre: Member): boolean {
+// la fiche du personnage qu'une fois toutes les conditions réunies : seuil
+// d'XP (statut vivant implicite : la fiche personnage n'est de toute façon
+// consultable que pour un membre existant du roster) et/ou présence d'un
+// autre membre vivant d'un profil donné possédant un objet précis dans son
+// inventaire (ex : le Prêcheur-Sorcier Pestilens équipé du Parchemin de rat
+// familier, condition du Rat Familier).
+export function transformationDisponible(profil: Profile, membre: Member, roster: RosterInstance): boolean {
   const transformation = profil.transformation;
   if (!transformation) return false;
   if (transformation.seuil_xp != null && membre.xp < transformation.seuil_xp) return false;
+  const necessite = transformation.necessite_profil_vivant_avec_objet;
+  if (necessite) {
+    const present = roster.membres.some(
+      (m) =>
+        m.profil_id === necessite.profil &&
+        m.statut !== 'mort' &&
+        m.inventaire.some((e) => e.item_id === necessite.item_id)
+    );
+    if (!present) return false;
+  }
   return true;
 }
 

@@ -111,7 +111,32 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "transformation": {
+        "cible": "rat_familier",
+        "necessite_profil_vivant_avec_objet": { "profil": "precheur_sorcier_pestilens", "item_id": "parchemin_de_rat_familier" }
+      }
+    },
+    {
+      "id": "rat_familier",
+      "nom": "Rat Familier",
+      "type": "homme_de_main",
+      "min": 0,
+      "max": 0,
+      "cout": 0,
+      "xp_depart": 0,
+      "stats": { "M": 6, "CC": 2, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
+      "regles_speciales": [
+        { "nom": "Recrutement", "texte": "Ne peut pas être recruté directement : on obtient un Rat Familier en transformant un Rat géant déjà présent dans la bande (voir la règle spéciale « Rat Familier » du Rat géant)." },
+        { "nom": "Équipement", "texte": "Aucun. Le Rat Familier ne porte ni arme ni armure." },
+        { "nom": "Lancé de sorts amélioré", "texte": "Remplace le résultat 10-12 « Ce gars est doué » de la table d'avancement des Hommes de main : si le Prêcheur-Sorcier Pestilens se trouve à moins de 6ps du Rat Familier, il gagne un bonus cumulatif de +1 au jet de dés pour lancer un sort. Purement informatif — non automatisé (l'app ne trace pas la distance entre figurines en jeu)." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
+      "aucun_achat_shop_commun": true,
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_heros": true
     },
     {
       "id": "rat_ogre",

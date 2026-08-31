@@ -530,7 +530,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         </div>
       )}
 
-      {profil.transformation && transformationDisponible(profil, membre) && (
+      {profil.transformation && transformationDisponible(profil, membre, roster) && (
         <div className="card card--tight">
           <button className="btn btn--block" onClick={() => setModalTransformation(true)}>
             {t('transformation.buttonLabel', {

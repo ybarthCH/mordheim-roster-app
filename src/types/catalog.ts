@@ -132,14 +132,20 @@ export type Profile = {
   // accumulées conservées). Simplification assumée par rapport au texte
   // imprimé (qui lie la transformation à la PROCHAINE avancée "nouvelle
   // compétence" plutôt qu'à un simple seuil d'XP) — voir
-  // transformationDisponible/appliquerTransformation dans utils/profil.ts,
-  // seul mécanisme actuellement câblé : à sens unique, pas de version
-  // réversible (voir aussi le Rat Familier des Skavens Pestilens, cas
-  // réversible non encore couvert par ce champ).
+  // transformationDisponible dans utils/profil.ts. Toujours à sens unique :
+  // pour le Rat Familier des Skavens Pestilens (normalement réversible si le
+  // Prêcheur-Sorcier meurt), la reversion automatique a été volontairement
+  // laissée de côté sur décision de Yannick — trop de risques de ne pas être
+  // reprise proprement par l'app ; le joueur retire manuellement la
+  // figurine et recrute un nouveau Rat géant si besoin.
   transformation?: {
     cible: string;
     cout?: number;
     seuil_xp?: number;
+    // Ex : le Rat Familier des Skavens Pestilens, qui ne peut être obtenu
+    // que si la bande compte un Prêcheur-Sorcier Pestilens vivant équipé
+    // d'un Parchemin de rat familier.
+    necessite_profil_vivant_avec_objet?: { profil: string; item_id: string };
   };
   cout: number | null;
   // Notation de dés affichée quand `cout` est variable (donc null, ex :

@@ -1563,6 +1563,21 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
         ],
       },
+      rat_familier: {
+        nom: 'Familiar Rat',
+        regles_speciales: [
+          {
+            nom: 'Recruitment',
+            texte: 'Cannot be recruited directly: a Familiar Rat is obtained by transforming a giant rat already in the warband (see the giant rat\'s "Familiar Rat" special rule).',
+          },
+          { nom: 'Equipment', texte: 'None. The Familiar Rat carries no weapons or armour.' },
+          {
+            nom: 'Enhanced Spellcasting',
+            texte:
+              'Replaces the 10-12 "Lad\'s Got Talent" result on the Henchmen advance table: if the Pestilens Sorcerer is within 6" of the Familiar Rat, he gains a cumulative +1 bonus to his casting roll. Purely informational — not automated (the app does not track distances between models in play).',
+          },
+        ],
+      },
       rat_ogre: {
         nom: 'Rat Ogre',
         regles_speciales: [
