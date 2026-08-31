@@ -132,6 +132,9 @@ export function peutAjouterMembre(
   profilId: string,
   quantite = 1
 ): { ok: boolean; raison?: string } {
+  if (roster.dissoute) {
+    return { ok: false, raison: 'Bande dissoute : plus aucun recrutement possible.' };
+  }
   const catalogue = getCatalogue(roster.bande_id);
   if (!catalogue) return { ok: false, raison: 'Bande introuvable dans le catalogue.' };
   const profil = catalogue.profils.find((p) => p.id === profilId);

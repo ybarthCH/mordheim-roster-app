@@ -45,6 +45,10 @@ function utiliseLeadership(catalogue: WarbandCatalog | undefined): boolean {
  * actuellement déterminé, alors qu'il reste au moins un héros vivant.
  */
 export function choixLeaderRequis(roster: RosterInstance, catalogue: WarbandCatalog | undefined): boolean {
+  // Une bande dissoute (voir RosterInstance.dissoute) n'a plus de chef à
+  // choisir : ni le Vampire ni le Nécromancien ne peuvent plus reprendre le
+  // commandement, et aucun autre profil de la bande n'est éligible.
+  if (roster.dissoute) return false;
   if (!utiliseLeadership(catalogue) || resolveLeader(roster, catalogue)) return false;
   return roster.membres.some(
     (m) => m.statut !== 'mort' && !estFrancTireur(m) && resolveProfil(roster, m)?.type === 'heros'
@@ -83,12 +87,13 @@ export function succederApresMorts(
   // par la règle Œil des Dieux Sombres des Maraudeurs du Chaos, où le chef
   // est transformé plutôt que réellement tué au combat.
   options?: { sansBannirProfilLeader?: boolean }
-): Pick<RosterInstance, 'profils_bannis' | 'leader_instance_id'> | null {
+): Pick<RosterInstance, 'profils_bannis' | 'leader_instance_id' | 'dissoute'> | null {
   if (!catalogue) return null;
 
   const bannisSet = new Set(rosterAvant.profils_bannis ?? []);
   let changement = false;
   let leaderInstanceId = rosterAvant.leader_instance_id;
+  let dissoute = false;
 
   const vientDeMourir = (instanceId: string) => {
     const avant = rosterAvant.membres.find((m) => m.instance_id === instanceId);
@@ -134,30 +139,63 @@ export function succederApresMorts(
       changement = true;
     }
 
-    const survivants = membresApres.filter((m) => {
-      if (m.instance_id === leaderAvant.instance_id || m.statut === 'mort' || estFrancTireur(m)) return false;
-      const p = resolveProfil(rosterAvant, m);
-      return p?.type === 'heros' && !p.ne_peut_jamais_devenir_chef;
-    });
-    if (survivants.length === 0) {
-      leaderInstanceId = undefined;
+    if (catalogue.id === 'undead') {
+      // "In the case of Undead warbands, the death of the Vampire means
+      // that the warband's Necromancer must take over. If the warband
+      // doesn't include one, the spells that hold the restless dead
+      // together unravel, and the warband collapses into a pile of bones."
+      // (Mordheim - Part 3 - Campaigns & Optional Rules, "Death of a
+      // Leader", dernière phrase remplacée par Errata.pdf p.3) — remplace
+      // le départage générique par Commandement/XP par une succession
+      // forcée au Nécromancien vivant, ou à défaut la dissolution de la
+      // bande (voir RosterInstance.dissoute). Le Vampire porte déjà
+      // `leader_toujours_recrutable`, donc le bannissement de profil
+      // ci-dessus ne s'applique jamais à lui ("vous pouvez acheter un
+      // Vampire après la prochaine partie") ; recruter un nouveau Vampire
+      // lui rend alors automatiquement le commandement sans code
+      // supplémentaire (Profile.est_leader prime toujours sur
+      // leader_instance_id dans resolveLeader). Étendu par cohérence au cas
+      // où c'est le Nécromancien lui-même (chef intérimaire après la mort
+      // du Vampire) qui meurt à son tour sans successeur : non couvert
+      // littéralement par le texte, mais seule lecture qui évite une bande
+      // à jamais sans chef ni dissoute.
+      const necromancien = membresApres.find((m) => m.profil_id === 'necromancien' && m.statut !== 'mort');
+      if (necromancien) {
+        leaderInstanceId = necromancien.instance_id;
+      } else {
+        leaderInstanceId = undefined;
+        dissoute = true;
+      }
     } else {
-      // "If there is more than one Hero eligible to assume command, the
-      // warrior with the most Experience points becomes the leader. In the
-      // case of a tie roll a D6 to decide the new leader." (Part 3 -
-      // Campaigns & Optional Rules p.78) — départage automatique par
-      // Commandement puis XP ; seule une égalité stricte sur les deux
-      // (représentant le jet de D6, que l'app ne simule pas) retombe sur
-      // `undefined` et le choix manuel du joueur (voir choixLeaderRequis).
-      const maxCd = Math.max(...survivants.map((m) => m.stats_actuels.Cd));
-      const candidatsCd = survivants.filter((m) => m.stats_actuels.Cd === maxCd);
-      const maxXp = Math.max(...candidatsCd.map((m) => m.xp));
-      const candidats = candidatsCd.filter((m) => m.xp === maxXp);
-      leaderInstanceId = candidats.length === 1 ? candidats[0].instance_id : undefined;
+      const survivants = membresApres.filter((m) => {
+        if (m.instance_id === leaderAvant.instance_id || m.statut === 'mort' || estFrancTireur(m)) return false;
+        const p = resolveProfil(rosterAvant, m);
+        return p?.type === 'heros' && !p.ne_peut_jamais_devenir_chef;
+      });
+      if (survivants.length === 0) {
+        leaderInstanceId = undefined;
+      } else {
+        // "If there is more than one Hero eligible to assume command, the
+        // warrior with the most Experience points becomes the leader. In the
+        // case of a tie roll a D6 to decide the new leader." (Part 3 -
+        // Campaigns & Optional Rules p.78) — départage automatique par
+        // Commandement puis XP ; seule une égalité stricte sur les deux
+        // (représentant le jet de D6, que l'app ne simule pas) retombe sur
+        // `undefined` et le choix manuel du joueur (voir choixLeaderRequis).
+        const maxCd = Math.max(...survivants.map((m) => m.stats_actuels.Cd));
+        const candidatsCd = survivants.filter((m) => m.stats_actuels.Cd === maxCd);
+        const maxXp = Math.max(...candidatsCd.map((m) => m.xp));
+        const candidats = candidatsCd.filter((m) => m.xp === maxXp);
+        leaderInstanceId = candidats.length === 1 ? candidats[0].instance_id : undefined;
+      }
     }
     changement = true;
   }
 
   if (!changement) return null;
-  return { profils_bannis: Array.from(bannisSet), leader_instance_id: leaderInstanceId };
+  return {
+    profils_bannis: Array.from(bannisSet),
+    leader_instance_id: leaderInstanceId,
+    ...(dissoute ? { dissoute: true } : {}),
+  };
 }

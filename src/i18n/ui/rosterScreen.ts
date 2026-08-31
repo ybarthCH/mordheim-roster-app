@@ -31,6 +31,11 @@ export const rosterScreen: UiDictionary = {
     en: 'New leader needed',
   },
   'roster.chooseLeader': { fr: 'Choisir un chef', en: 'Choose a leader' },
+  'roster.dissoute': {
+    fr: 'Bande dissoute : sans Vampire ni Nécromancien vivant, les sortilèges qui liaient les morts-vivants se sont rompus. La bande ne peut plus recruter ni jouer de bataille — les fiches restent consultables à titre de trace.',
+    en: 'Warband dissolved: with no living Vampire or Necromancer, the spells holding the undead together have unravelled. The warband can no longer recruit or fight battles — sheets remain readable as a record.',
+  },
+  'roster.dissoluteShort': { fr: 'Bande dissoute', en: 'Warband dissolved' },
   'roster.trinketRulePrefix': {
     fr: 'Objet limité à un exemplaire par bande, présent en double :',
     en: 'Item limited to one copy per warband, present in duplicate:',

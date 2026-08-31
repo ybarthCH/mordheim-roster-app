@@ -349,6 +349,19 @@ export type RosterInstance = {
   // — chez les bandes à "héros rares" comme les Lustrian Reavers — tout héros
   // unique perdu, qu'il ait été chef ou non. Vide par défaut.
   profils_bannis?: string[];
+  // Bande dissoute : cas des Morts-Vivants dont le Vampire (ou, à sa suite,
+  // le Nécromancien qui assurait l'intérim) meurt sans qu'aucun Nécromancien
+  // vivant ne puisse reprendre le commandement — "the spells that hold the
+  // restless dead together unravel, and the warband collapses into a pile
+  // of bones" (Mordheim - Part 3, "Death of a Leader", errata p.3). Posé une
+  // fois pour toutes par succederApresMorts (utils/leader.ts), jamais retiré
+  // ensuite (recruter un nouveau Vampire ne "ressuscite" pas une bande déjà
+  // dissoute — seule l'errata mentionne un rachat de Vampire, dans le cas où
+  // c'est le Nécromancien qui dirige encore, pas celui d'une bande
+  // dissoute). Bloque le recrutement (peutAjouterMembre) et l'assistant
+  // post-bataille (RosterScreen) ; n'affecte pas la consultation ni
+  // l'édition des membres déjà existants, conservés comme trace.
+  dissoute?: boolean;
   // Tribu choisie à la création pour les bandes qui en proposent (voir
   // WarbandCatalog.tribus, ex : Maraudeurs du Chaos) — référence vers
   // Tribu.id. Fixé une fois pour toutes, jamais modifié ensuite.
