@@ -163,7 +163,12 @@
       "acces_competences": [],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "entretien": {
+        "type": "or",
+        "cout": 15,
+        "texte": "15 CO après chaque bataille pour nourrir le Troll, ou sacrifier 2 Gobelins ou Squigs (non automatisé — à faire manuellement si ce choix est préféré). S'il ne mange pas à sa faim, il quitte la bande définitivement."
+      }
     },
     {
       "id": "chien_de_guerre",

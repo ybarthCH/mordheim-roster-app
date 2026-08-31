@@ -487,9 +487,24 @@ export function PostBatailleScreen() {
     [blessureDrafts]
   );
 
+  // Profils recrutés DIRECTEMENT dans la bande (jamais francs-tireurs) mais
+  // portant tout de même un entretien post-bataille — ex : le Troll d'Orc
+  // Mob ("Toujours Faim", Profile.entretien). Même filtre de participation
+  // que francTireursParticipants ci-dessus, appliqué au reste du roster.
+  const membresEntretienNatif = useMemo(() => {
+    if (!roster) return [];
+    const participantsInitiaux = participantsInitiauxRef.current;
+    return roster.membres.filter((m) => {
+      if (estFrancTireur(m) || m.statut === 'mort' || m.statut === 'blesse') return false;
+      if (m.statut === 'hors_de_combat' && xpDrafts[m.instance_id]?.survecu === 'non') return false;
+      if (participantsInitiaux && !participantsInitiaux.has(m.instance_id)) return false;
+      return !!resolveProfil(roster, m, catalogue, language)?.entretien;
+    });
+  }, [roster, catalogue, language, xpDrafts]);
+
   const lignesEntretien: LigneEntretien[] = useMemo(() => {
     if (!roster) return [];
-    return francTireursParticipants.map((m) => {
+    const lignesFrancsTireurs: LigneEntretien[] = francTireursParticipants.map((m) => {
       const profilBrut = getFrancTireur(m.franc_tireur_id);
       const profil = profilBrut ? translateHiredSword(profilBrut, language) : profilBrut;
       if (!profil) {
@@ -512,7 +527,18 @@ export function PostBatailleScreen() {
         departAutomatique: profil.depart_apres_bataille,
       };
     });
-  }, [francTireursParticipants, roster, language]);
+    const lignesNatives: LigneEntretien[] = membresEntretienNatif.map((m) => {
+      const profil = resolveProfil(roster, m, catalogue, language)!;
+      return {
+        membre: m,
+        nom: nomAffiche(m),
+        type: profil.entretien!.type,
+        cout: profil.entretien!.cout,
+        texte: profil.entretien!.texte,
+      };
+    });
+    return [...lignesFrancsTireurs, ...lignesNatives];
+  }, [francTireursParticipants, membresEntretienNatif, roster, catalogue, language]);
 
   const decisionEntretien = (ligne: LigneEntretien): DecisionEntretien =>
     entretienDrafts[ligne.membre.instance_id] ??

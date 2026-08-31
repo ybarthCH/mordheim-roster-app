@@ -111,6 +111,19 @@ export type Profile = {
   // les Loups ne sont autorisés que si la bande possède un Wulfen vivant) —
   // voir peutAjouterMembre.
   requiert_profil_vivant?: string;
+  // Entretien post-bataille pour un profil recruté DIRECTEMENT dans la bande
+  // (pas un franc-tireur) — ex : le Troll d'Orc Mob, "Toujours Faim : la
+  // bande doit dépenser 15 CO après chaque bataille pour nourrir le Troll
+  // [...] ; s'il ne mange pas à sa faim, il quitte la bande définitivement."
+  // Absent pour tout profil normal (sans entretien). Même forme que
+  // EntretienFrancTireur (types/hiredSword.ts), dupliquée ici pour éviter un
+  // import circulaire (hiredSword.ts importe déjà depuis catalog.ts) — voir
+  // lignesEntretien dans PostBatailleScreen.tsx, seul consommateur.
+  entretien?: {
+    type: 'or' | 'malepierre';
+    cout: number;
+    texte: string;
+  };
   cout: number | null;
   // Notation de dés affichée quand `cout` est variable (donc null, ex :
   // "25+2D6" pour un chien de guerre) — le montant réel est saisi à la main
