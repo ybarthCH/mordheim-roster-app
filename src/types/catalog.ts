@@ -132,6 +132,23 @@ export type Profile = {
   // recrutables que si la bande porte la Marque du Chaos Universel. Voir
   // peutAjouterMembre.
   requiert_marque?: string;
+  // Objet acheté à moitié prix (arrondi au supérieur), une seule fois, lors
+  // du recrutement de ce membre (création de la bande ou recrutement
+  // ultérieur — jamais un achat différé depuis la fiche personnage) — ex :
+  // "Faveur du Seigneur" (Gardiens de Chapelle Bretonniens) : "un Chevalier
+  // peut acquérir UN SEUL objet parmi destrier / armure légère / armure
+  // lourde à moitié prix" ; "Héritage" (Kislévites, Capitaine de Druzhina) :
+  // "le droit d'acheter un objet de la liste d'équipement [...] à moitié
+  // prix". `items` restreint le choix à cette liste d'ids d'objets (absent =
+  // tout objet de la liste d'équipement du profil est éligible).
+  // `non_cessible` marque l'objet acheté comme ni revendable ni transférable
+  // (voir InventoryEntry.non_cessible) — utilisé par la Faveur du Seigneur
+  // ("ne peut être échangé, donné ni vendu"), pas par l'Héritage kislévite
+  // (dont le remplacement à 150 % en cas de perte et le malus -1 tant que non
+  // remplacé restent à suivre manuellement par le joueur, hors de portée
+  // d'un roster manager qui ne simule pas les jets de combat). Voir
+  // estAchatObjetPrivilegieEntree dans utils/shop.ts, seul consommateur.
+  objet_privilegie_entree?: { items?: string[]; non_cessible?: boolean };
   // Entretien post-bataille pour un profil recruté DIRECTEMENT dans la bande
   // (pas un franc-tireur) — ex : le Troll d'Orc Mob, "Toujours Faim : la
   // bande doit dépenser 15 CO après chaque bataille pour nourrir le Troll

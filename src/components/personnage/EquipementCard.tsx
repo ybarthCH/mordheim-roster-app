@@ -92,7 +92,12 @@ export function EquipementCard({
         // revendue") : même traitement que modificationPermanente (ni
         // renvoi au stock, ni revente), mais sans modification de stats.
         const fusionneAuPorteur = !!itemRef && 'fusionne_au_porteur' in itemRef && !!itemRef.fusionne_au_porteur;
-        const objetIntransferable = modificationPermanente || fusionneAuPorteur;
+        // Objet acheté via Profile.objet_privilegie_entree.non_cessible (ex :
+        // Faveur du Seigneur, Bretonniens) : même traitement, mais porté par
+        // l'instance achetée (InventoryEntry.non_cessible), pas par le
+        // catalogue — le même destrier/armure reste cessible pour tout autre
+        // acheteur.
+        const objetIntransferable = modificationPermanente || fusionneAuPorteur || !!entree.non_cessible;
         const nomAffiche = itemRef ? translateItem(itemRef, language).nom : entree.nom;
         return (
         <div key={entree.instance_id} className="list-item">

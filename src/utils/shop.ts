@@ -1414,7 +1414,15 @@ export function avecSurcharges(
   });
 }
 
-export function creerEntreeInventaire(item: ShopItem, coutPaye: number): InventoryEntry {
+// `privilege` : voir Profile.objet_privilegie_entree — `entreePrivilegiee`
+// marque l'objet comme consommant le privilège à usage unique,
+// `nonCessible` (Faveur du Seigneur uniquement) le rend ni revendable ni
+// transférable.
+export function creerEntreeInventaire(
+  item: ShopItem,
+  coutPaye: number,
+  privilege?: { entreePrivilegiee?: boolean; nonCessible?: boolean }
+): InventoryEntry {
   return {
     instance_id: uuidv4(),
     item_id: item.id,
@@ -1424,14 +1432,21 @@ export function creerEntreeInventaire(item: ShopItem, coutPaye: number): Invento
     cout_notation: item.cout_fixe === false ? String(item.cout) : undefined,
     date_achat: new Date().toISOString(),
     resultat_sous_jet_achat: item.resultatSousJetAchat,
+    ...(privilege?.entreePrivilegiee ? { entree_privilegiee: true } : {}),
+    ...(privilege?.nonCessible ? { non_cessible: true } : {}),
   };
 }
 
 // `quantite` exemplaires indépendants (instance_id distincts) du même objet,
 // au même prix unitaire — utilisé pour équiper un groupe d'hommes de main
 // d'un coup (l'équipement doit rester identique entre toutes ses figurines).
-export function creerEntreesInventaire(item: ShopItem, coutPaye: number, quantite: number): InventoryEntry[] {
-  return Array.from({ length: Math.max(1, quantite) }, () => creerEntreeInventaire(item, coutPaye));
+export function creerEntreesInventaire(
+  item: ShopItem,
+  coutPaye: number,
+  quantite: number,
+  privilege?: { entreePrivilegiee?: boolean; nonCessible?: boolean }
+): InventoryEntry[] {
+  return Array.from({ length: Math.max(1, quantite) }, () => creerEntreeInventaire(item, coutPaye, privilege));
 }
 
 export function acheterPourMembre(
@@ -1512,6 +1527,23 @@ export function equipementPerduALaMort(): Pick<Member, 'inventaire' | 'equipemen
   return { inventaire: [], equipement: '' };
 }
 
+// Un membre ne peut se prévaloir de Profile.objet_privilegie_entree que pour
+// UN SEUL objet (ex : "Faveur du Seigneur" — Bretonniens — ou "Héritage" —
+// Kislévites) : dès qu'un objet a déjà été acheté via ce privilège
+// (inventaire actuel + panier pas encore validé, voir AjouterMembreModal,
+// repérable via InventoryEntry.entree_privilegiee), plus aucun achat suivant
+// n'est éligible.
+export function estAchatObjetPrivilegieEntree(
+  profil: Pick<Profile, 'objet_privilegie_entree'> | null | undefined,
+  item: Pick<ShopItem, 'id'>,
+  inventaireActuel: InventoryEntry[]
+): boolean {
+  const regle = profil?.objet_privilegie_entree;
+  if (!regle) return false;
+  if (regle.items && !regle.items.includes(item.id)) return false;
+  return !inventaireActuel.some((e) => e.entree_privilegiee);
+}
+
 // Applique un achat complet à un membre : crée les entrées d'inventaire
 // (une par figurine du groupe), débite la trésorerie via acheterPourMembre,
 // applique le stats_delta éventuel de l'objet (ex : mutation Great Claw,
@@ -1523,9 +1555,10 @@ export function appliquerAchatSurMembre(
   roster: RosterInstance,
   membre: Member,
   item: ShopItem,
-  coutPaye: number
+  coutPaye: number,
+  privilege?: { entreePrivilegiee?: boolean; nonCessible?: boolean }
 ): RosterInstance {
-  const entrees = creerEntreesInventaire(item, coutPaye, membre.taille_groupe || 1);
+  const entrees = creerEntreesInventaire(item, coutPaye, membre.taille_groupe || 1, privilege);
   const nouveauRoster = acheterPourMembre(roster, membre.instance_id, entrees);
   const inventaire = [...membre.inventaire, ...entrees];
   let stats_actuels = membre.stats_actuels;

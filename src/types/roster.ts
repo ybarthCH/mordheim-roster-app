@@ -119,6 +119,19 @@ export type InventoryEntry = {
   // l'objet ; `label`/`texte` sont un instantané français de repli si
   // l'objet ou l'option a disparu du catalogue depuis.
   resultat_sous_jet_achat?: { jet: number; optionIndex: number; label: string; texte: string };
+  // Objet ni revendable au stock, ni transférable à un autre membre (voir
+  // Profile.objet_privilegie_entree.non_cessible, ex : Faveur du Seigneur —
+  // Gardiens de Chapelle Bretonniens, "ne peut être échangé, donné ni
+  // vendu"). Porté par l'instance achetée, pas par le catalogue : le même
+  // objet (destrier, armure...) reste cessible normalement pour tout autre
+  // acheteur. Voir EquipementCard.tsx (objetIntransferable).
+  non_cessible?: boolean;
+  // Marque cette entrée comme l'objet acheté à moitié prix au titre de
+  // Profile.objet_privilegie_entree (Faveur du Seigneur, Héritage...) — sert
+  // uniquement à repérer que le privilège à usage unique a déjà été consommé
+  // (voir estAchatObjetPrivilegieEntree dans utils/shop.ts), indépendamment
+  // de non_cessible qui ne s'applique qu'à certaines bandes.
+  entree_privilegiee?: boolean;
 };
 
 export type Member = {

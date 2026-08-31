@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../common/Icon';
-import type { Member, RosterInstance } from '../../types/roster';
+import type { Member, RosterInstance, InventoryEntry } from '../../types/roster';
 import { STAT_KEYS } from '../../types/catalog';
 import { getCatalogue } from '../../data/warbands';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
@@ -20,6 +20,7 @@ import {
   transfererVersStock,
   formatEquipementAffiche,
   groupeDupliqueraitObjetLimite,
+  estAchatObjetPrivilegieEntree,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { translateItem } from '../../i18n/data/items';
@@ -254,10 +255,18 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
     const tresorerieProjetee = roster.tresorerie - panierTotal;
     // Vue "et si" de l'inventaire incluant le panier pas encore payé : sans
     // ça, le shop ne verrait pas un objet déjà mis dans le panier (ex :
-    // proposerait une 2e dague comme "gratuite" au lieu de la 1re).
-    const inventairePanier = panier.flatMap(({ item, coutPaye }) =>
-      creerEntreesInventaire(item, coutPaye, tailleGroupeActuelle)
-    );
+    // proposerait une 2e dague comme "gratuite" au lieu de la 1re, ou une 2e
+    // moitié-prix Faveur du Seigneur/Héritage tant que le 1er objet reste
+    // dans le panier — voir estAchatObjetPrivilegieEntree, qui doit voir
+    // entree_privilegiee sur les entrées déjà accumulées pour refuser un 2e
+    // objet). Construit de façon cumulative, comme terminer() ci-dessous,
+    // pour que chaque objet du panier voie l'état après les précédents.
+    const inventairePanier = panier.reduce<InventoryEntry[]>((accumulees, { item, coutPaye }) => {
+      const privilege = estAchatObjetPrivilegieEntree(profil, item, [...membreActuel.inventaire, ...accumulees])
+        ? { entreePrivilegiee: true, nonCessible: !!profil?.objet_privilegie_entree?.non_cessible }
+        : undefined;
+      return [...accumulees, ...creerEntreesInventaire(item, coutPaye, tailleGroupeActuelle, privilege)];
+    }, []);
     // "Chaque Mutant doit commencer la partie avec une ou plusieurs
     // mutations" / "[l'Impur] doit recevoir une ou plusieurs Bénédictions de
     // Nurgle au moment de son recrutement" (voir Profile.
@@ -272,7 +281,13 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
       for (const { item, coutPaye } of panier) {
         const membreCourant =
           rosterCourant.membres.find((m) => m.instance_id === membreActuel.instance_id) ?? membreActuel;
-        rosterCourant = appliquerAchatSurMembre(rosterCourant, membreCourant, item, coutPaye);
+        // Profile.objet_privilegie_entree ("Faveur du Seigneur", "Héritage") :
+        // recalculé à chaque itération sur l'inventaire déjà à jour du membre,
+        // pour n'accorder le privilège qu'au premier objet éligible acheté.
+        const privilege = estAchatObjetPrivilegieEntree(profil, item, membreCourant.inventaire)
+          ? { entreePrivilegiee: true, nonCessible: !!profil?.objet_privilegie_entree?.non_cessible }
+          : undefined;
+        rosterCourant = appliquerAchatSurMembre(rosterCourant, membreCourant, item, coutPaye, privilege);
       }
       if (panier.length > 0) onUpdateRoster(rosterCourant);
       onClose();

@@ -22,6 +22,7 @@ import {
   basesPourMateriau,
   construireObjetMateriau,
   MATERIAUX,
+  estAchatObjetPrivilegieEntree,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
@@ -288,17 +289,37 @@ export function AchatEquipementContenu({
       ? Math.max(0, item.cout - (xpMembre ?? 0))
       : null;
 
+  // Profile.objet_privilegie_entree ("Faveur du Seigneur" — Bretonniens,
+  // "Héritage" — Kislévites) : moitié prix, une seule fois, uniquement au
+  // moment du recrutement (resterOuvertApresAchat n'est vrai que depuis
+  // AjouterMembreModal — jamais depuis un achat différé sur la fiche
+  // personnage). Sans liste explicite (`items` absent, ex : Héritage —
+  // "un objet de la liste d'équipement des guerriers kislévites"), restreint
+  // à l'onglet "bande" : le shop commun n'est pas la liste d'équipement du
+  // profil.
+  const coutReduitPrivilegeEntree = (item: Pick<ShopItem, 'id' | 'cout' | 'cout_fixe'>) =>
+    resterOuvertApresAchat &&
+    (profil?.objet_privilegie_entree?.items || source === 'bande') &&
+    estAchatObjetPrivilegieEntree(profil, item, inventaireActuel) &&
+    item.cout_fixe &&
+    typeof item.cout === 'number'
+      ? Math.ceil(item.cout / 2)
+      : null;
+
   const choisir = (item: ShopItem) => {
     setItemId(item.id);
     const coutArmureDuChaos = coutReduitArmureDuChaos(item);
+    const coutPrivilegeEntree = coutReduitPrivilegeEntree(item);
     setCoutSaisi(
       estPremiereDagueGratuite(item)
         ? '0'
         : coutArmureDuChaos !== null
           ? String(coutArmureDuChaos)
-          : item.cout_fixe && typeof item.cout === 'number'
-            ? String(item.cout)
-            : ''
+          : coutPrivilegeEntree !== null
+            ? String(coutPrivilegeEntree)
+            : item.cout_fixe && typeof item.cout === 'number'
+              ? String(item.cout)
+              : ''
     );
     setBaseMateriauId('');
     setRechercheMateriau('');
@@ -796,6 +817,11 @@ export function AchatEquipementContenu({
                           {estPremiereDagueGratuite(item) && (
                             <span className="badge badge--gratuit achat-equipement__rarete">{t('achatEquipement.freeBadge')}</span>
                           )}
+                          {coutReduitPrivilegeEntree(item) !== null && (
+                            <span className="badge badge--gratuit achat-equipement__rarete">
+                              {t('achatEquipement.halfPriceBadge')}
+                            </span>
+                          )}
                         </div>
                         <div className="list-item__subtitle">
                           {iconeCategorie(item.categorie) && (
@@ -842,6 +868,11 @@ export function AchatEquipementContenu({
                 {itemSelectionne.surcharge && <span className="badge badge--warning">{t('achatEquipement.modifiedBadge')}</span>}
                 {estPremiereDagueGratuite(itemSelectionne) && (
                   <span className="badge badge--gratuit achat-equipement__rarete">{t('achatEquipement.freeBadge')}</span>
+                )}
+                {coutReduitPrivilegeEntree(itemSelectionne) !== null && (
+                  <span className="badge badge--gratuit achat-equipement__rarete">
+                    {t('achatEquipement.halfPriceBadge')}
+                  </span>
                 )}
                 {personnaliseActif && (
                   <button

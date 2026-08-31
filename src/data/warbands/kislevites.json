@@ -32,7 +32,8 @@
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
       "acces_equipement": ["guerriers_kislevites"],
       "acces_competences_a_verifier": false,
-      "est_leader": true
+      "est_leader": true,
+      "objet_privilegie_entree": {}
     },
     {
       "id": "dompteur_dours",

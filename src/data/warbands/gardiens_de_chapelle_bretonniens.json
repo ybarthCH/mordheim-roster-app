@@ -56,7 +56,8 @@
       ],
       "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
-      "est_leader": true
+      "est_leader": true,
+      "objet_privilegie_entree": { "items": ["destriers", "armure_legere", "armure_lourde"], "non_cessible": true }
     },
     {
       "id": "damoiselle",
@@ -96,7 +97,8 @@
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": ["chevaliers"],
       "categories_interdites": ["armes_de_jet"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "objet_privilegie_entree": { "items": ["destriers", "armure_legere", "armure_lourde"], "non_cessible": true }
     },
     {
       "id": "ecuyer",
