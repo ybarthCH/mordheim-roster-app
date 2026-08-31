@@ -1952,7 +1952,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     employeurs: {
       bande_ids: ['middenheimers'],
       texte:
-        'Uniquement les Mercenaires de Middenheim, où il remplace l’un des Champions de la bande (0-1, à gérer manuellement lors du recrutement).',
+        'Uniquement les Mercenaires de Middenheim, où il remplace l’un des Champions de la bande (max effectif du profil Champion réduit à 1 tant qu’il est présent, voir Profile.reduit_par_franc_tireur).',
     },
     stats: { M: 4, CC: 3, CT: 2, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 8 },
     equipement: [

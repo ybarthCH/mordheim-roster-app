@@ -106,6 +106,14 @@ export type Profile = {
   // Gobelins que le double des Orques, Héros inclus (profils: [tous les
   // profils "Orques" de la bande], multiplicateur: 2). Voir peutAjouterMembre.
   plafond_relatif?: { profils: string[]; multiplicateur?: number; label?: string };
+  // Réduit le `max` effectif de ce profil de 1 par franc-tireur vivant de
+  // l'id donné présent dans la bande (référence vers FrancTireurCatalog.id)
+  // — ex : chez les Middenheimers, le Prêtre-loup d'Ulric « remplace l'un
+  // des Champions de la bande (0-1) » : max passe de 2 à 1 tant qu'il est
+  // présent. Distinct de plafond_groupe/plafond_relatif, qui ne relient que
+  // des profils de bande entre eux, jamais un franc-tireur. Voir
+  // limiteEffectivePourProfil dans utils/validation.ts.
+  reduit_par_franc_tireur?: string;
   // Ce profil ne peut être recruté que si la bande compte déjà au moins un
   // membre vivant (statut != 'mort') de ce profil-ci (ex : chez les Norses,
   // les Loups ne sont autorisés que si la bande possède un Wulfen vivant) —

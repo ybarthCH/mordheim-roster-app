@@ -20,13 +20,22 @@ export type ViolationComposition = {
 // surcharge de tribu (voir maxProfilPourTribu, ex : Chiens du Chaos
 // illimités chez les Kurgans) prime sur le max du catalogue. `null`
 // ("illimité" côté tribu) est normalisé en `undefined` ici, la convention
-// que les appelants testent via `limite != null`.
+// que les appelants testent via `limite != null`. `profil.reduit_par_franc_tireur`
+// (ex : le Prêtre-loup d'Ulric chez les Middenheimers, "il remplace l'un des
+// Champions de la bande, 0-1") réduit ensuite d'autant ce plafond par franc-
+// tireur vivant de ce type présent dans la bande.
 function limiteEffectivePourProfil(
-  profil: { unique?: boolean; max?: number | null },
-  surchargeTribu: number | null | undefined
+  profil: { unique?: boolean; max?: number | null; reduit_par_franc_tireur?: string },
+  surchargeTribu: number | null | undefined,
+  roster?: RosterInstance
 ): number | undefined {
   if (profil.unique) return 1;
-  return (surchargeTribu !== undefined ? surchargeTribu : profil.max) ?? undefined;
+  const base = (surchargeTribu !== undefined ? surchargeTribu : profil.max) ?? undefined;
+  if (base == null || !profil.reduit_par_franc_tireur || !roster) return base;
+  const reduction = roster.membres.filter(
+    (m) => m.statut !== 'mort' && m.franc_tireur_id === profil.reduit_par_franc_tireur
+  ).length;
+  return Math.max(0, base - reduction);
 }
 
 /**
@@ -47,7 +56,7 @@ export function validerComposition(roster: RosterInstance, language?: Language):
   for (const profil of catalogue.profils) {
     const actuel = comptes.get(profil.id) ?? 0;
     const surchargeTribu = maxProfilPourTribu(catalogue, roster, profil.id);
-    const limiteMax = limiteEffectivePourProfil(profil, surchargeTribu);
+    const limiteMax = limiteEffectivePourProfil(profil, surchargeTribu, roster);
     if (limiteMax != null && actuel > limiteMax) {
       violations.push({ profilId: profil.id, nomProfil: profil.nom, type: 'max', limite: limiteMax, actuel });
     }
@@ -124,7 +133,7 @@ export function limiteAfficheePourProfil(roster: RosterInstance, profilId: strin
   const profil = catalogue?.profils.find((p) => p.id === profilId);
   if (!catalogue || !profil) return undefined;
   const surchargeTribu = maxProfilPourTribu(catalogue, roster, profilId);
-  return limiteEffectivePourProfil(profil, surchargeTribu);
+  return limiteEffectivePourProfil(profil, surchargeTribu, roster);
 }
 
 export function peutAjouterMembre(
@@ -166,7 +175,7 @@ export function peutAjouterMembre(
     }
   }
   const surchargeTribu = maxProfilPourTribu(catalogue, roster, profilId);
-  const limite = limiteEffectivePourProfil(profil, surchargeTribu);
+  const limite = limiteEffectivePourProfil(profil, surchargeTribu, roster);
   if (limite != null) {
     const actuel = roster.membres
       .filter((m) => m.profil_id === profilId && m.statut !== 'mort')
