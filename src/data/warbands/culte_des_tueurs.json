@@ -41,6 +41,14 @@
       "acces_competences": ["combat", "tir", "academique", "force", "special"],
       "acces_equipement": ["tueurs"],
       "categories_interdites": ["armures", "armes_poudre_noire"],
+      "competences_speciales": [
+        { "id": "charge_feroce_tueur", "nom": "Charge Féroce", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut doubler ses attaques lors du tour où il charge. Il subit alors un malus de -1 pour toucher ce tour-là.", "valeurPuissance": 40 },
+        { "id": "tueur_de_monstres_culte", "nom": "Tueur de Monstres", "reserve_a": "Tueurs uniquement", "texte": "Au corps à corps, le Tueur blesse toujours son adversaire sur un jet de 4+, sans tenir compte de l'Endurance, à moins que sa propre Force (après tous les modificateurs dus aux armes, etc.) ne lui permette déjà de blesser plus facilement.", "valeurPuissance": 20 },
+        { "id": "berserk_culte", "nom": "Berserk", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut ajouter +1 à ses jets pour toucher au corps à corps lors du tour où il charge.", "valeurPuissance": 20 },
+        { "id": "coup_fatal", "nom": "Coup Fatal", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros est mis hors de combat au corps à corps, il peut immédiatement effectuer le reste de ses attaques avant d'être retiré, s'il ne les avait pas toutes faites ce tour. Il peut utiliser cette compétence même s'il est à terre ou sonné.", "valeurPuissance": 20 },
+        { "id": "acharne_tueur", "nom": "Acharné", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros charge une figurine mais que la charge échoue, il peut tout de même effectuer un déplacement égal à son Mouvement complet. Cette compétence ne peut être utilisée que contre des ennemis visibles ou détectés par le Tueur.", "valeurPuissance": 20 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -58,6 +66,14 @@
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["chercheurs_de_trepas"],
       "categories_interdites": ["armures", "armes_tir", "armes_poudre_noire"],
+      "competences_speciales": [
+        { "id": "charge_feroce_tueur", "nom": "Charge Féroce", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut doubler ses attaques lors du tour où il charge. Il subit alors un malus de -1 pour toucher ce tour-là.", "valeurPuissance": 40 },
+        { "id": "tueur_de_monstres_culte", "nom": "Tueur de Monstres", "reserve_a": "Tueurs uniquement", "texte": "Au corps à corps, le Tueur blesse toujours son adversaire sur un jet de 4+, sans tenir compte de l'Endurance, à moins que sa propre Force (après tous les modificateurs dus aux armes, etc.) ne lui permette déjà de blesser plus facilement.", "valeurPuissance": 20 },
+        { "id": "berserk_culte", "nom": "Berserk", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut ajouter +1 à ses jets pour toucher au corps à corps lors du tour où il charge.", "valeurPuissance": 20 },
+        { "id": "coup_fatal", "nom": "Coup Fatal", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros est mis hors de combat au corps à corps, il peut immédiatement effectuer le reste de ses attaques avant d'être retiré, s'il ne les avait pas toutes faites ce tour. Il peut utiliser cette compétence même s'il est à terre ou sonné.", "valeurPuissance": 20 },
+        { "id": "acharne_tueur", "nom": "Acharné", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros charge une figurine mais que la charge échoue, il peut tout de même effectuer un déplacement égal à son Mouvement complet. Cette compétence ne peut être utilisée que contre des ennemis visibles ou détectés par le Tueur.", "valeurPuissance": 20 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -79,6 +95,11 @@
       ],
       "acces_competences": ["combat", "tir", "academique", "special"],
       "acces_equipement": ["memorialistes"],
+      "competences_speciales": [
+        { "id": "chants_de_guerre", "nom": "Chants de Guerre", "reserve_a": "Mémorialiste uniquement", "texte": "Les chants de guerre entraînants du Mémorialiste galvanisent le cœur de tous ceux qui l'entourent. Toute figurine amie à moins de 6ps peut relancer tout test de Commandement raté avec un bonus de +1 au Commandement (maximum 10). Ceci inclut les tests de Déroute.", "valeurPuissance": 20 },
+        { "id": "chant_dhonneur", "nom": "Chant d'Honneur", "reserve_a": "Mémorialiste uniquement", "texte": "En séquence post-bataille, si un ou plusieurs Tueurs de la bande sont morts, tous les Héros et Hommes de main gagnent +1 point d'Expérience.", "valeurPuissance": 0 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -97,6 +118,14 @@
       "acces_competences": [],
       "acces_equipement": ["tueurs"],
       "categories_interdites": ["armures", "armes_poudre_noire"],
+      "competences_speciales": [
+        { "id": "charge_feroce_tueur", "nom": "Charge Féroce", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut doubler ses attaques lors du tour où il charge. Il subit alors un malus de -1 pour toucher ce tour-là.", "valeurPuissance": 40 },
+        { "id": "tueur_de_monstres_culte", "nom": "Tueur de Monstres", "reserve_a": "Tueurs uniquement", "texte": "Au corps à corps, le Tueur blesse toujours son adversaire sur un jet de 4+, sans tenir compte de l'Endurance, à moins que sa propre Force (après tous les modificateurs dus aux armes, etc.) ne lui permette déjà de blesser plus facilement.", "valeurPuissance": 20 },
+        { "id": "berserk_culte", "nom": "Berserk", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut ajouter +1 à ses jets pour toucher au corps à corps lors du tour où il charge.", "valeurPuissance": 20 },
+        { "id": "coup_fatal", "nom": "Coup Fatal", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros est mis hors de combat au corps à corps, il peut immédiatement effectuer le reste de ses attaques avant d'être retiré, s'il ne les avait pas toutes faites ce tour. Il peut utiliser cette compétence même s'il est à terre ou sonné.", "valeurPuissance": 20 },
+        { "id": "acharne_tueur", "nom": "Acharné", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros charge une figurine mais que la charge échoue, il peut tout de même effectuer un déplacement égal à son Mouvement complet. Cette compétence ne peut être utilisée que contre des ennemis visibles ou détectés par le Tueur.", "valeurPuissance": 20 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -115,6 +144,15 @@
       "acces_competences": [],
       "acces_equipement": ["tueurs"],
       "categories_interdites": ["armures", "armes_poudre_noire"],
+      "competences_speciales": [
+        { "id": "voeu_de_mort_tueur", "nom": "Vœu de Mort", "reserve_a": "Barbes-Naissantes et Lanceurs de Haches uniquement — les autres Tueurs possèdent déjà cette capacité dès la création de la bande (voir règle spéciale Vœu de Mort ci-dessus). Un Barbe-Naissante ou un Lanceur de Haches qui obtient « Ce gars est doué » DOIT apprendre cette compétence au lieu de faire un jet normal sur le tableau d'avancement.", "texte": "Le Héros est complètement immunisé à toute psychologie et ne teste jamais lorsqu'il combat seul.", "valeurPuissance": 40 },
+        { "id": "charge_feroce_tueur", "nom": "Charge Féroce", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut doubler ses attaques lors du tour où il charge. Il subit alors un malus de -1 pour toucher ce tour-là.", "valeurPuissance": 40 },
+        { "id": "tueur_de_monstres_culte", "nom": "Tueur de Monstres", "reserve_a": "Tueurs uniquement", "texte": "Au corps à corps, le Tueur blesse toujours son adversaire sur un jet de 4+, sans tenir compte de l'Endurance, à moins que sa propre Force (après tous les modificateurs dus aux armes, etc.) ne lui permette déjà de blesser plus facilement.", "valeurPuissance": 20 },
+        { "id": "berserk_culte", "nom": "Berserk", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut ajouter +1 à ses jets pour toucher au corps à corps lors du tour où il charge.", "valeurPuissance": 20 },
+        { "id": "coup_fatal", "nom": "Coup Fatal", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros est mis hors de combat au corps à corps, il peut immédiatement effectuer le reste de ses attaques avant d'être retiré, s'il ne les avait pas toutes faites ce tour. Il peut utiliser cette compétence même s'il est à terre ou sonné.", "valeurPuissance": 20 },
+        { "id": "acharne_tueur", "nom": "Acharné", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros charge une figurine mais que la charge échoue, il peut tout de même effectuer un déplacement égal à son Mouvement complet. Cette compétence ne peut être utilisée que contre des ennemis visibles ou détectés par le Tueur.", "valeurPuissance": 20 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -136,21 +174,22 @@
       "acces_competences": [],
       "categories_interdites": ["armures", "armes_poudre_noire"],
       "acces_equipement": ["tueurs"],
+      "competences_speciales": [
+        { "id": "voeu_de_mort_tueur", "nom": "Vœu de Mort", "reserve_a": "Barbes-Naissantes et Lanceurs de Haches uniquement — les autres Tueurs possèdent déjà cette capacité dès la création de la bande (voir règle spéciale Vœu de Mort ci-dessus). Un Barbe-Naissante ou un Lanceur de Haches qui obtient « Ce gars est doué » DOIT apprendre cette compétence au lieu de faire un jet normal sur le tableau d'avancement.", "texte": "Le Héros est complètement immunisé à toute psychologie et ne teste jamais lorsqu'il combat seul.", "valeurPuissance": 40 },
+        { "id": "charge_feroce_tueur", "nom": "Charge Féroce", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut doubler ses attaques lors du tour où il charge. Il subit alors un malus de -1 pour toucher ce tour-là.", "valeurPuissance": 40 },
+        { "id": "tueur_de_monstres_culte", "nom": "Tueur de Monstres", "reserve_a": "Tueurs uniquement", "texte": "Au corps à corps, le Tueur blesse toujours son adversaire sur un jet de 4+, sans tenir compte de l'Endurance, à moins que sa propre Force (après tous les modificateurs dus aux armes, etc.) ne lui permette déjà de blesser plus facilement.", "valeurPuissance": 20 },
+        { "id": "berserk_culte", "nom": "Berserk", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut ajouter +1 à ses jets pour toucher au corps à corps lors du tour où il charge.", "valeurPuissance": 20 },
+        { "id": "coup_fatal", "nom": "Coup Fatal", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros est mis hors de combat au corps à corps, il peut immédiatement effectuer le reste de ses attaques avant d'être retiré, s'il ne les avait pas toutes faites ce tour. Il peut utiliser cette compétence même s'il est à terre ou sonné.", "valeurPuissance": 20 },
+        { "id": "acharne_tueur", "nom": "Acharné", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros charge une figurine mais que la charge échoue, il peut tout de même effectuer un déplacement égal à son Mouvement complet. Cette compétence ne peut être utilisée que contre des ennemis visibles ou détectés par le Tueur.", "valeurPuissance": 20 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false
     }
   ],
   "competences_speciales": [
-    { "id": "voeu_de_mort_tueur", "nom": "Vœu de Mort", "reserve_a": "Barbes-Naissantes et Lanceurs de Haches uniquement — les autres Tueurs possèdent déjà cette capacité dès la création de la bande (voir règle spéciale Vœu de Mort ci-dessus). Un Barbe-Naissante ou un Lanceur de Haches qui obtient « Ce gars est doué » DOIT apprendre cette compétence au lieu de faire un jet normal sur le tableau d'avancement.", "texte": "Le Héros est complètement immunisé à toute psychologie et ne teste jamais lorsqu'il combat seul.", "valeurPuissance": 40 },
-    { "id": "charge_feroce_tueur", "nom": "Charge Féroce", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut doubler ses attaques lors du tour où il charge. Il subit alors un malus de -1 pour toucher ce tour-là.", "valeurPuissance": 40 },
-    { "id": "tueur_de_monstres_culte", "nom": "Tueur de Monstres", "reserve_a": "Tueurs uniquement", "texte": "Au corps à corps, le Tueur blesse toujours son adversaire sur un jet de 4+, sans tenir compte de l'Endurance, à moins que sa propre Force (après tous les modificateurs dus aux armes, etc.) ne lui permette déjà de blesser plus facilement.", "valeurPuissance": 20 },
-    { "id": "berserk_culte", "nom": "Berserk", "reserve_a": "Tueurs uniquement", "texte": "Le Tueur peut ajouter +1 à ses jets pour toucher au corps à corps lors du tour où il charge.", "valeurPuissance": 20 },
-    { "id": "coup_fatal", "nom": "Coup Fatal", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros est mis hors de combat au corps à corps, il peut immédiatement effectuer le reste de ses attaques avant d'être retiré, s'il ne les avait pas toutes faites ce tour. Il peut utiliser cette compétence même s'il est à terre ou sonné.", "valeurPuissance": 20 },
-    { "id": "acharne_tueur", "nom": "Acharné", "reserve_a": "Tueurs uniquement", "texte": "Si le Héros charge une figurine mais que la charge échoue, il peut tout de même effectuer un déplacement égal à son Mouvement complet. Cette compétence ne peut être utilisée que contre des ennemis visibles ou détectés par le Tueur.", "valeurPuissance": 20 },
     { "id": "maitrise_de_la_hache", "nom": "Maîtrise de la Hache", "reserve_a": "Héros du Culte des Tueurs uniquement", "texte": "Le Héros est passé maître dans l'art du combat à la hache. Il peut relancer toutes ses attaques ratées s'il utilise une hache ou une hache naine lors de la phase de corps à corps du tour où il charge. Ne peut pas être utilisée avec des Lames tournoyantes.", "valeurPuissance": 40 },
     { "id": "endurance_naine_culte", "nom": "Endurance Naine", "reserve_a": "Héros du Culte des Tueurs uniquement", "texte": "Les nains sont des individus robustes, et ce Héros l'est encore plus que la moyenne ! Lors d'un jet sur le tableau des Dégâts pour ce Héros, un résultat de 1-3 est considéré comme à terre, de 4-5 comme sonné, et de 6 comme hors de combat.", "valeurPuissance": 40 },
     { "id": "crane_epais_culte", "nom": "Crâne Épais", "reserve_a": "Héros du Culte des Tueurs uniquement", "texte": "Le Héros a une sauvegarde de 3+ sur 1D6 pour éviter d'être sonné. Si la sauvegarde est réussie, considérez le résultat sonné comme à terre à la place.", "valeurPuissance": 40 },
-    { "id": "chants_de_guerre", "nom": "Chants de Guerre", "reserve_a": "Mémorialiste uniquement", "texte": "Les chants de guerre entraînants du Mémorialiste galvanisent le cœur de tous ceux qui l'entourent. Toute figurine amie à moins de 6ps peut relancer tout test de Commandement raté avec un bonus de +1 au Commandement (maximum 10). Ceci inclut les tests de Déroute.", "valeurPuissance": 20 },
-    { "id": "chant_dhonneur", "nom": "Chant d'Honneur", "reserve_a": "Mémorialiste uniquement", "texte": "En séquence post-bataille, si un ou plusieurs Tueurs de la bande sont morts, tous les Héros et Hommes de main gagnent +1 point d'Expérience.", "valeurPuissance": 0 },
     { "id": "maitre_lanceur_de_haches", "nom": "Maître Lanceur de Haches", "reserve_a": "Héros équipés de Haches de jet et ayant accès aux compétences de Tir uniquement", "texte": "Le guerrier peut lancer un maximum de deux Haches de jet lors de sa phase de Tir, chacune bénéficiant de +1 en Force, et peut répartir ses tirs entre plusieurs cibles à portée comme il le souhaite. Cette compétence ne peut pas être combinée avec les compétences Tir Rapide ou Combat au Couteau.", "valeurPuissance": 20 }
   ],
   "equipement": {
