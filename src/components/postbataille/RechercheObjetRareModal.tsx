@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { resolveProfil } from '../../utils/profil';
+import { getItem } from '../../data/items';
 import {
   basesPourMateriau,
   CATEGORIE_ORDRE,
@@ -17,6 +18,7 @@ import {
   MATERIAUX,
   resumeItem,
   TRINKETS_LIMITES,
+  ITEMS_UNIQUES_BANDE,
   type ShopItem,
 } from '../../utils/shop';
 import { useGameRules } from '../../state/useGameRules';
@@ -65,6 +67,13 @@ export function RechercheObjetRareModal({
   const [itemId, setItemId] = useState('');
   const [succesDeclare, setSuccesDeclare] = useState(false);
   const [coutSaisi, setCoutSaisi] = useState('');
+  // "Lors de la recherche d'une armure du Chaos, un guerrier gagne +1 sur le
+  // résultat de son jet de recherche pour chaque ennemi qu'il a mis hors de
+  // combat lors de la bataille précédente." (armures.json, "Rareté" de
+  // l'Armure du Chaos) — donnée que l'app ne trace nulle part (pas de suivi
+  // par figurine des ennemis mis hors de combat en bataille), donc saisie
+  // manuelle ponctuelle au moment de la recherche, comme le coût ci-dessus.
+  const [ennemisHorsDeCombatSaisie, setEnnemisHorsDeCombatSaisie] = useState('');
   // Objet "matériau" (gromril/ithilmar/obsidienne) trouvé : demande de
   // choisir une arme/armure de base existante avant de connaître le prix
   // final (voir basesPourMateriau/construireObjetMateriau dans utils/shop.ts,
@@ -105,13 +114,73 @@ export function RechercheObjetRareModal({
   const item = items.find((candidat) => candidat.id === itemId) ?? null;
   const itemAffiche = item ? translateItem(item, language) : null;
   const rarete = item ? niveauRarete(item) : null;
+  // "The Gunnery School may always use the cheaper price of black powder
+  // weapons in their list, and gain a +2 bonus when rolling for rarity to
+  // find a black powder weapon, as no one seems to worry about selling
+  // faulty weapons!" (Artilleurs de Nuln [GLM].pdf p.1, "Entretien
+  // impeccable") — +2 au jet du joueur équivaut à afficher un seuil de
+  // réussite 2 points plus bas ; ce seuil n'est jamais simulé par l'app
+  // (le joueur lance le dé lui-même sur table), donc seul l'affichage du
+  // seuil annoncé doit refléter le bonus. Le badge Rare N ci-dessous reste
+  // sur la vraie rareté (classeRarete/rareModal.rareLevel) : c'est
+  // toujours objectivement le même objet rare, seule la facilité à le
+  // trouver change pour cette bande.
+  const bonusRaretePoudreNoire =
+    catalogue.id === 'artilleurs_de_nuln' && item && getItem(item.id)?.categorie === 'armes_poudre_noire' ? 2 : 0;
+  // "Du fait qu'elles sont en contact avec les guildes de marchands de
+  // Marienburg, les bandes reçoivent un bonus de +1 lors des acquisitions
+  // d'objets rares." (Mercenaires Marienburgers, Middenheimers et
+  // Reiklanders [GW].pdf p.1, "Bonus Rare +1") — contrairement au bonus
+  // ciblé des Artilleurs de Nuln (poudre noire uniquement), celui-ci
+  // s'applique à toute catégorie d'objet rare.
+  const bonusRareteMarienburgers = catalogue.id === 'marienburgers' ? 1 : 0;
+  // "Clients Difficiles : Les Héros Ogres subissent un malus de -1 lors des
+  // jets pour trouver des objets Rares non exclusivement réservés aux
+  // Ogres." (Mangeurs d'Hommes / Border Town Burning) — les objets propres
+  // à la bande (Gourdin d'Ogre, Poing de fer, Lance-harpon, Gnoblars...) ont
+  // tous `acces: ["maneaters"]` exclusivement ; tout autre objet Rare (y
+  // compris un objet partagé avec une autre bande, comme le Mortier
+  // portable des Artilleurs de Nuln) subit le malus.
+  const itemAccesRare = item ? (getItem(item.id)?.acces ?? []) : [];
+  const itemExclusifOgre = itemAccesRare.length > 0 && itemAccesRare.every((a) => a === 'maneaters');
+  const malusRareteClientsDifficiles =
+    catalogue.id === 'maneaters' && profil?.type === 'heros' && item && !itemExclusifOgre ? 1 : 0;
+  // "Pilleurs : ... ils gagnent un +1 à leurs jets de rareté lors de la
+  // recherche d'objets rares." (Maraudeurs du Chaos [GLM].pdf p.9, "Les
+  // Norses") — s'applique à toute catégorie, comme le bonus Marienburgers.
+  const bonusRareteNorses = catalogue.id === 'maraudeurs_du_chaos' && roster.tribu === 'norses' ? 1 : 0;
+  // "Clients Difficiles : ... une Bande Kurgan subit un malus de -1 sur les
+  // jets pour trouver des articles rares, à l'exception de Grandes Haches et
+  // de Fouets Barbelés." (Maraudeurs du Chaos [GLM].pdf p.9, "Les Kurgans")
+  const malusRareteKurgans =
+    catalogue.id === 'maraudeurs_du_chaos' &&
+    roster.tribu === 'kurgans' &&
+    item &&
+    item.id !== 'grande_hache_du_chaos' &&
+    item.id !== 'fouet_barbele'
+      ? 1
+      : 0;
+  const bonusRareteArmureDuChaos =
+    item?.id === 'armure_du_chaos_market' ? Math.max(0, Number(ennemisHorsDeCombatSaisie) || 0) : 0;
+  const rareteEffective =
+    rarete !== null
+      ? Math.max(
+          2,
+          rarete -
+            bonusRaretePoudreNoire -
+            bonusRareteMarienburgers -
+            bonusRareteNorses -
+            bonusRareteArmureDuChaos +
+            malusRareteClientsDifficiles +
+            malusRareteKurgans
+        )
+      : null;
   const cout = Number(coutSaisi);
   const coutValide = coutSaisi.trim() !== '' && Number.isFinite(cout) && cout >= 0;
   const inventaireBande = [...inventaireComplet(roster), ...inventaireSupplementaire];
   const trinketBloque =
     !!item &&
-    rules.trinketsLimites &&
-    TRINKETS_LIMITES.has(item.id) &&
+    ((rules.trinketsLimites && TRINKETS_LIMITES.has(item.id)) || ITEMS_UNIQUES_BANDE.has(item.id)) &&
     inventaireBande.some((entree) => entree.item_id === item.id);
 
   const materiauSelectionne = item && estItemMateriau(item.id) ? item : undefined;
@@ -136,6 +205,7 @@ export function RechercheObjetRareModal({
     setBaseMateriauId('');
     setRechercheMateriau('');
     setCoutBaseSaisi('');
+    setEnnemisHorsDeCombatSaisie('');
   };
 
   const choisirBaseMateriau = (base: ShopItem) => {
@@ -152,7 +222,11 @@ export function RechercheObjetRareModal({
   const declarerSucces = () => {
     setSuccesDeclare(true);
     if (item?.cout_fixe && typeof item.cout === 'number') {
-      setCoutSaisi(String(item.cout));
+      // "Le coût d'une armure du Chaos est réduit d'1 CO pour chaque point
+      // d'expérience possédé par le Héros." (armures.json, "Coût" de
+      // l'Armure du Chaos).
+      const reduction = item.id === 'armure_du_chaos_market' ? membre.xp : 0;
+      setCoutSaisi(String(Math.max(0, item.cout - reduction)));
     }
   };
 
@@ -273,7 +347,34 @@ export function RechercheObjetRareModal({
             </header>
 
             <div className="achat-equipement__contenu achat-equipement__detail">
-              <p className="text-sm text-muted">{t('rareModal.succeedsOn', { n: rarete ?? 0 })}</p>
+              <p className="text-sm text-muted">{t('rareModal.succeedsOn', { n: rareteEffective ?? 0 })}</p>
+              {bonusRaretePoudreNoire > 0 && (
+                <p className="text-sm text-muted">{t('rareModal.blackPowderBonus', { n: bonusRaretePoudreNoire })}</p>
+              )}
+              {bonusRareteMarienburgers > 0 && (
+                <p className="text-sm text-muted">{t('rareModal.marienburgersBonus', { n: bonusRareteMarienburgers })}</p>
+              )}
+              {malusRareteClientsDifficiles > 0 && (
+                <p className="text-sm text-muted">{t('rareModal.maneatersMalus', { n: malusRareteClientsDifficiles })}</p>
+              )}
+              {bonusRareteNorses > 0 && (
+                <p className="text-sm text-muted">{t('rareModal.norsesBonus', { n: bonusRareteNorses })}</p>
+              )}
+              {malusRareteKurgans > 0 && (
+                <p className="text-sm text-muted">{t('rareModal.kurgansMalus', { n: malusRareteKurgans })}</p>
+              )}
+              {item?.id === 'armure_du_chaos_market' && !succesDeclare && (
+                <div className="field">
+                  <label>{t('rareModal.chaosArmourEnemiesLabel')}</label>
+                  <input
+                    type="number"
+                    min={0}
+                    value={ennemisHorsDeCombatSaisie}
+                    onChange={(e) => setEnnemisHorsDeCombatSaisie(e.target.value)}
+                    placeholder="0"
+                  />
+                </div>
+              )}
               {itemAffiche!.disponibilite && <p className="text-sm text-muted">{itemAffiche!.disponibilite}</p>}
               {resumeItem(itemAffiche!, language) && <p className="text-sm">{resumeItem(itemAffiche!, language)}</p>}
 

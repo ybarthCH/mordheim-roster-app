@@ -37,6 +37,11 @@
       ],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["ogres"],
+      "competences_speciales": [
+        { "id": "chien_de_guerre", "nom": "Chien de Guerre", "reserve_a": "Chef uniquement", "texte": "La bande peut engager les Francs-Tireurs disponibles pour les Mercenaires ; si le chef meurt, tous les Francs-Tireurs sont retirés de la bande.", "valeurPuissance": 0 },
+        { "id": "rugissement_tonitruant", "nom": "Rugissement Tonitruant", "reserve_a": "Chef uniquement", "texte": "Permet de relancer le premier test de Déroute raté.", "valeurPuissance": 20 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": true,
       "est_leader": true
     },
@@ -181,9 +186,7 @@
     { "id": "maitre_darmes", "nom": "Maître d'Armes", "texte": "Peut manier une arme Difficile à Utiliser et une arme de base simultanément, mais pas deux armes Difficiles à Utiliser.", "valeurPuissance": 20 },
     { "id": "rot_grossier", "nom": "Rot Grossier", "texte": "Le Héros peut lâcher des vapeurs tonitruantes sur tous les ennemis engagés au corps à corps ; ceux qui échouent un test de Cd subissent -1 pour toucher pour le tour. Doit attendre qu'un nouvel ennemi s'engage avant de répéter.", "valeurPuissance": 20 },
     { "id": "maneater", "nom": "Maneater", "texte": "Apprend immédiatement une compétence des tableaux Tir ou Érudition (une seule fois ; non disponible pour le Guide).", "valeurPuissance": 0 },
-    { "id": "charge_du_taureau_comp", "nom": "Charge du Taureau", "texte": "En chargeant, peut tenter une seule attaque avec un bonus de +1 pour toucher au lieu de ses attaques normales ; en cas de réussite, la figurine ennemie est automatiquement mise à terre.", "valeurPuissance": 20 },
-    { "id": "chien_de_guerre", "nom": "Chien de Guerre", "reserve_a": "Chef uniquement", "texte": "La bande peut engager les Francs-Tireurs disponibles pour les Mercenaires ; si le chef meurt, tous les Francs-Tireurs sont retirés de la bande.", "valeurPuissance": 0 },
-    { "id": "rugissement_tonitruant", "nom": "Rugissement Tonitruant", "reserve_a": "Chef uniquement", "texte": "Permet de relancer le premier test de Déroute raté.", "valeurPuissance": 20 }
+    { "id": "charge_du_taureau_comp", "nom": "Charge du Taureau", "texte": "En chargeant, peut tenter une seule attaque avec un bonus de +1 pour toucher au lieu de ses attaques normales ; en cas de réussite, la figurine ennemie est automatiquement mise à terre.", "valeurPuissance": 20 }
   ],
   "equipement": {
     "ogres": {
@@ -195,7 +198,7 @@
         { "item_id": "morgenstern", "cout": 15 },
         { "item_id": "arme_a_deux_mains", "cout": 15 },
         { "item_id": "poing_de_fer", "cout": 15, "note": "voir équipement spécial" },
-        { "item_id": "sabre_de_cathay", "cout": 75, "restriction": "Capitaine uniquement", "profils": ["capitaine"] }
+        { "item_id": "sabre_de_cathay", "cout": "75+2D6", "restriction": "Capitaine uniquement", "profils": ["capitaine"] }
       ],
       "armes_tir": [
         { "item_id": "mortier_portable", "cout": "80 + 2D6", "note": "voir équipement spécial" }

@@ -169,9 +169,19 @@ export function CreationBandeScreen() {
           <select
             value={bandeId}
             onChange={(e) => {
-              setBandeId(e.target.value);
+              const nouvelleBandeId = e.target.value;
+              setBandeId(nouvelleBandeId);
               setMembres([]);
               setTribuId('');
+              // "Richesse : les Marienburgers débutent une campagne avec
+              // 600 CO au lieu de 500." (Mercenaires Marienburgers,
+              // Middenheimers et Reiklanders [GW].pdf p.1) — composition.
+              // cout_max_constitution porte déjà cette valeur par bande
+              // (600 pour les Marienburgers, 500 pour les autres), mais
+              // n'était jamais lu ici : le champ restait figé à 500 quelle
+              // que soit la bande choisie.
+              const nouveauCatalogue = catalogues.find((c) => c.id === nouvelleBandeId);
+              setBudgetSaisi(String(nouveauCatalogue?.composition?.cout_max_constitution ?? BUDGET_PAR_DEFAUT));
             }}
           >
             <option value="">{t('creation.factionPlaceholder')}</option>
@@ -234,10 +244,9 @@ export function CreationBandeScreen() {
             {tribuRequise && (
               <div style={{ marginTop: '0.6rem', paddingTop: '0.6rem', borderTop: '1px solid var(--border)' }}>
                 <strong>
-                  {t('creation.tribe')}{' '}
                   {tribuId
                     ? `${t('creation.tribeChosen')} ${catalogue?.tribus?.find((tr) => tr.id === tribuId)?.nom}`
-                    : t('creation.tribeToChoose')}
+                    : `${t('creation.tribe')} ${t('creation.tribeToChoose')}`}
                 </strong>
                 {(tribuId ? catalogue?.tribus?.filter((tr) => tr.id === tribuId) : catalogue?.tribus)?.map((tr) => (
                   <div key={tr.id} style={{ marginTop: '0.5rem' }}>

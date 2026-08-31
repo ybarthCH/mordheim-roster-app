@@ -71,16 +71,61 @@ export function resolveProfil(
     ? { ...base, acces_competences: accesTribu }
     : base;
 
+  // Marque des Dieux Sombres (Maraudeurs du Chaos) : certaines Marques
+  // élargissent les catégories de compétences accessibles au lieu de
+  // simplement changer le domaine de sorts (ex : Marque d'Arkhar — le Devin
+  // devenu Père de Sang accède aux compétences de Force en plus de sa liste
+  // normale). Voir Marque.competences_supplementaires dans types/catalog.ts.
+  const competencesSupplementairesMarque = membre.marque
+    ? catalogueComplet?.marques?.find((m) => m.id === membre.marque)?.competences_supplementaires
+    : undefined;
+  const resultatAvecMarque =
+    competencesSupplementairesMarque && !resultat.acces_competences_a_verifier
+      ? {
+          ...resultat,
+          acces_competences: [...new Set([...resultat.acces_competences, ...competencesSupplementairesMarque])],
+        }
+      : resultat;
+
   // Upgrade payant "Option Sorcier" pris par ce membre (voir
   // Profile.option_sorcier, Member.option_sorcier_pris) : superpose l'accès
   // à la Magie mineure sur le profil de base, une fois le prix payé — le
   // champ option_sorcier lui-même reste dans le profil retourné (pas
   // supprimé) pour que l'UI sache encore qu'un upgrade existe pour ce
   // profil, même après l'avoir pris.
-  if (membre.option_sorcier_pris && resultat.option_sorcier) {
-    return { ...resultat, peut_lancer_sorts: true, categorie_magie: 'magie_mineure' };
+  const resultatAvecOption =
+    membre.option_sorcier_pris && resultatAvecMarque.option_sorcier
+      ? { ...resultatAvecMarque, peut_lancer_sorts: true, categorie_magie: 'magie_mineure' as const }
+      : resultatAvecMarque;
+
+  // Succession du Marchand (Caravanes Marchandes) : « Le nouveau chef gagne
+  // la règle spéciale Marchand [...] et est considéré comme un Marchand à
+  // tous points de vue, comme l'était le précédent. » — contrairement à la
+  // règle générique de l'assistant post-bataille (le chef intérimaire garde
+  // sa propre liste de compétences), le successeur accède ici en plus à la
+  // liste "Compétences spéciales du Marchand". Détecté sans dépendre de
+  // utils/leader.ts (import circulaire : leader.ts dépend déjà de
+  // resolveProfil) — équivalent direct de resolveLeader pour cette bande
+  // précise, puisque `marchand` est le seul profil est_leader : aucun
+  // Marchand vivant + ce membre est bien l'assignation de secours
+  // (roster.leader_instance_id).
+  if (
+    catalogueComplet?.id === 'caravanes_marchandes' &&
+    roster.leader_instance_id === membre.instance_id &&
+    membre.profil_id !== 'marchand' &&
+    !roster.membres.some((m) => m.profil_id === 'marchand' && m.statut !== 'mort')
+  ) {
+    const profilMarchand = catalogueComplet.profils.find((p) => p.id === 'marchand');
+    if (profilMarchand?.competences_speciales) {
+      return {
+        ...resultatAvecOption,
+        acces_competences: [...new Set<SkillCategory>([...resultatAvecOption.acces_competences, 'special'])],
+        competences_speciales: profilMarchand.competences_speciales,
+      };
+    }
   }
-  return resultat;
+
+  return resultatAvecOption;
 }
 
 export function grilleXpDuProfil(profil: Profile): 'heros' | 'homme_de_main' {
@@ -89,6 +134,44 @@ export function grilleXpDuProfil(profil: Profile): 'heros' | 'homme_de_main' {
 
 export function tableAvancementDuProfil(profil: Profile): 'heros' | 'homme_de_main' {
   return profil.table_avancement ?? (profil.type === 'heros' ? 'heros' : 'homme_de_main');
+}
+
+// Voir Profile.transformation — le bouton de transformation n'apparaît sur
+// la fiche du personnage qu'une fois toutes les conditions réunies : seuil
+// d'XP (statut vivant implicite : la fiche personnage n'est de toute façon
+// consultable que pour un membre existant du roster) et/ou présence d'un
+// autre membre vivant d'un profil donné possédant un objet précis dans son
+// inventaire (ex : le Prêcheur-Sorcier Pestilens équipé du Parchemin de rat
+// familier, condition du Rat Familier).
+export function transformationDisponible(profil: Profile, membre: Member, roster: RosterInstance): boolean {
+  const transformation = profil.transformation;
+  if (!transformation) return false;
+  if (transformation.seuil_xp != null && membre.xp < transformation.seuil_xp) return false;
+  const necessite = transformation.necessite_profil_vivant_avec_objet;
+  if (necessite) {
+    const present = roster.membres.some(
+      (m) =>
+        m.profil_id === necessite.profil &&
+        m.statut !== 'mort' &&
+        m.inventaire.some((e) => e.item_id === necessite.item_id)
+    );
+    if (!present) return false;
+  }
+  if (transformation.necessite_caracteristique_variable && Object.keys(membre.stats_variables ?? {}).length === 0) {
+    return false;
+  }
+  return true;
+}
+
+// Voir Profile.transformation.bloque_si_profil_vivant — vrai si la cible de
+// la transformation est un profil dont un exemplaire vivant existe déjà
+// dans la bande (ex : la bande a déjà un Enfant du Chaos). Dans ce cas, le
+// bouton de transformation devient un simple retrait de la bande plutôt
+// qu'un swap de profil (voir TransformationModal/transformerProfil).
+export function transformationEstDepart(profil: Profile, roster: RosterInstance): boolean {
+  const cibleBloquante = profil.transformation?.bloque_si_profil_vivant;
+  if (!cibleBloquante) return false;
+  return roster.membres.some((m) => m.profil_id === cibleBloquante && m.statut !== 'mort');
 }
 
 /**
@@ -138,17 +221,30 @@ export function doitEtreRetireEntraine(roster: RosterInstance, profil: Profile, 
 
 const GRANDE_CIBLE_RE = /^grande?\s*cible$/i;
 
+// Autres intitulés officiels de la même règle "Grande Cible" (droit à être
+// pris pour cible au Tir) selon la bande source — ex. l'Araignée Gigantesque
+// des Gobelins des Forêts, dont la règle est nommée "Grosse bête"/"Large
+// Monster" plutôt que "Grande Cible" ("Les Araignées Gigantesques sont des
+// grandes cibles comme défini dans les règles de Tir.", Gobelins des Forêts
+// [GLM].pdf p.6 ; "Gigantic Spiders are large targets...", Forest
+// Goblins.pdf p.4). La comparaison porte sur le nom traduit affiché, donc
+// les deux langues doivent être listées.
+const AUTRES_NOMS_GRANDE_CIBLE = new Set(['grosse bête', 'large monster']);
+
 /**
  * Détecte la règle spéciale "Grande Cible" directement sur le profil du
- * catalogue (nom de règle "Grande Cible"/"Grande cible" ou "Grand" pour les
- * Gladiateurs Ogres), plutôt qu'une case à cocher manuelle. Reste inopérant
- * pour un profil Franc-tireur (profil_custom), qui n'a pas de regles_speciales
- * — d'où la case manuelle conservée uniquement pour ce cas-là.
+ * catalogue (nom de règle "Grande Cible"/"Grande cible", "Grand" pour les
+ * Gladiateurs Ogres, ou un autre intitulé officiel équivalent — voir
+ * AUTRES_NOMS_GRANDE_CIBLE), plutôt qu'une case à cocher manuelle. Reste
+ * inopérant pour un profil Franc-tireur (profil_custom), qui n'a pas de
+ * regles_speciales — d'où la case manuelle conservée uniquement pour ce
+ * cas-là.
  */
 export function estGrandeCible(profil: Profile | undefined): boolean {
-  return (profil?.regles_speciales ?? []).some(
-    (r) => GRANDE_CIBLE_RE.test(r.nom.trim()) || r.nom.trim().toLowerCase() === 'grand'
-  );
+  return (profil?.regles_speciales ?? []).some((r) => {
+    const nom = r.nom.trim();
+    return GRANDE_CIBLE_RE.test(nom) || nom.toLowerCase() === 'grand' || AUTRES_NOMS_GRANDE_CIBLE.has(nom.toLowerCase());
+  });
 }
 
 /**

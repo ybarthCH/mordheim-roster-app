@@ -44,8 +44,20 @@
       "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
       "acces_equipement": ["chevaliers"],
       "categories_interdites": ["armes_de_jet"],
+      "competences_gratuites": ["equitation_01"],
+      "competences_speciales": [
+        {
+          "id": "voeu_de_la_quete",
+          "nom": "Vœu de la Quête",
+          "reserve_a": "Chevalier de la Quête uniquement",
+          "texte": "S'il charge, est chargé, ou combat un ennemi provoquant la peur, peut relancer un test de Commandement (dont Déroute) en conservant le second résultat.",
+          "valeurPuissance": 20
+        }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
-      "est_leader": true
+      "est_leader": true,
+      "objet_privilegie_entree": { "items": ["destriers", "armure_legere", "armure_lourde"], "non_cessible": true }
     },
     {
       "id": "damoiselle",
@@ -85,7 +97,8 @@
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": ["chevaliers"],
       "categories_interdites": ["armes_de_jet"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "objet_privilegie_entree": { "items": ["destriers", "armure_legere", "armure_lourde"], "non_cessible": true }
     },
     {
       "id": "ecuyer",
@@ -122,6 +135,7 @@
         { "nom": "Reliques sacrées bretonniennes", "texte": "Peut recevoir une relique sacrée malgré la restriction habituelle des Hommes de main sur les objets divers ; celle-ci donne la frénésie (donc immunité à la haine). Si un groupe n'a pas assez de reliques pour tous ses membres, le porteur se sépare et forme son propre groupe." }
       ],
       "acces_competences": [],
+      "ne_peut_jamais_devenir_heros": true,
       "acces_equipement": ["pelerins"],
       "acces_competences_a_verifier": false
     },
@@ -139,6 +153,7 @@
         { "nom": "Basse caste", "texte": "Gagne de l'expérience normalement mais tout 'Ce gars est doué' est relancé ; ne peut jamais devenir Héros." }
       ],
       "acces_competences": [],
+      "ne_peut_jamais_devenir_heros": true,
       "acces_equipement": ["paysans_archers"],
       "acces_competences_a_verifier": false
     },
@@ -171,13 +186,6 @@
       "valeurPuissance": 20
     },
     {
-      "id": "voeu_de_la_quete",
-      "nom": "Vœu de la Quête",
-      "reserve_a": "Chevalier de la Quête uniquement",
-      "texte": "S'il charge, est chargé, ou combat un ennemi provoquant la peur, peut relancer un test de Commandement (dont Déroute) en conservant le second résultat.",
-      "valeurPuissance": 20
-    },
-    {
       "id": "coup_de_bouclier",
       "nom": "Coup de bouclier",
       "texte": "Chaque tour, attaque supplémentaire avec un bouclier/écu à Force -1, traitée comme un coup de massue.",
@@ -207,12 +215,12 @@
         { "item_id": "arme_a_deux_mains", "cout": 15 },
         { "item_id": "morgenstern", "cout": 15 },
         { "item_id": "fleau", "cout": 15 },
-        { "item_id": "lance_de_cavalerie", "cout": 20, "restriction": "Pas Chevalier de la Quête" }
+        { "item_id": "lance_de_cavalerie", "cout": 20, "restriction": "Pas Chevalier de la Quête", "profils": ["chevalier_errant"] }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
         { "item_id": "armure_lourde", "cout": 50 },
-        { "item_id": "casque", "cout": 10, "restriction": "Pas Chevalier Errant" },
+        { "item_id": "casque", "cout": 10, "restriction": "Pas Chevalier Errant", "profils": ["chevalier_de_la_quete"] },
         { "item_id": "bouclier", "cout": 5 },
         { "item_id": "ecu", "cout": 10, "note": "voir équipement spécial" },
         { "item_id": "caparacon_bretonnien", "cout": 30 }

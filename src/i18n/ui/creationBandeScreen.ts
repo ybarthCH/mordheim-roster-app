@@ -5,8 +5,12 @@ export const creationBandeScreen: UiDictionary = {
   'creation.faction': { fr: 'Faction', en: 'Faction' },
   'creation.factionPlaceholder': { fr: '— Choisir une faction —', en: '— Choose a faction —' },
   'creation.grade': { fr: 'Grade', en: 'Grade' },
-  'creation.tribe': { fr: 'Tribu', en: 'Tribe' },
-  'creation.tribePlaceholder': { fr: '— Choisir une tribu —', en: '— Choose a tribe —' },
+  // Libellé volontairement générique : ce même sélecteur sert à la fois pour
+  // une tribu au sens propre (Maraudeurs du Chaos), une cité-état d'origine
+  // (Tiléens) et un choix d'ensemble de compétences fixé à la création
+  // (Ostermarkers) — voir WarbandCatalog.tribus.
+  'creation.tribe': { fr: 'Variante', en: 'Variant' },
+  'creation.tribePlaceholder': { fr: '— Choisir une variante —', en: '— Choose a variant —' },
   'creation.tribeFixedNote': {
     fr: 'Fixée une fois pour toutes — voir le détail dans Règles spéciales.',
     en: 'Fixed once and for all — see the details in Special Rules.',
@@ -15,7 +19,7 @@ export const creationBandeScreen: UiDictionary = {
   'creation.bandNamePlaceholder': { fr: 'Les Lueurs de Fond', en: 'The Fading Lights' },
   'creation.startingTreasury': { fr: "Trésorerie de départ (couronnes d'or)", en: 'Starting treasury (gold crowns)' },
   'creation.specialRules': { fr: 'Règles spéciales', en: 'Special rules' },
-  'creation.tribeChosen': { fr: 'Tribu choisie :', en: 'Tribe chosen:' },
+  'creation.tribeChosen': { fr: 'Variante choisie :', en: 'Variant chosen:' },
   'creation.tribeToChoose': { fr: '(à choisir ci-dessus)', en: '(to choose above)' },
   'creation.recruit': { fr: 'Recruter', en: 'Recruit' },
   'creation.goldRemaining': { fr: 'po restantes', en: 'gc remaining' },
@@ -48,6 +52,10 @@ export const creationBandeScreen: UiDictionary = {
   'creation.modal.costLabel': { fr: 'Coût (po)', en: 'Cost (gc)' },
   'creation.modal.costNotation': { fr: '— notation :', en: '— roll:' },
   'creation.modal.costPlaceholder': { fr: 'Résultat du jet, ex : 32', en: 'Roll result, e.g. 32' },
+  'creation.modal.freeWarDogNote': {
+    fr: 'Chien de guerre gratuit : le Capitaine Mercenaire peut commencer avec ce premier chien sans frais.',
+    en: 'Free war dog: the Mercenary Captain may start with this first dog at no cost.',
+  },
   'creation.modal.charNameLabel': { fr: 'Nom du personnage', en: 'Character name' },
   'creation.modal.charNameGroupSuffix': { fr: ' (groupe)', en: ' (group)' },
   'creation.modal.markLabel': { fr: 'Marque des Dieux Sombres', en: 'Mark of the Dark Gods' },

@@ -70,7 +70,8 @@
       ],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["ecuyers"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "plafond_relatif": { "profils": ["chevalier_de_la_quete", "chevalier_errant"], "label": "Écuyers" }
     },
     {
       "id": "homme_darme_bretonnien",

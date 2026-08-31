@@ -8,7 +8,7 @@
     "rarete": "5",
     "disponibilite": "Rare 5, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 38,
@@ -216,7 +216,7 @@
     "rarete": "5",
     "disponibilite": "Rare 5, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 40,
@@ -844,7 +844,7 @@
     "rarete": "9",
     "disponibilite": "Rare 9, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 46,
@@ -1013,7 +1013,10 @@
         "nom": "Effet",
         "texte": "Si le porteur subit une blessure à la jambe ou jambe écrasée lors de combats ultérieurs, ces Blessures Graves pourront être ignorées sur un jet de 4+ car le coup a été porté sur la jambe de bois."
       }
-    ]
+    ],
+    "stats_delta": {
+      "M": -1
+    }
   },
   {
     "id": "jolly_roger",
@@ -1110,7 +1113,7 @@
     "rarete": "12",
     "disponibilite": "Rare 12, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 48,
@@ -1159,7 +1162,7 @@
     "rarete": "8",
     "disponibilite": "Rare 8, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 48,
@@ -1486,7 +1489,7 @@
     "rarete": "8",
     "disponibilite": "Rare 8, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 51,

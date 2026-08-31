@@ -9,6 +9,7 @@
     { "nom": "Ne boit pas", "texte": "Les Morts-Vivants n'ont besoin ni de nourriture ni d'eau. Tout animal vivant accompagnant les Momies (comme le Scorpion des Tombeaux) suit cependant les règles d'eau normalement, sauf mention contraire sur son propre profil." },
     { "nom": "Nouvelle compétence : Conduire un char (Érudition)", "texte": "Les chars sont très difficiles à manier. Un guerrier ayant accès aux compétences d'Érudition (le Prêtre-Liche ou un Acolyte) peut apprendre cette compétence, indispensable pour piloter efficacement le Char squelette au combat : sans elle, le pilote ne peut pas charger avec le char." }
   ],
+  "bonus_des_exploration_fixe": 1,
   "composition": {
     "effectif_min": 3,
     "effectif_max": 15,
@@ -62,9 +63,12 @@
         { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
         { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." }
       ],
-      "acces_competences": ["academique"],
+      "acces_competences": ["academique", "special"],
       "acces_equipement": ["pretre_liche"],
       "categories_interdites": ["armures"],
+      "competences_speciales": [
+        { "id": "conduire_char", "nom": "Conduire un char", "reserve_a": "Prêtre-Liche ou Acolyte uniquement", "texte": "Les chars sont très difficiles à manier. Un pilote sans cette compétence ne peut pas charger avec le Char squelette.", "valeurPuissance": 0 }
+      ],
       "acces_competences_a_verifier": false
     },
     {
@@ -86,8 +90,11 @@
         { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
         { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." }
       ],
-      "acces_competences": ["combat", "academique"],
+      "acces_competences": ["combat", "academique", "special"],
       "acces_equipement": ["pretre_liche"],
+      "competences_speciales": [
+        { "id": "conduire_char", "nom": "Conduire un char", "reserve_a": "Prêtre-Liche ou Acolyte uniquement", "texte": "Les chars sont très difficiles à manier. Un pilote sans cette compétence ne peut pas charger avec le Char squelette.", "valeurPuissance": 0 }
+      ],
       "acces_competences_a_verifier": false
     },
     {

@@ -15,6 +15,30 @@ export const rechercheObjetRareModal: UiDictionary = {
     fr: 'Réussi sur un résultat de 2D6 supérieur ou égal à {n}.',
     en: 'Succeeds on a 2D6 result of {n} or higher.',
   },
+  'rareModal.blackPowderBonus': {
+    fr: 'Seuil déjà réduit de {n} : Entretien impeccable (armes à poudre noire, Artilleurs de Nuln).',
+    en: 'Threshold already lowered by {n}: Well-Kept Weapons (black powder weapons, Gunnery School of Nuln).',
+  },
+  'rareModal.marienburgersBonus': {
+    fr: 'Seuil déjà réduit de {n} : Bonus Rare +1 (guildes de marchands de Marienburg).',
+    en: 'Threshold already lowered by {n}: +1 Rare Bonus (Marienburg merchant guilds).',
+  },
+  'rareModal.maneatersMalus': {
+    fr: 'Seuil déjà augmenté de {n} : Clients Difficiles (Héros Ogre, objet non exclusif aux Ogres).',
+    en: 'Threshold already raised by {n}: Difficult Customers (Ogre Hero, item not Ogre-exclusive).',
+  },
+  'rareModal.norsesBonus': {
+    fr: 'Seuil déjà réduit de {n} : Pilleurs (tribu Norse).',
+    en: 'Threshold already lowered by {n}: Raiders (Norse tribe).',
+  },
+  'rareModal.kurgansMalus': {
+    fr: 'Seuil déjà augmenté de {n} : Clients Difficiles (tribu Kurgan, sauf Grande Hache du Chaos et Fouet Barbelé).',
+    en: 'Threshold already raised by {n}: Difficult Customers (Kurgan tribe, except Great Chaos Axe and Barbed Whip).',
+  },
+  'rareModal.chaosArmourEnemiesLabel': {
+    fr: 'Ennemis mis hors de combat par ce Héros lors de la bataille précédente (+1 au seuil de réussite par ennemi)',
+    en: 'Enemies this Hero took out of action in the previous battle (+1 to the success threshold per enemy)',
+  },
   'rareModal.success': { fr: 'Réussi', en: 'Succeeded' },
   'rareModal.failure': { fr: 'Raté', en: 'Failed' },
   'rareModal.costPaidLabel': { fr: 'Coût payé (po)', en: 'Cost paid (gc)' },

@@ -44,7 +44,7 @@
       "min": 0,
       "max": 2,
       "cout": 40,
-      "xp_depart": 8,
+      "xp_depart": 12,
       "stats": { "M": 5, "CC": 5, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 6, "A": 1, "Cd": 8 },
       "regles_speciales": [
         { "nom": "Spécialistes de la mêlée", "texte": "Les Spadassins adhèrent à un code de conduite très strict leur imposant de ne se battre qu'au corps à corps et ne peuvent en aucun cas être équipés d'armes de tir." }
@@ -90,6 +90,12 @@
       "acces_competences": ["academique", "vitesse", "special"],
       "acces_equipement": ["elfes_noirs"],
       "categories_interdites": ["armes_poudre_noire"],
+      "competences_speciales": [
+        { "id": "infiltration_elfe_noir", "nom": "Infiltration", "reserve_a": "Héros Elfes Noirs uniquement", "texte": "Un Elfe Noir avec cette compétence est toujours placé sur le champ de bataille après le déploiement de la bande adverse. Il peut être placé n'importe où sur le terrain, à condition d'être hors de toute ligne de vue adverse et à plus de 12ps de toute figurine ennemie. Si les deux joueurs ont des figurines en infiltration, lancez 1D6, le résultat le plus faible se déploie en premier.", "valeurPuissance": 40 },
+        { "id": "rapidite_surnaturelle", "nom": "Rapidité Surnaturelle", "reserve_a": "Héros Elfes Noirs uniquement", "texte": "Rares sont ceux qui peuvent égaler l'incroyable célérité des elfes. Un elfe doté de cette compétence peut éviter les attaques de tir ou de corps à corps sur un résultat de 6 sur 1D6. Si l'elfe dispose aussi de la compétence saut de côté ou esquive, cette sauvegarde passe à 4+ dans le domaine approprié. Par exemple, un elfe doté de rapidité surnaturelle et de saut de côté évite les blessures au corps à corps sur un 4+ et les tirs sur un 6+.", "valeurPuissance": 20 },
+        { "id": "maitre_des_poisons", "nom": "Maître des Poisons", "reserve_a": "Héros Elfes Noirs uniquement", "texte": "Un elfe noir sait concocter divers poisons. Si le Héros ne recherche pas d'objets rares, il peut fabriquer à la place 1D3-1 doses de venin fuligineux. Il est possible que le résultat soit de 0 car l'elfe n'aura peut-être pas accès à un laboratoire convenable. Le poison doit être utilisé lors de la prochaine bataille et ne pourra pas être vendu ou échangé à d'autres bandes car les elfes noirs gardent bien leurs secrets.", "valeurPuissance": 20 },
+        { "id": "fureur_de_khaine", "nom": "Fureur de Khaine", "reserve_a": "Héros Elfes Noirs uniquement", "texte": "Un Elfe Noir est une machine à tuer assoiffée de sang. Il peut effectuer un Mouvement de poursuite de 4ps s'il met tous ses adversaires hors de combat. S'il entre en contact avec un autre ennemi, un nouveau combat aura lieu lors du tour suivant et il comptera comme ayant chargé. Ce Mouvement ne peut pas être effectué lors du tour de l'ennemi.", "valeurPuissance": 20 }
+      ],
       "acces_competences_a_verifier": false
     },
     {
@@ -147,6 +153,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
+      "requiert_profil_vivant": "maitre_des_betes",
       "acces_competences_a_verifier": false
     }
   ],
@@ -166,7 +173,7 @@
         { "item_id": "hallebarde", "cout": 10 },
         { "item_id": "lance", "cout": 10 },
         { "item_id": "arme_a_deux_mains", "cout": 15 },
-        { "item_id": "lame_elfe_noire", "cout": "+20", "note": "prix de l'arme (dague ou épée) + 20 CO, Héros uniquement" }
+        { "item_id": "lame_elfe_noire", "cout": "+20", "note": "prix de l'arme (dague ou épée) + 20 CO, Héros uniquement", "heros_uniquement": true }
       ],
       "armes_tir": [
         { "item_id": "arbalete_a_repetition", "cout": 35 },
@@ -196,7 +203,7 @@
     }
   },
   "equipement_special": [
-    { "item_id": "lame_elfe_noire", "cout": "+20", "disponibilite": "Rare 9, Héros Elfes Noirs uniquement" },
+    { "item_id": "lame_elfe_noire", "cout": "+20", "disponibilite": "Rare 9, Héros Elfes Noirs uniquement", "profils": ["dynaste", "spadassin", "maitre_des_betes", "sorciere_elfe_noire"] },
     { "item_id": "fouet_a_betes", "cout": "10+1D6", "disponibilite": "Rare 8, Maître des Bêtes uniquement", "profils": ["maitre_des_betes"] },
     { "item_id": "cape_en_peau_de_dragon_des_mers", "cout": "50+2D6", "disponibilite": "Rare 10, Héros et Corsaires uniquement", "profils": ["dynaste", "spadassin", "maitre_des_betes", "sorciere_elfe_noire", "corsaire"] },
     { "item_id": "venin_fuligineux", "cout": 15, "disponibilite": "Rare, Héros uniquement", "profils": ["dynaste", "spadassin", "maitre_des_betes", "sorciere_elfe_noire"] }

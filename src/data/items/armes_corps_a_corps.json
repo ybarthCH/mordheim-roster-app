@@ -387,7 +387,7 @@
     "rarete": "8",
     "disponibilite": "Rare 8, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 5,
@@ -414,7 +414,8 @@
     "rarete": "9",
     "disponibilite": "Rare 9, Hobgobelins uniquement",
     "acces": [
-      "hobgobelins"
+      "hobgobelins",
+      "fils_dhashut"
     ],
     "source": "FH (Fils d'Hashut)",
     "page": 6,
@@ -449,7 +450,7 @@
     "rarete": "9",
     "disponibilite": "Rare 9, Skavens du Clan Pestilens uniquement",
     "acces": [
-      "skaven"
+      "skavens_pestilens"
     ],
     "source": "SCP (Skavens du Clan Pestilens)",
     "page": 6,
@@ -833,7 +834,7 @@
     "rarete": "8",
     "disponibilite": "Rare 8, Héros du Chaos avec la compétence Choisi par le Chaos",
     "acces": [
-      "chaos_choisi_par_le_chaos"
+      "maraudeurs_du_chaos"
     ],
     "source": "BTB-MC (Maraudeurs du Chaos)",
     "page": 10,
@@ -1768,7 +1769,6 @@
       "nains_du_chaos",
       "carnival_of_chaos",
       "maraudeurs_du_chaos",
-      "norses",
       "beastmen_raiders"
     ],
     "source": "BTB",

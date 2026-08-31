@@ -246,10 +246,15 @@ export function PostBatailleScreen() {
   const [avancesResolues, setAvancesResolues] = useState<{ nom: string; detail: string }[]>([]);
 
   // Test obligatoire "Œil des Dieux Sombres" (Maraudeurs du Chaos, étape
-  // Résumé) : sa résolution (Réussi/Raté) était un état purement local au
+  // Bataille — déplacé depuis l'étape Résumé : à ce stade, résultat de la
+  // bataille et effectif Hors de combat sont déjà connus, et une résolution
+  // précoce exclut correctement un chef transformé/tué par ce test de la
+  // liste "à résoudre" de l'étape Blessures graves suivante, plutôt que de
+  // lui faire résoudre une blessure grave normale qui serait immédiatement
+  // écrasée). Sa résolution (Réussi/Raté) était un état purement local au
   // composant, jamais vérifié avant validation finale — l'assistant pouvait
-  // se terminer sans déclarer de résultat. Remonté ici pour bloquer "Valider
-  // et enregistrer" tant que le test applicable n'est pas résolu.
+  // se terminer sans déclarer de résultat. Remonté ici pour bloquer "Suivant"
+  // tant que le test applicable n'est pas résolu.
   const [oeilResolu, setOeilResolu] = useState(false);
 
   // Blessures graves : réservé aux héros Hors de Combat — seuls les héros
@@ -487,9 +492,24 @@ export function PostBatailleScreen() {
     [blessureDrafts]
   );
 
+  // Profils recrutés DIRECTEMENT dans la bande (jamais francs-tireurs) mais
+  // portant tout de même un entretien post-bataille — ex : le Troll d'Orc
+  // Mob ("Toujours Faim", Profile.entretien). Même filtre de participation
+  // que francTireursParticipants ci-dessus, appliqué au reste du roster.
+  const membresEntretienNatif = useMemo(() => {
+    if (!roster) return [];
+    const participantsInitiaux = participantsInitiauxRef.current;
+    return roster.membres.filter((m) => {
+      if (estFrancTireur(m) || m.statut === 'mort' || m.statut === 'blesse') return false;
+      if (m.statut === 'hors_de_combat' && xpDrafts[m.instance_id]?.survecu === 'non') return false;
+      if (participantsInitiaux && !participantsInitiaux.has(m.instance_id)) return false;
+      return !!resolveProfil(roster, m, catalogue, language)?.entretien;
+    });
+  }, [roster, catalogue, language, xpDrafts]);
+
   const lignesEntretien: LigneEntretien[] = useMemo(() => {
     if (!roster) return [];
-    return francTireursParticipants.map((m) => {
+    const lignesFrancsTireurs: LigneEntretien[] = francTireursParticipants.map((m) => {
       const profilBrut = getFrancTireur(m.franc_tireur_id);
       const profil = profilBrut ? translateHiredSword(profilBrut, language) : profilBrut;
       if (!profil) {
@@ -512,7 +532,18 @@ export function PostBatailleScreen() {
         departAutomatique: profil.depart_apres_bataille,
       };
     });
-  }, [francTireursParticipants, roster, language]);
+    const lignesNatives: LigneEntretien[] = membresEntretienNatif.map((m) => {
+      const profil = resolveProfil(roster, m, catalogue, language)!;
+      return {
+        membre: m,
+        nom: nomAffiche(m),
+        type: profil.entretien!.type,
+        cout: profil.entretien!.cout,
+        texte: profil.entretien!.texte,
+      };
+    });
+    return [...lignesFrancsTireurs, ...lignesNatives];
+  }, [francTireursParticipants, membresEntretienNatif, roster, catalogue, language]);
 
   const decisionEntretien = (ligne: LigneEntretien): DecisionEntretien =>
     entretienDrafts[ligne.membre.instance_id] ??
@@ -726,7 +757,12 @@ export function PostBatailleScreen() {
   const appliquerAvancee = (updated: Member, nouveauMembre?: Member) => {
     const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
     const succession = succederApresMorts(roster, catalogue, membresMaj);
-    updateRoster({ ...roster, ...succession, membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj });
+    const membresAvecSuccession = succession?.membres ?? membresMaj;
+    updateRoster({
+      ...roster,
+      ...succession,
+      membres: nouveauMembre ? [...membresAvecSuccession, nouveauMembre] : membresAvecSuccession,
+    });
     const cible = nouveauMembre ?? updated;
     const dernier = cible.historique_avancees[cible.historique_avancees.length - 1];
     if (dernier) {
@@ -968,6 +1004,7 @@ export function PostBatailleScreen() {
     };
 
     const succession = succederApresMorts(roster, catalogue, membresConserves);
+    const membresApresSuccession = succession?.membres ?? membresConserves;
 
     // Dramatis Personae recrutés à l'étape Commerce : nouveaux membres, sans
     // rapport avec le Héros qui a effectué la recherche (voir
@@ -986,7 +1023,7 @@ export function PostBatailleScreen() {
     await updateRoster({
       ...roster,
       ...succession,
-      membres: [...membresConserves, ...nouveauxDramatisPersonae],
+      membres: [...membresApresSuccession, ...nouveauxDramatisPersonae],
       stock: [...roster.stock, ...stockCommerce],
       wyrdstone: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre),
       tresorerie: tresorerieApres,
@@ -1025,22 +1062,36 @@ export function PostBatailleScreen() {
       </p>
 
       {etape === 0 && (
-        <EtapeResultat
-          roster={roster}
-          catalogue={catalogue}
-          date={date}
-          onDateChange={setDate}
-          resultat={resultat}
-          onResultatChange={setResultat}
-          adversaires={adversaires}
-          onAdversairesChange={setAdversaires}
-          nouvelAdversaire={nouvelAdversaire}
-          onNouvelAdversaireChange={setNouvelAdversaire}
-          notesBataille={notesBataille}
-          onNotesBatailleChange={setNotesBataille}
-          onAchatStock={ajouterAuStock}
-          onArgentGagne={ajouterOrRecompenseScenario}
-        />
+        <>
+          <EtapeResultat
+            roster={roster}
+            catalogue={catalogue}
+            date={date}
+            onDateChange={setDate}
+            resultat={resultat}
+            onResultatChange={setResultat}
+            adversaires={adversaires}
+            onAdversairesChange={setAdversaires}
+            nouvelAdversaire={nouvelAdversaire}
+            onNouvelAdversaireChange={setNouvelAdversaire}
+            notesBataille={notesBataille}
+            onNotesBatailleChange={setNotesBataille}
+            onAchatStock={ajouterAuStock}
+            onArgentGagne={ajouterOrRecompenseScenario}
+          />
+          {catalogue?.id === 'maraudeurs_du_chaos' && (
+            <ResolutionOeilDesDieuxSombres
+              roster={roster}
+              catalogue={catalogue}
+              resultat={resultat}
+              date={date}
+              nbHerosHorsDeCombat={nbHerosHorsDeCombat}
+              onMajRoster={majRosterExploration}
+              onResolu={() => setOeilResolu(true)}
+              dejaResolu={oeilResolu}
+            />
+          )}
+        </>
       )}
 
       {etape === 1 && (
@@ -1171,19 +1222,6 @@ export function PostBatailleScreen() {
         />
       )}
 
-      {etape === 6 && catalogue?.id === 'maraudeurs_du_chaos' && (
-        <ResolutionOeilDesDieuxSombres
-          roster={roster}
-          catalogue={catalogue}
-          resultat={resultat}
-          date={date}
-          nbHerosHorsDeCombat={nbHerosHorsDeCombat}
-          onMajRoster={majRosterExploration}
-          onResolu={() => setOeilResolu(true)}
-          dejaResolu={oeilResolu}
-        />
-      )}
-
       <div className="flex gap-sm post-bataille__actions">
         <button
           type="button"
@@ -1226,6 +1264,7 @@ export function PostBatailleScreen() {
             type="button"
             className="btn--pack-pill-sm btn--pack-pill-sm--primary"
             disabled={
+              (etape === 0 && oeilApplicable && !oeilResolu) ||
               (etape === indexBlessures && blessuresIncompletes) ||
               (etape === indexCommerce && commerceIncomplet) ||
               (etape === indexEntretien && entretienInsuffisant)
@@ -1236,17 +1275,12 @@ export function PostBatailleScreen() {
           </button>
         )}
         {etape === ETAPES.length - 1 && (
-          <button
-            type="button"
-            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
-            disabled={oeilApplicable && !oeilResolu}
-            onClick={terminer}
-          >
+          <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" onClick={terminer}>
             {t('postBatailleScreen.validateAndSave')}
           </button>
         )}
       </div>
-      {etape === ETAPES.length - 1 && oeilApplicable && !oeilResolu && (
+      {etape === 0 && oeilApplicable && !oeilResolu && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
           {t('postBatailleScreen.resolveEyeOfDarkGods')}
         </p>

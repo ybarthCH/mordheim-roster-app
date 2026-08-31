@@ -175,20 +175,30 @@ const CATALOGUES_HUMAINS = new Set([
 ]);
 
 // Les tags "commun_sauf_X_Y" (ex : "commun_sauf_witch_hunters_sisters_of_sigmar")
-// nomment une ou plusieurs bandes exclues d'un objet par ailleurs commun.
-// estAccesGenerique() les traite comme génériques (l'objet reste "commun"
-// pour l'affichage/le shop des autres bandes) — c'est ici, avec l'id de
-// catalogue de la bande consultée, que l'exclusion doit réellement
-// s'appliquer. Les ids de bande contenant eux-mêmes des "_" (ex :
-// "carnival_of_chaos", "cult_of_the_possessed") et ne correspondant pas
-// toujours au fragment du tag (ex : tag "hommes_betes" vs id de catalogue
-// "beastmen_raiders"), chaque tag connu est mappé explicitement plutôt que
-// re-découpé programmatiquement.
+// et, de la même façon, "rare_N_sauf_X_Y" (ex :
+// "rare_8_sauf_witch_hunters_sisters_of_sigmar", pour un objet qui reste
+// Rare N pour tout le monde sauf des bandes nommément exclues — ex : Venin
+// fuligineux, "Not available to Witch Hunters, Warrior-Priests, or Sisters
+// of Sigmar") nomment une ou plusieurs bandes exclues d'un objet par
+// ailleurs générique. estAccesGenerique() les traite comme génériques
+// (l'objet reste accessible pour l'affichage/le shop des autres bandes) —
+// c'est ici, avec l'id de catalogue de la bande consultée, que l'exclusion
+// doit réellement s'appliquer. Les ids de bande contenant eux-mêmes des "_"
+// (ex : "carnival_of_chaos", "cult_of_the_possessed") et ne correspondant
+// pas toujours au fragment du tag (ex : tag "hommes_betes" vs id de
+// catalogue "beastmen_raiders"), chaque tag connu est mappé explicitement
+// plutôt que re-découpé programmatiquement.
 const EXCLUSIONS_COMMUN_SAUF: Record<string, string[]> = {
   commun_sauf_witch_hunters_sisters_of_sigmar: ['witch_hunters', 'sisters_of_sigmar'],
   commun_sauf_hommes_betes: ['beastmen_raiders'],
   commun_sauf_carnival_of_chaos_undead: ['carnival_of_chaos', 'undead'],
   commun_sauf_cult_of_the_possessed_undead: ['cult_of_the_possessed', 'undead'],
+  rare_8_sauf_witch_hunters_sisters_of_sigmar: ['witch_hunters', 'sisters_of_sigmar'],
+  // Ail ("Garlic ... Common (May not be bought by Undead)", Part 3 -
+  // Campaigns & Optional Rules p.104) — non étendu à Morts Sans Repos
+  // (`morts_sans_repos`), bande de morts-vivants distincte dont la source
+  // propre ne confirme pas cette même exclusion.
+  commun_sauf_undead: ['undead'],
 };
 
 // Un objet "commun_<bande>" (restreint à un groupe précis, donc exclu du
@@ -240,7 +250,13 @@ function normaliserCategorie(categorie: string): string {
 // utilisé par les bandes qui bannissent seulement les armes lancées à la
 // main (ex : la règle Chevalerie des Gardiens de Chapelle Bretonniens) sans
 // toucher aux arcs/arbalètes.
-export type CategorieInterdite = 'armes_cac' | 'armes_tir' | 'armes_poudre_noire' | 'armes_de_jet' | 'armures';
+export type CategorieInterdite =
+  | 'armes_cac'
+  | 'armes_tir'
+  | 'armes_poudre_noire'
+  | 'armes_de_jet'
+  | 'armures'
+  | 'poisons_drogues';
 
 // Un objet appartient-il à une catégorie interdite à ce profil (voir
 // Profile.categories_interdites) ? Ne filtre que l'onglet "commun" du shop
@@ -261,6 +277,12 @@ export function estCategorieInterdite(
     return true;
   }
   if (interdictions.includes('armures') && c === 'armures') return true;
+  // Sans rapport avec le tir : vérifiée avant le court-circuit
+  // SKILL_TOUTES_ARMES_TIR ci-dessous, qui ne doit lever que les
+  // interdictions liées au tir (voir QA sur commit 9aa1e8f — la compétence
+  // "Toutes armes de tir" ne doit jamais rendre un poison de nouveau
+  // achetable à un profil qui les a par ailleurs bannis).
+  if (interdictions.includes('poisons_drogues') && c === 'poisons_drogues') return true;
   if (competencesAcquises.includes(SKILL_TOUTES_ARMES_TIR)) return false;
   if (interdictions.includes('armes_tir') && c === 'armes_tir') return true;
   if (interdictions.includes('armes_poudre_noire') && c === 'armes_poudre_noire') return true;
@@ -272,6 +294,29 @@ export function estCategorieInterdite(
 }
 
 const CATALOGUE_ARTILLEURS_NULN = 'artilleurs_de_nuln';
+
+// Artilleurs de Nuln : la liste rapide d'équipement du PDF fixe des prix
+// forfaitaires pour ces armes à poudre noire, en contradiction avec le prix
+// à dés des fiches détaillées du même document — arbitrage Yannick en
+// faveur de la liste rapide (docs/rules/PROJECT_DECISIONS.md). Pistolet à
+// répétition/Arquebuse à répétition/Pigeon explosif sont exclusifs à Nuln
+// et ont directement leur `cout` fixé dans armes_poudre_noire.json ; le
+// Mortier portable et 2 des 3 paires de pistolets sont partagés avec
+// d'autres bandes (Mangeurs d'Hommes pour le mortier ; Ostlanders pour la
+// Paire de pistolets à double canon ; la Paire de pistolets de duel est
+// même en accès générique "rare_10", ouverte à toute bande y ayant accès)
+// — ces bandes gardent le calcul à dés habituel, cette table ne s'applique
+// donc qu'au catalogue artilleurs_de_nuln. Les mêmes montants sont aussi
+// fixés en dur dans artilleurs_de_nuln.json (listes "artilleurs_de_nuln"
+// et "tireurs_delite") pour que la liste de bande et le shop commun
+// restent cohérents entre eux (getEquipementBande ne passe jamais par
+// cette fonction, contrairement à getShopCommun).
+const PRIX_LISTE_RAPIDE_NULN: Record<string, number> = {
+  mortier_portable: 70,
+  pistolet_double_canon_paire: 35,
+  pistolet_de_duel_paire: 35,
+  pistolet_duel_double_canon_paire: 65,
+};
 
 // Armures de corps et caparaçons concernés par la règle Lozheim. Les
 // protections périphériques (boucliers, casques, cuir durci, pavois,
@@ -321,7 +366,29 @@ export const ITEMS_UNIQUES_BANDE = new Set([
   // Fouet barbelé (Maraudeurs du Chaos) : "Rare 9, un seul Héros
   // Maraudeurs du Chaos uniquement".
   'fouet_barbele',
+  // Bannière du clan Pestilens (Skavens du Clan Pestilens) : "Une bande ne
+  // peut avoir qu'une seule bannière du Clan Pestilens à la fois."
+  'banniere_du_clan_pestilens',
+  // Liber Bubonicus (Skavens du Clan Pestilens) : "une bande ne peut avoir
+  // qu'un seul utilisateur du Liber Bubonicus dans une campagne donnée."
+  'liber_bubonicus',
 ]);
+
+// Rejoindre un groupe existant (RecruterDansGroupeModal, sélection d'un
+// groupe cible dans AjouterMembreModal, recrue gratuite d'un Prisonnier
+// dans ResolutionPrisonniers) clone l'inventaire du groupe pour chaque
+// nouvelle figurine (voir clonerEquipementPourNouvellesFigurines) — si ce
+// groupe possède déjà un trinket limité ou un objet unique de bande, la
+// rejoindre dupliquerait cet objet en contournant la limite, sans jamais
+// passer par les gardes-fous de l'achat direct (AchatEquipementModal,
+// `trinketLimite`/`limiteUniqueBande`). Centralise le même contrôle pour
+// ces trois flux.
+export function groupeDupliqueraitObjetLimite(groupe: Member, rules: GameRules): boolean {
+  return (
+    (rules.trinketsLimites && groupe.inventaire.some((entree) => TRINKETS_LIMITES.has(entree.item_id))) ||
+    groupe.inventaire.some((entree) => ITEMS_UNIQUES_BANDE.has(entree.item_id))
+  );
+}
 
 // Objets "matériau" (gromril, ithilmar, obsidienne, lame elfe noire) : au
 // lieu de s'acheter tels quels, ils demandent de choisir une arme/armure de
@@ -456,6 +523,9 @@ export function prixAvecRegles(
   rules: GameRules,
   origine: OriginePrix
 ): number | string {
+  if (catalogueId === CATALOGUE_ARTILLEURS_NULN && itemId in PRIX_LISTE_RAPIDE_NULN) {
+    return PRIX_LISTE_RAPIDE_NULN[itemId];
+  }
   const reference = getItem(itemId);
   // Tromblon Nain du Chaos : joue toujours avec les incidents de tir (voir
   // son texte de règle), donc son prix ne suit pas la remise habituelle de
@@ -522,12 +592,83 @@ export function inventaireComplet(roster: RosterInstance): InventoryEntry[] {
 
 // Équipement de départ inclus dans le coût de recrutement d'un profil précis
 // (voir sa règle spéciale), à ajouter à l'inventaire dès la création du
-// membre plutôt qu'à acheter séparément — pour l'instant limité à la
-// Branchanteresse des Sylvaneths (Écorce de fer I). À étendre au cas par cas
-// si d'autres profils l'exigent.
+// membre plutôt qu'à acheter séparément. À étendre au cas par cas si
+// d'autres profils l'exigent.
 export function equipementInclusDepart(catalogueId: string, profilId: string): InventoryEntry[] {
   if (catalogueId === 'sylvaneths' && profilId === 'branchanteresse') {
     const item = getItem('ecorce_de_fer');
+    if (item) {
+      return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
+  // "Armes/armures : Les Snotlings ne peuvent utiliser qu'un bâton pointu
+  // ou un objet quelconque similaire, qu'ils trouveront eux-mêmes sans
+  // frais. Cette arme compte comme une dague." (Gobelins de la Nuit
+  // [GLM].pdf p.10) — acces_equipement est vide sur ce profil (aucun
+  // achat possible), donc l'arme gratuite doit être fournie ici.
+  if (catalogueId === 'gobelins_de_la_nuit' && profilId === 'snotling') {
+    const item = getItem('dague');
+    if (item) {
+      return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
+  // "Un Kroxigor n'a accès à aucune liste d'équipement mais, contrairement
+  // à l'usage, est recruté avec une hallebarde." (Hommes-Lézards [GLM].pdf
+  // p.7) — même situation que le Snotling ci-dessus (acces_equipement
+  // vide, arme incluse dans le coût de recrutement).
+  if (catalogueId === 'hommes_lezards' && profilId === 'kroxigor') {
+    const item = getItem('hallebarde');
+    if (item) {
+      return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
+  // "Armes/armures : Les Boscos commencent avec une corde & grappin et
+  // peuvent s'équiper d'armes et d'armures choisies dans la liste
+  // d'équipement des Pirates." (Pirates [GLM].pdf p.10) — contrairement
+  // aux cas ci-dessus, le Bosco garde un accès normal à sa liste
+  // d'équipement ; ceci s'ajoute simplement à ce qu'il achète par ailleurs.
+  if (catalogueId === 'pirates' && profilId === 'bosco') {
+    const item = getItem('corde_et_grappin');
+    if (item) {
+      return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
+  // "Écorce de fer : débute avec Écorce de fer I et ne peut jamais
+  // l'améliorer." (Sylvaneths V1.7 p.5) — acces_equipement est vide sur ce
+  // profil (aucun achat possible), même situation que le Snotling/Kroxigor
+  // ci-dessus.
+  if (catalogueId === 'sylvaneths' && profilId === 'dryade') {
+    const item = getItem('ecorce_de_fer');
+    if (item) {
+      return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
+  // "Serres cruelles : débute avec deux Serres cruelles, comprises dans
+  // son coût." (Sylvaneths V1.7 p.5) — contrairement aux cas ci-dessus, le
+  // Fiel-revenant garde un accès normal à sa liste d'équipement ; ceci
+  // s'ajoute simplement à ce qu'il achète par ailleurs.
+  if (catalogueId === 'sylvaneths' && profilId === 'fiel_revenant') {
+    const item = getItem('serre_cruelle');
+    if (item) {
+      return [
+        { instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 },
+        { instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 },
+      ];
+    }
+  }
+  // "Montures : Tous les membres de la bande sont automatiquement montés
+  // sur un Cheval (inclus dans leur coût de recrutement)." (Escorteurs
+  // Impériaux [GLM].pdf p.1) — les 6 profils de la bande gardent un accès
+  // normal à leur propre liste d'équipement (contrairement aux cas
+  // Snotling/Kroxigor/Dryade ci-dessus) ; le Cheval gratuit s'ajoute
+  // simplement à ce qu'ils achètent par ailleurs (même schéma que le
+  // Bosco/Fiel-revenant). Peut ensuite être amélioré en Destrier via
+  // equipement_special pour les 3 profils concernés (+40 CO).
+  if (
+    catalogueId === 'escorteurs_imperiaux' &&
+    ['chevalier', 'escorteur', 'eclaireur', 'pistolier', 'hussard', 'palefrenier'].includes(profilId)
+  ) {
+    const item = getItem('cheval');
     if (item) {
       return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
     }
@@ -570,12 +711,18 @@ export type AvertissementTrinketLimite = {
 
 // Contrôle aussi bien le stock de bande que l'équipement porté. Cette
 // validation reste utile pour les anciens rosters ou lorsqu'une règle est
-// activée après que plusieurs exemplaires ont déjà été achetés.
-export function trouverTrinketsLimitesEnTrop(roster: RosterInstance): AvertissementTrinketLimite[] {
+// activée après que plusieurs exemplaires ont déjà été achetés — ou après
+// qu'un roster ait pu se retrouver en double via un flux mal gardé (ex :
+// avant que groupeDupliqueraitObjetLimite/RechercheObjetRareModal ne
+// vérifient ITEMS_UNIQUES_BANDE). TRINKETS_LIMITES reste optionnel
+// (`rules.trinketsLimites`) ; ITEMS_UNIQUES_BANDE est toujours vérifié, la
+// règle source elle-même n'étant jamais optionnelle.
+export function trouverTrinketsLimitesEnTrop(roster: RosterInstance, rules: GameRules): AvertissementTrinketLimite[] {
   const parItem = new Map<string, AvertissementTrinketLimite>();
 
   for (const entree of inventaireComplet(roster)) {
-    if (!TRINKETS_LIMITES.has(entree.item_id)) continue;
+    if (!((rules.trinketsLimites && TRINKETS_LIMITES.has(entree.item_id)) || ITEMS_UNIQUES_BANDE.has(entree.item_id)))
+      continue;
     const existant = parItem.get(entree.item_id);
     if (existant) {
       existant.quantite += 1;
@@ -906,6 +1053,46 @@ export function objetAutorisePourHommeDeMain(
   return EXCEPTIONS_DIVERS_HOMMES_DE_MAIN.has(`${bandeId}::${profil.id}::${itemId}`);
 }
 
+// Un objet accessible via le shop commun (tag générique type "commun_humains",
+// ou nommé directement pour une bande) reste soumis à la restriction de
+// profil que sa propre bande lui impose déjà via equipement_special.profils,
+// quand elle existe (ex : Destriers/Cheval/Caparaçon bretonnien des
+// Chevaliers Bretonniens, réservés aux Chevaliers/Écuyers — sans ce filtre,
+// un Homme d'Arme ou un Archer pouvait les acheter via le shop commun,
+// contournant la restriction déjà posée côté liste de la bande). Ne
+// s'applique que si la bande a explicitement choisi de restreindre CET item
+// par profil ; les autres objets restent inchangés. Si `profil` est omis
+// (vitrine sans membre précis, ex : achat pour le stock de bande depuis
+// l'Armurerie), on ne filtre PAS — même contrat que le reste de
+// getShopCommun (voir son propre commentaire) : un profil manquant ne doit
+// jamais se comporter comme "aucun profil n'a le droit".
+function respecteRestrictionProfilEquipementSpecial(
+  catalogue: WarbandCatalog | undefined,
+  profil: Profile | null | undefined,
+  itemId: string
+): boolean {
+  const refRestreint = catalogue?.equipement_special?.find((ref) => ref.item_id === itemId && ref.profils);
+  return !refRestreint?.profils || !profil || refRestreint.profils.includes(profil.id);
+}
+
+// Même principe que respecteRestrictionProfilEquipementSpecial ci-dessus,
+// mais pour la restriction de compétence que la bande impose déjà via
+// equipement_special.competences (ex : Grande Hache du Chaos des Maraudeurs
+// du Chaos, réservée aux Héros avec la compétence Choisi par le Chaos) —
+// sans ce filtre, un objet devenu accessible par tag générique dans le shop
+// commun/la recherche d'objet rare contournerait la restriction de
+// compétence déjà posée côté liste de la bande. `profil` omis (vitrine sans
+// membre précis) : même contrat que ci-dessus, on ne filtre pas.
+function respecteRestrictionCompetenceEquipementSpecial(
+  catalogue: WarbandCatalog | undefined,
+  profil: Profile | null | undefined,
+  competencesAcquises: string[],
+  itemId: string
+): boolean {
+  const refRestreint = catalogue?.equipement_special?.find((ref) => ref.item_id === itemId && ref.competences);
+  return !refRestreint?.competences || !profil || refRestreint.competences.some((c) => competencesAcquises.includes(c));
+}
+
 // `catalogueId` élargit le filtre aux objets "commun_<bande>" propres à
 // cette bande (voir estAccesPourCatalogue) — omis, seul le shop générique
 // (accessible à toutes les bandes) est retourné. `profil`/`competencesAcquises`
@@ -929,21 +1116,45 @@ export function getShopCommun(
   catalogue?: WarbandCatalog,
   filtrerAccesEntrainement = false
 ): ShopItem[] {
+  // Profil sans aucun achat possible, toutes catégories confondues (ex :
+  // Snotling des Gobelins de la Nuit, Kroxigor des Hommes-Lézards — arme
+  // gratuite fournie par equipementInclusDepart, sans liste d'équipement
+  // ni accès au shop commun). categories_interdites ne couvre que
+  // armes/armures ; sans ce court-circuit, montures/véhicules/munitions/
+  // poisons restaient achetables via cet onglet malgré acces_equipement: [].
+  if (profil?.aucun_achat_shop_commun) return [];
   const armureLourdeInterdite = !aAccesArmureLourde(catalogue, profil);
+  // Fusionne categories_interdites (filtre aussi l'onglet bande) et
+  // categories_interdites_commun (ne filtre que cet onglet commun) pour ce
+  // seul appel — voir le commentaire de categories_interdites_commun dans
+  // types/catalog.ts pour la raison de cette distinction.
+  const profilInterdictionCommune =
+    profil && profil.categories_interdites_commun?.length
+      ? { ...profil, categories_interdites: [...(profil.categories_interdites ?? []), ...profil.categories_interdites_commun] }
+      : profil;
   const items: ShopItem[] = TOUS_LES_ITEMS.filter(
     (item) =>
       // Les mutations ("Un guerrier de Mutant ou de Possédé peut acheter des
       // mutations uniquement lors de son recrutement") ne s'achètent jamais
       // depuis le shop commun, quelle que soit la bande : uniquement via la
-      // liste equipement_special de la bande, qui applique la restriction de
-      // profil (profils/competences) que ce shop générique ne connaît pas.
+      // liste equipement_special de la bande.
       item.categorie !== 'mutations' &&
       !(armureLourdeInterdite && ITEMS_EQUIVALENT_ARMURE_LOURDE.has(item.id)) &&
+      !('heros_uniquement' in item && item.heros_uniquement && profil?.type === 'homme_de_main') &&
       ((catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) ||
-        (item.acces?.includes('commun_heros') && profil?.type === 'heros')) &&
+        (item.acces?.includes('commun_heros') && profil?.type === 'heros') ||
+        // Eau bénite ("Common for Warrior-Priests and Sisters of Sigmar") —
+        // même principe que commun_heros ci-dessus : restreint au Prêtre-
+        // guerrier des Répurgateurs (les Sœurs de Sigmar y ont déjà accès
+        // via leur propre liste de bande, restriction Héroïnes uniquement
+        // déjà appliquée là par le mécanisme générique "chapitre Objets
+        // Divers" — inutile de dupliquer l'accès ici pour elles).
+        (item.acces?.includes('commun_pretres_guerriers_soeurs_de_sigmar') && profil?.id === 'pretre_guerrier')) &&
+      respecteRestrictionProfilEquipementSpecial(catalogue, profil, item.id) &&
+      respecteRestrictionCompetenceEquipementSpecial(catalogue, profil, competencesAcquises, item.id) &&
       !estCategorieInterdite(
         item.categorie,
-        profil,
+        profilInterdictionCommune,
         competencesAcquises,
         'sous_type' in item ? (item.sous_type as string | undefined) : undefined
       ) &&
@@ -1029,9 +1240,23 @@ export function getEquipementBande(
       for (const ref of liste[categorie] ?? []) {
         const item = getItem(ref.item_id);
         if (!item) continue;
+        // Une arme à poudre noire d'une bande reste rangée sous la clé
+        // d'onglet "armes_tir" dans son catalogue.equipement (pas de clé
+        // dédiée "armes_poudre_noire" pour ces listes) — estCategorieInterdite
+        // distingue pourtant explicitement les deux (voir son propre code),
+        // donc sans cette bascule, un profil interdit d'"armes_tir" SEUL (ex :
+        // les 7 profils Artilleurs de Nuln, dont la règle "Fier artilleur !"
+        // n'interdit QUE les armes de tir non-poudre-noire) se retrouvait
+        // aussi privé de ses propres armes à poudre noire, la seule catégorie
+        // qu'il a pourtant explicitement le droit d'acheter. getShopCommun
+        // (juste au-dessus) ne souffre pas de ce problème : il passe déjà
+        // item.categorie, la vraie catégorie de l'objet, plutôt que la clé
+        // d'onglet de la liste où il est rangé.
+        const categorieInterdictionEffective =
+          categorie === 'armes_tir' && item.categorie === 'armes_poudre_noire' ? 'armes_poudre_noire' : categorie;
         if (
           estCategorieInterdite(
-            categorie,
+            categorieInterdictionEffective,
             profil,
             competencesAcquises,
             'sous_type' in item ? (item.sous_type as string | undefined) : undefined
@@ -1048,7 +1273,7 @@ export function getEquipementBande(
           cout: ref.cout,
           cout_fixe: typeof ref.cout === 'number',
           disponibilite: ref.restriction ?? ref.note ?? item.disponibilite,
-          rarete: item.rarete,
+          rarete: ref.rarete ?? item.rarete,
           texte: item.texte,
           portee: 'portee' in item ? (item.portee as string | null) : undefined,
           force: 'force' in item ? (item.force as string | null) : undefined,
@@ -1111,7 +1336,7 @@ export function getEquipementBande(
       cout,
       cout_fixe: typeof cout === 'number',
       disponibilite: ref.disponibilite ?? item.disponibilite,
-      rarete: item.rarete,
+      rarete: ref.rarete ?? item.rarete,
       texte: item.texte,
       portee: 'portee' in item ? (item.portee as string | null) : undefined,
       force: 'force' in item ? (item.force as string | null) : undefined,
@@ -1189,7 +1414,15 @@ export function avecSurcharges(
   });
 }
 
-export function creerEntreeInventaire(item: ShopItem, coutPaye: number): InventoryEntry {
+// `privilege` : voir Profile.objet_privilegie_entree — `entreePrivilegiee`
+// marque l'objet comme consommant le privilège à usage unique,
+// `nonCessible` (Faveur du Seigneur uniquement) le rend ni revendable ni
+// transférable.
+export function creerEntreeInventaire(
+  item: ShopItem,
+  coutPaye: number,
+  privilege?: { entreePrivilegiee?: boolean; nonCessible?: boolean }
+): InventoryEntry {
   return {
     instance_id: uuidv4(),
     item_id: item.id,
@@ -1199,14 +1432,21 @@ export function creerEntreeInventaire(item: ShopItem, coutPaye: number): Invento
     cout_notation: item.cout_fixe === false ? String(item.cout) : undefined,
     date_achat: new Date().toISOString(),
     resultat_sous_jet_achat: item.resultatSousJetAchat,
+    ...(privilege?.entreePrivilegiee ? { entree_privilegiee: true } : {}),
+    ...(privilege?.nonCessible ? { non_cessible: true } : {}),
   };
 }
 
 // `quantite` exemplaires indépendants (instance_id distincts) du même objet,
 // au même prix unitaire — utilisé pour équiper un groupe d'hommes de main
 // d'un coup (l'équipement doit rester identique entre toutes ses figurines).
-export function creerEntreesInventaire(item: ShopItem, coutPaye: number, quantite: number): InventoryEntry[] {
-  return Array.from({ length: Math.max(1, quantite) }, () => creerEntreeInventaire(item, coutPaye));
+export function creerEntreesInventaire(
+  item: ShopItem,
+  coutPaye: number,
+  quantite: number,
+  privilege?: { entreePrivilegiee?: boolean; nonCessible?: boolean }
+): InventoryEntry[] {
+  return Array.from({ length: Math.max(1, quantite) }, () => creerEntreeInventaire(item, coutPaye, privilege));
 }
 
 export function acheterPourMembre(
@@ -1287,6 +1527,23 @@ export function equipementPerduALaMort(): Pick<Member, 'inventaire' | 'equipemen
   return { inventaire: [], equipement: '' };
 }
 
+// Un membre ne peut se prévaloir de Profile.objet_privilegie_entree que pour
+// UN SEUL objet (ex : "Faveur du Seigneur" — Bretonniens — ou "Héritage" —
+// Kislévites) : dès qu'un objet a déjà été acheté via ce privilège
+// (inventaire actuel + panier pas encore validé, voir AjouterMembreModal,
+// repérable via InventoryEntry.entree_privilegiee), plus aucun achat suivant
+// n'est éligible.
+export function estAchatObjetPrivilegieEntree(
+  profil: Pick<Profile, 'objet_privilegie_entree'> | null | undefined,
+  item: Pick<ShopItem, 'id'>,
+  inventaireActuel: InventoryEntry[]
+): boolean {
+  const regle = profil?.objet_privilegie_entree;
+  if (!regle) return false;
+  if (regle.items && !regle.items.includes(item.id)) return false;
+  return !inventaireActuel.some((e) => e.entree_privilegiee);
+}
+
 // Applique un achat complet à un membre : crée les entrées d'inventaire
 // (une par figurine du groupe), débite la trésorerie via acheterPourMembre,
 // applique le stats_delta éventuel de l'objet (ex : mutation Great Claw,
@@ -1298,9 +1555,10 @@ export function appliquerAchatSurMembre(
   roster: RosterInstance,
   membre: Member,
   item: ShopItem,
-  coutPaye: number
+  coutPaye: number,
+  privilege?: { entreePrivilegiee?: boolean; nonCessible?: boolean }
 ): RosterInstance {
-  const entrees = creerEntreesInventaire(item, coutPaye, membre.taille_groupe || 1);
+  const entrees = creerEntreesInventaire(item, coutPaye, membre.taille_groupe || 1, privilege);
   const nouveauRoster = acheterPourMembre(roster, membre.instance_id, entrees);
   const inventaire = [...membre.inventaire, ...entrees];
   let stats_actuels = membre.stats_actuels;

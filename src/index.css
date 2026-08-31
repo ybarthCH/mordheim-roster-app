@@ -3238,19 +3238,19 @@ thead .roster-table__col-actions {
   line-height: 1.1;
   margin-top: 0.1rem;
 }
-/* Annotation "(déroute N)" sous le chiffre de la tuile Membres : même
-   police (Caslon Antique, héritée de .summary-tile__value) mais 3pt plus
-   petite et non graissée, pour rester clairement secondaire. En bloc plutôt
-   qu'inline : la tuile est trop étroite (colonne de 4, y compris en volet
-   deux-panneaux) pour garder "12/12 (déroute 4)" sur une seule ligne sans
-   déborder sur la tuile voisine — nowrap + display:block la fait passer à
-   la ligne comme un tout plutôt que de couper au milieu de "(déroute 4)". */
-.summary-tile__value-annotation {
-  display: block;
-  font-size: 1.05rem;
-  font-weight: 400;
-  color: var(--text-muted);
-  white-space: nowrap;
+/* Badge "déroute N" sous le chiffre de la tuile Membres : pastille pleine
+   (.badge--info) plutôt qu'un texte "(déroute N)" entre parenthèses, pour
+   se distinguer clairement du chiffre principal comme une info à part
+   plutôt qu'une simple précision. En bloc plutôt qu'inline : la tuile est
+   trop étroite (colonne de 4, y compris en volet deux-panneaux) pour
+   garder "12/12" et le badge sur une seule ligne sans déborder sur la
+   tuile voisine — display:block le fait passer à la ligne comme un tout.
+   font-size réduite par rapport à .badge par défaut (pensé pour une ligne
+   de texte normale, trop grand accolé au chiffre display de la tuile). */
+.summary-tile__rout-badge {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.6rem;
 }
 
 .status-select {

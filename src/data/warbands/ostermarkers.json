@@ -14,6 +14,38 @@
     "effectif_max": 15,
     "cout_max_constitution": 500
   },
+  "tribus": [
+    {
+      "id": "option_1",
+      "nom": "Option 1",
+      "texte": "Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir, Force ; Recrue — Combat, Tir, Vitesse.",
+      "profil_acces_competences": {
+        "capitaine_mercenaire": ["combat", "tir", "academique", "force", "vitesse"],
+        "champion": ["combat", "tir", "force"],
+        "recrue": ["combat", "tir", "vitesse"]
+      }
+    },
+    {
+      "id": "option_2",
+      "nom": "Option 2",
+      "texte": "Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Force, Vitesse ; Recrue — Combat, Force, Vitesse.",
+      "profil_acces_competences": {
+        "capitaine_mercenaire": ["combat", "tir", "academique", "force", "vitesse"],
+        "champion": ["combat", "force", "vitesse"],
+        "recrue": ["combat", "force", "vitesse"]
+      }
+    },
+    {
+      "id": "option_3",
+      "nom": "Option 3",
+      "texte": "Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir ; Recrue — Combat, Tir, Vitesse.",
+      "profil_acces_competences": {
+        "capitaine_mercenaire": ["combat", "tir", "academique", "force", "vitesse"],
+        "champion": ["combat", "tir"],
+        "recrue": ["combat", "tir", "vitesse"]
+      }
+    }
+  ],
   "profils": [
     {
       "id": "capitaine_mercenaire",
@@ -30,7 +62,7 @@
         { "nom": "Chef", "texte": "Tout membre de la bande à moins de 6ps du Capitaine Mercenaire peut utiliser le Commandement de ce dernier pour ses tests." }
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
-      "acces_equipement": ["mercenaires", "montures"],
+      "acces_equipement": ["mercenaires"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -46,9 +78,9 @@
       "xp_depart": 8,
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
-      "acces_competences": ["combat", "tir", "force", "vitesse"],
-      "acces_equipement": ["mercenaires", "montures"],
-      "acces_competences_a_verifier": true
+      "acces_competences": ["combat", "tir", "force"],
+      "acces_equipement": ["mercenaires"],
+      "acces_competences_a_verifier": false
     },
     {
       "id": "recrue",
@@ -62,9 +94,9 @@
       "xp_depart": 0,
       "stats": { "M": 4, "CC": 2, "CT": 2, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
       "regles_speciales": [],
-      "acces_competences": ["combat", "tir", "force", "vitesse"],
-      "acces_equipement": ["mercenaires", "montures"],
-      "acces_competences_a_verifier": true
+      "acces_competences": ["combat", "tir", "vitesse"],
+      "acces_equipement": ["mercenaires"],
+      "acces_competences_a_verifier": false
     },
     {
       "id": "guerrier",
@@ -187,13 +219,6 @@
         { "item_id": "armure_legere", "cout": 20 },
         { "item_id": "casque", "cout": 10 },
         { "item_id": "bouclier", "cout": 5 }
-      ]
-    },
-    "montures": {
-      "divers": [
-        { "item_id": "mule_market", "cout": 30, "note": "voir équipement spécial ; Héros uniquement" },
-        { "item_id": "cheval", "cout": 40, "note": "voir équipement spécial ; Héros uniquement" },
-        { "item_id": "destriers", "cout": 80, "note": "voir équipement spécial ; Héros uniquement" }
       ]
     }
   },

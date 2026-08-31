@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../common/Icon';
-import type { Member, RosterInstance } from '../../types/roster';
+import type { Member, RosterInstance, InventoryEntry } from '../../types/roster';
 import { STAT_KEYS } from '../../types/catalog';
 import { getCatalogue } from '../../data/warbands';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
@@ -19,11 +19,12 @@ import {
   rejoindreGroupe,
   transfererVersStock,
   formatEquipementAffiche,
-  TRINKETS_LIMITES,
+  groupeDupliqueraitObjetLimite,
+  estAchatObjetPrivilegieEntree,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { translateItem } from '../../i18n/data/items';
-import { estSorcier, resolveSort, sortsDisponiblesPourRoster } from '../../utils/magie';
+import { estSorcier, marquesDisponibles, resolveSort, sortsDisponiblesPourRoster } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
 import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
 import { peutGagnerExperience } from '../../utils/xp';
@@ -35,6 +36,24 @@ import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
 
 const FRANC_TIREUR = '__franc_tireur__';
+
+// "Chien de guerre gratuit : ... Tout Capitaine d'une bande d'Ostermarkers
+// peut commencer avec un chien de guerre dans son équipement de départ ...
+// Ce chien de guerre est gratuit à la création de la bande." (Mercenaires
+// Ostermarkers [GLM].pdf) — ne couvre que le tout premier chien recruté par
+// cette bande (les suivants, ou un chien acheté plus tard en campagne,
+// restent payants au tarif normal). Même esprit que la première dague
+// gratuite (AchatEquipementModal), mais porte sur le recrutement d'un
+// profil entier plutôt que sur un objet d'équipement — aucun mécanisme
+// générique de "profil compagnon gratuit" n'existe, traité ici en cas
+// nommé plutôt que par un nouveau champ de données.
+function estPremierChienDeGuerreGratuitOstermarkers(catalogueId: string | undefined, profilId: string, roster: RosterInstance): boolean {
+  return (
+    catalogueId === 'ostermarkers' &&
+    profilId === 'chien_de_guerre' &&
+    !roster.membres.some((m) => m.profil_id === 'chien_de_guerre' && m.statut !== 'mort')
+  );
+}
 
 type Props = {
   roster: RosterInstance;
@@ -164,10 +183,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
   const coutRejoindre = groupeCible ? calculerCoutRejoindreGroupe(groupeCible, coutUnitaire, quantite) : null;
   const coutTotal = coutRejoindre ? coutRejoindre.coutTotal : coutUnitaire * quantite;
   const budgetSuffisant = coutTotal <= roster.tresorerie;
-  const dupliqueraitTrinket =
-    !!groupeCible &&
-    rules.trinketsLimites &&
-    groupeCible.inventaire.some((entree) => TRINKETS_LIMITES.has(entree.item_id));
+  const dupliqueraitTrinket = !!groupeCible && groupeDupliqueraitObjetLimite(groupeCible, rules);
 
   const choisirProfil = (value: string) => {
     if (value === FRANC_TIREUR) {
@@ -179,7 +195,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
     const p = catalogue?.profils.find((pr) => pr.id === value);
     setQuantiteSaisie('1');
     setGroupeCibleId(null);
-    setCoutManuelSaisi('');
+    setCoutManuelSaisi(estPremierChienDeGuerreGratuitOstermarkers(catalogue?.id, value, roster) ? '0' : '');
     setSortsChoisis(Array(p?.nombre_sorts_choisis_depart ?? 1).fill(''));
     setMarqueChoisie('');
   };
@@ -239,10 +255,18 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
     const tresorerieProjetee = roster.tresorerie - panierTotal;
     // Vue "et si" de l'inventaire incluant le panier pas encore payé : sans
     // ça, le shop ne verrait pas un objet déjà mis dans le panier (ex :
-    // proposerait une 2e dague comme "gratuite" au lieu de la 1re).
-    const inventairePanier = panier.flatMap(({ item, coutPaye }) =>
-      creerEntreesInventaire(item, coutPaye, tailleGroupeActuelle)
-    );
+    // proposerait une 2e dague comme "gratuite" au lieu de la 1re, ou une 2e
+    // moitié-prix Faveur du Seigneur/Héritage tant que le 1er objet reste
+    // dans le panier — voir estAchatObjetPrivilegieEntree, qui doit voir
+    // entree_privilegiee sur les entrées déjà accumulées pour refuser un 2e
+    // objet). Construit de façon cumulative, comme terminer() ci-dessous,
+    // pour que chaque objet du panier voie l'état après les précédents.
+    const inventairePanier = panier.reduce<InventoryEntry[]>((accumulees, { item, coutPaye }) => {
+      const privilege = estAchatObjetPrivilegieEntree(profil, item, [...membreActuel.inventaire, ...accumulees])
+        ? { entreePrivilegiee: true, nonCessible: !!profil?.objet_privilegie_entree?.non_cessible }
+        : undefined;
+      return [...accumulees, ...creerEntreesInventaire(item, coutPaye, tailleGroupeActuelle, privilege)];
+    }, []);
     // "Chaque Mutant doit commencer la partie avec une ou plusieurs
     // mutations" / "[l'Impur] doit recevoir une ou plusieurs Bénédictions de
     // Nurgle au moment de son recrutement" (voir Profile.
@@ -257,7 +281,13 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
       for (const { item, coutPaye } of panier) {
         const membreCourant =
           rosterCourant.membres.find((m) => m.instance_id === membreActuel.instance_id) ?? membreActuel;
-        rosterCourant = appliquerAchatSurMembre(rosterCourant, membreCourant, item, coutPaye);
+        // Profile.objet_privilegie_entree ("Faveur du Seigneur", "Héritage") :
+        // recalculé à chaque itération sur l'inventaire déjà à jour du membre,
+        // pour n'accorder le privilège qu'au premier objet éligible acheté.
+        const privilege = estAchatObjetPrivilegieEntree(profil, item, membreCourant.inventaire)
+          ? { entreePrivilegiee: true, nonCessible: !!profil?.objet_privilegie_entree?.non_cessible }
+          : undefined;
+        rosterCourant = appliquerAchatSurMembre(rosterCourant, membreCourant, item, coutPaye, privilege);
       }
       if (panier.length > 0) onUpdateRoster(rosterCourant);
       onClose();
@@ -473,6 +503,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             competencesAcquises={membreActuel.competences_acquises}
             marqueId={membreActuel.marque}
             inventaireActuel={[...membreActuel.inventaire, ...inventairePanier]}
+            xpMembre={membreActuel.xp}
             inventaireBande={[...inventaireComplet(roster), ...inventairePanier]}
             roster={roster}
             tailleGroupe={tailleGroupeActuelle}
@@ -583,6 +614,21 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
                 onChange={(e) => setCoutManuelSaisi(e.target.value)}
                 placeholder={profil.cout_notation ? t('creation.modal.costPlaceholder') : undefined}
               />
+              {estPremierChienDeGuerreGratuitOstermarkers(catalogue?.id, profilId, roster) && (
+                <p
+                  className="text-sm mb-0"
+                  style={{
+                    marginTop: '0.4rem',
+                    padding: '0.4rem 0.6rem',
+                    borderRadius: 'var(--radius)',
+                    background: 'var(--warning-bg)',
+                    color: 'var(--warning)',
+                    fontWeight: 700,
+                  }}
+                >
+                  {t('creation.modal.freeWarDogNote')}
+                </p>
+              )}
             </div>
           )}
           {groupesExistants.length > 0 && (
@@ -624,7 +670,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
                 }}
               >
                 <option value="">{t('creation.modal.choose')}</option>
-                {catalogue?.marques?.map((m) => (
+                {marquesDisponibles(catalogue, roster).map((m) => (
                   <option key={m.id} value={m.id}>
                     {m.nom}
                   </option>

@@ -38,12 +38,12 @@
     {
       "id": "norses",
       "nom": "Norses",
-      "texte": "Pilleurs : en raison de leur proximité avec l'Empire et de la fréquence de leurs raids, les Norses excellent dans l'art de trouver le meilleur équipement et du matériel rapidement — ils gagnent +1 à leurs jets de rareté lors de la recherche d'objets rares (purement indicatif, à appliquer sur table papier). Panthéon : les Norses adorent une myriade de dieux, esprits et ancêtres ; en raison de leur large panthéon, l'effet de la règle spéciale Œil des Dieux Sombres (devenir un Enfant du Chaos ou recevoir une Marque) se produit sur un résultat de 13+ au lieu de 12+."
+      "texte": "Pilleurs : en raison de leur proximité avec l'Empire et de la fréquence de leurs raids, les Norses excellent dans l'art de trouver le meilleur équipement et du matériel rapidement — ils gagnent +1 à leurs jets de rareté lors de la recherche d'objets rares. Panthéon : les Norses adorent une myriade de dieux, esprits et ancêtres ; en raison de leur large panthéon, l'effet de la règle spéciale Œil des Dieux Sombres (devenir un Enfant du Chaos ou recevoir une Marque) se produit sur un résultat de 13+ au lieu de 12+."
     },
     {
       "id": "kurgans",
       "nom": "Kurgans",
-      "texte": "Pedigree : une bande Kurgan peut inclure autant de Chiens du Chaos que désiré, pas seulement cinq. Arcs d'os : les Héros et Hommes de main Maraudeurs peuvent utiliser des arcs (10 CO, Commun — purement indicatif, non filtré automatiquement dans le shop). Clients Difficiles : alors que les Norses et les Hungs commercent avec le sud, les Kurgans vivent loin de la civilisation et n'y sont pas bienvenus — malus de -1 sur les jets de recherche d'objets rares, sauf pour les Grandes Haches du Chaos et les Fouets Barbelés (purement indicatif, à appliquer sur table papier).",
+      "texte": "Pedigree : une bande Kurgan peut inclure autant de Chiens du Chaos que désiré, pas seulement cinq. Arcs d'os : les Héros et Hommes de main Maraudeurs peuvent utiliser des arcs (10 CO, Commun — purement indicatif, non filtré automatiquement dans le shop). Clients Difficiles : alors que les Norses et les Hungs commercent avec le sud, les Kurgans vivent loin de la civilisation et n'y sont pas bienvenus — malus de -1 sur les jets de recherche d'objets rares, sauf pour les Grandes Haches du Chaos et les Fouets Barbelés.",
       "profil_max": { "chien_du_chaos": null }
     },
     {
@@ -77,6 +77,11 @@
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": ["heros"],
+      "competences_speciales": [
+        { "id": "corps_tatoue", "nom": "Corps tatoué", "reserve_a": "Chef de bande uniquement", "texte": "Abaisse le seuil de déclenchement d'Œil des Dieux Sombres à 10+ (11+ pour un Chef Norse) au lieu de 12+.", "valeurPuissance": 0 },
+        { "id": "courage_du_guerrier", "nom": "Courage du guerrier", "reserve_a": "Chef de bande uniquement", "texte": "Peut relancer tout test de Déroute raté et est immunisé à la Peur ainsi qu'à Seul contre tous.", "valeurPuissance": 40 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -139,7 +144,13 @@
       ],
       "acces_competences": ["force", "vitesse", "special"],
       "acces_equipement": ["heros"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "transformation": {
+        "cible": "enfant_du_chaos",
+        "seuil_xp": 90,
+        "necessite_caracteristique_variable": true,
+        "bloque_si_profil_vivant": "enfant_du_chaos"
+      }
     },
     {
       "id": "maraudeur",
@@ -172,6 +183,7 @@
       "acces_competences": [],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
+      "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -197,7 +209,28 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
+      "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false
+    },
+    {
+      "id": "gor",
+      "nom": "Gor",
+      "type": "homme_de_main",
+      "groupe_caracteristiques": "hommes_betes_gor",
+      "min": 0,
+      "max": 3,
+      "cout": 35,
+      "xp_depart": 0,
+      "stats": { "M": 5, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Recrutement", "texte": "Acheté par groupes de 1 à 5 — importé des Pillards Hommes-Bêtes, accessible uniquement à une bande portant la Marque du Chaos Universel (voir règle spéciale Marques des Dieux Sombres)." },
+        { "nom": "Ne peut jamais devenir Héros", "texte": "Relancez systématiquement tout résultat « Ce gars est doué » obtenu par un Gor." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": ["gors"],
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_heros": true,
+      "requiert_marque": "chaos_universel"
     },
     {
       "id": "chien_de_guerre",
@@ -222,8 +255,6 @@
   ],
   "competences_speciales": [
     { "id": "mutant", "nom": "Mutant", "texte": "Permet d'acheter une mutation (voir règle spéciale Table de Mutations). Les Héros avec la Marque d'Onogal peuvent choisir une Bénédiction de Nurgle à la place (voir règle spéciale Bénédictions de Nurgle). Contrairement aux autres compétences, elle peut être choisie plusieurs fois.", "repetable": true, "valeurPuissance": 0 },
-    { "id": "corps_tatoue", "nom": "Corps tatoué", "reserve_a": "Chef de bande uniquement", "texte": "Abaisse le seuil de déclenchement d'Œil des Dieux Sombres à 10+ (11+ pour un Chef Norse) au lieu de 12+.", "valeurPuissance": 0 },
-    { "id": "courage_du_guerrier", "nom": "Courage du guerrier", "reserve_a": "Chef de bande uniquement", "texte": "Peut relancer tout test de Déroute raté et est immunisé à la Peur ainsi qu'à Seul contre tous.", "valeurPuissance": 40 },
     { "id": "balayage", "nom": "Balayage", "texte": "Requiert la compétence Homme Fort. Chaque mise hors de combat à l'arme à deux mains permet une attaque supplémentaire immédiate contre une autre figurine en contact socle à socle.", "valeurPuissance": 20 },
     { "id": "choisi_par_le_chaos", "nom": "Choisi par le Chaos", "texte": "Le Héros intègre le rang des Guerriers du Chaos : il utilise leur profil maximal (voir caracteristiques_max) et la liste d'équipement des Héros (si ce n'était pas déjà le cas).", "valeurPuissance": 0 }
   ],
@@ -263,6 +294,23 @@
         { "item_id": "armure_legere", "cout": 20 },
         { "item_id": "bouclier", "cout": 5 },
         { "item_id": "casque", "cout": 10 }
+      ]
+    },
+    "gors": {
+      "armes_cac": [
+        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "arme_contondante_une_main", "cout": 3 },
+        { "item_id": "hache", "cout": 5 },
+        { "item_id": "epee", "cout": 10 },
+        { "item_id": "hallebarde", "cout": 10 },
+        { "item_id": "arme_a_deux_mains", "cout": 15 }
+      ],
+      "armures": [
+        { "item_id": "armure_legere", "cout": 20 },
+        { "item_id": "armure_lourde", "cout": 50 },
+        { "item_id": "casque", "cout": 10 },
+        { "item_id": "bouclier", "cout": 5 }
       ]
     }
   },
@@ -314,6 +362,7 @@
       "id": "arkhar",
       "nom": "Marque d'Arkhar le Chien",
       "pas_de_sorts": true,
+      "competences_supplementaires": ["force"],
       "texte": "Le Devin devient un Père de Sang : il ne jette plus de sorts, mais gagne +1 à une caractéristique au choix (Combat, F, E ou I, une fois chacune) chaque fois qu'il met un ennemi hors de combat (test de Commandement requis, bonus valable jusqu'à la fin de la bataille), et accède aux compétences de Force en plus de sa liste normale."
     },
     {
@@ -337,6 +386,7 @@
     {
       "id": "chaos_universel",
       "nom": "Marque du Chaos Universel",
+      "coexiste_avec_autres": true,
       "texte": "Utilise les Rituels du Chaos standards. Permet à la bande d'inclure 0 à 3 Gors (voir Pillards Hommes-Bêtes), comptant dans l'effectif maximum ; relancez systématiquement tout résultat « Ce gars est doué » obtenu par un Gor."
     }
   ],

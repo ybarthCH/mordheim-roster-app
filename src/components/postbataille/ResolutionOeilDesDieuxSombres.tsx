@@ -5,6 +5,7 @@ import { resolveLeader, succederApresMorts } from '../../utils/leader';
 import { creerMembre } from '../../utils/factory';
 import { equipementPerduALaMort } from '../../utils/shop';
 import { nomAffiche } from '../../utils/profil';
+import { marquesDisponibles } from '../../utils/magie';
 import { useLanguage } from '../../state/useLanguage';
 
 type Props = {
@@ -93,9 +94,10 @@ export function ResolutionOeilDesDieuxSombres({
     const note = dejaEnfant
       ? `Œil des Dieux Sombres : ${nomAffiche(chef)} aurait dû devenir un Enfant du Chaos, mais la bande en compte déjà un — il est simplement retiré de la bande.`
       : `Œil des Dieux Sombres : ${nomAffiche(chef)} devient un Enfant du Chaos (perd expérience, compétences, blessures et équipement).`;
+    const membresAvecSuccession = succession?.membres ?? membresMaj;
     onMajRoster({
       ...succession,
-      membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj,
+      membres: nouveauMembre ? [...membresAvecSuccession, nouveauMembre] : membresAvecSuccession,
       equipement_reserve: `${roster.equipement_reserve}${roster.equipement_reserve ? '\n' : ''}${note}`,
     });
     setResolu(note);
@@ -151,7 +153,7 @@ export function ResolutionOeilDesDieuxSombres({
             <label>{t('postBataille.eyeOfDarkGods.markLabel')}</label>
             <select value={marqueChoisie} onChange={(e) => setMarqueChoisie(e.target.value)}>
               <option value="">{t('postBataille.chooseEllipsis')}</option>
-              {catalogue.marques?.map((m) => (
+              {marquesDisponibles(catalogue, roster).map((m) => (
                 <option key={m.id} value={m.id}>
                   {m.nom}
                 </option>

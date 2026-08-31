@@ -6,6 +6,7 @@ import { creerMembre } from '../../utils/factory';
 import { ajouterEffetPersistant, CLE_DE_SUPPLEMENTAIRE_EXPLORATION } from '../../utils/effetsPersistants';
 import { JetOrButton } from './JetOrButton';
 import { useLanguage } from '../../state/useLanguage';
+import { BANDES_TRAITEES_COMME_POSSEDES } from '../../data/bandeCategories';
 
 type Props = {
   roster: RosterInstance;
@@ -93,8 +94,8 @@ export function ResolutionVagabond({ roster, catalogue, nomEvenement, onMajRoste
         <button
           type="button"
           className="btn--pack-pill-sm"
-          disabled={catalogue.id !== 'cult_of_the_possessed' || !chef}
-          title={catalogue.id !== 'cult_of_the_possessed' ? t('postBataille.vagrant.reservedFor', { faction: 'Possédés' }) : undefined}
+          disabled={!BANDES_TRAITEES_COMME_POSSEDES.includes(catalogue.id) || !chef}
+          title={!BANDES_TRAITEES_COMME_POSSEDES.includes(catalogue.id) ? t('postBataille.vagrant.reservedFor', { faction: 'Possédés' }) : undefined}
           onClick={sacrifierPourXp}
         >
           {t('postBataille.vagrant.sacrificeForXp')}

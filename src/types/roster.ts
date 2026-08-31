@@ -119,6 +119,19 @@ export type InventoryEntry = {
   // l'objet ; `label`/`texte` sont un instantané français de repli si
   // l'objet ou l'option a disparu du catalogue depuis.
   resultat_sous_jet_achat?: { jet: number; optionIndex: number; label: string; texte: string };
+  // Objet ni revendable au stock, ni transférable à un autre membre (voir
+  // Profile.objet_privilegie_entree.non_cessible, ex : Faveur du Seigneur —
+  // Gardiens de Chapelle Bretonniens, "ne peut être échangé, donné ni
+  // vendu"). Porté par l'instance achetée, pas par le catalogue : le même
+  // objet (destrier, armure...) reste cessible normalement pour tout autre
+  // acheteur. Voir EquipementCard.tsx (objetIntransferable).
+  non_cessible?: boolean;
+  // Marque cette entrée comme l'objet acheté à moitié prix au titre de
+  // Profile.objet_privilegie_entree (Faveur du Seigneur, Héritage...) — sert
+  // uniquement à repérer que le privilège à usage unique a déjà été consommé
+  // (voir estAchatObjetPrivilegieEntree dans utils/shop.ts), indépendamment
+  // de non_cessible qui ne s'applique qu'à certaines bandes.
+  entree_privilegiee?: boolean;
 };
 
 export type Member = {
@@ -349,6 +362,19 @@ export type RosterInstance = {
   // — chez les bandes à "héros rares" comme les Lustrian Reavers — tout héros
   // unique perdu, qu'il ait été chef ou non. Vide par défaut.
   profils_bannis?: string[];
+  // Bande dissoute : cas des Morts-Vivants dont le Vampire (ou, à sa suite,
+  // le Nécromancien qui assurait l'intérim) meurt sans qu'aucun Nécromancien
+  // vivant ne puisse reprendre le commandement — "the spells that hold the
+  // restless dead together unravel, and the warband collapses into a pile
+  // of bones" (Mordheim - Part 3, "Death of a Leader", errata p.3). Posé une
+  // fois pour toutes par succederApresMorts (utils/leader.ts), jamais retiré
+  // ensuite (recruter un nouveau Vampire ne "ressuscite" pas une bande déjà
+  // dissoute — seule l'errata mentionne un rachat de Vampire, dans le cas où
+  // c'est le Nécromancien qui dirige encore, pas celui d'une bande
+  // dissoute). Bloque le recrutement (peutAjouterMembre) et l'assistant
+  // post-bataille (RosterScreen) ; n'affecte pas la consultation ni
+  // l'édition des membres déjà existants, conservés comme trace.
+  dissoute?: boolean;
   // Tribu choisie à la création pour les bandes qui en proposent (voir
   // WarbandCatalog.tribus, ex : Maraudeurs du Chaos) — référence vers
   // Tribu.id. Fixé une fois pour toutes, jamais modifié ensuite.

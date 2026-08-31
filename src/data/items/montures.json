@@ -14,7 +14,7 @@
   {
     "id": "cauchemar", "nom": "Cauchemar", "categorie": "montures",
     "cout": 95, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Vampires et Nécromants uniquement",
-    "acces": ["undead", "morts_sans_repos"], "source": "GM (Guerriers Montés)", "page": 60,
+    "acces": ["undead", "morts_sans_repos", "cavalcade_maudite"], "source": "GM (Guerriers Montés)", "page": 60,
     "texte": "Les comtes vampires ont parfois besoin d'une monture pour se déplacer rapidement. Après tout, même mort, un cheval garde ses quatre pattes, non ?",
     "stats": { "M": 8, "CC": 2, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 2, "A": 1, "Cd": 5 },
     "regles_speciales": [
@@ -54,7 +54,7 @@
   {
     "id": "destrier_du_chaos_market", "nom": "Destrier du Chaos", "categorie": "montures",
     "cout": 90, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement",
-    "acces": ["nains_du_chaos", "maraudeurs_du_chaos", "carnival_of_chaos", "cult_of_the_possessed", "beastmen_raiders", "norses"], "source": "GM (Guerriers Montés)", "page": 60,
+    "acces": ["nains_du_chaos", "maraudeurs_du_chaos", "carnival_of_chaos", "cult_of_the_possessed", "beastmen_raiders"], "source": "GM (Guerriers Montés)", "page": 60,
     "texte": "Les destriers du Chaos sont des parodies déformées des magnifiques coursiers de l'Empire. Ils sont montés au combat par les bandes du Chaos.",
     "stats": { "M": 8, "CC": 3, "CT": 0, "F": 4, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 5 },
     "regles_speciales": [
@@ -129,7 +129,7 @@
     "cout": 90, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11, Orques uniquement",
     "acces": ["orc_mob"], "source": "GM (Guerriers Montés)", "page": 62,
     "texte": "Énormes, féroces et soupe au lait : quoi de mieux pour un chef orque ? Les bandes d'orques utilisent parfois ces animaux dans les ruines de Mordheim ou pour parcourir la campagne alentour. Ils restent toutefois peu communs car les orques les plus gros se réservent immanquablement le droit de les chevaucher.",
-    "stats": { "M": 7, "CC": 3, "CT": 0, "F": 4, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 3 },
+    "stats": { "M": 7, "CC": 3, "CT": 0, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 3 },
     "regles_speciales": [
       { "nom": "Charge furieuse", "texte": "Grâce à leur masse, les sangliers de guerre gagnent un bonus de +2 en Force lorsqu'ils chargent. Notez que ce bonus ne s'applique qu'au sanglier, pas à son cavalier." },
       { "nom": "Peau épaisse", "texte": "La peau épaisse et le pelage du sanglier le rendent difficile à blesser. Les sangliers ajoutent +2 au lieu de +1 à la sauvegarde d'armure du cavalier." }

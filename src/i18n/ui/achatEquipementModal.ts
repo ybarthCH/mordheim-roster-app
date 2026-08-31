@@ -97,4 +97,5 @@ export const achatEquipementModal: UiDictionary = {
   },
   'achatEquipement.rollResultBack': { fr: '← Choisir un autre objet', en: '← Choose another item' },
   'achatEquipement.freeBadge': { fr: '(gratuite)', en: '(free)' },
+  'achatEquipement.halfPriceBadge': { fr: '(moitié prix)', en: '(half price)' },
 };

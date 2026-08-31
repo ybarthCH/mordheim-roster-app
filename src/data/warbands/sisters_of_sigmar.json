@@ -28,6 +28,10 @@
       ],
       "acces_competences": ["combat", "academique", "force", "vitesse", "special"],
       "acces_equipement": ["soeurs_de_sigmar"],
+      "competences_speciales": [
+        { "id": "farouche_determination", "nom": "Farouche détermination", "reserve_a": "Matriarche uniquement", "texte": "Permet de relancer les tests de Déroute ratés.", "valeurPuissance": 40 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -121,7 +125,6 @@
   "competences_speciales": [
     { "id": "signe_de_sigmar", "nom": "Signe de Sigmar", "texte": "Les adversaires possédés et morts-vivants perdent une Attaque contre la prêtresse pendant le premier tour de corps à corps (jusqu'à un minimum de 1).", "valeurPuissance": 20 },
     { "id": "protection_de_sigmar", "nom": "Protection de Sigmar", "texte": "Tout sort lancé sur la sœur sera dissipé sur un résultat de 4+ sur 1D6. Si le sort est dissipé, il n'affectera aucune autre figurine.", "valeurPuissance": 20 },
-    { "id": "farouche_determination", "nom": "Farouche détermination", "reserve_a": "Matriarche uniquement", "texte": "Permet de relancer les tests de Déroute ratés.", "valeurPuissance": 40 },
     { "id": "fureur_du_juste", "nom": "Fureur du juste", "texte": "La figurine est affectée par la haine des bandes de skavens, de possédés et de morts-vivants.", "valeurPuissance": 20 },
     { "id": "foi_inebranlable", "nom": "Foi inébranlable", "texte": "Peut relancer les tests de peur et n'a pas à faire le test Seul contre Tous si elle combat plusieurs adversaires en même temps.", "valeurPuissance": 20 }
   ],

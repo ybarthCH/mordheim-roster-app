@@ -72,8 +72,8 @@ export function RosterSummaryCard({ roster, catalogue, onPatch }: RosterSummaryC
           <div className="summary-tile__value" style={effectifPlein ? { color: 'var(--warning)' } : undefined}>
             {effectifMax != null ? `${effectif}/${effectifMax}` : effectif}
             {membreActifPresent && (
-              <span className="summary-tile__value-annotation">
-                ({t('rosterSummary.routThreshold')} {seuilDeroute(roster)})
+              <span className="badge badge--info summary-tile__rout-badge">
+                {t('rosterSummary.routThreshold')} {seuilDeroute(roster)}
               </span>
             )}
           </div>

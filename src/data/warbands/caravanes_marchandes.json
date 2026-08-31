@@ -285,9 +285,9 @@
       "disponibilite": "Commun, Caravane des Marchands uniquement — une bande de départ doit toujours en inclure un (voir règle spéciale Chariot de marchandises obligatoire)."
     },
     {
-      "item_id": "cheval",
+      "item_id": "destriers",
       "cout": 40,
-      "disponibilite": "Rare 8, Chevaliers d'Avant-garde uniquement",
+      "disponibilite": "Chevaliers d'Avant-garde uniquement",
       "profils": ["chevalier_avant_garde"]
     },
     {

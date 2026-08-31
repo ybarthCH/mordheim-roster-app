@@ -10,7 +10,7 @@
     { "nom": "Armure", "texte": "Les nains ne subissent aucune pénalité de mouvement pour le port d'une armure." },
     { "nom": "Haine des Orques et des Gobelins", "texte": "Tous les nains haïssent les orques et les gobelins." },
     { "nom": "Rancuniers", "texte": "Les nains gardent une vieille rancœur contre les elfes. Une bande naine ne peut jamais inclure de franc-tireur elfe, quel qu'il soit." },
-    { "nom": "Mineurs Sans Égaux", "texte": "Dans la cité de Mordheim, les nains mettent leur talent à profit pour chercher de la Pierre Magique. Ajoutez +1 au nombre de fragments trouvés lors du jet pour déterminer la quantité de Pierre Magique à la fin de la partie." }
+    { "nom": "Mineurs Sans Égaux", "texte": "Dans la cité de Mordheim, les nains mettent leur talent à profit pour chercher de la Pierre Magique. Ajoutez +1 au nombre de fragments trouvés lors du jet de la phase d'Exploration déterminant la quantité de Pierre Magique à la fin de la partie." }
   ],
   "composition": {
     "effectif_min": 3,
@@ -74,6 +74,12 @@
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["guerriers_nains", "tireurs_nains"],
       "categories_interdites": ["armes_tir", "armes_poudre_noire", "armures"],
+      "competences_speciales": [
+        { "id": "charge_furieuse", "nom": "Charge Furieuse", "reserve_a": "Tueur de Trolls Nain uniquement", "texte": "Le Tueur peut doubler le nombre de ses attaques lors du tour où il charge. Il subit alors un malus de -1 pour toucher.", "valeurPuissance": 40 },
+        { "id": "tueur_de_monstres", "nom": "Tueur de Monstres", "reserve_a": "Tueur de Trolls Nain uniquement", "texte": "Le Tueur blesse toujours son adversaire sur 4+, sans tenir compte de l'Endurance, à moins que sa Force (après tous les modificateurs dûs aux armes, etc.) ne lui permette déjà de blesser plus facilement.", "valeurPuissance": 20 },
+        { "id": "berserk", "nom": "Berserk", "reserve_a": "Tueur de Trolls Nain uniquement", "texte": "Le Tueur peut ajouter +1 à ses jets pour toucher au corps à corps lors du tour où il charge.", "valeurPuissance": 20 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -147,10 +153,7 @@
     { "id": "increvable", "nom": "Increvable", "texte": "Lorsque vous faites un jet sur le Tableau des Blessures Graves à la fin d'une partie au cours de laquelle ce héros a été mis hors de combat, le dé peut être relancé une fois. Le second résultat doit être accepté même s'il est pire que le premier.", "valeurPuissance": 0 },
     { "id": "prospecteur", "nom": "Prospecteur", "texte": "Lors de la phase d'Exploration à la fin de la partie, le héros peut modifier un jet de dé par +1/-1.", "valeurPuissance": 0 },
     { "id": "tres_coriace", "nom": "Très Coriace", "texte": "Lors des jets de dégâts affectant ce héros, on considère qu'un jet de 1-3 le met à terre, qu'un jet de 4-5 le sonne, et qu'un 6 le met hors de combat.", "valeurPuissance": 40 },
-    { "id": "crane_epais", "nom": "Crâne Épais", "texte": "Le héros bénéficie d'une sauvegarde de 3+ sur 1D6 pour éviter d'être sonné. Si la sauvegarde est réussie, transformez le résultat sonné en à terre à la place. Si le héros porte en plus un casque, cette sauvegarde passe à 2+ au lieu de 3+ (ceci remplace la règle spéciale habituelle concernant les casques).", "valeurPuissance": 40 },
-    { "id": "charge_furieuse", "nom": "Charge Furieuse", "reserve_a": "Tueur de Trolls Nain uniquement", "texte": "Le Tueur peut doubler le nombre de ses attaques lors du tour où il charge. Il subit alors un malus de -1 pour toucher.", "valeurPuissance": 40 },
-    { "id": "tueur_de_monstres", "nom": "Tueur de Monstres", "reserve_a": "Tueur de Trolls Nain uniquement", "texte": "Le Tueur blesse toujours son adversaire sur 4+, sans tenir compte de l'Endurance, à moins que sa Force (après tous les modificateurs dûs aux armes, etc.) ne lui permette déjà de blesser plus facilement.", "valeurPuissance": 20 },
-    { "id": "berserk", "nom": "Berserk", "reserve_a": "Tueur de Trolls Nain uniquement", "texte": "Le Tueur peut ajouter +1 à ses jets pour toucher au corps à corps lors du tour où il charge.", "valeurPuissance": 20 }
+    { "id": "crane_epais", "nom": "Crâne Épais", "texte": "Le héros bénéficie d'une sauvegarde de 3+ sur 1D6 pour éviter d'être sonné. Si la sauvegarde est réussie, transformez le résultat sonné en à terre à la place. Si le héros porte en plus un casque, cette sauvegarde passe à 2+ au lieu de 3+ (ceci remplace la règle spéciale habituelle concernant les casques).", "valeurPuissance": 40 }
   ],
   "equipement": {
     "guerriers_nains": {
@@ -199,8 +202,5 @@
         { "item_id": "casque", "cout": 10 }
       ]
     }
-  },
-  "equipement_special": [
-    { "item_id": "hache_naine", "cout": 15, "disponibilite": "Rare 8 (Nains seulement)" }
-  ]
+  }
 }

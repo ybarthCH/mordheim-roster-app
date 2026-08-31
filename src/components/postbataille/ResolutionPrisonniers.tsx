@@ -3,9 +3,11 @@ import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { resolveProfil } from '../../utils/profil';
 import { creerMembre } from '../../utils/factory';
-import { rejoindreGroupe } from '../../utils/shop';
+import { rejoindreGroupe, groupeDupliqueraitObjetLimite } from '../../utils/shop';
 import { JetOrButton } from './JetOrButton';
 import { useLanguage } from '../../state/useLanguage';
+import { useGameRules } from '../../state/useGameRules';
+import { BANDES_TRAITEES_COMME_POSSEDES } from '../../data/bandeCategories';
 
 type Props = {
   roster: RosterInstance;
@@ -20,6 +22,10 @@ type Props = {
 
 type Branche = 'possedes' | 'morts_vivants' | 'skaven' | 'autres';
 
+// Voir BANDES_TRAITEES_COMME_POSSEDES (data/bandeCategories.ts) pour la
+// source de chaque bande listée ici.
+const BANDES_SACRIFICE_PRISONNIERS = BANDES_TRAITEES_COMME_POSSEDES;
+
 // (3 3 3) Prisonniers — l'action possible dépend de la nature de la bande.
 export function ResolutionPrisonniers({
   roster,
@@ -30,6 +36,7 @@ export function ResolutionPrisonniers({
   onAjouterAuJournal,
 }: Props) {
   const { t } = useLanguage();
+  const { rules } = useGameRules();
   const [branche, setBranche] = useState<Branche | null>(null);
   const [heroId, setHeroId] = useState('');
   const [jetXp, setJetXp] = useState('');
@@ -93,11 +100,13 @@ export function ResolutionPrisonniers({
     setResolu(`${t('postBataille.prisoners.escorted', { n: orEscorteValeur ?? 0 })} ${texteRecrue}`);
   };
 
+  const groupeRecrue = groupesHumains.find((m) => m.instance_id === groupeRecrueId);
+  const dupliqueraitObjetLimite = !!groupeRecrue && groupeDupliqueraitObjetLimite(groupeRecrue, rules);
+
   const ajouterRecrue = () => {
-    const groupe = groupesHumains.find((m) => m.instance_id === groupeRecrueId);
-    if (!groupe) return;
-    onMajRoster(rejoindreGroupe(roster, groupe, 1, 0));
-    finaliserEscorte(t('postBataille.prisoners.recruitJoined', { groupe: groupe.nom_perso }));
+    if (!groupeRecrue || dupliqueraitObjetLimite) return;
+    onMajRoster(rejoindreGroupe(roster, groupeRecrue, 1, 0));
+    finaliserEscorte(t('postBataille.prisoners.recruitJoined', { groupe: groupeRecrue.nom_perso }));
   };
 
   const ignorerRecrue = () => {
@@ -118,8 +127,12 @@ export function ResolutionPrisonniers({
         <button
           type="button"
           className={`btn--pack-pill-sm ${branche === 'possedes' ? 'btn--pack-pill-sm--primary' : ''}`}
-          disabled={catalogue.id !== 'cult_of_the_possessed'}
-          title={catalogue.id !== 'cult_of_the_possessed' ? t('postBataille.vagrant.reservedFor', { faction: 'Possédés' }) : undefined}
+          disabled={!BANDES_SACRIFICE_PRISONNIERS.includes(catalogue.id)}
+          title={
+            !BANDES_SACRIFICE_PRISONNIERS.includes(catalogue.id)
+              ? t('postBataille.vagrant.reservedFor', { faction: 'Possédés, Amazones' })
+              : undefined
+          }
           onClick={() => setBranche('possedes')}
         >
           {t('postBataille.prisoners.sacrificeForXp')}
@@ -145,9 +158,9 @@ export function ResolutionPrisonniers({
         <button
           type="button"
           className={`btn--pack-pill-sm ${branche === 'autres' ? 'btn--pack-pill-sm--primary' : ''}`}
-          disabled={['cult_of_the_possessed', 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)}
+          disabled={[...BANDES_SACRIFICE_PRISONNIERS, 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)}
           title={
-            ['cult_of_the_possessed', 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)
+            [...BANDES_SACRIFICE_PRISONNIERS, 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)
               ? t('postBataille.vagrant.betterOptionAbove')
               : undefined
           }
@@ -225,6 +238,9 @@ export function ResolutionPrisonniers({
                   </option>
                 ))}
               </select>
+              {dupliqueraitObjetLimite && (
+                <p className="text-danger text-sm">{t('recruterDansGroupe.trinketBlocked')}</p>
+              )}
             </div>
           ) : (
             <p className="text-sm text-muted">{t('postBataille.prisoners.recruitNoGroup')}</p>
@@ -234,7 +250,7 @@ export function ResolutionPrisonniers({
               <button
                 type="button"
                 className="btn--pack-pill-sm btn--pack-pill-sm--primary"
-                disabled={!groupeRecrueId}
+                disabled={!groupeRecrueId || dupliqueraitObjetLimite}
                 onClick={ajouterRecrue}
               >
                 {t('postBataille.prisoners.recruitJoinButton')}

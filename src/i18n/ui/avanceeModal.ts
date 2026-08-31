@@ -74,6 +74,10 @@ export const avanceeModal: UiDictionary = {
     fr: 'Choisis au moins 2 tables de compétences accessibles à ce nouveau héros.',
     en: 'Choose at least 2 skill tables accessible to this new Hero.',
   },
+  'avanceeModal.promotionTableForbidden': {
+    fr: 'Ce profil ne peut pas choisir cette table de compétences à la promotion.',
+    en: 'This profile cannot choose this skill table when promoted.',
+  },
   'avanceeModal.confirmPromotionRoll': {
     fr: 'Confirmer la promotion et lancer sur la table héros',
     en: 'Confirm the promotion and roll on the hero table',

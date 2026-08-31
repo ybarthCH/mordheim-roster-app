@@ -195,6 +195,13 @@ export function resumeExploration(
     ajouterAide(aides, `${tr('exploration.bandSourceLabel', language)} — ${regle.nom}`, regle.texte, regle.texte);
   }
 
+  // Bonus fixe et inconditionnel de dé(s) d'Exploration pour toute la
+  // bande (ex : Gardiens des Tombes — "Terrain natal") — voir
+  // WarbandCatalog.bonus_des_exploration_fixe.
+  if (catalogue?.bonus_des_exploration_fixe) {
+    bonusFixes += catalogue.bonus_des_exploration_fixe;
+  }
+
   // Bonus de dé(s) obtenu lors d'un précédent jet d'exploration (ex :
   // Vagabond interrogé) — consommé une fois cette bataille terminée, voir
   // PostBatailleScreen.terminer().

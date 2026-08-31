@@ -185,7 +185,7 @@ export function RosterScreen({
   // réordonnancement franchissant une frontière de catégorie.
   const membresVivants = roster.membres.filter((m) => m.statut !== 'mort');
   const besoinChoixLeader = choixLeaderRequis(roster, catalogue);
-  const trinketsLimitesEnTrop = rules.trinketsLimites ? trouverTrinketsLimitesEnTrop(roster) : [];
+  const trinketsLimitesEnTrop = trouverTrinketsLimitesEnTrop(roster, rules);
 
   // Lustrian Reavers ("Promotions") : rôles de héros uniques tombés — bannis
   // du recrutement mais toujours vacants (aucun titulaire vivant) — qu'un
@@ -368,6 +368,15 @@ export function RosterScreen({
 
   return (
     <Screen title={roster.nom_bande} back="/" menuItems={menuItems}>
+      {roster.dissoute && (
+        <div className="banner-danger">
+          <span className="banner-danger__icon" aria-hidden="true">
+            ⚠
+          </span>
+          <span>{t('roster.dissoute')}</span>
+        </div>
+      )}
+
       {effectifDepasse && (
         <div className="banner-danger">
           <span className="banner-danger__icon" aria-hidden="true">
@@ -435,7 +444,13 @@ export function RosterScreen({
       <RosterSummaryCard roster={roster} catalogue={catalogue} onPatch={patch} />
 
       <div className="roster-actions">
-        <button type="button" className="btn btn--primary roster-actions__btn" onClick={() => setModalMembre(true)}>
+        <button
+          type="button"
+          className="btn btn--primary roster-actions__btn"
+          disabled={roster.dissoute}
+          title={roster.dissoute ? t('roster.dissoluteShort') : undefined}
+          onClick={() => setModalMembre(true)}
+        >
           {t('roster.recruit')}
         </button>
         <button type="button" className="btn roster-actions__btn" onClick={() => setModalAchat(true)}>
@@ -444,6 +459,8 @@ export function RosterScreen({
         <button
           type="button"
           className="btn roster-actions__btn"
+          disabled={roster.dissoute}
+          title={roster.dissoute ? t('roster.dissoluteShort') : undefined}
           onClick={() => navigate(`/roster/${roster.id}/post-bataille`)}
         >
           {t('roster.postBattleWizard')}
@@ -748,10 +765,11 @@ export function RosterScreen({
                 onApply={(updated, nouveauMembre) => {
                   const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
                   const succession = succederApresMorts(roster, catalogue, membresMaj);
+                  const membresAvecSuccession = succession?.membres ?? membresMaj;
                   updateRoster({
                     ...roster,
                     ...succession,
-                    membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj,
+                    membres: nouveauMembre ? [...membresAvecSuccession, nouveauMembre] : membresAvecSuccession,
                   });
                 }}
               />

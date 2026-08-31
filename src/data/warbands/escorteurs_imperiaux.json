@@ -45,6 +45,7 @@
       ],
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
       "acces_equipement": ["base"],
+      "competences_gratuites": ["equitation_01"],
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -64,6 +65,7 @@
       ],
       "acces_competences": ["combat", "tir", "force"],
       "acces_equipement": ["base", "armes_tir_escorteurs"],
+      "competences_gratuites": ["equitation_01"],
       "acces_competences_a_verifier": false
     },
     {
@@ -82,6 +84,7 @@
       ],
       "acces_competences": ["combat", "tir", "vitesse"],
       "acces_equipement": ["base", "armes_tir_eclaireurs"],
+      "competences_gratuites": ["equitation_01"],
       "acces_competences_a_verifier": false
     },
     {
@@ -100,6 +103,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["base", "armes_tir_escorteurs"],
+      "competences_gratuites": ["equitation_01"],
       "acces_competences_a_verifier": false
     },
     {
@@ -119,6 +123,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["base"],
+      "competences_gratuites": ["equitation_01", "equitation_08"],
       "acces_competences_a_verifier": false
     },
     {
@@ -138,6 +143,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["base", "armes_tir_eclaireurs"],
+      "competences_gratuites": ["equitation_01"],
       "acces_competences_a_verifier": false
     }
   ],

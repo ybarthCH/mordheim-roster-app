@@ -67,7 +67,8 @@
       "regles_speciales": [],
       "acces_competences": ["combat", "force"],
       "acces_equipement": ["morts_vivants"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_chef": true
     },
     {
       "id": "zombie",
@@ -90,6 +91,7 @@
       "acces_competences": [],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
+      "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -110,6 +112,7 @@
       "acces_competences": [],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
+      "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -131,6 +134,8 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
+      "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
+      "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false
     },
     {

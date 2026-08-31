@@ -132,7 +132,7 @@ function BlocAvanceeDue({
   const { t, language } = useLanguage();
   const profil = resolveProfil(roster, membre, catalogue, language);
   if (!profil || !peutGagnerExperience(profil)) return null;
-  const dues = avancesDues(grilleXpDuProfil(profil), membre.xp_depart, xpActuel, demiXp);
+  const dues = avancesDues(grilleXpDuProfil(profil), membre.xp_depart, xpActuel, demiXp || !!profil.demi_xp);
   const enAttente = Math.max(0, dues - avancesObtenues(membre.historique_avancees));
   if (enAttente === 0) return null;
   return (
@@ -212,7 +212,7 @@ export function EtapeGainXp({
                   xpActuel={d.xp}
                   onChange={(xp) => changerXp(m, xp, estHorsDeCombat ? m.xp : m.xp + 1)}
                   bonusLeader={bonusLeader}
-                  demiXp={demiXp}
+                  demiXp={demiXp || !!profil?.demi_xp}
                 />
               )}
               {!estMort && (

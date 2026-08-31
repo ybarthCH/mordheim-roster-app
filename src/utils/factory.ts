@@ -6,13 +6,15 @@ import { profilDeFrancTireur } from '../data/hiredSwords';
 
 const STATS_VIDES: Stats = { M: 0, CC: 0, CT: 0, F: 0, E: 0, PV: 0, I: 0, A: 0, Cd: 0 };
 
-function membreDeBase(): Omit<Member, 'profil_id' | 'nom_perso' | 'xp' | 'xp_depart' | 'stats_actuels'> {
+function membreDeBase(
+  competencesGratuites: string[] = []
+): Omit<Member, 'profil_id' | 'nom_perso' | 'xp' | 'xp_depart' | 'stats_actuels'> {
   return {
     instance_id: uuidv4(),
     equipement: '',
     inventaire: [],
     stats_modifiees: [],
-    competences_acquises: [],
+    competences_acquises: [...competencesGratuites],
     sorts_connus: [],
     regles_speciales_notes: [],
     statut: 'actif',
@@ -31,7 +33,7 @@ export function creerMembre(profil: Profile, xpDepart?: number, tailleGroupe = 1
   const stats = profil.stats ? { ...profil.stats } : { ...STATS_VIDES };
   const xp = xpDepart ?? profil.xp_depart ?? 0;
   return {
-    ...membreDeBase(),
+    ...membreDeBase(profil.competences_gratuites),
     profil_id: profil.id,
     nom_perso: profil.nom,
     xp,

@@ -36,6 +36,10 @@
       ],
       "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
       "acces_equipement": ["orques"],
+      "competences_speciales": [
+        { "id": "revnez_ici", "nom": "Rev'nez ici !", "reserve_a": "Chef Orque uniquement", "texte": "La bande peut relancer tout test de Déroute raté tant que le Chef Orque n'a pas été mis hors de combat.", "valeurPuissance": 40 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -111,7 +115,9 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["gobelins"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_heros": true,
+      "plafond_relatif": { "profils": ["chef_orque", "chamane_orque", "kosto", "boyz_orque"], "multiplicateur": 2, "label": "Guerriers Gobelins" }
     },
     {
       "id": "squig_des_cavernes",
@@ -132,7 +138,9 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
-      "acces_competences_a_verifier": false
+      "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
+      "acces_competences_a_verifier": false,
+      "plafond_relatif": { "profils": ["guerrier_gobelin"], "label": "Squigs des cavernes" }
     },
     {
       "id": "troll",
@@ -155,7 +163,12 @@
       "acces_competences": [],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "entretien": {
+        "type": "or",
+        "cout": 15,
+        "texte": "15 CO après chaque bataille pour nourrir le Troll, ou sacrifier 2 Gobelins ou Squigs (non automatisé — à faire manuellement si ce choix est préféré). S'il ne mange pas à sa faim, il quitte la bande définitivement."
+      }
     },
     {
       "id": "chien_de_guerre",
@@ -183,8 +196,7 @@
     { "id": "waaagh", "nom": "Waaagh !", "texte": "Le guerrier ajoute +1D3ps à sa portée de charge.", "valeurPuissance": 20 },
     { "id": "dur_a_cuire", "nom": "Dur à cuire", "texte": "Augmente de +1 la sauvegarde d'armure de la figurine.", "valeurPuissance": 40 },
     { "id": "coup_dboule", "nom": "Coup d'boule", "texte": "Toute figurine mise à terre au corps à corps par ce guerrier est considérée comme sonnée.", "valeurPuissance": 40 },
-    { "id": "on_y_va", "nom": "On y va !", "texte": "La figurine n'a pas à effectuer de test de peur lorsqu'elle charge.", "valeurPuissance": 20 },
-    { "id": "revnez_ici", "nom": "Rev'nez ici !", "reserve_a": "Chef Orque uniquement", "texte": "La bande peut relancer tout test de Déroute raté tant que le Chef Orque n'a pas été mis hors de combat.", "valeurPuissance": 40 }
+    { "id": "on_y_va", "nom": "On y va !", "texte": "La figurine n'a pas à effectuer de test de peur lorsqu'elle charge.", "valeurPuissance": 20 }
   ],
   "equipement": {
     "orques": {
@@ -225,15 +237,10 @@
       "divers": [
         { "item_id": "aiguillon_a_squigs", "cout": 15 },
         { "item_id": "chaine_et_boulet_cac", "cout": 15, "restriction": "Gobelins uniquement" },
-        { "item_id": "champignons_bonnets_de_fou_market", "cout": 25, "restriction": "Si la bande comprend au moins un Gobelin" }
+        { "item_id": "champignons_bonnets_de_fou_market", "cout": 25, "restriction": "Si la bande comprend au moins un Gobelin", "rarete": "-" }
       ]
     }
   },
-  "equipement_special": [
-    { "item_id": "chaine_et_boulet_cac", "cout": 15, "disponibilite": "Commune (Gobelins uniquement)", "profils": ["guerrier_gobelin"] },
-    { "item_id": "aiguillon_a_squigs", "cout": 15, "disponibilite": "Commun (Gobelins uniquement)", "profils": ["guerrier_gobelin"] },
-    { "item_id": "champignons_bonnets_de_fou_market", "cout": 25, "disponibilite": "Commun, Gobelins uniquement", "profils": ["guerrier_gobelin"] }
-  ],
   "magie": {
     "nom": "Magie Waaagh !",
     "type": "sorcellerie",

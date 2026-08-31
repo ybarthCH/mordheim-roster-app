@@ -29,6 +29,10 @@
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": ["heros_armes", "heros_armures"],
+      "competences_speciales": [
+        { "id": "jargon_des_batailles", "nom": "Jargon des Batailles", "reserve_a": "Chef de bande uniquement", "texte": "Le rayon dans lequel les alliés peuvent utiliser son Commandement passe de 6 à 12ps.", "valeurPuissance": 20 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -71,7 +75,9 @@
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
-      "acces_competences_a_verifier": false
+      "aucun_achat_shop_commun": true,
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_chef": true
     },
     {
       "id": "bondis",
@@ -113,7 +119,7 @@
       "xp_depart": 0,
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "acces_competences": [],
-      "acces_equipement": ["chasseurs_norses"],
+      "acces_equipement": ["hommes_de_main"],
       "acces_competences_a_verifier": false
     },
     {
@@ -160,7 +166,6 @@
     { "id": "expert_du_bouclier", "nom": "Expert du Bouclier", "texte": "Équipé d'un bouclier, peut effectuer une parade en plus de la sauvegarde d'armure de 6+.", "valeurPuissance": 20 },
     { "id": "frappe_destructrice", "nom": "Frappe Destructrice", "texte": "Les attaques du Héros ne peuvent pas être parées.", "valeurPuissance": 20 },
     { "id": "charge_berserk", "nom": "Charge Berserk", "texte": "Armé d'une hache ou d'une arme à deux mains, peut relancer tout jet pour toucher raté lorsqu'il charge.", "valeurPuissance": 20 },
-    { "id": "jargon_des_batailles", "nom": "Jargon des Batailles", "reserve_a": "Chef de bande uniquement", "texte": "Le rayon dans lequel les alliés peuvent utiliser son Commandement passe de 6 à 12ps.", "valeurPuissance": 20 },
     { "id": "intrepidite", "nom": "Intrépidité", "texte": "N'a jamais à passer de test de seul contre tous et peut relancer ses tests de peur ratés.", "valeurPuissance": 20 }
   ],
   "equipement": {
@@ -206,28 +211,6 @@
         { "item_id": "casque", "cout": 10 },
         { "item_id": "bouclier", "cout": 5 }
       ]
-    },
-    "chasseurs_norses": {
-      "armes_cac": [
-        { "item_id": "dague", "cout": 2, "note": "première gratuite" },
-        { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Marteau" },
-        { "item_id": "hache", "cout": 5 },
-        { "item_id": "epee", "cout": 10 },
-        { "item_id": "lance", "cout": 10 },
-        { "item_id": "arme_a_deux_mains", "cout": 15 }
-      ],
-      "armes_tir": [
-        { "item_id": "javelots", "cout": 5 },
-        { "item_id": "arc", "cout": 10 }
-      ],
-      "armures": [
-        { "item_id": "casque", "cout": 10 },
-        { "item_id": "bouclier", "cout": 5 }
-      ]
     }
-  },
-  "equipement_special": [
-    { "item_id": "arme_en_obsidienne_market", "cout": "Prix de l'arme de base x4", "disponibilite": "Rare 12, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" },
-    { "item_id": "armure_du_chaos_market", "cout": 185, "disponibilite": "Rare 13, Culte des Possédés, Nains du Chaos, Kermesse du Chaos, Maraudeurs du Chaos, Nordiques, Pillards Hommes-Bêtes uniquement" }
-  ]
+  }
 }

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
-import { grilleXpDuProfil, resolveProfil, nombreHeros, peutDesignerEntraine, doitEtreRetireEntraine } from '../../utils/profil';
+import { grilleXpDuProfil, resolveProfil, nombreHeros, peutDesignerEntraine, doitEtreRetireEntraine, transformationDisponible, transformationEstDepart } from '../../utils/profil';
 import { getCatalogue } from '../../data/warbands';
 import type { Magie, Stats } from '../../types/catalog';
 import type { AdvanceRecord, Statut } from '../../types/roster';
@@ -21,6 +21,7 @@ import { BlessureGraveModal } from './BlessureGraveModal';
 import { AchatEquipementModal } from './AchatEquipementModal';
 import { RecruterDansGroupeModal } from './RecruterDansGroupeModal';
 import { OptionSorcierModal } from './OptionSorcierModal';
+import { TransformationModal } from './TransformationModal';
 import { ItemDetailModal } from './ItemDetailModal';
 import { Modal } from '../common/Modal';
 import { CollapsibleCard } from '../common/CollapsibleCard';
@@ -86,6 +87,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   const [modalAchat, setModalAchat] = useState(false);
   const [modalRecruterGroupe, setModalRecruterGroupe] = useState(false);
   const [modalOptionSorcier, setModalOptionSorcier] = useState(false);
+  const [modalTransformation, setModalTransformation] = useState(false);
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
   const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
   const [avanceeAModifier, setAvanceeAModifier] = useState<AdvanceRecord | null>(null);
@@ -162,7 +164,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
       return {
         ...current,
         ...succession,
-        membres: membresMaj,
+        membres: succession?.membres ?? membresMaj,
         tresorerie: current.tresorerie + tresorerieBonus,
       };
     });
@@ -251,6 +253,39 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
     });
   };
 
+  // Transformation payante et définitive vers un AUTRE profil de la même
+  // bande (voir Profile.transformation, ex : Pti'mek -> Orque Noir) : débite
+  // la trésorerie et bascule `profil_id` en un seul patch. Les stats/XP/
+  // historique du membre sont conservés tels quels ; seul l'accès
+  // équipement/compétences change, via la résolution normale du nouveau
+  // profil (resolveProfil). Si la cible est déjà occupée par un autre membre
+  // vivant (voir Profile.transformation.bloque_si_profil_vivant /
+  // transformationEstDepart, ex : le Damné dont la bande a déjà un Enfant du
+  // Chaos), aucun swap n'a lieu : le membre quitte simplement la bande,
+  // gratuitement, même principe que supprimerMembre.
+  const transformerProfil = () => {
+    const transformation = profil.transformation;
+    if (!transformation) return;
+    if (transformationEstDepart(profil, roster)) {
+      patchRoster(roster.id, (current) => ({
+        ...current,
+        membres: current.membres.filter((m) => m.instance_id !== membre.instance_id),
+      }));
+      navigate(`/roster/${roster.id}`);
+      return;
+    }
+    patchRoster(roster.id, (current) => {
+      if (current.tresorerie < (transformation.cout ?? 0)) return current;
+      return {
+        ...current,
+        tresorerie: current.tresorerie - (transformation.cout ?? 0),
+        membres: current.membres.map((m) =>
+          m.instance_id === membre.instance_id ? { ...m, profil_id: transformation.cible } : m
+        ),
+      };
+    });
+  };
+
   // Supprime un seul exemplaire sans contrepartie (perdu, détruit...) —
   // toujours un exemplaire à la fois, même dans un groupe d'hommes de main
   // (voir note sur transfererVersStock dans utils/shop.ts).
@@ -303,7 +338,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
             : m
         );
         const succession = succederApresMorts(current, catalogue, membresApres);
-        return { ...current, ...succession, membres: membresApres };
+        return { ...current, ...succession, membres: succession?.membres ?? membresApres };
       });
     } else if (s === 'blesse') {
       majMembre({ statut: s, date_mort: undefined, blesse_tour_actuel: 0, blesse_tour_total: toursBlesse ?? 0 });
@@ -349,7 +384,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
       }
     : undefined;
 
-  const demiXp = !!catalogue.xp_demi;
+  const demiXp = !!catalogue.xp_demi || !!profil.demi_xp;
   const dues =
     francTireur?.gagne_experience === false || !peutGagnerExperience(profil)
       ? 0
@@ -507,6 +542,19 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         </div>
       )}
 
+      {profil.transformation && transformationDisponible(profil, membre, roster) && (
+        <div className="card card--tight">
+          <button className="btn btn--block" onClick={() => setModalTransformation(true)}>
+            {transformationEstDepart(profil, roster)
+              ? t('transformation.departButtonLabel')
+              : t('transformation.buttonLabel', {
+                  nom: catalogue.profils.find((p) => p.id === profil.transformation?.cible)?.nom ?? profil.transformation.cible,
+                  cout: profil.transformation.cout ?? 0,
+                })}
+          </button>
+        </div>
+      )}
+
       <ReglesSpecialesCard membre={membre} onMajMembre={majMembre} />
 
       {profil.type === 'heros' && (!francTireur || estDramatisPersonae(membre)) && (
@@ -595,10 +643,11 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
           onApply={(updated, nouveauMembre) => {
             const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
             const succession = succederApresMorts(roster, catalogue, membresMaj);
+            const membresAvecSuccession = succession?.membres ?? membresMaj;
             updateRoster({
               ...roster,
               ...succession,
-              membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj,
+              membres: nouveauMembre ? [...membresAvecSuccession, nouveauMembre] : membresAvecSuccession,
             });
           }}
         />
@@ -620,6 +669,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
           competencesAcquises={membre.competences_acquises}
           marqueId={membre.marque}
           inventaireActuel={membre.inventaire}
+          xpMembre={membre.xp}
           inventaireBande={inventaireComplet(roster)}
           roster={roster}
           tailleGroupe={membre.taille_groupe || 1}
@@ -649,6 +699,15 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
           catalogue={catalogue}
           onClose={() => setModalOptionSorcier(false)}
           onConfirm={prendreOptionSorcier}
+        />
+      )}
+      {modalTransformation && (
+        <TransformationModal
+          roster={roster}
+          profil={profil}
+          catalogue={catalogue}
+          onClose={() => setModalTransformation(false)}
+          onConfirm={transformerProfil}
         />
       )}
       {itemDetail && (

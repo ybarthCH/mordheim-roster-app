@@ -660,6 +660,18 @@ export const RESTRICTIONS_ABSOLUES_DP: Record<string, Set<string>> = {
   // pendant francs-tireurs dans hiredSwords.ts RESTRICTIONS_ABSOLUES) :
   // aucun Dramatis Personae ne nomme explicitement Cathay dans son texte.
   moines_guerriers_de_cathay: new Set(),
+  // "Il n'est pas des nôtres" (Amazones - Setting Lustrie [GLM].pdf p.1,
+  // voir le pendant francs-tireurs dans hiredSwords.ts RESTRICTIONS_ABSOLUES)
+  // : seule Penthesilée, elle-même une Amazone, reste recrutable.
+  amazones_lustrie: new Set(['penthesilee']),
+  amazones_mordheim: new Set(['penthesilee']),
+  // "Autonome" (Mercenaires Ostlanders [GLM].pdf) : les Francs-Tireurs de la
+  // bande sont limités à l'Ogre (voir le pendant francs-tireurs bruts dans
+  // hiredSwords.ts RESTRICTIONS_ABSOLUES). Arbitrage Yannick
+  // (docs/rules/PROJECT_DECISIONS.md) : la restriction s'étend aussi aux
+  // Dramatis Personae, qu'aucun texte ne cite explicitement pour cette
+  // bande — ensemble vide, aucune Dramatis Personae recrutable.
+  ostlanders: new Set(),
 };
 
 export function dramatisPersonaeDisponibles(roster: RosterInstance): FrancTireurCatalog[] {
@@ -672,9 +684,18 @@ export function dramatisPersonaeDisponibles(roster: RosterInstance): FrancTireur
       .filter((g): g is string => !!g)
   );
   const restriction = RESTRICTIONS_ABSOLUES_DP[roster.bande_id];
+  // "Rancuniers" ("Une bande de nains ne peut jamais inclure de Franc-Tireur
+  // elfe, quel qu'il soit, ni aucune Dramatis Personae elfe.",
+  // dwarf_treasure_hunters/culte_des_tueurs) — même exclusion déjà
+  // appliquée aux francs-tireurs bruts dans hiredSwords.ts
+  // (appliquerRestrictionsDeBande), mais absente ici : cette fonction lit
+  // DRAMATIS_PERSONAE directement plutôt que de passer par FRANCS_TIREURS,
+  // donc le filtre doit être dupliqué.
+  const bandesRancunieres = roster.bande_id === 'dwarf_treasure_hunters' || roster.bande_id === 'culte_des_tueurs';
   return DRAMATIS_PERSONAE.filter(
     (dp) =>
       dp.employeurs.bande_ids.includes(roster.bande_id) &&
+      !(bandesRancunieres && dp.tags?.includes('elfe')) &&
       (!restriction || restriction.has(dp.id)) &&
       !dejaPresents.has(dp.id) &&
       !(dp.recrue_avec && dejaPresents.has(dp.recrue_avec)) &&

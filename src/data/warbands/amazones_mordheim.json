@@ -109,20 +109,11 @@
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
         { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Massue" },
         { "item_id": "epee", "cout": 10 },
-        { "item_id": "lance", "cout": 10 },
-        { "item_id": "griffes_des_anciens", "cout": 30, "note": "Griffe des Anciens" }
-      ],
-      "armes_tir": [
-        { "item_id": "baton_solaire_mordheim", "cout": 50 },
-        { "item_id": "gantelet_du_soleil", "cout": 40 }
+        { "item_id": "lance", "cout": 10 }
       ],
       "armures": [
         { "item_id": "casque", "cout": 10, "note": "Heaume" },
         { "item_id": "rondache", "cout": 5 }
-      ],
-      "divers": [
-        { "item_id": "amulette_lunaire", "cout": 50, "note": "Amulette de la Lune" },
-        { "item_id": "herbes_de_soin", "cout": 35, "note": "Herbes Médicinales" }
       ]
     },
     "femmes_de_main": {
@@ -164,7 +155,7 @@
     { "item_id": "baton_solaire_mordheim", "cout": 50, "disponibilite": "Rare 12", "profils": ["pretresse", "championne", "guerriere_totem"] },
     { "item_id": "gantelet_du_soleil", "cout": 40, "disponibilite": "Rare 12", "profils": ["pretresse", "championne", "guerriere_totem"] },
     { "item_id": "amulette_lunaire", "cout": 50, "disponibilite": "Rare 12", "profils": ["pretresse", "championne", "guerriere_totem"] },
-    { "item_id": "herbes_de_soin", "cout": 35, "disponibilite": "Commune pour les Amazones, Héros uniquement", "profils": ["pretresse", "championne", "guerriere_totem"] }
+    { "item_id": "herbes_de_soin", "cout": 35, "disponibilite": "Commune pour les Amazones, Héros uniquement", "rarete": "-", "profils": ["pretresse", "championne", "guerriere_totem"] }
   ],
   "magie": {
     "nom": "Rituels Amazones",

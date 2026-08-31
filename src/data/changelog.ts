@@ -33,6 +33,45 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-08-31',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Nouveaux mécanismes de succession de chef forcée et de transformation de profil déclenchés depuis la fiche personnage : dissolution de bande chez les Morts-Vivants sans Nécromancien ni Vampire, Pti'mek devenant Orque Noir, Rat géant devenant Rat Familier (Skavens du Clan Pestilens), Damné devenant Enfant du Chaos (Maraudeurs du Chaos), succession forcée chez les Orques Noirs, et succession du Marchand vers l'Apprenti chez les Caravanes Marchandes (qui hérite de ses compétences spéciales).",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Nouvelles réductions de prix liées à l'historique d'un Héros : l'Armure du Chaos coûte moins cher selon l'expérience de son porteur (et sa recherche bénéficie d'un bonus selon ses ennemis mis hors de combat lors de la bataille précédente), et la Faveur du Seigneur (Gardiens de Chapelle Bretonniens) comme l'Héritage (Kislévites) offrent un objet à moitié prix au recrutement d'un Héros.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Le Chien de Guerre des Mangeurs d'Hommes débloque désormais l'accès aux francs-tireurs Mercenaires (retirés de la bande à la mort du chef qui l'a acquis), et les Gors deviennent recrutables chez les Maraudeurs du Chaos pour toute bande portant la Marque du Chaos Universel.",
+      },
+      {
+        categorie: 'interface',
+        texte: "L'indication de déroute est désormais un badge sur la carte résumé de bande.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Poursuite et clôture du grand audit des règles de bande contre les documents officiels sur la quasi-totalité des bandes restantes : Amazones, Artilleurs de Nuln, Mercenaires Averlanders, Bandits du Hochland, Pillards Hommes-Bêtes, La Kermesse du Chaos, La Cavalcade Maudite, Chasseurs Cornus, Chasseurs de Trésors Nains, Cour des Plaisirs Profanes, Culte des Possédés, Culte des Tueurs, Elfes Noirs, Escorteurs Impériaux, Fils d'Hashut, Gardiens de Chapelle Bretonniens, Gardiens des Tombes, Gladiateurs, Gobelins de la Nuit, Hors-la-loi de la Forêt de Stirwood, Hommes-Lézards, Guerriers Fantômes, Mercenaires Marienburgers, Pillards de Lustrie, Mangeurs d'Hommes, Maraudeurs du Chaos, Mercenaires Middenheimers, Mootlanders, Morts Tourmentés, Nains du Chaos, Norses, Horde Orque, Orques Noirs, Mercenaires Ostermarkers, Mercenaires Ostlanders, Pirates, Pilleurs de Tombes Arabes, Skavens du Clan Pestilens, Tiléens, Les Répurgateurs, Sylvaneths et Morts-Vivants : fuites d'équipement fermées, compétences spéciales enfin réservées au bon profil, plafonds de recrutement corrigés, et de nombreuses corrections de rareté, de prix et de traduction anglaise.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Les objets « fusionnés au porteur » (comme l'Armure du Chaos) ne peuvent plus être revendus ni transférés à un autre membre, et les plafonds de recrutement relatifs entre deux profils d'une même bande sont désormais réellement bloquants plutôt que purement indicatifs.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Correction de plusieurs fuites de la boutique communes à plusieurs bandes (accès à des objets exclusifs à un autre profil ou une autre bande, duplication d'objets rares/uniques lors d'une recherche, compétences levant à tort une interdiction d'équipement).",
+      },
+    ],
+  },
+  {
     date: '2026-08-30',
     points: [
       {

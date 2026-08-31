@@ -179,6 +179,7 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
+      "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -207,7 +208,7 @@
     { "id": "porte_voix_des_morts", "nom": "Porte-voix des morts", "texte": "Au début de la bataille, peut déployer gratuitement D3 Zombies ; ils ne comptent pas dans l'effectif maximum de la bande mais augmentent la valeur de la bande. Ils ne peuvent pas servir de Bombe cadavérique et ne durent que le temps de la bataille.", "valeurPuissance": 40 },
     { "id": "toucher_spectral", "nom": "Toucher spectral", "texte": "Le héros peut effectuer une seule attaque à mains nues au lieu de ses attaques normales au corps à corps ; en cas de touche, elle blesse automatiquement. Si une Liche utilise cette compétence et blesse, elle récupère 1 Point de Vie perdu (sans dépasser son total de départ). Les Nécromanciens ne récupèrent pas de PV de cette façon. Sans effet sur les Possédés ou les figurines mortes-vivantes.", "valeurPuissance": 20 },
     { "id": "rite_interdit", "nom": "Rite interdit", "texte": "Si le héros n'a pas cherché d'objets rares lors de la dernière phase d'Exploration, débute la prochaine bataille avec une réserve de D3+1 modificateurs (+1) utilisables sur les jets de lancer de sorts, autant à la fois que désiré.", "valeurPuissance": 20 },
-    { "id": "invocateur", "nom": "Invocateur", "texte": "L'effectif maximum de la bande est augmenté de 1.", "valeurPuissance": 0 }
+    { "id": "invocateur", "nom": "Invocateur", "texte": "L'effectif maximum de la bande est augmenté de 1.", "bonus_effectif_max": 1, "valeurPuissance": 0 }
   ],
   "equipement": {
     "morts_vivants": {

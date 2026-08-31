@@ -162,7 +162,13 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 21,
     employeurs: {
-      bande_ids: brutesDuBien,
+      // "Francs-tireurs : Les Escorteurs Impériaux ne peuvent être
+      // accompagnés que par des Francs-tireurs montés. Cela concerne les
+      // Chevaliers solitaires et les Patrouilleurs." (Escorteurs Impériaux
+      // [GLM].pdf p.1) — ajouté explicitement ici, en plus de brutesDuBien ;
+      // voir RESTRICTIONS_ABSOLUES ci-dessous pour la fermeture réciproque
+      // (tout autre franc-tireur exclu pour cette bande).
+      bande_ids: uniques([...brutesDuBien, 'escorteurs_imperiaux']),
       texte: 'Les bandes de Mercenaires et de Répurgateurs.',
     },
     stats: { M: 4, CC: 4, CT: 3, F: 4, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
@@ -255,7 +261,17 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       texte: '10 CO, ou 20 CO si la bande comprend des elfes.',
     },
     valeur: 12,
-    employeurs: { bande_ids: brutesDuBien, texte: 'Les bandes de Mercenaires et de Répurgateurs.' },
+    employeurs: {
+      // "Hired Swords: [...] They may hire an Ogre Bodyguard, Dwarf
+      // Trollslayer, Tilean Marksman or a Big Game Hunter."
+      // (Lustrian-Reavers-V1.2.pdf p.2, "Épées louées") — les 3 autres
+      // francs-tireurs cités fonctionnaient déjà (listes de base plus
+      // larges), seul celui-ci en manquait ; RESTRICTIONS_ABSOLUES.lustrian_reavers
+      // le référence déjà mais ne fait que RESTREINDRE une liste de base,
+      // jamais l'étendre — sans cet ajout il restait un artefact sans effet.
+      bande_ids: uniques([...brutesDuBien, 'lustrian_reavers']),
+      texte: 'Les bandes de Mercenaires et de Répurgateurs.',
+    },
     stats: { M: 3, CC: 4, CT: 3, F: 3, E: 4, PV: 1, I: 2, A: 1, Cd: 9 },
     equipement: ['Deux haches ou une hache à deux mains'],
     equipement_choix: [
@@ -348,7 +364,12 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     recrutement: { cout: 40 },
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 22,
-    employeurs: { bande_ids: BIEN, texte: 'Les bandes alignées du côté du Bien, ainsi que les Gladiateurs.' },
+    employeurs: {
+      // Voir chevalier_solitaire ci-dessus : même règle "Francs-tireurs"
+      // des Escorteurs Impériaux, qui nomme aussi le Patrouilleur.
+      bande_ids: uniques([...BIEN, 'escorteurs_imperiaux']),
+      texte: 'Les bandes alignées du côté du Bien, ainsi que les Gladiateurs.',
+    },
     stats: { M: 4, CC: 3, CT: 4, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 8 },
     equipement: ['Arbalète', 'Marteau de cavalerie', 'Dague', 'Armure lourde', 'Trois torches', 'Cheval'],
     acces_competences: ['combat', 'force', 'tir'],
@@ -392,7 +413,13 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 20,
     employeurs: {
-      bande_ids: toutesSauf('sisters_of_sigmar', 'witch_hunters'),
+      // "May be Hired: Any warband, except Sisters of Sigmar, Witch
+      // Hunters and any good-aligned Elves may hire a Highwayman."
+      // (Hired Sword Compendium part1.pdf p.11) — le texte affiché
+      // ci-dessous excluait déjà "les elfes du Bien" (seule bande d'elfes
+      // non-maléfique du catalogue : Guerriers Fantômes), mais bande_ids
+      // ne l'excluait pas réellement.
+      bande_ids: toutesSauf('sisters_of_sigmar', 'witch_hunters', 'guerriers_fantomes'),
       texte: 'Toute bande sauf les Sœurs de Sigmar, les Répurgateurs et les elfes du Bien.',
     },
     stats: { M: 4, CC: 3, CT: 4, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 7 },
@@ -533,8 +560,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 8,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'sisters_of_sigmar', 'witch_hunters']),
-      texte: 'Les Mercenaires, les Sœurs de Sigmar et les Répurgateurs.',
+      bande_ids: uniques([...MERCENAIRES, 'pirates', 'sisters_of_sigmar', 'witch_hunters']),
+      texte: 'Les Mercenaires, les Pirates, les Sœurs de Sigmar et les Répurgateurs.',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 7 },
     equipement: ['Épée', 'Dague', 'Armure légère'],
@@ -754,13 +781,23 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     id: 'ranger_kislevite',
     nom: 'Ranger Kislévite',
     nom_original: 'Kislev Ranger',
-    page_source: 16,
+    page_source: 29,
     recrutement: { cout: 30 },
     entretien: { type: 'or', cout: 15, texte: '15 CO après chaque bataille à laquelle il participe.' },
     valeur: 15,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'witch_hunters', 'dwarf_treasure_hunters']),
-      texte: 'Les Mercenaires, les Kislévites, les Répurgateurs et les Nains.',
+      // "May be Hired: Mercenaries, Witch Hunters and Dwarfs may hire
+      // Kislev Rangers." (Hired Sword Compendium part1.pdf p.29) ne nomme
+      // pas les Kislévites — mais ceux-ci y ont accès quand même via leur
+      // propre règle générale ("Une bande kislévite peut engager les
+      // mêmes Francs-tireurs que les bandes de mercenaires humains",
+      // Kislévites [GW].pdf), qui s'applique dès lors que ce franc-tireur
+      // est accessible aux Mercenaires (c'est le cas : MERCENAIRES ci-
+      // dessous). Confirmé explicitement par l'utilisateur (pas une
+      // erreur, malgré la fiche propre du Ranger qui ne le nomme pas) —
+      // ne pas retirer 'kislevites' d'ici sans revalider ce point.
+      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'pirates', 'witch_hunters', 'dwarf_treasure_hunters']),
+      texte: 'Les Mercenaires, les Kislévites, les Pirates, les Répurgateurs et les Nains.',
     },
     stats: { M: 4, CC: 3, CT: 4, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
     equipement: ['Arc', 'Épée', 'Manteau de chasseur'],
@@ -819,9 +856,9 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     },
     valeur: 24,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'witch_hunters']),
+      bande_ids: uniques([...MERCENAIRES, 'pirates', 'witch_hunters']),
       texte:
-        'Les Mercenaires et les Répurgateurs. Les bandes naines ne peuvent pas l’employer.',
+        'Les Mercenaires, les Pirates et les Répurgateurs. Les bandes naines ne peuvent pas l’employer.',
     },
     stats: { M: 3, CC: 5, CT: 4, F: 3, E: 4, PV: 1, I: 2, A: 1, Cd: 9 },
     equipement: [
@@ -1062,8 +1099,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 9,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'caravanes_marchandes', 'moines_guerriers_de_cathay']),
-      texte: 'Les Caravanes marchandes, Moines de Cathay et Mercenaires.',
+      bande_ids: uniques([...MERCENAIRES, 'pirates', 'moines_guerriers_de_cathay']),
+      texte: 'Les Caravanes marchandes, Moines de Cathay, Pirates et Mercenaires.',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 7 },
     equipement: ['Fusées', 'Pétards (illimités)'],
@@ -1311,7 +1348,11 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 20, texte: '20 CO après chaque bataille à laquelle il participe.' },
     valeur: 19,
     employeurs: {
-      bande_ids: ['nains_du_chaos', 'maneaters'],
+      // "Une bande de Fils d'Hashut peut recruter les Francs-Tireurs
+      // suivants : [...] et Éclaireurs Hobgobelins." (fils_dhashut.json,
+      // règle de bande "Francs-Tireurs") — ajouté explicitement ici, en
+      // plus de nains_du_chaos/maneaters.
+      bande_ids: ['nains_du_chaos', 'maneaters', 'fils_dhashut'],
       texte: 'Les bandes de Nains du Chaos et d’Ogres.',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 3, E: 3, PV: 1, I: 2, A: 1, Cd: 6 },
@@ -1408,7 +1449,12 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     recrutement: { cout: 70 },
     entretien: { type: 'or', cout: 12, texte: '12 CO après chaque bataille à laquelle il participe.' },
     valeur: 25,
-    employeurs: { bande_ids: [], texte: 'Seules les bandes d’Hommes-Lézards (aucune dans le catalogue actuel).' },
+    // Le commentaire d'origine ("aucune dans le catalogue actuel") date
+    // d'avant l'implémentation de la bande hommes_lezards, désormais
+    // jouable — bande_ids était resté vide, rendant ce franc-tireur
+    // inaccessible à absolument tout le monde, y compris son seul
+    // employeur prévu.
+    employeurs: { bande_ids: ['hommes_lezards'], texte: 'Seules les bandes d’Hommes-Lézards.' },
     stats: { M: 6, CC: 4, CT: 4, F: 4, E: 2, PV: 1, I: 5, A: 1, Cd: 7 },
     equipement: ['Dague', 'Sarbacane avec dards empoisonnés', 'Rondache'],
     acces_competences: ['tir', 'vitesse', 'special'],
@@ -1542,7 +1588,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     },
     valeur: 12,
     employeurs: {
-      bande_ids: uniques([...BIEN, 'artilleurs_de_nuln', 'gladiateurs']),
+      bande_ids: uniques([...BIEN, 'artilleurs_de_nuln', 'gladiateurs', 'tileens']),
       texte:
         'Les Hauts Elfes et les bandes humaines non maléfiques, sans personnage ou franc-tireur maléfique.',
     },
@@ -1711,8 +1757,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     },
     valeur: 14,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'guerriers_fantomes', ...NAINS]),
-      texte: 'Les Mercenaires humains, les Kislévites, ainsi que toute bande d’Elfes Sylvains ou de Nains.',
+      bande_ids: uniques([...MERCENAIRES, 'kislevites', 'pirates', 'guerriers_fantomes', ...NAINS, 'maneaters']),
+      texte: 'Les Mercenaires humains, les Kislévites, les Pirates, ainsi que toute bande d’Elfes Sylvains, de Nains ou de Mangeurs d’Hommes.',
     },
     stats: { M: 4, CC: 2, CT: 4, F: 2, E: 2, PV: 1, I: 4, A: 1, Cd: 7 },
     equipement: ['Épée', 'Dague', 'Couteaux de jet', 'Corde et grappin'],
@@ -1842,8 +1888,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'aucun', cout: 0, texte: 'Aucune solde : les Prêtres de Morr n’ont que faire de l’or.' },
     valeur: 8,
     employeurs: {
-      bande_ids: MERCENAIRES_ET_KISLEVITES,
-      texte: 'Les bandes de Mercenaires humains (Reikland, Marienburg, Middenheim, Averland, Ostland, Artilleurs de Nuln), ainsi que les Kislévites.',
+      bande_ids: uniques([...MERCENAIRES_ET_KISLEVITES, 'pirates']),
+      texte: 'Les bandes de Mercenaires humains (Reikland, Marienburg, Middenheim, Averland, Ostland, Artilleurs de Nuln), les Pirates, ainsi que les Kislévites.',
     },
     stats: { M: 4, CC: 2, CT: 2, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 9 },
     equipement: ['Dague', 'Faux (arme à deux mains, Force de l’utilisateur +1, difficile à manier)'],
@@ -1906,7 +1952,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     employeurs: {
       bande_ids: ['middenheimers'],
       texte:
-        'Uniquement les Mercenaires de Middenheim, où il remplace l’un des Champions de la bande (0-1, à gérer manuellement lors du recrutement).',
+        'Uniquement les Mercenaires de Middenheim, où il remplace l’un des Champions de la bande (max effectif du profil Champion réduit à 1 tant qu’il est présent, voir Profile.reduit_par_franc_tireur).',
     },
     stats: { M: 4, CC: 3, CT: 2, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 8 },
     equipement: [
@@ -1921,6 +1967,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
           { id: 'contondante', itemIds: ['arme_contondante_une_main'] },
           { id: 'fleau', itemIds: ['fleau'] },
           { id: 'morgenstern', itemIds: ['morgenstern'] },
+          { id: 'deux_mains', itemIds: ['arme_a_deux_mains'] },
         ],
       },
     ],
@@ -2063,8 +2110,8 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'aucun', cout: 0, texte: 'Aucune solde : le Mage elfe ne reste jamais assez longtemps pour en réclamer une.' },
     valeur: 23,
     employeurs: {
-      bande_ids: MERCENAIRES_ET_KISLEVITES,
-      texte: 'Les bandes de Mercenaires humains, ainsi que les Kislévites.',
+      bande_ids: uniques([...MERCENAIRES_ET_KISLEVITES, 'pirates']),
+      texte: 'Les bandes de Mercenaires humains, les Pirates, ainsi que les Kislévites.',
     },
     stats: { M: 5, CC: 4, CT: 3, F: 3, E: 3, PV: 2, I: 6, A: 1, Cd: 8 },
     equipement: ['Bâton', 'Cape elfique'],
@@ -2103,11 +2150,27 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
 const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
   carnival_of_chaos: new Set(),
   cavalcade_maudite: new Set(),
+  // "It's not one of us: ... the Amazons never hire Hired Swords or
+  // Dramatis Personae, unless they are also Amazons." (Amazones - Setting
+  // Lustrie [GLM].pdf p.1) — aucun franc-tireur brut n'est une Amazone,
+  // d'où l'ensemble vide ; seule Penthesilée (Dramatis Personae) reste
+  // recrutable, via RESTRICTIONS_ABSOLUES_DP dans dramatisPersonae.ts. Même
+  // règle chez les Amazones du Setting Mordheim (amazones_mordheim).
+  amazones_lustrie: new Set(),
+  amazones_mordheim: new Set(),
   // "Outsiders: ... The Battle Monks warband may never hire any sort of
   // Hired Sword or Dramatis Personae unless specifically stated with the
   // Hired sword/Dramatis Personae." (Battle Monks of Cathay.pdf p.1) —
   // seuls les francs-tireurs dont le texte nomme explicitement Cathay.
   moines_guerriers_de_cathay: new Set(['pyromane', 'ninja', 'forgeron', 'marchand_cathayen']),
+  // "Francs-tireurs : Les Escorteurs Impériaux ne peuvent être accompagnés
+  // que par des Francs-tireurs montés. Cela concerne les Chevaliers
+  // solitaires et les Patrouilleurs." (Escorteurs Impériaux [GLM].pdf p.1)
+  // — liste blanche fermée : sans elle, tout franc-tireur dont la
+  // définition utilise toutesSauf(...)/HUMAINS/TOUTES_LES_BANDES (ex.
+  // Bandit de Grand Chemin, nommément exclu par le texte) resterait
+  // accessible par défaut.
+  escorteurs_imperiaux: new Set(['chevalier_solitaire', 'patrouilleur']),
   ostlanders: new Set(['ogre']),
   lustrian_reavers: new Set(['ogre', 'tueur_trolls_nain', 'tireur_elite_tileen', 'chasseur_gros_gibier']),
   orc_mob: new Set(['gladiateur', 'ogre', 'mage']),
@@ -2118,7 +2181,7 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'sorciere',
     'supervizork',
   ]),
-  maneaters: new Set(['halfling', 'ogre', 'centaure_chaos', 'eclaireur_hobgobelin', 'guide_lustrien']),
+  maneaters: new Set(['halfling', 'halfling_voleur', 'ogre', 'centaure_chaos', 'eclaireur_hobgobelin', 'guide_lustrien']),
   maraudeurs_du_chaos: new Set([
     'gladiateur',
     'ogre',
@@ -2130,6 +2193,12 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'sorciere',
     'mage',
   ]),
+  // "Francs-Tireurs : ... Ils ne peuvent jamais recruter un Franc-Tireur
+  // Elfe, quel qu'il soit !" (Nains du Chaos [GLM].pdf p.1) — l'exclusion
+  // elfe elle-même est appliquée génériquement via le tag `elfe` dans
+  // appliquerRestrictionsDeBande ci-dessous (même mécanisme que pour
+  // dwarf_treasure_hunters/culte_des_tueurs) ; assassin_elfe_noir ne doit
+  // donc pas figurer dans cette liste blanche malgré son tag `malefique`.
   nains_du_chaos: new Set([
     'gladiateur',
     'ogre',
@@ -2137,7 +2206,6 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'assassin_imperial',
     'eclaireur_hobgobelin',
     'guide_lustrien',
-    'assassin_elfe_noir',
   ]),
 };
 
@@ -2145,7 +2213,11 @@ function appliquerRestrictionsDeBande(profil: FrancTireurCatalog): FrancTireurCa
   const bandeIds = profil.employeurs.bande_ids.filter((id) => {
     const restriction = RESTRICTIONS_ABSOLUES[id];
     if (restriction && !restriction.has(profil.id)) return false;
-    if ((id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs') && profil.tags?.includes('elfe')) return false;
+    if (
+      (id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs' || id === 'nains_du_chaos') &&
+      profil.tags?.includes('elfe')
+    )
+      return false;
     return true;
   });
   return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };
@@ -2159,7 +2231,17 @@ function appliquerRestrictionsDeBande(profil: FrancTireurCatalog): FrancTireurCa
 function appliquerRestrictionsDeBandeDP(profil: FrancTireurCatalog): FrancTireurCatalog {
   const bandeIds = profil.employeurs.bande_ids.filter((id) => {
     const restriction = RESTRICTIONS_ABSOLUES_DP[id];
-    return !restriction || restriction.has(profil.id);
+    if (restriction && !restriction.has(profil.id)) return false;
+    // "Rancuniers" — même exclusion elfe que pour les francs-tireurs bruts
+    // (appliquerRestrictionsDeBande ci-dessus), dupliquée ici pour que
+    // RecruterFrancTireurScreen (qui liste FRANCS_TIREURS en entier) reste
+    // cohérent avec dramatisPersonaeDisponibles (dramatisPersonae.ts).
+    if (
+      (id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs' || id === 'nains_du_chaos') &&
+      profil.tags?.includes('elfe')
+    )
+      return false;
+    return true;
   });
   return { ...profil, employeurs: { ...profil.employeurs, bande_ids: bandeIds } };
 }
@@ -2225,11 +2307,40 @@ export function libelleOptionEquipementChoix(itemIds: string[], language: Langua
 
 export type DisponibiliteFrancTireur = { disponible: boolean; raison?: string };
 
+// Compétence spéciale "Chien de Guerre" des Maneaters (reserve_a: "Chef
+// uniquement") : "La bande peut engager les Francs-Tireurs disponibles pour
+// les Mercenaires ; si le chef meurt, tous les Francs-Tireurs sont retirés
+// de la bande." RESTRICTIONS_ABSOLUES.maneaters reste une liste blanche
+// statique (6 francs-tireurs toujours accessibles, indépendamment de cette
+// compétence) — débloquer dynamiquement tout le reste nécessite de
+// recroiser la disponibilité avec les compétences acquises du chef,
+// impossible à figer dans FRANCS_TIREURS (calculé une seule fois au chargement
+// du module). 'reiklanders' sert de témoin fiable de "accessible aux
+// Mercenaires" plutôt que MERCENAIRES.some(...) : un franc-tireur y accède
+// via HUMAINS/BIEN/MERCENAIRES_ET_KISLEVITES (constantes dérivées de
+// MERCENAIRES, jamais listées telles quelles dans bande_ids), donc seul le
+// premier membre de MERCENAIRES, jamais lui-même exclu par une restriction
+// nommée, est un témoin sûr de cette catégorie entière — voir la mort du
+// second retrait, ci-dessous.
+const CHIEN_DE_GUERRE_MANEATERS_TEMOIN = MERCENAIRES[0];
+
+function debloqueParChienDeGuerreMameaters(francTireur: FrancTireurCatalog, roster: RosterInstance): boolean {
+  return (
+    roster.bande_id === 'maneaters' &&
+    !francTireur.employeurs.bande_ids.includes('maneaters') &&
+    francTireur.employeurs.bande_ids.includes(CHIEN_DE_GUERRE_MANEATERS_TEMOIN) &&
+    roster.membres.some((m) => m.statut !== 'mort' && m.competences_acquises.includes('chien_de_guerre'))
+  );
+}
+
 export function disponibiliteFrancTireur(
   francTireur: FrancTireurCatalog,
   roster: RosterInstance
 ): DisponibiliteFrancTireur {
-  if (!francTireur.employeurs.bande_ids.includes(roster.bande_id)) {
+  if (
+    !francTireur.employeurs.bande_ids.includes(roster.bande_id) &&
+    !debloqueParChienDeGuerreMameaters(francTireur, roster)
+  ) {
     return { disponible: false, raison: francTireur.employeurs.texte };
   }
   if (

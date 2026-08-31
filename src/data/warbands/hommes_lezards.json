@@ -36,6 +36,11 @@
       ],
       "acces_competences": ["academique", "vitesse", "special"],
       "acces_equipement": ["skinks"],
+      "leader_toujours_recrutable": true,
+      "competences_speciales": [
+        { "id": "infiltration_skink", "nom": "Infiltration", "reserve_a": "Skinks uniquement", "texte": "Ce Skink peut s'approcher discrètement de ses ennemis. En début de partie, vous pouvez le placer n'importe où sur la table, pourvu qu'il soit caché et à plus de 12ps de tout ennemi.", "valeurPuissance": 40 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -55,6 +60,12 @@
       ],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["saurus"],
+      "categories_interdites": ["armes_tir", "armes_poudre_noire"],
+      "competences_speciales": [
+        { "id": "cri_de_guerre_saurus", "nom": "Cri de Guerre", "reserve_a": "Saurus uniquement", "texte": "Le cri de guerre du Saurus est assourdissant. Les ennemis au contact socle à socle avec lui subissent un malus de -1 sur leurs jets pour toucher au premier tour de corps à corps.", "valeurPuissance": 20 },
+        { "id": "peau_de_bois", "nom": "Peau de Bois", "reserve_a": "Saurus uniquement", "texte": "Au cours des années, la peau écailleuse du Saurus s'est renforcée et a durci. Il ne sera mis hors de combat que sur un résultat de 6+ sur 1D6.", "valeurPuissance": 40 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -70,6 +81,11 @@
       "stats": { "M": 6, "CC": 3, "CT": 3, "F": 3, "E": 2, "PV": 1, "I": 4, "A": 1, "Cd": 7 },
       "acces_competences": ["tir", "vitesse", "special"],
       "acces_equipement": ["skinks"],
+      "competences_speciales": [
+        { "id": "infiltration_skink", "nom": "Infiltration", "reserve_a": "Skinks uniquement", "texte": "Ce Skink peut s'approcher discrètement de ses ennemis. En début de partie, vous pouvez le placer n'importe où sur la table, pourvu qu'il soit caché et à plus de 12ps de tout ennemi.", "valeurPuissance": 40 },
+        { "id": "grand_chasseur", "nom": "Grand Chasseur", "reserve_a": "Skink à Grande Crête uniquement", "texte": "Ce Skink à Grande Crête est un excellent chasseur et utilise le couvert disponible avec le maximum d'efficacité. S'il est à couvert, le malus pour le toucher au tir passe de -1 à -2.", "valeurPuissance": 20 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -101,7 +117,9 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["saurus"],
-      "acces_competences_a_verifier": false
+      "categories_interdites": ["armes_tir", "armes_poudre_noire"],
+      "acces_competences_a_verifier": false,
+      "plafond_relatif": { "profils": ["skink"], "label": "Saurus" }
     },
     {
       "id": "kroxigor",
@@ -121,14 +139,11 @@
       ],
       "acces_competences": [],
       "acces_equipement": [],
+      "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false
     }
   ],
   "competences_speciales": [
-    { "id": "infiltration_skink", "nom": "Infiltration", "reserve_a": "Skinks uniquement", "texte": "Ce Skink peut s'approcher discrètement de ses ennemis. En début de partie, vous pouvez le placer n'importe où sur la table, pourvu qu'il soit caché et à plus de 12ps de tout ennemi.", "valeurPuissance": 40 },
-    { "id": "grand_chasseur", "nom": "Grand Chasseur", "reserve_a": "Skink à Grande Crête uniquement", "texte": "Ce Skink à Grande Crête est un excellent chasseur et utilise le couvert disponible avec le maximum d'efficacité. S'il est à couvert, le malus pour le toucher au tir passe de -1 à -2.", "valeurPuissance": 20 },
-    { "id": "cri_de_guerre_saurus", "nom": "Cri de Guerre", "reserve_a": "Saurus uniquement", "texte": "Le cri de guerre du Saurus est assourdissant. Les ennemis au contact socle à socle avec lui subissent un malus de -1 sur leurs jets pour toucher au premier tour de corps à corps.", "valeurPuissance": 20 },
-    { "id": "peau_de_bois", "nom": "Peau de Bois", "reserve_a": "Saurus uniquement", "texte": "Au cours des années, la peau écailleuse du Saurus s'est renforcée et a durci. Il ne sera mis hors de combat que sur un résultat de 6+ sur 1D6.", "valeurPuissance": 40 },
     { "id": "glandes_a_venin", "nom": "Glandes à Venin", "reserve_a": "Marque Sacrée — Skinks uniquement", "texte": "Le Skink possède des glandes sublinguales qui sécrètent un poison mortel (40 CO). Le Skink peut effectuer tout ou partie de ses attaques en mordant, plutôt qu'avec ses armes. Ces attaques subissent un modificateur de sauvegarde d'armure de +1, quelle que soit la Force du Skink. Cependant, elles ne subissent pas le malus pour le combat sans arme et, en cas de Blessure, ont un bonus de +1 sur le Tableau des Dégâts. Ces attaques sont toujours effectuées en dernier, que le Skink ait chargé ou non et quelles que soient les armes employées (y compris les armes à deux mains).", "valeurPuissance": 20 },
     { "id": "gueule_enorme", "nom": "Gueule Énorme", "reserve_a": "Marque Sacrée — Saurus uniquement", "texte": "Le Saurus a des mâchoires hypertrophiées et de puissants muscles maxillaires (40 CO). En conséquence, son attaque de morsure est résolue avec un bonus de Force de +1.", "valeurPuissance": 20 },
     { "id": "marque_des_anciens", "nom": "Marque des Anciens", "reserve_a": "Marque Sacrée — acquise uniquement au recrutement d'un Héros né avec", "texte": "La plus prestigieuse marque avec laquelle un Homme-Lézard puisse naître (50 CO). Ces albinos ont une grande destinée aux yeux de leurs dieux et des autres Hommes-Lézards. Le Héros peut transformer l'un de ses jets de dés ratés en un jet réussi. Cette marque ne peut être utilisée qu'une fois par bataille et uniquement sur les actions du Héros. Vous pouvez utiliser cette marque sur un test de Déroute raté si vous le souhaitez.", "valeurPuissance": 40 }
@@ -139,7 +154,8 @@
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
         { "item_id": "arme_contondante_une_main", "cout": 3, "note": "Hache de pierre" },
         { "item_id": "hache", "cout": 5 },
-        { "item_id": "epee", "cout": 10, "restriction": "Héros uniquement" }
+        { "item_id": "epee", "cout": 10, "restriction": "Héros uniquement", "heros_uniquement": true },
+        { "item_id": "lance", "cout": 10 }
       ],
       "armes_tir": [
         { "item_id": "arc_court", "cout": 5 },
@@ -149,7 +165,7 @@
         { "item_id": "sarbacane", "cout": 25 }
       ],
       "armures": [
-        { "item_id": "casque", "cout": 10, "note": "Heaume d'os — Prêtre Skink uniquement" },
+        { "item_id": "casque", "cout": 10, "note": "Heaume d'os — Prêtre Skink uniquement", "profils": ["pretre_skink"] },
         { "item_id": "bouclier", "cout": 5 },
         { "item_id": "rondache", "cout": 5 }
       ]
@@ -172,8 +188,8 @@
     }
   },
   "equipement_special": [
-    { "item_id": "venin_fuligineux", "cout": 20, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete", "saurus"] },
-    { "item_id": "lotus_noir", "cout": 10, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete", "saurus"] },
+    { "item_id": "venin_fuligineux", "cout": 20, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete"] },
+    { "item_id": "lotus_noir", "cout": 10, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete"] },
     { "item_id": "venin_de_reptile", "cout": 5, "disponibilite": "Commun pour une bataille, Hommes de main Skinks uniquement — +1 Force, aucun malus de sauvegarde", "profils": ["skink"] }
   ],
   "magie": {

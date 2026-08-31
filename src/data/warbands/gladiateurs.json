@@ -72,6 +72,7 @@
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["ogres_trolls"],
       "acces_competences_a_verifier": false,
+      "quitte_si_franc_tireur_tag": "elfe",
       "competences_speciales_ajoutees": true,
       "competences_speciales": [
         { "id": "berserk_gladiateur", "nom": "Berserk", "texte": "+1 pour toucher au corps à corps lors du tour où il charge (non cumulable avec Charge furieuse).", "valeurPuissance": 20 },
@@ -126,7 +127,8 @@
         { "nom": "Lent d'Esprit", "texte": "Ne coche qu'une demi-case à chaque point d'expérience gagné ; il faut donc le double d'XP habituel pour obtenir une progression." },
         { "nom": "Compétences", "texte": "S'il devient un Héros sur un résultat de Ce gars est doué, choisit ses compétences dans les listes Combat, Force et les compétences spéciales des Gladiateurs (Renversement, Volonté de Fer, Gros bras, Maître d'armes, Vieux de la vieille)." }
       ],
-      "acces_competences": [],
+      "acces_competences": ["combat", "force", "special"],
+      "demi_xp": true,
       "acces_equipement": ["ogres_trolls"],
       "acces_competences_a_verifier": false
     },
@@ -202,10 +204,10 @@
     },
     "style_skink": {
       "armes_cac": [
-        { "item_id": "dague", "cout": 2 }
+        { "item_id": "dague", "cout": 2 },
+        { "item_id": "trident", "cout": 15, "note": "ou Javelots" }
       ],
       "armes_tir": [
-        { "item_id": "trident", "cout": 15, "note": "ou Javelots" },
         { "item_id": "javelots", "cout": 10, "note": "ou Trident" }
       ],
       "armures": [

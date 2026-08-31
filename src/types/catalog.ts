@@ -48,10 +48,29 @@ export type CompetenceSpeciale = {
   // prix croissant) — reste proposée après un premier choix, contrairement
   // aux autres compétences.
   repetable?: boolean;
+  // Nombre maximum de membres vivants de la bande pouvant posséder cette
+  // compétence en même temps (ex : Murmures des Racines des Sylvaneths,
+  // "un seul Héros" -> 1 ; Solide Carrure des Guerriers Fantômes,
+  // "maximum deux figurines" -> 2). Une fois ce plafond atteint, la
+  // compétence n'est plus proposée aux AUTRES membres lors d'une avancée
+  // (celui qui la possède déjà la garde). Distinct de `reserve_a`, qui
+  // restreint À QUI la compétence s'adresse, pas COMBIEN peuvent l'avoir.
+  plafond_bande?: number;
+  // Id d'une compétence (de n'importe quelle catégorie, pas seulement
+  // Spéciale) que le membre doit déjà posséder pour que celle-ci lui soit
+  // proposée (ex : Insensible à la douleur des Skavens du Clan Pestilens,
+  // "Nécessite la compétence Dur à cuire" -> "force_03"). Distinct de
+  // `reserve_a`, qui restreint par profil, pas par compétence déjà acquise.
+  necessite_competence?: string;
   // Voir Skill.valeurPuissance (types/gameData.ts) — même métadonnée Power
   // Value, dupliquée ici pour les mêmes raisons que le reste de ce type
   // (éviter un import circulaire catalog.ts <-> gameData.ts).
   valeurPuissance?: number;
+  // Cette compétence augmente l'effectif maximum de la bande tant qu'un
+  // membre vivant la possède (ex : Invocateur des Morts Sans Repos, "+1") —
+  // même principe que Profile.bonus_effectif_max, lu par
+  // effectifMaxAutorise() dans utils/validation.ts.
+  bonus_effectif_max?: number;
 };
 
 export type Profile = {
@@ -79,11 +98,107 @@ export type Profile = {
   // bêtes) un plafond combiné de 2 Bêtes de guerre au total — voir
   // comptePlafondGroupe dans utils/shop.ts.
   plafond_groupe?: { id: string; max: number; label?: string };
+  // Plafond RELATIF au nombre de membres vivants d'un ou plusieurs autres
+  // profils (contrairement à `max`, un nombre fixe, et à `plafond_groupe`,
+  // un plafond combiné fixe) — ex : chez les Orques Noirs, jamais plus de
+  // Chasseurs Orques que de Kastagneurs Orques (profils: ["kastagneurs_orques"],
+  // multiplicateur implicite 1) ; chez l'Orc Mob, jamais plus de Guerriers
+  // Gobelins que le double des Orques, Héros inclus (profils: [tous les
+  // profils "Orques" de la bande], multiplicateur: 2). Voir peutAjouterMembre.
+  plafond_relatif?: { profils: string[]; multiplicateur?: number; label?: string };
+  // Réduit le `max` effectif de ce profil de 1 par franc-tireur vivant de
+  // l'id donné présent dans la bande (référence vers FrancTireurCatalog.id)
+  // — ex : chez les Middenheimers, le Prêtre-loup d'Ulric « remplace l'un
+  // des Champions de la bande (0-1) » : max passe de 2 à 1 tant qu'il est
+  // présent. Distinct de plafond_groupe/plafond_relatif, qui ne relient que
+  // des profils de bande entre eux, jamais un franc-tireur. Voir
+  // limiteEffectivePourProfil dans utils/validation.ts.
+  reduit_par_franc_tireur?: string;
+  // Ce membre quitte immédiatement la bande si un franc-tireur portant ce
+  // tag est recruté (référence vers FrancTireurCatalog.tags, jamais importé
+  // ici pour éviter un import circulaire — hiredSword.ts dépend déjà de
+  // catalog.ts) — ex : chez les Gladiateurs, "Rancuniers" : "Si la bande
+  // engage un Franc-tireur elfe, le Gladiateur Tueur de Trolls quitte
+  // immédiatement la bande." Voir RecruterFrancTireurScreen.tsx.
+  quitte_si_franc_tireur_tag?: string;
   // Ce profil ne peut être recruté que si la bande compte déjà au moins un
   // membre vivant (statut != 'mort') de ce profil-ci (ex : chez les Norses,
   // les Loups ne sont autorisés que si la bande possède un Wulfen vivant) —
   // voir peutAjouterMembre.
   requiert_profil_vivant?: string;
+  // Ce profil ne peut être recruté que si un membre vivant de la bande porte
+  // cette Marque (voir Member.marque, Marque.id) — ex : les Gors des
+  // Maraudeurs du Chaos, importés des Pillards Hommes-Bêtes, ne sont
+  // recrutables que si la bande porte la Marque du Chaos Universel. Voir
+  // peutAjouterMembre.
+  requiert_marque?: string;
+  // Objet acheté à moitié prix (arrondi au supérieur), une seule fois, lors
+  // du recrutement de ce membre (création de la bande ou recrutement
+  // ultérieur — jamais un achat différé depuis la fiche personnage) — ex :
+  // "Faveur du Seigneur" (Gardiens de Chapelle Bretonniens) : "un Chevalier
+  // peut acquérir UN SEUL objet parmi destrier / armure légère / armure
+  // lourde à moitié prix" ; "Héritage" (Kislévites, Capitaine de Druzhina) :
+  // "le droit d'acheter un objet de la liste d'équipement [...] à moitié
+  // prix". `items` restreint le choix à cette liste d'ids d'objets (absent =
+  // tout objet de la liste d'équipement du profil est éligible).
+  // `non_cessible` marque l'objet acheté comme ni revendable ni transférable
+  // (voir InventoryEntry.non_cessible) — utilisé par la Faveur du Seigneur
+  // ("ne peut être échangé, donné ni vendu"), pas par l'Héritage kislévite
+  // (dont le remplacement à 150 % en cas de perte et le malus -1 tant que non
+  // remplacé restent à suivre manuellement par le joueur, hors de portée
+  // d'un roster manager qui ne simule pas les jets de combat). Voir
+  // estAchatObjetPrivilegieEntree dans utils/shop.ts, seul consommateur.
+  objet_privilegie_entree?: { items?: string[]; non_cessible?: boolean };
+  // Entretien post-bataille pour un profil recruté DIRECTEMENT dans la bande
+  // (pas un franc-tireur) — ex : le Troll d'Orc Mob, "Toujours Faim : la
+  // bande doit dépenser 15 CO après chaque bataille pour nourrir le Troll
+  // [...] ; s'il ne mange pas à sa faim, il quitte la bande définitivement."
+  // Absent pour tout profil normal (sans entretien). Même forme que
+  // EntretienFrancTireur (types/hiredSword.ts), dupliquée ici pour éviter un
+  // import circulaire (hiredSword.ts importe déjà depuis catalog.ts) — voir
+  // lignesEntretien dans PostBatailleScreen.tsx, seul consommateur.
+  entretien?: {
+    type: 'or' | 'malepierre';
+    cout: number;
+    texte: string;
+  };
+  // Transformation en un AUTRE profil de la même bande, déclenchée à la
+  // discrétion du joueur depuis la fiche du personnage (pas depuis la vue de
+  // bande) — ex : chez les Orques Noirs, "Sang d'orque noir" : un Pti'mek
+  // ayant atteint `seuil_xp` peut, moyennant `cout` CO, devenir un Orque Noir
+  // à part entière (accès équipement/compétences de sa cible, stats
+  // accumulées conservées). Simplification assumée par rapport au texte
+  // imprimé (qui lie la transformation à la PROCHAINE avancée "nouvelle
+  // compétence" plutôt qu'à un simple seuil d'XP) — voir
+  // transformationDisponible dans utils/profil.ts. Toujours à sens unique :
+  // pour le Rat Familier des Skavens Pestilens (normalement réversible si le
+  // Prêcheur-Sorcier meurt), la reversion automatique a été volontairement
+  // laissée de côté sur décision de Yannick — trop de risques de ne pas être
+  // reprise proprement par l'app ; le joueur retire manuellement la
+  // figurine et recrute un nouveau Rat géant si besoin.
+  transformation?: {
+    cible: string;
+    cout?: number;
+    seuil_xp?: number;
+    // Ex : le Rat Familier des Skavens Pestilens, qui ne peut être obtenu
+    // que si la bande compte un Prêcheur-Sorcier Pestilens vivant équipé
+    // d'un Parchemin de rat familier.
+    necessite_profil_vivant_avec_objet?: { profil: string; item_id: string };
+    // Ex : le Damné des Maraudeurs du Chaos ("Destin"), dont CC/F/E/A sont
+    // des caractéristiques variables (Profile.stats_variables) tant qu'un
+    // joueur ne les a pas fixées une à une — la transformation en Enfant du
+    // Chaos ne concerne QUE tant qu'il en reste au moins une non fixée
+    // (Member.stats_variables non vide). Voir transformationDisponible.
+    necessite_caracteristique_variable?: boolean;
+    // Ex : toujours le Damné — "ou quitte la bande pour errer dans les
+    // désolations" si la bande a déjà un Enfant du Chaos vivant : la cible
+    // étant un profil `unique`/`max: 1`, un second exemplaire ne peut pas
+    // être créé. Quand un membre vivant de ce profil existe déjà, le bouton
+    // de transformation devient un simple retrait de la bande (gratuit, pas
+    // de swap de profil) plutôt que la transformation habituelle — voir
+    // TransformationModal/transformerProfil.
+    bloque_si_profil_vivant?: string;
+  };
   cout: number | null;
   // Notation de dés affichée quand `cout` est variable (donc null, ex :
   // "25+2D6" pour un chien de guerre) — le montant réel est saisi à la main
@@ -113,6 +228,12 @@ export type Profile = {
   plafond_competence_override?: { competence_id: string; groupe: string };
   acces_competences: SkillCategory[];
   acces_competences_a_verifier?: boolean;
+  // Catégories que ce profil ne peut jamais choisir comme tableau
+  // supplémentaire lors d'une promotion "Ce gars est doué" (ex : l'Éclaireur
+  // Halfling des Averlanders, qui ne peut jamais choisir Force) — distinct
+  // d'acces_competences, qui régit les compétences déjà accessibles au
+  // quotidien, pas ce choix ponctuel à la promotion. Voir AvanceeModal.
+  tableaux_promotion_interdits?: SkillCategory[];
   // La grille qui détermine les cases et paliers d'XP peut différer du type
   // du profil. Les francs-tireurs utilisent celle des hommes de main.
   grille_xp?: 'heros' | 'homme_de_main';
@@ -128,6 +249,15 @@ export type Profile = {
   // bande (repli par défaut, tant que ce champ n'est pas encore rempli
   // partout).
   acces_equipement?: string[];
+  // Ce profil n'a accès à AUCUN achat via l'onglet "boutique commune",
+  // toutes catégories confondues — au-delà de `categories_interdites`
+  // (armes/armures uniquement), pour les profils dont la seule
+  // équipement légitime est fournie gratuitement à la création (ex :
+  // Snotling des Gobelins de la Nuit, Kroxigor des Hommes-Lézards — voir
+  // utils/shop.ts equipementInclusDepart) et qui ne devraient donc jamais
+  // pouvoir acheter une monture/un véhicule/une munition/un poison via
+  // cet onglet générique. Consommé par getShopCommun.
+  aucun_achat_shop_commun?: boolean;
   // Catégories entièrement interdites à ce profil par ses propres règles
   // (ex : Flagellant sans armure ni arme de tir), appliqué en plus de
   // `acces_equipement` — celui-ci ne filtre que l'onglet "bande" du shop,
@@ -146,7 +276,68 @@ export type Profile = {
   // portée : les profils qui n'interdisent qu'un type d'armure précis (ex :
   // Prêtre de Taal, armure lourde uniquement) — non automatisée, laissée en
   // texte informatif dans regles_speciales.
-  categories_interdites?: ('armes_cac' | 'armes_tir' | 'armes_poudre_noire' | 'armes_de_jet' | 'armures')[];
+  categories_interdites?: (
+    | 'armes_cac'
+    | 'armes_tir'
+    | 'armes_poudre_noire'
+    | 'armes_de_jet'
+    | 'armures'
+    | 'poisons_drogues'
+  )[];
+  // Variante de `categories_interdites` qui ne filtre QUE l'onglet "commune"
+  // du shop (et la recherche d'objet rare) — jamais l'onglet "bande" via
+  // getEquipementBande, contrairement à `categories_interdites` qui filtre
+  // les deux (voir son propre commentaire ci-dessus et le cas Artilleurs de
+  // Nuln dans getEquipementBande/utils/shop.ts). Nécessaire quand la propre
+  // liste d'équipement du profil range légitimement des objets dans une
+  // catégorie par ailleurs interdite en boutique commune (ex : le Maître
+  // Cuisinier des Mootlanders, dont les ustensiles de cuisine sont rangés
+  // sous "armes_cac" — `categories_interdites: ["armes_cac"]` masquerait
+  // aussi ses propres ustensiles, ce qui n'est pas voulu). Consommé par
+  // getShopCommun uniquement.
+  categories_interdites_commun?: (
+    | 'armes_cac'
+    | 'armes_tir'
+    | 'armes_poudre_noire'
+    | 'armes_de_jet'
+    | 'armures'
+    | 'poisons_drogues'
+  )[];
+  // Ce profil, tant qu'un membre vivant le possède, augmente l'effectif
+  // maximum autorisé de la bande d'autant (ex : la Roulotte de la Peste de
+  // la Kermesse du Chaos, "+2" — voir effectifMaxAutorise dans
+  // utils/validation.ts, qui applique déjà un bonus équivalent en dur pour
+  // le Cuisinier Halfling franc-tireur).
+  bonus_effectif_max?: number;
+  // Ce profil ne compte jamais dans l'effectif total de la bande (ex : les
+  // Serviteurs Capturés de la Cavalcade Maudite, "do not count toward the
+  // maximum number of models allowed in your warband") — même principe que
+  // l'exclusion déjà appliquée aux francs-tireurs dans effectifTotal
+  // (utils/bandeValue.ts), mais porté par le profil plutôt que par le statut
+  // de franc-tireur.
+  exclu_effectif_max?: boolean;
+  // L'ensemble des membres de ce profil compte pour une seule figurine
+  // dans l'effectif de la bande, quel que soit leur nombre réellement
+  // recruté (ex : les Snotlings des Gobelins de la Nuit — "Foule : ...
+  // considérés comme une seule figurine en ce qui concerne la taille de
+  // la bande." / "Insignifiant : ... ne comptent que pour une seule
+  // figurine pour [...] la vente de pierres magiques.") — distinct
+  // d'exclu_effectif_max (qui les retire complètement du compte, soit 0
+  // plutôt que 1). Consommé par effectifTotal (utils/bandeValue.ts), qui
+  // alimente aussi le prix de vente de la pierre magique.
+  groupe_compte_comme_un?: boolean;
+  // Ce profil précis (et non toute la bande, contrairement à
+  // WarbandCatalog.xp_demi, ex : Mangeurs d'Hommes) ne coche qu'une
+  // demi-case par point d'expérience gagné — il lui faut donc le double
+  // d'XP pour obtenir chaque avancée (ex : "Lent d'Esprit" du Gladiateur
+  // Ogre). Consommé par avancesDues (utils/xp.ts), en plus de
+  // catalogue.xp_demi.
+  demi_xp?: boolean;
+  // Compétence(s) acquises gratuitement dès la création du membre, sans
+  // consommer d'avancée (ex : le Colosse de la Kermesse du Chaos, qui
+  // démarre avec Homme Fort — "Force Surnaturelle") — voir
+  // utils/factory.ts creerMembre.
+  competences_gratuites?: string[];
   xp_depart?: number;
   peut_lancer_sorts?: boolean;
   categorie_magie?: string;
@@ -297,6 +488,13 @@ export type EquipementRef = {
   // la même liste `ogres`). Absent = accessible à tous les profils ayant
   // accès à la liste.
   profils?: string[];
+  // Même principe que EquipementSpecialRef.rarete (voir son propre
+  // commentaire) : surcharge le seuil de rareté de l'objet de base pour
+  // cette bande précise (ex : les Champignons bonnets de fou d'Orc Mob,
+  // objet habituellement Rare 9 mais rendu commun à 25 CO pour une bande
+  // avec au moins un Gobelin — "rarete": "-"). Absent = utilise Item.rarete
+  // sans changement.
+  rarete?: string;
 };
 
 // Une liste d'équipement nommée (ex : "repurgateurs", "flagellants"...) —
@@ -312,6 +510,21 @@ export type EquipementSpecialRef = {
   item_id: string;
   cout: number | string;
   disponibilite?: string;
+  // Surcharge le seuil de rareté NUMÉRIQUE de l'objet de base (Item.rarete)
+  // pour cette bande précise — nécessaire quand un même objet a des seuils
+  // différents selon le Setting/la bande (ex : l'Amulette lunaire, Rare 12
+  // pour les Amazones du Setting Mordheim mais Rare 11 pour celles du
+  // Setting Lustrie). `disponibilite` (texte libre) peut déjà l'annoncer,
+  // mais sans ce champ le calcul réel de rareté (recherche d'objet rare
+  // post-bataille, masquage des objets Rares après la 1ère bataille —
+  // voir estObjetRare/masquerObjetsRares) continuait de lire Item.rarete
+  // tel quel, ignorant la surcharge textuelle. Une valeur non numérique
+  // (ex : "-") force le statut "jamais Rare pour cette bande" (même
+  // convention que Item.rarete, voir estObjetRare) — utile pour un objet
+  // habituellement Rare mais explicitement rendu commun par une règle de
+  // bande (ex : les Herbes Médicinales des Amazones). Absent = utilise
+  // Item.rarete sans changement.
+  rarete?: string;
   // Restreint l'objet à certains profils (ex : mutations réservées à
   // l'Impur). Absent = accessible à tous les profils de la bande.
   profils?: string[];
@@ -388,6 +601,16 @@ export type Marque = {
   // Cette Marque retire tout accès aux sorts (ex : Arkhar, dont le Devin
   // devient un Père de Sang qui ne jette plus de sorts).
   pas_de_sorts?: boolean;
+  // Il ne peut jamais y avoir dans la bande deux figurines vivantes portant
+  // des Marques différentes — sauf celle(s) marquées `coexiste_avec_autres`
+  // (ex : la Marque du Chaos Universel des Maraudeurs du Chaos), qui restent
+  // toujours proposables même si une autre Marque est déjà portée ailleurs
+  // dans la bande. Voir marquesDisponibles dans utils/magie.ts.
+  coexiste_avec_autres?: boolean;
+  // Catégories de compétences supplémentaires accordées en plus de celles du
+  // profil (ex : Marque d'Arkhar — le Devin devenu Père de Sang accède aux
+  // compétences de Force). Fusionnées par resolveProfil dans utils/profil.ts.
+  competences_supplementaires?: SkillCategory[];
 };
 
 // Variante de bande choisie une fois pour toutes à la création (ex : les
@@ -464,4 +687,13 @@ export type WarbandCatalog = {
   // lui-même le nombre de dés — voir utils/exploration.ts et
   // EtapeExploration.tsx.
   des_exploration_manuels?: boolean;
+  // Bonus fixe et inconditionnel de dé(s) d'Exploration pour toute la
+  // bande, ajouté à chaque phase d'Exploration quel que soit le résultat
+  // de la partie (ex : Gardiens des Tombes — "Terrain natal" : "Une bande
+  // de Gardiens des Tombes lance toujours un dé supplémentaire lors de la
+  // phase d'Exploration."). Distinct de `des_exploration_manuels`, réservé
+  // aux bandes dont le calcul générique ne peut pas du tout s'appliquer —
+  // ici le calcul reste valide, il lui manque juste ce bonus fixe. Voir
+  // utils/exploration.ts (resumeExploration).
+  bonus_des_exploration_fixe?: number;
 };

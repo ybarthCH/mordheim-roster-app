@@ -67,6 +67,13 @@
       ],
       "acces_competences": ["combat", "academique", "vitesse", "special"],
       "acces_equipement": ["guerriers_fantomes"],
+      "competences_speciales": [
+        { "id": "infiltration_fantome", "nom": "Infiltration", "reserve_a": "Héros Guerriers Fantômes uniquement", "texte": "Cette compétence est identique à la compétence skaven du même nom : en début de partie, vous pouvez le placer n'importe où sur la table, pourvu qu'il soit caché et à plus de 12ps de tout ennemi.", "valeurPuissance": 40 },
+        { "id": "voir_dans_les_tenebres", "nom": "Voir dans les Ténèbres", "reserve_a": "Héros Guerriers Fantômes uniquement", "texte": "Les sens du guerrier se sont affûtés après des années passées à évoluer dans l'ombre. Tant que son mouvement lui permet de les atteindre, le guerrier peut toujours lancer les dés pour charger les ennemis qu'il ne peut pas voir (au lieu des 4ps habituels).", "valeurPuissance": 20 },
+        { "id": "se_cacher_parmi_les_ombres", "nom": "Se Cacher Parmi les Ombres", "reserve_a": "Héros Guerriers Fantômes uniquement", "texte": "Les Guerriers Fantômes ont appris à se tenir complètement immobiles et devenir indétectables, même par les sens aiguisés de leurs cousins elfes noirs. Un guerrier ennemi tentant de détecter ce guerrier alors qu'il est caché doit diviser son Initiative par 2 avant de mesurer la distance.", "valeurPuissance": 20 },
+        { "id": "tir_silencieux", "nom": "Tir Silencieux", "reserve_a": "Héros Guerriers Fantômes uniquement", "texte": "De longues années de guérilla contre les elfes noirs ont enseigné aux Guerriers Fantômes comment frapper depuis les ténèbres sans être vus. S'il est caché, le guerrier doté de cette compétence peut tirer ou lancer des sorts tout en demeurant caché. Si sa cible n'est pas immédiatement mise hors de combat, celle-ci doit faire un test sous son Initiative pour le repérer. Un succès signifie que le tireur est repéré et ne peut plus demeurer caché.", "valeurPuissance": 40 },
+        { "id": "maitre_des_runes", "nom": "Maître des Runes", "reserve_a": "Tisseur d'Ombres uniquement", "texte": "Le Tisseur d'Ombres a appris à canaliser le pouvoir des runes elfiques (voir Pierre Runiques Elfiques) à un niveau inégalé. Lorsqu'il utilise des Pierres Runiques Elfiques, le sorcier ajoute +1 à son jet de dissipation. De plus, le sorcier peut graver des runes elfiques sur les armes et l'armure d'un de ses compagnons. Un membre de la bande peut relancer un seul jet de sauvegarde d'armure ou de parade par bataille. Après une bataille, la rune perd ses pouvoirs et doit être refaite.", "valeurPuissance": 20 }
+      ],
       "acces_competences_a_verifier": false
     },
     {
@@ -103,8 +110,7 @@
     { "id": "voir_dans_les_tenebres", "nom": "Voir dans les Ténèbres", "reserve_a": "Héros Guerriers Fantômes uniquement", "texte": "Les sens du guerrier se sont affûtés après des années passées à évoluer dans l'ombre. Tant que son mouvement lui permet de les atteindre, le guerrier peut toujours lancer les dés pour charger les ennemis qu'il ne peut pas voir (au lieu des 4ps habituels).", "valeurPuissance": 20 },
     { "id": "se_cacher_parmi_les_ombres", "nom": "Se Cacher Parmi les Ombres", "reserve_a": "Héros Guerriers Fantômes uniquement", "texte": "Les Guerriers Fantômes ont appris à se tenir complètement immobiles et devenir indétectables, même par les sens aiguisés de leurs cousins elfes noirs. Un guerrier ennemi tentant de détecter ce guerrier alors qu'il est caché doit diviser son Initiative par 2 avant de mesurer la distance.", "valeurPuissance": 20 },
     { "id": "tir_silencieux", "nom": "Tir Silencieux", "reserve_a": "Héros Guerriers Fantômes uniquement", "texte": "De longues années de guérilla contre les elfes noirs ont enseigné aux Guerriers Fantômes comment frapper depuis les ténèbres sans être vus. S'il est caché, le guerrier doté de cette compétence peut tirer ou lancer des sorts tout en demeurant caché. Si sa cible n'est pas immédiatement mise hors de combat, celle-ci doit faire un test sous son Initiative pour le repérer. Un succès signifie que le tireur est repéré et ne peut plus demeurer caché.", "valeurPuissance": 40 },
-    { "id": "solide_carrure_fantome", "nom": "Solide Carrure", "reserve_a": "Héros Guerriers Fantômes uniquement, hors Tisseur d'Ombres, maximum deux figurines par bande", "texte": "Pour un elfe, le guerrier est solidement bâti, capable de prouesses physiques rares chez les habitants d'Ulthuan. Un guerrier doté de cette compétence peut choisir ses compétences dans le tableau des compétences de Force. Cette compétence ne peut pas être prise par un Tisseur d'Ombres. Il ne peut jamais y avoir en même temps plus de deux elfes dotés de cette compétence dans une bande.", "valeurPuissance": 0 },
-    { "id": "maitre_des_runes", "nom": "Maître des Runes", "reserve_a": "Tisseur d'Ombres uniquement", "texte": "Le Tisseur d'Ombres a appris à canaliser le pouvoir des runes elfiques (voir Pierre Runiques Elfiques) à un niveau inégalé. Lorsqu'il utilise des Pierres Runiques Elfiques, le sorcier ajoute +1 à son jet de dissipation. De plus, le sorcier peut graver des runes elfiques sur les armes et l'armure d'un de ses compagnons. Un membre de la bande peut relancer un seul jet de sauvegarde d'armure ou de parade par bataille. Après une bataille, la rune perd ses pouvoirs et doit être refaite.", "valeurPuissance": 20 }
+    { "id": "solide_carrure_fantome", "nom": "Solide Carrure", "reserve_a": "Héros Guerriers Fantômes uniquement, hors Tisseur d'Ombres, maximum deux figurines par bande", "plafond_bande": 2, "texte": "Pour un elfe, le guerrier est solidement bâti, capable de prouesses physiques rares chez les habitants d'Ulthuan. Un guerrier doté de cette compétence peut choisir ses compétences dans le tableau des compétences de Force. Cette compétence ne peut pas être prise par un Tisseur d'Ombres. Il ne peut jamais y avoir en même temps plus de deux elfes dotés de cette compétence dans une bande.", "valeurPuissance": 0 }
   ],
   "equipement": {
     "guerriers_fantomes": {
@@ -128,14 +134,13 @@
         { "item_id": "banniere_de_nagarythe", "cout": "75+3D6", "note": "Héros uniquement" },
         { "item_id": "cor_de_guerre_de_nagarythe", "cout": "25+1D6", "note": "Héros uniquement" },
         { "item_id": "cape_elfique", "cout": "75+1D6x10", "note": "Héros uniquement" },
-        { "item_id": "vin_elfique", "cout": "30+3D6", "note": "Héros uniquement" },
-        { "item_id": "pierres_runiques_elfiques", "cout": "50+2D6", "note": "Héros uniquement" }
+        { "item_id": "vin_elfique", "cout": "30+3D6", "note": "Héros uniquement" }
       ]
     }
   },
   "equipement_special": [
     { "item_id": "vin_elfique", "cout": "30+3D6", "disponibilite": "Rare 10, Guerriers Fantômes uniquement, Héros uniquement, une seule utilisation", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] },
-    { "item_id": "pierres_runiques_elfiques", "cout": "50+2D6", "disponibilite": "Rare 11, Guerriers Fantômes uniquement, Héros uniquement", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] },
+    { "item_id": "pierres_runiques_elfiques", "cout": "50+2D6", "disponibilite": "Rare 11, Guerriers Fantômes uniquement, Tisseurs d'Ombres uniquement", "profils": ["tisseur_dombres"] },
     { "item_id": "banniere_de_nagarythe", "cout": "75+3D6", "disponibilite": "Rare 9, Guerriers Fantômes uniquement, Héros uniquement, à la création de la bande seulement", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] },
     { "item_id": "cor_de_guerre_de_nagarythe", "cout": "25+1D6", "disponibilite": "Rare 6, Guerriers Fantômes uniquement, Héros uniquement", "profils": ["maitre_des_ombres", "rodeur_des_ombres", "tisseur_dombres"] },
     { "item_id": "cape_elfique", "cout": "75+1D6x10", "disponibilite": "Rare 12, Guerriers Fantômes uniquement" },

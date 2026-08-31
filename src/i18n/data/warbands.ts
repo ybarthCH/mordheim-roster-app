@@ -1118,6 +1118,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             texte:
               'The whole group of Snotlings only counts as one model for Rout tests and when selling magic stones; each Snotling only earns half an experience point (rounded down), never gains experience itself, and is not a priority target for shooters.',
           },
+          {
+            nom: 'Weapons/armour',
+            texte:
+              'Snotlings may only ever use a pointy stick or similar mundane object, which they will find for themselves at no cost. This counts as a dagger.',
+          },
         ],
       },
       squig_geant: {
@@ -1555,6 +1560,21 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
             nom: 'Familiar Rat',
             texte:
               "If the warband includes a Pestilens Sorcerer equipped with a Familiar Rat Scroll, a giant rat may be transformed into a Familiar Rat before the battle (see Special Equipment). Familiar Rat profile: M6 WS2 BS0 S3 T3 W1 I4 A1 Ld4, with no weapons or armour. It gains experience like a Henchman, but its 10-12 \"Lad's Got Talent\" result is replaced by \"Enhanced Spellcasting: if the Pestilens Sorcerer is within 6\" of the Familiar Rat, he gains a cumulative +1 bonus to his casting roll.\" If the Pestilens Sorcerer dies, the Familiar Rat reverts to its Giant Rat form.",
+          },
+        ],
+      },
+      rat_familier: {
+        nom: 'Familiar Rat',
+        regles_speciales: [
+          {
+            nom: 'Recruitment',
+            texte: 'Cannot be recruited directly: a Familiar Rat is obtained by transforming a giant rat already in the warband (see the giant rat\'s "Familiar Rat" special rule).',
+          },
+          { nom: 'Equipment', texte: 'None. The Familiar Rat carries no weapons or armour.' },
+          {
+            nom: 'Enhanced Spellcasting',
+            texte:
+              'Replaces the 10-12 "Lad\'s Got Talent" result on the Henchmen advance table: if the Pestilens Sorcerer is within 6" of the Familiar Rat, he gains a cumulative +1 bonus to his casting roll. Purely informational — not automated (the app does not track distances between models in play).',
           },
         ],
       },
@@ -5704,6 +5724,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: "Can't Run", texte: 'A slow undead creature; cannot run but can charge normally.' },
           { nom: 'Immune to Poison', texte: 'Unaffected by poisons.' },
         ],
+        competences_speciales: {
+          conduire_char: {
+            nom: 'Drive Chariot',
+            texte:
+              'Chariots are very difficult to handle. A driver without this skill cannot charge with the Skeleton Chariot.',
+          },
+        },
       },
       acolyte: {
         nom: 'Acolyte',
@@ -5715,6 +5742,13 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: "Can't Run", texte: 'A slow undead creature; cannot run but can charge normally.' },
           { nom: 'Immune to Poison', texte: 'Unaffected by poisons.' },
         ],
+        competences_speciales: {
+          conduire_char: {
+            nom: 'Drive Chariot',
+            texte:
+              'Chariots are very difficult to handle. A driver without this skill cannot charge with the Skeleton Chariot.',
+          },
+        },
       },
       squelette: {
         nom: 'Skeleton Warrior',

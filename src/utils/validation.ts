@@ -20,13 +20,22 @@ export type ViolationComposition = {
 // surcharge de tribu (voir maxProfilPourTribu, ex : Chiens du Chaos
 // illimités chez les Kurgans) prime sur le max du catalogue. `null`
 // ("illimité" côté tribu) est normalisé en `undefined` ici, la convention
-// que les appelants testent via `limite != null`.
+// que les appelants testent via `limite != null`. `profil.reduit_par_franc_tireur`
+// (ex : le Prêtre-loup d'Ulric chez les Middenheimers, "il remplace l'un des
+// Champions de la bande, 0-1") réduit ensuite d'autant ce plafond par franc-
+// tireur vivant de ce type présent dans la bande.
 function limiteEffectivePourProfil(
-  profil: { unique?: boolean; max?: number | null },
-  surchargeTribu: number | null | undefined
+  profil: { unique?: boolean; max?: number | null; reduit_par_franc_tireur?: string },
+  surchargeTribu: number | null | undefined,
+  roster?: RosterInstance
 ): number | undefined {
   if (profil.unique) return 1;
-  return (surchargeTribu !== undefined ? surchargeTribu : profil.max) ?? undefined;
+  const base = (surchargeTribu !== undefined ? surchargeTribu : profil.max) ?? undefined;
+  if (base == null || !profil.reduit_par_franc_tireur || !roster) return base;
+  const reduction = roster.membres.filter(
+    (m) => m.statut !== 'mort' && m.franc_tireur_id === profil.reduit_par_franc_tireur
+  ).length;
+  return Math.max(0, base - reduction);
 }
 
 /**
@@ -47,7 +56,7 @@ export function validerComposition(roster: RosterInstance, language?: Language):
   for (const profil of catalogue.profils) {
     const actuel = comptes.get(profil.id) ?? 0;
     const surchargeTribu = maxProfilPourTribu(catalogue, roster, profil.id);
-    const limiteMax = limiteEffectivePourProfil(profil, surchargeTribu);
+    const limiteMax = limiteEffectivePourProfil(profil, surchargeTribu, roster);
     if (limiteMax != null && actuel > limiteMax) {
       violations.push({ profilId: profil.id, nomProfil: profil.nom, type: 'max', limite: limiteMax, actuel });
     }
@@ -69,9 +78,29 @@ export type ViolationEffectif = {
 
 /** Le Cuisinier Halfling permet à la bande d'accueillir un guerrier de plus. */
 export function effectifMaxAutorise(roster: RosterInstance): number | undefined {
-  const maximum = effectifMaxPourTribu(getCatalogue(roster.bande_id), roster);
+  const catalogue = getCatalogue(roster.bande_id);
+  const maximum = effectifMaxPourTribu(catalogue, roster);
   if (maximum == null) return undefined;
-  return maximum + (aUnFrancTireurAvecTag(roster, 'halfling') ? 1 : 0);
+  // Bonus porté par un profil de bande (ex : la Roulotte de la Peste de la
+  // Kermesse du Chaos, "+2") — voir Profile.bonus_effectif_max.
+  const bonusProfils =
+    catalogue?.profils.reduce((total, profil) => {
+      if (!profil.bonus_effectif_max) return total;
+      const possede = roster.membres.some((m) => m.profil_id === profil.id && m.statut !== 'mort');
+      return possede ? total + profil.bonus_effectif_max : total;
+    }, 0) ?? 0;
+  // Bonus porté par une compétence spéciale acquise par un membre vivant
+  // (ex : Invocateur des Morts Sans Repos, "+1") — voir
+  // CompetenceSpeciale.bonus_effectif_max.
+  const bonusCompetences =
+    catalogue?.competences_speciales.reduce((total, competence) => {
+      if (!competence.bonus_effectif_max) return total;
+      const possede = roster.membres.some(
+        (m) => m.statut !== 'mort' && m.competences_acquises.includes(competence.id)
+      );
+      return possede ? total + competence.bonus_effectif_max : total;
+    }, 0) ?? 0;
+  return maximum + (aUnFrancTireurAvecTag(roster, 'halfling') ? 1 : 0) + bonusProfils + bonusCompetences;
 }
 
 /**
@@ -104,7 +133,7 @@ export function limiteAfficheePourProfil(roster: RosterInstance, profilId: strin
   const profil = catalogue?.profils.find((p) => p.id === profilId);
   if (!catalogue || !profil) return undefined;
   const surchargeTribu = maxProfilPourTribu(catalogue, roster, profilId);
-  return limiteEffectivePourProfil(profil, surchargeTribu);
+  return limiteEffectivePourProfil(profil, surchargeTribu, roster);
 }
 
 export function peutAjouterMembre(
@@ -112,6 +141,9 @@ export function peutAjouterMembre(
   profilId: string,
   quantite = 1
 ): { ok: boolean; raison?: string } {
+  if (roster.dissoute) {
+    return { ok: false, raison: 'Bande dissoute : plus aucun recrutement possible.' };
+  }
   const catalogue = getCatalogue(roster.bande_id);
   if (!catalogue) return { ok: false, raison: 'Bande introuvable dans le catalogue.' };
   const profil = catalogue.profils.find((p) => p.id === profilId);
@@ -132,8 +164,18 @@ export function peutAjouterMembre(
       };
     }
   }
+  if (profil.requiert_marque) {
+    const marque = catalogue.marques?.find((m) => m.id === profil.requiert_marque);
+    const present = roster.membres.some((m) => m.marque === profil.requiert_marque && m.statut !== 'mort');
+    if (!present) {
+      return {
+        ok: false,
+        raison: `${profil.nom} nécessite qu'un membre vivant soit déjà présent dans la bande, portant la ${marque?.nom ?? profil.requiert_marque}.`,
+      };
+    }
+  }
   const surchargeTribu = maxProfilPourTribu(catalogue, roster, profilId);
-  const limite = limiteEffectivePourProfil(profil, surchargeTribu);
+  const limite = limiteEffectivePourProfil(profil, surchargeTribu, roster);
   if (limite != null) {
     const actuel = roster.membres
       .filter((m) => m.profil_id === profilId && m.statut !== 'mort')
@@ -152,6 +194,22 @@ export function peutAjouterMembre(
       return {
         ok: false,
         raison: `Limite combinée atteinte pour ${label ?? profil.nom} (max ${limiteGroupe} au total pour la bande, ${actuelGroupe} déjà présent(s)).`,
+      };
+    }
+  }
+  if (profil.plafond_relatif) {
+    const { profils: profilsReference, multiplicateur = 1, label } = profil.plafond_relatif;
+    const actuel = roster.membres
+      .filter((m) => m.profil_id === profilId && m.statut !== 'mort')
+      .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
+    const actuelReference = roster.membres
+      .filter((m) => profilsReference.includes(m.profil_id) && m.statut !== 'mort')
+      .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
+    const limiteRelative = actuelReference * multiplicateur;
+    if (actuel + quantite > limiteRelative) {
+      return {
+        ok: false,
+        raison: `Limite relative atteinte pour ${label ?? profil.nom} (max ${limiteRelative} avec l'effectif actuel de référence, ${actuel} déjà présent(s)).`,
       };
     }
   }

@@ -50,6 +50,7 @@
       ],
       "acces_competences": ["combat", "tir", "force", "vitesse"],
       "acces_equipement": ["maitres_chefs"],
+      "categories_interdites_commun": ["armes_cac", "armes_tir"],
       "acces_competences_a_verifier": false
     },
     {

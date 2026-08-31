@@ -104,7 +104,8 @@
       ],
       "acces_competences": ["force", "special"],
       "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_chef": true
     },
     {
       "id": "sylve_revenant",
@@ -163,7 +164,7 @@
       "unique": true,
       "min": 0,
       "max": 1,
-      "cout": 200,
+      "cout": 180,
       "xp_depart": 0,
       "stats": { "M": 5, "CC": 4, "CT": 4, "F": 4, "E": 4, "PV": 3, "I": 3, "A": 3, "Cd": 8 },
       "regles_speciales": [
@@ -174,7 +175,8 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["homme_arbre", "divers_sylvaneth"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_heros": true
     }
   ],
   "competences_speciales": [
@@ -206,6 +208,7 @@
       "id": "murmures_des_racines",
       "nom": "Murmures des racines",
       "reserve_a": "Un seul Héros de la bande peut posséder cette compétence",
+      "plafond_bande": 1,
       "texte": "Lors des jets d'Exploration, ce Héros autorise à modifier le résultat d'un dé de -1/+1.",
       "valeurPuissance": 0
     }
@@ -239,7 +242,7 @@
     "divers_sylvaneth": {
       "divers": [
         { "item_id": "arme_spectrale_market", "cout": "x2", "note": "Prix x2 de l'arme de base, sauf dagues — voir règles spéciales" },
-        { "item_id": "familier", "cout": "20+1D6", "restriction": "Sorcière des ronces uniquement" },
+        { "item_id": "familier", "cout": "20+1D6", "restriction": "Sorcière des ronces uniquement", "profils": ["sorciere_des_ronces"] },
         { "item_id": "fouet_barbele", "cout": 10 }
       ]
     }
@@ -248,8 +251,7 @@
     { "item_id": "serre_cruelle", "cout": 2, "disponibilite": "Sylvaneths uniquement" },
     { "item_id": "arme_spectrale_market", "cout": "x2", "disponibilite": "Commune, Sylvaneths uniquement" },
     { "item_id": "ecorce_de_fer", "cout": "30/80/200", "disponibilite": "Commune (Niveaux I-II), Rare 10 Héros uniquement (Niveau III), Sylvaneths uniquement" },
-    { "item_id": "grand_arc_de_kurnoth", "cout": 40, "disponibilite": "Rare 9, Homme-arbre uniquement" },
-    { "item_id": "familier", "cout": "20+1D6", "disponibilite": "Rare 8, Sorcière des ronces uniquement" }
+    { "item_id": "grand_arc_de_kurnoth", "cout": 40, "disponibilite": "Rare 9, Homme-arbre uniquement", "profils": ["homme_arbre"] }
   ],
   "magie": {
     "nom": "Rituels des Sylvaneths",

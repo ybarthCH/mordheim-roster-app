@@ -32,6 +32,10 @@
       ],
       "acces_competences": ["combat", "tir", "force", "vitesse", "special"],
       "acces_equipement": ["ostlanders"],
+      "competences_speciales": [
+        { "id": "serment_de_sang", "nom": "Serment de sang", "reserve_a": "Chef de bande uniquement", "texte": "Permet de relancer UN test de Déroute par partie.", "valeurPuissance": 20 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -116,7 +120,9 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["vauriens"],
-      "acces_competences_a_verifier": false
+      "categories_interdites_commun": ["armes_tir", "armes_poudre_noire"],
+      "acces_competences_a_verifier": false,
+      "ne_peut_jamais_devenir_chef": true
     },
     {
       "id": "ogre",
@@ -134,9 +140,10 @@
         { "nom": "Compétences", "texte": "Un Ogre qui devient un Héros dans le cadre de la règle « Ce gars est doué » peut faire son choix dans les listes de compétences de Combat et de Force." },
         { "nom": "Lent d'Esprit", "texte": "Bien que les Ogres soient capables de gagner de l'expérience et de profiter des progressions, ils ne sont pas les plus intelligentes des créatures. Les Ogres gagnent une progression qu'une fois sur deux (ils doivent accumuler deux fois plus d'expérience que la normale pour obtenir une progression)." }
       ],
-      "acces_competences": [],
+      "acces_competences": ["combat", "force"],
       "acces_equipement": ["ogres"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "demi_xp": true
     },
     {
       "id": "chien_de_guerre",
@@ -162,7 +169,6 @@
   "competences_speciales": [
     { "id": "ruee_du_taureau", "nom": "Ruée du taureau", "texte": "Quand il charge, le Héros peut tenter de renverser son adversaire plutôt que de faire des attaques normales : jet pour effectuer une seule touche avec un modificateur de +1, sans jet de blessure. Si le guerrier touche, la cible est mise à terre.", "valeurPuissance": 20 },
     { "id": "odeur_nauseabonde", "nom": "Odeur nauséabonde", "texte": "Tous les ennemis vivants (pas les Morts-Vivants ni les Possédés) subissent un malus de -1 pour toucher au corps à corps contre ce guerrier. Il ne peut pas porter d'objet enflammé, et les attaques de feu à son encontre sont résolues avec Force +1 à cause de ses vêtements imbibés d'alcool.", "valeurPuissance": 40 },
-    { "id": "serment_de_sang", "nom": "Serment de sang", "reserve_a": "Chef de bande uniquement", "texte": "Permet de relancer UN test de Déroute par partie.", "valeurPuissance": 20 },
     { "id": "narguer", "nom": "Narguer", "texte": "Pendant la phase de tir, le guerrier peut choisir de narguer un ennemi au lieu de tirer ou lancer un sort (suit les règles de ciblage d'un tir : l'adversaire le plus proche visible, etc.). L'ennemi doit faire un test de Commandement : en cas d'échec, il doit passer sa prochaine phase de mouvement à engager un combat au corps à corps avec le guerrier qui l'a nargué.", "valeurPuissance": 20 },
     { "id": "amis_des_betes", "nom": "Amis des bêtes", "texte": "Ce guerrier dégage un charme qui touche tous les animaux dits « normaux » (chevaux de guerre, chiens de guerre, etc.) : ils ne l'attaqueront jamais, et jusqu'à deux Chiens de Guerre possédés par la figurine ne sont pas comptés dans le nombre maximum de figurines de la bande.", "valeurPuissance": 20 }
   ],
