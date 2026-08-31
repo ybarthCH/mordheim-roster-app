@@ -87,13 +87,18 @@ export function succederApresMorts(
   // par la règle Œil des Dieux Sombres des Maraudeurs du Chaos, où le chef
   // est transformé plutôt que réellement tué au combat.
   options?: { sansBannirProfilLeader?: boolean }
-): Pick<RosterInstance, 'profils_bannis' | 'leader_instance_id' | 'dissoute'> | null {
+): (Pick<RosterInstance, 'profils_bannis' | 'leader_instance_id' | 'dissoute'> & { membres?: Member[] }) | null {
   if (!catalogue) return null;
 
   const bannisSet = new Set(rosterAvant.profils_bannis ?? []);
   let changement = false;
   let leaderInstanceId = rosterAvant.leader_instance_id;
   let dissoute = false;
+  // Membres éventuellement modifiés par la succession elle-même (ex : règle
+  // spéciale octroyée au successeur, voir la branche orques_noirs
+  // ci-dessous) — distinct de `membresApres`, qui reste la référence
+  // "membres après morts, avant conséquences de la succession".
+  let membresResultat: Member[] | null = null;
 
   const vientDeMourir = (instanceId: string) => {
     const avant = rosterAvant.membres.find((m) => m.instance_id === instanceId);
@@ -166,6 +171,41 @@ export function succederApresMorts(
         leaderInstanceId = undefined;
         dissoute = true;
       }
+    } else if (catalogue.id === 'orques_noirs') {
+      // "Si le Chef venait à être tué, ce serait obligatoirement l'Orque
+      // Noir avec le plus d'expérience qui prendrait le commandement de la
+      // bande, même si un Orque est plus expérimenté. Le remplaçant gagne
+      // automatiquement la règle spéciale t'vas t'calmer ?!" (règle "L'chef
+      // il a kané !", déjà citée dans orques_noirs.json) — succession
+      // restreinte aux seuls Orques Noirs (profil orque_noir), départagée
+      // par XP seul (pas par Commandement comme l'algorithme générique), et
+      // jamais par un autre type de héros de la bande (Pti'mek) même plus
+      // expérimenté. Aucune lecture littérale ne prévoit de repli sur
+      // l'algorithme générique si aucun Orque Noir ne survit — le choix
+      // manuel du joueur reste alors possible (voir choixLeaderRequis),
+      // comme en cas d'égalité de XP (le texte ne prévoit pas de D6 de
+      // départage pour ce cas précis, contrairement à la règle générique).
+      const orquesNoirs = membresApres.filter((m) => m.profil_id === 'orque_noir' && m.statut !== 'mort');
+      if (orquesNoirs.length === 0) {
+        leaderInstanceId = undefined;
+      } else {
+        const maxXp = Math.max(...orquesNoirs.map((m) => m.xp));
+        const candidats = orquesNoirs.filter((m) => m.xp === maxXp);
+        if (candidats.length !== 1) {
+          leaderInstanceId = undefined;
+        } else {
+          leaderInstanceId = candidats[0].instance_id;
+          const texteRegle =
+            "T'vas t'calmer ?! : si un Orque de main rate son test d'Animosité à moins de 6ps, ce Héros peut intervenir pour le calmer — touche automatique d'une Force au choix, ajoutée au résultat du tableau d'Animosité si la cible reste debout.";
+          if (!candidats[0].regles_speciales_notes.includes(texteRegle)) {
+            membresResultat = membresApres.map((m) =>
+              m.instance_id === candidats[0].instance_id
+                ? { ...m, regles_speciales_notes: [...m.regles_speciales_notes, texteRegle] }
+                : m
+            );
+          }
+        }
+      }
     } else {
       const survivants = membresApres.filter((m) => {
         if (m.instance_id === leaderAvant.instance_id || m.statut === 'mort' || estFrancTireur(m)) return false;
@@ -197,5 +237,6 @@ export function succederApresMorts(
     profils_bannis: Array.from(bannisSet),
     leader_instance_id: leaderInstanceId,
     ...(dissoute ? { dissoute: true } : {}),
+    ...(membresResultat ? { membres: membresResultat } : {}),
   };
 }

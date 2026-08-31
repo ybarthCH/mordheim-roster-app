@@ -164,7 +164,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
       return {
         ...current,
         ...succession,
-        membres: membresMaj,
+        membres: succession?.membres ?? membresMaj,
         tresorerie: current.tresorerie + tresorerieBonus,
       };
     });
@@ -338,7 +338,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
             : m
         );
         const succession = succederApresMorts(current, catalogue, membresApres);
-        return { ...current, ...succession, membres: membresApres };
+        return { ...current, ...succession, membres: succession?.membres ?? membresApres };
       });
     } else if (s === 'blesse') {
       majMembre({ statut: s, date_mort: undefined, blesse_tour_actuel: 0, blesse_tour_total: toursBlesse ?? 0 });
@@ -643,10 +643,11 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
           onApply={(updated, nouveauMembre) => {
             const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
             const succession = succederApresMorts(roster, catalogue, membresMaj);
+            const membresAvecSuccession = succession?.membres ?? membresMaj;
             updateRoster({
               ...roster,
               ...succession,
-              membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj,
+              membres: nouveauMembre ? [...membresAvecSuccession, nouveauMembre] : membresAvecSuccession,
             });
           }}
         />

@@ -94,9 +94,10 @@ export function ResolutionOeilDesDieuxSombres({
     const note = dejaEnfant
       ? `Œil des Dieux Sombres : ${nomAffiche(chef)} aurait dû devenir un Enfant du Chaos, mais la bande en compte déjà un — il est simplement retiré de la bande.`
       : `Œil des Dieux Sombres : ${nomAffiche(chef)} devient un Enfant du Chaos (perd expérience, compétences, blessures et équipement).`;
+    const membresAvecSuccession = succession?.membres ?? membresMaj;
     onMajRoster({
       ...succession,
-      membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj,
+      membres: nouveauMembre ? [...membresAvecSuccession, nouveauMembre] : membresAvecSuccession,
       equipement_reserve: `${roster.equipement_reserve}${roster.equipement_reserve ? '\n' : ''}${note}`,
     });
     setResolu(note);

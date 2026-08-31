@@ -757,7 +757,12 @@ export function PostBatailleScreen() {
   const appliquerAvancee = (updated: Member, nouveauMembre?: Member) => {
     const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
     const succession = succederApresMorts(roster, catalogue, membresMaj);
-    updateRoster({ ...roster, ...succession, membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj });
+    const membresAvecSuccession = succession?.membres ?? membresMaj;
+    updateRoster({
+      ...roster,
+      ...succession,
+      membres: nouveauMembre ? [...membresAvecSuccession, nouveauMembre] : membresAvecSuccession,
+    });
     const cible = nouveauMembre ?? updated;
     const dernier = cible.historique_avancees[cible.historique_avancees.length - 1];
     if (dernier) {
@@ -999,6 +1004,7 @@ export function PostBatailleScreen() {
     };
 
     const succession = succederApresMorts(roster, catalogue, membresConserves);
+    const membresApresSuccession = succession?.membres ?? membresConserves;
 
     // Dramatis Personae recrutés à l'étape Commerce : nouveaux membres, sans
     // rapport avec le Héros qui a effectué la recherche (voir
@@ -1017,7 +1023,7 @@ export function PostBatailleScreen() {
     await updateRoster({
       ...roster,
       ...succession,
-      membres: [...membresConserves, ...nouveauxDramatisPersonae],
+      membres: [...membresApresSuccession, ...nouveauxDramatisPersonae],
       stock: [...roster.stock, ...stockCommerce],
       wyrdstone: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre),
       tresorerie: tresorerieApres,

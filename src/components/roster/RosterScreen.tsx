@@ -765,10 +765,11 @@ export function RosterScreen({
                 onApply={(updated, nouveauMembre) => {
                   const membresMaj = roster.membres.map((m) => (m.instance_id === updated.instance_id ? updated : m));
                   const succession = succederApresMorts(roster, catalogue, membresMaj);
+                  const membresAvecSuccession = succession?.membres ?? membresMaj;
                   updateRoster({
                     ...roster,
                     ...succession,
-                    membres: nouveauMembre ? [...membresMaj, nouveauMembre] : membresMaj,
+                    membres: nouveauMembre ? [...membresAvecSuccession, nouveauMembre] : membresAvecSuccession,
                   });
                 }}
               />
