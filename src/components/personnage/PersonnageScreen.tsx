@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
-import { grilleXpDuProfil, resolveProfil, nombreHeros, peutDesignerEntraine, doitEtreRetireEntraine, transformationDisponible } from '../../utils/profil';
+import { grilleXpDuProfil, resolveProfil, nombreHeros, peutDesignerEntraine, doitEtreRetireEntraine, transformationDisponible, transformationEstDepart } from '../../utils/profil';
 import { getCatalogue } from '../../data/warbands';
 import type { Magie, Stats } from '../../types/catalog';
 import type { AdvanceRecord, Statut } from '../../types/roster';
@@ -258,10 +258,22 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   // la trésorerie et bascule `profil_id` en un seul patch. Les stats/XP/
   // historique du membre sont conservés tels quels ; seul l'accès
   // équipement/compétences change, via la résolution normale du nouveau
-  // profil (resolveProfil).
+  // profil (resolveProfil). Si la cible est déjà occupée par un autre membre
+  // vivant (voir Profile.transformation.bloque_si_profil_vivant /
+  // transformationEstDepart, ex : le Damné dont la bande a déjà un Enfant du
+  // Chaos), aucun swap n'a lieu : le membre quitte simplement la bande,
+  // gratuitement, même principe que supprimerMembre.
   const transformerProfil = () => {
     const transformation = profil.transformation;
     if (!transformation) return;
+    if (transformationEstDepart(profil, roster)) {
+      patchRoster(roster.id, (current) => ({
+        ...current,
+        membres: current.membres.filter((m) => m.instance_id !== membre.instance_id),
+      }));
+      navigate(`/roster/${roster.id}`);
+      return;
+    }
     patchRoster(roster.id, (current) => {
       if (current.tresorerie < (transformation.cout ?? 0)) return current;
       return {
@@ -533,10 +545,12 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
       {profil.transformation && transformationDisponible(profil, membre, roster) && (
         <div className="card card--tight">
           <button className="btn btn--block" onClick={() => setModalTransformation(true)}>
-            {t('transformation.buttonLabel', {
-              nom: catalogue.profils.find((p) => p.id === profil.transformation?.cible)?.nom ?? profil.transformation.cible,
-              cout: profil.transformation.cout ?? 0,
-            })}
+            {transformationEstDepart(profil, roster)
+              ? t('transformation.departButtonLabel')
+              : t('transformation.buttonLabel', {
+                  nom: catalogue.profils.find((p) => p.id === profil.transformation?.cible)?.nom ?? profil.transformation.cible,
+                  cout: profil.transformation.cout ?? 0,
+                })}
           </button>
         </div>
       )}

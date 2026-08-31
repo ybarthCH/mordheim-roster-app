@@ -144,7 +144,13 @@
       ],
       "acces_competences": ["force", "vitesse", "special"],
       "acces_equipement": ["heros"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "transformation": {
+        "cible": "enfant_du_chaos",
+        "seuil_xp": 90,
+        "necessite_caracteristique_variable": true,
+        "bloque_si_profil_vivant": "enfant_du_chaos"
+      }
     },
     {
       "id": "maraudeur",

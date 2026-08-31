@@ -146,6 +146,20 @@ export type Profile = {
     // que si la bande compte un Prêcheur-Sorcier Pestilens vivant équipé
     // d'un Parchemin de rat familier.
     necessite_profil_vivant_avec_objet?: { profil: string; item_id: string };
+    // Ex : le Damné des Maraudeurs du Chaos ("Destin"), dont CC/F/E/A sont
+    // des caractéristiques variables (Profile.stats_variables) tant qu'un
+    // joueur ne les a pas fixées une à une — la transformation en Enfant du
+    // Chaos ne concerne QUE tant qu'il en reste au moins une non fixée
+    // (Member.stats_variables non vide). Voir transformationDisponible.
+    necessite_caracteristique_variable?: boolean;
+    // Ex : toujours le Damné — "ou quitte la bande pour errer dans les
+    // désolations" si la bande a déjà un Enfant du Chaos vivant : la cible
+    // étant un profil `unique`/`max: 1`, un second exemplaire ne peut pas
+    // être créé. Quand un membre vivant de ce profil existe déjà, le bouton
+    // de transformation devient un simple retrait de la bande (gratuit, pas
+    // de swap de profil) plutôt que la transformation habituelle — voir
+    // TransformationModal/transformerProfil.
+    bloque_si_profil_vivant?: string;
   };
   cout: number | null;
   // Notation de dés affichée quand `cout` est variable (donc null, ex :

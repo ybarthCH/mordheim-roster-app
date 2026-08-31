@@ -128,7 +128,21 @@ export function transformationDisponible(profil: Profile, membre: Member, roster
     );
     if (!present) return false;
   }
+  if (transformation.necessite_caracteristique_variable && Object.keys(membre.stats_variables ?? {}).length === 0) {
+    return false;
+  }
   return true;
+}
+
+// Voir Profile.transformation.bloque_si_profil_vivant — vrai si la cible de
+// la transformation est un profil dont un exemplaire vivant existe déjà
+// dans la bande (ex : la bande a déjà un Enfant du Chaos). Dans ce cas, le
+// bouton de transformation devient un simple retrait de la bande plutôt
+// qu'un swap de profil (voir TransformationModal/transformerProfil).
+export function transformationEstDepart(profil: Profile, roster: RosterInstance): boolean {
+  const cibleBloquante = profil.transformation?.bloque_si_profil_vivant;
+  if (!cibleBloquante) return false;
+  return roster.membres.some((m) => m.profil_id === cibleBloquante && m.statut !== 'mort');
 }
 
 /**

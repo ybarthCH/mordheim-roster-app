@@ -1,5 +1,6 @@
 import type { RosterInstance } from '../../types/roster';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
+import { transformationEstDepart } from '../../utils/profil';
 import { Modal } from '../common/Modal';
 import { useLanguage } from '../../state/useLanguage';
 
@@ -15,12 +16,18 @@ type Props = {
 // bande (voir Profile.transformation, ex : Pti'mek -> Orque Noir des Orques
 // Noirs) — même schéma que OptionSorcierModal (upgrade payant confirmé
 // depuis la fiche du personnage), mais sans choix à faire : la cible est
-// fixée par les données, seule la confirmation reste à donner.
+// fixée par les données, seule la confirmation reste à donner. Si la cible
+// (profil `bloque_si_profil_vivant`) est déjà occupée par un autre membre
+// vivant de la bande (ex : la bande a déjà un Enfant du Chaos), la
+// confirmation devient un simple retrait de la bande plutôt qu'un swap de
+// profil — voir transformationEstDepart et transformerProfil
+// (PersonnageScreen.tsx).
 export function TransformationModal({ roster, profil, catalogue, onClose, onConfirm }: Props) {
   const { t } = useLanguage();
   const transformation = profil.transformation;
   const cible = catalogue.profils.find((p) => p.id === transformation?.cible);
-  const cout = transformation?.cout ?? 0;
+  const depart = transformationEstDepart(profil, roster);
+  const cout = depart ? 0 : (transformation?.cout ?? 0);
   const budgetSuffisant = cout <= roster.tresorerie;
 
   if (!transformation || !cible) return null;
@@ -33,8 +40,10 @@ export function TransformationModal({ roster, profil, catalogue, onClose, onConf
 
   return (
     <Modal onClose={onClose}>
-      <h3 className="mt-0">{t('transformation.title', { nom: cible.nom })}</h3>
-      <p className="text-sm text-muted">{t('transformation.body', { nom: cible.nom, cout })}</p>
+      <h3 className="mt-0">{depart ? t('transformation.departTitle') : t('transformation.title', { nom: cible.nom })}</h3>
+      <p className="text-sm text-muted">
+        {depart ? t('transformation.departBody', { nom: cible.nom }) : t('transformation.body', { nom: cible.nom, cout })}
+      </p>
       {!budgetSuffisant && (
         <p className="text-danger text-sm">
           {t('transformation.insufficientTreasury', { disponible: roster.tresorerie, requis: cout })}
@@ -45,7 +54,7 @@ export function TransformationModal({ roster, profil, catalogue, onClose, onConf
           {t('transformation.cancel')}
         </button>
         <button className="btn btn--primary" disabled={!budgetSuffisant} onClick={confirmer}>
-          {t('transformation.confirm', { cout })}
+          {depart ? t('transformation.departConfirm') : t('transformation.confirm', { cout })}
         </button>
       </div>
     </Modal>
