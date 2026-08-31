@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
-import { grilleXpDuProfil, resolveProfil, nombreHeros, peutDesignerEntraine, doitEtreRetireEntraine } from '../../utils/profil';
+import { grilleXpDuProfil, resolveProfil, nombreHeros, peutDesignerEntraine, doitEtreRetireEntraine, transformationDisponible } from '../../utils/profil';
 import { getCatalogue } from '../../data/warbands';
 import type { Magie, Stats } from '../../types/catalog';
 import type { AdvanceRecord, Statut } from '../../types/roster';
@@ -21,6 +21,7 @@ import { BlessureGraveModal } from './BlessureGraveModal';
 import { AchatEquipementModal } from './AchatEquipementModal';
 import { RecruterDansGroupeModal } from './RecruterDansGroupeModal';
 import { OptionSorcierModal } from './OptionSorcierModal';
+import { TransformationModal } from './TransformationModal';
 import { ItemDetailModal } from './ItemDetailModal';
 import { Modal } from '../common/Modal';
 import { CollapsibleCard } from '../common/CollapsibleCard';
@@ -86,6 +87,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   const [modalAchat, setModalAchat] = useState(false);
   const [modalRecruterGroupe, setModalRecruterGroupe] = useState(false);
   const [modalOptionSorcier, setModalOptionSorcier] = useState(false);
+  const [modalTransformation, setModalTransformation] = useState(false);
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
   const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
   const [avanceeAModifier, setAvanceeAModifier] = useState<AdvanceRecord | null>(null);
@@ -246,6 +248,27 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
           m.instance_id === membre.instance_id
             ? { ...m, option_sorcier_pris: true, sorts_connus: [...m.sorts_connus, sortId] }
             : m
+        ),
+      };
+    });
+  };
+
+  // Transformation payante et définitive vers un AUTRE profil de la même
+  // bande (voir Profile.transformation, ex : Pti'mek -> Orque Noir) : débite
+  // la trésorerie et bascule `profil_id` en un seul patch. Les stats/XP/
+  // historique du membre sont conservés tels quels ; seul l'accès
+  // équipement/compétences change, via la résolution normale du nouveau
+  // profil (resolveProfil).
+  const transformerProfil = () => {
+    const transformation = profil.transformation;
+    if (!transformation) return;
+    patchRoster(roster.id, (current) => {
+      if (current.tresorerie < (transformation.cout ?? 0)) return current;
+      return {
+        ...current,
+        tresorerie: current.tresorerie - (transformation.cout ?? 0),
+        membres: current.membres.map((m) =>
+          m.instance_id === membre.instance_id ? { ...m, profil_id: transformation.cible } : m
         ),
       };
     });
@@ -507,6 +530,17 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         </div>
       )}
 
+      {profil.transformation && transformationDisponible(profil, membre) && (
+        <div className="card card--tight">
+          <button className="btn btn--block" onClick={() => setModalTransformation(true)}>
+            {t('transformation.buttonLabel', {
+              nom: catalogue.profils.find((p) => p.id === profil.transformation?.cible)?.nom ?? profil.transformation.cible,
+              cout: profil.transformation.cout ?? 0,
+            })}
+          </button>
+        </div>
+      )}
+
       <ReglesSpecialesCard membre={membre} onMajMembre={majMembre} />
 
       {profil.type === 'heros' && (!francTireur || estDramatisPersonae(membre)) && (
@@ -649,6 +683,15 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
           catalogue={catalogue}
           onClose={() => setModalOptionSorcier(false)}
           onConfirm={prendreOptionSorcier}
+        />
+      )}
+      {modalTransformation && (
+        <TransformationModal
+          roster={roster}
+          profil={profil}
+          catalogue={catalogue}
+          onClose={() => setModalTransformation(false)}
+          onConfirm={transformerProfil}
         />
       )}
       {itemDetail && (

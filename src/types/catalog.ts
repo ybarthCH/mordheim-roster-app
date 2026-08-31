@@ -124,6 +124,23 @@ export type Profile = {
     cout: number;
     texte: string;
   };
+  // Transformation en un AUTRE profil de la même bande, déclenchée à la
+  // discrétion du joueur depuis la fiche du personnage (pas depuis la vue de
+  // bande) — ex : chez les Orques Noirs, "Sang d'orque noir" : un Pti'mek
+  // ayant atteint `seuil_xp` peut, moyennant `cout` CO, devenir un Orque Noir
+  // à part entière (accès équipement/compétences de sa cible, stats
+  // accumulées conservées). Simplification assumée par rapport au texte
+  // imprimé (qui lie la transformation à la PROCHAINE avancée "nouvelle
+  // compétence" plutôt qu'à un simple seuil d'XP) — voir
+  // transformationDisponible/appliquerTransformation dans utils/profil.ts,
+  // seul mécanisme actuellement câblé : à sens unique, pas de version
+  // réversible (voir aussi le Rat Familier des Skavens Pestilens, cas
+  // réversible non encore couvert par ce champ).
+  transformation?: {
+    cible: string;
+    cout?: number;
+    seuil_xp?: number;
+  };
   cout: number | null;
   // Notation de dés affichée quand `cout` est variable (donc null, ex :
   // "25+2D6" pour un chien de guerre) — le montant réel est saisi à la main

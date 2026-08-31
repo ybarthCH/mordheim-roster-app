@@ -107,6 +107,17 @@ export function tableAvancementDuProfil(profil: Profile): 'heros' | 'homme_de_ma
   return profil.table_avancement ?? (profil.type === 'heros' ? 'heros' : 'homme_de_main');
 }
 
+// Voir Profile.transformation — le bouton de transformation n'apparaît sur
+// la fiche du personnage qu'une fois le seuil d'XP atteint (statut vivant
+// implicite : la fiche personnage n'est de toute façon consultable que pour
+// un membre existant du roster).
+export function transformationDisponible(profil: Profile, membre: Member): boolean {
+  const transformation = profil.transformation;
+  if (!transformation) return false;
+  if (transformation.seuil_xp != null && membre.xp < transformation.seuil_xp) return false;
+  return true;
+}
+
 /**
  * Un membre peut être désigné manuellement avec le statut spécial porté par
  * `Profile.designation_entrainee` (voir ce champ) si : ce profil le prévoit,

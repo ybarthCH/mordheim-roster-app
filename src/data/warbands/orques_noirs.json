@@ -42,7 +42,8 @@
         {"nom": "Sang d’orque noir", "texte": "S’il a accumulé 25 points d’expérience, un Pti’mek peut être promu en « Pti’mek Orque Noir ». Il doit avant tout subir un rituel de passage pour devenir un Pti’mek Orque Noir, dont les préparatifs coûtent 10 Couronnes d’Or. Une fois ce rituel accompli, la prochaine fois qu’il pourra choisir une nouvelle compétence, il pourra obtenir, à la place, la règle spéciale orque noir. Il devient alors un Orque Noir à part entière et a désormais accès à leur liste d’équipement et aux mêmes compétences qu’eux."}
       ],
       "acces_competences": ["combat", "tir", "special"], "acces_competences_a_verifier": false,
-      "acces_equipement": ["pti_meks"], "est_leader": false, "ne_peut_jamais_devenir_chef": true
+      "acces_equipement": ["pti_meks"], "est_leader": false, "ne_peut_jamais_devenir_chef": true,
+      "transformation": { "cible": "orque_noir", "cout": 10, "seuil_xp": 25 }
     },
     {
       "id": "kastagneurs_orques", "nom": "Kastagneurs Orques", "type": "homme_de_main", "groupe_caracteristiques": "peaux_vertes_orque", "unique": false, "min": 0, "max": null, "cout": 25, "xp_depart": 0,
