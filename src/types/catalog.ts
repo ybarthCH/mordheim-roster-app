@@ -111,6 +111,12 @@ export type Profile = {
   // les Loups ne sont autorisés que si la bande possède un Wulfen vivant) —
   // voir peutAjouterMembre.
   requiert_profil_vivant?: string;
+  // Ce profil ne peut être recruté que si un membre vivant de la bande porte
+  // cette Marque (voir Member.marque, Marque.id) — ex : les Gors des
+  // Maraudeurs du Chaos, importés des Pillards Hommes-Bêtes, ne sont
+  // recrutables que si la bande porte la Marque du Chaos Universel. Voir
+  // peutAjouterMembre.
+  requiert_marque?: string;
   // Entretien post-bataille pour un profil recruté DIRECTEMENT dans la bande
   // (pas un franc-tireur) — ex : le Troll d'Orc Mob, "Toujours Faim : la
   // bande doit dépenser 15 CO après chaque bataille pour nourrir le Troll

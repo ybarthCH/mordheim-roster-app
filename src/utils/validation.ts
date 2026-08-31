@@ -155,6 +155,16 @@ export function peutAjouterMembre(
       };
     }
   }
+  if (profil.requiert_marque) {
+    const marque = catalogue.marques?.find((m) => m.id === profil.requiert_marque);
+    const present = roster.membres.some((m) => m.marque === profil.requiert_marque && m.statut !== 'mort');
+    if (!present) {
+      return {
+        ok: false,
+        raison: `${profil.nom} nécessite qu'un membre vivant soit déjà présent dans la bande, portant la ${marque?.nom ?? profil.requiert_marque}.`,
+      };
+    }
+  }
   const surchargeTribu = maxProfilPourTribu(catalogue, roster, profilId);
   const limite = limiteEffectivePourProfil(profil, surchargeTribu);
   if (limite != null) {
