@@ -656,6 +656,23 @@ export function equipementInclusDepart(catalogueId: string, profilId: string): I
       ];
     }
   }
+  // "Montures : Tous les membres de la bande sont automatiquement montés
+  // sur un Cheval (inclus dans leur coût de recrutement)." (Escorteurs
+  // Impériaux [GLM].pdf p.1) — les 6 profils de la bande gardent un accès
+  // normal à leur propre liste d'équipement (contrairement aux cas
+  // Snotling/Kroxigor/Dryade ci-dessus) ; le Cheval gratuit s'ajoute
+  // simplement à ce qu'ils achètent par ailleurs (même schéma que le
+  // Bosco/Fiel-revenant). Peut ensuite être amélioré en Destrier via
+  // equipement_special pour les 3 profils concernés (+40 CO).
+  if (
+    catalogueId === 'escorteurs_imperiaux' &&
+    ['chevalier', 'escorteur', 'eclaireur', 'pistolier', 'hussard', 'palefrenier'].includes(profilId)
+  ) {
+    const item = getItem('cheval');
+    if (item) {
+      return [{ instance_id: uuidv4(), item_id: item.id, nom: item.nom, categorie: item.categorie, cout: 0 }];
+    }
+  }
   return [];
 }
 

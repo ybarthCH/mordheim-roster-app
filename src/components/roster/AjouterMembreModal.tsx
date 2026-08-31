@@ -36,6 +36,24 @@ import { useLanguage } from '../../state/useLanguage';
 
 const FRANC_TIREUR = '__franc_tireur__';
 
+// "Chien de guerre gratuit : ... Tout Capitaine d'une bande d'Ostermarkers
+// peut commencer avec un chien de guerre dans son équipement de départ ...
+// Ce chien de guerre est gratuit à la création de la bande." (Mercenaires
+// Ostermarkers [GLM].pdf) — ne couvre que le tout premier chien recruté par
+// cette bande (les suivants, ou un chien acheté plus tard en campagne,
+// restent payants au tarif normal). Même esprit que la première dague
+// gratuite (AchatEquipementModal), mais porte sur le recrutement d'un
+// profil entier plutôt que sur un objet d'équipement — aucun mécanisme
+// générique de "profil compagnon gratuit" n'existe, traité ici en cas
+// nommé plutôt que par un nouveau champ de données.
+function estPremierChienDeGuerreGratuitOstermarkers(catalogueId: string | undefined, profilId: string, roster: RosterInstance): boolean {
+  return (
+    catalogueId === 'ostermarkers' &&
+    profilId === 'chien_de_guerre' &&
+    !roster.membres.some((m) => m.profil_id === 'chien_de_guerre' && m.statut !== 'mort')
+  );
+}
+
 type Props = {
   roster: RosterInstance;
   onClose: () => void;
@@ -176,7 +194,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
     const p = catalogue?.profils.find((pr) => pr.id === value);
     setQuantiteSaisie('1');
     setGroupeCibleId(null);
-    setCoutManuelSaisi('');
+    setCoutManuelSaisi(estPremierChienDeGuerreGratuitOstermarkers(catalogue?.id, value, roster) ? '0' : '');
     setSortsChoisis(Array(p?.nombre_sorts_choisis_depart ?? 1).fill(''));
     setMarqueChoisie('');
   };
@@ -580,6 +598,21 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
                 onChange={(e) => setCoutManuelSaisi(e.target.value)}
                 placeholder={profil.cout_notation ? t('creation.modal.costPlaceholder') : undefined}
               />
+              {estPremierChienDeGuerreGratuitOstermarkers(catalogue?.id, profilId, roster) && (
+                <p
+                  className="text-sm mb-0"
+                  style={{
+                    marginTop: '0.4rem',
+                    padding: '0.4rem 0.6rem',
+                    borderRadius: 'var(--radius)',
+                    background: 'var(--warning-bg)',
+                    color: 'var(--warning)',
+                    fontWeight: 700,
+                  }}
+                >
+                  {t('creation.modal.freeWarDogNote')}
+                </p>
+              )}
             </div>
           )}
           {groupesExistants.length > 0 && (

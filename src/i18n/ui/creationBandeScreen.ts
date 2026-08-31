@@ -48,6 +48,10 @@ export const creationBandeScreen: UiDictionary = {
   'creation.modal.costLabel': { fr: 'Coût (po)', en: 'Cost (gc)' },
   'creation.modal.costNotation': { fr: '— notation :', en: '— roll:' },
   'creation.modal.costPlaceholder': { fr: 'Résultat du jet, ex : 32', en: 'Roll result, e.g. 32' },
+  'creation.modal.freeWarDogNote': {
+    fr: 'Chien de guerre gratuit : le Capitaine Mercenaire peut commencer avec ce premier chien sans frais.',
+    en: 'Free war dog: the Mercenary Captain may start with this first dog at no cost.',
+  },
   'creation.modal.charNameLabel': { fr: 'Nom du personnage', en: 'Character name' },
   'creation.modal.charNameGroupSuffix': { fr: ' (groupe)', en: ' (group)' },
   'creation.modal.markLabel': { fr: 'Marque des Dieux Sombres', en: 'Mark of the Dark Gods' },
