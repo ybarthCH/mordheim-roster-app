@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Screen } from '../common/Screen';
 import { useRosters } from '../../state/useRosters';
 import { creerMembreFrancTireurCatalogue } from '../../utils/factory';
+import { getCatalogue } from '../../data/warbands';
 import {
   disponibiliteFrancTireur,
   FRANCS_TIREURS,
@@ -113,7 +114,7 @@ export function RecruterFrancTireurScreen() {
     membre.equipement = equipementResolu(selection).join(', ');
     if (selection.recrutement.cout == null) membre.cout_recrutement = coutRecrutement;
 
-    const membres = roster.membres.map((m) => {
+    const membresApresLiche = roster.membres.map((m) => {
       if (!selection.sacrifice_liche || m.profil_id !== 'liche' || m.statut === 'mort') return m;
       return {
         ...m,
@@ -121,6 +122,21 @@ export function RecruterFrancTireurScreen() {
         stats_modifiees: m.stats_modifiees.includes('PV') ? m.stats_modifiees : [...m.stats_modifiees, 'PV' as const],
       };
     });
+
+    // Règle "Rancuniers" (Gladiateurs, voir Profile.quitte_si_franc_tireur_tag) :
+    // certains membres quittent immédiatement la bande dès qu'un franc-tireur
+    // portant un tag donné (elfe...) est recruté — vérifié ici, seul point de
+    // passage où un franc-tireur rejoint la bande.
+    const catalogue = getCatalogue(roster.bande_id);
+    const tagsSelection: string[] = selection.tags ?? [];
+    const membres =
+      catalogue && tagsSelection.length
+        ? membresApresLiche.filter((m) => {
+            if (m.statut === 'mort') return true;
+            const profil = catalogue.profils.find((p) => p.id === m.profil_id);
+            return !profil?.quitte_si_franc_tireur_tag || !tagsSelection.includes(profil.quitte_si_franc_tireur_tag);
+          })
+        : membresApresLiche;
 
     updateRoster({
       ...roster,

@@ -72,6 +72,7 @@
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["ogres_trolls"],
       "acces_competences_a_verifier": false,
+      "quitte_si_franc_tireur_tag": "elfe",
       "competences_speciales_ajoutees": true,
       "competences_speciales": [
         { "id": "berserk_gladiateur", "nom": "Berserk", "texte": "+1 pour toucher au corps à corps lors du tour où il charge (non cumulable avec Charge furieuse).", "valeurPuissance": 20 },

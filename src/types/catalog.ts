@@ -114,6 +114,13 @@ export type Profile = {
   // des profils de bande entre eux, jamais un franc-tireur. Voir
   // limiteEffectivePourProfil dans utils/validation.ts.
   reduit_par_franc_tireur?: string;
+  // Ce membre quitte immédiatement la bande si un franc-tireur portant ce
+  // tag est recruté (référence vers FrancTireurCatalog.tags, jamais importé
+  // ici pour éviter un import circulaire — hiredSword.ts dépend déjà de
+  // catalog.ts) — ex : chez les Gladiateurs, "Rancuniers" : "Si la bande
+  // engage un Franc-tireur elfe, le Gladiateur Tueur de Trolls quitte
+  // immédiatement la bande." Voir RecruterFrancTireurScreen.tsx.
+  quitte_si_franc_tireur_tag?: string;
   // Ce profil ne peut être recruté que si la bande compte déjà au moins un
   // membre vivant (statut != 'mort') de ce profil-ci (ex : chez les Norses,
   // les Loups ne sont autorisés que si la bande possède un Wulfen vivant) —
