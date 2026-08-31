@@ -2307,11 +2307,40 @@ export function libelleOptionEquipementChoix(itemIds: string[], language: Langua
 
 export type DisponibiliteFrancTireur = { disponible: boolean; raison?: string };
 
+// Compétence spéciale "Chien de Guerre" des Maneaters (reserve_a: "Chef
+// uniquement") : "La bande peut engager les Francs-Tireurs disponibles pour
+// les Mercenaires ; si le chef meurt, tous les Francs-Tireurs sont retirés
+// de la bande." RESTRICTIONS_ABSOLUES.maneaters reste une liste blanche
+// statique (6 francs-tireurs toujours accessibles, indépendamment de cette
+// compétence) — débloquer dynamiquement tout le reste nécessite de
+// recroiser la disponibilité avec les compétences acquises du chef,
+// impossible à figer dans FRANCS_TIREURS (calculé une seule fois au chargement
+// du module). 'reiklanders' sert de témoin fiable de "accessible aux
+// Mercenaires" plutôt que MERCENAIRES.some(...) : un franc-tireur y accède
+// via HUMAINS/BIEN/MERCENAIRES_ET_KISLEVITES (constantes dérivées de
+// MERCENAIRES, jamais listées telles quelles dans bande_ids), donc seul le
+// premier membre de MERCENAIRES, jamais lui-même exclu par une restriction
+// nommée, est un témoin sûr de cette catégorie entière — voir la mort du
+// second retrait, ci-dessous.
+const CHIEN_DE_GUERRE_MANEATERS_TEMOIN = MERCENAIRES[0];
+
+function debloqueParChienDeGuerreMameaters(francTireur: FrancTireurCatalog, roster: RosterInstance): boolean {
+  return (
+    roster.bande_id === 'maneaters' &&
+    !francTireur.employeurs.bande_ids.includes('maneaters') &&
+    francTireur.employeurs.bande_ids.includes(CHIEN_DE_GUERRE_MANEATERS_TEMOIN) &&
+    roster.membres.some((m) => m.statut !== 'mort' && m.competences_acquises.includes('chien_de_guerre'))
+  );
+}
+
 export function disponibiliteFrancTireur(
   francTireur: FrancTireurCatalog,
   roster: RosterInstance
 ): DisponibiliteFrancTireur {
-  if (!francTireur.employeurs.bande_ids.includes(roster.bande_id)) {
+  if (
+    !francTireur.employeurs.bande_ids.includes(roster.bande_id) &&
+    !debloqueParChienDeGuerreMameaters(francTireur, roster)
+  ) {
     return { disponible: false, raison: francTireur.employeurs.texte };
   }
   if (

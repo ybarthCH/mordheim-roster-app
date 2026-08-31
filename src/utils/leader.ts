@@ -229,6 +229,23 @@ export function succederApresMorts(
         leaderInstanceId = candidats.length === 1 ? candidats[0].instance_id : undefined;
       }
     }
+
+    // Compétence "Chien de Guerre" du Capitaine (Maneaters, reserve_a "Chef
+    // uniquement") : "La bande peut engager les Francs-Tireurs disponibles
+    // pour les Mercenaires ; si le chef meurt, tous les Francs-Tireurs sont
+    // retirés de la bande." Ne s'applique que si CE chef (le Capitaine, seul
+    // profil est_leader chez les Maneaters) portait la compétence — un
+    // Capitaine qui ne l'avait jamais prise n'a jamais ouvert l'accès aux
+    // francs-tireurs, donc rien à retirer.
+    if (catalogue.id === 'maneaters' && leaderAvant.competences_acquises.includes('chien_de_guerre')) {
+      const sansFrancsTireurs = (membresResultat ?? membresApres).filter(
+        (m) => m.statut === 'mort' || !estFrancTireur(m)
+      );
+      if (sansFrancsTireurs.length !== (membresResultat ?? membresApres).length) {
+        membresResultat = sansFrancsTireurs;
+      }
+    }
+
     changement = true;
   }
 
