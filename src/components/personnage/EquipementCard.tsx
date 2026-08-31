@@ -85,6 +85,14 @@ export function EquipementCard({
         // (perdue/détruite) sans annuler son effet sur les stats.
         const itemRef = getItem(entree.item_id);
         const modificationPermanente = !!itemRef && 'stats_delta' in itemRef && !!itemRef.stats_delta;
+        // Certains objets "fusionnent" définitivement avec leur porteur dès
+        // l'achat (Armure du Chaos — "ne la donnera jamais [...] et
+        // l'équipera immédiatement [...] ne pourra jamais être retirée" ;
+        // Écorce de fer des Sylvaneths — "ne peut être ni transférée ni
+        // revendue") : même traitement que modificationPermanente (ni
+        // renvoi au stock, ni revente), mais sans modification de stats.
+        const fusionneAuPorteur = !!itemRef && 'fusionne_au_porteur' in itemRef && !!itemRef.fusionne_au_porteur;
+        const objetIntransferable = modificationPermanente || fusionneAuPorteur;
         const nomAffiche = itemRef ? translateItem(itemRef, language).nom : entree.nom;
         return (
         <div key={entree.instance_id} className="list-item">
@@ -103,7 +111,7 @@ export function EquipementCard({
             </div>
           </div>
           <div className="list-item__actions">
-            {!modificationPermanente && (
+            {!objetIntransferable && (
               <button
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}
@@ -113,7 +121,7 @@ export function EquipementCard({
                 ↩
               </button>
             )}
-            {!modificationPermanente && (
+            {!objetIntransferable && (
               <button
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}

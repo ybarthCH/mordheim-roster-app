@@ -64,6 +64,7 @@
     "texte": "L'armure du Chaos est une armure travaillée dans un métal étrange et surnaturel. Elle est la manifestation de la faveur d'un Dieu Sombre du Chaos. La plupart des armures du Chaos sont obtenues en récompense d'un Protecteur Infernal. Cependant, elles peuvent également être acquises, auprès des nains du Chaos, en échange de nombreux esclaves ou suite à un acte extraordinaire servant leurs intérêts.",
     "sauvegarde": "4+",
     "leve_interdiction_armures_pour_sorciers": true,
+    "fusionne_au_porteur": true,
     "regles_speciales": [
       {
         "nom": "Coût",
@@ -574,6 +575,7 @@
     "page": 3,
     "texte": "L'Écorce de fer est une croissance liée au corps du porteur. Elle confère une sauvegarde d'armure normale et modifiable et peut se cumuler avec un bouclier. Elle ne peut être ni transférée ni revendue et ne réduit jamais le Mouvement du porteur. Elle n'empêche jamais son porteur de lancer des sorts.",
     "sauvegarde": "5+/4+/3+ (Niveau I/II/III)",
+    "fusionne_au_porteur": true,
     "regles_speciales": [
       {
         "nom": "Niveaux",
