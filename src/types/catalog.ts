@@ -98,6 +98,14 @@ export type Profile = {
   // bêtes) un plafond combiné de 2 Bêtes de guerre au total — voir
   // comptePlafondGroupe dans utils/shop.ts.
   plafond_groupe?: { id: string; max: number; label?: string };
+  // Plafond RELATIF au nombre de membres vivants d'un ou plusieurs autres
+  // profils (contrairement à `max`, un nombre fixe, et à `plafond_groupe`,
+  // un plafond combiné fixe) — ex : chez les Orques Noirs, jamais plus de
+  // Chasseurs Orques que de Kastagneurs Orques (profils: ["kastagneurs_orques"],
+  // multiplicateur implicite 1) ; chez l'Orc Mob, jamais plus de Guerriers
+  // Gobelins que le double des Orques, Héros inclus (profils: [tous les
+  // profils "Orques" de la bande], multiplicateur: 2). Voir peutAjouterMembre.
+  plafond_relatif?: { profils: string[]; multiplicateur?: number; label?: string };
   // Ce profil ne peut être recruté que si la bande compte déjà au moins un
   // membre vivant (statut != 'mort') de ce profil-ci (ex : chez les Norses,
   // les Loups ne sont autorisés que si la bande possède un Wulfen vivant) —

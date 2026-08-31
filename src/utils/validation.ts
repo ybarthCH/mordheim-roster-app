@@ -175,5 +175,21 @@ export function peutAjouterMembre(
       };
     }
   }
+  if (profil.plafond_relatif) {
+    const { profils: profilsReference, multiplicateur = 1, label } = profil.plafond_relatif;
+    const actuel = roster.membres
+      .filter((m) => m.profil_id === profilId && m.statut !== 'mort')
+      .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
+    const actuelReference = roster.membres
+      .filter((m) => profilsReference.includes(m.profil_id) && m.statut !== 'mort')
+      .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
+    const limiteRelative = actuelReference * multiplicateur;
+    if (actuel + quantite > limiteRelative) {
+      return {
+        ok: false,
+        raison: `Limite relative atteinte pour ${label ?? profil.nom} (max ${limiteRelative} avec l'effectif actuel de référence, ${actuel} déjà présent(s)).`,
+      };
+    }
+  }
   return { ok: true };
 }

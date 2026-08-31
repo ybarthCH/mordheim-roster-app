@@ -118,7 +118,8 @@
       "acces_competences": [],
       "acces_equipement": ["saurus"],
       "categories_interdites": ["armes_tir", "armes_poudre_noire"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "plafond_relatif": { "profils": ["skink"], "label": "Saurus" }
     },
     {
       "id": "kroxigor",

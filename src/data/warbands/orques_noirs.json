@@ -61,7 +61,8 @@
         {"nom": "Peu commun", "texte": "Une bande ne peut pas engager plus de Chasseurs que de Kastagneurs. Si un Kastagneur meurt et qu’il y a plus de Chasseurs que de Kastagneurs, la prochaine recrue sera obligatoirement un Kastagneur pour rétablir l’équilibre."}
       ],
       "acces_competences": [], "acces_competences_a_verifier": false,
-      "acces_equipement": ["chasseurs"], "est_leader": false
+      "acces_equipement": ["chasseurs"], "est_leader": false,
+      "plafond_relatif": { "profils": ["kastagneurs_orques"], "label": "Chasseurs Orques" }
     },
     {
       "id": "ding_boyz", "nom": "Ding’boyz", "type": "homme_de_main", "groupe_caracteristiques": "peaux_vertes_orque", "unique": false, "min": 0, "max": 4, "cout": 40, "xp_depart": 0,

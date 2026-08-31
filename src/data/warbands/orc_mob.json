@@ -116,7 +116,8 @@
       "acces_competences": [],
       "acces_equipement": ["gobelins"],
       "acces_competences_a_verifier": false,
-      "ne_peut_jamais_devenir_heros": true
+      "ne_peut_jamais_devenir_heros": true,
+      "plafond_relatif": { "profils": ["chef_orque", "chamane_orque", "kosto", "boyz_orque"], "multiplicateur": 2, "label": "Guerriers Gobelins" }
     },
     {
       "id": "squig_des_cavernes",
@@ -138,7 +139,8 @@
       "acces_competences": [],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "plafond_relatif": { "profils": ["guerrier_gobelin"], "label": "Squigs des cavernes" }
     },
     {
       "id": "troll",
