@@ -29,6 +29,10 @@
       ],
       "acces_competences": ["combat", "force", "vitesse", "special"],
       "acces_equipement": ["heros_armes", "heros_armures"],
+      "competences_speciales": [
+        { "id": "jargon_des_batailles", "nom": "Jargon des Batailles", "reserve_a": "Chef de bande uniquement", "texte": "Le rayon dans lequel les alliés peuvent utiliser son Commandement passe de 6 à 12ps.", "valeurPuissance": 20 }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -162,7 +166,6 @@
     { "id": "expert_du_bouclier", "nom": "Expert du Bouclier", "texte": "Équipé d'un bouclier, peut effectuer une parade en plus de la sauvegarde d'armure de 6+.", "valeurPuissance": 20 },
     { "id": "frappe_destructrice", "nom": "Frappe Destructrice", "texte": "Les attaques du Héros ne peuvent pas être parées.", "valeurPuissance": 20 },
     { "id": "charge_berserk", "nom": "Charge Berserk", "texte": "Armé d'une hache ou d'une arme à deux mains, peut relancer tout jet pour toucher raté lorsqu'il charge.", "valeurPuissance": 20 },
-    { "id": "jargon_des_batailles", "nom": "Jargon des Batailles", "reserve_a": "Chef de bande uniquement", "texte": "Le rayon dans lequel les alliés peuvent utiliser son Commandement passe de 6 à 12ps.", "valeurPuissance": 20 },
     { "id": "intrepidite", "nom": "Intrépidité", "texte": "N'a jamais à passer de test de seul contre tous et peut relancer ses tests de peur ratés.", "valeurPuissance": 20 }
   ],
   "equipement": {

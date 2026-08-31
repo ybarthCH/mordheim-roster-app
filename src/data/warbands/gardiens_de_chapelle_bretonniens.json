@@ -45,6 +45,16 @@
       "acces_equipement": ["chevaliers"],
       "categories_interdites": ["armes_de_jet"],
       "competences_gratuites": ["equitation_01"],
+      "competences_speciales": [
+        {
+          "id": "voeu_de_la_quete",
+          "nom": "Vœu de la Quête",
+          "reserve_a": "Chevalier de la Quête uniquement",
+          "texte": "S'il charge, est chargé, ou combat un ennemi provoquant la peur, peut relancer un test de Commandement (dont Déroute) en conservant le second résultat.",
+          "valeurPuissance": 20
+        }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -171,13 +181,6 @@
       "id": "vertu_de_renommee",
       "nom": "Vertu de renommée",
       "texte": "Permet d'apprendre une Vertu issue de la liste originale des Chevaliers Bretonniens de Tom Merrigan. Ne peut être choisie qu'une seule fois. Vertus disponibles — Discipline : une fois par bataille, si le Héros n'est ni à terre, sonné ni hors de combat, relance possible d'un test de Déroute raté. Impétuosité : ajoute +1D3ps au Mouvement lors d'une charge (jet avant de déplacer la figurine). Pureté : tout sort ciblant le Héros est dissipé sur 4+ (dissipation naturelle due à sa piété). Bravoure : contre une figurine de Force supérieure à la sienne, relance des jets pour toucher ratés au corps à corps. Noble dédain : haine envers tous les ennemis équipés d'armes de tir.",
-      "valeurPuissance": 20
-    },
-    {
-      "id": "voeu_de_la_quete",
-      "nom": "Vœu de la Quête",
-      "reserve_a": "Chevalier de la Quête uniquement",
-      "texte": "S'il charge, est chargé, ou combat un ennemi provoquant la peur, peut relancer un test de Commandement (dont Déroute) en conservant le second résultat.",
       "valeurPuissance": 20
     },
     {

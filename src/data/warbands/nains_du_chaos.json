@@ -51,6 +51,16 @@
       ],
       "acces_competences": ["combat", "academique", "force", "special"],
       "acces_equipement": ["nains_du_chaos"],
+      "competences_speciales": [
+        {
+          "id": "tyran",
+          "nom": "Tyran",
+          "reserve_a": "Chef (Hiérogrammate) uniquement",
+          "texte": "Ce prêtre d'Hashut est réputé pour sa tyrannie. Sa parole est absolue et sa propre bande craint davantage sa cruauté que celle de l'ennemi. Lors d'un test de Déroute, si la bande est dirigée par un Chef possédant cette compétence, celui-ci peut encourager sa bande à rester sur place. Cette compétence permet au Chef de refaire un test de Déroute raté tant que le Chef n'est pas à terre ou sonné. En cas de test relancé, le nouveau résultat s'appliquera, même s'il est pire. Si le Chef est mis hors de combat, la bande doit immédiatement faire un test de Déroute.",
+          "valeurPuissance": 40
+        }
+      ],
+      "competences_speciales_ajoutees": true,
       "acces_competences_a_verifier": false,
       "est_leader": true
     },
@@ -195,13 +205,6 @@
       "id": "tres_coriace",
       "nom": "Très coriace",
       "texte": "Les Nains du Chaos sont des êtres robustes et ce Héros est déterminé, même pour un Nain du Chaos ! Sur le tableau des Dégâts, un jet de 1-3 est considéré comme à terre, 4-5 comme sonné et 6 comme hors de combat.",
-      "valeurPuissance": 40
-    },
-    {
-      "id": "tyran",
-      "nom": "Tyran",
-      "reserve_a": "Chef (Hiérogrammate) uniquement",
-      "texte": "Ce prêtre d'Hashut est réputé pour sa tyrannie. Sa parole est absolue et sa propre bande craint davantage sa cruauté que celle de l'ennemi. Lors d'un test de Déroute, si la bande est dirigée par un Chef possédant cette compétence, celui-ci peut encourager sa bande à rester sur place. Cette compétence permet au Chef de refaire un test de Déroute raté tant que le Chef n'est pas à terre ou sonné. En cas de test relancé, le nouveau résultat s'appliquera, même s'il est pire. Si le Chef est mis hors de combat, la bande doit immédiatement faire un test de Déroute.",
       "valeurPuissance": 40
     }
   ],

@@ -20,7 +20,11 @@
         {"nom": "T’vas t’calmer ?!", "texte": "Si un Orque de main rate son test d’Animosité à moins de 6ps du Boss Orque Noir, le joueur Orque Noir peut choisir de faire intervenir ce dernier. Le Chef Orque Noir décide alors de calmer les esprits en bottant quelques fesses… L’Orque de main indiscipliné subit une touche automatique d’une Force déterminée par le joueur Orque Noir. Si l’Orque de main est encore debout après la claque, il ajoute un nombre égal à la Force du coup reçu au résultat obtenu sur le tableau d’Animosité. Par exemple, le joueur décide que le Boss Orque Noir file une torgnole de Force 2 à un Orque de main indiscipliné. S’il n’est pas à terre, sonné ou hors de combat suite au bourre-pif, le joueur ajoute +2 au résultat sur le tableau d’Animosité."}
       ],
       "acces_competences": ["combat", "tir", "force", "vitesse", "special"], "acces_competences_a_verifier": false,
-      "acces_equipement": ["orques_noirs"], "est_leader": true
+      "acces_equipement": ["orques_noirs"], "est_leader": true,
+      "competences_speciales": [
+        {"id": "revenez_ici", "nom": "Rev’nez ici !", "texte": "Seul le Chef peut posséder compétence. La bande peut relancer tous les tests de Déroute ratés tant que le Chef n’a pas été mis hors de combat.", "reserve_a": "Boss Orque Noir uniquement", "valeurPuissance": 40 }
+      ],
+      "competences_speciales_ajoutees": true
     },
     {
       "id": "orque_noir", "nom": "Orques Noirs", "type": "heros", "groupe_caracteristiques": "peaux_vertes_orque_noir", "unique": false, "min": 0, "max": 2, "cout": 60, "xp_depart": 8,
@@ -112,7 +116,6 @@
     {"id": "tet_dure", "nom": "Têt’dure", "texte": "Le guerrier a un crâne particulièrement épais, même pour un orque. Cet Orque bénéficie d’une sauvegarde spéciale de 3+ sur 1D6 pour éviter d’être sonné. Si la sauvegarde est réussie, la figurine est juste à terre. Si l’Orque porte également un casque, cette sauvegarde est de 2+ au lieu de 3+ (remplaçant la règle spéciale du casque).", "valeurPuissance": 40 },
     {"id": "waaagh", "nom": "Waaagh !", "texte": "Les orques sont des créatures agressives qui adorent foncer dans le tas. Le Héros ajoute +1D3ps à sa portée de charge.", "valeurPuissance": 20 },
     {"id": "on_y_va", "nom": "On y va !", "texte": "Les orques n’hésitent pas à foncer au combat, même face à des adversaires impressionnants. Le Héros ignore les tests de peur et de terreur lorsqu’il charge.", "valeurPuissance": 20 },
-    {"id": "revenez_ici", "nom": "Rev’nez ici !", "texte": "Seul le Chef peut posséder compétence. La bande peut relancer tous les tests de Déroute ratés tant que le Chef n’a pas été mis hors de combat.", "reserve_a": "Boss Orque Noir uniquement", "valeurPuissance": 40 },
     {"id": "coup_de_boule", "nom": "Coup d’boule", "texte": "Les orques sont des créatures assez musclées et certains ont l’habitude de frapper leurs adversaires à grands coups de tête, avec des résultats assez concluants. Toute figurine mise à terre au corps à corps est considérée comme sonnée.", "valeurPuissance": 40 }
   ],
   "equipement": {
