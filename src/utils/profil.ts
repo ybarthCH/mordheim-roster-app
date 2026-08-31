@@ -93,10 +93,39 @@ export function resolveProfil(
   // champ option_sorcier lui-même reste dans le profil retourné (pas
   // supprimé) pour que l'UI sache encore qu'un upgrade existe pour ce
   // profil, même après l'avoir pris.
-  if (membre.option_sorcier_pris && resultatAvecMarque.option_sorcier) {
-    return { ...resultatAvecMarque, peut_lancer_sorts: true, categorie_magie: 'magie_mineure' };
+  const resultatAvecOption =
+    membre.option_sorcier_pris && resultatAvecMarque.option_sorcier
+      ? { ...resultatAvecMarque, peut_lancer_sorts: true, categorie_magie: 'magie_mineure' as const }
+      : resultatAvecMarque;
+
+  // Succession du Marchand (Caravanes Marchandes) : « Le nouveau chef gagne
+  // la règle spéciale Marchand [...] et est considéré comme un Marchand à
+  // tous points de vue, comme l'était le précédent. » — contrairement à la
+  // règle générique de l'assistant post-bataille (le chef intérimaire garde
+  // sa propre liste de compétences), le successeur accède ici en plus à la
+  // liste "Compétences spéciales du Marchand". Détecté sans dépendre de
+  // utils/leader.ts (import circulaire : leader.ts dépend déjà de
+  // resolveProfil) — équivalent direct de resolveLeader pour cette bande
+  // précise, puisque `marchand` est le seul profil est_leader : aucun
+  // Marchand vivant + ce membre est bien l'assignation de secours
+  // (roster.leader_instance_id).
+  if (
+    catalogueComplet?.id === 'caravanes_marchandes' &&
+    roster.leader_instance_id === membre.instance_id &&
+    membre.profil_id !== 'marchand' &&
+    !roster.membres.some((m) => m.profil_id === 'marchand' && m.statut !== 'mort')
+  ) {
+    const profilMarchand = catalogueComplet.profils.find((p) => p.id === 'marchand');
+    if (profilMarchand?.competences_speciales) {
+      return {
+        ...resultatAvecOption,
+        acces_competences: [...new Set<SkillCategory>([...resultatAvecOption.acces_competences, 'special'])],
+        competences_speciales: profilMarchand.competences_speciales,
+      };
+    }
   }
-  return resultatAvecMarque;
+
+  return resultatAvecOption;
 }
 
 export function grilleXpDuProfil(profil: Profile): 'heros' | 'homme_de_main' {
