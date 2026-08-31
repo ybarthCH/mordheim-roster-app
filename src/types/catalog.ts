@@ -56,6 +56,12 @@ export type CompetenceSpeciale = {
   // (celui qui la possède déjà la garde). Distinct de `reserve_a`, qui
   // restreint À QUI la compétence s'adresse, pas COMBIEN peuvent l'avoir.
   plafond_bande?: number;
+  // Id d'une compétence (de n'importe quelle catégorie, pas seulement
+  // Spéciale) que le membre doit déjà posséder pour que celle-ci lui soit
+  // proposée (ex : Insensible à la douleur des Skavens du Clan Pestilens,
+  // "Nécessite la compétence Dur à cuire" -> "force_03"). Distinct de
+  // `reserve_a`, qui restreint par profil, pas par compétence déjà acquise.
+  necessite_competence?: string;
   // Voir Skill.valeurPuissance (types/gameData.ts) — même métadonnée Power
   // Value, dupliquée ici pour les mêmes raisons que le reste de ce type
   // (éviter un import circulaire catalog.ts <-> gameData.ts).

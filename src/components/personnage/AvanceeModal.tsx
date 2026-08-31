@@ -242,6 +242,12 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
     return detenteurs >= plafond;
   };
 
+  // Une compétence à `necessite_competence` (ex : "Nécessite la compétence
+  // Dur à cuire") n'est proposée que si le membre a déjà la compétence
+  // prérequise, quelle que soit sa catégorie (pas seulement Spéciale).
+  const prerequisManquant = (necessite: string | undefined) =>
+    !!necessite && !travail.competences_acquises.includes(necessite);
+
   const nomCompetence = (skillId: string) => {
     const found = [...Object.values(SKILLS).flat(), ...competencesSpecialesPourProfil(profil, catalogue)].find(
       (s) => s.id === skillId
@@ -842,6 +848,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
                     !('plafond_bande' in s) ||
                     !plafondBandeAtteint(s.id, s.plafond_bande as number | undefined)
                 )
+                .filter((s) => !('necessite_competence' in s) || !prerequisManquant(s.necessite_competence as string | undefined))
                 .map((sOriginal) => {
                   const s = translateSkill(sOriginal, language);
                   return (
