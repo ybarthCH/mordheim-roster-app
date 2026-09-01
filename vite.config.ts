@@ -99,6 +99,21 @@ export default defineConfig(({ command }) => ({
         ],
       },
       workbox: {
+        // Le nouveau service worker n'attend l'aval de l'utilisateur (bouton
+        // "Actualiser") que pour SKIP_WAITING (voir registerType: 'prompt'
+        // ci-dessus, qui génère déjà le bon listener de message dans
+        // sw.js) — mais sans clientsClaim, une fois activé il ne prend
+        // jamais le contrôle de l'onglet DÉJÀ OUVERT (seuls les nouveaux
+        // onglets/navigations l'auraient comme contrôleur). Le clic sur
+        // "Actualiser" envoyait donc bien SKIP_WAITING, mais l'événement
+        // "controlling" que virtual:pwa-register/react attend pour
+        // déclencher window.location.reload() ne se produisait jamais :
+        // le bouton semblait ne rien faire (bug remonté par Yannick,
+        // 2026-08-31). clientsClaim ne change rien au comportement
+        // "jamais de rechargement automatique et silencieux" : il ne fait
+        // que réagir à la prise de contrôle après un skipWaiting déjà
+        // explicitement déclenché par l'utilisateur.
+        clientsClaim: true,
         globPatterns: ['**/*.{js,css,html,svg,png,webp,ico,json}'],
         // assetlinks.json proves domain ownership to Android's Digital Asset
         // Links verifier — it's fetched directly by the OS/Chrome, not by the
