@@ -114,11 +114,12 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
   const [marqueChoisie, setMarqueChoisie] = useState('');
   const [modalOptionSorcier, setModalOptionSorcier] = useState(false);
 
-  const profilsHeros = catalogue?.profils.filter((p) => p.type === 'heros') ?? [];
+  const profilsHeros = catalogue?.profils.filter((p) => p.type === 'heros' && !p.recrutement_direct_interdit) ?? [];
   // Les profils "animal" (chien de guerre...) se recrutent et se suivent
   // comme un groupe d'hommes de main (voir estGroupable plus bas) : classés
   // dans le même optgroup pour ne pas les faire ressembler à un objet à part.
-  const profilsHommesDeMain = catalogue?.profils.filter((p) => p.type === 'homme_de_main' || p.type === 'animal') ?? [];
+  const profilsHommesDeMain =
+    catalogue?.profils.filter((p) => (p.type === 'homme_de_main' || p.type === 'animal') && !p.recrutement_direct_interdit) ?? [];
 
   // Grise/désactive dans la liste déroulante les profils déjà à leur limite
   // (unique déjà recruté, max de groupe atteint, plafond combiné atteint,

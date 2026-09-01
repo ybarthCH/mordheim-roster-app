@@ -220,6 +220,16 @@ export type Profile = {
     // de swap de profil) plutôt que la transformation habituelle — voir
     // TransformationModal/transformerProfil.
     bloque_si_profil_vivant?: string;
+    // Nombre maximum d'exemplaires vivants de `cible` tolérés simultanément
+    // dans la bande — au-delà, le bouton de transformation devient
+    // indisponible (contrairement à `bloque_si_profil_vivant`, qui transforme
+    // le bouton en un simple retrait de bande : ici, rien ne se passe tant
+    // qu'un exemplaire n'est pas mort/retiré). Ex : le Rat Familier des
+    // Skavens Pestilens, "un Prêcheur-Sorcier Pestilens ne peut avoir qu'un
+    // seul Rat Familier à la fois" — sans ce champ, rien n'empêchait de
+    // transformer plusieurs Rats géants en parallèle. Absent = pas de
+    // limite (comportement historique, inchangé pour les autres bandes).
+    max_cible_vivante?: number;
   };
   cout: number | null;
   // Notation de dés affichée quand `cout` est variable (donc null, ex :
@@ -404,6 +414,12 @@ export type Profile = {
   // (Maraudeurs du Chaos, Pillards Hommes-Bêtes) : cette compétence se
   // prend en avancée, hors du flux de recrutement que ce champ contrôle.
   mutation_requise_au_recrutement?: boolean;
+  // Profil jamais recrutable directement depuis le sélecteur "Recruter un
+  // nouveau membre" — obtenu uniquement par un autre mécanisme (ici, une
+  // transformation, voir Profile.transformation sur le profil source). Ex :
+  // le Rat Familier des Skavens Pestilens, "obtenu en transformant un Rat
+  // géant déjà présent dans la bande" — jamais un recrutement direct.
+  recrutement_direct_interdit?: boolean;
   // Empêche définitivement ce profil de déclencher "Ce gars est doué"/Lads
   // Got Talent : l'entrée Promotion reste visible mais désactivée sur la
   // table d'avancement (voir AvanceeModal), le joueur doit relancer

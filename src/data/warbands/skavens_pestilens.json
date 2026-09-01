@@ -114,7 +114,8 @@
       "acces_competences_a_verifier": false,
       "transformation": {
         "cible": "rat_familier",
-        "necessite_profil_vivant_avec_objet": { "profil": "precheur_sorcier_pestilens", "item_id": "parchemin_de_rat_familier" }
+        "necessite_profil_vivant_avec_objet": { "profil": "precheur_sorcier_pestilens", "item_id": "parchemin_de_rat_familier" },
+        "max_cible_vivante": 1
       }
     },
     {
@@ -122,7 +123,7 @@
       "nom": "Rat Familier",
       "type": "homme_de_main",
       "min": 0,
-      "max": 0,
+      "max": 1,
       "cout": 0,
       "xp_depart": 0,
       "stats": { "M": 6, "CC": 2, "CT": 0, "F": 3, "E": 3, "PV": 1, "I": 4, "A": 1, "Cd": 4 },
@@ -136,6 +137,7 @@
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
       "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false,
+      "recrutement_direct_interdit": true,
       "ne_peut_jamais_devenir_heros": true,
       "jamais_heros_consequence": "Ne se relance pas : ce résultat est remplacé par un bonus cumulatif de +1 au jet de sort du Prêcheur-Sorcier Pestilens à moins de 6ps (effet purement informatif, non automatisé ici)."
     },
