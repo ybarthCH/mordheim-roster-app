@@ -2616,7 +2616,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Swordsman',
         regles_speciales: [
           {
-            nom: 'Sword Expert',
+            nom: 'Expert Swordsmen',
             texte:
               'Swordsmen are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This applies only when equipped with ordinary swords, not two-handed swords or other weapons.',
           },
@@ -4544,7 +4544,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Swordsman',
         regles_speciales: [
           {
-            nom: 'Sword Expert',
+            nom: 'Expert Swordsmen',
             texte:
               'Swordsmen are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This only applies when they are equipped with ordinary swords, not two-handed swords or other weapons.',
           },
@@ -5532,7 +5532,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Swordsman',
         regles_speciales: [
           {
-            nom: 'Sword Expert',
+            nom: 'Expert Swordsmen',
             texte: 'Swordsmen are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. This only applies when they are equipped with normal swords, not two-handed swords or other weapons.',
           },
           { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' },
@@ -5973,7 +5973,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Swordsman',
         regles_speciales: [
           {
-            nom: 'Sword Expert',
+            nom: 'Expert Swordsmen',
             texte:
               'Swordsmen are so skilled with their weapons that, when they charge, they may re-roll failed to-hit rolls. Note that this applies when they carry normal swords, not two-handed swords or other weapons.',
           },
