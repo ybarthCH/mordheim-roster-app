@@ -113,7 +113,8 @@
       "acces_competences": [],
       "acces_equipement": ["esclaves"],
       "acces_competences_a_verifier": false,
-      "ne_peut_jamais_devenir_heros": true
+      "ne_peut_jamais_devenir_heros": true,
+      "jamais_heros_consequence": "Le chef exécute l'Esclave sur-le-champ : retire-le manuellement de la bande, puis le reste du groupe peut relancer son propre jet d'avancée."
     }
   ],
   "competences_speciales": [

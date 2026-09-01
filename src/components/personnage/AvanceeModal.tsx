@@ -585,7 +585,9 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
             </p>
           )}
           {profil.ne_peut_jamais_devenir_heros && table.some((e) => e.type === 'promotion') && (
-            <p className="text-sm text-muted">{t('avanceeModal.neverHeroNote')}</p>
+            <p className="text-sm text-muted">
+              {profil.jamais_heros_consequence ?? t('avanceeModal.neverHeroNote')}
+            </p>
           )}
           {verdictFixe && !verdictFixe.ok && (
             <p className="text-sm text-danger">

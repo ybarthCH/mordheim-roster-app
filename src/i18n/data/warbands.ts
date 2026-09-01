@@ -34,6 +34,7 @@ type ProfileTraduit = {
   nom?: string;
   regles_speciales?: RegleTraduite[];
   competences_speciales?: Record<string, CompetenceTraduite>;
+  jamais_heros_consequence?: string;
 };
 
 export type WarbandTraduite = {
@@ -1577,6 +1578,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
               'Replaces the 10-12 "Lad\'s Got Talent" result on the Henchmen advance table: if the Pestilens Sorcerer is within 6" of the Familiar Rat, he gains a cumulative +1 bonus to his casting roll. Purely informational — not automated (the app does not track distances between models in play).',
           },
         ],
+        jamais_heros_consequence:
+          "Not re-rolled: this result is instead replaced by a cumulative +1 bonus to the Pestilens Sorcerer's casting roll within 6\" (purely informational effect, not automated here).",
       },
       rat_ogre: {
         nom: 'Rat Ogre',
@@ -2231,6 +2234,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           },
           { nom: 'Recruitment', texte: 'Bought in groups of 1 to 5. Can never outnumber the Orcs (Heroes included) by more than two to one.' },
         ],
+        jamais_heros_consequence: 'The Boss kills him on the spot: remove him from the warband roster manually.',
       },
       squig_des_cavernes: {
         nom: 'Cave Squig',
@@ -5879,6 +5883,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
               'A Slave can gain experience, but if he rolls "Lad\'s Got Talent" on the Advance table, the leader executes him at once and he is removed from the warband roster. The rest of the group may then re-roll its advance.',
           },
         ],
+        jamais_heros_consequence:
+          "The leader executes the Slave at once: remove him from the warband manually, then the rest of the group may re-roll its own advance.",
       },
     },
     competences_speciales: {
@@ -6496,6 +6502,8 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
               "Wretches cannot become Heroes the normal way: if a \"The Lad's Got Talent\" result is rolled for a Wretch, re-roll it; if this second roll gives \"The Lad's Got Talent\" again, the model instead suffers an immediate roll on the Serious Injury table, as if it were a Hero.",
           },
         ],
+        jamais_heros_consequence:
+          'Re-roll once on your tabletop; if the second roll gives this result again, apply an immediate roll on the Serious Injury table instead, as if it were a Hero.',
       },
       cultiste: { nom: 'Cultist', regles_speciales: [] },
     },
@@ -7131,6 +7139,7 @@ function translateProfil(profil: Profile, en: ProfileTraduit | undefined): Profi
     competences_speciales: profil.competences_speciales
       ? translateCompetences(profil.competences_speciales, en.competences_speciales)
       : profil.competences_speciales,
+    jamais_heros_consequence: en.jamais_heros_consequence ?? profil.jamais_heros_consequence,
   };
 }
 

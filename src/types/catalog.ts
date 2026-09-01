@@ -412,6 +412,17 @@ export type Profile = {
   // ("Cerveau champignon"), ou un Squig des Cavernes désigné Entraîné (voir
   // designation_entrainee juste en dessous).
   ne_peut_jamais_devenir_heros?: boolean;
+  // Remplace le texte générique affiché par ne_peut_jamais_devenir_heros
+  // ("relance physiquement pour obtenir un autre résultat") quand la
+  // conséquence réelle du résultat "Ce gars est doué" pour ce profil n'est
+  // PAS une simple relance — ex. l'Esclave des Pillards de Tombes Arabes
+  // ("le chef l'exécute aussitôt... le reste du groupe peut alors relancer
+  // son avancée") ou le Guerrier Gobelin d'Orc Mob ("le Chef le tue sur-le-
+  // champ"), où affirmer une simple relance induirait le joueur en erreur.
+  // Absent = comportement par défaut (texte générique de simple relance),
+  // correct pour la majorité des profils portant ce flag. Voir
+  // AvanceeModal.tsx.
+  jamais_heros_consequence?: string;
   // Marque ce profil ('animal' normalement) comme pouvant être désigné
   // manuellement par le joueur — une figurine à la fois, isolée d'un groupe
   // (Member.taille_groupe === 1) — comme statut spécial (Member.

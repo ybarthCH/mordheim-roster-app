@@ -136,7 +136,8 @@
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
       "aucun_achat_shop_commun": true,
       "acces_competences_a_verifier": false,
-      "ne_peut_jamais_devenir_heros": true
+      "ne_peut_jamais_devenir_heros": true,
+      "jamais_heros_consequence": "Ne se relance pas : ce résultat est remplacé par un bonus cumulatif de +1 au jet de sort du Prêcheur-Sorcier Pestilens à moins de 6ps (effet purement informatif, non automatisé ici)."
     },
     {
       "id": "rat_ogre",
