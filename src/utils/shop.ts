@@ -1152,6 +1152,11 @@ export function getShopCommun(
         (item.acces?.includes('commun_pretres_guerriers_soeurs_de_sigmar') && profil?.id === 'pretre_guerrier')) &&
       respecteRestrictionProfilEquipementSpecial(catalogue, profil, item.id) &&
       respecteRestrictionCompetenceEquipementSpecial(catalogue, profil, competencesAcquises, item.id) &&
+      // Interdiction non levable par une compétence (voir Profile.
+      // armes_tir_commun_interdit_non_levable) — vérifiée séparément
+      // d'estCategorieInterdite ci-dessous, qui lève systématiquement les
+      // interdictions "armes_tir" pour la compétence "Toutes armes de tir".
+      !(profil?.armes_tir_commun_interdit_non_levable && normaliserCategorie(item.categorie) === 'armes_tir') &&
       !estCategorieInterdite(
         item.categorie,
         profilInterdictionCommune,

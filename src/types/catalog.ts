@@ -149,6 +149,18 @@ export type Profile = {
   // d'un roster manager qui ne simule pas les jets de combat). Voir
   // estAchatObjetPrivilegieEntree dans utils/shop.ts, seul consommateur.
   objet_privilegie_entree?: { items?: string[]; non_cessible?: boolean };
+  // Interdit l'accès aux armes de tir dans le shop commun de façon non
+  // levable par une compétence (contrairement à categories_interdites /
+  // categories_interdites_commun, toujours levées par la compétence
+  // "Toutes armes de tir" — voir estCategorieInterdite dans utils/shop.ts)
+  // — ex : Hors-la-loi de la Forêt de Stirwood, règle "Archers" : "il leur
+  // est impossible de porter ou d'utiliser toute autre arme de tir [que
+  // l'arc]. Donc, même si un Hors-la-loi acquiert des compétences qui lui
+  // permettent d'utiliser des armes de tir supplémentaires, il ne peut pas
+  // les utiliser." La propre liste d'équipement du profil (déjà restreinte
+  // aux arcs pour cette bande) n'est jamais concernée par ce champ — seul
+  // le shop commun, qui propose d'autres armes de tir, en a besoin.
+  armes_tir_commun_interdit_non_levable?: boolean;
   // Entretien post-bataille pour un profil recruté DIRECTEMENT dans la bande
   // (pas un franc-tireur) — ex : le Troll d'Orc Mob, "Toujours Faim : la
   // bande doit dépenser 15 CO après chaque bataille pour nourrir le Troll
