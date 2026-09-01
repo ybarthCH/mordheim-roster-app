@@ -20,7 +20,7 @@ type Props = {
   onAjouterAuJournal: (texte: string) => void;
 };
 
-type Branche = 'possedes' | 'morts_vivants' | 'skaven' | 'destin_cruel' | 'autres';
+type Branche = 'possedes' | 'morts_vivants' | 'skaven' | 'destin_cruel' | 'gloutonnerie' | 'autres';
 
 // Voir BANDES_TRAITEES_COMME_POSSEDES (data/bandeCategories.ts) pour la
 // source de chaque bande listée ici.
@@ -65,6 +65,17 @@ export function ResolutionPrisonniers({
   // bandes déjà traitées ici (Morts-Vivants : Zombie, uniquement via cet
   // événement).
   const souffreDouleurProfil = catalogue.profils.find((p) => p.id === 'souffre_douleur');
+  // "Gloutonnerie" (Mangeurs d'Hommes) : "Les figurines capturées (via
+  // Blessures Graves ou Exploration) peuvent être dévorées [...]. Un Héros
+  // Ogre qui dévore des captifs gagne autant d'expérience que de figurines
+  // consommées." Seule la voie "Exploration" (cet événement 3.3.3) a un
+  // point d'accroche — la voie "Blessures Graves" capture un Héros ENNEMI en
+  // combat, jamais modélisée ici (roster adverse non suivi), même limite
+  // documentée pour "Destin Cruel" ci-dessus. Le captif de cet événement
+  // n'est jamais matérialisé comme figurine dans l'app (contrairement au
+  // Zombie/Souffre-douleur) : pas de possessions à transférer, un seul
+  // captif consommé ici (comme pour Destin Cruel) -> +1 XP fixe, pas de jet.
+  const herosOgres = heros.filter((m) => resolveProfil(roster, m)?.groupe_caracteristiques === 'ogre_garde_mangeur');
   // « n'importe quel groupe humain » de la bande : les groupes d'hommes de
   // main (hors profils "animal", ex : Chien de guerre — ce n'est pas un
   // captif humain qui pourrait les rejoindre).
@@ -97,6 +108,15 @@ export function ResolutionPrisonniers({
     const souffreDouleur = creerMembre(souffreDouleurProfil, 0);
     onMajRoster({ membres: [...roster.membres, souffreDouleur] });
     const texte = t('postBataille.prisoners.turnedTormented');
+    onAjouterAuJournal(`${nomEvenement} : ${texte}`);
+    setResolu(texte);
+  };
+
+  const appliquerGloutonnerie = () => {
+    const hero = herosOgres.find((m) => m.instance_id === heroId);
+    if (!hero) return;
+    onMajRoster({ membres: roster.membres.map((m) => (m.instance_id === hero.instance_id ? { ...m, xp: m.xp + 1 } : m)) });
+    const texte = t('postBataille.prisoners.devoured', { nom: hero.nom_perso });
     onAjouterAuJournal(`${nomEvenement} : ${texte}`);
     setResolu(texte);
   };
@@ -189,14 +209,33 @@ export function ResolutionPrisonniers({
         </button>
         <button
           type="button"
+          className={`btn--pack-pill-sm ${branche === 'gloutonnerie' ? 'btn--pack-pill-sm--primary' : ''}`}
+          disabled={catalogue.id !== 'maneaters' || herosOgres.length === 0}
+          title={catalogue.id !== 'maneaters' ? t('postBataille.vagrant.reservedFor', { faction: 'Mangeurs d’Hommes' }) : undefined}
+          onClick={() => setBranche('gloutonnerie')}
+        >
+          {t('postBataille.prisoners.devour')}
+        </button>
+        <button
+          type="button"
           className={`btn--pack-pill-sm ${branche === 'autres' ? 'btn--pack-pill-sm--primary' : ''}`}
-          disabled={[...BANDES_SACRIFICE_PRISONNIERS, 'skaven', 'undead', 'morts_sans_repos', 'cour_des_plaisirs_profanes'].includes(
-            catalogue.id
-          )}
+          disabled={[
+            ...BANDES_SACRIFICE_PRISONNIERS,
+            'skaven',
+            'undead',
+            'morts_sans_repos',
+            'cour_des_plaisirs_profanes',
+            'maneaters',
+          ].includes(catalogue.id)}
           title={
-            [...BANDES_SACRIFICE_PRISONNIERS, 'skaven', 'undead', 'morts_sans_repos', 'cour_des_plaisirs_profanes'].includes(
-              catalogue.id
-            )
+            [
+              ...BANDES_SACRIFICE_PRISONNIERS,
+              'skaven',
+              'undead',
+              'morts_sans_repos',
+              'cour_des_plaisirs_profanes',
+              'maneaters',
+            ].includes(catalogue.id)
               ? t('postBataille.vagrant.betterOptionAbove')
               : undefined
           }
@@ -238,6 +277,30 @@ export function ResolutionPrisonniers({
             onClick={appliquerDestinCruel}
           >
             {t('postBataille.prisoners.addTormented')}
+          </button>
+        </div>
+      )}
+
+      {branche === 'gloutonnerie' && (
+        <div style={{ marginTop: '0.5rem' }}>
+          <div className="field">
+            <label>{t('postBataille.prisoners.heroXpLabel')}</label>
+            <select value={heroId} onChange={(e) => setHeroId(e.target.value)}>
+              <option value="">{t('postBataille.chooseEllipsis')}</option>
+              {herosOgres.map((m) => (
+                <option key={m.instance_id} value={m.instance_id}>
+                  {m.nom_perso}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button
+            type="button"
+            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
+            disabled={!heroId}
+            onClick={appliquerGloutonnerie}
+          >
+            {t('postBataille.prisoners.confirmDevour')}
           </button>
         </div>
       )}

@@ -88,6 +88,8 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
   const [modalRecruterGroupe, setModalRecruterGroupe] = useState(false);
   const [modalOptionSorcier, setModalOptionSorcier] = useState(false);
   const [modalTransformation, setModalTransformation] = useState(false);
+  const [gloutonnerieOuvert, setGloutonnerieOuvert] = useState(false);
+  const [cibleDevoreeId, setCibleDevoreeId] = useState('');
   const [itemDetail, setItemDetail] = useState<InventoryEntry | null>(null);
   const [venteEnCours, setVenteEnCours] = useState<InventoryEntry | null>(null);
   const [avanceeAModifier, setAvanceeAModifier] = useState<AdvanceRecord | null>(null);
@@ -284,6 +286,31 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         ),
       };
     });
+  };
+
+  // "Gloutonnerie" (Mangeurs d'Hommes) : "N'importe quel membre de bande ou
+  // animal peut être mangé [...]. Un Héros Ogre qui dévore des captifs gagne
+  // autant d'expérience que de figurines consommées ; les camarades
+  // consommés sont immédiatement retirés du roster." La victime (Héros,
+  // Homme de main — groupe entier le cas échéant, comme pour une mort
+  // classique depuis cette fiche — animal ou franc-tireur) est retirée du
+  // roster ; l'Ogre gagne autant d'XP que de figurines dans le groupe
+  // consommé. Si la victime était le chef, la succession normale
+  // s'applique (même mécanisme qu'une mort en blessure grave, voir
+  // appliquerBlessureGrave ci-dessus).
+  const devorerCamarade = (cibleId: string) => {
+    patchRoster(roster.id, (current) => {
+      const cible = current.membres.find((m) => m.instance_id === cibleId);
+      if (!cible || cible.instance_id === membre.instance_id) return current;
+      const gainXp = cible.taille_groupe || 1;
+      const membresMaj = current.membres
+        .filter((m) => m.instance_id !== cibleId)
+        .map((m) => (m.instance_id === membre.instance_id ? { ...m, xp: m.xp + gainXp } : m));
+      const succession = succederApresMorts(current, catalogue, membresMaj);
+      return { ...current, ...succession, membres: succession?.membres ?? membresMaj };
+    });
+    setCibleDevoreeId('');
+    setGloutonnerieOuvert(false);
   };
 
   // Supprime un seul exemplaire sans contrepartie (perdu, détruit...) —
@@ -552,6 +579,50 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
                   cout: profil.transformation.cout ?? 0,
                 })}
           </button>
+        </div>
+      )}
+
+      {profil.type === 'heros' && profil.groupe_caracteristiques === 'ogre_garde_mangeur' && (
+        <div className="card card--tight">
+          {!gloutonnerieOuvert ? (
+            <button className="btn btn--block" onClick={() => setGloutonnerieOuvert(true)}>
+              {t('gloutonnerie.buttonLabel')}
+            </button>
+          ) : (
+            <div className="field">
+              <label>{t('gloutonnerie.pickLabel')}</label>
+              <select value={cibleDevoreeId} onChange={(e) => setCibleDevoreeId(e.target.value)}>
+                <option value="">{t('postBataille.chooseEllipsis')}</option>
+                {roster.membres
+                  .filter((m) => m.statut !== 'mort' && m.instance_id !== membre.instance_id)
+                  .map((m) => (
+                    <option key={m.instance_id} value={m.instance_id}>
+                      {m.nom_perso}
+                    </option>
+                  ))}
+              </select>
+              <div className="flex gap-sm" style={{ marginTop: '0.4rem' }}>
+                <button
+                  className="btn btn--block"
+                  disabled={!cibleDevoreeId}
+                  onClick={() => devorerCamarade(cibleDevoreeId)}
+                >
+                  {t('gloutonnerie.confirm', {
+                    n: roster.membres.find((m) => m.instance_id === cibleDevoreeId)?.taille_groupe || 1,
+                  })}
+                </button>
+                <button
+                  className="btn btn--block"
+                  onClick={() => {
+                    setGloutonnerieOuvert(false);
+                    setCibleDevoreeId('');
+                  }}
+                >
+                  {t('gloutonnerie.cancel')}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
 

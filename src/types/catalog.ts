@@ -161,6 +161,16 @@ export type Profile = {
   // aux arcs pour cette bande) n'est jamais concernée par ce champ — seul
   // le shop commun, qui propose d'autres armes de tir, en a besoin.
   armes_tir_commun_interdit_non_levable?: boolean;
+  // Compte pour deux figurines (en plus de lui-même, donc +1 net par
+  // figurine du groupe) dans le calcul du nombre de guerriers utilisé pour
+  // la table de vente de pierre de sorcier/trésors — ex : Mangeurs
+  // d'Hommes, règle "Gloutonnerie" : "Chaque Ogre compte comme deux
+  // figurines lors de la vente de pierre magique ou de trésors." N'affecte
+  // QUE ce calcul de prix (voir effectifPourVenteWyrdstone, utils/
+  // bandeValue.ts) — effectifTotal lui-même (effectif max, dés
+  // d'Exploration...) reste inchangé, seule la colonne de la table de vente
+  // en est décalée (bande jugée plus nombreuse donc moins bien négociée).
+  compte_double_vente_wyrdstone?: boolean;
   // Entretien post-bataille pour un profil recruté DIRECTEMENT dans la bande
   // (pas un franc-tireur) — ex : le Troll d'Orc Mob, "Toujours Faim : la
   // bande doit dépenser 15 CO après chaque bataille pour nourrir le Troll

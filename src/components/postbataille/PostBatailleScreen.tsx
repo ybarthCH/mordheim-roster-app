@@ -47,7 +47,7 @@ import { useLanguage } from '../../state/useLanguage';
 import { resumeExploration } from '../../utils/exploration';
 import { peutGagnerExperience } from '../../utils/xp';
 import { COUT_DOCTEUR } from '../../utils/docteur';
-import { effectifTotal } from '../../utils/bandeValue';
+import { effectifPourVenteWyrdstone } from '../../utils/bandeValue';
 import { prixVenteWyrdstone } from '../../data/tableVenteWyrdstone';
 import { CLE_DE_SUPPLEMENTAIRE_EXPLORATION } from '../../utils/effetsPersistants';
 
@@ -696,8 +696,10 @@ export function PostBatailleScreen() {
   const indexEntretien = 5;
   // Le prix de vente du wyrdstone est entièrement dérivé de la table
   // officielle (quantité vendue × taille de bande) — jamais saisi à la main,
-  // pour ne jamais diverger de ce que le tableau affiche.
-  const prixVente = prixVenteWyrdstone(quantiteVendue, effectifTotal(roster));
+  // pour ne jamais diverger de ce que le tableau affiche. effectifPourVente-
+  // Wyrdstone plutôt qu'effectifTotal : chaque Ogre (Mangeurs d'Hommes,
+  // "Gloutonnerie") y compte double, voir bandeValue.ts.
+  const prixVente = prixVenteWyrdstone(quantiteVendue, effectifPourVenteWyrdstone(roster));
   // Calculée une seule fois ici (au lieu de dupliquer la formule dans
   // EtapeResume et dans terminer() ci-dessous, comme c'était le cas) : les
   // deux lectures risquaient de diverger silencieusement si l'une des deux
