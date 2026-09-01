@@ -12,7 +12,7 @@ Cela dit, toutes les passes ne se valent pas — ce fichier distingue toujours p
 
 - **Niveau 3** : audit complet par `mordheim-rules-auditor` contre une source anglaise identifiée et explicitement croisée (méthode d'origine de ce fichier, la plus fiable).
 - **Niveau 3bis** : bande passée par le grand audit du 24-31 août (corrections de règles ET de traduction anglaise réellement appliquées), mais sans garantie que la méthode ait inclus un croisement PDF EN aussi systématique que le Niveau 3 pour chaque point — à considérer comme fiable mais pas revérifiée avec la même rigueur.
-- **Source introuvable** : 3 bandes pour lesquelles aucun PDF (FR ou EN) n'a jamais été localisé pendant l'audit — seules des corrections de cohérence interne au catalogue ont pu être faites, confiance nettement plus faible que les deux niveaux ci-dessus.
+- **Source introuvable** : 2 bandes (`fils_dhashut`, `maneaters`) pour lesquelles aucun PDF (FR ou EN) n'a jamais été localisé, vérifié directement contre le dépôt de sources le 31 août — seules des corrections de cohérence interne au catalogue ont pu être faites, confiance nettement plus faible que les deux niveaux ci-dessus. Une 3e bande initialement classée ici (`pilleurs_de_tombes_arabes`) a en fait une source disponible, retrouvée le 31 août sous un autre nom que celui cherché jusque-là — voir sa note dédiée plus bas, à traiter comme un Niveau 1 classique (source connue, audit complet pas encore fait).
 
 ## Niveau 3 — haute confiance (PDF EN croisé explicitement)
 
@@ -41,17 +41,23 @@ Quelques repères notables dans ce lot :
 
 ## Source introuvable au moment de l'audit — confiance plus faible
 
-Pour ces 3 bandes, aucun PDF (FR ou EN) n'a jamais pu être localisé pendant l'audit : seules des corrections de cohérence interne au catalogue de l'app ont été possibles, sans texte source à croiser. À traiter en priorité si de nouveaux PDF sources sont retrouvés.
+Pour ces bandes, aucun PDF (FR ou EN) n'a jamais pu être localisé pendant l'audit : seules des corrections de cohérence interne au catalogue de l'app ont été possibles, sans texte source à croiser. À traiter en priorité si de nouveaux PDF sources sont retrouvés.
+
+**Vérifié le 2026-08-31 directement contre `ybarthCH/Musterheim-pdf-warband-ref`** (dépôt persistant, contrairement aux PDF envoyés en session — voir CLAUDE.md) : `pilleurs_de_tombes_arabes` a en fait une source disponible depuis le début, jamais retrouvée par les audits précédents car cataloguée sous un autre nom — voir note dédiée ci-dessous. Les 2 autres bandes restent confirmées sans aucune source dans le dépôt.
 
 | Bande (id catalogue) | Commit(s) | Nature des corrections faites sans source |
 |---|---|---|
-| `fils_dhashut` | `1b7d699` | Fix partiel possible par cohérence interne uniquement. |
-| `maneaters` | `cc37eff`, `e286653` | Fixes internes (3 incohérences internes, malus Clients Difficiles) ; règle « Chien de Guerre » (déblocage de francs-tireurs) implémentée cette session à partir du texte déjà présent dans le catalogue, toujours sans PDF source retrouvé. |
-| `pilleurs_de_tombes_arabes` | `fbb2f7a`, `b69a087` | Fix partiel par cohérence interne, puis alignement d'accès francs-tireurs avec les Pirates (bande apparentée) faute de source propre. |
+| `fils_dhashut` | `1b7d699` | Fix partiel possible par cohérence interne uniquement. Confirmé sans source le 31 août : le seul document du dépôt évoquant Hashut (`ENG/Black Dwarfs.pdf` / `FR/Nains du Chaos [GLM].pdf`) correspond en fait à la bande `nains_du_chaos`, déjà cataloguée séparément dans l'app — pas la source de `fils_dhashut`. |
+| `maneaters` | `cc37eff`, `e286653` | Fixes internes (3 incohérences internes, malus Clients Difficiles) ; règle « Chien de Guerre » (déblocage de francs-tireurs) implémentée cette session à partir du texte déjà présent dans le catalogue, toujours sans PDF source retrouvé. Confirmé sans source le 31 août (aucun fichier « Maneaters »/« Man-eater(s) » dans tout le dépôt ; aucun Town Cryer n°16 présent). |
+
+### `pilleurs_de_tombes_arabes` — source retrouvée, audit complet restant à faire
+
+Une source EN existe bien : `ENG/TownCryer20.pdf` (conversion : `ENG/Markitdown/TownCryer20.md`), article complet "Arabian Tomb Raiders" avec sa propre liste d'équipement — jamais retrouvée par les audits précédents (`fbb2f7a`, `b69a087`, tous deux confirmés « source introuvable ») car cataloguée sous le nom anglais **« Tomb Raiders »**, pas « Tomb Robbers » comme cherché jusqu'ici. Attention signalée pour la suite : les tableaux de cette conversion Markitdown ressortent avec les colonnes entrelacées (OCR d'un PDF multi-colonnes) — toute donnée chiffrée (équipement, statistiques) devra être revérifiée sur le PDF d'origine (`pdftotext -layout`) avant d'être citée, conformément à la règle déjà appliquée par `mordheim-rules-auditor`. Un audit complet contre cette source n'a pas encore été fait — à traiter comme n'importe quelle autre bande de Niveau 1 dès qu'une session s'en charge.
 
 ## Prochaine étape suggérée
 
-L'essentiel du travail « à l'aveugle » est fait — il ne reste plus de bande jamais auditée. Deux pistes si on veut pousser la confiance plus loin :
+L'essentiel du travail « à l'aveugle » est fait — il ne reste plus de bande jamais auditée. Trois pistes si on veut pousser la confiance plus loin :
 
-1. Retrouver un PDF (FR ou EN) pour les 3 bandes « source introuvable » ci-dessus, seule vraie zone à risque restante.
-2. Pour les bandes de Niveau 3bis, si une confiance équivalente au Niveau 3 est souhaitée sur un point précis (ex. avant une prochaine campagne de traduction), relancer `mordheim-rules-auditor` dessus avec croisement PDF EN explicite, même méthode que pour le Niveau 3 — mais rien n'indique aujourd'hui un problème connu qui le justifierait en urgence.
+1. Lancer l'audit complet de `pilleurs_de_tombes_arabes` contre `ENG/TownCryer20.pdf` (« Arabian Tomb Raiders ») — source maintenant identifiée, seule étape manquante pour la faire passer en Niveau 1 traité puis Niveau 3.
+2. Retrouver un PDF (FR ou EN) pour `fils_dhashut` et `maneaters`, les 2 seules bandes sans aucune source connue après vérification directe du dépôt — vraie zone à risque restante.
+3. Pour les bandes de Niveau 3bis, si une confiance équivalente au Niveau 3 est souhaitée sur un point précis (ex. avant une prochaine campagne de traduction), relancer `mordheim-rules-auditor` dessus avec croisement PDF EN explicite, même méthode que pour le Niveau 3 — mais rien n'indique aujourd'hui un problème connu qui le justifierait en urgence.
