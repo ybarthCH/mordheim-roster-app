@@ -54,7 +54,9 @@
       "acces_competences": ["combat", "force", "vitesse"],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "acces_equitation_automatique": false,
+      "mutations_uniquement_au_recrutement": true
     },
     {
       "id": "mutant",
@@ -73,6 +75,7 @@
       "acces_competences": ["combat", "vitesse"],
       "acces_equipement": ["culte_des_possedes"],
       "mutation_requise_au_recrutement": true,
+      "mutations_uniquement_au_recrutement": true,
       "acces_competences_a_verifier": false,
       "acces_seigneur_des_ombres": true
     },

@@ -211,12 +211,19 @@ export function AchatEquipementContenu({
 
   const rareteActive = masquerObjetsRares && !gratuit;
 
+  // "Les mutations ne peuvent être achetées [...] que lors du recrutement"
+  // (Profile.mutations_uniquement_au_recrutement, ex : Culte des Possédés) —
+  // resterOuvertApresAchat n'est vrai que depuis le flux de recrutement
+  // (AjouterMembreModal), seul signal disponible pour distinguer ce contexte
+  // de l'armurerie post-recrutement (PersonnageScreen).
+  const masquerMutationsHorsRecrutement = !!profil?.mutations_uniquement_au_recrutement && !resterOuvertApresAchat;
   const itemsBandeBase = useMemo(
-    () => [
-      ...getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel, rules, marqueId),
-      ...objetsPersonnalisesEnShopItems(objetsPersonnalises),
-    ],
-    [catalogue, profil, competencesAcquises, inventaireActuel, rules, marqueId, objetsPersonnalises]
+    () =>
+      [
+        ...getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel, rules, marqueId),
+        ...objetsPersonnalisesEnShopItems(objetsPersonnalises),
+      ].filter((item) => !masquerMutationsHorsRecrutement || item.categorie !== 'mutations'),
+    [catalogue, profil, competencesAcquises, inventaireActuel, rules, marqueId, objetsPersonnalises, masquerMutationsHorsRecrutement]
   );
   const itemsBande = useMemo(() => {
     const liste = avecSurcharges(itemsBandeBase, objetsSurcharges);

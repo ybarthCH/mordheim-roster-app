@@ -3063,7 +3063,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         nom: 'Grave Guard',
         regles_speciales: [
           {
-            nom: 'Spectral Blades',
+            nom: 'Wight Blades',
             texte:
               'Any to-hit roll of 6 in hand-to-hand combat automatically wounds (normal to-wound roll for critical hits; a failed to-wound roll still causes a wound if a 6 was rolled to hit).',
           },
@@ -3099,7 +3099,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         ],
       },
       spectre: {
-        nom: 'Spectre',
+        nom: 'Wight',
         regles_speciales: [
           { nom: 'Causes Fear', texte: 'Terrifying undead creatures that cause Fear.' },
           { nom: 'Immune to Poisons', texte: 'Unaffected by poisons.' },
@@ -3109,7 +3109,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           {
             nom: 'Experience',
             texte:
-              "May gain experience; if promoted to Hero via 'Lad's Got Talent', may not search for rare items (like Grave Guards), must choose the Combat and Strength skill tables, and gains the Spectral Blades rule.",
+              "May gain experience; if promoted to Hero via 'Lad's Got Talent', may not search for rare items (like Grave Guards), must choose the Combat and Strength skill tables, and gains the Wight Blades rule.",
           },
         ],
       },
@@ -3164,7 +3164,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           "At the start of the battle, may deploy D3 Zombies for free; they do not count towards the warband's maximum model count but do increase the warband's rating. They cannot serve as a Corpse Bomb and last only for the duration of the battle.",
       },
       toucher_spectral: {
-        nom: 'Spectral Touch',
+        nom: 'Wraith Touch',
         texte:
           'The hero may make a single unarmed attack instead of his normal hand-to-hand attacks; if it hits, it automatically wounds. If a Liche uses this skill and wounds, she recovers 1 lost Wound (not exceeding her starting total). Necromancers do not recover Wounds this way. Has no effect on Possessed or undead models.',
       },
@@ -3200,7 +3200,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         {
           nom: 'Reanimation',
           texte:
-            "A Zombie taken Out of Action during the last hand-to-hand combat phase returns to the fight within 6\" of the spellcaster (not directly into contact). May be used on a Grave Guard/Spectre to restore 1 lost Wound if it has more than one; cannot revive Scarecrows, Grave Guards, Spectres, or Skeletons the way it does Zombies.",
+            "A Zombie taken Out of Action during the last hand-to-hand combat phase returns to the fight within 6\" of the spellcaster (not directly into contact). May be used on a Grave Guard/Wight to restore 1 lost Wound if it has more than one; cannot revive Scarecrows, Grave Guards, Wights, or Skeletons the way it does Zombies.",
         },
         {
           nom: 'Curse Spell',
@@ -3210,7 +3210,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         {
           nom: "Vanhel's Call",
           texte:
-            'A single Zombie, Skeleton, Spectre, or Grave Guard within 6" of the spellcaster may move again at its full Movement; a move that brings it into contact counts as a charge, and any Initiative test required during this move is automatically passed.',
+            'A single Zombie, Skeleton, Wight, or Grave Guard within 6" of the spellcaster may move again at its full Movement; a move that brings it into contact counts as a charge, and any Initiative test required during this move is automatically passed.',
         },
         {
           nom: 'Grim Vision',

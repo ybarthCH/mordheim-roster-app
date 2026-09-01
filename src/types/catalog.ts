@@ -414,6 +414,18 @@ export type Profile = {
   // (Maraudeurs du Chaos, Pillards Hommes-Bêtes) : cette compétence se
   // prend en avancée, hors du flux de recrutement que ce champ contrôle.
   mutation_requise_au_recrutement?: boolean;
+  // "Les mutations ne peuvent être achetées par un mutant ou un possédé que
+  // lors du recrutement ; vous ne pourrez plus acheter de nouvelles
+  // mutations après le recrutement." (Culte des Possédés) — masque les
+  // objets categorie "mutations" de l'armurerie (AchatEquipementModal en
+  // dehors du flux de recrutement, voir resterOuvertApresAchat, seul signal
+  // disponible pour distinguer les deux contextes). Distinct de
+  // mutation_requise_au_recrutement (qui rend l'achat obligatoire, pas
+  // seulement limité dans le temps) et n'affecte PAS la compétence "Mutant"
+  // (Maraudeurs du Chaos, Pillards Hommes-Bêtes), qui donne accès aux
+  // mutations en avancée — poser ce champ sur ces bandes bloquerait à tort
+  // cette voie légitime, ne jamais l'y appliquer.
+  mutations_uniquement_au_recrutement?: boolean;
   // Profil jamais recrutable directement depuis le sélecteur "Recruter un
   // nouveau membre" — obtenu uniquement par un autre mécanisme (ici, une
   // transformation, voir Profile.transformation sur le profil source). Ex :
