@@ -8,6 +8,13 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-09-01': [
+    'Fixed an important bug: the "Refresh" button on the update banner could stay unresponsive on a tab left open for a while (the tap did trigger the update behind the scenes, but the screen never reloaded on its own) — now reliable.',
+    'Court of the Profane Pleasures: a new button lets you turn a captive obtained after battle into a Whipping Boy recruited into the warband for free ("Cruel Fate").',
+    "Kislevites: \"Fiercely Loyal\", the Tame Bear's special skill, now lets the bear absorb part of the Bear Tamer's serious injury instead of him suffering it normally.",
+    'Pirates: a +20 gc upkeep surcharge now applies automatically if the warband has both Dwarfs and Elves among its Hired Swords.',
+    'Outlaws of Stirwood Forest: the "Archers" rule now actually prevents buying or using any missile weapon other than a bow, even via a skill that would normally allow it.',
+  ],
   '2026-08-31': [
     "New forced leader-succession and profile-transformation mechanisms triggered from the character sheet: warband dissolution for the Undead when neither Necromancer nor Vampire remains, Pti'mek becoming a Black Orc, Giant Rat becoming a Pet Rat (Skaven of Clan Pestilens), the Possessed becoming a Chaos Spawn (Marauders of Chaos), forced succession for the Black Orcs, and the Merchant Caravans' Merchant handing off to the Apprentice (who inherits his special skills) on succession.",
     "New price reductions tied to a Hero's history: Chaos Armour gets cheaper the more experienced its wearer is (and searching for one gets a bonus based on enemies that Hero took out of action in the previous battle), while the Lord's Favour (Bretonnian Chapel Guardians) and Inheritance (Kislevites) both grant a Hero one item at half price on recruitment.",
