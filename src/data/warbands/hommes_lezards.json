@@ -143,11 +143,7 @@
       "acces_competences_a_verifier": false
     }
   ],
-  "competences_speciales": [
-    { "id": "glandes_a_venin", "nom": "Glandes à Venin", "reserve_a": "Marque Sacrée — Skinks uniquement", "texte": "Le Skink possède des glandes sublinguales qui sécrètent un poison mortel (40 CO). Le Skink peut effectuer tout ou partie de ses attaques en mordant, plutôt qu'avec ses armes. Ces attaques subissent un modificateur de sauvegarde d'armure de +1, quelle que soit la Force du Skink. Cependant, elles ne subissent pas le malus pour le combat sans arme et, en cas de Blessure, ont un bonus de +1 sur le Tableau des Dégâts. Ces attaques sont toujours effectuées en dernier, que le Skink ait chargé ou non et quelles que soient les armes employées (y compris les armes à deux mains).", "valeurPuissance": 20 },
-    { "id": "gueule_enorme", "nom": "Gueule Énorme", "reserve_a": "Marque Sacrée — Saurus uniquement", "texte": "Le Saurus a des mâchoires hypertrophiées et de puissants muscles maxillaires (40 CO). En conséquence, son attaque de morsure est résolue avec un bonus de Force de +1.", "valeurPuissance": 20 },
-    { "id": "marque_des_anciens", "nom": "Marque des Anciens", "reserve_a": "Marque Sacrée — acquise uniquement au recrutement d'un Héros né avec", "texte": "La plus prestigieuse marque avec laquelle un Homme-Lézard puisse naître (50 CO). Ces albinos ont une grande destinée aux yeux de leurs dieux et des autres Hommes-Lézards. Le Héros peut transformer l'un de ses jets de dés ratés en un jet réussi. Cette marque ne peut être utilisée qu'une fois par bataille et uniquement sur les actions du Héros. Vous pouvez utiliser cette marque sur un test de Déroute raté si vous le souhaitez.", "valeurPuissance": 40 }
-  ],
+  "competences_speciales": [],
   "equipement": {
     "skinks": {
       "armes_cac": [
@@ -190,7 +186,10 @@
   "equipement_special": [
     { "item_id": "venin_fuligineux", "cout": 20, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete"] },
     { "item_id": "lotus_noir", "cout": 10, "disponibilite": "Commun, Héros uniquement (armes de tir) ; Saurus uniquement (armes de corps à corps, achat sur la Table des Objets Rares)", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete"] },
-    { "item_id": "venin_de_reptile", "cout": 5, "disponibilite": "Commun pour une bataille, Hommes de main Skinks uniquement — +1 Force, aucun malus de sauvegarde", "profils": ["skink"] }
+    { "item_id": "venin_de_reptile", "cout": 5, "disponibilite": "Commun pour une bataille, Hommes de main Skinks uniquement — +1 Force, aucun malus de sauvegarde", "profils": ["skink"] },
+    { "item_id": "glandes_a_venin", "cout": 40, "disponibilite": "Marque Sacrée, achat uniquement au recrutement du Héros — Skinks uniquement, un Héros ne peut porter qu'une seule Marque Sacrée", "profils": ["pretre_skink", "skink_a_grande_crete"] },
+    { "item_id": "gueule_enorme", "cout": 40, "disponibilite": "Marque Sacrée, achat uniquement au recrutement du Héros — Saurus uniquement, un Héros ne peut porter qu'une seule Marque Sacrée", "profils": ["guerrier_totem_saurus"] },
+    { "item_id": "marque_des_anciens", "cout": 50, "disponibilite": "Marque Sacrée, achat uniquement au recrutement d'un Héros né avec — un Héros ne peut porter qu'une seule Marque Sacrée", "profils": ["pretre_skink", "guerrier_totem_saurus", "skink_a_grande_crete"] }
   ],
   "magie": {
     "nom": "Magie des Hommes-Lézards",
