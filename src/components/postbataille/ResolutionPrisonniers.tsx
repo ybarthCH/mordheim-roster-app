@@ -20,7 +20,7 @@ type Props = {
   onAjouterAuJournal: (texte: string) => void;
 };
 
-type Branche = 'possedes' | 'morts_vivants' | 'skaven' | 'autres';
+type Branche = 'possedes' | 'morts_vivants' | 'skaven' | 'destin_cruel' | 'autres';
 
 // Voir BANDES_TRAITEES_COMME_POSSEDES (data/bandeCategories.ts) pour la
 // source de chaque bande listée ici.
@@ -55,6 +55,16 @@ export function ResolutionPrisonniers({
   const heros = roster.membres.filter((m) => m.statut !== 'mort' && resolveProfil(roster, m)?.type === 'heros');
   const zombieProfil = catalogue.profils.find((p) => p.id === 'zombie');
   const estMortsVivants = catalogue.id === 'undead' || catalogue.id === 'morts_sans_repos';
+  // "Destin Cruel" (Cour des Plaisirs Profanes) : "Tout captif obtenu par la
+  // bande (résultat de combat ou exploration) peut être transformé en
+  // Souffre-douleur sans frais, par lobotomie, torture et autres actes de
+  // dépravité." Seule la voie "résultat d'exploration" (cet événement 3.3.3)
+  // a un point d'accroche dans l'app — aucune mécanique n'y modélise
+  // "capturer un Héros ennemi en combat" (le roster adverse n'est jamais
+  // suivi), donc ce volet reste hors de portée, comme pour les autres
+  // bandes déjà traitées ici (Morts-Vivants : Zombie, uniquement via cet
+  // événement).
+  const souffreDouleurProfil = catalogue.profils.find((p) => p.id === 'souffre_douleur');
   // « n'importe quel groupe humain » de la bande : les groupes d'hommes de
   // main (hors profils "animal", ex : Chien de guerre — ce n'est pas un
   // captif humain qui pourrait les rejoindre).
@@ -78,6 +88,15 @@ export function ResolutionPrisonniers({
     const zombies = Array.from({ length: valeur }, () => creerMembre(zombieProfil, 0));
     onMajRoster({ membres: [...roster.membres, ...zombies] });
     const texte = t('postBataille.prisoners.turnedZombies', { n: valeur });
+    onAjouterAuJournal(`${nomEvenement} : ${texte}`);
+    setResolu(texte);
+  };
+
+  const appliquerDestinCruel = () => {
+    if (!souffreDouleurProfil) return;
+    const souffreDouleur = creerMembre(souffreDouleurProfil, 0);
+    onMajRoster({ membres: [...roster.membres, souffreDouleur] });
+    const texte = t('postBataille.prisoners.turnedTormented');
     onAjouterAuJournal(`${nomEvenement} : ${texte}`);
     setResolu(texte);
   };
@@ -157,10 +176,27 @@ export function ResolutionPrisonniers({
         </button>
         <button
           type="button"
-          className={`btn--pack-pill-sm ${branche === 'autres' ? 'btn--pack-pill-sm--primary' : ''}`}
-          disabled={[...BANDES_SACRIFICE_PRISONNIERS, 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)}
+          className={`btn--pack-pill-sm ${branche === 'destin_cruel' ? 'btn--pack-pill-sm--primary' : ''}`}
+          disabled={catalogue.id !== 'cour_des_plaisirs_profanes' || !souffreDouleurProfil}
           title={
-            [...BANDES_SACRIFICE_PRISONNIERS, 'skaven', 'undead', 'morts_sans_repos'].includes(catalogue.id)
+            catalogue.id !== 'cour_des_plaisirs_profanes'
+              ? t('postBataille.vagrant.reservedFor', { faction: 'Cour des Plaisirs Profanes' })
+              : undefined
+          }
+          onClick={() => setBranche('destin_cruel')}
+        >
+          {t('postBataille.prisoners.turnTormented')}
+        </button>
+        <button
+          type="button"
+          className={`btn--pack-pill-sm ${branche === 'autres' ? 'btn--pack-pill-sm--primary' : ''}`}
+          disabled={[...BANDES_SACRIFICE_PRISONNIERS, 'skaven', 'undead', 'morts_sans_repos', 'cour_des_plaisirs_profanes'].includes(
+            catalogue.id
+          )}
+          title={
+            [...BANDES_SACRIFICE_PRISONNIERS, 'skaven', 'undead', 'morts_sans_repos', 'cour_des_plaisirs_profanes'].includes(
+              catalogue.id
+            )
               ? t('postBataille.vagrant.betterOptionAbove')
               : undefined
           }
@@ -190,6 +226,19 @@ export function ResolutionPrisonniers({
               {t('postBataille.prisoners.addXp')}
             </button>
           </div>
+        </div>
+      )}
+
+      {branche === 'destin_cruel' && (
+        <div style={{ marginTop: '0.5rem' }}>
+          <button
+            type="button"
+            className="btn--pack-pill-sm btn--pack-pill-sm--primary"
+            disabled={!souffreDouleurProfil}
+            onClick={appliquerDestinCruel}
+          >
+            {t('postBataille.prisoners.addTormented')}
+          </button>
         </div>
       )}
 

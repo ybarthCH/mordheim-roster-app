@@ -168,6 +168,15 @@ export const postBatailleShared: UiDictionary = {
   'postBataille.prisoners.killForZombies': { fr: 'Tuer — D3 zombies gratuits', en: 'Kill — D3 free zombies' },
   'postBataille.prisoners.sellFor3d6': { fr: 'Vendre pour 3D6 CO', en: 'Sell for 3D6 gc' },
   'postBataille.prisoners.escort': { fr: 'Escorter — 2D6 CO + recrue', en: 'Escort — 2D6 gc + recruit' },
+  'postBataille.prisoners.turnTormented': {
+    fr: 'Destin Cruel — Souffre-douleur gratuit',
+    en: 'Cruel Fate — free Tormented One',
+  },
+  'postBataille.prisoners.addTormented': { fr: 'Ajouter le Souffre-douleur', en: 'Add the Tormented One' },
+  'postBataille.prisoners.turnedTormented': {
+    fr: 'Destin Cruel — transformé en Souffre-douleur, rejoint la bande sans frais.',
+    en: 'Cruel Fate — turned into a Tormented One, joins the warband for free.',
+  },
   'postBataille.prisoners.heroXpLabel': { fr: "Héros bénéficiaire de l'XP", en: 'Hero receiving the XP' },
   'postBataille.prisoners.rollObtainedD3': { fr: 'Jet obtenu (D3) :', en: 'Roll obtained (D3):' },
   'postBataille.prisoners.addXp': { fr: "Ajouter l'XP", en: 'Add the XP' },
