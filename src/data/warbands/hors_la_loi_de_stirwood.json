@@ -31,6 +31,7 @@
       "acces_competences": ["combat", "tir", "academique", "force", "vitesse"],
       "acces_equipement": ["hors_la_loi"],
       "acces_competences_a_verifier": false,
+      "armes_tir_commun_interdit_non_levable": true,
       "est_leader": true
     },
     {
@@ -51,6 +52,7 @@
       "acces_competences": ["academique"],
       "acces_equipement": ["hors_la_loi"],
       "acces_competences_a_verifier": false,
+      "armes_tir_commun_interdit_non_levable": true,
       "plafond_groupe": { "id": "stirwood_champions_voleurs_moine", "max": 4, "label": "Champions de Stirwood / Petits Voleurs / Moine" }
     },
     {
@@ -67,6 +69,7 @@
       "acces_competences": ["combat", "tir", "force"],
       "acces_equipement": ["hors_la_loi"],
       "acces_competences_a_verifier": false,
+      "armes_tir_commun_interdit_non_levable": true,
       "plafond_groupe": { "id": "stirwood_champions_voleurs_moine", "max": 4, "label": "Champions de Stirwood / Petits Voleurs / Moine" }
     },
     {
@@ -83,6 +86,7 @@
       "acces_competences": ["combat", "tir", "vitesse"],
       "acces_equipement": ["hors_la_loi"],
       "acces_competences_a_verifier": false,
+      "armes_tir_commun_interdit_non_levable": true,
       "plafond_groupe": { "id": "stirwood_champions_voleurs_moine", "max": 4, "label": "Champions de Stirwood / Petits Voleurs / Moine" }
     },
     {
@@ -97,7 +101,8 @@
       "stats": { "M": 4, "CC": 3, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "acces_competences": [],
       "acces_equipement": ["hors_la_loi"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "armes_tir_commun_interdit_non_levable": true
     },
     {
       "id": "tireur",
@@ -111,7 +116,8 @@
       "stats": { "M": 4, "CC": 3, "CT": 4, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "acces_competences": [],
       "acces_equipement": ["hors_la_loi"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "armes_tir_commun_interdit_non_levable": true
     }
   ],
   "competences_speciales": [],

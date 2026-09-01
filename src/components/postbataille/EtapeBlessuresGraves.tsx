@@ -3,7 +3,7 @@ import { Modal } from '../common/Modal';
 import { BlessureGraveWizard, type BlessureGraveResultat } from '../personnage/BlessureGraveWizard';
 import { trouverBlessure } from '../../data/blessuresGraves';
 import { estFrancTireur } from '../../data/hiredSwords';
-import { nomAffiche } from '../../utils/profil';
+import { nomAffiche, ferocementLoyalDisponible } from '../../utils/profil';
 import { peutGagnerExperience } from '../../utils/xp';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
@@ -160,6 +160,7 @@ export function EtapeBlessuresGraves({
             tresorerieDisponible={tresorerieDisponible}
             estEternelle={!!profilEnCours?.eternelle}
             pvActuelProfil={membreEnCours.stats_actuels.PV}
+            ferocementLoyalDisponible={ferocementLoyalDisponible(roster, membreEnCours)}
             statsPersonnage={membreEnCours.stats_actuels}
             equipementPersonnage={membreEnCours.inventaire.map((e) => e.nom)}
             reglesSpecialesPersonnage={profilEnCours?.regles_speciales}

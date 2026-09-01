@@ -28,6 +28,11 @@ type Props = {
   totalMalepierre: number;
   orDisponible: number;
   malepierreDisponible: number;
+  // Coût fixe additionnel, non lié à un membre précis et non annulable (ex :
+  // Pirates, "Francs-Tireurs" — "+20 CO de solde si la bande compte à la
+  // fois des Nains et des Elfes") — affiché en lecture seule au-dessus des
+  // lignes normales, déjà inclus dans totalOr/orDisponible par l'appelant.
+  surtaxeSupplementaire?: { titre: string; texte: string; cout: number } | null;
 };
 
 export function EtapeEntretien({
@@ -38,6 +43,7 @@ export function EtapeEntretien({
   totalMalepierre,
   orDisponible,
   malepierreDisponible,
+  surtaxeSupplementaire,
 }: Props) {
   const { t } = useLanguage();
   const insuffisant = totalOr > orDisponible || totalMalepierre > malepierreDisponible;
@@ -46,12 +52,22 @@ export function EtapeEntretien({
     <>
       <div className="card">
         <h3>{t('entretien.title')}</h3>
-        {lignes.length === 0 ? (
+        {lignes.length === 0 && !surtaxeSupplementaire ? (
           <p className="text-sm text-muted mb-0">{t('entretien.noneHired')}</p>
         ) : (
           <p className="text-sm text-muted mb-0">{t('entretien.intro')}</p>
         )}
       </div>
+
+      {surtaxeSupplementaire && (
+        <div className="card">
+          <div className="flex justify-between items-center">
+            <strong>{surtaxeSupplementaire.titre}</strong>
+            <span className="badge badge--info">{t('entretien.goldCoins', { n: surtaxeSupplementaire.cout })}</span>
+          </div>
+          <p className="text-sm text-muted mb-0">{surtaxeSupplementaire.texte}</p>
+        </div>
+      )}
 
       {lignes.map((ligne) => {
         const decision =

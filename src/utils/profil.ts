@@ -174,6 +174,26 @@ export function transformationEstDepart(profil: Profile, roster: RosterInstance)
   return roster.membres.some((m) => m.profil_id === cibleBloquante && m.statut !== 'mort');
 }
 
+// "Férocement Loyal" (Ours Apprivoisé, Kislévites) : "Si à la fin d'une
+// partie l'Ours n'a pas été mis hors de combat, le Dompteur peut ignorer les
+// résultats Détroussé, Capturé et Gladiateur (et équivalents) sur le
+// tableau des blessures graves : traitez-les à la place comme Récupération
+// Totale." Simplification assumée : faute de pouvoir distinguer "l'Ours a
+// été mis hors de combat CETTE bataille précise" au moment où l'assistant
+// de blessure grave du Dompteur est ouvert (les animaux passent par le
+// compteur Hors de Combat simplifié, jamais par ce même assistant), le
+// critère retenu est "un Ours Apprivoisé vivant existe actuellement dans la
+// bande" — voir BlessureGraveWizard.ferocementLoyalDisponible, seul
+// consommateur. Spécifique aux Kislévites, sur le modèle déjà utilisé cette
+// session pour le Chien de Guerre des Maneaters (mécanique nommée en dur,
+// aucun champ générique ne s'appliquant qu'à une seule bande).
+export function ferocementLoyalDisponible(roster: RosterInstance, membre: Member): boolean {
+  return (
+    membre.profil_id === 'dompteur_dours' &&
+    roster.membres.some((m) => m.profil_id === 'ours_apprivoise' && m.statut !== 'mort')
+  );
+}
+
 /**
  * Un membre peut être désigné manuellement avec le statut spécial porté par
  * `Profile.designation_entrainee` (voir ce champ) si : ce profil le prévoit,

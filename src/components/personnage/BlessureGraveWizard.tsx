@@ -221,6 +221,12 @@ type Props = {
   // PV actuels du profil (Member.stats_actuels.PV) — nécessaire pour
   // appliquer/vérifier la règle Éternelle ci-dessus.
   pvActuelProfil?: number;
+  // Règle spéciale "Férocement Loyal" (Ours Apprivoisé, Kislévites) — voir
+  // ferocementLoyalDisponible dans utils/profil.ts pour la condition exacte
+  // (calculée par l'appelant, qui seul dispose du roster complet). Sur un
+  // résultat Détroussé, Capturé ou Gladiateur, permet de traiter le résultat
+  // comme Rétablissement complet à la place.
+  ferocementLoyalDisponible?: boolean;
   // Caractéristiques, équipement et règles spéciales actuels du combattant —
   // affichés à côté du profil du franc-tireur Gladiateur adverse pendant la
   // résolution du résultat "Gladiateur" (voir BlocStats), pour résoudre le
@@ -240,6 +246,7 @@ export function BlessureGraveWizard({
   tresorerieDisponible,
   estEternelle = false,
   pvActuelProfil,
+  ferocementLoyalDisponible = false,
   statsPersonnage,
   equipementPersonnage,
   reglesSpecialesPersonnage,
@@ -278,6 +285,9 @@ export function BlessureGraveWizard({
   // Sur un résultat Tué, le jet de D3 (perte de PV permanents) qui remplace
   // automatiquement la mort — saisi comme n'importe quel jet papier.
   const [eternelleDeD3Saisi, setEternelleDeD3Saisi] = useState('');
+  // Férocement Loyal (voir Props.ferocementLoyalDisponible) : substitution
+  // du résultat choisi par Rétablissement complet, cochée par le joueur.
+  const [ferocementLoyalChoisi, setFerocementLoyalChoisi] = useState(false);
 
   const enCoursDansBoucle = contexte === 'boucle' && multiplesCount !== null;
   const iterationActuelleIndex = multiplesResultats.length + 1;
@@ -297,6 +307,7 @@ export function BlessureGraveWizard({
     setRanconSaisie('');
     setEternelleIgnorer(false);
     setEternelleDeD3Saisi('');
+    setFerocementLoyalChoisi(false);
   };
 
   const terminerIteration = (it: IterationResolue) => {
@@ -526,6 +537,32 @@ export function BlessureGraveWizard({
   // -1 PV (cela la tuerait sans passer par un jet Tué).
   const eternellePeutIgnorer = estEternelle && (pvActuelProfil ?? 0) > 1;
 
+  // Férocement Loyal (Ours Apprivoisé, Kislévites) — voir Props ci-dessus :
+  // seuls Détroussé/Capturé/Gladiateur sont concernés (les autres résultats
+  // n'ont pas d'équivalent "protégé par l'Ours" prévu par la règle).
+  const ID_RESULTATS_FEROCEMENT_LOYAL = ['detrousse', 'capture', 'gladiateur'];
+  const ferocementLoyalPeutSubstituer =
+    ferocementLoyalDisponible && !!racine && ID_RESULTATS_FEROCEMENT_LOYAL.includes(racine.resultat.id);
+
+  const construireResultatFerocementLoyal = (base: BlessureGraveResultat): BlessureGraveResultat => {
+    const nomRetablissement = BLESSURES_GRAVES.find((r) => r.id === 'retablissement_complet')?.nom ?? 'Rétablissement complet';
+    return {
+      ...base,
+      nom: nomRetablissement,
+      texte: `${base.texte}\n\nFérocement Loyal : ce résultat est ignoré — l'Ours veille sur son maître, qui se rétablit complètement.`,
+      statsDelta: {},
+      notes: [...base.notes, 'Férocement Loyal : résultat ignoré, rétablissement complet'],
+      // Même forme qu'un vrai résultat "Rétablissement complet" (voir
+      // effetDeIteration) : estRetablissementIsole() exige exactement cette
+      // entrée pour ne pas créer d'enregistrement de blessure grave.
+      effets: [{ resultat_id: 'retablissement_complet', nom: nomRetablissement, stats_delta: {}, notes_ajoutees: [] }],
+      perteEquipement: false,
+      statutMort: false,
+      xpBonus: 0,
+      tresorerieBonus: 0,
+    };
+  };
+
   const construireResultatEternelleIgnore = (base: BlessureGraveResultat): BlessureGraveResultat => ({
     ...base,
     texte: `${base.texte}\n\nÉternelle : ce résultat est ignoré — la Liche subit à la place une perte permanente de -1 Point de Vie.`,
@@ -562,6 +599,7 @@ export function BlessureGraveWizard({
     if (!racine) return base;
     if (estEternelle && racine.resultat.id === 'mort') return construireResultatEternelleTue(base);
     if (eternellePeutIgnorer && eternelleIgnorer) return construireResultatEternelleIgnore(base);
+    if (ferocementLoyalPeutSubstituer && ferocementLoyalChoisi) return construireResultatFerocementLoyal(base);
     return base;
   };
 
@@ -877,6 +915,16 @@ export function BlessureGraveWizard({
           <span className="skill-check__name">
             {t('blessureGraveWizard.eternalIgnoreOption', { pv: pvActuelProfil ?? 0 })}
           </span>
+        </label>
+      )}
+      {ferocementLoyalPeutSubstituer && (
+        <label className="skill-check" style={{ cursor: 'pointer', margin: '0.6rem 0' }}>
+          <input
+            type="checkbox"
+            checked={ferocementLoyalChoisi}
+            onChange={(e) => setFerocementLoyalChoisi(e.target.checked)}
+          />
+          <span className="skill-check__name">{t('blessureGraveWizard.loyalBearOption')}</span>
         </label>
       )}
       {statsListe.length > 0 && (

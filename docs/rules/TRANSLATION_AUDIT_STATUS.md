@@ -1,50 +1,63 @@
 # État de l'audit de fidélité des traductions par bande
 
-Suivi de l'investigation lancée après des retours de testeurs Reddit sur la qualité de la traduction anglaise : plusieurs bandes ont été traduites FR→EN dans une session précédente sans jamais avoir eu le document anglais d'origine sous les yeux, ce qui a produit des noms de compétences/profils inventés et, pour certaines, de vraies divergences de règles (pas seulement de traduction). Ce fichier classe les 51 bandes du dépôt en trois niveaux de confiance, pour reprendre le travail sans tout redécouvrir.
+Suivi de l'investigation lancée après des retours de testeurs Reddit sur la qualité de la traduction anglaise : plusieurs bandes ont été traduites FR→EN dans une session précédente sans jamais avoir eu le document anglais d'origine sous les yeux, ce qui a produit des noms de compétences/profils inventés et, pour certaines, de vraies divergences de règles (pas seulement de traduction). Ce fichier classe les 52 bandes du dépôt en niveaux de confiance, pour reprendre le travail sans tout redécouvrir.
 
 Voir `SOURCE_INDEX.md` pour le détail des documents sources (nom exact, SHA-256, langue).
 
-## Niveau 3 — déjà vérifiées cette session (haute confiance)
+## Mise à jour du 2026-08-31
+
+Entre la précédente version de ce fichier et aujourd'hui, une campagne d'audit des règles s'est étalée sur plusieurs sessions (24 → 31 août 2026, voir `src/data/changelog.ts` et l'historique git — commits `Audit bande #N/51 (...)`, `fix(<bande>): ...`, et les entrées `mordheim-rules-auditor` citées dans `PROJECT_DECISIONS.md`) et a fait passer **chacune des 52 bandes** par au moins une passe de vérification, corrections de traduction anglaise incluses. Aucune bande ne reste donc totalement non auditée.
+
+Cela dit, toutes les passes ne se valent pas — ce fichier distingue toujours plusieurs niveaux :
+
+- **Niveau 3** : audit complet par `mordheim-rules-auditor` contre une source anglaise identifiée et explicitement croisée (méthode d'origine de ce fichier, la plus fiable).
+- **Niveau 3bis** : bande passée par le grand audit du 24-31 août (corrections de règles ET de traduction anglaise réellement appliquées), mais sans garantie que la méthode ait inclus un croisement PDF EN aussi systématique que le Niveau 3 pour chaque point — à considérer comme fiable mais pas revérifiée avec la même rigueur.
+- **Source introuvable** : 2 bandes (`fils_dhashut`, `maneaters`) pour lesquelles aucun PDF (FR ou EN) n'a jamais été localisé, vérifié directement contre le dépôt de sources le 31 août — seules des corrections de cohérence interne au catalogue ont pu être faites, confiance nettement plus faible que les deux niveaux ci-dessus. Une 3e bande initialement classée ici (`pilleurs_de_tombes_arabes`) a en fait une source disponible, retrouvée le 31 août sous un autre nom que celui cherché jusque-là — voir sa note dédiée plus bas, à traiter comme un Niveau 1 classique (source connue, audit complet pas encore fait).
+
+## Niveau 3 — haute confiance (PDF EN croisé explicitement)
 
 Audit complet (`mordheim-rules-auditor`) fait contre une source anglaise obtenue et cataloguée, corrections appliquées et poussées sur `main` :
 
-`elfes_noirs`, `expedition_runique`, `orques_noirs`, `amazones_mordheim`, `amazones_lustrie`, `bandits_du_hochland`, `escorteurs_imperiaux`, `hommes_lezards`, `chevaliers_bretonniens`, `tileens`, `hors_la_loi_de_stirwood`, `skavens_pestilens`, `norses`, `pirates`, `guerriers_fantomes`, `maraudeurs_du_chaos`.
+`elfes_noirs`, `expedition_runique`, `orques_noirs`, `amazones_mordheim`, `amazones_lustrie`, `bandits_du_hochland`, `escorteurs_imperiaux`, `hommes_lezards`, `chevaliers_bretonniens`, `tileens`, `hors_la_loi_de_stirwood`, `skavens_pestilens`, `norses`, `pirates`, `guerriers_fantomes`, `maraudeurs_du_chaos`, `gladiateurs`, `gardiens_de_chapelle_bretonniens`.
 
-`maraudeurs_du_chaos` : l'écart de longueur FR/EN qui avait motivé la priorisation de cette bande s'est avéré normal — le PDF EN de 8 pages (Town Cryer #10) renvoie explicitement au livre de règles Mordheim (Rituels du Chaos de base) et à Empire in Flames (Bénédictions de Nurgle, Bestiaire) au lieu de les détailler, alors que le JSON FR les intègre. Seuls 9 noms propres divergeaient réellement (compétences, sorts, Marques — ex. « Chosen by Chaos » → « Chosen of Chaos », « Mark of Onogal the Raven » → « ... the Crow »), tous corrigés. Aucune divergence de règle ou de valeur numérique trouvée.
+`maraudeurs_du_chaos` : l'écart de longueur FR/EN qui avait motivé la priorisation de cette bande s'est avéré normal — le PDF EN de 8 pages (Town Cryer #10) renvoie explicitement au livre de règles Mordheim (Rituels du Chaos de base) et à Empire in Flames (Bénédictions de Nurgle, Bestiaire) au lieu de les détailler, alors que le JSON FR les intègre. Seuls 9 noms propres divergeaient réellement (compétences, sorts, Marques — ex. « Chosen by Chaos » → « Chosen of Chaos », « Mark of Onogal the Raven » → « ... the Crow »), tous corrigés. Aucune divergence de règle ou de valeur numérique trouvée. Revérifiée depuis à plusieurs reprises dans le cadre du grand audit général (Marque d'Arkhar, fouet barbelé, Œil des Dieux Sombres) sans nouvelle divergence de traduction.
 
-`gardiens_de_chapelle_bretonniens` : vérification partielle seulement (un seul point précis confirmé — noms « Questing Knight »/« Knight Errant » — pas un audit exhaustif de toutes ses règles spéciales/compétences comme les 16 bandes ci-dessus). À auditer complètement si on veut le même niveau de confiance.
+`gladiateurs` : ré-auditée intégralement (grand audit des règles, pas seulement traduction) contre `Gladiateurs [GLM].pdf`, commit de correction `24e6cdf` — francs-tireurs (accès élargi à MERCENAIRES avec exclusion explicite de l'Éclaireur elfe), compétences spéciales exclusives du Tueur de Trolls (déplacées vers le profil), restrictions de profil sur la liste d'équipement Ogres/Tueurs de Trolls.
 
-`gladiateurs` : ré-auditée intégralement (grand audit des règles, pas seulement traduction) contre `Gladiateurs [GLM].pdf`, commit de correction `24e6cdf` — francs-tireurs (accès élargi à MERCENAIRES avec exclusion explicite de l'Éclaireur elfe), compétences spéciales exclusives du Tueur de Trolls (déplacées vers le profil), restrictions de profil sur la liste d'équipement Ogres/Tueurs de Trolls. Reclassée niveau 3 à part entière.
+`gardiens_de_chapelle_bretonniens` : classée niveau 1 puis vérification partielle (noms « Questing Knight »/« Knight Errant » seulement) dans les versions précédentes de ce fichier — désormais auditée intégralement : passage dans le grand audit du 26 août (commit `f6bf5e6`, Équitation gratuite, restrictions d'équipement réelles, Basse caste) puis dans la clôture du 31 août, plus un travail approfondi cette même session sur sa règle « Faveur du Seigneur » (objet à moitié prix au recrutement, non-cessible) sourcée et implémentée.
 
-## Niveau 1 — source anglaise cataloguée, jamais recroisée avec le texte actuel de l'app
+## Niveau 3bis — auditées lors du grand audit des règles (24-31 août 2026)
 
-Ces PDF EN faisaient partie de l'envoi initial de 63 fichiers (session du 2026-08-13) et sont dans `SOURCE_INDEX.md`, mais aucun audit de fidélité n'a encore comparé leur contenu au texte anglais actuellement affiché par l'app (`src/i18n/data/warbands.ts`). Prochaine étape : redemander le PDF exact à Yannick (il faut le renvoyer, les fichiers ne sont pas conservés entre sessions) puis lancer `mordheim-rules-auditor` dessus, même méthode que pour le niveau 3.
+Toutes les bandes suivantes ont eu au moins une passe de correction de règles ET de traduction anglaise pendant cette campagne (voir `src/data/changelog.ts`, entrées du 25 au 31 août, et les commits `fix(<bande>)`/`Audit <bande>` correspondants) :
 
-| Bande (id catalogue) | PDF EN catalogué | Remarque |
+`artilleurs_de_nuln`, `averlanders`, `beastmen_raiders`, `caravanes_marchandes`, `carnival_of_chaos`, `cavalcade_maudite`, `chasseurs_cornus`, `cour_des_plaisirs_profanes`, `cult_of_the_possessed`, `culte_des_tueurs`, `dwarf_treasure_hunters`, `gardiens_des_tombes`, `gobelins_de_la_nuit`, `gobelins_des_forets`, `kislevites`, `lustrian_reavers`, `marienburgers`, `middenheimers`, `moines_guerriers_de_cathay`, `mootlanders`, `morts_sans_repos`, `nains_du_chaos`, `orc_mob`, `ostermarkers`, `ostlanders`, `reiklanders`, `sisters_of_sigmar`, `skaven`, `sylvaneths`, `undead`, `witch_hunters`.
+
+Quelques repères notables dans ce lot :
+
+- `culte_des_tueurs` : bande ajoutée le 26 août (traduite en anglais vers le français pour l'occasion, pas l'inverse — donc pas de risque de traduction FR→EN inventée comme pour les autres), puis corrigée le 31 août (armure/tir non-jet interdits aux Tueurs, Dramatis Personae elfe exclues, commit `26d4f87`).
+- `sylvaneths` : seule bande n'ayant jamais été mentionnée dans aucun audit avant le 31 août — corrigée ce jour-là (coût/succession/promotion, 2 fuites d'équipement fermées, commit `7bc54e1`), après un premier alignement sur une révision V1.7 de playtest plus tôt dans la campagne (commit `0bb5125`).
+- `ostermarkers` : absente par erreur des niveaux précédents de ce fichier alors qu'auditée à deux reprises (27 et 31 août, dont un audit numéroté dédié « #34/51 », commit `6732d33`, et un rétablissement d'accès francs-tireurs, commit `9be53cf`).
+- `nains_du_chaos`, `artilleurs_de_nuln`, `averlanders`, `gardiens_de_chapelle_bretonniens`, `amazones_lustrie` : ont aussi fait l'objet d'arbitrages explicites de Yannick sur des divergences FR/EN précises (prix, restrictions, statistiques) — voir `PROJECT_DECISIONS.md`, entrées du 31 août.
+
+## Source introuvable au moment de l'audit — confiance plus faible
+
+Pour ces bandes, aucun PDF (FR ou EN) n'a jamais pu être localisé pendant l'audit : seules des corrections de cohérence interne au catalogue de l'app ont été possibles, sans texte source à croiser. À traiter en priorité si de nouveaux PDF sources sont retrouvés.
+
+**Vérifié le 2026-08-31 directement contre `ybarthCH/Musterheim-pdf-warband-ref`** (dépôt persistant, contrairement aux PDF envoyés en session — voir CLAUDE.md) : `pilleurs_de_tombes_arabes` a en fait une source disponible depuis le début, jamais retrouvée par les audits précédents car cataloguée sous un autre nom — voir note dédiée ci-dessous. Les 2 autres bandes restent confirmées sans aucune source dans le dépôt.
+
+| Bande (id catalogue) | Commit(s) | Nature des corrections faites sans source |
 |---|---|---|
-| `artilleurs_de_nuln` | `Gunnery_School_Of_Nuln.pdf` | |
-| `gobelins_des_forets` | `Forest_Goblins.pdf` | |
-| `gardiens_des_tombes` | `Tomb_Guardians.pdf` (TC18) et `tomb_guardians.pdf` (variante) | Deux documents distincts (hash différent), a priori deux versions — comparer les deux |
-| `nains_du_chaos` | `Sons_of_Hashut.pdf` | |
-| `morts_sans_repos` | `The_Restless_Dead.pdf` | |
-| `cavalcade_maudite` | `The_Cursed_Cavalcade.pdf` | |
-| `cour_des_plaisirs_profanes` | `Court_of_Profane_Pleasures.pdf` | |
-| `chasseurs_cornus` | `Horned_Hunters.pdf` | |
-| `caravanes_marchandes` | `Merchant_Caravans.pdf` | |
-| `moines_guerriers_de_cathay` | `Battle_Monks_of_Cathay.pdf` | |
-| `maneaters` | `Maneaters.pdf` (TC16) | |
-| `mootlanders` | `Mootlanders.pdf` | |
-| `lustrian_reavers` | `LustrianReaversV1.2.pdf` | Langue non confirmée (page de titre sans texte extractible) — à vérifier avant même l'audit |
-| `pilleurs_de_tombes_arabes` | `Arabian_Tomb_Raiders.pdf` | Langue non confirmée |
+| `fils_dhashut` | `1b7d699` | Fix partiel possible par cohérence interne uniquement. Confirmé sans source le 31 août : le seul document du dépôt évoquant Hashut (`ENG/Black Dwarfs.pdf` / `FR/Nains du Chaos [GLM].pdf`) correspond en fait à la bande `nains_du_chaos`, déjà cataloguée séparément dans l'app — pas la source de `fils_dhashut`. |
+| `maneaters` | `cc37eff`, `e286653` | Fixes internes (3 incohérences internes, malus Clients Difficiles) ; règle « Chien de Guerre » (déblocage de francs-tireurs) implémentée cette session à partir du texte déjà présent dans le catalogue, toujours sans PDF source retrouvé. Confirmé sans source le 31 août (aucun fichier « Maneaters »/« Man-eater(s) » dans tout le dépôt ; aucun Town Cryer n°16 présent). |
 
-## Niveau 2 — aucune source cataloguée dans aucune langue
+### `pilleurs_de_tombes_arabes` — source retrouvée, audit complet restant à faire
 
-Aucun PDF, ni FR ni EN, n'a jamais été fourni pour ces bandes. Deux sous-groupes de risque très différents :
-
-**Probablement bas risque** — bandes de base officielles LRB2 (`Mordheim__Part_2__Warbands.pdf`), dont le texte anglais est vraisemblablement la source originale plutôt qu'une traduction depuis le français : `reiklanders`, `marienburgers`, `middenheimers`, `ostlanders`, `averlanders`, `witch_hunters`, `undead`, `skaven`, `orc_mob`, `sisters_of_sigmar`, `kislevites`.
-
-**Provenance inconnue, à vérifier en premier si on creuse ce niveau** : `beastmen_raiders`, `carnival_of_chaos`, `cult_of_the_possessed`, `sylvaneths`, `fils_dhashut`, `dwarf_treasure_hunters`, `gobelins_de_la_nuit`.
+Une source EN existe bien : `ENG/TownCryer20.pdf` (conversion : `ENG/Markitdown/TownCryer20.md`), article complet "Arabian Tomb Raiders" avec sa propre liste d'équipement — jamais retrouvée par les audits précédents (`fbb2f7a`, `b69a087`, tous deux confirmés « source introuvable ») car cataloguée sous le nom anglais **« Tomb Raiders »**, pas « Tomb Robbers » comme cherché jusqu'ici. Attention signalée pour la suite : les tableaux de cette conversion Markitdown ressortent avec les colonnes entrelacées (OCR d'un PDF multi-colonnes) — toute donnée chiffrée (équipement, statistiques) devra être revérifiée sur le PDF d'origine (`pdftotext -layout`) avant d'être citée, conformément à la règle déjà appliquée par `mordheim-rules-auditor`. Un audit complet contre cette source n'a pas encore été fait — à traiter comme n'importe quelle autre bande de Niveau 1 dès qu'une session s'en charge.
 
 ## Prochaine étape suggérée
 
-Continuer le niveau 1 (le plus actionnable — sources déjà identifiées, juste à renvoyer) : 14 bandes restantes, aucune priorité particulière repérée pour l'instant.
+L'essentiel du travail « à l'aveugle » est fait — il ne reste plus de bande jamais auditée. Trois pistes si on veut pousser la confiance plus loin :
+
+1. Lancer l'audit complet de `pilleurs_de_tombes_arabes` contre `ENG/TownCryer20.pdf` (« Arabian Tomb Raiders ») — source maintenant identifiée, seule étape manquante pour la faire passer en Niveau 1 traité puis Niveau 3.
+2. Retrouver un PDF (FR ou EN) pour `fils_dhashut` et `maneaters`, les 2 seules bandes sans aucune source connue après vérification directe du dépôt — vraie zone à risque restante.
+3. Pour les bandes de Niveau 3bis, si une confiance équivalente au Niveau 3 est souhaitée sur un point précis (ex. avant une prochaine campagne de traduction), relancer `mordheim-rules-auditor` dessus avec croisement PDF EN explicite, même méthode que pour le Niveau 3 — mais rien n'indique aujourd'hui un problème connu qui le justifierait en urgence.

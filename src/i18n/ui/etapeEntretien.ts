@@ -30,4 +30,9 @@ export const etapeEntretien: UiDictionary = {
     fr: 'Ressources insuffisantes : renvoie un ou plusieurs francs-tireurs, ou applique une exemption valide.',
     en: 'Insufficient resources: dismiss one or more hired swords, or apply a valid exemption.',
   },
+  'entretien.surtaxePiratesTitle': { fr: 'Supplément « Nains et Elfes »', en: '"Dwarfs and Elves" surcharge' },
+  'entretien.surtaxePiratesTexte': {
+    fr: "La bande compte à la fois des francs-tireurs Nains et Elfes : le navire n'est pas si grand, et l'espace restreint les rend plus irritables que d'habitude !",
+    en: "The warband has both Dwarf and Elf hired swords aboard: the ship isn't that big, and the cramped quarters make them crankier than usual!",
+  },
 };

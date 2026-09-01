@@ -33,6 +33,36 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-09-01',
+    points: [
+      {
+        categorie: 'autre',
+        texte:
+          "Correction d'un bug important : le bouton \"Actualiser\" du bandeau de mise à jour pouvait rester sans effet sur un onglet resté ouvert un moment (l'appui déclenchait bien la mise à jour en coulisses, mais l'écran ne se rechargeait jamais tout seul) — désormais fiable.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Cour des Plaisirs Profanes : un nouveau bouton permet de transformer un captif obtenu après bataille en Souffre-douleur recruté gratuitement dans la bande (\"Destin Cruel\").",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Kislévites : \"Férocement Loyal\", la compétence spéciale de l'Ours Apprivoisé, permet désormais de faire absorber une partie des blessures graves du Dompteur par l'ours plutôt que de les subir normalement.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Pirates : une surtaxe de solde de +20 CO s'applique désormais automatiquement en entretien si la bande compte à la fois des Nains et des Elfes parmi ses francs-tireurs.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Hors-la-loi de la Forêt de Stirwood : la règle \"Archers\" empêche maintenant réellement l'achat ou l'usage d'une autre arme de tir que l'arc, même via une compétence qui le permettrait habituellement.",
+      },
+    ],
+  },
+  {
     date: '2026-08-31',
     points: [
       {
