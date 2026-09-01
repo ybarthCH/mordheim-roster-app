@@ -1139,6 +1139,15 @@ export function getShopCommun(
       // depuis le shop commun, quelle que soit la bande : uniquement via la
       // liste equipement_special de la bande.
       item.categorie !== 'mutations' &&
+      // Un objet déjà référencé dans l'equipement_special de LA bande active
+      // porte un prix/une disponibilité volontairement propres à cette bande
+      // (ex : Exosquelette/Machine du Chaos des Nains du Chaos, 175/125 CO
+      // au lieu du prix brut du catalogue générique, 225/195 CO — voir
+      // PROJECT_DECISIONS.md) : le laisser aussi apparaître ici, au prix
+      // brut de l'objet générique, contournerait silencieusement ce prix de
+      // bande. equipement_special reste la seule voie d'achat pour ces
+      // objets, jamais un doublon au prix générique dans cet onglet commun.
+      !catalogue?.equipement_special?.some((ref) => ref.item_id === item.id) &&
       !(armureLourdeInterdite && ITEMS_EQUIVALENT_ARMURE_LOURDE.has(item.id)) &&
       !('heros_uniquement' in item && item.heros_uniquement && profil?.type === 'homme_de_main') &&
       ((catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) ||

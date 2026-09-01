@@ -996,7 +996,8 @@
     "rarete": "8",
     "disponibilite": "Rare 8, Nains uniquement",
     "acces": [
-      "dwarf_treasure_hunters"
+      "dwarf_treasure_hunters",
+      "culte_des_tueurs"
     ],
     "source": "CTN (Chasseurs de Trésors Nains)",
     "page": 11,

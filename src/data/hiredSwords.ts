@@ -560,8 +560,9 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 8,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'pirates', 'sisters_of_sigmar', 'witch_hunters']),
-      texte: 'Les Mercenaires, les Pirates, les Sœurs de Sigmar et les Répurgateurs.',
+      bande_ids: uniques([...MERCENAIRES, 'pirates', 'sisters_of_sigmar', 'witch_hunters', 'culte_des_tueurs']),
+      texte:
+        'Les Mercenaires, les Pirates, les Sœurs de Sigmar, les Répurgateurs et le Culte des Tueurs (dont la règle spéciale "Registres de Secours" présuppose cet accès : le Barde gagne alors la capacité "Registre de Bravoure" du Mémorialiste).',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 7 },
     equipement: ['Épée', 'Dague', 'Armure légère'],

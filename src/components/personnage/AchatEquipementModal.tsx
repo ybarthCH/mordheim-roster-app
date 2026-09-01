@@ -137,6 +137,10 @@ const ID_DAGUE = 'dague';
 // qu'à un achat pour un membre précis (xpMembre fourni) — l'armurerie de
 // bande n'est pas concernée.
 const ID_ARMURE_DU_CHAOS = 'armure_du_chaos_market';
+// "Le coût de l'exosquelette est réduit d'1 CO pour chaque point
+// d'expérience possédé par le Héros" (Nains du Chaos) — même mécanique de
+// réduction par XP que l'Armure du Chaos, voir coutReduitArmureDuChaos.
+const ID_EXOSQUELETTE = 'exosquelette';
 
 function synopsis(texte: string | null | undefined): string | null {
   if (!texte) return null;
@@ -292,7 +296,7 @@ export function AchatEquipementContenu({
     !gratuit && !!profil && item.id === ID_DAGUE && !dagueDejaPossedee;
 
   const coutReduitArmureDuChaos = (item: Pick<ShopItem, 'id' | 'cout' | 'cout_fixe'>) =>
-    item.id === ID_ARMURE_DU_CHAOS && item.cout_fixe && typeof item.cout === 'number'
+    (item.id === ID_ARMURE_DU_CHAOS || item.id === ID_EXOSQUELETTE) && item.cout_fixe && typeof item.cout === 'number'
       ? Math.max(0, item.cout - (xpMembre ?? 0))
       : null;
 
