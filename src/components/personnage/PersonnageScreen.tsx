@@ -656,6 +656,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         <BlessureGraveModal
           member={membre}
           profil={profil}
+          roster={roster}
           tresorerieDisponible={roster.tresorerie}
           onClose={() => setModalBlessure(false)}
           onApply={(updated, tresorerieBonus) => appliquerBlessureGrave(updated, tresorerieBonus)}

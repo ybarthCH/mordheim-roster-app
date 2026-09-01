@@ -67,6 +67,10 @@ export const blessureGraveWizard: UiDictionary = {
     fr: 'Éternelle : ignorer ce résultat, -1 PV permanent à la place (PV actuels : {pv})',
     en: 'Eternal: ignore this result, -1 permanent Wound instead (current Wounds: {pv})',
   },
+  'blessureGraveWizard.loyalBearOption': {
+    fr: "Férocement Loyal : l'Ours n'a pas été mis hors de combat — traiter ce résultat comme Rétablissement complet",
+    en: "Fiercely Loyal: the Bear wasn't taken out of action — treat this result as Full Recovery instead",
+  },
   'blessureGraveWizard.modifiedCharacteristics': { fr: 'Caractéristiques modifiées :', en: 'Modified characteristics:' },
   'blessureGraveWizard.notesToAdd': { fr: 'À ajouter aux notes :', en: 'To add to notes:' },
   'blessureGraveWizard.experienceLabel': { fr: 'Expérience :', en: 'Experience:' },
