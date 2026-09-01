@@ -571,6 +571,20 @@ export function PostBatailleScreen() {
     [lignesEntretien, entretienDrafts]
   );
 
+  // "Francs-Tireurs" (Pirates) : "les Pirates doivent [...] payer un
+  // supplément de +20 CO de solde si elles comptent à la fois des Nains et
+  // des Elfes dans la même bande." Condition sur la composition de la bande
+  // (francs-tireurs vivants participant à cette bataille — même périmètre
+  // que le reste de l'entretien), pas un entretien individuel : montant fixe
+  // additionnel non rattaché à un membre précis et non annulable (voir
+  // EtapeEntretien.surtaxeSupplementaire).
+  const surtaxeNainsElfesPirates = useMemo(() => {
+    if (catalogue?.id !== 'pirates') return 0;
+    const aTag = (tag: 'nain' | 'elfe') =>
+      francTireursParticipants.some((m) => getFrancTireur(m.franc_tireur_id)?.tags?.includes(tag));
+    return aTag('nain') && aTag('elfe') ? 20 : 0;
+  }, [catalogue?.id, francTireursParticipants]);
+
   if (!roster) {
     return (
       <Screen title={t('postBatailleScreen.bandNotFoundTitle')} back="/">
@@ -688,7 +702,8 @@ export function PostBatailleScreen() {
   // EtapeResume et dans terminer() ci-dessous, comme c'était le cas) : les
   // deux lectures risquaient de diverger silencieusement si l'une des deux
   // était mise à jour sans l'autre.
-  const tresorerieApres = roster.tresorerie + prixVente - soldeTotal + blessuresTresorerieBonus - coutCommerce;
+  const tresorerieApres =
+    roster.tresorerie + prixVente - soldeTotal - surtaxeNainsElfesPirates + blessuresTresorerieBonus - coutCommerce;
   const orDisponibleAvantCommerce = roster.tresorerie + prixVente + blessuresTresorerieBonus;
   const orDisponiblePourEntretien = orDisponibleAvantCommerce - coutCommerce;
   const wyrdstoneDisponiblePourEntretien = Math.max(
@@ -696,7 +711,8 @@ export function PostBatailleScreen() {
     roster.wyrdstone + wyrdstoneTrouve - quantiteVendue
   );
   const entretienInsuffisant =
-    soldeTotal > orDisponiblePourEntretien || entretienMalepierre > wyrdstoneDisponiblePourEntretien;
+    soldeTotal + surtaxeNainsElfesPirates > orDisponiblePourEntretien ||
+    entretienMalepierre > wyrdstoneDisponiblePourEntretien;
 
   const suivant = () => {
     if (etape === indexBlessures && blessuresIncompletes) return;
@@ -916,7 +932,11 @@ export function PostBatailleScreen() {
       notesExploration: notesExploration.trim(),
       quantiteVendue,
       prixVente,
-      soldeFrancsTireurs: soldeTotal,
+      // Inclut la surtaxe Nains+Elfes des Pirates (voir
+      // surtaxeNainsElfesPirates) : ce champ doit refléter le total
+      // réellement déduit de la trésorerie (tresorerieApres), pas
+      // uniquement la solde des francs-tireurs stricto sensu.
+      soldeFrancsTireurs: soldeTotal + surtaxeNainsElfesPirates,
       entretienFrancsTireurs: lignesEntretien.map((ligne) => {
         const decision = decisionEntretien(ligne);
         const decisionJournal: NonNullable<JournalPostBataille['entretienFrancsTireurs']>[number]['decision'] =
@@ -1177,10 +1197,19 @@ export function PostBatailleScreen() {
           onDecision={(instanceId, decision) =>
             setEntretienDrafts((precedents) => ({ ...precedents, [instanceId]: decision }))
           }
-          totalOr={soldeTotal}
+          totalOr={soldeTotal + surtaxeNainsElfesPirates}
           totalMalepierre={entretienMalepierre}
           orDisponible={orDisponiblePourEntretien}
           malepierreDisponible={wyrdstoneDisponiblePourEntretien}
+          surtaxeSupplementaire={
+            surtaxeNainsElfesPirates > 0
+              ? {
+                  titre: t('entretien.surtaxePiratesTitle'),
+                  texte: t('entretien.surtaxePiratesTexte'),
+                  cout: surtaxeNainsElfesPirates,
+                }
+              : null
+          }
         />
       )}
 
