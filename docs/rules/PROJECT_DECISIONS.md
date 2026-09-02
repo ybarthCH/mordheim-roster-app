@@ -137,3 +137,12 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Officiel
 - **Parties du code concernées** : `src/data/warbands/maraudeurs_du_chaos.json` (profil `enfant_du_chaos`, champ `stats.Cd`) — déjà à 10, aucun changement nécessaire.
 - **Date** : 2026-08-27
+
+### Nains du Chaos — accès Franc-Tireur Sorcière
+
+- **Question de règle** : la règle spéciale « Francs-Tireurs » des Nains du Chaos autorise « ceux permis aux bandes Orques et du Chaos », sans lister les noms un par un. La Sorcière ne figurait pas dans la liste blanche `RESTRICTIONS_ABSOLUES.nains_du_chaos`, alors qu'elle figure explicitement dans celle des Maraudeurs du Chaos (même catégorie interne « Adeptes du Chaos », `bandeCategories.ts`) et que son propre champ `employeurs.bande_ids` ("toute bande sauf Répurgateurs et Sœurs de Sigmar") ne l'exclut pas des Nains du Chaos.
+- **Source et page** : `Nains du Chaos [GLM].pdf`, p.1, règle spéciale « Francs-Tireurs » — aucune source ne nomme « Sorcière » explicitement pour cette bande (contrairement à Maraudeurs du Chaos où c'est nommé).
+- **Décision de Yannick** : ouvrir l'accès — lecture extensive de « bandes... du Chaos », alignée sur la liste déjà retenue pour les Maraudeurs du Chaos.
+- **Statut** : Maison (lecture extensive d'un texte qui ne le précise pas explicitement)
+- **Parties du code concernées** : `src/data/hiredSwords.ts` (`RESTRICTIONS_ABSOLUES.nains_du_chaos`, ajout de `'sorciere'`).
+- **Date** : 2026-09-01

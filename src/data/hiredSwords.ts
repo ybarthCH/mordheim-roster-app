@@ -2204,6 +2204,7 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'gladiateur',
     'ogre',
     'mage',
+    'sorciere',
     'assassin_imperial',
     'eclaireur_hobgobelin',
     'guide_lustrien',
