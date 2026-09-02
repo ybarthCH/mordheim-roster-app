@@ -146,3 +146,21 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Maison (lecture extensive d'un texte qui ne le précise pas explicitement)
 - **Parties du code concernées** : `src/data/hiredSwords.ts` (`RESTRICTIONS_ABSOLUES.nains_du_chaos`, ajout de `'sorciere'`).
 - **Date** : 2026-09-01
+
+### Tromblon Nain du Chaos — règle « Incidents de tir systématiques »
+
+- **Question de règle** : l'app appliquait au Tromblon Nain du Chaos une règle spéciale absente de toute source retrouvée — un jet de 1D6 avant chaque tir (échec sur 1) forçant un incident de tir même hors règle optionnelle de campagne. Le PDF source complet de l'arme (« The Sons of Hashut »), fourni par Yannick, confirme tous les autres points (40 CO, Rare 9, portée 16ps, Force 3, Décharge, Rechargement) mais ne mentionne cette règle nulle part, et le changelog de l'éditeur du document détaille précisément ce qui a été changé sur l'arme sans jamais évoquer un mécanisme de raté.
+- **Source et page** : « The Sons of Hashut » (GW Troll Magazine Espagne, éd. Moska García & Styrofoam King), p.3 — silence total sur ce point.
+- **Décision de Yannick** : retirer la règle, faute de source.
+- **Statut** : Officiel (alignement strict sur la source retrouvée)
+- **Parties du code concernées** : `src/data/items/armes_poudre_noire.json` (`tromblon_nain_du_chaos.regles_speciales`, retrait de l'entrée « Incidents de tir systématiques » + `note_maison` nettoyée de la référence à cette règle) ; `src/i18n/data/items.ts` (retrait du miroir EN « Systematic Misfires »).
+- **Date** : 2026-09-02
+
+### Fils d'Hashut — accès à l'armure du Tromblonnier
+
+- **Question de règle** : la liste d'équipement du Tromblonnier (Blunderbusster) dans la source n'a aucune rubrique ARMOUR du tout, contrairement aux 2 autres listes d'équipement de la bande qui en ont une — silence, pas interdiction explicite écrite. L'app lui donne actuellement accès à armure légère/armure lourde/casque.
+- **Source et page** : « The Sons of Hashut » (GW Troll Magazine Espagne), section listes d'équipement du Tromblonnier, p.3 — absence de rubrique ARMOUR.
+- **Décision de Yannick** : garder l'accès armure actuel — silence interprété comme un oubli probable de mise en page plutôt qu'une restriction voulue.
+- **Statut** : Maison (lecture d'un silence de source comme non-restrictif)
+- **Parties du code concernées** : aucune — comportement de l'app déjà celui retenu, aucun changement nécessaire.
+- **Date** : 2026-09-02

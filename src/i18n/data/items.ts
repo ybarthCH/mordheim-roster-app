@@ -1509,11 +1509,6 @@ export const itemsEn: Record<string, ItemTraduit> = {
         texte: 'When the weapon fires, draw a line 16" long and 1" wide in any direction. All models in its path are automatically hit by a Strength 3 hit.',
       },
       { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon, so it can only fire every other turn.' },
-      {
-        nom: 'Systematic Misfires',
-        texte:
-          'Unlike other black powder weapons, this blunderbuss always uses the optional misfire rules, even if they are not used in the campaign: before firing, roll 1D6 — on a result of 1, resolve a misfire on the dedicated table.',
-      },
     ],
   },
   double_canon: {

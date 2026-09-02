@@ -239,14 +239,13 @@
   {
     "id": "tromblon_nain_du_chaos", "nom": "Tromblon Nain du Chaos", "categorie": "armes_poudre_noire",
     "cout": 40, "cout_fixe": true, "prix_poudre_noire_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Nains du Chaos uniquement",
-    "note_maison": "Prix fixe à 40 CO, non affecté par la règle avancée de poudre noire (l'arme joue déjà systématiquement les incidents de tir, voir sa règle spéciale). Remplace le Tromblon normal pour cette bande.",
+    "note_maison": "Prix fixe à 40 CO, non affecté par la règle avancée de poudre noire. Remplace le Tromblon normal pour cette bande.",
     "acces": ["nains_du_chaos", "fils_dhashut"], "source": "FH (Fils d'Hashut)", "page": 3,
     "texte": "Les Nains du Chaos sont réputés pour utiliser un grand nombre de ces fameux tromblons contre leurs troupes d'infanterie. Ils emploient la même tactique dans les combats de rue à Mordheim.",
     "portee": "16ps", "force": "3",
     "regles_speciales": [
       { "nom": "Décharge", "texte": "Lorsque l'arme fait feu, tracez une ligne de 16ps de long et de 1ps de large dans n'importe quelle direction. Toutes les figurines se trouvant sur son chemin sont automatiquement touchées par une touche de Force 3." },
-      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." },
-      { "nom": "Incidents de tir systématiques", "texte": "Contrairement aux autres armes à poudre noire, ce tromblon joue toujours avec les règles optionnelles des incidents de tir, même si elles ne sont pas utilisées dans la campagne : avant de tirer, lancez 1D6 — sur un résultat de 1, résolvez un incident de tir sur la table dédiée." }
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." }
     ]
   },
   {
