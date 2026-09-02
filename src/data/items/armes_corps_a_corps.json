@@ -418,7 +418,7 @@
       "fils_dhashut"
     ],
     "source": "FH (Fils d'Hashut)",
-    "page": 6,
+    "page": 3,
     "texte": "Les hobgobelins, aussi appelés « crétins », empoisonnent la lame de leurs dagues. Rusés et malins, ils sont souvent employés comme assassins par leurs maîtres, bien qu'ils soient des troupes peu fiables et vulnérables.",
     "portee": "C à C",
     "force": "U",
@@ -1804,13 +1804,14 @@
       "fils_dhashut"
     ],
     "source": "FH (Fils d'Hashut)",
-    "texte": "Variante propre aux Fils d'Hashut de l'arme en obsidienne — distincte de l'arme en obsidienne x4 des cultes du Chaos (voir arme_en_obsidienne_market), à ne jamais utiliser dans la même campagne que celle-ci sans renommer l'une des deux. Seules les épées, haches et masses peuvent être forgées en obsidienne ; toutes coûtent le même prix fixe, quel que soit le type d'arme choisi.",
+    "page": 3,
+    "texte": "Variante propre aux Fils d'Hashut de l'arme en obsidienne — distincte de l'arme en obsidienne x4 des cultes du Chaos (voir arme_en_obsidienne_market), à ne jamais utiliser dans la même campagne que celle-ci sans renommer l'une des deux. Seules les épées, haches et masses peuvent être forgées en obsidienne ; toutes coûtent le même prix fixe, quel que soit le type d'arme choisi. Donne à son utilisateur +1 en Force au corps à corps.",
     "portee": null,
     "force": null,
     "regles_speciales": [
       {
         "nom": "Personnelle",
-        "texte": "L'arme conserve tous les bonus habituels de son type de base (Parade pour une épée, etc.)."
+        "texte": "L'arme conserve tous les bonus habituels de son type de base (Parade pour une épée, etc.). +1 en Force au corps à corps pour l'utilisateur."
       },
       {
         "nom": "Lourde",

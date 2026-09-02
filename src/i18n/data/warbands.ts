@@ -6066,7 +6066,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     regles_speciales: [
       {
         nom: 'Hard Head',
-        texte: "Chaos Dwarfs ignore the special rules for maces, hammers, etc. They are not easy to knock silly!",
+        texte: "Chaos Dwarfs ignore the special rules for maces, clubs, etc. They are not easy to knock silly!",
         exception: 'Does not apply to Hobgoblins or the Bull Centaur.',
       },
       {
