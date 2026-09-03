@@ -238,6 +238,19 @@ export const itemsEn: Record<string, ItemTraduit> = {
       },
     ],
   },
+  piege: {
+    nom: 'Trap',
+    disponibilite: 'Trap Master (Lustrian Reavers) only — up to 5 per battle on top of the first, free and not counted here',
+    texte:
+      'Set during the Shooting phase instead of shooting (cannot be set if the model ran), only one at a time, and cannot be used in hand-to-hand combat. Single use.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "Place two 1\"-diameter markers (one fake, one real) anywhere within 3\" of the Trap Master, but at least 3\" from any other model. Any model moving within 2\" of a marker must flip it over: a fake marker does nothing, a real one inflicts 1D3 Strength 5 hits (traps do not cause critical hits). Remove the markers once the trap is triggered.",
+      },
+    ],
+  },
   poudre_noire_superieure: {
     nom: 'Superior Black Powder',
     texte:
@@ -3307,6 +3320,12 @@ export const itemsEn: Record<string, ItemTraduit> = {
       { nom: 'Effect', texte: 'The bearer becomes difficult to hit, and shooters wishing to target him suffer a -1 penalty to hit.' },
     ],
   },
+  glandes_a_venin: {
+    nom: 'Venom Glands',
+    disponibilite: 'Sacred Marking, only buyable at the Hero\'s recruitment — Skinks only, a Hero may only bear one Sacred Marking',
+    texte:
+      'The Skink has sublingual glands that secrete a deadly poison. The Skink may make some or all of his attacks by biting instead of using his weapons. These attacks suffer a +1 armour save modifier, regardless of the Skink\'s Strength. However, they do not suffer the penalty for fighting unarmed and, if they Wound, gain a +1 bonus on the Injury table. These attacks are always resolved last, whether or not the Skink charged and regardless of the weapons used (including two-handed weapons).',
+  },
   gourde_magique: {
     nom: 'Magic Water Skin',
     texte:
@@ -3322,6 +3341,12 @@ export const itemsEn: Record<string, ItemTraduit> = {
           'If a warband includes spellcasters, one of them permanently gains a new spell. Roll for it randomly on his own list or on the Lesser Magic list. Refer to the Magic chapter. Can only be used once.',
       },
     ],
+  },
+  gueule_enorme: {
+    nom: 'Huge Gob',
+    disponibilite: 'Sacred Marking, only buyable at the Hero\'s recruitment — Saurus only, a Hero may only bear one Sacred Marking',
+    texte:
+      'The Saurus has oversized jaws and powerful jaw muscles. As a result, his bite attack is resolved with a +1 Strength bonus.',
   },
   habits_de_fourrure: {
     nom: 'Fur Clothing',
@@ -3492,6 +3517,12 @@ export const itemsEn: Record<string, ItemTraduit> = {
           'A Hero possessing a sighting scope may, each turn, increase the normal range of his missile weapons by 1D6". It also triples the distance at which he can spot hidden models.',
       },
     ],
+  },
+  marque_des_anciens: {
+    nom: 'Mark of the Ancients',
+    disponibilite: 'Sacred Marking, only buyable when recruiting a Hero born with it — a Hero may only bear one Sacred Marking',
+    texte:
+      'The most prestigious mark a Lizardman can be born with. These albinos have a great destiny in the eyes of their gods and of other Lizardmen. The Hero may turn one of his failed dice rolls into a successful one. This mark can only be used once per battle and only on the Hero\'s own actions. You may use this mark on a failed Rout test if you wish.',
   },
   masque_de_crane: {
     nom: 'Skull Mask',
