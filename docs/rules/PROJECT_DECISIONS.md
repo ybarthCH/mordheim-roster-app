@@ -158,9 +158,9 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 
 ### Fils d'Hashut — accès à l'armure du Tromblonnier
 
-- **Question de règle** : la liste d'équipement du Tromblonnier (Blunderbusster) dans la source n'a aucune rubrique ARMOUR du tout, contrairement aux 2 autres listes d'équipement de la bande qui en ont une — silence, pas interdiction explicite écrite. L'app lui donne actuellement accès à armure légère/armure lourde/casque.
-- **Source et page** : « The Sons of Hashut » (GW Troll Magazine Espagne), section listes d'équipement du Tromblonnier, p.3 — absence de rubrique ARMOUR.
-- **Décision de Yannick** : garder l'accès armure actuel — silence interprété comme un oubli probable de mise en page plutôt qu'une restriction voulue.
-- **Statut** : Maison (lecture d'un silence de source comme non-restrictif)
-- **Parties du code concernées** : aucune — comportement de l'app déjà celui retenu, aucun changement nécessaire.
+- **Question de règle** : la rubrique « Blunderbusster equipment lists » (p.2) n'imprime aucune section ARMOUR, contrairement aux 2 autres listes d'équipement de la bande qui en ont une — d'abord lu comme un simple silence de la source. Mais le texte du profil « 0·3 Blunderbuss Chaos Dwarfs » (Henchmen, p.4) dit explicitement : « Blunderbuss Chaos Dwarfs may be equipped with weapons chosen from the Blunderbuss Chaos Dwarf equipment lists » — exactement la même formule (« Weapons/Armour: ... weapons chosen from the [X] equipment lists ») que celle utilisée pour les 2 autres profils, dont la liste d'équipement imprime bien une rubrique ARMOUR. L'absence d'ARMOUR sous « Blunderbusster equipment lists » à la p.2 est donc une lacune de mise en page du document source, pas une restriction voulue — confirmé en croisant p.2 et p.4 du même PDF, pas une simple supposition sur un silence.
+- **Source et page** : « The Sons of Hashut » (GW Troll Magazine Espagne), p.2 (rubrique « Blunderbusster equipment lists », sans ARMOUR) et p.4 (profil « 0·3 Blunderbuss Chaos Dwarfs », formule Weapons/Armour identique aux autres profils).
+- **Décision de Yannick** : garder l'accès armure actuel (armure légère/armure lourde/casque) — confirmé conforme à la source une fois les deux pages croisées, pas une simple tolérance d'un silence.
+- **Statut** : Officiel (confirmé par recoupement interne au document, malgré la lacune de mise en page p.2)
+- **Parties du code concernées** : aucune — comportement de l'app déjà correct, aucun changement nécessaire.
 - **Date** : 2026-09-02
