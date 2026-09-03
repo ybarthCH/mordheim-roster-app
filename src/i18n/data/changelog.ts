@@ -21,6 +21,7 @@ const changelogEn: Record<string, string[]> = {
     'Chaos Dwarfs: the Exoskeleton and the Chaos Engine sometimes showed the wrong price in the common shop; the experience-based price reduction now also applies to the Exoskeleton. The Blunderbuss loses its "Systematic Misfires" rule, which came from no source ever found.',
     'Slayer Cult Warband: Stubbles gains Hatred of Orcs and Goblins like the other named Slayers, and the warband can now hire a Bard.',
     'Fixed a purchase bug for a Henchman group manually enlarged (via the group-size field): buying missing equipment to complete it no longer buys a whole extra batch by mistake.',
+    "Maneaters: the warband's full source material has finally been found — fixes the Captain's Cathayan Longsword price (now fixed) and stops a Sabretusk from being recruited without a living Mountain Guide in the warband, as the rules require.",
   ],
   '2026-09-01': [
     'Fixed an important bug: the "Refresh" button on the update banner could stay unresponsive on a tab left open for a while (the tap did trigger the update behind the scenes, but the screen never reloaded on its own) — now reliable.',

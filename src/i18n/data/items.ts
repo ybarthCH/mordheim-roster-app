@@ -1251,6 +1251,38 @@ export const itemsEn: Record<string, ItemTraduit> = {
       { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon, so it can only fire every other turn.' },
     ],
   },
+  mortier_portable_ogre: {
+    nom: 'Portable Mortar',
+    texte:
+      "With the explosive power of a true mortar, a device small enough to be carried by a single man lets an Ogre lob an explosive into the heart of the enemy's ranks, sowing death and confusion.",
+    regles_speciales: [
+      {
+        nom: 'Scatter',
+        texte:
+          'If the fighter fails his roll to hit, the shot lands 2D6" away, in a random direction (determined by a scatter die or any other method agreed upon by the players).',
+      },
+      {
+        nom: 'Experimental',
+        texte:
+          "This weapon is always subject to the optional black powder weapon rules from the Mordheim Rulebook, even if they are not used in your campaign. For any result other than 'BOOM!', the weapon has jammed or run out of ammunition and the barrels must be reloaded.",
+      },
+      {
+        nom: 'Save Modifier',
+        texte:
+          'The weapon punches through armour even better than its Strength suggests. A model Wounded by this weapon takes its armour save with an additional -1 penalty.',
+      },
+      {
+        nom: 'Move or Shoot',
+        texte: 'It is not possible to move and shoot during the same turn, except to turn on the spot or stand up.',
+      },
+      {
+        nom: 'Blast Radius',
+        texte:
+          'After determining the point of impact, the explosion created by the bomb will cover a small area. All models within 1.5" of the point of impact are hit by a Strength 4 hit caused by the blast.',
+      },
+      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon, so it can only fire every other turn.' },
+    ],
+  },
   pierrier: {
     nom: 'Swivel Gun',
     texte:
@@ -4240,6 +4272,9 @@ for (const id of ['amulette_lunaire']) {
 }
 for (const id of ['mortier_portable']) {
   itemsEn[id].disponibilite = 'Rare 12, Gunnery School of Nuln only';
+}
+for (const id of ['mortier_portable_ogre']) {
+  itemsEn[id].disponibilite = 'Rare 12, Maneaters only';
 }
 for (const id of ['arme_en_obsidienne_market']) {
   itemsEn[id].disponibilite = 'Rare 12, Cult of the Possessed, Black Dwarfs, Carnival of Chaos, Marauders of Chaos, Norse and Beastmen Raiders only';

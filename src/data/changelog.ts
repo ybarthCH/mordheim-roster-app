@@ -93,6 +93,11 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Correction d'un bug d'achat pour un groupe d'hommes de main agrandi manuellement (via le champ de taille de groupe) : compléter l'équipement manquant n'en rachète plus tout un lot en trop.",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Mangeurs d'Hommes : la source complète de la bande a enfin été retrouvée — corrige le prix du Sabre de Cathay du Capitaine (désormais fixe) et empêche de recruter un Tigre à Sabre sans Guide de Montagne vivant dans la bande, conformément aux règles.",
+      },
     ],
   },
   {
