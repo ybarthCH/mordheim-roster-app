@@ -43,7 +43,7 @@
         { "id": "rugissement_tonitruant", "nom": "Rugissement Tonitruant", "reserve_a": "Chef uniquement", "texte": "Permet de relancer le premier test de Déroute raté.", "valeurPuissance": 20 }
       ],
       "competences_speciales_ajoutees": true,
-      "acces_competences_a_verifier": true,
+      "acces_competences_a_verifier": false,
       "est_leader": true
     },
     {
@@ -66,7 +66,7 @@
       ],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["guide"],
-      "acces_competences_a_verifier": true,
+      "acces_competences_a_verifier": false,
       "ne_peut_jamais_devenir_chef": true
     },
     {
@@ -87,7 +87,7 @@
       ],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["ogres"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "taureau",
@@ -134,6 +134,7 @@
       "min": 0,
       "max": 2,
       "cout": 125,
+      "requiert_profil_vivant": "guide_de_montagne",
       "stats": { "M": 8, "CC": 4, "CT": 0, "F": 4, "E": 4, "PV": 2, "I": 4, "A": 3, "Cd": 4 },
       "regles_speciales": [
         { "nom": "Dressé", "texte": "Peut utiliser le Commandement du Guide de Montagne dans un rayon de 6ps de lui ; ne peut pas être aligné s'il n'y a pas de Guide de Montagne dans la bande (doit rester en cage au campement jusqu'à ce qu'un Guide soit engagé)." },
@@ -203,10 +204,10 @@
         { "item_id": "morgenstern", "cout": 15 },
         { "item_id": "arme_a_deux_mains", "cout": 15 },
         { "item_id": "poing_de_fer", "cout": 15, "note": "voir équipement spécial" },
-        { "item_id": "sabre_de_cathay", "cout": "75+2D6", "restriction": "Capitaine uniquement", "profils": ["capitaine"] }
+        { "item_id": "sabre_de_cathay", "cout": 75, "restriction": "Capitaine uniquement", "profils": ["capitaine"] }
       ],
       "armes_tir": [
-        { "item_id": "mortier_portable", "cout": "80 + 2D6", "note": "voir équipement spécial" }
+        { "item_id": "mortier_portable_ogre", "cout": 70, "note": "voir équipement spécial" }
       ],
       "armures": [
         { "item_id": "armure_legere", "cout": 20 },
@@ -240,7 +241,7 @@
   "equipement_special": [
     { "item_id": "gourdin_ogre", "cout": 10, "disponibilite": "Commune (Ogres uniquement)" },
     { "item_id": "poing_de_fer", "cout": 15, "disponibilite": "Commune (Ogres uniquement)" },
-    { "item_id": "mortier_portable", "cout": "80 + 2D6", "disponibilite": "Rare 12 (Ogres uniquement)" },
+    { "item_id": "mortier_portable_ogre", "cout": 70, "disponibilite": "Rare 12 (Ogres uniquement)" },
     { "item_id": "lance_harpon", "cout": 50, "disponibilite": "Rare 10 (Ogres uniquement)" },
     { "item_id": "gnoblar_longue_vue", "cout": 20, "disponibilite": "Rare 8 (Ogres uniquement)" },
     { "item_id": "gnoblar_porte_bonheur", "cout": 25, "disponibilite": "Rare 9 (Ogres uniquement)" },

@@ -164,3 +164,21 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Officiel (confirmé par recoupement interne au document, malgré la lacune de mise en page p.2)
 - **Parties du code concernées** : aucune — comportement de l'app déjà correct, aucun changement nécessaire.
 - **Date** : 2026-09-02
+
+### Mangeurs d'Hommes — Mortier portable : objet catalogue distinct de celui des Artilleurs de Nuln, et son prix
+
+- **Question de règle** : la source Ogre nouvellement retrouvée (`Maneaters.pdf`) décrit un « Hand-Held Mortar » aux statistiques et au texte de règle quasi identiques à celui déjà catalogué pour les Artilleurs de Nuln (`mortier_portable`, alors partagé entre les deux bandes via `acces: ["artilleurs_de_nuln", "maneaters"]`), avec le même conflit interne liste-rapide (70 CO fixe, p.2) / encadré détaillé (80+2D6 CO, p.3) déjà rencontré et tranché pour Nuln. Fallait-il traiter ça comme un seul objet partagé (une seule décision de prix pour les deux bandes) ou comme deux objets distincts ?
+- **Source et page** : `Maneaters.pdf`, p.2 (« OGRE EQUIPMENT LIST », « Hand-held mortar ... 70 gc ») et p.3 (« Ogres special equipment », « hand-held mortar / 80 + 2D6 gold crowns ») ; comparé à `Artilleurs de Nuln [GLM].pdf` et `Gunnery School Of Nuln.pdf`, qui décrivent la même arme quasi mot pour mot avec le même conflit de prix.
+- **Décision de Yannick** : ce sont deux armes distinctes dans la fiction malgré la ressemblance des statistiques — objet catalogue à dédoubler. Pour le prix du nouvel objet Ogre (`mortier_portable_ogre`) : prix fixe 70 CO, tranché indépendamment mais avec la même conclusion que Nuln (liste rapide fait foi).
+- **Statut** : Maison (choix entre deux sections contradictoires du même document, comme pour Nuln) + Officiel (le dédoublement lui-même, confirmé explicitement par Yannick)
+- **Parties du code concernées** : `src/data/items/armes_poudre_noire.json` (nouvel item `mortier_portable_ogre`, prix fixe 70 CO via `prix_poudre_noire_fixe: true` ; `mortier_portable` redevient exclusif à `artilleurs_de_nuln`, `disponibilite` corrigée en conséquence) ; `src/data/warbands/maneaters.json` (références mises à jour vers le nouvel id, lignes équipement Ogre et `equipement_special`) ; `src/i18n/data/items.ts` (traduction anglaise du nouvel item).
+- **Date** : 2026-09-03
+
+### Mangeurs d'Hommes — profil « Guerrier gnoblar » absent de la source Ogre retrouvée
+
+- **Question de règle** : le profil recrutable « Guerrier gnoblar » (Homme de main à part entière, stats M4/CC2/CT3/F2/E3/PV1/I3/A1/Cd5, coût 15+1D6, Rare 9, règles « Chamailleries »/« Comme un chien de guerre ») n'apparaît nulle part dans `Maneaters.pdf` : la section « Choice of warriors » (p.1) ne liste que Capitaine/Guide/Jeunes Sangs/Demi-Grands/Taureaux/Tigres à Sabre, et aucun tableau de statistiques pour un Gnoblar ne figure dans les 5 pages du document (seule mention : « Gnoblar Fighter ... 15 gc » dans la liste d'équipement Divers, sans détail ni rareté). Le même bloc de statistiques existe verbatim dans `nains_du_chaos.json`, suggérant une réutilisation entre bandes plutôt qu'un contenu propre aux Mangeurs d'Hommes. Fallait-il le garder (contenu maison d'une autre source) ou le retirer (copier-coller erroné, non sourcé pour cette bande) ?
+- **Source et page** : `Maneaters.pdf`, p.1 (« Choice of warriors », absence de catégorie Gnoblar) et p.2 (« Miscellaneous », « Gnoblar Fighter ... 15 gc », seule occurrence du terme dans tout le document).
+- **Décision de Yannick** : garder — c'est un contenu légitime venant d'une autre source (partagée avec les Nains du Chaos).
+- **Statut** : Maison (contenu assumé au-delà de cette source précise)
+- **Parties du code concernées** : aucune — `src/data/warbands/maneaters.json` (profil `guerrier_gnoblar`) inchangé.
+- **Date** : 2026-09-03

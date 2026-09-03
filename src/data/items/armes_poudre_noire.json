@@ -55,9 +55,25 @@
   {
     "id": "mortier_portable", "nom": "Mortier portable", "categorie": "armes_poudre_noire",
     "cout": "55+2D6", "cout_officiel": "80+2D6", "cout_fixe": false, "rarete": "12", "disponibilite": "Rare 12, Artilleurs de Nuln uniquement",
-    "note_maison": "Prix officiel 80+2D6 CO, base réduite à 55+2D6 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée — s'applique tel quel aux Mangeurs d'Hommes (accès partagé). Pour les Artilleurs de Nuln uniquement, ce prix à dés est écarté au profit du prix fixe (70 CO) de leur liste rapide d'équipement, arbitrage Yannick, voir PRIX_LISTE_RAPIDE_NULN dans utils/shop.ts et docs/rules/PROJECT_DECISIONS.md.",
-    "acces": ["artilleurs_de_nuln", "maneaters"], "source": "AN (Artilleurs de Nuln)", "page": 25,
+    "note_maison": "Prix officiel 80+2D6 CO, base réduite à 55+2D6 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée. Pour les Artilleurs de Nuln, ce prix à dés est écarté au profit du prix fixe (70 CO) de leur liste rapide d'équipement, arbitrage Yannick, voir PRIX_LISTE_RAPIDE_NULN dans utils/shop.ts et docs/rules/PROJECT_DECISIONS.md. Anciennement partagé avec les Mangeurs d'Hommes (accès retiré le 2026-09-03) : malgré des statistiques et un texte quasi identiques, Yannick a précisé qu'il s'agit dans la fiction de deux armes distinctes — voir l'entrée dédiée `mortier_portable_ogre`, tranchée indépendamment.",
+    "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 25,
     "texte": "Avec la puissance explosive d'un véritable mortier, un dispositif suffisamment petit pour être porté par un seul homme permet à un guerrier de projeter un explosif au cœur des rangs ennemis, semant la mort et le désordre.",
+    "portee": "24ps", "force": "4",
+    "regles_speciales": [
+      { "nom": "Dispersion", "texte": "Si le combattant rate son jet pour toucher, le tir atterrira à 2D6ps, dans une direction aléatoire (déterminée par un dé de dispersion ou toute autre méthode convenue par les joueurs)." },
+      { "nom": "Expérimental", "texte": "Cette arme est toujours soumise aux règles optionnelles des armes à poudre noire du livre de règles de Mordheim, même si elles ne sont pas utilisées dans votre campagne. Pour tout autre résultat que « BOUM ! », l'arme s'est enrayée ou est à court de munitions et les canons doivent être rechargés." },
+      { "nom": "Modificateur de sauvegarde", "texte": "L'arme perce encore mieux les armures que sa Force ne le suggère. Une figurine Blessée par cette arme effectue sa sauvegarde d'armure avec un malus supplémentaire de -1." },
+      { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." },
+      { "nom": "Rayon d'explosion", "texte": "Après avoir déterminé le point d'impact, l'explosion créée par la bombe couvrira une petite zone. Toutes les figurines dans un rayon de 1,5ps autour du point d'impact sont touchées par une touche de Force 4 provoquée par le souffle de l'explosion." },
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." }
+    ]
+  },
+  {
+    "id": "mortier_portable_ogre", "nom": "Mortier portable", "categorie": "armes_poudre_noire",
+    "cout": 70, "cout_fixe": true, "prix_poudre_noire_fixe": true, "rarete": "12", "disponibilite": "Rare 12, Mangeurs d'Hommes uniquement",
+    "note_maison": "Prix fixe à 70 CO, conforme à la liste rapide d'équipement des Mangeurs d'Hommes, qui contredit l'encadré détaillé du même document (80+2D6 CO) — même schéma que le Mortier portable des Artilleurs de Nuln (`mortier_portable`), tranché indépendamment par Yannick le 2026-09-03 en faveur du même choix (liste rapide fait foi), malgré des statistiques et un texte de règle quasi identiques entre les deux versions. Non affecté par la règle avancée de poudre noire (prix déjà fixe dans sa propre liste).",
+    "acces": ["maneaters"], "source": "MH (Mangeurs d'Hommes)", "page": 3,
+    "texte": "Avec la puissance explosive d'un véritable mortier, un dispositif suffisamment petit pour être porté par un seul homme permet à un Ogre de projeter un explosif au cœur des rangs ennemis, semant la mort et le désordre.",
     "portee": "24ps", "force": "4",
     "regles_speciales": [
       { "nom": "Dispersion", "texte": "Si le combattant rate son jet pour toucher, le tir atterrira à 2D6ps, dans une direction aléatoire (déterminée par un dé de dispersion ou toute autre méthode convenue par les joueurs)." },
