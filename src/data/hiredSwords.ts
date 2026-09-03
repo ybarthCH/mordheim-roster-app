@@ -46,11 +46,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'Compte à la fois comme une rondache et comme une arme additionnelle. Les autres héros ne peuvent pas apprendre à s’en servir.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'humain',
   },
@@ -86,11 +81,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     regles_speciales: [
       { nom: 'Peur', texte: 'L’Ogre provoque la peur.' },
       { nom: 'Grand', texte: 'L’Ogre est une grande cible.' },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'ogre_garde_mangeur',
   },
@@ -114,11 +104,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Cuistot',
         texte:
           'La taille maximale de la bande augmente de 1. Cela n’augmente pas le nombre maximal de héros.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     groupe_caracteristiques: 'halfling',
@@ -144,11 +129,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Jeteur de sorts',
         texte:
           'Commence avec deux sorts tirés aléatoirement dans la liste de magie mineure. Lorsqu’il gagne une nouvelle compétence, il peut tirer un nouveau sort de magie mineure à la place.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -179,11 +159,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Cavalier',
         texte:
           'Avec les règles optionnelles de cavalerie, il monte un destrier et possède Équitation. Sa sauvegarde est de 3+ monté et de 4+ à pied.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     profils_secondaires: [
@@ -224,11 +199,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       {
         nom: 'Excellente vue',
         texte: 'Détecte les ennemis cachés à une distance égale à deux fois son Initiative en pas.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [
@@ -294,11 +264,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte: 'N’est mis hors de combat que sur 6 sur le tableau des dégâts ; un 5 compte comme Sonné.',
       },
       { nom: 'Tête dure', texte: 'Ignore les règles spéciales des masses, gourdins et armes similaires.' },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     competences_speciales: [
       {
@@ -348,11 +313,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Œil de lynx',
         texte: 'Ignore le modificateur de couvert lorsqu’il tire avec son arbalète.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'humain',
   },
@@ -391,11 +351,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Diligences',
         texte:
           'Dans un scénario comprenant une diligence ou une charrette, peut relancer un dé par tour jusqu’à ce qu’une relance donne 1.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     profils_secondaires: [
@@ -441,11 +396,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'Dans un scénario comprenant une diligence ou une charrette, peut relancer un dé par tour jusqu’à ce qu’une relance donne 1.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     profils_secondaires: [
       { nom: 'Cheval', stats: { M: 8, CC: 0, CT: 0, F: 3, E: 3, PV: 1, I: 3, A: 0, Cd: 5 } },
@@ -487,11 +437,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'Dans une bataille en extérieur impliquant des Hommes-Bêtes, se place après les deux bandes, caché, hors de la zone de déploiement ennemie.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'humain',
   },
@@ -520,11 +465,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Empoisonneur',
         texte:
           'Avant chaque partie, choisit gratuitement du lotus noir ou du venin fuligineux pour ses propres armes.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [
@@ -572,11 +512,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Chanteur',
         texte:
           'Toute figurine alliée à 6ps peut relancer ses tests de Commandement ratés avec un bonus de +1, y compris les tests de déroute.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -639,11 +574,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'Gagne +2 F, +2 E, +1 A et -2 I (minimum 1). Test de Cd au début de chaque tour pour maintenir l’effet. Une seule utilisation par partie.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'humain',
   },
@@ -666,11 +596,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Tourbillon de lames',
         texte:
           'Peut parer avec son épée et sa cape si son jet est inférieur à sa CC, au lieu de devoir dépasser le meilleur jet pour toucher adverse.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -699,11 +624,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Fouet',
         texte:
           'F U-1, +1 à la sauvegarde ennemie. Donne +1 A en charge ou lorsqu’il est chargé, peut désarmer au lieu de blesser, et ne peut pas être paré.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [
@@ -770,11 +690,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'Hait les Skavens, Morts-Vivants, Hommes-Bêtes, Possédés, Kermesses du Chaos et autres Adeptes du Chaos.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'humain',
   },
@@ -819,11 +734,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte: 'Permet de modifier un dé du jet d’exploration de +1 ou -1.',
       },
       { nom: 'Solitaire', texte: 'Ne fait jamais de test Seul contre tous.' },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     competences_speciales: [
       {
@@ -885,11 +795,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'Après une bataille survécue sans mise hors de combat, lance 1D6 sur la table de cartes : 1 Embuscade ; 2 Faux ; 3 +1 fragment ; 4 bière de Bugman pour 1D6 membres ; 5 un dé d’exploration supplémentaire ; 6 un dé d’exploration au résultat choisi.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'nain',
     tags: ['nain'],
@@ -931,11 +836,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       {
         nom: 'Vente de pierre magique',
         texte: 'Ne compte pas dans le nombre de guerriers lors de la vente de pierre magique.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [
@@ -989,11 +889,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
           'Portée 6ps, F4, sauvegarde totale -2. Trace un couloir droit de 6ps × 2ps ; chaque figurine est touchée sur 4+. Une cible touchée prend feu sur 5+ et doit éteindre les flammes sur 4+ en Ralliement.',
       },
       { nom: 'Sans expérience', texte: 'Cette création biomécanique ne gagne jamais d’expérience.' },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'ogre_garde_mangeur',
     gagne_experience: false,
@@ -1023,11 +918,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Bricoleur',
         texte:
           'Au contact d’un véhicule immobile qui n’a pas bougé au tour précédent, peut réparer une roue endommagée ou remettre une roue perdue. Il ne fait rien d’autre et le véhicule ne bouge pas ce tour.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -1074,11 +964,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Lance en charge',
         texte: 'Une lance lui donne +1 F lorsqu’il charge, comme une lance de cavalerie.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     competences_speciales: [
       {
@@ -1116,11 +1001,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Fusées',
         texte:
           'À chaque phase de Tir, une fusée parcourt la distance du dé d’artillerie dans une direction contrôlée, puis continue aléatoirement jusqu’à toucher. Une touche inflige F4 et enflamme sur 4+. Un incident déclenche : 1 rien ; 2-3 relance et double distance ; 4-5 spectacle, test de Cd à 2D6ps ou distraction ; 6 explosion F4 à 1D6ps.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [
@@ -1175,11 +1055,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'Ne se tient pas aux côtés de la bande et ne compte pas comme membre de la bande pour les tests de déroute.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'humain',
     gagne_experience: false,
@@ -1205,11 +1080,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Maître artisan',
         texte:
           'Pour les héros cherchant des épées longues de Cathay ou des épées dragon, la rareté diminue de 1 par tranche de 2 XP du Forgeron.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [
@@ -1254,11 +1124,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Pillage de tombes',
         texte:
           'S’il n’a pas été mis hors de combat, lance 2D6 en exploration : 2 découvert et renvoyé ; 3-4 rien ; 5-7 1D6+3 CO ; 8-9 1D6+8 CO ; 10-11 Zombie gratuit ou cadavre vendu 1D6+2 CO ; 12 artefact mineur.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -1308,11 +1173,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Marchandises exotiques',
         texte:
           '1 rien ; 2 armure en gromril ; 3 arc elfique ; 4 armure en ithilmar ; 5 tome de magie ; 6 cape elfique.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [
@@ -1370,11 +1230,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Traître',
         texte:
           'Subit la haine de toutes les races Peaux-Vertes. La bande qui l’emploie ne peut engager aucun autre franc-tireur Peau-Verte.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [
@@ -1478,11 +1333,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Infiltration',
         texte: 'Peut être placé hors des lignes de vue et à plus de 12ps de tout ennemi.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     competences_speciales: [
       {
@@ -1512,11 +1362,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'Après son déploiement, place jusqu’à 6 pièges au sol, espacés d’au moins 6ps. Une figurine à 3ps déclenche sur 4-6 une touche de F1D6, puis le piège est retiré. Un animal mis hors de combat est capturé et retiré du roster.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'humain',
   },
@@ -1541,11 +1386,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       {
         nom: 'Maîtrise du terrain',
         texte: 'Ignore les modificateurs de terrain et peut franchir les terrains infranchissables.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [
@@ -1605,11 +1445,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       {
         nom: 'Infiltration',
         texte: 'Se déploie après l’adversaire, hors de vue et à plus de 12ps de toute figurine ennemie.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [
@@ -1673,11 +1508,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Vue surhumaine',
         texte: 'Détecte les ennemis cachés à une distance égale à deux fois son Initiative.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     competences_speciales: [
       {
@@ -1732,11 +1562,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'Au début de chaque bataille, désigne un héros de la bande adverse comme cible de sa traque : il obtient +1 pour le toucher contre lui et doit toujours se déplacer vers lui s’il le voit, sauf s’il peut le prendre pour cible au tir (auquel cas il choisit librement sa cible). S’il met sa cible hors de combat, il touche sa valeur en or en prime (dont il reverse la moitié à la bande) plus 1D3 points d’expérience s’il survit à la partie et que son camp l’emporte. Le héros capturé ne fait pas de jet sur la table des blessures graves : il est simplement considéré comme capturé.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'humain',
   },
@@ -1779,11 +1604,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'À la fin de chaque bataille (qu’il y ait participé ou non), lancez 1D6 : sur 1, il s’enfuit avec tous les Trésors et fragments de malepierre de la bande, qui sont perdus (il quitte alors la bande) ; sur 2-5, il réclame son entretien normal de 15 CO ; sur 6, satisfait de ce qu’il a déjà « emprunté », il ne réclame aucun entretien cette fois-ci.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'halfling',
     tags: ['halfling'],
@@ -1817,11 +1637,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Toit en toit',
         texte:
           'Ne déduit pas de sa distance de mouvement les sauts par-dessus rues et brèches : il peut ainsi courir 8ps et sauter 3ps supplémentaires le même tour.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [
@@ -1866,11 +1681,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Prières de Sigmar',
         texte:
           'Serviteur de Sigmar, il peut utiliser les Prières de Sigmar (les mêmes que celles des Sœurs de Sigmar, voir la section Magie du livre de règles). Il n’en connaît aucune au recrutement, mais peut, à chaque fois qu’il gagnerait normalement une nouvelle compétence, tirer une nouvelle Prière aléatoirement à la place.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -1928,11 +1738,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: '6 — Je suis la Mort ! (Difficulté 8)',
         texte:
           'Le Prêtre de Morr obtient une sauvegarde d’armure de 6+ et sa CC passe à 4 si elle est inférieure, pour le reste de la partie.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     groupe_caracteristiques: 'humain',
@@ -2023,11 +1828,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'Le prêtre se change en un loup gigantesque (M6 CC4 CT0 F4 E4 PV1 I5 A2 Cd6) : il ne peut alors qu’attaquer comme un loup (ni sorts ni armes), mais peut tenter à chaque phase de Tir un test de Commandement (avec le Cd du loup) pour retrouver forme humaine. Toujours sous forme de loup à la fin de la partie, il obtient une dernière chance de revenir à la normale ; sinon il reste loup à jamais (il garde son statut de héros, gagne toujours de l’expérience mais ne choisit plus que dans la table Vitesse, hormis Escalade des surfaces abruptes ; caractéristiques maximales de loup : M7 CC6 CT0 F4 E4 PV3 I7 A3 Cd7).',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     profils_secondaires: [
       {
@@ -2081,11 +1881,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte:
           'La Sorcière ne charge jamais (bien qu’elle se défende si elle est chargée) et doit toujours essayer de rester à au moins 8ps des figurines ennemies, s’éloignant si nécessaire.',
       },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, elle doit être payée son entretien après chaque bataille à laquelle elle participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     competences_speciales: [
       { id: 'sorciere_scry', nom: 'Divination', texte: 'Difficulté 6 — Pendant ce tour, un héros ou homme de main allié peut relancer 1D3 dés et modifier le résultat de +1 ou -1.', valeurPuissance: 40, },
@@ -2123,11 +1918,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         nom: 'Vagabond',
         texte:
           'Le Mage elfe ne reste jamais plus d’une bataille d’affilée avec la même bande : celle-ci doit livrer la suivante sans lui avant de pouvoir le rechercher de nouveau. Il n’apprend jamais de nouvelle compétence.',
-      },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
       },
     ],
     competences_speciales: [

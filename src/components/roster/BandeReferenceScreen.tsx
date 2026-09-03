@@ -4,7 +4,7 @@ import { useRosters } from '../../state/useRosters';
 import { useLanguage } from '../../state/useLanguage';
 import { Screen } from '../common/Screen';
 import { CollapsibleCard } from '../common/CollapsibleCard';
-import { EquipementReference, MagieReference } from '../common/CatalogueReference';
+import { EquipementReference, MagieReference, FrancsTireursReference } from '../common/CatalogueReference';
 import { Icon } from '../common/Icon';
 import { getCatalogue } from '../../data/warbands';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
@@ -12,6 +12,7 @@ import { resolveProfil } from '../../utils/profil';
 import { equipementReferenceAConcerner } from '../../utils/shop';
 import { magieDuProfil } from '../../utils/magie';
 import { tribuChoisie } from '../../utils/tribu';
+import { FRANCS_TIREURS } from '../../data/hiredSwords';
 
 // Page de référence de la bande actuellement parcourue (voir ReferenceButton
 // dans le bandeau) : regroupe tout ce qui n'est qu'indicatif — règles
@@ -53,9 +54,15 @@ export function BandeReferenceScreen() {
     : profilMarque
       ? magieDuProfil(catalogue, profilMarque, membreMarque?.marque)
       : catalogue.magie;
+  const aDesFrancsTireurs = !!catalogue && FRANCS_TIREURS.some(
+    (ft) => !ft.est_dramatis_personae && ft.employeurs.bande_ids.includes(catalogue.id)
+  );
   const aRien =
     !catalogue ||
-    (catalogue.regles_speciales.length === 0 && !equipementReferenceAConcerner(catalogue) && !magieResolue);
+    (catalogue.regles_speciales.length === 0 &&
+      !equipementReferenceAConcerner(catalogue) &&
+      !magieResolue &&
+      !aDesFrancsTireurs);
 
   return (
     <Screen title={t('bandeReference.title', { nom: roster.nom_bande })} back={`/roster/${roster.id}`}>
@@ -103,6 +110,7 @@ export function BandeReferenceScreen() {
 
       {catalogue && <EquipementReference catalogue={catalogue} />}
       {catalogue && <MagieReference catalogue={catalogue} profil={profilMarque} marqueId={membreMarque?.marque} />}
+      {catalogue && <FrancsTireursReference catalogue={catalogue} roster={roster} />}
     </Screen>
   );
 }

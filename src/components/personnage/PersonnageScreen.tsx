@@ -54,6 +54,7 @@ import {
 import type { ShopItem } from '../../utils/shop';
 import type { InventoryEntry } from '../../types/roster';
 import { getFrancTireur } from '../../data/hiredSwords';
+import { translateHiredSword } from '../../i18n/data/hiredSwords';
 import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import { useGameRules } from '../../state/useGameRules';
 import { annulerEffetsBlessure } from '../../utils/blessures';
@@ -104,7 +105,8 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
     [catalogueBrut, language]
   );
   const profil = roster && membre ? resolveProfil(roster, membre, catalogue, language) : undefined;
-  const francTireur = getFrancTireur(membre?.franc_tireur_id);
+  const francTireurBrut = getFrancTireur(membre?.franc_tireur_id);
+  const francTireur = francTireurBrut ? translateHiredSword(francTireurBrut, language) : undefined;
   // Grise le bouton "Acheter" de la fiche pour un profil qui n'a
   // structurellement rien à acheter (ex : animal sans équipement propre) —
   // permissif par défaut si le catalogue n'est pas résolu.
@@ -505,6 +507,11 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
             </>
           }
         >
+          {francTireur && (
+            <p className="text-sm" style={{ whiteSpace: 'pre-line' }}>
+              <strong>{t('francTireur.upkeep')}</strong> {francTireur.entretien.texte}
+            </p>
+          )}
           {profil.regles_speciales.map((r) => (
             <p key={r.nom} className="text-sm mb-0" style={{ whiteSpace: 'pre-line' }}>
               <strong>{r.nom}</strong> — {r.texte}
