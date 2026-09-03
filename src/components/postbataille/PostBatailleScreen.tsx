@@ -386,6 +386,7 @@ export function PostBatailleScreen() {
       const profil = resolveProfil(roster, membre, catalogue, language);
       if (
         profil?.type !== 'heros' ||
+        profil.ne_peut_pas_chercher_objets_rares ||
         estFrancTireur(membre) ||
         membre.statut === 'mort' ||
         membre.statut === 'blesse' ||

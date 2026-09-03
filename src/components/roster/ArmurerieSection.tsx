@@ -121,19 +121,20 @@ export function ArmurerieSection({
             </div>
           </div>
           <div className="list-item__actions">
-            <select
-              value=""
-              disabled={eligibles.length === 0}
-              title={eligibles.length === 0 ? t('armurerie.noEligibleRecipient') : undefined}
-              onChange={(e) => e.target.value && onDonner(entree.instance_id, e.target.value)}
-            >
-              <option value="">{t('armurerie.giveTo')}</option>
-              {eligibles.map((m) => (
-                <option key={m.instance_id} value={m.instance_id}>
-                  {nomAffiche(m)}
-                </option>
-              ))}
-            </select>
+            {eligibles.length === 0 ? (
+              <span className="badge badge--equipment-warning" title={t('armurerie.noEligibleRecipient')}>
+                ⚠ {t('armurerie.noEligibleRecipientBadge')}
+              </span>
+            ) : (
+              <select value="" onChange={(e) => e.target.value && onDonner(entree.instance_id, e.target.value)}>
+                <option value="">{t('armurerie.giveTo')}</option>
+                {eligibles.map((m) => (
+                  <option key={m.instance_id} value={m.instance_id}>
+                    {nomAffiche(m)}
+                  </option>
+                ))}
+              </select>
+            )}
             <button
               className="btn--ghost"
               style={{ border: 'none', background: 'none', padding: '0.2rem 0.4rem' }}

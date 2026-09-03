@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LanguageToggle } from './LanguageToggle';
+import { ReferenceButton } from './ReferenceButton';
 import { SettingsMenu, type SettingsMenuItem } from './SettingsMenu';
 import { useLanguage } from '../../state/useLanguage';
 
@@ -17,10 +17,15 @@ type ScreenProps = {
   // (ex : deux volets/export JSON/export PDF sur RosterScreen) — voir
   // SettingsMenu.
   menuItems?: SettingsMenuItem[];
+  // Lien vers la page de référence de la bande actuellement parcourue (voir
+  // ReferenceButton/BandeReferenceScreen) — omis sur les écrans sans bande
+  // en contexte (accueil, création, réglages...), le bouton n'est alors pas
+  // rendu du tout plutôt que désactivé.
+  referenceLink?: string;
   children: ReactNode;
 };
 
-export function Screen({ title, back, onBeforeBack, menuItems, children }: ScreenProps) {
+export function Screen({ title, back, onBeforeBack, menuItems, referenceLink, children }: ScreenProps) {
   const navigate = useNavigate();
   const { t } = useLanguage();
   const headerRef = useRef<HTMLElement>(null);
@@ -56,7 +61,7 @@ export function Screen({ title, back, onBeforeBack, menuItems, children }: Scree
         )}
         <div className="app-header__title">{title}</div>
         <SettingsMenu extraItems={menuItems} />
-        <LanguageToggle />
+        {referenceLink && <ReferenceButton to={referenceLink} />}
       </header>
       <main className="app-main">{children}</main>
     </div>

@@ -15,6 +15,7 @@ export type PackIconName =
   | 'coffrePack'
   | 'etoilePack'
   | 'grimoirePack'
+  | 'grimoireDorePack'
   | 'drapeauxPack'
   | 'cranePack'
   | 'poubellePack'
@@ -48,6 +49,10 @@ const PACK_ICON_SRC: Record<PackIconName, () => string> = {
   coffrePack: () => `${DECOR_BASE}icon-armurerie-pack.webp`,
   etoilePack: () => `${DECOR_BASE}icon-heroes-gold.webp`,
   grimoirePack: () => `${DECOR_BASE}icon-rules-silver.webp`,
+  // Variante dorée du même livre, pour les emplacements du bandeau où il
+  // voisine la roue crantée (engrenagePack, dorée) — ex : ReferenceButton —
+  // et doit donc suivre la même DA plutôt que rester en argent.
+  grimoireDorePack: () => `${DECOR_BASE}icon-rules-gold.webp`,
   drapeauxPack: () => `${DECOR_BASE}icon-henchmen-gold.webp`,
   cranePack: () => `${DECOR_BASE}icon-graveyard-bone.webp`,
   poubellePack: () => `${DECOR_BASE}icon-trash.webp`,
@@ -107,7 +112,8 @@ export type IconName =
   | 'soleil'
   | 'lune'
   | 'documentJson'
-  | 'documentPdf';
+  | 'documentPdf'
+  | 'globe';
 
 const PATHS: Record<IconName, string> = {
   epee:
@@ -172,6 +178,13 @@ const PATHS: Record<IconName, string> = {
   // repère "PDF" surimprimé) — un simple document à lignes ne suffit pas à
   // le distinguer du JSON une fois les accolades retirées.
   documentPdf: 'M6 3 L15 3 L19 7 L19 21 L6 21 Z M15 3 L15 7 L19 7 M9 12 L16 12 M9 15 L16 15',
+  // Aucun asset "langue" dans le pack peint (épées, couronnes, crânes...) ni
+  // dans ce set de traits fins — introuvable après recherche exhaustive des
+  // deux jeux d'icônes du projet (voir menu Réglages, rangée Langue).
+  // Globe simple (méridien central + deux parallèles) : suit currentColor,
+  // donc lisible tel quel en thème clair comme sombre, sans variante peinte
+  // séparée à maintenir.
+  globe: 'M12 3 A9 9 0 1 0 12.01 3 M12 3 A4 9 0 1 0 12 21 A4 9 0 1 0 12 3 M3 12 L21 12 M5 7 L19 7 M5 17 L19 17',
 };
 
 const VIEWBOX: Record<IconName, string> = {
@@ -210,6 +223,7 @@ const VIEWBOX: Record<IconName, string> = {
   lune: '0 0 24 24',
   documentJson: '0 0 24 24',
   documentPdf: '0 0 24 24',
+  globe: '0 0 24 24',
 };
 
 // Petit repère textuel surimprimé sur certaines icônes (ex : "PDF" sur

@@ -4,13 +4,25 @@ import { Icon, type IconName, type PackIconName } from './Icon';
 import { useTheme } from '../../state/useTheme';
 import { useLanguage } from '../../state/useLanguage';
 
-export type SettingsMenuItem = {
-  key: string;
-  icon: IconName | PackIconName;
-  label: string;
-  onClick: () => void;
-  active?: boolean;
-};
+export type SettingsMenuItem =
+  | {
+      key: string;
+      icon: IconName | PackIconName;
+      label: string;
+      onClick: () => void;
+      active?: boolean;
+      toggle?: undefined;
+    }
+  | {
+      key: string;
+      // Rangée à interrupteur (ex : langue) plutôt que bouton de navigation —
+      // rendue avec un switch à droite au lieu de se contenter d'afficher
+      // `label`/`icon` comme les autres entrées.
+      toggle: { checked: boolean; onLabel: string; offLabel: string };
+      icon?: IconName | PackIconName;
+      label: string;
+      onClick: () => void;
+    };
 
 type Props = {
   // Éléments propres à l'écran courant (ex : deux volets/export sur
@@ -29,7 +41,7 @@ export function SettingsMenu({ extraItems = [] }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
   const { effectiveTheme, setTheme } = useTheme();
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
 
   useEffect(() => {
     if (!open) return;
@@ -65,6 +77,13 @@ export function SettingsMenu({ extraItems = [] }: Props) {
             onClick: () => navigate('/reglages'),
           },
         ]),
+    {
+      key: 'language',
+      toggle: { checked: language === 'en', onLabel: 'EN', offLabel: 'FR' },
+      icon: 'globe' as const,
+      label: t('settingsMenu.language'),
+      onClick: () => setLanguage(language === 'fr' ? 'en' : 'fr'),
+    },
     ...(location.pathname === '/notes-de-mise-a-jour'
       ? []
       : [
@@ -106,16 +125,29 @@ export function SettingsMenu({ extraItems = [] }: Props) {
                 <li>
                   <button
                     type="button"
-                    className={`settings-menu__item${item.active ? ' settings-menu__item--active' : ''}`}
+                    className={`settings-menu__item${'active' in item && item.active ? ' settings-menu__item--active' : ''}${item.toggle ? ' settings-menu__item--toggle' : ''}`}
+                    role={item.toggle ? 'switch' : undefined}
+                    aria-checked={item.toggle ? item.toggle.checked : undefined}
                     onClick={() => {
                       item.onClick();
                       setOpen(false);
                     }}
                   >
-                    <span className="settings-menu__icon">
-                      <Icon name={item.icon} />
-                    </span>
+                    <span className="settings-menu__icon">{item.icon && <Icon name={item.icon} />}</span>
                     <span className="settings-menu__text">{item.label}</span>
+                    {item.toggle && (
+                      <span className={`settings-menu__switch${item.toggle.checked ? ' settings-menu__switch--on' : ''}`}>
+                        <span className="settings-menu__switch-label settings-menu__switch-label--off">
+                          {item.toggle.offLabel}
+                        </span>
+                        <span className="settings-menu__switch-track">
+                          <span className="settings-menu__switch-thumb" />
+                        </span>
+                        <span className="settings-menu__switch-label settings-menu__switch-label--on">
+                          {item.toggle.onLabel}
+                        </span>
+                      </span>
+                    )}
                   </button>
                 </li>
                 {i < items.length - 1 && <li className="settings-menu__divider" aria-hidden="true" />}

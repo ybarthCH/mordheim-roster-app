@@ -85,7 +85,8 @@
       ],
       "acces_competences": ["combat", "force"],
       "acces_equipement": ["morts_vivants"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_pas_chercher_objets_rares": true
     },
     {
       "id": "zombie",
@@ -155,7 +156,8 @@
       ],
       "acces_competences": ["combat", "force"],
       "acces_equipement": ["morts_vivants"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_pas_chercher_objets_rares": true
     },
     {
       "id": "epouvantail",
@@ -176,6 +178,32 @@
         { "nom": "Construction", "texte": "Peut relancer tout résultat sur le tableau des blessures, sauf les blessures causées par le feu." },
         { "nom": "Construction Animée", "texte": "Contrôlé soit par la Liche soit par le Nécromancien (à noter sur la feuille de bande), un seul à la fois ; une bande a besoin à la fois d'une Liche et d'un Nécromancien pour aligner deux Épouvantails. Si son contrôleur ne peut pas participer à une bataille, l'Épouvantail non plus. Si son contrôleur perd un Point de Vie, un test de Commandement non modifié doit être réussi sous peine que l'Épouvantail soit immédiatement mis hors de combat." },
         { "nom": "Équipement", "texte": "Ne porte aucun équipement, sans pénalité pour cela." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "aucun_achat_shop_commun": true,
+      "acces_competences_a_verifier": false
+    },
+    {
+      "id": "goliath_os",
+      "nom": "Goliath d'Os",
+      "type": "animal",
+      "min": 0,
+      "max": null,
+      "cout": 225,
+      "recrutement_creation_uniquement": true,
+      "stats": { "M": 5, "CC": 3, "CT": 0, "F": 5, "E": 5, "PV": 3, "I": 2, "A": 3, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Provoque la Peur", "texte": "Gigantesque construction morte-vivante qui provoque la peur." },
+        { "nom": "Grande Cible", "texte": "Compte comme une grande cible pour les tirs." },
+        { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affecté par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." },
+        { "nom": "Sans Douleur", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Construction Morte-Vivante", "texte": "Sur un résultat de 4+ sur le tableau des dégâts, ignore ce résultat et continue à combattre (ne fonctionne pas contre les armes magiques)." },
+        { "nom": "Sans Cervelle", "texte": "Ne gagne jamais d'expérience." },
+        { "nom": "Équipement", "texte": "Ne porte aucune arme ni armure, sans pénalité pour cela." },
+        { "nom": "Assemblage", "texte": "Construit avec la bande dès sa création : à la différence d'un Goliath d'Os assemblé plus tard en campagne (qui coûte alors 1D3 Points de Vie, minimum 1, à la Liche de la bande), celui-ci ne lui inflige aucune perte de Point de Vie." }
       ],
       "acces_competences": [],
       "acces_equipement": [],

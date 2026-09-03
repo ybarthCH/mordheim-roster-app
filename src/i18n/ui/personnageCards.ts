@@ -38,6 +38,10 @@ export const personnageCards: UiDictionary = {
   'caracteristiques.title': { fr: 'Caractéristiques', en: 'Characteristics' },
   'caracteristiques.variableTitle': { fr: 'Caractéristique variable — se fixe via une avancée d\'expérience', en: 'Variable characteristic — set via an experience advance' },
   'caracteristiques.capTitle': { fr: 'Caractéristique au plafond racial', en: 'Characteristic at racial cap' },
+  'caracteristiques.armourMoveMalusTitle': {
+    fr: "Port simultané d'une armure lourde et d'un bouclier : -1 Mouvement (disparaît si l'un des deux est retiré)",
+    en: 'Wearing heavy armour and a shield at the same time: -1 Movement (goes away if either is removed)',
+  },
   'caracteristiques.svTitle': {
     fr: "Sauvegarde d'armure totale, déduite de l'équipement porté",
     en: 'Total armour save, derived from equipped gear',

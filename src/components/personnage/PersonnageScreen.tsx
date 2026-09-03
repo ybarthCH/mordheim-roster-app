@@ -54,6 +54,7 @@ import {
 import type { ShopItem } from '../../utils/shop';
 import type { InventoryEntry } from '../../types/roster';
 import { getFrancTireur } from '../../data/hiredSwords';
+import { translateHiredSword } from '../../i18n/data/hiredSwords';
 import { estDramatisPersonae } from '../../data/dramatisPersonae';
 import { useGameRules } from '../../state/useGameRules';
 import { annulerEffetsBlessure } from '../../utils/blessures';
@@ -104,7 +105,8 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
     [catalogueBrut, language]
   );
   const profil = roster && membre ? resolveProfil(roster, membre, catalogue, language) : undefined;
-  const francTireur = getFrancTireur(membre?.franc_tireur_id);
+  const francTireurBrut = getFrancTireur(membre?.franc_tireur_id);
+  const francTireur = francTireurBrut ? translateHiredSword(francTireurBrut, language) : undefined;
   // Grise le bouton "Acheter" de la fiche pour un profil qui n'a
   // structurellement rien à acheter (ex : animal sans équipement propre) —
   // permissif par défaut si le catalogue n'est pas résolu.
@@ -477,6 +479,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
       embedded={embedded}
       title={membre.nom_perso}
       backTo={`/roster/${roster.id}`}
+      referenceLink={`/roster/${roster.id}/reference`}
       onClose={() => navigate(`/roster/${roster.id}`)}
       closeLabel={t('common.close')}
     >
@@ -504,6 +507,11 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
             </>
           }
         >
+          {francTireur && (
+            <p className="text-sm" style={{ whiteSpace: 'pre-line' }}>
+              <strong>{t('francTireur.upkeep')}</strong> {francTireur.entretien.texte}
+            </p>
+          )}
           {profil.regles_speciales.map((r) => (
             <p key={r.nom} className="text-sm mb-0" style={{ whiteSpace: 'pre-line' }}>
               <strong>{r.nom}</strong> — {r.texte}
@@ -873,6 +881,7 @@ type PersonnageChromeProps = {
   embedded?: boolean;
   title: string;
   backTo: string;
+  referenceLink: string;
   onClose: () => void;
   closeLabel: string;
   children: ReactNode;
@@ -881,8 +890,10 @@ type PersonnageChromeProps = {
 // Bascule entre le chrome plein écran habituel (Screen : bandeau accent +
 // retour) et un en-tête local léger pour le volet détail du mode deux volets
 // — les données/logique de PersonnageScreen restent identiques dans les deux
-// cas, seul l'habillage change.
-function PersonnageChrome({ embedded, title, backTo, onClose, closeLabel, children }: PersonnageChromeProps) {
+// cas, seul l'habillage change. En mode deux volets (embedded), le bouton de
+// référence de bande reste porté par le bandeau de la colonne liste
+// (RosterScreen) — pas de second bouton redondant dans cet en-tête léger.
+function PersonnageChrome({ embedded, title, backTo, referenceLink, onClose, closeLabel, children }: PersonnageChromeProps) {
   if (embedded) {
     return (
       <div className="personnage-embedded">
@@ -897,7 +908,7 @@ function PersonnageChrome({ embedded, title, backTo, onClose, closeLabel, childr
     );
   }
   return (
-    <Screen title={title} back={backTo}>
+    <Screen title={title} back={backTo} referenceLink={referenceLink}>
       <div className="personnage-sheet">{children}</div>
     </Screen>
   );

@@ -40,11 +40,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           'Counts as both a buckler and an additional hand weapon. No other Hero may learn to use it.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   ogre: {
@@ -54,11 +49,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
     regles_speciales: [
       { nom: 'Fear', texte: 'The Ogre causes fear.' },
       { nom: 'Large', texte: 'The Ogre is a large target.' },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   halfling: {
@@ -69,11 +59,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       {
         nom: 'Cook',
         texte: "Increases the warband's maximum size by +1. This does not increase the maximum number of Heroes.",
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
   },
@@ -87,11 +72,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           'Starts with two spells generated at random from the Lesser Magic list. When he gains a new skill, he may instead roll for a new Lesser Magic spell.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   chevalier_solitaire: {
@@ -103,11 +83,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Rider',
         texte:
           'With the optional mounted rules, he rides a warhorse and has the Ride skill. His save is 3+ mounted and 4+ on foot.',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
     profils_secondaires: [{ nom: 'Warhorse' }],
@@ -124,11 +99,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       {
         nom: 'Excellent Sight',
         texte: 'Spots Hidden enemies from twice his Initiative value away, in inches.',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
     competences_speciales: {
@@ -153,11 +123,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte: 'Only taken Out of Action on a roll of 6 on the Injury chart; a 5 counts as Stunned.',
       },
       { nom: 'Hard Head', texte: 'Ignores the special rules for maces, clubs and similar weapons.' },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
     competences_speciales: {
       tueur_charge_furieuse: {
@@ -181,11 +146,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
     regles_speciales: [
       { nom: 'Steady Hands', texte: 'Ignores the long-range to-hit modifier when shooting his crossbow.' },
       { nom: 'Dead Eye Shot', texte: 'Ignores the cover modifier when shooting his crossbow.' },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   patrouilleur: {
@@ -207,11 +167,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Stagecoaches',
         texte:
           'In a scenario involving a stagecoach or wagon, may re-roll one dice per turn until a re-roll comes up as a 1.',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
     profils_secondaires: [{ nom: 'Horse' }],
@@ -235,11 +190,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           'In a scenario involving a stagecoach or wagon, may re-roll one dice per turn until a re-roll comes up as a 1.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
     profils_secondaires: [{ nom: 'Horse' }],
   },
@@ -261,11 +211,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           'In a wilderness battle involving Beastmen, may be set up after both warbands have deployed, hidden and outside the enemy deployment zone.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   assassin_imperial: {
@@ -281,11 +226,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       {
         nom: 'Poisoner',
         texte: 'Before every game, chooses Black Lotus or Dark Venom for free for his own weapons.',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
     competences_speciales: {
@@ -311,11 +251,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Songster',
         texte:
           "Any friendly model within 6\" may re-roll a failed Leadership test with a +1 bonus to Leadership, including rout tests.",
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
   },
@@ -355,11 +290,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           'Gains +2 Strength, +2 Toughness, +1 Attack and -2 Initiative (minimum 1). A Leadership test at the start of each turn is required to maintain the effect. Usable once per game.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   duelliste: {
@@ -371,11 +301,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Darting Steel',
         texte:
           'May parry using his sword and cloak if he can roll under his Weapon Skill, instead of having to beat the opponent’s best to-hit roll.',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
   },
@@ -392,11 +317,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Whip',
         texte:
           'Strength user -1, +1 to the enemy save. Gives +1 Attack when charging or being charged, may disarm instead of wounding, and cannot be parried.',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
     competences_speciales: {
@@ -435,11 +355,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Hatred',
         texte: 'Hates Skaven, Undead, Beastmen, Possessed, Chaos Kermesse and other Chaos warbands.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   ranger_kislevite: {
@@ -459,11 +374,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       },
       { nom: 'Seeker', texte: 'Allows one dice of the Exploration roll to be modified by +1 or -1.' },
       { nom: 'Loner', texte: 'Never has to take an All Alone test.' },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, she must be paid her upkeep after every battle she fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
     competences_speciales: {
       ranger_cri_animal: {
@@ -495,11 +405,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           'After surviving a battle without being taken Out of Action, rolls 1D6 on the map chart: 1 Ambush; 2 Fake; 3 +1 shard; 4 Bugman’s Ale for 1D6 members; 5 one extra Exploration dice; 6 one Exploration dice with a chosen result.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   supervizork: {
@@ -515,11 +420,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       },
       { nom: 'Black Orc', texte: 'Has a natural 6+ save that stacks with armour.' },
       { nom: 'Warpstone Sale', texte: 'Does not count towards the number of warriors when selling warpstone.' },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
     competences_speciales: {
       supervizork_competences_orques: {
@@ -553,10 +453,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
           'Range 6", Strength 4, save modifier -2. Draws a 6"x2" line; every model in its path is hit on a 4+. A hit target catches fire on a 5+ and must put out the flames on a 4+ during the Rally phase.',
       },
       { nom: 'No Experience', texte: 'This bio-mechanical creation never gains experience.' },
-      {
-        nom: 'Wages',
-        texte: 'Requires no gold upkeep, only a warpstone shard before each battle (see above).',
-      },
     ],
   },
   cocher: {
@@ -574,11 +470,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           'In base contact with a stationary vehicle that did not move last turn, may repair a damaged wheel or replace a lost one. He does nothing else and the vehicle does not move that turn.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   centaure_chaos: {
@@ -594,11 +485,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       { nom: 'Woodsman', texte: 'Ignores Movement penalties in wooded areas.' },
       { nom: 'Stomp', texte: 'His hooves give him an additional attack with no weapon bonus or penalty.' },
       { nom: 'Charging Spear', texte: 'A spear gives +1 Strength when charging, like a cavalry lance.' },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
     competences_speciales: {
       centaure_mutation: { nom: 'New Mutation', texte: 'May buy a new mutation instead of a skill.' },
@@ -619,11 +505,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Rockets',
         texte:
           'During each Shooting phase, a rocket travels the artillery dice distance in a controlled direction, then continues randomly until it hits. A hit inflicts Strength 4 and sets alight on a 4+. A misfire: 1 nothing; 2-3 re-roll and double distance; 4-5 fireworks show, Leadership test at 2D6" or distraction; 6 explosion Strength 4 within 1D6".',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
     competences_speciales: {
@@ -655,10 +536,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Secret',
         texte: 'Does not stand alongside the warband and does not count as a warband member for rout tests.',
       },
-      {
-        nom: 'Wages',
-        texte: 'Requires no upkeep at all: he is hired for a single mission and leaves automatically after the battle.',
-      },
     ],
   },
   forgeron: {
@@ -670,11 +547,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Master Craftsman',
         texte:
           'For Heroes seeking Cathayan longswords or dragon swords, rarity decreases by 1 for every 2 XP the Swordsmith has.',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
     competences_speciales: {
@@ -700,11 +572,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Grave Robbing',
         texte:
           'If not taken Out of Action, rolls 2D6 during exploration: 2 discovered and sent packing; 3-4 nothing; 5-7 1D6+3 gc; 8-9 1D6+8 gc; 10-11 free Zombie or corpse sold for 1D6+2 gc; 12 minor artefact.',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
   },
@@ -736,11 +603,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       {
         nom: 'Foreign Wares',
         texte: '1 nothing; 2 gromril armour; 3 elf bow; 4 ithilmar armour; 5 tome of magic; 6 elven cloak.',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
     competences_speciales: {
@@ -777,11 +639,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           'Suffers hatred from all Greenskin races. The warband employing him may not hire any other Greenskin Hired Sword.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
     competences_speciales: {
       hobgobelin_espion: {
@@ -795,6 +652,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   goliath_os: {
     nom: 'Bone Goliath',
+    entretien: { texte: 'A permanent construct: requires no upkeep at all.' },
     equipement: ['No weapons or armour'],
     regles_speciales: [
       { nom: 'Fear', texte: 'Causes fear.' },
@@ -814,7 +672,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       { nom: 'Large', texte: 'The Bone Goliath is a large target.' },
       { nom: 'Feels No Pain', texte: 'Treats Stunned results on the Injury chart as Knocked Down.' },
       { nom: 'Mindless', texte: 'Never gains experience.' },
-      { nom: 'Wages', texte: 'A permanent construct: requires no upkeep at all.' },
     ],
   },
   skink_cameleon: {
@@ -836,11 +693,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
           'While hidden, an enemy’s Initiative for detecting him is halved; shots against him suffer -2 to hit.',
       },
       { nom: 'Infiltration', texte: 'May be placed out of line of sight and more than 12" from any enemy.' },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
     competences_speciales: {
       skink_grand_chasseur: {
@@ -859,11 +711,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           'After deployment, places up to six trap counters at ground level, at least 6" apart. Any model (except the Hunter) moving within 3" rolls a D6: on a 1-3 nothing happens; on a 4-6 the model takes a single automatic hit at the strength shown, then the counter is removed. Any animal taken Out of Action by a trap is automatically captured after the game.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   guide_lustrien: {
@@ -876,11 +723,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte: 'If not taken Out of Action, may re-roll one Exploration dice; the second result is mandatory.',
       },
       { nom: 'Terrain Mastery', texte: 'Ignores terrain modifiers and may cross impassable terrain.' },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
     competences_speciales: {
       guide_attention: {
@@ -912,11 +754,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte: 'Fights for no upkeep after a battle against Dark Elves or a warband including a Dark Elf Assassin.',
       },
       { nom: 'Infiltration', texte: 'Deploys after the opponent, out of sight and more than 12" from any enemy model.' },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
     competences_speciales: {
       fantome_tenebres: {
@@ -943,11 +780,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       { nom: 'Perfect Killer', texte: 'All his shooting and hand-to-hand attacks impose an additional -1 to the enemy save.' },
       { nom: 'Hatred', texte: 'Hates High Elves, including their Hired Swords.' },
       { nom: 'Superhuman Sight', texte: 'Spots Hidden enemies from twice his Initiative value away.' },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
     competences_speciales: {
       assassin_elfe_fureur: {
@@ -979,11 +811,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           "At the start of each battle, nominates one of the opponent's Heroes as his mark: he gets +1 to hit this model and must always move towards them if he can see them, unless he can shoot (in which case he chooses freely). If he takes his mark Out of Action, he gains the hero's gold value as payment (of which he gives the warband half) plus 1D3 experience if he survives the game and his side wins. The captured hero does not roll on the Serious Injury table: he simply counts as captured.",
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   halfling_voleur: {
@@ -1009,11 +836,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           'At the end of each game (whether or not he took part), roll a D6: on a 1, Stop Thief! — he absconds with all the warband’s Treasures and warpstone, which are lost, and he leaves the warband; on a 2-5, Tax Time — he charges his normal 15 gc upkeep; on a 6, Ignorance is Bliss — he forgoes any upkeep this time.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
   },
   ninja_gnoblar: {
@@ -1028,11 +850,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       {
         nom: 'Rooftop to Rooftop',
         texte: "Doesn't deduct the distance jumped from his movement. This means he can run 8\" and still jump 3\".",
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
     competences_speciales: {
@@ -1051,11 +868,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Prayers',
         texte:
           'A servant of Sigmar, he may use the Prayers of Sigmar (the same as the Sisters of Sigmar, see the Magic section). He knows none at recruitment, but whenever he would normally gain a new skill, he may instead roll for a new Prayer at random.',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
   },
@@ -1098,14 +910,11 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: '6 — I Am Death! (Difficulty 8)',
         texte: 'Gives the Priest of Morr a 6+ armour save and increases his Weapon Skill to 4, whichever is greater, for the rest of the game.',
       },
-      {
-        nom: 'Wages',
-        texte: 'Priests of Morr have no use for gold: no upkeep is due after any battle.',
-      },
     ],
   },
   pretre_loup_ulric: {
     nom: 'Wolf Priest of Ulric',
+    entretien: { texte: 'The Wolf Priest fights for Ulric alone: no upkeep is due after any battle.' },
     equipement: ['White wolf pelt cloak (6+ save, cost included)', 'Dagger', 'A blunt weapon (hammer, mace, club, flail or morning star, one- or two-handed)'],
     regles_speciales: [
       {
@@ -1156,10 +965,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte:
           'The priest reshapes into a huge, slavering wolf (M6 WS4 BS0 S4 T4 W1 I5 A2 Ld6): while in this form he may do nothing but attack as a wolf (no spellcasting or weapon use), but may attempt a Leadership test (using the wolf’s Ld 6) at each Shooting phase to regain human form. If still a wolf at the end of the battle, he gets one last chance to return; otherwise he remains a wolf forever (he keeps his hero status and still gains experience, but only chooses from the Speed table, except Scale Sheer Surfaces; maximum wolf characteristics: M7 WS6 BS0 S4 T4 W3 I7 A3 Ld7).',
       },
-      {
-        nom: 'Wages',
-        texte: 'The Wolf Priest fights for Ulric alone: no upkeep is due after any battle.',
-      },
     ],
     profils_secondaires: [
       {
@@ -1198,11 +1003,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Reluctant',
         texte: 'The Witch will never charge (although she will defend herself if charged) and must always try to stay at least 8" away from enemy models, moving away if needed.',
       },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, she must be paid her upkeep after every battle she fights (see Hired Sword Upkeep) to remain with the warband.',
-      },
     ],
     competences_speciales: {
       sorciere_scry: {
@@ -1236,6 +1036,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   mage_elfe: {
     nom: 'Elf Mage',
+    entretien: { texte: 'No upkeep: the Elf Mage never stays long enough to claim one.' },
     employeurs: { texte: 'Human Mercenary warbands, as well as the Kislevites.' },
     equipement: ['Staff', 'Elven cloak'],
     regles_speciales: [
@@ -1246,11 +1047,6 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         nom: 'Wanderer',
         texte:
           'The Elf Mage will only stay with a warband for the duration of a single battle. A warband that used an Elf Mage in their last battle may not seek out another until they have fought at least one battle without one. He never learns a new skill.',
-      },
-      {
-        nom: 'Wages',
-        texte:
-          'Like any Hired Sword, he must be paid his upkeep after every battle he fights (see Hired Sword Upkeep) to remain with the warband.',
       },
     ],
     competences_speciales: {

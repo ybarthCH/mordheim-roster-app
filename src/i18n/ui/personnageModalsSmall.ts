@@ -69,14 +69,13 @@ export const personnageModalsSmall: UiDictionary = {
   // création de bande partagent la même fenêtre)
   'recrutementEquipement.title': { fr: '{nom} recruté(e)', en: '{nom} recruited' },
   'recrutementEquipement.finish': { fr: 'Terminer', en: 'Finish' },
-  'recrutementEquipement.selectedEquipment': { fr: 'Équipement sélectionné', en: 'Selected equipment' },
+  'recrutementEquipement.selectedEquipment': { fr: 'Récapitulatif', en: 'Summary' },
+  'recrutementEquipement.startingTreasury': { fr: 'Trésorerie de départ', en: 'Starting treasury' },
   'recrutementEquipement.noSelectionYet': {
     fr: 'Aucun objet sélectionné pour l’instant — choisissez-en un ci-dessous.',
     en: 'No items selected yet — pick some below.',
   },
   'recrutementEquipement.removeItem': { fr: 'Retirer cet objet', en: 'Remove this item' },
-  'recrutementEquipement.treasury': { fr: 'Trésorerie :', en: 'Treasury:' },
-  'recrutementEquipement.equipmentCost': { fr: 'Équipement :', en: 'Equipment:' },
   'recrutementEquipement.remaining': { fr: 'Restant :', en: 'Remaining:' },
   'recrutementEquipement.insufficientTreasury': {
     fr: 'Trésorerie insuffisante pour cette sélection : retirez un objet pour continuer.',
@@ -86,6 +85,13 @@ export const personnageModalsSmall: UiDictionary = {
     fr: 'Ce profil doit recevoir au moins une mutation au recrutement : choisissez-en une avant de terminer.',
     en: 'This profile must receive at least one mutation at recruitment: pick one before finishing.',
   },
+  'recrutementEquipement.cancelConfirmTitle': { fr: 'Annuler ce recrutement ?', en: 'Cancel this recruitment?' },
+  'recrutementEquipement.cancelConfirmBody': {
+    fr: 'Cette recrue et tout ce qui a déjà été acheté seront définitivement perdus — il n’y a pas de brouillon à reprendre plus tard.',
+    en: 'This recruit and everything already purchased will be permanently lost — there is no draft to come back to later.',
+  },
+  'recrutementEquipement.cancelConfirmBack': { fr: 'Retour', en: 'Back' },
+  'recrutementEquipement.cancelConfirmConfirm': { fr: 'Oui, tout annuler', en: 'Yes, cancel everything' },
 
   // DocteurModal
   'docteurModal.title': { fr: 'Quoi de neuf, Docteur ?', en: "What's Up, Doc?" },

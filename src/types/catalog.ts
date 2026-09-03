@@ -290,6 +290,16 @@ export type Profile = {
   // pouvoir acheter une monture/un véhicule/une munition/un poison via
   // cet onglet générique. Consommé par getShopCommun.
   aucun_achat_shop_commun?: boolean;
+  // Ce Héros ne peut jamais participer à la recherche d'objet rare
+  // post-bataille (étape Commerce), quel que soit son statut par ailleurs —
+  // ex : "No Deal" du Garde Funéraire des Morts Sans Repos ("Grave Guards
+  // may not search for rare items"), qui s'applique aussi au Spectre une
+  // fois promu Héros via "Ce gars est doué" (le profil de base reste un
+  // Homme de main, déjà hors de portée de cette recherche par son
+  // `type` — poser ce flag directement sur son profil catalogue suffit donc
+  // à couvrir les deux cas sans mécanisme séparé). Consommé par
+  // PostBatailleScreen.herosCommerce.
+  ne_peut_pas_chercher_objets_rares?: boolean;
   // Catégories entièrement interdites à ce profil par ses propres règles
   // (ex : Flagellant sans armure ni arme de tir), appliqué en plus de
   // `acces_equipement` — celui-ci ne filtre que l'onglet "bande" du shop,
@@ -432,6 +442,18 @@ export type Profile = {
   // le Rat Familier des Skavens Pestilens, "obtenu en transformant un Rat
   // géant déjà présent dans la bande" — jamais un recrutement direct.
   recrutement_direct_interdit?: boolean;
+  // Profil visible dans le sélecteur "Recruter" seulement pendant la
+  // création de la bande (masquerFrancTireur=true sur AjouterMembreModal,
+  // seul appelant à passer cette prop — voir CreationBandeScreen), jamais
+  // ensuite lors d'un recrutement normal en cours de campagne. Sert les
+  // options de composition de départ dont la règle source exempte
+  // explicitement d'un coût/prérequis qui s'applique autrement (ex : le
+  // Goliath d'Os des Morts Sans Repos — "Warbands starting with a Bone
+  // Goliath can ignore this rule [le coût de 1D3 PV infligé à la Liche]"
+  // — Soldiers of Fortune, Border Town Burning, p.6 — alors qu'un Goliath
+  // construit plus tard en campagne reste un franc-tireur payant ce coût,
+  // voir hiredSwords.ts/goliath_os).
+  recrutement_creation_uniquement?: boolean;
   // Empêche définitivement ce profil de déclencher "Ce gars est doué"/Lads
   // Got Talent : l'entrée Promotion reste visible mais désactivée sur la
   // table d'avancement (voir AvanceeModal), le joueur doit relancer

@@ -364,6 +364,9 @@ export function RechercheObjetRareModal({
               {malusRareteKurgans > 0 && (
                 <p className="text-sm text-muted">{t('rareModal.kurgansMalus', { n: malusRareteKurgans })}</p>
               )}
+              {catalogue.id === 'morts_sans_repos' && profil?.id === 'necromancien' && (
+                <p className="text-sm text-muted">{t('rareModal.necromancienFureteur')}</p>
+              )}
               {item?.id === 'armure_du_chaos_market' && !succesDeclare && (
                 <div className="field">
                   <label>{t('rareModal.chaosArmourEnemiesLabel')}</label>

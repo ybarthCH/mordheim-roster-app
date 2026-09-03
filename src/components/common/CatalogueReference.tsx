@@ -1,8 +1,11 @@
 import { memo } from 'react';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
+import type { RosterInstance } from '../../types/roster';
 import { getItem } from '../../data/items';
-import { estAccesGenerique, iconeCategorie, prixAvecRegles } from '../../utils/shop';
+import { estAccesGenerique, equipementReferenceAConcerner, formatCoutProfil, iconeCategorie, prixAvecRegles } from '../../utils/shop';
 import { magieDuProfil } from '../../utils/magie';
+import { FRANCS_TIREURS, coutEntretienFrancTireur } from '../../data/hiredSwords';
+import { translateHiredSword } from '../../i18n/data/hiredSwords';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
 import type { Language } from '../../state/useLanguage';
@@ -48,6 +51,7 @@ function libelleListe(cle: string, language: Language): string {
 export const EquipementReference = memo(function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }) {
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
+  if (!equipementReferenceAConcerner(catalogue)) return null;
   const listesFiltrees = Object.entries(catalogue.equipement ?? {})
     .map(([liste, groupes]) => {
       const parCategorie = LISTES_EQUIPEMENT.map((cat) => ({
@@ -60,10 +64,7 @@ export const EquipementReference = memo(function EquipementReference({ catalogue
       return { liste, parCategorie };
     })
     .filter((l) => l.parCategorie.length > 0);
-
-  const aEquipement = listesFiltrees.length > 0;
   const aObjetsRares = (catalogue.equipement_special?.length ?? 0) > 0;
-  if (!aEquipement && !aObjetsRares) return null;
 
   return (
     <CollapsibleCard
@@ -179,6 +180,64 @@ export const MagieReference = memo(function MagieReference({
   return (
     <CollapsibleCard preferenceKey="ui.personnage.magie_reference.ouvert" title={titre}>
       {contenu}
+    </CollapsibleCard>
+  );
+});
+
+// Référence libre des francs-tireurs que cette bande peut engager — liste
+// statique (ce que la bande PEUT engager en principe, via
+// FrancTireurCatalog.employeurs.bande_ids déjà réduit par
+// appliquerRestrictionsDeBande dans hiredSwords.ts), pas un état d'engagement
+// réel : contrairement à RecruterFrancTireurScreen, n'exclut pas ceux déjà
+// engagés ni ne signale d'éventuelles incompatibilités entre francs-tireurs
+// (voir disponibiliteFrancTireur, spécifique à un roster précis). Les
+// Dramatis Personae (FRANCS_TIREURS en contient aussi, via
+// appliquerRestrictionsDeBandeDP) sont volontairement exclues : personnages
+// nommés uniques, pas des "classes" de franc-tireur à parcourir comme une
+// liste.
+export const FrancsTireursReference = memo(function FrancsTireursReference({
+  catalogue,
+  roster,
+}: {
+  catalogue: WarbandCatalog;
+  roster: RosterInstance;
+}) {
+  const { t, language } = useLanguage();
+  const francsTireurs = FRANCS_TIREURS.filter(
+    (ft) => !ft.est_dramatis_personae && ft.employeurs.bande_ids.includes(catalogue.id)
+  )
+    .map((ft) => translateHiredSword(ft, language))
+    .sort((a, b) => a.nom.localeCompare(b.nom, language));
+
+  if (francsTireurs.length === 0) return null;
+
+  return (
+    <CollapsibleCard preferenceKey="ui.roster.francs_tireurs_reference.ouvert" title={t('catalogueReference.hiredSwordsTitle')}>
+      <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
+        {t('catalogueReference.hiredSwordsIntro')}
+      </p>
+      {francsTireurs.map((ft) => (
+        <p key={ft.id} className="text-sm mb-0" style={{ marginBottom: '0.5rem' }}>
+          <strong>{ft.nom}</strong> — {t('catalogueReference.hiredSwordHireCost')}{' '}
+          {formatCoutProfil(ft.recrutement.cout, ft.recrutement.notation, language)}
+          {' · '}
+          {t('catalogueReference.hiredSwordValue')} +{ft.valeur}
+          {ft.gagne_experience !== false ? ' + XP' : ''}
+          <br />
+          <span className="text-muted">
+            <strong>{t('francTireur.upkeep')}</strong> {ft.entretien.texte}
+            {/* entretien.texte est un texte fixe (coût de base) : pour les
+                quelques francs-tireurs nains dont le tarif double en
+                présence d'un elfe dans la bande (cout_si_elfe), le montant
+                réellement dû peut différer — on ne le recalcule que pour
+                signaler cet écart, sans dupliquer le montant de base déjà
+                dans entretien.texte. */}
+            {ft.entretien.cout_si_elfe != null && coutEntretienFrancTireur(ft, roster) !== ft.entretien.cout && (
+              <> ({t('catalogueReference.hiredSwordUpkeepDoubled', { n: coutEntretienFrancTireur(ft, roster) })})</>
+            )}
+          </span>
+        </p>
+      ))}
     </CollapsibleCard>
   );
 });

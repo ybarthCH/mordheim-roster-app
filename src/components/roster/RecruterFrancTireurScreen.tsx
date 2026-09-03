@@ -229,6 +229,8 @@ export function RecruterFrancTireurScreen() {
               <strong>{t('francTireur.bandValue')}</strong> +{selection.valeur} {t('francTireur.points')}
               {selection.gagne_experience !== false ? ' + XP' : ''}
               <br />
+              <strong>{t('francTireur.upkeep')}</strong> {selection.entretien.texte}
+              <br />
               <strong>{t('francTireur.source')}</strong> page {selection.page_source} {t('francTireur.sourcePdfSuffix')}
             </p>
             <div className="stat-grid">

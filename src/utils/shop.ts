@@ -142,6 +142,28 @@ export function estAccesGenerique(acces: string[]): boolean {
   );
 }
 
+// Objets propres à la bande (mutations, armes à poudre noire exclusives,
+// objets bloqués à une liste précise...) une fois les objets génériques de
+// la base commune filtrés (déjà accessibles via le shop intégré, plus leur
+// place dans la carte "Équipement de la bande (référence)" — voir
+// EquipementReference dans CatalogueReference.tsx) — factorisé ici pour
+// qu'un appelant externe (voir BandeReferenceScreen) puisse savoir si cette
+// carte aura quelque chose à afficher SANS dupliquer cette logique de
+// filtrage (risque de désaccord entre les deux si elles divergent).
+export function equipementReferenceAConcerner(catalogue: WarbandCatalog): boolean {
+  const listes = ['armes_cac', 'armes_tir', 'armures', 'divers'] as const;
+  const aEquipement = Object.values(catalogue.equipement ?? {}).some((groupes) =>
+    listes.some((cat) =>
+      (groupes[cat] ?? []).some((it) => {
+        const ref = getItem(it.item_id);
+        return !estAccesGenerique(ref?.acces ?? []);
+      })
+    )
+  );
+  const aObjetsRares = (catalogue.equipement_special?.length ?? 0) > 0;
+  return aEquipement || aObjetsRares;
+}
+
 // Bandes humaines "classiques" au sens large (mercenaires de l'Empire,
 // répurgateurs, gladiateurs, artilleurs, Norses, gardiens bretonniens,
 // sœurs de Sigmar...) — sert à résoudre le tag "commun_humains" utilisé par

@@ -22,6 +22,9 @@ const RosterRoute = lazy(() =>
 const RecruterFrancTireurScreen = lazy(() =>
   import('./components/roster/RecruterFrancTireurScreen').then((m) => ({ default: m.RecruterFrancTireurScreen }))
 );
+const BandeReferenceScreen = lazy(() =>
+  import('./components/roster/BandeReferenceScreen').then((m) => ({ default: m.BandeReferenceScreen }))
+);
 const PostBatailleScreen = lazy(() =>
   import('./components/postbataille/PostBatailleScreen').then((m) => ({ default: m.PostBatailleScreen }))
 );
@@ -50,6 +53,7 @@ function App() {
                         <Route path="/creer" element={<CreationBandeScreen />} />
                         <Route path="/roster/:id/recruter-franc-tireur" element={<RecruterFrancTireurScreen />} />
                         <Route path="/roster/:id/post-bataille" element={<PostBatailleScreen />} />
+                        <Route path="/roster/:id/reference" element={<BandeReferenceScreen />} />
                         {/* Un seul Route (au lieu de deux entrées distinctes pour
                             /roster/:id et /roster/:id/personnage/:instanceId) :
                             React Router remonte tout le sous-arbre en changeant
