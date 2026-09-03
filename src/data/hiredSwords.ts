@@ -1431,11 +1431,6 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
         texte: 'Traite les résultats Sonné du tableau des dégâts comme À terre.',
       },
       { nom: 'Sans esprit', texte: 'Ne gagne jamais d’expérience.' },
-      {
-        nom: 'Solde',
-        texte:
-          "Comme tout franc-tireur, il doit être payé son entretien après chaque bataille à laquelle il participe (voir Entretien des francs-tireurs) pour rester dans la bande.",
-      },
     ],
     groupe_caracteristiques: 'morts_vivants_liche',
     gagne_experience: false,

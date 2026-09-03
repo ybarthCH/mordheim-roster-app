@@ -442,6 +442,18 @@ export type Profile = {
   // le Rat Familier des Skavens Pestilens, "obtenu en transformant un Rat
   // géant déjà présent dans la bande" — jamais un recrutement direct.
   recrutement_direct_interdit?: boolean;
+  // Profil visible dans le sélecteur "Recruter" seulement pendant la
+  // création de la bande (masquerFrancTireur=true sur AjouterMembreModal,
+  // seul appelant à passer cette prop — voir CreationBandeScreen), jamais
+  // ensuite lors d'un recrutement normal en cours de campagne. Sert les
+  // options de composition de départ dont la règle source exempte
+  // explicitement d'un coût/prérequis qui s'applique autrement (ex : le
+  // Goliath d'Os des Morts Sans Repos — "Warbands starting with a Bone
+  // Goliath can ignore this rule [le coût de 1D3 PV infligé à la Liche]"
+  // — Soldiers of Fortune, Border Town Burning, p.6 — alors qu'un Goliath
+  // construit plus tard en campagne reste un franc-tireur payant ce coût,
+  // voir hiredSwords.ts/goliath_os).
+  recrutement_creation_uniquement?: boolean;
   // Empêche définitivement ce profil de déclencher "Ce gars est doué"/Lads
   // Got Talent : l'entrée Promotion reste visible mais désactivée sur la
   // table d'avancement (voir AvanceeModal), le joueur doit relancer

@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../common/Icon';
 import type { Member, RosterInstance, InventoryEntry } from '../../types/roster';
-import { STAT_KEYS } from '../../types/catalog';
+import { STAT_KEYS, type Profile } from '../../types/catalog';
 import { getCatalogue } from '../../data/warbands';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
 import { limiteAfficheePourProfil, peutAjouterMembre } from '../../utils/validation';
@@ -120,12 +120,21 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
   // conservé nulle part.
   const [confirmationAnnulationOuverte, setConfirmationAnnulationOuverte] = useState(false);
 
-  const profilsHeros = catalogue?.profils.filter((p) => p.type === 'heros' && !p.recrutement_direct_interdit) ?? [];
+  // Un profil recrutement_creation_uniquement (ex : le Goliath d'Os des
+  // Morts Sans Repos, voir sa doc dans catalog.ts) n'apparaît que si cette
+  // fenêtre est celle de la création de bande (masquerFrancTireur=true, seul
+  // cas où CreationBandeScreen l'appelle) — jamais lors d'un recrutement
+  // normal en cours de campagne.
+  const profilVisible = (p: Profile) => !p.recrutement_creation_uniquement || masquerFrancTireur;
+  const profilsHeros =
+    catalogue?.profils.filter((p) => p.type === 'heros' && !p.recrutement_direct_interdit && profilVisible(p)) ?? [];
   // Les profils "animal" (chien de guerre...) se recrutent et se suivent
   // comme un groupe d'hommes de main (voir estGroupable plus bas) : classés
   // dans le même optgroup pour ne pas les faire ressembler à un objet à part.
   const profilsHommesDeMain =
-    catalogue?.profils.filter((p) => (p.type === 'homme_de_main' || p.type === 'animal') && !p.recrutement_direct_interdit) ?? [];
+    catalogue?.profils.filter(
+      (p) => (p.type === 'homme_de_main' || p.type === 'animal') && !p.recrutement_direct_interdit && profilVisible(p)
+    ) ?? [];
 
   // Grise/désactive dans la liste déroulante les profils déjà à leur limite
   // (unique déjà recruté, max de groupe atteint, plafond combiné atteint,

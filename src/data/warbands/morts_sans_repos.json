@@ -185,6 +185,32 @@
       "acces_competences_a_verifier": false
     },
     {
+      "id": "goliath_os",
+      "nom": "Goliath d'Os",
+      "type": "animal",
+      "min": 0,
+      "max": null,
+      "cout": 225,
+      "recrutement_creation_uniquement": true,
+      "stats": { "M": 5, "CC": 3, "CT": 0, "F": 5, "E": 5, "PV": 3, "I": 2, "A": 3, "Cd": 6 },
+      "regles_speciales": [
+        { "nom": "Provoque la Peur", "texte": "Gigantesque construction morte-vivante qui provoque la peur." },
+        { "nom": "Grande Cible", "texte": "Compte comme une grande cible pour les tirs." },
+        { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
+        { "nom": "Immunité à la Psychologie", "texte": "N'est pas affecté par la psychologie et ne quitte jamais un combat." },
+        { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." },
+        { "nom": "Sans Douleur", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
+        { "nom": "Construction Morte-Vivante", "texte": "Sur un résultat de 4+ sur le tableau des dégâts, ignore ce résultat et continue à combattre (ne fonctionne pas contre les armes magiques)." },
+        { "nom": "Sans Cervelle", "texte": "Ne gagne jamais d'expérience." },
+        { "nom": "Équipement", "texte": "Ne porte aucune arme ni armure, sans pénalité pour cela." },
+        { "nom": "Assemblage", "texte": "Construit avec la bande dès sa création : à la différence d'un Goliath d'Os assemblé plus tard en campagne (qui coûte alors 1D3 Points de Vie, minimum 1, à la Liche de la bande), celui-ci ne lui inflige aucune perte de Point de Vie." }
+      ],
+      "acces_competences": [],
+      "acces_equipement": [],
+      "aucun_achat_shop_commun": true,
+      "acces_competences_a_verifier": false
+    },
+    {
       "id": "chien_de_guerre",
       "nom": "Chien de guerre",
       "type": "animal",
