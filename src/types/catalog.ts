@@ -290,6 +290,16 @@ export type Profile = {
   // pouvoir acheter une monture/un véhicule/une munition/un poison via
   // cet onglet générique. Consommé par getShopCommun.
   aucun_achat_shop_commun?: boolean;
+  // Ce Héros ne peut jamais participer à la recherche d'objet rare
+  // post-bataille (étape Commerce), quel que soit son statut par ailleurs —
+  // ex : "No Deal" du Garde Funéraire des Morts Sans Repos ("Grave Guards
+  // may not search for rare items"), qui s'applique aussi au Spectre une
+  // fois promu Héros via "Ce gars est doué" (le profil de base reste un
+  // Homme de main, déjà hors de portée de cette recherche par son
+  // `type` — poser ce flag directement sur son profil catalogue suffit donc
+  // à couvrir les deux cas sans mécanisme séparé). Consommé par
+  // PostBatailleScreen.herosCommerce.
+  ne_peut_pas_chercher_objets_rares?: boolean;
   // Catégories entièrement interdites à ce profil par ses propres règles
   // (ex : Flagellant sans armure ni arme de tir), appliqué en plus de
   // `acces_equipement` — celui-ci ne filtre que l'onglet "bande" du shop,

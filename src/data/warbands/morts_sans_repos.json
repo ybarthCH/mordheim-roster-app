@@ -85,7 +85,8 @@
       ],
       "acces_competences": ["combat", "force"],
       "acces_equipement": ["morts_vivants"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_pas_chercher_objets_rares": true
     },
     {
       "id": "zombie",
@@ -155,7 +156,8 @@
       ],
       "acces_competences": ["combat", "force"],
       "acces_equipement": ["morts_vivants"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "ne_peut_pas_chercher_objets_rares": true
     },
     {
       "id": "epouvantail",

@@ -4,7 +4,7 @@ import type { Profile, Stats } from '../../types/catalog';
 import type { Member } from '../../types/roster';
 import type { GameRules } from '../../types/rules';
 import { plafondPour, estStatAuPlafond, bonusPlafondCC } from '../../utils/plafond';
-import { sauvegardeArmureMembre } from '../../utils/armure';
+import { sauvegardeArmureMembre, malusMouvementArmureLourdeBouclier } from '../../utils/armure';
 import { useLanguage } from '../../state/useLanguage';
 import { libelleCaracteristique } from '../../utils/stats';
 import { Icon } from '../common/Icon';
@@ -27,6 +27,11 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat, rules }: Ca
   // utils/armure.ts. N'apparaît qu'en présence d'un objet qui l'accorde
   // réellement (jamais les sauvegardes spéciales/ward).
   const sv = sauvegardeArmureMembre(membre.inventaire, rules.armuresLozheim);
+  // Pénalité de Mouvement armure lourde + bouclier — voir utils/armure.ts.
+  // Purement affichée en superposition sur la case M, jamais écrite dans
+  // stats_actuels (qui reste éditable tel quel) : disparaît d'elle-même si
+  // l'un des deux objets est retiré de l'inventaire.
+  const malusMouvement = malusMouvementArmureLourdeBouclier(membre.inventaire, profil);
 
   // Saisie locale par caractéristique : un input contrôlé directement par
   // membre.stats_actuels[k] (un number) empêche de vider le champ pour
@@ -72,13 +77,15 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat, rules }: Ca
             membre.competences_acquises,
             bonusPlafondCC(membre)
           );
+          const malusIci = k === 'M' ? malusMouvement : 0;
+          const titre = malusIci ? t('caracteristiques.armourMoveMalusTitle') : auPlafond ? t('caracteristiques.capTitle') : undefined;
           return (
             <div
               key={k}
               className={`stat-grid__cell stat-grid__cell--value ${
                 membre.stats_modifiees.includes(k) ? 'stat-grid__cell--modified' : ''
               }`}
-              title={auPlafond ? t('caracteristiques.capTitle') : undefined}
+              title={titre}
             >
               <input
                 type="number"
@@ -92,6 +99,7 @@ export function CaracteristiquesCard({ membre, profil, onEditerStat, rules }: Ca
                 }}
                 onBlur={() => setSaisies((prev) => ({ ...prev, [k]: String(membre.stats_actuels[k]) }))}
               />
+              {malusIci !== 0 && <span className="stat-grid__malus">{malusIci}</span>}
             </div>
           );
         })}

@@ -120,6 +120,7 @@ export const rosterScreen: UiDictionary = {
     fr: "Aucun guerrier de la bande ne sait utiliser cet objet (liste de recrutement).",
     en: "No warrior in the warband knows how to use this item (recruitment list).",
   },
+  'armurerie.noEligibleRecipientBadge': { fr: 'Aucun porteur possible', en: 'No eligible recipient' },
   'armurerie.sell': { fr: 'Vendre', en: 'Sell' },
   'armurerie.sellTitle': { fr: 'Vendre (+{prix} po à la trésorerie)', en: 'Sell (+{prix} gc to treasury)' },
   'armurerie.removeTitle': { fr: 'Supprimer sans contrepartie (perdu, détruit…)', en: 'Remove with no return (lost, destroyed…)' },

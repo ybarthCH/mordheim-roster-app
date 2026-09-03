@@ -1739,8 +1739,18 @@ button {
   color: var(--text-muted);
 }
 .stat-grid__cell--value {
+  position: relative;
   font-size: 0.95rem;
   font-weight: 700;
+}
+.stat-grid__malus {
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--danger);
 }
 .stat-grid__cell--modified {
   color: var(--accent);

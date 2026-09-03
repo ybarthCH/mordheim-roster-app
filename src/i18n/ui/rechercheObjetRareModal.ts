@@ -35,6 +35,10 @@ export const rechercheObjetRareModal: UiDictionary = {
     fr: 'Seuil déjà augmenté de {n} : Clients Difficiles (tribu Kurgan, sauf Grande Hache du Chaos et Fouet Barbelé).',
     en: 'Threshold already raised by {n}: Difficult Customers (Kurgan tribe, except Great Chaos Axe and Barbed Whip).',
   },
+  'rareModal.necromancienFureteur': {
+    fr: "Rappel — Fureteur : ce Nécromancien lance 3D6 sur table et garde les deux meilleurs résultats pour ce jet.",
+    en: "Reminder — Gofer: this Necromancer rolls 3D6 on the table and keeps the two highest for this roll.",
+  },
   'rareModal.chaosArmourEnemiesLabel': {
     fr: 'Ennemis mis hors de combat par ce Héros lors de la bataille précédente (+1 au seuil de réussite par ennemi)',
     en: 'Enemies this Hero took out of action in the previous battle (+1 to the success threshold per enemy)',

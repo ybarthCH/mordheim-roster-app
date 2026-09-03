@@ -113,6 +113,12 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
   // proposé ensuite (voir utils/magie.ts).
   const [marqueChoisie, setMarqueChoisie] = useState('');
   const [modalOptionSorcier, setModalOptionSorcier] = useState(false);
+  // Confirmation avant d'annuler tout le recrutement en cours (étape
+  // équipement) : la recrue a déjà été payée et ajoutée au roster à ce
+  // stade (voir annulerRecrutement plus bas) — fermer la fenêtre sans
+  // prévenir la perdait silencieusement, sans qu'aucun brouillon ne soit
+  // conservé nulle part.
+  const [confirmationAnnulationOuverte, setConfirmationAnnulationOuverte] = useState(false);
 
   const profilsHeros = catalogue?.profils.filter((p) => p.type === 'heros' && !p.recrutement_direct_interdit) ?? [];
   // Les profils "animal" (chien de guerre...) se recrutent et se suivent
@@ -254,6 +260,13 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
     const tailleGroupeActuelle = membreActuel.taille_groupe || 1;
     const panierTotal = panier.reduce((somme, p) => somme + p.coutPaye * tailleGroupeActuelle, 0);
     const tresorerieProjetee = roster.tresorerie - panierTotal;
+    // roster.tresorerie a déjà été débitée du coût de recrutement du profil
+    // (voir confirmer() à l'étape précédente) — on le rajoute pour retrouver
+    // la trésorerie telle qu'elle était juste avant de lancer le
+    // recrutement, afin d'afficher un récapitulatif complet (trésorerie de
+    // départ, - profil, - chaque objet acheté) plutôt que de ne montrer que
+    // le coût de l'équipement isolément.
+    const tresorerieDepart = roster.tresorerie + coutRecrutementPaye;
     // Vue "et si" de l'inventaire incluant le panier pas encore payé : sans
     // ça, le shop ne verrait pas un objet déjà mis dans le panier (ex :
     // proposerait une 2e dague comme "gratuite" au lieu de la 1re, ou une 2e
@@ -350,7 +363,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
     };
 
     return (
-      <Modal onClose={annulerRecrutement} variant="fullscreen">
+      <Modal onClose={() => setConfirmationAnnulationOuverte(true)} variant="fullscreen">
         <div style={{ padding: '0.9rem 0.9rem 0' }}>
           <h3 className="mt-0">{t('recrutementEquipement.title', { nom: membreActuel.nom_perso })}</h3>
           {profil?.stats && (
@@ -396,6 +409,14 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             <p className="text-sm mb-0">
               <strong>{t('recrutementEquipement.selectedEquipment')}</strong>
             </p>
+            <div className="flex items-center justify-between" style={{ marginTop: '0.3rem' }}>
+              <span className="text-sm text-muted">{t('recrutementEquipement.startingTreasury')}</span>
+              <span className="text-sm text-muted">{tresorerieDepart} {t('creation.gc')}</span>
+            </div>
+            <div className="flex items-center justify-between" style={{ marginTop: '0.3rem' }}>
+              <span className="text-sm">{profil?.nom ?? membreActuel.nom_perso}</span>
+              <span className="text-sm text-muted">− {coutRecrutementPaye} {t('creation.gc')}</span>
+            </div>
             {panier.length === 0 ? (
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
                 {t('recrutementEquipement.noSelectionYet')}
@@ -413,6 +434,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
                   </span>
                   <span className="flex items-center gap-sm">
                     <span className="text-sm text-muted">
+                      −{' '}
                       {tailleGroupeActuelle > 1
                         ? `${formatCoutItem(p.coutPaye, language)} × ${tailleGroupeActuelle} = ${formatCoutItem(p.coutPaye * tailleGroupeActuelle, language)}`
                         : formatCoutItem(p.coutPaye, language)}
@@ -429,17 +451,11 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
                 </div>
               ))
             )}
-            <p className="text-sm mb-0" style={{ marginTop: '0.5rem', borderTop: '1px solid var(--border)', paddingTop: '0.4rem' }}>
-              {t('recrutementEquipement.treasury')} {roster.tresorerie} {t('creation.gc')}
-              {panier.length > 0 && (
-                <>
-                  {' '}
-                  · {t('recrutementEquipement.equipmentCost')} {panierTotal} {t('creation.gc')} ·{' '}
-                  <span className={tresorerieProjetee < 0 ? 'text-danger' : ''}>
-                    {t('recrutementEquipement.remaining')} {tresorerieProjetee} {t('creation.gc')}
-                  </span>
-                </>
-              )}
+            <p
+              className={`text-sm mb-0 ${tresorerieProjetee < 0 ? 'text-danger' : ''}`}
+              style={{ marginTop: '0.5rem', borderTop: '1px solid var(--border)', paddingTop: '0.4rem', fontWeight: 700 }}
+            >
+              {t('recrutementEquipement.remaining')} {tresorerieProjetee} {t('creation.gc')}
             </p>
             {tresorerieProjetee < 0 && (
               <p className="text-danger text-sm mb-0" style={{ marginTop: '0.3rem' }}>
@@ -482,7 +498,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             type="button"
             className="btn--pack-pill-sm btn--pack-pill-sm--secondaire"
             style={{ flex: 1 }}
-            onClick={annulerRecrutement}
+            onClick={() => setConfirmationAnnulationOuverte(true)}
           >
             {t('achatEquipement.cancel')}
           </button>
@@ -516,9 +532,23 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             masquerBoutonFermer
             masquerShopCommun
             masquerObjetsRares={roster.historique_batailles.length > 0}
-            onClose={annulerRecrutement}
+            onClose={() => setConfirmationAnnulationOuverte(true)}
             onAchat={(item, coutPaye) => setPanier((prev) => [...prev, { item, coutPaye }])}
           />
+        )}
+        {confirmationAnnulationOuverte && (
+          <Modal onClose={() => setConfirmationAnnulationOuverte(false)}>
+            <h3>{t('recrutementEquipement.cancelConfirmTitle')}</h3>
+            <p className="text-muted">{t('recrutementEquipement.cancelConfirmBody')}</p>
+            <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+              <button className="btn" onClick={() => setConfirmationAnnulationOuverte(false)}>
+                {t('recrutementEquipement.cancelConfirmBack')}
+              </button>
+              <button className="btn btn--danger" onClick={annulerRecrutement}>
+                {t('recrutementEquipement.cancelConfirmConfirm')}
+              </button>
+            </div>
+          </Modal>
         )}
       </Modal>
     );

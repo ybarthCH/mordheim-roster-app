@@ -28,6 +28,7 @@
 // leur valeur par défaut/la plus courante (à pied, chargé de front) plutôt
 // que de les exclure du calcul.
 import type { InventoryEntry } from '../types/roster';
+import type { Profile } from '../types/catalog';
 import { ARMURES_LOZHEIM } from './shop';
 
 type SauvegardeArmure = {
@@ -103,4 +104,22 @@ export function sauvegardeArmureMembre(inventaire: InventoryEntry[], lozheimActi
     .reduce((somme, x) => somme + (x.def.combinee ?? 0), 0);
 
   return Math.max(MEILLEURE_SAUVEGARDE_POSSIBLE, base.seule - bonus);
+}
+
+// Pénalité de Mouvement pour port simultané d'une armure lourde et d'un
+// bouclier ("armure_lourde", voir sa règle spéciale "Mouvement" dans
+// armures.json) : -1 M, purement dérivée de l'inventaire (jamais écrite dans
+// stats_actuels — disparaît automatiquement si l'un des deux objets est
+// retiré, sur le même principe que la Sv ci-dessus). Les nains, de toute
+// bande (Nains du Chaos, Fils d'Hashut, Chasseurs de Trésors Nains,
+// Expédition Runique, Culte des Tueurs — reconnus par
+// `groupe_caracteristiques === 'nain'`), ignorent cette pénalité selon leur
+// propre règle raciale — un Hobgobelin ou un Centaure-Taureau au sein d'une
+// bande de Nains du Chaos/Fils d'Hashut n'est PAS un nain et reste donc
+// soumis au malus normalement.
+export function malusMouvementArmureLourdeBouclier(inventaire: InventoryEntry[], profil: Profile | null | undefined): number {
+  if (profil?.groupe_caracteristiques === 'nain') return 0;
+  const aArmureLourde = inventaire.some((e) => e.item_id === 'armure_lourde');
+  const aBouclier = inventaire.some((e) => e.item_id === 'bouclier');
+  return aArmureLourde && aBouclier ? -1 : 0;
 }
