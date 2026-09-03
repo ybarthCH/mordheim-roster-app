@@ -1558,6 +1558,22 @@ export function estAchatObjetPrivilegieEntree(
   return !inventaireActuel.some((e) => e.entree_privilegiee);
 }
 
+// Quantité d'un objet à ajouter pour un achat de groupe : normalement un lot
+// complet de `tailleGroupe` (équipe toutes les figurines d'un coup), sauf si
+// ce même objet est déjà présent en quantité non multiple de la taille du
+// groupe (voir inventaireGroupeMismatch — typiquement après un ajustement
+// manuel de `taille_groupe` sans passer par "Recruter dans le groupe") : dans
+// ce cas, seul le complément nécessaire pour uniformiser le lot en cours est
+// ajouté (ex : groupe de 4 avec déjà 3 arcs -> 1 seul arc acheté, pas 4),
+// plutôt que d'empiler un lot complet en plus du déséquilibre existant.
+export function quantiteAchatGroupe(inventaireActuel: InventoryEntry[], itemId: string, tailleGroupe: number): number {
+  const taille = Math.max(1, tailleGroupe);
+  if (taille <= 1) return 1;
+  const quantiteActuelle = inventaireActuel.filter((e) => e.item_id === itemId).length;
+  const reste = quantiteActuelle % taille;
+  return reste === 0 ? taille : taille - reste;
+}
+
 // Applique un achat complet à un membre : crée les entrées d'inventaire
 // (une par figurine du groupe), débite la trésorerie via acheterPourMembre,
 // applique le stats_delta éventuel de l'objet (ex : mutation Great Claw,
@@ -1572,7 +1588,7 @@ export function appliquerAchatSurMembre(
   coutPaye: number,
   privilege?: { entreePrivilegiee?: boolean; nonCessible?: boolean }
 ): RosterInstance {
-  const entrees = creerEntreesInventaire(item, coutPaye, membre.taille_groupe || 1, privilege);
+  const entrees = creerEntreesInventaire(item, coutPaye, quantiteAchatGroupe(membre.inventaire, item.id, membre.taille_groupe || 1), privilege);
   const nouveauRoster = acheterPourMembre(roster, membre.instance_id, entrees);
   const inventaire = [...membre.inventaire, ...entrees];
   let stats_actuels = membre.stats_actuels;

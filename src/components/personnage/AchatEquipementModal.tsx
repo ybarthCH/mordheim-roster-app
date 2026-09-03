@@ -23,6 +23,7 @@ import {
   construireObjetMateriau,
   MATERIAUX,
   estAchatObjetPrivilegieEntree,
+  quantiteAchatGroupe,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
@@ -358,7 +359,10 @@ export function AchatEquipementContenu({
     materiauSelectionne && baseMateriauChoisie && coutBaseValide
       ? construireObjetMateriau(baseMateriauChoisie, materiauSelectionne, coutBase)
       : null;
-  const coutTotalMateriau = objetMateriauCombine ? (objetMateriauCombine.cout as number) * tailleGroupe : 0;
+  const quantiteAAcheterMateriau = objetMateriauCombine
+    ? quantiteAchatGroupe(inventaireActuel, objetMateriauCombine.id, tailleGroupe)
+    : tailleGroupe;
+  const coutTotalMateriau = objetMateriauCombine ? (objetMateriauCombine.cout as number) * quantiteAAcheterMateriau : 0;
   const budgetMateriauSuffisant = gratuit || coutTotalMateriau <= tresorerie;
 
   const choisirBaseMateriau = (base: ShopItem) => {
@@ -390,7 +394,14 @@ export function AchatEquipementContenu({
 
   const cout = Number(coutSaisi);
   const coutValide = coutSaisi.trim() !== '' && !Number.isNaN(cout) && cout >= 0;
-  const coutTotal = cout * tailleGroupe;
+  // Nombre réel d'exemplaires ajoutés par cet achat (voir appliquerAchatSurMembre
+  // dans utils/shop.ts, qui applique le même calcul) : un lot complet de
+  // `tailleGroupe`, sauf si ce même objet est déjà présent en quantité non
+  // multiple de la taille du groupe (groupe agrandi manuellement sans passer
+  // par "Recruter dans le groupe"), auquel cas seul le complément nécessaire
+  // pour uniformiser le lot est acheté.
+  const quantiteAAcheter = itemSelectionne ? quantiteAchatGroupe(inventaireActuel, itemSelectionne.id, tailleGroupe) : tailleGroupe;
+  const coutTotal = cout * quantiteAAcheter;
   const trinketLimite =
     !!itemSelectionne &&
     rules.trinketsLimites &&
@@ -406,7 +417,7 @@ export function AchatEquipementContenu({
   const limitePlafondGroupe =
     !!refPlafondGroupe &&
     !!roster &&
-    comptePlafondGroupe(catalogue, roster, refPlafondGroupe.id) + tailleGroupe > refPlafondGroupe.max;
+    comptePlafondGroupe(catalogue, roster, refPlafondGroupe.id) + quantiteAAcheter > refPlafondGroupe.max;
   const limiteAtteinte = trinketLimite || limiteUniqueBande || limitePlafondGroupe;
 
   const confirmer = () => {
@@ -678,8 +689,11 @@ export function AchatEquipementContenu({
               {!gratuit && tailleGroupe > 1 && coutBaseValide && (
                 <p className="text-sm">
                   {t('achatEquipement.groupOfPrefix')} {tailleGroupe} {t('achatEquipement.identicalModelsMiddle')}{' '}
-                  {tailleGroupe} {t('achatEquipement.copiesBoughtForMiddle')} {coutTotalMateriau} {t('creation.gc')}
+                  {quantiteAAcheterMateriau} {t('achatEquipement.copiesBoughtForMiddle')} {coutTotalMateriau} {t('creation.gc')}
                 </p>
+              )}
+              {!gratuit && tailleGroupe > 1 && coutBaseValide && quantiteAAcheterMateriau < tailleGroupe && (
+                <p className="text-sm text-muted">{t('achatEquipement.completingGroupNote')}</p>
               )}
               {!gratuit && coutBaseValide && !budgetMateriauSuffisant && (
                 <p className="text-danger text-sm">{t('achatEquipement.insufficientTreasury', { tresorerie })}</p>
@@ -997,9 +1011,12 @@ export function AchatEquipementContenu({
               {!gratuit && tailleGroupe > 1 && coutValide && (
                 <p className="text-sm text-muted">
                   {t('achatEquipement.groupOfPrefix')} {tailleGroupe} {t('achatEquipement.identicalModelsMiddle')}{' '}
-                  {tailleGroupe} {t('achatEquipement.copiesBoughtForMiddle')} {coutTotal} {t('creation.gc')}{' '}
+                  {quantiteAAcheter} {t('achatEquipement.copiesBoughtForMiddle')} {coutTotal} {t('creation.gc')}{' '}
                   {t('achatEquipement.totalSuffix')}
                 </p>
+              )}
+              {!gratuit && tailleGroupe > 1 && coutValide && quantiteAAcheter < tailleGroupe && (
+                <p className="text-sm text-muted">{t('achatEquipement.completingGroupNote')}</p>
               )}
               {!gratuit && coutValide && coutTotal > tresorerie && (
                 <p className="text-danger text-sm">{t('achatEquipement.insufficientTreasury', { tresorerie })}</p>

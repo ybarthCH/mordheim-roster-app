@@ -38,6 +38,10 @@ export const achatEquipementModal: UiDictionary = {
   'achatEquipement.identicalModelsMiddle': { fr: 'figurines identiques :', en: 'identical models:' },
   'achatEquipement.copiesBoughtForMiddle': { fr: 'exemplaires achetés pour', en: 'copies bought for' },
   'achatEquipement.totalSuffix': { fr: 'au total.', en: 'total.' },
+  'achatEquipement.completingGroupNote': {
+    fr: "Le groupe n'est pas équipé à parts égales pour cet objet — cet achat ne complète que le nombre d'exemplaires manquants, pas un lot complet.",
+    en: 'The group is not equally equipped for this item — this purchase only adds the missing copies, not a full batch.',
+  },
   'achatEquipement.insufficientTreasury': {
     fr: 'Trésorerie insuffisante ({tresorerie} po disponibles).',
     en: 'Insufficient treasury ({tresorerie} gc available).',
