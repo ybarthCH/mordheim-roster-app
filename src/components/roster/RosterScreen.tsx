@@ -617,7 +617,6 @@ export function RosterScreen({
           patch({ historique_batailles: roster.historique_batailles.filter((b) => b.id !== id) })
         }
       />
-
       </div>
       {splitView && (
         <div

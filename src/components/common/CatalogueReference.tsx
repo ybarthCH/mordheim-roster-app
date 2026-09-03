@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
 import { getItem } from '../../data/items';
-import { estAccesGenerique, iconeCategorie, prixAvecRegles } from '../../utils/shop';
+import { estAccesGenerique, equipementReferenceAConcerner, iconeCategorie, prixAvecRegles } from '../../utils/shop';
 import { magieDuProfil } from '../../utils/magie';
 import { useGameRules } from '../../state/useGameRules';
 import { useLanguage } from '../../state/useLanguage';
@@ -48,6 +48,7 @@ function libelleListe(cle: string, language: Language): string {
 export const EquipementReference = memo(function EquipementReference({ catalogue }: { catalogue: WarbandCatalog }) {
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
+  if (!equipementReferenceAConcerner(catalogue)) return null;
   const listesFiltrees = Object.entries(catalogue.equipement ?? {})
     .map(([liste, groupes]) => {
       const parCategorie = LISTES_EQUIPEMENT.map((cat) => ({
@@ -60,10 +61,7 @@ export const EquipementReference = memo(function EquipementReference({ catalogue
       return { liste, parCategorie };
     })
     .filter((l) => l.parCategorie.length > 0);
-
-  const aEquipement = listesFiltrees.length > 0;
   const aObjetsRares = (catalogue.equipement_special?.length ?? 0) > 0;
-  if (!aEquipement && !aObjetsRares) return null;
 
   return (
     <CollapsibleCard

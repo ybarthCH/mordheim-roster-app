@@ -9,6 +9,8 @@ import { Icon } from '../common/Icon';
 import { getCatalogue } from '../../data/warbands';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
 import { resolveProfil } from '../../utils/profil';
+import { equipementReferenceAConcerner } from '../../utils/shop';
+import { magieDuProfil } from '../../utils/magie';
 import { tribuChoisie } from '../../utils/tribu';
 
 // Page de référence de la bande actuellement parcourue (voir ReferenceButton
@@ -40,12 +42,20 @@ export function BandeReferenceScreen() {
   const membreMarque = catalogue ? roster.membres.find((m) => resolveProfil(roster, m)?.marque_requise) : undefined;
   const profilMarque = membreMarque && catalogue ? resolveProfil(roster, membreMarque, catalogue) : undefined;
 
+  // Reflète exactement ce que rendent EquipementReference/MagieReference
+  // (voir equipementReferenceAConcerner et magieDuProfil) plutôt que de
+  // relire les champs bruts du catalogue : un objet d'équipement générique
+  // (accès commun/rare_N) ou un domaine de magie absent pour la Marque
+  // choisie ne doit pas compter comme "il y a quelque chose à afficher" ici
+  // alors que la carte correspondante ne rend justement rien.
+  const magieResolue = !catalogue
+    ? undefined
+    : profilMarque
+      ? magieDuProfil(catalogue, profilMarque, membreMarque?.marque)
+      : catalogue.magie;
   const aRien =
     !catalogue ||
-    (catalogue.regles_speciales.length === 0 &&
-      !catalogue.equipement &&
-      !catalogue.equipement_special?.length &&
-      !catalogue.magie);
+    (catalogue.regles_speciales.length === 0 && !equipementReferenceAConcerner(catalogue) && !magieResolue);
 
   return (
     <Screen title={t('bandeReference.title', { nom: roster.nom_bande })} back={`/roster/${roster.id}`}>

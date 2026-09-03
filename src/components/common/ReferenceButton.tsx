@@ -23,7 +23,7 @@ export function ReferenceButton({ to }: Props) {
       aria-label={t('bandeReference.buttonLabel')}
       title={t('bandeReference.buttonLabel')}
     >
-      <Icon name="grimoirePack" />
+      <Icon name="grimoireDorePack" />
     </button>
   );
 }

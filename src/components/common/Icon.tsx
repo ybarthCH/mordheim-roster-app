@@ -15,6 +15,7 @@ export type PackIconName =
   | 'coffrePack'
   | 'etoilePack'
   | 'grimoirePack'
+  | 'grimoireDorePack'
   | 'drapeauxPack'
   | 'cranePack'
   | 'poubellePack'
@@ -48,6 +49,10 @@ const PACK_ICON_SRC: Record<PackIconName, () => string> = {
   coffrePack: () => `${DECOR_BASE}icon-armurerie-pack.webp`,
   etoilePack: () => `${DECOR_BASE}icon-heroes-gold.webp`,
   grimoirePack: () => `${DECOR_BASE}icon-rules-silver.webp`,
+  // Variante dorée du même livre, pour les emplacements du bandeau où il
+  // voisine la roue crantée (engrenagePack, dorée) — ex : ReferenceButton —
+  // et doit donc suivre la même DA plutôt que rester en argent.
+  grimoireDorePack: () => `${DECOR_BASE}icon-rules-gold.webp`,
   drapeauxPack: () => `${DECOR_BASE}icon-henchmen-gold.webp`,
   cranePack: () => `${DECOR_BASE}icon-graveyard-bone.webp`,
   poubellePack: () => `${DECOR_BASE}icon-trash.webp`,
