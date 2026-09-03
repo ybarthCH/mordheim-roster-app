@@ -477,6 +477,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
       embedded={embedded}
       title={membre.nom_perso}
       backTo={`/roster/${roster.id}`}
+      referenceLink={`/roster/${roster.id}/reference`}
       onClose={() => navigate(`/roster/${roster.id}`)}
       closeLabel={t('common.close')}
     >
@@ -873,6 +874,7 @@ type PersonnageChromeProps = {
   embedded?: boolean;
   title: string;
   backTo: string;
+  referenceLink: string;
   onClose: () => void;
   closeLabel: string;
   children: ReactNode;
@@ -881,8 +883,10 @@ type PersonnageChromeProps = {
 // Bascule entre le chrome plein écran habituel (Screen : bandeau accent +
 // retour) et un en-tête local léger pour le volet détail du mode deux volets
 // — les données/logique de PersonnageScreen restent identiques dans les deux
-// cas, seul l'habillage change.
-function PersonnageChrome({ embedded, title, backTo, onClose, closeLabel, children }: PersonnageChromeProps) {
+// cas, seul l'habillage change. En mode deux volets (embedded), le bouton de
+// référence de bande reste porté par le bandeau de la colonne liste
+// (RosterScreen) — pas de second bouton redondant dans cet en-tête léger.
+function PersonnageChrome({ embedded, title, backTo, referenceLink, onClose, closeLabel, children }: PersonnageChromeProps) {
   if (embedded) {
     return (
       <div className="personnage-embedded">
@@ -897,7 +901,7 @@ function PersonnageChrome({ embedded, title, backTo, onClose, closeLabel, childr
     );
   }
   return (
-    <Screen title={title} back={backTo}>
+    <Screen title={title} back={backTo} referenceLink={referenceLink}>
       <div className="personnage-sheet">{children}</div>
     </Screen>
   );

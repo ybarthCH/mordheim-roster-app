@@ -949,6 +949,57 @@ button {
   font-size: 1.1rem;
 }
 
+/* Rangée à interrupteur (ex : langue) plutôt que bouton de navigation — le
+   texte s'étire pour repousser le switch contre le bord droit du panneau,
+   comme les autres rangées de ce menu. */
+.settings-menu__item--toggle .settings-menu__text {
+  flex: 1;
+}
+.settings-menu__switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+.settings-menu__switch-label {
+  font-family: var(--font-accroche);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+}
+.settings-menu__switch--on .settings-menu__switch-label--off,
+.settings-menu__switch:not(.settings-menu__switch--on) .settings-menu__switch-label--on {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+.settings-menu__switch--on .settings-menu__switch-label--on,
+.settings-menu__switch:not(.settings-menu__switch--on) .settings-menu__switch-label--off {
+  color: var(--accent);
+}
+.settings-menu__switch-track {
+  position: relative;
+  width: 30px;
+  height: 16px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text) 20%, transparent);
+  flex-shrink: 0;
+}
+.settings-menu__switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: transform 0.18s ease;
+}
+.settings-menu__switch--on .settings-menu__switch-thumb {
+  transform: translateX(14px);
+}
+
 .card--tight {
   padding: 0.6rem 0.7rem;
 }

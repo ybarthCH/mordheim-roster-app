@@ -19,11 +19,9 @@ import { MemberGroupCard } from './MemberGroupCard';
 import { MemberQuickList } from './MemberQuickList';
 import { HistoriqueBataillesSection } from './HistoriqueBataillesSection';
 import { PromotionHerosDechuModal } from './PromotionHerosDechuModal';
-import { EquipementReference, MagieReference } from '../common/CatalogueReference';
-import { CollapsibleCard } from '../common/CollapsibleCard';
 import { AvanceeModal } from '../personnage/AvanceeModal';
 import { nombreHeros } from '../../utils/profil';
-import { tribuChoisie, equitationGratuitePourTribu } from '../../utils/tribu';
+import { equitationGratuitePourTribu } from '../../utils/tribu';
 import type { BattleRecord, Member, RosterInstance } from '../../types/roster';
 import {
   acheterPourStock,
@@ -151,7 +149,6 @@ export function RosterScreen({
     );
   }
 
-  const tribu = tribuChoisie(catalogue, roster);
   const violations = validerComposition(roster, language);
   const violationsEffectif = validerEffectif(roster);
   const effectifDepasse = violationsEffectif.find((v) => v.type === 'max');
@@ -367,7 +364,7 @@ export function RosterScreen({
   ];
 
   return (
-    <Screen title={roster.nom_bande} back="/" menuItems={menuItems}>
+    <Screen title={roster.nom_bande} back="/" menuItems={menuItems} referenceLink={`/roster/${roster.id}/reference`}>
       {roster.dissoute && (
         <div className="banner-danger">
           <span className="banner-danger__icon" aria-hidden="true">
@@ -503,46 +500,6 @@ export function RosterScreen({
         </div>
       )}
 
-      {catalogue && catalogue.regles_speciales.length > 0 && (
-        <CollapsibleCard
-          preferenceKey="ui.roster.regles_speciales.ouvert"
-          className="card card--tight card--titlebar"
-          title={
-            <>
-              <Icon name="grimoirePack" style={{ marginRight: '0.35em' }} />
-              {t('roster.specialRules')}
-            </>
-          }
-        >
-          {catalogue.regles_speciales.map((r) => (
-            <p key={r.nom} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
-              <strong>{r.nom}</strong> — {r.texte}
-              {r.exception && <span className="text-muted"> ({r.exception})</span>}
-            </p>
-          ))}
-          {catalogue.tribus && catalogue.tribus.length > 0 && (
-            <div style={{ marginTop: '0.8rem', paddingTop: '0.6rem', borderTop: '1px solid var(--border)' }}>
-              <p className="text-sm mb-0">
-                <strong>
-                  {t('roster.tribe')} {tribu ? tribu.nom : t('roster.tribeNotSet')}
-                </strong>
-              </p>
-              {tribu ? (
-                <p className="text-sm" style={{ whiteSpace: 'pre-line' }}>
-                  {tribu.texte}
-                </p>
-              ) : (
-                catalogue.tribus.map((tr) => (
-                  <p key={tr.id} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
-                    <strong>{tr.nom}</strong> — {tr.texte}
-                  </p>
-                ))
-              )}
-            </div>
-          )}
-        </CollapsibleCard>
-      )}
-
       {vueCondensee ? (
         <MemberQuickList
           titre={t('roster.fullWarband')}
@@ -661,16 +618,6 @@ export function RosterScreen({
         }
       />
 
-      {catalogue && <EquipementReference catalogue={catalogue} />}
-      {catalogue &&
-        (() => {
-          // Si un membre au profil à Marque (ex : le Devin des Maraudeurs)
-          // a déjà été recruté, la référence de magie de la bande se cale
-          // sur sa Marque plutôt que d'afficher le domaine par défaut.
-          const membreMarque = roster.membres.find((m) => resolveProfil(roster, m)?.marque_requise);
-          const profilMarque = membreMarque ? resolveProfil(roster, membreMarque, catalogue) : undefined;
-          return <MagieReference catalogue={catalogue} profil={profilMarque} marqueId={membreMarque?.marque} />;
-        })()}
       </div>
       {splitView && (
         <div
