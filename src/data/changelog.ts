@@ -98,6 +98,41 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Mangeurs d'Hommes : la source complète de la bande a enfin été retrouvée — corrige le prix du Sabre de Cathay du Capitaine (désormais fixe) et empêche de recruter un Tigre à Sabre sans Guide de Montagne vivant dans la bande, conformément aux règles.",
       },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Morts Sans Repos : les Gardes Funéraires et Spectres promus Héros ne peuvent plus chercher d'objet rare (règle « Aucun Marché » enfin appliquée), et un rappel de la règle Fureteur du Nécromancien (3D6, garde les 2 meilleurs) s'affiche lors de la recherche.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "La pénalité de -1 Mouvement pour le port simultané d'une armure lourde et d'un bouclier est désormais automatique, et disparaît dès que l'un des deux est retiré (les bandes naines en restent exemptées).",
+      },
+      {
+        categorie: 'interface',
+        texte:
+          "Un objet du stock d'armurerie de bande sans aucun porteur éligible affiche maintenant un avertissement rouge explicite, à la place du bouton simplement grisé.",
+      },
+      {
+        categorie: 'interface',
+        texte:
+          "L'étape équipement du recrutement affiche le détail complet des coûts (trésorerie de départ, coût du profil, chaque objet acheté), et annuler un recrutement en cours demande désormais confirmation avant de tout perdre.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Morts Sans Repos : le Goliath d'Os peut être recruté dès la création de la bande, sans coût en Points de Vie pour la Liche dans ce cas précis (contrairement à un Goliath construit plus tard en campagne via Franc-Tireur).",
+      },
+      {
+        categorie: 'interface',
+        texte:
+          "Le sélecteur de langue FR/EN a été déplacé dans le menu Réglages (roue crantée) ; le bouton en haut à droite du bandeau ouvre désormais une page de référence dédiée à la bande consultée (règles spéciales, équipement, magie et francs-tireurs disponibles).",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Les francs-tireurs affichent enfin le montant réel de leur entretien (au recrutement et sur leur fiche une fois engagés), à la place d'un texte générique qui ne le précisait pas.",
+      },
     ],
   },
   {

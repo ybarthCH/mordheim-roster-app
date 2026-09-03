@@ -22,6 +22,13 @@ const changelogEn: Record<string, string[]> = {
     'Slayer Cult Warband: Stubbles gains Hatred of Orcs and Goblins like the other named Slayers, and the warband can now hire a Bard.',
     'Fixed a purchase bug for a Henchman group manually enlarged (via the group-size field): buying missing equipment to complete it no longer buys a whole extra batch by mistake.',
     "Maneaters: the warband's full source material has finally been found — fixes the Captain's Cathayan Longsword price (now fixed) and stops a Sabretusk from being recruited without a living Mountain Guide in the warband, as the rules require.",
+    'Restless Dead: promoted Grave Guards and Ghosts can no longer search for rare items (the "No Deal" rule is finally enforced), and a reminder of the Necromancer\'s Gofer rule (roll 3D6, keep the 2 best) is shown during the search.',
+    'The -1 Movement penalty for wearing heavy armour and a shield at the same time is now automatic, and disappears as soon as either one is removed (Dwarf warbands remain exempt).',
+    'A warband armoury item with no eligible bearer now shows an explicit red warning, instead of a simply greyed-out button.',
+    'The equipment step of recruitment now shows a full cost breakdown (starting treasury, profile cost, each item bought), and cancelling a recruitment in progress now asks for confirmation before losing everything.',
+    'Restless Dead: the Bone Goliath can now be recruited right at warband creation, at no Wound cost to the Liche in that specific case (unlike a Goliath built later in the campaign via a Hired Sword).',
+    'The FR/EN language switch has moved into the Settings menu (gear icon); the button in the top-right of the header now opens a reference page dedicated to the warband being viewed (special rules, equipment, magic, and available hired swords).',
+    'Hired Swords finally show their actual upkeep amount (at recruitment and on their sheet once hired), instead of generic text that never stated it.',
   ],
   '2026-09-01': [
     'Fixed an important bug: the "Refresh" button on the update banner could stay unresponsive on a tab left open for a while (the tap did trigger the update behind the scenes, but the screen never reloaded on its own) — now reliable.',
