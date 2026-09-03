@@ -23,6 +23,7 @@ import {
   construireObjetMateriau,
   MATERIAUX,
   estAchatObjetPrivilegieEntree,
+  quantiteAchatGroupe,
 } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
@@ -137,6 +138,10 @@ const ID_DAGUE = 'dague';
 // qu'à un achat pour un membre précis (xpMembre fourni) — l'armurerie de
 // bande n'est pas concernée.
 const ID_ARMURE_DU_CHAOS = 'armure_du_chaos_market';
+// "Le coût de l'exosquelette est réduit d'1 CO pour chaque point
+// d'expérience possédé par le Héros" (Nains du Chaos) — même mécanique de
+// réduction par XP que l'Armure du Chaos, voir coutReduitArmureDuChaos.
+const ID_EXOSQUELETTE = 'exosquelette';
 
 function synopsis(texte: string | null | undefined): string | null {
   if (!texte) return null;
@@ -211,12 +216,19 @@ export function AchatEquipementContenu({
 
   const rareteActive = masquerObjetsRares && !gratuit;
 
+  // "Les mutations ne peuvent être achetées [...] que lors du recrutement"
+  // (Profile.mutations_uniquement_au_recrutement, ex : Culte des Possédés) —
+  // resterOuvertApresAchat n'est vrai que depuis le flux de recrutement
+  // (AjouterMembreModal), seul signal disponible pour distinguer ce contexte
+  // de l'armurerie post-recrutement (PersonnageScreen).
+  const masquerMutationsHorsRecrutement = !!profil?.mutations_uniquement_au_recrutement && !resterOuvertApresAchat;
   const itemsBandeBase = useMemo(
-    () => [
-      ...getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel, rules, marqueId),
-      ...objetsPersonnalisesEnShopItems(objetsPersonnalises),
-    ],
-    [catalogue, profil, competencesAcquises, inventaireActuel, rules, marqueId, objetsPersonnalises]
+    () =>
+      [
+        ...getEquipementBande(catalogue, profil ?? null, competencesAcquises, inventaireActuel, rules, marqueId),
+        ...objetsPersonnalisesEnShopItems(objetsPersonnalises),
+      ].filter((item) => !masquerMutationsHorsRecrutement || item.categorie !== 'mutations'),
+    [catalogue, profil, competencesAcquises, inventaireActuel, rules, marqueId, objetsPersonnalises, masquerMutationsHorsRecrutement]
   );
   const itemsBande = useMemo(() => {
     const liste = avecSurcharges(itemsBandeBase, objetsSurcharges);
@@ -285,7 +297,7 @@ export function AchatEquipementContenu({
     !gratuit && !!profil && item.id === ID_DAGUE && !dagueDejaPossedee;
 
   const coutReduitArmureDuChaos = (item: Pick<ShopItem, 'id' | 'cout' | 'cout_fixe'>) =>
-    item.id === ID_ARMURE_DU_CHAOS && item.cout_fixe && typeof item.cout === 'number'
+    (item.id === ID_ARMURE_DU_CHAOS || item.id === ID_EXOSQUELETTE) && item.cout_fixe && typeof item.cout === 'number'
       ? Math.max(0, item.cout - (xpMembre ?? 0))
       : null;
 
@@ -347,7 +359,10 @@ export function AchatEquipementContenu({
     materiauSelectionne && baseMateriauChoisie && coutBaseValide
       ? construireObjetMateriau(baseMateriauChoisie, materiauSelectionne, coutBase)
       : null;
-  const coutTotalMateriau = objetMateriauCombine ? (objetMateriauCombine.cout as number) * tailleGroupe : 0;
+  const quantiteAAcheterMateriau = objetMateriauCombine
+    ? quantiteAchatGroupe(inventaireActuel, objetMateriauCombine.id, tailleGroupe)
+    : tailleGroupe;
+  const coutTotalMateriau = objetMateriauCombine ? (objetMateriauCombine.cout as number) * quantiteAAcheterMateriau : 0;
   const budgetMateriauSuffisant = gratuit || coutTotalMateriau <= tresorerie;
 
   const choisirBaseMateriau = (base: ShopItem) => {
@@ -379,7 +394,14 @@ export function AchatEquipementContenu({
 
   const cout = Number(coutSaisi);
   const coutValide = coutSaisi.trim() !== '' && !Number.isNaN(cout) && cout >= 0;
-  const coutTotal = cout * tailleGroupe;
+  // Nombre réel d'exemplaires ajoutés par cet achat (voir appliquerAchatSurMembre
+  // dans utils/shop.ts, qui applique le même calcul) : un lot complet de
+  // `tailleGroupe`, sauf si ce même objet est déjà présent en quantité non
+  // multiple de la taille du groupe (groupe agrandi manuellement sans passer
+  // par "Recruter dans le groupe"), auquel cas seul le complément nécessaire
+  // pour uniformiser le lot est acheté.
+  const quantiteAAcheter = itemSelectionne ? quantiteAchatGroupe(inventaireActuel, itemSelectionne.id, tailleGroupe) : tailleGroupe;
+  const coutTotal = cout * quantiteAAcheter;
   const trinketLimite =
     !!itemSelectionne &&
     rules.trinketsLimites &&
@@ -395,7 +417,7 @@ export function AchatEquipementContenu({
   const limitePlafondGroupe =
     !!refPlafondGroupe &&
     !!roster &&
-    comptePlafondGroupe(catalogue, roster, refPlafondGroupe.id) + tailleGroupe > refPlafondGroupe.max;
+    comptePlafondGroupe(catalogue, roster, refPlafondGroupe.id) + quantiteAAcheter > refPlafondGroupe.max;
   const limiteAtteinte = trinketLimite || limiteUniqueBande || limitePlafondGroupe;
 
   const confirmer = () => {
@@ -667,8 +689,11 @@ export function AchatEquipementContenu({
               {!gratuit && tailleGroupe > 1 && coutBaseValide && (
                 <p className="text-sm">
                   {t('achatEquipement.groupOfPrefix')} {tailleGroupe} {t('achatEquipement.identicalModelsMiddle')}{' '}
-                  {tailleGroupe} {t('achatEquipement.copiesBoughtForMiddle')} {coutTotalMateriau} {t('creation.gc')}
+                  {quantiteAAcheterMateriau} {t('achatEquipement.copiesBoughtForMiddle')} {coutTotalMateriau} {t('creation.gc')}
                 </p>
+              )}
+              {!gratuit && tailleGroupe > 1 && coutBaseValide && quantiteAAcheterMateriau < tailleGroupe && (
+                <p className="text-sm text-muted">{t('achatEquipement.completingGroupNote')}</p>
               )}
               {!gratuit && coutBaseValide && !budgetMateriauSuffisant && (
                 <p className="text-danger text-sm">{t('achatEquipement.insufficientTreasury', { tresorerie })}</p>
@@ -986,9 +1011,12 @@ export function AchatEquipementContenu({
               {!gratuit && tailleGroupe > 1 && coutValide && (
                 <p className="text-sm text-muted">
                   {t('achatEquipement.groupOfPrefix')} {tailleGroupe} {t('achatEquipement.identicalModelsMiddle')}{' '}
-                  {tailleGroupe} {t('achatEquipement.copiesBoughtForMiddle')} {coutTotal} {t('creation.gc')}{' '}
+                  {quantiteAAcheter} {t('achatEquipement.copiesBoughtForMiddle')} {coutTotal} {t('creation.gc')}{' '}
                   {t('achatEquipement.totalSuffix')}
                 </p>
+              )}
+              {!gratuit && tailleGroupe > 1 && coutValide && quantiteAAcheter < tailleGroupe && (
+                <p className="text-sm text-muted">{t('achatEquipement.completingGroupNote')}</p>
               )}
               {!gratuit && coutValide && coutTotal > tresorerie && (
                 <p className="text-danger text-sm">{t('achatEquipement.insufficientTreasury', { tresorerie })}</p>

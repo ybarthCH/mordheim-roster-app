@@ -117,6 +117,7 @@
       "acces_equipement": ["gobelins"],
       "acces_competences_a_verifier": false,
       "ne_peut_jamais_devenir_heros": true,
+      "jamais_heros_consequence": "Le Chef le tue sur-le-champ : efface-le manuellement de la feuille de bande.",
       "plafond_relatif": { "profils": ["chef_orque", "chamane_orque", "kosto", "boyz_orque"], "multiplicateur": 2, "label": "Guerriers Gobelins" }
     },
     {

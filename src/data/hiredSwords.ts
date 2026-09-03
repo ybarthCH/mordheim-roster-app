@@ -560,8 +560,9 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 8,
     employeurs: {
-      bande_ids: uniques([...MERCENAIRES, 'pirates', 'sisters_of_sigmar', 'witch_hunters']),
-      texte: 'Les Mercenaires, les Pirates, les Sœurs de Sigmar et les Répurgateurs.',
+      bande_ids: uniques([...MERCENAIRES, 'pirates', 'sisters_of_sigmar', 'witch_hunters', 'culte_des_tueurs']),
+      texte:
+        'Les Mercenaires, les Pirates, les Sœurs de Sigmar, les Répurgateurs et le Culte des Tueurs (dont la règle spéciale "Registres de Secours" présuppose cet accès : le Barde gagne alors la capacité "Registre de Bravoure" du Mémorialiste).',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 3, E: 3, PV: 1, I: 3, A: 1, Cd: 7 },
     equipement: ['Épée', 'Dague', 'Armure légère'],
@@ -2203,6 +2204,23 @@ const RESTRICTIONS_ABSOLUES: Record<string, Set<string>> = {
     'gladiateur',
     'ogre',
     'mage',
+    'sorciere',
+    'assassin_imperial',
+    'eclaireur_hobgobelin',
+    'guide_lustrien',
+  ]),
+  // "Hired Swords: A Chaos Dwarf warband may hire the following Hired
+  // Swords: Ogre Bodyguard, Pit Fighter, Warlock, Imperial Assassin, and
+  // Hobgoblin Scout. They may hire any Hired Sword described as 'all may
+  // hire,' or allowed by Orc warbands and Chaos warbands. They may never
+  // hire Elves of any sort!" (Sons of Hashut, p.1) — même structure de
+  // règle que Nains du Chaos (autre bande de Nains du Chaos, "A Chaos
+  // Dwarf warband"), même liste blanche.
+  fils_dhashut: new Set([
+    'gladiateur',
+    'ogre',
+    'mage',
+    'sorciere',
     'assassin_imperial',
     'eclaireur_hobgobelin',
     'guide_lustrien',
@@ -2214,7 +2232,7 @@ function appliquerRestrictionsDeBande(profil: FrancTireurCatalog): FrancTireurCa
     const restriction = RESTRICTIONS_ABSOLUES[id];
     if (restriction && !restriction.has(profil.id)) return false;
     if (
-      (id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs' || id === 'nains_du_chaos') &&
+      (id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs' || id === 'nains_du_chaos' || id === 'fils_dhashut') &&
       profil.tags?.includes('elfe')
     )
       return false;
@@ -2237,7 +2255,7 @@ function appliquerRestrictionsDeBandeDP(profil: FrancTireurCatalog): FrancTireur
     // RecruterFrancTireurScreen (qui liste FRANCS_TIREURS en entier) reste
     // cohérent avec dramatisPersonaeDisponibles (dramatisPersonae.ts).
     if (
-      (id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs' || id === 'nains_du_chaos') &&
+      (id === 'dwarf_treasure_hunters' || id === 'culte_des_tueurs' || id === 'nains_du_chaos' || id === 'fils_dhashut') &&
       profil.tags?.includes('elfe')
     )
       return false;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
-import { effectifTotal } from '../../utils/bandeValue';
+import { effectifPourVenteWyrdstone } from '../../utils/bandeValue';
 import {
   COLONNES_GUERRIERS,
   TABLE_VENTE_WYRDSTONE,
@@ -70,7 +70,10 @@ export function EtapeExploration({
     onNotesExplorationChange(`${notesExploration}${notesExploration ? '\n' : ''}${texte}`);
   };
   const palierActif = TABLE_FRAGMENTS_TROUVES.findIndex((p) => p.fragments === wyrdstoneTrouve);
-  const nbGuerriers = effectifTotal(roster);
+  // effectifPourVenteWyrdstone plutôt qu'effectifTotal : chaque Ogre
+  // (Mangeurs d'Hommes, "Gloutonnerie") y compte double — doit rester
+  // synchronisé avec le prixVente calculé dans PostBatailleScreen.tsx.
+  const nbGuerriers = effectifPourVenteWyrdstone(roster);
   const colonneActive = indexColonneGuerriers(nbGuerriers);
   const ligneActive = quantiteVendue > 0 ? indexLigneFragments(quantiteVendue) : -1;
   const prixSuggere = quantiteVendue > 0 ? prixVenteWyrdstone(quantiteVendue, nbGuerriers) : 0;

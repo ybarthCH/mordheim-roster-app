@@ -224,8 +224,9 @@ export function RechercheObjetRareModal({
     if (item?.cout_fixe && typeof item.cout === 'number') {
       // "Le coût d'une armure du Chaos est réduit d'1 CO pour chaque point
       // d'expérience possédé par le Héros." (armures.json, "Coût" de
-      // l'Armure du Chaos).
-      const reduction = item.id === 'armure_du_chaos_market' ? membre.xp : 0;
+      // l'Armure du Chaos) — même mécanique pour l'Exosquelette (Nains du
+      // Chaos, "Coût").
+      const reduction = item.id === 'armure_du_chaos_market' || item.id === 'exosquelette' ? membre.xp : 0;
       setCoutSaisi(String(Math.max(0, item.cout - reduction)));
     }
   };

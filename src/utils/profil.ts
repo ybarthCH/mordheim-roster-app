@@ -160,6 +160,12 @@ export function transformationDisponible(profil: Profile, membre: Member, roster
   if (transformation.necessite_caracteristique_variable && Object.keys(membre.stats_variables ?? {}).length === 0) {
     return false;
   }
+  if (transformation.max_cible_vivante != null) {
+    const vivants = roster.membres.filter(
+      (m) => m.profil_id === transformation.cible && m.statut !== 'mort'
+    ).length;
+    if (vivants >= transformation.max_cible_vivante) return false;
+  }
   return true;
 }
 

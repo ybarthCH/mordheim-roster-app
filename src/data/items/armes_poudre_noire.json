@@ -239,14 +239,13 @@
   {
     "id": "tromblon_nain_du_chaos", "nom": "Tromblon Nain du Chaos", "categorie": "armes_poudre_noire",
     "cout": 40, "cout_fixe": true, "prix_poudre_noire_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Nains du Chaos uniquement",
-    "note_maison": "Prix fixe à 40 CO, non affecté par la règle avancée de poudre noire (l'arme joue déjà systématiquement les incidents de tir, voir sa règle spéciale). Remplace le Tromblon normal pour cette bande.",
-    "acces": ["nains_du_chaos", "fils_dhashut"], "source": "FH (Fils d'Hashut)", "page": 29,
+    "note_maison": "Prix fixe à 40 CO, non affecté par la règle avancée de poudre noire. Remplace le Tromblon normal pour cette bande.",
+    "acces": ["nains_du_chaos", "fils_dhashut"], "source": "FH (Fils d'Hashut)", "page": 3,
     "texte": "Les Nains du Chaos sont réputés pour utiliser un grand nombre de ces fameux tromblons contre leurs troupes d'infanterie. Ils emploient la même tactique dans les combats de rue à Mordheim.",
     "portee": "16ps", "force": "3",
     "regles_speciales": [
       { "nom": "Décharge", "texte": "Lorsque l'arme fait feu, tracez une ligne de 16ps de long et de 1ps de large dans n'importe quelle direction. Toutes les figurines se trouvant sur son chemin sont automatiquement touchées par une touche de Force 3." },
-      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." },
-      { "nom": "Incidents de tir systématiques", "texte": "Contrairement aux autres armes à poudre noire, ce tromblon joue toujours avec les règles optionnelles des incidents de tir, même si elles ne sont pas utilisées dans la campagne : avant de tirer, lancez 1D6 — sur un résultat de 1, résolvez un incident de tir sur la table dédiée." }
+      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme, qui ne peut donc tirer qu'un tour sur deux." }
     ]
   },
   {
@@ -265,7 +264,7 @@
   {
     "id": "pistolet_double_canon", "nom": "Pistolet à double canon", "categorie": "armes_poudre_noire",
     "cout": 20, "cout_officiel": 30, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9",
-    "note_maison": "Prix officiel 30 CO, réduit à 20 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée.",
+    "note_maison": "Prix officiel 30 CO, réduit à 20 CO (~33% moins cher, arrondi au multiple de 5) lorsque la règle avancée de poudre noire est activée. Rareté (9) : convention maison, la source 'BTB' (Border Town Burning) citée n'a jamais été retrouvée dans le dépôt de référence — le PDF Artilleurs de Nuln [GLM] ne donne aucune rareté pour cet objet (audit du 1er septembre 2026).",
     "acces": ["ostlanders", "artilleurs_de_nuln"], "source": "BTB", "page": 24,
     "texte": "Un pistolet doté de deux canons superposés, permettant de tirer deux coups avant de devoir recharger. Plus lourd et moins fiable qu'un pistolet simple.",
     "portee": "6ps", "force": "4",
@@ -277,7 +276,7 @@
   {
     "id": "pistolet_double_canon_paire", "nom": "Paire de pistolets à double canon", "categorie": "armes_poudre_noire",
     "cout": 40, "cout_officiel": 60, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9",
-    "note_maison": "Représente l'achat de la paire en un seul objet — un seul jet de recherche rareté, une seule place d'inventaire — plutôt que deux pistolets à double canon achetés séparément. Prix doublé par rapport au pistolet seul (officiel 60 CO, réduit à 40 CO avec la règle avancée de poudre noire) ; caractéristiques et règles identiques, voir « pistolet à double canon ».",
+    "note_maison": "Représente l'achat de la paire en un seul objet — un seul jet de recherche rareté, une seule place d'inventaire — plutôt que deux pistolets à double canon achetés séparément. Prix doublé par rapport au pistolet seul (officiel 60 CO, réduit à 40 CO avec la règle avancée de poudre noire) ; caractéristiques et règles identiques, voir « pistolet à double canon ». Rareté (9) : convention maison, même réserve de source que le pistolet seul (voir sa note).",
     "acces": ["ostlanders", "artilleurs_de_nuln"], "source": "BTB", "page": 24,
     "texte": "Un pistolet doté de deux canons superposés, permettant de tirer deux coups avant de devoir recharger. Plus lourd et moins fiable qu'un pistolet simple.",
     "portee": "6ps", "force": "4",
@@ -303,6 +302,7 @@
   {
     "id": "pistolet_duel_double_canon", "nom": "Pistolet de duel à double canon", "categorie": "armes_poudre_noire",
     "cout": 35, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Artilleurs de Nuln uniquement (65 CO la paire)",
+    "note_maison": "Rareté (10) : convention maison — le PDF Artilleurs de Nuln [GLM] cité en source ne donne aucune colonne de rareté pour cet objet (audit du 1er septembre 2026).",
     "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 28,
     "texte": "Une variante à deux canons du pistolet de duel, aussi précieuse que délicate à entretenir. Éligible à l'option double canon.",
     "portee": "C à C/10ps", "force": "4",
@@ -316,7 +316,7 @@
   {
     "id": "pistolet_duel_double_canon_paire", "nom": "Paire de pistolets de duel à double canon", "categorie": "armes_poudre_noire",
     "cout": 70, "cout_fixe": true, "rarete": "10", "disponibilite": "Rare 10, Artilleurs de Nuln uniquement",
-    "note_maison": "Représente l'achat de la paire en un seul objet — un seul jet de recherche rareté, une seule place d'inventaire — plutôt que deux pistolets de duel à double canon achetés séparément. Prix doublé par rapport au pistolet seul (35 CO) ; caractéristiques et règles identiques, voir « pistolet de duel à double canon ».",
+    "note_maison": "Représente l'achat de la paire en un seul objet — un seul jet de recherche rareté, une seule place d'inventaire — plutôt que deux pistolets de duel à double canon achetés séparément. Prix doublé par rapport au pistolet seul (35 CO) ; caractéristiques et règles identiques, voir « pistolet de duel à double canon ». Rareté (10) : convention maison, même réserve de source que le pistolet seul (voir sa note).",
     "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 28,
     "texte": "Une variante à deux canons du pistolet de duel, aussi précieuse que délicate à entretenir. Éligible à l'option double canon.",
     "portee": "C à C/10ps", "force": "4",
@@ -330,6 +330,7 @@
   {
     "id": "arquebuse_double_canon", "nom": "Arquebuse à double canon", "categorie": "armes_poudre_noire",
     "cout": 45, "cout_fixe": true, "rarete": "9", "disponibilite": "Rare 9, Artilleurs de Nuln uniquement",
+    "note_maison": "Rareté (9) : convention maison — le PDF Artilleurs de Nuln [GLM] cité en source ne donne aucune colonne de rareté pour cet objet (audit du 1er septembre 2026).",
     "acces": ["artilleurs_de_nuln"], "source": "AN (Artilleurs de Nuln)", "page": 24,
     "texte": "Une arquebuse dotée d'une paire de canons, capable de perforer les armures les plus épaisses. Éligible à l'option double canon.",
     "portee": "24ps", "force": "4",

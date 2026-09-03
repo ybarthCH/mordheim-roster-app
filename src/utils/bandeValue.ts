@@ -38,6 +38,27 @@ export function effectifTotal(roster: RosterInstance): number {
 }
 
 /**
+ * Nombre de guerriers à utiliser pour la table de vente de pierre de sorcier
+ * (data/tableVenteWyrdstone) : identique à effectifTotal, sauf que chaque
+ * figurine marquée `compte_double_vente_wyrdstone` (Profile.
+ * compte_double_vente_wyrdstone, ex : les Ogres des Mangeurs d'Hommes,
+ * règle "Gloutonnerie") ajoute un guerrier supplémentaire à ce total, pour
+ * qu'elle compte double dans ce calcul précis. N'affecte aucun autre usage
+ * d'effectifTotal (effectif max, dés d'Exploration...).
+ */
+export function effectifPourVenteWyrdstone(roster: RosterInstance): number {
+  const catalogue = getCatalogue(roster.bande_id);
+  const profilsDouble = new Set(
+    catalogue?.profils.filter((p) => p.compte_double_vente_wyrdstone).map((p) => p.id) ?? []
+  );
+  if (profilsDouble.size === 0) return effectifTotal(roster);
+  const bonus = roster.membres
+    .filter((m) => m.statut !== 'mort' && !estFrancTireur(m) && profilsDouble.has(m.profil_id))
+    .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
+  return effectifTotal(roster) + bonus;
+}
+
+/**
  * Nombre de francs-tireurs encore actifs (non-morts) — volontairement
  * exclus d'effectifTotal (règle imprimée : ne comptent pas dans l'effectif
  * maximum autorisé de la bande), mais bien présents sur la table de jeu.

@@ -169,6 +169,7 @@
       ],
       "acces_competences": [],
       "ne_peut_jamais_devenir_heros": true,
+      "jamais_heros_consequence": "Relance le jet une fois sur ta table papier ; si ce second jet redonne ce résultat, applique-lui immédiatement un jet sur la table des Blessures Graves, comme pour un Héros.",
       "acces_equipement": ["souffre_douleurs"],
       "acces_competences_a_verifier": false
     },

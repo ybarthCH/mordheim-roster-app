@@ -287,6 +287,7 @@
     {
       "item_id": "destriers",
       "cout": 40,
+      "rarete": "-",
       "disponibilite": "Chevaliers d'Avant-garde uniquement",
       "profils": ["chevalier_avant_garde"]
     },

@@ -139,7 +139,8 @@
       "xp_depart": 0,
       "stats": { "M": 3, "CC": 3, "CT": 2, "F": 3, "E": 4, "PV": 1, "I": 2, "A": 1, "Cd": 8 },
       "regles_speciales": [
-        { "nom": "Novices", "texte": "Tueurs fraîchement initiés, les Barbes-Naissantes ne possèdent pas encore la compétence « Vœu de Mort » et subissent normalement les effets de la psychologie. Lorsqu'une Barbe-Naissante obtient le résultat « Ce gars est doué », elle DOIT apprendre la compétence « Vœu de Mort » au lieu d'effectuer un jet normal sur le tableau d'avancement des Héros." }
+        { "nom": "Novices", "texte": "Tueurs fraîchement initiés, les Barbes-Naissantes ne possèdent pas encore la compétence « Vœu de Mort » et subissent normalement les effets de la psychologie. Lorsqu'une Barbe-Naissante obtient le résultat « Ce gars est doué », elle DOIT apprendre la compétence « Vœu de Mort » au lieu d'effectuer un jet normal sur le tableau d'avancement des Héros." },
+        { "nom": "Haine des Orques et des Gobelins", "texte": "Voue une Haine inébranlable aux Orques et aux Gobelins. Ceci est ignoré si le guerrier devient par la suite Immunisé à la Psychologie." }
       ],
       "acces_competences": [],
       "acces_equipement": ["tueurs"],

@@ -2,7 +2,7 @@
   "id": "fils_dhashut",
   "nom": "Fils d'Hashut (1c)",
   "grade": "1c",
-  "source": "GW Troll Magazine (Espagne) — La Grande Librairie de Mordheim",
+  "source": "The Sons of Hashut, GW Troll Magazine (Espagne), traduit/édité par Hernán « Moska » García et Dave « StyrofoamKing » Seidman-Joria",
   "banniere": "bandes/fils_dhashut.webp",
   "regles_speciales": [
     { "nom": "Tête dure", "texte": "Les Nains du Chaos ignorent les règles spéciales pour les masses, marteaux, etc. Ils ne sont pas faciles à assommer !", "exception": "Ne s'applique pas aux Hobgobelins ni au Centaure-Taureau" },
@@ -57,7 +57,7 @@
       ],
       "acces_competences": ["combat", "force", "special"],
       "acces_equipement": ["nains_du_chaos"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "champion",

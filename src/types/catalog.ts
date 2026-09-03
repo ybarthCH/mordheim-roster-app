@@ -161,6 +161,16 @@ export type Profile = {
   // aux arcs pour cette bande) n'est jamais concernée par ce champ — seul
   // le shop commun, qui propose d'autres armes de tir, en a besoin.
   armes_tir_commun_interdit_non_levable?: boolean;
+  // Compte pour deux figurines (en plus de lui-même, donc +1 net par
+  // figurine du groupe) dans le calcul du nombre de guerriers utilisé pour
+  // la table de vente de pierre de sorcier/trésors — ex : Mangeurs
+  // d'Hommes, règle "Gloutonnerie" : "Chaque Ogre compte comme deux
+  // figurines lors de la vente de pierre magique ou de trésors." N'affecte
+  // QUE ce calcul de prix (voir effectifPourVenteWyrdstone, utils/
+  // bandeValue.ts) — effectifTotal lui-même (effectif max, dés
+  // d'Exploration...) reste inchangé, seule la colonne de la table de vente
+  // en est décalée (bande jugée plus nombreuse donc moins bien négociée).
+  compte_double_vente_wyrdstone?: boolean;
   // Entretien post-bataille pour un profil recruté DIRECTEMENT dans la bande
   // (pas un franc-tireur) — ex : le Troll d'Orc Mob, "Toujours Faim : la
   // bande doit dépenser 15 CO après chaque bataille pour nourrir le Troll
@@ -210,6 +220,16 @@ export type Profile = {
     // de swap de profil) plutôt que la transformation habituelle — voir
     // TransformationModal/transformerProfil.
     bloque_si_profil_vivant?: string;
+    // Nombre maximum d'exemplaires vivants de `cible` tolérés simultanément
+    // dans la bande — au-delà, le bouton de transformation devient
+    // indisponible (contrairement à `bloque_si_profil_vivant`, qui transforme
+    // le bouton en un simple retrait de bande : ici, rien ne se passe tant
+    // qu'un exemplaire n'est pas mort/retiré). Ex : le Rat Familier des
+    // Skavens Pestilens, "un Prêcheur-Sorcier Pestilens ne peut avoir qu'un
+    // seul Rat Familier à la fois" — sans ce champ, rien n'empêchait de
+    // transformer plusieurs Rats géants en parallèle. Absent = pas de
+    // limite (comportement historique, inchangé pour les autres bandes).
+    max_cible_vivante?: number;
   };
   cout: number | null;
   // Notation de dés affichée quand `cout` est variable (donc null, ex :
@@ -394,6 +414,24 @@ export type Profile = {
   // (Maraudeurs du Chaos, Pillards Hommes-Bêtes) : cette compétence se
   // prend en avancée, hors du flux de recrutement que ce champ contrôle.
   mutation_requise_au_recrutement?: boolean;
+  // "Les mutations ne peuvent être achetées par un mutant ou un possédé que
+  // lors du recrutement ; vous ne pourrez plus acheter de nouvelles
+  // mutations après le recrutement." (Culte des Possédés) — masque les
+  // objets categorie "mutations" de l'armurerie (AchatEquipementModal en
+  // dehors du flux de recrutement, voir resterOuvertApresAchat, seul signal
+  // disponible pour distinguer les deux contextes). Distinct de
+  // mutation_requise_au_recrutement (qui rend l'achat obligatoire, pas
+  // seulement limité dans le temps) et n'affecte PAS la compétence "Mutant"
+  // (Maraudeurs du Chaos, Pillards Hommes-Bêtes), qui donne accès aux
+  // mutations en avancée — poser ce champ sur ces bandes bloquerait à tort
+  // cette voie légitime, ne jamais l'y appliquer.
+  mutations_uniquement_au_recrutement?: boolean;
+  // Profil jamais recrutable directement depuis le sélecteur "Recruter un
+  // nouveau membre" — obtenu uniquement par un autre mécanisme (ici, une
+  // transformation, voir Profile.transformation sur le profil source). Ex :
+  // le Rat Familier des Skavens Pestilens, "obtenu en transformant un Rat
+  // géant déjà présent dans la bande" — jamais un recrutement direct.
+  recrutement_direct_interdit?: boolean;
   // Empêche définitivement ce profil de déclencher "Ce gars est doué"/Lads
   // Got Talent : l'entrée Promotion reste visible mais désactivée sur la
   // table d'avancement (voir AvanceeModal), le joueur doit relancer
@@ -402,6 +440,17 @@ export type Profile = {
   // ("Cerveau champignon"), ou un Squig des Cavernes désigné Entraîné (voir
   // designation_entrainee juste en dessous).
   ne_peut_jamais_devenir_heros?: boolean;
+  // Remplace le texte générique affiché par ne_peut_jamais_devenir_heros
+  // ("relance physiquement pour obtenir un autre résultat") quand la
+  // conséquence réelle du résultat "Ce gars est doué" pour ce profil n'est
+  // PAS une simple relance — ex. l'Esclave des Pillards de Tombes Arabes
+  // ("le chef l'exécute aussitôt... le reste du groupe peut alors relancer
+  // son avancée") ou le Guerrier Gobelin d'Orc Mob ("le Chef le tue sur-le-
+  // champ"), où affirmer une simple relance induirait le joueur en erreur.
+  // Absent = comportement par défaut (texte générique de simple relance),
+  // correct pour la majorité des profils portant ce flag. Voir
+  // AvanceeModal.tsx.
+  jamais_heros_consequence?: string;
   // Marque ce profil ('animal' normalement) comme pouvant être désigné
   // manuellement par le joueur — une figurine à la fois, isolée d'un groupe
   // (Member.taille_groupe === 1) — comme statut spécial (Member.

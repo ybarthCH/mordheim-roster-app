@@ -10,8 +10,9 @@
 //   humaine (Répurgateurs, Sœurs de Sigmar, Norses, Gladiateurs, Gardiens de
 //   Chapelle, Chasseurs de Trésors Lustriens...).
 // - Adeptes du Chaos : Kermesse du Chaos et autres Cultes du Chaos, Hommes-
-//   Bêtes, Maraudeurs du Chaos, Nains du Chaos. Les Skavens et Elfes Noirs
-//   n'en font PAS partie.
+//   Bêtes, Maraudeurs du Chaos, Nains du Chaos, Fils d'Hashut (bande de
+//   Nains du Chaos elle aussi — "A Chaos Dwarf warband"). Les Skavens et
+//   Elfes Noirs n'en font PAS partie.
 // - Bien : bandes alignées du côté du Bien (Mercenaires, Répurgateurs, Sœurs
 //   de Sigmar, Kislévites, Gardiens de Chapelle, Chasseurs de Trésors Nains).
 // - Toute bande possédant un Vampire, un Nécromancien ou une Liche est
@@ -90,6 +91,7 @@ export const CHAOS = [
   'cult_of_the_possessed',
   'maraudeurs_du_chaos',
   'nains_du_chaos',
+  'fils_dhashut',
 ];
 export const MERCENAIRES = [
   'reiklanders',

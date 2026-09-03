@@ -177,6 +177,12 @@ export const postBatailleShared: UiDictionary = {
     fr: 'Destin Cruel — transformé en Souffre-douleur, rejoint la bande sans frais.',
     en: 'Cruel Fate — turned into a Tormented One, joins the warband for free.',
   },
+  'postBataille.prisoners.devour': { fr: 'Gloutonnerie — dévoré par un Ogre (+1 XP)', en: 'Gluttony — devoured by an Ogre (+1 XP)' },
+  'postBataille.prisoners.confirmDevour': { fr: 'Dévorer (+1 XP)', en: 'Devour (+1 XP)' },
+  'postBataille.prisoners.devoured': {
+    fr: '{nom} dévore le captif et gagne 1 XP.',
+    en: '{nom} devours the captive and gains 1 XP.',
+  },
   'postBataille.prisoners.heroXpLabel': { fr: "Héros bénéficiaire de l'XP", en: 'Hero receiving the XP' },
   'postBataille.prisoners.rollObtainedD3': { fr: 'Jet obtenu (D3) :', en: 'Roll obtained (D3):' },
   'postBataille.prisoners.addXp': { fr: "Ajouter l'XP", en: 'Add the XP' },

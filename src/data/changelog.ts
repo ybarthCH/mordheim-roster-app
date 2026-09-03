@@ -33,6 +33,69 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-09-03',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Hommes-Lézards : les 3 Marques Sacrées (Glandes à Venin, Gueule Énorme, Marque des Anciens) sont enfin achetables, comme objets spéciaux réservés aux Héros concernés au recrutement.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Mangeurs d'Hommes : la règle \"Gloutonnerie\" est jouable — un Héros Ogre peut dévorer un captif obtenu après bataille ou même un camarade de bande (gain d'expérience, retrait du roster), et chaque Ogre compte double lors de la vente de pierre de sorcière ou de trésors.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte: "Pillards de Lustrie : le Maître des pièges peut acheter des Pièges (objet à usage unique) dans sa boutique.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Fils d'Hashut : la source complète de la bande a enfin été retrouvée — ferme une fuite qui laissait recruter des Francs-Tireurs interdits (Ninja, Chasseur, Prêtre-guerrier de Sigmar) et ajoute le bonus de +1 en Force manquant sur l'Arme en obsidienne.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte: "Nains du Chaos : la Sorcière peut désormais être engagée comme Franc-Tireur.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Le message affiché pour \"Ce gars est doué\" reflète maintenant la vraie conséquence de la règle pour les profils qui ne peuvent jamais devenir Héros (Esclave, Guerrier Gobelin, Souffre-douleur, Rat Familier), au lieu d'un message générique de relance parfois faux.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Correction de plusieurs objets spéciaux qui disparaissaient à tort de la boutique dès la première bataille disputée : Champignons bonnets de fou (Gobelins de la Nuit) et Destrier des Chevaliers d'Avant-garde (Caravanes Marchandes).",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Culte des Possédés : les mutations ne sont plus achetables après le recrutement, et un Possédé ne peut plus être équipé d'une monture, conformément aux règles.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Skavens du Clan Pestilens : le Rat Familier, plafonné par erreur à 0, peut de nouveau être obtenu par transformation du Rat Géant.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Nains du Chaos : l'Exosquelette et la Machine du Chaos affichaient parfois le mauvais prix dans la boutique commune ; la réduction de prix liée à l'expérience du Héros s'applique désormais aussi à l'Exosquelette. Le Tromblon perd sa règle \"Incidents de tir systématiques\", qui ne provenait d'aucune source retrouvée.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Culte des Tueurs : le Barbe-Naissante gagne la Haine des Orques et des Gobelins comme les autres Tueurs nommés, et la bande peut désormais engager un Barde.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Correction d'un bug d'achat pour un groupe d'hommes de main agrandi manuellement (via le champ de taille de groupe) : compléter l'équipement manquant n'en rachète plus tout un lot en trop.",
+      },
+    ],
+  },
+  {
     date: '2026-09-01',
     points: [
       {

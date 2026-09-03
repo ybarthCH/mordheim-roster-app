@@ -258,6 +258,7 @@
     { "item_id": "grenade_de_miragliano", "cout": "—", "disponibilite": "Maître des pièges uniquement", "profils": ["trap_master"] },
     { "item_id": "long_fusil_du_hochland", "cout": "—", "disponibilite": "Maître des pièges uniquement (Carabine de chasse tiléenne, fixe)", "profils": ["trap_master"] },
     { "item_id": "cape_elfique", "cout": "—", "disponibilite": "Maître des pièges uniquement (Manteau de feuilles, fixe)", "profils": ["trap_master"] },
+    { "item_id": "piege", "cout": 5, "disponibilite": "Maître des pièges uniquement — jusqu'à 5 par bataille en plus du premier, gratuit", "profils": ["trap_master"] },
     { "item_id": "cape_en_peau_des_hommes_lezards", "cout": 10, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },
     { "item_id": "masque_de_crane", "cout": 15, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },
     { "item_id": "lame_homme_lezard", "cout": 30, "disponibilite": "Tueur de Sauriens uniquement", "profils": ["saurus_slayer"] },

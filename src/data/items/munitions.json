@@ -96,6 +96,16 @@
     ]
   },
   {
+    "id": "piege", "nom": "Piège", "categorie": "munitions",
+    "cout": 5, "cout_fixe": true,
+    "disponibilite": "Maître des pièges (Pillards de Lustrie) uniquement — jusqu'à 5 par bataille en plus du premier, gratuit et non comptabilisé ici",
+    "acces": ["lustrian_reavers"], "source": "Lustrian Reavers V1.2 (LR)", "page": 6,
+    "texte": "Posé pendant la phase de Tir à la place d'un tir (ne peut pas être posé en cas de course), un seul à la fois, et ne peut pas être utilisé au corps à corps. À usage unique.",
+    "regles_speciales": [
+      { "nom": "Effet", "texte": "Placez deux marqueurs de 1 pouce de diamètre (un faux, un vrai) n'importe où à moins de 3ps du Maître des pièges, mais à au moins 3ps de toute autre figurine. Toute figurine se déplaçant à moins de 2ps d'un marqueur doit le retourner : un faux marqueur ne fait rien, un vrai inflige D3 touches de Force 5 (les pièges ne causent pas de coups critiques). Retirez les marqueurs une fois le piège déclenché." }
+    ]
+  },
+  {
     "id": "poudre_noire_superieure", "nom": "Poudre noire supérieure", "categorie": "munitions",
     "cout": 30, "cout_fixe": true, "rarete": "11", "disponibilite": "Rare 11",
     "acces": ["rare_11"], "source": "LdR", "page": 32,

@@ -137,3 +137,30 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Officiel
 - **Parties du code concernées** : `src/data/warbands/maraudeurs_du_chaos.json` (profil `enfant_du_chaos`, champ `stats.Cd`) — déjà à 10, aucun changement nécessaire.
 - **Date** : 2026-08-27
+
+### Nains du Chaos — accès Franc-Tireur Sorcière
+
+- **Question de règle** : la règle spéciale « Francs-Tireurs » des Nains du Chaos autorise « ceux permis aux bandes Orques et du Chaos », sans lister les noms un par un. La Sorcière ne figurait pas dans la liste blanche `RESTRICTIONS_ABSOLUES.nains_du_chaos`, alors qu'elle figure explicitement dans celle des Maraudeurs du Chaos (même catégorie interne « Adeptes du Chaos », `bandeCategories.ts`) et que son propre champ `employeurs.bande_ids` ("toute bande sauf Répurgateurs et Sœurs de Sigmar") ne l'exclut pas des Nains du Chaos.
+- **Source et page** : `Nains du Chaos [GLM].pdf`, p.1, règle spéciale « Francs-Tireurs » — aucune source ne nomme « Sorcière » explicitement pour cette bande (contrairement à Maraudeurs du Chaos où c'est nommé).
+- **Décision de Yannick** : ouvrir l'accès — lecture extensive de « bandes... du Chaos », alignée sur la liste déjà retenue pour les Maraudeurs du Chaos.
+- **Statut** : Maison (lecture extensive d'un texte qui ne le précise pas explicitement)
+- **Parties du code concernées** : `src/data/hiredSwords.ts` (`RESTRICTIONS_ABSOLUES.nains_du_chaos`, ajout de `'sorciere'`).
+- **Date** : 2026-09-01
+
+### Tromblon Nain du Chaos — règle « Incidents de tir systématiques »
+
+- **Question de règle** : l'app appliquait au Tromblon Nain du Chaos une règle spéciale absente de toute source retrouvée — un jet de 1D6 avant chaque tir (échec sur 1) forçant un incident de tir même hors règle optionnelle de campagne. Le PDF source complet de l'arme (« The Sons of Hashut »), fourni par Yannick, confirme tous les autres points (40 CO, Rare 9, portée 16ps, Force 3, Décharge, Rechargement) mais ne mentionne cette règle nulle part, et le changelog de l'éditeur du document détaille précisément ce qui a été changé sur l'arme sans jamais évoquer un mécanisme de raté.
+- **Source et page** : « The Sons of Hashut » (GW Troll Magazine Espagne, éd. Moska García & Styrofoam King), p.3 — silence total sur ce point.
+- **Décision de Yannick** : retirer la règle, faute de source.
+- **Statut** : Officiel (alignement strict sur la source retrouvée)
+- **Parties du code concernées** : `src/data/items/armes_poudre_noire.json` (`tromblon_nain_du_chaos.regles_speciales`, retrait de l'entrée « Incidents de tir systématiques » + `note_maison` nettoyée de la référence à cette règle) ; `src/i18n/data/items.ts` (retrait du miroir EN « Systematic Misfires »).
+- **Date** : 2026-09-02
+
+### Fils d'Hashut — accès à l'armure du Tromblonnier
+
+- **Question de règle** : la rubrique « Blunderbusster equipment lists » (p.2) n'imprime aucune section ARMOUR, contrairement aux 2 autres listes d'équipement de la bande qui en ont une — d'abord lu comme un simple silence de la source. Mais le texte du profil « 0·3 Blunderbuss Chaos Dwarfs » (Henchmen, p.4) dit explicitement : « Blunderbuss Chaos Dwarfs may be equipped with weapons chosen from the Blunderbuss Chaos Dwarf equipment lists » — exactement la même formule (« Weapons/Armour: ... weapons chosen from the [X] equipment lists ») que celle utilisée pour les 2 autres profils, dont la liste d'équipement imprime bien une rubrique ARMOUR. L'absence d'ARMOUR sous « Blunderbusster equipment lists » à la p.2 est donc une lacune de mise en page du document source, pas une restriction voulue — confirmé en croisant p.2 et p.4 du même PDF, pas une simple supposition sur un silence.
+- **Source et page** : « The Sons of Hashut » (GW Troll Magazine Espagne), p.2 (rubrique « Blunderbusster equipment lists », sans ARMOUR) et p.4 (profil « 0·3 Blunderbuss Chaos Dwarfs », formule Weapons/Armour identique aux autres profils).
+- **Décision de Yannick** : garder l'accès armure actuel (armure légère/armure lourde/casque) — confirmé conforme à la source une fois les deux pages croisées, pas une simple tolérance d'un silence.
+- **Statut** : Officiel (confirmé par recoupement interne au document, malgré la lacune de mise en page p.2)
+- **Parties du code concernées** : aucune — comportement de l'app déjà correct, aucun changement nécessaire.
+- **Date** : 2026-09-02

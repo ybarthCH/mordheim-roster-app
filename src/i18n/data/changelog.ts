@@ -8,6 +8,20 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-09-03': [
+    "Lizardmen: the 3 Sacred Markings (Venom Glands, Huge Gob, Mark of the Ancients) can finally be bought, as special items reserved for the Heroes who qualify for them at recruitment.",
+    'Maneaters: the "Gluttony" rule is now playable — an Ogre Hero can devour a captive obtained after battle, or even a warband-mate (gaining experience, removed from the roster), and each Ogre counts double when selling wyrdstone or treasure.',
+    'Lustrian Reavers: the Trap Master can now buy Traps (a one-use item) in his shop.',
+    "Sons of Hashut: the warband's full source material has finally been found — closes a leak that let forbidden Hired Swords (Ninja, Beast Hunter, Warrior Priest of Sigmar) be recruited, and adds the missing +1 Strength bonus on the Obsidian Weapon.",
+    'Chaos Dwarfs: the Witch can now be hired as a Hired Sword.',
+    'The message shown for "Lad\'s Got Talent" now reflects the real consequence of the rule for profiles who can never become a Hero (Slave, Goblin Warrior, Slaaneshi Wretch, Familiar Rat), instead of a generic reroll message that was sometimes wrong.',
+    'Fixed several special items that were wrongly disappearing from the shop as soon as the warband had fought its first battle: Mad Cap Mushrooms (Night Goblins) and the Knight Vanguard\'s Warhorse (Merchant Caravans).',
+    'Cult of the Possessed: mutations can no longer be bought after recruitment, and a Possessed can no longer be mounted, as the rules require.',
+    'Skaven of Clan Pestilens: the Familiar Rat, wrongly capped at 0, can once again be obtained by transforming a Giant Rat.',
+    'Chaos Dwarfs: the Exoskeleton and the Chaos Engine sometimes showed the wrong price in the common shop; the experience-based price reduction now also applies to the Exoskeleton. The Blunderbuss loses its "Systematic Misfires" rule, which came from no source ever found.',
+    'Slayer Cult Warband: Stubbles gains Hatred of Orcs and Goblins like the other named Slayers, and the warband can now hire a Bard.',
+    'Fixed a purchase bug for a Henchman group manually enlarged (via the group-size field): buying missing equipment to complete it no longer buys a whole extra batch by mistake.',
+  ],
   '2026-09-01': [
     'Fixed an important bug: the "Refresh" button on the update banner could stay unresponsive on a tab left open for a while (the tap did trigger the update behind the scenes, but the screen never reloaded on its own) — now reliable.',
     'Court of the Profane Pleasures: a new button lets you turn a captive obtained after battle into a Whipping Boy recruited into the warband for free ("Cruel Fate").',
