@@ -19,6 +19,7 @@ export type SettingsMenuItem =
       // rendue avec un switch à droite au lieu de se contenter d'afficher
       // `label`/`icon` comme les autres entrées.
       toggle: { checked: boolean; onLabel: string; offLabel: string };
+      icon?: IconName | PackIconName;
       label: string;
       onClick: () => void;
     };
@@ -79,6 +80,7 @@ export function SettingsMenu({ extraItems = [] }: Props) {
     {
       key: 'language',
       toggle: { checked: language === 'en', onLabel: 'EN', offLabel: 'FR' },
+      icon: 'globe' as const,
       label: t('settingsMenu.language'),
       onClick: () => setLanguage(language === 'fr' ? 'en' : 'fr'),
     },
@@ -131,7 +133,7 @@ export function SettingsMenu({ extraItems = [] }: Props) {
                       setOpen(false);
                     }}
                   >
-                    <span className="settings-menu__icon">{'icon' in item && <Icon name={item.icon} />}</span>
+                    <span className="settings-menu__icon">{item.icon && <Icon name={item.icon} />}</span>
                     <span className="settings-menu__text">{item.label}</span>
                     {item.toggle && (
                       <span className={`settings-menu__switch${item.toggle.checked ? ' settings-menu__switch--on' : ''}`}>
