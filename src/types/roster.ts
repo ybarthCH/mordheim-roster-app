@@ -50,11 +50,37 @@ export type SeriousInjuryEffect = {
   sous_jet_id?: string;
 };
 
+// Table papier utilisée pour le jet de traitement (voir utils/docteur.ts
+// resultatDocteur) — 'membres' pour une blessure à un membre (jambe/main),
+// 'tete' pour une blessure à la tête (folie/trouble nerveux).
+export type TableDocteur = 'membres' | 'tete';
+
+export type ActionDocteur =
+  | 'mort'
+  | 'amputation_jambe'
+  | 'amputation_main'
+  | 'inefficace_repos'
+  | 'inefficace'
+  | 'guerison_repos'
+  | 'guerison'
+  | 'stupidite'
+  | 'fou_furieux';
+
 export type DoctorTreatmentRecord = {
   date: string;
   jet: number;
+  // Titre/texte du résultat au moment de la consultation — figés dans la
+  // langue active à cet instant (voir resultatDocteur), jamais retraduits
+  // après coup : seul filet de sécurité pour les enregistrements créés avant
+  // l'ajout de `action`/`table` ci-dessous, ou si l'un des deux est absent.
   titre: string;
   texte: string;
+  // Action/table structurées, ajoutées après le premier lancement de cette
+  // fonctionnalité — permettent de retraduire fidèlement titre/texte à
+  // l'affichage si la langue a changé depuis (voir docteurModal.result.* et
+  // utils/docteur.ts). Absentes sur les enregistrements antérieurs.
+  action?: ActionDocteur;
+  table?: TableDocteur;
 };
 
 export type AdvanceRecord = {

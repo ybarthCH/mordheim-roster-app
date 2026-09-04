@@ -373,7 +373,8 @@ export function EtapeCommerce({
               blessureAffiche.id,
               effetId,
               jet,
-              dejaStupide(roster, membreDocteur)
+              dejaStupide(roster, membreDocteur),
+              language
             );
             onChanger(herosDocteur.membre.instance_id, {
               action: 'docteur',

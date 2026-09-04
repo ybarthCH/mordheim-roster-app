@@ -1,17 +1,20 @@
 import { v4 as uuidv4 } from 'uuid';
 import { trouverBlessure } from '../data/blessuresGraves';
-import { annulerDeltaStats } from './blessures';
+import { annulerDeltaStats, traduireCle } from './blessures';
 import type {
+  ActionDocteur,
   DoctorTreatmentRecord,
   InventoryEntry,
   Member,
   SeriousInjuryRecord,
+  TableDocteur,
 } from '../types/roster';
 import type { Stats } from '../types/catalog';
+import type { Language } from '../state/useLanguage';
 
 export const COUT_DOCTEUR = 20;
 
-export type TableDocteur = 'membres' | 'tete';
+export type { ActionDocteur, TableDocteur };
 
 export type EffetTraitableDocteur = {
   id: string;
@@ -22,17 +25,6 @@ export type EffetTraitableDocteur = {
   notesAjoutees: string[];
   legacy: boolean;
 };
-
-export type ActionDocteur =
-  | 'mort'
-  | 'amputation_jambe'
-  | 'amputation_main'
-  | 'inefficace_repos'
-  | 'inefficace'
-  | 'guerison_repos'
-  | 'guerison'
-  | 'stupidite'
-  | 'fou_furieux';
 
 export type ResultatDocteur = {
   titre: string;
@@ -122,84 +114,109 @@ export function effetsTraitablesDocteur(blessure: SeriousInjuryRecord): EffetTra
   });
 }
 
+// Couple titre/texte pour une (action, table) donnée — voir les clés
+// docteurModal.result.* (src/i18n/ui/personnageModalsSmall.ts). `table` n'est
+// nécessaire que pour désambiguïser 'mort' et 'inefficace_repos', les deux
+// seules actions dont le texte diffère selon la table papier utilisée.
+function texteResultatDocteur(action: ActionDocteur, table: TableDocteur, language: Language): ResultatDocteur {
+  switch (action) {
+    case 'mort':
+      return {
+        titre: traduireCle('docteurModal.result.mort.titre', language),
+        texte: traduireCle(`docteurModal.result.mort.${table}.texte`, language),
+        action,
+      };
+    case 'amputation_main':
+      return {
+        titre: traduireCle('docteurModal.result.amputationMain.titre', language),
+        texte: traduireCle('docteurModal.result.amputationMain.texte', language),
+        action,
+      };
+    case 'amputation_jambe':
+      return {
+        titre: traduireCle('docteurModal.result.amputationJambe.titre', language),
+        texte: traduireCle('docteurModal.result.amputationJambe.texte', language),
+        action,
+      };
+    case 'inefficace_repos':
+      return {
+        titre: traduireCle(`docteurModal.result.inefficaceRepos.${table}.titre`, language),
+        texte: traduireCle(`docteurModal.result.inefficaceRepos.${table}.texte`, language),
+        action,
+      };
+    case 'inefficace':
+      return {
+        titre: traduireCle('docteurModal.result.inefficace.titre', language),
+        texte: traduireCle('docteurModal.result.inefficace.texte', language),
+        action,
+      };
+    case 'stupidite':
+      return {
+        titre: traduireCle('docteurModal.result.stupidite.titre', language),
+        texte: traduireCle('docteurModal.result.stupidite.texte', language),
+        action,
+      };
+    case 'fou_furieux':
+      return {
+        titre: traduireCle('docteurModal.result.fouFurieux.titre', language),
+        texte: traduireCle('docteurModal.result.fouFurieux.texte', language),
+        action,
+      };
+    case 'guerison_repos':
+      return {
+        titre: traduireCle('docteurModal.result.guerisonRepos.titre', language),
+        texte: traduireCle('docteurModal.result.guerisonRepos.texte', language),
+        action,
+      };
+    case 'guerison':
+      return {
+        titre: traduireCle('docteurModal.result.guerison.titre', language),
+        texte: traduireCle('docteurModal.result.guerison.texte', language),
+        action,
+      };
+  }
+}
+
+// Détermine l'issue du traitement (jet 2D6 sur la table papier appropriée) —
+// `language` ne pèse que sur le texte affiché/persisté, jamais sur l'action
+// retenue ni sur les effets qu'elle applique (voir appliquerTraitementDocteur).
 export function resultatDocteur(
   table: TableDocteur,
   jet: number,
-  effet: EffetTraitableDocteur
+  effet: EffetTraitableDocteur,
+  language: Language = 'fr'
 ): ResultatDocteur {
-  if (jet <= 3) {
-    return {
-      titre: 'Appelez un prêtre…',
-      texte:
-        table === 'membres'
-          ? "Le héros ne survit pas à l'hémorragie. Son équipement est conservé par la bande."
-          : "Le héros ne survit pas à la trépanation. Son équipement est conservé par la bande.",
-      action: 'mort',
-    };
-  }
+  if (jet <= 3) return texteResultatDocteur('mort', table, language);
 
   if (table === 'membres') {
     if (jet === 4) {
       const main = effet.resultatId === 'blessure_main';
-      return {
-        titre: 'Il faut couper…',
-        texte: main
-          ? "La main doit être amputée. Le héros ne pourra désormais utiliser qu'une seule arme à une main."
-          : 'La jambe doit être amputée. Le Mouvement du héros est réduit de moitié, arrondi au supérieur.',
-        action: main ? 'amputation_main' : 'amputation_jambe',
-      };
+      return texteResultatDocteur(main ? 'amputation_main' : 'amputation_jambe', table, language);
     }
-    if (jet <= 6) {
-      return {
-        titre: 'Désolé…',
-        texte: 'Le traitement est inefficace et le héros doit manquer la prochaine bataille.',
-        action: 'inefficace_repos',
-      };
-    }
-    if (jet <= 8) {
-      return {
-        titre: 'Pas de chance…',
-        texte: 'Le traitement est inefficace.',
-        action: 'inefficace',
-      };
-    }
+    if (jet <= 6) return texteResultatDocteur('inefficace_repos', table, language);
+    if (jet <= 8) return texteResultatDocteur('inefficace', table, language);
   } else {
-    if (jet <= 5) {
-      return {
-        titre: "Y'a un problème…",
-        texte:
-          "Le traitement empire l'état du héros, qui devient sujet à la Stupidité en plus de sa blessure. S'il l'était déjà, le traitement est simplement inefficace.",
-        action: 'stupidite',
-      };
-    }
-    if (jet === 6) {
-      return {
-        titre: 'Oups…',
-        texte: 'Le héros perd 1 en Initiative, jusqu’à un minimum de 1, et provoque désormais la Peur.',
-        action: 'fou_furieux',
-      };
-    }
-    if (jet <= 8) {
-      return {
-        titre: 'Pas de chance…',
-        texte: 'Le traitement est inefficace et le héros doit manquer la prochaine bataille.',
-        action: 'inefficace_repos',
-      };
-    }
+    if (jet <= 5) return texteResultatDocteur('stupidite', table, language);
+    if (jet === 6) return texteResultatDocteur('fou_furieux', table, language);
+    if (jet <= 8) return texteResultatDocteur('inefficace_repos', table, language);
   }
 
-  if (jet <= 10) {
-    return {
-      titre: 'Avec un peu de repos, ça devrait aller…',
-      texte: 'La blessure et ses effets sont annulés. Le héros doit manquer la prochaine bataille.',
-      action: 'guerison_repos',
-    };
-  }
-  return {
-    titre: 'Shallya soit louée !',
-    texte: 'La blessure et ses effets sont annulés.',
-    action: 'guerison',
-  };
+  if (jet <= 10) return texteResultatDocteur('guerison_repos', table, language);
+  return texteResultatDocteur('guerison', table, language);
+}
+
+// Retraduit un DoctorTreatmentRecord déjà persisté (historique_docteur) dans
+// la langue courante, quand ses champs `action`/`table` structurés sont
+// disponibles (ajoutés après le premier lancement de cette fonctionnalité) —
+// sinon retombe sur le titre/texte figé tel qu'enregistré (voir le
+// commentaire de DoctorTreatmentRecord dans types/roster.ts).
+export function titreEtTexteDocteurAffiche(
+  record: Pick<DoctorTreatmentRecord, 'titre' | 'texte' | 'action' | 'table'>,
+  language: Language
+): { titre: string; texte: string } {
+  if (!record.action || !record.table) return { titre: record.titre, texte: record.texte };
+  const { titre, texte } = texteResultatDocteur(record.action, record.table, language);
+  return { titre, texte };
 }
 
 function creerSequelle(
@@ -267,19 +284,22 @@ export function appliquerTraitementDocteur(
   blessureId: string,
   effetId: string,
   jet: number,
-  dejaStupide: boolean
+  dejaStupide: boolean,
+  language: Language = 'fr'
 ): ApplicationDocteur {
   const blessureInitiale = membreInitial.blessures_graves.find((item) => item.id === blessureId);
   if (!blessureInitiale) throw new Error('Blessure introuvable.');
   const effet = effetsTraitablesDocteur(blessureInitiale).find((item) => item.id === effetId);
   if (!effet) throw new Error('Cette blessure ne peut pas être traitée.');
 
-  const resultat = resultatDocteur(effet.table, jet, effet);
+  const resultat = resultatDocteur(effet.table, jet, effet, language);
   const historique: DoctorTreatmentRecord = {
     date: new Date().toISOString().slice(0, 10),
     jet,
     titre: resultat.titre,
     texte: resultat.texte,
+    action: resultat.action,
+    table: effet.table,
   };
   let blessure = {
     ...blessureInitiale,

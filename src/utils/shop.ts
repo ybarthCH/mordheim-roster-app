@@ -472,6 +472,25 @@ function libelleMateriau(nomMateriau: string): string {
   return nomMateriau.replace(/^Arme en /, '').replace(/^Armure en /, '');
 }
 
+// Fusionne le stats_delta de la base et celui du matériau (clés additionnées
+// quand les deux en portent une) — même principe que la concaténation de
+// regles_speciales juste en dessous, appliqué à construireObjetMateriau et
+// resolveCombinaisonMateriau. Aucun objet arme/matériau combinable n'a de
+// stats_delta à ce jour, mais l'absence de cette fusion laisserait un futur
+// objet perdre silencieusement son effet une fois combiné.
+function fusionnerStatsDelta(
+  a: Partial<Record<keyof Stats, number>> | undefined,
+  b: Partial<Record<keyof Stats, number>> | undefined
+): Partial<Record<keyof Stats, number>> | undefined {
+  if (!a && !b) return undefined;
+  const fusion: Partial<Record<keyof Stats, number>> = { ...a };
+  for (const [cle, valeur] of Object.entries(b ?? {})) {
+    const stat = cle as keyof Stats;
+    fusion[stat] = (fusion[stat] ?? 0) + (valeur ?? 0);
+  }
+  return fusion;
+}
+
 // Fusionne une arme/armure de base et un objet matériau en un objet unique
 // (id synthétique combo__<baseId>__<materiauId>, résolu par
 // resolveCombinaisonMateriau pour un affichage cohérent après achat).
@@ -490,6 +509,7 @@ export function construireObjetMateriau(base: ShopItem, materiau: ShopItem, cout
     force: base.force,
     sauvegarde: base.sauvegarde,
     regles_speciales: [...(base.regles_speciales ?? []), ...(materiau.regles_speciales ?? [])],
+    stats_delta: fusionnerStatsDelta(base.stats_delta, materiau.stats_delta),
     origine: 'personnalise',
   };
 }
@@ -518,6 +538,10 @@ export function resolveCombinaisonMateriau(comboId: string): ShopItem | undefine
     force: 'force' in base ? (base.force as string | null) : undefined,
     sauvegarde: 'sauvegarde' in base ? (base.sauvegarde as string | null) : undefined,
     regles_speciales: [...(base.regles_speciales ?? []), ...(materiau.regles_speciales ?? [])],
+    stats_delta: fusionnerStatsDelta(
+      'stats_delta' in base ? base.stats_delta : undefined,
+      'stats_delta' in materiau ? materiau.stats_delta : undefined
+    ),
     origine: 'personnalise',
   };
 }
