@@ -785,7 +785,15 @@ export function PostBatailleScreen() {
     // membresMaj, pour le journal de bataille.
     const blessesAuCamp: { nom: string; retabli: boolean }[] = [];
 
-    const membresMaj: Member[] = roster.membres.map((m) => {
+    // Sort du roster après la bataille pour UN membre : mort au combat,
+    // survie Hors de combat (héros/homme de main seul ou en groupe),
+    // participation normale, ou mise à l'écart (animal jamais actif, Geôlier
+    // impayé, franc-tireur/profil sans XP, guerrier Blessé resté au camp).
+    // Nommée à part de .map() ci-dessous pour isoler ces ~7 branches d'un
+    // seul coup d'œil, sans changer ses dépendances (toujours celles de
+    // terminer() par fermeture : commerceDrafts, blessureDrafts, date,
+    // groupesHCIds, blessesAuCamp...).
+    const calculerMembreApresBataille = (m: Member): Member => {
       const commerce = commerceDrafts[m.instance_id];
       const traitementDocteur =
         commerce?.action === 'docteur' && commerce.statut === 'termine'
@@ -906,7 +914,9 @@ export function PostBatailleScreen() {
       membre = { ...membre, xp };
       if (decision === 'impaye') membre = { ...membre, franc_tireur_impaye: true };
       return membre;
-    });
+    };
+
+    const membresMaj: Member[] = roster.membres.map(calculerMembreApresBataille);
 
     const idsARenvoyer = new Set(
       lignesEntretien
@@ -918,6 +928,66 @@ export function PostBatailleScreen() {
     );
     const membresConserves = membresMaj.filter((m) => !idsARenvoyer.has(m.instance_id));
 
+    const construireLigneEntretienJournal = (
+      ligne: LigneEntretien
+    ): NonNullable<JournalPostBataille['entretienFrancsTireurs']>[number] => {
+      const decision = decisionEntretien(ligne);
+      const decisionJournal: NonNullable<JournalPostBataille['entretienFrancsTireurs']>[number]['decision'] =
+        decision === 'payer'
+          ? 'paye'
+          : decision === 'renvoyer'
+            ? 'renvoye'
+            : decision === 'depart_automatique'
+              ? 'depart_automatique'
+              : decision === 'gratuit'
+                ? 'gratuit'
+                : 'exempte';
+      return {
+        nom: ligne.nom,
+        decision: decisionJournal,
+        coutOr: decision === 'payer' && ligne.type === 'or' ? ligne.cout : 0,
+        coutMalepierre: decision === 'payer' && ligne.type === 'malepierre' ? ligne.cout : 0,
+      };
+    };
+
+    const construireLigneCommerceJournal = ({
+      membre,
+    }: HerosCommerce): NonNullable<JournalPostBataille['commerce']>[number] => {
+      const draft = commerceDrafts[membre.instance_id];
+      if (!draft || draft.action === 'aucune') {
+        return { nom: membre.nom_perso, action: 'aucune' as const, detail: 'Aucune action.', cout: 0 };
+      }
+      if (draft.action === 'rare') {
+        return {
+          nom: membre.nom_perso,
+          action: 'recherche_rare' as const,
+          detail: `${draft.objetNom} (Rare ${draft.rarete}) — ${
+            draft.reussi ? (draft.achat ? 'réussie, acheté' : 'réussie, non acheté') : 'ratée'
+          }.`,
+          cout: draft.achat?.cout ?? 0,
+        };
+      }
+      if (draft.action === 'dramatis_personae') {
+        return {
+          nom: membre.nom_perso,
+          action: 'dramatis_personae' as const,
+          detail: `${draft.nom} — ${
+            draft.reussi ? (draft.recrute ? 'réussie, recruté' : 'réussie, non recruté') : 'ratée'
+          }.`,
+          cout: draft.recrute ? draft.cout : 0,
+        };
+      }
+      return {
+        nom: membre.nom_perso,
+        action: 'docteur' as const,
+        detail:
+          draft.statut === 'termine'
+            ? `2D6 = ${draft.jet} — ${draft.resultatTitre}.`
+            : 'Consultation payée, résultat non saisi.',
+        cout: COUT_DOCTEUR,
+      };
+    };
+
     const journal: JournalPostBataille = {
       wyrdstoneTrouve,
       notesExploration: notesExploration.trim(),
@@ -928,60 +998,8 @@ export function PostBatailleScreen() {
       // réellement déduit de la trésorerie (tresorerieApres), pas
       // uniquement la solde des francs-tireurs stricto sensu.
       soldeFrancsTireurs: soldeTotal + surtaxeNainsElfesPirates,
-      entretienFrancsTireurs: lignesEntretien.map((ligne) => {
-        const decision = decisionEntretien(ligne);
-        const decisionJournal: NonNullable<JournalPostBataille['entretienFrancsTireurs']>[number]['decision'] =
-          decision === 'payer'
-            ? 'paye'
-            : decision === 'renvoyer'
-              ? 'renvoye'
-              : decision === 'depart_automatique'
-                ? 'depart_automatique'
-                : decision === 'gratuit'
-                  ? 'gratuit'
-                  : 'exempte';
-        return {
-          nom: ligne.nom,
-          decision: decisionJournal,
-          coutOr: decision === 'payer' && ligne.type === 'or' ? ligne.cout : 0,
-          coutMalepierre: decision === 'payer' && ligne.type === 'malepierre' ? ligne.cout : 0,
-        };
-      }),
-      commerce: herosCommerce.map(({ membre }) => {
-        const draft = commerceDrafts[membre.instance_id];
-        if (!draft || draft.action === 'aucune') {
-          return { nom: membre.nom_perso, action: 'aucune' as const, detail: 'Aucune action.', cout: 0 };
-        }
-        if (draft.action === 'rare') {
-          return {
-            nom: membre.nom_perso,
-            action: 'recherche_rare' as const,
-            detail: `${draft.objetNom} (Rare ${draft.rarete}) — ${
-              draft.reussi ? (draft.achat ? 'réussie, acheté' : 'réussie, non acheté') : 'ratée'
-            }.`,
-            cout: draft.achat?.cout ?? 0,
-          };
-        }
-        if (draft.action === 'dramatis_personae') {
-          return {
-            nom: membre.nom_perso,
-            action: 'dramatis_personae' as const,
-            detail: `${draft.nom} — ${
-              draft.reussi ? (draft.recrute ? 'réussie, recruté' : 'réussie, non recruté') : 'ratée'
-            }.`,
-            cout: draft.recrute ? draft.cout : 0,
-          };
-        }
-        return {
-          nom: membre.nom_perso,
-          action: 'docteur' as const,
-          detail:
-            draft.statut === 'termine'
-              ? `2D6 = ${draft.jet} — ${draft.resultatTitre}.`
-              : 'Consultation payée, résultat non saisi.',
-          cout: COUT_DOCTEUR,
-        };
-      }),
+      entretienFrancsTireurs: lignesEntretien.map(construireLigneEntretienJournal),
+      commerce: herosCommerce.map(construireLigneCommerceJournal),
       tresorerieApres,
       blessures: Object.entries(blessureDrafts)
         .filter(([, d]) => d.description.trim())
