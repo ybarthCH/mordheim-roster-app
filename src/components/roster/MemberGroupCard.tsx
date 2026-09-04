@@ -7,11 +7,12 @@ import { Icon } from '../common/Icon';
 import type { IconName, PackIconName } from '../common/Icon';
 import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
 import type { Profile } from '../../types/catalog';
-import { HENCHMAN_XP_MAX, HERO_XP_MAX, avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
+import { HENCHMAN_XP_MAX, HERO_XP_MAX, estAvanceEnAttente, peutGagnerExperience } from '../../utils/xp';
 import { nomCourtBlessureAffiche } from '../../utils/blessures';
 import { inventaireGroupeMismatch, resumeInventaireParItem } from '../../utils/shop';
 import { useDragReorder } from '../../utils/useDragReorder';
 import { estLeaderActuel } from '../../utils/leader';
+import { DragGhost } from './DragGhost';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { STAT_KEYS } from '../../types/catalog';
@@ -388,15 +389,6 @@ export function MemberGroupCard({
     return `${t('memberGroup.injuries')} ${m.blessures_graves.map((b) => nomCourtBlessureAffiche(b, language)).join(' - ')}`;
   };
 
-  const estAvanceEnAttente = (profil: Profile | undefined, m: Member) => {
-    if (!profil || !peutGagnerExperience(profil)) return false;
-    if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return false;
-    return (
-      avancesDues(grilleXpDuProfil(profil), m.xp_depart, m.xp, !!catalogue?.xp_demi) >
-      avancesObtenues(m.historique_avancees)
-    );
-  };
-
   // Mêmes exclusions que estAvanceEnAttente (animal non désigné, franc-tireur
   // sans XP...), plus mort (plus aucune XP possible) et déjà à la case
   // maximale de sa grille (voir XpGrid) : la puce/cellule +1 XP n'a alors
@@ -437,7 +429,7 @@ export function MemberGroupCard({
           blessures: resumeBlessures(m),
           groupeSimplifie,
           leader: estLeaderActuel(roster, catalogue, m),
-          avanceEnAttente: estAvanceEnAttente(profil, m),
+          avanceEnAttente: estAvanceEnAttente(profil, m, catalogue),
           peutAjouterXp: peutAjouterXp(profil, m),
           sv: sauvegardeArmureMembre(m.inventaire, rules.armuresLozheim),
         };
@@ -690,19 +682,7 @@ export function MemberGroupCard({
 
       {membres.length === 0 && <p className="text-muted">{t('memberGroup.noMembers')}</p>}
 
-      {idEnCours &&
-        pointerPos &&
-        (() => {
-          const dragged = vues.find((v) => v.m.instance_id === idEnCours);
-          if (!dragged) return null;
-          return (
-            <div className="drag-ghost" style={{ left: pointerPos.x, top: pointerPos.y }}>
-              <Icon name="poignee" size="0.85em" style={{ marginRight: '0.4em', color: 'var(--text-muted)' }} />
-              <span className="drag-ghost__nom">{nomAffiche(dragged.m)}</span>
-              {dragged.profil?.nom && <span className="drag-ghost__profil"> · {dragged.profil.nom}</span>}
-            </div>
-          );
-        })()}
+      <DragGhost pointerPos={pointerPos} dragged={vues.find((v) => v.m.instance_id === idEnCours)} />
       {membrePourAjoutXp && (
         <Modal onClose={() => setMembrePourAjoutXp(null)}>
           <h3>

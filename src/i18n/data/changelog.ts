@@ -8,6 +8,10 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-09-04': [
+    "The Doctor (optional \"What's Up, Doc?\" rule) now shows its diagnosis in the interface's current language instead of always being in French — including in a wound's treatment history.",
+    'Improved robustness when loading the app or importing a warband file: a local storage issue or a corrupted file now shows a clear message (with a Retry button where relevant) instead of freezing the app or leaving the warband unopenable.',
+  ],
   '2026-09-03': [
     "Lizardmen: the 3 Sacred Markings (Venom Glands, Huge Gob, Mark of the Ancients) can finally be bought, as special items reserved for the Heroes who qualify for them at recruitment.",
     'Maneaters: the "Gluttony" rule is now playable — an Ogre Hero can devour a captive obtained after battle, or even a warband-mate (gaining experience, removed from the roster), and each Ogre counts double when selling wyrdstone or treasure.',

@@ -134,4 +134,60 @@ export const personnageModalsSmall: UiDictionary = {
   'docteurModal.chooseResult': { fr: 'Choisis le résultat obtenu…', en: 'Choose the result obtained…' },
   'docteurModal.closeEnterLater': { fr: 'Fermer et saisir plus tard', en: 'Close and enter later' },
   'docteurModal.applyResult': { fr: 'Appliquer le résultat', en: 'Apply the result' },
+
+  // Résultats du traitement (voir utils/docteur.ts resultatDocteur) — un
+  // couple titre/texte par issue possible, gardés distincts par (action,
+  // table) puisque 'inefficace_repos' produit un texte différent selon la
+  // table (membres/tête).
+  'docteurModal.result.mort.titre': { fr: 'Appelez un prêtre…', en: 'Call a priest…' },
+  'docteurModal.result.mort.membres.texte': {
+    fr: "Le héros ne survit pas à l'hémorragie. Son équipement est conservé par la bande.",
+    en: "The hero doesn't survive the bleeding. His equipment is kept by the warband.",
+  },
+  'docteurModal.result.mort.tete.texte': {
+    fr: "Le héros ne survit pas à la trépanation. Son équipement est conservé par la bande.",
+    en: "The hero doesn't survive the trepanation. His equipment is kept by the warband.",
+  },
+  'docteurModal.result.amputationMain.titre': { fr: 'Il faut couper…', en: 'It has to come off…' },
+  'docteurModal.result.amputationMain.texte': {
+    fr: "La main doit être amputée. Le héros ne pourra désormais utiliser qu'une seule arme à une main.",
+    en: 'The hand must be amputated. The hero can now only use a single one-handed weapon.',
+  },
+  'docteurModal.result.amputationJambe.titre': { fr: 'Il faut couper…', en: 'It has to come off…' },
+  'docteurModal.result.amputationJambe.texte': {
+    fr: 'La jambe doit être amputée. Le Mouvement du héros est réduit de moitié, arrondi au supérieur.',
+    en: "The leg must be amputated. The hero's Movement is halved, rounded up.",
+  },
+  'docteurModal.result.inefficaceRepos.membres.titre': { fr: 'Désolé…', en: 'Sorry…' },
+  'docteurModal.result.inefficaceRepos.membres.texte': {
+    fr: 'Le traitement est inefficace et le héros doit manquer la prochaine bataille.',
+    en: 'The treatment fails and the hero must miss the next battle.',
+  },
+  'docteurModal.result.inefficace.titre': { fr: 'Pas de chance…', en: 'No luck…' },
+  'docteurModal.result.inefficace.texte': { fr: 'Le traitement est inefficace.', en: 'The treatment fails.' },
+  'docteurModal.result.stupidite.titre': { fr: "Y'a un problème…", en: "There's a problem…" },
+  'docteurModal.result.stupidite.texte': {
+    fr: "Le traitement empire l'état du héros, qui devient sujet à la Stupidité en plus de sa blessure. S'il l'était déjà, le traitement est simplement inefficace.",
+    en: "The treatment worsens the hero's condition: he becomes Stupid in addition to his injury. If he already was, the treatment simply fails.",
+  },
+  'docteurModal.result.fouFurieux.titre': { fr: 'Oups…', en: 'Oops…' },
+  'docteurModal.result.fouFurieux.texte': {
+    fr: 'Le héros perd 1 en Initiative, jusqu’à un minimum de 1, et provoque désormais la Peur.',
+    en: 'The hero loses 1 Initiative, to a minimum of 1, and now causes Fear.',
+  },
+  'docteurModal.result.inefficaceRepos.tete.titre': { fr: 'Pas de chance…', en: 'No luck…' },
+  'docteurModal.result.inefficaceRepos.tete.texte': {
+    fr: 'Le traitement est inefficace et le héros doit manquer la prochaine bataille.',
+    en: 'The treatment fails and the hero must miss the next battle.',
+  },
+  'docteurModal.result.guerisonRepos.titre': { fr: 'Avec un peu de repos, ça devrait aller…', en: 'With a little rest, he should be fine…' },
+  'docteurModal.result.guerisonRepos.texte': {
+    fr: 'La blessure et ses effets sont annulés. Le héros doit manquer la prochaine bataille.',
+    en: 'The injury and its effects are cancelled. The hero must miss the next battle.',
+  },
+  'docteurModal.result.guerison.titre': { fr: 'Shallya soit louée !', en: 'Praise Shallya!' },
+  'docteurModal.result.guerison.texte': {
+    fr: 'La blessure et ses effets sont annulés.',
+    en: 'The injury and its effects are cancelled.',
+  },
 };

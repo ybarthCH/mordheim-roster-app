@@ -4,11 +4,13 @@ import { v4 as uuidv4 } from 'uuid';
 import type { RosterInstance } from '../types/roster';
 import { deleteRoster, listRosters, saveRoster } from '../db/db';
 import { normaliserRoster } from '../utils/normalize';
+import { dupliquerRosterInstance } from '../utils/roster';
 import { RostersContext } from './useRosters';
 
 export function RostersProvider({ children }: { children: ReactNode }) {
   const [rosters, setRosters] = useState<RosterInstance[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   // Reflète `rosters` de façon synchrone (assignée pendant le rendu, avant
   // tout effet) : patchRoster s'appuie dessus plutôt que sur `rosters` pour
   // lire l'état le plus récent même entre deux rendus, quand un premier
@@ -18,9 +20,21 @@ export function RostersProvider({ children }: { children: ReactNode }) {
 
   const refresh = useCallback(async () => {
     setLoading(true);
-    const all = await listRosters();
-    setRosters(all.map(normaliserRoster));
-    setLoading(false);
+    // try/catch/finally indispensable ici : listRosters() peut rejeter (voir
+    // son propre commentaire dans db/db.ts — IndexedDB indisponible, quota
+    // dépassé, navigation privée sur certains navigateurs...). Sans ce filet,
+    // l'exception remontait hors du useEffect qui appelle refresh() sans
+    // jamais atteindre setLoading(false) : l'app restait bloquée
+    // indéfiniment sur l'écran "Chargement…", sans message ni recours.
+    try {
+      const all = await listRosters();
+      setRosters(all.map(normaliserRoster));
+      setError(null);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -75,44 +89,7 @@ export function RostersProvider({ children }: { children: ReactNode }) {
     async (id: string) => {
       const original = rosters.find((r) => r.id === id);
       if (!original) return undefined;
-      const now = new Date().toISOString();
-      // Chaque membre reçoit un nouvel instance_id — leader_instance_id
-      // (bandes à leadership libre) doit être remappé en conséquence, sinon
-      // il pointe vers un id qui n'existe plus dans la copie et le chef
-      // choisi est silencieusement perdu.
-      const idsRemappes = new Map<string, string>();
-      const membres = original.membres.map((m) => {
-        const instance_id = uuidv4();
-        idsRemappes.set(m.instance_id, instance_id);
-        return { ...m, instance_id };
-      });
-      // Un effet persistant ciblant un membre précis (ex : exemption d'entretien
-      // "Débiteur reconnaissant") doit suivre le remappage des instance_id ci-
-      // dessus, sinon il continue de viser le membre de la bande source et ne
-      // s'applique plus jamais dans la copie. Un effet devenu orphelin (cible
-      // qui n'existe plus, ex : membre déjà mort avant la duplication) est
-      // abandonné plutôt que recopié sans cible valide.
-      const effets_persistants = (original.effets_persistants ?? []).flatMap((e) => {
-        if (!e.cible) return [{ ...e, id: uuidv4() }];
-        const cibleRemappee = idsRemappes.get(e.cible);
-        return cibleRemappee ? [{ ...e, id: uuidv4(), cible: cibleRemappee }] : [];
-      });
-      const copy: RosterInstance = {
-        ...original,
-        id: uuidv4(),
-        nom_bande: `${original.nom_bande} (copie)`,
-        membres,
-        effets_persistants,
-        leader_instance_id: original.leader_instance_id
-          ? idsRemappes.get(original.leader_instance_id)
-          : undefined,
-        // Pas d'ordre hérité de l'original : la copie retombe dans le repli
-        // alphabétique de listRosters() plutôt que de partager exactement
-        // la même position glissée-déposée que la bande source.
-        ordre: undefined,
-        createdAt: now,
-        updatedAt: now,
-      };
+      const copy = dupliquerRosterInstance(original);
       await saveRoster(copy);
       setRosters((prev) => [...prev, copy]);
       return copy;
@@ -171,6 +148,7 @@ export function RostersProvider({ children }: { children: ReactNode }) {
     () => ({
       rosters,
       loading,
+      error,
       refresh,
       getRosterById,
       updateRoster,
@@ -184,6 +162,7 @@ export function RostersProvider({ children }: { children: ReactNode }) {
     [
       rosters,
       loading,
+      error,
       refresh,
       getRosterById,
       updateRoster,

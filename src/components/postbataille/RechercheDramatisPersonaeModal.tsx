@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import type { FrancTireurCatalog } from '../../types/hiredSword';
 import type { Member } from '../../types/roster';
-import { STAT_KEYS } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import { Icon } from '../common/Icon';
+import { StatGrid } from '../common/StatGrid';
 import { getDramatisPersonae } from '../../data/dramatisPersonae';
 import { translateHiredSword } from '../../i18n/data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
-import { libelleCaracteristique } from '../../utils/stats';
 
 export type ResultatRechercheDramatisPersonae = {
   dramatisPersonaeId: string;
@@ -136,18 +135,7 @@ export function RechercheDramatisPersonaeModal({
                   — {t('dpModal.recruitedWithNote')}
                 </p>
               )}
-              <div className="stat-grid">
-                {STAT_KEYS.map((k) => (
-                  <div key={k} className="stat-grid__cell stat-grid__cell--label">
-                    {libelleCaracteristique(k, language)}
-                  </div>
-                ))}
-                {STAT_KEYS.map((k) => (
-                  <div key={k} className="stat-grid__cell stat-grid__cell--value">
-                    {dp.stats[k]}
-                  </div>
-                ))}
-              </div>
+              <StatGrid stats={dp.stats} />
               <p className="text-sm">
                 <strong>{t('dpModal.equipmentLabel')}</strong> {dp.equipement.join(', ')}
               </p>

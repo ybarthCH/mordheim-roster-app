@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "build:prod": "tsc -b && DEPLOY_TARGET=root vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:i18n": "tsx scripts/checkI18nParity.ts"
   },
   "dependencies": {
     "idb": "^8.0.3",
@@ -26,6 +27,7 @@
     "@vitejs/plugin-react": "^6.0.3",
     "oxlint": "^1.71.0",
     "playwright": "^1.61.1",
+    "tsx": "^4.23.13",
     "typescript": "~6.0.2",
     "vite": "^8.1.1",
     "vite-plugin-pwa": "^1.3.0"

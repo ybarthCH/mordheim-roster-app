@@ -9,12 +9,12 @@ import {
   FRANCS_TIREURS,
   libelleOptionEquipementChoix,
 } from '../../data/hiredSwords';
-import { SKILL_CATEGORIES, STAT_KEYS } from '../../types/catalog';
+import { SKILL_CATEGORIES } from '../../types/catalog';
 import { sortsMagieMineureDisponibles } from '../../utils/magie';
 import { magieMineure } from '../../i18n/data/minorMagic';
 import { translateHiredSword } from '../../i18n/data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
-import { libelleCaracteristique } from '../../utils/stats';
+import { StatGrid } from '../common/StatGrid';
 
 export function RecruterFrancTireurScreen() {
   const { id } = useParams<{ id: string }>();
@@ -233,35 +233,13 @@ export function RecruterFrancTireurScreen() {
               <br />
               <strong>{t('francTireur.source')}</strong> page {selection.page_source} {t('francTireur.sourcePdfSuffix')}
             </p>
-            <div className="stat-grid">
-              {STAT_KEYS.map((k) => (
-                <div key={k} className="stat-grid__cell stat-grid__cell--label">
-                  {libelleCaracteristique(k, language)}
-                </div>
-              ))}
-              {STAT_KEYS.map((k) => (
-                <div key={k} className="stat-grid__cell stat-grid__cell--value">
-                  {selection.stats[k]}
-                </div>
-              ))}
-            </div>
+            <StatGrid stats={selection.stats} />
             {selection.profils_secondaires?.map((secondaire) => (
               <div key={secondaire.nom} style={{ marginTop: '0.8rem' }}>
                 <p className="text-sm mb-0">
                   <strong>{secondaire.nom}</strong>
                 </p>
-                <div className="stat-grid">
-                  {STAT_KEYS.map((k) => (
-                    <div key={k} className="stat-grid__cell stat-grid__cell--label">
-                      {libelleCaracteristique(k, language)}
-                    </div>
-                  ))}
-                  {STAT_KEYS.map((k) => (
-                    <div key={k} className="stat-grid__cell stat-grid__cell--value">
-                      {secondaire.stats[k]}
-                    </div>
-                  ))}
-                </div>
+                <StatGrid stats={secondaire.stats} />
                 {secondaire.equipement && (
                   <p className="text-sm text-muted">{t('francTireur.equipmentProvided')} {secondaire.equipement.join(', ')}</p>
                 )}

@@ -1,11 +1,10 @@
 import { Modal } from '../common/Modal';
 import { libelleCategorie, iconeCategorie, classeRarete, formatCoutItem, traduirePortee } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
-import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
+import { StatGrid } from '../common/StatGrid';
 import { useLanguage } from '../../state/useLanguage';
 import { translateItem } from '../../i18n/data/items';
-import { libelleCaracteristique } from '../../utils/stats';
 
 type Props = {
   item: ShopItem;
@@ -30,20 +29,7 @@ export function ItemDetailModal({ item: itemBrut, onClose }: Props) {
         {libelleCategorie(item.categorie, language)} · {formatCoutItem(item.cout, language)}
       </p>
 
-      {item.stats && (
-        <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
-          {STAT_KEYS.map((k) => (
-            <div key={k} className="stat-grid__cell stat-grid__cell--label">
-              {libelleCaracteristique(k, language)}
-            </div>
-          ))}
-          {STAT_KEYS.map((k) => (
-            <div key={k} className="stat-grid__cell stat-grid__cell--value">
-              {item.stats![k]}
-            </div>
-          ))}
-        </div>
-      )}
+      {item.stats && <StatGrid stats={item.stats} style={{ marginBottom: '0.6rem' }} />}
       {(item.portee || item.force || item.sauvegarde) && (
         <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
           {item.portee && <span className="badge badge--info">{t('itemDetail.range')} {traduirePortee(item.portee, language)}</span>}

@@ -5,6 +5,7 @@ import {
   effetsTraitablesDocteur,
   estBlessureExplicitementIncurable,
   resultatDocteur,
+  titreEtTexteDocteurAffiche,
   type EffetTraitableDocteur,
   type ResultatDocteur,
 } from '../../utils/docteur';
@@ -57,7 +58,7 @@ export function DocteurModal({
   );
   const jet = Number(jetSaisi);
   const jetValide = Number.isInteger(jet) && jet >= 2 && jet <= 12;
-  const resultat = effetActif && jetValide ? resultatDocteur(effetActif.table, jet, effetActif) : null;
+  const resultat = effetActif && jetValide ? resultatDocteur(effetActif.table, jet, effetActif, language) : null;
 
   const appliquer = () => {
     if (!effetActif || !jetValide || !resultat) return;
@@ -106,11 +107,14 @@ export function DocteurModal({
                 ? t('docteurModal.alreadyTreated')
                 : t('docteurModal.notCovered')}
           </p>
-          {blessure.historique_docteur?.map((tentative, index) => (
-            <p key={`${tentative.date}-${index}`} className="text-sm mb-0">
-              {tentative.date} — 2D6 = {tentative.jet} : <strong>{tentative.titre}</strong> — {tentative.texte}
-            </p>
-          ))}
+          {blessure.historique_docteur?.map((tentative, index) => {
+            const { titre, texte } = titreEtTexteDocteurAffiche(tentative, language);
+            return (
+              <p key={`${tentative.date}-${index}`} className="text-sm mb-0">
+                {tentative.date} — 2D6 = {tentative.jet} : <strong>{titre}</strong> — {texte}
+              </p>
+            );
+          })}
           <button className="btn btn--block" style={{ marginTop: '1rem' }} onClick={onClose}>
             {t('docteurModal.close')}
           </button>

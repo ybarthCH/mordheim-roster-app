@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { Icon } from '../common/Icon';
 import type { IconName, PackIconName } from '../common/Icon';
-import { grilleXpDuProfil, nomAffiche, resolveProfil } from '../../utils/profil';
-import { avancesDues, avancesObtenues, peutGagnerExperience } from '../../utils/xp';
+import { nomAffiche, resolveProfil } from '../../utils/profil';
+import { estAvanceEnAttente } from '../../utils/xp';
 import { useDragReorder } from '../../utils/useDragReorder';
 import { estLeaderActuel } from '../../utils/leader';
 import type { Member, RosterInstance } from '../../types/roster';
-import type { Profile, WarbandCatalog } from '../../types/catalog';
+import type { WarbandCatalog } from '../../types/catalog';
 import { STAT_KEYS } from '../../types/catalog';
-import { getFrancTireur } from '../../data/hiredSwords';
 import { useLanguage } from '../../state/useLanguage';
 import { libelleCaracteristique, pvAffiche } from '../../utils/stats';
 import { sauvegardeArmureMembre } from '../../utils/armure';
 import type { GameRules } from '../../types/rules';
+import { DragGhost } from './DragGhost';
 
 type MemberQuickListProps = {
   titre: string;
@@ -61,15 +61,6 @@ export function MemberQuickList({
     onReordonner
   );
 
-  const estAvanceEnAttente = (profil: Profile | undefined, m: Member) => {
-    if (!profil || !peutGagnerExperience(profil)) return false;
-    if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return false;
-    return (
-      avancesDues(grilleXpDuProfil(profil), m.xp_depart, m.xp, !!catalogue?.xp_demi) >
-      avancesObtenues(m.historique_avancees)
-    );
-  };
-
   const vues = useMemo(
     () =>
       elements.map((m) => ({
@@ -107,7 +98,7 @@ export function MemberQuickList({
     >
       <div className="member-condensed">
         {vues.map(({ m, profil, leader }) => {
-          const avanceEnAttente = estAvanceEnAttente(profil, m);
+          const avanceEnAttente = estAvanceEnAttente(profil, m, catalogue);
           const statsTexte = STAT_KEYS.map(
             (k) => `${libelleCaracteristique(k, language)}${k === 'PV' ? pvAffiche(m) : (m.stats_variables?.[k] ?? m.stats_actuels[k])}`
           ).join(' ');
@@ -169,19 +160,7 @@ export function MemberQuickList({
 
       {membres.length === 0 && <p className="text-muted">{t('memberGroup.noMembers')}</p>}
 
-      {idEnCours &&
-        pointerPos &&
-        (() => {
-          const dragged = vues.find((v) => v.m.instance_id === idEnCours);
-          if (!dragged) return null;
-          return (
-            <div className="drag-ghost" style={{ left: pointerPos.x, top: pointerPos.y }}>
-              <Icon name="poignee" size="0.85em" style={{ marginRight: '0.4em', color: 'var(--text-muted)' }} />
-              <span className="drag-ghost__nom">{nomAffiche(dragged.m)}</span>
-              {dragged.profil?.nom && <span className="drag-ghost__profil"> · {dragged.profil.nom}</span>}
-            </div>
-          );
-        })()}
+      <DragGhost pointerPos={pointerPos} dragged={vues.find((v) => v.m.instance_id === idEnCours)} />
     </CollapsibleCard>
   );
 }

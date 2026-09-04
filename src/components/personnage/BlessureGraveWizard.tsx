@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { STAT_KEYS } from '../../types/catalog';
 import type { Stats } from '../../types/catalog';
 import {
   BLESSURES_GRAVES,
@@ -13,8 +12,8 @@ import type { SeriousInjuryEffect } from '../../types/roster';
 import { useLanguage } from '../../state/useLanguage';
 import type { Language } from '../../state/useLanguage';
 import { translateBlessure } from '../../i18n/data/blessuresGraves';
-import { libelleCaracteristique } from '../../utils/stats';
 import { traduireCle, segmentAffiche } from '../../utils/blessures';
+import { StatGrid } from '../common/StatGrid';
 
 // Noms sentinelles des issues spéciales "Gladiateur"/"Capturé", utilisés à la
 // fois pour construire le résultat (texte français persisté, voir
@@ -45,24 +44,13 @@ function BlocStats({
   equipement?: string[];
   reglesSpeciales?: { nom: string; texte: string }[];
 }) {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   return (
     <div className="card card--tight" style={{ marginBottom: '0.5rem' }}>
       <p className="text-sm mb-0" style={{ fontWeight: 'bold' }}>
         {titre}
       </p>
-      <div className="stat-grid" style={{ marginTop: '0.3rem' }}>
-        {STAT_KEYS.map((k) => (
-          <div key={k} className="stat-grid__cell stat-grid__cell--label">
-            {libelleCaracteristique(k, language)}
-          </div>
-        ))}
-        {STAT_KEYS.map((k) => (
-          <div key={k} className="stat-grid__cell stat-grid__cell--value">
-            {stats[k]}
-          </div>
-        ))}
-      </div>
+      <StatGrid stats={stats} style={{ marginTop: '0.3rem' }} />
       {!!equipement?.length && (
         <p className="text-sm mb-0" style={{ marginTop: '0.4rem' }}>
           <strong>{t('blessureGraveWizard.equipmentLabel')}</strong> {equipement.join(', ')}

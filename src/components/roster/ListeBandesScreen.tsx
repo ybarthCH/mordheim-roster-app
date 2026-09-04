@@ -51,7 +51,8 @@ function heureBuildCET(isoDate: string): string {
 }
 
 export function ListeBandesScreen() {
-  const { rosters, loading, removeRoster, duplicateRoster, importRoster, reorderRosters } = useRosters();
+  const { rosters, loading, error, refresh, removeRoster, duplicateRoster, importRoster, reorderRosters } =
+    useRosters();
   const navigate = useNavigate();
   const { language, t } = useLanguage();
   const { rules } = useGameRules();
@@ -159,9 +160,18 @@ export function ListeBandesScreen() {
         </div>
       )}
 
-      {loading && <p className="text-muted">{t('home.loading')}</p>}
+      {loading && !error && <p className="text-muted">{t('home.loading')}</p>}
 
-      {!loading && rosters.length === 0 && (
+      {error && (
+        <div className="card" style={{ borderColor: 'var(--danger)' }}>
+          <p className="text-danger mb-0">{t('home.loadError')}</p>
+          <button className="btn" style={{ marginTop: '0.5rem' }} onClick={() => refresh()}>
+            {t('home.loadRetry')}
+          </button>
+        </div>
+      )}
+
+      {!loading && !error && rosters.length === 0 && (
         <div className="empty-state">
           <Icon name="parchemin" size="2.4em" style={{ opacity: 0.5, marginBottom: '0.4rem' }} />
           <p>{t('home.emptyTitle')}</p>

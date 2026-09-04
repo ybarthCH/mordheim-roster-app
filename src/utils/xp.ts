@@ -2,6 +2,10 @@
 // Héros : 90 cases (3 lignes de 30), paliers d'avancement aux seuils exacts
 // de la table de référence (espacement croissant, pas des puissances de 2).
 // Hommes de main : 14 cases, paliers aux positions 2, 5, 9, 14.
+import type { Member } from '../types/roster';
+import type { Profile, WarbandCatalog } from '../types/catalog';
+import { getFrancTireur } from '../data/hiredSwords';
+import { grilleXpDuProfil } from './profil';
 
 export const HERO_XP_MAX = 90;
 export const HERO_XP_PALIERS = [
@@ -77,4 +81,21 @@ export function avancesObtenues(historique: { type: string; bonus?: boolean }[])
   const indexPromotion = historique.findLastIndex((a) => a.type === 'promotion');
   const pertinentes = indexPromotion === -1 ? historique : historique.slice(indexPromotion + 1);
   return pertinentes.filter((a) => !a.bonus && a.type !== 'promotion').length;
+}
+
+// Une avancée est due (case palier déjà franchie) mais n'a pas encore été
+// résolue via AvanceeModal — badge "Avancée en attente" partagé par
+// MemberGroupCard (tableau + liste compacte) et MemberQuickList (vue
+// fusionnée "Bande complète").
+export function estAvanceEnAttente(
+  profil: Profile | undefined,
+  m: Member,
+  catalogue: WarbandCatalog | undefined
+): boolean {
+  if (!profil || !peutGagnerExperience(profil)) return false;
+  if (getFrancTireur(m.franc_tireur_id)?.gagne_experience === false) return false;
+  return (
+    avancesDues(grilleXpDuProfil(profil), m.xp_depart, m.xp, !!catalogue?.xp_demi) >
+    avancesObtenues(m.historique_avancees)
+  );
 }

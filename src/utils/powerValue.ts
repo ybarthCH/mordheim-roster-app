@@ -421,20 +421,3 @@ export function formatPowerValueTooltip(d: PowerValueDetail): string {
     `W ${d.blessures}`,
   ].join('\n');
 }
-
-/**
- * Membres actuellement dans la bande dont le coût de recrutement est
- * définitivement inconnu (profil à prix variable, `Member.cout_recrutement`
- * jamais renseigné — recrue créée avant l'introduction de ce champ) : leur
- * Power Value compte 0 pour ce terme plutôt qu'une valeur inventée. Exposé
- * pour permettre de signaler ces cas à l'utilisateur plutôt que de les
- * laisser silencieusement sous-évalués.
- */
-export function membresCoutRecrutementInconnu(roster: RosterInstance): Member[] {
-  const catalogue = getCatalogue(roster.bande_id);
-  return roster.membres.filter((m) => {
-    if (m.statut === 'mort') return false;
-    const profil = resolveProfil(roster, m, catalogue);
-    return profil?.cout == null && m.cout_recrutement == null;
-  });
-}
