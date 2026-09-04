@@ -33,6 +33,21 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-09-04',
+    points: [
+      {
+        categorie: 'autre',
+        texte:
+          "Le Docteur (règle optionnelle « Quoi de neuf, Docteur ? ») affiche maintenant son diagnostic dans la langue de l'interface, au lieu d'être toujours en français — y compris dans l'historique de traitement d'une blessure.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Meilleure robustesse au chargement de l'app et à l'import d'un fichier de bande : un souci de stockage local ou un fichier corrompu affichent maintenant un message clair (avec un bouton Réessayer si besoin) au lieu de bloquer l'app ou de rendre la bande inouvrable.",
+      },
+    ],
+  },
+  {
     date: '2026-09-03',
     points: [
       {
