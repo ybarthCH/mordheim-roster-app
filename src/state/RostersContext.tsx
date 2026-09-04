@@ -9,6 +9,7 @@ import { RostersContext } from './useRosters';
 export function RostersProvider({ children }: { children: ReactNode }) {
   const [rosters, setRosters] = useState<RosterInstance[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   // Reflète `rosters` de façon synchrone (assignée pendant le rendu, avant
   // tout effet) : patchRoster s'appuie dessus plutôt que sur `rosters` pour
   // lire l'état le plus récent même entre deux rendus, quand un premier
@@ -18,9 +19,21 @@ export function RostersProvider({ children }: { children: ReactNode }) {
 
   const refresh = useCallback(async () => {
     setLoading(true);
-    const all = await listRosters();
-    setRosters(all.map(normaliserRoster));
-    setLoading(false);
+    // try/catch/finally indispensable ici : listRosters() peut rejeter (voir
+    // son propre commentaire dans db/db.ts — IndexedDB indisponible, quota
+    // dépassé, navigation privée sur certains navigateurs...). Sans ce filet,
+    // l'exception remontait hors du useEffect qui appelle refresh() sans
+    // jamais atteindre setLoading(false) : l'app restait bloquée
+    // indéfiniment sur l'écran "Chargement…", sans message ni recours.
+    try {
+      const all = await listRosters();
+      setRosters(all.map(normaliserRoster));
+      setError(null);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -171,6 +184,7 @@ export function RostersProvider({ children }: { children: ReactNode }) {
     () => ({
       rosters,
       loading,
+      error,
       refresh,
       getRosterById,
       updateRoster,
@@ -184,6 +198,7 @@ export function RostersProvider({ children }: { children: ReactNode }) {
     [
       rosters,
       loading,
+      error,
       refresh,
       getRosterById,
       updateRoster,

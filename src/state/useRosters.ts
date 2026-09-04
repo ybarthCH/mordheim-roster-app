@@ -4,6 +4,12 @@ import type { RosterInstance } from '../types/roster';
 export type RostersContextValue = {
   rosters: RosterInstance[];
   loading: boolean;
+  // Message d'erreur si le dernier refresh() a échoué (ex : IndexedDB
+  // indisponible — quota dépassé, navigation privée sur certains
+  // navigateurs...) — sans ce champ, un tel échec laissait l'app bloquée
+  // indéfiniment sur l'état "Chargement…", sans message ni moyen de
+  // réessayer. `null` tant qu'aucun refresh n'a échoué.
+  error: string | null;
   refresh: () => Promise<void>;
   getRosterById: (id: string) => RosterInstance | undefined;
   updateRoster: (roster: RosterInstance) => Promise<void>;

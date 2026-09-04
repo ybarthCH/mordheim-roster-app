@@ -13,6 +13,11 @@ export const listeBandesScreen: UiDictionary = {
   'home.playStoreAnnounceLink': { fr: 'Voir la fiche', en: 'View listing' },
   'home.playStoreAnnounceDismiss': { fr: 'Masquer cette annonce', en: 'Dismiss this announcement' },
   'home.loading': { fr: 'Chargement…', en: 'Loading…' },
+  'home.loadError': {
+    fr: "Impossible de charger tes bandes (stockage local indisponible ou navigation privée). Réessaie, ou vérifie l'espace de stockage disponible.",
+    en: 'Unable to load your warbands (local storage unavailable, or private browsing). Try again, or check your available storage space.',
+  },
+  'home.loadRetry': { fr: 'Réessayer', en: 'Try again' },
   'home.emptyTitle': { fr: 'Aucune bande enregistrée pour l\'instant.', en: 'No warbands registered yet.' },
   'home.emptySubtitle': {
     fr: "Crée ta première bande ou importe un fichier JSON.",
