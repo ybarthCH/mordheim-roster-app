@@ -11,10 +11,10 @@ import { ScrollToTop } from './components/common/ScrollToTop';
 import { UpdateToast } from './components/common/UpdateToast';
 
 const ListeBandesScreen = lazy(() =>
-  import('./components/bandes/ListeBandesScreen').then((m) => ({ default: m.ListeBandesScreen }))
+  import('./components/roster/ListeBandesScreen').then((m) => ({ default: m.ListeBandesScreen }))
 );
 const CreationBandeScreen = lazy(() =>
-  import('./components/creation/CreationBandeScreen').then((m) => ({ default: m.CreationBandeScreen }))
+  import('./components/roster/CreationBandeScreen').then((m) => ({ default: m.CreationBandeScreen }))
 );
 const RosterRoute = lazy(() =>
   import('./components/roster/RosterRoute').then((m) => ({ default: m.RosterRoute }))
