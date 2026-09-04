@@ -51,16 +51,6 @@ import { effectifPourVenteWyrdstone } from '../../utils/bandeValue';
 import { prixVenteWyrdstone } from '../../data/tableVenteWyrdstone';
 import { CLE_DE_SUPPLEMENTAIRE_EXPLORATION } from '../../utils/effetsPersistants';
 
-const ETAPES = [
-  'Bataille',
-  'Blessures graves',
-  "Gain d'expérience",
-  'Exploration',
-  'Commerce',
-  'Entretien',
-  'Résumé',
-];
-
 const ETAPE_LABEL_KEYS = [
   'postBatailleScreen.step.battle',
   'postBatailleScreen.step.injuries',
@@ -238,6 +228,16 @@ export function PostBatailleScreen() {
   const [groupeSlotDrafts, setGroupeSlotDrafts] = useState<Record<string, SlotDraft[]>>({});
   const [entretienDrafts, setEntretienDrafts] = useState<Record<string, DecisionEntretien>>({});
   const [commerceDrafts, setCommerceDrafts] = useState<Record<string, CommerceDraft>>({});
+  // Un membre dont le sort se décide (mort, blessure grave, survie) sur une
+  // étape antérieure n'est plus éligible à l'étape Commerce — son brouillon
+  // éventuel doit disparaître pour ne pas rejouer un achat sur un membre mort.
+  const invaliderCommerceDraft = (instanceId: string) => {
+    setCommerceDrafts((prev) => {
+      const next = { ...prev };
+      delete next[instanceId];
+      return next;
+    });
+  };
 
   // Avancées résolues directement depuis l'étape Gain d'expérience (voir
   // ouvrirAvancee/appliquerAvancee ci-dessous) — journalisées en plus de
@@ -622,11 +622,7 @@ export function PostBatailleScreen() {
         ? { xp: m.xp, survecu: 'non' }
         : { xp: m.xp + 1 + resultat.xpBonus, survecu: 'oui' },
     }));
-    setCommerceDrafts((prev) => {
-      const next = { ...prev };
-      delete next[m.instance_id];
-      return next;
-    });
+    invaliderCommerceDraft(m.instance_id);
   };
 
   const reinitialiserBlessure = (m: Member) => {
@@ -640,11 +636,7 @@ export function PostBatailleScreen() {
       delete next[m.instance_id];
       return next;
     });
-    setCommerceDrafts((prev) => {
-      const next = { ...prev };
-      delete next[m.instance_id];
-      return next;
-    });
+    invaliderCommerceDraft(m.instance_id);
   };
 
   const xpDraftDe = (m: Member, xpParDefaut: number): XpDraft =>
@@ -663,11 +655,7 @@ export function PostBatailleScreen() {
     const nouveauSurvecu = d.survecu === valeur ? null : valeur;
     if (nouveauSurvecu === 'oui') xp += 1;
     setXpDrafts((prev) => ({ ...prev, [m.instance_id]: { xp, survecu: nouveauSurvecu } }));
-    setCommerceDrafts((prev) => {
-      const next = { ...prev };
-      delete next[m.instance_id];
-      return next;
-    });
+    invaliderCommerceDraft(m.instance_id);
   };
 
   const slotsDe = (m: Member): SlotDraft[] => {
@@ -721,7 +709,7 @@ export function PostBatailleScreen() {
     if (etape === indexBlessures && blessuresIncompletes) return;
     if (etape === indexCommerce && commerceIncomplet) return;
     if (etape === indexEntretien && entretienInsuffisant) return;
-    setEtape((e) => Math.min(ETAPES.length - 1, e + 1));
+    setEtape((e) => Math.min(ETAPE_LABEL_KEYS.length - 1, e + 1));
   };
   const precedent = () => setEtape((e) => Math.max(0, e - 1));
 
@@ -1072,14 +1060,14 @@ export function PostBatailleScreen() {
   return (
     <Screen title={t('postBatailleScreen.wizardTitle')} back={`/roster/${roster.id}`} onBeforeBack={confirmerAbandon}>
       <div className="wizard-steps">
-        {ETAPES.map((_, i) => (
+        {ETAPE_LABEL_KEYS.map((_, i) => (
           <div key={i} className={`wizard-steps__step ${i <= etape ? 'wizard-steps__step--done' : ''}`} />
         ))}
       </div>
       <p className="text-muted text-sm">
         {t('postBatailleScreen.stepCounter', {
           n: etape + 1,
-          total: ETAPES.length,
+          total: ETAPE_LABEL_KEYS.length,
           nom: t(ETAPE_LABEL_KEYS[etape]),
         })}
       </p>
@@ -1291,7 +1279,7 @@ export function PostBatailleScreen() {
             {t('commerce.skipAll')}
           </button>
         )}
-        {etape < ETAPES.length - 1 && (
+        {etape < ETAPE_LABEL_KEYS.length - 1 && (
           <button
             type="button"
             className="btn--pack-pill-sm btn--pack-pill-sm--primary"
@@ -1306,7 +1294,7 @@ export function PostBatailleScreen() {
             {t('postBatailleScreen.next')}
           </button>
         )}
-        {etape === ETAPES.length - 1 && (
+        {etape === ETAPE_LABEL_KEYS.length - 1 && (
           <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" onClick={terminer}>
             {t('postBatailleScreen.validateAndSave')}
           </button>
