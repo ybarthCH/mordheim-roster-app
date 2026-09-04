@@ -28,12 +28,12 @@ import {
 import type { ShopItem } from '../../utils/shop';
 import { STAT_KEYS } from '../../types/catalog';
 import { Icon } from '../common/Icon';
+import { StatGrid } from '../common/StatGrid';
 import type { InventoryEntry, CustomItem, CustomItemOverride, RosterInstance } from '../../types/roster';
 import { useGameRules } from '../../state/useGameRules';
 import { CustomItemForm } from './CustomItemForm';
 import { useLanguage } from '../../state/useLanguage';
 import { translateItem } from '../../i18n/data/items';
-import { libelleCaracteristique } from '../../utils/stats';
 
 type Props = {
   catalogue: WarbandCatalog;
@@ -918,20 +918,7 @@ export function AchatEquipementContenu({
             </header>
 
             <div className="achat-equipement__contenu achat-equipement__detail">
-              {itemSelectionne.stats && (
-                <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
-                  {STAT_KEYS.map((k) => (
-                    <div key={k} className="stat-grid__cell stat-grid__cell--label">
-                      {libelleCaracteristique(k, language)}
-                    </div>
-                  ))}
-                  {STAT_KEYS.map((k) => (
-                    <div key={k} className="stat-grid__cell stat-grid__cell--value">
-                      {itemSelectionne.stats![k]}
-                    </div>
-                  ))}
-                </div>
-              )}
+              {itemSelectionne.stats && <StatGrid stats={itemSelectionne.stats} style={{ marginBottom: '0.6rem' }} />}
               {(itemSelectionne.portee || itemSelectionne.force || itemSelectionne.sauvegarde) && (
                 <div className="flex flex-wrap gap-sm" style={{ marginBottom: '0.4rem' }}>
                   {itemSelectionne.portee && <span className="badge badge--info">{t('itemDetail.range')} {traduirePortee(itemSelectionne.portee, language)}</span>}

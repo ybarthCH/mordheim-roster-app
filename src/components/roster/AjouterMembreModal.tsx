@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../common/Icon';
+import { StatGrid } from '../common/StatGrid';
 import type { Member, RosterInstance, InventoryEntry } from '../../types/roster';
-import { STAT_KEYS, type Profile } from '../../types/catalog';
+import type { Profile } from '../../types/catalog';
 import { getCatalogue } from '../../data/warbands';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
 import { limiteAfficheePourProfil, peutAjouterMembre } from '../../utils/validation';
@@ -28,7 +29,6 @@ import { estSorcier, marquesDisponibles, resolveSort, sortsDisponiblesPourRoster
 import { magieMineure } from '../../i18n/data/minorMagic';
 import { equitationGratuitePourTribu, SKILL_EQUITATION } from '../../utils/tribu';
 import { peutGagnerExperience } from '../../utils/xp';
-import { libelleCaracteristique } from '../../utils/stats';
 import { Modal } from '../common/Modal';
 import { AchatEquipementContenu } from '../personnage/AchatEquipementModal';
 import { OptionSorcierModal } from '../personnage/OptionSorcierModal';
@@ -375,20 +375,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
       <Modal onClose={() => setConfirmationAnnulationOuverte(true)} variant="fullscreen">
         <div style={{ padding: '0.9rem 0.9rem 0' }}>
           <h3 className="mt-0">{t('recrutementEquipement.title', { nom: membreActuel.nom_perso })}</h3>
-          {profil?.stats && (
-            <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
-              {STAT_KEYS.map((k) => (
-                <div key={k} className="stat-grid__cell stat-grid__cell--label">
-                  {libelleCaracteristique(k, language)}
-                </div>
-              ))}
-              {STAT_KEYS.map((k) => (
-                <div key={k} className="stat-grid__cell stat-grid__cell--value">
-                  {profil.stats![k]}
-                </div>
-              ))}
-            </div>
-          )}
+          {profil?.stats && <StatGrid stats={profil.stats} style={{ marginBottom: '0.6rem' }} />}
           {profil?.regles_speciales?.map((r) => (
             <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
               <strong>{r.nom}</strong> — {r.texte}
@@ -612,20 +599,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
               {t('creation.modal.notCombatant')}
             </p>
           )}
-          {profil.stats && (
-            <div className="stat-grid" style={{ marginBottom: '0.6rem' }}>
-              {STAT_KEYS.map((k) => (
-                <div key={k} className="stat-grid__cell stat-grid__cell--label">
-                  {libelleCaracteristique(k, language)}
-                </div>
-              ))}
-              {STAT_KEYS.map((k) => (
-                <div key={k} className="stat-grid__cell stat-grid__cell--value">
-                  {profil.stats![k]}
-                </div>
-              ))}
-            </div>
-          )}
+          {profil.stats && <StatGrid stats={profil.stats} style={{ marginBottom: '0.6rem' }} />}
           {profil.regles_speciales?.map((r) => (
             <p key={r.nom} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
               <strong>{r.nom}</strong> — {r.texte}
