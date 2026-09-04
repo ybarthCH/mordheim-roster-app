@@ -857,13 +857,33 @@ export function estObjetRare(rarete?: string): boolean {
   return rarete !== undefined && !Number.isNaN(Number(rarete));
 }
 
+// Champs d'un ShopItem copiés tels quels depuis un item du catalogue commun
+// (items/*.json) — communs aux quatre points de construction d'un ShopItem
+// (shop commun, équipement de bande normal/spécial, détail d'un objet déjà
+// possédé), indépendamment du coût/catégorie/disponibilité/origine propres à
+// chaque contexte. Centralise notamment stats_delta, dont l'absence à deux
+// de ces quatre sites empêchait certaines mutations (ex : Great Claw) d'agir
+// une fois l'objet passé par ce chemin-là.
+function champsItemVersShopItem(item: (typeof TOUS_LES_ITEMS)[number]) {
+  return {
+    nom: item.nom,
+    texte: item.texte,
+    portee: 'portee' in item ? (item.portee as string | null) : undefined,
+    force: 'force' in item ? (item.force as string | null) : undefined,
+    sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
+    regles_speciales: item.regles_speciales,
+    stats: 'stats' in item ? (item.stats as StatsMonture | undefined) : undefined,
+    stats_delta: 'stats_delta' in item ? item.stats_delta : undefined,
+  };
+}
+
 // Mappe un objet brut (items/*.json) vers un ShopItem "commun", sans
 // résolution de règles de prix (voir getShopCommun/itemVersShopItem qui
 // appellent appliquerReglesObjet par-dessus).
 function mapperItemVersShopItem(item: (typeof TOUS_LES_ITEMS)[number]): ShopItem {
   return {
     id: item.id,
-    nom: item.nom,
+    ...champsItemVersShopItem(item),
     categorie: normaliserCategorie(item.categorie),
     cout: item.cout,
     cout_officiel:
@@ -871,13 +891,7 @@ function mapperItemVersShopItem(item: (typeof TOUS_LES_ITEMS)[number]): ShopItem
     cout_fixe: item.cout_fixe,
     disponibilite: item.disponibilite,
     rarete: item.rarete,
-    texte: item.texte,
-    portee: 'portee' in item ? (item.portee as string | null) : undefined,
-    force: 'force' in item ? (item.force as string | null) : undefined,
-    sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
-    regles_speciales: item.regles_speciales,
     sous_jet_achat: 'sous_jet_achat' in item ? (item.sous_jet_achat as SousJetAchatSpec | undefined) : undefined,
-    stats: 'stats' in item ? (item.stats as StatsMonture | undefined) : undefined,
     origine: 'commun',
   };
 }
@@ -1154,50 +1168,85 @@ export function getShopCommun(
     profil && profil.categories_interdites_commun?.length
       ? { ...profil, categories_interdites: [...(profil.categories_interdites ?? []), ...profil.categories_interdites_commun] }
       : profil;
-  const items: ShopItem[] = TOUS_LES_ITEMS.filter(
-    (item) =>
-      // Les mutations ("Un guerrier de Mutant ou de Possédé peut acheter des
-      // mutations uniquement lors de son recrutement") ne s'achètent jamais
-      // depuis le shop commun, quelle que soit la bande : uniquement via la
-      // liste equipement_special de la bande.
-      item.categorie !== 'mutations' &&
-      // Un objet déjà référencé dans l'equipement_special de LA bande active
-      // porte un prix/une disponibilité volontairement propres à cette bande
-      // (ex : Exosquelette/Machine du Chaos des Nains du Chaos, 175/125 CO
-      // au lieu du prix brut du catalogue générique, 225/195 CO — voir
-      // PROJECT_DECISIONS.md) : le laisser aussi apparaître ici, au prix
-      // brut de l'objet générique, contournerait silencieusement ce prix de
-      // bande. equipement_special reste la seule voie d'achat pour ces
-      // objets, jamais un doublon au prix générique dans cet onglet commun.
-      !catalogue?.equipement_special?.some((ref) => ref.item_id === item.id) &&
-      !(armureLourdeInterdite && ITEMS_EQUIVALENT_ARMURE_LOURDE.has(item.id)) &&
-      !('heros_uniquement' in item && item.heros_uniquement && profil?.type === 'homme_de_main') &&
-      ((catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) ||
-        (item.acces?.includes('commun_heros') && profil?.type === 'heros') ||
-        // Eau bénite ("Common for Warrior-Priests and Sisters of Sigmar") —
-        // même principe que commun_heros ci-dessus : restreint au Prêtre-
-        // guerrier des Répurgateurs (les Sœurs de Sigmar y ont déjà accès
-        // via leur propre liste de bande, restriction Héroïnes uniquement
-        // déjà appliquée là par le mécanisme générique "chapitre Objets
-        // Divers" — inutile de dupliquer l'accès ici pour elles).
-        (item.acces?.includes('commun_pretres_guerriers_soeurs_de_sigmar') && profil?.id === 'pretre_guerrier')) &&
-      respecteRestrictionProfilEquipementSpecial(catalogue, profil, item.id) &&
-      respecteRestrictionCompetenceEquipementSpecial(catalogue, profil, competencesAcquises, item.id) &&
-      // Interdiction non levable par une compétence (voir Profile.
-      // armes_tir_commun_interdit_non_levable) — vérifiée séparément
-      // d'estCategorieInterdite ci-dessous, qui lève systématiquement les
-      // interdictions "armes_tir" pour la compétence "Toutes armes de tir".
-      !(profil?.armes_tir_commun_interdit_non_levable && normaliserCategorie(item.categorie) === 'armes_tir') &&
-      !estCategorieInterdite(
-        item.categorie,
-        profilInterdictionCommune,
-        competencesAcquises,
-        'sous_type' in item ? (item.sous_type as string | undefined) : undefined
-      ) &&
-      (!filtrerAccesEntrainement ||
-        armeArmureUtilisableSansEntrainement(item.id, item.categorie, catalogue, profil, competencesAcquises)) &&
-      objetAutorisePourHommeDeMain(catalogueId, profil, item.id, item.categorie)
-  ).map(mapperItemVersShopItem);
+
+  type ItemCatalogue = (typeof TOUS_LES_ITEMS)[number];
+
+  // Les mutations ("Un guerrier de Mutant ou de Possédé peut acheter des
+  // mutations uniquement lors de son recrutement") ne s'achètent jamais
+  // depuis le shop commun, quelle que soit la bande : uniquement via la
+  // liste equipement_special de la bande.
+  const nEstPasUneMutation = (item: ItemCatalogue) => item.categorie !== 'mutations';
+
+  // Un objet déjà référencé dans l'equipement_special de LA bande active
+  // porte un prix/une disponibilité volontairement propres à cette bande
+  // (ex : Exosquelette/Machine du Chaos des Nains du Chaos, 175/125 CO au
+  // lieu du prix brut du catalogue générique, 225/195 CO — voir
+  // PROJECT_DECISIONS.md) : le laisser aussi apparaître ici, au prix brut de
+  // l'objet générique, contournerait silencieusement ce prix de bande.
+  // equipement_special reste la seule voie d'achat pour ces objets, jamais
+  // un doublon au prix générique dans cet onglet commun.
+  const pasDejaDansEquipementSpecial = (item: ItemCatalogue) =>
+    !catalogue?.equipement_special?.some((ref) => ref.item_id === item.id);
+
+  const armureLourdeAutorisee = (item: ItemCatalogue) =>
+    !(armureLourdeInterdite && ITEMS_EQUIVALENT_ARMURE_LOURDE.has(item.id));
+
+  const pasReserveAuxHeros = (item: ItemCatalogue) =>
+    !('heros_uniquement' in item && item.heros_uniquement && profil?.type === 'homme_de_main');
+
+  const accesAutorise = (item: ItemCatalogue) =>
+    (catalogueId ? estAccesPourCatalogue(item.acces ?? [], catalogueId) : estAccesGenerique(item.acces ?? [])) ||
+    (item.acces?.includes('commun_heros') && profil?.type === 'heros') ||
+    // Eau bénite ("Common for Warrior-Priests and Sisters of Sigmar") — même
+    // principe que commun_heros ci-dessus : restreint au Prêtre-guerrier des
+    // Répurgateurs (les Sœurs de Sigmar y ont déjà accès via leur propre
+    // liste de bande, restriction Héroïnes uniquement déjà appliquée là par
+    // le mécanisme générique "chapitre Objets Divers" — inutile de dupliquer
+    // l'accès ici pour elles).
+    (item.acces?.includes('commun_pretres_guerriers_soeurs_de_sigmar') && profil?.id === 'pretre_guerrier');
+
+  const respecteRestrictionsEquipementSpecial = (item: ItemCatalogue) =>
+    respecteRestrictionProfilEquipementSpecial(catalogue, profil, item.id) &&
+    respecteRestrictionCompetenceEquipementSpecial(catalogue, profil, competencesAcquises, item.id);
+
+  // Interdiction non levable par une compétence (voir Profile.
+  // armes_tir_commun_interdit_non_levable) — vérifiée séparément de
+  // categorieAutorisee ci-dessous, qui lève systématiquement les
+  // interdictions "armes_tir" pour la compétence "Toutes armes de tir".
+  const armesTirNonLevablesRespectees = (item: ItemCatalogue) =>
+    !(profil?.armes_tir_commun_interdit_non_levable && normaliserCategorie(item.categorie) === 'armes_tir');
+
+  const categorieAutorisee = (item: ItemCatalogue) =>
+    !estCategorieInterdite(
+      item.categorie,
+      profilInterdictionCommune,
+      competencesAcquises,
+      'sous_type' in item ? (item.sous_type as string | undefined) : undefined
+    );
+
+  const entrainementRespecte = (item: ItemCatalogue) =>
+    !filtrerAccesEntrainement ||
+    armeArmureUtilisableSansEntrainement(item.id, item.categorie, catalogue, profil, competencesAcquises);
+
+  const autorisePourHommeDeMain = (item: ItemCatalogue) =>
+    objetAutorisePourHommeDeMain(catalogueId, profil, item.id, item.categorie);
+
+  const predicatsAchatCommun = [
+    nEstPasUneMutation,
+    pasDejaDansEquipementSpecial,
+    armureLourdeAutorisee,
+    pasReserveAuxHeros,
+    accesAutorise,
+    respecteRestrictionsEquipementSpecial,
+    armesTirNonLevablesRespectees,
+    categorieAutorisee,
+    entrainementRespecte,
+    autorisePourHommeDeMain,
+  ];
+
+  const items: ShopItem[] = TOUS_LES_ITEMS.filter((item) => predicatsAchatCommun.every((p) => p(item))).map(
+    mapperItemVersShopItem
+  );
   return items.map((item) => appliquerReglesObjet(item, catalogueId ?? '', rules, 'commun'));
 }
 
@@ -1304,17 +1353,12 @@ export function getEquipementBande(
         if (ref.profils && !(profil && ref.profils.includes(profil.id))) continue;
         items.push({
           id: item.id,
-          nom: item.nom,
+          ...champsItemVersShopItem(item),
           categorie,
           cout: ref.cout,
           cout_fixe: typeof ref.cout === 'number',
           disponibilite: ref.restriction ?? ref.note ?? item.disponibilite,
           rarete: ref.rarete ?? item.rarete,
-          texte: item.texte,
-          portee: 'portee' in item ? (item.portee as string | null) : undefined,
-          force: 'force' in item ? (item.force as string | null) : undefined,
-          sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
-          regles_speciales: item.regles_speciales,
           origine: 'bande',
         });
       }
@@ -1362,7 +1406,7 @@ export function getEquipementBande(
     }
     items.push({
       id: item.id,
-      nom: item.nom,
+      ...champsItemVersShopItem(item),
       // La liste d'équipement spécial d'une bande regroupe des objets très
       // divers (armures uniques, montures, mutations...) tous affichés sous
       // un même onglet "Spécial" par défaut — sauf les mutations, qui
@@ -1373,12 +1417,6 @@ export function getEquipementBande(
       cout_fixe: typeof cout === 'number',
       disponibilite: ref.disponibilite ?? item.disponibilite,
       rarete: ref.rarete ?? item.rarete,
-      texte: item.texte,
-      portee: 'portee' in item ? (item.portee as string | null) : undefined,
-      force: 'force' in item ? (item.force as string | null) : undefined,
-      sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
-      regles_speciales: item.regles_speciales,
-      stats_delta: 'stats_delta' in item ? item.stats_delta : undefined,
       origine: 'bande',
     });
   }
@@ -1836,20 +1874,13 @@ export function resolveItemDetail(
     : undefined;
   return appliquerReglesObjet({
     id: item.id,
-    nom: item.nom,
+    ...champsItemVersShopItem(item),
     categorie: normaliserCategorie(item.categorie),
     cout: entree.cout,
     disponibilite: item.disponibilite,
     rarete: item.rarete,
-    texte: item.texte,
-    portee: 'portee' in item ? (item.portee as string | null) : undefined,
-    force: 'force' in item ? (item.force as string | null) : undefined,
-    sauvegarde: 'sauvegarde' in item ? (item.sauvegarde as string | null) : undefined,
-    regles_speciales: item.regles_speciales,
     sous_jet_achat: resultatSousJetAchat ? undefined : sousJetAchat,
     resultatSousJetAchat,
-    stats: 'stats' in item ? (item.stats as StatsMonture | undefined) : undefined,
-    stats_delta: 'stats_delta' in item ? item.stats_delta : undefined,
     origine: 'bande',
   }, catalogueId, rules, 'paye');
 }
