@@ -53,6 +53,11 @@ export const reglagesScreen: UiDictionary = {
   },
   'reglages.about': { fr: 'À propos', en: 'About' },
   'reglages.privacyPolicy': { fr: 'Politique de confidentialité', en: 'Privacy Policy' },
+  'reglages.supportProject': { fr: 'Offrir un café ☕ (Ko-fi)', en: 'Buy me a coffee ☕ (Ko-fi)' },
+  'reglages.supportProjectBody': {
+    fr: "Musterheim reste gratuit et sans publicité. Un don libre sur Ko-fi (aucun frais prélevé, rien à débloquer) aide à couvrir le temps de développement.",
+    en: 'Musterheim stays free and ad-free. A free-will donation on Ko-fi (no fee taken, nothing to unlock) helps cover development time.',
+  },
   'reglages.checkUpdate': { fr: 'Vérifier les mises à jour', en: 'Check for updates' },
   'reglages.checkingUpdate': { fr: 'Vérification…', en: 'Checking…' },
   'reglages.upToDate': { fr: 'App à jour', en: 'App up to date' },
