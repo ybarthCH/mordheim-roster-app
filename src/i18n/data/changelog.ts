@@ -11,6 +11,10 @@ const changelogEn: Record<string, string[]> = {
   '2026-09-04': [
     "The Doctor (optional \"What's Up, Doc?\" rule) now shows its diagnosis in the interface's current language instead of always being in French — including in a wound's treatment history.",
     'Improved robustness when loading the app or importing a warband file: a local storage issue or a corrupted file now shows a clear message (with a Retry button where relevant) instead of freezing the app or leaving the warband unopenable.',
+    "In a Henchman group, an item present in only a single copy for the whole group no longer wrongly disappears the moment a single model falls in battle — it stays as long as at least one survivor remains.",
+    'The Holy (Unholy) Relic, a rulebook item missing since the app began, is now available in the common shop of every warband.',
+    'Fixed the price of Ithilmar Armour (90 gc instead of 150 gc).',
+    'A "Buy me a coffee ☕ (Ko-fi)" button was added under Settings → About to support the app\'s development, if you feel like it.',
   ],
   '2026-09-03': [
     "Lizardmen: the 3 Sacred Markings (Venom Glands, Huge Gob, Mark of the Ancients) can finally be bought, as special items reserved for the Heroes who qualify for them at recruitment.",
