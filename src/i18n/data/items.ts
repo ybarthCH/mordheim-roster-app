@@ -940,7 +940,7 @@ export const itemsEn: Record<string, ItemTraduit> = {
   armure_en_ithilmar_market: {
     nom: 'Ithilmar Armour',
     texte:
-      'Ithilmar is a silvery metal as light as silk and harder than steel. Elves are experts at crafting weapons and armour from ithilmar, and the elven realm of Caledor is the only place in the world where this metal can be found. Ithilmar armour is always heavy armour — three times the price of ordinary heavy armour.',
+      'Ithilmar is a silvery metal as light as silk and harder than steel. Elves are experts at crafting weapons and armour from ithilmar, and the elven realm of Caledor is the only place in the world where this metal can be found.',
     regles_speciales: [
       {
         nom: 'Heavy armour',
