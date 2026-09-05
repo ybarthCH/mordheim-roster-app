@@ -1775,6 +1775,15 @@ export function clonerEquipementPourNouvellesFigurines(
 // aurait sinon vu tout l'objet disparaître d'un coup dès qu'une seule
 // figurine meurt (floor(4/5) = 0 exemplaire par figurine), au lieu d'en
 // garder une part proportionnelle pour les survivants.
+// La proportion pure a cependant un angle mort sur un objet à faible
+// effectif (typiquement un exemplaire unique pour tout le groupe) : avec 1
+// exemplaire pour 5 figurines et 4 survivantes, floor(1×4/5) = 0 fait
+// disparaître l'objet alors que 80% du groupe reste en vie — statistiquement,
+// il appartenait presque certainement à l'un des survivants. Tant qu'il
+// reste au moins un survivant et que l'objet existait en au moins un
+// exemplaire, au moins un exemplaire est conservé (jamais plus que ce que la
+// proportion pure aurait donné dans l'autre sens, donc aucun risque de
+// dépasser `quantite`).
 export function retirerEquipementFigurinesTombees(
   inventaireExistant: InventoryEntry[],
   tailleGroupeActuelle: number,
@@ -1783,7 +1792,8 @@ export function retirerEquipementFigurinesTombees(
   const diviseur = Math.max(1, tailleGroupeActuelle);
   const restant: InventoryEntry[] = [];
   for (const { entree, quantite } of resumeInventaireParItem(inventaireExistant)) {
-    const quantiteRestante = Math.floor((quantite * survivants) / diviseur);
+    const proportionnel = Math.floor((quantite * survivants) / diviseur);
+    const quantiteRestante = quantite > 0 && survivants > 0 ? Math.max(1, proportionnel) : proportionnel;
     const memeItem = inventaireExistant.filter((e) => e.item_id === entree.item_id);
     restant.push(...memeItem.slice(0, quantiteRestante));
   }

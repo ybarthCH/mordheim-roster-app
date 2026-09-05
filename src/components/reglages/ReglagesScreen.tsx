@@ -159,6 +159,21 @@ export function ReglagesScreen() {
           {t('reglages.privacyPolicy')}
         </a>
 
+        {/* Pourboire libre, pas un don vers une association : reversé à 100%
+            au développeur, ne débloque aucune fonctionnalité — traité par
+            Google Play comme un paiement pair-à-pair, donc pas soumis à sa
+            billing (contrairement aux dons vers une structure, voir la
+            politique Paiements de Google Play). Lien simple plutôt qu'un
+            widget/script Ko-fi embarqué, cohérent avec le reste de l'app qui
+            ne charge aucun script tiers au runtime. */}
+        <p style={{ marginTop: '1rem', marginBottom: '0.3rem' }}>
+          {/* TODO : URL à vérifier/mettre à jour une fois le compte Ko-fi créé. */}
+          <a href="https://ko-fi.com/musterheim" target="_blank" rel="noopener noreferrer">
+            {t('reglages.supportProject')}
+          </a>
+        </p>
+        <p className="text-sm text-muted mb-0">{t('reglages.supportProjectBody')}</p>
+
         <div style={{ marginTop: '1rem' }}>
           {needRefresh ? (
             <div className="flex items-center justify-between gap-sm">

@@ -1813,6 +1813,27 @@
     ]
   },
   {
+    "id": "relique_sacree_impie",
+    "nom": "Relique sacrée (ou impie)",
+    "categorie": "divers",
+    "cout": "15+3D6",
+    "cout_fixe": false,
+    "rarete": "8",
+    "disponibilite": "Rare 8 (Rare 6 pour Prêtres-Guerriers et Sœurs de Sigmar — non modélisé ici, voir la règle spéciale « Effet » : le prix Rare 6 ne s'applique correctement dans les règles qu'à ce profil précis, pas à toute la bande des Répurgateurs, et le mécanisme de surcharge de rareté par bande de ce catalogue ne permet pas de le restreindre à un seul profil sans masquer l'objet aux autres profils de la même bande — laissé à Rare 8 pour tous, y compris ces deux-là, plutôt que de risquer de leur masquer l'objet par erreur)",
+    "acces": [
+      "rare_8"
+    ],
+    "source": "LdR",
+    "page": 49,
+    "texte": "Une relique religieuse, bénie ou maudite selon la nature de son porteur — fragment d'ossement, amulette gravée ou fiole de sang consacré — que l'on porte pour affermir son courage au combat.",
+    "regles_speciales": [
+      {
+        "nom": "Effet",
+        "texte": "Le porteur réussit automatiquement le premier test de Commandement qu'il doit passer dans la partie. S'il s'agit du chef de bande et qu'il n'a pas eu à passer de test de Commandement avant, il réussit aussi automatiquement son premier test de Déroute. Posséder plusieurs reliques ne permet pas d'ignorer les tests suivants."
+      }
+    ]
+  },
+  {
     "id": "relique_sacree_bretonnienne",
     "nom": "Relique sacrée bretonnienne",
     "categorie": "divers",

@@ -45,6 +45,25 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Meilleure robustesse au chargement de l'app et à l'import d'un fichier de bande : un souci de stockage local ou un fichier corrompu affichent maintenant un message clair (avec un bouton Réessayer si besoin) au lieu de bloquer l'app ou de rendre la bande inouvrable.",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Dans un groupe d'hommes de main, un objet en un seul exemplaire pour tout le groupe ne disparaît plus à tort dès qu'une seule figurine tombe au combat — il reste tant qu'il y a au moins un survivant.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "La Relique sacrée (ou impie), objet du livre de règles manquant depuis toujours, est maintenant disponible dans la boutique commune de toutes les bandes.",
+      },
+      {
+        categorie: 'autre',
+        texte: "Correction du prix de l'Armure en ithilmar (90 po au lieu de 150 po).",
+      },
+      {
+        categorie: 'interface',
+        texte:
+          "Un bouton « Offrir un café ☕ (Ko-fi) » a été ajouté dans Réglages → À propos pour soutenir le développement de l'app, si le cœur t'en dit.",
+      },
     ],
   },
   {
