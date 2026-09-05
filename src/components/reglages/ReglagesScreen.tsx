@@ -53,28 +53,6 @@ export function ReglagesScreen() {
           </div>
         </div>
 
-        {/* Pourboire libre, pas un don vers une association : reversé à 100%
-            au développeur, ne débloque aucune fonctionnalité — traité par
-            Google Play comme un paiement pair-à-pair, donc pas soumis à sa
-            billing (contrairement aux dons vers une structure, voir la
-            politique Paiements de Google Play). Lien simple plutôt qu'un
-            widget/script Ko-fi embarqué, cohérent avec le reste de l'app qui
-            ne charge aucun script tiers au runtime. Placé juste sous le
-            thème plutôt que dans "À propos" pour rester visible sans avoir
-            à faire défiler tous les réglages. */}
-        <a
-          href="https://ko-fi.com/musterheim"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn--primary btn--sm btn--block"
-          style={{ marginTop: '1rem', textDecoration: 'none' }}
-        >
-          {t('reglages.supportProject')}
-        </a>
-        <p className="text-sm text-muted" style={{ marginTop: '0.4rem', marginBottom: 0 }}>
-          {t('reglages.supportProjectBody')}
-        </p>
-
         <label className="flex items-start gap-sm" style={{ cursor: 'pointer', marginTop: '1rem' }}>
           <input
             type="checkbox"

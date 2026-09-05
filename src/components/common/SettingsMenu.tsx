@@ -100,6 +100,12 @@ export function SettingsMenu({ extraItems = [] }: Props) {
       label: t(toDark ? 'common.theme.toDark' : 'common.theme.toLight'),
       onClick: () => setTheme(toDark ? 'dark' : 'light'),
     },
+    {
+      key: 'kofi',
+      icon: 'coeur' as const,
+      label: t('settingsMenu.kofi'),
+      onClick: () => window.open('https://ko-fi.com/musterheim', '_blank', 'noopener,noreferrer'),
+    },
     ...extraItems,
   ];
 
