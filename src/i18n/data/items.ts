@@ -3765,6 +3765,18 @@ export const itemsEn: Record<string, ItemTraduit> = {
     nom: 'Sacred Slann Headdress Trophy',
     regles_speciales: [{ nom: 'Effect', texte: '+2 armour save.' }],
   },
+  relique_sacree_impie: {
+    nom: 'Holy (Unholy) Relic',
+    texte:
+      'A religious relic, blessed or cursed depending on the nature of its bearer — a bone fragment, an engraved amulet, or a vial of consecrated blood — carried to bolster one\'s courage in battle.',
+    regles_speciales: [
+      {
+        nom: 'Effect',
+        texte:
+          "The bearer automatically passes the first Leadership test he is required to take in the game. If he is the warband's leader and hasn't had to take a Leadership test before, he also automatically passes his first Rout test. Owning more than one relic does not allow further tests to be ignored.",
+      },
+    ],
+  },
   relique_sacree_bretonnienne: {
     nom: 'Bretonnian Holy Relic',
     texte: 'A fragment of a reliquary, a lock of hair from a Lady of the Lake, or a shard of armour from a fallen knight — an object of devotion carried on pilgrimage.',
