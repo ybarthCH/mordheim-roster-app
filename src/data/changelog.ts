@@ -33,6 +33,21 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-09-05',
+    points: [
+      {
+        categorie: 'autre',
+        texte:
+          "Correction de rareté : la Relique sacrée (ou impie) est Rare 6 (au lieu de Rare 8) pour les Prêtres-Guerriers des Répurgateurs et les Sœurs de Sigmar, comme prévu par la règle.",
+      },
+      {
+        categorie: 'interface',
+        texte:
+          "Le lien pour soutenir le projet (Ko-fi) est maintenant directement accessible depuis le menu Options (roue crantée), sous le bouton clair/sombre, plutôt que caché dans les réglages.",
+      },
+    ],
+  },
+  {
     date: '2026-09-04',
     points: [
       {

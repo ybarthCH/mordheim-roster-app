@@ -113,7 +113,8 @@ export type IconName =
   | 'lune'
   | 'documentJson'
   | 'documentPdf'
-  | 'globe';
+  | 'globe'
+  | 'coeur';
 
 const PATHS: Record<IconName, string> = {
   epee:
@@ -185,6 +186,8 @@ const PATHS: Record<IconName, string> = {
   // donc lisible tel quel en thème clair comme sombre, sans variante peinte
   // séparée à maintenir.
   globe: 'M12 3 A9 9 0 1 0 12.01 3 M12 3 A4 9 0 1 0 12 21 A4 9 0 1 0 12 3 M3 12 L21 12 M5 7 L19 7 M5 17 L19 17',
+  // Cœur simple (soutien/don) — cohérent avec le lien Ko-fi du menu Options.
+  coeur: 'M12 21 C12 21 4 14.3 4 8.8 C4 5.9 6.2 4 8.8 4 C10.4 4 11.6 4.9 12 6 C12.4 4.9 13.6 4 15.2 4 C17.8 4 20 5.9 20 8.8 C20 14.3 12 21 12 21 Z',
 };
 
 const VIEWBOX: Record<IconName, string> = {
@@ -224,6 +227,7 @@ const VIEWBOX: Record<IconName, string> = {
   documentJson: '0 0 24 24',
   documentPdf: '0 0 24 24',
   globe: '0 0 24 24',
+  coeur: '0 0 24 24',
 };
 
 // Petit repère textuel surimprimé sur certaines icônes (ex : "PDF" sur

@@ -5,6 +5,7 @@ export const common: UiDictionary = {
   'common.close': { fr: 'Fermer', en: 'Close' },
   'settingsMenu.title': { fr: 'Options', en: 'Options' },
   'settingsMenu.language': { fr: 'Langue', en: 'Language' },
+  'settingsMenu.kofi': { fr: 'Soutenir le projet (Ko-fi)', en: 'Support the project (Ko-fi)' },
   'common.theme.toDark': { fr: 'Mode sombre', en: 'Dark mode' },
   'common.theme.toLight': { fr: 'Mode clair', en: 'Light mode' },
   'statut.actif': { fr: 'Actif', en: 'Active' },

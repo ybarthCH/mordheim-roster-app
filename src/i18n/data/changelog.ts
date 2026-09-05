@@ -8,6 +8,10 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-09-05': [
+    'Rarity fix: the Holy (Unholy) Relic is now Rare 6 (instead of Rare 8) for Witch Hunter Warrior-Priests and Sisters of Sigmar, as the rule intends.',
+    'The link to support the project (Ko-fi) is now directly accessible from the Options menu (gear icon), under the light/dark button, instead of being hidden in settings.',
+  ],
   '2026-09-04': [
     "The Doctor (optional \"What's Up, Doc?\" rule) now shows its diagnosis in the interface's current language instead of always being in French — including in a wound's treatment history.",
     'Improved robustness when loading the app or importing a warband file: a local storage issue or a corrupted file now shows a clear message (with a Retry button where relevant) instead of freezing the app or leaving the warband unopenable.',
