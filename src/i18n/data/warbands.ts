@@ -5775,7 +5775,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
           { nom: 'Not Affected by Pain', texte: 'A Stunned result on the injury chart is treated as Knocked Down.' },
           { nom: "Can't Run", texte: 'A slow undead creature; cannot run but can charge normally.' },
           { nom: 'Immune to Poison', texte: 'Unaffected by poisons.' },
-          { nom: 'No Brain', texte: 'Skeletons are not alive; they therefore never gain experience.' },
+          { nom: 'No Brain', texte: 'Tomb Guards are not alive; they therefore never gain experience.' },
         ],
       },
       scorpion_des_tombeaux: {
