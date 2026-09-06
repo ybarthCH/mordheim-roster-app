@@ -1250,8 +1250,7 @@
     "rarete": "8",
     "disponibilite": "Rare 8, Prêtres-Guerriers et Sœurs de Sigmar uniquement",
     "acces": [
-      "witch_hunters",
-      "sisters_of_sigmar"
+      "commun_pretres_guerriers_soeurs_de_sigmar"
     ],
     "source": "LdR",
     "page": 49,
@@ -1842,8 +1841,7 @@
     "rarete": "6",
     "disponibilite": "Rare 6, Prêtres-Guerriers et Sœurs de Sigmar uniquement",
     "acces": [
-      "witch_hunters",
-      "sisters_of_sigmar"
+      "commun_pretres_guerriers_soeurs_de_sigmar"
     ],
     "source": "LdR",
     "page": 49,

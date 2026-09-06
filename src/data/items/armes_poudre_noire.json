@@ -285,8 +285,8 @@
     "texte": "Un pistolet doté de deux canons superposés, permettant de tirer deux coups avant de devoir recharger. Plus lourd et moins fiable qu'un pistolet simple.",
     "portee": "6ps", "force": "4",
     "regles_speciales": [
-      { "nom": "Double tir", "texte": "Cette arme tire deux coups avant de devoir être rechargée (au lieu d'un seul pour un pistolet normal)." },
-      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme après ses deux tirs." }
+      { "nom": "Double canon", "texte": "Le tireur doit déclarer s'il tire avec un ou deux canons. S'il tire avec un seul canon, l'arme se comporte comme un pistolet normal. S'il tire avec les deux : un seul jet pour toucher (tir groupé), mais un jet pour blesser par touche, chaque canon pouvant Blesser individuellement." },
+      { "nom": "Rechargement", "texte": "Après avoir tiré avec les 2 canons, placez 2 jetons près de la figurine. Lors de chaque phase de Tir suivante, retirez 1 jeton (dernière action de la phase — impossible de recharger et tirer avec la même arme le même tour). Avec 1 jeton restant, l'arme peut être tirée comme un pistolet normal (un seul canon rechargé)." }
     ]
   },
   {
@@ -297,8 +297,8 @@
     "texte": "Un pistolet doté de deux canons superposés, permettant de tirer deux coups avant de devoir recharger. Plus lourd et moins fiable qu'un pistolet simple.",
     "portee": "6ps", "force": "4",
     "regles_speciales": [
-      { "nom": "Double tir", "texte": "Cette arme tire deux coups avant de devoir être rechargée (au lieu d'un seul pour un pistolet normal)." },
-      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme après ses deux tirs." }
+      { "nom": "Double canon", "texte": "Pour chaque pistolet tiré, le tireur doit déclarer s'il tire avec un ou deux canons. S'il tire avec un seul canon, ce pistolet se comporte comme un pistolet normal. S'il tire avec les deux : un seul jet pour toucher (tir groupé), mais un jet pour blesser par touche, chaque canon pouvant Blesser individuellement." },
+      { "nom": "Rechargement", "texte": "Pour chaque pistolet ayant tiré ses 2 canons, placez 2 jetons près de la figurine (jusqu'à 4 jetons si les deux pistolets ont tiré). Lors de chaque phase de Tir suivante, retirez 1 jeton par pistolet à recharger (dernière action de la phase). Avec 1 jeton restant sur un pistolet, celui-ci peut être tiré comme un pistolet normal (un seul canon rechargé)." }
     ]
   },
   {
@@ -309,9 +309,9 @@
     "texte": "Une variante à deux canons du célèbre long fusil du Hochland, encore plus rare et coûteuse que l'original, mais capable de faucher deux cibles avant de devoir être rechargée.",
     "portee": "48ps", "force": "5",
     "regles_speciales": [
-      { "nom": "Double tir", "texte": "Cette arme tire deux coups avant de devoir être rechargée." },
+      { "nom": "Double canon", "texte": "Le tireur doit déclarer s'il tire avec un ou deux canons. S'il tire avec un seul canon, l'arme se comporte comme un long fusil du Hochland normal. S'il tire avec les deux : un seul jet pour toucher (tir groupé), mais un jet pour blesser par touche, chaque canon pouvant Blesser individuellement." },
       { "nom": "Mouvement ou tir", "texte": "Il n'est pas possible de se déplacer et de tirer durant le même tour, sauf pour pivoter sur place ou se lever." },
-      { "nom": "Rechargement", "texte": "Il faut un tour entier pour recharger l'arme après ses deux tirs." },
+      { "nom": "Rechargement", "texte": "Après avoir tiré avec les 2 canons, placez 2 jetons près de la figurine. Lors de chaque phase de Tir suivante, retirez 1 jeton (dernière action de la phase — impossible de recharger et tirer avec la même arme le même tour). Avec 1 jeton restant, l'arme peut être tirée comme un long fusil du Hochland normal (un seul canon rechargé)." },
       { "nom": "Visée", "texte": "Un tireur qui ne se déplace pas peut relancer un jet pour toucher raté." }
     ]
   },

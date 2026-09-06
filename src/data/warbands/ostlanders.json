@@ -177,7 +177,6 @@
       "armes_cac": [
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
         { "item_id": "arme_contondante_une_main", "cout": 3 },
-        { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "hache", "cout": 5 },
         { "item_id": "lance", "cout": 5 },
         { "item_id": "epee", "cout": 10 },
@@ -198,7 +197,6 @@
     "vauriens": {
       "armes_cac": [
         { "item_id": "dague", "cout": 2, "note": "première gratuite" },
-        { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "arme_contondante_une_main", "cout": 3 },
         { "item_id": "hache", "cout": 5 },
         { "item_id": "epee", "cout": 10 },

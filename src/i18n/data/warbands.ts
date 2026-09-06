@@ -1643,7 +1643,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         },
         {
           nom: 'Children of the Horned Rat',
-          texte: "Usable once before each game. Summons D3 Giant Rats placed within 6\" of the Sorcerer; these rats do not count towards the warband's maximum model count.",
+          texte: "Usable once before each game. Summons D3 Giant Rats placed within 6\" of the Sorcerer; these rats disappear after the battle and do not count towards the warband's maximum model count.",
         },
         { nom: 'Gnawdoom', texte: 'Causes 2D6 Strength 1 hits on a single model within 8" of the Sorcerer.' },
         {
@@ -4905,7 +4905,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     },
     competences_speciales: {
       cuir_epais: {
-        nom: 'Shaggy Hide',
+        nom: 'Thick Hide',
         texte:
           "The Beastman's massively shaggy hide acts as armour, deflecting sword strokes and protecting him from harm: 6+ armour save, combinable with other armour.",
       },
@@ -5098,7 +5098,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
     magie: {
       nom: 'Prayers of Taal',
       type: 'prayer',
-      note: 'The Prayers of Taal function like the Prayers of Sigmar, although the Taal Priest never wears armour.',
+      note: 'The Prayers of Taal function like the Prayers of Sigmar, although the Taal Priest rarely wears armour.',
       sorts: [
         {
           nom: "Stag's Leap",
@@ -5417,11 +5417,11 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         regles_speciales: [{ nom: 'Recruitment', texte: 'Any number. Bought in groups of 1 to 5.' }],
       },
       tireur_nain: {
-        nom: 'Dwarf Marksman',
+        nom: 'Dwarf Thunderers',
         regles_speciales: [{ nom: 'Recruitment', texte: 'Bought in groups of 1 to 5.' }],
       },
       poil_au_menton: {
-        nom: 'Chinbeard',
+        nom: 'Beardlings',
         regles_speciales: [{ nom: 'Recruitment', texte: 'Any number. Bought in groups of 1 to 5.' }],
       },
       chien_de_guerre: {
