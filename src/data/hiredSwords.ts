@@ -1059,6 +1059,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     groupe_caracteristiques: 'humain',
     gagne_experience: false,
     depart_apres_bataille: true,
+    compte_pour_deroute: false,
   },
   {
     id: 'forgeron',

@@ -12,6 +12,7 @@ const changelogEn: Record<string, string[]> = {
     "Sylvaneth: the Tree Kin and Bane Kin now have the correct skill category access (instead of every category by mistake); the Cruel Talon lost a Parry rule that wasn't in the warband's own source.",
     'Battle Monks of Cathay: the Dragon Sword (Katana) and the Emissary\'s Horse no longer wrongly vanish from the shop after the first battle.',
     'Battle Monks of Cathay: the Pyromaniac, Ninja, Swordsmith and Cathayan Merchant Hired Swords finally have a source, fixing several rules (Swordsmith and Cathayan Merchant employer lists, the Cathayan Merchant\'s Marketeer and Pawnbroker rules, the Pyromaniac\'s Rocket Science, the Cathayan Merchant\'s Guardian).',
+    'The Ninja (Hired Sword) no longer counts toward the rout threshold shown under the Members tile during the battle he is hired for, as his "Secret" rule requires.',
   ],
   '2026-09-05': [
     'Rarity fix: the Holy (Unholy) Relic is now Rare 6 (instead of Rare 8) for Witch Hunter Warrior-Priests and Sisters of Sigmar, as the rule intends.',

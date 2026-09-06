@@ -50,6 +50,11 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Moines Guerriers de Cathay : les francs-tireurs Pyromane, Ninja, Maître-forgeron et Marchand cathayen ont enfin une source retrouvée, corrigeant plusieurs règles (employeurs du Maître-forgeron et du Marchand cathayen, Mercatique et Prêteur sur gages du Marchand cathayen, Science des fusées du Pyromane, Garde du corps du Marchand cathayen).",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Le Ninja (franc-tireur) ne compte plus dans le seuil de déroute affiché sous la tuile Membres pendant la bataille où il est engagé, conformément à sa règle « Secret ».",
+      },
     ],
   },
   {
