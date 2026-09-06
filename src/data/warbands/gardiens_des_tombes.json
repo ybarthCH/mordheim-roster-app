@@ -2,7 +2,7 @@
   "id": "gardiens_des_tombes",
   "nom": "Gardiens des Tombes (1b)",
   "grade": "1b",
-  "source": "Article Tomb Guardians (fanzine « Khemri: The Land of the Dead ») — variante 8 pages vérifiée le 6 septembre 2026 ; la version Town Cryer #18 (6 pages) citée précédemment n'a pas pu être obtenue pour comparaison directe, voir docs/rules/PROJECT_DECISIONS.md",
+  "source": "Town Cryer #18 — article Tomb Guardians (« Khemri: The Land of the Dead », partie 3) — confirmé le 6 septembre 2026 par comparaison directe avec le PDF complet du numéro (fourni par Yannick) : texte identique caractère pour caractère à l'extrait précédemment vérifié.",
   "banniere": "bandes/gardiens_des_tombes.webp",
   "regles_speciales": [
     { "nom": "Terrain natal", "texte": "Les Gardiens des Tombes vivent dans les Nécropoles et n'ont aucun mal à localiser les tombes cachées à la recherche d'armes et d'armures pour défendre leur demeure. Une bande de Gardiens des Tombes lance toujours un dé supplémentaire lors de la phase d'Exploration." },
