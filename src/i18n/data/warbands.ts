@@ -6838,7 +6838,6 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       { disponibilite: 'Common, Sylvaneth only' },
       { disponibilite: 'Common (Levels I-II), Rare 10 Heroes only (Level III), Sylvaneth only' },
       { disponibilite: 'Rare 9, Treeman only' },
-      { disponibilite: 'Rare 8, Thornwych only' },
     ],
   },
   culte_des_tueurs: {

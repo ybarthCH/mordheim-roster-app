@@ -1935,12 +1935,7 @@
     "texte": "Griffe acérée poussée à même l'écorce, aussi tranchante qu'une lame de métal mais jamais de la même nature.",
     "portee": "C à C",
     "force": "U",
-    "regles_speciales": [
-      {
-        "nom": "Parade",
-        "texte": "Lorsque l'adversaire jette les dés pour toucher, lancez 1D6. Si le résultat est supérieur à son meilleur jet, votre combattant a paré le coup et l'attaque est annulée. Il n'est pas possible de parer une attaque ayant le double ou plus de sa propre Force car elle est trop puissante."
-      }
-    ]
+    "regles_speciales": []
   },
   {
     "id": "arme_spectrale_market",

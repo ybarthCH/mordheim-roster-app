@@ -3981,13 +3981,6 @@ export const itemsEn: Record<string, ItemTraduit> = {
     nom: 'Cruel Talon',
     texte: 'A claw-like blade grown directly from the bark, as sharp as a metal blade but never quite of the same nature.',
     disponibilite: 'Sylvaneth only',
-    regles_speciales: [
-      {
-        nom: 'Parry',
-        texte:
-          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
-      },
-    ],
   },
   arme_spectrale_market: {
     nom: 'Spectral Weapon',
