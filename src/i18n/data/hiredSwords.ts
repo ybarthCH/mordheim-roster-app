@@ -493,7 +493,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   pyromane: {
     nom: 'Pyromaniac',
     entretien: { texte: '10 gc after every battle he fights.' },
-    employeurs: { texte: 'Merchant Caravans, Battle Monks of Cathay, and Mercenaries.' },
+    employeurs: { texte: 'Merchant Caravans, Battle Monks of Cathay, Pirates and Mercenaries.' },
     equipement: ['Rockets', 'Firecrackers (unlimited)'],
     regles_speciales: [
       {
@@ -510,7 +510,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
     competences_speciales: {
       pyromane_science_fusees: {
         nom: 'Rocket Science',
-        texte: 'May modify the result of the artillery dice by +1 or -1.',
+        texte: 'May modify the roll on the fireworks misfire table by +1 or -1.',
       },
       pyromane_artiste: {
         nom: 'Show Off',
@@ -521,6 +521,10 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   ninja: {
     nom: 'Ninja',
     entretien: { texte: 'Hired for a single mission: no upkeep, he automatically leaves the warband after the battle.' },
+    employeurs: {
+      texte:
+        'Battle Monks of Cathay and any warband except Skaven, Orcs & Goblins, Beastmen, Marauders of Chaos, Norse and Chaos Dwarfs.',
+    },
     equipement: ['Pair of swords', 'Throwing stars', 'Rope and grapple', 'A smoke bomb'],
     regles_speciales: [
       {
@@ -541,6 +545,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   forgeron: {
     nom: 'Swordsmith',
     entretien: { texte: '15 gc after every battle he fights.' },
+    employeurs: { texte: 'Merchant Caravans, Battle Monks of Cathay, Witch Hunters, Sisters of Sigmar and Mercenary warbands.' },
     equipement: ['Hammer', 'Reinforced leathers'],
     regles_speciales: [
       {
@@ -578,22 +583,19 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   marchand_cathayen: {
     nom: 'Cathayan Merchant',
     entretien: { texte: '10 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband including Humans or Dwarfs, including Battle Monks of Cathay.' },
     equipement: ['Sword'],
     regles_speciales: [
       { nom: 'Haggle', texte: 'May haggle 2D6 gc off an item, down to a minimum of 1 gc.' },
       {
         nom: 'Pawnbroker',
-        texte: 'If not taken Out of Action, adds 2D6 gc to the total sale price of the warband’s items.',
+        texte:
+          'If not taken Out of Action, gains an extra 2D6 gc per item that the warband sells, up to that item’s full value.',
       },
       {
         nom: 'Marketeer',
         texte:
-          'If not taken Out of Action, may after the battle visit the Black Market and Foreign Wares, rolling 1D6 on each table. Items are offered at their base price.',
-      },
-      {
-        nom: 'Guardian',
-        texte:
-          'The bodyguard only protects the Merchant, stays within 1", and gains no XP or wages. He may intercept a shot or charge aimed at the Merchant if not already engaged.',
+          'If not taken Out of Action, may after the battle visit one of two markets, the Black Market or Foreign Wares, rolling 1D6 on that table. Items are offered at their base price.',
       },
       {
         nom: 'Black Market',
@@ -609,6 +611,11 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       marchand_tailleur_pierre: {
         nom: 'Stone Cutter',
         texte: 'When selling warpstone, rolls 1D6: 1-2 loses 2D6 gc, 3-5 gains 2D6 gc, 6 gains 3D6 gc.',
+      },
+      marchand_garde_du_corps: {
+        nom: 'Guardian',
+        texte:
+          'The bodyguard only protects the Merchant, stays within 1", and gains no XP or wages. He may intercept a shot or charge aimed at the Merchant if not already engaged.',
       },
     },
     profils_secondaires: [

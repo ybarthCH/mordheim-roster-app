@@ -33,6 +33,26 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-09-06',
+    points: [
+      {
+        categorie: 'autre',
+        texte:
+          "Sylvaneths : le Sylve-revenant et le Fiel-revenant ont maintenant le bon accès aux catégories de compétences (au lieu de toutes les catégories par erreur) ; la Serre cruelle a perdu une règle de Parade qui ne provenait pas de la source de la bande.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Moines Guerriers de Cathay : l'Épée dragon (Katana) et le Cheval de l'Émissaire ne disparaissent plus à tort de la boutique après la première bataille.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Moines Guerriers de Cathay : les francs-tireurs Pyromane, Ninja, Maître-forgeron et Marchand cathayen ont enfin une source retrouvée, corrigeant plusieurs règles (employeurs du Maître-forgeron et du Marchand cathayen, Mercatique et Prêteur sur gages du Marchand cathayen, Science des fusées du Pyromane, Garde du corps du Marchand cathayen).",
+      },
+    ],
+  },
+  {
     date: '2026-09-05',
     points: [
       {
