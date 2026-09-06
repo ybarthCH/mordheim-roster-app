@@ -238,9 +238,9 @@
     "cout": "-",
     "cout_fixe": false,
     "rarete": "-",
-    "disponibilite": "Conquérant Razzieur Lustrien uniquement",
+    "disponibilite": "Conquérant Pillard de Lustrie uniquement",
     "acces": [
-      "razzieurs_lustriens"
+      "lustrian_reavers"
     ],
     "source": "RL",
     "page": 3,
@@ -1358,9 +1358,9 @@
     "cout": 10,
     "cout_fixe": true,
     "rarete": "C",
-    "disponibilite": "Commun, Razzieurs Lustriens uniquement",
+    "disponibilite": "Commun, Pillards de Lustrie uniquement",
     "acces": [
-      "razzieurs_lustriens"
+      "lustrian_reavers"
     ],
     "source": "RL",
     "page": 14,
@@ -1853,9 +1853,9 @@
     "cout": 30,
     "cout_fixe": true,
     "rarete": "C",
-    "disponibilite": "Commun, Tueur de Saurus uniquement",
+    "disponibilite": "Commun, Tueur de Sauriens uniquement",
     "acces": [
-      "tueur_de_saurus"
+      "lustrian_reavers"
     ],
     "source": "RL",
     "page": 18,

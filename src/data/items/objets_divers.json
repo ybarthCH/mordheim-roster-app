@@ -1326,9 +1326,9 @@
     "cout": 15,
     "cout_fixe": true,
     "rarete": "C",
-    "disponibilite": "Commun, Tueur de Saurus uniquement",
+    "disponibilite": "Commun, Tueur de Sauriens uniquement",
     "acces": [
-      "tueur_de_saurus"
+      "lustrian_reavers"
     ],
     "source": "RL",
     "page": 49,
@@ -1797,9 +1797,9 @@
     "cout": 35,
     "cout_fixe": true,
     "rarete": "C",
-    "disponibilite": "Commun, Tueur de Saurus uniquement",
+    "disponibilite": "Commun, Tueur de Sauriens uniquement",
     "acces": [
-      "tueur_de_saurus"
+      "lustrian_reavers"
     ],
     "source": "RL",
     "page": 53,
