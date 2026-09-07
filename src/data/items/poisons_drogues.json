@@ -82,7 +82,7 @@
   },
   {
     "id": "venin_sombre", "nom": "Venin sombre", "categorie": "poisons_drogues",
-    "cout": 30, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Lustrian Reavers uniquement",
+    "cout": 30, "cout_fixe": true, "rarete": "8", "disponibilite": "Rare 8, Pillards de Lustrie uniquement",
     "acces": ["lustrian_reavers"], "source": "BTB", "page": 57,
     "texte": "Extrait des glandes d'un serpent des jungles lustriennes, ce poison épais et noir provoque une paralysie douloureuse chez ceux qu'il touche.",
     "regles_speciales": [

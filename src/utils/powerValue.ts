@@ -299,11 +299,14 @@ export function malusIndisponibiliteMembre(m: Member): number {
  * compris) — distinct de effectifTotal() (utils/bandeValue.ts), qui exclut
  * volontairement les francs-tireurs pour les règles de composition/recrute-
  * ment. Le seuil de déroute porte sur qui se bat réellement sur la table,
- * donc les francs-tireurs actifs comptent bien ici.
+ * donc les francs-tireurs actifs comptent bien ici — à l'exception de ceux
+ * dont le profil porte `compte_pour_deroute: false` (ex : le Ninja, "ne se
+ * tient pas aux côtés de la bande et ne compte pas comme membre de la bande
+ * pour les tests de déroute").
  */
 function effectifCombatTotal(roster: RosterInstance): number {
   return roster.membres
-    .filter((m) => m.statut !== 'mort')
+    .filter((m) => m.statut !== 'mort' && getFrancTireur(m.franc_tireur_id)?.compte_pour_deroute !== false)
     .reduce((acc, m) => acc + (m.taille_groupe || 1), 0);
 }
 

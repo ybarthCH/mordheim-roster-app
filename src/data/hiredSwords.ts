@@ -980,7 +980,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     id: 'pyromane',
     nom: 'Pyromane',
     nom_original: 'Pyromaniac',
-    page_source: 23,
+    page_source: 2,
     recrutement: { cout: 25 },
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 9,
@@ -1007,7 +1007,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       {
         id: 'pyromane_science_fusees',
         nom: 'Science des fusées',
-        texte: 'Peut modifier le résultat du dé d’artillerie de +1 ou -1.',
+        texte: 'Peut modifier de +1 ou -1 le résultat du jet sur le tableau des incidents des fusées.',
         valeurPuissance: 20,
       },
       {
@@ -1023,7 +1023,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
   {
     id: 'ninja',
     nom: 'Ninja',
-    page_source: 23,
+    page_source: 2,
     recrutement: { cout: null, notation: '70+3D6' },
     entretien: {
       type: 'aucun',
@@ -1032,7 +1032,7 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     },
     valeur: 45,
     employeurs: {
-      bande_ids: toutesSauf(...SKAVENS, ...PEAUX_VERTES, 'beastmen_raiders', 'maraudeurs_du_chaos', 'norses', 'nains_du_chaos'),
+      bande_ids: toutesSauf(...SKAVENS, ...PEAUX_VERTES, 'beastmen_raiders', 'maraudeurs_du_chaos', 'norses', 'nains_du_chaos', 'fils_dhashut'),
       texte:
         'Les Moines de Cathay et toute bande sauf les Skavens, Orques & Gobelins, Hommes-Bêtes, Maraudeurs du Chaos, Norses et Nains du Chaos.',
     },
@@ -1059,18 +1059,19 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     groupe_caracteristiques: 'humain',
     gagne_experience: false,
     depart_apres_bataille: true,
+    compte_pour_deroute: false,
   },
   {
     id: 'forgeron',
     nom: 'Maître-forgeron',
     nom_original: 'Swordsmith',
-    page_source: 24,
+    page_source: 3,
     recrutement: { cout: 60 },
     entretien: { type: 'or', cout: 15, texte: '15 CO après chaque bataille à laquelle il participe.' },
     valeur: 10,
     employeurs: {
-      bande_ids: uniques([...HUMAINS, 'dwarf_treasure_hunters', 'moines_guerriers_de_cathay']),
-      texte: 'Toute bande comprenant des Humains ou des Elfes, y compris les Moines de Cathay.',
+      bande_ids: uniques([...MERCENAIRES, 'witch_hunters', 'sisters_of_sigmar', 'moines_guerriers_de_cathay']),
+      texte: 'Les Caravanes marchandes, Moines de Cathay, Répurgateurs, Sœurs de Sigmar et Mercenaires.',
     },
     stats: { M: 4, CC: 3, CT: 3, F: 4, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
     equipement: ['Marteau', 'Cuirs renforcés'],
@@ -1133,12 +1134,12 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
     id: 'marchand_cathayen',
     nom: 'Marchand cathayen',
     nom_original: 'Cathayan Merchant',
-    page_source: 25,
+    page_source: 4,
     recrutement: { cout: 20 },
     entretien: { type: 'or', cout: 10, texte: '10 CO après chaque bataille à laquelle il participe.' },
     valeur: 10,
     employeurs: {
-      bande_ids: uniques([...HUMAINS, 'dwarf_treasure_hunters', 'moines_guerriers_de_cathay']),
+      bande_ids: uniques([...HUMAINS, ...NAINS, 'moines_guerriers_de_cathay']),
       texte: 'Toute bande comprenant des Humains ou des Nains, y compris les Moines de Cathay.',
     },
     stats: { M: 4, CC: 2, CT: 2, F: 3, E: 3, PV: 1, I: 4, A: 1, Cd: 7 },
@@ -1152,17 +1153,12 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
       {
         nom: 'Prêteur sur gages',
         texte:
-          'S’il n’a pas été mis hors de combat, ajoute 2D6 CO au prix total de vente des objets de la bande.',
+          'S’il n’a pas été mis hors de combat, gagne 2D6 CO supplémentaires par objet vendu par la bande, plafonné à la valeur de cet objet.',
       },
       {
         nom: 'Mercatique',
         texte:
-          'S’il n’a pas été mis hors de combat, peut visiter après la bataille le Marché noir et les Marchandises exotiques ; lance 1D6 sur chaque table. Les objets sont proposés à leur prix de base.',
-      },
-      {
-        nom: 'Garde du corps',
-        texte:
-          'Le garde protège seulement le Marchand, reste à 1ps et ne gagne ni XP ni solde. Il peut intercepter un tir ou une charge visant le Marchand s’il n’est pas déjà engagé.',
+          'S’il n’a pas été mis hors de combat, peut visiter après la bataille l’un des deux marchés (Marché noir ou Marchandises exotiques) et lance 1D6 sur celui-ci. Les objets sont proposés à leur prix de base.',
       },
       {
         nom: 'Marché noir',
@@ -1183,7 +1179,20 @@ const PROFILS_BRUTS: FrancTireurCatalog[] = [
           'Lors d’une vente de malepierre, lance 1D6 : 1-2 perd 2D6 CO, 3-5 gagne 2D6 CO, 6 gagne 3D6 CO.',
         valeurPuissance: 0,
       },
+      {
+        id: 'marchand_garde_du_corps',
+        nom: 'Garde du corps',
+        texte:
+          'Le garde protège seulement le Marchand, reste à 1ps et ne gagne ni XP ni solde. Il peut intercepter un tir ou une charge visant le Marchand s’il n’est pas déjà engagé.',
+        valeurPuissance: 0,
+      },
     ],
+    // Le Garde du corps n'est censé être disponible qu'une fois cette
+    // compétence spéciale choisie via une avancée (source), pas dès le
+    // recrutement — mais son profil ci-dessous reste affiché sans condition
+    // à l'écran de recrutement (RecruterFrancTireurScreen), faute de
+    // mécanisme dans l'app pour lier profils_secondaires à une compétence
+    // acquise : limite structurelle assumée, pas un oubli de ce correctif.
     profils_secondaires: [
       {
         nom: 'Garde du corps',

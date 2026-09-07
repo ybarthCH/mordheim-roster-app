@@ -72,6 +72,11 @@ export type FrancTireurCatalog = {
   // Le Ninja n'est engagé que pour une mission et quitte automatiquement la
   // bande à la fin de celle-ci.
   depart_apres_bataille?: boolean;
+  // Le Ninja ("Secret" : "ne se tient pas aux côtés de la bande et ne compte
+  // pas comme membre de la bande pour les tests de déroute") ne doit pas
+  // entrer dans le seuil de déroute affiché — voir effectifCombatTotal dans
+  // utils/powerValue.ts. Absent = compte normalement.
+  compte_pour_deroute?: boolean;
   incompatibles?: string[];
   // Construction du Goliath d'Os : nécessite une Liche et lui retire 1D3 PV
   // de départ (minimum 1).

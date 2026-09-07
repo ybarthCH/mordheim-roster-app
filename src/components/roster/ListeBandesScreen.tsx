@@ -275,7 +275,13 @@ export function ListeBandesScreen() {
         </Modal>
       )}
 
-      <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '2rem' }}>
+      <p className="text-sm" style={{ textAlign: 'center', marginTop: '2rem' }}>
+        <a href="https://ko-fi.com/musterheim" target="_blank" rel="noopener noreferrer">
+          {t('home.supportKofi')}
+        </a>
+      </p>
+
+      <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '1rem' }}>
         {__APP_VERSION__} · {__APP_BUILD_DATE__.slice(0, 10)} · {heureBuildCET(__APP_BUILD_DATE__)}
       </p>
       <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '0.4rem' }}>

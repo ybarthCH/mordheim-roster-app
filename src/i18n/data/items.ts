@@ -1582,10 +1582,13 @@ export const itemsEn: Record<string, ItemTraduit> = {
     texte: 'A pistol fitted with two stacked barrels, allowing two shots before needing to reload. Heavier and less reliable than a single pistol.',
     regles_speciales: [
       {
-        nom: 'Double Shot',
-        texte: 'This weapon fires two shots before needing to be reloaded (instead of just one for a normal pistol).',
+        nom: 'Double Barrel',
+        texte: 'The shooter must declare whether he fires with one or two barrels. If firing with one barrel, treat the shot as a normal pistol. If firing with both: a single roll to hit (grouped shot), but roll to wound separately for each hit, as each barrel can Wound individually.',
       },
-      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon after its two shots.' },
+      {
+        nom: 'Reloading',
+        texte: 'After firing both barrels, place 2 tokens next to the model. During each following Shooting phase, remove 1 token (the last action of that phase — you cannot reload and fire with the same weapon in the same turn). With 1 token remaining, the pistol can be fired as a normal pistol (one barrel reloaded).',
+      },
     ],
   },
   pistolet_double_canon_paire: {
@@ -1593,10 +1596,13 @@ export const itemsEn: Record<string, ItemTraduit> = {
     texte: 'A pistol fitted with two stacked barrels, allowing two shots before needing to reload. Heavier and less reliable than a single pistol.',
     regles_speciales: [
       {
-        nom: 'Double Shot',
-        texte: 'This weapon fires two shots before needing to be reloaded (instead of just one for a normal pistol).',
+        nom: 'Double Barrel',
+        texte: 'For each pistol fired, the shooter must declare whether he fires with one or two barrels. If firing with one barrel, that pistol behaves as a normal pistol. If firing with both: a single roll to hit (grouped shot), but roll to wound separately for each hit, as each barrel can Wound individually.',
       },
-      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon after its two shots.' },
+      {
+        nom: 'Reloading',
+        texte: 'For each pistol that fired both barrels, place 2 tokens next to the model (up to 4 tokens if both pistols fired). During each following Shooting phase, remove 1 token per pistol being reloaded (the last action of that phase). With 1 token remaining on a pistol, it can be fired as a normal pistol (one barrel reloaded).',
+      },
     ],
   },
   long_fusil_hochland_double_canon: {
@@ -1604,12 +1610,18 @@ export const itemsEn: Record<string, ItemTraduit> = {
     texte:
       'A two-barrelled variant of the famous Hochland long rifle, even rarer and more expensive than the original, but capable of mowing down two targets before needing to reload.',
     regles_speciales: [
-      { nom: 'Double Shot', texte: 'This weapon fires two shots before needing to be reloaded.' },
+      {
+        nom: 'Double Barrel',
+        texte: 'The shooter must declare whether he fires with one or two barrels. If firing with one barrel, treat the shot as a normal Hochland long rifle. If firing with both: a single roll to hit (grouped shot), but roll to wound separately for each hit, as each barrel can Wound individually.',
+      },
       {
         nom: 'Move or Shoot',
         texte: 'It is not possible to move and shoot during the same turn, except to turn on the spot or stand up.',
       },
-      { nom: 'Reloading', texte: 'It takes a full turn to reload the weapon after its two shots.' },
+      {
+        nom: 'Reloading',
+        texte: 'After firing both barrels, place 2 tokens next to the model. During each following Shooting phase, remove 1 token (the last action of that phase — you cannot reload and fire with the same weapon in the same turn). With 1 token remaining, the rifle can be fired as a normal Hochland long rifle (one barrel reloaded).',
+      },
       { nom: 'Aim', texte: 'A shooter who does not move may re-roll a failed roll to hit.' },
     ],
   },
@@ -3981,13 +3993,6 @@ export const itemsEn: Record<string, ItemTraduit> = {
     nom: 'Cruel Talon',
     texte: 'A claw-like blade grown directly from the bark, as sharp as a metal blade but never quite of the same nature.',
     disponibilite: 'Sylvaneth only',
-    regles_speciales: [
-      {
-        nom: 'Parry',
-        texte:
-          'When the opponent rolls to hit, roll 1D6. If the result is higher than his best roll, your fighter has parried the blow and the attack is cancelled. It is not possible to parry an attack from a Strength double or more his own, as it is too powerful.',
-      },
-    ],
   },
   arme_spectrale_market: {
     nom: 'Spectral Weapon',

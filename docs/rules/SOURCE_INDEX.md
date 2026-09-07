@@ -34,6 +34,7 @@ Langue/édition/thèmes marqués « non confirmé » sont déduits du nom de fic
 |---|---|---|---|---|---|---|---|
 | Hired Sword Compendium — Part 1 | `Hired_Sword_Compendium_part1.pdf` | EN | Compilation communautaire, non datée | 40 | `aaf0d815b3d6fe888f751622e48f4d8a596b49b3a2c7c64d8c8ae45f8273ac55` | Fiches de francs-tireurs : coût, éligibilité par bande, caractéristiques, équipement, règles spéciales | Source directe pour vérifier `src/data/hiredSwords.ts` |
 | Hired Sword Compendium — Part 2 | `Hired_Sword_Compendium_part2.pdf` | EN | Compilation communautaire, non datée | 37 | `1da14e278dced05dfc12b0a58a3ea2cad33afd220170e571a2857e28bed570a3` | Suite du compendium (autres francs-tireurs) | Idem part 1 |
+| Soldiers of Fortune | `btb_Soldiers_Of_Fortune.pdf` | EN | Town Cryer #17 (probable, métadonnée titre « 17 Soldiers of Fortune ») | 8 | `97febcc57b2abe3e3f6f8b93331c97ec5f3b00b7fecf0bde7275254538a916e7` | Francs-tireurs : Pyromaniac, Ninja, Swordsmith, Grave Robber, Cathayan Merchant | Auteur « cianty » (même auteur que `Battle Monks of Cathay.pdf`) ; source des 4 francs-tireurs propres à `moines_guerriers_de_cathay` (Pyromane, Ninja, Forgeron, Marchand cathayen), absents du Hired Sword Compendium ci-dessus malgré `page_source` y renvoyant à tort avant correction du 6 septembre 2026 — voir `docs/rules/TRANSLATION_AUDIT_STATUS.md` |
 
 ## Dramatis Personae (fiches individuelles)
 

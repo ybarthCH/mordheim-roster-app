@@ -2,7 +2,7 @@
   "id": "gardiens_des_tombes",
   "nom": "Gardiens des Tombes (1b)",
   "grade": "1b",
-  "source": "Town Cryer #18 — supplément « Khemri: The Land of the Dead » — article Tomb Guardians",
+  "source": "Town Cryer #18 — article Tomb Guardians (« Khemri: The Land of the Dead », partie 3) — confirmé le 6 septembre 2026 par comparaison directe avec le PDF complet du numéro (fourni par Yannick) : texte identique caractère pour caractère à l'extrait précédemment vérifié.",
   "banniere": "bandes/gardiens_des_tombes.webp",
   "regles_speciales": [
     { "nom": "Terrain natal", "texte": "Les Gardiens des Tombes vivent dans les Nécropoles et n'ont aucun mal à localiser les tombes cachées à la recherche d'armes et d'armures pour défendre leur demeure. Une bande de Gardiens des Tombes lance toujours un dé supplémentaire lors de la phase d'Exploration." },
@@ -139,7 +139,7 @@
         { "nom": "Insensible", "texte": "Un résultat sonné sur le tableau des blessures est traité comme à terre." },
         { "nom": "Ne Peut pas Courir", "texte": "Créature morte-vivante lente ; ne peut pas courir mais peut charger normalement." },
         { "nom": "Immunité aux Poisons", "texte": "N'est pas affecté par les poisons." },
-        { "nom": "Sans Cervelle", "texte": "Les squelettes ne sont pas vivants ; ils ne gagnent donc jamais d'expérience." }
+        { "nom": "Sans Cervelle", "texte": "Les Gardiens des Tombes ne sont pas vivants ; ils ne gagnent donc jamais d'expérience." }
       ],
       "acces_competences": [],
       "acces_equipement": ["guerriers_morts_vivants"],

@@ -75,8 +75,8 @@
   },
   {
     "id": "grenade_de_miragliano", "nom": "Grenade de Miragliano", "categorie": "munitions",
-    "cout": "-", "cout_fixe": false, "rarete": "-", "disponibilite": "Maître-Trappeur Razzieur Lustrien uniquement",
-    "acces": ["razzieurs_lustriens"], "source": "RL", "page": 32,
+    "cout": "-", "cout_fixe": false, "rarete": "-", "disponibilite": "Maître-Trappeur Pillard de Lustrie uniquement",
+    "acces": ["lustrian_reavers"], "source": "RL", "page": 32,
     "texte": "Ces grenades à main primitives faites d'argile contiennent du feu alchimique tiléen qui s'enflamme lorsqu'il est exposé à l'air.",
     "portee": "8ps", "force": "2",
     "regles_speciales": [

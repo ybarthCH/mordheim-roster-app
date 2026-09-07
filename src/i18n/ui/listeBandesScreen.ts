@@ -35,4 +35,5 @@ export const listeBandesScreen: UiDictionary = {
   },
   'home.cancel': { fr: 'Annuler', en: 'Cancel' },
   'home.delete': { fr: 'Supprimer', en: 'Delete' },
+  'home.supportKofi': { fr: '☕ Soutenir Musterheim sur Ko-fi', en: '☕ Support Musterheim on Ko-fi' },
 };

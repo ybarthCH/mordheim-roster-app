@@ -118,7 +118,7 @@
       "xp_depart": 0,
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 4, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "regles_speciales": [],
-      "acces_competences": [],
+      "acces_competences": ["combat", "tir", "academique", "vitesse", "special"],
       "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
       "acces_competences_a_verifier": false
     },
@@ -136,7 +136,7 @@
         { "nom": "Peur", "texte": "Les Fiel-revenants causent la Peur." },
         { "nom": "Serres cruelles", "texte": "Débute avec deux Serres cruelles, comprises dans son coût. La seconde ne peut jamais être vendue ni transférée." }
       ],
-      "acces_competences": [],
+      "acces_competences": ["force", "special"],
       "acces_equipement": ["sylvaneths", "divers_sylvaneth"],
       "acces_competences_a_verifier": false
     },

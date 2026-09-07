@@ -39,7 +39,7 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 4, "E": 4, "PV": 2, "I": 3, "A": 2, "Cd": 7 },
       "regles_speciales": [
         { "nom": "Équipement de départ", "texte": "Armure lourde de maître, Bec de corbin, Casque (fixe — voir Héros rares)." },
-        { "nom": "Survivant", "texte": "Ne peut être mis Hors de combat que s'il est déjà Étourdi ou Sonné. Si le résultat Hors de combat survient alors que le Conquérant était encore debout, traitez-le comme Sonné." },
+        { "nom": "Survivant", "texte": "Ne peut être mis Hors de combat que s'il est déjà à terre ou Sonné. Si le résultat Hors de combat survient alors que le Conquérant était encore debout, traitez-le comme Sonné." },
         { "nom": "Blessures multiples (une fois)", "texte": "La première fois que le Conquérant obtient un résultat Mort sur la Table des blessures graves, traitez-le comme Blessures multiples à la place. Cette capacité ne peut sauver le Conquérant qu'une seule fois." }
       ],
       "acces_competences": ["combat", "force"],
