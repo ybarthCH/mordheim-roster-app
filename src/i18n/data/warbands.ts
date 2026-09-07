@@ -1835,7 +1835,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         {
           nom: 'Heart of Steel',
           texte:
-            'Every allied warrior within 8" becomes immune to Fear and All Alone, and the whole warband gains +1 to its Rout tests. Not cumulative if cast multiple times; lasts until the caster is taken Out of Action.',
+            'Every allied warrior within 8" becomes immune to Fear and All Alone, and the whole warband gains +1 to its Rout tests. Not cumulative if cast multiple times; lasts until the caster is Stunned, Knocked Down, or taken Out of Action.',
         },
         {
           nom: 'Soul Fire',
@@ -2791,7 +2791,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         {
           nom: 'Heart of Steel',
           texte:
-            "As the three words of power are spoken, an aura of glory emanates from Sigmar's servant. The courage of the faithful is strengthened by the presence of the God of War. Every allied warrior within 8\" of the caster becomes immune to Fear and all alone tests. In addition, the whole warband gains +1 to all its Rout tests. The effects of this prayer cannot be stacked if cast multiple times. Its effects last until the caster is taken Out of Action.",
+            "As the three words of power are spoken, an aura of glory emanates from Sigmar's servant. The courage of the faithful is strengthened by the presence of the God of War. Every allied warrior within 8\" of the caster becomes immune to Fear and all alone tests. In addition, the whole warband gains +1 to all its Rout tests. The effects of this prayer cannot be stacked if cast multiple times. Its effects last until the caster is Stunned, Knocked Down, or taken Out of Action.",
         },
         {
           nom: 'Soul Fire',
@@ -5654,7 +5654,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         {
           nom: 'Heart of Steel',
           texte:
-            'Every allied warrior within 8" becomes immune to Fear and All Alone, and the whole warband gains +1 to its Rout tests. Not cumulative if cast multiple times; lasts until the caster is taken Out of Action.',
+            'Every allied warrior within 8" becomes immune to Fear and All Alone, and the whole warband gains +1 to its Rout tests. Not cumulative if cast multiple times; lasts until the caster is Stunned, Knocked Down, or taken Out of Action.',
         },
         {
           nom: 'Soul Fire',

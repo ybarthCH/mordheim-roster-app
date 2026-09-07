@@ -14,6 +14,7 @@ const changelogEn: Record<string, string[]> = {
     'Battle Monks of Cathay: the Pyromaniac, Ninja, Swordsmith and Cathayan Merchant Hired Swords finally have a source, fixing several rules (Swordsmith and Cathayan Merchant employer lists, the Cathayan Merchant\'s Marketeer and Pawnbroker rules, the Pyromaniac\'s Rocket Science, the Cathayan Merchant\'s Guardian).',
     'The Ninja (Hired Sword) no longer counts toward the rout threshold shown under the Members tile during the battle he is hired for, as his "Secret" rule requires.',
     "Price fix: the Horned Hunters' Hunting Arrows now cost a flat 20 gc (instead of 25+1D6 gc, which remains the price of the equivalent rare rulebook item available to other eligible warbands).",
+    'The "Heart of Steel" prayer (Witch Hunters, Sisters of Sigmar, Outlaws of Stirwood Forest) now ends as soon as its caster is Stunned, Knocked Down, or taken Out of Action, instead of Out of Action only.',
   ],
   '2026-09-05': [
     'Rarity fix: the Holy (Unholy) Relic is now Rare 6 (instead of Rare 8) for Witch Hunter Warrior-Priests and Sisters of Sigmar, as the rule intends.',

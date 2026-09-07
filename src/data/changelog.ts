@@ -60,6 +60,11 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Correction de prix : les Flèches de chasse des Chasseurs Cornus coûtent 20 po fixes (au lieu de 25+1D6 po, prix qui reste celui de l'objet rare équivalent du livre de règles, accessible aux autres bandes y ayant droit).",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "La prière « Cœur d'Acier » (Répurgateurs, Sœurs de Sigmar, Hors-la-loi de Stirwood) cesse maintenant dès que son lanceur est sonné, à terre ou mis hors de combat, au lieu de seulement hors de combat.",
+      },
     ],
   },
   {

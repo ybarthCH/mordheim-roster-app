@@ -200,3 +200,12 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Maison (choix entre deux sections contradictoires, comme pour Nuln/Cavalcade Maudite) + Officiel (le prix fixe est aussi corroboré indépendamment par la source EN)
 - **Parties du code concernées** : `src/data/warbands/chasseurs_cornus.json` (référence `fleches_de_chasse` dans la liste rapide Héros et dans `equipement_special` : `cout` passé à 20, `rarete` surchargée à `"-"` pour ne plus hériter du Rare 8 de l'objet générique, texte de disponibilité corrigé en « Commun »). L'item générique `fleches_de_chasse` du catalogue commun (`src/data/items/munitions.json`, 25+1D6 CO, Rare 8) reste inchangé — seule la référence propre à cette bande est concernée.
 - **Date** : 2026-09-06
+
+### Prière « Cœur d'Acier » (Répurgateurs / Sœurs de Sigmar / Hors-la-loi de Stirwood) — condition de fin d'effet
+
+- **Question de règle** : la source FR retenue par le projet dit que les effets durent jusqu'à ce que le lanceur soit mis Hors de combat ; la source EN est plus permissive pour l'adversaire, l'effet cessant dès que le lanceur est sonné, à terre OU mis Hors de combat (pas seulement ce dernier état).
+- **Source et page** : source FR du projet pour cette prière (Prières de Sigmar) vs source EN équivalente.
+- **Décision de Yannick** : suivre l'EN — l'effet cesse dès que le lanceur est sonné, à terre ou mis Hors de combat.
+- **Statut** : Officiel (source EN)
+- **Parties du code concernées** : `src/data/warbands/witch_hunters.json`, `sisters_of_sigmar.json`, `hors_la_loi_de_stirwood.json` (texte de la prière `c_ur_d_acier`, les 3 catalogues portent chacun leur propre copie du sort) ; miroirs anglais correspondants dans `src/i18n/data/warbands.ts`. Correction purement textuelle — le comportement en jeu (recrutement, roster) n'était pas affecté, cette prière étant un effet de partie non automatisé par l'app.
+- **Date** : 2026-09-06
