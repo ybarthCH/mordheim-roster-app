@@ -7,7 +7,7 @@
   "regles_speciales": [
     { "nom": "Seuls contre tous", "texte": "Les Ostermarkers (Héros et Hommes de main) peuvent relancer un test de Commandement raté s'ils sont seuls contre tous ou en cas de Déroute. La bande ou le combattant doit cependant accepter le second jet, quel qu'en soit le résultat." },
     { "nom": "Chien de guerre gratuit", "texte": "Ces mercenaires utilisent souvent des chiens pour garder leurs fermes et donner l'alerte en cas d'intrusion. Tout Capitaine d'une bande d'Ostermarkers peut commencer avec un chien de guerre dans son équipement de départ, en hommage à la bête qui protégeait jadis sa ferme et ses terres des bandits et autres viles créatures. Ce chien de guerre est gratuit à la création de la bande." },
-    { "nom": "Choix des compétences", "texte": "À la création de la bande, vous devez choisir l'un des trois ensembles de compétences suivants pour vos Mercenaires Ostermarkers. Une fois choisi, il ne sera plus possible de changer d'ensemble de compétences.\n\nOption 1 : Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir, Force ; Recrue — Combat, Tir, Vitesse.\nOption 2 : Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Force, Vitesse ; Recrue — Combat, Force, Vitesse.\nOption 3 : Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir ; Recrue — Combat, Tir, Vitesse." }
+    { "nom": "Choix des compétences", "texte": "À la création de la bande, vous devez choisir l'un des trois ensembles de compétences suivants pour vos Mercenaires Ostermarkers. Une fois choisi, il ne sera plus possible de changer d'ensemble de compétences.\n\nOption 1 : Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir, Force ; Recrue — Combat, Tir, Vitesse.\nOption 2 : Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Force, Vitesse ; Recrue — Combat, Force, Vitesse.\nOption 3 : Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir, Vitesse ; Recrue — Combat, Tir, Vitesse." }
   ],
   "composition": {
     "effectif_min": 3,
@@ -38,10 +38,10 @@
     {
       "id": "option_3",
       "nom": "Option 3",
-      "texte": "Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir ; Recrue — Combat, Tir, Vitesse.",
+      "texte": "Capitaine Mercenaire — Combat, Tir, Érudition, Force, Vitesse ; Champion — Combat, Tir, Vitesse ; Recrue — Combat, Tir, Vitesse.",
       "profil_acces_competences": {
         "capitaine_mercenaire": ["combat", "tir", "academique", "force", "vitesse"],
-        "champion": ["combat", "tir"],
+        "champion": ["combat", "tir", "vitesse"],
         "recrue": ["combat", "tir", "vitesse"]
       }
     }

@@ -227,3 +227,57 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Officiel (source EN, cohérent avec la bande sœur déjà correcte)
 - **Parties du code concernées** : `src/data/warbands/orc_mob.json` (compétence `on_y_va`, texte complété avec « ni de Terreur ») ; miroir anglais `src/i18n/data/warbands.ts` (« Fear or Terror test »).
 - **Date** : 2026-09-06
+
+### Mootlanders — plafond du Voleur Halfling
+
+- **Question de règle** : le PDF se contredit lui-même — « jusqu'à trois » en prose p.1, mais la fiche de profil imprime « 0·2 » p.2.
+- **Source et page** : `Mootlanders.pdf`, p.1 (prose) vs p.2 (fiche de profil, « 0·2 »).
+- **Décision de Yannick** : garder 2 (fiche de profil fait foi).
+- **Statut** : Maison (choix entre deux passages contradictoires du même document)
+- **Parties du code concernées** : aucune — `src/data/warbands/mootlanders.json` (`voleur_halfling`, `max: 2`) déjà conforme, aucun changement nécessaire.
+- **Date** : 2026-09-06
+
+### Ostermarkers — accès compétences du Champion en Option 3
+
+- **Question de règle** : l'Option 3 du tableau de compétences (calquée sur les Mercenaires de Marienburg) donnait au Champion seulement Combat+Tir dans le PDF bande, alors que le tableau officiel « MARIENBURG MERCENARIES » du livre de règles de base donne Combat+Tir+Vitesse à son Champion — rupture de symétrie avec les Options 1/2, qui donnent chacune 3 catégories au Champion.
+- **Source et page** : `Mercenaires Ostermarkers [GLM].pdf`, p.3 (Option 3) vs `Mordheim Living Rulebook.pdf`, p.52 (Mercenary skill tables, Marienburg). Confirmé par Yannick : « Ostermarkers follow the rules for Mercenary warbands as given on page 48 of the Mordheim rulebook » — aucune exception propre à cette bande ne justifie de s'écarter du tableau officiel.
+- **Décision de Yannick** : ajouter Vitesse — le Champion de l'Option 3 suit le tableau Marienburg officiel (Combat, Tir, Vitesse), comme les Champions des Options 1 et 2.
+- **Statut** : Officiel (alignement sur le tableau du livre de règles de base, explicitement suivi par cette bande sans exception)
+- **Parties du code concernées** : `src/data/warbands/ostermarkers.json` (`tribus[2].profil_acces_competences.champion`, texte descriptif de l'Option 3, et le résumé combiné des 3 options dans `regles_speciales`) ; miroir anglais `src/i18n/data/warbands.ts` (résumé combiné « Skill Choice »).
+- **Date** : 2026-09-06
+
+### Gardiens des Tombes — statut des Flèches aspic (munition ou arme à profil propre)
+
+- **Question de règle** : l'app calquait la portée/Force des Flèches aspic sur celles du Javelot nehekharien (8ps/Force Utilisateur), un objet voisin sans rapport, faute de valeurs propres imprimées dans la source pour cet objet précis.
+- **Source et page** : `tomb guardians.pdf` (variante ET vrai Town Cryer #18, confirmés identiques le 6 septembre 2026), p.8, « Asp Arrows » (silencieux sur portée/Force, seule règle spéciale imprimée : « +1 to hit »).
+- **Décision de Yannick** : c'est simplement une munition utilisable avec n'importe quel arc, qui donne +1 pour toucher — pas une arme à portée/Force propre. Portée et Force suivent celles de l'arc/du tireur, inchangées.
+- **Statut** : Maison (clarification du fonctionnement d'un objet dont la source imprimée reste silencieuse sur ce point précis)
+- **Parties du code concernées** : `src/data/items/armes_tir.json` (`fleches_aspic` : `categorie` passée à `"munitions"` — même traitement que `fleches_de_chasse` —, `portee`/`force` mis à `null`, texte de flaveur complété) ; miroir anglais `src/i18n/data/items.ts`.
+- **Date** : 2026-09-06
+
+### Gardiens des Tombes — le Gardien des Tombes gagne-t-il de l'expérience ?
+
+- **Question de règle** : la règle générale « No Brain » (« Undead Special Rules ») ne nomme explicitement que les « Skeletons » ; le Gardien des Tombes (Tomb Guard) est un profil distinct dont l'encart SPECIAL RULES propre ne mentionne que « Undead », jamais « No Brain » — le vrai Town Cryer #18 reproduit la même ambiguïté que la variante déjà auditée, aucune clarification supplémentaire trouvée.
+- **Source et page** : `tomb guardians.pdf`, p.7 (« Undead Special Rules », « No Brain », ne nomme que les Skeletons) et p.10 (« 0-2 Tomb Guardians », encart SPECIAL RULES, silencieux sur l'XP).
+- **Décision de Yannick** : oui, 0 XP — le Gardien des Tombes ne gagne jamais d'expérience, comme actuellement implémenté.
+- **Statut** : Maison (lecture extensive de « No Brain » au-delà des seuls Squelettes nommés, faute de texte plus explicite)
+- **Parties du code concernées** : aucune — `src/data/warbands/gardiens_des_tombes.json` (`gardien_des_tombes.gagne_experience: false`) déjà conforme, aucun changement nécessaire.
+- **Date** : 2026-09-06
+
+### Cour des Plaisirs Profanes — chef de bande librement choisi par le joueur
+
+- **Question de règle** : la bande n'a pas de profil à leadership fixe (pas de « Chef » nommé dans sa composition) — le joueur doit désigner librement lequel de ses Héros assume les règles de Chef, mécanisme déjà utilisé pour d'autres bandes sans chef fixe (ex. Lustrian Reavers).
+- **Source et page** : `Court of Profane Pleasures.pdf`, règle « Composition » (« you must choose one Hero to act as your Leader »).
+- **Décision de Yannick** : confirmé — vérification faite : `leader_libre: true` est déjà positionné sur `cour_des_plaisirs_profanes.json`, sans aucun profil `est_leader`, ce qui déclenche déjà le mécanisme de choix libre du joueur (bannière + modale, voir `utils/leader.ts`, `choixLeaderRequis`). Déjà correctement câblé, aucun changement nécessaire.
+- **Statut** : Officiel (comportement déjà conforme à la source)
+- **Parties du code concernées** : aucune — vérifié dans `src/utils/leader.ts` et `src/data/warbands/cour_des_plaisirs_profanes.json`.
+- **Date** : 2026-09-06
+
+### Cour des Plaisirs Profanes — tableau d'accès aux compétences des 5 Héros
+
+- **Question de règle** : aucun tableau d'accès aux compétences par catégorie (Combat/Tir/Érudition/Force/Vitesse/Spéciale) n'existe dans la source pour aucun des 5 Héros — contrairement aux autres bandes de ce lot d'audit (Cavalcade Maudite, Chasseurs Cornus), qui en ont chacune un. L'auteur du document reconnaît lui-même l'absence de tableau de compétences pour cette bande.
+- **Source et page** : `Court of Profane Pleasures.pdf` (EN, seule source connue, 6 pages) — recherche exhaustive confirmée sans résultat lors de l'audit Niveau 3 du 6 septembre 2026 ; absence confirmée et assumée par l'auteur du document lui-même (reconnu par Yannick).
+- **Décision de Yannick** : comme l'auteur reconnaît l'absence de tableau, laisser les 5 Héros en sélection libre du joueur (toutes catégories de compétences accessibles) plutôt que d'imposer une restriction inventée.
+- **Statut** : Maison (comblement d'un vide de source explicitement reconnu par l'auteur, pas une divergence entre sources)
+- **Parties du code concernées** : `src/data/warbands/cour_des_plaisirs_profanes.json` (`acces_competences` vidé pour les 5 profils Héros — `maitre_fouetteur`, `danseuse`, `marchand_de_chair`, `pretre_de_l_obscene`, `devot` —, `acces_competences_a_verifier` passé à `false` sur chacun, la question étant désormais tranchée plutôt qu'en attente).
+- **Date** : 2026-09-06

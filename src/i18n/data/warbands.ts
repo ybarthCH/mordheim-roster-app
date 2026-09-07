@@ -5955,7 +5955,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Skill Choice',
         texte:
-          'When the warband is created, you must choose one of the following three skill sets for your Ostermark Mercenaries. Once chosen, it can never be changed.\n\nOption 1: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Shooting, Strength; Recruit — Combat, Shooting, Speed.\nOption 2: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Strength, Speed; Recruit — Combat, Strength, Speed.\nOption 3: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Shooting; Recruit — Combat, Shooting, Speed.',
+          'When the warband is created, you must choose one of the following three skill sets for your Ostermark Mercenaries. Once chosen, it can never be changed.\n\nOption 1: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Shooting, Strength; Recruit — Combat, Shooting, Speed.\nOption 2: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Strength, Speed; Recruit — Combat, Strength, Speed.\nOption 3: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Shooting, Speed; Recruit — Combat, Shooting, Speed.',
       },
     ],
     profils: {

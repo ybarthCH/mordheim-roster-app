@@ -16,6 +16,9 @@ const changelogEn: Record<string, string[]> = {
     "Price fix: the Horned Hunters' Hunting Arrows now cost a flat 20 gc (instead of 25+1D6 gc, which remains the price of the equivalent rare rulebook item available to other eligible warbands).",
     'The "Heart of Steel" prayer (Witch Hunters, Sisters of Sigmar, Outlaws of Stirwood Forest) now ends as soon as its caster is Stunned, Knocked Down, or taken Out of Action, instead of Out of Action only.',
     'Orc Mob: the "\'Ere We Go!" skill now ignores Terror in addition to Fear when charging, matching the Black Orcs, who share the same skill.',
+    'Ostermarkers: the Option 3 ("Marienburg") Champion now has access to Speed in addition to Combat and Shooting, as the official rulebook table intends.',
+    "Tomb Guardians: Asp Arrows are now plain ammunition usable with any bow (the bow's range and Strength, +1 to hit), instead of having wrongly inherited the Nehekharan Javelin's range and Strength.",
+    "Court of Profane Pleasures: since the warband's only known source has no skill table (an absence its own author acknowledges), its 5 Heroes can now freely pick from every skill category on each advance.",
   ],
   '2026-09-05': [
     'Rarity fix: the Holy (Unholy) Relic is now Rare 6 (instead of Rare 8) for Witch Hunter Warrior-Priests and Sisters of Sigmar, as the rule intends.',

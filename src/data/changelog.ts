@@ -70,6 +70,21 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Orc Mob : la compétence « On y va ! » ignore maintenant la Terreur en plus de la Peur lors d'une charge, comme chez les Orques Noirs qui ont la même compétence.",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Ostermarkers : le Champion de l'Option 3 (« Marienburg ») a maintenant accès à la Vitesse en plus du Combat et du Tir, comme le prévoit le tableau officiel du livre de règles.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Gardiens des Tombes : les Flèches aspic sont maintenant une simple munition utilisable avec n'importe quel arc (portée et Force de l'arc, +1 pour toucher), au lieu d'avoir hérité par erreur la portée et la Force du Javelot nehekharien.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Cour des Plaisirs Profanes : faute de tableau de compétences dans la seule source connue de cette bande (absence reconnue par son auteur), les 5 Héros peuvent désormais choisir librement dans toutes les catégories de compétences à chaque avancée.",
+      },
     ],
   },
   {
