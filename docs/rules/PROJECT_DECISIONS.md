@@ -182,3 +182,12 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Maison (contenu assumé au-delà de cette source précise)
 - **Parties du code concernées** : aucune — `src/data/warbands/maneaters.json` (profil `guerrier_gnoblar`) inchangé.
 - **Date** : 2026-09-03
+
+### Cavalcade Maudite — prix de la Lance à sanglier
+
+- **Question de règle** : la liste rapide d'équipement des Héros imprime « Boar Spear (Aristocrat only) ... 30 GC », mais le paragraphe descriptif détaillé du même objet, plus loin dans le même document, indique « Cost: 20 Gold Crown / Availability: Rare 10, Aristocrat only » — même conflit interne liste-rapide/encadré détaillé déjà rencontré et tranché pour Nuln/Nains du Chaos.
+- **Source et page** : `The Cursed Cavalcade.pdf`, p.2 (« HEROES EQUIPMENT LIST », liste rapide) vs p.3 (encadré détaillé « Boar Spear »).
+- **Décision de Yannick** : garder 30 CO — la liste rapide fait foi, même méthode que pour Nuln/Nains du Chaos.
+- **Statut** : Maison (choix entre deux sections contradictoires du même document, comme pour Nuln)
+- **Parties du code concernées** : aucune — `src/data/warbands/cavalcade_maudite.json` (`lance_a_sanglier`, 30 CO) déjà conforme, aucun changement nécessaire.
+- **Date** : 2026-09-06
