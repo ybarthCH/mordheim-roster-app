@@ -54,7 +54,7 @@ Audit complet (`mordheim-rules-auditor`) fait contre une source anglaise obtenue
 
 `kislevites` : rejoint le Niveau 3 le 6 septembre 2026. Point laissé ouvert (non bloquant) : l'XP de départ du Dompteur d'Ours (8 dans l'app) suit la source EN, mais la source FR déclarée du projet dit 10 — à trancher par Yannick.
 
-`cavalcade_maudite`, `chasseurs_cornus` : rejoignent le Niveau 3 le 6 septembre 2026, sans correction de code (les valeurs actuelles suivent déjà la convention « la liste rapide d'équipement fait foi » déjà établie pour des cas similaires — Nuln/Nains du Chaos). Prix de la Lance à sanglier (Cavalcade Maudite) tranché par Yannick le même jour : 30 CO conservé — voir `PROJECT_DECISIONS.md`. Point laissé ouvert (non bloquant) : prix des Flèches de chasse (25+1D6 CO actuel vs 20 CO fixe suggéré par 2 sources sur 3 dont l'intégralité du PDF EN, Chasseurs Cornus) — à trancher par Yannick.
+`cavalcade_maudite`, `chasseurs_cornus` : rejoignent le Niveau 3 le 6 septembre 2026. Prix de la Lance à sanglier (Cavalcade Maudite) tranché par Yannick le même jour : 30 CO conservé, aucun changement de code — voir `PROJECT_DECISIONS.md`. Prix des Flèches de chasse (Chasseurs Cornus) également tranché le même jour : 20 CO fixe pour cette bande (au lieu de 25+1D6 CO recopiés à tort depuis l'objet générique Rare 8 du livre de règles, qui reste inchangé et continue de servir les autres bandes y ayant droit) — corrigé dans `chasseurs_cornus.json` (liste rapide Héros et `equipement_special`), voir `PROJECT_DECISIONS.md`.
 
 `gobelins_des_forets` : rejoint le Niveau 3 le 6 septembre 2026 sans aucune correction — audit complet contre `Gobelins des Forêts [GLM].pdf`/`Forest Goblins.pdf`, conformité totale.
 

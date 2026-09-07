@@ -191,3 +191,12 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Maison (choix entre deux sections contradictoires du même document, comme pour Nuln)
 - **Parties du code concernées** : aucune — `src/data/warbands/cavalcade_maudite.json` (`lance_a_sanglier`, 30 CO) déjà conforme, aucun changement nécessaire.
 - **Date** : 2026-09-06
+
+### Chasseurs Cornus — prix des Flèches de chasse
+
+- **Question de règle** : la liste rapide d'équipement des Héros du PDF FR indique « Flèches de chasseur ... 20 CO » (prix fixe, aucune mention de rareté) ; le PDF EN de 2007 confirme, sans même connaître de variante à dé (« Hunting arrows ... 20 gc », seule occurrence du terme dans tout le document). Seul l'encadré détaillé « Équipement spécial » d'une réécriture FR plus récente (GLM) introduit un prix à dé différent (« 25+1D6 CO / Rare 8 ») — jusqu'ici recopié à tort dans le catalogue de bande.
+- **Source et page** : `Chasseurs cornus [GLM].pdf`, p.2 (liste rapide) vs p.3 (encadré détaillé « Équipement spécial ») ; `Horned Hunters.pdf` (EN, 2007), p.1 (« Miscellaneous », seule occurrence).
+- **Décision de Yannick** : 20 CO fixe pour cette bande (liste rapide fait foi). Les Flèches de chasse à 25+1D6 CO restent un objet distinct : celui du livre de règles de base (Rare 8), déjà accessible en boutique commune à toute bande y ayant droit (Averlanders, Hors-la-loi de Stirwood...) — pas remis en cause.
+- **Statut** : Maison (choix entre deux sections contradictoires, comme pour Nuln/Cavalcade Maudite) + Officiel (le prix fixe est aussi corroboré indépendamment par la source EN)
+- **Parties du code concernées** : `src/data/warbands/chasseurs_cornus.json` (référence `fleches_de_chasse` dans la liste rapide Héros et dans `equipement_special` : `cout` passé à 20, `rarete` surchargée à `"-"` pour ne plus hériter du Rare 8 de l'objet générique, texte de disponibilité corrigé en « Commun »). L'item générique `fleches_de_chasse` du catalogue commun (`src/data/items/munitions.json`, 25+1D6 CO, Rare 8) reste inchangé — seule la référence propre à cette bande est concernée.
+- **Date** : 2026-09-06

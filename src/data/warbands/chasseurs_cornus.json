@@ -189,7 +189,7 @@
       ],
       "divers": [
         { "item_id": "collet", "cout": 15 },
-        { "item_id": "fleches_de_chasse", "cout": "25+1D6" },
+        { "item_id": "fleches_de_chasse", "cout": 20, "rarete": "-", "restriction": "Commun" },
         { "item_id": "peau_de_cerf_benie", "cout": 40 }
       ]
     },
@@ -212,7 +212,7 @@
   },
   "equipement_special": [
     { "item_id": "collet", "cout": 15, "disponibilite": "Commun, Héros Chasseurs Cornus uniquement", "profils": ["chasseur_cornu", "pretre_de_taal", "initie"] },
-    { "item_id": "fleches_de_chasse", "cout": "25+1D6", "disponibilite": "Rare 8, Héros uniquement", "profils": ["chasseur_cornu", "pretre_de_taal", "initie"] },
+    { "item_id": "fleches_de_chasse", "cout": 20, "disponibilite": "Commun, Héros uniquement", "profils": ["chasseur_cornu", "pretre_de_taal", "initie"], "rarete": "-" },
     { "item_id": "peau_de_cerf_benie", "cout": 40, "disponibilite": "Rare 10, Héros Chasseurs Cornus uniquement", "profils": ["chasseur_cornu", "pretre_de_taal", "initie"] }
   ],
   "magie": {

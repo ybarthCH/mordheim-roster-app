@@ -55,6 +55,11 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Le Ninja (franc-tireur) ne compte plus dans le seuil de déroute affiché sous la tuile Membres pendant la bataille où il est engagé, conformément à sa règle « Secret ».",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Correction de prix : les Flèches de chasse des Chasseurs Cornus coûtent 20 po fixes (au lieu de 25+1D6 po, prix qui reste celui de l'objet rare équivalent du livre de règles, accessible aux autres bandes y ayant droit).",
+      },
     ],
   },
   {
