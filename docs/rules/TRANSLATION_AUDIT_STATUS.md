@@ -52,7 +52,7 @@ Audit complet (`mordheim-rules-auditor`) fait contre une source anglaise obtenue
 
 `carnival_of_chaos`, `beastmen_raiders`, `dwarf_treasure_hunters` : rejoignent le Niveau 3 le 6 septembre 2026. `carnival_of_chaos` sans écart (source `Empire In Flames.pdf`). `beastmen_raiders` : nom de compétence corrigé (« Pelage épais » → « Cuir épais », conforme à `Pillards Hommes-Bêtes [GLM].pdf` et à l'id `cuir_epais` lui-même ; traduction EN alignée en « Thick Hide »). `dwarf_treasure_hunters` : noms de profils EN corrigés pour coller à la source (« Dwarf Marksman » → « Dwarf Thunderers », « Chinbeard » → « Beardlings »).
 
-`kislevites` : rejoint le Niveau 3 le 6 septembre 2026. Point laissé ouvert (non bloquant) : l'XP de départ du Dompteur d'Ours (8 dans l'app) suit la source EN, mais la source FR déclarée du projet dit 10 — à trancher par Yannick.
+`kislevites` : rejoint le Niveau 3 le 6 septembre 2026. XP de départ du Dompteur d'Ours tranché par Yannick le même jour : 8 conservé (source EN), aucun changement de code — voir `PROJECT_DECISIONS.md`.
 
 `cavalcade_maudite`, `chasseurs_cornus` : rejoignent le Niveau 3 le 6 septembre 2026. Prix de la Lance à sanglier (Cavalcade Maudite) tranché par Yannick le même jour : 30 CO conservé, aucun changement de code — voir `PROJECT_DECISIONS.md`. Prix des Flèches de chasse (Chasseurs Cornus) également tranché le même jour : 20 CO fixe pour cette bande (au lieu de 25+1D6 CO recopiés à tort depuis l'objet générique Rare 8 du livre de règles, qui reste inchangé et continue de servir les autres bandes y ayant droit) — corrigé dans `chasseurs_cornus.json` (liste rapide Héros et `equipement_special`), voir `PROJECT_DECISIONS.md`.
 

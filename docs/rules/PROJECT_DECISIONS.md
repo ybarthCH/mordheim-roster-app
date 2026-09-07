@@ -209,3 +209,12 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Officiel (source EN)
 - **Parties du code concernées** : `src/data/warbands/witch_hunters.json`, `sisters_of_sigmar.json`, `hors_la_loi_de_stirwood.json` (texte de la prière `c_ur_d_acier`, les 3 catalogues portent chacun leur propre copie du sort) ; miroirs anglais correspondants dans `src/i18n/data/warbands.ts`. Correction purement textuelle — le comportement en jeu (recrutement, roster) n'était pas affecté, cette prière étant un effet de partie non automatisé par l'app.
 - **Date** : 2026-09-06
+
+### Kislévites — XP de départ du Dompteur d'Ours
+
+- **Question de règle** : l'app affiche 8 XP de départ pour le Dompteur d'Ours, conforme à la source EN citée par l'audit Niveau 3 du 6 septembre 2026 ; la source FR officiellement déclarée du projet pour cette bande (article de Mark Havener) indique 10.
+- **Source et page** : article de Mark Havener, « Les hommes de Kislev, à la moustache pleine de givre et de vodka » (FR, source déclarée de `kislevites.json`) vs source EN citée dans le rapport d'audit Niveau 3 du 6 septembre 2026 — citation exacte (nom de PDF + page) à retrouver dans ce rapport si besoin de revérifier plus tard.
+- **Décision de Yannick** : garder 8 (suivre l'EN).
+- **Statut** : Officiel (source EN)
+- **Parties du code concernées** : aucune — `src/data/warbands/kislevites.json` (profil `dompteur_dours`, `xp_depart: 8`) déjà conforme, aucun changement nécessaire.
+- **Date** : 2026-09-06
