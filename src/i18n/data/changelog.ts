@@ -15,6 +15,7 @@ const changelogEn: Record<string, string[]> = {
     'The Ninja (Hired Sword) no longer counts toward the rout threshold shown under the Members tile during the battle he is hired for, as his "Secret" rule requires.',
     "Price fix: the Horned Hunters' Hunting Arrows now cost a flat 20 gc (instead of 25+1D6 gc, which remains the price of the equivalent rare rulebook item available to other eligible warbands).",
     'The "Heart of Steel" prayer (Witch Hunters, Sisters of Sigmar, Outlaws of Stirwood Forest) now ends as soon as its caster is Stunned, Knocked Down, or taken Out of Action, instead of Out of Action only.',
+    'Orc Mob: the "\'Ere We Go!" skill now ignores Terror in addition to Fear when charging, matching the Black Orcs, who share the same skill.',
   ],
   '2026-09-05': [
     'Rarity fix: the Holy (Unholy) Relic is now Rare 6 (instead of Rare 8) for Witch Hunter Warrior-Priests and Sisters of Sigmar, as the rule intends.',

@@ -2303,7 +2303,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       waaagh: { nom: 'Waaagh!', texte: 'The warrior adds +1D3" to his charge range.' },
       dur_a_cuire: { nom: 'Tough as Nails', texte: "Increases the model's armour save by +1." },
       coup_dboule: { nom: 'Headbutt', texte: 'Any model Knocked Down in hand-to-hand combat by this warrior is treated as Stunned.' },
-      on_y_va: { nom: "Let's Go!", texte: 'The model does not have to take a Fear test when charging.' },
+      on_y_va: { nom: "Let's Go!", texte: 'The model does not have to take a Fear or Terror test when charging.' },
       revnez_ici: {
         nom: "Come Back 'Ere!",
         reserve_a: 'Orc Boss only',

@@ -218,3 +218,12 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Officiel (source EN)
 - **Parties du code concernées** : aucune — `src/data/warbands/kislevites.json` (profil `dompteur_dours`, `xp_depart: 8`) déjà conforme, aucun changement nécessaire.
 - **Date** : 2026-09-06
+
+### Orc Mob — la compétence « On y va ! » ignore-t-elle la Peur, la Terreur, ou les deux ?
+
+- **Question de règle** : le texte FR retenu par le projet (GLM) ne mentionne que la Peur ; la source EN d'origine (Mordheim Annual 2002, « Da Mob Roolz ») mentionne aussi la Terreur. `orques_noirs` (Black Orcs), qui partage la même compétence (même id `on_y_va`), a déjà le texte correct des deux côtés (« ignore les tests de peur et de terreur »).
+- **Source et page** : source EN Mordheim Annual 2002 citée par l'audit Niveau 3 du 6 septembre 2026, comparée à `orc_mob.json` (Peur seule) et `orques_noirs.json` (Peur et Terreur, déjà correct).
+- **Décision de Yannick** : Peur et Terreur, c'est la même chose (pour l'usage de cette compétence) — ignore les deux, aligné sur `orques_noirs`.
+- **Statut** : Officiel (source EN, cohérent avec la bande sœur déjà correcte)
+- **Parties du code concernées** : `src/data/warbands/orc_mob.json` (compétence `on_y_va`, texte complété avec « ni de Terreur ») ; miroir anglais `src/i18n/data/warbands.ts` (« Fear or Terror test »).
+- **Date** : 2026-09-06

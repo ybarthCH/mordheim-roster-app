@@ -65,6 +65,11 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "La prière « Cœur d'Acier » (Répurgateurs, Sœurs de Sigmar, Hors-la-loi de Stirwood) cesse maintenant dès que son lanceur est sonné, à terre ou mis hors de combat, au lieu de seulement hors de combat.",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Orc Mob : la compétence « On y va ! » ignore maintenant la Terreur en plus de la Peur lors d'une charge, comme chez les Orques Noirs qui ont la même compétence.",
+      },
     ],
   },
   {
