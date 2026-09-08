@@ -91,7 +91,7 @@
       "acces_competences": [],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
-      "aucun_achat_shop_commun": true,
+      "aucun_achat_place_du_marche": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -112,7 +112,7 @@
       "acces_competences": [],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
-      "aucun_achat_shop_commun": true,
+      "aucun_achat_place_du_marche": true,
       "acces_competences_a_verifier": false
     },
     {
@@ -135,7 +135,7 @@
       "acces_competences": [],
       "acces_equipement": [],
       "categories_interdites": ["armes_cac", "armes_tir", "armes_poudre_noire", "armures"],
-      "aucun_achat_shop_commun": true,
+      "aucun_achat_place_du_marche": true,
       "acces_competences_a_verifier": false
     },
     {

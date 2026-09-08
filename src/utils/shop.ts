@@ -1,4 +1,4 @@
-// Achat/gestion d'équipement structuré : shop commun (base d'objets extraite
+// Achat/gestion d'équipement structuré : Place du marché (base d'objets extraite
 // du compendium "Place du Marché") + listes d'équipement propres à la bande
 // (catalogue.equipement / equipement_special, déjà utilisées en référence
 // libre par EquipementReference). Pas de gestion de rareté ni de phase
@@ -127,9 +127,9 @@ export function formatCoutProfil(cout: number | null, coutNotation?: string, lan
 // "commun_pirates", "commun_heros", "commun_pretres_guerriers_soeurs_de_sigmar")
 // signifient l'inverse — l'objet est licite/pas cher UNIQUEMENT pour ce
 // groupe précis, donc restreint, pas générique. Ils restent donc exclus du
-// shop commun ici ; le cas "commun_heros" (Héros uniquement, ex : Cuir durci)
+// Place du marché ici ; le cas "commun_heros" (Héros uniquement, ex : Cuir durci)
 // est réintroduit pour les héros directement dans le filtre de
-// getShopCommun() ci-dessous, où le profil ciblé est connu.
+// getPlaceDuMarche() ci-dessous, où le profil ciblé est connu.
 export function estAccesGenerique(acces: string[]): boolean {
   return acces.some(
     (a) =>
@@ -228,7 +228,7 @@ const EXCLUSIONS_COMMUN_SAUF: Record<string, string[]> = {
 // concernée : soit l'id du catalogue est listé tel quel dans `acces` (ex :
 // "gobelins_de_la_nuit", "undead"), soit la bande appartient au tag de
 // groupe "commun_humains". Utilisé pour que les montures et autres objets
-// à accès restreint apparaissent dans le shop commun d'une bande éligible.
+// à accès restreint apparaissent dans le Place du marché d'une bande éligible.
 export function estAccesPourCatalogue(acces: string[], catalogueId: string): boolean {
   if (acces.includes(`rare_9_sauf_${catalogueId}`)) return false;
   if (acces.some((a) => EXCLUSIONS_COMMUN_SAUF[a]?.includes(catalogueId))) return false;
@@ -330,9 +330,9 @@ const CATALOGUE_ARTILLEURS_NULN = 'artilleurs_de_nuln';
 // — ces bandes gardent le calcul à dés habituel, cette table ne s'applique
 // donc qu'au catalogue artilleurs_de_nuln. Les mêmes montants sont aussi
 // fixés en dur dans artilleurs_de_nuln.json (listes "artilleurs_de_nuln"
-// et "tireurs_delite") pour que la liste de bande et le shop commun
+// et "tireurs_delite") pour que la liste de bande et le Place du marché
 // restent cohérents entre eux (getEquipementBande ne passe jamais par
-// cette fonction, contrairement à getShopCommun).
+// cette fonction, contrairement à getPlaceDuMarche).
 const PRIX_LISTE_RAPIDE_NULN: Record<string, number> = {
   mortier_portable: 70,
   pistolet_double_canon_paire: 35,
@@ -883,7 +883,7 @@ export function estObjetRare(rarete?: string): boolean {
 
 // Champs d'un ShopItem copiés tels quels depuis un item du catalogue commun
 // (items/*.json) — communs aux quatre points de construction d'un ShopItem
-// (shop commun, équipement de bande normal/spécial, détail d'un objet déjà
+// (Place du marché, équipement de bande normal/spécial, détail d'un objet déjà
 // possédé), indépendamment du coût/catégorie/disponibilité/origine propres à
 // chaque contexte. Centralise notamment stats_delta, dont l'absence à deux
 // de ces quatre sites empêchait certaines mutations (ex : Great Claw) d'agir
@@ -902,7 +902,7 @@ function champsItemVersShopItem(item: (typeof TOUS_LES_ITEMS)[number]) {
 }
 
 // Mappe un objet brut (items/*.json) vers un ShopItem "commun", sans
-// résolution de règles de prix (voir getShopCommun/itemVersShopItem qui
+// résolution de règles de prix (voir getPlaceDuMarche/itemVersShopItem qui
 // appellent appliquerReglesObjet par-dessus).
 function mapperItemVersShopItem(item: (typeof TOUS_LES_ITEMS)[number]): ShopItem {
   return {
@@ -920,7 +920,7 @@ function mapperItemVersShopItem(item: (typeof TOUS_LES_ITEMS)[number]): ShopItem
   };
 }
 
-// L'armure en gromril et l'armure en ithilmar du shop commun comptent
+// L'armure en gromril et l'armure en ithilmar du Place du marché comptent
 // toutes deux comme une armure lourde par leur propre texte de règle (voir
 // data/items/armures.json, règle spéciale "Armure lourde") : un profil sans
 // accès à l'armure lourde commune dans sa propre liste d'équipement ne peut
@@ -1001,7 +1001,7 @@ function idBasePourAcces(itemId: string): string {
 // SKILL_TOUTES_ARMES_CAC/SKILL_TOUTES_ARMES_TIR ci-dessus). Les armures n'ont
 // pas d'équivalent, hors gromril/ithilmar qui suivent aAccesArmureLourde. Ne
 // s'applique qu'aux armes et armures : les autres catégories restent
-// toujours utilisables. Contrairement au filtre d'ACHAT de getShopCommun
+// toujours utilisables. Contrairement au filtre d'ACHAT de getPlaceDuMarche
 // (voir `filtrerAccesEntrainement`), ceci ne bloque jamais une transaction —
 // le livre de règles autorise explicitement l'achat d'objets rares qu'un
 // guerrier ne sait pas encore utiliser ("ils seront peut-être capables de
@@ -1094,14 +1094,14 @@ const EXCEPTIONS_DIVERS_HOMMES_DE_MAIN = new Set([
 // homme de main promu Héros via "Ce gars est doué" n'est plus concerné
 // (resolveProfil bascule alors `type` à 'heros', voir utils/profil.ts).
 // Contrairement à `armeArmureUtilisableSansEntrainement`, ceci s'applique
-// aussi bien à l'achat (getShopCommun/getEquipementBande) qu'à la réception
+// aussi bien à l'achat (getPlaceDuMarche/getEquipementBande) qu'à la réception
 // via "Donner à" (ArmurerieSection) : le livre ne prévoit ici aucune
 // exception pour un objet trouvé mais pas encore utilisable — et un homme
 // de main ne fait de toute façon jamais de recherche d'objet rare
 // post-bataille (réservée aux héros), donc RechercheObjetRareModal n'a pas
 // besoin de ce filtre. `equipement_special` reste volontairement hors
 // périmètre (audit séparé à venir) : ce filtre ne s'applique qu'aux objets
-// venant de la liste d'équipement propre au profil ou du shop commun/rare.
+// venant de la liste d'équipement propre au profil ou du Place du marché/rare.
 export function objetAutorisePourHommeDeMain(
   bandeId: string | undefined,
   profil: Profile | null | undefined,
@@ -1113,18 +1113,18 @@ export function objetAutorisePourHommeDeMain(
   return EXCEPTIONS_DIVERS_HOMMES_DE_MAIN.has(`${bandeId}::${profil.id}::${itemId}`);
 }
 
-// Un objet accessible via le shop commun (tag générique type "commun_humains",
+// Un objet accessible via le Place du marché (tag générique type "commun_humains",
 // ou nommé directement pour une bande) reste soumis à la restriction de
 // profil que sa propre bande lui impose déjà via equipement_special.profils,
 // quand elle existe (ex : Destriers/Cheval/Caparaçon bretonnien des
 // Chevaliers Bretonniens, réservés aux Chevaliers/Écuyers — sans ce filtre,
-// un Homme d'Arme ou un Archer pouvait les acheter via le shop commun,
+// un Homme d'Arme ou un Archer pouvait les acheter via le Place du marché,
 // contournant la restriction déjà posée côté liste de la bande). Ne
 // s'applique que si la bande a explicitement choisi de restreindre CET item
 // par profil ; les autres objets restent inchangés. Si `profil` est omis
 // (vitrine sans membre précis, ex : achat pour le stock de bande depuis
 // l'Armurerie), on ne filtre PAS — même contrat que le reste de
-// getShopCommun (voir son propre commentaire) : un profil manquant ne doit
+// getPlaceDuMarche (voir son propre commentaire) : un profil manquant ne doit
 // jamais se comporter comme "aucun profil n'a le droit".
 function respecteRestrictionProfilEquipementSpecial(
   catalogue: WarbandCatalog | undefined,
@@ -1168,7 +1168,7 @@ function respecteRestrictionCompetenceEquipementSpecial(
 // recherche d'objet rare post-bataille reste volontairement ouverte, le
 // livre de règles autorisant explicitement l'achat d'objets pas encore
 // utilisables par le guerrier.
-export function getShopCommun(
+export function getPlaceDuMarche(
   catalogueId?: string,
   rules: GameRules = DEFAULT_GAME_RULES,
   profil?: Profile | null,
@@ -1179,10 +1179,10 @@ export function getShopCommun(
   // Profil sans aucun achat possible, toutes catégories confondues (ex :
   // Snotling des Gobelins de la Nuit, Kroxigor des Hommes-Lézards — arme
   // gratuite fournie par equipementInclusDepart, sans liste d'équipement
-  // ni accès au shop commun). categories_interdites ne couvre que
+  // ni accès à la Place du marché). categories_interdites ne couvre que
   // armes/armures ; sans ce court-circuit, montures/véhicules/munitions/
   // poisons restaient achetables via cet onglet malgré acces_equipement: [].
-  if (profil?.aucun_achat_shop_commun) return [];
+  if (profil?.aucun_achat_place_du_marche) return [];
   const armureLourdeInterdite = !aAccesArmureLourde(catalogue, profil);
   // Fusionne categories_interdites (filtre aussi l'onglet bande) et
   // categories_interdites_commun (ne filtre que cet onglet commun) pour ce
@@ -1197,7 +1197,7 @@ export function getShopCommun(
 
   // Les mutations ("Un guerrier de Mutant ou de Possédé peut acheter des
   // mutations uniquement lors de son recrutement") ne s'achètent jamais
-  // depuis le shop commun, quelle que soit la bande : uniquement via la
+  // depuis le Place du marché, quelle que soit la bande : uniquement via la
   // liste equipement_special de la bande.
   const nEstPasUneMutation = (item: ItemCatalogue) => item.categorie !== 'mutations';
 
@@ -1290,7 +1290,7 @@ export function itemVersShopItem(
 
 // Montures accessibles à cette bande (pour un profil donné), qu'elles
 // soient listées dans son propre catalogue (`equipement`/`equipement_special`)
-// ou dans le shop commun — utilisé pour proposer un choix de monture liée à
+// ou dans le Place du marché — utilisé pour proposer un choix de monture liée à
 // la compétence Équitation (voir utils/tribu.SKILL_EQUITATION). Résolu via
 // la catégorie réelle de l'objet (`getItem(id).categorie`) plutôt que la
 // catégorie d'affichage du `ShopItem`, qui reflète la liste où l'objet a été
@@ -1303,7 +1303,7 @@ export function monturesDisponibles(
 ): ShopItem[] {
   const items = [
     ...getEquipementBande(catalogue, profil, competencesAcquises, [], rules),
-    ...getShopCommun(catalogue.id, rules),
+    ...getPlaceDuMarche(catalogue.id, rules),
   ];
   const vus = new Set<string>();
   return items.filter((item) => {
@@ -1357,7 +1357,7 @@ export function getEquipementBande(
         // les 7 profils Artilleurs de Nuln, dont la règle "Fier artilleur !"
         // n'interdit QUE les armes de tir non-poudre-noire) se retrouvait
         // aussi privé de ses propres armes à poudre noire, la seule catégorie
-        // qu'il a pourtant explicitement le droit d'acheter. getShopCommun
+        // qu'il a pourtant explicitement le droit d'acheter. getPlaceDuMarche
         // (juste au-dessus) ne souffre pas de ce problème : il passe déjà
         // item.categorie, la vraie catégorie de l'objet, plutôt que la clé
         // d'onglet de la liste où il est rangé.
@@ -1435,7 +1435,7 @@ export function getEquipementBande(
       // divers (armures uniques, montures, mutations...) tous affichés sous
       // un même onglet "Spécial" par défaut — sauf les mutations, qui
       // gagnent leur propre onglet dédié (voir CATEGORIE_ORDRE) pour rester
-      // groupées avec celles achetées via le shop commun.
+      // groupées avec celles achetées via le Place du marché.
       categorie: item.categorie === 'mutations' ? 'mutations' : 'special',
       cout,
       cout_fixe: typeof cout === 'number',
@@ -1462,7 +1462,7 @@ export function getEquipementBande(
 // exclus sans condition plutôt que de dépendre de `categories_interdites`
 // (renseigné de façon inégale selon les bandes, ex : le Chien de guerre
 // générique n'a jamais eu cette liste alors que le Molosse du Chaos si) :
-// un animal shoppant au shop commun (torche, corde...) n'aurait aucun sens.
+// un animal shoppant au Place du marché (torche, corde...) n'aurait aucun sens.
 // Volontairement permissif par défaut pour les autres profils
 // (competencesAcquises vide, pas de matériaux) : sert juste à décider si
 // l'étape mérite d'être montrée, pas à filtrer finement.
@@ -1478,7 +1478,7 @@ export function profilPeutAcheterEquipement(catalogue: WarbandCatalog, profil: P
     return !!catalogue.equipement_special?.some((ref) => ref.profils?.includes(profil.id));
   }
   if (getEquipementBande(catalogue, profil).length > 0) return true;
-  return getShopCommun(catalogue.id, DEFAULT_GAME_RULES, profil, [], catalogue, true).length > 0;
+  return getPlaceDuMarche(catalogue.id, DEFAULT_GAME_RULES, profil, [], catalogue, true).length > 0;
 }
 
 // Objets homebrew créés pour cette bande (voir CustomItem/RosterInstance) —

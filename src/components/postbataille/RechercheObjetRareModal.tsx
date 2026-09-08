@@ -11,7 +11,8 @@ import {
   creerEntreeInventaire,
   estItemMateriau,
   formatCoutItem,
-  getShopCommun,
+  getEquipementBande,
+  getPlaceDuMarche,
   iconeCategorie,
   inventaireComplet,
   libelleCategorie,
@@ -84,22 +85,50 @@ export function RechercheObjetRareModal({
 
   const profil = useMemo(() => resolveProfil(roster, membre, catalogue, language) ?? null, [roster, membre, catalogue, language]);
 
+  // Équipement propre à la bande (listes rapides + equipement_special) pour
+  // ce membre : sans ça, un objet Rare qui n'existe QUE dans la liste
+  // d'équipement de la bande (ex : Flèches de chasse des Chasseurs Cornus,
+  // Écorce de fer des Sylvaneths) devenait introuvable à jamais dès la
+  // première bataille — masqué de la Place du marché (pasDejaDansEquipementSpecial)
+  // et absent de cette recherche, qui ne regardait jusqu'ici que la Place du
+  // marché. inventaireActuel utilise l'inventaire du membre (+ les achats
+  // déjà faits plus tôt dans ce même passage post-bataille) pour détecter les
+  // objets déjà possédés d'un même groupe_prix, comme les autres appelants de
+  // getEquipementBande.
+  const itemsBande = useMemo(
+    () =>
+      getEquipementBande(
+        catalogue,
+        profil,
+        membre.competences_acquises,
+        [...membre.inventaire, ...inventaireSupplementaire],
+        rules,
+        membre.marque
+      ),
+    [catalogue, profil, membre.competences_acquises, membre.inventaire, membre.marque, inventaireSupplementaire, rules]
+  );
+
   const items = useMemo(() => {
-    const candidats = getShopCommun(catalogue.id, rules, profil, membre.competences_acquises, catalogue);
+    const communs = getPlaceDuMarche(catalogue.id, rules, profil, membre.competences_acquises, catalogue);
     const uniques = new Map<string, ShopItem>();
-    for (const item of candidats) {
+    for (const item of [...communs, ...itemsBande]) {
       if (niveauRarete(item) === null || uniques.has(item.id)) continue;
       uniques.set(item.id, item);
     }
     return [...uniques.values()].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
-  }, [catalogue, rules, profil, membre.competences_acquises]);
+  }, [catalogue, rules, profil, membre.competences_acquises, itemsBande]);
 
-  // Liste complète (non filtrée par rareté) pour proposer les bases d'un
-  // objet matériau : une arme de base courante n'a elle-même aucune rareté.
-  const itemsCommunTous = useMemo(
-    () => getShopCommun(catalogue.id, rules, profil, membre.competences_acquises, catalogue),
-    [catalogue, rules, profil, membre.competences_acquises]
-  );
+  // Liste complète (non filtrée par rareté, bande + Place du marché) pour
+  // proposer les bases d'un objet matériau : une arme de base courante n'a
+  // elle-même aucune rareté.
+  const itemsCommunTous = useMemo(() => {
+    const communs = getPlaceDuMarche(catalogue.id, rules, profil, membre.competences_acquises, catalogue);
+    const uniques = new Map<string, ShopItem>();
+    for (const item of [...communs, ...itemsBande]) {
+      if (!uniques.has(item.id)) uniques.set(item.id, item);
+    }
+    return [...uniques.values()];
+  }, [catalogue, rules, profil, membre.competences_acquises, itemsBande]);
 
   const categoriesDisponibles = useMemo(() => {
     const presentes = new Set(items.map((i) => i.categorie));

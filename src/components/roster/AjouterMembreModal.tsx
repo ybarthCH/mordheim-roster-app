@@ -472,7 +472,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             .btn--pack-pill-sm (même habillage peint que le reste de cet
             écran) plutôt que .btn/.btn--primary : Terminer est l'action
             principale de toute la fenêtre, donc --primary, et l'onglet actif
-            "Équipement de la bande"/"Shop commun" juste en dessous perd sa
+            "Équipement de la bande"/"Place du marché" juste en dessous perd sa
             propre variante --primary (voir AchatEquipementModal,
             resterOuvertApresAchat) pour ne plus rivaliser avec elle. flex:1
             pour que les deux boutons occupent toute la largeur de la
@@ -526,7 +526,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             onObjetsSurchargesChange={(surcharges) => onUpdateRoster({ ...roster, objets_surcharges: surcharges })}
             resterOuvertApresAchat
             masquerBoutonFermer
-            masquerShopCommun
+            masquerPlaceDuMarche
             masquerObjetsRares={roster.historique_batailles.length > 0}
             onClose={() => setConfirmationAnnulationOuverte(true)}
             onAchat={(item, coutPaye) => setPanier((prev) => [...prev, { item, coutPaye }])}

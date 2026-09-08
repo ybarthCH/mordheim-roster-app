@@ -19,6 +19,8 @@ const changelogEn: Record<string, string[]> = {
     'Ostermarkers: the Option 3 ("Marienburg") Champion now has access to Speed in addition to Combat and Shooting, as the official rulebook table intends.',
     "Tomb Guardians: Asp Arrows are now plain ammunition usable with any bow (the bow's range and Strength, +1 to hit), instead of having wrongly inherited the Nehekharan Javelin's range and Strength.",
     "Court of Profane Pleasures: since the warband's only known source has no skill table (an absence its own author acknowledges), its 5 Heroes can now freely pick from every skill category on each advance.",
+    "Rare items exclusive to a warband's own equipment list (like the Horned Hunters' Hunting Arrows) can now be found again through the rare-item search after a battle, like any other Rare item — they used to become permanently unavailable as soon as the first battle was played.",
+    'The app\'s generic shop is renamed "Trading Post" (its real name, from the supplement it\'s drawn from), to avoid confusion with each warband\'s own equipment list.',
   ],
   '2026-09-05': [
     'Rarity fix: the Holy (Unholy) Relic is now Rare 6 (instead of Rare 8) for Witch Hunter Warrior-Priests and Sisters of Sigmar, as the rule intends.',

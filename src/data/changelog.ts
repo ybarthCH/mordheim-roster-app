@@ -85,6 +85,16 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Cour des Plaisirs Profanes : faute de tableau de compétences dans la seule source connue de cette bande (absence reconnue par son auteur), les 5 Héros peuvent désormais choisir librement dans toutes les catégories de compétences à chaque avancée.",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Les objets Rares propres à la liste d'équipement d'une bande (comme les Flèches de chasse des Chasseurs Cornus) peuvent maintenant être retrouvés via la recherche d'objet rare après une bataille, comme n'importe quel autre objet Rare — ils restaient auparavant introuvables dès la première bataille jouée.",
+      },
+      {
+        categorie: 'interface',
+        texte:
+          "La boutique générique de l'app est renommée « Place du marché » (son vrai nom, celui du supplément dont elle est tirée), pour éviter la confusion avec la liste d'équipement propre à chaque bande.",
+      },
     ],
   },
   {

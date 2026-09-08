@@ -61,10 +61,10 @@ export const achatEquipementModal: UiDictionary = {
     en: 'Availability rolls are made during the game.',
   },
   'achatEquipement.bandEquipment': { fr: 'Équipement de la bande', en: "Warband's equipment" },
-  'achatEquipement.commonShop': { fr: 'Shop commun', en: 'Common shop' },
-  'achatEquipement.commonShopHiddenAtRecruitment': {
-    fr: "Au recrutement, seul l'équipement propre à la bande est disponible — le shop commun ne s'ouvre qu'entre deux batailles.",
-    en: "At recruitment, only the warband's own equipment is available — the common shop only opens between battles.",
+  'achatEquipement.tradingPost': { fr: 'Place du marché', en: 'Trading Post' },
+  'achatEquipement.tradingPostHiddenAtRecruitment': {
+    fr: "Au recrutement, seul l'équipement propre à la bande est disponible — la Place du marché ne s'ouvre qu'entre deux batailles.",
+    en: "At recruitment, only the warband's own equipment is available — the Trading Post only opens between battles.",
   },
   'achatEquipement.rareItemsHiddenNote': {
     fr: "Après la première bataille, les objets Rares ne s'achètent plus directement ici — utilise la recherche d'objet rare au post-bataille (étape Commerce).",
