@@ -13,7 +13,7 @@ const changelogEn: Record<string, string[]> = {
     'Battle Monks of Cathay: the Dragon Sword (Katana) and the Emissary\'s Horse no longer wrongly vanish from the shop after the first battle.',
     'Battle Monks of Cathay: the Pyromaniac, Ninja, Swordsmith and Cathayan Merchant Hired Swords finally have a source, fixing several rules (Swordsmith and Cathayan Merchant employer lists, the Cathayan Merchant\'s Marketeer and Pawnbroker rules, the Pyromaniac\'s Rocket Science, the Cathayan Merchant\'s Guardian).',
     'The Ninja (Hired Sword) no longer counts toward the rout threshold shown under the Members tile during the battle he is hired for, as his "Secret" rule requires.',
-    "Price fix: the Horned Hunters' Hunting Arrows now cost a flat 20 gc (instead of 25+1D6 gc, which remains the price of the equivalent rare rulebook item available to other eligible warbands).",
+    "Price fix: the Horned Hunters' Hunting Arrows now cost a flat 20 gc (instead of 25+1D6 gc, which remains the price of the equivalent rare rulebook item available to other eligible warbands). Like any Rare item, they're still unavailable in the shop after the first battle — they must then be searched for.",
     'The "Heart of Steel" prayer (Witch Hunters, Sisters of Sigmar, Outlaws of Stirwood Forest) now ends as soon as its caster is Stunned, Knocked Down, or taken Out of Action, instead of Out of Action only.',
     'Orc Mob: the "\'Ere We Go!" skill now ignores Terror in addition to Fear when charging, matching the Black Orcs, who share the same skill.',
     'Ostermarkers: the Option 3 ("Marienburg") Champion now has access to Speed in addition to Combat and Shooting, as the official rulebook table intends.',

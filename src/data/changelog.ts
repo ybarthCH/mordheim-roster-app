@@ -58,7 +58,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       {
         categorie: 'autre',
         texte:
-          "Correction de prix : les Flèches de chasse des Chasseurs Cornus coûtent 20 po fixes (au lieu de 25+1D6 po, prix qui reste celui de l'objet rare équivalent du livre de règles, accessible aux autres bandes y ayant droit).",
+          "Correction de prix : les Flèches de chasse des Chasseurs Cornus coûtent 20 po fixes (au lieu de 25+1D6 po, prix qui reste celui de l'objet rare équivalent du livre de règles, accessible aux autres bandes y ayant droit). Comme tout objet Rare, elles restent introuvables en boutique après la première bataille — il faut alors les rechercher.",
       },
       {
         categorie: 'autre',
