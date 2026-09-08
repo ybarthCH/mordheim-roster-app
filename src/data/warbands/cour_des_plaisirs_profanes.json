@@ -40,9 +40,9 @@
         { "nom": "Agonie et Extase", "texte": "Le Maître Fouetteur armé d'un Fouet d'hédoniste peut décider d'utiliser l'une de ses attaques pour flageller un modèle ami à moins de 3ps. Cette attaque touche automatiquement et bénéficie de +1 sur le jet pour blesser ; résolvez les blessures normalement. En récompense de cet acte de dévotion, Slaanesh gratifie le Maître Fouetteur d'une extase qui le rend quasiment invulnérable : son Endurance est doublée. Au début de chaque nouveau tour du joueur Slaaneshi, il doit réussir un test de Commandement ; en cas d'échec, l'effet cesse immédiatement (il peut être réactivé plus tard)." },
         { "nom": "Douleur et Plaisir", "texte": "Chaque fois que le Maître Fouetteur subit une blessure non sauvegardée, il est soumis à la règle de Frénésie jusqu'à la fin de son tour suivant — cette Frénésie n'est pas annulée par le fait d'être Mis à terre ou Sonné." }
       ],
-      "acces_competences": ["combat", "force", "vitesse", "special"],
+      "acces_competences": [],
       "acces_equipement": ["cour_des_plaisirs"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "danseuse",
@@ -59,10 +59,10 @@
         { "nom": "Étrange Attirance", "texte": "Un ennemi souhaitant attaquer la Danseuse au corps à corps ou au tir doit réussir un test de Commandement avant de porter ses attaques. En cas d'échec, il doit relancer tout jet pour toucher réussi contre elle." },
         { "nom": "Équipement", "texte": "La Danseuse ne peut jamais porter d'armure." }
       ],
-      "acces_competences": ["combat", "vitesse", "special"],
+      "acces_competences": [],
       "acces_equipement": ["cour_des_plaisirs"],
       "categories_interdites": ["armures"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "marchand_de_chair",
@@ -79,9 +79,9 @@
         { "nom": "Livre de Chair", "texte": "Avant la bataille, vous pouvez confier l'un des Souffre-douleurs au Marchand de Chair, qui le porte comme un « bouclier de chair » faisant partie de son équipement. Chaque fois que le Marchand de Chair devrait subir une blessure, vous pouvez choisir de la faire encaisser au Souffre-douleur à sa place : celui-ci est alors immédiatement mis hors de combat et retiré de la partie. Le Souffre-douleur porté peut porter ses attaques normales au corps à corps tant qu'il est vivant ; il n'a pas de socle propre et ne peut pas être ciblé par les attaques ennemies. Si le Marchand de Chair meurt, le Souffre-douleur est perdu avec lui." },
         { "nom": "Destin Cruel", "texte": "Tout captif obtenu par la bande (résultat de combat ou exploration) peut être transformé en Souffre-douleur sans frais, par lobotomie, torture et autres actes de dépravité." }
       ],
-      "acces_competences": ["combat", "force", "special"],
+      "acces_competences": [],
       "acces_equipement": ["cour_des_plaisirs"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "pretre_de_l_obscene",
@@ -98,9 +98,9 @@
         { "nom": "Réserve de Chair", "texte": "Avant la bataille, vous pouvez confier l'un des Souffre-douleurs au Prêtre, qui le porte comme un « pion sacrificiel » faisant partie de son équipement. Lorsque le Prêtre rate un jet pour lancer un sort, il peut sacrifier le Souffre-douleur pour relancer ce jet. Le Souffre-douleur porté peut porter ses attaques normales au corps à corps tant qu'il est vivant ; il n'a pas de socle propre et ne peut pas être ciblé par les attaques ennemies. Si le Prêtre meurt, le Souffre-douleur est perdu avec lui." },
         { "nom": "Sorcier", "texte": "Le Prêtre de l'Obscène est un sorcier et utilise les Rituels du Chaos (voir magie)." }
       ],
-      "acces_competences": ["combat", "academique", "special"],
+      "acces_competences": [],
       "acces_equipement": ["cour_des_plaisirs"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "devot",
@@ -117,9 +117,9 @@
         { "nom": "Forme Fluctuante", "texte": "Au début de la bataille, puis à chaque phase de Ralliement tant qu'il n'est pas engagé au corps à corps, choisissez l'aspect que manifeste le Dévot pour le tour : aspect masculin (+1 CC, +1 F, +1 A et +1 E) ou aspect féminin (+1 CT, +2 I, +2 Cd et +2 M)." },
         { "nom": "Immunisé à la Psychologie", "texte": "Le Dévot est immunisé à la Psychologie et aux tests Seul contre tous." }
       ],
-      "acces_competences": ["combat", "vitesse", "special"],
+      "acces_competences": [],
       "acces_equipement": ["cour_des_plaisirs"],
-      "acces_competences_a_verifier": true
+      "acces_competences_a_verifier": false
     },
     {
       "id": "molosse_de_slaanesh",

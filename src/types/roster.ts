@@ -126,7 +126,7 @@ export type ProfilFrancTireur = {
   solde: number; // solde à payer après chaque bataille
 };
 
-// Objet possédé, acheté depuis le shop commun ou la liste d'équipement de la
+// Objet possédé, acheté depuis la Place du marché ou la liste d'équipement de la
 // bande. Champs figés au moment de l'achat (nom/catégorie/coût) pour que
 // l'historique reste stable même si la base d'objets évolue ensuite.
 export type InventoryEntry = {

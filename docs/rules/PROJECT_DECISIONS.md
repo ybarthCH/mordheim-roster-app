@@ -191,3 +191,93 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Maison (choix entre deux sections contradictoires du même document, comme pour Nuln)
 - **Parties du code concernées** : aucune — `src/data/warbands/cavalcade_maudite.json` (`lance_a_sanglier`, 30 CO) déjà conforme, aucun changement nécessaire.
 - **Date** : 2026-09-06
+
+### Chasseurs Cornus — prix des Flèches de chasse
+
+- **Question de règle** : la liste rapide d'équipement des Héros du PDF FR indique « Flèches de chasseur ... 20 CO » (prix fixe, aucune mention de rareté) ; le PDF EN de 2007 confirme, sans même connaître de variante à dé (« Hunting arrows ... 20 gc », seule occurrence du terme dans tout le document). Seul l'encadré détaillé « Équipement spécial » d'une réécriture FR plus récente (GLM) introduit un prix à dé différent (« 25+1D6 CO / Rare 8 ») — jusqu'ici recopié à tort dans le catalogue de bande.
+- **Source et page** : `Chasseurs cornus [GLM].pdf`, p.2 (liste rapide) vs p.3 (encadré détaillé « Équipement spécial ») ; `Horned Hunters.pdf` (EN, 2007), p.1 (« Miscellaneous », seule occurrence).
+- **Décision de Yannick** : 20 CO fixe pour cette bande (liste rapide fait foi, convention déjà appliquée à Nuln/Cavalcade Maudite). **Révision du 6 septembre 2026** : la rareté (Rare 8) est conservée — elle avait été supprimée par erreur dans une première passe (surcharge `rarete: "-"`), sous l'hypothèse que l'encadré détaillé était une pure coquille d'édition. Après vérification plus poussée (règle générique confirmée dans `Mordheim - Part 3 - Campaigns & Optional Rules.pdf`, p.26 : après la première bataille, un objet Rare n'est plus achetable librement, même sur la liste propre d'une bande, et doit être retrouvé par recherche), la lecture retenue est : le prix fixe de la liste rapide reste le tarif de l'objet, mais la rareté du livre de règles s'applique normalement — l'objet est donc masqué de la boutique après la première bataille, comme tout objet Rare, réutilisant le mécanisme déjà existant de l'app (`masquerObjetsRares`/`roster.historique_batailles.length > 0`) plutôt que d'introduire un second prix pour l'achat via recherche (non modélisé par l'app, aurait demandé un vrai nouveau mécanisme).
+- **Statut** : Maison (choix entre deux sections contradictoires, comme pour Nuln/Cavalcade Maudite) + Officiel (le prix fixe est aussi corroboré indépendamment par la source EN ; le maintien de la rareté Rare 8 s'appuie sur la règle générique confirmée du livre de règles)
+- **Parties du code concernées** : `src/data/warbands/chasseurs_cornus.json` (référence `fleches_de_chasse` dans la liste rapide Héros et dans `equipement_special` : `cout` à 20, rareté laissée sans surcharge — hérite donc du Rare 8 de l'objet générique `src/data/items/munitions.json`, texte de disponibilité rétabli en « Rare 8 »). L'item générique `fleches_de_chasse` du catalogue commun (25+1D6 CO, Rare 8) reste inchangé et continue de servir les autres bandes y ayant droit (Averlanders, Hors-la-loi de Stirwood...).
+- **Date** : 2026-09-06 (révisée le même jour)
+
+### Prière « Cœur d'Acier » (Répurgateurs / Sœurs de Sigmar / Hors-la-loi de Stirwood) — condition de fin d'effet
+
+- **Question de règle** : la source FR retenue par le projet dit que les effets durent jusqu'à ce que le lanceur soit mis Hors de combat ; la source EN est plus permissive pour l'adversaire, l'effet cessant dès que le lanceur est sonné, à terre OU mis Hors de combat (pas seulement ce dernier état).
+- **Source et page** : source FR du projet pour cette prière (Prières de Sigmar) vs source EN équivalente.
+- **Décision de Yannick** : suivre l'EN — l'effet cesse dès que le lanceur est sonné, à terre ou mis Hors de combat.
+- **Statut** : Officiel (source EN)
+- **Parties du code concernées** : `src/data/warbands/witch_hunters.json`, `sisters_of_sigmar.json`, `hors_la_loi_de_stirwood.json` (texte de la prière `c_ur_d_acier`, les 3 catalogues portent chacun leur propre copie du sort) ; miroirs anglais correspondants dans `src/i18n/data/warbands.ts`. Correction purement textuelle — le comportement en jeu (recrutement, roster) n'était pas affecté, cette prière étant un effet de partie non automatisé par l'app.
+- **Date** : 2026-09-06
+
+### Kislévites — XP de départ du Dompteur d'Ours
+
+- **Question de règle** : l'app affiche 8 XP de départ pour le Dompteur d'Ours, conforme à la source EN citée par l'audit Niveau 3 du 6 septembre 2026 ; la source FR officiellement déclarée du projet pour cette bande (article de Mark Havener) indique 10.
+- **Source et page** : article de Mark Havener, « Les hommes de Kislev, à la moustache pleine de givre et de vodka » (FR, source déclarée de `kislevites.json`) vs source EN citée dans le rapport d'audit Niveau 3 du 6 septembre 2026 — citation exacte (nom de PDF + page) à retrouver dans ce rapport si besoin de revérifier plus tard.
+- **Décision de Yannick** : garder 8 (suivre l'EN).
+- **Statut** : Officiel (source EN)
+- **Parties du code concernées** : aucune — `src/data/warbands/kislevites.json` (profil `dompteur_dours`, `xp_depart: 8`) déjà conforme, aucun changement nécessaire.
+- **Date** : 2026-09-06
+
+### Orc Mob — la compétence « On y va ! » ignore-t-elle la Peur, la Terreur, ou les deux ?
+
+- **Question de règle** : le texte FR retenu par le projet (GLM) ne mentionne que la Peur ; la source EN d'origine (Mordheim Annual 2002, « Da Mob Roolz ») mentionne aussi la Terreur. `orques_noirs` (Black Orcs), qui partage la même compétence (même id `on_y_va`), a déjà le texte correct des deux côtés (« ignore les tests de peur et de terreur »).
+- **Source et page** : source EN Mordheim Annual 2002 citée par l'audit Niveau 3 du 6 septembre 2026, comparée à `orc_mob.json` (Peur seule) et `orques_noirs.json` (Peur et Terreur, déjà correct).
+- **Décision de Yannick** : Peur et Terreur, c'est la même chose (pour l'usage de cette compétence) — ignore les deux, aligné sur `orques_noirs`.
+- **Statut** : Officiel (source EN, cohérent avec la bande sœur déjà correcte)
+- **Parties du code concernées** : `src/data/warbands/orc_mob.json` (compétence `on_y_va`, texte complété avec « ni de Terreur ») ; miroir anglais `src/i18n/data/warbands.ts` (« Fear or Terror test »).
+- **Date** : 2026-09-06
+
+### Mootlanders — plafond du Voleur Halfling
+
+- **Question de règle** : le PDF se contredit lui-même — « jusqu'à trois » en prose p.1, mais la fiche de profil imprime « 0·2 » p.2.
+- **Source et page** : `Mootlanders.pdf`, p.1 (prose) vs p.2 (fiche de profil, « 0·2 »).
+- **Décision de Yannick** : garder 2 (fiche de profil fait foi).
+- **Statut** : Maison (choix entre deux passages contradictoires du même document)
+- **Parties du code concernées** : aucune — `src/data/warbands/mootlanders.json` (`voleur_halfling`, `max: 2`) déjà conforme, aucun changement nécessaire.
+- **Date** : 2026-09-06
+
+### Ostermarkers — accès compétences du Champion en Option 3
+
+- **Question de règle** : l'Option 3 du tableau de compétences (calquée sur les Mercenaires de Marienburg) donnait au Champion seulement Combat+Tir dans le PDF bande, alors que le tableau officiel « MARIENBURG MERCENARIES » du livre de règles de base donne Combat+Tir+Vitesse à son Champion — rupture de symétrie avec les Options 1/2, qui donnent chacune 3 catégories au Champion.
+- **Source et page** : `Mercenaires Ostermarkers [GLM].pdf`, p.3 (Option 3) vs `Mordheim Living Rulebook.pdf`, p.52 (Mercenary skill tables, Marienburg). Confirmé par Yannick : « Ostermarkers follow the rules for Mercenary warbands as given on page 48 of the Mordheim rulebook » — aucune exception propre à cette bande ne justifie de s'écarter du tableau officiel.
+- **Décision de Yannick** : ajouter Vitesse — le Champion de l'Option 3 suit le tableau Marienburg officiel (Combat, Tir, Vitesse), comme les Champions des Options 1 et 2.
+- **Statut** : Officiel (alignement sur le tableau du livre de règles de base, explicitement suivi par cette bande sans exception)
+- **Parties du code concernées** : `src/data/warbands/ostermarkers.json` (`tribus[2].profil_acces_competences.champion`, texte descriptif de l'Option 3, et le résumé combiné des 3 options dans `regles_speciales`) ; miroir anglais `src/i18n/data/warbands.ts` (résumé combiné « Skill Choice »).
+- **Date** : 2026-09-06
+
+### Gardiens des Tombes — statut des Flèches aspic (munition ou arme à profil propre)
+
+- **Question de règle** : l'app calquait la portée/Force des Flèches aspic sur celles du Javelot nehekharien (8ps/Force Utilisateur), un objet voisin sans rapport, faute de valeurs propres imprimées dans la source pour cet objet précis.
+- **Source et page** : `tomb guardians.pdf` (variante ET vrai Town Cryer #18, confirmés identiques le 6 septembre 2026), p.8, « Asp Arrows » (silencieux sur portée/Force, seule règle spéciale imprimée : « +1 to hit »).
+- **Décision de Yannick** : c'est simplement une munition utilisable avec n'importe quel arc, qui donne +1 pour toucher — pas une arme à portée/Force propre. Portée et Force suivent celles de l'arc/du tireur, inchangées.
+- **Statut** : Maison (clarification du fonctionnement d'un objet dont la source imprimée reste silencieuse sur ce point précis)
+- **Parties du code concernées** : `src/data/items/armes_tir.json` (`fleches_aspic` : `categorie` passée à `"munitions"` — même traitement que `fleches_de_chasse` —, `portee`/`force` mis à `null`, texte de flaveur complété) ; miroir anglais `src/i18n/data/items.ts`.
+- **Date** : 2026-09-06
+
+### Gardiens des Tombes — le Gardien des Tombes gagne-t-il de l'expérience ?
+
+- **Question de règle** : la règle générale « No Brain » (« Undead Special Rules ») ne nomme explicitement que les « Skeletons » ; le Gardien des Tombes (Tomb Guard) est un profil distinct dont l'encart SPECIAL RULES propre ne mentionne que « Undead », jamais « No Brain » — le vrai Town Cryer #18 reproduit la même ambiguïté que la variante déjà auditée, aucune clarification supplémentaire trouvée.
+- **Source et page** : `tomb guardians.pdf`, p.7 (« Undead Special Rules », « No Brain », ne nomme que les Skeletons) et p.10 (« 0-2 Tomb Guardians », encart SPECIAL RULES, silencieux sur l'XP).
+- **Décision de Yannick** : oui, 0 XP — le Gardien des Tombes ne gagne jamais d'expérience, comme actuellement implémenté.
+- **Statut** : Maison (lecture extensive de « No Brain » au-delà des seuls Squelettes nommés, faute de texte plus explicite)
+- **Parties du code concernées** : aucune — `src/data/warbands/gardiens_des_tombes.json` (`gardien_des_tombes.gagne_experience: false`) déjà conforme, aucun changement nécessaire.
+- **Date** : 2026-09-06
+
+### Cour des Plaisirs Profanes — chef de bande librement choisi par le joueur
+
+- **Question de règle** : la bande n'a pas de profil à leadership fixe (pas de « Chef » nommé dans sa composition) — le joueur doit désigner librement lequel de ses Héros assume les règles de Chef, mécanisme déjà utilisé pour d'autres bandes sans chef fixe (ex. Lustrian Reavers).
+- **Source et page** : `Court of Profane Pleasures.pdf`, règle « Composition » (« you must choose one Hero to act as your Leader »).
+- **Décision de Yannick** : confirmé — vérification faite : `leader_libre: true` est déjà positionné sur `cour_des_plaisirs_profanes.json`, sans aucun profil `est_leader`, ce qui déclenche déjà le mécanisme de choix libre du joueur (bannière + modale, voir `utils/leader.ts`, `choixLeaderRequis`). Déjà correctement câblé, aucun changement nécessaire.
+- **Statut** : Officiel (comportement déjà conforme à la source)
+- **Parties du code concernées** : aucune — vérifié dans `src/utils/leader.ts` et `src/data/warbands/cour_des_plaisirs_profanes.json`.
+- **Date** : 2026-09-06
+
+### Cour des Plaisirs Profanes — tableau d'accès aux compétences des 5 Héros
+
+- **Question de règle** : aucun tableau d'accès aux compétences par catégorie (Combat/Tir/Érudition/Force/Vitesse/Spéciale) n'existe dans la source pour aucun des 5 Héros — contrairement aux autres bandes de ce lot d'audit (Cavalcade Maudite, Chasseurs Cornus), qui en ont chacune un. L'auteur du document reconnaît lui-même l'absence de tableau de compétences pour cette bande.
+- **Source et page** : `Court of Profane Pleasures.pdf` (EN, seule source connue, 6 pages) — recherche exhaustive confirmée sans résultat lors de l'audit Niveau 3 du 6 septembre 2026 ; absence confirmée et assumée par l'auteur du document lui-même (reconnu par Yannick).
+- **Décision de Yannick** : comme l'auteur reconnaît l'absence de tableau, laisser les 5 Héros en sélection libre du joueur (toutes catégories de compétences accessibles) plutôt que d'imposer une restriction inventée.
+- **Statut** : Maison (comblement d'un vide de source explicitement reconnu par l'auteur, pas une divergence entre sources)
+- **Parties du code concernées** : `src/data/warbands/cour_des_plaisirs_profanes.json` (`acces_competences` vidé pour les 5 profils Héros — `maitre_fouetteur`, `danseuse`, `marchand_de_chair`, `pretre_de_l_obscene`, `devot` —, `acces_competences_a_verifier` passé à `false` sur chacun, la question étant désormais tranchée plutôt qu'en attente).
+- **Date** : 2026-09-06

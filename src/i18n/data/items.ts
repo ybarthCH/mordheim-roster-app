@@ -1810,7 +1810,8 @@ export const itemsEn: Record<string, ItemTraduit> = {
   },
   fleches_aspic: {
     nom: 'Asp Arrows',
-    texte: 'Made from the mummified remains of venomous snakes, they are guided through the air by ancient magic.',
+    texte:
+      'Made from the mummified remains of venomous snakes, they are guided through the air by ancient magic. Ammunition usable with any bow (range and Strength stay those of the archer/bow, unchanged).',
     regles_speciales: [
       {
         nom: 'Accuracy',

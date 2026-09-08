@@ -197,7 +197,7 @@
     { "id": "waaagh", "nom": "Waaagh !", "texte": "Le guerrier ajoute +1D3ps à sa portée de charge.", "valeurPuissance": 20 },
     { "id": "dur_a_cuire", "nom": "Dur à cuire", "texte": "Augmente de +1 la sauvegarde d'armure de la figurine.", "valeurPuissance": 40 },
     { "id": "coup_dboule", "nom": "Coup d'boule", "texte": "Toute figurine mise à terre au corps à corps par ce guerrier est considérée comme sonnée.", "valeurPuissance": 40 },
-    { "id": "on_y_va", "nom": "On y va !", "texte": "La figurine n'a pas à effectuer de test de peur lorsqu'elle charge.", "valeurPuissance": 20 }
+    { "id": "on_y_va", "nom": "On y va !", "texte": "La figurine n'a pas à effectuer de test de Peur ni de Terreur lorsqu'elle charge.", "valeurPuissance": 20 }
   ],
   "equipement": {
     "orques": {

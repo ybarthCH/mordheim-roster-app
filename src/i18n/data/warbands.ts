@@ -1835,7 +1835,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         {
           nom: 'Heart of Steel',
           texte:
-            'Every allied warrior within 8" becomes immune to Fear and All Alone, and the whole warband gains +1 to its Rout tests. Not cumulative if cast multiple times; lasts until the caster is taken Out of Action.',
+            'Every allied warrior within 8" becomes immune to Fear and All Alone, and the whole warband gains +1 to its Rout tests. Not cumulative if cast multiple times; lasts until the caster is Stunned, Knocked Down, or taken Out of Action.',
         },
         {
           nom: 'Soul Fire',
@@ -2303,7 +2303,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       waaagh: { nom: 'Waaagh!', texte: 'The warrior adds +1D3" to his charge range.' },
       dur_a_cuire: { nom: 'Tough as Nails', texte: "Increases the model's armour save by +1." },
       coup_dboule: { nom: 'Headbutt', texte: 'Any model Knocked Down in hand-to-hand combat by this warrior is treated as Stunned.' },
-      on_y_va: { nom: "Let's Go!", texte: 'The model does not have to take a Fear test when charging.' },
+      on_y_va: { nom: "Let's Go!", texte: 'The model does not have to take a Fear or Terror test when charging.' },
       revnez_ici: {
         nom: "Come Back 'Ere!",
         reserve_a: 'Orc Boss only',
@@ -2791,7 +2791,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         {
           nom: 'Heart of Steel',
           texte:
-            "As the three words of power are spoken, an aura of glory emanates from Sigmar's servant. The courage of the faithful is strengthened by the presence of the God of War. Every allied warrior within 8\" of the caster becomes immune to Fear and all alone tests. In addition, the whole warband gains +1 to all its Rout tests. The effects of this prayer cannot be stacked if cast multiple times. Its effects last until the caster is taken Out of Action.",
+            "As the three words of power are spoken, an aura of glory emanates from Sigmar's servant. The courage of the faithful is strengthened by the presence of the God of War. Every allied warrior within 8\" of the caster becomes immune to Fear and all alone tests. In addition, the whole warband gains +1 to all its Rout tests. The effects of this prayer cannot be stacked if cast multiple times. Its effects last until the caster is Stunned, Knocked Down, or taken Out of Action.",
         },
         {
           nom: 'Soul Fire',
@@ -5654,7 +5654,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
         {
           nom: 'Heart of Steel',
           texte:
-            'Every allied warrior within 8" becomes immune to Fear and All Alone, and the whole warband gains +1 to its Rout tests. Not cumulative if cast multiple times; lasts until the caster is taken Out of Action.',
+            'Every allied warrior within 8" becomes immune to Fear and All Alone, and the whole warband gains +1 to its Rout tests. Not cumulative if cast multiple times; lasts until the caster is Stunned, Knocked Down, or taken Out of Action.',
         },
         {
           nom: 'Soul Fire',
@@ -5955,7 +5955,7 @@ export const warbandsEn: Record<string, WarbandTraduite> = {
       {
         nom: 'Skill Choice',
         texte:
-          'When the warband is created, you must choose one of the following three skill sets for your Ostermark Mercenaries. Once chosen, it can never be changed.\n\nOption 1: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Shooting, Strength; Recruit — Combat, Shooting, Speed.\nOption 2: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Strength, Speed; Recruit — Combat, Strength, Speed.\nOption 3: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Shooting; Recruit — Combat, Shooting, Speed.',
+          'When the warband is created, you must choose one of the following three skill sets for your Ostermark Mercenaries. Once chosen, it can never be changed.\n\nOption 1: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Shooting, Strength; Recruit — Combat, Shooting, Speed.\nOption 2: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Strength, Speed; Recruit — Combat, Strength, Speed.\nOption 3: Mercenary Captain — Combat, Shooting, Academic, Strength, Speed; Champion — Combat, Shooting, Speed; Recruit — Combat, Shooting, Speed.',
       },
     ],
     profils: {

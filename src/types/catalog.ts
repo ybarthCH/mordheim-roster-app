@@ -149,7 +149,7 @@ export type Profile = {
   // d'un roster manager qui ne simule pas les jets de combat). Voir
   // estAchatObjetPrivilegieEntree dans utils/shop.ts, seul consommateur.
   objet_privilegie_entree?: { items?: string[]; non_cessible?: boolean };
-  // Interdit l'accès aux armes de tir dans le shop commun de façon non
+  // Interdit l'accès aux armes de tir dans la Place du marché de façon non
   // levable par une compétence (contrairement à categories_interdites /
   // categories_interdites_commun, toujours levées par la compétence
   // "Toutes armes de tir" — voir estCategorieInterdite dans utils/shop.ts)
@@ -159,7 +159,7 @@ export type Profile = {
   // permettent d'utiliser des armes de tir supplémentaires, il ne peut pas
   // les utiliser." La propre liste d'équipement du profil (déjà restreinte
   // aux arcs pour cette bande) n'est jamais concernée par ce champ — seul
-  // le shop commun, qui propose d'autres armes de tir, en a besoin.
+  // la Place du marché, qui propose d'autres armes de tir, en a besoin.
   armes_tir_commun_interdit_non_levable?: boolean;
   // Compte pour deux figurines (en plus de lui-même, donc +1 net par
   // figurine du groupe) dans le calcul du nombre de guerriers utilisé pour
@@ -288,8 +288,8 @@ export type Profile = {
   // Snotling des Gobelins de la Nuit, Kroxigor des Hommes-Lézards — voir
   // utils/shop.ts equipementInclusDepart) et qui ne devraient donc jamais
   // pouvoir acheter une monture/un véhicule/une munition/un poison via
-  // cet onglet générique. Consommé par getShopCommun.
-  aucun_achat_shop_commun?: boolean;
+  // cet onglet générique. Consommé par getPlaceDuMarche.
+  aucun_achat_place_du_marche?: boolean;
   // Ce Héros ne peut jamais participer à la recherche d'objet rare
   // post-bataille (étape Commerce), quel que soit son statut par ailleurs —
   // ex : "No Deal" du Garde Funéraire des Morts Sans Repos ("Grave Guards
@@ -336,7 +336,7 @@ export type Profile = {
   // Cuisinier des Mootlanders, dont les ustensiles de cuisine sont rangés
   // sous "armes_cac" — `categories_interdites: ["armes_cac"]` masquerait
   // aussi ses propres ustensiles, ce qui n'est pas voulu). Consommé par
-  // getShopCommun uniquement.
+  // getPlaceDuMarche uniquement.
   categories_interdites_commun?: (
     | 'armes_cac'
     | 'armes_tir'

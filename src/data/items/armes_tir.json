@@ -277,7 +277,7 @@
   {
     "id": "fleches_aspic",
     "nom": "Flèches aspic",
-    "categorie": "armes_tir",
+    "categorie": "munitions",
     "cout": 10,
     "cout_fixe": true,
     "rarete": "C",
@@ -287,9 +287,9 @@
     ],
     "source": "K-GT (Gardiens des Tombes)",
     "page": 21,
-    "texte": "Fabriquées à partir des restes momifiés de serpents venimeux, elles sont guidées dans les airs par une magie ancienne.",
-    "portee": "8ps",
-    "force": "Utilisateur",
+    "texte": "Fabriquées à partir des restes momifiés de serpents venimeux, elles sont guidées dans les airs par une magie ancienne. Munition utilisable avec tout arc (portée et Force du tireur/de l'arc, inchangées).",
+    "portee": null,
+    "force": null,
     "regles_speciales": [
       {
         "nom": "Précision",

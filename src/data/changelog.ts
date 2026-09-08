@@ -55,6 +55,46 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Le Ninja (franc-tireur) ne compte plus dans le seuil de déroute affiché sous la tuile Membres pendant la bataille où il est engagé, conformément à sa règle « Secret ».",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "Correction de prix : les Flèches de chasse des Chasseurs Cornus coûtent 20 po fixes (au lieu de 25+1D6 po, prix qui reste celui de l'objet rare équivalent du livre de règles, accessible aux autres bandes y ayant droit). Comme tout objet Rare, elles restent introuvables en boutique après la première bataille — il faut alors les rechercher.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "La prière « Cœur d'Acier » (Répurgateurs, Sœurs de Sigmar, Hors-la-loi de Stirwood) cesse maintenant dès que son lanceur est sonné, à terre ou mis hors de combat, au lieu de seulement hors de combat.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Orc Mob : la compétence « On y va ! » ignore maintenant la Terreur en plus de la Peur lors d'une charge, comme chez les Orques Noirs qui ont la même compétence.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Ostermarkers : le Champion de l'Option 3 (« Marienburg ») a maintenant accès à la Vitesse en plus du Combat et du Tir, comme le prévoit le tableau officiel du livre de règles.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Gardiens des Tombes : les Flèches aspic sont maintenant une simple munition utilisable avec n'importe quel arc (portée et Force de l'arc, +1 pour toucher), au lieu d'avoir hérité par erreur la portée et la Force du Javelot nehekharien.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Cour des Plaisirs Profanes : faute de tableau de compétences dans la seule source connue de cette bande (absence reconnue par son auteur), les 5 Héros peuvent désormais choisir librement dans toutes les catégories de compétences à chaque avancée.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Les objets Rares propres à la liste d'équipement d'une bande (comme les Flèches de chasse des Chasseurs Cornus) peuvent maintenant être retrouvés via la recherche d'objet rare après une bataille, comme n'importe quel autre objet Rare — ils restaient auparavant introuvables dès la première bataille jouée.",
+      },
+      {
+        categorie: 'interface',
+        texte:
+          "La boutique générique de l'app est renommée « Place du marché » (son vrai nom, celui du supplément dont elle est tirée), pour éviter la confusion avec la liste d'équipement propre à chaque bande.",
+      },
     ],
   },
   {

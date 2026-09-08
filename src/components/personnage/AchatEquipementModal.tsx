@@ -4,7 +4,7 @@ import type { WarbandCatalog, Profile } from '../../types/catalog';
 import { Modal } from '../common/Modal';
 import {
   getEquipementBande,
-  getShopCommun,
+  getPlaceDuMarche,
   objetsPersonnalisesEnShopItems,
   avecSurcharges,
   libelleCategorie,
@@ -82,9 +82,9 @@ type Props = {
   objetsSurcharges?: Record<string, CustomItemOverride>;
   onObjetsPersonnalisesChange?: (objets: CustomItem[]) => void;
   onObjetsSurchargesChange?: (surcharges: Record<string, CustomItemOverride>) => void;
-  // Ouvre le modal directement filtré sur cette catégorie et sur le shop
-  // commun (ex : "artefacts_magiques" depuis un événement d'exploration qui
-  // renvoie sur le Tableau des artefacts magiques).
+  // Ouvre le modal directement filtré sur cette catégorie et sur la Place
+  // du marché (ex : "artefacts_magiques" depuis un événement d'exploration
+  // qui renvoie sur le Tableau des artefacts magiques).
   categorieInitiale?: string;
   // Par défaut, un achat confirmé referme tout le flux (comportement
   // standalone historique). Mis à true depuis un contexte où le shop est
@@ -100,16 +100,16 @@ type Props = {
   // propos dans ce contexte fusionné, qui expose son propre bouton
   // "Annuler" en pied de fenêtre à la place.
   masquerBoutonFermer?: boolean;
-  // Masque l'onglet "shop commun" et empêche d'y basculer. Utilisé au
+  // Masque l'onglet "Place du marché" et empêche d'y basculer. Utilisé au
   // recrutement (voir AjouterMembreModal) : le livre de règles (Mordheim
   // Living Rulebook p.46-47, Part 3 - Campaigns & Optional Rules p.102)
   // limite l'équipement disponible à la création d'une bande comme au
   // recrutement d'un nouveau membre en cours de campagne à la seule liste
-  // propre à la bande — le shop commun/"Price chart" générique ne s'applique
-  // qu'aux guerriers déjà recrutés qui achètent entre deux batailles
-  // (fiche personnage, armurerie, exploration), jamais au moment du
-  // recrutement lui-même.
-  masquerShopCommun?: boolean;
+  // propre à la bande — la Place du marché/"Trading Post" générique ne
+  // s'applique qu'aux guerriers déjà recrutés qui achètent entre deux
+  // batailles (fiche personnage, armurerie, exploration), jamais au moment
+  // du recrutement lui-même.
+  masquerPlaceDuMarche?: boolean;
   // Masque les objets "Rare N" (armes/armures/équipement, bande comme
   // commun) — livre de règles : "you may buy rare weapons and armour when
   // starting a warband ... but after playing the first game the only way
@@ -181,14 +181,16 @@ export function AchatEquipementContenu({
   categorieInitiale,
   resterOuvertApresAchat = false,
   masquerBoutonFermer = false,
-  masquerShopCommun = false,
+  masquerPlaceDuMarche = false,
   masquerObjetsRares = false,
   onClose,
   onAchat,
 }: Props) {
   const { rules } = useGameRules();
   const { t, language } = useLanguage();
-  const [source, setSource] = useState<'bande' | 'commun'>(categorieInitiale && !masquerShopCommun ? 'commun' : 'bande');
+  const [source, setSource] = useState<'bande' | 'place_du_marche'>(
+    categorieInitiale && !masquerPlaceDuMarche ? 'place_du_marche' : 'bande'
+  );
   const [categorieFiltre, setCategorieFiltre] = useState<string | null>(categorieInitiale ?? null);
   const [recherche, setRecherche] = useState('');
   const [itemId, setItemId] = useState('');
@@ -234,29 +236,29 @@ export function AchatEquipementContenu({
     const liste = avecSurcharges(itemsBandeBase, objetsSurcharges);
     return rareteActive ? liste.filter((item) => !estObjetRare(item.rarete)) : liste;
   }, [itemsBandeBase, objetsSurcharges, rareteActive]);
-  const itemsCommunBase = useMemo(
+  const itemsPlaceDuMarcheBase = useMemo(
     () =>
-      getShopCommun(catalogue.id, rules, profil, competencesAcquises, catalogue, !!profil).filter(
+      getPlaceDuMarche(catalogue.id, rules, profil, competencesAcquises, catalogue, !!profil).filter(
         (item) => gratuit || item.categorie !== 'artefacts_magiques'
       ),
     [catalogue, rules, gratuit, profil, competencesAcquises]
   );
-  const itemsCommun = useMemo(() => {
-    const liste = avecSurcharges(itemsCommunBase, objetsSurcharges);
+  const itemsPlaceDuMarche = useMemo(() => {
+    const liste = avecSurcharges(itemsPlaceDuMarcheBase, objetsSurcharges);
     return rareteActive ? liste.filter((item) => !estObjetRare(item.rarete)) : liste;
-  }, [itemsCommunBase, objetsSurcharges, rareteActive]);
-  const items = source === 'bande' ? itemsBande : itemsCommun;
+  }, [itemsPlaceDuMarcheBase, objetsSurcharges, rareteActive]);
+  const items = source === 'bande' ? itemsBande : itemsPlaceDuMarche;
 
   const itemsPourEdition = useMemo(() => {
     const vus = new Set<string>();
-    return [...itemsBande, ...(masquerShopCommun ? [] : itemsCommun)]
+    return [...itemsBande, ...(masquerPlaceDuMarche ? [] : itemsPlaceDuMarche)]
       .filter((i) => {
         if (vus.has(i.id)) return false;
         vus.add(i.id);
         return true;
       })
       .sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
-  }, [itemsBande, itemsCommun, masquerShopCommun]);
+  }, [itemsBande, itemsPlaceDuMarche, masquerPlaceDuMarche]);
   const itemsPourEditionFiltres = useMemo(() => {
     const q = rechercheEdition.trim().toLowerCase();
     return q ? itemsPourEdition.filter((i) => i.nom.toLowerCase().includes(q)) : itemsPourEdition;
@@ -285,8 +287,8 @@ export function AchatEquipementContenu({
     itemSelectionne?.rarete
   );
 
-  const changerSource = (s: 'bande' | 'commun') => {
-    if (s === 'commun' && masquerShopCommun) return;
+  const changerSource = (s: 'bande' | 'place_du_marche') => {
+    if (s === 'place_du_marche' && masquerPlaceDuMarche) return;
     setSource(s);
     setCategorieFiltre(null);
     setItemId('');
@@ -307,8 +309,8 @@ export function AchatEquipementContenu({
   // AjouterMembreModal — jamais depuis un achat différé sur la fiche
   // personnage). Sans liste explicite (`items` absent, ex : Héritage —
   // "un objet de la liste d'équipement des guerriers kislévites"), restreint
-  // à l'onglet "bande" : le shop commun n'est pas la liste d'équipement du
-  // profil.
+  // à l'onglet "bande" : la Place du marché n'est pas la liste d'équipement
+  // du profil.
   const coutReduitPrivilegeEntree = (item: Pick<ShopItem, 'id' | 'cout' | 'cout_fixe'>) =>
     resterOuvertApresAchat &&
     (profil?.objet_privilegie_entree?.items || source === 'bande') &&
@@ -745,9 +747,9 @@ export function AchatEquipementContenu({
                   fenêtre (Annuler/Terminer, juste au-dessus) — l'onglet
                   inactif passe alors en gris (--secondaire) plutôt que
                   l'actif en rouge vif, pour rester lisible sans rivaliser. */}
-              {masquerShopCommun && (
+              {masquerPlaceDuMarche && (
                 <p className="text-sm text-muted" style={{ marginBottom: '0.5rem' }}>
-                  {t('achatEquipement.commonShopHiddenAtRecruitment')}
+                  {t('achatEquipement.tradingPostHiddenAtRecruitment')}
                 </p>
               )}
               {masquerObjetsRares && !gratuit && (
@@ -755,7 +757,7 @@ export function AchatEquipementContenu({
                   {t('achatEquipement.rareItemsHiddenNote')}
                 </p>
               )}
-              {!masquerShopCommun && (
+              {!masquerPlaceDuMarche && (
               <div className="flex gap-sm" style={{ marginBottom: '0.5rem' }}>
                 <button
                   className={`btn--pack-pill-sm ${
@@ -773,7 +775,7 @@ export function AchatEquipementContenu({
                 </button>
                 <button
                   className={`btn--pack-pill-sm ${
-                    source === 'commun'
+                    source === 'place_du_marche'
                       ? resterOuvertApresAchat
                         ? ''
                         : 'btn--pack-pill-sm--primary'
@@ -781,9 +783,9 @@ export function AchatEquipementContenu({
                       ? 'btn--pack-pill-sm--secondaire'
                       : ''
                   }`}
-                  onClick={() => changerSource('commun')}
+                  onClick={() => changerSource('place_du_marche')}
                 >
-                  {t('achatEquipement.commonShop')} ({itemsCommun.length})
+                  {t('achatEquipement.tradingPost')} ({itemsPlaceDuMarche.length})
                 </button>
               </div>
               )}
