@@ -40,6 +40,11 @@ export const CHANGELOG: ChangelogEntry[] = [
         texte:
           "Nouvelle recherche transversale dans la page référence de bande (icône livre) : un seul champ permet désormais de retrouver un objet, une compétence, une règle spéciale, un sort/une prière ou un franc-tireur à travers TOUTES les bandes, pas seulement celle en cours de consultation — chaque résultat indique la ou les bandes concernées. Des puces cliquables permettent de restreindre la recherche à un ou plusieurs de ces types.",
       },
+      {
+        categorie: 'autre',
+        texte:
+          "En langue anglaise, la fiche « Employers » de 50 francs-tireurs affichait une phrase en français au milieu d'un texte sinon entièrement anglais (traduction manquante) — corrigé pour les 58 francs-tireurs du dépôt.",
+      },
     ],
   },
   {
