@@ -243,6 +243,28 @@ function echapperRegex(texte: string): string {
   return texte.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+// Insensible aux accents dans les deux sens : chercher "ecu" doit trouver
+// "Écu" et chercher "écu" doit aussi trouver un éventuel "ecu" non
+// accentué. NFD décompose chaque caractère accentué en lettre de base +
+// signe combinant séparé (ex : "é" -> "e" + U+0301), qu'il ne reste plus
+// qu'à retirer. Mis en cache : les mêmes chaînes (nom/texte des entrées de
+// l'index) sont normalisées à répétition à chaque frappe tant que la langue
+// ne change pas, alors que la requête tapée est toujours courte — évite de
+// redécomposer tout le texte d'une règle à chaque caractère saisi.
+// Plage Unicode des signes diacritiques combinants (accents, cédille...),
+// isolés après normalize('NFD') — construite via new RegExp(chaîne) plutôt
+// qu'un littéral /[\u0300-\u036f]/ pour garder des échappements \u lisibles
+// dans le fichier source plutôt que des caractères combinants bruts.
+const MARQUES_COMBINANTES = new RegExp('[\u0300-\u036f]', 'g');
+const cacheSansAccents = new Map<string, string>();
+function sansAccents(texte: string): string {
+  const enCache = cacheSansAccents.get(texte);
+  if (enCache !== undefined) return enCache;
+  const normalise = texte.normalize('NFD').replace(MARQUES_COMBINANTES, '');
+  cacheSansAccents.set(texte, normalise);
+  return normalise;
+}
+
 // Un simple .includes() faisait remonter des faux positifs à l'intérieur
 // d'un autre mot (ex : chercher "carte" trouvait aussi "s'écarter", qui
 // contient bien la suite de lettres "carte"). \b ne suffit pas non plus ici :
@@ -253,10 +275,12 @@ function echapperRegex(texte: string): string {
 // ne doit être précédée ni suivie d'un caractère de mot, sans quoi ce n'est
 // qu'un fragment d'un mot plus grand. Une requête à plusieurs mots (ex.
 // "Coup Précis") reste cherchée comme une phrase continue, frontières
-// vérifiées seulement à ses deux extrémités.
-function matchMotEntier(texte: string, requeteEchappee: string): boolean {
-  const re = new RegExp(`(?<![\\p{L}\\p{N}])${requeteEchappee}(?![\\p{L}\\p{N}])`, 'iu');
-  return re.test(texte);
+// vérifiées seulement à ses deux extrémités. `requeteEchappeeNormalisee` est
+// déjà passée sans accents (voir rechercherReference) ; `texte` est encore
+// brut, normalisé ici via le cache.
+function matchMotEntier(texte: string, requeteEchappeeNormalisee: string): boolean {
+  const re = new RegExp(`(?<![\\p{L}\\p{N}])${requeteEchappeeNormalisee}(?![\\p{L}\\p{N}])`, 'iu');
+  return re.test(sansAccents(texte));
 }
 
 // Filtre simple, sans debounce (aucun précédent dans le code — voir
@@ -266,7 +290,7 @@ function matchMotEntier(texte: string, requeteEchappee: string): boolean {
 export function rechercherReference(index: EntreeReference[], query: string, language: Language): EntreeReference[] {
   const q = query.trim();
   if (!q) return [];
-  const qEchappee = echapperRegex(q);
+  const qEchappee = echapperRegex(sansAccents(q));
   const matchNom: EntreeReference[] = [];
   const matchAutre: EntreeReference[] = [];
   for (const entree of index) {
