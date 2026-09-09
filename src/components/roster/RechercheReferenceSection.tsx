@@ -68,18 +68,35 @@ export function RechercheReferenceSection({ onActifChange }: Props) {
     onActifChange?.(actif);
   }, [actif, onActifChange]);
 
+  // Types affichés : tous par défaut, restreignable via les puces cliquables
+  // ci-dessous. Toujours au moins un type actif (basculer le dernier restant
+  // ne fait rien) — plus simple que de gérer un état "zéro type sélectionné".
+  const [typesActifs, setTypesActifs] = useState<Set<TypeEntreeReference>>(() => new Set(ORDRE_TYPES));
+  const toggleType = (type: TypeEntreeReference) => {
+    setTypesActifs((precedent) => {
+      if (precedent.has(type)) {
+        if (precedent.size === 1) return precedent;
+        const suivant = new Set(precedent);
+        suivant.delete(type);
+        return suivant;
+      }
+      return new Set(precedent).add(type);
+    });
+  };
+
   // Index reconstruit seulement quand la langue change (pas à chaque frappe).
   const index = useMemo(() => construireIndexReference(language), [language]);
   const resultats = useMemo(() => (actif ? rechercherReference(index, q, language) : []), [index, q, actif, language]);
+  const resultatsFiltres = useMemo(() => resultats.filter((e) => typesActifs.has(e.type)), [resultats, typesActifs]);
 
   const groupes = useMemo(() => {
     const map = new Map<TypeEntreeReference, EntreeReference[]>();
-    for (const entree of resultats) {
+    for (const entree of resultatsFiltres) {
       if (!map.has(entree.type)) map.set(entree.type, []);
       map.get(entree.type)!.push(entree);
     }
     return map;
-  }, [resultats]);
+  }, [resultatsFiltres]);
 
   return (
     <div className="card card--tight" style={{ marginBottom: '1rem' }}>
@@ -98,12 +115,26 @@ export function RechercheReferenceSection({ onActifChange }: Props) {
         />
       </div>
 
+      <div className="tabs" style={{ marginTop: '0.5rem', marginBottom: '0.3rem' }}>
+        {ORDRE_TYPES.map((type) => (
+          <button
+            key={type}
+            type="button"
+            className={`tabs__btn ${typesActifs.has(type) ? 'tabs__btn--active' : ''}`}
+            onClick={() => toggleType(type)}
+            aria-pressed={typesActifs.has(type)}
+          >
+            {t(`rechercheReference.section.${type}`)}
+          </button>
+        ))}
+      </div>
+
       {q.length > 0 && !actif && <p className="text-sm text-muted mb-0">{t('rechercheReference.minLength')}</p>}
-      {actif && resultats.length === 0 && (
+      {actif && resultatsFiltres.length === 0 && (
         <p className="text-sm text-muted mb-0">{t('rechercheReference.noResults', { q })}</p>
       )}
 
-      {actif && resultats.length > 0 && (
+      {actif && resultatsFiltres.length > 0 && (
         <div style={{ marginTop: '0.5rem' }}>
           {ORDRE_TYPES.filter((type) => groupes.has(type)).map((type) => {
             const entrees = groupes.get(type)!;
