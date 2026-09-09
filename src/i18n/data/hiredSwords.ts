@@ -33,6 +33,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   gladiateur: {
     nom: 'Pit Fighter',
     entretien: { texte: '15 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except Undead and Skaven.' },
     equipement: ['Morning star', 'Spiked gauntlet', 'Helmet'],
     regles_speciales: [
       {
@@ -45,6 +46,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   ogre: {
     nom: 'Ogre Bodyguard',
     entretien: { texte: '30 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except Skaven.' },
     equipement: ['Two swords, axes or clubs (or any mix of them), or a double-handed weapon', 'Light armour'],
     regles_speciales: [
       { nom: 'Fear', texte: 'The Ogre causes fear.' },
@@ -54,6 +56,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   halfling: {
     nom: 'Halfling Scout',
     entretien: { texte: '5 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except Skaven, Undead, and the Cult of the Possessed.' },
     equipement: ['Bow', 'Dagger', 'Cooking pot (counts as a helmet)'],
     regles_speciales: [
       {
@@ -65,6 +68,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   mage: {
     nom: 'Warlock',
     entretien: { texte: '15 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except Witch Hunters and Sisters of Sigmar.' },
     equipement: ['Staff'],
     regles_speciales: [
       {
@@ -77,6 +81,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   chevalier_solitaire: {
     nom: 'Freelancer',
     entretien: { texte: '20 gc after every battle he fights.' },
+    employeurs: { texte: 'Mercenary and Witch Hunter warbands.' },
     equipement: ['Heavy armour', 'Shield', 'Cavalry lance', 'Sword', 'Warhorse (mounted rules)'],
     regles_speciales: [
       {
@@ -90,6 +95,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   eclaireur_elfe: {
     nom: 'Elf Ranger',
     entretien: { texte: '20 gc, or 40 gc if the warband includes Dwarfs.' },
+    employeurs: { texte: 'Mercenary and Witch Hunter warbands.' },
     equipement: ['Elf bow', 'Sword', 'Elven cloak'],
     regles_speciales: [
       {
@@ -112,6 +118,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   tueur_trolls_nain: {
     nom: 'Dwarf Troll Slayer',
     entretien: { texte: '10 gc, or 20 gc if the warband includes Elves.' },
+    employeurs: { texte: 'Mercenary and Witch Hunter warbands.' },
     equipement: ['Two axes or a double-handed axe'],
     regles_speciales: [
       {
@@ -142,6 +149,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   tireur_elite_tileen: {
     nom: 'Tilean Marksman',
     entretien: { texte: '15 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except Skaven, Orcs, and Undead.' },
     equipement: ['Light armour', 'Sword', 'Dagger', 'Crossbow'],
     regles_speciales: [
       { nom: 'Steady Hands', texte: 'Ignores the long-range to-hit modifier when shooting his crossbow.' },
@@ -174,6 +182,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   bandit_grand_chemin: {
     nom: 'Highwayman',
     entretien: { texte: '20 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except Sisters of Sigmar, Witch Hunters, and Good-aligned elves.' },
     equipement: ['Brace of pistols', 'Rapier', 'Cloak (counts as a buckler)', 'Dagger', 'Horse'],
     regles_speciales: [
       { nom: 'Expert Pistolier', texte: 'Has both the Pistolier and Trick Shooter skills.' },
@@ -202,6 +211,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte: 'Fights for no upkeep in a battle against Beastmen.',
       },
     },
+    employeurs: { texte: 'Any warband except Skaven, Undead, Orcs & Goblins, and Marauders of Chaos.' },
     equipement: ['Two axes', 'Throwing axe (throwing knife, +1 Strength)', 'Light armour'],
     regles_speciales: [
       { nom: 'Beastmen Vengeance', texte: 'Hates all Beastmen and fights for no upkeep in battles against them.' },
@@ -216,6 +226,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   assassin_imperial: {
     nom: 'Imperial Assassin',
     entretien: { texte: '20 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except Witch Hunters, Sisters of Sigmar, Shadow Warriors, Orcs & Goblins, and Skaven.' },
     equipement: ['Sword', 'Dagger', 'Throwing knives', 'Hand crossbow'],
     regles_speciales: [
       {
@@ -245,6 +256,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   barde: {
     nom: 'Bard',
     entretien: { texte: '10 gc after every battle he fights.' },
+    employeurs: { texte: "Mercenaries, Pirates, Sisters of Sigmar, Witch Hunters, and the Slayer Cult Warband (whose \"Back-up Records\" special rule presupposes this access: the Bard then gains the Rememberer's \"Record of Valor\" ability)." },
     equipement: ['Sword', 'Dagger', 'Light armour'],
     regles_speciales: [
       {
@@ -257,6 +269,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   chaman_norse: {
     nom: 'Norse Shaman',
     entretien: { texte: '25 gc after every battle he fights.' },
+    employeurs: { texte: 'Human, Norse, and Marauders of Chaos warbands.' },
     equipement: ['Rune staff', 'Sword or axe'],
     regles_speciales: [
       {
@@ -295,6 +308,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   duelliste: {
     nom: 'Duellist',
     entretien: { texte: '15 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except Skaven and Undead.' },
     equipement: ['Sword', 'Dagger', 'Duelling pistol', 'Cloak (counts as a buckler)'],
     regles_speciales: [
       {
@@ -307,6 +321,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   muletier: {
     nom: 'Mule Skinner',
     entretien: { texte: '15 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except the Cult of the Possessed, Skaven, and Undead.' },
     equipement: ['Whip', 'Dagger'],
     regles_speciales: [
       {
@@ -335,6 +350,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
       maintien_sans_paiement:
         'If a Priest of Sigmar is present, he may stay unpaid but must sit out the next battle.',
     },
+    employeurs: { texte: 'Only the Witch Hunters.' },
     equipement: ['Heavy chain (counts as a flail) or two hammers/maces', 'No armour'],
     regles_speciales: [
       {
@@ -391,6 +407,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   chasseur_tresor_nain: {
     nom: 'Dwarf Treasure Hunter',
     entretien: { texte: '30 gc, or 60 gc if the warband includes one or more Elves.' },
+    employeurs: { texte: 'Mercenaries, Pirates, and Witch Hunters. Dwarf warbands may not employ him.' },
     equipement: ['Gromril armour', 'Helmet', 'Mining pick', 'Dagger', 'Hammer', 'Treasure maps', 'Lantern rig'],
     regles_speciales: [
       {
@@ -410,6 +427,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   supervizork: {
     nom: 'Supervizork',
     entretien: { texte: '40 gc after every battle he fights.' },
+    employeurs: { texte: 'Any Orcs & Goblins warband.' },
     equipement: ['Heavy armour', 'Helmet', 'Two axes or a double-handed weapon'],
     regles_speciales: [
       { nom: '"I said shuddup"', texte: 'Orcs and Goblins within 6" ignore the effects of animosity.' },
@@ -431,6 +449,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   rat_ogre_skryre: {
     nom: 'Clan Skryre Rat Ogre',
     entretien: { texte: 'One warpstone shard to power it up before every game.' },
+    employeurs: { texte: 'Skaven warbands only.' },
     equipement: ['Fangs and claws', 'Warpfire thrower', 'Mechanical body (4+ save)'],
     regles_speciales: [
       { nom: 'Large', texte: 'The Rat Ogre is a large target.' },
@@ -458,6 +477,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   cocher: {
     nom: 'Coachman',
     entretien: { texte: '10 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except Skaven, Beastmen, Orcs, and Goblins.' },
     equipement: ['Whip', 'Sword', 'Light armour'],
     regles_speciales: [
       {
@@ -475,6 +495,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   centaure_chaos: {
     nom: 'Chaos Centaur',
     entretien: { texte: '25 gc after every battle he fights.' },
+    employeurs: { texte: 'Beastmen, Marauders of Chaos, Ogres, and Norse.' },
     equipement: ['Throwing axes', 'Shield', 'Sword or spear'],
     regles_speciales: [
       {
@@ -570,6 +591,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   pilleur_tombes: {
     nom: 'Grave Robber',
     entretien: { texte: '18 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband including a Vampire, a Necromancer, or a Liche.' },
     equipement: ['Pick (counts as an axe)', 'Dagger', 'Lantern', 'Reinforced leathers'],
     regles_speciales: [
       { nom: 'Despised', texte: 'Every model able to use prayers hates him.' },
@@ -634,6 +656,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   eclaireur_hobgobelin: {
     nom: 'Hobgoblin Scout',
     entretien: { texte: '20 gc after every battle he fights.' },
+    employeurs: { texte: 'Black Dwarfs and Ogre warbands.' },
     equipement: ['Dagger', 'Short bow', 'Shield', 'Giant wolf'],
     regles_speciales: [
       { nom: 'Mounted', texte: 'Has the Ride – Giant Wolf skill.' },
@@ -660,6 +683,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   goliath_os: {
     nom: 'Bone Goliath',
     entretien: { texte: 'A permanent construct: requires no upkeep at all.' },
+    employeurs: { texte: 'Only the Restless Dead.' },
     equipement: ['No weapons or armour'],
     regles_speciales: [
       { nom: 'Fear', texte: 'Causes fear.' },
@@ -684,6 +708,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   skink_cameleon: {
     nom: 'Chameleon Skink',
     entretien: { texte: '12 gc after every battle he fights.' },
+    employeurs: { texte: 'Lizardmen warbands only.' },
     equipement: ['Dagger', 'Blowpipe with poisoned darts', 'Buckler'],
     regles_speciales: [
       { nom: 'Aquatic', texte: 'Moves through water terrain with no penalty and counts as being in cover there.' },
@@ -711,6 +736,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   chasseur_gros_gibier: {
     nom: 'Big Game Hunter',
     entretien: { texte: '18 gc after every battle he fights.' },
+    employeurs: { texte: 'Any Human warband.' },
     equipement: ['Sword', 'Dagger', 'Net', 'Light armour', 'Hunting rifle (Hochland long rifle)'],
     regles_speciales: [
       {
@@ -723,6 +749,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   guide_lustrien: {
     nom: 'Lustria Guide',
     entretien: { texte: '15 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband.' },
     equipement: ['Sword', 'Dagger', 'Long bow', 'Rope and grapple', 'Healing herbs'],
     regles_speciales: [
       {
@@ -752,6 +779,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
         texte: 'Fights for no upkeep if the last battle was against Dark Elves or a warband including a Dark Elf Assassin.',
       },
     },
+    employeurs: { texte: 'High Elves and non-evil Human warbands, provided they have no evil character or Hired Sword.' },
     equipement: ['Sword', 'Long bow', 'Dagger', 'Shield', 'Light armour'],
     regles_speciales: [
       { nom: 'Hates Dark Elves', texte: 'Hates Dark Elves.' },
@@ -782,6 +810,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   assassin_elfe_noir: {
     nom: 'Dark Elf Assassin',
     entretien: { texte: '25 gc after every battle he fights.' },
+    employeurs: { texte: 'Any evil warband.' },
     equipement: ['Parrying blade', 'Dark Elf blade', 'Repeater crossbow', 'Dark Venom', 'Light armour', 'Dark cloak (elven cloak)'],
     regles_speciales: [
       { nom: 'Perfect Killer', texte: 'All his shooting and hand-to-hand attacks impose an additional -1 to the enemy save.' },
@@ -811,6 +840,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   chasseur_primes: {
     nom: 'Bounty Hunter',
     entretien: { texte: '15 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except the Cult of the Possessed, Undead, Skaven, and Orcs & Goblins.' },
     equipement: ['Sword', 'Dagger', 'Pistol', 'Crossbow', 'Heavy armour', 'Helmet', 'Rope hook', 'Lantern'],
     regles_speciales: [
       {
@@ -823,6 +853,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   halfling_voleur: {
     nom: 'Halfling Thief',
     entretien: { texte: '15 gc per battle, unless modified by the Uneasy Ally rule below.' },
+    employeurs: { texte: 'Human Mercenary warbands, Kislevites, Pirates, as well as any Wood Elf, Dwarf, or Maneaters warband.' },
     equipement: ['Sword', 'Dagger', 'Throwing knives', 'Rope and grapple'],
     regles_speciales: [
       {
@@ -847,6 +878,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   ninja_gnoblar: {
     entretien: { texte: '10 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband that has no fear-causing model at the time of hiring him (Ogres can never hire him anyway). If the warband later acquires a fear-causing model, the Ninja Gnoblar leaves immediately: for all his combat skill, he remains a coward (to be checked manually).' },
     equipement: ['Ninja robe (counts as Hardened Leathers)', 'Shurikens (throwing stars with the Stealthy special rule)', 'Bo (two-handed weapon giving an additional attack and allowing him to parry)'],
     regles_speciales: [
       {
@@ -869,6 +901,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   pretre_guerrier_sigmar: {
     nom: 'Warrior Priest of Sigmar',
     entretien: { texte: '20 gc after every battle he fights.' },
+    employeurs: { texte: 'Any warband except Witch Hunters (who already have their own priesthood), the Middenheim Mercenaries (devotees of Ulric), the Cult of the Possessed, Orcs & Goblins, Skaven, Undead, Marauders of Chaos, and Dark Elves.' },
     equipement: ['Hammer of Sigmar (counts as a hammer)', 'Light armour', 'Shield'],
     regles_speciales: [
       {
@@ -922,6 +955,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   pretre_loup_ulric: {
     nom: 'Wolf Priest of Ulric',
     entretien: { texte: 'The Wolf Priest fights for Ulric alone: no upkeep is due after any battle.' },
+    employeurs: { texte: "Only the Middenheim Mercenaries, where he replaces one of the warband's Champions (max count of the Champion profile reduced to 1 while he is present, see Profile.reduit_par_franc_tireur)." },
     equipement: ['White wolf pelt cloak (6+ save, cost included)', 'Dagger', 'A blunt weapon (hammer, mace, club, flail or morning star, one- or two-handed)'],
     regles_speciales: [
       {
@@ -989,6 +1023,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   sorciere: {
     nom: 'Witch',
     entretien: { texte: '15 gc after every battle she fights.' },
+    employeurs: { texte: 'Any warband except Witch Hunters and Sisters of Sigmar.' },
     equipement: ['Staff'],
     regles_speciales: [
       {
@@ -1091,6 +1126,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   // --- Dramatis Personae (src/data/dramatisPersonae.ts) ---
   aenur: {
     nom: 'Aenur, the Sword of Twilight',
+    employeurs: { texte: 'Any warband except Skaven, the Cult of the Possessed, and Undead.' },
     equipement: ['Ithilmar armour', 'Elven cloak', 'Ienh-Khain (magic sword)'],
     regles_speciales: [
       { nom: 'Invincible Swordsman', texte: 'Aenur always hits his opponents on a 2+ in hand-to-hand combat.' },
@@ -1103,6 +1139,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   johann_le_surin: {
     nom: 'Johann the Knife',
+    employeurs: { texte: 'Any warband except Skaven, the Cult of the Possessed, and Undead.' },
     equipement: ['Throwing knives', 'Several long daggers (always counts as having two swords in close combat)'],
     regles_speciales: [
       {
@@ -1118,6 +1155,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   bertha_bestraufrung: {
     nom: 'Bertha Bestraufrung, High Matriarch of the Sisterhood',
+    employeurs: { texte: 'Bertha will only join Sisters of Sigmar warbands, and only if the opponent for the next battle has a higher warband rating (0-49: impossible; 50-99: 6+; 100-149: 5+; 150-199: 4+; 200+: 3+ on 1D6, to be checked on paper before the search).' },
     equipement: ['Two Sigmarite warhammers', 'Gromril armour', 'A vial of holy water', 'A holy relic'],
     regles_speciales: [
       { nom: 'High Matriarch', texte: 'As the High Matriarch of the Sisters of Sigmar, Bertha automatically becomes the leader of any warband she joins.' },
@@ -1127,6 +1165,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   veskit: {
     nom: 'Veskit, High Executioner of Clan Eshin',
+    employeurs: { texte: 'Veskit can only be hired by Skaven warbands.' },
     equipement: ['Eshin Fighting Claws (with built-in warplock pistols)'],
     regles_speciales: [
       {
@@ -1145,6 +1184,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   marianna_chevaux: {
     nom: 'Countess Marianna Chevaux, Vampire Assassin',
+    employeurs: { texte: 'Any warband except Witch Hunters, Sisters of Sigmar, Undead, elf warbands, and warbands affiliated with Sigmar (Mercenaries do not count as affiliated).' },
     equipement: ['Rapier', 'Dagger', 'Throwing knives', 'Hand crossbow', 'Bretonnian silk gown'],
     regles_speciales: [
       { nom: 'Immune to Psychology', texte: 'As a Vampire, Marianna is immune to psychology and will never leave combat.' },
@@ -1178,6 +1218,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   dijin_katal: {
     nom: 'Dijin Katal, the Renegade Assassin',
+    employeurs: { texte: 'Any warband, except elf warbands (including Dark Elves, always excluded) and any warband that already includes an elf among its members.' },
     equipement: ['Druchii assassin cloak (elven cloak)', 'Two swords coated in Sooty Venom', 'Repeater crossbow'],
     regles_speciales: [
       { nom: 'Fratricidal Hatred', texte: 'Any Dark Elf (including a High Elf Hired Sword) feels hatred towards Dijin Katal, and vice versa.' },
@@ -1197,6 +1238,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   luthor_lame_pourpre: {
     nom: 'Luthor, the Purple Blade of Reikland',
+    employeurs: { texte: 'Any Human warband except the Middenheim Mercenaries (who would never seek help from a Reiklander).' },
     equipement: ['Sword', 'Dagger', 'Heavy armour', 'Helmet'],
     regles_speciales: [
       { nom: 'Evil Eye', texte: 'Luthor is immune to all eye injuries (ignore the 31 result on the Permanent Injury table for him).' },
@@ -1213,6 +1255,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   luthor_sorcier_tenebreux: {
     nom: 'Luthor, the Extraordinary Dark Sorcerer',
+    employeurs: { texte: 'Any warband, except Witch Hunters, the Reikland Mercenaries, and Sisters of Sigmar.' },
     equipement: [
       'Staff (counts as a club)',
       'Concealed heavy armour',
@@ -1237,6 +1280,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   luthor_maitre_archer: {
     nom: 'Luthor, the Master Archer of Drakwald',
+    employeurs: { texte: 'Any Human, Elf, or Dwarf warband, except the Reikland Mercenaries (where he is too well known as the Crimson Blade).' },
     equipement: ['Long bow', 'Dagger', 'Hunting arrows', 'Heavy armour', 'Dark Venom (on his arrows)'],
     regles_speciales: [
       { nom: 'Evil Eye', texte: 'Luthor is immune to all eye injuries (ignore the 31 result on the Permanent Injury table for him).' },
@@ -1255,6 +1299,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   thrud_le_barbare: {
     nom: 'Thrud the Barbarian',
+    employeurs: { texte: 'Any warband, except one whose leader is a spellcaster.' },
     equipement: ['War axe', 'Helmet'],
     regles_speciales: [
       {
@@ -1273,6 +1318,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   nicodemus: {
     nom: 'Nicodemus, the Eternal Wanderer',
+    employeurs: { texte: 'Any warband except Skaven, Undead, the Cult of the Possessed, and Witch Hunters.' },
     equipement: ["Wizard's staff (two-handed club with buckler parry, or one-handed club while keeping Rezhebel's Sword in his other hand)"],
     regles_speciales: [
       {
@@ -1288,6 +1334,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   penthesilee: {
     nom: "Penthesilea, the Serpent God's Chosen",
+    employeurs: { texte: 'Penthesilée will only join an Amazon warband, and only if the opponent for the next battle has a higher warband rating (0-49: impossible; 50-99: 6+; 100-149: 5+; 150-199: 4+; 200+: 3+ on 1D6, to be checked on paper before the search).' },
     equipement: ['Sword of the Stars', 'Blade of the Stars', 'Lunar Amulet', 'Enchanted skins (Amazon equipment)'],
     regles_speciales: [
       { nom: 'Amazon', texte: 'Penthesilea is an Amazon and follows all the special rules concerning them.' },
@@ -1317,6 +1364,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   marquand_volker: {
     nom: 'Marquand Volker',
+    employeurs: { texte: 'Any warband except Sisters of Sigmar and Witch Hunters.' },
     equipement: ['Sword', 'Light armour', 'Throwing knives'],
     regles_speciales: [
       {
@@ -1342,6 +1390,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   ulli_leitpold: {
     nom: 'Ulli Leitpold',
+    employeurs: { texte: 'Any warband except Sisters of Sigmar and Witch Hunters.' },
     equipement: ['Two-handed warhammer', 'Light armour'],
     regles_speciales: [
       {
@@ -1357,6 +1406,7 @@ export const hiredSwordsEn: Record<string, HiredSwordTraduit> = {
   },
   simius_gantt: {
     nom: 'Simius Gantt, the Crow Master',
+    employeurs: { texte: 'Any warband except Dwarfs, Elves, Sisters of Sigmar, and Witch Hunters.' },
     equipement: ['Mantle of Crows', 'Staff', 'Needle and Thread'],
     regles_speciales: [
       {

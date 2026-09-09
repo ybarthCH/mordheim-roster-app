@@ -214,12 +214,13 @@ function indexerFrancsTireurs(catalogues: WarbandCatalog[], language: Language):
       id: `francTireur:${ft.id}`,
       type: 'francTireur' as const,
       nom: ft.nom,
-      // employeurs.texte volontairement exclu : déjà représenté par bandeNoms
-      // ci-dessous (tags), et une bonne partie des francs-tireurs n'ont pas
-      // encore de traduction EN pour ce champ précis (repli sur le français,
-      // voir translateHiredSword) — l'inclure ferait apparaître du texte
-      // français au milieu d'une fiche autrement traduite dans les résultats.
-      texte: [regles, competences, ft.entretien.texte].filter(Boolean).join(' '),
+      // employeurs.texte réintégré : les traductions EN manquantes ont été
+      // comblées (les 58 francs-tireurs en ont désormais une), donc plus de
+      // risque d'afficher du français au milieu d'une fiche traduite. Porte
+      // parfois une information réelle au-delà de la simple liste de bandes
+      // déjà représentée par bandeNoms ci-dessous (ex : la condition de
+      // départ du Ninja Gnoblar, le seuil de dé de Bertha Bestraufrung).
+      texte: [ft.employeurs.texte, regles, competences, ft.entretien.texte].filter(Boolean).join(' '),
       bandeNoms: ft.employeurs.bande_ids.map(nomBande).sort((a, b) => a.localeCompare(b, language)),
     };
   });
