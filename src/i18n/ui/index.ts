@@ -33,6 +33,7 @@ import { optionSorcierModal } from './optionSorcierModal';
 import { transformationModal } from './transformationModal';
 import { gloutonnerie } from './gloutonnerie';
 import { bandeReferenceScreen } from './bandeReferenceScreen';
+import { rechercheReference } from './rechercheReference';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -72,4 +73,5 @@ export const uiDictionary: UiDictionary = {
   ...transformationModal,
   ...gloutonnerie,
   ...bandeReferenceScreen,
+  ...rechercheReference,
 };
