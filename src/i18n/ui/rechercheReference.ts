@@ -6,7 +6,7 @@ export const rechercheReference: UiDictionary = {
     fr: 'Objets, compétences, règles spéciales, magie et francs-tireurs de toutes les bandes — pas seulement celle-ci.',
     en: 'Items, skills, special rules, magic and hired swords across every warband — not just this one.',
   },
-  'rechercheReference.placeholder': { fr: 'Objet, compétence, règle, franc-tireur...', en: 'Item, skill, rule, hired sword...' },
+  'rechercheReference.placeholder': { fr: 'Objet, compétence, règle...', en: 'Item, skill, rule...' },
   'rechercheReference.minLength': { fr: 'Tapez au moins 2 caractères.', en: 'Type at least 2 characters.' },
   'rechercheReference.noResults': { fr: 'Aucun résultat pour « {q} ».', en: 'No results for "{q}".' },
   'rechercheReference.tooMany': {
