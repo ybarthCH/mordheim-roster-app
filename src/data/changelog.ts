@@ -38,7 +38,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       {
         categorie: 'fonctionnalite',
         texte:
-          "Nouvelle recherche transversale dans la page référence de bande (icône livre) : un seul champ permet désormais de retrouver un objet, une compétence, une règle spéciale, un sort/une prière ou un franc-tireur à travers TOUTES les bandes, pas seulement celle en cours de consultation — chaque résultat indique la ou les bandes concernées.",
+          "Nouvelle recherche transversale dans la page référence de bande (icône livre) : un seul champ permet désormais de retrouver un objet, une compétence, une règle spéciale, un sort/une prière ou un franc-tireur à travers TOUTES les bandes, pas seulement celle en cours de consultation — chaque résultat indique la ou les bandes concernées. Des puces cliquables permettent de restreindre la recherche à un ou plusieurs de ces types.",
       },
     ],
   },

@@ -25,7 +25,10 @@ Ce projet dispose de trois sous-agents Claude Code spécialisés, définis dans 
 
 ## Traduction FR/EN
 
-Le français reste la source de vérité (voir les fonctions `translateX` dans `src/i18n/data/`) ; l'anglais est comblé au fil de l'eau et présente encore des trous par endroits (ex. `employeurs.texte` manquant pour une partie des francs-tireurs).
+Distinguer deux choses : l'architecture du code, et la fiabilité du contenu.
+
+- **Architecture** : le français est le champ stocké en premier/par défaut dans les données (`src/data/`), l'anglais est une couche de traduction ajoutée au fil de l'eau via les fonctions `translateX` (`src/i18n/data/`), avec encore des trous par endroits (ex. `employeurs.texte` manquant pour une partie des francs-tireurs).
+- **Fiabilité du contenu** : ça ne veut PAS dire que le français fait foi sur le fond. Les traductions françaises de ce dépôt sont des traductions de fans, alors que l'anglais est souvent la langue d'origine des suppléments et se révèle plus juste et plus à jour lors des audits de règles (plusieurs cas déjà rencontrés). En cas de doute ou de désaccord entre les deux versions sur le SENS d'une règle, l'anglais l'emporte, indépendamment de la direction de traduction ci-dessous.
 
 - **EN → FR** (contenu qui n'existe qu'en anglais, français manquant) : Claude peut traduire librement, « à sa sauce », sans attendre de source — cas rare dans ce dépôt.
 - **FR → EN** (français déjà présent, anglais manquant — le cas de loin le plus fréquent ici, le français étant rédigé en premier) : Claude ne comble PAS le trou de sa propre initiative. Attendre soit une source officielle (PDF anglais correspondant, voir dépôt `Musterheim-pdf-warband-ref`), soit une traduction fournie par Yannick. Peut en revanche signaler/lister les trous rencontrés, ou contourner ponctuellement l'exposition d'un trou déjà là (ex. ne pas afficher un champ non traduit) sans pour autant le traduire soi-même.
