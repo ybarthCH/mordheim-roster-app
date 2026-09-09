@@ -214,7 +214,12 @@ function indexerFrancsTireurs(catalogues: WarbandCatalog[], language: Language):
       id: `francTireur:${ft.id}`,
       type: 'francTireur' as const,
       nom: ft.nom,
-      texte: [ft.employeurs.texte, regles, competences, ft.entretien.texte].filter(Boolean).join(' '),
+      // employeurs.texte volontairement exclu : déjà représenté par bandeNoms
+      // ci-dessous (tags), et une bonne partie des francs-tireurs n'ont pas
+      // encore de traduction EN pour ce champ précis (repli sur le français,
+      // voir translateHiredSword) — l'inclure ferait apparaître du texte
+      // français au milieu d'une fiche autrement traduite dans les résultats.
+      texte: [regles, competences, ft.entretien.texte].filter(Boolean).join(' '),
       bandeNoms: ft.employeurs.bande_ids.map(nomBande).sort((a, b) => a.localeCompare(b, language)),
     };
   });
