@@ -239,8 +239,24 @@ export function construireIndexReference(language: Language): EntreeReference[] 
   ];
 }
 
-function normaliser(texte: string, language: Language): string {
-  return texte.toLocaleLowerCase(language === 'en' ? 'en' : 'fr');
+function echapperRegex(texte: string): string {
+  return texte.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Un simple .includes() faisait remonter des faux positifs à l'intérieur
+// d'un autre mot (ex : chercher "carte" trouvait aussi "s'écarter", qui
+// contient bien la suite de lettres "carte"). \b ne suffit pas non plus ici :
+// c'est une frontière ASCII ([A-Za-z0-9_]) qui traite un caractère accentué
+// comme "é" comme un caractère NON-mot, donc \bcarte\b matcherait quand même
+// juste après le "é" de "écarter". On construit donc la frontière nous-mêmes
+// avec \p{L}/\p{N} (lettres/chiffres Unicode, gère les accents) : la requête
+// ne doit être précédée ni suivie d'un caractère de mot, sans quoi ce n'est
+// qu'un fragment d'un mot plus grand. Une requête à plusieurs mots (ex.
+// "Coup Précis") reste cherchée comme une phrase continue, frontières
+// vérifiées seulement à ses deux extrémités.
+function matchMotEntier(texte: string, requeteEchappee: string): boolean {
+  const re = new RegExp(`(?<![\\p{L}\\p{N}])${requeteEchappee}(?![\\p{L}\\p{N}])`, 'iu');
+  return re.test(texte);
 }
 
 // Filtre simple, sans debounce (aucun précédent dans le code — voir
@@ -248,16 +264,17 @@ function normaliser(texte: string, language: Language): string {
 // chaque frappe via useMemo). Les correspondances sur le nom sont priorisées
 // sur celles trouvées seulement dans le texte/les tags de bande.
 export function rechercherReference(index: EntreeReference[], query: string, language: Language): EntreeReference[] {
-  const q = normaliser(query.trim(), language);
+  const q = query.trim();
   if (!q) return [];
+  const qEchappee = echapperRegex(q);
   const matchNom: EntreeReference[] = [];
   const matchAutre: EntreeReference[] = [];
   for (const entree of index) {
-    if (normaliser(entree.nom, language).includes(q)) {
+    if (matchMotEntier(entree.nom, qEchappee)) {
       matchNom.push(entree);
     } else if (
-      normaliser(entree.texte, language).includes(q) ||
-      entree.bandeNoms.some((b) => normaliser(b, language).includes(q))
+      matchMotEntier(entree.texte, qEchappee) ||
+      entree.bandeNoms.some((b) => matchMotEntier(b, qEchappee))
     ) {
       matchAutre.push(entree);
     }
