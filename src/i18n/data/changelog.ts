@@ -8,6 +8,10 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-09-09': [
+    "New cross-warband search on the warband reference page (book icon): a single field now finds an item, skill, special rule, spell/prayer, or hired sword across EVERY warband, not just the one you're viewing — each result shows which warband(s) it belongs to. Clickable chips let you narrow the search to one or more of these types.",
+    "In English, the \"Employers\" line of 50 Hired Swords showed a stray French sentence in the middle of an otherwise English description (missing translation) — fixed for all 58 Hired Swords in the app.",
+  ],
   '2026-09-06': [
     "Sylvaneth: the Tree Kin and Bane Kin now have the correct skill category access (instead of every category by mistake); the Cruel Talon lost a Parry rule that wasn't in the warband's own source.",
     'Battle Monks of Cathay: the Dragon Sword (Katana) and the Emissary\'s Horse no longer wrongly vanish from the shop after the first battle.',

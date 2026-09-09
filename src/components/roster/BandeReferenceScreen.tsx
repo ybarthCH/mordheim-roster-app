@@ -1,10 +1,11 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { useLanguage } from '../../state/useLanguage';
 import { Screen } from '../common/Screen';
 import { CollapsibleCard } from '../common/CollapsibleCard';
 import { EquipementReference, MagieReference, FrancsTireursReference } from '../common/CatalogueReference';
+import { RechercheReferenceSection } from './RechercheReferenceSection';
 import { Icon } from '../common/Icon';
 import { getCatalogue } from '../../data/warbands';
 import { translateWarbandCatalog } from '../../i18n/data/warbands';
@@ -24,6 +25,7 @@ export function BandeReferenceScreen() {
   const { id } = useParams<{ id: string }>();
   const { getRosterById } = useRosters();
   const { t, language } = useLanguage();
+  const [rechercheActive, setRechercheActive] = useState(false);
   const roster = getRosterById(id ?? '');
   const catalogueBrut = getCatalogue(roster?.bande_id ?? '');
   const catalogue = useMemo(
@@ -66,9 +68,11 @@ export function BandeReferenceScreen() {
 
   return (
     <Screen title={t('bandeReference.title', { nom: roster.nom_bande })} back={`/roster/${roster.id}`}>
-      {aRien && <p className="text-muted">{t('bandeReference.empty')}</p>}
+      <RechercheReferenceSection onActifChange={setRechercheActive} />
 
-      {catalogue && catalogue.regles_speciales.length > 0 && (
+      {!rechercheActive && aRien && <p className="text-muted">{t('bandeReference.empty')}</p>}
+
+      {!rechercheActive && catalogue && catalogue.regles_speciales.length > 0 && (
         <CollapsibleCard
           preferenceKey="ui.roster.regles_speciales.ouvert"
           className="card card--tight card--titlebar"
@@ -108,9 +112,11 @@ export function BandeReferenceScreen() {
         </CollapsibleCard>
       )}
 
-      {catalogue && <EquipementReference catalogue={catalogue} />}
-      {catalogue && <MagieReference catalogue={catalogue} profil={profilMarque} marqueId={membreMarque?.marque} />}
-      {catalogue && <FrancsTireursReference catalogue={catalogue} roster={roster} />}
+      {!rechercheActive && catalogue && <EquipementReference catalogue={catalogue} />}
+      {!rechercheActive && catalogue && (
+        <MagieReference catalogue={catalogue} profil={profilMarque} marqueId={membreMarque?.marque} />
+      )}
+      {!rechercheActive && catalogue && <FrancsTireursReference catalogue={catalogue} roster={roster} />}
     </Screen>
   );
 }
