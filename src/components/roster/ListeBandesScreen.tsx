@@ -1,9 +1,10 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
 import { Modal } from '../common/Modal';
 import { Icon } from '../common/Icon';
+import { GoogleDriveLogo } from '../common/GoogleDriveLogo';
 import { getCatalogue } from '../../data/warbands';
 import { bilanBatailles, effectifTotal, nomCatalogue } from '../../utils/bandeValue';
 import { ratingAffiche } from '../../utils/displayedRating';
@@ -14,6 +15,7 @@ import { useLanguage } from '../../state/useLanguage';
 import { useGameRules } from '../../state/useGameRules';
 import { useMediaQuery } from '../../state/useMediaQuery';
 import { usePersistentDisclosure } from '../../state/usePersistentDisclosure';
+import { getSetting } from '../../db/db';
 
 // Sur écran tactile, le glisser-déposer engagé n'importe où sur la carte
 // entrait en conflit avec le scroll de la page (le doigt qui bouge fait à la
@@ -84,6 +86,16 @@ export function ListeBandesScreen() {
     'ui.accueil.annoncePlayStore',
     true
   );
+  // Suggestion de sauvegarde Drive : visible tant qu'aucune sauvegarde n'a
+  // jamais été faite (pas de bouton pour la masquer manuellement — décision
+  // explicite : elle disparaît d'elle-même dès la première sauvegarde
+  // réussie, voir CloudBackupSection.tsx qui écrit cette même clé). null le
+  // temps de la lecture IndexedDB, pour éviter un flash de la bannière avant
+  // qu'on sache si une sauvegarde existe déjà.
+  const [sauvegardeDriveFaite, setSauvegardeDriveFaite] = useState<boolean | null>(null);
+  useEffect(() => {
+    getSetting<string>('google_drive_last_backup_at').then((v) => setSauvegardeDriveFaite(!!v));
+  }, []);
 
   const winLabel = language === 'en' ? 'W' : 'V';
   const lossLabel = language === 'en' ? 'L' : 'D';
@@ -176,6 +188,14 @@ export function ListeBandesScreen() {
           <Icon name="parchemin" size="2.4em" style={{ opacity: 0.5, marginBottom: '0.4rem' }} />
           <p>{t('home.emptyTitle')}</p>
           <p className="text-sm">{t('home.emptySubtitle')}</p>
+          <button
+            type="button"
+            className="btn btn--sm flex items-center gap-sm"
+            style={{ marginTop: '0.6rem', display: 'inline-flex' }}
+            onClick={() => navigate('/reglages')}
+          >
+            <GoogleDriveLogo size="1.1em" /> + {t('cloudBackup.emptyStateButton')}
+          </button>
         </div>
       )}
 
@@ -275,7 +295,19 @@ export function ListeBandesScreen() {
         </Modal>
       )}
 
-      <p className="text-sm" style={{ textAlign: 'center', marginTop: '2rem' }}>
+      {sauvegardeDriveFaite === false && (
+        <div className="card card--tight flex items-center gap-sm" style={{ marginTop: '2rem' }}>
+          <GoogleDriveLogo size="1.6em" />
+          <p className="text-sm mb-0">
+            {t('cloudBackup.homeBannerText')}{' '}
+            <a href="#" onClick={(e) => { e.preventDefault(); navigate('/reglages'); }}>
+              {t('cloudBackup.homeBannerLink')}
+            </a>
+          </p>
+        </div>
+      )}
+
+      <p className="text-sm" style={{ textAlign: 'center', marginTop: sauvegardeDriveFaite === false ? '1rem' : '2rem' }}>
         <a href="https://ko-fi.com/musterheim" target="_blank" rel="noopener noreferrer">
           {t('home.supportKofi')}
         </a>
