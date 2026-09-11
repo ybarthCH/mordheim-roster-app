@@ -98,8 +98,11 @@ export function ListeBandesScreen() {
     statutRestauration,
     erreur: erreurCloudBackup,
     derniereSauvegardeAffichee,
-    confirmationOuverte: confirmationRestaurationOuverte,
-    sauvegarder,
+    confirmationSauvegardeOuverte,
+    demanderSauvegarde,
+    annulerSauvegarde,
+    confirmerSauvegarde,
+    confirmationRestaurationOuverte,
     demanderRestauration,
     annulerRestauration,
     confirmerRestauration,
@@ -128,7 +131,6 @@ export function ListeBandesScreen() {
         <div className="home-hero__banner">
           <img src={`${import.meta.env.BASE_URL}decor/home-hero-banner.webp`} alt="Musterheim" className="home-hero__banner-img" />
         </div>
-        <div className="home-hero__rule" />
       </div>
 
       {annoncePlayStoreVisible && (
@@ -305,6 +307,21 @@ export function ListeBandesScreen() {
         </Modal>
       )}
 
+      {confirmationSauvegardeOuverte && (
+        <Modal onClose={annulerSauvegarde}>
+          <h3>{t('cloudBackup.backupConfirmTitle')}</h3>
+          <p className="text-muted">{t('cloudBackup.backupConfirmBody')}</p>
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={annulerSauvegarde}>
+              {t('cloudBackup.cancel')}
+            </button>
+            <button className="btn btn--danger" onClick={confirmerSauvegarde}>
+              {t('cloudBackup.backupConfirmButton')}
+            </button>
+          </div>
+        </Modal>
+      )}
+
       {confirmationRestaurationOuverte && (
         <Modal onClose={annulerRestauration}>
           <h3>{t('cloudBackup.restoreConfirmTitle')}</h3>
@@ -332,7 +349,7 @@ export function ListeBandesScreen() {
             <button
               type="button"
               className="btn--pack-pill-sm"
-              onClick={sauvegarder}
+              onClick={demanderSauvegarde}
               disabled={!googleDriveConfigure() || statutSauvegarde === 'en_cours'}
             >
               {statutSauvegarde === 'en_cours' ? t('cloudBackup.backingUp') : t('cloudBackup.backupNow')}

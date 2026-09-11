@@ -27,6 +27,16 @@ export const cloudBackup: UiDictionary = {
   },
   'cloudBackup.cancel': { fr: 'Annuler', en: 'Cancel' },
   'cloudBackup.restoreConfirmButton': { fr: 'Restaurer', en: 'Restore' },
+  'cloudBackup.backupConfirmTitle': { fr: 'Sauvegarder sur Drive ?', en: 'Back up to Drive?' },
+  'cloudBackup.backupConfirmBody': {
+    fr: "Ceci remplacera la sauvegarde déjà présente sur ton Google Drive (si elle existe) par l'état actuel de tes bandes et réglages. Irréversible sur Drive.",
+    en: 'This will overwrite any backup already on your Google Drive with the current state of your warbands and settings. Irreversible on Drive.',
+  },
+  'cloudBackup.backupConfirmButton': { fr: 'Sauvegarder', en: 'Back up' },
+  'cloudBackup.noRostersToBackup': {
+    fr: 'Aucune bande à sauvegarder.',
+    en: 'No warbands to back up.',
+  },
   'cloudBackup.homeBannerText': {
     fr: "Protège tes bandes d'une perte de données : sauvegarde-les sur Google Drive.",
     en: 'Protect your warbands from data loss: back them up to Google Drive.',

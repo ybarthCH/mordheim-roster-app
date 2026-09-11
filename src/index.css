@@ -1039,9 +1039,8 @@ button {
   white-space: nowrap;
 }
 
-/* Filet ornemental sous le titre de section d'une carte — écho discret du
-   `.home-hero__rule` du header, généralisé à toute l'app sans retoucher
-   chaque composant. */
+/* Filet ornemental sous le titre de section d'une carte, généralisé à toute
+   l'app sans retoucher chaque composant. */
 .card > h3:first-child {
   position: relative;
   padding-bottom: 0.4rem;
@@ -1872,7 +1871,7 @@ button {
 .home-hero {
   text-align: center;
   padding: 1.4rem 1rem 1.6rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 1.8rem;
 }
 /* Bannière logo (remplace l'ancien titre texte "Musterheim" en Schoensperger) :
    image peinte du pack encadrée par un filet obsidienne aux reflets verre de
@@ -1905,13 +1904,6 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.home-hero__rule {
-  width: 72px;
-  height: 3px;
-  margin: 0.6rem auto 0.7rem;
-  background: var(--accent);
-  opacity: 0.55;
 }
 /* Encadré d'annonce ponctuel sur l'écran d'accueil (ex : sortie officielle
    sur le Play Store) — fermeture persistée via usePersistentDisclosure,
@@ -3780,6 +3772,33 @@ thead .roster-table__col-actions {
 :root[data-theme='light'] .icon-btn {
   background-image: none;
   border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Croix de fermeture de l'annonce d'accueil (icon-close-bright.webp, un
+   badge peint épais pensé pour un fond sombre) : contre le parchemin clair
+   elle paraissait trop lourde et mal centrée (padding du bouton asymétrique
+   autour de l'icône peinte). Remplacée par un simple glyphe "×" plat, centré
+   dans un carré de taille fixe, cohérent avec le reste des habillages plats
+   de ce thème. */
+:root[data-theme='light'] .home-annonce__close {
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+:root[data-theme='light'] .home-annonce__close img {
+  /* !important nécessaire : Icon (croixPack) pose son display:inline-block
+     en style inline, qu'une règle de classe ne peut jamais l'emporter sur
+     autrement, quelle que soit sa spécificité. */
+  display: none !important;
+}
+:root[data-theme='light'] .home-annonce__close::after {
+  content: '\00d7';
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--danger);
 }
 
 :root[data-theme='light'] .avatar-frame {
