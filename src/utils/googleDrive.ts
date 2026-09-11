@@ -25,7 +25,16 @@ const SCOPE = 'https://www.googleapis.com/auth/drive.appdata';
 // identique — fichiers distincts par cible de déploiement pour isoler les
 // deux (voir __DEPLOY_TARGET__ dans vite.config.ts).
 const NOM_FICHIER = __DEPLOY_TARGET__ === 'prod' ? 'musterheim-backup.json' : 'musterheim-backup-dev.json';
-const CLE_FICHIER_ID = 'google_drive_backup_file_id';
+// Suffixée par __DEPLOY_TARGET__ comme NOM_FICHIER ci-dessus, et pour la
+// même raison : sans ça, un id de fichier mis en cache localement AVANT
+// l'introduction de NOM_FICHIER par environnement (quand dev et prod
+// partageaient encore le même nom) restait valide indéfiniment — trouvé en
+// premier par trouverFichierExistant, il court-circuitait silencieusement
+// la recherche par nom (donc la séparation dev/prod) tant que ce cache
+// local n'était pas vidé. Un vieux cache sous l'ancienne clé devient ainsi
+// orphelin (jamais relu) plutôt que de continuer à pointer vers le fichier
+// de l'autre environnement.
+const CLE_FICHIER_ID = `google_drive_backup_file_id_${__DEPLOY_TARGET__}`;
 const DRIVE_FILES_URL = 'https://www.googleapis.com/drive/v3/files';
 const DRIVE_UPLOAD_URL = 'https://www.googleapis.com/upload/drive/v3/files';
 

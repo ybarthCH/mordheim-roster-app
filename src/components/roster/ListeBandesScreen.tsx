@@ -98,8 +98,11 @@ export function ListeBandesScreen() {
     statutRestauration,
     erreur: erreurCloudBackup,
     derniereSauvegardeAffichee,
-    confirmationOuverte: confirmationRestaurationOuverte,
-    sauvegarder,
+    confirmationSauvegardeOuverte,
+    demanderSauvegarde,
+    annulerSauvegarde,
+    confirmerSauvegarde,
+    confirmationRestaurationOuverte,
     demanderRestauration,
     annulerRestauration,
     confirmerRestauration,
@@ -128,7 +131,6 @@ export function ListeBandesScreen() {
         <div className="home-hero__banner">
           <img src={`${import.meta.env.BASE_URL}decor/home-hero-banner.webp`} alt="Musterheim" className="home-hero__banner-img" />
         </div>
-        <div className="home-hero__rule" />
       </div>
 
       {annoncePlayStoreVisible && (
@@ -305,6 +307,21 @@ export function ListeBandesScreen() {
         </Modal>
       )}
 
+      {confirmationSauvegardeOuverte && (
+        <Modal onClose={annulerSauvegarde}>
+          <h3>{t('cloudBackup.backupConfirmTitle')}</h3>
+          <p className="text-muted">{t('cloudBackup.backupConfirmBody')}</p>
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={annulerSauvegarde}>
+              {t('cloudBackup.cancel')}
+            </button>
+            <button className="btn btn--danger" onClick={confirmerSauvegarde}>
+              {t('cloudBackup.backupConfirmButton')}
+            </button>
+          </div>
+        </Modal>
+      )}
+
       {confirmationRestaurationOuverte && (
         <Modal onClose={annulerRestauration}>
           <h3>{t('cloudBackup.restoreConfirmTitle')}</h3>
@@ -320,42 +337,50 @@ export function ListeBandesScreen() {
         </Modal>
       )}
 
-      <div className="card card--tight" style={{ marginTop: '2rem', textAlign: 'center' }}>
-        <div className="flex items-center gap-sm" style={{ justifyContent: 'center' }}>
-          <GoogleDriveLogo size="1.6em" />
-          <p className="text-sm mb-0">
-            {derniereSauvegardeAffichee ?? t('cloudBackup.homeBannerText')}
-          </p>
+      {rosters.length > 0 && (
+        <div className="card card--tight" style={{ marginTop: '2rem', textAlign: 'center' }}>
+          <div className="flex items-center gap-sm" style={{ justifyContent: 'center' }}>
+            <GoogleDriveLogo size="1.6em" />
+            <p className="text-sm mb-0">
+              {derniereSauvegardeAffichee ?? t('cloudBackup.homeBannerText')}
+            </p>
+          </div>
+          <div className="flex items-center gap-sm" style={{ justifyContent: 'center', flexWrap: 'wrap', marginTop: '0.6rem' }}>
+            <button
+              type="button"
+              className="btn--pack-pill-sm"
+              onClick={demanderSauvegarde}
+              disabled={!googleDriveConfigure() || statutSauvegarde === 'en_cours'}
+            >
+              {statutSauvegarde === 'en_cours' ? t('cloudBackup.backingUp') : t('cloudBackup.backupNow')}
+            </button>
+            <button
+              type="button"
+              className="btn--pack-pill-sm"
+              onClick={demanderRestauration}
+              disabled={!googleDriveConfigure() || statutRestauration === 'en_cours'}
+            >
+              {statutRestauration === 'en_cours' ? t('cloudBackup.restoring') : t('cloudBackup.restoreNow')}
+            </button>
+          </div>
+          {!googleDriveConfigure() && (
+            <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
+              {t('cloudBackup.notConfigured')}
+            </p>
+          )}
+          {erreurCloudBackup && (
+            <p className="text-danger text-sm" style={{ marginTop: '0.5rem' }}>
+              {erreurCloudBackup}
+            </p>
+          )}
         </div>
-        <div className="flex items-center gap-sm" style={{ justifyContent: 'center', flexWrap: 'wrap', marginTop: '0.6rem' }}>
-          <button
-            type="button"
-            className="btn--pack-pill-sm"
-            onClick={sauvegarder}
-            disabled={!googleDriveConfigure() || statutSauvegarde === 'en_cours'}
-          >
-            {statutSauvegarde === 'en_cours' ? t('cloudBackup.backingUp') : t('cloudBackup.backupNow')}
-          </button>
-          <button
-            type="button"
-            className="btn--pack-pill-sm"
-            onClick={demanderRestauration}
-            disabled={!googleDriveConfigure() || statutRestauration === 'en_cours'}
-          >
-            {statutRestauration === 'en_cours' ? t('cloudBackup.restoring') : t('cloudBackup.restoreNow')}
-          </button>
-        </div>
-        {!googleDriveConfigure() && (
-          <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
-            {t('cloudBackup.notConfigured')}
-          </p>
-        )}
-        {erreurCloudBackup && (
-          <p className="text-danger text-sm" style={{ marginTop: '0.5rem' }}>
-            {erreurCloudBackup}
-          </p>
-        )}
-      </div>
+      )}
+
+      {rosters.length === 0 && erreurCloudBackup && (
+        <p className="text-danger text-sm" style={{ textAlign: 'center', marginTop: '1rem' }}>
+          {erreurCloudBackup}
+        </p>
+      )}
 
       <p className="text-sm" style={{ textAlign: 'center', marginTop: '1rem' }}>
         <a href="https://ko-fi.com/musterheim" target="_blank" rel="noopener noreferrer">

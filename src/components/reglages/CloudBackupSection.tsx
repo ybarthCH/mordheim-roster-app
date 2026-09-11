@@ -18,8 +18,12 @@ export function CloudBackupSection() {
     statutRestauration,
     erreur,
     derniereSauvegardeAffichee,
-    confirmationOuverte,
-    sauvegarder,
+    peutSauvegarder,
+    confirmationSauvegardeOuverte,
+    demanderSauvegarde,
+    annulerSauvegarde,
+    confirmerSauvegarde,
+    confirmationRestaurationOuverte,
     demanderRestauration,
     annulerRestauration,
     confirmerRestauration,
@@ -35,8 +39,8 @@ export function CloudBackupSection() {
         <button
           type="button"
           className="btn btn--sm"
-          onClick={sauvegarder}
-          disabled={!googleDriveConfigure() || statutSauvegarde === 'en_cours'}
+          onClick={demanderSauvegarde}
+          disabled={!googleDriveConfigure() || !peutSauvegarder || statutSauvegarde === 'en_cours'}
         >
           {statutSauvegarde === 'en_cours' ? t('cloudBackup.backingUp') : t('cloudBackup.backupNow')}
         </button>
@@ -50,6 +54,11 @@ export function CloudBackupSection() {
         </button>
       </div>
 
+      {!peutSauvegarder && (
+        <p className="text-sm text-muted" style={{ marginTop: '0.5rem' }}>
+          {t('cloudBackup.noRostersToBackup')}
+        </p>
+      )}
       {derniereSauvegardeAffichee && (
         <p className="text-sm text-muted" style={{ marginTop: '0.5rem' }}>
           {derniereSauvegardeAffichee}
@@ -61,7 +70,22 @@ export function CloudBackupSection() {
         </p>
       )}
 
-      {confirmationOuverte && (
+      {confirmationSauvegardeOuverte && (
+        <Modal onClose={annulerSauvegarde}>
+          <h3>{t('cloudBackup.backupConfirmTitle')}</h3>
+          <p className="text-muted">{t('cloudBackup.backupConfirmBody')}</p>
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={annulerSauvegarde}>
+              {t('cloudBackup.cancel')}
+            </button>
+            <button className="btn btn--danger" onClick={confirmerSauvegarde}>
+              {t('cloudBackup.backupConfirmButton')}
+            </button>
+          </div>
+        </Modal>
+      )}
+
+      {confirmationRestaurationOuverte && (
         <Modal onClose={annulerRestauration}>
           <h3>{t('cloudBackup.restoreConfirmTitle')}</h3>
           <p className="text-muted">{t('cloudBackup.restoreConfirmBody')}</p>
