@@ -6,6 +6,7 @@ import { useGameRules } from '../../state/useGameRules';
 import { useWakeLock } from '../../state/useWakeLock';
 import { useUpdateSW } from '../../state/useUpdateSW';
 import { useLanguage } from '../../state/useLanguage';
+import { CloudBackupSection } from './CloudBackupSection';
 
 const THEMES = [
   { value: 'light', key: 'reglages.theme.light' },
@@ -152,6 +153,8 @@ export function ReglagesScreen() {
           </span>
         </label>
       </div>
+
+      <CloudBackupSection />
 
       <div className="card">
         <h3 className="mt-0">{t('reglages.about')}</h3>

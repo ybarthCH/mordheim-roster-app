@@ -33,6 +33,16 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-09-11',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Nouvelle sauvegarde cloud manuelle vers Google Drive (Réglages, et raccourci direct depuis l'écran des bandes) : envoie une copie complète de tes bandes et réglages dans un fichier caché de ton Drive personnel, restaurable à tout moment sur n'importe quel appareil connecté au même compte.",
+      },
+    ],
+  },
+  {
     date: '2026-09-09',
     points: [
       {

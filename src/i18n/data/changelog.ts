@@ -8,6 +8,9 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-09-11': [
+    "New manual cloud backup to Google Drive (Settings, and a direct shortcut from the warband list): sends a full copy of your warbands and settings to a hidden file in your own Drive, restorable at any time on any device signed into the same account.",
+  ],
   '2026-09-09': [
     "New cross-warband search on the warband reference page (book icon): a single field now finds an item, skill, special rule, spell/prayer, or hired sword across EVERY warband, not just the one you're viewing — each result shows which warband(s) it belongs to. Clickable chips let you narrow the search to one or more of these types.",
     "In English, the \"Employers\" line of 50 Hired Swords showed a stray French sentence in the middle of an otherwise English description (missing translation) — fixed for all 58 Hired Swords in the app.",

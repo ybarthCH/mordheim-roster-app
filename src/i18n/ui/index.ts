@@ -34,6 +34,7 @@ import { transformationModal } from './transformationModal';
 import { gloutonnerie } from './gloutonnerie';
 import { bandeReferenceScreen } from './bandeReferenceScreen';
 import { rechercheReference } from './rechercheReference';
+import { cloudBackup } from './cloudBackup';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -74,4 +75,5 @@ export const uiDictionary: UiDictionary = {
   ...gloutonnerie,
   ...bandeReferenceScreen,
   ...rechercheReference,
+  ...cloudBackup,
 };
