@@ -62,7 +62,7 @@ export async function partagerRoster(roster: RosterInstance): Promise<void> {
   await navigator.share({ title: roster.nom_bande, text: contenu });
 }
 
-function estRosterValide(data: unknown): data is RosterInstance {
+export function estRosterValide(data: unknown): data is RosterInstance {
   if (!data || typeof data !== 'object') return false;
   const r = data as Record<string, unknown>;
   return (
