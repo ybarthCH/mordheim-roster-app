@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { Screen } from '../common/Screen';
@@ -15,7 +15,8 @@ import { useLanguage } from '../../state/useLanguage';
 import { useGameRules } from '../../state/useGameRules';
 import { useMediaQuery } from '../../state/useMediaQuery';
 import { usePersistentDisclosure } from '../../state/usePersistentDisclosure';
-import { getSetting } from '../../db/db';
+import { useCloudBackup } from '../../state/useCloudBackup';
+import { googleDriveConfigure } from '../../utils/googleDrive';
 
 // Sur écran tactile, le glisser-déposer engagé n'importe où sur la carte
 // entrait en conflit avec le scroll de la page (le doigt qui bouge fait à la
@@ -86,16 +87,23 @@ export function ListeBandesScreen() {
     'ui.accueil.annoncePlayStore',
     true
   );
-  // Suggestion de sauvegarde Drive : visible tant qu'aucune sauvegarde n'a
-  // jamais été faite (pas de bouton pour la masquer manuellement — décision
-  // explicite : elle disparaît d'elle-même dès la première sauvegarde
-  // réussie, voir CloudBackupSection.tsx qui écrit cette même clé). null le
-  // temps de la lecture IndexedDB, pour éviter un flash de la bannière avant
-  // qu'on sache si une sauvegarde existe déjà.
-  const [sauvegardeDriveFaite, setSauvegardeDriveFaite] = useState<boolean | null>(null);
-  useEffect(() => {
-    getSetting<string>('google_drive_last_backup_at').then((v) => setSauvegardeDriveFaite(!!v));
-  }, []);
+  // Raccourci Drive de cet écran : même logique que la carte dédiée de
+  // Réglages (state/useCloudBackup.ts), avec sa propre mise en forme
+  // compacte — la restauration reste accessible en permanence ici (pas
+  // seulement quand la liste est vide), et le bouton de la carte "aucune
+  // bande" partage cette même instance (donc la même confirmation modale)
+  // plutôt que de naviguer vers Réglages.
+  const {
+    statutSauvegarde,
+    statutRestauration,
+    erreur: erreurCloudBackup,
+    derniereSauvegardeAffichee,
+    confirmationOuverte: confirmationRestaurationOuverte,
+    sauvegarder,
+    demanderRestauration,
+    annulerRestauration,
+    confirmerRestauration,
+  } = useCloudBackup();
 
   const winLabel = language === 'en' ? 'W' : 'V';
   const lossLabel = language === 'en' ? 'L' : 'D';
@@ -192,9 +200,11 @@ export function ListeBandesScreen() {
             type="button"
             className="btn btn--sm flex items-center gap-sm"
             style={{ marginTop: '0.6rem', display: 'inline-flex' }}
-            onClick={() => navigate('/reglages')}
+            onClick={demanderRestauration}
+            disabled={!googleDriveConfigure() || statutRestauration === 'en_cours'}
           >
-            <GoogleDriveLogo size="1.1em" /> + {t('cloudBackup.emptyStateButton')}
+            <GoogleDriveLogo size="1.1em" /> +{' '}
+            {statutRestauration === 'en_cours' ? t('cloudBackup.restoring') : t('cloudBackup.emptyStateButton')}
           </button>
         </div>
       )}
@@ -295,19 +305,59 @@ export function ListeBandesScreen() {
         </Modal>
       )}
 
-      {sauvegardeDriveFaite === false && (
-        <div className="card card--tight flex items-center gap-sm" style={{ marginTop: '2rem' }}>
-          <GoogleDriveLogo size="1.6em" />
-          <p className="text-sm mb-0">
-            {t('cloudBackup.homeBannerText')}{' '}
-            <a href="#" onClick={(e) => { e.preventDefault(); navigate('/reglages'); }}>
-              {t('cloudBackup.homeBannerLink')}
-            </a>
-          </p>
-        </div>
+      {confirmationRestaurationOuverte && (
+        <Modal onClose={annulerRestauration}>
+          <h3>{t('cloudBackup.restoreConfirmTitle')}</h3>
+          <p className="text-muted">{t('cloudBackup.restoreConfirmBody')}</p>
+          <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+            <button className="btn" onClick={annulerRestauration}>
+              {t('cloudBackup.cancel')}
+            </button>
+            <button className="btn btn--danger" onClick={confirmerRestauration}>
+              {t('cloudBackup.restoreConfirmButton')}
+            </button>
+          </div>
+        </Modal>
       )}
 
-      <p className="text-sm" style={{ textAlign: 'center', marginTop: sauvegardeDriveFaite === false ? '1rem' : '2rem' }}>
+      <div className="card card--tight" style={{ marginTop: '2rem' }}>
+        <div className="flex items-center gap-sm">
+          <GoogleDriveLogo size="1.6em" />
+          <p className="text-sm mb-0">
+            {derniereSauvegardeAffichee ?? t('cloudBackup.homeBannerText')}
+          </p>
+        </div>
+        <div className="flex gap-sm" style={{ flexWrap: 'wrap', marginTop: '0.5rem' }}>
+          <button
+            type="button"
+            className="btn btn--sm"
+            onClick={sauvegarder}
+            disabled={!googleDriveConfigure() || statutSauvegarde === 'en_cours'}
+          >
+            {statutSauvegarde === 'en_cours' ? t('cloudBackup.backingUp') : t('cloudBackup.backupNow')}
+          </button>
+          <button
+            type="button"
+            className="btn btn--sm"
+            onClick={demanderRestauration}
+            disabled={!googleDriveConfigure() || statutRestauration === 'en_cours'}
+          >
+            {statutRestauration === 'en_cours' ? t('cloudBackup.restoring') : t('cloudBackup.restoreNow')}
+          </button>
+        </div>
+        {!googleDriveConfigure() && (
+          <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
+            {t('cloudBackup.notConfigured')}
+          </p>
+        )}
+        {erreurCloudBackup && (
+          <p className="text-danger text-sm" style={{ marginTop: '0.5rem' }}>
+            {erreurCloudBackup}
+          </p>
+        )}
+      </div>
+
+      <p className="text-sm" style={{ textAlign: 'center', marginTop: '1rem' }}>
         <a href="https://ko-fi.com/musterheim" target="_blank" rel="noopener noreferrer">
           {t('home.supportKofi')}
         </a>

@@ -1,76 +1,29 @@
-import { useEffect, useState } from 'react';
 import { useLanguage } from '../../state/useLanguage';
+import { useCloudBackup } from '../../state/useCloudBackup';
 import { Modal } from '../common/Modal';
-import { getSetting, setSetting } from '../../db/db';
-import { obtenirJeton, precharger, envoyerSauvegarde, recupererSauvegarde, googleDriveConfigure } from '../../utils/googleDrive';
-import { construireSauvegardeComplete, sauvegardeValide, appliquerSauvegardeComplete } from '../../utils/cloudBackup';
-
-const CLE_DERNIERE_SAUVEGARDE = 'google_drive_last_backup_at';
-
-type Statut = 'inactif' | 'en_cours' | 'erreur';
+import { googleDriveConfigure } from '../../utils/googleDrive';
 
 // Carte Réglages : sauvegarde/restauration manuelle vers un fichier caché
 // (appDataFolder) du Google Drive personnel du joueur — voir utils/
-// googleDrive.ts et utils/cloudBackup.ts pour les deux couches sous-jacentes.
-// Pas de synchro automatique ni de résolution de conflit : chaque action est
-// un geste explicite du joueur (voir plan de session), une restauration
+// googleDrive.ts et utils/cloudBackup.ts pour les deux couches sous-jacentes,
+// et state/useCloudBackup.ts pour la logique partagée avec le raccourci de
+// l'écran des bandes. Pas de synchro automatique ni de résolution de
+// conflit : chaque action est un geste explicite du joueur, une restauration
 // réussie recharge donc toute la page plutôt que de tenter un rafraîchissement
 // partiel des multiples contexts concernés (rosters, langue, thème, règles).
 export function CloudBackupSection() {
-  const { t, language } = useLanguage();
-  const [statutSauvegarde, setStatutSauvegarde] = useState<Statut>('inactif');
-  const [statutRestauration, setStatutRestauration] = useState<Statut>('inactif');
-  const [erreur, setErreur] = useState<string | null>(null);
-  const [derniereSauvegarde, setDerniereSauvegarde] = useState<string | null>(null);
-  const [confirmationOuverte, setConfirmationOuverte] = useState(false);
-
-  useEffect(() => {
-    precharger();
-    getSetting<string>(CLE_DERNIERE_SAUVEGARDE).then((v) => setDerniereSauvegarde(v ?? null));
-  }, []);
-
-  const sauvegarder = async () => {
-    setErreur(null);
-    setStatutSauvegarde('en_cours');
-    try {
-      const jeton = await obtenirJeton();
-      const sauvegarde = await construireSauvegardeComplete();
-      await envoyerSauvegarde(jeton, JSON.stringify(sauvegarde));
-      const maintenant = new Date().toISOString();
-      await setSetting(CLE_DERNIERE_SAUVEGARDE, maintenant);
-      setDerniereSauvegarde(maintenant);
-      setStatutSauvegarde('inactif');
-    } catch (e) {
-      setErreur(e instanceof Error ? e.message : String(e));
-      setStatutSauvegarde('erreur');
-    }
-  };
-
-  const restaurer = async () => {
-    setConfirmationOuverte(false);
-    setErreur(null);
-    setStatutRestauration('en_cours');
-    try {
-      const jeton = await obtenirJeton();
-      const contenu = await recupererSauvegarde(jeton);
-      if (!contenu) {
-        setErreur(t('cloudBackup.noBackupFound'));
-        setStatutRestauration('erreur');
-        return;
-      }
-      const data: unknown = JSON.parse(contenu);
-      if (!sauvegardeValide(data)) {
-        setErreur(t('cloudBackup.invalidBackup'));
-        setStatutRestauration('erreur');
-        return;
-      }
-      await appliquerSauvegardeComplete(data);
-      window.location.reload();
-    } catch (e) {
-      setErreur(e instanceof Error ? e.message : String(e));
-      setStatutRestauration('erreur');
-    }
-  };
+  const { t } = useLanguage();
+  const {
+    statutSauvegarde,
+    statutRestauration,
+    erreur,
+    derniereSauvegardeAffichee,
+    confirmationOuverte,
+    sauvegarder,
+    demanderRestauration,
+    annulerRestauration,
+    confirmerRestauration,
+  } = useCloudBackup();
 
   return (
     <div className="card">
@@ -90,16 +43,16 @@ export function CloudBackupSection() {
         <button
           type="button"
           className="btn btn--sm"
-          onClick={() => setConfirmationOuverte(true)}
+          onClick={demanderRestauration}
           disabled={!googleDriveConfigure() || statutRestauration === 'en_cours'}
         >
           {statutRestauration === 'en_cours' ? t('cloudBackup.restoring') : t('cloudBackup.restoreNow')}
         </button>
       </div>
 
-      {derniereSauvegarde && (
+      {derniereSauvegardeAffichee && (
         <p className="text-sm text-muted" style={{ marginTop: '0.5rem' }}>
-          {t('cloudBackup.lastBackup', { date: new Date(derniereSauvegarde).toLocaleString(language) })}
+          {derniereSauvegardeAffichee}
         </p>
       )}
       {erreur && (
@@ -109,14 +62,14 @@ export function CloudBackupSection() {
       )}
 
       {confirmationOuverte && (
-        <Modal onClose={() => setConfirmationOuverte(false)}>
+        <Modal onClose={annulerRestauration}>
           <h3>{t('cloudBackup.restoreConfirmTitle')}</h3>
           <p className="text-muted">{t('cloudBackup.restoreConfirmBody')}</p>
           <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
-            <button className="btn" onClick={() => setConfirmationOuverte(false)}>
+            <button className="btn" onClick={annulerRestauration}>
               {t('cloudBackup.cancel')}
             </button>
-            <button className="btn btn--danger" onClick={restaurer}>
+            <button className="btn btn--danger" onClick={confirmerRestauration}>
               {t('cloudBackup.restoreConfirmButton')}
             </button>
           </div>

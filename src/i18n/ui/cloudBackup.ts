@@ -28,9 +28,8 @@ export const cloudBackup: UiDictionary = {
   'cloudBackup.cancel': { fr: 'Annuler', en: 'Cancel' },
   'cloudBackup.restoreConfirmButton': { fr: 'Restaurer', en: 'Restore' },
   'cloudBackup.homeBannerText': {
-    fr: "Protège tes bandes d'une perte de données : configure la sauvegarde sur Google Drive.",
-    en: 'Protect your warbands from data loss: set up Google Drive backup.',
+    fr: "Protège tes bandes d'une perte de données : sauvegarde-les sur Google Drive.",
+    en: 'Protect your warbands from data loss: back them up to Google Drive.',
   },
-  'cloudBackup.homeBannerLink': { fr: 'Configurer', en: 'Set up' },
   'cloudBackup.emptyStateButton': { fr: 'Restaurer depuis Drive', en: 'Restore from Drive' },
 };
