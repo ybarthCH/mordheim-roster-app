@@ -8,14 +8,13 @@
 // connecté, seulement l'état et la date de dernière sauvegarde.
 import { getSetting, setSetting } from '../db/db';
 
-// Client ID OAuth "Web application" (projet Google Cloud "encoded-axis-508308-h9",
-// origines autorisées : musterheim.app, ybarthch.github.io, localhost:5173).
-// Ce n'est pas un secret — contrairement au client_secret livré dans le même
-// export JSON (jamais utilisé ici, ce flux est 100 % client) — donc sans
-// risque à committer en clair : la sécurité tient aux origines JavaScript
-// autorisées configurées côté Google Cloud Console, pas au secret de cette
-// valeur.
-const GOOGLE_CLIENT_ID: string = '898625497116-tbg1mmt6egj933o2pfii25mkcvr15s0m.apps.googleusercontent.com';
+// Client ID OAuth "Web application" (origines autorisées : musterheim.app,
+// ybarthch.github.io, localhost:5173). Ce n'est pas un secret — contrairement
+// au client_secret livré dans le même export JSON (jamais utilisé ici, ce
+// flux est 100 % client) — donc sans risque à committer en clair : la
+// sécurité tient aux origines JavaScript autorisées configurées côté Google
+// Cloud Console, pas au secret de cette valeur.
+const GOOGLE_CLIENT_ID: string = '97136207777-3oo115tfuiqi30b1o9jjkiv516b3n33v.apps.googleusercontent.com';
 
 const SCOPE = 'https://www.googleapis.com/auth/drive.appdata';
 const NOM_FICHIER = 'musterheim-backup.json';
