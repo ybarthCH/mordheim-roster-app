@@ -198,8 +198,8 @@ export function ListeBandesScreen() {
           <p className="text-sm">{t('home.emptySubtitle')}</p>
           <button
             type="button"
-            className="btn btn--sm flex items-center gap-sm"
-            style={{ marginTop: '0.6rem', display: 'inline-flex' }}
+            className="btn--pack-pill-sm"
+            style={{ marginTop: '0.6rem' }}
             onClick={demanderRestauration}
             disabled={!googleDriveConfigure() || statutRestauration === 'en_cours'}
           >
@@ -320,17 +320,17 @@ export function ListeBandesScreen() {
         </Modal>
       )}
 
-      <div className="card card--tight" style={{ marginTop: '2rem' }}>
-        <div className="flex items-center gap-sm">
+      <div className="card card--tight" style={{ marginTop: '2rem', textAlign: 'center' }}>
+        <div className="flex items-center gap-sm" style={{ justifyContent: 'center' }}>
           <GoogleDriveLogo size="1.6em" />
           <p className="text-sm mb-0">
             {derniereSauvegardeAffichee ?? t('cloudBackup.homeBannerText')}
           </p>
         </div>
-        <div className="flex gap-sm" style={{ flexWrap: 'wrap', marginTop: '0.5rem' }}>
+        <div className="flex items-center gap-sm" style={{ justifyContent: 'center', flexWrap: 'wrap', marginTop: '0.6rem' }}>
           <button
             type="button"
-            className="btn btn--sm"
+            className="btn--pack-pill-sm"
             onClick={sauvegarder}
             disabled={!googleDriveConfigure() || statutSauvegarde === 'en_cours'}
           >
@@ -338,7 +338,7 @@ export function ListeBandesScreen() {
           </button>
           <button
             type="button"
-            className="btn btn--sm"
+            className="btn--pack-pill-sm"
             onClick={demanderRestauration}
             disabled={!googleDriveConfigure() || statutRestauration === 'en_cours'}
           >
