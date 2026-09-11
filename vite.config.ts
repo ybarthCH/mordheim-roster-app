@@ -56,6 +56,14 @@ export default defineConfig(({ command }) => ({
     },
   },
   define: {
+    // 'prod' uniquement pour le build Infomaniak (musterheim.app) ; 'dev'
+    // pour GitHub Pages ET le serveur de dev local — sert à isoler le
+    // fichier de sauvegarde Google Drive (voir utils/googleDrive.ts) : le
+    // Client ID OAuth étant partagé entre les trois origines autorisées, un
+    // même compte Google connecté sur dev et sur prod pointerait sinon vers
+    // le même appDataFolder et le même fichier, chaque sauvegarde de l'un
+    // écrasant celle de l'autre.
+    __DEPLOY_TARGET__: JSON.stringify(process.env.DEPLOY_TARGET === 'root' ? 'prod' : 'dev'),
     __APP_VERSION__: JSON.stringify(gitShortSha()),
     __APP_BUILD_DATE__: JSON.stringify(new Date().toISOString()),
   },

@@ -17,7 +17,14 @@ import { getSetting, setSetting } from '../db/db';
 const GOOGLE_CLIENT_ID: string = '97136207777-3oo115tfuiqi30b1o9jjkiv516b3n33v.apps.googleusercontent.com';
 
 const SCOPE = 'https://www.googleapis.com/auth/drive.appdata';
-const NOM_FICHIER = 'musterheim-backup.json';
+// Le Client ID OAuth ci-dessus est partagé entre musterheim.app et
+// ybarthch.github.io (mêmes origines autorisées) : du point de vue de
+// Google, c'est la même « app », donc le même appDataFolder pour un compte
+// donné. Sans ce suffixe, une sauvegarde faite sur dev/GitHub Pages
+// écraserait celle de prod (et vice versa) au prochain nom de fichier
+// identique — fichiers distincts par cible de déploiement pour isoler les
+// deux (voir __DEPLOY_TARGET__ dans vite.config.ts).
+const NOM_FICHIER = __DEPLOY_TARGET__ === 'prod' ? 'musterheim-backup.json' : 'musterheim-backup-dev.json';
 const CLE_FICHIER_ID = 'google_drive_backup_file_id';
 const DRIVE_FILES_URL = 'https://www.googleapis.com/drive/v3/files';
 const DRIVE_UPLOAD_URL = 'https://www.googleapis.com/upload/drive/v3/files';
