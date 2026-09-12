@@ -81,6 +81,8 @@ export const REGLES_BASE: ChapitreRegleBase[] = [
         titre: 'Se cacher',
         texte:
           "Une figurine peut se cacher si elle termine son déplacement derrière un muret, une colonne ou tout autre objet assez grand pour qu'elle puisse s'y dissimuler. Le joueur doit signaler que son combattant se cache en plaçant un pion caché à côté de lui. Une figurine sonnée, qui court, fuit ou charge ne peut pas se cacher.\n\n- Si elle ne sort pas de sa cachette, une figurine peut rester cachée plusieurs tours, même si elle se déplace.\n- Une figurine cachée ne peut ni tirer, ni lancer de sort sans trahir sa position et ne plus être cachée.\n- Il n'est pas possible de voir, cibler ou charger une figurine cachée.\n- Une figurine verra ou entendra toujours un ennemi caché à une distance égale à son Initiative en pas.\n- Si un ennemi se déplace de manière à pouvoir la voir, la figurine n'est plus considérée comme cachée et le pion est retiré.",
+        precisionFaq:
+          "Les règles de Dissimulation (se cacher) et de Hors de vue sont indépendantes l'une de l'autre — traitez-les séparément même si les deux s'appliquent en même temps. Une figurine derrière un muret bas ou à l'angle d'un coin peut charger même si elle est déclarée Cachée (Mordheim Rules Review 2005, FAQ).",
       },
       {
         id: 'grimper_ou_descendre',
@@ -123,6 +125,8 @@ export const REGLES_BASE: ChapitreRegleBase[] = [
         titre: 'Phase de tir — qui peut tirer',
         texte:
           "Pendant votre phase de Tir, chacun de vos combattants peut utiliser l'une de ses armes pour tirer. Effectuez les tirs un par un : désignez la figurine qui va tirer, désignez sa cible, mesurez et vérifiez la portée de tir, déterminez si le combattant touche, s'il a touché déterminez si la cible est Blessée puis, le cas échéant, les Blessures, et passez au tireur suivant. Vous pouvez tirer dans l'ordre que vous voulez.\n\nFigurines à terre, sonnées ou qui se relèvent : les figurines à terre ou sonnées ne peuvent pas tirer. Les figurines qui viennent de se relever peuvent tirer.\n\nUne fois par phase de Tir, chacune de vos figurines peut tirer si elle voit une cible et possède une arme de tir. Il est impossible de tirer en étant engagé au corps à corps, en ayant couru ou raté une charge pendant la phase de Mouvement, ou en s'étant rallié lors du même tour.\n\nPour viser une cible, la figurine doit pouvoir la voir (penchez-vous sur la surface de jeu et mettez-vous dans l'axe de vision de la figurine). Les combattants peuvent voir à 360° et peuvent pivoter dans n'importe quelle direction avant de tirer ; pivoter sur place ne compte pas comme un déplacement.",
+        precisionFaq:
+          "Un guerrier disposant de plusieurs tirs dans son tour peut choisir sa cible avant chaque tir, plutôt que de toutes les désigner avant de lancer le moindre dé (Mordheim Rules Review 2005, FAQ).",
       },
       {
         id: 'cible_prioritaire',
@@ -176,6 +180,8 @@ export const REGLES_BASE: ChapitreRegleBase[] = [
         titre: 'Qui frappe en premier',
         texte:
           "Les figurines qui disposent de la capacité frappe en premier (grâce à une charge, certains équipements, etc.) frappent avant tout le monde, par ordre décroissant d'Initiative. Elles sont suivies par les autres belligérants, qui frappent également par ordre d'Initiative. Suivent les figurines qui doivent frapper en dernier (à cause de certains équipements ou autre), toujours dans l'ordre décroissant d'Initiative. Enfin, les figurines qui se sont relevées lors de la phase de Ralliement frappent en tout dernier.\n\nDans tous les cas, les ex æquo sont départagés en lançant 1D6.",
+        precisionFaq:
+          "Si une figurine déjà engagée au corps à corps est chargée par un second ennemi lors d'un tour suivant, cela ne compte pas comme un nouveau « premier tour de combat » pour des règles comme frappe en premier (Mordheim Rules Review 2005, FAQ).",
       },
       {
         id: 'toucher_ennemi',
@@ -274,6 +280,8 @@ export const REGLES_BASE: ChapitreRegleBase[] = [
             ['5-6', 'Coup de maître ! 2 Blessures, sans Sauvegarde, Dégâts +2.'],
           ],
         },
+        precisionFaq:
+          "Un sort ne peut pas causer de Coup Critique directement (ex : un sort à dégâts directs comme Douleur de Mots). En revanche, un guerrier qui bénéficie d'un sort améliorant ses capacités de combat (ex : Marteau de Sigmar) peut infliger des Coups Critiques avec ses attaques (Mordheim Rules Review 2005, FAQ).",
       },
       {
         id: 'armure',
@@ -343,6 +351,8 @@ export const REGLES_BASE: ChapitreRegleBase[] = [
         titre: 'Test de Déroute',
         texte:
           "Un joueur doit faire un test de Déroute au début de son tour si le quart (25%) ou plus de sa bande est hors de combat. Même les bandes habituellement immunisées à la psychologie (comme les Morts-Vivants) doivent faire le test.\n\nSi le test est raté, la bande perd la bataille automatiquement et la partie prend fin immédiatement. Pour effectuer le test, lancez 2D6 : si le score est inférieur ou égal au Commandement du Chef de bande, le joueur peut continuer le combat. Si le Chef est hors de combat ou sonné, utilisez le Cd le plus haut parmi les guerriers qui ne sont ni sonnés ni hors de combat.\n\nUn joueur peut volontairement abandonner le combat au début de n'importe lequel de ses tours, mais seulement s'il a déjà dû effectuer un test de Déroute ou si au moins 25% de ses figurines sont hors de combat.\n\nParties multi-joueurs (Chaos dans les Rues) : si l'une des bandes rate un test de Déroute (ou si tous ses membres sont hors de combat), la partie n'est pas forcément terminée. À moins que des conditions de victoire spéciales ne soient stipulées dans le scénario, une partie multi-joueurs continue jusqu'à ce qu'il ne reste plus qu'une seule bande sur la table.",
+        precisionFaq:
+          "Un guerrier absent d'une partie (pour quelque raison que ce soit) ne compte pas dans l'effectif de la bande pour le test de Déroute (Mordheim Rules Review 2005, FAQ).",
       },
       {
         id: 'chefs',
@@ -380,7 +390,7 @@ export const REGLES_BASE: ChapitreRegleBase[] = [
         texte:
           "Une figurine doit passer un test de peur (un test de Commandement) dans les situations suivantes. Notez que les créatures qui provoquent la peur n'ont pas à faire de tels tests.\n\na) Si la figurine est chargée par un guerrier ou une créature provoquant la peur (test effectué lorsque la charge est déclarée et s'avère ne pas être ratée) :\n- 4 : la figurine se bat normalement.\n- 8 : elle doit obtenir des 6 pour toucher lors de ce tour de combat.\n\nb) Si la figurine désire charger un ennemi qui provoque la peur (test pour réussir à charger) :\n- 4 : la figurine se bat normalement.\n- 8 : elle ne peut pas charger et reste immobile pour le tour (charge ratée).",
         precisionFaq:
-          "Une figurine chargée par plusieurs combattants provoquant la peur doit faire un test pour chaque charge déclarée. Dès qu'un test est raté, il n'est plus nécessaire de faire les tests de peur suivants : elle doit obtenir des 6 pour toucher lors de ce tour de combat, quelle que soit sa cible (Mordheim Rules Review 2005 p.33).",
+          "Une figurine chargée par plusieurs combattants provoquant la peur doit faire un test pour chaque charge déclarée. Dès qu'un test est raté, il n'est plus nécessaire de faire les tests de peur suivants : elle doit obtenir des 6 pour toucher lors de ce tour de combat, quelle que soit sa cible (Mordheim Rules Review 2005 p.33). Si un test de Peur est raté (6 nécessaires pour toucher), cela s'applique contre n'importe quel adversaire attaqué ce tour, pas seulement contre celui qui a provoqué la peur (Mordheim Rules Review 2005, FAQ).",
       },
       {
         id: 'stupidite',

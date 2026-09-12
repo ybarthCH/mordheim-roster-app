@@ -61,6 +61,8 @@ const reglesBaseEn: ChapitreTraduit[] = [
         titre: 'Hiding',
         texte:
           "A model can hide if it ends its move behind a low wall, a column or a similar position where it could reasonably conceal itself. The player must declare that the warrior is hiding and place a Hidden counter beside the model. A model that runs, flees, is stunned or charges cannot hide that turn.\n\n- A model may stay hidden over several turns, so long as it stays behind a wall or similar feature, even while moving.\n- A hidden model cannot shoot or cast spells without giving away its position.\n- A hidden model cannot be seen, shot at or charged.\n- Enemy warriors will always see, hear or otherwise detect hidden foes within their Initiative value in inches.\n- If an enemy moves so that it can see the hidden warrior, the model is no longer hidden and the counter is removed.",
+        precisionFaq:
+          'The Hiding and Out of Sight rules are independent of each other — treat them separately even when both apply. A model behind a low wall or adjacent to a corner may charge even while declared Hidden (Mordheim Rules Review 2005, FAQ).',
       },
       {
         id: 'grimper_ou_descendre',
@@ -103,6 +105,8 @@ const reglesBaseEn: ChapitreTraduit[] = [
         titre: 'Shooting phase — who can shoot',
         texte:
           "During your warband's shooting phase each of your warriors may shoot once with one of his weapons. Work through the models one at a time: nominate the shooter, nominate his target, measure and check the range, work out whether he hits, and if he does work out any wounds or injuries caused, then move to the next shooter. You can take shots in any order you wish.\n\nKnocked down, stunned or recovering models: models that are knocked down or stunned may not fire. A model that stood up this turn may fire.\n\nEach model can shoot once in the shooting phase, so long as he can see a target and has a suitable weapon. He may not fire if he is engaged in hand-to-hand combat, has run or failed a charge in the movement phase, or has rallied this turn.\n\nTo shoot at a target, a model must be able to see it (stoop over the tabletop for a model's eye view). Models can see all around themselves (360°) and may be turned freely to face in any direction before firing; turning on the spot does not count as moving.",
+        precisionFaq:
+          'A model with more than one shooting attack may decide his target before each shot, rather than declaring all targets before rolling any dice (Mordheim Rules Review 2005, FAQ).',
       },
       {
         id: 'cible_prioritaire',
@@ -156,6 +160,8 @@ const reglesBaseEn: ChapitreTraduit[] = [
         titre: 'Who strikes first',
         texte:
           "Models with the strike first ability (from a charge, certain equipment, etc.) strike before anyone else, in descending Initiative order. They are followed by the remaining combatants, who also strike in Initiative order. Then come models that must strike last (due to certain equipment or other effects), again in descending Initiative order. Finally, models that stood up in the recovery phase this turn strike last of all.\n\nIn all cases, ties are broken by rolling a D6.",
+        precisionFaq:
+          "If a model already engaged in hand-to-hand combat is charged by a second enemy on a later turn, this does not count as a new 'first turn of combat' for rules such as strike first (Mordheim Rules Review 2005, FAQ).",
       },
       {
         id: 'toucher_ennemi',
@@ -254,6 +260,8 @@ const reglesBaseEn: ChapitreTraduit[] = [
             ['5-6', 'Master strike! The wound is doubled to 2 wounds, no armour saves; you gain +2 to any Injury rolls.'],
           ],
         },
+        precisionFaq:
+          'A spell cannot directly cause a Critical Hit (e.g. a direct-damage spell like Word of Pain). However, a warrior benefiting from a spell that enhances his fighting ability (e.g. The Hammer of Sigmar) can cause Critical Hits with his attacks (Mordheim Rules Review 2005, FAQ).',
       },
       {
         id: 'armure',
@@ -323,6 +331,8 @@ const reglesBaseEn: ChapitreTraduit[] = [
         titre: 'The Rout test',
         texte:
           "A player must make a Rout test at the start of his turn if a quarter (25%) or more of his warband is out of action. Even warbands normally immune to psychology (such as Undead) must make Rout tests.\n\nIf the test is failed, the warband automatically loses the fight and the game ends immediately. To take the test, roll 2D6: if the score is equal to or less than the warband leader's Leadership, the player may continue to fight. If the leader is out of action or stunned, use the highest Leadership among the remaining fighters who are not stunned or out of action.\n\nA player may voluntarily abandon the battle at the start of any of his own turns, but only once he has already had to make a Rout test, or once at least 25% of his warriors are out of action.\n\nMultiplayer games (Mayhem in the Streets): if one of the warbands fails a Rout test (or has every member out of action), the game is not necessarily over. Unless a scenario states special victory conditions, a multiplayer game continues until only one warband remains on the table.",
+        precisionFaq:
+          "A model missing a game (for any reason) does not count towards the warband's numbers for the Rout test (Mordheim Rules Review 2005, FAQ).",
       },
       {
         id: 'chefs',
@@ -360,7 +370,7 @@ const reglesBaseEn: ChapitreTraduit[] = [
         texte:
           "A model must take a Fear test (a Leadership test) in the following situations. Note that creatures that cause fear can ignore these tests.\n\na) If the model is charged by a warrior or creature that causes fear (test taken when the charge is declared and found to be within range):\n- 4: the model may fight as normal.\n- 8: it must roll 6s to score hits in the first round of that combat.\n\nb) If the model wishes to charge a fear-causing enemy (test to overcome this before charging):\n- 4: the model may fight as normal.\n- 8: the model may not charge and must remain stationary for the turn (treat as a failed charge).",
         precisionFaq:
-          "A model charged by several fear-causing combatants must take a test for each charge declared. Once a test is failed, further Fear tests are no longer required — the model must roll 6s to hit that turn of combat, regardless of target (Mordheim Rules Review 2005 p.33).",
+          "A model charged by several fear-causing combatants must take a test for each charge declared. Once a test is failed, further Fear tests are no longer required — the model must roll 6s to hit that turn of combat, regardless of target (Mordheim Rules Review 2005 p.33). If a Fear test is failed (needing 6s to hit), this applies against any opponent attacked that turn, not just the one that caused the fear test (Mordheim Rules Review 2005, FAQ).",
       },
       {
         id: 'stupidite',

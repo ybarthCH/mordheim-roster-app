@@ -8,4 +8,8 @@ export const reglesBase: UiDictionary = {
     en: 'Generic game mechanics from the rulebook (movement, shooting, close combat, injuries, leadership and psychology) — not specific to any warband.',
   },
   'reglesBase.faqLabel': { fr: 'Précision FAQ', en: 'FAQ note' },
+  'reglesBase.searchPlaceholder': {
+    fr: 'Rechercher dans le livre de règles...',
+    en: 'Search the rulebook...',
+  },
 };

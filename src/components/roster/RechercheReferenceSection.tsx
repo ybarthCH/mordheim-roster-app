@@ -7,7 +7,7 @@ import {
   type TypeEntreeReference,
 } from '../../utils/rechercheReference';
 
-const ORDRE_TYPES: TypeEntreeReference[] = ['regleSpeciale', 'objet', 'competence', 'francTireur', 'sort'];
+const ORDRE_TYPES: TypeEntreeReference[] = ['regleBase', 'regleSpeciale', 'objet', 'competence', 'francTireur', 'sort'];
 const MAX_PAR_SECTION = 30;
 const LONGUEUR_MIN_RECHERCHE = 2;
 // Certains francs-tireurs sont employables par une vingtaine de bandes
