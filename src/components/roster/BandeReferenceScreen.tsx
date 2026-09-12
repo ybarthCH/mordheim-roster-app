@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useRosters } from '../../state/useRosters';
 import { useLanguage } from '../../state/useLanguage';
 import { Screen } from '../common/Screen';
@@ -23,6 +23,7 @@ import { FRANCS_TIREURS } from '../../data/hiredSwords';
 // RosterScreen.
 export function BandeReferenceScreen() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { getRosterById } = useRosters();
   const { t, language } = useLanguage();
   const [rechercheActive, setRechercheActive] = useState(false);
@@ -69,6 +70,16 @@ export function BandeReferenceScreen() {
   return (
     <Screen title={t('bandeReference.title', { nom: roster.nom_bande })} back={`/roster/${roster.id}`}>
       <RechercheReferenceSection onActifChange={setRechercheActive} />
+
+      <button
+        type="button"
+        className="btn--pack-pill-sm"
+        style={{ marginBottom: '1rem' }}
+        onClick={() => navigate('/regles-de-base')}
+      >
+        <Icon name="grimoirePack" style={{ marginRight: '0.35em' }} />
+        {t('reglesBase.buttonLabel')}
+      </button>
 
       {!rechercheActive && aRien && <p className="text-muted">{t('bandeReference.empty')}</p>}
 
