@@ -71,15 +71,12 @@ export function BandeReferenceScreen() {
     <Screen title={t('bandeReference.title', { nom: roster.nom_bande })} back={`/roster/${roster.id}`}>
       <RechercheReferenceSection onActifChange={setRechercheActive} />
 
-      <button
-        type="button"
-        className="btn--pack-pill-sm"
-        style={{ marginBottom: '1rem' }}
-        onClick={() => navigate('/regles-de-base')}
-      >
-        <Icon name="grimoirePack" style={{ marginRight: '0.35em' }} />
-        {t('reglesBase.buttonLabel')}
-      </button>
+      <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+        <button type="button" className="btn--pack-pill-sm" onClick={() => navigate('/regles-de-base')}>
+          <Icon name="grimoirePack" style={{ marginRight: '0.35em' }} />
+          {t('reglesBase.buttonLabel')}
+        </button>
+      </div>
 
       {!rechercheActive && aRien && <p className="text-muted">{t('bandeReference.empty')}</p>}
 
