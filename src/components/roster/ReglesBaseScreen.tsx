@@ -30,6 +30,11 @@ function SousRegleContenu({ sousRegle }: { sousRegle: SousRegleBase }) {
       </p>
       {sousRegle.tableau && (
         <div style={{ overflowX: 'auto' }}>
+          {sousRegle.tableau.legende && (
+            <p className="text-sm text-muted mb-0" style={{ fontWeight: 600 }}>
+              {sousRegle.tableau.legende}
+            </p>
+          )}
           <table className="table-reference">
             <thead>
               <tr>
