@@ -208,7 +208,7 @@ function FrancTireurProfilModal({ ft, onClose }: { ft: FrancTireurCatalog; onClo
         <br />
         <strong>{t('francTireur.upkeep')}</strong> {ft.entretien.texte}
         <br />
-        <strong>{t('francTireur.source')}</strong> page {ft.page_source} {t('francTireur.sourcePdfSuffix')}
+        <strong>{t('francTireur.source')}</strong> {t('francTireur.sourceCompendiumName')}
       </p>
       <StatGrid stats={ft.stats} />
       {ft.profils_secondaires?.map((secondaire) => (

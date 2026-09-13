@@ -231,7 +231,7 @@ export function RecruterFrancTireurScreen() {
               <br />
               <strong>{t('francTireur.upkeep')}</strong> {selection.entretien.texte}
               <br />
-              <strong>{t('francTireur.source')}</strong> page {selection.page_source} {t('francTireur.sourcePdfSuffix')}
+              <strong>{t('francTireur.source')}</strong> {t('francTireur.sourceCompendiumName')}
             </p>
             <StatGrid stats={selection.stats} />
             {selection.profils_secondaires?.map((secondaire) => (
