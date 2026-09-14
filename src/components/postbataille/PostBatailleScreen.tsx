@@ -220,7 +220,10 @@ export function PostBatailleScreen() {
   // Saisie gardée en texte brut : un input contrôlé par un number forcerait
   // la valeur dès l'effacement (impossible de vider le champ pour retaper
   // un chiffre) — la conversion ne s'applique qu'à l'usage (voir `pointsVeteran`).
-  const [pointsVeteranSaisie, setPointsVeteranSaisie] = useState('0');
+  // Vide au départ plutôt que pré-rempli à '0' ou à la valeur précédente :
+  // le nouveau jet de 2D6 de cette bataille doit être saisi explicitement
+  // (voir explorationIncomplete ci-dessous), jamais deviné.
+  const [pointsVeteranSaisie, setPointsVeteranSaisie] = useState('');
   const pointsVeteran = Number(pointsVeteranSaisie) || 0;
 
   const [blessureDrafts, setBlessureDrafts] = useState<Record<string, BlessureDraft>>({});
@@ -681,8 +684,14 @@ export function PostBatailleScreen() {
 
   const indexBlessures = 1;
   const indexGainXp = 2;
+  const indexExploration = 3;
   const indexCommerce = 4;
   const indexEntretien = 5;
+  // Champ obligatoire (voir types/roster.ts, RosterInstance.points_veteran) :
+  // sans ce blocage, laisser le champ vide au moment de cliquer "Suivant"
+  // retombait silencieusement sur 0 (Number('') || 0), écrasant sans le
+  // vouloir les points vétéran réellement disponibles pour cette bande.
+  const explorationIncomplete = pointsVeteranSaisie.trim() === '';
   // Le prix de vente du wyrdstone est entièrement dérivé de la table
   // officielle (quantité vendue × taille de bande) — jamais saisi à la main,
   // pour ne jamais diverger de ce que le tableau affiche. effectifPourVente-
@@ -707,6 +716,7 @@ export function PostBatailleScreen() {
 
   const suivant = () => {
     if (etape === indexBlessures && blessuresIncompletes) return;
+    if (etape === indexExploration && explorationIncomplete) return;
     if (etape === indexCommerce && commerceIncomplet) return;
     if (etape === indexEntretien && entretienInsuffisant) return;
     setEtape((e) => Math.min(ETAPE_LABEL_KEYS.length - 1, e + 1));
@@ -1056,6 +1066,7 @@ export function PostBatailleScreen() {
       stock: [...roster.stock, ...stockCommerce],
       wyrdstone: Math.max(0, roster.wyrdstone + wyrdstoneTrouve - quantiteVendue - entretienMalepierre),
       tresorerie: tresorerieApres,
+      points_veteran: pointsVeteran,
       historique_batailles: [...roster.historique_batailles, bataille],
       // Le bonus de dé(s) d'exploration en attente (ex : Vagabond interrogé
       // lors d'une session précédente) vient d'être utilisé pour cette phase
@@ -1304,6 +1315,7 @@ export function PostBatailleScreen() {
             disabled={
               (etape === 0 && oeilApplicable && !oeilResolu) ||
               (etape === indexBlessures && blessuresIncompletes) ||
+              (etape === indexExploration && explorationIncomplete) ||
               (etape === indexCommerce && commerceIncomplet) ||
               (etape === indexEntretien && entretienInsuffisant)
             }
@@ -1331,6 +1343,11 @@ export function PostBatailleScreen() {
       {etape === indexBlessures && hcIncomplete && (
         <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
           {t('postBatailleScreen.resolveSurvivalFirst')}
+        </p>
+      )}
+      {etape === indexExploration && explorationIncomplete && (
+        <p className="text-sm text-danger" style={{ marginTop: '0.5rem' }}>
+          {t('postBatailleScreen.enterVeteranPointsFirst')}
         </p>
       )}
       {etape === indexCommerce && commerceIncomplet && (

@@ -1821,21 +1821,23 @@ export type CoutRejoindreGroupe = {
   surtaxeXpUnitaire: number;
   coutEquipementForce: number;
   coutTotal: number;
-  vetPointsIndicatifs: number;
+  coutPointsVeteran: number;
 };
 
 // Détail du coût pour faire rejoindre `quantite` nouvelles figurines à un
 // groupe d'hommes de main déjà expérimenté : surtaxe de 2 × XP du groupe par
 // figurine (elle profite immédiatement de l'XP acquise) + équipement forcé
-// identique au reste du groupe. Le coût en points vétéran reste indicatif,
-// volontairement non bloquant.
+// identique au reste du groupe. Le coût en points vétéran (coutPointsVeteran)
+// est bloquant côté appelant (voir AjouterMembreModal/RecruterDansGroupeModal,
+// comparé à RosterInstance.points_veteran) — nom conservé malgré le
+// "indicatifs" désormais trompeur, pour ne pas renommer le champ partout.
 export function calculerCoutRejoindreGroupe(groupe: Member, coutUnitaire: number, quantite: number): CoutRejoindreGroupe {
   const xpGroupe = groupe.xp;
   const surtaxeXpUnitaire = 2 * xpGroupe;
   const coutEquipementForce = coutEquipementNouvellesFigurines(groupe.inventaire, quantite, groupe.taille_groupe);
   const coutTotal = (coutUnitaire + surtaxeXpUnitaire) * quantite + coutEquipementForce;
-  const vetPointsIndicatifs = xpGroupe * quantite;
-  return { xpGroupe, surtaxeXpUnitaire, coutEquipementForce, coutTotal, vetPointsIndicatifs };
+  const coutPointsVeteran = xpGroupe * quantite;
+  return { xpGroupe, surtaxeXpUnitaire, coutEquipementForce, coutTotal, coutPointsVeteran };
 }
 
 // Fait rejoindre `quantite` nouvelles figurines à un groupe existant :
@@ -1852,12 +1854,18 @@ export function rejoindreGroupe(
   groupe: Member,
   quantite: number,
   coutTotal: number,
-  coutUnitaireRecrutement?: number
+  coutUnitaireRecrutement?: number,
+  // XP total donné aux nouvelles recrues (voir CoutRejoindreGroupe.coutPointsVeteran)
+  // — déduit de la réserve de points vétéran de la bande, plafonné à 0 : le
+  // même jet ne doit pas pouvoir financer plusieurs recrutements au-delà de
+  // ce qu'il autorise (voir points_veteran dans types/roster.ts).
+  coutPointsVeteran = 0
 ): RosterInstance {
   const nouvellesEntrees = clonerEquipementPourNouvellesFigurines(groupe.inventaire, quantite, groupe.taille_groupe);
   return {
     ...roster,
     tresorerie: roster.tresorerie - coutTotal,
+    points_veteran: Math.max(0, roster.points_veteran - coutPointsVeteran),
     membres: roster.membres.map((m) =>
       m.instance_id === groupe.instance_id
         ? {

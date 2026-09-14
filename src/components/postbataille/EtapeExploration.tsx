@@ -267,10 +267,14 @@ export function EtapeExploration({
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
         {t('exploration.veteranPointsNote')}
       </p>
+      <p className="text-sm text-muted mb-0">
+        {t('exploration.veteranPointsCurrent', { n: roster.points_veteran })}
+      </p>
       <div className="field">
         <label>{t('exploration.veteranPointsLabel')}</label>
         <input
           type="number"
+          min={0}
           value={pointsVeteranSaisie}
           onChange={(e) => onPointsVeteranSaisieChange(e.target.value)}
         />

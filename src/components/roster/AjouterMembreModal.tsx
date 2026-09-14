@@ -101,6 +101,13 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
   // plutôt que de déduire la trésorerie item par item.
   const [panier, setPanier] = useState<{ item: ShopItem; coutPaye: number }[]>([]);
   const [groupeCibleId, setGroupeCibleId] = useState<string | null>(null);
+  // Échappatoire délibérée au blocage points vétéran (voir vetPointsInsuffisants
+  // plus bas) : une bande déjà en campagne avant l'introduction de ce champ
+  // peut avoir un total hérité (voir normaliserRoster) resté à 0 faute
+  // d'avoir jamais renseigné ce jet — ne doit pas se retrouver totalement
+  // coincée. Réinitialisée à chaque changement de groupe ciblé pour ne pas
+  // rester cochée silencieusement sur un choix différent.
+  const [ignorerLimiteVeteran, setIgnorerLimiteVeteran] = useState(false);
   // Coût saisi à la main quand le profil n'a pas de prix fixe (ex : chien de
   // guerre, "25+2D6") — jet à faire sur table papier, comme pour un objet.
   const [coutManuelSaisi, setCoutManuelSaisi] = useState('');
@@ -200,6 +207,15 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
   const coutTotal = coutRejoindre ? coutRejoindre.coutTotal : coutUnitaire * quantite;
   const budgetSuffisant = coutTotal <= roster.tresorerie;
   const dupliqueraitTrinket = !!groupeCible && groupeDupliqueraitObjetLimite(groupeCible, rules);
+  // Contrairement à la trésorerie (jamais bloquante dans cette modale), les
+  // points vétéran bloquent bel et bien le recrutement par défaut — voir
+  // RosterInstance.points_veteran (types/roster.ts) : demande explicite,
+  // pour éviter de recruter au-delà de ce que la table papier autorise.
+  // `ignorerLimiteVeteran` reste une échappatoire volontaire (voir sa propre
+  // doc plus haut), donc distincte de ce booléen "insuffisant" utilisé aussi
+  // pour décider d'afficher la case à cocher elle-même.
+  const vetPointsInsuffisants = !!coutRejoindre && coutRejoindre.coutPointsVeteran > roster.points_veteran;
+  const vetPointsBloquent = vetPointsInsuffisants && !ignorerLimiteVeteran;
 
   const choisirProfil = (value: string) => {
     if (value === FRANC_TIREUR) {
@@ -217,7 +233,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
   };
 
   const confirmer = () => {
-    if (!profil || !check.ok || !coutManuelValide || dupliqueraitTrinket) return;
+    if (!profil || !check.ok || !coutManuelValide || dupliqueraitTrinket || vetPointsBloquent) return;
     if (marqueRequise && !marqueChoisie) return;
     if (premierSortRequis && !sortsChoisisValides) return;
 
@@ -227,7 +243,14 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
       // d'XP de départ propre. Son équipement est forcément identique au
       // reste du groupe : pas d'étape achat séparée à proposer ensuite.
       onUpdateRoster(
-        rejoindreGroupe(roster, groupeCible, quantite, coutTotal, coutManuelRequis ? coutUnitaire : undefined)
+        rejoindreGroupe(
+          roster,
+          groupeCible,
+          quantite,
+          coutTotal,
+          coutManuelRequis ? coutUnitaire : undefined,
+          coutRejoindre?.coutPointsVeteran
+        )
       );
       onClose();
       return;
@@ -653,15 +676,20 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
                 onChange={(e) => {
                   setGroupeCibleId(e.target.value || null);
                   setQuantiteSaisie('1');
+                  setIgnorerLimiteVeteran(false);
                 }}
               >
                 <option value="">{t('ajouterMembre.newGroup')}</option>
                 {groupesExistants.map((g) => (
                   <option key={g.instance_id} value={g.instance_id}>
-                    {t('ajouterMembre.joinGroupPrefix')} « {g.nom_perso} » (×{g.taille_groupe}, {g.xp} XP)
+                    {t('ajouterMembre.joinGroupPrefix')} « {g.nom_perso} » (×{g.taille_groupe}, {g.xp} XP
+                    {g.xp > 0 ? `, ${g.xp} ${t('ajouterMembre.vetPointsAbbrev')}` : ''})
                   </option>
                 ))}
               </select>
+              <p className="text-sm text-muted mb-0">
+                {t('ajouterMembre.vetPointsAvailable', { n: roster.points_veteran })}
+              </p>
             </div>
           )}
           {!groupeCible && (
@@ -781,8 +809,29 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
                 </p>
               )}
               <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-                {t('ajouterMembre.vetPointsIndicative', { points: coutRejoindre.vetPointsIndicatifs })}
+                {t('ajouterMembre.vetPointsCost', {
+                  points: coutRejoindre.coutPointsVeteran,
+                  disponibles: roster.points_veteran,
+                })}
               </p>
+              {vetPointsInsuffisants && (
+                <>
+                  <p className="text-danger text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+                    {t('ajouterMembre.vetPointsInsufficient', {
+                      disponibles: roster.points_veteran,
+                      requis: coutRejoindre.coutPointsVeteran,
+                    })}
+                  </p>
+                  <label className="flex items-center gap-sm text-sm" style={{ marginTop: '0.3rem', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={ignorerLimiteVeteran}
+                      onChange={(e) => setIgnorerLimiteVeteran(e.target.checked)}
+                    />
+                    {t('ajouterMembre.vetPointsOverride')}
+                  </label>
+                </>
+              )}
               {dupliqueraitTrinket && (
                 <p className="text-danger text-sm mb-0" style={{ marginTop: '0.3rem' }}>
                   {t('ajouterMembre.trinketBlocked')}
@@ -811,6 +860,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
             !check.ok ||
             !coutManuelValide ||
             dupliqueraitTrinket ||
+            vetPointsBloquent ||
             (marqueRequise && !groupeCible && !marqueChoisie) ||
             (premierSortRequis && !sortsChoisisValides)
           }

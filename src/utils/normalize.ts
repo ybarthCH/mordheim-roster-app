@@ -6,7 +6,7 @@
 // import JSON) doit passer par ici avant d'être utilisée par l'UI.
 import { v4 as uuidv4 } from 'uuid';
 import type { Stats } from '../types/catalog';
-import type { Member, RosterInstance, Statut } from '../types/roster';
+import type { BattleRecord, Member, RosterInstance, Statut } from '../types/roster';
 
 const STATS_VIDES: Stats = { M: 0, CC: 0, CT: 0, F: 0, E: 0, PV: 0, I: 0, A: 0, Cd: 0 };
 
@@ -107,18 +107,29 @@ function normaliserMembre(membreBrut: unknown): Member {
 
 export function normaliserRoster(roster: Partial<RosterInstance>): RosterInstance {
   const now = new Date().toISOString();
+  const historique_batailles = tableauSur<BattleRecord>(roster.historique_batailles);
+  // Champ ajouté après coup (voir points_veteran dans types/roster.ts) :
+  // `roster.points_veteran` n'existe pas du tout (undefined, distinct d'un 0
+  // explicite) sur une bande sauvegardée avant son introduction. Plutôt que
+  // de retomber sur 0 — ce qui bloquerait tout recrutement dans un groupe
+  // déjà expérimenté sans que le joueur ait rien pu y faire — on reprend le
+  // dernier jet effectivement journalisé (voir JournalPostBataille.pointsVeteran,
+  // saisi de façon non contraignante avant ce champ), lui-même 0 par défaut
+  // pour une bande n'ayant encore fait aucun post-bataille.
+  const pointsVeteranHerites = historique_batailles.at(-1)?.journal?.pointsVeteran ?? 0;
   return {
     id: roster.id ?? uuidv4(),
     bande_id: roster.bande_id ?? '',
     nom_bande: roster.nom_bande ?? '',
     tresorerie: roster.tresorerie ?? 0,
     wyrdstone: roster.wyrdstone ?? 0,
+    points_veteran: roster.points_veteran ?? pointsVeteranHerites,
     equipement_reserve: roster.equipement_reserve ?? '',
     stock: tableauSur(roster.stock),
     objets_personnalises: tableauSur(roster.objets_personnalises),
     objets_surcharges: objetSur(roster.objets_surcharges),
     membres: tableauSur<unknown>(roster.membres).map(normaliserMembre),
-    historique_batailles: tableauSur(roster.historique_batailles),
+    historique_batailles,
     leader_instance_id: roster.leader_instance_id,
     profils_bannis: tableauSur(roster.profils_bannis),
     tribu: roster.tribu,

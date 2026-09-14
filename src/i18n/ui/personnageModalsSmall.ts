@@ -20,9 +20,17 @@ export const personnageModalsSmall: UiDictionary = {
   'recruterDansGroupe.forcedEquipmentPrefix': { fr: 'Équipement forcé :', en: 'Forced equipment:' },
   'recruterDansGroupe.totalForPrefix': { fr: 'po au total pour', en: 'gc total for' },
   'recruterDansGroupe.model': { fr: 'figurine', en: 'model' },
-  'recruterDansGroupe.vetPointsIndicative': {
-    fr: 'Coût indicatif en points vétéran : {points} (non contrôlé — libre à toi de recruter même sans les points suffisants).',
-    en: "Indicative cost in veteran points: {points} (not enforced — you're free to recruit even without enough points).",
+  'recruterDansGroupe.vetPointsCost': {
+    fr: 'Coût en points vétéran : {points} (disponibles : {disponibles}).',
+    en: 'Cost in veteran points: {points} (available: {disponibles}).',
+  },
+  'recruterDansGroupe.vetPointsInsufficient': {
+    fr: 'Points vétéran insuffisants pour faire rejoindre ce groupe ({disponibles} disponible(s), {requis} requis) — fais un post-bataille pour en obtenir de nouveaux, réduis le nombre de figurines, ou ignore cette limite ci-dessous.',
+    en: 'Not enough veteran points to join this group ({disponibles} available, {requis} required) — run a post-battle wizard to get new ones, reduce the number of models, or ignore this limit below.',
+  },
+  'recruterDansGroupe.vetPointsOverride': {
+    fr: "Ignorer cette limite et recruter quand même (ex : bande déjà en campagne, points vétéran non suivis jusqu'ici).",
+    en: "Ignore this limit and recruit anyway (e.g. warband already mid-campaign, veteran points not tracked until now).",
   },
   'recruterDansGroupe.trinketBlocked': {
     fr: "Recrutement bloqué : l'équipement du groupe contient un objet limité à un exemplaire par bande et serait automatiquement dupliqué.",

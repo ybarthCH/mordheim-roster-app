@@ -86,6 +86,7 @@ export function CreationBandeScreen() {
       nom_bande: nomBande,
       tresorerie: restant,
       wyrdstone: 0,
+      points_veteran: 0,
       equipement_reserve: '',
       stock: [],
       objets_personnalises: objetsPersonnalises,

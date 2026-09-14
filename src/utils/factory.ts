@@ -76,6 +76,7 @@ export function creerRoster(bandeId: string, nomBande: string, tresorerie: numbe
     nom_bande: nomBande,
     tresorerie,
     wyrdstone: 0,
+    points_veteran: 0,
     equipement_reserve: '',
     stock: [],
     objets_personnalises: [],
