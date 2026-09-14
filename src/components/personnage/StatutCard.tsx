@@ -255,8 +255,14 @@ export function StatutCard({
           />
           <span className="text-sm text-muted">
             {t('statutCard.model')}
-            {membre.taille_groupe > 1 ? 's' : ''} {t('statutCard.identicalModels')}
             {membre.taille_groupe > 1 ? 's' : ''}
+            {!profil.equipement_groupe_libre && (
+              <>
+                {' '}
+                {t('statutCard.identicalModels')}
+                {membre.taille_groupe > 1 ? 's' : ''}
+              </>
+            )}
           </span>
         </div>
       )}

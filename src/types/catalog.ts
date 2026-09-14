@@ -536,6 +536,17 @@ export type Profile = {
   // résultat Tué devient -D3 PV permanents, mort normale seulement si cela
   // ramène ses PV à 0 ou moins — voir BlessureGraveWizard.
   eternelle?: boolean;
+  // Ce groupe d'hommes de main n'est pas tenu d'avoir un équipement
+  // identique entre ses figurines (ex : "Styles de combat" des Gladiateurs —
+  // "les Hommes de main peuvent avoir différents styles de combat au sein
+  // d'un même groupe et ne sont donc pas obligés d'être tous équipés de la
+  // même manière", Gladiateurs [GLM].pdf p.2). Neutralise uniquement
+  // l'avertissement "équipement dépareillé" (voir inventaireGroupeMismatch
+  // dans utils/shop.ts) — l'achat en boutique équipe toujours tout le
+  // groupe d'un coup comme avant ; un équipement différent par figurine
+  // reste à distribuer à la main depuis l'armurerie ("Donner à…"), déjà
+  // possible sans ce champ, juste signalé à tort comme une erreur jusqu'ici.
+  equipement_groupe_libre?: boolean;
 };
 
 // Contraintes de composition de bande. Purement informatif (affiché comme

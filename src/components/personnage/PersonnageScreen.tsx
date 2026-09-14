@@ -554,6 +554,7 @@ export function PersonnageScreen({ embedded, instanceId }: PersonnageScreenProps
         onVendre={setVenteEnCours}
         onRetirer={retirerItem}
         verrouille={!!francTireur}
+        equipementGroupeLibre={!!profil?.equipement_groupe_libre}
       />
 
       {estSorcier(catalogue, profil, membre.marque) && (

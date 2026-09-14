@@ -20,6 +20,12 @@ type EquipementCardProps = {
   onVendre: (entree: InventoryEntry) => void;
   onRetirer: (instanceId: string) => void;
   verrouille?: boolean;
+  // Vrai pour un profil dont la règle de bande autorise explicitement un
+  // équipement différent entre figurines d'un même groupe (voir
+  // Profile.equipement_groupe_libre, types/catalog.ts — ex : "Styles de
+  // combat" des Gladiateurs) : neutralise l'avertissement "équipement
+  // dépareillé" ci-dessous, qui serait sinon un faux positif pour ce profil.
+  equipementGroupeLibre?: boolean;
 };
 
 export function EquipementCard({
@@ -32,6 +38,7 @@ export function EquipementCard({
   onVendre,
   onRetirer,
   verrouille = false,
+  equipementGroupeLibre = false,
 }: EquipementCardProps) {
   const { t, language } = useLanguage();
   return (
@@ -63,7 +70,7 @@ export function EquipementCard({
           <span className="text-muted">{t('equipementCard.contractEquipmentNote')}</span>
         </p>
       )}
-      {inventaireGroupeMismatch(membre) && (
+      {inventaireGroupeMismatch(membre) && !equipementGroupeLibre && (
         <p className="text-sm text-danger" style={{ marginTop: 0 }}>
           ⚠ {t('equipementCard.mismatchWarning', { taille: membre.taille_groupe })}
         </p>

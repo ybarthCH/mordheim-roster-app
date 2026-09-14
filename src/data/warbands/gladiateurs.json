@@ -92,7 +92,8 @@
       "stats": { "M": 4, "CC": 4, "CT": 3, "F": 3, "E": 3, "PV": 1, "I": 3, "A": 1, "Cd": 7 },
       "acces_competences": [],
       "acces_equipement": ["style_orque", "style_mort_vivant", "style_empire", "style_chaos"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "equipement_groupe_libre": true
     },
     {
       "id": "retiaire",
@@ -109,7 +110,8 @@
       ],
       "acces_competences": [],
       "acces_equipement": ["style_skink", "style_furie"],
-      "acces_competences_a_verifier": false
+      "acces_competences_a_verifier": false,
+      "equipement_groupe_libre": true
     },
     {
       "id": "gladiateur_ogre",
