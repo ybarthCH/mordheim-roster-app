@@ -33,6 +33,36 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-09-13',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Nouveau : livre de règles de base intégré (mouvement, tir, corps à corps, blessures, psychologie, séquence de bataille), accessible depuis la page référence de bande — avec sa propre recherche, une table des matières cliquable détaillée (chapitres et sous-chapitres), des précisions FAQ/errata, et un filtre « Règles » dédié dans la recherche transversale.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Les francs-tireurs listés dans « Francs-tireurs disponibles (référence) » sont maintenant cliquables : consulte leur fiche complète (statistiques, équipement, règles spéciales) sans passer par l'écran de recrutement.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Correction de deux tableaux du livre de règles (Corps à corps, Blessures) dont la première colonne s'affichait anormalement large.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Clarification du texte de plusieurs règles (Ralliement, Grimper/descendre, Sauter, Seul contre tous, Fuite, Peur, Stupidité) qui utilisaient un raccourci ambigu (« 4 : », « 8 : ») — remplacé par « Test réussi »/« Test raté ».",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "La source citée pour les profils de francs-tireurs n'indiquait pas le nom du PDF et affichait un numéro de page devenu peu fiable (fichier source depuis scindé en deux) — corrigé.",
+      },
+    ],
+  },
+  {
     date: '2026-09-11',
     points: [
       {

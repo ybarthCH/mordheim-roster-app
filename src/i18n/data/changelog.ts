@@ -8,6 +8,13 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-09-13': [
+    'New: an integrated Core Rulebook (Movement, Shooting, Close Combat, Injuries, Psychology, the Turn sequence), accessible from the warband reference page — with its own search, a detailed clickable table of contents (chapters and sub-chapters), FAQ/errata notes, and a dedicated "Rules" filter in the cross-warband search.',
+    'Hired Swords listed under "Available Hired Swords (reference)" are now clickable: view their full profile (stats, equipment, special rules) without going through the hiring screen.',
+    'Fixed two Core Rulebook tables (Close Combat, Injuries) whose first column displayed abnormally wide.',
+    'Clarified the text of several rules (Rally, Climbing/climbing down, Jumping, All Alone, Fleeing, Fear, Stupidity) that used an ambiguous shorthand ("4:", "8:") — replaced with "Passed"/"Failed".',
+    "The source cited for Hired Sword profiles didn't name the PDF and showed a page number that had become unreliable (the source file has since been split in two) — fixed.",
+  ],
   '2026-09-11': [
     "New manual cloud backup to Google Drive (Settings, and a direct shortcut from the warband list): sends a full copy of your warbands and settings to a hidden file in your own Drive, restorable at any time on any device signed into the same account.",
   ],
