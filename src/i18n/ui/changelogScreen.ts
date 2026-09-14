@@ -9,10 +9,6 @@ export const changelogScreen: UiDictionary = {
   // de l'app (Réglages, Mes bandes...) sont plus courts et ne tronquent
   // jamais. Le menu garde le libellé complet, moins contraint en largeur.
   'changelog.title': { fr: 'Nouveautés', en: "What's new" },
-  'changelog.intro': {
-    fr: "Historique des mises à jour de l'application, les plus récentes en premier.",
-    en: 'History of app updates, most recent first.',
-  },
   'changelog.category.fonctionnalite': { fr: 'Nouveautés', en: 'New features' },
   'changelog.category.interface': { fr: 'Interface', en: 'Interface' },
   'changelog.category.autre': { fr: 'Corrections et autres', en: 'Fixes & other changes' },

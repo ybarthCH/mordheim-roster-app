@@ -30,10 +30,6 @@ export function ChangelogScreen() {
 
   return (
     <Screen title={t('changelog.title')} back>
-      <p className="text-sm text-muted" style={{ marginTop: 0 }}>
-        {t('changelog.intro')}
-      </p>
-
       {entries.map((entree) => (
         <div className="card" key={entree.date}>
           <h3 className="mt-0">{formatDate(entree.date, locale)}</h3>

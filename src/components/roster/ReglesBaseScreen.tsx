@@ -61,7 +61,15 @@ function SousRegleContenu({ sousRegle }: { sousRegle: SousRegleBase }) {
         </p>
       )}
       {sousRegle.noteMusterheim && (
-        <div className="card card--tight" style={{ marginTop: '0.5rem', borderColor: 'var(--accent)' }}>
+        <div
+          style={{
+            marginTop: '0.5rem',
+            border: '1px solid var(--accent)',
+            borderRadius: 'var(--radius)',
+            background: 'var(--bg-inset)',
+            padding: '0.5rem 0.65rem',
+          }}
+        >
           <p className="text-sm mb-0">
             <Icon name="engrenage" style={{ marginRight: '0.35em', color: 'var(--accent)' }} />
             <strong>{t('reglesBase.musterheimNoteLabel')}</strong> — {sousRegle.noteMusterheim}
