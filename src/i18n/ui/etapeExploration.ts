@@ -52,8 +52,12 @@ export const etapeExploration: UiDictionary = {
   },
   'exploration.veteranPointsTitle': { fr: 'Nombre de points vétéran disponibles', en: 'Number of veteran points available' },
   'exploration.veteranPointsNote': {
-    fr: 'Jet de 2D6 effectué sur table papier — saisis le résultat ici pour qu\'il apparaisse dans le journal de la bataille.',
-    en: "Roll of 2D6 made on your tabletop — enter the result here so it appears in the battle's journal.",
+    fr: "Jet de 2D6 effectué sur table papier : représente l'expérience totale des nouvelles recrues actuellement disponibles pour rejoindre un groupe d'hommes de main déjà expérimenté (voir l'écran de recrutement). Remplace, quel qu'il soit, le total actuellement disponible pour cette bande.",
+    en: "Roll of 2D6 made on your tabletop: represents the total experience of the new recruits currently available to join an already-experienced Henchman group (see the recruitment screen). Replaces, whatever it currently is, the total available for this warband.",
+  },
+  'exploration.veteranPointsCurrent': {
+    fr: 'Actuellement disponible pour cette bande : {n} point(s) vétéran.',
+    en: 'Currently available for this warband: {n} veteran point(s).',
   },
   'exploration.veteranPointsLabel': { fr: 'Points vétéran', en: 'Veteran points' },
   'exploration.bandSourceLabel': { fr: 'Bande', en: 'Warband' },

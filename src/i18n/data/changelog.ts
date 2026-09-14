@@ -8,6 +8,11 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-09-14': [
+    "Veteran points (recruiting into an already-experienced Henchman group) are now a real warband resource: enter them in the post-battle wizard's Exploration step (a required field), and they then show up at recruitment and cap how many recruits an experienced group can take on.",
+    'New "Campaign" chapter in the Core Rulebook (warband rating, veteran points, disbanding a warband, death of a warrior, rare items, selling equipment), each rule paired with a "Musterheim note" on where and how it\'s handled in the app.',
+    'Minor layout fixes (the rulebook note box, the release notes screen).',
+  ],
   '2026-09-13': [
     'New: an integrated Core Rulebook (Movement, Shooting, Close Combat, Injuries, Psychology, the Turn sequence), accessible from the warband reference page — with its own search, a detailed clickable table of contents (chapters and sub-chapters), FAQ/errata notes, and a dedicated "Rules" filter in the cross-warband search.',
     'Hired Swords listed under "Available Hired Swords (reference)" are now clickable: view their full profile (stats, equipment, special rules) without going through the hiring screen.',

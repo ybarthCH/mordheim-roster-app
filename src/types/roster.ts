@@ -362,6 +362,15 @@ export type RosterInstance = {
   nom_bande: string;
   tresorerie: number;
   wyrdstone: number;
+  // Points vétéran actuellement disponibles pour recruter dans un groupe
+  // d'hommes de main déjà expérimenté (voir calculerCoutRejoindreGroupe dans
+  // utils/shop.ts) — jet de 2D6 fait à l'étape Exploration du post-bataille
+  // (Mordheim - Part 3, "New Recruits and Existing Henchman Groups", p.101) :
+  // représente l'expérience totale des recrues actuellement disponibles à
+  // l'embauche. Remplacé (pas cumulé) par le nouveau jet à chaque
+  // post-bataille — un jet représente un instantané des recrues
+  // disponibles "en ce moment", pas une réserve qui s'accumule.
+  points_veteran: number;
   equipement_reserve: string;
   // Stock structuré de la bande (armurerie) : objets achetés mais pas encore
   // attribués à un membre, ou renvoyés depuis la fiche d'un membre.

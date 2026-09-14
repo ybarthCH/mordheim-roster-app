@@ -12,6 +12,14 @@
 // que comme règle spéciale ponctuelle de certains profils (ex : bandes de
 // Morts-Vivants), jamais comme chapitre générique du livre de base — absente
 // ici volontairement plutôt qu'inventée.
+//
+// Chapitre Campagne : source « Mordheim - Part 3 - Campaigns & Optional
+// Rules.pdf » (anglais uniquement, aucun équivalent dans le GLM français —
+// traduction FR libre, cas EN → FR de la politique de traduction du projet).
+// Sous-règles choisies pour leur lien direct avec un mécanisme de l'app (voir
+// noteMusterheim de chacune) plutôt que la totalité du chapitre — la
+// séquence post-bataille complète reste hors de propos ici, déjà jouable pas
+// à pas via son propre assistant.
 
 export type SousRegleBase = {
   id: string;
@@ -30,10 +38,17 @@ export type SousRegleBase = {
   // (identifiée comme telle dans la source) — affichée séparément du texte
   // principal plutôt que fondue dedans.
   precisionFaq?: string;
+  // Distincte de precisionFaq ci-dessus : pas une clarification de règle
+  // tirée d'une source officielle, mais une note sur la façon dont CETTE
+  // app implémente la règle — où la retrouver à l'écran, ce qui est
+  // automatisé, ce qui reste à faire à la main. N'existe que pour les
+  // sous-règles où ce rapprochement apporte quelque chose (chapitre
+  // Campagne notamment) — absente sinon, jamais inventée pour combler.
+  noteMusterheim?: string;
 };
 
 export type ChapitreRegleBase = {
-  id: 'sequence_de_bataille' | 'mouvement' | 'tir' | 'corps_a_corps' | 'blessures' | 'psychologie';
+  id: 'sequence_de_bataille' | 'mouvement' | 'tir' | 'corps_a_corps' | 'blessures' | 'psychologie' | 'campagne';
   titre: string;
   sousRegles: SousRegleBase[];
 };
@@ -404,6 +419,60 @@ export const REGLES_BASE: ChapitreRegleBase[] = [
         titre: 'Stupidité',
         texte:
           "Les figurines stupides doivent faire un test de Commandement au début de leur tour. Lancez 2D6 :\n\n- Test réussi : la créature se déplace et combat normalement.\n- Test raté : la créature ne peut pas frapper au corps à corps (l'ennemi devra quand même effectuer normalement ses jets pour toucher) ni lancer de sorts. Si elle n'est pas engagée au corps à corps, lancez 1D6 :\n  - 1-3 : la créature avance tout droit, à demi-vitesse. Elle ne peut pas charger (arrêtez son déplacement à 1ps d'une figurine avec laquelle elle entrerait en contact). Elle peut tomber d'un bâtiment ou dans un trou, ou rencontrer un obstacle, auquel cas elle s'arrête. Elle ne peut pas tirer durant ce tour.\n  - 4-6 : la créature reste inactive et se contente de baver pendant ce tour. Elle ne peut rien faire d'autre.\n\nQue le test soit réussi ou non, le résultat s'applique jusqu'au début du prochain tour de la créature, où elle devra faire un nouveau test de Stupidité.",
+      },
+    ],
+  },
+  {
+    id: 'campagne',
+    titre: 'Campagne',
+    sousRegles: [
+      {
+        id: 'valeur_de_bande',
+        titre: 'Valeur de bande',
+        texte:
+          "Chaque bande possède une valeur de bande — plus elle est élevée, plus la bande est puissante. La valeur de bande correspond simplement au nombre de guerriers qui la composent, multiplié par 5, plus l'expérience totale accumulée.\n\nLes créatures de grande taille comme les Rats-Ogres valent 20 points, plus le nombre de points d'Expérience qu'elles ont accumulés.\n\nLa valeur de bande change après chaque partie : des guerriers survivants gagnent de l'expérience, d'autres meurent, de nouveaux rejoignent la bande, etc. Idéalement, ta valeur de bande devrait augmenter, signe que ta bande gagne en puissance.",
+        noteMusterheim:
+          'Affichée sur la tuile « Rating » du résumé de la bande. Une option dans Réglages → Règles optionnelles permet de basculer vers la Valeur de Puissance, une notation alternative plus fine (voir sa propre infobulle dans cet écran).',
+      },
+      {
+        id: 'points_veteran',
+        titre: 'Points vétéran',
+        texte:
+          "Tu peux ajouter de nouvelles recrues à un groupe d'hommes de main déjà existant. Si le groupe est peu expérimenté, tu n'auras aucune difficulté à trouver des recrues pour l'étoffer. Mais les vétérans aguerris rechignent à laisser des bleus les rejoindre — et ils n'ont pas tort !\n\nEntre chaque bataille, lance 2D6 : ce jet représente l'expérience totale des guerriers actuellement disponibles à l'embauche. Tu peux engager autant de guerriers que tu veux, tant que leur expérience combinée ne dépasse pas ce jet. Par exemple, si tu obtiens 7, tu peux ajouter un seul guerrier à un groupe ayant 7 points d'Expérience, ou deux guerriers à un groupe en ayant 3, ou toute autre combinaison. Tout point d'Expérience excédentaire est perdu.\n\nComme pour tout nouvel homme de main, tu dois payer leurs armes et leur armure, et tu dois en plus ajouter 2 pièces d'or à leur coût pour chaque point d'Expérience supplémentaire qu'ils apportent au total de la bande. Les nouveaux hommes de main doivent être armés et équipés de la même façon que le reste du groupe.",
+        noteMusterheim:
+          "Le jet de 2D6 se saisit à l'étape Exploration de l'assistant post-bataille (champ obligatoire) et remplace le total actuellement disponible pour la bande. Il s'affiche ensuite dans « Recruter un nouveau membre » : le coût en points vétéran (en plus de la surtaxe de 2 po/XP déjà appliquée) y est indiqué et bloque le recrutement si les points sont insuffisants — sauf choix délibéré d'ignorer ce blocage (utile pour une bande déjà en campagne avant l'ajout de ce suivi).",
+      },
+      {
+        id: 'dissolution_de_bande',
+        titre: "Dissolution de bande et renvoi d'un guerrier",
+        texte:
+          "Tu peux dissoudre ta bande à la fin de n'importe quelle partie et repartir avec une nouvelle. Tous les guerriers de la bande d'origine, ainsi que tout équipement et autre avantage qu'ils ont acquis, sont perdus. Tu peux aussi renvoyer n'importe quel guerrier de ta bande à tout moment.",
+        noteMusterheim:
+          "Dissoudre entièrement la bande correspond à la supprimer depuis l'écran « Mes bandes ». Renvoyer un guerrier précis se fait depuis sa fiche (bouton « Supprimer ce membre »). Un cas particulier est automatisé : chez les Morts-Vivants, si aucun Nécromancien vivant ne peut reprendre le commandement à la mort du Vampire, la bande est marquée dissoute par l'app (recrutement et post-bataille bloqués, fiches conservées à titre de trace).",
+      },
+      {
+        id: 'mort_dun_guerrier',
+        titre: "Mort d'un guerrier",
+        texte:
+          "Quand un guerrier est tué (Héros ou homme de main), toutes ses armes et son équipement sont perdus. C'est un point important, à bien clarifier dès le départ. Il n'est pas possible de réattribuer les armes ou l'équipement d'un guerrier une fois qu'il est mort.",
+        noteMusterheim:
+          "Automatique : dès qu'un membre passe au statut Mort (test Hors de combat, blessure grave, ou déclaration manuelle), l'app vide son inventaire et son équipement — rien à faire de plus, mais aussi rien à récupérer après coup.",
+      },
+      {
+        id: 'disponibilite_objets_rares',
+        titre: 'Disponibilité des objets rares',
+        texte:
+          "Le tableau des prix comporte une colonne « Disponibilité ». Les objets communs sont toujours disponibles et peuvent être achetés en toute quantité. Les objets marqués « rare » sont plus difficiles à trouver : la disponibilité d'un objet rare est indiquée par un nombre, par exemple « Rare 9 ».\n\nLorsqu'un Héros veut acheter un objet rare, lance 2D6 et compare le résultat au nombre indiqué. Si le jet est égal ou supérieur, l'objet est disponible. Par exemple, il faut obtenir 9 ou plus pour un objet « Rare 9 ». Tu ne peux acheter qu'un seul objet rare par jet réussi, et un seul jet par Héros en recherche d'objets rares — une bande de quatre Héros peut donc faire quatre jets. Les guerriers mis Hors de combat lors de la dernière bataille ne peuvent pas chercher d'objets rares.",
+        noteMusterheim:
+          "Ce jet se résout dans la fenêtre de recherche d'objet rare (accessible depuis l'étape Commerce du post-bataille, ou directement depuis la boutique) : indique le résultat obtenu et l'app détermine seule si l'objet est disponible, en tenant compte des bonus/malus de rareté propres à certaines bandes ou objets.",
+      },
+      {
+        id: 'vente_equipement',
+        titre: "Vente d'équipement",
+        texte:
+          "Un joueur peut revendre des armes et de l'équipement en même temps qu'il en achète de nouveaux — à mesure qu'une bande gagne en puissance, elle abandonne souvent son ancien arsenal pour quelque chose de meilleur. La valeur de revente reste toutefois basse, en raison de l'usure infligée par tes guerriers.\n\nUn guerrier peut automatiquement revendre de l'équipement pour la moitié de son prix affiché. Pour les objets et armes rares à prix variable, la bande ne reçoit que la moitié du coût de base (les marchands négocient bien mieux que tes guerriers).\n\nAlternative : les armes, armures et équipements peuvent aussi être mis de côté pour un usage futur (note sur la feuille de bande) ou échangés entre guerriers de la même bande (jamais entre deux bandes différentes).",
+        noteMusterheim:
+          "Revente au prix affiché ÷ 2 (arrondi au supérieur) via le bouton « Vendre » de la fiche d'un guerrier — même formule pour un objet à prix variable, appliquée sur le prix réellement payé. Mettre de côté ou transférer l'équipement à un autre guerrier de la bande se fait sans perte via l'armurerie (page Bande), l'équivalent app de la mise de côté ou de l'échange interne.",
       },
     ],
   },

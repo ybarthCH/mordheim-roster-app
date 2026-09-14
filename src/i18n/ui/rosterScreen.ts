@@ -249,6 +249,11 @@ export const rosterScreen: UiDictionary = {
   'ajouterMembre.group': { fr: 'Groupe', en: 'Group' },
   'ajouterMembre.newGroup': { fr: 'Nouveau groupe', en: 'New group' },
   'ajouterMembre.joinGroupPrefix': { fr: 'Rejoindre', en: 'Join' },
+  'ajouterMembre.vetPointsAbbrev': { fr: 'pts vét.', en: 'vet. pts' },
+  'ajouterMembre.vetPointsAvailable': {
+    fr: 'Points vétéran disponibles pour cette bande : {n}.',
+    en: 'Veteran points available for this warband: {n}.',
+  },
   'ajouterMembre.markNoSpellAccess': {
     fr: 'Cette Marque retire tout accès aux sorts (voir son détail ci-dessus).',
     en: 'This Mark removes all access to spells (see its detail above).',
@@ -264,9 +269,17 @@ export const rosterScreen: UiDictionary = {
   'ajouterMembre.forcedEquipmentPrefix': { fr: 'Équipement forcé :', en: 'Forced equipment:' },
   'ajouterMembre.totalForPrefix': { fr: 'po au total pour', en: 'gc total for' },
   'ajouterMembre.model': { fr: 'figurine', en: 'model' },
-  'ajouterMembre.vetPointsIndicative': {
-    fr: 'Coût indicatif en points vétéran : {points} (non contrôlé — libre à toi de recruter même sans les points suffisants).',
-    en: "Indicative cost in veteran points: {points} (not enforced — you're free to recruit even without enough points).",
+  'ajouterMembre.vetPointsCost': {
+    fr: 'Coût en points vétéran : {points} (disponibles : {disponibles}).',
+    en: 'Cost in veteran points: {points} (available: {disponibles}).',
+  },
+  'ajouterMembre.vetPointsInsufficient': {
+    fr: 'Points vétéran insuffisants pour faire rejoindre ce groupe ({disponibles} disponible(s), {requis} requis) — fais un post-bataille pour en obtenir de nouveaux, réduis le nombre de figurines, ou ignore cette limite ci-dessous.',
+    en: 'Not enough veteran points to join this group ({disponibles} available, {requis} required) — run a post-battle wizard to get new ones, reduce the number of models, or ignore this limit below.',
+  },
+  'ajouterMembre.vetPointsOverride': {
+    fr: "Ignorer cette limite et recruter quand même (ex : bande déjà en campagne, points vétéran non suivis jusqu'ici).",
+    en: "Ignore this limit and recruit anyway (e.g. warband already mid-campaign, veteran points not tracked until now).",
   },
   'ajouterMembre.trinketBlocked': {
     fr: "Recrutement bloqué : l'équipement du groupe contient un objet limité à un exemplaire par bande et serait automatiquement dupliqué.",

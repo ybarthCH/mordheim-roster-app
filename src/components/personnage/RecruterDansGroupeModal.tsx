@@ -23,14 +23,25 @@ export function RecruterDansGroupeModal({ roster, groupe, coutUnitaire, onClose,
   // un chiffre) — le plancher ne s'applique qu'à l'usage.
   const [quantiteSaisie, setQuantiteSaisie] = useState('1');
   const quantite = Math.max(1, parseInt(quantiteSaisie, 10) || 1);
+  // Échappatoire délibérée au blocage points vétéran (voir vetPointsInsuffisants
+  // ci-dessous et son équivalent dans AjouterMembreModal) : une bande déjà en
+  // campagne avant l'introduction de ce champ peut avoir un total hérité
+  // (voir normaliserRoster) resté à 0 faute d'avoir jamais renseigné ce jet.
+  const [ignorerLimiteVeteran, setIgnorerLimiteVeteran] = useState(false);
 
   const cout = calculerCoutRejoindreGroupe(groupe, coutUnitaire, quantite);
   const budgetSuffisant = cout.coutTotal <= roster.tresorerie;
   const dupliqueraitTrinket = groupeDupliqueraitObjetLimite(groupe, rules);
+  // Contrairement à la trésorerie (jamais bloquante dans cette modale), les
+  // points vétéran bloquent bel et bien le recrutement par défaut — voir
+  // RosterInstance.points_veteran (types/roster.ts) et AjouterMembreModal
+  // (même règle appliquée côté recrutement global du roster).
+  const vetPointsInsuffisants = cout.coutPointsVeteran > roster.points_veteran;
+  const vetPointsBloquent = vetPointsInsuffisants && !ignorerLimiteVeteran;
 
   const confirmer = () => {
-    if (dupliqueraitTrinket) return;
-    onConfirm(rejoindreGroupe(roster, groupe, quantite, cout.coutTotal));
+    if (dupliqueraitTrinket || vetPointsBloquent) return;
+    onConfirm(rejoindreGroupe(roster, groupe, quantite, cout.coutTotal, undefined, cout.coutPointsVeteran));
     onClose();
   };
 
@@ -57,8 +68,29 @@ export function RecruterDansGroupeModal({ roster, groupe, coutUnitaire, onClose,
         )}
         {cout.xpGroupe > 0 && (
           <p className="text-sm text-muted mb-0" style={{ marginTop: '0.3rem' }}>
-            {t('recruterDansGroupe.vetPointsIndicative', { points: cout.vetPointsIndicatifs })}
+            {t('recruterDansGroupe.vetPointsCost', {
+              points: cout.coutPointsVeteran,
+              disponibles: roster.points_veteran,
+            })}
           </p>
+        )}
+        {vetPointsInsuffisants && (
+          <>
+            <p className="text-danger text-sm mb-0" style={{ marginTop: '0.3rem' }}>
+              {t('recruterDansGroupe.vetPointsInsufficient', {
+                disponibles: roster.points_veteran,
+                requis: cout.coutPointsVeteran,
+              })}
+            </p>
+            <label className="flex items-center gap-sm text-sm" style={{ marginTop: '0.3rem', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={ignorerLimiteVeteran}
+                onChange={(e) => setIgnorerLimiteVeteran(e.target.checked)}
+              />
+              {t('recruterDansGroupe.vetPointsOverride')}
+            </label>
+          </>
         )}
         {dupliqueraitTrinket && (
           <p className="text-danger text-sm">{t('recruterDansGroupe.trinketBlocked')}</p>
@@ -73,7 +105,7 @@ export function RecruterDansGroupeModal({ roster, groupe, coutUnitaire, onClose,
         <button className="btn" onClick={onClose}>
           {t('recruterDansGroupe.cancel')}
         </button>
-        <button className="btn btn--primary" disabled={dupliqueraitTrinket} onClick={confirmer}>
+        <button className="btn btn--primary" disabled={dupliqueraitTrinket || vetPointsBloquent} onClick={confirmer}>
           {t('recruterDansGroupe.recruitForPrefix')} {cout.coutTotal} {t('creation.gc')}
           {!budgetSuffisant ? ` ${t('creation.modal.anyway')}` : ''}
         </button>

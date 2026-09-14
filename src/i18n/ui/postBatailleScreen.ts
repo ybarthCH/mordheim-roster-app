@@ -31,6 +31,10 @@ export const postBatailleScreen: UiDictionary = {
     fr: "Résous d'abord le statut (survécu / n'a pas survécu) de tous les Hors de combat avant de continuer.",
     en: 'Resolve the status (survived / did not survive) of everyone Out of Action before continuing.',
   },
+  'postBatailleScreen.enterVeteranPointsFirst': {
+    fr: 'Saisis le résultat du jet de points vétéran (2D6) avant de continuer.',
+    en: 'Enter the veteran points roll (2D6) before continuing.',
+  },
   'postBatailleScreen.resolveCommerceFirst': {
     fr: 'Choisis une action de commerce pour chaque Héros et termine toute consultation payée avant de continuer, ou clique sur « Tout passer ».',
     en: 'Choose a trade action for each Hero and finish any paid consultation before continuing, or press the Skip all button.',
