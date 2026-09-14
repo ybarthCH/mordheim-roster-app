@@ -60,6 +60,14 @@ function SousRegleContenu({ sousRegle }: { sousRegle: SousRegleBase }) {
           <strong>{t('reglesBase.faqLabel')}</strong> — {sousRegle.precisionFaq}
         </p>
       )}
+      {sousRegle.noteMusterheim && (
+        <div className="card card--tight" style={{ marginTop: '0.5rem', borderColor: 'var(--accent)' }}>
+          <p className="text-sm mb-0">
+            <Icon name="engrenage" style={{ marginRight: '0.35em', color: 'var(--accent)' }} />
+            <strong>{t('reglesBase.musterheimNoteLabel')}</strong> — {sousRegle.noteMusterheim}
+          </p>
+        </div>
+      )}
     </>
   );
 }

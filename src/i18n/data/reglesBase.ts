@@ -382,6 +382,60 @@ const reglesBaseEn: ChapitreTraduit[] = [
       },
     ],
   },
+  {
+    id: 'campagne',
+    titre: 'Campaign',
+    sousRegles: [
+      {
+        id: 'valeur_de_bande',
+        titre: 'Warband rating',
+        texte:
+          "Each warband has a warband rating – the higher the rating the better the warband. The warband rating is simply the number of warriors in it multiplied by 5, plus their accumulated experience.\n\nLarge creatures such as Rat Ogres are worth 20 points plus the number of Experience points they have accumulated.\n\nThe warband's rating changes after each game, because surviving warriors will gain extra experience, warriors may have been killed, new ones added, etc. Hopefully your warband rating will go up, signifying your increase in power!",
+        noteMusterheim:
+          'Shown on the warband summary\'s Rating tile. An option under Settings → Optional rules switches to Power Value, a more granular alternative rating (see its own tooltip in that screen).',
+      },
+      {
+        id: 'points_veteran',
+        titre: 'Veteran points',
+        texte:
+          "You may add new recruits to existing Henchman groups. If the group is relatively inexperienced, you will have no difficulty in finding raw recruits to add to their numbers. But more experienced gnarled veterans are not so keen on letting novice warriors join them – and quite rightly so!\n\nBetween each battle, roll 2D6: this represents the experience of the warriors currently available for hire. You can hire as many warriors as you wish, as long as their combined Experience does not exceed your dice roll. For example, if you rolled 7, you could add a single warrior to a Henchman group with 7 Experience points, or two warriors to a Henchman group with 3 Experience points, or any combination thereof. Disregard any excess Experience points.\n\nAs with other new Henchmen, you must pay for all their weapons and armour, and in addition you must add 2 gold crowns to their cost for each extra Experience point they add to the warband's total. New Henchmen must be armed and equipped in the same way as existing members of the group.",
+        noteMusterheim:
+          "The 2D6 roll is entered in the post-battle wizard's Exploration step (a required field) and replaces the warband's currently available total. It then shows up in Recruit a new member: the veteran-point cost (on top of the existing +2gc/XP surcharge) is displayed there and blocks recruitment if the points aren't enough — unless you deliberately choose to ignore that block (useful for a warband already mid-campaign before this tracking was added).",
+      },
+      {
+        id: 'dissolution_de_bande',
+        titre: 'Disbanding a warband and dismissing a warrior',
+        texte:
+          'You may disband your old warband at the end of any game and start again with a new one. All the warriors in the original warband and any equipment and other benefits they acquired are lost. You can also dismiss any warrior in your warband at any time.',
+        noteMusterheim:
+          "Disbanding the whole warband means deleting it from the My Warbands screen. Dismissing a single warrior is done from their sheet (the Delete this member button). One special case is automated: for Undead, if no living Necromancer can take over when the Vampire dies, the app marks the warband dissolved (recruitment and post-battle blocked, sheets kept as a record).",
+      },
+      {
+        id: 'mort_dun_guerrier',
+        titre: 'Death of a warrior',
+        texte:
+          "When a warrior is killed (Hero or Henchman) all his weapons and equipment are lost. This is very important, so be clear about it from the start. It is not possible to reallocate a warrior's weapons or equipment once he is dead.",
+        noteMusterheim:
+          "Automatic: as soon as a member's status becomes Dead (an Out of Action roll, a serious injury, or a manual declaration), the app empties their inventory and equipment — nothing else to do, but also nothing to recover once it happens.",
+      },
+      {
+        id: 'disponibilite_objets_rares',
+        titre: 'Rare item availability',
+        texte:
+          "The Price chart has a column marked 'Availability'. Common items are always available, and can be bought in any quantity. Items marked 'rare' are more difficult to find. A rare item's availability is indicated by a number, for example 'Rare 9'.\n\nWhenever a Hero wants to buy a rare item, roll 2D6 and compare the result to the number stated. If the roll is equal or greater, the item is available. For example, you need to roll 9 or more to acquire an item marked 'Rare 9'. You can only buy one rare item for each successful roll. You may also only make one roll for each Hero looking for rare items. For example, if your warband has four Heroes, you may make four rolls to locate rare items. Warriors taken out of action during the last battle may not look for rare items.",
+        noteMusterheim:
+          "This roll is resolved in the rare item search window (reached from the post-battle Trade step, or directly from the shop): enter the result you rolled and the app determines availability on its own, factoring in any rarity bonus/penalty specific to certain warbands or items.",
+      },
+      {
+        id: 'vente_equipement',
+        titre: 'Selling equipment',
+        texte:
+          "A player may trade in weapons and equipment at the same time he buys new ones. After all, as warbands become more powerful they often abandon their earlier armament in favour of something better. However, the second-hand value of equipment is not high due to the considerable wear and tear inflicted on it by your warriors.\n\nWarriors can automatically sell equipment for half its listed price. In the case of rare equipment and weapons which have a variable price, the warband receives half of the basic cost only (merchants are far better at haggling than your warriors).\n\nAlternatively, weapons, armour and equipment may be hoarded for future use (make a note on the warband roster) or swapped around the warband from one fighter to another (though not between warbands).",
+        noteMusterheim:
+          "Resale price is the listed price ÷ 2 (rounded up) via the Sell button on a warrior's sheet — the same formula applies to a variable-priced item, based on the price actually paid. Hoarding or transferring equipment to another warrior in the same warband is done losslessly through the armoury (Warband page), the app's equivalent of setting gear aside or swapping it internally.",
+      },
+    ],
+  },
 ];
 
 export function translateReglesBase(chapitres: ChapitreRegleBase[], language: Language): ChapitreRegleBase[] {
@@ -401,6 +455,7 @@ export function translateReglesBase(chapitres: ChapitreRegleBase[], language: La
           texte: sousRegleEn.texte,
           tableau: sousRegleEn.tableau ?? sousRegle.tableau,
           precisionFaq: sousRegleEn.precisionFaq ?? sousRegle.precisionFaq,
+          noteMusterheim: sousRegleEn.noteMusterheim ?? sousRegle.noteMusterheim,
         };
       }),
     };
