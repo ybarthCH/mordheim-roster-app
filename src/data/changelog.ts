@@ -33,6 +33,25 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-09-14',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Les points vétéran (recrutement dans un groupe d'hommes de main déjà expérimenté) sont maintenant une vraie ressource de la bande : saisis-les à l'étape Exploration du post-bataille (champ obligatoire), ils s'affichent ensuite au recrutement et limitent le nombre de recrues qu'un groupe expérimenté peut accueillir.",
+      },
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Nouveau chapitre « Campagne » dans le livre de règles de base (valeur de bande, points vétéran, dissolution de bande, mort d'un guerrier, objets rares, vente d'équipement), avec une « Note Musterheim » sur chaque règle indiquant où et comment elle est gérée dans l'app.",
+      },
+      {
+        categorie: 'autre',
+        texte: 'Corrections de mise en page mineures (encadré des notes du livre de règles, notes de mise à jour).',
+      },
+    ],
+  },
+  {
     date: '2026-09-13',
     points: [
       {
