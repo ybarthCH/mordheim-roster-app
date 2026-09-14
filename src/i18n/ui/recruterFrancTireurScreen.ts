@@ -23,7 +23,17 @@ export const recruterFrancTireurScreen: UiDictionary = {
   'francTireur.bandValue': { fr: 'Valeur de bande :', en: 'Warband value:' },
   'francTireur.points': { fr: 'points', en: 'points' },
   'francTireur.source': { fr: 'Source :', en: 'Source:' },
-  'francTireur.sourcePdfSuffix': { fr: 'du PDF', en: 'of the PDF' },
+  // Nom du document propre, pas de numéro de page : le PDF fan
+  // "Mordheim Hired Sword Compendium" a été scindé en deux petits fichiers
+  // (part1.pdf, part2.pdf) après la rédaction des profils de src/data/hiredSwords.ts,
+  // ce qui a décalé la pagination d'origine — un numéro de page affiché ici
+  // serait donc probablement faux et invérifiable sans reprendre chaque
+  // profil un par un. Nom du document non traduit (titre propre du PDF fan),
+  // même convention que dans les commentaires de hiredSwords.ts.
+  'francTireur.sourceCompendiumName': {
+    fr: 'Mordheim Hired Sword Compendium',
+    en: 'Mordheim Hired Sword Compendium',
+  },
   'francTireur.equipmentAndProgress': { fr: 'Équipement et progression', en: 'Equipment and progression' },
   'francTireur.equipmentProvided': { fr: 'Équipement fourni :', en: 'Equipment provided:' },
   'francTireur.equipmentChoiceLabel': { fr: 'Choix d’équipement', en: 'Equipment choice' },

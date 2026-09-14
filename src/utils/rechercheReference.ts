@@ -1,10 +1,11 @@
 // Recherche transversale (toutes bandes confondues) pour la page référence
 // de bande (voir BandeReferenceScreen/RechercheReferenceSection) : indexe en
 // lecture seule ce que l'app connaît déjà — objets, compétences,
-// francs-tireurs, règles spéciales, magie — pour retrouver une règle sans
-// devoir rouvrir chaque bande une par une. Ne retranscrit PAS le livre de
-// règles de base (aucune donnée nouvelle créée ici, uniquement une relecture
-// agrégée des données déjà auditées bande par bande).
+// francs-tireurs, règles spéciales, magie, et le livre de règles de base
+// (data/reglesBase.ts) — pour retrouver une règle sans devoir rouvrir chaque
+// bande (ou le livre) une par une. Aucune donnée nouvelle créée ici,
+// uniquement une relecture agrégée des données déjà auditées/sourcées
+// ailleurs dans le projet.
 import type { Language } from '../state/useLanguage';
 import type { CompetenceSpeciale, SpecialRule, WarbandCatalog } from '../types/catalog';
 import { CATALOGUES } from '../data/warbands';
@@ -19,8 +20,10 @@ import { translateHiredSword } from '../i18n/data/hiredSwords';
 import { magieMineure } from '../i18n/data/minorMagic';
 import { estAccesGenerique, formatCoutItem, libelleCategorie } from './shop';
 import { skillCategories } from '../i18n/ui/skillCategories';
+import { REGLES_BASE } from '../data/reglesBase';
+import { translateReglesBase } from '../i18n/data/reglesBase';
 
-export type TypeEntreeReference = 'objet' | 'competence' | 'francTireur' | 'regleSpeciale' | 'sort';
+export type TypeEntreeReference = 'objet' | 'competence' | 'francTireur' | 'regleSpeciale' | 'sort' | 'regleBase';
 
 export type EntreeReference = {
   id: string;
@@ -226,11 +229,36 @@ function indexerFrancsTireurs(catalogues: WarbandCatalog[], language: Language):
   });
 }
 
+// Livre de règles de base (data/reglesBase.ts) : seule entrée générique
+// (bandeNoms toujours vide) de tout l'index — permet de retrouver une règle
+// de mécanique de jeu (mouvement, tir, corps à corps...) sans ouvrir l'écran
+// dédié, via le filtre "Règles" de la recherche transversale. La précision
+// FAQ éventuelle est concaténée au texte indexé pour rester cherchable (ex :
+// trouver "Coup Critique" doit aussi remonter la précision FAQ sur les sorts).
+function indexerReglesBase(language: Language): EntreeReference[] {
+  const chapitres = translateReglesBase(REGLES_BASE, language);
+  const entrees: EntreeReference[] = [];
+  for (const chapitre of chapitres) {
+    for (const sousRegle of chapitre.sousRegles) {
+      entrees.push({
+        id: `regleBase:${chapitre.id}:${sousRegle.id}`,
+        type: 'regleBase',
+        nom: sousRegle.titre,
+        texte: [sousRegle.texte, sousRegle.precisionFaq].filter(Boolean).join(' '),
+        bandeNoms: [],
+        meta: chapitre.titre,
+      });
+    }
+  }
+  return entrees;
+}
+
 // Index complet, à reconstruire seulement quand la langue change (voir
 // RechercheReferenceSection : useMemo(() => construireIndexReference(language), [language])).
 export function construireIndexReference(language: Language): EntreeReference[] {
   const catalogues = CATALOGUES.map((c) => translateWarbandCatalog(c, language));
   return [
+    ...indexerReglesBase(language),
     ...indexerObjets(catalogues, language),
     ...indexerCompetencesGeneriques(language),
     ...indexerCompetencesSpeciales(catalogues, language),
@@ -240,7 +268,7 @@ export function construireIndexReference(language: Language): EntreeReference[] 
   ];
 }
 
-function echapperRegex(texte: string): string {
+export function echapperRegex(texte: string): string {
   return texte.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
@@ -258,7 +286,7 @@ function echapperRegex(texte: string): string {
 // dans le fichier source plutôt que des caractères combinants bruts.
 const MARQUES_COMBINANTES = new RegExp('[\u0300-\u036f]', 'g');
 const cacheSansAccents = new Map<string, string>();
-function sansAccents(texte: string): string {
+export function sansAccents(texte: string): string {
   const enCache = cacheSansAccents.get(texte);
   if (enCache !== undefined) return enCache;
   const normalise = texte.normalize('NFD').replace(MARQUES_COMBINANTES, '');
@@ -279,7 +307,7 @@ function sansAccents(texte: string): string {
 // vérifiées seulement à ses deux extrémités. `requeteEchappeeNormalisee` est
 // déjà passée sans accents (voir rechercherReference) ; `texte` est encore
 // brut, normalisé ici via le cache.
-function matchMotEntier(texte: string, requeteEchappeeNormalisee: string): boolean {
+export function matchMotEntier(texte: string, requeteEchappeeNormalisee: string): boolean {
   const re = new RegExp(`(?<![\\p{L}\\p{N}])${requeteEchappeeNormalisee}(?![\\p{L}\\p{N}])`, 'iu');
   return re.test(sansAccents(texte));
 }

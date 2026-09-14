@@ -1,6 +1,8 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
+import { SKILL_CATEGORIES } from '../../types/catalog';
 import type { Profile, WarbandCatalog } from '../../types/catalog';
 import type { RosterInstance } from '../../types/roster';
+import type { FrancTireurCatalog } from '../../types/hiredSword';
 import { getItem } from '../../data/items';
 import { estAccesGenerique, equipementReferenceAConcerner, formatCoutProfil, iconeCategorie, prixAvecRegles } from '../../utils/shop';
 import { magieDuProfil } from '../../utils/magie';
@@ -13,6 +15,8 @@ import { translateItem } from '../../i18n/data/items';
 import { uiDictionary } from '../../i18n/ui';
 import { Icon } from './Icon';
 import { CollapsibleCard } from './CollapsibleCard';
+import { Modal } from './Modal';
+import { StatGrid } from './StatGrid';
 
 const LISTES_EQUIPEMENT = ['armes_cac', 'armes_tir', 'armures', 'divers'] as const;
 
@@ -184,6 +188,71 @@ export const MagieReference = memo(function MagieReference({
   );
 });
 
+// Fiche de profil d'un franc-tireur en lecture seule, ouverte depuis
+// FrancsTireursReference (nom cliquable) — mêmes blocs d'information que la
+// carte de sélection de RecruterFrancTireurScreen (identité, stats, profils
+// secondaires, équipement fourni, tables de compétences, règles spéciales),
+// sans les champs propres à un engagement réel (nom sur la feuille, choix
+// d'équipement, sorts de départ, coût variable...), hors de propos pour une
+// simple consultation de référence.
+function FrancTireurProfilModal({ ft, onClose }: { ft: FrancTireurCatalog; onClose: () => void }) {
+  const { t } = useLanguage();
+  return (
+    <Modal onClose={onClose}>
+      <h3 className="mt-0">{ft.nom}</h3>
+      <p className="text-sm text-muted">
+        <strong>{t('francTireur.employers')}</strong> {ft.employeurs.texte}
+        <br />
+        <strong>{t('francTireur.bandValue')}</strong> +{ft.valeur} {t('francTireur.points')}
+        {ft.gagne_experience !== false ? ' + XP' : ''}
+        <br />
+        <strong>{t('francTireur.upkeep')}</strong> {ft.entretien.texte}
+        <br />
+        <strong>{t('francTireur.source')}</strong> {t('francTireur.sourceCompendiumName')}
+      </p>
+      <StatGrid stats={ft.stats} />
+      {ft.profils_secondaires?.map((secondaire) => (
+        <div key={secondaire.nom} style={{ marginTop: '0.8rem' }}>
+          <p className="text-sm mb-0">
+            <strong>{secondaire.nom}</strong>
+          </p>
+          <StatGrid stats={secondaire.stats} />
+          {secondaire.equipement && (
+            <p className="text-sm text-muted">
+              {t('francTireur.equipmentProvided')} {secondaire.equipement.join(', ')}
+            </p>
+          )}
+        </div>
+      ))}
+      <p className="text-sm" style={{ marginTop: '0.8rem' }}>
+        <strong>{t('francTireur.equipmentProvided')}</strong> {ft.equipement.join(', ')}
+      </p>
+      <p className="text-sm mb-0">
+        <strong>{t('francTireur.skillTables')}</strong>{' '}
+        {ft.acces_competences
+          .map((id) => SKILL_CATEGORIES.find((categorie) => categorie.id === id)?.label ?? id)
+          .join(', ') || t('francTireur.noneFem')}
+      </p>
+      <p className="text-sm text-muted">{t('francTireur.equipmentNote')}</p>
+      {ft.regles_speciales.map((regle) => (
+        <p key={regle.nom} className="text-sm" style={{ whiteSpace: 'pre-line' }}>
+          <strong>{regle.nom}</strong> — {regle.texte}
+        </p>
+      ))}
+      {ft.competences_speciales?.map((competence) => (
+        <p key={competence.id} className="text-sm">
+          <strong>{competence.nom}</strong> — {competence.texte}
+        </p>
+      ))}
+      <div className="flex gap-sm" style={{ marginTop: '1rem' }}>
+        <button className="btn" onClick={onClose}>
+          {t('common.close')}
+        </button>
+      </div>
+    </Modal>
+  );
+}
+
 // Référence libre des francs-tireurs que cette bande peut engager — liste
 // statique (ce que la bande PEUT engager en principe, via
 // FrancTireurCatalog.employeurs.bande_ids déjà réduit par
@@ -203,6 +272,7 @@ export const FrancsTireursReference = memo(function FrancsTireursReference({
   roster: RosterInstance;
 }) {
   const { t, language } = useLanguage();
+  const [profilOuvertId, setProfilOuvertId] = useState<string | null>(null);
   const francsTireurs = FRANCS_TIREURS.filter(
     (ft) => !ft.est_dramatis_personae && ft.employeurs.bande_ids.includes(catalogue.id)
   )
@@ -211,6 +281,8 @@ export const FrancsTireursReference = memo(function FrancsTireursReference({
 
   if (francsTireurs.length === 0) return null;
 
+  const profilOuvert = francsTireurs.find((ft) => ft.id === profilOuvertId);
+
   return (
     <CollapsibleCard preferenceKey="ui.roster.francs_tireurs_reference.ouvert" title={t('catalogueReference.hiredSwordsTitle')}>
       <p className="text-sm text-muted" style={{ marginTop: '-0.4rem' }}>
@@ -218,7 +290,10 @@ export const FrancsTireursReference = memo(function FrancsTireursReference({
       </p>
       {francsTireurs.map((ft) => (
         <p key={ft.id} className="text-sm mb-0" style={{ marginBottom: '0.5rem' }}>
-          <strong>{ft.nom}</strong> — {t('catalogueReference.hiredSwordHireCost')}{' '}
+          <button type="button" className="link-inline" style={{ fontWeight: 700 }} onClick={() => setProfilOuvertId(ft.id)}>
+            {ft.nom}
+          </button>{' '}
+          — {t('catalogueReference.hiredSwordHireCost')}{' '}
           {formatCoutProfil(ft.recrutement.cout, ft.recrutement.notation, language)}
           {' · '}
           {t('catalogueReference.hiredSwordValue')} +{ft.valeur}
@@ -238,6 +313,7 @@ export const FrancsTireursReference = memo(function FrancsTireursReference({
           </span>
         </p>
       ))}
+      {profilOuvert && <FrancTireurProfilModal ft={profilOuvert} onClose={() => setProfilOuvertId(null)} />}
     </CollapsibleCard>
   );
 });
