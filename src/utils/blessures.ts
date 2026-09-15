@@ -87,6 +87,34 @@ function nomEffetAffiche(effet: EffetAffichable, language: Language): string {
   return translateBlessure(canonique, language).nom;
 }
 
+/** Nom court de la branche de sous-jet effectivement choisie pour un effet
+ * (ex : "Stupide" pour une Folie résolue en 1-3), quand cette branche en
+ * définit un — voir SousJetOption.nomCourt. La branche est retrouvée par son
+ * id stable persisté (`sous_jet_id`) ou, pour les enregistrements créés avant
+ * l'introduction de ce champ (et pour les branches qui n'en portent pas), par
+ * correspondance exacte avec le noteTag français figé déjà présent dans
+ * `notes_ajoutees` — même repli que utils/powerValue.ts. */
+function nomCourtSousJet(effet: SeriousInjuryEffect, language: Language): string | undefined {
+  const canonique = trouverBlessure(effet.resultat_id);
+  const options = canonique?.sousJet?.options;
+  if (!canonique || !options) return undefined;
+  const notes = effet.notes_ajoutees ?? [];
+  let index = effet.sous_jet_id ? options.findIndex((o) => o.id === effet.sous_jet_id) : -1;
+  if (index === -1) index = options.findIndex((o) => o.noteTag !== undefined && notes.includes(o.noteTag));
+  if (index === -1) return undefined;
+  const traduite = translateBlessure(canonique, language).sousJet?.options[index] ?? options[index];
+  return traduite.nomCourt;
+}
+
+/** Titre affiché d'un effet isolé, suffixé du résultat de son sous-jet quand
+ * il y en a un — "Folie (Stupide)" plutôt que "Folie" seul, pour que
+ * l'affichage condensé du roster se lise sans ouvrir la fiche du guerrier. */
+function nomEffetCourtAffiche(effet: SeriousInjuryEffect, language: Language): string {
+  const nom = nomEffetAffiche(effet, language);
+  const branche = nomCourtSousJet(effet, language);
+  return branche ? `${nom} (${branche})` : nom;
+}
+
 /** Traduit un unique segment de texte français correspondant à un effet
  * donné (résultat canonique — éventuellement suivi d'un suffixe sous-jet ou
  * durée D3 — ou une issue spéciale Gladiateur/Capturé), utilisé aussi bien
@@ -195,11 +223,11 @@ export function nomCourtBlessureAffiche(b: BlessureAffichable, language: Languag
     const attendu = `Blessures multiples (${b.effets.map((e) => e.nom).join(', ')})`;
     if (original !== attendu) return original;
     const titre = traduireCle('blessureGraveWizard.multipleInjuriesTitle', language);
-    return `${titre} (${b.effets.map((e) => nomEffetAffiche(e, language)).join(', ')})`;
+    return `${titre} (${b.effets.map((e) => nomEffetCourtAffiche(e, language)).join(', ')})`;
   }
   const [effet] = b.effets;
   if (original !== effet.nom) return original;
-  return nomEffetAffiche(effet, language);
+  return nomEffetCourtAffiche(effet, language);
 }
 
 /** Variante de injuryLabel qui re-traduit la description complète quand

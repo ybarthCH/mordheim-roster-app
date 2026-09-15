@@ -1,7 +1,7 @@
 import type { Language } from '../../state/useLanguage';
 import type { ResultatBlessureGrave } from '../../data/blessuresGraves';
 
-type SousJetOptionTraduite = { texte: string; noteTag?: string };
+type SousJetOptionTraduite = { texte: string; noteTag?: string; nomCourt?: string };
 type BlessureTraduite = {
   nom?: string;
   texte?: string;
@@ -35,10 +35,12 @@ export const blessuresEn: Record<string, BlessureTraduite> = {
         texte:
           'Serious arm wound: it must be amputated. The warrior may now only use a single one-handed weapon from now on.',
         noteTag: 'Arm amputated — can only use a single one-handed weapon',
+        nomCourt: 'amputated',
       },
       {
         texte: 'Minor wound: the warrior must miss the next game.',
         noteTag: 'Must miss the next game (arm wound)',
+        nomCourt: 'minor wound',
       },
     ],
   },
@@ -49,10 +51,12 @@ export const blessuresEn: Record<string, BlessureTraduite> = {
       {
         texte: 'The warrior becomes subject to Stupidity.',
         noteTag: 'Subject to Stupidity (Serious Injury — Madness)',
+        nomCourt: 'Stupidity',
       },
       {
         texte: 'The warrior is now subject to Frenzy.',
         noteTag: 'Subject to Frenzy (Serious Injury — Madness)',
+        nomCourt: 'Frenzy',
       },
     ],
   },
@@ -63,10 +67,12 @@ export const blessuresEn: Record<string, BlessureTraduite> = {
       {
         texte: 'The warrior can no longer run, but may still charge.',
         noteTag: 'Can no longer run (may still charge)',
+        nomCourt: 'cannot run',
       },
       {
         texte: 'The warrior misses the next game.',
         noteTag: 'Must miss the next game (broken leg)',
+        nomCourt: 'minor wound',
       },
     ],
   },
@@ -117,18 +123,22 @@ export const blessuresEn: Record<string, BlessureTraduite> = {
         texte:
           'The individual responsible for the injury. If it was a Henchman, he hates the enemy leader instead.',
         noteTag: 'Lasting Hatred: the individual responsible (or the enemy leader if a Henchman)',
+        nomCourt: 'the culprit',
       },
       {
         texte: 'The leader of the warband responsible for the injury.',
         noteTag: 'Lasting Hatred: the enemy warband\'s leader',
+        nomCourt: 'the enemy leader',
       },
       {
         texte: 'The entire warband of the warrior responsible for the injury.',
         noteTag: 'Lasting Hatred: the entire enemy warband',
+        nomCourt: 'the enemy warband',
       },
       {
         texte: 'All warbands of that type.',
         noteTag: 'Lasting Hatred: all warbands of that type',
+        nomCourt: 'all warbands of that type',
       },
     ],
   },
@@ -176,7 +186,9 @@ export function translateBlessure<T extends ResultatBlessureGrave>(r: T, languag
           ...r.sousJet,
           options: r.sousJet.options.map((o, i) => {
             const oEn = en.sousJetOptions?.[i];
-            return oEn ? { ...o, texte: oEn.texte, noteTag: oEn.noteTag ?? o.noteTag } : o;
+            return oEn
+              ? { ...o, texte: oEn.texte, noteTag: oEn.noteTag ?? o.noteTag, nomCourt: oEn.nomCourt ?? o.nomCourt }
+              : o;
           }),
         }
       : r.sousJet,
