@@ -8,6 +8,11 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-09-15': [
+    'In the roster view, a Serious Injury with a sub-roll now shows the result it rolled right next to its name — "Madness (Frenzy)", "Smashed Leg (cannot run)", "Arm Wound (amputated)", "Lasting Hatred (the enemy leader)" — instead of making you open the warrior\'s sheet to find out. Injuries already recorded benefit from this too.',
+    'Gladiators: Gladiator and Retiarius Henchmen groups may now be equipped differently from one model to the next, as their "Fighting Styles" allow — the app no longer flags them as mismatched equipment.',
+    "Gladiators: Ogre Gladiators and Troll Slayer Gladiators no longer have access to the warband's trident or javelins, their source restricting them to a limited equipment list.",
+  ],
   '2026-09-14': [
     "Veteran points (recruiting into an already-experienced Henchman group) are now a real warband resource: enter them in the post-battle wizard's Exploration step (a required field), and they then show up at recruitment and cap how many recruits an experienced group can take on.",
     'New "Campaign" chapter in the Core Rulebook (warband rating, veteran points, disbanding a warband, death of a warrior, rare items, selling equipment), each rule paired with a "Musterheim note" on where and how it\'s handled in the app.',

@@ -57,6 +57,15 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Parties du code concernées** : aucune — vérification faite en préparant cette décision : la Sorcière (`src/data/hiredSwords.ts`, `bande_ids: toutesSauf('witch_hunters', 'sisters_of_sigmar')`) est déjà accessible à `gobelins_de_la_nuit`, et `RESTRICTIONS_ABSOLUES.gobelins_de_la_nuit` l'a déjà en liste blanche. Le constat « non tranché » du commit d'audit d'origine (2d4a2ae) décrivait un état qui n'était déjà plus d'actualité au moment de cette décision — aucun changement de code nécessaire.
 - **Date** : 2026-08-31
 
+### Gladiateurs — les Ogres et Tueurs de Trolls n'ont pas accès aux armes spéciales de la bande
+
+- **Question de règle** : les 3 armes spéciales de la bande (Trident, Gantelet à pointe, Javelot de gladiateur) portent la mention « Gladiateurs uniquement », formule qui désigne partout ailleurs dans le corpus une restriction au niveau de la BANDE, jamais du profil. Fallait-il en conclure que le Gladiateur Ogre et le Gladiateur Tueur de Trolls y avaient accès eux aussi, alors que leur équipement est décrit par une liste restreinte à part ?
+- **Source et page** : `Gladiateurs [GLM].pdf` p.2, section « Armes et armures des styles de combat » : « Les Gladiateurs Tueurs de Trolls et les Gladiateurs Ogres font exception à la règle et choisissent leur équipement dans une liste restreinte. » ; liste elle-même p.3 (« LISTE D'ÉQUIPEMENT DES GLADIATEURS OGRES ET TUEURS DE TROLLS »), armes spéciales p.5.
+- **Décision de Yannick** : ces deux profils sont une exception au tableau « Gladiateur » général — leur liste restreinte est exhaustive, donc pas d'accès aux armes spéciales de la bande. Prime sur la lecture littérale de « Gladiateurs uniquement » retenue par un premier audit.
+- **Statut** : Officiel (source FR, phrase « font exception à la règle »)
+- **Parties du code concernées** : `src/data/warbands/gladiateurs.json`, `equipement_special` — `trident` et `javelots` portent désormais `profils: [roi_de_larene, veteran_de_larene, gladiateur, retiaire]`. Le `gantelet_a_pointe` reste sans restriction : il figure explicitement dans la liste restreinte Ogres/Tueurs (p.3) comme dans le style Mort-Vivant, donc tous les profils de la bande y ont un accès légitime.
+- **Date** : 2026-09-15
+
 ### Gladiateurs — Javelot de gladiateur strictement dominé par le Javelot commun
 
 - **Question de règle** : le Javelot de gladiateur (10 CO, portée annoncée 10ps) partage exactement les mêmes caractéristiques que le Javelot commun du catalogue partagé (5 CO, portée 8ps) sauf sa portée, jamais appliquée en pratique — un objet spécial strictement dominé par sa version commune, qu'aucun joueur rationnel n'achèterait.

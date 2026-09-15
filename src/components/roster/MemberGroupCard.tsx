@@ -263,7 +263,7 @@ function MemberRowCompact({
             {t('memberGroup.pendingAdvance')}
           </span>
         )}
-        {inventaireGroupeMismatch(m) && (
+        {inventaireGroupeMismatch(m) && !profil?.equipement_groupe_libre && (
           <span className="badge badge--equipment-warning" title={t('memberGroup.equipmentMismatchTitle')}>
             ⚠ {t('memberGroup.equipmentMismatchBadge')}
           </span>
@@ -589,7 +589,7 @@ export function MemberGroupCard({
                         onToggle={() => onBasculerHorsCombat(m)}
                         t={t}
                       />
-                      {inventaireGroupeMismatch(m) && (
+                      {inventaireGroupeMismatch(m) && !profil?.equipement_groupe_libre && (
                         <span
                           className="badge badge--equipment-warning"
                           style={{ marginLeft: '0.3rem' }}

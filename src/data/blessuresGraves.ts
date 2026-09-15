@@ -11,6 +11,11 @@ export type SousJetOption = {
   texte: string;
   stat?: Partial<Record<keyof Stats, number>>;
   noteTag?: string;
+  // Nom court de la branche (ex : "Stupide" sous "Folie"), accolé au nom de
+  // la blessure dans l'affichage condensé du roster — "Folie (Stupide)" —
+  // pour éviter d'avoir à ouvrir la fiche du guerrier pour connaître le
+  // résultat du sous-jet. Voir nomCourtBlessureAffiche (utils/blessures.ts).
+  nomCourt?: string;
   // Id stable de la branche, uniquement pour les sous-résultats dont le
   // Power Rating diffère de celui des autres branches du même résultat
   // parent (ex : Stupidité vs Frénésie sous "Folie") — voir
@@ -104,6 +109,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
           texte:
             "Blessure grave au bras : il doit être amputé. Le guerrier ne peut plus utiliser qu'une seule arme à une main à partir de maintenant.",
           noteTag: 'Bras amputé — une seule arme à une main utilisable',
+          nomCourt: 'amputé',
           id: 'bras_ampute',
         },
         {
@@ -111,6 +117,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
           label: '2-6',
           texte: 'Blessure légère : le guerrier doit manquer la prochaine partie.',
           noteTag: 'Doit manquer la prochaine partie (bras blessé)',
+          nomCourt: 'blessure légère',
         },
       ],
     },
@@ -129,6 +136,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
           label: '1-3',
           texte: 'Le guerrier devient sujet à la Stupidité.',
           noteTag: 'Sujet à la Stupidité (Blessure grave — Folie)',
+          nomCourt: 'Stupide',
           id: 'stupidite',
         },
         {
@@ -136,6 +144,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
           label: '4-6',
           texte: 'Le guerrier est désormais sujet à la Frénésie.',
           noteTag: 'Sujet à la Frénésie (Blessure grave — Folie)',
+          nomCourt: 'Frénétique',
           id: 'frenesie',
         },
       ],
@@ -155,6 +164,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
           label: '1',
           texte: 'Le guerrier ne peut plus courir, mais peut toujours charger.',
           noteTag: 'Ne peut plus courir (peut toujours charger)',
+          nomCourt: 'ne court plus',
           id: 'jambe_ne_court_plus',
         },
         {
@@ -162,6 +172,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
           label: '2-6',
           texte: 'Le guerrier manque la prochaine partie.',
           noteTag: 'Doit manquer la prochaine partie (jambe brisée)',
+          nomCourt: 'blessure légère',
         },
       ],
     },
@@ -246,24 +257,28 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
           texte:
             "L'individu responsable de la blessure. Si c'était un Homme de main, il hait le chef adverse à la place.",
           noteTag: 'Haine tenace : l\'individu responsable (ou le chef adverse si Homme de main)',
+          nomCourt: 'le responsable',
         },
         {
           valeurs: [4],
           label: '4',
           texte: 'Le chef de la bande responsable de la blessure.',
           noteTag: 'Haine tenace : le chef de la bande adverse',
+          nomCourt: 'le chef adverse',
         },
         {
           valeurs: [5],
           label: '5',
           texte: 'Toute la bande du guerrier responsable de la blessure.',
           noteTag: 'Haine tenace : toute la bande adverse',
+          nomCourt: 'la bande adverse',
         },
         {
           valeurs: [6],
           label: '6',
           texte: 'Toutes les bandes de ce type.',
           noteTag: 'Haine tenace : toutes les bandes de ce type',
+          nomCourt: 'toutes les bandes de ce type',
         },
       ],
     },
