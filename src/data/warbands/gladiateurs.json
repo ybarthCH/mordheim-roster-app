@@ -251,8 +251,18 @@
     }
   },
   "equipement_special": [
-    { "item_id": "trident", "cout": 15, "disponibilite": "Rare 7, Gladiateurs uniquement" },
+    {
+      "item_id": "trident",
+      "cout": 15,
+      "disponibilite": "Rare 7, Gladiateurs uniquement (hors Ogres et Tueurs de Trolls, liste restreinte)",
+      "profils": ["roi_de_larene", "veteran_de_larene", "gladiateur", "retiaire"]
+    },
     { "item_id": "gantelet_a_pointe", "cout": 15, "disponibilite": "Rare 7, Gladiateurs uniquement" },
-    { "item_id": "javelots", "cout": 10, "disponibilite": "Commun, Gladiateurs uniquement (javelot de gladiateur)" }
+    {
+      "item_id": "javelots",
+      "cout": 10,
+      "disponibilite": "Commun, Gladiateurs uniquement (javelot de gladiateur ; hors Ogres et Tueurs de Trolls, liste restreinte)",
+      "profils": ["roi_de_larene", "veteran_de_larene", "gladiateur", "retiaire"]
+    }
   ]
 }
