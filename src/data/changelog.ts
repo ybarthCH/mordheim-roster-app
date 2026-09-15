@@ -33,6 +33,26 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-09-15',
+    points: [
+      {
+        categorie: 'interface',
+        texte:
+          "Dans la vue roster, une blessure grave à sous-jet indique désormais le résultat obtenu directement à côté de son nom — « Folie (Frénétique) », « Jambe brisée (ne court plus) », « Blessure au bras (amputé) », « Haine tenace (le chef adverse) » — au lieu d'obliger à ouvrir la fiche du guerrier pour le savoir. Les blessures déjà enregistrées en profitent aussi.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Gladiateurs : les groupes d'hommes de main Gladiateurs et Rétiaires peuvent maintenant être équipés différemment d'une figurine à l'autre, comme leurs « Styles de combat » le permettent — l'app ne les signale plus comme un équipement incohérent.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Gladiateurs : les Gladiateurs Ogres et les Gladiateurs Tueurs de Trolls n'ont plus accès au trident ni aux javelots de la bande, leur source les limitant à une liste d'équipement restreinte.",
+      },
+    ],
+  },
+  {
     date: '2026-09-14',
     points: [
       {
