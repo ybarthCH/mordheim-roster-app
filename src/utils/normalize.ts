@@ -27,6 +27,26 @@ function objetSur<T>(valeur: unknown): T {
   return valeur && typeof valeur === 'object' && !Array.isArray(valeur) ? (valeur as T) : ({} as T);
 }
 
+// Même principe encore, pour un champ censé être un nombre (trésorerie,
+// wyrdstone, xp, taille_groupe...). `?? defaut` seul ne suffit pas : il ne se
+// déclenche que sur `undefined`, donc une trésorerie arrivée en chaîne depuis
+// un JSON édité à la main traverse intacte, et le premier `tresorerie + gain`
+// la concatène ("50" + 20 = "5020") au lieu de l'additionner. Un NaN, lui, se
+// propage à tout calcul ultérieur sans que le joueur puisse jamais le
+// rattraper depuis l'interface.
+//
+// Une chaîne numérique ("50") est convertie plutôt que rejetée : elle porte
+// une intention lisible, et retomber sur le défaut ferait perdre au joueur la
+// valeur qu'il avait. Tout le reste (NaN, Infinity, null, objet, chaîne non
+// numérique) retombe sur `defaut`. `min` borne les champs qui n'ont pas de
+// sens en dessous d'un seuil — notamment taille_groupe, dont un 0 rendrait
+// tout `% taille_groupe` NaN et casserait l'affichage des groupes.
+function nombreSur(valeur: unknown, defaut: number, min?: number): number {
+  const n = typeof valeur === 'string' && valeur.trim() !== '' ? Number(valeur) : valeur;
+  const valide = typeof n === 'number' && Number.isFinite(n) ? n : defaut;
+  return min === undefined ? valide : Math.max(min, valide);
+}
+
 // `photo` n'est censée contenir qu'un data URI produit par le sélecteur de
 // photo de l'app (voir components/personnage/PhotoPicker) — jamais une URL
 // externe. Un roster partagé/trafiqué pourrait y glisser une URL http(s) :
@@ -37,6 +57,22 @@ function objetSur<T>(valeur: unknown): T {
 // ici, à la source, plutôt que fait confiance jusqu'au composant d'affichage.
 function photoSure(valeur: unknown): string | undefined {
   return typeof valeur === 'string' && valeur.startsWith('data:image/') ? valeur : undefined;
+}
+
+// Fusion clé par clé plutôt qu'un repli global sur l'objet reçu : une bande
+// importée dont stats_actuels a perdu une seule clé (JSON édité à la main,
+// export d'une version antérieure du schéma...) doit récupérer uniquement
+// cette clé à 0, pas voir tout le reste de ses caractéristiques écrasées par
+// le repli. Chaque valeur passe en plus par nombreSur : un simple étalement
+// laisserait une caractéristique arrivée en chaîne ou en NaN contaminer tous
+// les calculs qui s'en servent (valeur de bande, plafonds, avancées).
+function statsSures(valeur: unknown): Stats {
+  const brut = objetSur<Partial<Record<keyof Stats, unknown>>>(valeur);
+  const stats = { ...STATS_VIDES };
+  for (const cle of Object.keys(STATS_VIDES) as (keyof Stats)[]) {
+    stats[cle] = nombreSur(brut[cle], STATS_VIDES[cle]);
+  }
+  return stats;
 }
 
 function normaliserMembre(membreBrut: unknown): Member {
@@ -66,14 +102,9 @@ function normaliserMembre(membreBrut: unknown): Member {
     photo: photoSure(membre.photo),
     equipement: membre.equipement ?? '',
     inventaire: tableauSur(membre.inventaire),
-    xp: membre.xp ?? 0,
-    xp_depart: membre.xp_depart ?? 0,
-    // Fusion clé par clé plutôt qu'un repli global sur l'objet reçu : une
-    // bande importée dont stats_actuels a perdu une seule clé (JSON édité à
-    // la main, export d'une version antérieure du schéma...) doit récupérer
-    // uniquement cette clé à 0, pas voir tout le reste de ses caractéristiques
-    // écrasées par le repli.
-    stats_actuels: { ...STATS_VIDES, ...objetSur<Partial<Stats>>(membre.stats_actuels) },
+    xp: nombreSur(membre.xp, 0, 0),
+    xp_depart: nombreSur(membre.xp_depart, 0, 0),
+    stats_actuels: statsSures(membre.stats_actuels),
     stats_modifiees: tableauSur(membre.stats_modifiees),
     stats_variables: membre.stats_variables,
     competences_acquises: tableauSur(membre.competences_acquises),
@@ -86,8 +117,8 @@ function normaliserMembre(membreBrut: unknown): Member {
       : tableauSur(membre.sorts_connus),
     statut: (membre.statut as Statut | undefined) ?? 'actif',
     date_mort: membre.date_mort,
-    blesse_tour_actuel: membre.blesse_tour_actuel ?? 0,
-    blesse_tour_total: membre.blesse_tour_total ?? 0,
+    blesse_tour_actuel: nombreSur(membre.blesse_tour_actuel, 0, 0),
+    blesse_tour_total: nombreSur(membre.blesse_tour_total, 0, 0),
     blessures_graves: tableauSur(membre.blessures_graves),
     historique_avancees: tableauSur(membre.historique_avancees),
     bonus_avancee_en_attente: membre.bonus_avancee_en_attente,
@@ -98,8 +129,8 @@ function normaliserMembre(membreBrut: unknown): Member {
     franc_tireur_impaye: membre.franc_tireur_impaye ?? false,
     promu_heros: membre.promu_heros,
     acces_competences_override: membre.acces_competences_override,
-    taille_groupe: membre.taille_groupe ?? 1,
-    hors_combat: membre.hors_combat ?? 0,
+    taille_groupe: nombreSur(membre.taille_groupe, 1, 1),
+    hors_combat: nombreSur(membre.hors_combat, 0, 0),
     pv_perdus: membre.pv_perdus,
     cout_recrutement: membre.cout_recrutement,
   };
@@ -121,9 +152,11 @@ export function normaliserRoster(roster: Partial<RosterInstance>): RosterInstanc
     id: roster.id ?? uuidv4(),
     bande_id: roster.bande_id ?? '',
     nom_bande: roster.nom_bande ?? '',
-    tresorerie: roster.tresorerie ?? 0,
-    wyrdstone: roster.wyrdstone ?? 0,
-    points_veteran: roster.points_veteran ?? pointsVeteranHerites,
+    // Pas de borne basse : la trésorerie négative est un état volontaire
+    // (dette), saisissable dans RosterSummaryCard et affichée en rouge.
+    tresorerie: nombreSur(roster.tresorerie, 0),
+    wyrdstone: nombreSur(roster.wyrdstone, 0),
+    points_veteran: nombreSur(roster.points_veteran, pointsVeteranHerites, 0),
     equipement_reserve: roster.equipement_reserve ?? '',
     stock: tableauSur(roster.stock),
     objets_personnalises: tableauSur(roster.objets_personnalises),
