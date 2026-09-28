@@ -153,12 +153,28 @@ export default defineConfig(({ command }) => ({
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.includes('/bandes/'),
-            handler: 'CacheFirst',
+            // StaleWhileRevalidate plutôt que CacheFirst : les bannières
+            // viennent de public/, donc leur nom ne porte PAS de hash de
+            // contenu. Tant qu'elles étaient précachées, le manifeste Workbox
+            // portait leur révision et un changement de contenu se propageait
+            // au déploiement suivant. En CacheFirst sans maxAgeSeconds, une
+            // bannière une fois mise en cache n'aurait plus jamais été
+            // revalidée — et avec 52 bannières pour 60 entrées, jamais évincée
+            // non plus : retoucher une illustration n'aurait plus jamais
+            // atteint les joueurs déjà passés dessus.
+            //
+            // StaleWhileRevalidate sert la version en cache immédiatement
+            // (même confort qu'en CacheFirst, même disponibilité hors-ligne
+            // où la revalidation échoue silencieusement) tout en rafraîchissant
+            // en arrière-plan : une bannière modifiée est reprise à la vue
+            // suivante. maxAgeSeconds borne en plus la durée de vie d'une
+            // entrée jamais revue.
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'bannieres-bandes',
               // 52 bandes au catalogue : la limite laisse de la marge pour les
               // ajouts sans jamais évincer une bannière déjà vue.
-              expiration: { maxEntries: 60 },
+              expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 90 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },

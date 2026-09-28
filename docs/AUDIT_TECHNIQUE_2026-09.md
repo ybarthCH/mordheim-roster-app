@@ -81,13 +81,45 @@ d'un voile dégradé.
 Un redimensionnement (1440 px, −45 %) a été écarté : le conteneur de l'app fait
 1100 px de large, donc 1600 px est déjà sous la barre du rendu retina desktop.
 
-### 1.5 [FAIT] Bannières hors du précache
+### 1.5 [FAIT] Bannières hors du précache — en `StaleWhileRevalidate`
 
 Les 52 bannières (≈ 3 Mo) étaient **précachées** : chaque première visite
 téléchargeait les illustrations des 52 bandes alors qu'un joueur n'en consulte
-que les siennes. Elles passent en `runtimeCaching` / `CacheFirst` (cache
-`bannieres-bandes`, 60 entrées) : mises en cache à la première vue, puis
-disponibles hors-ligne exactement comme avant.
+que les siennes. Elles passent en `runtimeCaching` (cache `bannieres-bandes`,
+60 entrées) : mises en cache à la première vue, puis disponibles hors-ligne.
+
+> **Correctif après revue QA.** La première version de ce changement utilisait
+> `CacheFirst` sans `maxAgeSeconds` — une régression de maintenabilité que la
+> revue a justement relevée. Les bannières viennent de `public/`, donc leur nom
+> ne porte **pas** de hash de contenu ; tant qu'elles étaient précachées, le
+> manifeste Workbox portait leur révision et un changement de contenu se
+> propageait au déploiement suivant. En `CacheFirst` sans expiration, une
+> bannière mise en cache n'aurait plus jamais été revalidée — ni évincée (52
+> bannières pour 60 entrées) : **retoucher une illustration n'aurait plus
+> jamais atteint les joueurs déjà passés dessus.**
+>
+> Corrigé en `StaleWhileRevalidate` + `maxAgeSeconds` de 90 jours : la version
+> en cache est servie immédiatement (même confort, même disponibilité
+> hors-ligne où la revalidation échoue silencieusement) et rafraîchie en
+> arrière-plan, donc une bannière modifiée est reprise à la vue suivante.
+>
+> **Limite de vérification, à lever au prochain déploiement.** Le `sw.js`
+> généré a bien été inspecté (handler `StaleWhileRevalidate`, `maxAgeSeconds`
+> à 7776e3 = 90 jours, zéro entrée `bandes/` en précache). En revanche le
+> chemin hors-ligne *de cette variante* n'a **pas** pu être rejoué de bout en
+> bout : le service worker refusait de prendre le contrôle de façon
+> reproductible dans le harnais Playwright. Ce qui est établi : le chemin
+> hors-ligne a été validé par la revue QA sous `CacheFirst` (serveur réellement
+> coupé, SW contrôleur), et `StaleWhileRevalidate` ne modifie que la
+> revalidation, pas le service depuis le cache — c'est le contrat documenté de
+> Workbox. À confirmer d'un coup d'œil au premier déploiement plutôt que tenu
+> pour acquis.
+
+Compromis assumé, et sa dégradation a été vérifiée : une bannière **jamais
+consultée** n'est pas disponible hors-ligne. Sur l'écran de création hors-ligne
+avec une faction jamais vue, le conteneur `.creation-banniere` se replie à 0 px
+— pas d'icône d'image cassée, pas de trou dans la mise en page. Sur l'accueil,
+c'est un `background-image` : absence = fond neutre.
 
 ### 1.6 [FAIT] `decor/` : ne pas y toucher (sauf la bannière d'accueil)
 
@@ -291,14 +323,29 @@ volontairement** : trancher demande de vérifier le PDF Amazones du Setting
 Lustrie (p. 11), ce qui relève de `mordheim-rules-auditor`. Le script continue
 à le signaler — c'est le comportement souhaité, pas du bruit.
 
-### 4.3 [À FAIRE] `jsx-no-constructed-context-values` dans `UpdateSWContext`
+### 4.3 [À FAIRE] L'export PDF est entièrement en français, quelle que soit la langue
+
+Constat de la revue QA, **déjà présent sur `main`** (dernier commit touchant ce
+fichier hors du diff d'audit). Un PDF exporté avec l'interface en **anglais**
+sort avec des intitulés français : `Bande :`, `TRÉSORERIE`,
+`Valeur de bande :`, `Héros`, `Hommes de main & créatures`.
+
+`src/utils/pdfExport.ts` (571 lignes) ne contient aucune référence à
+`language`, `useLanguage`, `t()` ni `translate` : l'export n'a jamais été
+branché sur l'i18n. Les noms d'objets et de profils passent, eux, par les
+données traduites, d'où un PDF mi-anglais mi-français pour un joueur anglophone.
+
+Chantier non trivial : il faut faire descendre `language` jusqu'à l'export et
+extraire ~40 libellés en dur vers un namespace i18n dédié.
+
+### 4.4 [À FAIRE] `jsx-no-constructed-context-values` dans `UpdateSWContext`
 
 `UpdateSWContext.tsx:62` construit l'objet `value` du contexte à chaque rendu,
 sans `useMemo` — chaque rendu du provider re-rend tous ses consommateurs. Les
 autres contextes du projet (`LanguageContext`) mémoïsent déjà correctement,
 avec un commentaire expliquant pourquoi. Incohérence à aligner.
 
-### 4.4 [À FAIRE] Masquage de variables (`no-shadow`)
+### 4.5 [À FAIRE] Masquage de variables (`no-shadow`)
 
 Le plus gênant : `PostBatailleScreen.tsx:326` redéclare **`t`** dans une portée
 interne, alors que `t` est la fonction de traduction utilisée partout. Piège à
@@ -306,7 +353,7 @@ relecture. Autres cas : `PersonnageScreen` (`id`, `instanceId` ×3),
 `MemberGroupCard` (`peutAjouterXp` ×2), `RecruterFrancTireurScreen`,
 `RosterScreen`, `pdfExport` (`doc` ×2).
 
-### 4.5 [À FAIRE] `no-accumulating-spread` dans les boucles
+### 4.6 [À FAIRE] `no-accumulating-spread` dans les boucles
 
 Accumulateurs recopiés à chaque itération (complexité quadratique) :
 `utils/shop.ts:1680`, `AjouterMembreModal.tsx:311` et `:314`,
@@ -415,6 +462,14 @@ bande servie depuis le cache d'exécution. Le `sw.js` généré contient bien
 zéro entrée `bandes/` en précache, les six `.woff2`, et la route
 `bannieres-bandes`.
 
+> **Piège méthodologique, relevé par la revue QA.** `context.setOffline(true)`
+> de Playwright **n'intercepte pas** les requêtes émises par le service worker
+> lui-même : une bannière jamais vue revenait en 200 alors que le test se
+> croyait hors-ligne. Un vrai test hors-ligne demande de **couper le serveur
+> HTTP**. La conclusion ci-dessus tient — elle a été reconfirmée par la revue
+> avec le serveur réellement arrêté — mais la première mesure du volet
+> bannières valait moins que ce qu'elle laissait croire.
+
 > Mise en garde de mesure : `dist` **accumule les fichiers de builds
 > précédents** quand on alterne `npm run build` et `npm run build:prod` (bases
 > différentes). Une mesure de taille ne vaut qu'après `rm -rf dist`. Sans
@@ -442,7 +497,34 @@ Correction : associer le libellé existant (`<label htmlFor>` ou
 nouveaux textes. Aucun impact visuel. Non fait ici : 27 sites demandent chacun
 de choisir le bon libellé selon le contexte, ce qui mérite sa propre passe.
 
-### 5.7 Vérifié sans problème
+### 5.7 Revue QA indépendante du diff
+
+`mordheim-qa-reviewer` a rejoué les parcours clés sur le build de production —
+lecture de code exclue, exécution réelle. **Aucun P0, aucun P1, aucune
+régression fonctionnelle.**
+
+| Parcours | Résultat |
+|---|---|
+| Création de bande | 3 héros + 3 hommes de main, trésorerie 500 → 285, calcul exact |
+| Recrutement / groupe | `taille_groupe: 3` correct, coûts affichés |
+| Achat équipement + Place du marché | 23 objets, onglets OK, trésorerie et `stock` cohérents |
+| `categories_interdites` | Chevalier de la Quête : aucun onglet Tir ; Écuyer (même bande) : Bow / Long Bow. Conforme |
+| Post-bataille | 7 étapes, blocages de validation attendus, `historique_batailles: 1` |
+| **Export PDF** | **OK** — 57 928 o, 2 pages, contenu textuel réel. Le chunk du bouchon jsPDF est émis séparément et **jamais chargé** |
+| Export / import JSON | Aller-retour sans perte |
+| 10 routes | 0 erreur JS, 0 réponse 4xx/5xx |
+
+Points spécifiquement validés sur les suppressions de code mort : aucune
+référence résiduelle, et **aucun accès dynamique** ne pouvait atteindre les
+fichiers supprimés (pas d'`import.meta.glob`, pas d'`import()` à template, pas
+de `fetch()` de JSON local). Le piège de l'homonyme `BLESSURES_GRAVES` a été
+explicitement revérifié : la table canonique D66 est intacte et le sorcier de
+blessures graves s'ouvre sans erreur.
+
+Le seul défaut réel remonté (bannières en `CacheFirst` sans expiration) est
+corrigé, cf. § 1.5.
+
+### 5.8 Vérifié sans problème
 
 Contrôles menés qui n'ont **rien** révélé — utile à savoir pour ne pas les
 refaire :
@@ -456,6 +538,7 @@ refaire :
   **1,02 ms** (et 0,00 ms en français, repli immédiat), les 313 objets
   0,39 ms. Déjà mémoïsé, et négligeable même sans. **Ne pas optimiser.**
 - **Intégrité des données** : cf. § 5.4, zéro référence morte.
+- **Parcours fonctionnels** : revue QA indépendante, cf. § 5.7, aucune régression.
 
 ---
 
