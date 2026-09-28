@@ -8,6 +8,11 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-09-28': [
+    'The exported PDF roster sheet now follows the app\'s language. In English it used to come out with every heading in French ("Trésorerie", "Héros", "Historique des batailles"…), along with the reference warband name, the profile names and the skill categories — all of it is translated now, and only the names you gave your own models are left as they are.',
+    'The app loads faster and takes up far less space: artwork, fonts and icons re-encoded, and the first visit no longer downloads the artwork for all 52 warbands, only the ones you actually look at. The game fonts now display correctly offline, which they did not before.',
+    'A warband imported from a hand-edited JSON file can no longer corrupt your treasury, experience or characteristics: inconsistent values are fixed on load instead of spreading through the calculations.',
+  ],
   '2026-09-15': [
     'In the roster view, a Serious Injury with a sub-roll now shows the result it rolled right next to its name — "Madness (Frenzy)", "Smashed Leg (cannot run)", "Arm Wound (amputated)", "Lasting Hatred (the enemy leader)" — instead of making you open the warrior\'s sheet to find out. Injuries already recorded benefit from this too.',
     'Gladiators: Gladiator and Retiarius Henchmen groups may now be equipped differently from one model to the next, as their "Fighting Styles" allow — the app no longer flags them as mismatched equipment.',

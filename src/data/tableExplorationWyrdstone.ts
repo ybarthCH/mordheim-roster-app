@@ -15,8 +15,3 @@ export const TABLE_FRAGMENTS_TROUVES: PalierFragmentsTrouves[] = [
   { min: 36, max: null, fragments: 7 },
 ];
 
-export function fragmentsTrouves(sommeDes: number): number {
-  if (sommeDes <= 0) return 0;
-  const palier = TABLE_FRAGMENTS_TROUVES.find((p) => sommeDes >= p.min && (p.max === null || sommeDes <= p.max));
-  return palier ? palier.fragments : TABLE_FRAGMENTS_TROUVES[TABLE_FRAGMENTS_TROUVES.length - 1].fragments;
-}

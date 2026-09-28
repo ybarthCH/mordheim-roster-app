@@ -9,7 +9,8 @@
     "build:prod": "tsc -b && DEPLOY_TARGET=root vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "check:i18n": "tsx scripts/checkI18nParity.ts"
+    "check:i18n": "tsx scripts/checkI18nParity.ts",
+    "check:data": "tsx scripts/checkDataIntegrity.ts"
   },
   "dependencies": {
     "idb": "^8.0.3",

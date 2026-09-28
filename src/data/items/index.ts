@@ -13,21 +13,13 @@ import poisonsDrogues from './poisons_drogues.json';
 import montures from './montures.json';
 import vehicules from './vehicules.json';
 import artefactsMagiques from './artefacts_magiques.json';
-import legend from './legend.json';
 
-export const ITEMS_CORPS_A_CORPS = armesCorpsACorps;
-export const ITEMS_TIR = armesTir;
-export const ITEMS_POUDRE_NOIRE = armesPoudreNoire;
-export const ITEMS_MUNITIONS = munitions;
-export const ITEMS_ARMURES = armures;
-export const ITEMS_DIVERS = objetsDivers;
-export const ITEMS_CONSOMMABLES = consommables;
-export const ITEMS_POISONS_DROGUES = poisonsDrogues;
-export const ITEMS_MONTURES = montures;
-export const ITEMS_VEHICULES = vehicules;
-export const ITEMS_ARTEFACTS_MAGIQUES = artefactsMagiques;
-export const ITEMS_LEGEND = legend;
 
+// Un seul point d'entrée exporté : la liste agrégée + son index par id. Les
+// douze constantes par catégorie (ITEMS_ARMURES, ITEMS_TIR...) qui vivaient
+// ici n'étaient importées nulle part ; l'une d'elles, ITEMS_LEGEND, exposait
+// même un legend.json volontairement absent de TOUS_LES_ITEMS, donc
+// introuvable via getItem.
 export const TOUS_LES_ITEMS = [
   ...armesCorpsACorps,
   ...armesTir,

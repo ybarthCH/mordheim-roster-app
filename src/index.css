@@ -2,59 +2,52 @@
    ITC Garamond (graisse Book, gère correctement les accents français) pour
    les titres/corps élégants, Caslon Antique pour les grands titres façon
    manuscrit ancien, variantes condensées italiques pour les
-   accroches/citations. */
+   accroches/citations.
+
+   Toutes servies en WOFF2 (et uniquement en WOFF2) : c'est le seul format
+   compressé Brotli du lot, deux fois plus léger que les .ttf/.otf d'origine
+   (546 Ko -> 212 Ko sur les six fichiers), et il est supporté par tous les
+   navigateurs capables de faire tourner cette PWA. Pas de repli .ttf : il
+   doublerait le poids embarqué pour des navigateurs qui ne peuvent de toute
+   façon pas exécuter l'app. */
 @font-face {
   font-family: 'Garamond';
-  src: url('/fonts/ITCGaramondStdBk.ttf') format('truetype');
+  src: url('/fonts/ITCGaramondStdBk.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Garamond Cond Book';
-  src: url('/fonts/GaramondCondBookItalic.otf') format('opentype');
+  src: url('/fonts/GaramondCondBookItalic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Garamond Cond Light';
-  src: url('/fonts/GaramondCondLightItalic.otf') format('opentype');
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Schoensperger';
-  src: url('/fonts/Schoensperger.otf') format('opentype');
+  font-family: 'Caslon Antique';
+  src: url('/fonts/CaslonAntique.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Caslon Antique';
-  src: url('/fonts/CaslonAntique.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Caslon Antique';
-  src: url('/fonts/CaslonAntiqueBold.ttf') format('truetype');
+  src: url('/fonts/CaslonAntiqueBold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Caslon Antique';
-  src: url('/fonts/CaslonAntiqueItalic.ttf') format('truetype');
+  src: url('/fonts/CaslonAntiqueItalic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: 'Caslon Antique';
-  src: url('/fonts/CaslonAntiqueBoldItalic.ttf') format('truetype');
+  src: url('/fonts/CaslonAntiqueBoldItalic.woff2') format('woff2');
   font-weight: 700;
   font-style: italic;
   font-display: swap;

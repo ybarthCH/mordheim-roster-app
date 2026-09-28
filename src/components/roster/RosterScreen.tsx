@@ -359,7 +359,7 @@ export function RosterScreen({
       key: 'export-pdf',
       icon: 'documentPdf' as const,
       label: t('roster.exportPdfMenu'),
-      onClick: () => import('../../utils/pdfExport').then((m) => m.exporterRosterPDF(roster, rules)),
+      onClick: () => import('../../utils/pdfExport').then((m) => m.exporterRosterPDF(roster, rules, language)),
     },
   ];
 

@@ -25,6 +25,37 @@ jobs:
         run: npx oxlint
       - name: Build (production, root path)
         run: npm run build:prod
+      - name: Check dist size against the Infomaniak quota
+        # L'hébergement Infomaniak est plafonné à 10 Mo, et rien ne le
+        # vérifiait avant l'envoi : le déploiement se contentait d'échouer (ou
+        # de remplir le disque) une fois sur place. En septembre 2026, dist
+        # occupait 9,75 Mo sur 10 — à 250 Ko de la rupture — sans qu'aucun
+        # signal ne l'indique, une seule bannière de bande supplémentaire
+        # (~86 Ko) suffisant à faire basculer.
+        #
+        # Deux seuils : ERREUR au-delà de LIMITE_KO (on refuse d'envoyer un
+        # build qui ne tiendra pas), AVERTISSEMENT au-delà de ALERTE_KO (il
+        # reste de la place, mais la marge se réduit). Les dix plus gros
+        # fichiers sont listés dans tous les cas, pour que l'échec dise
+        # directement quoi optimiser.
+        run: |
+          set -e
+          LIMITE_KO=9500
+          ALERTE_KO=8500
+          TAILLE_KO=$(du -sk dist | cut -f1)
+          echo "dist = ${TAILLE_KO} Ko (alerte ${ALERTE_KO} Ko, limite ${LIMITE_KO} Ko)"
+          echo ""
+          echo "Dix plus gros fichiers :"
+          find dist -type f -printf '%s\t%p\n' | sort -rn | head -10 \
+            | awk -F'\t' '{printf "  %8.1f Ko  %s\n", $1/1024, $2}'
+          echo ""
+          if [ "$TAILLE_KO" -gt "$LIMITE_KO" ]; then
+            echo "::error::dist fait ${TAILLE_KO} Ko, au-delà de la limite de ${LIMITE_KO} Ko (quota Infomaniak 10 Mo). Déploiement interrompu avant envoi."
+            exit 1
+          fi
+          if [ "$TAILLE_KO" -gt "$ALERTE_KO" ]; then
+            echo "::warning::dist fait ${TAILLE_KO} Ko, au-delà du seuil d'alerte de ${ALERTE_KO} Ko. Marge restante faible sur le quota de 10 Mo."
+          fi
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
       - name: Deploy via lftp (reverse mirror, delete obsolete files first)

@@ -1,4 +1,5 @@
 import { execSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -50,6 +51,15 @@ function gitShortSha() {
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
   base: command === 'build' ? base : '/',
+  resolve: {
+    alias: {
+      // Dépendances optionnelles de jsPDF, chargées uniquement par sa méthode
+      // `.html()` que cette app n'utilise pas — voir le commentaire détaillé
+      // dans build/jspdf-optional-stub.js. ~370 Ko de dist en moins.
+      html2canvas: fileURLToPath(new URL('./build/jspdf-optional-stub.js', import.meta.url)),
+      dompurify: fileURLToPath(new URL('./build/jspdf-optional-stub.js', import.meta.url)),
+    },
+  },
   css: {
     postcss: {
       plugins: [rewriteRootAssetUrls(command === 'build' ? base : '/')],
@@ -122,11 +132,53 @@ export default defineConfig(({ command }) => ({
         // que réagir à la prise de contrôle après un skipWaiting déjà
         // explicitement déclenché par l'utilisateur.
         clientsClaim: true,
-        globPatterns: ['**/*.{js,css,html,svg,png,webp,ico,json}'],
-        // assetlinks.json proves domain ownership to Android's Digital Asset
-        // Links verifier — it's fetched directly by the OS/Chrome, not by the
-        // app, so it has no business in the app's own offline cache.
-        globIgnores: ['.well-known/**'],
+        // woff2 était absent de cette liste (comme ttf/otf avant la conversion) :
+        // les polices maison n'étaient donc JAMAIS précachées et, hors-ligne,
+        // l'app retombait silencieusement sur les polices système (font-display:
+        // swap). 212 Ko pour les six fichiers, indispensables à l'identité
+        // visuelle d'une app qui se veut utilisable sans réseau.
+        globPatterns: ['**/*.{js,css,html,svg,png,webp,ico,json,woff2}'],
+        // Les 52 bannières de bande (~3 Mo) sortent du précache : un joueur ne
+        // consulte que les bandes qu'il possède, et les précacher imposait
+        // ~3 Mo de téléchargement à la première visite pour des visuels
+        // purement décoratifs. Elles passent en cache d'exécution (voir
+        // runtimeCaching plus bas) : mises en cache à la première vue, puis
+        // disponibles hors-ligne comme le reste.
+        //
+        // assetlinks.json prouve la propriété du domaine au vérificateur
+        // Digital Asset Links d'Android — il est récupéré directement par
+        // l'OS/Chrome, pas par l'app, donc il n'a rien à faire dans son
+        // propre cache hors-ligne.
+        globIgnores: ['.well-known/**', 'bandes/**'],
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.includes('/bandes/'),
+            // StaleWhileRevalidate plutôt que CacheFirst : les bannières
+            // viennent de public/, donc leur nom ne porte PAS de hash de
+            // contenu. Tant qu'elles étaient précachées, le manifeste Workbox
+            // portait leur révision et un changement de contenu se propageait
+            // au déploiement suivant. En CacheFirst sans maxAgeSeconds, une
+            // bannière une fois mise en cache n'aurait plus jamais été
+            // revalidée — et avec 52 bannières pour 60 entrées, jamais évincée
+            // non plus : retoucher une illustration n'aurait plus jamais
+            // atteint les joueurs déjà passés dessus.
+            //
+            // StaleWhileRevalidate sert la version en cache immédiatement
+            // (même confort qu'en CacheFirst, même disponibilité hors-ligne
+            // où la revalidation échoue silencieusement) tout en rafraîchissant
+            // en arrière-plan : une bannière modifiée est reprise à la vue
+            // suivante. maxAgeSeconds borne en plus la durée de vie d'une
+            // entrée jamais revue.
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'bannieres-bandes',
+              // 52 bandes au catalogue : la limite laisse de la marge pour les
+              // ajouts sans jamais évincer une bannière déjà vue.
+              expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 90 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+        ],
         // /privacy is a standalone static page, not a client-side route —
         // without this denylist, Workbox's NavigationRoute intercepts every
         // navigation request and serves index.html instead, so the page

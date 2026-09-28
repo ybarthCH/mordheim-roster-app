@@ -15,7 +15,24 @@
 // avant/après toute modification des fichiers concernés, pas de garantie
 // absolue.
 //
+// Ce script couvre AUSSI, depuis l'audit technique de septembre 2026, deux
+// modes de défaillance du dictionnaire d'interface (src/i18n/ui/) qui
+// n'étaient surveillés par rien et ne se voient qu'à l'écran :
+//   1. une clé déclarée dans DEUX namespaces : `uiDictionary` étant un simple
+//      étalement d'objets (voir i18n/ui/index.ts), la dernière déclaration
+//      écrase silencieusement la précédente — l'un des deux écrans affiche
+//      alors le libellé de l'autre ;
+//   2. une clé passée à t() sans être déclarée nulle part : t() retombe sur
+//      la clé elle-même, et l'interface affiche « roster.exportPdf » à la
+//      place d'un libellé.
+// Ces deux contrôles-là font échouer le script. Les clés déclarées mais
+// jamais utilisées sont seulement COMPTÉES (voir plus bas) : elles ne
+// cassent rien, et l'app en contient un lot légitime, consommé par
+// construction dynamique de la clé.
+//
 // Usage : npx tsx scripts/checkI18nParity.ts
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { FRANCS_TIREURS } from '../src/data/hiredSwords';
 import { hiredSwordsEn } from '../src/i18n/data/hiredSwords';
 import { TOUS_LES_ITEMS } from '../src/data/items';
@@ -106,12 +123,83 @@ for (const catalogue of CATALOGUES) {
   verifierParite('warbands', catalogue.id, 'equipement_special', catalogue.equipement_special, equipEspecialEn);
 }
 
-if (problemes.length === 0) {
+// --- Dictionnaire d'interface (src/i18n/ui/) : collisions et clés absentes ---
+//
+// Analyse textuelle plutôt qu'import du dictionnaire déjà fusionné : une fois
+// `uiDictionary` construit, la collision a précisément disparu (la seconde
+// déclaration a écrasé la première), donc seule la lecture des fichiers
+// sources permet encore de la voir.
+const RACINE_I18N = 'src/i18n/ui';
+const RACINES_SOURCE = ['src/components', 'src/utils', 'src/state'];
+
+function fichiersSous(dir: string, ext: string[]): string[] {
+  const out: string[] = [];
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, e.name);
+    if (e.isDirectory()) out.push(...fichiersSous(p, ext));
+    else if (ext.some((x) => e.name.endsWith(x))) out.push(p);
+  }
+  return out;
+}
+
+const declarations = new Map<string, string[]>();
+for (const f of readdirSync(RACINE_I18N).filter((n) => n.endsWith('.ts') && n !== 'index.ts' && n !== 'types.ts')) {
+  const contenu = readFileSync(join(RACINE_I18N, f), 'utf-8');
+  for (const m of contenu.matchAll(/^\s*'([\w.]+)'\s*:\s*\{/gm)) {
+    const liste = declarations.get(m[1]) ?? [];
+    liste.push(f);
+    declarations.set(m[1], liste);
+  }
+}
+
+const utilisees = new Set<string>();
+// Préfixes de clés construites dynamiquement — t(`statut.${m.statut}`) ou
+// uiDictionary[`catalogueReference.list.${cle}`] : toute clé commençant par
+// ce préfixe est considérée atteignable.
+const prefixesDynamiques = new Set<string>();
+for (const f of RACINES_SOURCE.flatMap((d) => fichiersSous(d, ['.ts', '.tsx']))) {
+  const contenu = readFileSync(f, 'utf-8');
+  for (const m of contenu.matchAll(/\b(?:t|traduireCle)\(\s*'([\w.]+)'/g)) utilisees.add(m[1]);
+  for (const m of contenu.matchAll(/(?:\bt|traduireCle)\(\s*`([\w.]+?)\.\$\{/g)) prefixesDynamiques.add(m[1]);
+  for (const m of contenu.matchAll(/uiDictionary\[\s*`([\w.]+?)\.\$\{/g)) prefixesDynamiques.add(m[1]);
+  // Clés listées telles quelles dans un tableau/objet puis passées à t()
+  for (const m of contenu.matchAll(/'([a-z][\w]*(?:\.[\w]+){1,3})'/g)) {
+    if (declarations.has(m[1])) utilisees.add(m[1]);
+  }
+}
+
+const collisions = [...declarations.entries()].filter(([, fichiers]) => fichiers.length > 1);
+const absentes = [...utilisees].filter((k) => !declarations.has(k)).sort();
+const atteignable = (k: string) => utilisees.has(k) || [...prefixesDynamiques].some((p) => k.startsWith(`${p}.`));
+const orphelines = [...declarations.keys()].filter((k) => !atteignable(k));
+
+const echecsUi = collisions.length + absentes.length;
+
+if (problemes.length === 0 && echecsUi === 0) {
   console.log('OK — aucune désynchronisation de longueur détectée entre les tableaux FR et EN appariés par index.');
+  console.log(`OK — ${declarations.size} clés d'interface, aucune collision, aucune clé manquante.`);
 } else {
-  console.error(`${problemes.length} désynchronisation(s) détectée(s) :\n`);
-  for (const p of problemes) {
-    console.error(`  [${p.source}] ${p.id} — ${p.champ} : FR a ${p.frLongueur} entrée(s), EN en a ${p.enLongueur}.`);
+  if (problemes.length > 0) {
+    console.error(`${problemes.length} désynchronisation(s) détectée(s) :\n`);
+    for (const p of problemes) {
+      console.error(`  [${p.source}] ${p.id} — ${p.champ} : FR a ${p.frLongueur} entrée(s), EN en a ${p.enLongueur}.`);
+    }
+  }
+  if (collisions.length > 0) {
+    console.error(`\n${collisions.length} clé(s) d'interface déclarée(s) dans plusieurs namespaces :\n`);
+    for (const [cle, fichiers] of collisions) {
+      console.error(`  '${cle}' — ${fichiers.join(', ')} (la dernière fusionnée écrase les autres)`);
+    }
+  }
+  if (absentes.length > 0) {
+    console.error(`\n${absentes.length} clé(s) utilisée(s) via t() mais déclarée(s) nulle part :\n`);
+    for (const cle of absentes) console.error(`  '${cle}' — t() affichera la clé brute à l'écran`);
   }
   process.exitCode = 1;
+}
+
+if (orphelines.length > 0) {
+  console.log(
+    `\nNote : ${orphelines.length} clé(s) déclarée(s) sans usage détecté (sans gravité — reliquats de refontes d'écran et clés construites dynamiquement hors des motifs reconnus).`
+  );
 }

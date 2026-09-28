@@ -36,6 +36,7 @@ import { bandeReferenceScreen } from './bandeReferenceScreen';
 import { rechercheReference } from './rechercheReference';
 import { cloudBackup } from './cloudBackup';
 import { reglesBase } from './reglesBase';
+import { pdfExport } from './pdfExport';
 
 // Chaque écran ajoute son propre namespace ici au fur et à mesure de sa
 // traduction (voir common.ts pour le format). Fusionné en un seul
@@ -78,4 +79,5 @@ export const uiDictionary: UiDictionary = {
   ...rechercheReference,
   ...cloudBackup,
   ...reglesBase,
+  ...pdfExport,
 };

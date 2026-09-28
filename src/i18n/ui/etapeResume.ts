@@ -1,7 +1,11 @@
 import type { UiDictionary } from './types';
 
 export const etapeResume: UiDictionary = {
-  'resume.title': { fr: 'Résumé', en: 'Summary' },
+  // 'resume.title' est partagé avec la ResumeCard de la fiche personnage et
+  // déclaré une seule fois, dans personnageCards.ts : le préfixe `resume.` est
+  // commun aux deux écrans, et une double déclaration serait silencieusement
+  // écrasée à la fusion de uiDictionary (voir scripts/checkI18nParity.ts, qui
+  // refuse désormais ce cas).
   'resume.vsOpponents': { fr: 'vs {noms}', en: 'vs {noms}' },
   'resume.wyrdstoneLine': { fr: 'Wyrdstone : {avant} → {apres}', en: 'Wyrdstone: {avant} → {apres}' },
   'resume.treasuryLine': { fr: 'Trésorerie : {avant} → ', en: 'Treasury: {avant} → ' },

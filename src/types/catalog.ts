@@ -1,5 +1,28 @@
 // Modèle de données du catalogue (référence, en lecture seule côté joueur)
 
+// Catégorie d'équipement qu'un profil peut se voir interdire (voir
+// Profile.categories_interdites / categories_interdites_commun, et
+// estCategorieInterdite dans utils/shop.ts — seul consommateur).
+//
+// `armes_de_jet` cible un sous-type au sein d'`armes_tir` (voir le champ
+// `sous_type` sur les items concernés dans data/items/armes_tir.json) —
+// utilisé par les bandes qui bannissent seulement les armes lancées à la
+// main (ex : la règle Chevalerie des Gardiens de Chapelle Bretonniens) sans
+// toucher aux arcs/arbalètes.
+//
+// Définie ici, à côté des champs qui la portent, plutôt que dans shop.ts :
+// elle l'était en triple (deux unions recopiées à l'identique sur les deux
+// champs de Profile, plus un type `CategorieInterdite` exporté par shop.ts
+// que personne n'importait), donc ajouter une catégorie demandait trois
+// modifications cohérentes, sans que le compilateur signale un oubli.
+export type CategorieInterdite =
+  | 'armes_cac'
+  | 'armes_tir'
+  | 'armes_poudre_noire'
+  | 'armes_de_jet'
+  | 'armures'
+  | 'poisons_drogues';
+
 export type Stats = {
   M: number;
   CC: number;
@@ -318,14 +341,7 @@ export type Profile = {
   // portée : les profils qui n'interdisent qu'un type d'armure précis (ex :
   // Prêtre de Taal, armure lourde uniquement) — non automatisée, laissée en
   // texte informatif dans regles_speciales.
-  categories_interdites?: (
-    | 'armes_cac'
-    | 'armes_tir'
-    | 'armes_poudre_noire'
-    | 'armes_de_jet'
-    | 'armures'
-    | 'poisons_drogues'
-  )[];
+  categories_interdites?: CategorieInterdite[];
   // Variante de `categories_interdites` qui ne filtre QUE l'onglet "commune"
   // du shop (et la recherche d'objet rare) — jamais l'onglet "bande" via
   // getEquipementBande, contrairement à `categories_interdites` qui filtre
@@ -337,14 +353,7 @@ export type Profile = {
   // sous "armes_cac" — `categories_interdites: ["armes_cac"]` masquerait
   // aussi ses propres ustensiles, ce qui n'est pas voulu). Consommé par
   // getPlaceDuMarche uniquement.
-  categories_interdites_commun?: (
-    | 'armes_cac'
-    | 'armes_tir'
-    | 'armes_poudre_noire'
-    | 'armes_de_jet'
-    | 'armures'
-    | 'poisons_drogues'
-  )[];
+  categories_interdites_commun?: CategorieInterdite[];
   // Ce profil, tant qu'un membre vivant le possède, augmente l'effectif
   // maximum autorisé de la bande d'autant (ex : la Roulotte de la Peste de
   // la Kermesse du Chaos, "+2" — voir effectifMaxAutorise dans

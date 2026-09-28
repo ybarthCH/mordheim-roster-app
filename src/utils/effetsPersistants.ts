@@ -26,14 +26,6 @@ export function ajouterEffetPersistant(
   };
 }
 
-export function retirerEffetPersistant(
-  roster: RosterInstance,
-  effetId: string
-): Pick<RosterInstance, 'effets_persistants'> {
-  return {
-    effets_persistants: (roster.effets_persistants ?? []).filter((e) => e.id !== effetId),
-  };
-}
 
 export function effetsPersistantsAvecCle(roster: RosterInstance, cle: string): EffetPersistant[] {
   return (roster.effets_persistants ?? []).filter((e) => e.cle === cle);

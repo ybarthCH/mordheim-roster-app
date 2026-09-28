@@ -155,10 +155,6 @@ export function contributionProfilDetailMembre(
   return { progression: progression * taille, blessures: blessures * taille };
 }
 
-export function contributionProfilMembre(m: Member, profil: Profile | undefined): number {
-  const { progression, blessures } = contributionProfilDetailMembre(m, profil);
-  return progression + blessures;
-}
 
 function trouverCompetence(
   id: string,

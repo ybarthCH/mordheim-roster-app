@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import type { Profile, Stats } from '../types/catalog';
-import type { Member, ProfilFrancTireur, RosterInstance } from '../types/roster';
+import type { Member, RosterInstance } from '../types/roster';
 import type { FrancTireurCatalog } from '../types/hiredSword';
 import { profilDeFrancTireur } from '../data/hiredSwords';
 
@@ -44,18 +44,6 @@ export function creerMembre(profil: Profile, xpDepart?: number, tailleGroupe = 1
   };
 }
 
-export function creerMembreFrancTireur(profilCustom: ProfilFrancTireur, xpDepart = 0, tailleGroupe = 1): Member {
-  return {
-    ...membreDeBase(),
-    profil_id: `franc-tireur-${uuidv4()}`,
-    nom_perso: profilCustom.nom,
-    xp: xpDepart,
-    xp_depart: xpDepart,
-    stats_actuels: { ...profilCustom.stats },
-    profil_custom: profilCustom,
-    taille_groupe: profilCustom.type === 'homme_de_main' ? Math.max(1, tailleGroupe) : 1,
-  };
-}
 
 export function creerMembreFrancTireurCatalogue(francTireur: FrancTireurCatalog): Member {
   const membre = creerMembre(profilDeFrancTireur(francTireur), 0, 1);
