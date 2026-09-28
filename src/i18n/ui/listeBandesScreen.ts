@@ -36,4 +36,15 @@ export const listeBandesScreen: UiDictionary = {
   'home.cancel': { fr: 'Annuler', en: 'Cancel' },
   'home.delete': { fr: 'Supprimer', en: 'Delete' },
   'home.supportKofi': { fr: '☕ Soutenir Musterheim sur Ko-fi', en: '☕ Support Musterheim on Ko-fi' },
+  // Les deux mentions de pied de page étaient écrites en anglais en dur dans
+  // le JSX de ListeBandesScreen, sans passer par t() : elles restaient donc
+  // en anglais même avec l'interface en français.
+  'home.localDataWarning': {
+    fr: "Musterheim enregistre tes données localement, sur cet appareil. Effacer les données de site de ton navigateur peut supprimer définitivement tes bandes sauvegardées. Nous te recommandons vivement d'exporter des sauvegardes régulières.",
+    en: "Musterheim saves your data locally on this device. Clearing your browser's site data may permanently delete your saved rosters. We strongly recommend exporting regular backups.",
+  },
+  'home.gamesWorkshopDisclaimer': {
+    fr: "Cette app est un projet communautaire gratuit, sans lien avec Games Workshop. Tout le contenu d'origine est Copyright 2026 Games Workshop.",
+    en: 'This app is a free community project not associated with Games Workshop. All original content is Copyright 2026 Games Workshop.',
+  },
 };

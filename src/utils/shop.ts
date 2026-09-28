@@ -267,18 +267,9 @@ function normaliserCategorie(categorie: string): string {
 // spéciales...) suit ce même couple : bloqué seulement si les deux sont
 // interdites, signe qu'un profil n'a plus aucune capacité de tir.
 //
-// `armes_de_jet` cible un sous-type au sein d'`armes_tir` (voir le champ
-// `sous_type` sur les items concernés dans data/items/armes_tir.json) —
-// utilisé par les bandes qui bannissent seulement les armes lancées à la
-// main (ex : la règle Chevalerie des Gardiens de Chapelle Bretonniens) sans
-// toucher aux arcs/arbalètes.
-export type CategorieInterdite =
-  | 'armes_cac'
-  | 'armes_tir'
-  | 'armes_poudre_noire'
-  | 'armes_de_jet'
-  | 'armures'
-  | 'poisons_drogues';
+// La liste des catégories elle-même (dont `armes_de_jet`, sous-type au sein
+// d'`armes_tir`) vit avec les champs qui la portent : voir CategorieInterdite
+// dans types/catalog.ts.
 
 // Un objet appartient-il à une catégorie interdite à ce profil (voir
 // Profile.categories_interdites) ? Ne filtre que l'onglet "commun" du shop

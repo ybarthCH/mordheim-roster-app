@@ -392,12 +392,10 @@ export function ListeBandesScreen() {
         {__APP_VERSION__} · {__APP_BUILD_DATE__.slice(0, 10)} · {heureBuildCET(__APP_BUILD_DATE__)}
       </p>
       <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '0.4rem' }}>
-        Musterheim saves your data locally on this device. Clearing your browser's site data may permanently delete
-        your saved rosters. We strongly recommend exporting regular backups.
+        {t('home.localDataWarning')}
       </p>
       <p className="text-sm text-muted" style={{ textAlign: 'center', marginTop: '0.4rem' }}>
-        This app is a free community project not associated with Games Workshop. All original content is
-        Copyright 2026 Games Workshop.
+        {t('home.gamesWorkshopDisclaimer')}
       </p>
     </Screen>
   );

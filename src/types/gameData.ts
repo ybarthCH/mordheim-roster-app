@@ -15,16 +15,6 @@ export type Skill = {
 
 export type SkillsData = Record<SkillCategory, Skill[]>;
 
-export type InjuryEntry = {
-  min: number;
-  max: number;
-  resultat: string;
-  effet: string;
-  mort?: boolean;
-  horsDeCombatDefinitif?: boolean;
-  modificateur?: { stat: keyof Stats; delta: number };
-};
-
 // Table d'avancement — deux versions distinctes (héros / hommes de main),
 // chacune avec ses propres résultats possibles sur 2D6.
 export type AdvanceEntry =
