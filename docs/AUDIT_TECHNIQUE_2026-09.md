@@ -315,7 +315,151 @@ Accumulateurs recopiés à chaque itération (complexité quadratique) :
 
 ---
 
-## 5. Ce qui va bien
+## 5. Seconde passe — robustesse, garde-fous, intégrité
+
+### 5.1 [FAIT] `normaliserRoster` : les nombres n'étaient pas protégés
+
+`utils/normalize.ts` protège soigneusement les tableaux (`tableauSur`), les
+objets (`objetSur`) et la photo (`photoSure`) contre un champ présent mais du
+mauvais type — le fichier explique même pourquoi `??` ne suffit pas. Mais les
+champs **numériques** étaient restés en `?? defaut`, qui ne se déclenche que
+sur `undefined`. Même classe de bug, traitée partout sauf là.
+
+Conséquences concrètes sur un JSON importé (édité à la main, tronqué, produit
+par un outil tiers) :
+
+| Entrée | Avant | Effet |
+|---|---|---|
+| `tresorerie: "50"` | reste la chaîne `"50"` | `"50" + 20` → `"5020"` |
+| `tresorerie: NaN` | reste `NaN` | contamine tout calcul, sans recours joueur |
+| `taille_groupe: 0` | reste `0` | `quantite % 0` → `NaN`, affichage des groupes cassé |
+| `stats_actuels: { M: "trois" }` | reste la chaîne | fausse valeur de bande et plafonds |
+
+Neuf champs de roster/membre plus les neuf caractéristiques passent désormais
+par un helper `nombreSur`. Il **convertit** une chaîne numérique plutôt que de
+la rejeter (elle porte une intention lisible : rejeter ferait perdre au joueur
+sa valeur) et borne les seuls compteurs.
+
+> ⚠️ Piège évité : borner `tresorerie` à 0 aurait été une régression.
+> `RosterSummaryCard` autorise explicitement la saisie d'un `-` et affiche une
+> trésorerie négative en rouge (`var(--danger)`) — **la dette est un état
+> conçu**. `tresorerie` et `wyrdstone` restent donc non bornés.
+
+Vérifié sur les 52 bandes : aller-retour sans perte et normalisation
+idempotente, trésorerie négative préservée.
+
+### 5.2 [FAIT] Le déploiement ne contrôlait pas la taille de `dist`
+
+Le commentaire de l'étape `lftp` du workflow Infomaniak documente que le quota
+de 10 Mo **a déjà été saturé plusieurs fois** (un bug de déploiement empilait
+des copies). Ce bug-là est corrigé, mais rien ne vérifiait la taille du build
+avant envoi — d'où les 9,75 Mo atteints en silence.
+
+`deploy-infomaniak.yml` gagne une étape de contrôle, entre le build et
+l'envoi : **erreur au-delà de 9,5 Mo** (on refuse d'envoyer un build qui ne
+tiendra pas), **avertissement au-delà de 8,5 Mo**, et les dix plus gros
+fichiers listés dans tous les cas pour que l'échec dise directement quoi
+optimiser. Mesure actuelle : 7 728 Ko, soit 1 772 Ko de marge sous le seuil
+d'erreur.
+
+### 5.3 [FAIT] `check:i18n` ne voyait ni les collisions ni les clés absentes
+
+`uiDictionary` est un simple étalement d'objets (`i18n/ui/index.ts`) : une clé
+déclarée dans deux namespaces voit la dernière fusionnée **écraser
+silencieusement** l'autre. Et une clé passée à `t()` sans être déclarée fait
+afficher la clé brute à l'écran (`roster.exportPdf` au lieu d'un libellé).
+Aucun des deux n'était surveillé.
+
+Le script couvre maintenant les deux, et a immédiatement trouvé
+**`resume.title` déclarée à la fois dans `etapeResume.ts` et
+`personnageCards.ts`** — mêmes valeurs aujourd'hui, donc sans effet visible,
+mais toute divergence future serait passée inaperçue. Dédupliquée.
+
+Bilan : 1 254 clés, 0 clé manquante, 0 collision. Les clés déclarées sans
+usage sont seulement **comptées** (17), pas bloquantes : l'app en contient un
+lot légitime, consommé par construction dynamique de la clé
+(`t(\`statut.${'{'}m.statut}\`)`, `uiDictionary[\`catalogueReference.list.${'{'}cle}\`]`).
+
+### 5.4 [FAIT] Nouveau `npm run check:data` — intégrité référentielle
+
+L'activité principale du projet est l'ajout et l'audit de bandes, et **rien ne
+vérifiait mécaniquement** qu'une bande nouvellement saisie ne référence pas un
+objet, un profil ou une catégorie qui n'existe pas. Une référence morte ne se
+voit pas dans le JSON : elle se manifeste bien plus tard par une ligne
+d'équipement absente de la boutique.
+
+`scripts/checkDataIntegrity.ts` vérifie : objets et profils cités par
+`equipement_special`, catégories de compétences, compétences gratuites,
+existence du fichier de bannière, unicité des profils, mécanisme de chef
+(`est_leader` unique **ou** `leader_libre`), et `min <= max`.
+
+Il ne juge **rien** sur le fond des règles (prix, raretés, profils) — c'est le
+rôle de `mordheim-rules-auditor` contre les PDF.
+
+**Résultat : aucune référence morte sur 52 bandes et 313 objets.** La seule
+alerte initiale — deux bandes sans profil `est_leader` — s'est révélée être un
+faux positif : ce sont exactement les deux bandes `leader_libre`
+(Cour des Plaisirs Profanes, Pillards de Lustrie), cas explicitement géré par
+`utils/leader.ts`. Le script intègre cette règle.
+
+### 5.5 [FAIT] Vérification hors-ligne réelle du service worker
+
+Les deux changements de cache (polices ajoutées au précache, bannières
+déplacées en `runtimeCaching`) ont été validés sur le **build de production**,
+pas seulement sur le fichier de config : service worker activé, puis passage
+hors-ligne et rechargement.
+
+Résultat hors-ligne : app rendue, **polices maison effectivement chargées**
+(Garamond + Caslon Antique — le bug du § 1.3 est bien corrigé), et bannière de
+bande servie depuis le cache d'exécution. Le `sw.js` généré contient bien
+zéro entrée `bandes/` en précache, les six `.woff2`, et la route
+`bannieres-bandes`.
+
+> Mise en garde de mesure : `dist` **accumule les fichiers de builds
+> précédents** quand on alterne `npm run build` et `npm run build:prod` (bases
+> différentes). Une mesure de taille ne vaut qu'après `rm -rf dist`. Sans
+> incidence en CI (checkout neuf), mais ça m'a d'abord fait lire 5 698 Kio de
+> précache au lieu de 4 272.
+
+### 5.6 [À FAIRE] Accessibilité : libellés non associés aux champs
+
+Points positifs d'abord : **aucun bouton-icône sans `aria-label`**, **aucune
+`<img>` sans `alt`** dans toute l'app — c'est soigné.
+
+En revanche, ~27 champs de saisie ont un libellé **visible mais non associé
+programmatiquement**. Trois cas représentatifs du motif :
+
+- `AchatEquipementModal.tsx:516` — champ de recherche avec un simple
+  `placeholder` (qui disparaît à la saisie et n'est pas un nom accessible).
+- `CaracteristiquesCard.tsx:90` — l'`<input>` d'une caractéristique ; le
+  `title` est porté par le `<div>` parent, pas par le champ. Un lecteur
+  d'écran annonce donc un compteur sans nom, **neuf fois par personnage**.
+- `StatutCard.tsx:205` — un `<span>` porte le texte juste avant le champ, sans
+  `<label htmlFor>` ni `aria-labelledby`.
+
+Correction : associer le libellé existant (`<label htmlFor>` ou
+`aria-labelledby` vers le `<span>` déjà présent), plutôt qu'inventer de
+nouveaux textes. Aucun impact visuel. Non fait ici : 27 sites demandent chacun
+de choisir le bon libellé selon le contexte, ce qui mérite sa propre passe.
+
+### 5.7 Vérifié sans problème
+
+Contrôles menés qui n'ont **rien** révélé — utile à savoir pour ne pas les
+refaire :
+
+- **Chaînes non traduites** : balayage de tous les composants à la recherche de
+  texte littéral rendu en JSX. Hors le pied de page du § 4.1, aucune.
+- **Mutation d'état React** : les 15 mutations directes détectées portent
+  toutes sur un objet créé à la ligne précédente (`creerMembre`,
+  `creerRoster`) avant passage à l'état. Idiomatique, aucun bug.
+- **Coût des traductions en rendu** : traduire les 52 catalogues coûte
+  **1,02 ms** (et 0,00 ms en français, repli immédiat), les 313 objets
+  0,39 ms. Déjà mémoïsé, et négligeable même sans. **Ne pas optimiser.**
+- **Intégrité des données** : cf. § 5.4, zéro référence morte.
+
+---
+
+## 6. Ce qui va bien
 
 Pour équilibrer : l'audit n'a trouvé **aucun** bug de logique de jeu, **aucune**
 fuite de données, **aucune** dépendance obsolète ou vulnérable bloquante.
@@ -327,19 +471,39 @@ fuite de données, **aucune** dépendance obsolète ou vulnérable bloquante.
 - Séparation données / logique / présentation respectée.
 - Le script `check:i18n` fait exactement son travail : il a survécu à l'audit
   en signalant un vrai problème (§ 4.2).
+- **Intégrité des données irréprochable** : 52 bandes, 313 objets, zéro
+  référence morte, zéro doublon d'identifiant (§ 5.4). Pour des données
+  saisies à la main bande par bande, c'est remarquable.
+- `normalize.ts` avait déjà anticipé la bonne classe de risque (JSON importé
+  au mauvais type) — il ne lui manquait que les nombres (§ 5.1).
+- Aucune mutation d'état React, aucun coût de rendu à optimiser (§ 5.7).
+- Accessibilité des boutons et des images complète (§ 5.6).
 
 ---
 
-## 6. Récapitulatif chiffré
+## 7. Récapitulatif chiffré
 
 ```
-dist        9,75 Mo  ->  7,20 Mo    (-2,55 Mo, -26 %)
-marge/10Mo  0,25 Mo  ->  2,80 Mo    (x11)
-précache    9 400 Kio -> 4 273 Kio  (-55 %)
+dist        9,75 Mo   ->  7,20 Mo     (-2,55 Mo, -26 %)
+marge/10Mo  0,25 Mo   ->  2,80 Mo     (x11)
+précache    9 400 Kio ->  4 273 Kio   (-55 %)
 ```
+
+Garde-fous ajoutés, là où il n'y avait aucune surveillance :
+
+| Contrôle | Portée |
+|---|---|
+| Taille de `dist` en CI | bloque le déploiement au-delà de 9,5 Mo |
+| `check:i18n` étendu | collisions de clés + clés manquantes |
+| `check:data` (nouveau) | références mortes sur 52 bandes / 313 objets |
 
 Vérifications passées après modifications : `tsc -b --force`, `oxlint`,
-`check:i18n` (seul `lame_des_etoiles` subsiste, cf. § 4.2), `vite build`,
-et contrôle visuel Playwright en `deviceScaleFactor: 2` — polices WOFF2
-effectivement chargées (`document.fonts.status = loaded`), bannière réencodée
-et icônes sans artefact visible.
+`check:i18n` (seul `lame_des_etoiles` subsiste, cf. § 4.2), `check:data`,
+`vite build` et `build:prod`, contrôle visuel Playwright en
+`deviceScaleFactor: 2`, et **test hors-ligne réel** sur le build de production
+(cf. § 5.5).
+
+Le dépôt ne contient **aucun test unitaire** : `check:i18n` et `check:data`
+sont, avec `tsc` et `oxlint`, les seuls filets automatiques. C'est le manque
+structurel le plus net de l'audit — les parcours critiques (post-bataille,
+achat, recrutement) ne sont couverts que par vérification manuelle.
