@@ -323,20 +323,44 @@ volontairement** : trancher demande de vérifier le PDF Amazones du Setting
 Lustrie (p. 11), ce qui relève de `mordheim-rules-auditor`. Le script continue
 à le signaler — c'est le comportement souhaité, pas du bruit.
 
-### 4.3 [À FAIRE] L'export PDF est entièrement en français, quelle que soit la langue
+### 4.3 [FAIT] L'export PDF ne suivait pas la langue de l'interface
 
-Constat de la revue QA, **déjà présent sur `main`** (dernier commit touchant ce
-fichier hors du diff d'audit). Un PDF exporté avec l'interface en **anglais**
-sort avec des intitulés français : `Bande :`, `TRÉSORERIE`,
-`Valeur de bande :`, `Héros`, `Hommes de main & créatures`.
+Constat de la revue QA, **déjà présent sur `main`**. Un PDF exporté avec
+l'interface en anglais sortait avec tous ses intitulés en français :
+`Bande :`, `TRÉSORERIE`, `Valeur de bande :`, `Héros`,
+`Hommes de main & créatures`. `utils/pdfExport.ts` ne recevait tout simplement
+pas la langue.
 
-`src/utils/pdfExport.ts` (571 lignes) ne contient aucune référence à
-`language`, `useLanguage`, `t()` ni `translate` : l'export n'a jamais été
-branché sur l'i18n. Les noms d'objets et de profils passent, eux, par les
-données traduites, d'où un PDF mi-anglais mi-français pour un joueur anglophone.
+L'extraction du texte des PDF générés a montré que le trou était **plus
+profond que ce que la revue supposait** : ce n'étaient pas seulement les
+libellés de structure, mais aussi le nom de la bande de référence
+(`Horde Orque (1a)`), les noms de profils (`Chef Orque`) et les catégories de
+compétences (`Tir`, `Force`, `Érudition`) — `getCatalogue()` renvoyait le
+catalogue brut, jamais `translateWarbandCatalog()`, et `resolveProfil()` était
+appelé sans catalogue ni langue.
 
-Chantier non trivial : il faut faire descendre `language` jusqu'à l'export et
-extraire ~40 libellés en dur vers un namespace i18n dédié.
+Corrigé de bout en bout. `exporterRosterPDF(roster, rules, language)` reçoit la
+langue depuis `RosterScreen`, les ~30 libellés sont sortis dans un namespace
+`src/i18n/ui/pdfExport.ts`, le catalogue est traduit et les catégories de
+compétences passent par `skillCategory.*`. La locale de date du pied de page
+était elle aussi figée (`fr-FR`).
+
+> **Anglais : d'où il vient.** La majorité des termes existaient déjà traduits
+> ailleurs dans l'interface (Treasury, Heroes, Henchmen, Warband rating, Battle
+> history, Date, Result, Notes, Tribe) — leur formulation est reprise telle
+> quelle, pas réinventée. Les intitulés propres au PDF sans équivalent existant
+> sont des **propositions**, marquées une par une dans le fichier i18n :
+> `List:`, `Record: W/L/D`, `WARBAND STANDING`, `Total XP:`, `heroes,
+> follower(s)`, `EQUIPMENT IN RESERVE`, `Opponent`, `Killed in action:`,
+> `Group experience:`, `generated on`, `Page X of Y`, et la note sur le
+> plafond racial. Conformément à la politique FR → EN du projet, elles
+> attendent validation — une correction tient en une ligne du namespace.
+
+Vérifié en générant réellement les deux PDF et en extrayant leur texte. Ce qui
+reste identique entre les deux versions est correct : le nom que le joueur a
+donné à sa bande, `MORDHEIM`, `Combat` (même mot dans les deux langues), et les
+noms des figurines, enregistrés au recrutement — ce sont des noms, pas des
+libellés.
 
 ### 4.4 [À FAIRE] `jsx-no-constructed-context-values` dans `UpdateSWContext`
 

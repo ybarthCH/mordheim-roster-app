@@ -33,6 +33,26 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-09-28',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "La fiche PDF exportée suit désormais la langue de l'application. En anglais, elle sortait jusqu'ici avec tous ses intitulés en français (« Trésorerie », « Héros », « Historique des batailles »…), ainsi que le nom de la bande de référence, les noms de profils et les catégories de compétences — tout est traduit, seuls les noms que tu as donnés toi-même à tes figurines restent tels quels.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "L'application se charge plus vite et occupe beaucoup moins de place : illustrations, polices et icônes réencodées, et la première visite ne télécharge plus les illustrations des 52 bandes mais seulement celles que tu consultes. Les polices du jeu s'affichent maintenant correctement hors connexion, ce qui n'était pas le cas.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Une bande importée depuis un fichier JSON modifié à la main ne peut plus corrompre la trésorerie, l'expérience ou les caractéristiques : les valeurs incohérentes sont corrigées au chargement au lieu de se propager dans les calculs.",
+      },
+    ],
+  },
+  {
     date: '2026-09-15',
     points: [
       {

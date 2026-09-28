@@ -9,10 +9,10 @@
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import type { Member, RosterInstance } from '../types/roster';
-import { STATUTS } from '../types/roster';
 import type { Profile, WarbandCatalog } from '../types/catalog';
 import { STAT_KEYS, SKILL_CATEGORIES } from '../types/catalog';
 import { getCatalogue } from '../data/warbands';
+import { translateWarbandCatalog } from '../i18n/data/warbands';
 import { resolveProfil, categoriesAccessibles } from './profil';
 import { valeurBande, bilanBatailles } from './bandeValue';
 import { ratingAffiche } from './displayedRating';
@@ -21,7 +21,8 @@ import { DEFAULT_GAME_RULES } from '../types/rules';
 import { bonusPlafondCC, plafondPour } from './plafond';
 import { skillById } from '../data/gameData';
 import { resolveSort } from './magie';
-import { injuryLabel } from './blessures';
+import { injuryLabel, traduireCle } from './blessures';
+import type { Language } from '../state/useLanguage';
 import { tribuChoisie, SKILL_EQUITATION } from './tribu';
 import { HERO_XP_MAX, HENCHMAN_XP_MAX, isPalierHero, isPalierHenchman } from './xp';
 
@@ -152,7 +153,7 @@ function dessinerTableauStats(doc: jsPDF, x: number, y: number, m: Member, profi
   return y + (plafond ? 8.6 : 5.6);
 }
 
-function dessinerCasesCompetences(doc: jsPDF, x: number, y: number, profil: Profile): number {
+function dessinerCasesCompetences(doc: jsPDF, x: number, y: number, profil: Profile, language: Language): number {
   const accessibles = new Set(categoriesAccessibles(profil));
   let cx = x;
   doc.setFontSize(6);
@@ -166,8 +167,11 @@ function dessinerCasesCompetences(doc: jsPDF, x: number, y: number, profil: Prof
       doc.rect(cx, y - 2.1, 2.1, 2.1, 'S');
     }
     doc.setTextColor(...NOIR);
-    doc.text(cat.label, cx + 2.8, y);
-    cx += 2.8 + doc.getTextWidth(cat.label) + 3;
+    // cat.label est le libellé français figé de SKILL_CATEGORIES (types/catalog) :
+    // on affiche la version traduite du même identifiant.
+    const libelle = traduireCle(`skillCategory.${cat.id}`, language);
+    doc.text(libelle, cx + 2.8, y);
+    cx += 2.8 + doc.getTextWidth(libelle) + 3;
   }
   return y + 2.8;
 }
@@ -183,14 +187,23 @@ function preparerBlocHeros(
   doc: jsPDF,
   catalogue: WarbandCatalog | undefined,
   m: Member,
-  profil: Profile
+  profil: Profile,
+  language: Language
 ): BlocPrepare {
   const xCol2 = MARGE + BLOC_PAD + LARGEUR_COL_STATS + 4;
   const largeurCol2 = MARGE + LARGEUR_CONTENU - BLOC_PAD - xCol2;
   doc.setFontSize(7.2);
-  const equipementLignes = doc.splitTextToSize(`Équipement : ${m.equipement || 'Aucun'}`, largeurCol2).slice(0, 2);
+  const equipementLignes = doc
+    .splitTextToSize(
+      traduireCle('pdf.equipmentLine', language, { liste: m.equipement || traduireCle('pdf.none', language) }),
+      largeurCol2
+    )
+    .slice(0, 2);
   const competencesLignes = doc
-    .splitTextToSize(`Compétences & Sorts : ${texteCompetencesEtSorts(catalogue, profil, m)}`, largeurCol2)
+    .splitTextToSize(
+      traduireCle('pdf.skillsLine', language, { liste: texteCompetencesEtSorts(catalogue, profil, m) }),
+      largeurCol2
+    )
     .slice(0, 2);
   const blessures = m.blessures_graves.map((b) => injuryLabel(b));
   const blessuresLignes =
@@ -222,7 +235,7 @@ function preparerBlocHeros(
     doc.text(m.nom_perso, xTexte, y);
     let xSuite = xTexte + doc.getTextWidth(m.nom_perso) + 2;
     if (m.statut !== 'actif') {
-      const label = STATUTS.find((s) => s.id === m.statut)?.label ?? m.statut;
+      const label = traduireCle(`statut.${m.statut}`, language);
       doc.setTextColor(...ACCENT);
       doc.setFontSize(8);
       doc.text(`(${label})`, xSuite, y);
@@ -235,7 +248,7 @@ function preparerBlocHeros(
     doc.text(typeTexte, MARGE + LARGEUR_CONTENU - BLOC_PAD, y, { align: 'right' });
     y += 4.4 + 1;
 
-    dessinerCasesCompetences(doc, xTexte, y, profil);
+    dessinerCasesCompetences(doc, xTexte, y, profil, language);
     y += 2.8 + 1;
 
     const yLigne2 = y;
@@ -268,7 +281,9 @@ function preparerBlocHeros(
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
     doc.setTextColor(...ACCENT);
-    doc.text(`XP total : ${m.xp}`, MARGE + LARGEUR_CONTENU - BLOC_PAD, y + 2, { align: 'right' });
+    doc.text(traduireCle('pdf.totalXp', language, { xp: m.xp }), MARGE + LARGEUR_CONTENU - BLOC_PAD, y + 2, {
+      align: 'right',
+    });
     y += hauteurJauge(nbLignesXp);
 
     return yHaut + hauteur;
@@ -281,12 +296,18 @@ function preparerBlocSuivant(
   doc: jsPDF,
   catalogue: WarbandCatalog | undefined,
   m: Member,
-  profil: Profile
+  profil: Profile,
+  language: Language
 ): BlocPrepare {
   const xCol2 = MARGE + BLOC_PAD + LARGEUR_COL_STATS + 4;
   const largeurCol2 = MARGE + LARGEUR_CONTENU - BLOC_PAD - xCol2;
   doc.setFontSize(7.2);
-  const equipementLignes = doc.splitTextToSize(`Équipement : ${m.equipement || 'Aucun'}`, largeurCol2).slice(0, 2);
+  const equipementLignes = doc
+    .splitTextToSize(
+      traduireCle('pdf.equipmentLine', language, { liste: m.equipement || traduireCle('pdf.none', language) }),
+      largeurCol2
+    )
+    .slice(0, 2);
   const reglesLignes = doc
     .splitTextToSize(`Règles spéciales & compétences : ${texteReglesEtCompetences(catalogue, profil, m)}`, largeurCol2)
     .slice(0, 2);
@@ -339,7 +360,9 @@ function preparerBlocSuivant(
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(7.5);
     doc.setTextColor(...ACCENT);
-    doc.text(`Expérience du groupe : ${m.xp}`, MARGE + LARGEUR_CONTENU - BLOC_PAD, y + 2, { align: 'right' });
+    doc.text(traduireCle('pdf.groupXp', language, { xp: m.xp }), MARGE + LARGEUR_CONTENU - BLOC_PAD, y + 2, {
+      align: 'right',
+    });
     y += hauteurJauge(1);
 
     return yHaut + hauteur;
@@ -348,7 +371,13 @@ function preparerBlocSuivant(
   return { hauteur, dessiner };
 }
 
-function dessinerEntete(doc: jsPDF, roster: RosterInstance, catalogue: WarbandCatalog | undefined, y: number): number {
+function dessinerEntete(
+  doc: jsPDF,
+  roster: RosterInstance,
+  catalogue: WarbandCatalog | undefined,
+  y: number,
+  language: Language
+): number {
   doc.setFillColor(...NOIR);
   doc.rect(MARGE, y, LARGEUR_CONTENU, 10, 'F');
   doc.setFont('times', 'bolditalic');
@@ -359,7 +388,7 @@ function dessinerEntete(doc: jsPDF, roster: RosterInstance, catalogue: WarbandCa
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7.5);
   doc.setTextColor(220, 220, 220);
-  doc.text('Bande :', MARGE + 55, y + 4.4);
+  doc.text(traduireCle('pdf.warbandLabel', language), MARGE + 55, y + 4.4);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9.5);
   doc.setTextColor(255, 255, 255);
@@ -368,7 +397,7 @@ function dessinerEntete(doc: jsPDF, roster: RosterInstance, catalogue: WarbandCa
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7.5);
   doc.setTextColor(220, 220, 220);
-  doc.text('Liste :', MARGE + 130, y + 4.4);
+  doc.text(traduireCle('pdf.listLabel', language), MARGE + 130, y + 4.4);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9.5);
   doc.setTextColor(255, 255, 255);
@@ -381,7 +410,7 @@ function dessinerEntete(doc: jsPDF, roster: RosterInstance, catalogue: WarbandCa
     doc.setFont('helvetica', 'italic');
     doc.setFontSize(7.5);
     doc.setTextColor(...GRIS);
-    doc.text(`Tribu : ${tribu.nom}`, MARGE, y);
+    doc.text(traduireCle('pdf.tribeLine', language, { nom: tribu.nom }), MARGE, y);
     y += 3.5;
   }
   return y;
@@ -416,7 +445,7 @@ function dessinerBoiteResume(
   }
 }
 
-function dessinerResume(doc: jsPDF, roster: RosterInstance, y: number, rules: GameRules): number {
+function dessinerResume(doc: jsPDF, roster: RosterInstance, y: number, rules: GameRules, language: Language): number {
   const largeurBoite = (LARGEUR_CONTENU - 4) / 3;
   const hauteurBoite = 16.5;
   const bilan = bilanBatailles(roster);
@@ -425,35 +454,35 @@ function dessinerResume(doc: jsPDF, roster: RosterInstance, y: number, rules: Ga
   const autres = roster.membres.filter((m) => resolveProfil(roster, m)?.type !== 'heros' && m.statut !== 'mort').length;
   const libelleRating = rules.valeurPuissanceActivee ? 'Power Value' : 'Rating';
 
-  dessinerBoiteResume(doc, MARGE, y, largeurBoite, hauteurBoite, 'TRÉSORERIE', [
-    `${roster.tresorerie} po · ${roster.wyrdstone} wyrdstone`,
-    `Valeur de bande : ${valeurBande(roster)} po`,
-    `Bilan : ${bilan.victoires}V / ${bilan.defaites}D / ${bilan.nuls}N`,
+  dessinerBoiteResume(doc, MARGE, y, largeurBoite, hauteurBoite, traduireCle('pdf.treasuryBox', language), [
+    traduireCle('pdf.treasuryLine', language, { po: roster.tresorerie, ws: roster.wyrdstone }),
+    traduireCle('pdf.warbandValue', language, { n: valeurBande(roster) }),
+    traduireCle('pdf.record', language, { v: bilan.victoires, d: bilan.defaites, n: bilan.nuls }),
   ]);
 
-  dessinerBoiteResume(doc, MARGE + largeurBoite + 2, y, largeurBoite, hauteurBoite, 'CLASSEMENT DE BANDE', [
-    `XP cumulé : ${totalXp} · ${libelleRating} : ${ratingAffiche(roster, rules)}`,
-    `${heros} héros, ${autres} suivant(s)`,
+  dessinerBoiteResume(doc, MARGE + largeurBoite + 2, y, largeurBoite, hauteurBoite, traduireCle('pdf.standingBox', language), [
+    traduireCle('pdf.totalXpLine', language, { xp: totalXp, libelle: libelleRating, valeur: ratingAffiche(roster, rules) }),
+    traduireCle('pdf.membersLine', language, { heros, autres }),
   ]);
 
   const stockLignes =
     roster.stock.length > 0
       ? doc.splitTextToSize(roster.stock.map((e) => e.nom).join(', '), largeurBoite - 3.6).slice(0, 3)
-      : ['Aucun'];
+      : [traduireCle('pdf.none', language)];
   dessinerBoiteResume(
     doc,
     MARGE + (largeurBoite + 2) * 2,
     y,
     largeurBoite,
     hauteurBoite,
-    "ÉQUIPEMENT EN RÉSERVE",
+    traduireCle('pdf.reserveBox', language),
     stockLignes
   );
 
   return y + hauteurBoite + 4;
 }
 
-function dessinerPiedDePage(doc: jsPDF, roster: RosterInstance) {
+function dessinerPiedDePage(doc: jsPDF, roster: RosterInstance, language: Language) {
   const nbPages = doc.getNumberOfPages();
   for (let i = 1; i <= nbPages; i++) {
     doc.setPage(i);
@@ -463,41 +492,52 @@ function dessinerPiedDePage(doc: jsPDF, roster: RosterInstance) {
     doc.setFontSize(7);
     doc.setTextColor(...GRIS);
     doc.text(
-      `${roster.nom_bande} — généré le ${new Date().toLocaleDateString('fr-FR')}`,
+      traduireCle('pdf.generatedOn', language, {
+        bande: roster.nom_bande,
+        date: new Date().toLocaleDateString(traduireCle('pdf.dateLocale', language)),
+      }),
       MARGE,
       BAS_PAGE
     );
-    doc.text(`Page ${i} / ${nbPages}`, LARGEUR_PAGE - MARGE, BAS_PAGE, { align: 'right' });
+    doc.text(traduireCle('pdf.pageOf', language, { i, n: nbPages }), LARGEUR_PAGE - MARGE, BAS_PAGE, { align: 'right' });
   }
 }
 
-export function exporterRosterPDF(roster: RosterInstance, rules: GameRules = DEFAULT_GAME_RULES) {
-  const catalogue = getCatalogue(roster.bande_id);
+export function exporterRosterPDF(
+  roster: RosterInstance,
+  rules: GameRules = DEFAULT_GAME_RULES,
+  language: Language = 'fr'
+) {
+  // Catalogue traduit, pas le catalogue brut : sans ça le PDF anglais gardait
+  // le nom de la bande, les noms de profils et les règles spéciales en
+  // français, alors que ces traductions existent déjà côté données.
+  const catalogueBrut = getCatalogue(roster.bande_id);
+  const catalogue = catalogueBrut ? translateWarbandCatalog(catalogueBrut, language) : undefined;
   const doc = new jsPDF();
   let y = MARGE;
 
-  y = dessinerEntete(doc, roster, catalogue, y);
-  y = dessinerResume(doc, roster, y, rules);
+  y = dessinerEntete(doc, roster, catalogue, y, language);
+  y = dessinerResume(doc, roster, y, rules, language);
 
   const actifs = roster.membres.filter((m) => m.statut !== 'mort');
   const morts = roster.membres.filter((m) => m.statut === 'mort');
-  const heros = actifs.filter((m) => resolveProfil(roster, m)?.type === 'heros');
-  const suivants = actifs.filter((m) => resolveProfil(roster, m)?.type !== 'heros');
+  const heros = actifs.filter((m) => resolveProfil(roster, m, catalogue, language)?.type === 'heros');
+  const suivants = actifs.filter((m) => resolveProfil(roster, m, catalogue, language)?.type !== 'heros');
 
   if (heros.length > 0) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
     doc.setTextColor(...NOIR);
-    doc.text('Héros', MARGE, y);
+    doc.text(traduireCle('pdf.heroes', language), MARGE, y);
     doc.setFont('helvetica', 'italic');
     doc.setFontSize(6.5);
     doc.setTextColor(...GRIS);
-    doc.text('(la ligne grisée sous les valeurs indique le plafond racial applicable)', MARGE + 14, y);
+    doc.text(traduireCle('pdf.capNote', language), MARGE + 14, y);
     y += 3.5;
     for (const m of heros) {
-      const profil = resolveProfil(roster, m);
+      const profil = resolveProfil(roster, m, catalogue, language);
       if (!profil) continue;
-      const bloc = preparerBlocHeros(doc, catalogue, m, profil);
+      const bloc = preparerBlocHeros(doc, catalogue, m, profil, language);
       y = sautDePageSiNecessaire(doc, y, bloc.hauteur);
       y = bloc.dessiner(doc, y) + 2;
     }
@@ -509,12 +549,12 @@ export function exporterRosterPDF(roster: RosterInstance, rules: GameRules = DEF
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
     doc.setTextColor(...NOIR);
-    doc.text('Hommes de main & créatures', MARGE, y);
+    doc.text(traduireCle('pdf.henchmen', language), MARGE, y);
     y += 5;
     for (const m of suivants) {
-      const profil = resolveProfil(roster, m);
+      const profil = resolveProfil(roster, m, catalogue, language);
       if (!profil) continue;
-      const bloc = preparerBlocSuivant(doc, catalogue, m, profil);
+      const bloc = preparerBlocSuivant(doc, catalogue, m, profil, language);
       y = sautDePageSiNecessaire(doc, y, bloc.hauteur);
       y = bloc.dessiner(doc, y) + 2;
     }
@@ -525,7 +565,7 @@ export function exporterRosterPDF(roster: RosterInstance, rules: GameRules = DEF
     doc.setFont('helvetica', 'italic');
     doc.setFontSize(8);
     doc.setTextColor(...ACCENT);
-    doc.text(`Morts au combat : ${morts.map((m) => m.nom_perso).join(', ')}`, MARGE, y + 3);
+    doc.text(traduireCle('pdf.killedInAction', language, { noms: morts.map((m) => m.nom_perso).join(', ') }), MARGE, y + 3);
     y += 8;
   }
 
@@ -534,7 +574,7 @@ export function exporterRosterPDF(roster: RosterInstance, rules: GameRules = DEF
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
     doc.setTextColor(...NOIR);
-    doc.text('Notes', MARGE, y);
+    doc.text(traduireCle('pdf.notes', language), MARGE, y);
     y += 4;
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.5);
@@ -548,11 +588,18 @@ export function exporterRosterPDF(roster: RosterInstance, rules: GameRules = DEF
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
     doc.setTextColor(...NOIR);
-    doc.text('Historique des batailles', MARGE, y);
+    doc.text(traduireCle('pdf.battleHistory', language), MARGE, y);
     autoTable(doc, {
       startY: y + 3,
       margin: { left: MARGE, right: MARGE },
-      head: [['Date', 'Résultat', 'Adversaire', 'Notes']],
+      head: [
+        [
+          traduireCle('pdf.date', language),
+          traduireCle('pdf.result', language),
+          traduireCle('pdf.opponent', language),
+          traduireCle('pdf.notes', language),
+        ],
+      ],
       body: roster.historique_batailles.map((b) => [
         b.date,
         b.resultat,
@@ -564,7 +611,7 @@ export function exporterRosterPDF(roster: RosterInstance, rules: GameRules = DEF
     });
   }
 
-  dessinerPiedDePage(doc, roster);
+  dessinerPiedDePage(doc, roster, language);
 
   const nomFichier = `${roster.nom_bande.replace(/[^a-z0-9]+/gi, '_').toLowerCase()}.pdf`;
   doc.save(nomFichier);
