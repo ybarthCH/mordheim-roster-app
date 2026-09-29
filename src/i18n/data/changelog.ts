@@ -9,7 +9,7 @@ import type { ChangelogEntry } from '../../data/changelog';
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
   '2026-09-29': [
-    'PDF sheet: the box counting your models called them "followers", a term the game does not use — it now says "henchmen", as everywhere else in the app.',
+    'PDF sheet, label fixes: the box counting your models called them "followers", a term the game does not use — it now says "henchmen", as everywhere else in the app. And two boxes wrongly carried the same heading, with both the warband\'s gold value and its rating called "Warband rating".',
   ],
   '2026-09-28': [
     'The exported PDF roster sheet now follows the app\'s language. In English it used to come out with every heading in French ("Trésorerie", "Héros", "Historique des batailles"…), along with the reference warband name, the profile names and the skill categories — all of it is translated now, and only the names you gave your own models are left as they are.',

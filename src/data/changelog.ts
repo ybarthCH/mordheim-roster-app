@@ -38,7 +38,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       {
         categorie: 'autre',
         texte:
-          "Fiche PDF : l'encadré qui compte tes figurines parlait de « suivants », un terme qui n'existe pas dans le jeu — il dit maintenant « hommes de main », comme partout ailleurs dans l'application.",
+          "Fiche PDF, corrections de libellés : l'encadré qui compte tes figurines parlait de « suivants », un terme qui n'existe pas dans le jeu — il dit maintenant « hommes de main », comme partout ailleurs dans l'application. En anglais, deux encadrés portaient par erreur le même intitulé, la valeur en or de la bande et son classement étant tous deux appelés « Warband rating »."
       },
     ],
   },

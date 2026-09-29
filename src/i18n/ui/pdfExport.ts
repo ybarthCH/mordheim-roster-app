@@ -25,7 +25,13 @@ export const pdfExport: UiDictionary = {
   // --- Encadrés de résumé
   'pdf.treasuryBox': { fr: 'TRÉSORERIE', en: 'TREASURY' },
   'pdf.treasuryLine': { fr: '{po} po · {ws} wyrdstone', en: '{po} gc · {ws} wyrdstone' },
-  'pdf.warbandValue': { fr: 'Valeur de bande : {n} po', en: 'Warband rating: {n} gc' },
+  // Cette ligne affiche valeurBande() (utils/bandeValue.ts) : la somme des
+  // coûts de recrutement EN OR des figurines vivantes. À ne pas confondre
+  // avec le classement de bande de l'encadré voisin (pdf.standingBox), qui
+  // est le « Warband rating » du livre de règles — figurines x5 + expérience.
+  // D'où « value » et non « rating » ici : les deux encadrés portaient sinon
+  // le même intitulé anglais pour deux nombres différents.
+  'pdf.warbandValue': { fr: 'Valeur de bande : {n} po', en: 'Warband value: {n} gc' },
   // proposition — abréviations Victoires/Défaites/Nuls -> Wins/Losses/Draws
   'pdf.record': { fr: 'Bilan : {v}V / {d}D / {n}N', en: 'Record: {v}W / {d}L / {n}D' },
   'pdf.standingBox': { fr: 'CLASSEMENT DE BANDE', en: 'WARBAND RATING' },
