@@ -33,6 +33,16 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-09-29',
+    points: [
+      {
+        categorie: 'autre',
+        texte:
+          "Fiche PDF : l'encadré qui compte tes figurines parlait de « suivants », un terme qui n'existe pas dans le jeu — il dit maintenant « hommes de main », comme partout ailleurs dans l'application.",
+      },
+    ],
+  },
+  {
     date: '2026-09-28',
     points: [
       {

@@ -350,11 +350,16 @@ compétences passent par `skillCategory.*`. La locale de date du pied de page
 > history, Date, Result, Notes, Tribe) — leur formulation est reprise telle
 > quelle, pas réinventée. Les intitulés propres au PDF sans équivalent existant
 > sont des **propositions**, marquées une par une dans le fichier i18n :
-> `List:`, `Record: W/L/D`, `WARBAND STANDING`, `Total XP:`, `heroes,
-> follower(s)`, `EQUIPMENT IN RESERVE`, `Opponent`, `Killed in action:`,
-> `Group experience:`, `generated on`, `Page X of Y`, et la note sur le
-> plafond racial. Conformément à la politique FR → EN du projet, elles
-> attendent validation — une correction tient en une ligne du namespace.
+> `List:`, `Record: W/L/D`, `Total XP:`, `EQUIPMENT IN RESERVE`, `Opponent`,
+> `Killed in action:`, `Group experience:`, `generated on`, `Page X of Y`, et
+> la note sur le plafond racial. Conformément à la politique FR → EN du
+> projet, elles attendent validation — une correction tient en une ligne du
+> namespace.
+>
+> Relues par Yannick le 29/09 : `WARBAND STANDING` corrigé en
+> `WARBAND RATING`, et « suivant(s) » / `follower(s)` remplacé par
+> « homme(s) de main » / `henchmen` — « suivant » était un terme inventé,
+> le jeu dit « homme de main » partout ailleurs dans l'app. Le reste validé.
 
 Vérifié en générant réellement les deux PDF et en extrayant leur texte. Ce qui
 reste identique entre les deux versions est correct : le nom que le joueur a

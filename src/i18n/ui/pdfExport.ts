@@ -28,12 +28,14 @@ export const pdfExport: UiDictionary = {
   'pdf.warbandValue': { fr: 'Valeur de bande : {n} po', en: 'Warband rating: {n} gc' },
   // proposition — abréviations Victoires/Défaites/Nuls -> Wins/Losses/Draws
   'pdf.record': { fr: 'Bilan : {v}V / {d}D / {n}N', en: 'Record: {v}W / {d}L / {n}D' },
-  // proposition
-  'pdf.standingBox': { fr: 'CLASSEMENT DE BANDE', en: 'WARBAND STANDING' },
+  'pdf.standingBox': { fr: 'CLASSEMENT DE BANDE', en: 'WARBAND RATING' },
   // proposition
   'pdf.totalXpLine': { fr: 'XP cumulé : {xp} · {libelle} : {valeur}', en: 'Total XP: {xp} · {libelle}: {valeur}' },
-  // proposition
-  'pdf.membersLine': { fr: '{heros} héros, {autres} suivant(s)', en: '{heros} heroes, {autres} follower(s)' },
+  // « suivant(s) » était un terme inventé : le jeu dit « homme de main » /
+  // « Henchman », comme partout ailleurs dans l'app. Le pluriel irrégulier
+  // anglais (henchman/henchmen) ne se prête pas au « (s) » utilisé côté
+  // français, d'où l'asymétrie de forme entre les deux.
+  'pdf.membersLine': { fr: '{heros} héros, {autres} homme(s) de main', en: '{heros} heroes, {autres} henchmen' },
   // proposition
   'pdf.reserveBox': { fr: 'ÉQUIPEMENT EN RÉSERVE', en: 'EQUIPMENT IN RESERVE' },
   'pdf.none': { fr: 'Aucun', en: 'None' },
