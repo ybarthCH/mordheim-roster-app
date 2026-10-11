@@ -231,6 +231,19 @@ type Props = {
 
 const ID_INTERDITS_BOUCLE = ['mort', 'capture', 'blessures_multiples'];
 
+// Résultat 65 « Sold to the Pits » : un gladiateur VAINCU ne relance pas sur
+// la table entière mais sur 11-35 seulement — « roll to see whether he is
+// dead or injured (ie, a D66 roll of 11-35) », Living Rulebook p.80. Les
+// valeurs au-delà de 35 ne contiennent plus que des issues favorables
+// (Rétablissement complet, Endurci, Survit contre toute attente…) qu'un
+// vaincu des fosses ne peut pas obtenir. Vaut aussi bien pour le sélecteur
+// manuel que pour le bouton « Jet auto ».
+const PLAGE_MAX_GLADIATEUR_PERDU = 35;
+const estDansPlageGladiateurPerdu = (r: ResultatBlessureGrave): boolean => {
+  const borneBasse = Number(r.code.split('-')[0]);
+  return borneBasse <= PLAGE_MAX_GLADIATEUR_PERDU;
+};
+
 export function BlessureGraveWizard({
   nomPersonnage,
   dejaAveugle = false,
@@ -601,6 +614,8 @@ export function BlessureGraveWizard({
   if (mode === 'liste') {
     const disponibles = enCoursDansBoucle
       ? BLESSURES_GRAVES.filter((r) => !ID_INTERDITS_BOUCLE.includes(r.id))
+      : enChoixGladiateurPerdu
+      ? BLESSURES_GRAVES.filter((r) => estDansPlageGladiateurPerdu(r))
       : BLESSURES_GRAVES;
     return (
       <div>
@@ -629,15 +644,16 @@ export function BlessureGraveWizard({
               // ou nouvelles Blessures multiples »).
               for (let i = 0; i < 200; i++) {
                 const jet = lancerD66();
-                // « Sold to the Pits » (65) : un gladiateur vaincu ne relance
-                // PAS sur la table entière, mais sur 11-35 seulement — « roll
-                // to see whether he is dead or injured (ie, a D66 roll of
-                // 11-35) », Living Rulebook p.80. Hors de cette plage, on
-                // relance. Le sélecteur manuel, lui, reste inchangé : il
-                // offre toujours la table complète comme avant, question
-                // ouverte côté règles (voir le texte de l'app, qui annonce
-                // encore « la table complète »).
-                if (enChoixGladiateurPerdu && jet.total > 35) continue;
+                // Un tirage hors de `disponibles` est relancé : c'est ce
+                // qu'imposent la boucle des Blessures multiples comme la
+                // plage 11-35 du gladiateur vaincu (voir les constantes en
+                // tête de fichier).
+                //
+                // Second garde sur la valeur elle-même : `disponibles` filtre
+                // par borne BASSE de code, ce qui suffit aujourd'hui (aucune
+                // plage ne chevauche 35), mais une plage qui l'enjamberait un
+                // jour rendrait des valeurs > 35 atteignables sans ce test.
+                if (enChoixGladiateurPerdu && jet.total > PLAGE_MAX_GLADIATEUR_PERDU) continue;
                 const trouve = disponibles.find((r) => codeCouvre(r.code, jet.total));
                 if (trouve) {
                   setSelectionEnAttente(trouve.id);

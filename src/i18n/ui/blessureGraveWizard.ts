@@ -5,9 +5,14 @@ export const blessureGraveWizard: UiDictionary = {
     fr: 'Blessures multiples — résultat {index}/{count}. Les résultats Mort, Capturé et Blessures multiples doivent être relancés : ils ne sont pas proposés ci-dessous.',
     en: 'Multiple Injuries — result {index}/{count}. Dead, Captured, and Multiple Injuries results must be re-rolled: they are not offered below.',
   },
+  // Le livre borne cette relance : « roll to see whether he is dead or
+  // injured (ie, a D66 roll of 11-35) » (Living Rulebook p.80, résultat 65).
+  // Au-delà de 35 la table ne contient plus que des issues favorables
+  // (Rétablissement complet, Endurci, +1 XP…), qu'un vaincu des fosses ne
+  // peut pas obtenir — d'où une liste restreinte ici.
   'blessureGraveWizard.gladiatorLostIntro': {
-    fr: "Il perd le combat et est jeté hors des fosses sans arme ni armure. Relance sur la table complète pour savoir ce qu'il devient — Mort y compris si le sort s'y prête, et même un nouveau Gladiateur.",
-    en: 'He loses the fight and is thrown out of the pits without weapon or armour. Roll again on the full table to find out what happens to him — Dead included if fate has it that way, even another Pit Fighter.',
+    fr: "Il perd le combat et est jeté hors des fosses sans arme ni armure. Relance sur 11-35 pour savoir s'il est mort ou blessé — Mort y compris si le sort s'y prête. Seuls ces résultats sont proposés ci-dessous.",
+    en: 'He loses the fight and is thrown out of the pits without weapon or armour. Roll again on 11-35 to see whether he is dead or injured — Dead included if fate has it that way. Only those results are offered below.',
   },
   // La table va de 11 à 66 : c'est un D66 (un dé pour les dizaines, un pour
   // les unités), pas un 2D6, qui ne pourrait produire que 2 à 12. Le texte

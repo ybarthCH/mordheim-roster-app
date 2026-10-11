@@ -313,7 +313,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
     code: '65',
     nom: 'Gladiateur',
     texte:
-      "Le guerrier se réveille dans les tristement célèbres fosses de combat du Repaire des Coupe-Jarrets et doit affronter un gladiateur. Déterminez qui charge, puis résolvez le combat normalement. S'il perd, il est jeté hors des fosses sans son armure ni ses armes et relance sur la table complète pour savoir ce qu'il devient. S'il gagne, il empoche 50 po, gagne +2 Expérience et est libre de rejoindre sa bande avec tout son équipement.",
+      "Le guerrier se réveille dans les tristement célèbres fosses de combat du Repaire des Coupe-Jarrets et doit affronter un gladiateur. Déterminez qui charge, puis résolvez le combat normalement. S'il perd, il est jeté hors des fosses sans son armure ni ses armes et relance sur cette table, sur 11-35 uniquement, pour savoir s'il est mort ou blessé. S'il gagne, il empoche 50 po, gagne +2 Expérience et est libre de rejoindre sa bande avec tout son équipement.",
     combatGladiateur: true,
   },
   {
