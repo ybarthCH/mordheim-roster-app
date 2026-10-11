@@ -629,6 +629,15 @@ export function BlessureGraveWizard({
               // ou nouvelles Blessures multiples »).
               for (let i = 0; i < 200; i++) {
                 const jet = lancerD66();
+                // « Sold to the Pits » (65) : un gladiateur vaincu ne relance
+                // PAS sur la table entière, mais sur 11-35 seulement — « roll
+                // to see whether he is dead or injured (ie, a D66 roll of
+                // 11-35) », Living Rulebook p.80. Hors de cette plage, on
+                // relance. Le sélecteur manuel, lui, reste inchangé : il
+                // offre toujours la table complète comme avant, question
+                // ouverte côté règles (voir le texte de l'app, qui annonce
+                // encore « la table complète »).
+                if (enChoixGladiateurPerdu && jet.total > 35) continue;
                 const trouve = disponibles.find((r) => codeCouvre(r.code, jet.total));
                 if (trouve) {
                   setSelectionEnAttente(trouve.id);

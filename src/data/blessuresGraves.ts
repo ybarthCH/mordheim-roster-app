@@ -1,4 +1,6 @@
-// Table des Blessures Graves (D66), livre de règles Mordheim p.116-117.
+// Table des Blessures Graves (D66), Mordheim Living Rulebook p.79-80 —
+// le jet se fait avec deux dés, le premier donnant les dizaines et le
+// second les unités (11 à 66).
 // Traduction française — sert uniquement de référence de sélection dans
 // l'app : le joueur lance ses dés sur table réelle puis choisit le résultat
 // obtenu ici, plutôt que de laisser l'app tirer les dés à sa place.

@@ -9,9 +9,13 @@ export const blessureGraveWizard: UiDictionary = {
     fr: "Il perd le combat et est jeté hors des fosses sans arme ni armure. Relance sur la table complète pour savoir ce qu'il devient — Mort y compris si le sort s'y prête, et même un nouveau Gladiateur.",
     en: 'He loses the fight and is thrown out of the pits without weapon or armour. Roll again on the full table to find out what happens to him — Dead included if fate has it that way, even another Pit Fighter.',
   },
+  // La table va de 11 à 66 : c'est un D66 (un dé pour les dizaines, un pour
+  // les unités), pas un 2D6, qui ne pourrait produire que 2 à 12. Le texte
+  // disait « 2D6 » depuis l'origine ; l'écart sautait aux yeux depuis que le
+  // bouton « Jet auto » affiche « D66 » juste en dessous.
   'blessureGraveWizard.rollInstruction': {
-    fr: 'Lance 2D6 sur ta table papier, puis sélectionne le résultat obtenu pour {nom}.',
-    en: 'Roll 2D6 on your tabletop, then select the result obtained for {nom}.',
+    fr: 'Lance un D66 sur ta table papier (un dé pour les dizaines, un pour les unités), puis sélectionne le résultat obtenu pour {nom}.',
+    en: 'Roll a D66 on your tabletop (one die for the tens, one for the units), then select the result obtained for {nom}.',
   },
   'blessureGraveWizard.resultObtained': { fr: 'Résultat obtenu', en: 'Result obtained' },
   'blessureGraveWizard.chooseResult': { fr: 'Choisis un résultat…', en: 'Choose a result…' },
