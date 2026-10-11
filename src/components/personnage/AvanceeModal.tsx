@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BoutonJetAuto } from '../postbataille/BoutonJetAuto';
 import { v4 as uuidv4 } from 'uuid';
 import type { Member, AdvanceRecord, RosterInstance } from '../../types/roster';
 import type { Profile, SkillCategory, Stats, WarbandCatalog } from '../../types/catalog';
@@ -123,6 +124,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
   const [avanceeGratuiteEnAttente, setAvanceeGratuiteEnAttente] = useState(!!member.bonus_avancee_en_attente);
 
   const typeEffectif = tableForcee ?? tableAvancementDuProfil(profil);
+  const [dernierJetAvancee, setDernierJetAvancee] = useState<string | null>(null);
   const table = typeEffectif === 'heros' ? TABLE_AVANCEMENT_HEROS : TABLE_AVANCEMENT_HOMMES_DE_MAIN;
 
   const categoriesDisponibles: SkillCategory[] = categoriesAccessibles(profil);
@@ -563,6 +565,19 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
             </p>
           )}
           <p className="text-muted text-sm">{t('avanceeModal.rollInstruction')}</p>
+          <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+            <BoutonJetAuto
+              nombre={2}
+              onResultat={(total, des) => {
+                setDernierJetAvancee(`2D6 : ${des.join(' + ')} = ${total}`);
+                // La table couvre 2 à 12 sans trou ni chevauchement (vérifié) :
+                // un tirage tombe donc toujours sur exactement une ligne.
+                const i = table.findIndex((e) => total >= e.min && total <= e.max);
+                if (i >= 0) setIndexAvancement(String(i));
+              }}
+            />
+            {dernierJetAvancee && <span className="text-sm text-muted">{dernierJetAvancee}</span>}
+          </div>
           <div className="field">
             <label>{t('avanceeModal.rollResultLabel2D6')}</label>
             <select value={indexAvancement} onChange={(e) => setIndexAvancement(e.target.value)}>

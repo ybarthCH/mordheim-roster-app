@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { BoutonJetAuto } from './BoutonJetAuto';
 import type { Member, RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { resolveProfil } from '../../utils/profil';
@@ -67,6 +68,7 @@ export function RechercheObjetRareModal({
   const [categorieFiltre, setCategorieFiltre] = useState<string | null>(null);
   const [itemId, setItemId] = useState('');
   const [succesDeclare, setSuccesDeclare] = useState(false);
+  const [dernierJetRarete, setDernierJetRarete] = useState<string | null>(null);
   const [coutSaisi, setCoutSaisi] = useState('');
   // "Lors de la recherche d'une armure du Chaos, un guerrier gagne +1 sur le
   // résultat de son jet de recherche pour chaque ennemi qu'il a mis hors de
@@ -412,13 +414,29 @@ export function RechercheObjetRareModal({
               {resumeItem(itemAffiche!, language) && <p className="text-sm">{resumeItem(itemAffiche!, language)}</p>}
 
               {!succesDeclare && (
-                <div className="flex gap-sm" style={{ marginTop: '0.4rem' }}>
+                <div className="flex gap-sm items-center" style={{ marginTop: '0.4rem', flexWrap: 'wrap' }}>
                   <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" onClick={declarerSucces}>
                     {t('rareModal.success')}
                   </button>
                   <button type="button" className="btn--pack-pill-sm" onClick={enregistrerEchec}>
                     {t('rareModal.failure')}
                   </button>
+                  {/* Le test de rareté n'est pas une table mais un seuil :
+                      le jet tranche lui-même entre réussite et échec, et
+                      déclenche la branche correspondante. */}
+                  <BoutonJetAuto
+                    nombre={2}
+                    onResultat={(total, des) => {
+                      const seuil = rareteEffective ?? 0;
+                      const reussi = total >= seuil;
+                      setDernierJetRarete(
+                        `2D6 : ${des.join(' + ')} = ${total} ${reussi ? '≥' : '<'} ${seuil}`
+                      );
+                      if (reussi) declarerSucces();
+                      else enregistrerEchec();
+                    }}
+                  />
+                  {dernierJetRarete && <span className="text-sm text-muted">{dernierJetRarete}</span>}
                 </div>
               )}
 

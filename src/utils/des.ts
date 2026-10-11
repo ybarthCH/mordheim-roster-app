@@ -98,3 +98,14 @@ export function lancerSpec(spec: NotationDes): ResultatJet {
 export function lancerDes(nombre: number, faces = 6): ResultatJet {
   return lancerSpec({ constante: 0, nombre, faces, multiplicateur: 1 });
 }
+
+/** Jet de D66 : deux dés, le premier donne les dizaines, le second les
+ * unités — 11, 12, … 65, 66, soit 36 résultats équiprobables. C'est le dé
+ * de la table des Blessures Graves, dont les codes vont bien de 11 à 66
+ * (le texte « 2D6 » affiché par l'assistant est une formulation impropre :
+ * 2D6 ne produirait que 2 à 12). */
+export function lancerD66(): ResultatJet {
+  const dizaines = lancerDe(6);
+  const unites = lancerDe(6);
+  return { des: [dizaines, unites], total: dizaines * 10 + unites };
+}

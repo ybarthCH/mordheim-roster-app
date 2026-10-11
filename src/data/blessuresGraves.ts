@@ -335,3 +335,13 @@ export function estRetablissementIsole(effets: { resultat_id: string }[]): boole
   return effets.length === 1 && effets[0].resultat_id === 'retablissement_complet';
 }
 
+
+/** Un code de la table (« 24 », ou une plage « 11-15 ») couvre-t-il ce
+ * résultat de D66 ? Une simple comparaison numérique suffit : les valeurs
+ * impossibles en D66 (17 à 20, 27 à 30…) n'étant jamais tirées, une plage
+ * comme « 16-21 » ne peut matcher que 16 et 21. */
+export function codeCouvre(code: string, valeurD66: number): boolean {
+  const plage = /^(\d+)\s*-\s*(\d+)$/.exec(code);
+  if (plage) return valeurD66 >= Number(plage[1]) && valeurD66 <= Number(plage[2]);
+  return Number(code) === valeurD66;
+}
