@@ -46,6 +46,14 @@ export const reglagesScreen: UiDictionary = {
     fr: "Active la recherche de Dramatis Personae pendant l'étape Commerce de la séquence post-bataille. Un Héros peut tenter de retrouver l'un de ces personnages spéciaux au lieu de rechercher un objet rare.",
     en: 'Enables searching for Dramatis Personae during the Trading step of the post-battle sequence. A Hero may attempt to track down one of these special characters instead of searching for a rare item.',
   },
+  'reglages.virtualDice.title': {
+    fr: 'Jet de dés virtuel pour le post-bataille',
+    en: 'Virtual dice rolls in the post-battle sequence',
+  },
+  'reglages.virtualDice.body': {
+    fr: "Ajoute un bouton « Jet auto » à côté de chaque saisie de jet du post-bataille : il remplit le champ avec un tirage dans la plage exacte du jet demandé. Décochée, l'app ne lance aucun dé — tu lances sur ta table et tu saisis le résultat. Dans tous les cas, tu peux toujours écrire ta propre valeur par-dessus.",
+    en: 'Adds an "Auto-roll" button next to every roll entry in the post-battle sequence: it fills the field with a draw within the exact range of the roll being asked for. Unchecked, the app rolls no dice — you roll on your table and type the result. Either way you can always type your own value over it.',
+  },
   'reglages.powerValue.title': { fr: 'Power Value', en: 'Power Value' },
   'reglages.powerValue.body': {
     fr: "Utilise la Power Value à la place du Rating officiel Mordheim partout où celui-ci est affiché — une estimation de la force actuelle sur table (coût de recrutement + équipement + progression du profil + compétences - blessures). N'affecte que l'affichage : le Rating officiel reste calculé normalement et continue de régir XP, avancées et légalité de bande.",

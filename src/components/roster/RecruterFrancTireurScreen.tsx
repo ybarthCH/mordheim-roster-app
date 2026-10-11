@@ -342,7 +342,7 @@ export function RecruterFrancTireurScreen() {
                       magieMineure(language)
                     ).map((sort) => (
                       <option key={sort.id} value={sort.id}>
-                        {sort.resultat} — {sort.nom} ({t('francTireur.diffAbbrev')} {sort.difficulte})
+                        {sort.resultat} — {sort.nom} ({t('common.diffAbbrev')} {sort.difficulte})
                       </option>
                     ))}
                   </select>

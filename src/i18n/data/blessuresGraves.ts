@@ -160,7 +160,7 @@ export const blessuresEn: Record<string, BlessureTraduite> = {
   gladiateur: {
     nom: 'Sold to the Pits',
     texte:
-      "The warrior wakes up in the infamous fighting pits of the Cutthroat's Haven and must face a gladiator. Determine who charges, then resolve the fight normally. If he loses, he is thrown out of the pits without his armour or weapons and rolls again on the full table to find out what becomes of him. If he wins, he pockets 50 gc, gains +2 Experience, and is free to rejoin his warband with all his equipment.",
+      "The warrior wakes up in the infamous fighting pits of the Cutthroat's Haven and must face a gladiator. Determine who charges, then resolve the fight normally. If he loses, he is thrown out of the pits without his armour or weapons and rolls again on this table to see whether he is dead or injured (ie, a D66 roll of 11-35). If he wins, he pockets 50 gc, gains +2 Experience, and is free to rejoin his warband with all his equipment.",
   },
   survit_contre_tout: {
     nom: 'Survives Against All Odds',

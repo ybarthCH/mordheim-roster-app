@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BoutonJetAuto } from './BoutonJetAuto';
 import type { RosterInstance } from '../../types/roster';
 import type { WarbandCatalog } from '../../types/catalog';
 import { resolveProfil } from '../../utils/profil';
@@ -261,6 +262,7 @@ export function ResolutionPrisonniers({
           <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap' }}>
             <span className="text-sm text-muted">{t('postBataille.prisoners.rollObtainedD3')}</span>
             <input type="number" min={0} style={{ width: '5rem' }} value={jetXp} onChange={(e) => setJetXp(e.target.value)} />
+            <BoutonJetAuto notation="D3" onResultat={(total) => setJetXp(String(total))} />
             <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" disabled={!heroId || !jetXp} onClick={appliquerXp}>
               {t('postBataille.prisoners.addXp')}
             </button>
@@ -315,6 +317,7 @@ export function ResolutionPrisonniers({
             value={jetZombies}
             onChange={(e) => setJetZombies(e.target.value)}
           />
+          <BoutonJetAuto notation="D3" onResultat={(total) => setJetZombies(String(total))} />
           <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" disabled={!jetZombies} onClick={appliquerZombies}>
             {t('postBataille.prisoners.addZombies')}
           </button>
@@ -324,6 +327,7 @@ export function ResolutionPrisonniers({
       {branche === 'skaven' && (
         <JetOrButton
           label={t('postBataille.prisoners.rollObtained3d6')}
+          notation="3D6"
           onValider={vendus}
           boutonLabel={t('postBataille.vagrant.sellAddTreasury')}
         />
@@ -332,6 +336,7 @@ export function ResolutionPrisonniers({
       {branche === 'autres' && orEscorteValeur === null && (
         <JetOrButton
           label={t('postBataille.vagrant.rollObtained2d6')}
+          notation="2D6"
           onValider={validerOrEscorte}
           boutonLabel={t('postBataille.addToTreasury')}
         />

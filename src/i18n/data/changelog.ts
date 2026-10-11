@@ -8,6 +8,11 @@ import type { ChangelogEntry } from '../../data/changelog';
 // modification de l'ordre/nombre de puces FR doit être répercutée ici dans
 // le même ordre.
 const changelogEn: Record<string, string[]> = {
+  '2026-10-11': [
+    'New setting: "Virtual dice rolls in the post-battle sequence". Once ticked, an "Auto-roll" button appears next to every roll the post-battle sequence asks for — serious injuries, advances, Exploration dice, veteran points, rare item search, the doctor, exploration events. It rolls for you, shows you the dice it got, and selects the matching table row directly. You can still type over the value, and if you leave the setting unticked nothing changes: the app rolls no dice, exactly as before.',
+    "A spell's casting difficulty now shows everywhere a spell is listed: in a wizard's summary card, in the spell picker when recruiting, and in the reference search. You previously had to open the Magic card to find it.",
+    'Rules fix: a hero defeated in the fighting pits (the "Sold to the Pits" result) now rolls again on 11-35 only, as the rulebook requires, instead of the full table. He can therefore no longer walk out with a full recovery, free experience or immunity to Fear — someone who loses in the pits is dead or injured, nothing else.',
+  ],
   '2026-09-29': [
     'PDF sheet, label fixes: the box counting your models called them "followers", a term the game does not use — it now says "henchmen", as everywhere else in the app. And two boxes wrongly carried the same heading, with both the warband\'s gold value and its rating called "Warband rating".',
   ],

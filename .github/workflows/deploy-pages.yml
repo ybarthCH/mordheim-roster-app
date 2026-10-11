@@ -1,6 +1,19 @@
 name: Deploy to GitHub Pages
 
+# Les deux cibles de déploiement sont séparées par branche (voir le commentaire
+# en tête de vite.config.ts) :
+#   - `dev`  -> GitHub Pages, la version candidate à tester, servie sous
+#               /mordheim-roster-app/ (c'est ce que produit `npm run build`) ;
+#   - `main` -> Infomaniak (musterheim.app), via deploy-infomaniak.yml, servi à
+#               la racine de son domaine avec `npm run build:prod`.
+#
+# D'où un déclenchement sur push vers `dev` UNIQUEMENT : un push sur `main` ne
+# doit rien envoyer ici, ce que corrigeait déjà « Stop GitHub Pages from
+# deploying on push to main ». Le déclenchement manuel reste disponible pour
+# republier sans nouveau commit.
 on:
+  push:
+    branches: [dev]
   workflow_dispatch:
 
 permissions:

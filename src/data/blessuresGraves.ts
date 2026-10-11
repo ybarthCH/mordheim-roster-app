@@ -1,4 +1,6 @@
-// Table des Blessures Graves (D66), livre de règles Mordheim p.116-117.
+// Table des Blessures Graves (D66), Mordheim Living Rulebook p.79-80 —
+// le jet se fait avec deux dés, le premier donnant les dizaines et le
+// second les unités (11 à 66).
 // Traduction française — sert uniquement de référence de sélection dans
 // l'app : le joueur lance ses dés sur table réelle puis choisit le résultat
 // obtenu ici, plutôt que de laisser l'app tirer les dés à sa place.
@@ -311,7 +313,7 @@ export const BLESSURES_GRAVES: ResultatBlessureGrave[] = [
     code: '65',
     nom: 'Gladiateur',
     texte:
-      "Le guerrier se réveille dans les tristement célèbres fosses de combat du Repaire des Coupe-Jarrets et doit affronter un gladiateur. Déterminez qui charge, puis résolvez le combat normalement. S'il perd, il est jeté hors des fosses sans son armure ni ses armes et relance sur la table complète pour savoir ce qu'il devient. S'il gagne, il empoche 50 po, gagne +2 Expérience et est libre de rejoindre sa bande avec tout son équipement.",
+      "Le guerrier se réveille dans les tristement célèbres fosses de combat du Repaire des Coupe-Jarrets et doit affronter un gladiateur. Déterminez qui charge, puis résolvez le combat normalement. S'il perd, il est jeté hors des fosses sans son armure ni ses armes et relance sur cette table, sur 11-35 uniquement, pour savoir s'il est mort ou blessé. S'il gagne, il empoche 50 po, gagne +2 Expérience et est libre de rejoindre sa bande avec tout son équipement.",
     combatGladiateur: true,
   },
   {
@@ -335,3 +337,13 @@ export function estRetablissementIsole(effets: { resultat_id: string }[]): boole
   return effets.length === 1 && effets[0].resultat_id === 'retablissement_complet';
 }
 
+
+/** Un code de la table (« 24 », ou une plage « 11-15 ») couvre-t-il ce
+ * résultat de D66 ? Une simple comparaison numérique suffit : les valeurs
+ * impossibles en D66 (17 à 20, 27 à 30…) n'étant jamais tirées, une plage
+ * comme « 16-21 » ne peut matcher que 16 et 21. */
+export function codeCouvre(code: string, valeurD66: number): boolean {
+  const plage = /^(\d+)\s*-\s*(\d+)$/.exec(code);
+  if (plage) return valeurD66 >= Number(plage[1]) && valeurD66 <= Number(plage[2]);
+  return Number(code) === valeurD66;
+}

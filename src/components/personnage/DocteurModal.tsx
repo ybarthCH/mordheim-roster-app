@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BoutonJetAuto } from '../postbataille/BoutonJetAuto';
 import type { SeriousInjuryRecord } from '../../types/roster';
 import {
   COUT_DOCTEUR,
@@ -51,6 +52,7 @@ export function DocteurModal({
     blessure.docteur_effet_en_attente ?? effets[0]?.id ?? ''
   );
   const [jetSaisi, setJetSaisi] = useState('');
+  const [dernierJetDocteur, setDernierJetDocteur] = useState<string | null>(null);
   const [applique, setApplique] = useState<ResultatDocteur | null>(null);
   const consultationPayee = !!blessure.docteur_effet_en_attente;
   const effetActif = effets.find(
@@ -167,6 +169,16 @@ export function DocteurModal({
           ) : (
             <>
               <p className="text-success text-sm">{t('docteurModal.paidNote')}</p>
+              <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+                <BoutonJetAuto
+                  nombre={2}
+                  onResultat={(total, des) => {
+                    setDernierJetDocteur(`2D6 : ${des.join(' + ')} = ${total}`);
+                    setJetSaisi(String(total));
+                  }}
+                />
+                {dernierJetDocteur && <span className="text-sm text-muted">{dernierJetDocteur}</span>}
+              </div>
               <div className="field">
                 <label>{t('docteurModal.totalRollLabel')}</label>
                 <select value={jetSaisi} onChange={(e) => setJetSaisi(e.target.value)}>

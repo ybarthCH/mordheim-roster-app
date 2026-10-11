@@ -130,7 +130,6 @@ export const personnageCards: UiDictionary = {
 
   // MagieConnueCard
   'magieConnue.title': { fr: 'Magie — Sort connu', en: 'Magic — Known spell' },
-  'magieConnue.diffAbbrev': { fr: 'diff.', en: 'diff.' },
   'magieConnue.none': { fr: 'Aucun', en: 'None' },
   'magieConnue.addSpellPlaceholder': { fr: '— Ajouter un sort —', en: '— Add a spell —' },
   'magieConnue.add': { fr: 'Ajouter', en: 'Add' },

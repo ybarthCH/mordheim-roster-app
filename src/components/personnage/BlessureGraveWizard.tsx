@@ -14,6 +14,9 @@ import type { Language } from '../../state/useLanguage';
 import { translateBlessure } from '../../i18n/data/blessuresGraves';
 import { traduireCle, segmentAffiche } from '../../utils/blessures';
 import { StatGrid } from '../common/StatGrid';
+import { BoutonJetAuto } from '../postbataille/BoutonJetAuto';
+import { lancerD66 } from '../../utils/des';
+import { codeCouvre } from '../../data/blessuresGraves';
 
 // Noms sentinelles des issues spéciales "Gladiateur"/"Capturé", utilisés à la
 // fois pour construire le résultat (texte français persisté, voir
@@ -228,6 +231,19 @@ type Props = {
 
 const ID_INTERDITS_BOUCLE = ['mort', 'capture', 'blessures_multiples'];
 
+// Résultat 65 « Sold to the Pits » : un gladiateur VAINCU ne relance pas sur
+// la table entière mais sur 11-35 seulement — « roll to see whether he is
+// dead or injured (ie, a D66 roll of 11-35) », Living Rulebook p.80. Les
+// valeurs au-delà de 35 ne contiennent plus que des issues favorables
+// (Rétablissement complet, Endurci, Survit contre toute attente…) qu'un
+// vaincu des fosses ne peut pas obtenir. Vaut aussi bien pour le sélecteur
+// manuel que pour le bouton « Jet auto ».
+const PLAGE_MAX_GLADIATEUR_PERDU = 35;
+const estDansPlageGladiateurPerdu = (r: ResultatBlessureGrave): boolean => {
+  const borneBasse = Number(r.code.split('-')[0]);
+  return borneBasse <= PLAGE_MAX_GLADIATEUR_PERDU;
+};
+
 export function BlessureGraveWizard({
   nomPersonnage,
   dejaAveugle = false,
@@ -246,6 +262,10 @@ export function BlessureGraveWizard({
   const [contexte, setContexte] = useState<'racine' | 'boucle'>('racine');
   const [selectionActuelle, setSelectionActuelle] = useState<ResultatBlessureGrave | null>(null);
   const [selectionEnAttente, setSelectionEnAttente] = useState('');
+  // Dernier tirage automatique (voir BoutonJetAuto) : conservé et affiché
+  // jusqu'à l'écran de confirmation, sinon le joueur ne verrait jamais ce
+  // qui a été tiré sur les écrans qui avancent dès la sélection.
+  const [dernierJetAuto, setDernierJetAuto] = useState<string | null>(null);
   const [racine, setRacine] = useState<IterationResolue | null>(null);
   const [multiplesCount, setMultiplesCount] = useState<number | null>(null);
   const [multiplesResultats, setMultiplesResultats] = useState<IterationResolue[]>([]);
@@ -594,6 +614,8 @@ export function BlessureGraveWizard({
   if (mode === 'liste') {
     const disponibles = enCoursDansBoucle
       ? BLESSURES_GRAVES.filter((r) => !ID_INTERDITS_BOUCLE.includes(r.id))
+      : enChoixGladiateurPerdu
+      ? BLESSURES_GRAVES.filter((r) => estDansPlageGladiateurPerdu(r))
       : BLESSURES_GRAVES;
     return (
       <div>
@@ -612,6 +634,37 @@ export function BlessureGraveWizard({
             {t('blessureGraveWizard.rollInstruction', { nom: nomPersonnage })}
           </p>
         )}
+        <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+          <BoutonJetAuto
+            nombre={2}
+            onResultat={() => {
+              // Relance tant que le tirage tombe hors de `disponibles` :
+              // c'est exactement ce qu'impose la table dans la boucle des
+              // Blessures multiples (« Relance tout résultat Mort, Capturé
+              // ou nouvelles Blessures multiples »).
+              for (let i = 0; i < 200; i++) {
+                const jet = lancerD66();
+                // Un tirage hors de `disponibles` est relancé : c'est ce
+                // qu'imposent la boucle des Blessures multiples comme la
+                // plage 11-35 du gladiateur vaincu (voir les constantes en
+                // tête de fichier).
+                //
+                // Second garde sur la valeur elle-même : `disponibles` filtre
+                // par borne BASSE de code, ce qui suffit aujourd'hui (aucune
+                // plage ne chevauche 35), mais une plage qui l'enjamberait un
+                // jour rendrait des valeurs > 35 atteignables sans ce test.
+                if (enChoixGladiateurPerdu && jet.total > PLAGE_MAX_GLADIATEUR_PERDU) continue;
+                const trouve = disponibles.find((r) => codeCouvre(r.code, jet.total));
+                if (trouve) {
+                  setSelectionEnAttente(trouve.id);
+                  setDernierJetAuto(`D66 : ${jet.des[0]} / ${jet.des[1]} = ${jet.total}`);
+                  return;
+                }
+              }
+            }}
+          />
+          {dernierJetAuto && <span className="text-sm text-muted">{dernierJetAuto}</span>}
+        </div>
         <div className="field">
           <label>{t('blessureGraveWizard.resultObtained')}</label>
           <select value={selectionEnAttente} onChange={(e) => setSelectionEnAttente(e.target.value)}>
@@ -648,6 +701,16 @@ export function BlessureGraveWizard({
           {translateBlessure(selectionActuelle, language).nom}
         </h4>
         <p className="text-sm text-muted">{t('blessureGraveWizard.rerollD6Instructions')}</p>
+        <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+          <BoutonJetAuto
+            nombre={1}
+            onResultat={(total) => {
+              setDernierJetAuto(`1D6 : ${total}`);
+              const option = spec.options.find((o) => o.valeurs.includes(total));
+              if (option) choisirSousJet(option);
+            }}
+          />
+        </div>
         <div className="flex flex-wrap gap-sm">
           {[1, 2, 3, 4, 5, 6].map((valeur) => {
             const option = spec.options.find((o) => o.valeurs.includes(valeur));
@@ -675,6 +738,16 @@ export function BlessureGraveWizard({
           {translateBlessure(selectionActuelle, language).nom}
         </h4>
         <p className="text-sm text-muted">{t('blessureGraveWizard.d3DurationQuestion')}</p>
+        <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+          <BoutonJetAuto
+            nombre={1}
+            faces={3}
+            onResultat={(total) => {
+              setDernierJetAuto(`1D3 : ${total}`);
+              choisirDureeD3(total);
+            }}
+          />
+        </div>
         <div className="flex flex-wrap gap-sm">
           {[1, 2, 3].map((n) => (
             <button key={n} className="btn" onClick={() => choisirDureeD3(n)}>
@@ -699,6 +772,15 @@ export function BlessureGraveWizard({
           {t('blessureGraveWizard.multipleInjuriesTitle')}
         </h4>
         <p className="text-sm text-muted">{t('blessureGraveWizard.multipleInjuriesCountQuestion')}</p>
+        <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+          <BoutonJetAuto
+            nombre={1}
+            onResultat={(total) => {
+              setDernierJetAuto(`1D6 : ${total}`);
+              choisirMultiplesCount(total);
+            }}
+          />
+        </div>
         <div className="flex flex-wrap gap-sm">
           {[1, 2, 3, 4, 5, 6].map((n) => (
             <button key={n} className="btn" onClick={() => choisirMultiplesCount(n)}>
@@ -864,6 +946,14 @@ export function BlessureGraveWizard({
         {racine && <Icon name={iconePourBlessure(racine.resultat)} style={{ marginRight: '0.4em', color: 'var(--accent)' }} />}
         {t('blessureGraveWizard.summary')}
       </h4>
+      {/* Les écrans de sous-jet avancent dès la sélection : sans rappel ici,
+          le joueur ne verrait jamais le dé que le bouton « Jet auto » a tiré
+          pour lui. */}
+      {dernierJetAuto && (
+        <p className="text-sm text-muted mb-0" style={{ marginTop: '-0.3rem' }}>
+          🎲 {dernierJetAuto}
+        </p>
+      )}
       <p className="text-sm" style={{ whiteSpace: 'pre-wrap' }}>
         {racine ? `${prefixeGladiateurAffiche}${texteIterationAfficheeAvecSpeciaux(racine)}` : ''}
       </p>

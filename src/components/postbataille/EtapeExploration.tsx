@@ -16,6 +16,7 @@ import type { ShopItem } from '../../utils/shop';
 import type { ResumeExploration } from '../../utils/exploration';
 import { EvenementExploration } from './EvenementExploration';
 import { useLanguage } from '../../state/useLanguage';
+import { BoutonJetAuto } from './BoutonJetAuto';
 
 type EtapeExplorationProps = {
   roster: RosterInstance;
@@ -65,6 +66,10 @@ export function EtapeExploration({
 }: EtapeExplorationProps) {
   const { t } = useLanguage();
   const [modalAchat, setModalAchat] = useState(false);
+  // Détail du dernier jet automatique des dés d'Exploration, affiché
+  // sous le tableau pour que le joueur voie ce qui a été tiré et puisse
+  // le recouper — un total seul ne se vérifie pas.
+  const [detailDesExploration, setDetailDesExploration] = useState<number[]>([]);
 
   const ajouterAuJournalExploration = (texte: string) => {
     onNotesExplorationChange(`${notesExploration}${notesExploration ? '\n' : ''}${texte}`);
@@ -134,7 +139,26 @@ export function EtapeExploration({
         </div>
       )}
 
-      <p className="text-sm text-muted">{t('exploration.reportRollsIntro')}</p>
+      <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap' }}>
+        <p className="text-sm text-muted mb-0">{t('exploration.reportRollsIntro')}</p>
+        {/* Lance les dés d'Exploration de la bande et sélectionne directement
+            le palier correspondant à leur somme — l'équivalent exact du clic
+            manuel sur la ligne du tableau. */}
+        <BoutonJetAuto
+          nombre={resumeExploration.totalDesALancer}
+          onResultat={(total, des) => {
+            setDetailDesExploration(des);
+            const palier = TABLE_FRAGMENTS_TROUVES.find((p) => total >= p.min && (p.max === null || total <= p.max));
+            changerWyrdstoneTrouve(palier ? palier.fragments : 0);
+          }}
+        />
+      </div>
+      {detailDesExploration.length > 0 && (
+        <p className="text-sm text-muted" style={{ marginTop: '0.3rem' }}>
+          {t('postBataille.autoRollDetail', { des: detailDesExploration.join(' + ') })} ={' '}
+          <strong>{detailDesExploration.reduce((a, b) => a + b, 0)}</strong>
+        </p>
+      )}
       <div className="table-scroll">
         <table className="table-reference table-reference--clickable">
           <thead>
@@ -272,12 +296,15 @@ export function EtapeExploration({
       </p>
       <div className="field">
         <label>{t('exploration.veteranPointsLabel')}</label>
-        <input
-          type="number"
-          min={0}
-          value={pointsVeteranSaisie}
-          onChange={(e) => onPointsVeteranSaisieChange(e.target.value)}
-        />
+        <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap' }}>
+          <input
+            type="number"
+            min={0}
+            value={pointsVeteranSaisie}
+            onChange={(e) => onPointsVeteranSaisieChange(e.target.value)}
+          />
+          <BoutonJetAuto notation="2D6" onResultat={(total) => onPointsVeteranSaisieChange(String(total))} />
+        </div>
       </div>
 
       {modalAchat && catalogue && (

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { BoutonJetAuto } from '../postbataille/BoutonJetAuto';
+import { lancerDes } from '../../utils/des';
 import { v4 as uuidv4 } from 'uuid';
 import type { Member, AdvanceRecord, RosterInstance } from '../../types/roster';
 import type { Profile, SkillCategory, Stats, WarbandCatalog } from '../../types/catalog';
@@ -123,6 +125,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
   const [avanceeGratuiteEnAttente, setAvanceeGratuiteEnAttente] = useState(!!member.bonus_avancee_en_attente);
 
   const typeEffectif = tableForcee ?? tableAvancementDuProfil(profil);
+  const [dernierJetAvancee, setDernierJetAvancee] = useState<string | null>(null);
   const table = typeEffectif === 'heros' ? TABLE_AVANCEMENT_HEROS : TABLE_AVANCEMENT_HOMMES_DE_MAIN;
 
   const categoriesDisponibles: SkillCategory[] = categoriesAccessibles(profil);
@@ -563,6 +566,48 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
             </p>
           )}
           <p className="text-muted text-sm">{t('avanceeModal.rollInstruction')}</p>
+          <div className="flex gap-sm items-center" style={{ flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+            <BoutonJetAuto
+              nombre={2}
+              onResultat={() => {
+                // Le Living Rulebook (p.82) impose de RELANCER quand la ligne
+                // obtenue est inapplicable : « The lad's got talent […] if you
+                // already have the maximum number of Heroes, roll again » et
+                // « if the dice roll indicates an increase in a characteristic
+                // which has already been increased, roll again ». Un tirage
+                // unique sélectionnait une ligne bloquée, et le bouton de
+                // validation restait inerte — clic sans effet.
+                //
+                // Le cas d'un `caracteristique_choix` dont une seule branche
+                // est plafonnée n'est PAS une relance : la règle dit de prendre
+                // l'autre option. Il n'est donc jamais rejeté ici.
+                const jamaisHeros = !!profil.ne_peut_jamais_devenir_heros;
+                const inapplicable = (e: AdvanceEntry) => {
+                  if (e.type === 'promotion') return limiteHerosAtteinte || jamaisHeros;
+                  if (e.type === 'caracteristique_fixe') return !verdictStat(e.stat).ok;
+                  return false;
+                };
+                const jets: number[] = [];
+                for (let n = 0; n < 200; n++) {
+                  const jet = lancerDes(2);
+                  jets.push(jet.total);
+                  const i = table.findIndex((e) => jet.total >= e.min && jet.total <= e.max);
+                  if (i >= 0 && !inapplicable(table[i])) {
+                    setIndexAvancement(String(i));
+                    // Les relances sont montrées au joueur : les masquer
+                    // donnerait l'impression d'un tirage truqué.
+                    setDernierJetAvancee(
+                      jets.length > 1
+                        ? `2D6 : ${jets.slice(0, -1).join(' → relance, ')} → relance, ${jet.total}`
+                        : `2D6 : ${jet.des.join(' + ')} = ${jet.total}`
+                    );
+                    return;
+                  }
+                }
+              }}
+            />
+            {dernierJetAvancee && <span className="text-sm text-muted">{dernierJetAvancee}</span>}
+          </div>
           <div className="field">
             <label>{t('avanceeModal.rollResultLabel2D6')}</label>
             <select value={indexAvancement} onChange={(e) => setIndexAvancement(e.target.value)}>
@@ -800,7 +845,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
                       <input type="radio" name="sort" onChange={() => choisirSort(s.id, s.nom)} />
                       <span>
                         <span className="skill-check__name">
-                          {s.resultat} — {s.nom} (diff. {s.difficulte})
+                          {s.resultat} — {s.nom} ({t('common.diffAbbrev')} {s.difficulte})
                         </span>
                         <br />
                         <span className="skill-check__text">{s.texte}</span>

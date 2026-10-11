@@ -59,7 +59,6 @@ export const recruterFrancTireurScreen: UiDictionary = {
     en: 'Petty Magic spells ({n} different required)',
   },
   'francTireur.chooseSpell': { fr: '— Choisir le sort {n} —', en: '— Choose spell {n} —' },
-  'francTireur.diffAbbrev': { fr: 'diff.', en: 'diff.' },
   'francTireur.mageStartNote': {
     fr: 'Le Mage commence avec deux sorts de Magie mineure, choisis ici.',
     en: 'The Mage starts with two Petty Magic spells, chosen here.',

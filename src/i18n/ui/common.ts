@@ -12,6 +12,11 @@ export const common: UiDictionary = {
   'statut.hors_de_combat': { fr: 'Hors de combat', en: 'Out of action' },
   'statut.mort': { fr: 'Mort', en: 'Dead' },
   'statut.blesse': { fr: 'Blessé', en: 'Injured' },
+  // Abréviation de « difficulté » (valeur à atteindre au jet d'incantation),
+  // affichée partout où un sort est listé. Elle existait en double
+  // (magieConnue.diffAbbrev, francTireur.diffAbbrev) et en dur à deux
+  // autres endroits : une seule clé commune désormais.
+  'common.diffAbbrev': { fr: 'diff.', en: 'diff.' },
   'common.collapse': { fr: 'Replier', en: 'Collapse' },
   'common.expand': { fr: 'Déplier', en: 'Expand' },
   'updateToast.message': { fr: 'Nouvelle version disponible', en: 'New version available' },

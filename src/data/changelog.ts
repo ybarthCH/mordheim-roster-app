@@ -33,6 +33,26 @@ export type ChangelogEntry = {
 // Plus récent en premier.
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: '2026-10-11',
+    points: [
+      {
+        categorie: 'fonctionnalite',
+        texte:
+          "Nouvelle option dans Réglages : « Jet de dés virtuel pour le post-bataille ». Une fois cochée, un bouton « Jet auto » apparaît à côté de chaque jet demandé pendant le post-bataille — blessures graves, avancées, dés d'Exploration, points vétéran, recherche d'objet rare, docteur, événements d'exploration. Il tire les dés à ta place, t'affiche le détail du tirage et sélectionne directement la ligne de table correspondante. Tu peux toujours corriger la valeur à la main, et si tu laisses l'option décochée, rien ne change : l'app ne lance aucun dé, comme avant.",
+      },
+      {
+        categorie: 'interface',
+        texte:
+          "La difficulté d'incantation d'un sort s'affiche maintenant partout où un sort est listé : dans le résumé de la fiche d'un sorcier, dans le sélecteur de sort au recrutement, et dans la recherche de référence. Il fallait auparavant ouvrir la carte Magie pour la connaître.",
+      },
+      {
+        categorie: 'autre',
+        texte:
+          "Correction de règle : un héros vaincu dans les fosses de combat (résultat « Gladiateur ») relance désormais sur 11-35 seulement, comme l'impose le livre, au lieu de la table complète. Il ne peut donc plus en ressortir avec un rétablissement complet, de l'expérience gratuite ou l'immunité à la Peur — un vaincu des fosses est mort ou blessé, rien d'autre.",
+      },
+    ],
+  },
+  {
     date: '2026-09-29',
     points: [
       {

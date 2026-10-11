@@ -58,6 +58,7 @@ export function ResolutionBatimentEcroule({ roster, catalogue, nomEvenement, onM
       ) : (
         <JetOrButton
           label={t('postBataille.rollObtainedNotation', { notation: 'D3' })}
+          notation="D3"
           boutonLabel={t('postBataille.addAsWyrdstone')}
           onValider={ajouterFragments}
         />

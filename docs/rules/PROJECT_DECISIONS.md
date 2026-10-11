@@ -290,3 +290,13 @@ Copier ce bloc pour chaque nouvelle décision, une fois validée par Yannick :
 - **Statut** : Maison (comblement d'un vide de source explicitement reconnu par l'auteur, pas une divergence entre sources)
 - **Parties du code concernées** : `src/data/warbands/cour_des_plaisirs_profanes.json` (`acces_competences` vidé pour les 5 profils Héros — `maitre_fouetteur`, `danseuse`, `marchand_de_chair`, `pretre_de_l_obscene`, `devot` —, `acces_competences_a_verifier` passé à `false` sur chacun, la question étant désormais tranchée plutôt qu'en attente).
 - **Date** : 2026-09-06
+
+### Blessures graves — le gladiateur vaincu relance sur 11-35, pas sur la table complète
+
+- **Question de règle** : le résultat 65 « Gladiateur » / « Sold to the Pits » envoie le héros combattre dans les fosses du Repaire des Coupe-Jarrets. S'il perd, il relance sur la table des blessures graves — mais sur quelle plage ? Le texte français des données de l'app disait « relance sur la table complète », et le sélecteur de l'assistant proposait bien les 20 lignes.
+- **Source et page** : `Mordheim Living Rulebook.pdf`, p.80, résultat 65 : « If the warrior loses, roll to see whether he is **dead or injured (ie, a D66 roll of 11-35)**. »
+- **Décision de Yannick** : suivre le livre — la relance est bornée à 11-35. « on veut garder (ie, a D66 roll of 11-35) comme le livre ».
+- **Pourquoi c'est important** : au-delà de 35, la table ne contient plus que des issues neutres ou favorables (Détroussé 36, Rétablissement complet 41-55, Haine tenace 56, Capturé 61, Endurci 62-63, Cicatrices horribles 64, un nouveau Gladiateur 65, Survit contre toute attente 66). Ces 19 valeurs sur 36 — soit 53 % des tirages — accordaient à un héros qui vient de PERDRE son combat des résultats que la règle lui interdit, dont le +1 XP du 66 et l'immunité à la Peur du 62-63. La plage 11-35 ne laisse que Mort ou blessé, ce qui est l'intention du résultat.
+- **Statut** : Officiel (source anglaise explicite ; le « table complète » du français était une erreur de traduction)
+- **Parties du code concernées** : `src/data/blessuresGraves.ts` (texte du résultat `gladiateur`, et constantes `PLAGE_MAX_GLADIATEUR_PERDU` / `estDansPlageGladiateurPerdu` côté assistant) ; `src/i18n/data/blessuresGraves.ts` (texte anglais aligné sur la formulation du livre) ; `src/i18n/ui/blessureGraveWizard.ts` (`gladiatorLostIntro`) ; `src/components/personnage/BlessureGraveWizard.tsx` (liste `disponibles` restreinte sur ce chemin, pour le sélecteur manuel comme pour le bouton « Jet auto »).
+- **Date** : 2026-10-11

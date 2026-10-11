@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BoutonJetAuto } from './BoutonJetAuto';
 import { itemVersShopItem } from '../../utils/shop';
 import type { ShopItem } from '../../utils/shop';
 import type { LigneObjetTrouve } from '../../data/tableExplorationEvenements';
@@ -98,6 +99,7 @@ export function AjouterObjetTrouveButton({ ligneObjet, catalogueId, onAjouter }:
         {t('postBataille.rollForItem', { notation: ligneObjet.quantite, nom: itemAffiche!.nom })}
       </span>
       <input type="number" min={1} style={{ width: '4rem' }} value={jet} onChange={(e) => setJet(e.target.value)} />
+      <BoutonJetAuto notation={ligneObjet.quantite} onResultat={(total) => setJet(String(total))} />
       <button
         type="button"
         className="btn--pack-pill-sm btn--pack-pill-sm--primary"
