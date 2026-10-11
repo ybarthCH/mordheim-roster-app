@@ -8,6 +8,12 @@ export const postBatailleShared: UiDictionary = {
   },
   'postBataille.itemAddedToStock': { fr: '✓ {nom} ajouté(e) au stock.', en: '✓ {nom} added to stock.' },
   'postBataille.addItemToStock': { fr: '+ Ajouter {nom}{suffix} au stock', en: '+ Add {nom}{suffix} to stock' },
+  'postBataille.autoRoll': { fr: 'Jet auto', en: 'Auto-roll' },
+  'postBataille.autoRollTitle': {
+    fr: 'Lancer ce jet à ta place et remplir le champ — tu peux toujours corriger la valeur',
+    en: 'Roll this for you and fill the field — you can always correct the value',
+  },
+  'postBataille.autoRollDetail': { fr: 'Dés : {des}', en: 'Dice: {des}' },
   'postBataille.rollForItem': { fr: 'Jet ({notation}) pour {nom} :', en: 'Roll ({notation}) for {nom}:' },
   'postBataille.addToStock': { fr: 'Ajouter au stock', en: 'Add to stock' },
   'postBataille.rollSucceeded': { fr: 'Jet réussi', en: 'Roll succeeded' },

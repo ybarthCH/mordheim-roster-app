@@ -52,6 +52,7 @@ export function LigneTresorRow({
             {ligne.or && (
               <JetOrButton
                 label={t('postBataille.rollNotation', { notation: ligne.or })}
+                notation={ligne.or}
                 boutonLabel={t('postBataille.add')}
                 onValider={(valeur) => onAjouterOr(nomLigne, ligne.or!, valeur)}
               />
@@ -59,6 +60,7 @@ export function LigneTresorRow({
             {ligne.fragments && (
               <JetOrButton
                 label={t('postBataille.rollNotation', { notation: ligne.fragments })}
+                notation={ligne.fragments}
                 boutonLabel={t('postBataille.addAsWyrdstone')}
                 onValider={(valeur) => onAjouterFragments(nomLigne, ligne.fragments!, valeur)}
               />

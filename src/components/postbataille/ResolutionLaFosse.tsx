@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BoutonJetAuto } from './BoutonJetAuto';
 import type { RosterInstance } from '../../types/roster';
 import { resolveProfil } from '../../utils/profil';
 import { equipementPerduALaMort } from '../../utils/shop';
@@ -93,6 +94,7 @@ export function ResolutionLaFosse({ roster, date, nomEvenement, onMajRoster, onA
               value={jetFragments}
               onChange={(e) => setJetFragments(e.target.value)}
             />
+            <BoutonJetAuto notation="1+D6" onResultat={(total) => setJetFragments(String(total))} />
           </div>
           <div className="flex gap-sm">
             <button type="button" className="btn--pack-pill-sm btn--pack-pill-sm--primary" disabled={!jetValide} onClick={appliquerReussite}>

@@ -231,6 +231,7 @@ export function EvenementExploration({
               // propre saisie.
               key={`${palierId}-${face}`}
               label={t('postBataille.rollObtainedNotation', { notation: evenement.or })}
+              notation={evenement.or}
               onValider={(valeur) => {
                 ajouterOr(evenement.or!, '', valeur);
                 setValeurOrEvenement(valeur);
@@ -371,6 +372,7 @@ export function EvenementExploration({
                   // de la ligne précédente.
                   key={`${palierId}-${face}-${evenement.sousTable?.indexOf(ligneSousTable)}`}
                   label={t('evenement.goldRollNotation', { notation: ligneSousTable.or })}
+                  notation={ligneSousTable.or}
                   onValider={(valeur) => ajouterOr(ligneSousTable.or!, resultatAffiche(ligneSousTable), valeur)}
                 />
               )}

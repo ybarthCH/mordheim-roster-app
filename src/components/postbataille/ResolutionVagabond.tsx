@@ -130,6 +130,7 @@ export function ResolutionVagabond({ roster, catalogue, nomEvenement, onMajRoste
       {catalogue.id === 'skaven' && venteRevelee && (
         <JetOrButton
           label={t('postBataille.vagrant.rollObtained2d6')}
+          notation="2D6"
           onValider={venduPourOr}
           boutonLabel={t('postBataille.vagrant.sellAddTreasury')}
         />

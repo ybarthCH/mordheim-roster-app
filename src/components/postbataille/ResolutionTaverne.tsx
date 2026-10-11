@@ -55,7 +55,7 @@ export function ResolutionTaverne({ roster, catalogue, nomEvenement, onAjouterOr
     return (
       <div style={{ marginTop: '0.6rem' }}>
         <p className="text-sm text-success">{t('postBataille.tavern.autoSuccess')}</p>
-        <JetOrButton label={t('postBataille.tavern.rollObtained4d6')} onValider={vendu} />
+        <JetOrButton label={t('postBataille.tavern.rollObtained4d6')} notation="4D6" onValider={vendu} />
       </div>
     );
   }
@@ -82,7 +82,7 @@ export function ResolutionTaverne({ roster, catalogue, nomEvenement, onAjouterOr
         </button>
       </div>
       {resultat === 'reussi' && <JetOrButton label={t('postBataille.tavern.rollObtained4d6')} onValider={vendu} />}
-      {resultat === 'rate' && <JetOrButton label={t('postBataille.tavern.rollObtainedD6')} onValider={perdu} />}
+      {resultat === 'rate' && <JetOrButton label={t('postBataille.tavern.rollObtainedD6')} notation="D6" onValider={perdu} />}
     </div>
   );
 }

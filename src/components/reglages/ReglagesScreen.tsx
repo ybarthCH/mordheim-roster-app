@@ -152,6 +152,15 @@ export function ReglagesScreen() {
             <span className="text-sm text-muted">{t('reglages.powerValue.body')}</span>
           </span>
         </label>
+
+        <label className="flex items-start gap-sm" style={{ cursor: 'pointer', marginTop: '1rem' }}>
+          <input type="checkbox" checked={rules.jetsVirtuels} onChange={(e) => setRule('jetsVirtuels', e.target.checked)} />
+          <span>
+            <strong>{t('reglages.virtualDice.title')}</strong>
+            <br />
+            <span className="text-sm text-muted">{t('reglages.virtualDice.body')}</span>
+          </span>
+        </label>
       </div>
 
       <CloudBackupSection />

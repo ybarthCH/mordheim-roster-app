@@ -10,6 +10,13 @@ export type GameRules = {
   // continue de régir toute mécanique de jeu (XP, avancées, légalité de
   // bande...).
   valeurPuissanceActivee: boolean;
+  // Affiche un bouton « Jet auto » à côté de chaque saisie de jet du
+  // post-bataille. Décochée (par défaut), l'app ne lance jamais aucun dé :
+  // le joueur lance sur sa table et saisit le résultat, comportement
+  // historique de l'app. Cochée, le bouton remplit le champ avec un tirage
+  // dans la plage exacte du jet demandé — le joueur reste libre de saisir
+  // sa propre valeur par-dessus.
+  jetsVirtuels: boolean;
 };
 
 export const DEFAULT_GAME_RULES: GameRules = {
@@ -19,4 +26,5 @@ export const DEFAULT_GAME_RULES: GameRules = {
   sawbonesDocteur: false,
   dramatisPersonae: false,
   valeurPuissanceActivee: false,
+  jetsVirtuels: false,
 };
