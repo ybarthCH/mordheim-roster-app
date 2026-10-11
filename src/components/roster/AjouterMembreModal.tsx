@@ -763,7 +763,7 @@ export function AjouterMembreModal({ roster, onClose, onUpdateRoster, masquerFra
                     <option value="">{t('creation.modal.choose')}</option>
                     {sortsRestants.map((s) => (
                       <option key={s.id} value={s.id}>
-                        {s.resultat} — {s.nom}
+                        {s.resultat} — {s.nom} ({t('common.diffAbbrev')} {s.difficulte})
                       </option>
                     ))}
                   </select>

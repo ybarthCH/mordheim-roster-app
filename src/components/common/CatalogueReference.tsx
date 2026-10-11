@@ -166,7 +166,7 @@ export const MagieReference = memo(function MagieReference({
           <strong>
             {s.resultat} — {s.nom}
           </strong>{' '}
-          (diff. {s.difficulte}) : {s.texte}
+          ({t('common.diffAbbrev')} {s.difficulte}) : {s.texte}
           {s.note && <span className="text-muted"> — {s.note}</span>}
         </p>
       ))}

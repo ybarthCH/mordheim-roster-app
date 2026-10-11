@@ -800,7 +800,7 @@ export function AvanceeModal({ member, profil, catalogue, roster, heroCount, equ
                       <input type="radio" name="sort" onChange={() => choisirSort(s.id, s.nom)} />
                       <span>
                         <span className="skill-check__name">
-                          {s.resultat} — {s.nom} (diff. {s.difficulte})
+                          {s.resultat} — {s.nom} ({t('common.diffAbbrev')} {s.difficulte})
                         </span>
                         <br />
                         <span className="skill-check__text">{s.texte}</span>

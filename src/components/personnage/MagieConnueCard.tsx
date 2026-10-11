@@ -77,7 +77,7 @@ export function MagieConnueCard({
           return (
             <p key={i} className="text-sm mb-0" style={{ marginTop: i > 0 ? '0.4rem' : 0 }}>
               <strong>{sort ? `${sort.resultat} — ${sort.nom}` : id}</strong>
-              {sort && <span className="text-muted"> ({t('magieConnue.diffAbbrev')} {sort.difficulte}) : {sort.texte}</span>}
+              {sort && <span className="text-muted"> ({t('common.diffAbbrev')} {sort.difficulte}) : {sort.texte}</span>}
               <button
                 className="btn--ghost"
                 style={{ border: 'none', background: 'none', marginLeft: '0.4rem', padding: 0, color: 'var(--danger)' }}
@@ -144,7 +144,7 @@ export function MagieConnueCard({
                   <option value="">{t('magieConnue.choose')}</option>
                   {sortsGrimoire.map((sort) => (
                     <option key={sort.id} value={sort.id}>
-                      {sort.resultat} — {sort.nom} ({t('magieConnue.diffAbbrev')} {sort.difficulte})
+                      {sort.resultat} — {sort.nom} ({t('common.diffAbbrev')} {sort.difficulte})
                     </option>
                   ))}
                 </select>

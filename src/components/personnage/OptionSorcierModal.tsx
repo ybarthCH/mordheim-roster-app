@@ -67,7 +67,7 @@ export function OptionSorcierModal({ roster, membre, profil, catalogue, onClose,
               </strong>
               <br />
               <span className="text-muted">
-                ({t('magieConnue.diffAbbrev')} {s.difficulte}) : {s.texte}
+                ({t('common.diffAbbrev')} {s.difficulte}) : {s.texte}
               </span>
             </span>
           </label>

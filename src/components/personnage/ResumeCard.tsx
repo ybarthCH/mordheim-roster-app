@@ -88,7 +88,12 @@ export function ResumeCard({ profil, membre, catalogue, rules, inventaireGroupe,
               return (
                 <p key={i} className="text-sm mb-0" style={{ marginTop: '0.3rem' }}>
                   <strong>{sort ? sort.nom : id}</strong>
-                  {sort && <span className="text-muted"> — {sort.texte}</span>}
+                  {sort && (
+                    <span className="text-muted">
+                      {' '}
+                      ({t('common.diffAbbrev')} {sort.difficulte}) : {sort.texte}
+                    </span>
+                  )}
                 </p>
               );
             })

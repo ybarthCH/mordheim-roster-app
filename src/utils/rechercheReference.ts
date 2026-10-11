@@ -18,6 +18,7 @@ import { FRANCS_TIREURS } from '../data/hiredSwords';
 import type { FrancTireurCatalog } from '../types/hiredSword';
 import { translateHiredSword } from '../i18n/data/hiredSwords';
 import { magieMineure } from '../i18n/data/minorMagic';
+import { traduireCle } from './blessures';
 import { estAccesGenerique, formatCoutItem, libelleCategorie } from './shop';
 import { skillCategories } from '../i18n/ui/skillCategories';
 import { REGLES_BASE } from '../data/reglesBase';
@@ -175,6 +176,10 @@ function indexerReglesSpeciales(catalogues: WarbandCatalog[]): EntreeReference[]
 
 function indexerMagie(catalogues: WarbandCatalog[], language: Language): EntreeReference[] {
   const entrees: EntreeReference[] = [];
+  // Même abréviation que partout ailleurs où un sort est listé (voir
+  // common.diffAbbrev) — ce module n'est pas un composant, d'où traduireCle
+  // plutôt que le t() du contexte React.
+  const diffAbbrev = traduireCle('common.diffAbbrev', language);
   for (const catalogue of catalogues) {
     const domaines = [catalogue.magie, ...Object.values(catalogue.magie_variantes ?? {})].filter((m) => !!m);
     for (const magie of domaines) {
@@ -185,7 +190,7 @@ function indexerMagie(catalogues: WarbandCatalog[], language: Language): EntreeR
           nom: sort.nom,
           texte: sort.texte,
           bandeNoms: [catalogue.nom],
-          meta: `${magie.nom} · ${sort.resultat}`,
+          meta: `${magie.nom} · ${sort.resultat} · ${diffAbbrev} ${sort.difficulte}`,
         });
       }
     }
@@ -198,7 +203,7 @@ function indexerMagie(catalogues: WarbandCatalog[], language: Language): EntreeR
       nom: sort.nom,
       texte: sort.texte,
       bandeNoms: [],
-      meta: `${mineure.nom} · ${sort.resultat}`,
+      meta: `${mineure.nom} · ${sort.resultat} · ${diffAbbrev} ${sort.difficulte}`,
     });
   }
   return entrees;
